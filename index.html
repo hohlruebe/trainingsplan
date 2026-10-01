@@ -51,7 +51,7 @@
   --paper:#262C30; --frame:#4A535A; --tray:#2A3034; --tray-line:#4A535A; --green:#8ED1A0;
   --note:#3A3220; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; color-scheme:dark;
 }
-*,*::before,*::after{box-sizing:inherit}
+*,*::before,*::after{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
 body{margin:0;min-height:100%;background:var(--board);color:var(--ink);font-family:var(--text);font-size:16px;line-height:1.45}
 .frame{height:8px;background:var(--frame)}
@@ -113,7 +113,7 @@ b{font-weight:700}
 .hint{color:var(--green);margin-top:4px}
 .ex-in{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;align-items:flex-end}
 .field>span{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:2px}
-input[type=text],input[type=number],input[type=search],input[type=date],select,textarea{font:inherit;font-size:17px;color:var(--ink);background:var(--paper);border:2px solid var(--line2);border-radius:8px;padding:8px 10px;min-height:44px}
+input[type=text],input[type=password],input[type=number],input[type=search],input[type=date],select,textarea{font:inherit;font-size:17px;color:var(--ink);background:var(--paper);border:2px solid var(--line2);border-radius:8px;padding:8px 10px;min-height:44px}
 .stage input{width:180px}
 .reps{display:flex;gap:6px}
 .rep input{width:52px;text-align:center;padding:8px 2px}
@@ -194,6 +194,10 @@ th{font-family:var(--head);font-weight:700;font-size:16px;color:var(--ink2);bord
 .fopt[aria-pressed="true"]{border-color:var(--acc);box-shadow:inset 0 0 0 2px var(--acc)}
 .fopt[aria-pressed="true"] span{color:var(--ink)}
 .fopt[data-v="hand"] b{-webkit-text-stroke:.6px currentColor}
+.setting.col{flex-direction:column;align-items:stretch}
+.setting.col input{width:100%}
+.sync-err{color:var(--red);font-weight:600;font-size:15px}
+.chip.warn{border-color:var(--red);color:var(--red)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 </head>
@@ -302,7 +306,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'marker', sound: true, base: {} };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'marker', sound: true, base: {}, standTs: 0 };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -380,15 +384,17 @@ var DB = { ready: false, stateRef: null, logsCol: null, q: Promise.resolve() };
 function enqueue(fn) { DB.q = DB.q.then(fn).catch(function () { /* stays on device */ }); return DB.q; }
 function plain(o) { return JSON.parse(JSON.stringify(o)); }
 function saveState() {
+  var tp = JSON.stringify(trainPart(S));
+  if (tp !== lastTrain) { lastTrain = tp; S.standTs = Date.now(); markDirty(); }
   LS.set('tp.state', S);
   if (DB.ready) { var data = plain(S); enqueue(function () { return DB.stateRef.set(data); }); }
 }
 function addLog(l) {
-  LOGS.push(l); LS.set('tp.logs', LOGS);
+  LOGS.push(l); LS.set('tp.logs', LOGS); markDirty();
   if (DB.ready) enqueue(function () { return DB.logsCol.doc(l.id).set(plain(l)); });
 }
 function removeLog(id) {
-  LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS);
+  LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
   if (DB.ready) enqueue(function () { return DB.logsCol.doc(id).delete(); });
 }
 function initDb() {
@@ -422,6 +428,113 @@ function initDb() {
   }).catch(function () { /* device only */ });
 }
 
+/* ---------- GitHub sync (offline app) ---------- */
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base'];
+var API = window.TP_API || 'https://api.github.com';
+var DELETED = LS.get('tp.deleted', {});
+var SY = PWA ? LS.get('tp.sync', null) : null;
+var syncState = { status: SY ? 'idle' : 'off', msg: '' };
+var syncT = null, syncBusy = false, syncAgain = false;
+function trainPart(s) { var o = {}; SYNC_KEYS.forEach(function (k) { o[k] = s[k] === undefined ? null : s[k]; }); return o; }
+if (S.started && !S.standTs) S.standTs = 1;
+var lastTrain = JSON.stringify(trainPart(S));
+function markDirty() { if (!SY) return; SY.dirty = true; LS.set('tp.sync', SY); syncSoon(); }
+function syncSoon(ms) { if (!SY) return; clearTimeout(syncT); syncT = setTimeout(runSync, ms == null ? 1500 : ms); }
+function setSync(status, msg) { syncState = { status: status, msg: msg || '' }; if (ui.tab === 'plan' || ui.tab === 'heute') scheduleRender(); }
+function b64enc(str) { var by = new TextEncoder().encode(str), bin = ''; for (var i = 0; i < by.length; i += 0x8000) bin += String.fromCharCode.apply(null, by.subarray(i, i + 0x8000)); return btoa(bin); }
+function b64dec(b64) { var bin = atob(String(b64).replace(/\s/g, '')), by = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) by[i] = bin.charCodeAt(i); return new TextDecoder().decode(by); }
+function ghUrl() { return API + '/repos/' + encodeURIComponent(SY.owner) + '/' + encodeURIComponent(SY.repo) + '/contents/' + encodeURIComponent(SY.path || 'trainingsplan.json'); }
+function ghHeaders(accept) { return { 'Authorization': 'Bearer ' + SY.token, 'Accept': accept || 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }; }
+function ghErr(res) { var e = new Error('HTTP ' + res.status); e.status = res.status; return e; }
+function ghGet() {
+  return fetch(ghUrl(), { headers: ghHeaders(), cache: 'no-store' }).then(function (res) {
+    if (res.status === 404) return { sha: null, doc: null };
+    if (!res.ok) throw ghErr(res);
+    return res.json().then(function (j) {
+      if (j.encoding === 'base64' && j.content) return { sha: j.sha, doc: JSON.parse(b64dec(j.content)) };
+      return fetch(ghUrl(), { headers: ghHeaders('application/vnd.github.raw+json'), cache: 'no-store' }).then(function (r2) {
+        if (!r2.ok) throw ghErr(r2);
+        return r2.text().then(function (t) { return { sha: j.sha, doc: JSON.parse(t) }; });
+      });
+    });
+  });
+}
+function ghPut(doc, sha) {
+  var body = { message: 'Sync ' + isoToday() + ' ' + new Date().toTimeString().slice(0, 5), content: b64enc(JSON.stringify(doc, null, 1)) };
+  if (sha) body.sha = sha;
+  return fetch(ghUrl(), { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders()), body: JSON.stringify(body) }).then(function (res) {
+    if (!res.ok) throw ghErr(res);
+    return res.json();
+  });
+}
+function localDoc() {
+  var logs = LOGS.slice().sort(function (a, b) { return (a.ts || 0) - (b.ts || 0) || String(a.id).localeCompare(String(b.id)); });
+  var del = {}; Object.keys(DELETED).sort().forEach(function (k) { del[k] = DELETED[k]; });
+  return { app: 'trainingsplan', v: 1, standTs: S.standTs || 0, stand: trainPart(S), einheiten: logs, geloescht: del };
+}
+function mergeRemote(r) {
+  if (!r || r.app !== 'trainingsplan') return false;
+  var changed = false, have = {};
+  var rd = r.geloescht || {};
+  Object.keys(rd).forEach(function (id) { if (!DELETED[id] || DELETED[id] < rd[id]) DELETED[id] = rd[id]; });
+  LOGS = LOGS.filter(function (l) { if (DELETED[l.id]) { changed = true; return false; } have[l.id] = true; return true; });
+  (r.einheiten || []).forEach(function (l) { if (l && l.id && !have[l.id] && !DELETED[l.id]) { LOGS.push(l); have[l.id] = true; changed = true; } });
+  if (changed) LOGS.sort(function (a, b) { return (a.ts || 0) - (b.ts || 0); });
+  if ((r.standTs || 0) > (S.standTs || 0) && r.stand) {
+    SYNC_KEYS.forEach(function (k) { if (Object.prototype.hasOwnProperty.call(r.stand, k)) S[k] = r.stand[k]; });
+    S.standTs = r.standTs; lastTrain = JSON.stringify(trainPart(S)); changed = true;
+  }
+  return changed;
+}
+function runSync() {
+  if (!SY) return Promise.resolve();
+  if (syncBusy) { syncAgain = true; return Promise.resolve(); }
+  if (navigator.onLine === false) { setSync('wait', 'Kein Internet. Der Abgleich wird nachgeholt.'); return Promise.resolve(); }
+  syncBusy = true; setSync('busy', '');
+  var attempt = function (n) {
+    return ghGet().then(function (got) {
+      if (mergeRemote(got.doc)) { LS.set('tp.logs', LOGS); LS.set('tp.state', S); LS.set('tp.deleted', DELETED); ui.viewTag = null; applyTheme(); }
+      var mine = localDoc();
+      if (got.doc && JSON.stringify(got.doc) === JSON.stringify(mine)) return null;
+      return ghPut(mine, got.sha).catch(function (e) { if ((e.status === 409 || e.status === 422) && n < 2) return attempt(n + 1); throw e; });
+    });
+  };
+  return attempt(0).then(function () {
+    if (!SY) return;
+    SY.dirty = false; SY.last = Date.now(); LS.set('tp.sync', SY); setSync('ok', '');
+  }, function (e) {
+    var s = e && e.status;
+    setSync(s ? 'error' : 'wait',
+      s === 401 ? 'Der Token ist ungültig oder abgelaufen. Trenne die Verbindung und trag einen neuen Token ein.'
+      : s === 403 ? 'Der Token darf dieses Repository nicht ändern. Er braucht die Berechtigung „Contents: Read and write“.'
+      : s === 404 ? 'Repository nicht gefunden. Prüf Benutzername und Repository-Namen und ob der Token Zugriff darauf hat.'
+      : s ? 'GitHub hat den Abgleich abgelehnt (Fehler ' + s + '). Die App versucht es später noch mal.'
+      : 'GitHub ist gerade nicht erreichbar. Der Abgleich wird nachgeholt.');
+  }).then(function () {
+    syncBusy = false;
+    if (syncAgain) { syncAgain = false; syncSoon(400); }
+  });
+}
+function fmtStamp(ms) { var d = new Date(ms); return (isoDate(d) === isoToday() ? 'heute' : fmtDate(isoDate(d))) + ', ' + d.toTimeString().slice(0, 5) + ' Uhr'; }
+function syncHTML() {
+  if (!SY) {
+    return '<p>Gleicht deinen Stand und alle Einheiten über ein privates GitHub-Repository ab. So hast du auf jedem Gerät dasselbe, und offline trainieren geht weiter.</p>' +
+      '<div class="setting col"><label class="field"><span>GitHub-Benutzername</span><input type="text" id="sy-owner" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="z. B. dennis-nbg"></label>' +
+      '<label class="field"><span>Repository für die Daten</span><input type="text" id="sy-repo" autocomplete="off" autocapitalize="off" spellcheck="false" value="trainingsplan-daten"></label>' +
+      '<label class="field"><span>Token</span><input type="password" id="sy-token" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…"></label></div>' +
+      '<button type="button" class="btn primary block" data-act="sync-connect">Verbinden</button>' +
+      '<p class="small muted" style="margin-top:8px">Der Token bleibt nur auf diesem Gerät und landet nicht im Export. Farbe, Schrift und Hell/Dunkel stellst du auf jedem Gerät selbst ein.</p>';
+  }
+  var st = syncState, line;
+  if (st.status === 'busy') line = 'Wird abgeglichen …';
+  else if (st.status === 'error' || st.status === 'wait') line = esc(st.msg);
+  else line = SY.last ? 'Zuletzt abgeglichen: ' + esc(fmtStamp(SY.last)) : 'Noch nicht abgeglichen.';
+  return '<p>Verbunden mit <b>' + esc(SY.owner + '/' + SY.repo) + '</b>.</p>' +
+    '<p class="' + (st.status === 'error' ? 'sync-err' : 'small muted') + '">' + line + '</p>' +
+    '<div class="row wrap"><button type="button" class="btn small" data-act="sync-now">Jetzt abgleichen</button><button type="button" class="btn small" data-act="sync-off">Trennen</button></div>' +
+    '<p class="small muted" style="margin-top:8px">Die App gleicht von selbst ab: beim Start, nach jedem Speichern und sobald wieder Internet da ist.</p>';
+}
+
 /* ---------- rendering ---------- */
 var $view = document.getElementById('view');
 function isTyping() { var a = document.activeElement; return a && $view.contains(a) && /INPUT|TEXTAREA|SELECT/.test(a.tagName); }
@@ -436,7 +549,13 @@ function render() {
   if (ui.tab === 'timer') paintNow();
 }
 function storageChip() {
-  return DB.ready ? '<span class="chip blue">Im Konto gespeichert</span>' : '<span class="chip">Auf diesem Gerät</span>';
+  if (DB.ready) return '<span class="chip blue">Im Konto gespeichert</span>';
+  if (SY) {
+    if (syncState.status === 'error') return '<span class="chip warn">Sync-Fehler</span>';
+    if (SY.dirty || syncState.status === 'busy' || syncState.status === 'wait') return '<span class="chip">Sync ausstehend</span>';
+    return '<span class="chip blue">Synchronisiert</span>';
+  }
+  return '<span class="chip">Auf diesem Gerät</span>';
 }
 function dr(tag) { return DRAFTS[draftKey(tag)] || {}; }
 function val(d, k, fallback) { return esc(d[k] != null ? d[k] : (fallback != null ? fallback : '')); }
@@ -979,6 +1098,7 @@ function renderPlan() {
     ['Weighted Pull-up', '12 freie Pull-ups (3 × 10 sauber)', 'Mit Weste, für schwere Lasten später ein Dip-Gürtel.'],
     ['Ring Muscle-up', 'Chin-up mit ca. 35–45 % Körpergewicht extra, 1–2 tiefe Ring Dips', 'False Grip üben, Chin-up aus dem False Grip, Muscle-up mit Band, frei.']
   ].map(function (r) { return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>'; }).join('') + '</tbody></table></div>');
+  if (PWA) h += sec('Sync über GitHub', syncHTML());
   h += sec('Einstellungen', settingsHTML());
   return h;
 }
@@ -1001,6 +1121,7 @@ function settingsHTML() {
   h += '<h3 style="margin-top:12px">Stand</h3><div class="setting"><label class="field"><span>Durchgang</span><select id="set-d">' + dOpts + '</select></label><label class="field"><span>Tag</span><select id="set-t">' + tOpts + '</select></label><button type="button" class="btn small" data-act="set-stand">Übernehmen</button></div>';
   h += '<div class="setting"><label class="field"><span>Startdatum (für den ersten Murph)</span><input type="date" data-change="start" value="' + esc(S.startDate || '') + '"></label></div>';
   var where = DB.ready ? 'Deine Daten liegen in deinem Claude-Konto und sind auf jedem Gerät gleich.'
+    : (PWA && SY) ? 'Deine Daten liegen auf diesem Handy und werden über GitHub mit deinen anderen Geräten abgeglichen. „Exportieren“ erstellt zusätzlich eine Sicherungsdatei.'
     : PWA ? 'Deine Daten liegen nur auf diesem Handy. Sichere sie ab und zu mit „Exportieren“, zum Beispiel in Google Drive. Mit „Importieren“ holst du eine Sicherung zurück.'
     : 'Deine Daten liegen gerade nur auf diesem Gerät. Öffnest du die Seite über claude.ai, werden sie in deinem Konto gespeichert.';
   h += '<h3 style="margin-top:16px">Daten</h3><p class="small">' + where + '</p>';
@@ -1060,6 +1181,19 @@ var ACT = {
   color: function (el) { S.color = el.dataset.v; saveState(); applyTheme(); render(); },
   font: function (el) { S.font = el.dataset.v; saveState(); applyTheme(); render(); },
   'import': function () { $imp.click(); },
+  'sync-connect': function () {
+    var o = (document.getElementById('sy-owner').value || '').trim().replace(/^@/, '');
+    var r = (document.getElementById('sy-repo').value || '').trim();
+    var t = (document.getElementById('sy-token').value || '').trim();
+    var m = r.match(/github\.com\/([^\/\s]+)\/([^\/\s#?]+)/);
+    if (m) { o = m[1]; r = m[2].replace(/\.git$/, ''); }
+    if (!o || !r || !t) { toast('Bitte Benutzername, Repository und Token eintragen.'); return; }
+    SY = { owner: o, repo: r, path: 'trainingsplan.json', token: t, dirty: true, last: null };
+    LS.set('tp.sync', SY);
+    runSync().then(function () { if (syncState.status === 'ok') toast('Verbunden. Dein Stand ist jetzt abgeglichen.'); render(); });
+  },
+  'sync-now': function () { if (!SY) return; SY.dirty = true; runSync().then(function () { if (syncState.status === 'ok') toast('Abgeglichen.'); render(); }); },
+  'sync-off': function (el) { twoStep(el, function () { SY = null; clearTimeout(syncT); try { localStorage.removeItem('tp.sync'); } catch (e) { /* ignore */ } syncState = { status: 'off', msg: '' }; render(); toast('Sync getrennt. Deine Daten bleiben auf diesem Gerät.'); }); },
   'set-stand': function () { S.durchgang = +document.getElementById('set-d').value; S.tag = +document.getElementById('set-t').value; S.started = true; ui.viewTag = null; saveState(); toast('Stand gespeichert: ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang) + ', Tag ' + S.tag + '.'); render(); },
   'export': function () { exportData(); },
   'reset-all': function (el) { twoStep(el, function () { var keepLogs = LOGS.slice(); S = Object.assign({}, DEF); saveState(); keepLogs.forEach(function (l) { removeLog(l.id); }); DRAFTS = {}; LS.set('tp.drafts', DRAFTS); ui.tab = 'heute'; render(); toast('Alles zurückgesetzt.'); }); },
@@ -1153,6 +1287,9 @@ if (PWA && 'serviceWorker' in navigator && /^https?:$/.test(location.protocol)) 
   window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () { /* offline cache unavailable */ }); });
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {});
 }
+window.addEventListener('online', function () { if (SY) syncSoon(300); });
+document.addEventListener('visibilitychange', function () { if (SY && document.visibilityState === 'visible' && (!SY.last || Date.now() - SY.last > 60000)) syncSoon(300); });
+if (SY) syncSoon(700);
 
 applyTheme();
 render();
