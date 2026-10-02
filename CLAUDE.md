@@ -37,7 +37,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.
 - Profil › Entwicklung: je Leiter eine Kurve von Anfang an mit den Stufen als Bänder (`ladderSeries`),
   dazu Lauf locker und Intervall-Lauf mit Tempo und Puls (`devRunHTML`).
-- Orte (`S.orte`, frei anlegbar, je eigene Equipment-Liste) unter Profil › Equipment; `eq_zuhause` ist immer dabei.
+- Orte (`S.orte`, frei anlegbar, je eigene Equipment-Liste) unter Profil › Equipment; auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
+  Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
   Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
   eine Leiter mit mehr Nutzen wird als „Neu freigeschaltet“ vorgeschlagen (Später = bis zum nächsten Durchgang, `S.pickSkip`).
   Metcon wechselt pro Durchgang aus den 4 nützlichsten passenden Einträgen. Lauftage: Laufen oder Ergometer (Watt), getrennt verglichen.
