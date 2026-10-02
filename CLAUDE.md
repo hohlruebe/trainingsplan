@@ -18,7 +18,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Unterseiten über den Umschalter oben (`GROUPS` im Skript). Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
 - Profil: Kopfkarte mit rundem Foto, Fortschrittsring (Gesamtwert 0–99), Stufe Bronze/Silber/Gold/Platin,
-  Name und „Diese Woche“. Darunter Auswahl-Kachel mit Menü (alphabetisch): Entwicklung, Erfolge, Verlauf, Werte.
+  Name und „Diese Woche“. Darunter eine Kapsel wie die Reiterleiste (nur die aktive Ansicht zeigt ihren Namen):
+  Entwicklung, Equipment, Erfolge, Verlauf, Werte (`PVIEWS`).
   Werte: sechs Bereiche Ausdauer, Beine, Druck, Rumpf, Skill, Zug (`AREAS`). Jede Leiter zählt
   40 + 59 × ((Stufe − 1) + Anteil der Wdh. in der Zielspanne) / Stufenzahl; Bereich = Mittel der begonnenen
   Leitern, Gesamtwert = Mittel aller sechs. Alles wird aus den Einheiten berechnet (`ladderStates`).
@@ -44,7 +45,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Metcon wechselt pro Durchgang aus den 4 nützlichsten passenden Einträgen. Lauftage: Laufen oder Ergometer (Watt), getrennt verglichen.
 - Listen nach Nutzen sortieren (höchster zuerst), Equipment nach Score. Nur wo es keinen Nutzen gibt (Profil-Menü, Bereiche), alphabetisch.
   Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
-  Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
+  Alle Umschalter sind Kapseln in diesem Stil (`.seg`, `.cap`).
+- Haptik bei allen Interaktionen (`haptic(kind)`): Einstellungen › Haptik (versteckte Seite `haptik`) mit Hauptschalter
+  und je Aktion Aus/Leicht/Mittel/Stark (`HAPT_KINDS`, pro Gerät in `S.hapt`, nicht synchronisiert). Ändern spielt die Stärke sofort ab.
 - Manifest `display: standalone`. Ist `vollbild` an (Einstellung, Standard an), wechselt die
   installierte App beim ersten Tippen per `requestFullscreen` ins Vollbild (`goFullscreen()`).
   Nach dem Minimieren holt das nächste Tippen es zurück.
