@@ -11,6 +11,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 220 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON.
+    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
 - Reiter von links nach rechts: Tools (Timer, Übungen), Coach (Heute, Plan), Profil.
   Unterseiten über den Umschalter oben (`GROUPS` im Skript). Einstellungen und Sync sind eine
@@ -35,7 +37,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.
 - Profil › Entwicklung: je Leiter eine Kurve von Anfang an mit den Stufen als Bänder (`ladderSeries`),
   dazu Lauf locker und Intervall-Lauf mit Tempo und Puls (`devRunHTML`).
-- Listen und Menüs immer alphabetisch sortieren.
+- Orte (`S.orte`, frei anlegbar, je eigene Equipment-Liste) unter Profil › Equipment; `eq_zuhause` ist immer dabei.
+  Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
+  eine Leiter mit mehr Nutzen wird als „Neu freigeschaltet“ vorgeschlagen (Später = bis zum nächsten Durchgang, `S.pickSkip`).
+  Metcon wechselt pro Durchgang aus den 4 nützlichsten passenden Einträgen. Lauftage: Laufen oder Ergometer (Watt), getrennt verglichen.
+- Listen nach Nutzen sortieren (höchster zuerst), Equipment nach Score. Nur wo es keinen Nutzen gibt (Profil-Menü, Bereiche), alphabetisch.
   Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
   Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
 - Manifest `display: standalone`. Ist `vollbild` an (Einstellung, Standard an), wechselt die
