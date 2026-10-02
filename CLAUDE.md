@@ -11,18 +11,30 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 220 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON.
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 263 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
+    dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter von links nach rechts: Tools (Timer, Übungen), Coach (Heute, Plan), Profil.
+- Reiter von links nach rechts: Tools (Timer, Übungen, Routinen), Coach (nur Heute), Profil.
+  Der Plan (Regeln, Methode, Tests) ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute.
   Unterseiten über den Umschalter oben (`GROUPS` im Skript). Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
 - Profil: Kopfkarte mit rundem Foto, Fortschrittsring (Gesamtwert 0–99), Stufe Bronze/Silber/Gold/Platin,
   Name und „Diese Woche“. Darunter eine Kapsel wie die Reiterleiste (nur die aktive Ansicht zeigt ihren Namen):
-  Entwicklung, Equipment, Erfolge, Verlauf, Werte (`PVIEWS`).
-  Werte: sechs Bereiche Ausdauer, Beine, Druck, Rumpf, Skill, Zug (`AREAS`). Jede Leiter zählt
-  40 + 59 × ((Stufe − 1) + Anteil der Wdh. in der Zielspanne) / Stufenzahl; Bereich = Mittel der begonnenen
-  Leitern, Gesamtwert = Mittel aller sechs. Alles wird aus den Einheiten berechnet (`ladderStates`).
+  Equipment, Erfolge, Verlauf, Werte (`PVIEWS`).
+  Werte: fünf Bereiche nach den motorischen Grundfähigkeiten, alphabetisch: Ausdauer, Beweglichkeit, Koordination, Kraft
+  (Teile Zug, Druck, Beine, Rumpf), Schnellkraft (`AREAS`, Zuordnung je Leiter in `areaOf`). Netzdiagramm (`radarSVG`) mit
+  Stand vor 4 Wochen, darunter jeder Bereich mit Verlaufslinie; Tippen öffnet die Aufschlüsselung (`areaDetailHTML`) mit Kurve,
+  Teil-Filter, Leitern (Tippen zeigt ihre Stufen-Kurve `devLadderHTML`) und bei Ausdauer/Schnellkraft den Lauf (`devRunHTML`).
+  Jede Leiter zählt 40 + 59 × ((Stufe − 1) + Anteil der Wdh. in der Zielspanne) / Stufenzahl; Bereich = Mittel der begonnenen
+  Leitern, Gesamtwert = Mittel der Bereiche mit Daten. Alles wird aus den Einheiten berechnet (`ladderStates`).
+  Beweglichkeit kommt aus den Mobility-Leitern (`g_mob_*`), gemessen im Beweglichkeits-Check (`log.mob`).
+- Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag als optionaler letzter Schritt an Krafttagen (`coolStep`, Schalter `S.cooldown`,
+  `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (Tag 5) und B (Tag 7) auf dem Ruhetag. Tools › Routinen startet
+  alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
+  Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
+  Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
+  Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und im Test-Durchgang (`mobCheckStep`).
   Erfolge: je Leiter eine Metall-Medaille mit Lorbeerkranz (ein Blattpaar pro Stufe), letzte Stufe Platin.
   Nach dem Speichern zeigt `showMoment()` neue Stufen: Geschenk (erste Medaille), Glühen (Aufstieg),
   Anlaufen mit aufmunterndem Spruch (Abstieg), mit Vibrationsmuster (`buzz`).
@@ -42,8 +54,6 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Zeiten wählt man im Zeit-Blatt (`openTimeSheet`): Rad Min/Sek in 1er-Schritten, nochmal auf die Zeit tippen = Zahlentastatur
   (Ziffern laufen von rechts ein). Auch die große Zeit lässt sich antippen.
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.
-- Profil › Entwicklung: je Leiter eine Kurve von Anfang an mit den Stufen als Bänder (`ladderSeries`),
-  dazu Lauf locker und Intervall-Lauf mit Tempo und Puls (`devRunHTML`).
 - Orte: sechs feste Orte mit Symbol (`ORTE_FIX`: Zuhause, Gym, Park, Garage, Arbeit, Unterwegs), je eigene Equipment-Liste.
   In `S.orte` je `{id, k, on, eq, zh}`; angezeigt werden nur eingeschaltete (`on`), mindestens einer bleibt an.
   Einschalten über den Stift neben der Orte-Kapsel unter Profil › Equipment (`ACT.orte`). Früher frei benannte Orte
@@ -101,7 +111,7 @@ Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen g
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
 Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
 Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion, dann Tipps-Karte (`tipsHTML`).
-Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`). Tippflächen mindestens 44 px.
+Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Profil › Equipment (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Tag 1 Lift Off (Kraft Zug), Tag 2 Base Builder (Lauf locker), Tag 3 Push Through (Kraft Druck), Tag 4 Redline (Intervall-Lauf),

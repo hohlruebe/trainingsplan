@@ -44,7 +44,11 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 
 ## Bänder
 - Stufen mit Band werden ausgeschrieben („Normales Band“) mit Farbpunkt davor (`stageHTML`, `bdot`); gespeichert bleibt der kurze Name.
-- Bandfarben: `BANDS` (Sehr stark schwarz, Stark blau, Normal grün, Leicht orange, Sehr leicht rot).
+- Bandfarben: Standard in `BANDS`, je Band aus 10 Farben (`BAND_PAL`) wählbar, passend zu den echten Bändern (`bandColor()`).
+
+## Diagramme
+- Netzdiagramm für die Bereiche, Linien für Verläufe, Akzentfarbe für „jetzt“, gestrichelt für den Vergleich.
+- Jede Zahl im Diagramm ist antippbar und führt zur Aufschlüsselung.
 
 ## Fenster und Blätter
 - Blätter von unten (`openSheet`, `openForm`, `openChoice`), Kopf mit „Abbrechen“ und Aktion.
