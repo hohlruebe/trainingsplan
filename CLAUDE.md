@@ -43,3 +43,4 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 ## Vor dem Abschluss
 - Prüfen, dass `index.html` ohne JavaScript-Fehler lädt und alle fünf Reiter funktionieren.
 - Die Änderung im Pull Request kurz auf Deutsch beschreiben.
+- Dem Nutzer am Ende immer den vollständigen Link zum Pull Request nennen.
