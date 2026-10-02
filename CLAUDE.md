@@ -11,10 +11,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 220 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON.
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 263 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
+    dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter von links nach rechts: Tools (Timer, Übungen), Coach (nur Heute), Profil.
+- Reiter von links nach rechts: Tools (Timer, Übungen, Routinen), Coach (nur Heute), Profil.
   Der Plan (Regeln, Methode, Tests) ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute.
   Unterseiten über den Umschalter oben (`GROUPS` im Skript). Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
@@ -27,7 +28,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Teil-Filter, Leitern (Tippen zeigt ihre Stufen-Kurve `devLadderHTML`) und bei Ausdauer/Schnellkraft den Lauf (`devRunHTML`).
   Jede Leiter zählt 40 + 59 × ((Stufe − 1) + Anteil der Wdh. in der Zielspanne) / Stufenzahl; Bereich = Mittel der begonnenen
   Leitern, Gesamtwert = Mittel der Bereiche mit Daten. Alles wird aus den Einheiten berechnet (`ladderStates`).
-  Beweglichkeit bekommt ihre Daten aus der kommenden Mobility-Sektion.
+  Beweglichkeit kommt aus den Mobility-Leitern (`g_mob_*`), gemessen im Beweglichkeits-Check (`log.mob`).
+- Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag als optionaler letzter Schritt an Krafttagen (`coolStep`, Schalter `S.cooldown`,
+  `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (Tag 5) und B (Tag 7) auf dem Ruhetag. Tools › Routinen startet
+  alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
+  Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
+  Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
+  Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und im Test-Durchgang (`mobCheckStep`).
   Erfolge: je Leiter eine Metall-Medaille mit Lorbeerkranz (ein Blattpaar pro Stufe), letzte Stufe Platin.
   Nach dem Speichern zeigt `showMoment()` neue Stufen: Geschenk (erste Medaille), Glühen (Aufstieg),
   Anlaufen mit aufmunterndem Spruch (Abstieg), mit Vibrationsmuster (`buzz`).
