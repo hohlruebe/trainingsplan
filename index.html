@@ -1170,10 +1170,11 @@ function haptic() {
 }
 
 /* ---------- Vollbild ---------- */
-// Chrome übernimmt display: fullscreen aus dem Manifest erst nach einer Neuinstallation.
-// Deshalb fordert die installierte App beim ersten Tippen selbst Vollbild an
-// (blendet Status- und Gestenleiste aus). Ein Wisch vom Rand holt sie kurz zurück.
-function isInstalled() { return !!window.matchMedia && (matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: minimal-ui)').matches); }
+// Chrome übernimmt display: fullscreen aus dem Manifest erst nach einer Neuinstallation,
+// und im Manifest-Vollbild bleibt der Bereich der Kamera oben beim Start schwarz.
+// Deshalb fordert die installierte App beim ersten Tippen selbst Vollbild an. Erst dann
+// zeichnet Chrome mit viewport-fit=cover bis in den Kamera-Ausschnitt.
+function isInstalled() { return !!window.matchMedia && (matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: minimal-ui)').matches || matchMedia('(display-mode: fullscreen)').matches); }
 function goFullscreen() {
   var d = document.documentElement;
   if (S.vollbild === false || document.fullscreenElement || !d.requestFullscreen || !isInstalled()) return;
