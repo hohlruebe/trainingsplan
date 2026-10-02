@@ -8,7 +8,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 ## Dateien
 - `index.html`: die komplette App (HTML, CSS, JavaScript in einer Datei, kein Build-Schritt)
   - erster `<style>`-Block: nur Schriften als Base64 – nicht bearbeiten
-  - zweiter `<style>`-Block: Design (Stil B, Whiteboard)
+  - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
+  - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
 - `sw.js`: Service Worker für den Offline-Betrieb
@@ -27,8 +28,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Aussehen (Farbe, Schrift, Hell/Dunkel) bleibt pro Gerät und wird nicht synchronisiert.
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze.
 - Handy zuerst (390 px Breite), Tippflächen mindestens 44 px.
-- Design: Barlow Condensed für Überschriften und Knöpfe, Barlow für Text,
-  Marker-Schrift je nach Einstellung. Farben über CSS-Variablen (`--acc`, `--ink`, `--red`),
+- Design: Geist für alles. Große fette Titel mit Marker-Strich darunter, weiße Karten
+  mit runden Ecken und weichem Schatten, nichts Verspieltes. Die Schrift-Einstellung
+  (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengenangaben.
+  Farben über CSS-Variablen (`--acc`, `--ink`, `--board`, `--paper`, `--fill`),
   Dunkelmodus über `data-theme`.
 
 ## Trainingslogik (Kurzfassung)

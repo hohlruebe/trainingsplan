@@ -1,5 +1,5 @@
 // Trainingsplan – Offline-Speicher. Bei jedem Update die Versionsnummer erhöhen.
-const CACHE = 'trainingsplan-v1';
+const CACHE = 'trainingsplan-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 
 self.addEventListener('install', (e) => {
