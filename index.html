@@ -341,7 +341,8 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .gift.open .g-medal{animation:rise .9s cubic-bezier(.3,1.5,.5,1) .4s forwards}
 .gift.open .m-sheen{animation:sheen 2.2s cubic-bezier(.45,0,.25,1) 1.2s 1 both}
 .moment.mo-gift .mo-text,.moment.mo-gift .mo-btns{display:none}
-.moment.mo-gift.opened .mo-text,.moment.mo-gift.opened .mo-btns{display:flex}
+.moment.mo-gift.opened .mo-text{display:flex}
+.moment.mo-gift.opened .mo-btns{display:grid}
 .moment.mo-gift.opened .g-hint{display:none}
 @keyframes wobble{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-5deg)}82%{transform:rotate(4deg)}88%{transform:rotate(-2deg)}94%{transform:rotate(1deg)}}
 @keyframes lidOff{to{transform:translate(70px,-150px) rotate(38deg);opacity:0}}
