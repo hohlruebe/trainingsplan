@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F5F5F2" id="meta-theme">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Trainingsplan</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -25,7 +28,7 @@
 <style>
 :root{
   --board:#F5F5F2; --ink:#111214; --ink2:#6E6E73; --line:#EBEBE7; --line2:#D4D4CF; --red:#C62F2A;
-  --paper:#FFFFFF; --fill:#E8E8E3; --tray:#F0F0EC; --tray-line:#DEDED9; --green:#1F7A3D;
+  --paper:#FFFFFF; --fill:#E8E8E3; --pill:#FFFFFF; --tray:#F0F0EC; --tray-line:#DEDED9; --green:#1F7A3D;
   --note:#FFF4D6; --note-ink:#5C4300;
   --acc:#1E5BD8; --on-acc:#FFFFFF;
   --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.04);
@@ -42,17 +45,17 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --board:#0E0F11; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#26272B; --line2:#3A3B40; --red:#FF8B7B;
-    --paper:#1A1B1E; --fill:#2A2B30; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
+    --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
     --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --board:#0E0F11; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#26272B; --line2:#3A3B40; --red:#FF8B7B;
-  --paper:#1A1B1E; --fill:#2A2B30; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
+  --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
   --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%;background:var(--tray)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%;background:var(--board)}
 body{margin:0;min-height:100vh;min-height:100dvh;padding-top:env(safe-area-inset-top,0px);background:var(--board);color:var(--ink);font-family:var(--text);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .frame{position:fixed;left:0;right:0;top:0;z-index:9;height:calc(env(safe-area-inset-top,0px) + 18px);pointer-events:none;background:linear-gradient(to bottom,var(--board) 0,var(--board) env(safe-area-inset-top,0px),color-mix(in srgb,var(--board) 0%,transparent) 100%)}
 main{max-width:560px;margin:0 auto;padding:14px 16px calc(100px + env(safe-area-inset-bottom,0px))}
@@ -160,14 +163,14 @@ details.card[open]>summary{margin-bottom:6px}
 .band b{display:block;font-family:var(--head);font-size:17px;font-weight:600}
 .search{display:block;margin:12px 0}
 .search input{width:100%}
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--tray);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:200px;background:var(--tray);pointer-events:none}
-.tabbar::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:22px;pointer-events:none;background:linear-gradient(to bottom,color-mix(in srgb,var(--tray) 0%,transparent),var(--tray))}
-.tabbar-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;pointer-events:none;padding:34px 0 calc(max(env(safe-area-inset-bottom,0px),12px) + 8px);background:linear-gradient(to bottom,color-mix(in srgb,var(--board) 0%,transparent),color-mix(in srgb,var(--board) 85%,transparent) 55%,var(--board))}
+.tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:200px;background:var(--board);pointer-events:none}
+.tabbar-in{pointer-events:auto;width:max-content;margin:0 auto;display:flex;gap:6px;padding:6px;border-radius:32px;background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 10px 30px rgba(17,18,20,.08)}
 .subnav{margin:2px 0 18px}
-.tab{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:0;color:var(--ink2);font-family:var(--head);font-weight:500;font-size:11px;cursor:pointer;padding:6px 0 4px}
-.tab span{line-height:1.15}
-.tab[aria-current="page"]{color:var(--acc);font-weight:600}
+.tab{display:flex;align-items:center;justify-content:center;height:48px;min-width:48px;padding:0 12px;border:0;border-radius:24px;background:transparent;color:var(--ink2);font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:-.01em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .25s,color .25s,padding .3s,box-shadow .25s}
+.tab span{display:block;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;line-height:1.15;transition:max-width .3s ease,opacity .2s,margin .3s ease}
+.tab[aria-current="page"]{background:var(--pill);color:var(--acc);padding:0 18px 0 14px;box-shadow:0 2px 8px rgba(17,18,20,.1)}
+.tab[aria-current="page"] span{max-width:96px;opacity:1;margin-left:8px}
 .tab svg{width:24px;height:24px}
 .toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--board);padding:10px 16px;border-radius:14px;font-size:15px;z-index:20;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
@@ -309,7 +312,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, base: {}, standTs: 0 };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, base: {}, standTs: 0 };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -1136,6 +1139,7 @@ function settingsHTML() {
     var on = S.font === f.id;
     return '<button type="button" class="fopt" data-act="font" data-v="' + f.id + '" aria-pressed="' + on + '"><b style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">Tag 1</b><span>' + esc(f.label) + '</span></button>';
   }).join('') + '</div>';
+  h += '<h3 style="margin-top:16px">Haptik</h3><label class="check"><input type="checkbox" data-change="haptik"' + (S.haptik !== false ? ' checked' : '') + '> Kurz vibrieren beim Wechseln der Reiter</label>';
   h += '<h3 style="margin-top:12px">Stand</h3><div class="setting"><label class="field"><span>Durchgang</span><select id="set-d">' + dOpts + '</select></label><label class="field"><span>Tag</span><select id="set-t">' + tOpts + '</select></label><button type="button" class="btn small" data-act="set-stand">Übernehmen</button></div>';
   h += '<div class="setting"><label class="field"><span>Startdatum (für den ersten Murph)</span><input type="date" data-change="start" value="' + esc(S.startDate || '') + '"></label></div>';
   var where = DB.ready ? 'Deine Daten liegen in deinem Claude-Konto und sind auf jedem Gerät gleich.'
@@ -1146,6 +1150,22 @@ function settingsHTML() {
   h += '<div class="row wrap"><button type="button" class="btn small" data-act="export">Exportieren</button><button type="button" class="btn small" data-act="import">Importieren</button><button type="button" class="btn small" data-act="reset-all">Alles zurücksetzen</button></div>';
   if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
   return h;
+}
+
+/* ---------- Haptik ---------- */
+// Android: Vibration. iPhone (ab iOS 18): Antippen eines versteckten Schalters löst ein kurzes Klicken aus.
+var hapticEl = null;
+function haptic() {
+  if (S.haptik === false) return;
+  try { if (navigator.vibrate && navigator.vibrate(8)) return; } catch (e) {}
+  if (!hapticEl) {
+    hapticEl = document.createElement('label');
+    hapticEl.setAttribute('aria-hidden', 'true');
+    hapticEl.style.cssText = 'position:fixed;left:-200px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
+    var i = document.createElement('input'); i.type = 'checkbox'; i.setAttribute('switch', ''); i.tabIndex = -1;
+    hapticEl.appendChild(i); document.body.appendChild(hapticEl);
+  }
+  hapticEl.click();
 }
 
 /* ---------- theme ---------- */
@@ -1167,7 +1187,7 @@ function twoStep(el, fn) {
   setTimeout(function () { if (el.isConnected) { el.dataset.armed = ''; el.textContent = old; } }, 4000);
 }
 var ACT = {
-  tab: function (el) { ui.tab = el.dataset.group ? ui.last[el.dataset.group] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
+  tab: function (el) { if (el.dataset.group) haptic(); ui.tab = el.dataset.group ? ui.last[el.dataset.group] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
   viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
   'do-this-day': function (el) { S.tag = +el.dataset.tag; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
@@ -1221,6 +1241,7 @@ var ACT = {
 };
 var CHG = {
   sound: function (el) { S.sound = el.checked; saveState(); },
+  haptik: function (el) { S.haptik = el.checked; saveState(); if (S.haptik) haptic(); },
   track: function (el) { ui.track = el.value; render(); },
   start: function (el) { S.startDate = el.value || null; saveState(); toast('Startdatum gespeichert.'); }
 };

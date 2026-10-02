@@ -14,6 +14,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
 - Reiter von links nach rechts: Tools (Timer, Übungen), Coach (Heute, Plan), Profil (Verlauf, Sync, Einstellungen).
   Unterseiten über den Umschalter oben (`GROUPS` im Skript).
+  Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
+  Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
+- Die App zeichnet bis unter Statusleiste und Home-Balken (`black-translucent`).
+  Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
 - `sw.js`: Service Worker für den Offline-Betrieb
 - `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`
 
