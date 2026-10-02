@@ -12,6 +12,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
+- Reiter: Coach (Heute, Plan), Profil (Verlauf, Sync, Einstellungen), Tools (Timer, Übungen).
+  Unterseiten über den Umschalter oben (`GROUPS` im Skript).
 - `sw.js`: Service Worker für den Offline-Betrieb
 - `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`
 
@@ -44,6 +46,6 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
 ## Vor dem Abschluss
-- Prüfen, dass `index.html` ohne JavaScript-Fehler lädt und alle fünf Reiter funktionieren.
+- Prüfen, dass `index.html` ohne JavaScript-Fehler lädt und alle drei Reiter mit ihren Unterseiten funktionieren.
 - Die Änderung im Pull Request kurz auf Deutsch beschreiben.
 - Dem Nutzer am Ende immer den vollständigen Link zum Pull Request nennen.
