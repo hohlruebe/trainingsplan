@@ -1,0 +1,45 @@
+# Trainingsplan – Projektinfos für Claude Code
+
+## Was das ist
+Offline-Web-App (PWA) für Dennis' Trainingsplan „Calisthenics × CrossFit“
+(Tag 1–7, dann von vorn). Gehostet über GitHub Pages aus dem Branch `main`,
+Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installierte App.
+
+## Dateien
+- `index.html`: die komplette App (HTML, CSS, JavaScript in einer Datei, kein Build-Schritt)
+  - erster `<style>`-Block: nur Schriften als Base64 – nicht bearbeiten
+  - zweiter `<style>`-Block: Design (Stil B, Whiteboard)
+  - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
+  - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
+- `sw.js`: Service Worker für den Offline-Betrieb
+- `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`
+
+## Regeln
+- Die App muss offline laufen: keine CDNs, keine externen Schriften oder Skripte.
+- Ändert sich außer `index.html` eine Datei oder kommt eine neue dazu:
+  `CACHE` in `sw.js` hochzählen und neue Dateien in `ASSETS` eintragen.
+- Gespeicherte Daten nie brechen. localStorage-Schlüssel: `tp.state`, `tp.logs`,
+  `tp.drafts`, `tp.deleted`, `tp.sync`. Neue Felder mit Standardwert in `DEF` ergänzen.
+- Export-Format `{exportiert, stand, einheiten}` muss importierbar bleiben.
+- Sync: Datei `trainingsplan.json` im privaten Daten-Repository des Nutzers,
+  Format `{app, v, standTs, stand, einheiten, geloescht}` kompatibel halten.
+  Den Token nie in Code, Export oder Logs schreiben.
+- Aussehen (Farbe, Schrift, Hell/Dunkel) bleibt pro Gerät und wird nicht synchronisiert.
+- Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze.
+- Handy zuerst (390 px Breite), Tippflächen mindestens 44 px.
+- Design: Barlow Condensed für Überschriften und Knöpfe, Barlow für Text,
+  Marker-Schrift je nach Einstellung. Farben über CSS-Variablen (`--acc`, `--ink`, `--red`),
+  Dunkelmodus über `data-theme`.
+
+## Trainingslogik (Kurzfassung)
+- Tag 1 Kraft A (Pull), Tag 2 Lauf locker, Tag 3 Kraft B (Push), Tag 4 Intervall-Lauf,
+  Tag 5 frei, Tag 6 Kraft C (Pull + Push), Tag 7 frei.
+- Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2),
+  Metcon AMRAP 8.
+- Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph.
+  Beginnt ein Durchgang in den letzten 7 Tagen des Monats: Test-Durchgang.
+- Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
+
+## Vor dem Abschluss
+- Prüfen, dass `index.html` ohne JavaScript-Fehler lädt und alle fünf Reiter funktionieren.
+- Die Änderung im Pull Request kurz auf Deutsch beschreiben.
