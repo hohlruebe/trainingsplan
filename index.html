@@ -146,6 +146,7 @@ textarea{width:100%;min-height:84px;resize:vertical}
 .timer{text-align:center}
 .t-label{font-family:var(--head);font-weight:600;font-size:14px;line-height:1.2;margin:4px 0 0;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
 .t-digits{font-family:var(--head);font-weight:600;font-size:clamp(76px,24vw,112px);line-height:1;letter-spacing:-.045em;margin:10px 0;font-variant-numeric:tabular-nums}
+button.t-digits{display:block;width:100%;border:0;background:none;color:inherit;padding:0;cursor:pointer}
 .t-digits[data-kind="easy"]{color:var(--green)}
 .t-sub{font-size:18px;margin:0}
 .t-bar{height:8px;border:0;background:var(--fill);border-radius:999px;margin:16px 0;overflow:hidden}
@@ -376,6 +377,14 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .btn.save{background:var(--on);color:#fff}
 .ov-foot{text-align:center;font-size:14px;color:var(--ink2);margin:12px 0}
 .st-top{display:flex;align-items:center;justify-content:space-between;margin:0 0 8px}
+.st-r{display:flex;align-items:center;gap:4px}
+.st-x{width:44px;height:44px;margin-right:-10px;border:0;background:none;color:var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.7}
+.st-x svg{width:16px;height:16px}
+body.focus .tabbar{display:none}
+body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
+.choice h2{margin:4px 0 0}
+.choice p{margin:0 0 6px}
+.btn.danger{background:none;color:var(--red)}
 .lnk{min-height:44px;border:0;background:none;padding:0;color:var(--acc);font:inherit;font-size:16px;font-weight:500;cursor:pointer}
 .st-prog{display:flex;gap:6px;margin-bottom:10px}
 .st-prog span{flex:1;height:5px;border-radius:3px;background:var(--fill)}
@@ -497,6 +506,15 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .eq-more{margin:0 0 12px 52px;border-radius:12px;background:var(--board);padding:10px 12px;font-size:14px;line-height:1.45}
 .eq-more p{margin:0 0 6px}
 .eq-more p:last-child{margin:0}
+.sh-tv{position:relative;text-align:center;margin:8px 0 2px}
+.sh-time{min-width:150px;min-height:64px;border:0;border-radius:16px;background:var(--board);color:var(--ink);font-family:var(--head);font-size:46px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;padding:2px 18px;cursor:pointer}
+.sh-time .ph{color:var(--ink2);opacity:.45}
+.sh-tin{position:absolute;left:50%;top:0;width:150px;height:64px;transform:translateX(-50%);opacity:0;font-size:16px;border:0;pointer-events:none}
+.sh-hint{margin:6px 0 0;font-size:13px;color:var(--ink2)}
+.sheet-bg.typing .wheels{display:none}
+.sheet-bg.typing .sh-time{background:var(--paper);box-shadow:0 0 0 2px var(--acc)}
+.sheet-bg.typing .sh-time::after{content:"";display:inline-block;width:2px;height:40px;margin-left:3px;vertical-align:-5px;background:var(--acc);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
 .sh-body{display:flex;flex-direction:column;gap:10px;margin-top:12px}
 .sh-body .field input{width:100%}
 .sh-body .seg{margin:0}
@@ -659,7 +677,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -907,8 +925,9 @@ function render() {
   var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
-  ui.noSub = false;
+  ui.noSub = false; ui.focus = false;
   var body = fn();
+  document.body.classList.toggle('focus', ui.focus);
   var sub = views.length < 2 || ui.noSub ? '' : '<div class="seg subnav" role="group" aria-label="Bereich">' + views.map(function (v) {
     return '<button type="button" class="seg-btn' + (v === ui.tab ? ' on' : '') + '" data-act="tab" data-tab="' + v + '" aria-pressed="' + (v === ui.tab) + '">' + VIEW_LABEL[v] + '</button>';
   }).join('') + '</div>';
@@ -1051,38 +1070,40 @@ function wakeOn() { try { if ('wakeLock' in navigator && !TM.wake) navigator.wak
 function wakeOff() { try { if (TM.wake) TM.wake.release(); } catch (e) { /* ignore */ } TM.wake = null; }
 document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && TM.running) wakeOn(); });
 
-function defaultCfg(mode) {
-  var t = S.tag, src = DAYS[t].type === 'kraft' ? t : 1;
-  if (mode === 'emom') return { minutes: isKurz(src) ? 9 : 12, stations: DAYS[src].kraft.map(function (k) { return k.n; }), tag: src };
-  if (mode === 'amrap') return { minutes: isKurz(src) ? 5 : 8, tag: src };
-  if (mode === 'iv') return { stage: S.ivStage, reps: S.ivReps, tag: 4 };
-  if (mode === 'lauf') return { minutes: easyMinutes(S.durchgang), tag: 2 };
-  return { rounds: MURPH[S.murphStage].rounds, tag: 1 };
+// Freier Timer unter Tools: Einstellung je Art, nur auf diesem Gerät.
+var TMR_DEF = { mode: 'emom', emom: { every: 60, rounds: 10 }, amrap: { sec: 600 }, hiit: { work: 40, rest: 20, rounds: 8 }, zeit: { cap: 0 } };
+function tmr() {
+  if (!S.tmr || typeof S.tmr !== 'object') S.tmr = {};
+  if (!TFIELDS[S.tmr.mode]) S.tmr.mode = 'emom';
+  ['emom', 'amrap', 'hiit', 'zeit'].forEach(function (k) { S.tmr[k] = Object.assign({}, TMR_DEF[k], S.tmr[k]); });
+  return S.tmr;
 }
+function toolSetup() { var t = tmr(); timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({ free: true }, t[t.mode]); timerReset(); }
 function buildPhases() {
-  var c = TM.cfg, P = [{ label: 'Gleich geht\u2019s los', sub: '', dur: 10, kind: 'pre' }];
+  var c = TM.cfg, P = [{ label: 'Gleich geht’s los', sub: 'In Position', dur: 10, kind: 'pre' }];
   if (TM.mode === 'emom') {
-    var st = c.stations;
-    for (var i = 0; i < c.minutes; i++) P.push({ label: st[i % st.length], sub: 'Minute ' + (i + 1) + ' von ' + c.minutes + ', Runde ' + (Math.floor(i / st.length) + 1), dur: 60, kind: 'work', next: i + 1 < c.minutes ? st[(i + 1) % st.length] : 'Fertig' });
-  } else if (TM.mode === 'amrap') {
-    P.push({ label: 'AMRAP ' + c.minutes, sub: 'So viele Runden wie möglich', dur: c.minutes * 60, kind: 'work' });
-  } else if (TM.mode === 'iv') {
-    var p = IV[c.stage];
-    P.push({ label: 'Einlaufen', sub: '10 Min locker', dur: 600, kind: 'easy' });
-    for (var j = 0; j < c.reps; j++) {
-      P.push({ label: 'Zügig', sub: 'Intervall ' + (j + 1) + ' von ' + c.reps, dur: p.work * 60, kind: 'work' });
-      P.push({ label: p.restLabel.charAt(0).toUpperCase() + p.restLabel.slice(1), sub: 'Pause ' + (j + 1) + ' von ' + c.reps, dur: p.rest * 60, kind: 'easy' });
+    var st = c.stations, n = c.rounds || c.minutes, ev = c.every || 60;
+    for (var i = 0; i < n; i++) {
+      P.push(st ? { label: st[i % st.length], sub: 'Minute ' + (i + 1) + ' von ' + n + ', Runde ' + (Math.floor(i / st.length) + 1), dur: 60, kind: 'work', next: i + 1 < n ? st[(i + 1) % st.length] : 'Fertig' }
+        : { label: 'Runde ' + (i + 1), sub: 'von ' + n, dur: ev, kind: 'work', next: i + 1 < n ? 'Runde ' + (i + 2) : 'Fertig' });
     }
-    P.push({ label: 'Auslaufen', sub: '5 Min locker', dur: 300, kind: 'easy' });
+  } else if (TM.mode === 'amrap') {
+    var sec = c.sec || c.minutes * 60;
+    P.push({ label: 'AMRAP ' + (c.minutes || fmtT(sec)), sub: 'So viele Runden wie möglich', dur: sec, kind: 'work', solo: true });
+  } else if (TM.mode === 'hiit') {
+    for (var j = 0; j < c.rounds; j++) {
+      P.push({ label: 'Arbeit', sub: 'Runde ' + (j + 1) + ' von ' + c.rounds, dur: c.work, kind: 'work' });
+      if (c.rest && j + 1 < c.rounds) P.push({ label: 'Pause', sub: 'Runde ' + (j + 1) + ' von ' + c.rounds, dur: c.rest, kind: 'easy' });
+    }
   } else if (TM.mode === 'block') {
     P.push({ label: c.label, sub: c.minutes + ' Min', dur: c.minutes * 60, kind: 'easy' });
-  } else if (TM.mode === 'lauf') {
-    P.push({ label: 'Locker laufen', sub: c.minutes + ' Min im Gesprächstempo', dur: c.minutes * 60, kind: 'easy' });
   } else {
-    P.push({ label: 'Auf Zeit', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : 'Stoppuhr', dur: Infinity, kind: 'work' });
+    P.push({ label: 'Auf Zeit', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : c.cap ? 'Zeitlimit ' + fmtT(c.cap) : 'Ohne Zeitlimit', dur: c.cap || Infinity, kind: 'work', up: true });
   }
   return P;
 }
+// Zeit kurz: 0:40, 1:30, 12:00
+function fmtT(sec) { sec = Math.max(0, Math.round(sec)); var m = Math.floor(sec / 60), x = sec % 60; return m + ':' + pad(x); }
 function timerStop() { TM.running = false; clearInterval(TM.int); TM.int = null; wakeOff(); }
 function timerReset() { timerStop(); TM.acc = 0; TM.idx = -1; TM.lastSec = null; TM.rounds = 0; TM.finished = false; TM.finalElapsed = 0; TM.phases = buildPhases(); }
 function timerSetup(mode, cfg) { timerStop(); TM.mode = mode; TM.cfg = cfg; timerReset(); ui.tab = 'timer'; window.scrollTo(0, 0); render(); }
@@ -1106,9 +1127,11 @@ function paint(L) {
   if (idle) {
     var first = TM.phases[1];
     $('t-label').textContent = 'Bereit';
-    $('t-digits').textContent = isFinite(first.dur) ? fmt(first.dur) : '00:00';
+    $('t-digits').textContent = first.up || !isFinite(first.dur) ? '00:00' : fmt(first.dur);
     $('t-digits').dataset.kind = first.kind;
-    $('t-sub').textContent = first.label === 'AMRAP ' + (TM.cfg && TM.cfg.minutes) ? first.sub : first.label + (first.sub ? ' – ' + first.sub : '');
+    var c = TM.cfg || {};
+    $('t-sub').textContent = c.free && TM.mode === 'emom' ? c.rounds + ' Runden · alle ' + fmtT(c.every) : c.free && TM.mode === 'hiit' ? c.rounds + ' × ' + fmtT(c.work) + ' Arbeit' + (c.rest ? ', ' + fmtT(c.rest) + ' Pause' : '')
+      : first.solo || first.up ? first.sub : first.label + (first.sub ? ' – ' + first.sub : '');
     $('t-next').textContent = 'Start mit 10 Sekunden Vorlauf';
     $('t-fill').style.width = '0%';
     return;
@@ -1116,12 +1139,12 @@ function paint(L) {
   if (!L) return;
   $('t-label').textContent = L.p.label;
   $('t-sub').textContent = L.p.sub || '';
-  $('t-digits').textContent = L.rem == null ? fmt(L.inPhase) : fmt(Math.ceil(L.rem));
+  $('t-digits').textContent = L.rem == null || L.p.up ? fmt(L.inPhase) : fmt(Math.ceil(L.rem));
   $('t-digits').dataset.kind = L.p.kind;
   var nxt = L.p.next || (TM.phases[L.i + 1] ? TM.phases[L.i + 1].label : '');
   $('t-next').textContent = nxt ? 'Danach: ' + nxt : '';
   var total = 0; TM.phases.forEach(function (p) { if (isFinite(p.dur)) total += p.dur; });
-  $('t-fill').style.width = (TM.mode === 'zeit' ? 0 : Math.min(100, elapsed() / total * 100)) + '%';
+  $('t-fill').style.width = (TM.mode === 'zeit' && !TM.cfg.cap ? 0 : Math.min(100, elapsed() / total * 100)) + '%';
 }
 function paintNow() { if (!TM.phases.length) return; setToggle(); if (TM.finished) { showFinished(); return; } paint(locate(elapsed())); }
 function setToggle() {
@@ -1147,25 +1170,15 @@ function showFinished() {
   $('t-sub').textContent = TM.mode === 'amrap' ? TM.rounds + ' Runden gezählt' : TM.mode === 'zeit' ? 'Deine Zeit' : 'Stark gemacht.';
   $('t-next').textContent = '';
   $('t-fill').style.width = TM.mode === 'zeit' ? '0%' : '100%';
-  var take = { amrap: 'Runden eintragen', zeit: 'Zeit eintragen', lauf: 'Lauf eintragen', iv: 'Intervalle eintragen' }[TM.mode];
-  $('t-done').innerHTML = take ? '<button type="button" class="btn primary block" data-act="t-take">' + take + '</button>' : '<button type="button" class="btn block" data-act="tab" data-tab="heute">Zurück zum Training</button>';
+  $('t-done').innerHTML = '';
 }
-function takeResult() {
-  var tag = (TM.cfg && TM.cfg.tag) || S.tag, key = draftKey(tag), d = DRAFTS[key] || (DRAFTS[key] = {});
-  if (TM.mode === 'amrap') d.mr = String(TM.rounds);
-  if (TM.mode === 'zeit') d.murphTime = fmt(Math.max(0, TM.finalElapsed - 10));
-  if (TM.mode === 'lauf') { d.runMin = String(TM.cfg.minutes); d.runSec = String(TM.cfg.minutes * 60); }
-  if (TM.mode === 'iv') d.ivDone = String(TM.cfg.reps);
-  LS.set('tp.drafts', DRAFTS);
-  ui.tab = 'heute'; ui.viewTag = tag === S.tag ? null : tag; window.scrollTo(0, 0); render(); toast('Eingetragen.');
-}
+var TMODES = [['emom', 'EMOM'], ['amrap', 'AMRAP'], ['hiit', 'Intervall'], ['zeit', 'Auf Zeit']];
 function renderTimer() {
-  if (!TM.cfg) { TM.cfg = defaultCfg(DAYS[S.tag].type === 'interval' ? 'iv' : DAYS[S.tag].type === 'easy' ? 'lauf' : 'emom'); TM.mode = DAYS[S.tag].type === 'interval' ? 'iv' : DAYS[S.tag].type === 'easy' ? 'lauf' : 'emom'; timerReset(); }
-  var modes = [['emom', 'EMOM'], ['amrap', 'AMRAP'], ['iv', 'Intervalle'], ['lauf', 'Lauf'], ['zeit', 'Auf Zeit']];
-  var h = '<section class="hero"><h1>Timer</h1></section><div class="seg" role="group" aria-label="Timer-Art">' + modes.map(function (m) {
+  if (!TM.cfg || !TM.cfg.free) toolSetup();
+  var h = '<section class="hero"><h1>Timer</h1></section><div class="seg" role="group" aria-label="Timer-Art">' + TMODES.map(function (m) {
     return '<button type="button" class="seg-btn' + (TM.mode === m[0] ? ' on' : '') + '" data-act="t-mode" data-m="' + m[0] + '" aria-pressed="' + (TM.mode === m[0]) + '">' + m[1] + '</button>';
   }).join('') + '</div>';
-  h += '<section class="card timer"><p id="t-label" class="t-label">Bereit</p><p id="t-digits" class="t-digits">00:00</p><p id="t-sub" class="t-sub"></p><p id="t-next" class="small muted"></p>' +
+  h += '<section class="card timer"><p id="t-label" class="t-label">Bereit</p><button type="button" id="t-digits" class="t-digits" data-act="t-set" data-k="' + { emom: 'every', amrap: 'sec', hiit: 'work', zeit: 'cap' }[TM.mode] + '" aria-label="Zeit einstellen">00:00</button><p id="t-sub" class="t-sub"></p><p id="t-next" class="small muted"></p>' +
     '<div class="t-bar" aria-hidden="true"><div id="t-fill"></div></div>' +
     '<div class="row t-ctl"><button type="button" class="btn primary" id="t-toggle" data-act="t-toggle">Start</button><button type="button" class="btn" data-act="t-reset">Zurücksetzen</button>' +
     '<button type="button" class="btn" id="t-finish" data-act="t-finish" hidden>Fertig</button></div>';
@@ -1175,27 +1188,30 @@ function renderTimer() {
   h += '<div id="t-done"></div></section><section class="card">' + timerConfigHTML() + '</section>';
   return h;
 }
+// Kacheln je Art: Zeiten über Rad oder Zahlentastatur, Runden über Rad.
+var TFIELDS = {
+  emom: [['every', 'Alle', 'time', 10], ['rounds', 'Runden', 'count', 1]],
+  amrap: [['sec', 'Dauer', 'time', 10]],
+  hiit: [['work', 'Arbeit', 'time', 5], ['rest', 'Pause', 'time', 0], ['rounds', 'Runden', 'count', 1]],
+  zeit: [['cap', 'Zeitlimit', 'time', 0]]
+};
+function timerTotal(c) {
+  if (TM.mode === 'emom') return c.every * c.rounds;
+  if (TM.mode === 'hiit') return c.work * c.rounds + c.rest * Math.max(0, c.rounds - 1);
+  return null;
+}
 function timerConfigHTML() {
-  var c = TM.cfg, h = '<h3>Einstellungen</h3>';
-  if (TM.mode === 'emom' || TM.mode === 'amrap') {
-    var opts = TM.mode === 'emom' ? [9, 12] : [5, 8];
-    h += '<div class="setting"><span class="muted small" style="width:100%">Dauer</span>' + opts.map(function (m) { return '<button type="button" class="btn small' + (c.minutes === m ? ' primary' : '') + '" data-act="t-min" data-min="' + m + '">' + m + ' Min</button>'; }).join('') + '</div>';
-    h += '<div class="setting"><span class="muted small" style="width:100%">Übungen von</span>' + [1, 3, 6].map(function (t) { return '<button type="button" class="btn small' + (c.tag === t ? ' primary' : '') + '" data-act="t-src" data-tag="' + t + '">Tag ' + t + '</button>'; }).join('') + '</div>';
-    if (TM.mode === 'emom') h += '<p class="small muted">Stationen: ' + c.stations.map(esc).join(', ') + '</p>';
-  } else if (TM.mode === 'block') {
-    h += '<p>' + esc(c.label) + ', ' + c.minutes + ' Min. Gestartet aus dem Training.</p>';
-  } else if (TM.mode === 'iv') {
-    h += '<p>Stufe ' + c.stage + ' mit ' + c.reps + ' Intervallen. Ändern kannst du das an Tag 4.</p>';
-  } else if (TM.mode === 'lauf') {
-    h += '<div class="setting">' + [20, 25, 30, 35, 40, 45].map(function (m) { return '<button type="button" class="btn small' + (c.minutes === m ? ' primary' : '') + '" data-act="t-min" data-min="' + m + '">' + m + '</button>'; }).join('') + '<span class="muted small">Minuten</span></div>';
-  } else {
-    h += '<div class="setting"><span class="muted small" style="width:100%">Rundenziel</span>' + [0, 10, 20].map(function (r) { return '<button type="button" class="btn small' + (c.rounds === r ? ' primary' : '') + '" data-act="t-rounds-target" data-r="' + r + '">' + (r ? r + ' Runden' : 'Nur Stoppuhr') + '</button>'; }).join('') + '</div>';
-  }
+  var c = TM.cfg, tot = timerTotal(c);
+  var h = '<div class="pick-grid t-grid">' + TFIELDS[TM.mode].map(function (f) {
+    var v = c[f[0]], txt = f[2] === 'count' ? String(v) : f[0] === 'cap' && !v ? 'ohne' : fmtT(v);
+    return tile(f[1], '<b>' + txt + (f[2] === 'count' ? ' <span class="unit">×</span>' : '') + '</b>', 'data-act="t-set" data-k="' + f[0] + '"', 'set');
+  }).join('');
+  if (tot != null) h += '<div class="tile calc"><small>Gesamt · errechnet</small><b>' + fmtT(tot) + '</b></div>';
+  h += '</div><p class="small muted" style="margin:10px 0 4px">Start mit 10 Sekunden Vorlauf, damit du in Position kommst.</p>';
   h += '<label class="check"><input type="checkbox" data-change="sound"' + (S.sound ? ' checked' : '') + '> Signaltöne</label>' +
     '<p class="small muted">Lass die Seite beim Training offen. Wo das Handy es erlaubt, bleibt der Bildschirm an, solange der Timer läuft.</p>';
   return h;
 }
-
 /* ---------- Verlauf ---------- */
 function logTitle(l) {
   var k = { murph: 'Murph', test: TESTDAYS[l.tag] ? TESTDAYS[l.tag].title : 'Test' }[l.kind] || (DAYS[l.tag] ? dayLabel(l.tag) : 'Training');
@@ -1714,20 +1730,11 @@ var ACT = {
   'iv-reps': function (el) { changeIv(+el.dataset.d); saveState(); render(); },
   'start-test': function () { Object.assign(S, { started: true, startDate: isoToday(), durchgang: 0, tag: 1 }); saveState(); render(); },
   'start-at': function () { Object.assign(S, { started: true, startDate: isoToday(), durchgang: +document.getElementById('ob-d').value, tag: +document.getElementById('ob-t').value }); saveState(); render(); },
-  'timer-emom': function (el) { var t = +el.dataset.tag; timerSetup('emom', { minutes: isKurz(t) ? 9 : 12, stations: DAYS[t].kraft.map(function (k) { return k.n; }), tag: t }); },
-  'timer-amrap': function (el) { var t = +el.dataset.tag; timerSetup('amrap', { minutes: isKurz(t) ? 5 : 8, tag: t }); },
-  'timer-iv': function () { timerSetup('iv', { stage: S.ivStage, reps: S.ivReps, tag: 4 }); },
-  'timer-lauf': function (el) { timerSetup('lauf', { minutes: +el.dataset.min, tag: 2 }); },
-  'timer-zeit': function (el) { timerSetup('zeit', { rounds: +el.dataset.rounds, tag: 1 }); },
-  't-mode': function (el) { if (TM.running) { toast('Halte erst den Timer an.'); return; } timerSetup(el.dataset.m, defaultCfg(el.dataset.m)); },
+  't-mode': function (el) { if (TM.running) { toast('Halte erst den Timer an.'); return; } tmr().mode = el.dataset.m; saveState(); toolSetup(); render(); },
   't-toggle': timerToggle,
   't-reset': function () { timerReset(); render(); },
   't-finish': function () { if (TM.mode === 'zeit') finish(); },
   't-round': function (el) { TM.rounds = Math.max(0, TM.rounds + (+el.dataset.d)); var n = document.getElementById('t-rounds'); if (n) n.textContent = TM.rounds + ' Runden'; },
-  't-min': function (el) { if (TM.running) return; TM.cfg.minutes = +el.dataset.min; timerReset(); render(); },
-  't-src': function (el) { if (TM.running) return; var t = +el.dataset.tag; TM.cfg.tag = t; if (TM.mode === 'emom') TM.cfg.stations = DAYS[t].kraft.map(function (k) { return k.n; }); timerReset(); render(); },
-  't-rounds-target': function (el) { if (TM.running) return; TM.cfg.rounds = +el.dataset.r; timerReset(); render(); },
-  't-take': takeResult,
   theme: function (el) { S.theme = el.dataset.v; saveState(); applyTheme(); render(); },
   color: function (el) { S.color = el.dataset.v; saveState(); applyTheme(); render(); },
   font: function (el) { S.font = el.dataset.v; saveState(); applyTheme(); render(); },
@@ -1869,7 +1876,7 @@ function stepsOf(c) {
 function renderHeute() {
   if (!S.started) return onboardingHTML();
   var tag = viewTag(), c = dayCtx(tag), cur = c.cur, d = c.d, next = tag % 7 + 1, D = dr(tag), st = stepsOf(c);
-  if (cur && st.length && D._step != null && st[+D._step]) { ui.noSub = true; return stepPageHTML(c, st, +D._step, D); }
+  if (cur && st.length && D._step != null && st[+D._step]) { ui.noSub = true; ui.focus = true; return stepPageHTML(c, st, +D._step, D); }
   var h = '<div class="row between wrap"><span class="chip">' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang) + '</span>' + storageChip() + '</div>';
   var mins = st.reduce(function (a, s) { return a + (s.dur || 0); }, 0), kick = 'Tag ' + tag;
   if (mins) kick += ' · ca. ' + (mins + 2) + ' Min';
@@ -1936,7 +1943,8 @@ function renderHeute() {
 
 function stepPageHTML(c, st, i, D) {
   var s = st[i], n = st.length, last = i === n - 1, key = draftKey(c.tag);
-  var h = '<div class="st-top"><button type="button" class="lnk" data-act="step" data-to="' + (i - 1) + '">‹ ' + (i ? 'Zurück' : 'Übersicht') + '</button><span class="small muted">' + (i + 1) + ' von ' + n + '</span></div>';
+  var h = '<div class="st-top"><button type="button" class="lnk" data-act="step" data-to="' + (i - 1) + '">‹ ' + (i ? 'Zurück' : 'Übersicht') + '</button><span class="st-r"><span class="small muted">' + (i + 1) + ' von ' + n + '</span>' +
+    '<button type="button" class="st-x" data-act="quit" aria-label="Training verlassen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></div>';
   h += '<div class="st-prog" aria-hidden="true">' + st.map(function (x, j) { return '<span' + (j <= i ? ' class="on"' : '') + '></span>'; }).join('') + '</div>';
   h += '<section class="hero"><h1>' + esc(s.title) + '</h1><p class="st-sub muted">' + esc(s.sub || '') + '</p></section>';
   h += s.body(D);
@@ -2147,7 +2155,7 @@ function runHTML(c, D) {
   h += '</div>';
   if (v) h += '<p class="verdict ' + v.cls + '">' + esc(v.text) + '</p>';
   if (!easy) h += '<div class="pick-grid">' + tile('Intervalle geschafft', '<b>' + (D.ivDone ? esc(D.ivDone) : '–') + ' <span class="unit">von ' + S.ivReps + '</span></b>', pickAttrs({ f: 'ivDone', min: 0, max: IV[S.ivStage].max, unit: 'geschafft', def: S.ivReps, title: 'Intervalle' }), D.ivDone ? 'set' : '') + '</div>';
-  h += '<button type="button" class="btn block" data-act="' + (easy ? 'timer-lauf' : 'timer-iv') + '" data-min="' + (easy ? easyMinutes(S.durchgang) : '') + '">Timer öffnen</button></section>';
+  h += '</section>';
   return h + notesBlock(D);
 }
 ACT['run-mode'] = function (el) { setDraft('mode', el.dataset.m); render(); };
@@ -2163,11 +2171,12 @@ function fitKeyboard(bg) {
   bg._unfit = function () { vv.removeEventListener('resize', fit); vv.removeEventListener('scroll', fit); };
 }
 function sheetKey(e) { if (e.key === 'Escape') closeSheet(); }
-function openSheet(title, cols, done) {
-  closeSheet();
+function openSheet(title, cols, done, o) {
+  closeSheet(); o = o || {};
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div>' +
     '<div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">Fertig</button></div>' +
+    (o.time ? '<div class="sh-tv"><button type="button" class="sh-time" data-sh="time" aria-label="Zeit eintippen"></button><input class="sh-tin" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" tabindex="-1" aria-label="Zeit eintippen"><p class="sh-hint">Nochmal tippen zum Eintippen</p></div>' : '') +
     '<div class="wheels" style="grid-template-columns:' + cols.map(function (c) { return c.wide ? '1.6fr' : '1fr'; }).join(' ') + '">' +
     cols.map(function (c) { return '<div class="wcol"><span class="wh">' + esc(c.head || '') + '</span><div class="wheel" tabindex="0">' + c.items.map(function (it, k) { return '<div class="wi" data-k="' + k + '">' + esc(it.t) + '</div>'; }).join('') + '</div></div>'; }).join('') +
     '</div></div>';
@@ -2180,7 +2189,7 @@ function openSheet(title, cols, done) {
     idx[j] = k; w.scrollTop = k * WH; mark(w, k);
     w.addEventListener('scroll', function () {
       var n = Math.max(0, Math.min(c.items.length - 1, Math.round(w.scrollTop / WH)));
-      if (n !== idx[j]) { idx[j] = n; mark(w, n); haptic('wheel'); }
+      if (n !== idx[j]) { idx[j] = n; mark(w, n); haptic('wheel'); showTime(); }
     }, { passive: true });
     w.addEventListener('click', function (e) { var it = e.target.closest('.wi'); if (it) w.scrollTo({ top: +it.dataset.k * WH, behavior: 'smooth' }); });
     w.addEventListener('keydown', function (e) {
@@ -2188,14 +2197,43 @@ function openSheet(title, cols, done) {
       e.preventDefault(); w.scrollTo({ top: Math.max(0, idx[j] + (e.key === 'ArrowDown' ? 1 : -1)) * WH });
     });
   });
+  // Zeit-Blatt: große Anzeige über den Rädern, nochmal tippen = Ziffern eintippen (laufen von rechts ein).
+  var tv = bg.querySelector('.sh-time'), tin = bg.querySelector('.sh-tin'), typed = null;
+  function showTime() {
+    if (!tv) return;
+    if (typed == null) { tv.textContent = cols[0].items[idx[0]].v + ':' + pad(+cols[1].items[idx[1]].v); return; }
+    var m = typed.slice(0, -2), x = typed.slice(-2);
+    tv.innerHTML = '<span class="ph">' + (m ? '' : '0:') + (x.length < 2 ? '0'.repeat(2 - x.length) : '') + '</span>' + (m ? (+m) + ':' : '') + x;
+  }
+  function typeMode() {
+    if (typed != null) { tin.focus(); return; }
+    typed = ''; tin.value = ''; bg.classList.add('typing'); bg.querySelector('.sh-hint').textContent = 'Ziffern laufen von rechts ein: 1 3 0 = 1:30';
+    fitKeyboard(bg); tin.focus(); showTime();
+  }
+  function commit() {
+    var vals = cols.map(function (c, j) { return c.items[idx[j]].v; });
+    if (typed) { var t = (+typed.slice(0, -2) || 0) * 60 + (+typed.slice(-2)); t = Math.min(t, 99 * 60 + 59); vals = [String(Math.floor(t / 60)), String(t % 60)]; }
+    closeSheet(); done(vals);
+  }
+  if (tin) {
+    tin.addEventListener('input', function () { typed = tin.value.replace(/\D/g, '').slice(-4).replace(/^0+/, ''); tin.value = typed; showTime(); });
+    tin.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); haptic('step'); commit(); } });
+    showTime();
+  }
   bg.addEventListener('click', function (e) {
     var b = e.target.closest('[data-sh]');
     if (b) haptic(b.dataset.sh === 'ok' ? 'step' : 'tap');
     if (e.target === bg || (b && b.dataset.sh === 'x')) closeSheet();
-    else if (b && b.dataset.sh === 'ok') { var vals = cols.map(function (c, j) { return c.items[idx[j]].v; }); closeSheet(); done(vals); }
+    else if (b && b.dataset.sh === 'time') typeMode();
+    else if (b && b.dataset.sh === 'ok') commit();
   });
   document.addEventListener('keydown', sheetKey);
   requestAnimationFrame(function () { bg.classList.add('open'); });
+}
+function openTimeSheet(title, sec, done) {
+  sec = Math.max(0, Math.round(sec || 0));
+  openSheet(title, [{ head: 'Min.', items: numItems(0, 99), val: String(Math.min(99, Math.floor(sec / 60))) }, { head: 'Sek.', items: numItems(0, 59), val: String(sec % 60) }],
+    function (v) { done((+v[0]) * 60 + (+v[1])); }, { time: true });
 }
 function numItems(lo, hi, empty) {
   var a = empty ? [{ v: '', t: '–' }] : [];
@@ -2229,6 +2267,43 @@ ACT.step = function (el) {
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
   LS.set('tp.drafts', DRAFTS); window.scrollTo(0, 0); render();
 };
+ACT['t-set'] = function (el) {
+  if (!TM.cfg || !TM.cfg.free) return;
+  if (TM.running || TM.acc > 0) { if (el.id !== 't-digits') toast('Setz den Timer erst zurück.'); return; }
+  var k = el.dataset.k, f = TFIELDS[TM.mode].filter(function (x) { return x[0] === k; })[0]; if (!f) return;
+  var t = tmr(), c = t[TM.mode];
+  function set(v) { c[k] = Math.max(f[3], v); saveState(); toolSetup(); render(); }
+  if (f[2] === 'count') openSheet(f[1], [{ head: 'Runden', items: numItems(1, 99), val: String(c[k]) }], function (v) { set(+v[0]); });
+  else openTimeSheet(f[1], c[k], set);
+};
+// Training verlassen: im Training gibt es keine Reiterleiste, nur das X oben rechts.
+ACT.quit = function () {
+  var k = draftKey(S.tag), d = DRAFTS[k] || {}, at = +(d._step || 0);
+  openChoice('Training verlassen?', 'Zwischenspeichern merkt sich deine Einträge, später geht es bei Schritt ' + (at + 1) + ' weiter.', [
+    ['save', 'Zwischenspeichern', 'primary'], ['quit', 'Training abbrechen', 'danger'], ['', 'Weiter trainieren', '']
+  ], function (v) {
+    if (!v) return;
+    if (TM.cfg && TM.cfg.step && TM.cfg.step.indexOf(k + ':') === 0) { timerReset(); TM.cfg.step = null; }
+    if (v === 'save') { d._at = String(at); delete d._step; DRAFTS[k] = d; toast('Zwischengespeichert. Weiter bei Schritt ' + (at + 1) + '.'); }
+    else { delete DRAFTS[k]; toast('Training abgebrochen.'); }
+    LS.set('tp.drafts', DRAFTS); window.scrollTo(0, 0); render();
+  });
+};
+function openChoice(title, text, opts, done) {
+  closeSheet();
+  var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
+  bg.innerHTML = '<div class="sheet" role="alertdialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-body choice"><h2>' + esc(title) + '</h2><p class="muted">' + esc(text) + '</p>' +
+    opts.map(function (o) { return '<button type="button" class="btn block' + (o[2] ? ' ' + o[2] : '') + '" data-c="' + o[0] + '">' + esc(o[1]) + '</button>'; }).join('') + '</div></div>';
+  document.body.appendChild(bg);
+  bg.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-c]');
+    if (e.target !== bg && !b) return;
+    if (b) haptic(b.dataset.c ? 'step' : 'tap');
+    closeSheet(); done(b ? b.dataset.c : '');
+  });
+  document.addEventListener('keydown', sheetKey);
+  requestAnimationFrame(function () { bg.classList.add('open'); });
+}
 
 /* ---------- Timer-Leiste im Schritt ---------- */
 var RING = 2 * Math.PI * 21;
@@ -2244,7 +2319,6 @@ ACT['tb-start'] = function () {
 };
 ACT['tb-toggle'] = function () { timerToggle(); paintMini(); };
 ACT['tb-finish'] = function () { finish(); };
-ACT['tb-open'] = function () { ui.tab = 'timer'; window.scrollTo(0, 0); render(); };
 ACT['tb-clear'] = function () { timerReset(); TM.cfg.step = null; paintMini(); };
 function paintMini(L) {
   var b = document.getElementById('tbar'); if (!b) return;
@@ -2254,7 +2328,7 @@ function paintMini(L) {
     b.dataset.state = state;
     if (state === 'idle') b.innerHTML = '<button type="button" class="tb-main" data-act="tb-start"><span class="tb-play">' + PLAY + '</span><span class="tb-txt"><b>' + esc(b.dataset.label) + '</b><small>' + esc(b.dataset.info) + '</small></span></button>';
     else if (state === 'done') b.innerHTML = '<button type="button" class="tb-main" data-act="' + (b.dataset.next ? 'step' : 'tb-clear') + '" data-to="' + (b.dataset.next || '') + '"><span class="tb-play done">' + TICK + '</span><span class="tb-txt"><b>' + (b.dataset.next ? 'Weiter zu ' + esc(b.dataset.nextl) : 'Geschafft') + '</b><small>' + (b.dataset.next ? 'Block geschafft' : 'Trag dein Ergebnis ein') + '</small></span></button>';
-    else b.innerHTML = '<button type="button" class="tb-main" data-act="tb-open" aria-label="Großen Timer öffnen"><span class="tb-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tr-bg" cx="24" cy="24" r="21"/><circle class="tr-fg" id="tb-arc" cx="24" cy="24" r="21" stroke-dasharray="' + RING.toFixed(1) + '"/></svg><b id="tb-time"></b></span><span class="tb-txt"><b id="tb-title"></b><small id="tb-sub"></small></span></button>' +
+    else b.innerHTML = '<div class="tb-main" role="timer"><span class="tb-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tr-bg" cx="24" cy="24" r="21"/><circle class="tr-fg" id="tb-arc" cx="24" cy="24" r="21" stroke-dasharray="' + RING.toFixed(1) + '"/></svg><b id="tb-time"></b></span><span class="tb-txt"><b id="tb-title"></b><small id="tb-sub"></small></span></div>' +
       '<button type="button" class="tb-btn" id="tb-tg" data-act="' + (TM.mode === 'zeit' ? 'tb-finish' : 'tb-toggle') + '"></button>';
   }
   document.querySelectorAll('.ex-card.now,.cell.now').forEach(function (x) { x.classList.remove('now'); });

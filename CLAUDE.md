@@ -29,12 +29,18 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
   Danach Schritt für Schritt (`stepsOf`, `stepPageHTML`): Krafttag Aufwärmen, Handstand, Kraft, Metcon; Testtag eine Übung
   pro Schritt; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
-  Lauftage haben keine Schritte, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
+  Im Training (Schritt-Seiten) ist die Reiterleiste ausgeblendet (`body.focus`); oben rechts ein kleines X (`ACT.quit`)
+  fragt nach: Zwischenspeichern (weiter beim Schritt), Training abbrechen (Entwurf weg) oder Weiter trainieren.
+  Lauftage haben keine Schritte und keinen Timer, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).
 - Stufen und Wiederholungen wählt man mit dem Rad-Blatt von unten (`openSheet`, `ACT.pick`), nicht mit Textfeldern.
   Stufen-Listen bleiben in der Reihenfolge der Leiter (nicht alphabetisch). Im EMOM zeigt jedes Feld seine Minute.
 - Jeder Schritt bringt seinen Timer fertig eingestellt mit (helle Glas-Leiste `#tbar`, `paintMini`), Timer-Art `block`
-  für Aufwärmen und Handstand. Die laufende EMOM-Übung ist blau umrandet.
+  für Aufwärmen und Handstand. Die laufende EMOM-Übung ist blau umrandet. Vorlagen aus dem Plan gibt es nur dort.
+- Tools › Timer ist frei einstellbar: EMOM (Alle, Runden), AMRAP (Dauer), Intervall (Arbeit, Pause, Runden), Auf Zeit
+  (Zeitlimit oder ohne), immer mit 10 s Vorlauf. Einstellung je Art in `S.tmr` (`tmr()`, nur auf dem Gerät).
+  Zeiten wählt man im Zeit-Blatt (`openTimeSheet`): Rad Min/Sek in 1er-Schritten, nochmal auf die Zeit tippen = Zahlentastatur
+  (Ziffern laufen von rechts ein). Auch die große Zeit lässt sich antippen.
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.
 - Profil › Entwicklung: je Leiter eine Kurve von Anfang an mit den Stufen als Bänder (`ladderSeries`),
   dazu Lauf locker und Intervall-Lauf mit Tempo und Puls (`devRunHTML`).
