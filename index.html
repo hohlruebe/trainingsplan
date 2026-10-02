@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#F5F5F2" id="meta-theme">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -539,6 +539,8 @@ var LAD = {}; PLAN.ladders.forEach(function (g) { g.rows.forEach(function (r) { 
 var LIB = JSON.parse(document.getElementById('lib-data').textContent);
 var EQ = {}, UE = {};
 LIB.equipment.forEach(function (e) { EQ[e.id] = e; });
+// Alltagsgegenstände gibt es nicht an jedem Ort (z. B. im Gym), deshalb ein normales Gerät zum Ankreuzen.
+if (EQ.eq_zuhause) { EQ.eq_zuhause.name = 'Alltagsgegenstände'; EQ.eq_zuhause.preis = 'Stuhl, Sofa, Türrahmen, Wand, Handtuch'; }
 LIB.uebungen.forEach(function (u) {
   UE[u.id] = u;
   var g = GL[u.name] || (GL[u.name] = { key: u.id, name: u.name, where: [], trains: u.trainiert, steps: u.schritte, cue: u.sauber, stages: '' });
@@ -2099,7 +2101,14 @@ ACT['run-mode'] = function (el) { setDraft('mode', el.dataset.m); haptic(); rend
 
 /* ---------- Rad zum Auswählen ---------- */
 var WH = 44;
-function closeSheet() { var s = document.getElementById('sheet'); if (s) s.remove(); document.removeEventListener('keydown', sheetKey); }
+function closeSheet() { var s = document.getElementById('sheet'); if (s) { if (s._unfit) s._unfit(); s.remove(); } document.removeEventListener('keydown', sheetKey); }
+// Blatt mit Textfeld: Höhe an den sichtbaren Bereich anpassen, damit die Tastatur das Feld nicht verdeckt.
+function fitKeyboard(bg) {
+  var vv = window.visualViewport; if (!vv) return;
+  function fit() { bg.style.top = vv.offsetTop + 'px'; bg.style.height = vv.height + 'px'; bg.style.bottom = 'auto'; }
+  vv.addEventListener('resize', fit); vv.addEventListener('scroll', fit); fit();
+  bg._unfit = function () { vv.removeEventListener('resize', fit); vv.removeEventListener('scroll', fit); };
+}
 function sheetKey(e) { if (e.key === 'Escape') closeSheet(); }
 function openSheet(title, cols, done) {
   closeSheet();
@@ -2314,12 +2323,14 @@ function entwicklungHTML() {
 /* ---------- Orte, Equipment und Plätze im Plan ---------- */
 function ensureOrte() {
   if (!Array.isArray(S.orte) || !S.orte.length) S.orte = [{ id: 'o1', name: 'Zuhause', eq: ['eq_ringe', 'eq_band', 'eq_weste', 'eq_abwheel', 'eq_ergometer'] }];
+  // Früher waren Alltagsgegenstände überall dabei: einmalig an jedem bestehenden Ort ankreuzen.
+  S.orte.forEach(function (o) { if (!o.zh) { if (o.eq.indexOf('eq_zuhause') < 0) o.eq.unshift('eq_zuhause'); o.zh = 1; } });
   if (!S.orte.some(function (o) { return o.id === S.ort; })) S.ort = S.orte[0].id;
   if (!S.picks || typeof S.picks !== 'object') S.picks = {};
   if (!S.pickSkip || typeof S.pickSkip !== 'object') S.pickSkip = {};
 }
 function curOrt() { ensureOrte(); return S.orte.filter(function (o) { return o.id === S.ort; })[0]; }
-function haveEq(o) { var h = { eq_zuhause: 1 }; (o || curOrt()).eq.forEach(function (e) { h[e] = 1; }); return h; }
+function haveEq(o) { var h = {}; (o || curOrt()).eq.forEach(function (e) { h[e] = 1; }); return h; }
 // Equipment-Gruppen: jede Gruppe muss erfüllt sein, innerhalb einer Gruppe reicht ein Gerät.
 function eqOk(groups, have) { return !groups || groups.every(function (g) { return !g.length || g.some(function (x) { return have[x]; }); }); }
 function eqMissing(groups, have) {
@@ -2355,16 +2366,17 @@ function planFill() {
   ensureOrte();
   var k = [LOGS.length, S.ort, S.durchgang, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
   if (FILL.k === k) return FILL.v;
-  var st = ladderStates(LOGS), have = haveEq(), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {} };
+  var st = ladderStates(LOGS), have = haveEq(), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {}, missing: {} };
   [1, 3, 6].forEach(function (tag) {
     var slots = (SLOTS[tag] && SLOTS[tag].kraft) || [], kr = [];
-    out.sugg[tag] = [];
+    out.sugg[tag] = []; out.missing[tag] = [];
     DEF_KRAFT[tag].forEach(function (d0, i) {
       var p = slots[i], defKey = GL[d0.n] ? GL[d0.n].key : null;
       if (!p) { kr.push(d0); used[defKey] = 1; return; }
       var cands = Object.keys(LAD).filter(function (key) { return LAD[key].lib && p.muster.indexOf(LAD[key].muster) >= 0 && !used[key] && ladderOk(key, have, st); }).sort(byNutzen);
       var sk = slotKey(tag, p.platz), pk = S.picks[sk];
       var cur = pk && cands.indexOf(pk) >= 0 ? pk : defKey && cands.indexOf(defKey) >= 0 ? defKey : cands[0] || defKey;
+      if (!cands.length) out.missing[tag].push(p.muster.map(function (m) { return MUSTER[m] || m; }).join(' oder '));
       used[cur] = 1; out.kraftKeys[cur] = 1;
       var best = cands.filter(function (x) { return x !== cur; })[0];
       if (best && nutzenOf(best) > nutzenOf(cur) && S.pickSkip[sk] !== S.durchgang) out.sugg[tag].push({ slot: sk, from: cur, to: best });
@@ -2391,8 +2403,8 @@ function planFill() {
   return out;
 }
 function suggHTML(tag) {
-  var list = planFill().sugg[tag] || [];
-  return list.map(function (s) {
+  var list = planFill().sugg[tag] || [], miss = planFill().missing[tag] || [];
+  return (miss.length ? '<section class="card note"><p>Hier fehlen Geräte für ' + esc(miss.join(', ')) + '. Bis dahin bleibt die Standardübung im Plan. Kreuz unter Profil › Equipment an, was es hier gibt.</p></section>' : '') + list.map(function (s) {
     var a = LAD[s.from], b = LAD[s.to];
     return '<section class="card unlock"><p class="unlock-k">Neu freigeschaltet · ' + esc(curOrt().name) + '</p>' +
       '<p><b>' + esc(b.name) + '</b> statt ' + esc(a ? a.name : '–') + '. Mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + ' (' + nutzenOf(s.to) + ' statt ' + nutzenOf(s.from) + ').</p>' +
@@ -2419,10 +2431,10 @@ function equipmentHTML() {
   var o = curOrt(), have = haveEq(o);
   var h = '<div class="chips-row ort-bar">' + S.orte.map(function (x) {
     return '<button type="button" class="ort' + (x.id === o.id ? ' on' : '') + '" data-act="ort-pick" data-id="' + esc(x.id) + '" aria-pressed="' + (x.id === o.id) + '">' + esc(x.name) + '</button>';
-  }).join('') + '<button type="button" class="ort add" data-act="ort-new" aria-label="Ort anlegen">+</button><span class="small muted ort-n">' + o.eq.length + ' von ' + (LIB.equipment.length - 1) + '</span></div>';
+  }).join('') + '<button type="button" class="ort add" data-act="ort-new" aria-label="Ort anlegen">+</button><span class="small muted ort-n">' + o.eq.length + ' von ' + LIB.equipment.length + '</span></div>';
   h += '<div class="row wrap ort-act"><button type="button" class="lnk" data-act="ort-ren">Umbenennen</button>' + (S.orte.length > 1 ? '<button type="button" class="lnk red" data-act="ort-del">Ort löschen</button>' : '') + '</div>';
   h += '<section class="card eq-list">' + LIB.equipment.map(function (e) {
-    var on = !!have[e.id], fixed = e.id === 'eq_zuhause', open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
+    var on = !!have[e.id], fixed = false, open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
     return '<div class="eq-row' + (open ? ' open' : '') + '"><div class="eq-top"><button type="button" class="eq-main" data-act="eq-open" data-id="' + e.id + '" aria-expanded="' + open + '"><span class="eq-sc">' + e.score + '</span>' +
       '<span class="eq-t"><b>' + esc(e.name) + '</b><small>' + esc(e.preis) + ' · ' + use.length + (use.length === 1 ? ' Übung' : ' Übungen') + '</small></span></button>' +
       (fixed ? '<span class="small muted">immer dabei</span>' : '<label class="check"><input type="checkbox" data-change="eq" data-id="' + e.id + '"' + (on ? ' checked' : '') + '><span class="sr">' + esc(e.name) + '</span></label>') + '</div>' +
@@ -2448,16 +2460,17 @@ function openForm(title, body, okLabel, ok) {
     else if (b && b.dataset.sh === 'ok') { if (ok(bg) !== false) closeSheet(); }
   });
   document.addEventListener('keydown', sheetKey);
+  fitKeyboard(bg);
   requestAnimationFrame(function () { bg.classList.add('open'); var i = bg.querySelector('input'); if (i) i.focus(); });
 }
 ACT['ort-new'] = function () {
   openForm('Neuer Ort', '<label class="field"><span>Name</span><input type="text" id="ort-name" maxlength="24" placeholder="z. B. Gym"></label>' +
     '<p class="field-l">Startet mit</p><div class="seg"><button type="button" class="seg-btn on" data-seg="">Nichts</button>' + S.orte.slice(0, 2).map(function (o) { return '<button type="button" class="seg-btn" data-seg="' + esc(o.id) + '">Wie ' + esc(o.name) + '</button>'; }).join('') + '</div>' +
-    '<p class="small muted">Stuhl, Wand und Handtuch sind überall dabei.</p>', 'Anlegen', function (bg) {
+    '<p class="small muted">Die Geräte kreuzt du danach unter Equipment an, auch Alltagsgegenstände wie Stuhl, Wand und Handtuch.</p>', 'Anlegen', function (bg) {
     var name = bg.querySelector('#ort-name').value.trim(); if (!name) { toast('Gib dem Ort einen Namen.'); return false; }
     var from = bg.querySelector('[data-seg].on').dataset.seg, src = S.orte.filter(function (o) { return o.id === from; })[0];
     var id = 'o' + Date.now().toString(36);
-    S.orte.push({ id: id, name: name, eq: src ? src.eq.slice() : [] }); S.ort = id; saveState(); render(); toast('Ort „' + name + '“ angelegt.');
+    S.orte.push({ id: id, name: name, eq: src ? src.eq.slice() : [], zh: 1 }); S.ort = id; saveState(); render(); toast('Ort „' + name + '“ angelegt.');
   });
 };
 ACT['ort-ren'] = function () {
