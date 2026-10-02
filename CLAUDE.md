@@ -18,6 +18,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
 - Manifest `display: fullscreen`: Auf Android blendet die installierte App Status- und
   Gestenleiste aus (sonst zeichnet Chrome unten einen schwarzen Streifen).
+  Zusätzlich fordert die installierte App beim ersten Tippen Vollbild an (`goFullscreen()`,
+  abschaltbar), weil Chrome Manifest-Änderungen erst nach Neuinstallation übernimmt.
   Auf dem iPhone zeichnet sie bis unter Statusleiste und Home-Balken (`black-translucent`).
   Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
 - `sw.js`: Service Worker für den Offline-Betrieb

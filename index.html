@@ -312,7 +312,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, base: {}, standTs: 0 };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, base: {}, standTs: 0 };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -1140,6 +1140,7 @@ function settingsHTML() {
     return '<button type="button" class="fopt" data-act="font" data-v="' + f.id + '" aria-pressed="' + on + '"><b style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">Tag 1</b><span>' + esc(f.label) + '</span></button>';
   }).join('') + '</div>';
   h += '<h3 style="margin-top:16px">Haptik</h3><label class="check"><input type="checkbox" data-change="haptik"' + (S.haptik !== false ? ' checked' : '') + '> Kurz vibrieren beim Wechseln der Reiter</label>';
+  h += '<h3 style="margin-top:16px">Vollbild</h3><label class="check"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Status- und Navigationsleiste in der installierten App ausblenden</label>';
   h += '<h3 style="margin-top:12px">Stand</h3><div class="setting"><label class="field"><span>Durchgang</span><select id="set-d">' + dOpts + '</select></label><label class="field"><span>Tag</span><select id="set-t">' + tOpts + '</select></label><button type="button" class="btn small" data-act="set-stand">Übernehmen</button></div>';
   h += '<div class="setting"><label class="field"><span>Startdatum (für den ersten Murph)</span><input type="date" data-change="start" value="' + esc(S.startDate || '') + '"></label></div>';
   var where = DB.ready ? 'Deine Daten liegen in deinem Claude-Konto und sind auf jedem Gerät gleich.'
@@ -1167,6 +1168,18 @@ function haptic() {
   }
   hapticEl.click();
 }
+
+/* ---------- Vollbild ---------- */
+// Chrome übernimmt display: fullscreen aus dem Manifest erst nach einer Neuinstallation.
+// Deshalb fordert die installierte App beim ersten Tippen selbst Vollbild an
+// (blendet Status- und Gestenleiste aus). Ein Wisch vom Rand holt sie kurz zurück.
+function isInstalled() { return !!window.matchMedia && (matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: minimal-ui)').matches); }
+function goFullscreen() {
+  var d = document.documentElement;
+  if (S.vollbild === false || document.fullscreenElement || !d.requestFullscreen || !isInstalled()) return;
+  try { var p = d.requestFullscreen({ navigationUI: 'hide' }); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+}
+document.addEventListener('click', goFullscreen, true);
 
 /* ---------- theme ---------- */
 function isDark() { return S.theme === 'dark' || (S.theme !== 'light' && !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); }
@@ -1242,6 +1255,7 @@ var ACT = {
 var CHG = {
   sound: function (el) { S.sound = el.checked; saveState(); },
   haptik: function (el) { S.haptik = el.checked; saveState(); if (S.haptik) haptic(); },
+  vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
   track: function (el) { ui.track = el.value; render(); },
   start: function (el) { S.startDate = el.value || null; saveState(); toast('Startdatum gespeichert.'); }
 };
