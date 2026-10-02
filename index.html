@@ -28,7 +28,7 @@
 <style>
 :root{
   --board:#F5F5F2; --ink:#111214; --ink2:#6E6E73; --line:#EBEBE7; --line2:#D4D4CF; --red:#C62F2A;
-  --paper:#FFFFFF; --fill:#E8E8E3; --pill:#FFFFFF; --tray:#F0F0EC; --tray-line:#DEDED9; --green:#1F7A3D;
+  --paper:#FFFFFF; --fill:#E8E8E3; --pill:#FFFFFF; --on:#34C759; --off:#FF3B30; --tray:#F0F0EC; --tray-line:#DEDED9; --green:#1F7A3D;
   --note:#FFF4D6; --note-ink:#5C4300;
   --acc:#1E5BD8; --on-acc:#FFFFFF;
   --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.04);
@@ -45,13 +45,13 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --board:#0E0F11; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#26272B; --line2:#3A3B40; --red:#FF8B7B;
-    --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
+    --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --on:#30D158; --off:#FF453A; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
     --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --board:#0E0F11; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#26272B; --line2:#3A3B40; --red:#FF8B7B;
-  --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
+  --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --on:#30D158; --off:#FF453A; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
   --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -127,8 +127,16 @@ input[type=text],input[type=password],input[type=number],input[type=search],inpu
 .num-in input{width:88px}
 .txt-in input{width:190px}
 textarea{width:100%;min-height:84px;resize:vertical}
-.check{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer}
-.check input{width:22px;height:22px;accent-color:var(--acc)}
+.check{display:flex;flex-direction:row-reverse;align-items:center;justify-content:space-between;gap:12px;min-height:44px;cursor:pointer}
+/* Schalter nach Apple-Vorbild mit An/Aus-Zeichen: an = grün mit Strich, aus = rot mit Kreis */
+.check input{-webkit-appearance:none;appearance:none;flex:0 0 auto;position:relative;width:51px;height:31px;margin:0;border:0;border-radius:16px;background:var(--off);cursor:pointer;transition:background-color .3s ease}
+.check input::before{content:"";position:absolute;top:10px;right:9px;width:11px;height:11px;box-sizing:border-box;border:1.5px solid #fff;border-radius:50%;transition:opacity .2s}
+.check input:checked::before{right:auto;left:14px;top:10px;width:2px;height:11px;border:0;border-radius:1px;background:#fff}
+.check input::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:14px;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.16);transition:transform .32s cubic-bezier(.3,1.35,.5,1),width .18s ease}
+.check input:checked{background:var(--on)}
+.check input:checked::after{transform:translateX(20px)}
+.check input:active::after{width:33px}
+.check input:checked:active::after{transform:translateX(14px)}
 .flag{background:var(--note);color:var(--note-ink);border-radius:12px;padding:10px 12px;margin:8px 0}
 .seg{display:flex;gap:2px;padding:2px;margin:10px 0;border-radius:12px;background:var(--fill)}
 .seg-btn{flex:1 1 0;min-width:0;min-height:42px;border:0;border-radius:10px;background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:14px;cursor:pointer;padding:4px 4px}
