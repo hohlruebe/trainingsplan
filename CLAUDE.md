@@ -16,9 +16,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Unterseiten über den Umschalter oben (`GROUPS` im Skript).
   Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
   Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
-- Manifest `display: standalone`. Beim Öffnen fragt die installierte App „Vollbild oder
-  App-Ansicht“ (`askView()`, Einstellung `ansicht`: fragen/vollbild/app). Vollbild über
-  `requestFullscreen` nach einem Tippen, nach dem Minimieren holt das nächste Tippen es zurück.
+- Manifest `display: standalone`. Ist `vollbild` an (Einstellung, Standard an), wechselt die
+  installierte App beim ersten Tippen per `requestFullscreen` ins Vollbild (`goFullscreen()`).
+  Nach dem Minimieren holt das nächste Tippen es zurück.
   Manifest-Vollbild nicht verwenden: Chrome lässt dort den Kamera-Bereich oben nach dem Start schwarz.
   Auf dem iPhone zeichnet sie bis unter Statusleiste und Home-Balken (`black-translucent`).
   Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
@@ -43,6 +43,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengenangaben.
   Farben über CSS-Variablen (`--acc`, `--ink`, `--board`, `--paper`, `--fill`),
   Dunkelmodus über `data-theme`.
+- Schalter: alle Checkboxen (`.check input`) sind Schalter „Glas-Tropfen“: an = grün mit Strich
+  (`--on` #4DBF79), aus = rot mit Kreis (`--off` #EE6A5C). Beim Umschalten wächst der Knopf
+  kurz an und setzt sich weich ab (Klasse `live` nach Änderung).
 
 ## Trainingslogik (Kurzfassung)
 - Tag 1 Kraft A (Pull), Tag 2 Lauf locker, Tag 3 Kraft B (Push), Tag 4 Intervall-Lauf,
