@@ -44,7 +44,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.
 - Profil › Entwicklung: je Leiter eine Kurve von Anfang an mit den Stufen als Bänder (`ladderSeries`),
   dazu Lauf locker und Intervall-Lauf mit Tempo und Puls (`devRunHTML`).
-- Orte (`S.orte`, frei anlegbar, je eigene Equipment-Liste) unter Profil › Equipment; auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
+- Orte: sechs feste Orte mit Symbol (`ORTE_FIX`: Zuhause, Gym, Park, Garage, Arbeit, Unterwegs), je eigene Equipment-Liste.
+  In `S.orte` je `{id, k, on, eq, zh}`; angezeigt werden nur eingeschaltete (`on`), mindestens einer bleibt an.
+  Einschalten über den Stift neben der Orte-Kapsel unter Profil › Equipment (`ACT.orte`). Früher frei benannte Orte
+  ordnet `ensureOrte()` einem festen Ort zu (IDs, Geräte und `S.picks` bleiben). Auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
   Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
   Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
   eine Leiter mit mehr Nutzen wird als „Neu freigeschaltet“ vorgeschlagen (Später = bis zum nächsten Durchgang, `S.pickSkip`).
@@ -84,6 +87,20 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Schalter: alle Checkboxen (`.check input`) sind Schalter „Glas-Tropfen“: an = grün mit Strich
   (`--on` #4DBF79), aus = rot mit Kreis (`--off` #EE6A5C). Beim Umschalten wächst der Knopf
   kurz an und setzt sich weich ab (Klasse `live` nach Änderung).
+
+## Kapsel-Konzept (gilt für alles Neue)
+Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine (Entwurf: Canvas-Board „7 · Kapsel-Konzept“):
+1. Umschalter (eine Wahl aus wenigen): Glas-Kapsel `.seg` mit `.seg-btn`, Wahl als weiße Pille (`--pill`, Text `--acc`).
+2. Kapsel mit Symbolen (viele Ziele, wenig Platz): `capHTML()` / `.cap` mit `.cap-btn`, nur die Wahl zeigt ihren Namen
+   (Reiterleiste, Profil-Ansichten, Orte). Tage 1–7 auf Heute: Kapsel `.pills`, dran = gefüllt in `--acc`, angeschaut = weiße Pille.
+3. Hauptaktion: `.btn.primary` (volle Kapsel in `--acc`), eine pro Seite, meist `.block` über die ganze Breite. Speichern: `.btn.save` (grün).
+4. Nebenaktion: `.btn` (Glas-Kapsel, dunkle Schrift), klein `.btn.small`.
+5. Gruppe zusammengehöriger Nebenaktionen: `.bgrp` mit Knöpfen darin, feine Trenner (z. B. Exportieren | Importieren).
+6. Gefährlich: `.btn.red` bzw. `.bgrp button.red` (rote Schrift), immer mit Nachfrage (`twoStep` oder `openChoice`).
+7. Zähler: `.stepper` mit runden – / + und dem Wert in der Mitte.
+8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
+Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
+Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt. Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Tag 1 Lift Off (Kraft Zug), Tag 2 Base Builder (Lauf locker), Tag 3 Push Through (Kraft Druck), Tag 4 Redline (Intervall-Lauf),

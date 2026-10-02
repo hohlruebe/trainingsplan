@@ -86,21 +86,33 @@ b{font-weight:700}
 .chip.blue{background:color-mix(in srgb,var(--acc) 13%,var(--paper));color:var(--acc)}
 .card-head .chip{min-height:24px;font-size:12px;padding:2px 9px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:6px 18px;border:0;border-radius:14px;background:var(--fill);color:var(--ink);font-family:var(--head);font-weight:600;font-size:17px;line-height:1.1;letter-spacing:-.01em;cursor:pointer;text-decoration:none}
-.btn.primary{background:var(--acc);color:var(--on-acc)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:6px 20px;border:1px solid color-mix(in srgb,var(--ink) 8%,transparent);border-radius:999px;background:color-mix(in srgb,var(--paper) 72%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);box-shadow:0 4px 12px rgba(17,18,20,.06);color:var(--ink);font-family:var(--head);font-weight:600;font-size:17px;line-height:1.1;letter-spacing:-.01em;cursor:pointer;text-decoration:none}
+.btn.primary{background:var(--acc);color:var(--on-acc);border-color:transparent;box-shadow:0 6px 16px color-mix(in srgb,var(--acc) 28%,transparent)}
+.btn.red{color:var(--red);border-color:color-mix(in srgb,var(--red) 28%,transparent)}
+.btn:disabled{opacity:.45;cursor:default}
+/* Gruppe: zusammengehörige Nebenaktionen in einer Kapsel */
+.bgrp{display:flex;width:100%;margin-top:10px;border-radius:999px;overflow:hidden;border:1px solid color-mix(in srgb,var(--ink) 8%,transparent);background:color-mix(in srgb,var(--paper) 72%,transparent);box-shadow:0 4px 12px rgba(17,18,20,.06)}
+.bgrp button{flex:1 1 0;min-width:0;min-height:46px;border:0;border-left:1px solid color-mix(in srgb,var(--ink) 8%,transparent);background:transparent;color:var(--ink);font-family:var(--head);font-weight:600;font-size:15px;padding:4px 10px;cursor:pointer}
+.bgrp button:first-child{border-left:0}
+.bgrp button.red{color:var(--red)}
+/* Zähler: Minus und Plus als Kreise in einer Kapsel */
+.stepper{display:inline-flex;align-items:center;gap:4px;padding:4px;border-radius:999px;background:var(--board)}
+.stepper button{width:40px;height:40px;border-radius:20px;border:0;background:var(--paper);color:var(--ink);font-family:var(--head);font-size:22px;font-weight:500;line-height:1;padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(17,18,20,.08);display:flex;align-items:center;justify-content:center}
+.stepper button.primary{background:var(--acc);color:var(--on-acc)}
+.stepper b{min-width:96px;text-align:center;font-family:var(--hand);font-weight:var(--hand-w);font-size:22px}
 .btn.block{width:100%;margin-top:10px}
-.btn.small{min-height:44px;font-size:16px;padding:4px 14px;border-radius:12px}
+.btn.small{min-height:44px;font-size:16px;padding:4px 16px}
 .btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible,.tab:focus-visible,.pill:focus-visible,.seg-btn:focus-visible,.link:focus-visible,.sw:focus-visible,.fopt:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .hero{margin:6px 0 2px}
 .hero-title{font-family:var(--head);font-weight:500;font-size:21px;line-height:1.2;letter-spacing:-.01em;margin:4px 0 10px;color:var(--ink)}
 .hero>h1:only-child{margin-bottom:22px}
 .kicker{margin:10px 0 6px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.pills{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:14px 0 6px}
-.pill{height:44px;border-radius:22px;border:1px solid var(--line2);background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:16px;line-height:1;cursor:pointer;padding:0}
-.pill.rest{border-style:dashed;color:var(--ink2)}
-.pill.cur{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:600;box-shadow:0 4px 10px color-mix(in srgb,var(--acc) 30%,transparent)}
-.pill.view{box-shadow:0 0 0 3px var(--board),0 0 0 5px var(--red)}
-@media (max-width:360px){.pills{gap:4px}.pill{height:40px;font-size:15px}}
+.pills{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;margin:14px 0 6px;padding:4px;border-radius:999px;background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 6px 18px rgba(17,18,20,.07)}
+.pill{height:42px;border-radius:21px;border:0;background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:16px;line-height:1;cursor:pointer;padding:0}
+.pill.rest{color:var(--ink2);opacity:.75}
+.pill.cur{background:var(--acc);color:var(--on-acc);font-weight:600;opacity:1;box-shadow:0 4px 10px color-mix(in srgb,var(--acc) 30%,transparent)}
+.pill.view{background:var(--pill);color:var(--acc);font-weight:600;opacity:1;box-shadow:0 2px 8px rgba(17,18,20,.1)}
+@media (max-width:360px){.pill{height:40px;font-size:15px}}
 .list{list-style:none;margin:0;padding:0}
 .list li{padding:8px 0;border-top:1px solid var(--line);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
 .list li:first-child{border-top:0}
@@ -152,6 +164,8 @@ button.t-digits{display:block;width:100%;border:0;background:none;color:inherit;
 .t-bar{height:8px;border:0;background:var(--fill);border-radius:999px;margin:16px 0;overflow:hidden}
 #t-fill{height:100%;width:0;background:var(--acc);border-radius:999px}
 .t-ctl,.t-rounds{justify-content:center;flex-wrap:wrap}
+.t-ctl .btn{flex:1 1 0}
+.t-ctl #t-toggle{flex-grow:1.4}
 .t-rcount{font-size:calc(30px * var(--hand-k));margin:0 8px;min-width:110px}
 details.card{padding:0 16px;margin:12px 0}
 details.card[open]{padding-bottom:14px}
@@ -275,6 +289,7 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .p-chart .grid{stroke:var(--line);fill:none}
 .p-chart .line{stroke:var(--acc);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .back{margin:0 0 8px}
+.rbtn.back{margin:0 0 4px}
 /* Medaillen */
 .medals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 4px;margin-top:6px}
 .m-cell{border:0;background:none;padding:0;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;cursor:pointer}
@@ -373,8 +388,8 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .tl-h{display:flex;justify-content:space-between;gap:8px;font-size:16px;font-weight:600}
 .tl-h span{font-weight:400;font-size:14px;color:var(--ink2);white-space:nowrap}
 .tl-d{font-size:14px;color:var(--ink2);margin-top:2px}
-.btn.go{min-height:56px;font-size:18px;border-radius:16px}
-.btn.save{background:var(--on);color:#fff}
+.btn.go{min-height:56px;font-size:18px}
+.btn.save{background:var(--on);color:#fff;border-color:transparent}
 .ov-foot{text-align:center;font-size:14px;color:var(--ink2);margin:12px 0}
 .st-top{display:flex;align-items:center;justify-content:space-between;margin:0 0 8px}
 .st-r{display:flex;align-items:center;gap:4px}
@@ -479,14 +494,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .kv>div>span:last-child{text-align:right}
 /* Orte, Equipment, Freischalten, Übungen nach Muster */
 .chips-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.ort{min-height:44px;padding:0 16px;border:0;border-radius:22px;background:var(--paper);color:var(--ink);font:inherit;font-size:15px;font-weight:500;cursor:pointer;box-shadow:var(--shadow)}
 .card .ort{background:var(--board);box-shadow:none}
-.ort.on{background:var(--acc);color:var(--on-acc);font-weight:600}
-.ort.add{width:44px;padding:0;font-size:22px;color:var(--acc)}
-.ort-n{margin-left:auto}
-.ort-bar{margin:4px 0 2px}
-.ort-act{gap:18px;margin:0 0 4px}
-.ort-pick p{margin:0 0 8px}
 .lnk.red{color:var(--red)}
 .unlock{box-shadow:0 0 0 2px var(--on),var(--shadow)}
 .unlock p{margin:0 0 10px}
@@ -534,16 +542,25 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 /* Kapseln wie die Reiterleiste */
 .cap{display:flex;gap:4px;width:max-content;max-width:100%;margin:0 auto 16px;padding:5px;border-radius:30px;overflow-x:auto;scrollbar-width:none;background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 10px 30px rgba(17,18,20,.08)}
 .cap::-webkit-scrollbar{display:none}
+.ort-bar{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 4px}
+.ort-bar .cap{margin:0}
+.ort-n{text-align:center;margin:6px 0 10px}
+.ort-pick p{margin:0 0 8px}
+.cap.in-card{margin:0;background:var(--board);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.rbtn{flex:none;width:44px;height:44px;border-radius:22px;border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);background:color-mix(in srgb,var(--paper) 72%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);box-shadow:0 6px 18px rgba(17,18,20,.07);color:var(--ink);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.rbtn svg{width:20px;height:20px}
+.orte-list{display:flex;flex-direction:column}
+.orte-row{display:flex;flex-direction:row;align-items:center;gap:12px;min-height:56px;border-top:1px solid var(--line)}
+.orte-row:first-child{border-top:0}
+.orte-ic{width:40px;height:40px;border-radius:20px;background:var(--board);color:var(--acc);display:flex;align-items:center;justify-content:center;flex:none}
+.orte-ic svg{width:20px;height:20px}
+.orte-t{flex:1;display:flex;flex-direction:column}
+.orte-t small{font-size:13px;color:var(--ink2)}
 .cap-btn{flex:none;display:flex;align-items:center;justify-content:center;height:44px;min-width:44px;padding:0 10px;border:0;border-radius:22px;background:transparent;color:var(--ink2);font-family:var(--head);font-weight:600;font-size:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .25s,color .25s,padding .3s,box-shadow .25s}
 .cap-btn svg{width:22px;height:22px;flex:none}
 .cap-btn span{display:block;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .3s ease,opacity .2s,margin .3s ease}
 .cap-btn.on{background:var(--pill);color:var(--acc);padding:0 16px 0 12px;box-shadow:0 2px 8px rgba(17,18,20,.1)}
 .cap-btn.on span{max-width:110px;opacity:1;margin-left:7px}
-.ort-bar,.ort-pick .chips-row{display:inline-flex;flex-wrap:nowrap;gap:4px;padding:4px;max-width:100%;overflow-x:auto;border-radius:999px;background:color-mix(in srgb,var(--paper) 58%,transparent);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent)}
-.ort-pick .chips-row{background:var(--board)}
-.ort-bar .ort,.ort-pick .ort{flex:none;background:transparent;box-shadow:none;color:var(--ink2);font-weight:600}
-.ort-bar .ort.on,.ort-pick .ort.on{background:var(--pill);color:var(--acc);box-shadow:0 2px 8px rgba(17,18,20,.1)}
-.ort-n{display:block;margin:6px 2px 0}
 .hapt-row{padding:10px 0;border-bottom:1px solid var(--line)}
 .hapt-row:last-child{border-bottom:0}
 .hapt-row .seg{margin:8px 0 0}
@@ -683,6 +700,17 @@ var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
   set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignore */ } }
 };
+// Sechs feste Orte mit Symbol. Angezeigt werden nur die eingeschalteten (on).
+var ORTE_FIX = [
+  { k: 'zuhause', name: 'Zuhause', d: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', re: /zuhause|home|daheim|wohnung|haus/ },
+  { k: 'gym', name: 'Gym', d: 'M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12', re: /gym|studio|fitness|box|halle|verein/ },
+  { k: 'park', name: 'Park', d: 'M12 3l5 8h-3l4 6H6l4-6H7zM12 17v4', re: /park|drau|outdoor|wald|platz|spielplatz/ },
+  { k: 'garage', name: 'Garage', d: 'M3 21V10l9-6 9 6v11M7 21v-7h10v7M7 17h10', re: /garage|keller|hof/ },
+  { k: 'arbeit', name: 'Arbeit', d: 'M5 21V4h14v17M3 21h18M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4', re: /arbeit|büro|buero|office|firma|job/ },
+  { k: 'reise', name: 'Unterwegs', d: 'M4 8h16v12H4zM9 8V5h6v3M4 13h16', re: /reise|hotel|urlaub|unterwegs|trip/ }
+];
+var ORT_K = {}; ORTE_FIX.forEach(function (f) { ORT_K[f.k] = f; });
+function ortName(o) { return (ORT_K[o.k] || ORTE_FIX[0]).name; }
 var S = Object.assign({}, DEF, LS.get('tp.state', {}));
 // Neues Design (Stil A): einmalig auf die klare Schrift umstellen.
 if (LS.get('tp.state', {}).look !== 2) { S.font = 'klar'; S.look = 2; LS.set('tp.state', S); }
@@ -912,7 +940,7 @@ function syncHTML() {
   else line = SY.last ? 'Zuletzt abgeglichen: ' + esc(fmtStamp(SY.last)) : 'Noch nicht abgeglichen.';
   return '<p>Verbunden mit <b>' + esc(SY.owner + '/' + SY.repo) + '</b>.</p>' +
     '<p class="' + (st.status === 'error' ? 'sync-err' : 'small muted') + '">' + line + '</p>' +
-    '<div class="row wrap"><button type="button" class="btn small" data-act="sync-now">Jetzt abgleichen</button><button type="button" class="btn small" data-act="sync-off">Trennen</button></div>' +
+    '<div class="bgrp"><button type="button" data-act="sync-now">Jetzt abgleichen</button><button type="button" class="red" data-act="sync-off">Trennen</button></div>' +
     '<p class="small muted" style="margin-top:8px">Die App gleicht von selbst ab: beim Start, nach jedem Speichern und sobald wieder Internet da ist.</p>';
 }
 
@@ -1183,7 +1211,7 @@ function renderTimer() {
     '<div class="row t-ctl"><button type="button" class="btn primary" id="t-toggle" data-act="t-toggle">Start</button><button type="button" class="btn" data-act="t-reset">Zurücksetzen</button>' +
     '<button type="button" class="btn" id="t-finish" data-act="t-finish" hidden>Fertig</button></div>';
   if (TM.mode === 'amrap' || TM.mode === 'zeit') {
-    h += '<div class="row t-rounds" style="margin-top:12px"><button type="button" class="btn small" data-act="t-round" data-d="-1" aria-label="Eine Runde weniger">–</button><p class="hand t-rcount" id="t-rounds">' + TM.rounds + ' Runden</p><button type="button" class="btn primary" data-act="t-round" data-d="1">+1 Runde</button></div>';
+    h += '<div class="row t-rounds" style="margin-top:12px"><div class="stepper"><button type="button" data-act="t-round" data-d="-1" aria-label="Eine Runde weniger">–</button><b id="t-rounds">' + TM.rounds + ' Runden</b><button type="button" class="primary" data-act="t-round" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
   }
   h += '<div id="t-done"></div></section><section class="card">' + timerConfigHTML() + '</section>';
   return h;
@@ -1264,7 +1292,7 @@ function verlaufHTML() {
   var list = LOGS.slice().reverse(), shown = list.slice(0, ui.logLimit);
   h += '<section class="card"><h2>Alle Einheiten</h2>' + shown.map(function (l) {
     return '<div class="log-item"><div class="row between wrap"><h3>' + esc(logTitle(l)) + '</h3><span class="small muted">' + esc(fmtDate(l.date)) + (l.durchgang != null ? ', DG ' + l.durchgang : '') + '</span></div>' + logLines(l) +
-      '<button type="button" class="btn small" style="margin-top:6px" data-act="del-log" data-id="' + esc(l.id) + '">Löschen</button></div>';
+      '<button type="button" class="btn small red" style="margin-top:6px" data-act="del-log" data-id="' + esc(l.id) + '">Löschen</button></div>';
   }).join('') + (list.length > shown.length ? '<button type="button" class="btn block" data-act="more-logs">Ältere anzeigen</button>' : '') + '</section>';
   return h;
 }
@@ -1362,7 +1390,7 @@ function settingsHTML() {
     : PWA ? 'Deine Daten liegen nur auf diesem Handy. Sichere sie ab und zu mit „Exportieren“, zum Beispiel in Google Drive. Mit „Importieren“ holst du eine Sicherung zurück.'
     : 'Deine Daten liegen gerade nur auf diesem Gerät. Öffnest du die Seite über claude.ai, werden sie in deinem Konto gespeichert.';
   h += '<h3 style="margin-top:16px">Daten</h3><p class="small">' + where + '</p>';
-  h += '<div class="row wrap"><button type="button" class="btn small" data-act="export">Exportieren</button><button type="button" class="btn small" data-act="import">Importieren</button><button type="button" class="btn small" data-act="reset-all">Alles zurücksetzen</button></div>';
+  h += '<div class="bgrp"><button type="button" data-act="export">Exportieren</button><button type="button" data-act="import">Importieren</button></div><button type="button" class="btn small red" style="margin-top:10px" data-act="reset-all">Alles zurücksetzen</button>';
   if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
   return h;
 }
@@ -1557,7 +1585,7 @@ function erfolgeHTML(stats) {
 }
 function renderHaptik() {
   var on = S.haptik !== false;
-  var h = '<button type="button" class="btn small back" data-act="tab" data-tab="einst">‹ Einstellungen</button><section class="hero"><h1>Haptik</h1></section>';
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="einst" aria-label="Zurück zu Einstellungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><section class="hero"><h1>Haptik</h1></section>';
   h += '<section class="card"><label class="check"><input type="checkbox" data-change="haptik"' + (on ? ' checked' : '') + '> <b>Vibration</b></label></section>';
   if (on) h += '<section class="card hapt">' + HAPT_KINDS.map(function (k) {
     var lv = hapLevel(k[0]);
@@ -1569,9 +1597,9 @@ function renderHaptik() {
 }
 function renderEinst() {
   var foto = LS.get('tp.foto', null);
-  var h = '<button type="button" class="btn small back" data-act="tab" data-tab="profil">‹ Profil</button><section class="hero"><h1>Einstellungen</h1></section>';
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="profil" aria-label="Zurück zum Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><section class="hero"><h1>Einstellungen</h1></section>';
   h += '<section class="card"><h2>Profil</h2><div class="setting col"><label class="field"><span>Name</span><input type="text" data-change="name" value="' + esc(S.name || '') + '" placeholder="Dein Name"></label></div>' +
-    '<div class="row wrap"><button type="button" class="btn small" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="btn small" data-act="foto-del">Foto entfernen</button>' : '') + '</div>' +
+    '<div class="bgrp"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div>' +
     '<p class="small muted" style="margin-top:8px">Name und Foto bleiben nur auf diesem Gerät.</p></section>';
   if (PWA) h += sec('Sync über GitHub', syncHTML());
   h += sec('Einstellungen', settingsHTML(), true);
@@ -1943,7 +1971,7 @@ function renderHeute() {
 
 function stepPageHTML(c, st, i, D) {
   var s = st[i], n = st.length, last = i === n - 1, key = draftKey(c.tag);
-  var h = '<div class="st-top"><button type="button" class="lnk" data-act="step" data-to="' + (i - 1) + '">‹ ' + (i ? 'Zurück' : 'Übersicht') + '</button><span class="st-r"><span class="small muted">' + (i + 1) + ' von ' + n + '</span>' +
+  var h = '<div class="st-top"><button type="button" class="rbtn" data-act="step" data-to="' + (i - 1) + '" aria-label="' + (i ? 'Zurück' : 'Zur Übersicht') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><span class="st-r"><span class="small muted">' + (i + 1) + ' von ' + n + '</span>' +
     '<button type="button" class="st-x" data-act="quit" aria-label="Training verlassen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></div>';
   h += '<div class="st-prog" aria-hidden="true">' + st.map(function (x, j) { return '<span' + (j <= i ? ' class="on"' : '') + '></span>'; }).join('') + '</div>';
   h += '<section class="hero"><h1>' + esc(s.title) + '</h1><p class="st-sub muted">' + esc(s.sub || '') + '</p></section>';
@@ -2065,10 +2093,10 @@ function testStepHTML(tag, r, i, D) {
 }
 function murphStepHTML(D) {
   var st = S.murphStage, m = MURPH[st], stages = '';
-  for (var s = 1; s <= 4; s++) stages += '<button type="button" class="btn small' + (s === st ? ' primary' : '') + '" data-act="murph-stage" data-s="' + s + '" aria-pressed="' + (s === st) + '">Stufe ' + s + '</button>';
+  for (var s = 1; s <= 4; s++) stages += '<button type="button" class="seg-btn' + (s === st ? ' on' : '') + '" data-act="murph-stage" data-s="' + s + '" aria-pressed="' + (s === st) + '">Stufe ' + s + '</button>';
   return '<section class="card"><ol class="steps"><li>' + m.run + ' laufen</li><li>' + m.rounds + ' Runden mit je 5 ' + gl('Ring Pull-up') + ', 10 ' + gl('Push-up') + ' und 15 ' + gl('Air Squat') + '</li><li>' + m.run + ' laufen</li></ol>' +
     '<p class="small muted">Pull-ups: ' + esc(m.pull) + '. Ringe ganz oben, das Band bleibt an den Ringen. Push-ups immer am Boden, damit die Zeiten vergleichbar bleiben.</p>' +
-    '<div class="row wrap">' + stages + '</div><p class="small muted" style="margin-top:6px">Nächste Stufe, wenn du die aktuelle ohne Abbruch durchziehst.</p>' +
+    '<div class="seg" role="group" aria-label="Murph-Stufe">' + stages + '</div><p class="small muted" style="margin-top:6px">Nächste Stufe, wenn du die aktuelle ohne Abbruch durchziehst.</p>' +
     '<div class="score">' + textInput(D, 'murphTime', 'Deine Zeit', 'mm:ss') + '</div></section>' +
     '<section class="card"><p class="small"><b>Sicherheit:</b> Nicht nach einer Nachtschicht, und genug trinken. Colafarbener Urin oder stark geschwollene, schmerzende Muskeln danach: sofort zum Arzt.</p></section>';
 }
@@ -2136,8 +2164,8 @@ function runHTML(c, D) {
     var st = S.ivStage, reps = S.ivReps, p = IV[st];
     h += '<section class="card"><ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + reps + '×</b> ' + p.work + ' Min zügig, dazwischen ' + p.rest + ' Min ' + p.restLabel + '</li><li>5 Min locker auslaufen</li></ol>' +
       '<p><b>Zügig</b> heißt etwa 8 von 10: kein Sprint, alle Wiederholungen gleich schnell.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p>' +
-      '<div class="row wrap"><span class="chip">Stufe ' + st + '</span><button type="button" class="btn small" data-act="iv-reps" data-d="-1" aria-label="Eine Wiederholung weniger">–</button>' +
-      '<span class="hand" style="font-size:24px">' + reps + ' Wdh.</span><button type="button" class="btn small" data-act="iv-reps" data-d="1" aria-label="Eine Wiederholung mehr">+</button></div>' +
+      '<div class="row between wrap"><span class="chip">Stufe ' + st + '</span><div class="stepper"><button type="button" data-act="iv-reps" data-d="-1" aria-label="Eine Wiederholung weniger">–</button>' +
+      '<b>' + reps + ' Wdh.</b><button type="button" data-act="iv-reps" data-d="1" aria-label="Eine Wiederholung mehr">+</button></div></div>' +
       '<p class="small muted" style="margin-top:8px">Steigerung: +1 Wdh. alle 2 Durchgänge – die App erhöht automatisch. Nach Nachtschicht oder schlechtem Schlaf: statt Intervallen einen lockeren Lauf.</p></section>';
   }
   var sec = num(D.runSec) || (D.runMin ? num(D.runMin) * 60 : planRunSec(d.type)), hr = num(D.runHr), km = parseKm(D.runKm), watt = num(D.runW);
@@ -2450,12 +2478,40 @@ function entwicklungHTML() {
 
 /* ---------- Orte, Equipment und Plätze im Plan ---------- */
 function ensureOrte() {
-  if (!Array.isArray(S.orte) || !S.orte.length) S.orte = [{ id: 'o1', name: 'Zuhause', eq: ['eq_ringe', 'eq_band', 'eq_weste', 'eq_abwheel', 'eq_ergometer'] }];
+  if (!Array.isArray(S.orte) || !S.orte.length) S.orte = [{ id: 'o1', k: 'zuhause', on: 1, eq: ['eq_ringe', 'eq_band', 'eq_weste', 'eq_abwheel', 'eq_ergometer'] }];
   // Früher waren Alltagsgegenstände überall dabei: einmalig an jedem bestehenden Ort ankreuzen.
-  S.orte.forEach(function (o) { if (!o.zh) { if (o.eq.indexOf('eq_zuhause') < 0) o.eq.unshift('eq_zuhause'); o.zh = 1; } });
-  if (!S.orte.some(function (o) { return o.id === S.ort; })) S.ort = S.orte[0].id;
+  S.orte.forEach(function (o) { if (!Array.isArray(o.eq)) o.eq = []; if (!o.zh) { if (o.eq.indexOf('eq_zuhause') < 0) o.eq.unshift('eq_zuhause'); o.zh = 1; } });
+  // Früher frei benannte Orte: einem der sechs festen Orte zuordnen, Geräte und Auswahl bleiben erhalten.
+  if (S.orte.some(function (o) { return !ORT_K[o.k]; })) {
+    var used = {}, out = [];
+    S.orte.forEach(function (o) { if (ORT_K[o.k] && !used[o.k]) { used[o.k] = o; out.push(o); } });
+    S.orte.forEach(function (o, i) {
+      if (out.indexOf(o) >= 0) return;
+      var n = String(o.name || '').toLowerCase(), f = ORTE_FIX.filter(function (x) { return !used[x.k] && x.re.test(n); })[0] ||
+        (i === 0 && !used.zuhause ? ORT_K.zuhause : ORTE_FIX.filter(function (x) { return !used[x.k]; })[0]);
+      if (f) { o.k = f.k; o.on = 1; delete o.name; used[f.k] = o; out.push(o); }
+      else { var t = out[out.length - 1]; o.eq.forEach(function (e) { if (t.eq.indexOf(e) < 0) t.eq.push(e); }); }
+    });
+    S.orte = out;
+  }
+  ORTE_FIX.forEach(function (f) { if (!S.orte.some(function (o) { return o.k === f.k; })) S.orte.push({ id: 'o_' + f.k, k: f.k, on: 0, zh: 1, eq: f.k === 'zuhause' ? ['eq_zuhause'] : [] }); });
+  S.orte.sort(function (a, b) { return ORTE_FIX.indexOf(ORT_K[a.k]) - ORTE_FIX.indexOf(ORT_K[b.k]); });
+  if (!S.orte.some(function (o) { return o.on; })) S.orte[0].on = 1;
+  var cur = S.orte.filter(function (o) { return o.id === S.ort; })[0];
+  if (!cur || !cur.on) S.ort = S.orte.filter(function (o) { return o.on; })[0].id;
   if (!S.picks || typeof S.picks !== 'object') S.picks = {};
   if (!S.pickSkip || typeof S.pickSkip !== 'object') S.pickSkip = {};
+}
+function orteOn() { ensureOrte(); return S.orte.filter(function (o) { return o.on; }); }
+// Kapsel mit Symbolen: nur das Gewählte zeigt seinen Namen.
+function capHTML(items, act, sel, label, cls) {
+  return '<nav class="cap' + (cls ? ' ' + cls : '') + '" aria-label="' + esc(label) + '">' + items.map(function (p) {
+    var on = p.id === sel;
+    return '<button type="button" class="cap-btn' + (on ? ' on' : '') + '" data-act="' + act + '" data-v="' + esc(p.id) + '" aria-pressed="' + on + '" aria-label="' + esc(p.label) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + p.d + '"/></svg><span>' + esc(p.label) + '</span></button>';
+  }).join('') + '</nav>';
+}
+function ortCapHTML(cls) {
+  return capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ORT_K[o.k].d }; }), 'ort-pick', S.ort, 'Ort', cls);
 }
 function curOrt() { ensureOrte(); return S.orte.filter(function (o) { return o.id === S.ort; })[0]; }
 function haveEq(o) { var h = {}; (o || curOrt()).eq.forEach(function (e) { h[e] = 1; }); return h; }
@@ -2534,25 +2590,22 @@ function suggHTML(tag) {
   var list = planFill().sugg[tag] || [], miss = planFill().missing[tag] || [];
   return (miss.length ? '<section class="card note"><p>Hier fehlen Geräte für ' + esc(miss.join(', ')) + '. Bis dahin bleibt die Standardübung im Plan. Kreuz unter Profil › Equipment an, was es hier gibt.</p></section>' : '') + list.map(function (s) {
     var a = LAD[s.from], b = LAD[s.to];
-    return '<section class="card unlock"><p class="unlock-k">Neu freigeschaltet · ' + esc(curOrt().name) + '</p>' +
+    return '<section class="card unlock"><p class="unlock-k">Neu freigeschaltet · ' + esc(ortName(curOrt())) + '</p>' +
       '<p><b>' + esc(b.name) + '</b> statt ' + esc(a ? a.name : '–') + '. Mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + ' (' + nutzenOf(s.to) + ' statt ' + nutzenOf(s.from) + ').</p>' +
       '<div class="unlock-b"><button type="button" class="btn small" data-act="pick-skip" data-slot="' + esc(s.slot) + '">Später</button>' +
       '<button type="button" class="btn small save" data-act="pick-take" data-slot="' + esc(s.slot) + '" data-to="' + esc(s.to) + '">Übernehmen</button></div></section>';
   }).join('');
 }
 function ortPickHTML() {
-  ensureOrte();
-  if (S.orte.length < 2) return '';
-  return '<section class="card ort-pick"><p class="small muted">Wo trainierst du heute?</p><div class="chips-row">' + S.orte.map(function (o) {
-    return '<button type="button" class="ort' + (o.id === S.ort ? ' on' : '') + '" data-act="ort-pick" data-id="' + esc(o.id) + '" aria-pressed="' + (o.id === S.ort) + '">' + esc(o.name) + '</button>';
-  }).join('') + '</div></section>';
+  if (orteOn().length < 2) return '';
+  return '<section class="card ort-pick"><p class="small muted">Wo trainierst du heute?</p>' + ortCapHTML('in-card') + '</section>';
 }
 ACT.hlev = function (el) {
   var k = el.dataset.k; S.hapt = Object.assign({}, S.hapt || {}); S.hapt[k] = +el.dataset.v; saveState();
   el.parentNode.querySelectorAll('.seg-btn').forEach(function (b) { var on = b === el; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   if (k === 'moment') buzz(MOMENT_DEMO); else if (k === 'timer') hapTimer(true); else haptic(k);
 };
-ACT['ort-pick'] = function (el) { S.ort = el.dataset.id; saveState(); render(); };
+ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); };
 ACT['pick-take'] = function (el) { S.picks[el.dataset.slot] = el.dataset.to; saveState(); render(); toast(LAD[el.dataset.to].name + ' ist jetzt im Plan.'); };
 ACT['pick-skip'] = function (el) { S.pickSkip[el.dataset.slot] = S.durchgang; saveState(); render(); };
 
@@ -2562,10 +2615,8 @@ LIB.uebungen.forEach(function (u) { u.equipment.forEach(function (g) { g.forEach
 Object.keys(EQ_USE).forEach(function (x) { EQ_USE[x].sort(function (a, b) { return b.nutzen - a.nutzen; }); });
 function equipmentHTML() {
   var o = curOrt(), have = haveEq(o);
-  var h = '<div class="chips-row ort-bar">' + S.orte.map(function (x) {
-    return '<button type="button" class="ort' + (x.id === o.id ? ' on' : '') + '" data-act="ort-pick" data-id="' + esc(x.id) + '" aria-pressed="' + (x.id === o.id) + '">' + esc(x.name) + '</button>';
-  }).join('') + '<button type="button" class="ort add" data-act="ort-new" aria-label="Ort anlegen">+</button></div><span class="small muted ort-n">' + o.eq.length + ' von ' + LIB.equipment.length + ' Geräten</span>';
-  h += '<div class="row wrap ort-act"><button type="button" class="lnk" data-act="ort-ren">Umbenennen</button>' + (S.orte.length > 1 ? '<button type="button" class="lnk red" data-act="ort-del">Ort löschen</button>' : '') + '</div>';
+  var h = '<div class="ort-bar">' + ortCapHTML() + '<button type="button" class="rbtn" data-act="orte" aria-label="Orte auswählen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button></div>' +
+    '<p class="small muted ort-n">' + esc(ortName(o)) + ' · ' + o.eq.length + ' von ' + LIB.equipment.length + ' Geräten</p>';
   h += '<section class="card eq-list">' + LIB.equipment.map(function (e) {
     var on = !!have[e.id], fixed = false, open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
     return '<div class="eq-row' + (open ? ' open' : '') + '"><div class="eq-top"><button type="button" class="eq-main" data-act="eq-open" data-id="' + e.id + '" aria-expanded="' + open + '"><span class="eq-sc">' + e.score + '</span>' +
@@ -2597,25 +2648,20 @@ function openForm(title, body, okLabel, ok) {
   fitKeyboard(bg);
   requestAnimationFrame(function () { bg.classList.add('open'); var i = bg.querySelector('input'); if (i) i.focus(); });
 }
-ACT['ort-new'] = function () {
-  openForm('Neuer Ort', '<label class="field"><span>Name</span><input type="text" id="ort-name" maxlength="24" placeholder="z. B. Gym"></label>' +
-    '<p class="field-l">Startet mit</p><div class="seg"><button type="button" class="seg-btn on" data-seg="">Nichts</button>' + S.orte.slice(0, 2).map(function (o) { return '<button type="button" class="seg-btn" data-seg="' + esc(o.id) + '">Wie ' + esc(o.name) + '</button>'; }).join('') + '</div>' +
-    '<p class="small muted">Die Geräte kreuzt du danach unter Equipment an, auch Alltagsgegenstände wie Stuhl, Wand und Handtuch.</p>', 'Anlegen', function (bg) {
-    var name = bg.querySelector('#ort-name').value.trim(); if (!name) { toast('Gib dem Ort einen Namen.'); return false; }
-    var from = bg.querySelector('[data-seg].on').dataset.seg, src = S.orte.filter(function (o) { return o.id === from; })[0];
-    var id = 'o' + Date.now().toString(36);
-    S.orte.push({ id: id, name: name, eq: src ? src.eq.slice() : [], zh: 1 }); S.ort = id; saveState(); render(); toast('Ort „' + name + '“ angelegt.');
-  });
+// Orte ein- und ausschalten. Mindestens einer bleibt an.
+ACT.orte = function () {
+  ensureOrte();
+  openForm('Orte', '<p class="small muted">Wähle, wo du trainierst. Jeder Ort hat seine eigene Geräte-Liste.</p><div class="orte-list">' + S.orte.map(function (o) {
+    var f = ORT_K[o.k];
+    return '<label class="check orte-row"><span class="orte-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + f.d + '"/></svg></span>' +
+      '<span class="orte-t"><b>' + esc(f.name) + '</b><small>' + o.eq.length + (o.eq.length === 1 ? ' Gerät' : ' Geräte') + '</small></span><input type="checkbox" data-change="ort-on" data-id="' + esc(o.id) + '"' + (o.on ? ' checked' : '') + '></label>';
+  }).join('') + '</div>', 'Fertig', function () { render(); });
 };
-ACT['ort-ren'] = function () {
-  var o = curOrt();
-  openForm('Ort umbenennen', '<label class="field"><span>Name</span><input type="text" id="ort-name" maxlength="24" value="' + esc(o.name) + '"></label>', 'Sichern', function (bg) {
-    var name = bg.querySelector('#ort-name').value.trim(); if (!name) return false;
-    o.name = name; saveState(); render();
-  });
-};
-ACT['ort-del'] = function (el) {
-  twoStep(el, function () { var o = curOrt(); S.orte = S.orte.filter(function (x) { return x !== o; }); S.ort = S.orte[0].id; saveState(); render(); toast('Ort „' + o.name + '“ gelöscht.'); });
+CHG['ort-on'] = function (el) {
+  var o = S.orte.filter(function (x) { return x.id === el.dataset.id; })[0]; if (!o) return;
+  if (!el.checked && orteOn().length < 2) { el.checked = true; toast('Ein Ort bleibt immer an.'); return; }
+  o.on = el.checked ? 1 : 0; if (o.on && orteOn().length === 1) S.ort = o.id;
+  ensureOrte(); saveState();
 };
 
 /* ---------- Tools › Übungen ---------- */
@@ -2649,7 +2695,7 @@ function glossListHTML(list) {
 function renderUebungen() {
   return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + Object.keys(UE).length + ' Übungen nach Bewegungsmuster</p></section>' +
     '<label class="search"><span class="sr">Übung suchen</span><input id="gloss-search" type="search" placeholder="Übung suchen" value="' + esc(ui.glossQuery) + '"></label>' +
-    '<section class="card"><label class="check"><input type="checkbox" data-change="only"' + (ui.onlyAvail ? ' checked' : '') + '> <span>Nur verfügbare <span class="muted">· ' + esc(curOrt().name) + '</span></span></label></section>' +
+    '<section class="card"><label class="check"><input type="checkbox" data-change="only"' + (ui.onlyAvail ? ' checked' : '') + '> <span>Nur verfügbare <span class="muted">· ' + esc(ortName(curOrt())) + '</span></span></label></section>' +
     '<div id="gloss-list">' + glossListHTML(filteredGloss()) + '</div>' +
     '<section class="card"><h3>Bänder</h3>' + bandLegend() + '<p class="small muted">Hilfe bei Pull-up, Chin-up und Dip, Widerstand bei Push-up und Glute Bridge. In den Leitern zeigen farbige Stufen das Band.</p></section>';
 }
