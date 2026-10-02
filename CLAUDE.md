@@ -43,6 +43,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengenangaben.
   Farben über CSS-Variablen (`--acc`, `--ink`, `--board`, `--paper`, `--fill`),
   Dunkelmodus über `data-theme`.
+- Schalter: alle Checkboxen (`.check input`) sind Schalter „Glas-Tropfen“: an = grün mit Strich
+  (`--on` #4DBF79), aus = rot mit Kreis (`--off` #EE6A5C). Beim Umschalten wächst der Knopf
+  kurz an und setzt sich weich ab (Klasse `live` nach Änderung).
 
 ## Trainingslogik (Kurzfassung)
 - Tag 1 Kraft A (Pull), Tag 2 Lauf locker, Tag 3 Kraft B (Push), Tag 4 Intervall-Lauf,

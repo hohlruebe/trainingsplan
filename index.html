@@ -28,7 +28,7 @@
 <style>
 :root{
   --board:#F5F5F2; --ink:#111214; --ink2:#6E6E73; --line:#EBEBE7; --line2:#D4D4CF; --red:#C62F2A;
-  --paper:#FFFFFF; --fill:#E8E8E3; --pill:#FFFFFF; --tray:#F0F0EC; --tray-line:#DEDED9; --green:#1F7A3D;
+  --paper:#FFFFFF; --fill:#E8E8E3; --pill:#FFFFFF; --on:#4DBF79; --off:#EE6A5C; --tray:#F0F0EC; --tray-line:#DEDED9; --green:#1F7A3D;
   --note:#FFF4D6; --note-ink:#5C4300;
   --acc:#1E5BD8; --on-acc:#FFFFFF;
   --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.04);
@@ -127,8 +127,17 @@ input[type=text],input[type=password],input[type=number],input[type=search],inpu
 .num-in input{width:88px}
 .txt-in input{width:190px}
 textarea{width:100%;min-height:84px;resize:vertical}
-.check{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer}
-.check input{width:22px;height:22px;accent-color:var(--acc)}
+.check{display:flex;flex-direction:row-reverse;align-items:center;justify-content:space-between;gap:12px;min-height:44px;cursor:pointer}
+/* Schalter „Glas-Tropfen“: an = grün mit Strich, aus = rot mit Kreis. Beim Umschalten wächst
+   der Knopf kurz an, wird durchscheinend und setzt sich weich ab (Klasse .live setzt das Skript). */
+.check input{-webkit-appearance:none;appearance:none;flex:0 0 auto;position:relative;width:64px;height:28px;margin:8px 0;border:0;border-radius:14px;cursor:pointer;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'%3E%3Ccircle cx='5.5' cy='5.5' r='4.75' fill='none' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 11px center/11px 11px,var(--off);transition:background-color .42s ease}
+.check input:checked{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 11'%3E%3Crect width='2' height='11' rx='1' fill='white'/%3E%3C/svg%3E") no-repeat left 15px center/2px 11px,var(--on)}
+.check input::after{content:"";position:absolute;left:2px;top:2px;width:36px;height:24px;border-radius:12px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.check input:checked::after{transform:translateX(24px)}
+.check input.live:checked::after{animation:dropOn .42s cubic-bezier(.3,.9,.4,1)}
+.check input.live:not(:checked)::after{animation:dropOff .42s cubic-bezier(.3,.9,.4,1)}
+@keyframes dropOn{0%{transform:translateX(0) scale(1)}35%{transform:translateX(8px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(26px) scale(1.05)}100%{transform:translateX(24px) scale(1)}}
+@keyframes dropOff{0%{transform:translateX(24px) scale(1)}35%{transform:translateX(16px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(-2px) scale(1.05)}100%{transform:translateX(0) scale(1)}}
 .flag{background:var(--note);color:var(--note-ink);border-radius:12px;padding:10px 12px;margin:8px 0}
 .seg{display:flex;gap:2px;padding:2px;margin:10px 0;border-radius:12px;background:var(--fill)}
 .seg-btn{flex:1 1 0;min-width:0;min-height:42px;border:0;border-radius:10px;background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:14px;cursor:pointer;padding:4px 4px}
@@ -1320,7 +1329,9 @@ document.addEventListener('click', function (e) {
 });
 document.addEventListener('change', function (e) {
   var el = e.target;
-  if (el.dataset.act === 'kurz') { ui.kurz[draftKey(viewTag())] = el.checked; render(); return; }
+  if (el.type === 'checkbox' && el.closest('.check')) el.classList.add('live');
+  // Erst die Schalter-Animation zeigen, dann neu zeichnen.
+  if (el.dataset.act === 'kurz') { ui.kurz[draftKey(viewTag())] = el.checked; setTimeout(render, 420); return; }
   if (el.dataset.change && CHG[el.dataset.change]) { CHG[el.dataset.change](el); return; }
   if (el.dataset.draft) storeDraft(el);
 });
