@@ -139,9 +139,10 @@ textarea{width:100%;min-height:84px;resize:vertical}
 @keyframes dropOn{0%{transform:translateX(0) scale(1)}35%{transform:translateX(8px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(26px) scale(1.05)}100%{transform:translateX(24px) scale(1)}}
 @keyframes dropOff{0%{transform:translateX(24px) scale(1)}35%{transform:translateX(16px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(-2px) scale(1.05)}100%{transform:translateX(0) scale(1)}}
 .flag{background:var(--note);color:var(--note-ink);border-radius:12px;padding:10px 12px;margin:8px 0}
-.seg{display:flex;gap:2px;padding:2px;margin:10px 0;border-radius:12px;background:var(--fill)}
-.seg-btn{flex:1 1 0;min-width:0;min-height:42px;border:0;border-radius:10px;background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:14px;cursor:pointer;padding:4px 4px}
-.seg-btn.on{background:var(--paper);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg{display:flex;gap:4px;padding:4px;margin:10px 0;border-radius:999px;background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 6px 20px rgba(17,18,20,.06)}
+.card .seg{background:var(--board);box-shadow:none}
+.seg-btn{flex:1 1 0;min-width:0;min-height:42px;border:0;border-radius:999px;background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:14px;cursor:pointer;padding:4px 4px}
+.seg-btn.on{background:var(--pill);color:var(--acc);font-weight:600;box-shadow:0 2px 8px rgba(17,18,20,.1)}
 .timer{text-align:center}
 .t-label{font-family:var(--head);font-weight:600;font-size:14px;line-height:1.2;margin:4px 0 0;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
 .t-digits{font-family:var(--head);font-weight:600;font-size:clamp(76px,24vw,112px);line-height:1;letter-spacing:-.045em;margin:10px 0;font-variant-numeric:tabular-nums}
@@ -512,6 +513,23 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .gl-t small{font-size:13px;color:var(--ink2)}
 .gl-item.locked>summary{opacity:.5}
 .gl-body{padding:0 0 14px}
+/* Kapseln wie die Reiterleiste */
+.cap{display:flex;gap:4px;width:max-content;max-width:100%;margin:0 auto 16px;padding:5px;border-radius:30px;overflow-x:auto;scrollbar-width:none;background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 10px 30px rgba(17,18,20,.08)}
+.cap::-webkit-scrollbar{display:none}
+.cap-btn{flex:none;display:flex;align-items:center;justify-content:center;height:44px;min-width:44px;padding:0 10px;border:0;border-radius:22px;background:transparent;color:var(--ink2);font-family:var(--head);font-weight:600;font-size:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .25s,color .25s,padding .3s,box-shadow .25s}
+.cap-btn svg{width:22px;height:22px;flex:none}
+.cap-btn span{display:block;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .3s ease,opacity .2s,margin .3s ease}
+.cap-btn.on{background:var(--pill);color:var(--acc);padding:0 16px 0 12px;box-shadow:0 2px 8px rgba(17,18,20,.1)}
+.cap-btn.on span{max-width:110px;opacity:1;margin-left:7px}
+.ort-bar,.ort-pick .chips-row{display:inline-flex;flex-wrap:nowrap;gap:4px;padding:4px;max-width:100%;overflow-x:auto;border-radius:999px;background:color-mix(in srgb,var(--paper) 58%,transparent);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent)}
+.ort-pick .chips-row{background:var(--board)}
+.ort-bar .ort,.ort-pick .ort{flex:none;background:transparent;box-shadow:none;color:var(--ink2);font-weight:600}
+.ort-bar .ort.on,.ort-pick .ort.on{background:var(--pill);color:var(--acc);box-shadow:0 2px 8px rgba(17,18,20,.1)}
+.ort-n{display:block;margin:6px 2px 0}
+.hapt-row{padding:10px 0;border-bottom:1px solid var(--line)}
+.hapt-row:last-child{border-bottom:0}
+.hapt-row .seg{margin:8px 0 0}
+.hapt-row .seg-btn{font-size:13px;min-height:40px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
@@ -641,7 +659,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -656,7 +674,7 @@ var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute', 'plan'], profil: ['profil'], tools: ['timer', 'uebungen'] };
 var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen' };
-var HIDDEN = { einst: 'profil' };
+var HIDDEN = { einst: 'profil', haptik: 'profil' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
@@ -886,7 +904,7 @@ function isTyping() { var a = document.activeElement; return a && $view.contains
 function scheduleRender() { if (isTyping()) { pendingRender = true; return; } render(); }
 function render() {
   pendingRender = false;
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, uebungen: renderUebungen, plan: renderPlan }[ui.tab];
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false;
@@ -1028,7 +1046,7 @@ function beep(freq, ms) {
   } catch (e) { /* ignore */ }
 }
 function vib(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) { /* ignore */ } }
-function cue(long) { if (long) { beep(660, 450); vib(250); } else beep(880, 110); }
+function cue(long) { if (long) beep(660, 450); else beep(880, 110); hapTimer(long); }
 function wakeOn() { try { if ('wakeLock' in navigator && !TM.wake) navigator.wakeLock.request('screen').then(function (w) { TM.wake = w; w.addEventListener('release', function () { TM.wake = null; }); }).catch(function () {}); } catch (e) { /* ignore */ } }
 function wakeOff() { try { if (TM.wake) TM.wake.release(); } catch (e) { /* ignore */ } TM.wake = null; }
 document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && TM.running) wakeOn(); });
@@ -1319,7 +1337,7 @@ function settingsHTML() {
     var on = S.font === f.id;
     return '<button type="button" class="fopt" data-act="font" data-v="' + f.id + '" aria-pressed="' + on + '"><b style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">Tag 1</b><span>' + esc(f.label) + '</span></button>';
   }).join('') + '</div>';
-  h += '<h3 style="margin-top:16px">Haptik</h3><label class="check"><input type="checkbox" data-change="haptik"' + (S.haptik !== false ? ' checked' : '') + '> Kurz vibrieren beim Wechseln der Reiter</label>';
+  h += '<h3 style="margin-top:16px">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
   h += '<h3 style="margin-top:16px">Vollbild</h3><label class="check"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Beim ersten Tippen Vollbild (installierte App)</label>';
   h += '<h3 style="margin-top:12px">Stand</h3><div class="setting"><label class="field"><span>Durchgang</span><select id="set-d">' + dOpts + '</select></label><label class="field"><span>Tag</span><select id="set-t">' + tOpts + '</select></label><button type="button" class="btn small" data-act="set-stand">Übernehmen</button></div>';
   h += '<div class="setting"><label class="field"><span>Startdatum (für den ersten Murph)</span><input type="date" data-change="start" value="' + esc(S.startDate || '') + '"></label></div>';
@@ -1480,20 +1498,19 @@ function profileHead(stats) {
 }
 
 var PVIEWS = [
-  ['entwicklung', 'Entwicklung', 'Wie sich eine Übung entwickelt', '↗'],
-  ['equipment', 'Equipment', 'Deine Orte und Geräte', '⌂'],
-  ['erfolge', 'Erfolge', 'Medaillen für jede Stufe', '★'],
-  ['verlauf', 'Verlauf', 'Alle gespeicherten Trainings', '≡'],
-  ['werte', 'Werte', 'Die sechs Bereiche', '◆']
+  ['entwicklung', 'Entwicklung', 'Wie sich eine Übung entwickelt', 'M3 17l6-6 4 4 8-8M15 7h6v6'],
+  ['equipment', 'Equipment', 'Deine Orte und Geräte', 'M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12'],
+  ['erfolge', 'Erfolge', 'Medaillen für jede Stufe', 'M7 10a5 5 0 1 0 10 0a5 5 0 1 0-10 0M9.5 14.5L8 21l4-2.5 4 2.5-1.5-6.5'],
+  ['verlauf', 'Verlauf', 'Alle gespeicherten Trainings', 'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01'],
+  ['werte', 'Werte', 'Die sechs Bereiche', 'M12 3l8 5v8l-8 5-8-5V8zM12 8l4 2.5v3L12 16l-4-2.5v-3z']
 ];
 function renderProfil() {
   var stats = statsOf(LOGS), view = ui.pview || 'werte', cur = PVIEWS.filter(function (p) { return p[0] === view; })[0];
   var h = profileHead(stats);
-  h += '<div class="p-menu"><button type="button" class="p-menu-btn" data-act="pmenu" aria-haspopup="listbox" aria-expanded="' + !!ui.pmenu + '"><span class="p-ico">' + cur[3] + '</span><span class="p-menu-t"><span>Ansicht</span><b>' + cur[1] + '</b></span>' +
-    '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>' +
-    (ui.pmenu ? '<div class="p-list" role="listbox">' + PVIEWS.map(function (p) {
-      return '<button type="button" role="option" class="p-opt' + (p[0] === view ? ' on' : '') + '" aria-selected="' + (p[0] === view) + '" data-act="pview" data-v="' + p[0] + '"><span class="p-ico">' + p[3] + '</span><span class="p-menu-t"><b>' + p[1] + '</b><span>' + p[2] + '</span></span>' + (p[0] === view ? '<span class="p-check">✓</span>' : '') + '</button>';
-    }).join('') + '</div>' : '') + '</div>';
+  h += '<nav class="cap pcap" aria-label="Ansicht">' + PVIEWS.map(function (p) {
+    var on = p[0] === view;
+    return '<button type="button" class="cap-btn' + (on ? ' on' : '') + '" data-act="pview" data-v="' + p[0] + '" aria-pressed="' + on + '" aria-label="' + p[1] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + p[3] + '"/></svg><span>' + p[1] + '</span></button>';
+  }).join('') + '</nav>';
   if (view === 'werte') h += werteHTML(stats);
   else if (view === 'erfolge') h += erfolgeHTML(stats);
   else if (view === 'entwicklung') h += entwicklungHTML();
@@ -1521,6 +1538,18 @@ function erfolgeHTML(stats) {
     var lost = s && s.best > s.cur;
     return '<button type="button" class="m-cell" data-act="medal">' + medalHTML(k, s, first && s && s.cur ? ' shine' : '') + '<b>' + esc(lad.name) + '</b><span class="' + (lost ? 'm-best' : 'muted') + '">' + esc(lost ? 'Bestwert: ' + lad.steps[s.best - 1] : sub) + '</span></button>';
   }).join('') + '</div></section>';
+}
+function renderHaptik() {
+  var on = S.haptik !== false;
+  var h = '<button type="button" class="btn small back" data-act="tab" data-tab="einst">‹ Einstellungen</button><section class="hero"><h1>Haptik</h1></section>';
+  h += '<section class="card"><label class="check"><input type="checkbox" data-change="haptik"' + (on ? ' checked' : '') + '> <b>Vibration</b></label></section>';
+  if (on) h += '<section class="card hapt">' + HAPT_KINDS.map(function (k) {
+    var lv = hapLevel(k[0]);
+    return '<div class="hapt-row"><b>' + esc(k[1]) + '</b><div class="seg" role="group" aria-label="' + esc(k[1]) + '">' + ['Aus', 'Leicht', 'Mittel', 'Stark'].map(function (t, v) {
+      return '<button type="button" class="seg-btn' + (v === lv ? ' on' : '') + '" data-act="hlev" data-k="' + k[0] + '" data-v="' + v + '" aria-pressed="' + (v === lv) + '">' + t + '</button>';
+    }).join('') + '</div></div>';
+  }).join('') + '</section>';
+  return h;
 }
 function renderEinst() {
   var foto = LS.get('tp.foto', null);
@@ -1593,18 +1622,22 @@ function showMoment() {
   if (e.type !== 'gift') buzz(e.type === 'down' ? [600, 900, 80] : [120, 250, 40, 180, 40, 180, 220]);
 }
 function sparksHTML() { var h = ''; for (var i = 0; i < 14; i++) h += '<i style="--a:' + Math.round(i * 360 / 14) + 'deg;--d:' + (80 + (i % 3) * 16) + 'px"></i>'; return h; }
-function buzz(pattern) {
-  if (S.haptik === false) return;
-  try { if (navigator.vibrate && navigator.vibrate(pattern)) return; } catch (e) {}
-  haptic();
-}
-
 /* ---------- Haptik ---------- */
-// Android: Vibration. iPhone (ab iOS 18): Antippen eines versteckten Schalters löst ein kurzes Klicken aus.
+// Stärke je Aktion (0 Aus, 1 Leicht, 2 Mittel, 3 Stark), pro Gerät in S.hapt. Chrome kann nur Dauer und Muster steuern.
+var HAPT_KINDS = [['tap', 'Reiter und Knöpfe', 1], ['wheel', 'Rad drehen', 1], ['switch', 'Schalter', 2], ['step', 'Weiter und Speichern', 2], ['timer', 'Timer', 3], ['moment', 'Medaillen und Momente', 3]];
+var HAPT_LEVEL = [null, [8], [20], [30, 60, 30]];
+var HAPT_WHEEL = [null, [4], [10], [18]];
+var HAPT_TIMER = [null, { s: [10], l: [80] }, { s: [25], l: [160] }, { s: [40], l: [250, 80, 250] }];
+function hapLevel(kind) {
+  var h = S.hapt || {};
+  if (h[kind] != null) return h[kind];
+  for (var i = 0; i < HAPT_KINDS.length; i++) if (HAPT_KINDS[i][0] === kind) return HAPT_KINDS[i][2];
+  return 1;
+}
+function vibrate(pattern) { try { return !!(navigator.vibrate && navigator.vibrate(pattern)); } catch (e) { return false; } }
+// iPhone (ab iOS 18) hat keine Vibration im Browser: Antippen eines versteckten Schalters löst ein kurzes Klicken aus.
 var hapticEl = null;
-function haptic() {
-  if (S.haptik === false) return;
-  try { if (navigator.vibrate && navigator.vibrate(8)) return; } catch (e) {}
+function iosTick() {
   if (!hapticEl) {
     hapticEl = document.createElement('label');
     hapticEl.setAttribute('aria-hidden', 'true');
@@ -1614,6 +1647,26 @@ function haptic() {
   }
   hapticEl.click();
 }
+function haptic(kind) {
+  if (S.haptik === false) return;
+  kind = kind || 'tap';
+  var lv = hapLevel(kind); if (!lv) return;
+  var pat = kind === 'wheel' ? HAPT_WHEEL[lv] : kind === 'timer' ? HAPT_TIMER[lv].s : HAPT_LEVEL[lv];
+  if (!vibrate(pat)) iosTick();
+}
+function hapTimer(long) {
+  if (S.haptik === false) return;
+  var lv = hapLevel('timer'); if (!lv) return;
+  vibrate(long ? HAPT_TIMER[lv].l : HAPT_TIMER[lv].s);
+}
+// Muster für Momente (Aufstieg, Geschenk …) bleiben eigen und werden nur je nach Stärke kürzer.
+function buzz(pattern) {
+  if (S.haptik === false) return;
+  var lv = hapLevel('moment'); if (!lv) return;
+  var k = [0, 0.4, 0.7, 1][lv];
+  if (!vibrate(pattern.map(function (x, i) { return i % 2 ? x : Math.max(5, Math.round(x * k)); }))) iosTick();
+}
+var MOMENT_DEMO = [120, 250, 40, 180, 40, 180, 220];
 
 /* ---------- Vollbild ---------- */
 // Die App startet im normalen App-Modus. Ist `vollbild` an, wechselt die installierte App beim
@@ -1647,7 +1700,7 @@ function twoStep(el, fn) {
   setTimeout(function () { if (el.isConnected) { el.dataset.armed = ''; el.textContent = old; } }, 4000);
 }
 var ACT = {
-  tab: function (el) { if (el.dataset.group) haptic(); ui.tab = el.dataset.group ? ui.last[el.dataset.group] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
+  tab: function (el) { ui.tab = el.dataset.group ? ui.last[el.dataset.group] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
   viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
   'do-this-day': function (el) { S.tag = +el.dataset.tag; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
@@ -1704,7 +1757,7 @@ ACT.pview = function (el) { ui.pview = el.dataset.v; ui.pmenu = false; render();
 ACT.parea = function (el) { ui.parea = el.dataset.v; render(); };
 ACT.medal = function (el) {
   var m = el.querySelector('.medal'); if (!m || m.classList.contains('locked')) return;
-  m.classList.remove('tilt', 'shine'); void m.offsetWidth; m.classList.add('tilt', 'shine'); haptic();
+  m.classList.remove('tilt', 'shine'); void m.offsetWidth; m.classList.add('tilt', 'shine');
 };
 ACT.foto = function () { $foto.click(); };
 ACT['foto-del'] = function () { LS.set('tp.foto', null); render(); toast('Foto entfernt.'); };
@@ -1717,7 +1770,7 @@ ACT['mo-next'] = function () { showMoment(); };
 ACT['mo-view'] = function () { MOMENTS = []; showMoment(); ui.tab = 'profil'; ui.pview = 'erfolge'; ui.medShown = false; window.scrollTo(0, 0); render(); };
 var CHG = {
   sound: function (el) { S.sound = el.checked; saveState(); },
-  haptik: function (el) { S.haptik = el.checked; saveState(); if (S.haptik) haptic(); },
+  haptik: function (el) { S.haptik = el.checked; saveState(); setTimeout(render, 420); },
   name: function (el) { S.name = el.value.trim(); saveState(); },
   vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
   track: function (el) { ui.track = el.value; render(); },
@@ -2097,7 +2150,7 @@ function runHTML(c, D) {
   h += '<button type="button" class="btn block" data-act="' + (easy ? 'timer-lauf' : 'timer-iv') + '" data-min="' + (easy ? easyMinutes(S.durchgang) : '') + '">Timer öffnen</button></section>';
   return h + notesBlock(D);
 }
-ACT['run-mode'] = function (el) { setDraft('mode', el.dataset.m); haptic(); render(); };
+ACT['run-mode'] = function (el) { setDraft('mode', el.dataset.m); render(); };
 
 /* ---------- Rad zum Auswählen ---------- */
 var WH = 44;
@@ -2127,7 +2180,7 @@ function openSheet(title, cols, done) {
     idx[j] = k; w.scrollTop = k * WH; mark(w, k);
     w.addEventListener('scroll', function () {
       var n = Math.max(0, Math.min(c.items.length - 1, Math.round(w.scrollTop / WH)));
-      if (n !== idx[j]) { idx[j] = n; mark(w, n); if (S.haptik) { try { navigator.vibrate(4); } catch (e) { /* ignore */ } } }
+      if (n !== idx[j]) { idx[j] = n; mark(w, n); haptic('wheel'); }
     }, { passive: true });
     w.addEventListener('click', function (e) { var it = e.target.closest('.wi'); if (it) w.scrollTo({ top: +it.dataset.k * WH, behavior: 'smooth' }); });
     w.addEventListener('keydown', function (e) {
@@ -2137,6 +2190,7 @@ function openSheet(title, cols, done) {
   });
   bg.addEventListener('click', function (e) {
     var b = e.target.closest('[data-sh]');
+    if (b) haptic(b.dataset.sh === 'ok' ? 'step' : 'tap');
     if (e.target === bg || (b && b.dataset.sh === 'x')) closeSheet();
     else if (b && b.dataset.sh === 'ok') { var vals = cols.map(function (c, j) { return c.items[idx[j]].v; }); closeSheet(); done(vals); }
   });
@@ -2173,7 +2227,7 @@ ACT.pick = function (el) {
 ACT.step = function (el) {
   var to = +el.dataset.to, k = draftKey(S.tag), d = DRAFTS[k] || (DRAFTS[k] = {});
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
-  LS.set('tp.drafts', DRAFTS); haptic(); window.scrollTo(0, 0); render();
+  LS.set('tp.drafts', DRAFTS); window.scrollTo(0, 0); render();
 };
 
 /* ---------- Timer-Leiste im Schritt ---------- */
@@ -2419,7 +2473,12 @@ function ortPickHTML() {
     return '<button type="button" class="ort' + (o.id === S.ort ? ' on' : '') + '" data-act="ort-pick" data-id="' + esc(o.id) + '" aria-pressed="' + (o.id === S.ort) + '">' + esc(o.name) + '</button>';
   }).join('') + '</div></section>';
 }
-ACT['ort-pick'] = function (el) { S.ort = el.dataset.id; saveState(); haptic(); render(); };
+ACT.hlev = function (el) {
+  var k = el.dataset.k; S.hapt = Object.assign({}, S.hapt || {}); S.hapt[k] = +el.dataset.v; saveState();
+  el.parentNode.querySelectorAll('.seg-btn').forEach(function (b) { var on = b === el; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  if (k === 'moment') buzz(MOMENT_DEMO); else if (k === 'timer') hapTimer(true); else haptic(k);
+};
+ACT['ort-pick'] = function (el) { S.ort = el.dataset.id; saveState(); render(); };
 ACT['pick-take'] = function (el) { S.picks[el.dataset.slot] = el.dataset.to; saveState(); render(); toast(LAD[el.dataset.to].name + ' ist jetzt im Plan.'); };
 ACT['pick-skip'] = function (el) { S.pickSkip[el.dataset.slot] = S.durchgang; saveState(); render(); };
 
@@ -2431,7 +2490,7 @@ function equipmentHTML() {
   var o = curOrt(), have = haveEq(o);
   var h = '<div class="chips-row ort-bar">' + S.orte.map(function (x) {
     return '<button type="button" class="ort' + (x.id === o.id ? ' on' : '') + '" data-act="ort-pick" data-id="' + esc(x.id) + '" aria-pressed="' + (x.id === o.id) + '">' + esc(x.name) + '</button>';
-  }).join('') + '<button type="button" class="ort add" data-act="ort-new" aria-label="Ort anlegen">+</button><span class="small muted ort-n">' + o.eq.length + ' von ' + LIB.equipment.length + '</span></div>';
+  }).join('') + '<button type="button" class="ort add" data-act="ort-new" aria-label="Ort anlegen">+</button></div><span class="small muted ort-n">' + o.eq.length + ' von ' + LIB.equipment.length + ' Geräten</span>';
   h += '<div class="row wrap ort-act"><button type="button" class="lnk" data-act="ort-ren">Umbenennen</button>' + (S.orte.length > 1 ? '<button type="button" class="lnk red" data-act="ort-del">Ort löschen</button>' : '') + '</div>';
   h += '<section class="card eq-list">' + LIB.equipment.map(function (e) {
     var on = !!have[e.id], fixed = false, open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
@@ -2455,6 +2514,7 @@ function openForm(title, body, okLabel, ok) {
   document.body.appendChild(bg);
   bg.addEventListener('click', function (e) {
     var b = e.target.closest('[data-sh]'), seg = e.target.closest('[data-seg]');
+    if (b || seg) haptic(b && b.dataset.sh === 'ok' ? 'step' : 'tap');
     if (seg) { bg.querySelectorAll('[data-seg]').forEach(function (x) { x.classList.toggle('on', x === seg); }); return; }
     if (e.target === bg || (b && b.dataset.sh === 'x')) closeSheet();
     else if (b && b.dataset.sh === 'ok') { if (ok(bg) !== false) closeSheet(); }
@@ -2576,11 +2636,12 @@ document.addEventListener('click', function (e) {
   var el = e.target.closest('[data-act]');
   if (!el || el.tagName === 'INPUT') return;
   var fn = ACT[el.dataset.act];
-  if (fn) { e.preventDefault(); fn(el, e); }
+  if (fn) { e.preventDefault(); if (el.dataset.act !== 'hlev') haptic(STEP_ACTS[el.dataset.act] ? 'step' : 'tap'); fn(el, e); }
 });
+var STEP_ACTS = { step: 1, save: 1, 't-take': 1, 'pick-take': 1, 'start-test': 1, 'start-at': 1, 'tb-start': 1 };
 document.addEventListener('change', function (e) {
   var el = e.target;
-  if (el.type === 'checkbox' && el.closest('.check')) el.classList.add('live');
+  if (el.type === 'checkbox' && el.closest('.check')) { el.classList.add('live'); haptic('switch'); }
   // Erst die Schalter-Animation zeigen, dann neu zeichnen.
   if (el.dataset.act === 'kurz') { ui.kurz[draftKey(viewTag())] = el.checked; setTimeout(render, 420); return; }
   if (el.dataset.change && CHG[el.dataset.change]) { CHG[el.dataset.change](el); return; }
