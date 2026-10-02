@@ -12,7 +12,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter: Coach (Heute, Plan), Profil (Verlauf, Sync, Einstellungen), Tools (Timer, Übungen).
+- Reiter von links nach rechts: Tools (Timer, Übungen), Coach (Heute, Plan), Profil (Verlauf, Sync, Einstellungen).
   Unterseiten über den Umschalter oben (`GROUPS` im Skript).
 - `sw.js`: Service Worker für den Offline-Betrieb
 - `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`
