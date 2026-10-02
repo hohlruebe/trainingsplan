@@ -12,8 +12,18 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter von links nach rechts: Tools (Timer, Übungen), Coach (Heute, Plan), Profil (Verlauf, Sync, Einstellungen).
-  Unterseiten über den Umschalter oben (`GROUPS` im Skript).
+- Reiter von links nach rechts: Tools (Timer, Übungen), Coach (Heute, Plan), Profil.
+  Unterseiten über den Umschalter oben (`GROUPS` im Skript). Einstellungen und Sync sind eine
+  versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
+- Profil: Kopfkarte mit rundem Foto, Fortschrittsring (Gesamtwert 0–99), Stufe Bronze/Silber/Gold/Platin,
+  Name und „Diese Woche“. Darunter Auswahl-Kachel mit Menü (alphabetisch): Entwicklung, Erfolge, Verlauf, Werte.
+  Werte: sechs Bereiche Ausdauer, Beine, Druck, Rumpf, Skill, Zug (`AREAS`). Jede Leiter zählt
+  40 + 59 × ((Stufe − 1) + Anteil der Wdh. in der Zielspanne) / Stufenzahl; Bereich = Mittel der begonnenen
+  Leitern, Gesamtwert = Mittel aller sechs. Alles wird aus den Einheiten berechnet (`ladderStates`).
+  Erfolge: je Leiter eine Metall-Medaille mit Lorbeerkranz (ein Blattpaar pro Stufe), letzte Stufe Platin.
+  Nach dem Speichern zeigt `showMoment()` neue Stufen: Geschenk (erste Medaille), Glühen (Aufstieg),
+  Anlaufen mit aufmunterndem Spruch (Abstieg), mit Vibrationsmuster (`buzz`).
+- Listen und Menüs immer alphabetisch sortieren.
   Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
   Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
 - Manifest `display: standalone`. Ist `vollbild` an (Einstellung, Standard an), wechselt die
@@ -30,7 +40,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Ändert sich außer `index.html` eine Datei oder kommt eine neue dazu:
   `CACHE` in `sw.js` hochzählen und neue Dateien in `ASSETS` eintragen.
 - Gespeicherte Daten nie brechen. localStorage-Schlüssel: `tp.state`, `tp.logs`,
-  `tp.drafts`, `tp.deleted`, `tp.sync`. Neue Felder mit Standardwert in `DEF` ergänzen.
+  `tp.drafts`, `tp.deleted`, `tp.sync`, `tp.foto` (Profilfoto, nur auf dem Gerät). Neue Felder mit Standardwert in `DEF` ergänzen.
 - Export-Format `{exportiert, stand, einheiten}` muss importierbar bleiben.
 - Sync: Datei `trainingsplan.json` im privaten Daten-Repository des Nutzers,
   Format `{app, v, standTs, stand, einheiten, geloescht}` kompatibel halten.
