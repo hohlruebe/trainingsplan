@@ -16,9 +16,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Unterseiten über den Umschalter oben (`GROUPS` im Skript).
   Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
   Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
-- Manifest `display: standalone`. Beim ersten Tippen fordert die installierte App Vollbild an
-  (`goFullscreen()`, abschaltbar) und blendet Status- und Gestenleiste aus. Manifest-Vollbild
-  nicht verwenden: Chrome lässt dort den Kamera-Bereich oben nach dem Start schwarz.
+- Manifest `display: standalone`. Beim Öffnen fragt die installierte App „Vollbild oder
+  App-Ansicht“ (`askView()`, Einstellung `ansicht`: fragen/vollbild/app). Vollbild über
+  `requestFullscreen` nach einem Tippen, nach dem Minimieren holt das nächste Tippen es zurück.
+  Manifest-Vollbild nicht verwenden: Chrome lässt dort den Kamera-Bereich oben nach dem Start schwarz.
   Auf dem iPhone zeichnet sie bis unter Statusleiste und Home-Balken (`black-translucent`).
   Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
 - `sw.js`: Service Worker für den Offline-Betrieb

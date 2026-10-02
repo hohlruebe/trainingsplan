@@ -172,6 +172,10 @@ details.card[open]>summary{margin-bottom:6px}
 .tab[aria-current="page"]{background:var(--pill);color:var(--acc);padding:0 18px 0 14px;box-shadow:0 2px 8px rgba(17,18,20,.1)}
 .tab[aria-current="page"] span{max-width:96px;opacity:1;margin-left:8px}
 .tab svg{width:24px;height:24px}
+.ask{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;padding:16px 16px calc(max(env(safe-area-inset-bottom,0px),12px) + 16px);background:rgba(17,18,20,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.ask-card{width:100%;max-width:420px;background:var(--paper);border-radius:24px;padding:22px 18px 12px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.ask-card h2{margin-bottom:6px}
+.ask-card .check{margin-top:6px;font-size:15px}
 .toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--board);padding:10px 16px;border-radius:14px;font-size:15px;z-index:20;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 .tbl-wrap{overflow-x:auto}
@@ -312,7 +316,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, base: {}, standTs: 0 };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, ansicht: 'fragen', base: {}, standTs: 0 };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -1140,7 +1144,9 @@ function settingsHTML() {
     return '<button type="button" class="fopt" data-act="font" data-v="' + f.id + '" aria-pressed="' + on + '"><b style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">Tag 1</b><span>' + esc(f.label) + '</span></button>';
   }).join('') + '</div>';
   h += '<h3 style="margin-top:16px">Haptik</h3><label class="check"><input type="checkbox" data-change="haptik"' + (S.haptik !== false ? ' checked' : '') + '> Kurz vibrieren beim Wechseln der Reiter</label>';
-  h += '<h3 style="margin-top:16px">Vollbild</h3><label class="check"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Status- und Navigationsleiste in der installierten App ausblenden</label>';
+  h += '<h3 style="margin-top:16px">Beim Öffnen der App</h3><div class="seg" role="group" aria-label="Beim Öffnen der App">' + [['fragen', 'Fragen'], ['vollbild', 'Vollbild'], ['app', 'App-Ansicht']].map(function (o) {
+    return '<button type="button" class="seg-btn' + (S.ansicht === o[0] ? ' on' : '') + '" data-act="ansicht" data-v="' + o[0] + '" aria-pressed="' + (S.ansicht === o[0]) + '">' + o[1] + '</button>';
+  }).join('') + '</div><p class="small muted">Gilt für die installierte App. Vollbild blendet Status- und Navigationsleiste aus.</p>';
   h += '<h3 style="margin-top:12px">Stand</h3><div class="setting"><label class="field"><span>Durchgang</span><select id="set-d">' + dOpts + '</select></label><label class="field"><span>Tag</span><select id="set-t">' + tOpts + '</select></label><button type="button" class="btn small" data-act="set-stand">Übernehmen</button></div>';
   h += '<div class="setting"><label class="field"><span>Startdatum (für den ersten Murph)</span><input type="date" data-change="start" value="' + esc(S.startDate || '') + '"></label></div>';
   var where = DB.ready ? 'Deine Daten liegen in deinem Claude-Konto und sind auf jedem Gerät gleich.'
@@ -1170,16 +1176,32 @@ function haptic() {
 }
 
 /* ---------- Vollbild ---------- */
-// Die App startet im normalen App-Modus (helle Statusleiste, nahtlos). Beim ersten Tippen
-// fordert sie Vollbild an und blendet Status- und Gestenleiste aus. Manifest-Vollbild
-// nutzen wir nicht: Dort bleibt der Kamera-Bereich oben nach dem Start schwarz.
+// Die App startet im normalen App-Modus. Je nach Einstellung `ansicht` fragt sie beim Öffnen
+// nach Vollbild oder App-Ansicht ('fragen'), wechselt beim ersten Tippen ins Vollbild ('vollbild')
+// oder bleibt in der App-Ansicht ('app'). Vollbild braucht in Chrome immer ein Tippen.
+// Manifest-Vollbild nutzen wir nicht: Dort bleibt der Kamera-Bereich oben nach dem Start schwarz.
+var fullWanted = false;
 function isInstalled() { return !!window.matchMedia && (matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: minimal-ui)').matches || matchMedia('(display-mode: fullscreen)').matches); }
+function canFullscreen() { return isInstalled() && !!document.documentElement.requestFullscreen; }
 function goFullscreen() {
-  var d = document.documentElement;
-  if (S.vollbild === false || document.fullscreenElement || !d.requestFullscreen || !isInstalled()) return;
-  try { var p = d.requestFullscreen({ navigationUI: 'hide' }); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+  if (!fullWanted || document.fullscreenElement || !canFullscreen()) return;
+  try { var p = document.documentElement.requestFullscreen({ navigationUI: 'hide' }); if (p && p.catch) p.catch(function () {}); } catch (e) {}
 }
+// Nach dem Minimieren beendet Android das Vollbild – das nächste Tippen holt es zurück.
 document.addEventListener('click', goFullscreen, true);
+function askView() {
+  if (!canFullscreen()) return;
+  if (S.ansicht === 'vollbild') { fullWanted = true; return; }
+  if (S.ansicht === 'app') return;
+  var box = document.createElement('div');
+  box.className = 'ask'; box.id = 'ask-view';
+  box.innerHTML = '<div class="ask-card" role="dialog" aria-modal="true" aria-labelledby="ask-t"><h2 id="ask-t">Ansicht wählen</h2>' +
+    '<p class="muted">Vollbild blendet Status- und Navigationsleiste aus. Mit einem Wisch vom Rand holst du sie kurz zurück.</p>' +
+    '<button type="button" class="btn primary block" data-act="view" data-v="vollbild">Vollbild</button>' +
+    '<button type="button" class="btn block" data-act="view" data-v="app">App-Ansicht</button>' +
+    '<label class="check"><input type="checkbox" id="ask-keep"> Auswahl merken und nicht mehr fragen</label></div>';
+  document.body.appendChild(box);
+}
 
 /* ---------- theme ---------- */
 function isDark() { return S.theme === 'dark' || (S.theme !== 'light' && !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); }
@@ -1252,10 +1274,25 @@ var ACT = {
   'del-log': function (el) { twoStep(el, function () { removeLog(el.dataset.id); render(); toast('Einheit gelöscht.'); }); },
   'more-logs': function () { ui.logLimit += 30; render(); }
 };
+var ACT_VIEW = {
+  view: function (el) {
+    var v = el.dataset.v, keep = document.getElementById('ask-keep');
+    if (keep && keep.checked) { S.ansicht = v; saveState(); }
+    var box = document.getElementById('ask-view'); if (box) box.remove();
+    fullWanted = v === 'vollbild';
+    if (fullWanted) goFullscreen();
+  },
+  ansicht: function (el) {
+    S.ansicht = el.dataset.v; saveState();
+    fullWanted = S.ansicht === 'vollbild';
+    if (fullWanted) goFullscreen(); else if (S.ansicht === 'app' && document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {});
+    render();
+  }
+};
+Object.keys(ACT_VIEW).forEach(function (k) { ACT[k] = ACT_VIEW[k]; });
 var CHG = {
   sound: function (el) { S.sound = el.checked; saveState(); },
   haptik: function (el) { S.haptik = el.checked; saveState(); if (S.haptik) haptic(); },
-  vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
   track: function (el) { ui.track = el.value; render(); },
   start: function (el) { S.startDate = el.value || null; saveState(); toast('Startdatum gespeichert.'); }
 };
@@ -1346,6 +1383,9 @@ if (SY) syncSoon(700);
 
 applyTheme();
 render();
+// Früher abgeschaltetes Vollbild (Feld `vollbild`) bleibt aus.
+if (S.vollbild === false && !LS.get('tp.state', {}).ansicht) { S.ansicht = 'app'; saveState(); }
+askView();
 initDb();
 })();
 </script>
