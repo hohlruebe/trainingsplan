@@ -16,7 +16,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Unterseiten über den Umschalter oben (`GROUPS` im Skript).
   Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
   Beim Wechseln kurzes haptisches Feedback (`haptic()`, abschaltbar in den Einstellungen).
-- Die App zeichnet bis unter Statusleiste und Home-Balken (`black-translucent`).
+- Manifest `display: fullscreen`: Auf Android blendet die installierte App Status- und
+  Gestenleiste aus (sonst zeichnet Chrome unten einen schwarzen Streifen).
+  Auf dem iPhone zeichnet sie bis unter Statusleiste und Home-Balken (`black-translucent`).
   Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
 - `sw.js`: Service Worker für den Offline-Betrieb
 - `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`
