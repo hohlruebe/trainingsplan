@@ -163,7 +163,8 @@ details.card[open]>summary{margin-bottom:6px}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--tray);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:200px;background:var(--tray);pointer-events:none}
 .tabbar::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:22px;pointer-events:none;background:linear-gradient(to bottom,color-mix(in srgb,var(--tray) 0%,transparent),var(--tray))}
-.tabbar-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.tabbar-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.subnav{margin:2px 0 18px}
 .tab{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:0;color:var(--ink2);font-family:var(--head);font-weight:500;font-size:11px;cursor:pointer;padding:6px 0 4px}
 .tab span{line-height:1.15}
 .tab[aria-current="page"]{color:var(--acc);font-weight:600}
@@ -210,11 +211,9 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 <main id="view" aria-live="polite"></main>
 <nav class="tabbar" aria-label="Hauptmenü">
   <div class="tabbar-in">
-    <button type="button" class="tab" data-act="tab" data-tab="heute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Heute</span></button>
-    <button type="button" class="tab" data-act="tab" data-tab="timer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg><span>Timer</span></button>
-    <button type="button" class="tab" data-act="tab" data-tab="verlauf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg><span>Verlauf</span></button>
-    <button type="button" class="tab" data-act="tab" data-tab="uebungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span>Übungen</span></button>
-    <button type="button" class="tab" data-act="tab" data-tab="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg><span>Plan</span></button>
+    <button type="button" class="tab" data-act="tab" data-group="coach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg><span>Coach</span></button>
+    <button type="button" class="tab" data-act="tab" data-group="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg><span>Profil</span></button>
+    <button type="button" class="tab" data-act="tab" data-group="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span>Tools</span></button>
   </div>
 </nav>
 <div class="toast" id="toast" role="status"></div>
@@ -321,7 +320,11 @@ var S = Object.assign({}, DEF, LS.get('tp.state', {}));
 if (LS.get('tp.state', {}).look !== 2) { S.font = 'klar'; S.look = 2; LS.set('tp.state', S); }
 var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
-var ui = { tab: 'heute', openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
+/* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
+var GROUPS = { coach: ['heute', 'plan'], profil: ['profil'], tools: ['timer', 'uebungen'] };
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen' };
+function groupOf(v) { for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
+var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
 
 /* ---------- helpers ---------- */
@@ -446,7 +449,7 @@ if (S.started && !S.standTs) S.standTs = 1;
 var lastTrain = JSON.stringify(trainPart(S));
 function markDirty() { if (!SY) return; SY.dirty = true; LS.set('tp.sync', SY); syncSoon(); }
 function syncSoon(ms) { if (!SY) return; clearTimeout(syncT); syncT = setTimeout(runSync, ms == null ? 1500 : ms); }
-function setSync(status, msg) { syncState = { status: status, msg: msg || '' }; if (ui.tab === 'plan' || ui.tab === 'heute') scheduleRender(); }
+function setSync(status, msg) { syncState = { status: status, msg: msg || '' }; if (ui.tab === 'profil' || ui.tab === 'heute') scheduleRender(); }
 function b64enc(str) { var by = new TextEncoder().encode(str), bin = ''; for (var i = 0; i < by.length; i += 0x8000) bin += String.fromCharCode.apply(null, by.subarray(i, i + 0x8000)); return btoa(bin); }
 function b64dec(b64) { var bin = atob(String(b64).replace(/\s/g, '')), by = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) by[i] = bin.charCodeAt(i); return new TextDecoder().decode(by); }
 function ghUrl() { return API + '/repos/' + encodeURIComponent(SY.owner) + '/' + encodeURIComponent(SY.repo) + '/contents/' + encodeURIComponent(SY.path || 'trainingsplan.json'); }
@@ -547,10 +550,15 @@ function isTyping() { var a = document.activeElement; return a && $view.contains
 function scheduleRender() { if (isTyping()) { pendingRender = true; return; } render(); }
 function render() {
   pendingRender = false;
-  var fn = { heute: renderHeute, timer: renderTimer, verlauf: renderVerlauf, uebungen: renderUebungen, plan: renderPlan }[ui.tab];
-  $view.innerHTML = fn();
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, uebungen: renderUebungen, plan: renderPlan }[ui.tab];
+  var g = groupOf(ui.tab), views = GROUPS[g];
+  ui.last[g] = ui.tab;
+  var sub = views.length < 2 ? '' : '<div class="seg subnav" role="group" aria-label="Bereich">' + views.map(function (v) {
+    return '<button type="button" class="seg-btn' + (v === ui.tab ? ' on' : '') + '" data-act="tab" data-tab="' + v + '" aria-pressed="' + (v === ui.tab) + '">' + VIEW_LABEL[v] + '</button>';
+  }).join('') + '</div>';
+  $view.innerHTML = sub + fn();
   document.querySelectorAll('.tab').forEach(function (b) {
-    if (b.dataset.tab === ui.tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    if (b.dataset.group === g) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
   if (ui.tab === 'timer') paintNow();
 }
@@ -983,8 +991,14 @@ function logLines(l) {
   if (l.notes) out.push('<span class="muted">„' + esc(l.notes) + '“</span>');
   return '<ul class="log-lines">' + out.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
 }
-function renderVerlauf() {
-  var h = '<section class="hero"><h1>Verlauf</h1></section>';
+function renderProfil() {
+  var h = verlaufHTML();
+  if (PWA) h += sec('Sync über GitHub', syncHTML());
+  h += sec('Einstellungen', settingsHTML());
+  return h;
+}
+function verlaufHTML() {
+  var h = '<section class="hero"><h1>Profil</h1><p class="hero-title">Verlauf, Einstellungen, Sync</p></section>';
   if (!LOGS.length) {
     return h + '<section class="card"><h2>Noch nichts gespeichert</h2><p>Sobald du ein Training speicherst, findest du hier Wiederholungen, Metcon-Runden, Laufzeiten und Murph-Zeiten.</p><button type="button" class="btn primary" data-act="tab" data-tab="heute">Zum heutigen Training</button></section>';
   }
@@ -1104,8 +1118,6 @@ function renderPlan() {
     ['Weighted Pull-up', '12 freie Pull-ups (3 × 10 sauber)', 'Mit Weste, für schwere Lasten später ein Dip-Gürtel.'],
     ['Ring Muscle-up', 'Chin-up mit ca. 35–45 % Körpergewicht extra, 1–2 tiefe Ring Dips', 'False Grip üben, Chin-up aus dem False Grip, Muscle-up mit Band, frei.']
   ].map(function (r) { return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>'; }).join('') + '</tbody></table></div>');
-  if (PWA) h += sec('Sync über GitHub', syncHTML());
-  h += sec('Einstellungen', settingsHTML());
   return h;
 }
 function settingsHTML() {
@@ -1155,7 +1167,7 @@ function twoStep(el, fn) {
   setTimeout(function () { if (el.isConnected) { el.dataset.armed = ''; el.textContent = old; } }, 4000);
 }
 var ACT = {
-  tab: function (el) { ui.tab = el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
+  tab: function (el) { ui.tab = el.dataset.group ? ui.last[el.dataset.group] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
   viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
   'do-this-day': function (el) { S.tag = +el.dataset.tag; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
