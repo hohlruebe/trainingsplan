@@ -89,7 +89,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   kurz an und setzt sich weich ab (Klasse `live` nach Änderung).
 
 ## Kapsel-Konzept (gilt für alles Neue)
-Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine (Entwurf: Canvas-Board „7 · Kapsel-Konzept“):
+Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine:
 1. Umschalter (eine Wahl aus wenigen): Glas-Kapsel `.seg` mit `.seg-btn`, Wahl als weiße Pille (`--pill`, Text `--acc`).
 2. Kapsel mit Symbolen (viele Ziele, wenig Platz): `capHTML()` / `.cap` mit `.cap-btn`, nur die Wahl zeigt ihren Namen
    (Reiterleiste, Profil-Ansichten, Orte). Tage 1–7 auf Heute: Kapsel `.pills`, dran = gefüllt in `--acc`, angeschaut = weiße Pille.
@@ -100,7 +100,8 @@ Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine (Ent
 7. Zähler: `.stepper` mit runden – / + und dem Wert in der Mitte.
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
 Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
-Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt. Tippflächen mindestens 44 px.
+Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion, dann Tipps-Karte (`tipsHTML`).
+Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Tag 1 Lift Off (Kraft Zug), Tag 2 Base Builder (Lauf locker), Tag 3 Push Through (Kraft Druck), Tag 4 Redline (Intervall-Lauf),
