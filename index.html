@@ -286,11 +286,51 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .p-bar{display:block;height:4px;border-radius:2px;background:var(--line)}
 .p-bar span{display:block;height:4px;border-radius:2px}
 .p-why li{justify-content:space-between}
+.radar-card{padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center}
+.radar{width:100%;max-width:340px;height:auto}
+.radar .r-ring{fill:none;stroke:var(--line)}
+.radar .r-prev{fill:none;stroke:color-mix(in srgb,var(--acc) 45%,transparent);stroke-width:1.5;stroke-dasharray:4 3}
+.radar .r-cur{fill:color-mix(in srgb,var(--acc) 16%,transparent);stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
+.radar .r-lab{cursor:pointer}
+.radar text{font-family:var(--text);font-size:12px;fill:var(--ink2)}
+.radar .r-val{font-family:var(--head);font-size:15px;font-weight:700;fill:var(--ink)}
+.r-leg{display:flex;gap:16px;margin:0 0 4px;font-size:12px;color:var(--ink2)}
+.r-leg i{display:inline-block;width:14px;margin-right:6px;vertical-align:3px}
+.r-leg i.cur{border-top:2px solid var(--acc)}
+.r-leg i.prev{border-top:2px dashed color-mix(in srgb,var(--acc) 45%,transparent)}
+.a-list{padding:2px 16px}
+.a-row{width:100%;display:grid;grid-template-columns:1fr 70px 36px 34px 10px;align-items:center;gap:8px;min-height:52px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:16px;text-align:left;padding:0;cursor:pointer}
+.a-row:first-child{border-top:0}
+.spark{width:70px;height:26px}
+.spark polyline{fill:none;stroke:var(--acc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.a-v{font-family:var(--head);font-size:19px;font-weight:700;text-align:right}
+.a-d{font-size:12px;font-weight:600;color:var(--green);text-align:right}
+.a-d.neg{color:var(--red)}
+.a-ch{color:var(--ink2)}
+.a-head{display:flex;align-items:baseline;justify-content:space-between;margin:6px 0 4px}
+.a-head h2{font-size:34px;margin:0}
+.a-big{font-family:var(--head);font-size:42px;font-weight:800;color:var(--acc);letter-spacing:-.03em}
+.a-lads{padding:4px 16px}
+.a-lad{width:100%;display:flex;flex-direction:column;gap:6px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left;padding:11px 0;cursor:pointer}
+.a-lads>.a-lad:first-child{border-top:0}
+.a-lt{display:flex;justify-content:space-between;gap:8px;font-size:15px}
+.a-lt .muted{font-size:13px;white-space:nowrap}
+.a-bar{height:6px;border-radius:3px;background:var(--fill);overflow:hidden}
+.a-bar i{display:block;height:100%;border-radius:3px}
+.a-dev{padding:0 0 10px}
+.bc-row{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:50px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:16px;padding:0;cursor:pointer}
+.bc-row:first-of-type{border-top:0}
+.sw-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;justify-items:center;margin:6px 0}
+.sw-pick{width:40px;height:40px;border-radius:20px;border:0;padding:0;cursor:pointer}
+.sw-pick.on{box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--acc)}
 .p-chart{width:100%;height:auto;margin-top:12px}
 .p-chart .grid{stroke:var(--line);fill:none}
 .p-chart .line{stroke:var(--acc);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .back{margin:0 0 8px}
 .rbtn.back{margin:0 0 4px}
+.h-top{align-items:center;gap:8px}
+.h-top .kicker{margin:0}
+.h-top .row{gap:8px;flex-wrap:nowrap}
 /* Medaillen */
 .medals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 4px;margin-top:6px}
 .m-cell{border:0;background:none;padding:0;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;cursor:pointer}
@@ -628,11 +668,14 @@ var BANDS = [
   { name: 'Sehr leicht', kg: '5–10 kg', c: '#C93232' }
 ];
 var BANDC = {}; BANDS.forEach(function (b) { BANDC[b.name] = b.c; });
+// Farben wie die echten Bänder: pro Band wählbar (S.bandCol, wird synchronisiert).
+var BAND_PAL = ['#2B2B2B', '#6B4FB8', '#2F6FD6', '#2E8A50', '#C96A12', '#D9A21B', '#C93232', '#D86AA3', '#8A8F98', '#4FB3C9'];
+function bandColor(x) { return BANDC[x] ? (S.bandCol && S.bandCol[x]) || BANDC[x] : null; }
 // Bandstufen ausgeschrieben mit Farbpunkt anzeigen; gespeichert bleibt der kurze Name („Normal“).
 var BAND_LABEL = { 'Sehr stark': 'Sehr starkes Band', 'Stark': 'Starkes Band', 'Normal': 'Normales Band', 'Leicht': 'Leichtes Band', 'Sehr leicht': 'Sehr leichtes Band' };
 function stageText(x) { return BAND_LABEL[x] || x; }
 function bdot(c) { return '<i class="bdot" style="background:' + c + '" aria-hidden="true"></i>'; }
-function stageHTML(x) { return BANDC[x] ? bdot(BANDC[x]) + esc(BAND_LABEL[x]) : esc(x); }
+function stageHTML(x) { return BANDC[x] ? bdot(bandColor(x)) + esc(BAND_LABEL[x]) : esc(x); }
 var PWA = window.TP_BUILD === 'pwa';
 var COLORS = [
   { id: 'blau', label: 'Blau', light: '#1E5BD8', dark: '#8DB8FF' },
@@ -709,7 +752,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -733,9 +776,9 @@ ensureOrte();
 var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
-var GROUPS = { coach: ['heute', 'plan'], profil: ['profil'], tools: ['timer', 'uebungen'] };
+var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen'] };
 var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen' };
-var HIDDEN = { einst: 'profil', haptik: 'profil' };
+var HIDDEN = { einst: 'profil', haptik: 'profil', plan: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
@@ -853,7 +896,7 @@ function initDb() {
 }
 
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = PWA ? LS.get('tp.sync', null) : null;
@@ -1313,7 +1356,7 @@ function ladderHTML(r) {
   if (!r) return '';
   var n = r.steps.length, nv = r.steps.filter(function (s) { return s.indexOf('Weste') !== 0; }).length;
   return '<div class="ladder" role="img" aria-label="Leiter von leicht nach schwer: ' + esc(r.steps.join(', ')) + '">' + r.steps.map(function (s, i) {
-    var vest = s.indexOf('Weste') === 0, bc = r.band && BANDC[s], hgt = 22 + (n > 1 ? i / (n - 1) : 1) * 56;
+    var vest = s.indexOf('Weste') === 0, bc = r.band && bandColor(s), hgt = 22 + (n > 1 ? i / (n - 1) : 1) * 56;
     var a = 35 + 65 * (i / Math.max(1, nv - 1)), bg, fg;
     if (vest) { bg = 'var(--ink)'; fg = 'var(--board)'; }
     else if (bc) { bg = bc; fg = '#fff'; }
@@ -1323,12 +1366,12 @@ function ladderHTML(r) {
   }).join('') + '</div>';
 }
 function bandLegend() {
-  return '<ul class="list band-list">' + BANDS.map(function (b) { return '<li><span>' + bdot(b.c) + esc(BAND_LABEL[b.name]) + '</span><span class="muted">' + b.kg + '</span></li>'; }).join('') + '</ul>';
+  return '<ul class="list band-list">' + BANDS.map(function (b) { return '<li><span>' + bdot(bandColor(b.name)) + esc(BAND_LABEL[b.name]) + '</span><span class="muted">' + b.kg + '</span></li>'; }).join('') + '</ul>';
 }
 /* ---------- Plan ---------- */
 function sec(title, body, open) { var o = Object.prototype.hasOwnProperty.call(ui.openSec, title) ? ui.openSec[title] : open; return '<details class="card" data-sec="' + esc(title) + '"' + (o ? ' open' : '') + '><summary><h2>' + title + '</h2></summary>' + body + '</details>'; }
 function renderPlan() {
-  var h = '<section class="hero"><h1>Plan</h1><p class="hero-title">Regeln, Methode, Tests</p></section>';
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="heute" aria-label="Zurück zu Heute">' + BACK + '</button><section class="hero"><h1>Plan</h1><p class="hero-title">So funktioniert dein Training</p></section>';
   var days = '<ul class="list">';
   for (var t = 1; t <= 7; t++) days += '<li><span class="qty">Tag ' + t + '</span><span><b>' + esc(dayLabel(t)) + '</b> <span class="muted">' + esc(dayWhat(t)) + '</span>' + (DAYS[t].rings ? ' <span class="muted small">(' + esc(DAYS[t].rings) + ')</span>' : '') + '</span></li>';
   days += '</ul><p class="small muted" style="margin-top:8px">Jede Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, Kraft als EMOM 12, Metcon als AMRAP 8 – rund 35 Min.</p>';
@@ -1407,13 +1450,13 @@ function settingsHTML() {
 /* ---------- Profil: Werte, Erfolge, Medaillen ---------- */
 // Sechs Bereiche, alphabetisch. Jeder Wert (0–99) entsteht aus den Leitern des Bereichs:
 // 40 Punkte für die erste Stufe, dann bis 99 je nach Stufe und Wiederholungen in der Zielspanne.
+// Fünf Bereiche nach den motorischen Grundfähigkeiten. Alphabetisch, weil es keinen Nutzen gibt.
 var AREAS = [
-  { id: 'ausdauer', name: 'Ausdauer', col: '#C85C6C', keys: ['murph', 'interval'] },
-  { id: 'beine', name: 'Beine', col: '#4E9C78', keys: ['g_pistol', 'g_bss', 'g_lunge', 'g_nordic', 'g_bridge'] },
-  { id: 'druck', name: 'Druck', col: '#C8734E', keys: ['g_push', 'g_dip', 'g_pike'] },
-  { id: 'rumpf', name: 'Rumpf', col: '#3A8E9C', keys: ['g_hollow', 'g_kneeraise', 'g_abwheel', 'g_tuck'] },
-  { id: 'skill', name: 'Skill', col: '#B8933A', keys: ['g_handstand'] },
-  { id: 'zug', name: 'Zug', col: '#1E5BD8', keys: ['g_pullup', 'g_chinup', 'g_row'] }
+  { id: 'ausdauer', name: 'Ausdauer', col: '#C85C6C', keys: [], run: 'easy' },
+  { id: 'beweglichkeit', name: 'Beweglichkeit', col: '#4E9C78', keys: [] },
+  { id: 'koordination', name: 'Koordination', col: '#B8933A', keys: [] },
+  { id: 'kraft', name: 'Kraft', col: '#1E5BD8', keys: [], parts: [['zug', 'Zug'], ['druck', 'Druck'], ['beine', 'Beine'], ['rumpf', 'Rumpf']] },
+  { id: 'schnellkraft', name: 'Schnellkraft', col: '#C8734E', keys: [], run: 'interval' }
 ];
 var XLAD = {
   murph: { key: 'murph', name: 'Murph', nutzen: 85, steps: ['Half Murph', 'Voll mit Band', 'Voll und frei', 'Original mit Weste'] },
@@ -1423,7 +1466,20 @@ function ladOf(key) { return LAD[key] || XLAD[key]; }
 function nutzenOf(k) { if (k === 'easy') return 75; var l = ladOf(k); return l && l.nutzen != null ? l.nutzen : 0; }
 // Listen nach Nutzen sortieren, höchster zuerst.
 var ALL_LADDERS = Object.keys(LAD).concat(['murph', 'interval']).sort(function (a, b) { return nutzenOf(b) - nutzenOf(a) || ladOf(a).name.localeCompare(ladOf(b).name, 'de'); });
-AREAS.forEach(function (a) { Object.keys(LAD).forEach(function (k) { if (LAD[k].bereich === a.id && a.keys.indexOf(k) < 0) a.keys.push(k); }); });
+// Welche Leiter zu welchem Bereich gehört; Kraft merkt sich zusätzlich den Teil (Zug, Druck, Beine, Rumpf).
+function areaOf(k) {
+  if (k === 'murph') return 'ausdauer';
+  if (k === 'interval') return 'schnellkraft';
+  var l = LAD[k]; if (!l) return null;
+  if (l.muster === 'mobilitaet' || l.bereich === 'beweglichkeit') return 'beweglichkeit';
+  if (l.muster === 'sprung' && l.bereich !== 'ausdauer' || l.muster === 'olympisch') return 'schnellkraft';
+  if (l.bereich === 'ausdauer') return 'ausdauer';
+  if (l.bereich === 'skill') return 'koordination';
+  return 'kraft';
+}
+function partOf(k) { var l = LAD[k]; return l ? l.bereich : null; }
+var AREA = {}; AREAS.forEach(function (a) { AREA[a.id] = a; });
+Object.keys(LAD).concat(['murph', 'interval']).forEach(function (k) { var a = AREA[areaOf(k)]; if (a) a.keys.push(k); });
 var ICONS = {
   g_pullup: 'M4 4h16M8 4v3M16 4v3M12 21v-9M8.5 15.5L12 12l3.5 3.5',
   g_chinup: 'M4 4h16M12 21v-8M8.5 16.5L12 13l3.5 3.5M10 8a2 2 0 1 0 4 0a2 2 0 1 0-4 0',
@@ -1504,7 +1560,9 @@ function statsOf(logs) {
     var sc = a.keys.map(function (k) { return ladderScore(k, st[k]); }).filter(function (v) { return v > 0; });
     return { id: a.id, name: a.name, col: a.col, keys: a.keys, val: sc.length ? Math.round(sc.reduce(function (x, y) { return x + y; }, 0) / sc.length) : 0 };
   });
-  var total = Math.round(areas.reduce(function (x, a) { return x + a.val; }, 0) / areas.length);
+  // Gesamtwert aus den Bereichen mit Daten, damit ein leerer Bereich (z. B. Beweglichkeit) nicht nach unten zieht.
+  var with_ = areas.filter(function (a) { return a.val > 0; });
+  var total = with_.length ? Math.round(with_.reduce(function (x, a) { return x + a.val; }, 0) / with_.length) : 0;
   return { st: st, areas: areas, total: total };
 }
 function cardTier(v) { return v >= 85 ? 'Platin' : v >= 75 ? 'Gold' : v >= 65 ? 'Silber' : v > 0 ? 'Bronze' : 'Start'; }
@@ -1551,13 +1609,13 @@ function profileHead(stats) {
 }
 
 var PVIEWS = [
-  ['entwicklung', 'Entwicklung', 'Wie sich eine Übung entwickelt', 'M3 17l6-6 4 4 8-8M15 7h6v6'],
   ['equipment', 'Equipment', 'Deine Orte und Geräte', 'M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12'],
   ['erfolge', 'Erfolge', 'Medaillen für jede Stufe', 'M7 10a5 5 0 1 0 10 0a5 5 0 1 0-10 0M9.5 14.5L8 21l4-2.5 4 2.5-1.5-6.5'],
   ['verlauf', 'Verlauf', 'Alle gespeicherten Trainings', 'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01'],
-  ['werte', 'Werte', 'Die sechs Bereiche', 'M12 3l8 5v8l-8 5-8-5V8zM12 8l4 2.5v3L12 16l-4-2.5v-3z']
+  ['werte', 'Werte', 'Die fünf Bereiche', 'M12 3l8 5v8l-8 5-8-5V8zM12 8l4 2.5v3L12 16l-4-2.5v-3z']
 ];
 function renderProfil() {
+  if (ui.pview === 'entwicklung') ui.pview = 'werte';
   var stats = statsOf(LOGS), view = ui.pview || 'werte', cur = PVIEWS.filter(function (p) { return p[0] === view; })[0];
   var h = profileHead(stats);
   h += '<nav class="cap pcap" aria-label="Ansicht">' + PVIEWS.map(function (p) {
@@ -1566,23 +1624,83 @@ function renderProfil() {
   }).join('') + '</nav>';
   if (view === 'werte') h += werteHTML(stats);
   else if (view === 'erfolge') h += erfolgeHTML(stats);
-  else if (view === 'entwicklung') h += entwicklungHTML();
   else if (view === 'equipment') h += equipmentHTML();
   else h += verlaufHTML();
   return h;
 }
-function werteHTML(stats) {
-  var sel = ui.parea || stats.areas[0].id, a = stats.areas.filter(function (x) { return x.id === sel; })[0];
-  var h = '<div class="p-tiles">' + stats.areas.map(function (x) {
-    return '<button type="button" class="p-tile' + (x.id === sel ? ' on' : '') + '" data-act="parea" data-v="' + x.id + '"><span class="p-tile-n"><i style="background:' + x.col + '"></i>' + x.name + '</span><b>' + (x.val || '–') + '</b><span class="p-bar"><span style="width:' + x.val + '%;background:' + x.col + '"></span></span></button>';
-  }).join('') + '</div>';
-  var rows = a.keys.slice().sort(byNutzen).map(function (k) {
-    var s = stats.st[k], lad = ladOf(k);
-    return '<li><span>' + esc(lad.name) + '</span><span class="muted">' + (s && s.cur ? esc(lad.steps[s.cur - 1]) + (s.reps != null ? ' · ' + s.reps + ' Wdh.' : '') : 'noch offen') + '</span></li>';
-  }).join('');
-  return h + '<section class="card"><div class="card-head"><h2>' + esc(a.name) + '</h2><span class="chip">' + (a.val || '–') + '</span></div><ul class="list p-why">' + rows + '</ul>' +
-    '<p class="small muted">Der Wert entsteht aus deiner Stufe in jeder Leiter und den Wiederholungen darauf. Er kann auch wieder sinken.</p></section>';
+// Werte: Netzdiagramm aller Bereiche, darunter jeder Bereich mit Verlauf; Tippen öffnet die Aufschlüsselung.
+function statsAt(iso) { return statsOf(LOGS.filter(function (l) { return l.date <= iso; })); }
+function isoDaysAgo(n) { return isoDate(new Date(Date.now() - n * 864e5)); }
+function sampleDates(n) {
+  var first = LOGS.reduce(function (m, l) { return !m || l.date < m ? l.date : m; }, null) || S.startDate || isoToday();
+  var t0 = parseISO(first).getTime(), t1 = Date.now(), out = [];
+  for (var i = 0; i < n; i++) out.push(isoDate(new Date(t0 + (t1 - t0) * i / (n - 1))));
+  return out;
 }
+function radarSVG(cur, prev) {
+  var n = cur.length, cx = 160, cy = 142, R = 98;
+  function pt(i, v) { var a = -Math.PI / 2 + i * 2 * Math.PI / n, r = R * v / 99; return (cx + r * Math.cos(a)).toFixed(1) + ',' + (cy + r * Math.sin(a)).toFixed(1); }
+  function poly(vals) { return vals.map(function (v, i) { return pt(i, v); }).join(' '); }
+  var h = '<svg class="radar" viewBox="0 0 320 300" role="img" aria-label="Netzdiagramm: ' + esc(cur.map(function (a) { return a.name + ' ' + (a.val || 'keine Daten'); }).join(', ')) + '">';
+  [33, 66, 99].forEach(function (v) { h += '<polygon class="r-ring" points="' + poly(cur.map(function () { return v; })) + '"/>'; });
+  cur.forEach(function (a, i) { h += '<line class="r-ring" x1="' + cx + '" y1="' + cy + '" x2="' + pt(i, 99).split(',')[0] + '" y2="' + pt(i, 99).split(',')[1] + '"/>'; });
+  if (prev) h += '<polygon class="r-prev" points="' + poly(prev.map(function (a) { return a.val; })) + '"/>';
+  h += '<polygon class="r-cur" points="' + poly(cur.map(function (a) { return a.val; })) + '"/>';
+  cur.forEach(function (a, i) {
+    var an = -Math.PI / 2 + i * 2 * Math.PI / n, x = cx + (R + 30) * Math.cos(an), y = cy + (R + 20) * Math.sin(an);
+    h += '<g class="r-lab" data-act="parea" data-v="' + a.id + '"><text x="' + x.toFixed(0) + '" y="' + y.toFixed(0) + '" text-anchor="middle">' + esc(a.name) + '</text><text class="r-val" x="' + x.toFixed(0) + '" y="' + (y + 16).toFixed(0) + '" text-anchor="middle">' + (a.val || '–') + '</text></g>';
+  });
+  return h + '</svg>';
+}
+function sparkSVG(vals) {
+  var ok = vals.filter(function (v) { return v > 0; }); if (ok.length < 2) return '<span class="spark"></span>';
+  var lo = Math.min.apply(null, ok) - 2, hi = Math.max.apply(null, ok) + 2;
+  return '<svg class="spark" viewBox="0 0 70 26" aria-hidden="true"><polyline points="' + vals.map(function (v, i) { return v > 0 ? (2 + i * 66 / (vals.length - 1)).toFixed(1) + ',' + (24 - (v - lo) / (hi - lo) * 22).toFixed(1) : null; }).filter(Boolean).join(' ') + '"/></svg>';
+}
+function werteHTML(stats) {
+  if (ui.parea && AREA[ui.parea]) return areaDetailHTML(stats, ui.parea);
+  var prev = statsAt(isoDaysAgo(28)), dates = sampleDates(8), hist = dates.map(statsAt);
+  var h = '<section class="card radar-card">' + radarSVG(stats.areas, prev.areas) +
+    '<p class="r-leg"><span><i class="cur"></i>Jetzt</span><span><i class="prev"></i>Vor 4 Wochen</span></p></section>';
+  h += '<section class="card a-list">' + stats.areas.map(function (a, i) {
+    var d = a.val && prev.areas[i].val ? a.val - prev.areas[i].val : 0;
+    return '<button type="button" class="a-row" data-act="parea" data-v="' + a.id + '"><b>' + esc(a.name) + '</b>' + sparkSVG(hist.map(function (x) { return x.areas[i].val; })) +
+      '<span class="a-v">' + (a.val || '–') + '</span><span class="a-d' + (d < 0 ? ' neg' : '') + '">' + (d ? (d > 0 ? '+' : '') + d : '') + '</span><span class="a-ch">›</span></button>';
+  }).join('') + '</section>';
+  return h + '<p class="small muted" style="text-align:center">Werte entstehen aus deiner Stufe in jeder Leiter und den Wiederholungen darauf. Sie können auch wieder sinken.</p>';
+}
+function areaDetailHTML(stats, id) {
+  var a = stats.areas.filter(function (x) { return x.id === id; })[0], def = AREA[id], part = def.parts && ui.ppart ? ui.ppart : null;
+  var keys = a.keys.filter(function (k) { return !part || partOf(k) === part; });
+  function partVal(st, p) { var sc = a.keys.filter(function (k) { return partOf(k) === p; }).map(function (k) { return ladderScore(k, st[k]); }).filter(function (v) { return v > 0; }); return sc.length ? Math.round(sc.reduce(function (x, y) { return x + y; }, 0) / sc.length) : 0; }
+  var h = '<div class="row between"><button type="button" class="rbtn" data-act="parea" data-v="" aria-label="Zurück zu Werte">' + BACK + '</button></div>';
+  var pv = part ? partVal(stats.st, part) : a.val, pn = part ? def.parts.filter(function (x) { return x[0] === part; })[0][1] : '';
+  h += '<div class="a-head"><h2>' + esc(a.name) + (pn ? ' <span class="muted">· ' + esc(pn) + '</span>' : '') + '</h2><span class="a-big">' + (pv || '–') + '</span></div>';
+  var dates = sampleDates(10), hist = dates.map(statsAt), vals = hist.map(function (x) { return part ? partVal(x.st, part) : x.areas.filter(function (y) { return y.id === id; })[0].val; });
+  if (vals.filter(function (v) { return v > 0; }).length >= 2) {
+    var ok = vals.filter(function (v) { return v > 0; }), lo = Math.max(0, Math.min.apply(null, ok) - 5), hi = Math.min(99, Math.max.apply(null, ok) + 5);
+    h += '<section class="card"><svg class="dev-chart" viewBox="0 0 320 130" aria-hidden="true"><line class="grid" x1="0" y1="10" x2="320" y2="10"/><line class="grid" x1="0" y1="60" x2="320" y2="60"/><line class="grid" x1="0" y1="110" x2="320" y2="110"/>' +
+      '<polyline class="line" points="' + vals.map(function (v, i) { return v > 0 ? (6 + i * 308 / (vals.length - 1)).toFixed(1) + ',' + (110 - (v - lo) / Math.max(1, hi - lo) * 100).toFixed(1) : null; }).filter(Boolean).join(' ') + '"/>' +
+      '<text x="6" y="126">' + esc(shortDate(dates[0])) + '</text><text x="314" y="126" text-anchor="end">heute</text></svg></section>';
+  }
+  if (def.parts) {
+    h += '<div class="seg" role="group" aria-label="Teil">' + [['', 'Alle']].concat(def.parts).map(function (p) {
+      var on = (part || '') === p[0];
+      return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="ppart" data-v="' + p[0] + '" aria-pressed="' + on + '">' + p[1] + '</button>';
+    }).join('') + '</div>';
+  }
+  var done = keys.filter(function (k) { return stats.st[k] && stats.st[k].cur; }).sort(byNutzen), open = keys.length - done.length;
+  if (!done.length) h += '<section class="card"><p class="muted">' + (id === 'beweglichkeit' ? 'Noch keine Daten. Die Mobility-Sektion mit Beweglichkeits-Check kommt bald.' : 'Noch keine Daten. Sobald du eine Übung aus diesem Bereich trainierst, erscheint sie hier.') + '</p></section>';
+  else h += '<section class="card a-lads">' + done.map(function (k) {
+    var s2 = stats.st[k], lad = ladOf(k), n = lad.steps.length, sc = ladderScore(k, s2), on = ui.track === k;
+    return '<button type="button" class="a-lad" data-act="ptrack" data-v="' + k + '" aria-expanded="' + on + '"><span class="a-lt"><b>' + esc(lad.name) + '</b><span class="muted">Stufe ' + s2.cur + ' von ' + n + ' · ' + METAL[tierOf(s2.cur, n)].name + '</span></span>' +
+      '<span class="a-bar"><i style="width:' + sc + '%;background:' + (def.parts ? (AREA_PART_COL[partOf(k)] || def.col) : def.col) + '"></i></span></button>' + (on ? '<div class="a-dev">' + devLadderHTML(k) + '</div>' : '');
+  }).join('') + '</section>';
+  if (open) h += '<p class="small muted" style="text-align:center">' + open + (open === 1 ? ' weitere Übung' : ' weitere Übungen') + ' noch offen.</p>';
+  if (def.run && (!part)) h += '<section class="card"><h2>' + (def.run === 'easy' ? 'Lauf locker' : 'Intervall-Lauf') + '</h2>' + devRunHTML(def.run) + '</section>';
+  return h;
+}
+var AREA_PART_COL = { zug: '#1E5BD8', druck: '#C8734E', beine: '#4E9C78', rumpf: '#3A8E9C' };
 function erfolgeHTML(stats) {
   var first = !ui.medShown; ui.medShown = true;
   var got = ALL_LADDERS.filter(function (k) { return stats.st[k] && stats.st[k].cur; }).length;
@@ -1798,7 +1916,9 @@ var ACT = {
 };
 ACT.pmenu = function () { ui.pmenu = !ui.pmenu; render(); };
 ACT.pview = function (el) { ui.pview = el.dataset.v; ui.pmenu = false; render(); };
-ACT.parea = function (el) { ui.parea = el.dataset.v; render(); };
+ACT.parea = function (el) { ui.parea = el.dataset.v || el.closest('[data-v]').dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); };
+ACT.ppart = function (el) { ui.ppart = el.dataset.v || null; ui.track = null; render(); };
+ACT.ptrack = function (el) { ui.track = ui.track === el.dataset.v ? null : el.dataset.v; render(); };
 ACT.medal = function (el) {
   var m = el.querySelector('.medal'); if (!m || m.classList.contains('locked')) return;
   m.classList.remove('tilt', 'shine'); void m.offsetWidth; m.classList.add('tilt', 'shine');
@@ -1834,8 +1954,6 @@ ACT.choose = function (el) {
     else { for (var t = 1; t <= 7; t++) items.push({ v: String(t), t: 'Tag ' + t + ' · ' + dayLabel(t) }); }
     var f = k.slice(-1);
     openSheet(f === 'd' ? 'Durchgang' : 'Tag', [{ wide: true, items: items, val: String(o[f]) }], function (v) { o[f] = +v[0]; render(); });
-  } else if (k === 'track') {
-    openSheet('Leiter', [{ wide: true, items: DEV_KEYS.map(function (x) { return { v: x, t: devName(x) }; }), val: ui.track }], function (v) { ui.track = v[0]; render(); });
   } else if (k === 'murph') {
     openTimeSheet('Deine Zeit', secOf(dr(S.tag).murphTime), function (sec) { setDraft('murphTime', sec ? fmt(sec) : ''); render(); });
   } else if (k === 'start') {
@@ -1847,6 +1965,7 @@ ACT.choose = function (el) {
   }
 };
 /* ---------- Coach: Übersicht, Schritte, Rad ---------- */
+var BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
 var CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>';
 var PLAY = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>';
 var PAUSE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
@@ -1945,7 +2064,7 @@ function renderHeute() {
   else if (d.type === 'easy') kick += ' · ' + easyMinutes(S.durchgang) + ' Min';
   else if (d.type === 'interval') kick += ' · Stufe ' + S.ivStage + ', ' + S.ivReps + '×';
   var title = c.isMurph ? 'Murph' : c.isTest ? TESTDAYS[tag].title : dayLabel(tag);
-  var h = '<div class="row between"><p class="kicker muted">' + esc(kick) + '</p>' + storageChip() + '</div><section class="hero"><h1>' + esc(title) + '</h1></section>';
+  var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + '<button type="button" class="rbtn" data-act="tab" data-tab="plan" aria-label="Plan und Regeln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg></button></span></div><section class="hero"><h1>' + esc(title) + '</h1></section>';
   h += '<nav class="pills" aria-label="Tage">';
   for (var t = 1; t <= 7; t++) {
     var cls = 'pill' + (DAYS[t].type === 'rest' ? ' rest' : '') + (t === S.tag ? ' cur' : '') + (t === tag && !cur ? ' view' : '');
@@ -2322,7 +2441,7 @@ ACT.pick = function (el) {
     var cur = D[ds.sf] != null ? D[ds.sf] : (ds.sdef || ''), items = lad.steps.slice();
     if (cur && items.indexOf(cur) < 0) items.unshift(cur);
     items.unshift('');
-    cols.push({ head: 'Stufe', wide: true, f: ds.sf, val: cur, items: items.map(function (s) { return { v: s, t: s ? stageText(s) : '–', c: BANDC[s] }; }) });
+    cols.push({ head: 'Stufe', wide: true, f: ds.sf, val: cur, items: items.map(function (s) { return { v: s, t: s ? stageText(s) : '–', c: bandColor(s) }; }) });
   }
   if (ds.only !== 'stage') cols.push({ head: ds.unit || '', f: ds.f, val: D[ds.f] != null ? D[ds.f] : (ds.def != null ? String(ds.def) : ''), items: numItems(+ds.min || 0, +ds.max || 60, true) });
   openSheet(ds.title || '', cols, function (v) {
@@ -2423,8 +2542,6 @@ function paintMini(L) {
 }
 
 /* ---------- Entwicklung von Anfang an ---------- */
-function devName(k) { return k === 'easy' ? 'Lauf locker' : ladOf(k).name; }
-var DEV_KEYS = ALL_LADDERS.concat(['easy']).sort(function (a, b) { return nutzenOf(b) - nutzenOf(a) || devName(a).localeCompare(devName(b), 'de'); });
 function ladderSeries(key) {
   var lad = ladOf(key), pts = [];
   function add(l, idx, reps, stage, extra) { if (idx) pts.push(Object.assign({ date: l.date, ts: l.ts || 0, idx: idx, reps: reps, stage: stage }, extra || {})); }
@@ -2506,14 +2623,6 @@ function devRunHTML(kind) {
     '<div><span>Längster</span><span><b>' + fmtDur(long.sec) + '</b> · ' + fmtKm(long.km) + ' km</span></div>' +
     '<div><span>Gesamt</span><span><b>' + all.length + (all.length === 1 ? ' Lauf' : ' Läufe') + '</b> · ' + fmtKm(sum) + ' km</span></div></div>';
   return h;
-}
-function entwicklungHTML() {
-  var tr = DEV_KEYS.indexOf(ui.track) >= 0 ? ui.track : null;
-  if (!tr) { var st = ladderStates(LOGS); tr = DEV_KEYS.filter(function (k) { return st[k] && st[k].cur; })[0] || 'g_pullup'; }
-  ui.track = tr;
-  var h = '<section class="card"><h2>Entwicklung</h2><div class="pick-grid one">' + tile('Leiter', '<b class="txt">' + esc(devName(tr)) + '</b>', 'data-act="choose" data-k="track"', 'set') + '</div>';
-  h += tr === 'easy' || tr === 'interval' ? devRunHTML(tr) : devLadderHTML(tr);
-  return h + '</section>';
 }
 
 /* ---------- Orte, Equipment und Plätze im Plan ---------- */
@@ -2663,7 +2772,10 @@ function equipmentHTML() {
       '<span class="eq-t"><b>' + esc(e.name) + '</b><small>' + esc(e.preis) + ' · ' + use.length + (use.length === 1 ? ' Übung' : ' Übungen') + '</small></span></button>' +
       (fixed ? '<span class="small muted">immer dabei</span>' : '<label class="check"><input type="checkbox" data-change="eq" data-id="' + e.id + '"' + (on ? ' checked' : '') + '><span class="sr">' + esc(e.name) + '</span></label>') + '</div>' +
       (open ? '<div class="eq-more"><p>' + esc(e.warum) + '</p>' + (use.length ? '<p><b>Schaltet frei:</b> ' + use.slice(0, 5).map(function (u) { return esc(u.name); }).join(', ') + (use.length > 5 ? ' …' : '') + '</p>' : '') + '<p class="small muted">Platz: ' + esc(e.platz) + '</p></div>' : '') + '</div>';
-  }).join('') + '</section><p class="small muted" style="text-align:center">Sortiert nach Score aus Nutzen und Kosten.</p>';
+  }).join('') + '</section><p class="small muted" style="text-align:center">Sortiert nach Score aus Nutzen und Kosten.</p>' +
+    '<section class="card"><h2>Bandfarben</h2><p class="small muted">Wähl die Farbe, die dein Band wirklich hat. So erkennst du es im Training sofort.</p>' + BANDS.map(function (b) {
+      return '<button type="button" class="bc-row" data-act="band-col" data-v="' + esc(b.name) + '"><span>' + bdot(bandColor(b.name)) + esc(BAND_LABEL[b.name]) + '</span><span class="muted small">' + b.kg + ' ›</span></button>';
+    }).join('') + '</section>';
   return h;
 }
 CHG.eq = function (el) {
@@ -2688,6 +2800,15 @@ function openForm(title, body, okLabel, ok) {
   fitKeyboard(bg);
   requestAnimationFrame(function () { bg.classList.add('open'); var i = bg.querySelector('input'); if (i) i.focus(); });
 }
+ACT['band-col'] = function (el) {
+  var name = el.dataset.v, cur = bandColor(name);
+  openForm('Farbe · ' + BAND_LABEL[name], '<div class="sw-grid">' + BAND_PAL.map(function (c) {
+    return '<button type="button" class="sw-pick' + (c === cur ? ' on' : '') + '" data-seg="' + c + '" style="background:' + c + '" aria-label="Farbe ' + c + '"></button>';
+  }).join('') + '</div>', 'Sichern', function (bg) {
+    var on = bg.querySelector('[data-seg].on'); if (!on) return;
+    S.bandCol = Object.assign({}, S.bandCol || {}); S.bandCol[name] = on.dataset.seg; saveState(); render();
+  });
+};
 // Orte ein- und ausschalten. Mindestens einer bleibt an.
 ACT.orte = function () {
   ensureOrte();
