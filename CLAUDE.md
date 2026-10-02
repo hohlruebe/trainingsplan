@@ -70,8 +70,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   kurz an und setzt sich weich ab (Klasse `live` nach Änderung).
 
 ## Trainingslogik (Kurzfassung)
-- Tag 1 Kraft A (Pull), Tag 2 Lauf locker, Tag 3 Kraft B (Push), Tag 4 Intervall-Lauf,
-  Tag 5 frei, Tag 6 Kraft C (Pull + Push), Tag 7 frei.
+- Tag 1 Lift Off (Kraft Zug), Tag 2 Base Builder (Lauf locker), Tag 3 Push Through (Kraft Druck), Tag 4 Redline (Intervall-Lauf),
+  Tag 5 Rest Day, Tag 6 Full Circle (Kraft Zug + Druck, leichter), Tag 7 Rest Day. Der Name (`name` in `DAYS`) verrät nicht den Inhalt.
 - Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2),
   Metcon AMRAP 8.
 - Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph.

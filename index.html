@@ -523,7 +523,7 @@ var WARMUP = [
 ];
 
 var DAYS = {
-  1: { type: 'kraft', key: 'A', title: 'Kraft A', focus: 'Pull', rings: 'Ringe ganz oben',
+  1: { type: 'kraft', key: 'A', name: 'Lift Off', title: 'Kraft A', focus: 'Pull', rings: 'Ringe ganz oben',
     jumps: { t: '3 × 5', n: 'Squat Jump' },
     kraft: [{ n: 'Ring Pull-up', target: '3–6', hi: 6, note: 'Hauptzugtag' },
             { n: 'Pistol Squat', target: '3–6 je Seite', hi: 6 },
@@ -531,17 +531,17 @@ var DAYS = {
     kraftNote: 'Ringe ganz oben – nur für den Pull-up, das Band bleibt den ganzen Block hängen. Türrahmen als Pistol-Hilfe, Sofa als Nordic-Anker.',
     metcon: [{ r: '10', n: 'Push-up', note: 'eine Stufe leichter als im Kraftblock' }, { r: '15', n: 'Air Squat' }, { r: '20 s', n: 'Hollow Body Hold' }],
     metconNote: 'Sobald du 3–5 freie Pull-ups schaffst, ersetzen 8 Hanging Knee Raises den Hollow Body Hold.' },
-  2: { type: 'easy', title: 'Lauf locker', focus: 'Grundlage' },
-  3: { type: 'kraft', key: 'B', title: 'Kraft B', focus: 'Push', rings: 'Ringe hüfthoch', jumps: null,
+  2: { type: 'easy', name: 'Base Builder', title: 'Lauf locker', focus: 'Grundlage' },
+  3: { type: 'kraft', key: 'B', name: 'Push Through', title: 'Kraft B', focus: 'Push', rings: 'Ringe hüfthoch', jumps: null,
     kraft: [{ n: 'Push-up', target: '3–6', hi: 6, note: 'Kraftstufe' },
             { n: 'Ring Dip', target: '3–6', hi: 6 },
             { n: 'Glute Bridge', target: '8–12', hi: 12 }],
     kraftNote: 'Push-up-Stufe so wählen, dass 3–6 Wdh. mit RIR 2 gehen. Ring Dip erst ab 15 sauberen Push-ups – bis dahin 20 s Support Hold, danach mit Band zwischen den Ringen.',
     metcon: [{ r: '10', n: 'Ring Row' }, { r: '10', n: 'Reverse Lunge', note: '5 je Seite' }, { r: '10', n: 'Slider Knee Tuck', note: 'Füße auf dem Handtuch' }],
     metconNote: 'Ringe hüfthoch für Dip und Row. Handtuch auf glattem Boden, auf Teppich Pappteller.' },
-  4: { type: 'interval', title: 'Intervall-Lauf', focus: 'Tempo' },
-  5: { type: 'rest', title: 'Frei', focus: 'Ruhetag' },
-  6: { type: 'kraft', key: 'C', title: 'Kraft C', focus: 'Pull + Push', rings: 'Ringe ganz oben',
+  4: { type: 'interval', name: 'Redline', title: 'Intervall-Lauf', focus: 'Tempo' },
+  5: { type: 'rest', name: 'Rest Day', title: 'Frei', focus: 'Ruhetag' },
+  6: { type: 'kraft', key: 'C', name: 'Full Circle', title: 'Kraft C', focus: 'Pull + Push', rings: 'Ringe ganz oben',
     jumps: { t: '3 × 4 je Seite', n: 'Skater Jump' },
     kraft: [{ n: 'Ring Chin-up', target: '3–6', hi: 6, note: 'leichter Zugtag mit RIR 3' },
             { n: 'Bulgarian Split Squat', target: '3–6 je Seite', hi: 6 },
@@ -549,7 +549,7 @@ var DAYS = {
     kraftNote: 'Ringe ganz oben – nur für den Chin-up, Band nach Bedarf. Ab Wheel und Kissen bereitlegen. Tag 6 bleibt bewusst leichter, damit du an Tag 1 frisch bist.',
     metcon: [{ r: '30 s', n: 'Ergometer', note: 'hart, feste Wattzahl' }, { r: '8', n: 'Pike Push-up' }, { r: '12', n: 'Air Squat' }],
     metconNote: 'Die Wattzahl fürs Ergometer notieren und dabei bleiben, damit die Runden vergleichbar sind.' },
-  7: { type: 'rest', title: 'Frei', focus: 'Ruhetag' }
+  7: { type: 'rest', name: 'Rest Day', title: 'Frei', focus: 'Ruhetag' }
 };
 var IV = {
   1: { work: 1, rest: 2, restLabel: 'gehen oder traben', min: 6, max: 10 },
@@ -605,7 +605,9 @@ function fmtDate(s) { var d = parseISO(s); return d.toLocaleDateString('de-DE', 
 function fmt(sec) { sec = Math.max(0, Math.floor(sec)); var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60; return h ? h + ':' + pad(m) + ':' + pad(s) : pad(m) + ':' + pad(s); }
 function num(v) { if (v === '' || v == null) return null; var n = Number(v); return isFinite(n) ? n : null; }
 function newId() { return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8); }
-function dayLabel(t) { var d = DAYS[t]; return d.type === 'kraft' ? d.title + ' – ' + d.focus : d.title; }
+// Tagesname verrät nicht den Inhalt, den zeigt die Übersicht (dayWhat für den Plan).
+function dayLabel(t) { return DAYS[t].name; }
+function dayWhat(t) { var d = DAYS[t]; return d.type === 'kraft' ? 'Kraft ' + d.focus : d.type === 'rest' ? 'frei' : d.title; }
 function viewTag() { return ui.viewTag || S.tag; }
 function draftKey(tag) { return S.durchgang + '-' + tag; }
 function easyMinutes(D) { return D <= 2 ? 20 : Math.min(45, 20 + 5 * Math.floor((D - 1) / 2)); }
@@ -1108,7 +1110,7 @@ function timerConfigHTML() {
 
 /* ---------- Verlauf ---------- */
 function logTitle(l) {
-  var k = { kraft: dayLabel(l.tag), easy: 'Lauf locker', interval: 'Intervall-Lauf', murph: 'Murph', test: TESTDAYS[l.tag] ? TESTDAYS[l.tag].title : 'Test' }[l.kind] || 'Training';
+  var k = { murph: 'Murph', test: TESTDAYS[l.tag] ? TESTDAYS[l.tag].title : 'Test' }[l.kind] || (DAYS[l.tag] ? dayLabel(l.tag) : 'Training');
   return 'Tag ' + l.tag + ': ' + k;
 }
 function logLines(l) {
@@ -1207,7 +1209,7 @@ function sec(title, body, open) { var o = Object.prototype.hasOwnProperty.call(u
 function renderPlan() {
   var h = '<section class="hero"><h1>Plan</h1><p class="hero-title">Regeln, Methode, Tests</p></section>';
   var days = '<ul class="list">';
-  for (var t = 1; t <= 7; t++) days += '<li><span class="qty">Tag ' + t + '</span><span>' + esc(dayLabel(t)) + (DAYS[t].rings ? ' <span class="muted small">(' + esc(DAYS[t].rings) + ')</span>' : '') + '</span></li>';
+  for (var t = 1; t <= 7; t++) days += '<li><span class="qty">Tag ' + t + '</span><span><b>' + esc(dayLabel(t)) + '</b> <span class="muted">' + esc(dayWhat(t)) + '</span>' + (DAYS[t].rings ? ' <span class="muted small">(' + esc(DAYS[t].rings) + ')</span>' : '') + '</span></li>';
   days += '</ul><p class="small muted" style="margin-top:8px">Jede Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, Kraft als EMOM 12, Metcon als AMRAP 8 – rund 35 Min.</p>';
   h += sec('Der Durchgang', days, true);
   h += sec('Regeln', '<ol class="rules">' + [
