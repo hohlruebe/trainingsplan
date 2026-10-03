@@ -74,7 +74,9 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
     Entschieden: Figur im Training **nur in der Karte der gerade laufenden EMOM-Übung**; Griff-Texte „perfekt“;
     Bildfeld **immer gleich groß** (keine Sonderformate für hohe Übungen).
 13. Bibliothek: die Leiter unter der Beschreibung (heute Treppe aus Balken, `ladderHTML`) wirkt „krumm und schief“,
-    nicht polished. Im Canvas drei Entwürfe: A Kapsel-Leiste, B Liste mit Linie, C Treppe aufgeräumt.
+    nicht polished. Drei Entwürfe (A Kapsel-Leiste, B Liste mit Linie, C Treppe) → **B gewählt**, aber als Aufstieg:
+    Stufe 1 unten, die schwerste oben. Jetzt im Canvas drei Variationen: B1 Glas-Kapsel (deine Stufe als weiße Pille),
+    B2 Fortschrittslinie (bis zur eigenen Stufe blau gefüllt), B3 Liste mit Kacheln (Trenner, Nummer-Kachel, Chip).
     **Wartet auf Dennis' Wahl.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
