@@ -124,5 +124,9 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   mit Hinweis, dass noch etwas fehlt. Pose `_wave` ist in der Vorlage.
 - Im Canvas (P33): Aufwärmen und Metcon mit Figur über der Liste (gewählte Zeile als weiße Pille, Tippen wechselt),
   Handstand und Testtag mit Figur oben in der Karte, Platzhalter „Grafik folgt“ hell und dunkel.
-  **Wartet auf Dennis' Freigabe** (Fragen: Tippen vs. automatisch wechseln, Text des Platzhalters, Murph).
+  → Dennis' neue Idee: **Trainingsmodus als Einstellung**. „Einzeln“ (eine Übung pro Bildschirm, wischen) oder
+  „Liste“ (ganzes Training, Übung klappt mit Figur auf, läuft mit). Einstellung Training: Umschalter Standard |
+  Benutzerdefiniert, erst bei Benutzerdefiniert je Trainingsart (Aufwärmen, Kraft, Metcon, Murph, Cool-down) wählbar.
+  Gesten: „Wischen statt Tippen“ als Schalter (links = weiter, rechts = zurück, in der Liste rechts = abhaken).
+  Im Canvas (P34) die Entwürfe. **Wartet auf Dennis' Rückmeldung.**
 
