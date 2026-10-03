@@ -4,6 +4,7 @@ Gilt für jede Seite und alles Neue. Ruhig, an iOS angelehnt, Handy zuerst (390 
 Kurzfassung der Regeln steht auch in `CLAUDE.md`.
 
 ## Grundlagen
+- Hellmodus wählbar in Weiß oder Off-White (Kreide `#FAF9F5`, Leinen `#F8F5EF`, Nebel `#F7F8F6` für Karten), Hintergrund je eine Stufe dunkler.
 - Dunkelmodus in Graphit, passend zum App-Symbol: Hintergrund `#1E1F23`, Karten `#2A2B30`, Kapseln `#24252A`, Pille `#41424A`,
   Grafik-Fläche `#33343A`, Linien `#36373D`. Jede Ebene eine Stufe heller als die darunter.
 - Schrift: Geist für alles. Die Schrift-Einstellung (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengen (`--hand`).

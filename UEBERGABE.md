@@ -136,7 +136,8 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - Orte und Equipment aus dem Profil in die Bibliothek verlagert (Dennis: Variante C, Blatt von unten). Profil hat nur noch
   Erfolge, Verlauf, Werte. Orte umbenennen und Symbol wählen (15 Symbole), synchronisiert. Bandfarben: Karte „Bänder“ in der Bibliothek.
 - Bewegung als feste Regel in `DESIGN.md`: Pille gleitet, Drücken gibt nach, kein blaues Antipp-Leuchten (Board P44).
-- Offen: Rückmeldung zum Hintergrund in Off-White (drei Beispiele im Canvas).
+- Off-White (Board P46): Dennis will durchschalten → Einstellungen › Aussehen › Hintergrund: Weiß | Kreide | Leinen | Nebel
+  (nur Hellmodus, nur auf dem Gerät). Offen: welche Variante Standard wird.
 
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.

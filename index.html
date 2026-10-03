@@ -566,6 +566,9 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .tr-row:first-child{border-top:0}
 .tr-row .seg{width:180px;margin:0;flex:0 0 auto}
 .tr-row .seg-btn{font-size:13px}
+:root[data-paper="kreide"]{--board:#F1F0EB;--paper:#FAF9F5;--pill:#FDFCF9;--fig:#FAF9F5;--tray:#EBEAE4;--tray-line:#DDDCD5;--fill:#E4E3DD;--line:#E6E5DF;--plate:#E8E9E8}
+:root[data-paper="leinen"]{--board:#EFEBE3;--paper:#F8F5EF;--pill:#FCFAF6;--fig:#F8F5EF;--tray:#E8E4DB;--tray-line:#DBD6CB;--fill:#E1DDD3;--line:#E4DFD5;--plate:#E7E5E0}
+:root[data-paper="nebel"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
 /* Bewegung: Antippen gibt nach (kein blaues Aufleuchten), die weiße Pille gleitet, Neues blendet ein */
 *{-webkit-tap-highlight-color:transparent}
 button,.tile,.st-row,.btn,.seg-btn,.cap-btn,.pill,.check{transition:transform .14s cubic-bezier(.3,.9,.4,1)}
@@ -1355,7 +1358,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null,
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swipe: true, swipeRev: false };
 
 var LS = {
@@ -2120,6 +2123,10 @@ function settingsHTML() {
   var h = '<h3 style="margin-top:0">Hell oder dunkel</h3><div class="seg" role="group" aria-label="Hell oder dunkel">' + [['light', 'Hell'], ['dark', 'Dunkel'], ['auto', 'System']].map(function (o) {
     return '<button type="button" class="seg-btn' + (S.theme === o[0] ? ' on' : '') + '" data-act="theme" data-v="' + o[0] + '" aria-pressed="' + (S.theme === o[0]) + '">' + o[1] + '</button>';
   }).join('') + '</div><p class="small muted">„System“ richtet sich nach dem Dunkelmodus deines Handys.</p>';
+  h += '<h3 style="margin-top:16px">Hintergrund</h3><div class="seg" role="group" aria-label="Hintergrund">' + PAPERS.map(function (o) {
+    var on = (S.paper || 'weiss') === o[0];
+    return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="paper" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+  }).join('') + '</div><p class="small muted">Weiß ist am hellsten, Kreide, Leinen und Nebel sind gedämpft. Gilt nur im Hellmodus.</p>';
   h += '<h3 style="margin-top:16px">Markerfarbe</h3><div class="swatches" role="group" aria-label="Markerfarbe">' + COLORS.map(function (c) {
     var on = S.color === c.id;
     return '<button type="button" class="sw" data-act="color" data-v="' + c.id + '" aria-pressed="' + on + '" style="--c:' + (dark ? c.dark : c.light) + '"><i aria-hidden="true"></i>' + esc(dark && c.darkLabel ? c.darkLabel : c.label) + '</button>';
@@ -2621,13 +2628,17 @@ document.addEventListener('click', goFullscreen, true);
 /* ---------- theme ---------- */
 function isDark() { return S.theme === 'dark' || (S.theme !== 'light' && !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); }
 function colorOf(id) { for (var i = 0; i < COLORS.length; i++) if (COLORS[i].id === id) return COLORS[i]; return COLORS[0]; }
+var PAPERS = [['weiss', 'Weiß', '#F5F5F2'], ['kreide', 'Kreide', '#F1F0EB'], ['leinen', 'Leinen', '#EFEBE3'], ['nebel', 'Nebel', '#EEEFEE']];
 function applyTheme() {
   var r = document.documentElement, dark = isDark(), c = colorOf(S.color);
   if (S.theme === 'light' || S.theme === 'dark') r.dataset.theme = S.theme; else delete r.dataset.theme;
   r.dataset.font = FONTS.some(function (f) { return f.id === S.font; }) ? S.font : 'klar';
   r.style.setProperty('--acc', dark ? c.dark : c.light);
   r.style.setProperty('--on-acc', dark ? '#0E1B2B' : '#FFFFFF');
-  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? '#1E1F23' : '#F5F5F2');
+  // Hintergrund im Hellmodus: Weiß oder Off-White (Kreide, Leinen, Nebel), nur auf dem Gerät.
+  var pp = PAPERS.filter(function (x) { return x[0] === S.paper; })[0] || PAPERS[0];
+  if (!dark && pp[0] !== 'weiss') r.dataset.paper = pp[0]; else delete r.dataset.paper;
+  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? '#1E1F23' : pp[2]);
   refreshFigs();
 }
 
@@ -2659,6 +2670,7 @@ var ACT = {
   't-round': function (el) { TM.rounds = Math.max(0, TM.rounds + (+el.dataset.d)); var n = document.getElementById('t-rounds'); if (n) n.textContent = TM.rounds + ' Runden'; },
   theme: function (el) { S.theme = el.dataset.v; saveState(); applyTheme(); render(); },
   color: function (el) { S.color = el.dataset.v; saveState(); applyTheme(); render(); },
+  paper: function (el) { S.paper = el.dataset.v; saveState(); applyTheme(); render(); },
   font: function (el) { S.font = el.dataset.v; saveState(); applyTheme(); render(); },
   'import': function () { $imp.click(); },
   'sync-connect': function () {

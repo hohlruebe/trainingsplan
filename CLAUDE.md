@@ -78,6 +78,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Kraft einzeln zeigt nur die laufende Karte. EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) in allen Schritten, gestartet von `wakeFigs`.
 - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
+  Aussehen › Hintergrund (nur Hellmodus, `S.paper`, `PAPERS`): Weiß, Kreide, Leinen, Nebel. `applyTheme` setzt `data-paper` nur im Hellen.
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
 - Bewegung: kein blaues Antipp-Leuchten (`-webkit-tap-highlight-color`), gedrückte Kapseln geben nach (96 %, Umschalter 92 %).
   Wechselt die Wahl in `.seg`, `.cap` oder `.pills`, gleitet die weiße Pille (`.glide`), Kapsel-Knöpfe rutschen, neue blenden ein
