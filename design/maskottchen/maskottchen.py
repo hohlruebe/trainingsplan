@@ -1,4 +1,4 @@
-# Maskottchen-Entwurf (Stil C1-B mit drei Verfeinerungen): Figur in 3D, gedreht und als Skizze gezeichnet.
+# Maskottchen-Entwurf (Stil B3 mit drei Verfeinerungen): Figur in 3D, gedreht und als Skizze gezeichnet.
 # Aufruf: python3 maskottchen.py  ->  out/rundum.html und out/app.html
 import math, json, random, os
 HERE=os.path.dirname(os.path.abspath(__file__)); OUT=os.path.join(HERE,'out'); os.makedirs(OUT,exist_ok=True)
@@ -8,10 +8,11 @@ STAND={'nb':(0,96,2),'hc':(0,58,7),'pc':(0,222,-4),
  'hia':(-18,228,-4),'hib':(18,228,-4),'kna':(-19,308,3),'knb':(22,306,10),'ana':(-20,390,-3),'anb':(24,388,2),'toa':(-22,397,22),'tob':(27,395,26)}
 BASE=dict(passes=3,sw=1.1,jit=1.4,fill='none',fop=0,dot=False,loa=4,far='#A8A7CC',boil=False,work=(),shadow=False)
 BASE.update(boil=True,boilstep=2,hands=False,taper=False,athl=False)
+BASE.update(taper=True,athl=True,muscle=False,delt=False,trap=False,extra=0)
 V={
- 'A':dict(BASE,name='B1 · Ruhiger',sub='Striche zittern langsamer und feiner, schmalere Line of Action',boilstep=3,jit=1.0,loa=3),
- 'B':dict(BASE,name='B2 · Hände und Füße',sub='Hände mit Daumen, Füße mit Ferse und Spann',hands=True),
- 'C':dict(BASE,name='B3 · Athletischer',sub='Breitere Schultern, schmalere Taille, Glieder laufen zum Gelenk hin schmaler zu',taper=True,athl=True),
+ 'A':dict(BASE,name='B3-1 · Definiert',sub='Feine Muskellinien: Brust, Bauch, Oberschenkel, Wade',muscle=True),
+ 'B':dict(BASE,name='B3-2 · V-Form',sub='Noch breitere Schultern mit Schulterkappen, stärker verjüngt',delt=True,extra=3),
+ 'C':dict(BASE,name='B3-3 · Nacken und Kiefer',sub='Kräftiger Nacken mit Trapez, kantiges Kinn',trap=True),
 }
 FRAME=[0]; EXT=[]
 def stroke(shape,col,st,seed):
@@ -28,7 +29,7 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     if st['athl']:
         J=dict(J)
         for sd,x in (('a',-1),('b',1)):
-            for k,dx in (('sh',4),('el',4.5),('wr',4),('ha',4)): v=J[k+sd]; J[k+sd]=(v[0]+x*dx,v[1],v[2])
+            for k,dx in (('sh',4+st['extra']),('el',4.5+st['extra']),('wr',4+st['extra']),('ha',4+st['extra'])): v=J[k+sd]; J[k+sd]=(v[0]+x*dx,v[1],v[2])
     P={};Z={}
     for k,(x,y,z) in J.items(): P[k]=(160+x*c+z*s,y); Z[k]=-x*s+z*c
     near='a' if Z['sha']+Z['hia']>=Z['shb']+Z['hib'] else 'b'; farr='b' if near=='a' else 'a'
@@ -43,6 +44,11 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
             h=L/2*(1+ext); w1=wd*1.12; w2=wd*.62
             pth='M%.1f 0 C%.1f %.1f %.1f %.1f 0 %.1f C%.1f %.1f %.1f %.1f %.1f 0 C%.1f %.1f %.1f %.1f 0 %.1f C%.1f %.1f %.1f %.1f %.1f 0 Z'%(
                 -h,-h,-w1*.9,-h*.5,-w1,w1*-0+-((w1+w2)/2),h*.5,-w2,h,-w2*.8,h,h,w2*.8,h*.5,w2,(w1+w2)/2,-h*.5,w1,-h,w1*.9,-h)
+            if st['muscle'] and wd>8:
+                pth+=' M%.1f %.1f Q%.1f %.1f %.1f %.1f'%(-h*.55,-w1*.35,-h*.05,-w1*.75,h*.55,-w2*.35)
+            elif st['muscle'] and wd>7:
+                pth+=' M%.1f %.1f Q%.1f %.1f %.1f %.1f'%(-h*.7,w1*.3,-h*.3,w1*.85,h*.25,w2*.3)
+            if st['delt'] and wd>8: w1*=1.0
             return S('<path fill="%s" d="%s" transform="translate(%.1f %.1f) rotate(%.1f)"/>'%(fill,pth,cx,cy,ang(a,b)),col)
         return S('<ellipse fill="%s" rx="%.1f" ry="%.1f" transform="translate(%.1f %.1f) rotate(%.1f)"/>'%(fill,max(L/2*(1+ext),wd),wd,cx,cy,ang(a,b) if L>.5 else 0),col)
     def jnt(p,r,col):
@@ -56,6 +62,9 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
         lc=(WK if col==INK else '#9FB6EE') if 'legs' in st['work'] else col
         g=segm(P['hi'+sd],P['kn'+sd],11,lc,fill)+segm(P['kn'+sd],P['an'+sd],8.5,lc,fill)+(foot(P['an'+sd],P['to'+sd],col,fill) if st['hands'] else segm(P['an'+sd],P['to'+sd],5,col,fill,.25))
         g+=segm(P['sh'+sd],P['el'+sd],8,col,fill)+segm(P['el'+sd],P['wr'+sd],6.5,col,fill)
+        if st['delt']:
+            sp_,el_=P['sh'+sd],P['el'+sd]; an=ang(sp_,el_); m=loc(sp_,an-90,(0,-0)) 
+            g+=S('<ellipse fill="%s" rx="11" ry="8.5" transform="translate(%.1f %.1f) rotate(%.1f) translate(5 0)"/>'%(fill,sp_[0],sp_[1],an),col)
         if st['hands']:
             w,t=P['wr'+sd],P['ha'+sd]; L=max(d(w,t),6); an=ang(w,t); th=-1 if sd=='a' else 1
             g+=S('<g transform="translate(%.1f %.1f) rotate(%.1f)"><path fill="%s" d="M0 -4.2 C%.1f -6 %.1f -4.5 %.1f 0 C%.1f 4.5 %.1f 6 0 4.2 Z"/><ellipse fill="%s" cx="%.1f" cy="%.1f" rx="4" ry="1.9" transform="rotate(%d %.1f %.1f)"/></g>'%(
@@ -73,11 +82,16 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     # Rumpf: Winkel und Verkürzung aus der Wirbelsäule
     sp=sub3(J['nb'],J['pc']); L3=math.sqrt(sum(v*v for v in sp)) or 1
     dx=sp[0]*c+sp[2]*s; dy=sp[1]; th=math.degrees(math.atan2(dx,-dy)); ratio=max(.55,math.hypot(dx,dy)/L3)
-    RX=math.hypot((30 if st['athl'] else 27)*c,(26 if st['athl'] else 25)*s); RY=42*ratio; PX=math.hypot((26 if st['athl'] else 29)*c,23*s)
+    RX=math.hypot((30+st['extra'] if st['athl'] else 27)*c,(26 if st['athl'] else 25)*s); RY=42*ratio; PX=math.hypot((26 if st['athl'] else 29)*c,23*s)
     nb=P['nb']; rc=loc(nb,th,(0,RY)); pc=P['pc']
     hs=sub3(J['hc'],J['nb']); hth=math.degrees(math.atan2(hs[0]*c+hs[2]*s,-hs[1]))
     hb=loc(P['hc'],hth,(0,18))
-    g+=S('<path d="M%.1f %.1f L%.1f %.1f M%.1f %.1f L%.1f %.1f"/>'%(*loc(hb,hth,(-6,0)),*loc(nb,th,(-7,4)),*loc(hb,hth,(6,0)),*loc(nb,th,(7,4))),INK)
+    nw=9 if st['trap'] else 6
+    g+=S('<path d="M%.1f %.1f L%.1f %.1f M%.1f %.1f L%.1f %.1f"/>'%(*loc(hb,hth,(-nw,0)),*loc(nb,th,(-nw-1,4)),*loc(hb,hth,(nw,0)),*loc(nb,th,(nw+1,4))),INK)
+    if st['trap']:
+        for sd in ('a','b'):
+            sh_=P['sh'+sd]; q=loc(hb,hth,(0,6)); side_=1 if sh_[0]>nb[0] else -1
+            g+=S('<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f"/>'%(q[0]+side_*nw*.9,q[1]-2,(q[0]+sh_[0])/2+side_*2,q[1]+4,sh_[0]-side_*3,sh_[1]-5),INK if sd==near or not side else fc)
     wl=(loc(rc,th,(-RX*.8,RY*.55)),loc(rc,th,(-RX*(.55 if st['athl'] else .72),RY*1.15)),loc(pc,th,(-PX*.85,-8)))
     wr=(loc(rc,th,(RX*.8,RY*.55)),loc(rc,th,(RX*(.55 if st['athl'] else .72),RY*1.15)),loc(pc,th,(PX*.85,-8)))
     g+=S('<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f M%.1f %.1f Q%.1f %.1f %.1f %.1f"/>'%(*wl[0],*wl[1],*wl[2],*wr[0],*wr[1],*wr[2]),INK)
@@ -85,10 +99,19 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     g+='<g transform="translate(%.1f %.1f) rotate(%.1f)">%s</g>'%(pc[0],pc[1],th,S(pel,WK if 'pelvis' in st['work'] else INK))
     rib=egg(RX,RY).replace('fill="#fff"','fill="%s"'%F)+'<path d="%s"/>'%mer(RX*.95,RY,f*.9 if c>-.2 else -f*.9)
     for y,b in ((-.3,.07),(.42,.12)): rib+='<path d="%s" opacity=".7"/>'%equ(RX*1.02,RY,y,b)
+    if st['muscle'] and c>-.2:
+        m0=f*RX*.85
+        for sg in (-1,1):
+            ox=m0+sg*RX*.55*abs(c)
+            if abs(c)>.25 or sg==(1 if f>0 else -1): rib+='<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f" opacity=".8"/>'%(m0,-RY*.05,ox,RY*.12,ox+sg*RX*.25*abs(c)-f*4,-RY*.42)
+        for k in (1,2): rib+='<path d="M%.1f %.1f l%.1f 0" opacity=".6"/>'%(m0-5*abs(c),RY*(.35+k*.17),10*abs(c)+1)
     g+='<g transform="translate(%.1f %.1f) rotate(%.1f)">%s</g>'%(rc[0],rc[1],th,S(rib,INK))
     # Kopf mit Gesicht (nur sichtbar, wenn es zum Betrachter zeigt)
     hx=math.hypot(15.5*c,18.5*s); hy=20
     hd='<path d="M0 %d C%.1f %d %.1f %.1f 0 %d C%.1f %.1f %.1f %d 0 %d Z" fill="%s"/>'%(-hy,hx*1.35,-hy,hx*1.1,hy*.9,hy,-hx*1.1,hy*.9,-hx*1.35,-hy,-hy,F)
+    if st['trap'] and c>-.6:
+        jx=f*hx*.75
+        hd+='<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f" opacity=".85"/>'%(jx-hx*.85*abs(c)-f*4,hy*.45,jx-4*abs(c),hy*.98,jx+hx*.85*abs(c)*0.5+f*2,hy*.82)
     hd+='<path d="%s"/><path d="%s"/>'%(mer(hx,hy,f*.95 if c>-.2 else -f*.95),equ(hx,hy,.05,.06))
     for e in (-.55,.55):
         a=math.radians(yaw)+e
@@ -158,7 +181,7 @@ for k,st in V.items():
     cells+='<div style="display:flex;flex-direction:column;align-items:center;border-left:1px solid #EEE;padding-left:10px"><span style="font-size:11px;color:#6E6E73">dreht sich</span><svg viewBox="0 20 320 395" width="118" height="146">%s</svg></div>'%spin
     rows+='<div style="%s;padding:14px 20px 8px"><div style="display:flex;gap:12px;align-items:baseline"><b style="font-size:16px">%s</b><span style="color:#6E6E73;font-size:13px">%s</span></div><div style="display:flex;justify-content:space-between">%s</div></div>'%(CARD,st['name'],st['sub'],cells)
 b1=HEAD%'Rundumansicht'+'''<div style="width:1340px;box-sizing:border-box;padding:36px;background:#ECECE7;font-family:'Geist',system-ui,sans-serif;color:#111214;display:flex;flex-direction:column;gap:16px">
-<div style="font-size:18px;font-weight:600">C1-B verfeinert · drei Varianten · Rundumansicht in 8 Positionen</div>%s
+<div style="font-size:18px;font-weight:600">B3 verfeinert · drei Varianten · Rundumansicht in 8 Positionen</div>%s
 <div style="font-size:13px;color:#6E6E73;line-height:1.5">Von hinten verschwindet das Gesicht, die Mittellinie wird zur Wirbelsäule. Rechts dreht sich die Figur einmal ganz herum: das ist schon dieselbe Zeichnung wie in der Animation.</div></div>'''%rows+FOOT
 open(os.path.join(OUT,'rundum.html'),'w').write(b1)
 # Board 2: so in der App

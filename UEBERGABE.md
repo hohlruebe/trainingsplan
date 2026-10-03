@@ -10,7 +10,7 @@ Stand: 3. Oktober 2026 (nach PR #25)
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
 - Canvas (Design-Entwürfe): https://claude.ai/artifact/ASD8ADh36QGDQ4FpuWTJvC
   Vor neuen Boards die alten löschen. Es gibt immer nur die aktuellen Boards.
-- Jede Änderung als Pull Request, PR kurz auf Deutsch beschreiben, am Ende den vollständigen Link nennen.
+- Jede Änderung als Pull Request – bei Entwürfen (z. B. Maskottchen) aber erst, wenn die finale Version gefunden ist, PR kurz auf Deutsch beschreiben, am Ende den vollständigen Link nennen.
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze.
 - Dennis schaut die App auf einem Google Pixel in Chrome (installierte App).
 
@@ -50,7 +50,12 @@ Weg bis jetzt (Rückmeldungen von Dennis):
    B1 Ruhiger (Striche zittern langsamer und feiner, schmalere Line of Action),
    B2 Hände und Füße (Hände mit Daumen, Füße mit Ferse und Spann),
    B3 Athletischer (breitere Schultern, schmalere Taille, Glieder verjüngen sich zum Gelenk).
-   **Wartet auf Dennis' Wahl** (Kombinationen möglich).
+   → **B3 gefällt am besten.**
+10. Jetzt im Canvas: drei Verfeinerungen von B3 (rundum und animiert):
+    B3-1 Definiert (feine Muskellinien: Brust, Bauch, Oberschenkel, Wade),
+    B3-2 V-Form (noch breitere Schultern mit Schulterkappen),
+    B3-3 Nacken und Kiefer (kräftiger Nacken mit Trapez, kantiges Kinn).
+    **Wartet auf Dennis' Wahl.**
 
 Technik (Skripte in `design/maskottchen/`, Einstellungen je Variante im Wörterbuch `V`, Aufruf `python3 maskottchen.py`, Ausgabe in `out/`):
 - Die Figur ist ein 3D-Skelett (Gelenke x, y, z), wird um die Hochachse gedreht und flach gezeichnet.
