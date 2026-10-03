@@ -42,7 +42,8 @@ Kurzübersicht:
 | 7 | Ruhetag, Flow B | 12 Min |
 
 - **Steigerung:** 3–6 Wdh. bei RIR 2. Schaffst du in allen Runden 6, kommt die nächste Stufe (doppelte Progression).
-- **Entlastung und Test:** jeder 4. Durchgang mit einer Runde weniger, dazu Testtag und Beweglichkeits-Check.
+- **Entlastung:** Durchgang 4 und 8 mit einer Runde weniger, ohne Maxout.
+- **Testwoche:** Durchgang 12 mit Maxout und Beweglichkeits-Check, danach der Rückblick.
 - **Messung:** Gesamtwert in „Werte“.
 
 ---
@@ -107,9 +108,9 @@ Kurzübersicht:
 | Durchgang | Fokus |
 |---|---|
 | 1–3 | Voraussetzungen festigen (z. B. Pull-up und Dip frei, Hollow 30 s) |
-| 4 | Entlastung + Skill-Test (max. Halten, max. Wdh., Video) |
+| 4 | Entlastung |
 | 5–7 | Teilbewegungen des Ziels |
-| 8 | Entlastung + Skill-Test |
+| 8 | Entlastung |
 | 9–11 | Zielstufe üben, saubere Wiederholungen sammeln |
 | 12 | Test: geschafft? Dann neues Ziel im nächsten Block |
 
@@ -175,7 +176,7 @@ Kurzübersicht:
   - PNF-Runden von 2 auf 4.
   - In der aktiven Beweglichkeit erst ohne, dann mit leichtem Gewicht.
 - **Entlastung:** keine eigene Woche, weil die Belastung täglich niedrig ist.
-- **Tests:** Beweglichkeits-Check in Durchgang 1, 4 und 8. Danach legt die App neu fest, welche Regionen in Einheit C kommen.
+- **Tests:** Beweglichkeits-Check in Durchgang 1 und 8. Danach legt die App neu fest, welche Regionen in Einheit C kommen.
 - **Länge:** 8 Durchgänge. Danach Rückblick: weiter oder zum Erhalten in einen anderen Plan wechseln.
 - **Messung:** Bereich Beweglichkeit, Stufen der Mobility-Leitern.
 
@@ -237,3 +238,4 @@ Pflicht ist ein Laufziel mit Zahl:
 4. Beweglichkeit: 3 lange Einheiten à 35 Min.
 5. Laufen: Puls-Zonen. Dafür braucht die App Maximal- und Ruhepuls (Einstellungen › Profil), Zonen nach Karvonen.
 6. Allround bleibt der Standard.
+7. Getestet wird am Ende des Blocks, nicht jeden 4. Durchgang. Zwischendurch nur Entlastung (Ausnahmen: Testläufe beim Laufen, Benchmarks bei CrossFit).

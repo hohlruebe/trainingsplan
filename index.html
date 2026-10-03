@@ -2183,7 +2183,7 @@ function renderPlan() {
     '<b>Kurzversion</b> bei Nachtschicht, schlechtem Schlaf oder starkem Muskelkater: Kraft 3 Runden, Metcon 5 Min, Intervalle werden zum lockeren Lauf. Fällt ein Lauf aus, nimm das Ergometer.',
     '<b>3 Durchgänge ohne Steigerung</b> oder dauerhaft platt: 1 Durchgang Kurzversion zur Entlastung.',
     '<b>Letzte Stufe geschafft:</b> Weste an, klein anfangen (z. B. 5 kg; bis dahin Rucksack). Sprünge nie mit Weste.',
-    '<b>Murph:</b> Der erste Tag 1 im Monat wird zum Murph (Allround, Calisthenics, CrossFit). <b>Entlastung und Tests</b> kommen je nach Schwerpunkt, meist jeder 4. Durchgang.'
+    '<b>Murph:</b> Der erste Tag 1 im Monat wird zum Murph (Allround, Calisthenics, CrossFit). <b>Entlastung</b> kommt je nach Schwerpunkt, meist jeder 4. Durchgang. <b>Getestet</b> wird am Ende des Blocks.'
   ].map(function (r) { return '<li>' + r + '</li>'; }).join('') + '</ol>');
   h += sec('Methode', '<h3>Calisthenics</h3><p class="small muted">nach Städele, Kraft ohne Grenzen</p><ul class="list"><li>Kraft zuerst: Pull-up, Push-up und Dip sind der rote Faden.</li><li>Kraftblock mit 3–6 Wdh. und 2 Wdh. Reserve (RIR 2).</li><li>Pull-up 2× pro Durchgang: Tag 1 schwer, Tag 6 leichter.</li><li>Handstand in jeder Einheit, Stack-Atmung vor jedem Satz.</li><li>Stufen mit Voraussetzungen, Bänder, Tests und Entlastung.</li></ul>' +
     '<h3 style="margin-top:12px">CrossFit</h3><ul class="list"><li>Metcon (AMRAP) in jeder Einheit: einfache Übungen, hohe Intensität.</li><li>Ergebnis als Zahl: Runden und Wiederholungen.</li><li>Murph einmal im Monat, Laufen und Ergometer für die Ausdauer.</li></ul>' +
@@ -2198,7 +2198,7 @@ function renderPlan() {
     '<div class="tbl-wrap"><table><thead><tr><th>Stufe</th><th>Laufen</th><th>Runden</th><th>Pull-ups</th></tr></thead><tbody>' +
     [1, 2, 3, 4].map(function (s) { var m = MURPH[s]; return '<tr><td class="hand" style="font-size:20px">' + s + (m.name ? ' <span class="small muted">' + m.name + '</span>' : '') + '</td><td>2 × ' + m.run + '</td><td>' + m.rounds + '</td><td>' + esc(m.pull) + '</td></tr>'; }).join('') +
     '</tbody></table></div><p class="small muted" style="margin-top:8px">Eine Runde: 5 Pull-ups, 10 Push-ups, 15 Air Squats. Nicht nach einer Nachtschicht. Colafarbener Urin oder stark geschwollene, schmerzende Muskeln danach: sofort zum Arzt.</p>' +
-    '<p style="margin-top:8px"><b>Test-Durchgang:</b> Im Test-Durchgang des Blocks ist die erste Runde der Hauptübung ein Maxout mit RIR 0, dazu kommt der Beweglichkeits-Check. Danach normal weiter. Bist du danach platt: ein Durchgang Kurzversion.</p>');
+    '<p style="margin-top:8px"><b>Testwoche:</b> Der letzte Durchgang des Blocks ist die Testwoche. Die erste Runde der Hauptübung ist ein Maxout mit RIR 0, dazu kommt der Beweglichkeits-Check. Danach folgt der Rückblick. Danach normal weiter. Bist du danach platt: ein Durchgang Kurzversion.</p>');
   var lastTest = LOGS.filter(function (l) { return l.kind === 'test'; });
   var testBody = '<p>Vor dem ersten Durchgang findest du an drei Testtagen deine Startstufen: Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Tag 2 und 4 laufen normal.</p><p class="small"><b>Formel:</b> Stufe mit 5–8 sauberen Wdh. suchen, Start = Max – 2 (Chin-up: Max – 3).</p>';
   if (lastTest.length) {
@@ -3235,7 +3235,7 @@ function renderHeute() {
   if (cur && p > 7) tips.push('<b>Willkommen zurück.</b> Dein letztes Training ist ' + p + ' Tage her. ' +
     (p > 14 ? 'Mach einen ganzen Durchgang als Kurzversion, erst danach wieder auf deine alten Zahlen zielen.' : 'Mach die ersten 2 Krafteinheiten als Kurzversion mit RIR 3–4.'));
   if (S.durchgang === 1 || S.durchgang === 2) tips.push('Einstieg: Kurzversion mit RIR 3–4, also je 1 Wdh. unter deinem Startwert.');
-  if (ph.deload && S.durchgang > 0) tips.push('Entlastung: weniger Sätze und kürzere Einheiten, damit du im nächsten Durchgang frisch bist.');
+  if (ph.deload && S.durchgang > 0) tips.push('Entlastung: weniger Sätze und kürzere Einheiten, damit du im nächsten Durchgang frisch bist.'); if (ph.test && S.durchgang > 0) tips.push('Testwoche: Maxout statt normaler erster Runde. Gut schlafen, frisch kommen.');
   if (cur && !c.isTest && (st.length || d.type === 'kraft')) h += ortPickHTML();
   if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
     h += suggHTML(tag);
@@ -4451,7 +4451,7 @@ var FOKUS = {
   allround: { name: 'Allround', kurz: 'Kraft und Ausdauer zugleich. Dein bisheriger Plan.', chips: ['12 Durchgänge', '5 Tage', 'EMOM'], len: 12, murph: true,
     ic: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
     info: 'Krafttage: 8 Min Aufwärmen, 5 Min Handstand, Kraft als EMOM 12 (3–6 Wdh., RIR 2), Metcon als AMRAP 8. Dazu zwei Läufe.',
-    phase: function (p) { p.deload = p.test = p.check = p.bd % 4 === 0; p.lab = p.test ? 'Entlastung · Test' : 'Aufbau'; },
+    phase: function (p) { p.test = p.check = p.bd === p.n; p.deload = !p.test && p.bd % 4 === 0; p.lab = p.test ? 'Testwoche' : p.deload ? 'Entlastung' : 'Aufbau'; },
     next: 'Mehr Umfang: EMOM 15 mit 5 Runden statt 4.',
     days: function (p) { return {
       1: kday({ name: 'Ganzkörper', what: 'Zug, Druck und Ausgleich', hs: 5, fill: 3, maxout: 0, cool: 'r_cooldown_tag6', jumps: { t: '3 × 4 je Seite', n: 'Skater Jump' }, rings: 'Ringe ganz oben',
@@ -4495,7 +4495,7 @@ var FOKUS = {
     phase: function (p) {
       var b = p.bd;
       if (b === 12) { p.test = p.check = true; p.lab = 'Test: Ziel geschafft?'; }
-      else if (b % 4 === 0) { p.deload = p.test = p.check = true; p.lab = 'Entlastung · Skill-Test'; }
+      else if (b % 4 === 0) { p.deload = true; p.lab = 'Entlastung'; }
       else p.lab = b <= 3 ? 'Voraussetzungen' : b <= 7 ? 'Teilbewegungen' : 'Zielstufe üben';
     },
     next: 'Neues Skill-Ziel aus dem Skill-Baum.',
@@ -4535,8 +4535,8 @@ var FOKUS = {
     } },
   beweglichkeit: { name: 'Beweglichkeit', kurz: 'Spagat, Brücke, tiefe Hocke. Täglich kurz.', chips: ['8 Durchgänge', 'täglich', 'Dehnen'], len: 8,
     ic: 'M12 3a2 2 0 1 0 0 4a2 2 0 1 0 0-4M4 11l8-2 8 2M12 9v6M8 21l4-6 4 6',
-    info: 'Täglich kurz, dreimal lang: Hüfte, Schulter und deine Schwachstellen aus dem Beweglichkeits-Check. Kraft nur zum Erhalten.',
-    phase: function (p) { p.hold = p.bd <= 3 ? 30 : p.bd <= 6 ? 60 : 90; if (lvl()) p.hold = Math.max(p.hold, 60); p.check = [1, 4, 8].indexOf(p.bd) >= 0; p.lab = 'Haltezeit ' + p.hold + ' s'; },
+    info: 'Täglich kurz, dreimal lang: Hüfte, Schulter und deine Schwachstellen aus dem Beweglichkeits-Check (am Anfang und am Ende des Blocks). Kraft nur zum Erhalten.',
+    phase: function (p) { p.hold = p.bd <= 3 ? 30 : p.bd <= 6 ? 60 : 90; if (lvl()) p.hold = Math.max(p.hold, 60); p.check = p.bd === 1 || p.bd === p.n; p.lab = 'Haltezeit ' + p.hold + ' s'; },
     next: 'Längere Haltezeiten von Anfang an (60 s).',
     days: function (p) {
       var emom = { kfmt: 'emom', krounds: 3, warm: false };
@@ -4844,7 +4844,7 @@ function blockCardHTML() {
   var F = fokus(), p = curPhase(), seg = '';
   for (var i = 1; i <= p.n; i++) { var q = phaseAt(i); seg += '<i class="' + (i < p.bd ? 'done' : i === p.bd ? 'now' : '') + (q.deload || q.test || q.taper ? ' lite' : '') + '"></i>'; }
   return '<button type="button" class="card blk" data-act="fk-open" data-from="heute"><span class="blk-h"><b>' + esc(fokusLabel()) + '</b><span class="chip">' + fkIcon(F.ic) + 'Schwerpunkt</span></span>' +
-    '<span class="blk-bar" aria-label="Durchgang ' + p.bd + ' von ' + p.n + '">' + seg + '</span><span class="small muted">' + (p.lab ? '<b>' + esc(p.lab) + '</b> · ' : '') + 'Hell: leichtere Wochen mit Tests</span></button>';
+    '<span class="blk-bar" aria-label="Durchgang ' + p.bd + ' von ' + p.n + '">' + seg + '</span><span class="small muted">' + (p.lab ? '<b>' + esc(p.lab) + '</b> · ' : '') + 'Hell: Entlastung und Testwoche</span></button>';
 }
 function reviewHTML() {
   var R = S.review, F = FOKUS[R.fokus] || FOKUS.allround, inB = function (l) { return l.durchgang >= R.start && l.durchgang <= R.end; };

@@ -179,6 +179,8 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   Kraftteil), Stillstand nach 3 gleichen Einheiten schlägt eine andere Variante vor, Allround Tag 1 Platz 3 gleicht den
   schwächsten Kraft-Teil aus.
 - Bestehende Daten: erster Block beginnt beim aktuellen Durchgang; gewählte Übungen der alten Woche wandern mit (`S.picksV`).
+- Dennis: Test nicht jeden 4. Durchgang, sondern am Ende des Blocks. Umgesetzt: 4 und 8 nur Entlastung, 12 = Testwoche
+  (Maxout, Beweglichkeits-Check, dann Rückblick). Laufen behält Testläufe, CrossFit Benchmarks 1/6/12, Beweglichkeit prüft in 1 und 8.
 - Offen / zu beobachten: Rückmeldung von Dennis zu Tagesnamen, Länge der langen Dehn-Einheiten (Übungen laufen in Runden),
   Inhalte der WODs aus dem Metcon-Pool.
 

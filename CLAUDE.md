@@ -57,7 +57,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
-  Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und im Test-Durchgang (`mobCheckStep`).
+  Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in der Testwoche am Blockende (`mobCheckStep`).
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
   Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
@@ -182,7 +182,9 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
 - Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Lauf locker, Tag 3 Zug, Tag 4 Intervall-Lauf, Tag 5 Ruhetag,
   Tag 6 Druck, Tag 7 Ruhetag. Der Tagesname zeigt den Inhalt. Die anderen Schwerpunkte stehen in `design/schwerpunkte.md`.
 - Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8.
-  Jeder 4. Durchgang im Block: Entlastung und Test (Maxout in Runde 1 der Hauptübung, Beweglichkeits-Check an Tag 1).
+  Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
+  Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende (Laufen: Testläufe auch
+  zwischendurch, CrossFit: Benchmarks in 1, 6, 12, Beweglichkeit: Check in Durchgang 1 und 8).
 - Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph, nur bei Allround, Calisthenics und CrossFit.
 - Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
