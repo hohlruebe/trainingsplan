@@ -11,6 +11,8 @@
     far: '#A8A7CC',      // hintere Seite (in der Drehung)
     action: '#E8963A',   // Line of Action
     floor: '#DADAD3',
+    joint: '#FFFFFF',    // Füllung der Gelenkkreise
+    panel: '#FFFFFF',    // Fläche hinter der Figur (in der App `--fig`)
     passes: 3,           // Skizzenstriche je Form
     sw: 1.1,             // Hauptstrich
     jit: 1.4,            // Versatz der Nebenstriche (px)
@@ -22,6 +24,10 @@
     waist: .55,          // Taille schmal
     fps: 12              // Bilder pro Sekunde in der App
   };
+
+  // Farbsätze: hell ist der Standard (STYLE).
+  // Dunkel = „Kreide auf Dunkel“ (D1, von Dennis gewählt): helle Striche auf einer Fläche knapp heller als die Karte.
+  var PALETTES = { dark: { ink: '#E4E3F7', far: '#6D6B9C', action: '#F0A04B', floor: '#3A3B40', joint: '#1A1B1E', panel: '#222327' } };
 
   // ---- Grundhaltung: 3D-Gelenke (x rechts, y unten, z zum Betrachter), a = linke Bildseite von vorn ----
   var STAND = {
@@ -80,7 +86,7 @@
      Gibt {svg: Inhalt ohne <svg>, ext: alle Punkte für den Bildausschnitt} zurück. */
   function figure(J, yaw, frame, opt) {
     opt = opt || {};
-    var st = STYLE, INK = st.ink;
+    var st = opt.pal ? Object.assign({}, STYLE, opt.pal) : STYLE, INK = st.ink;
     var c = Math.cos(yaw * R), s = Math.sin(yaw * R), f = s;
     var boil = Math.floor((frame || 0) / st.boilStep) * 1009;
     // V-Form: Schultern und Arme nach außen
@@ -119,7 +125,7 @@
         ') rotate(' + n1(L > .5 ? ang(a, b) : 0) + ')"/>', col);
     }
     function jnt(p, r, col) {
-      return '<circle cx="' + n1(p[0]) + '" cy="' + n1(p[1]) + '" r="' + r + '" fill="#fff" stroke="' + col + '" stroke-width="1.3"/>';
+      return '<circle cx="' + n1(p[0]) + '" cy="' + n1(p[1]) + '" r="' + r + '" fill="' + st.joint + '" stroke="' + col + '" stroke-width="1.3"/>';
     }
     function limbs(sd, col) {
       var g = segm(P['hi' + sd], P['kn' + sd], 11, col, .1) + segm(P['kn' + sd], P['an' + sd], 8.5, col, .1) + segm(P['an' + sd], P['to' + sd], 5, col, .25);
@@ -133,7 +139,7 @@
     }
     function pr(p) { return [160 + p[0] * c + p[2] * s, p[1]]; }
     function prop(o) { // Geräte im selben Skizzenstrich
-      var col = o.col || INK, sh = '';
+      var col = o.col === STYLE.far ? st.far : o.col || INK, sh = '';
       if (o.type === 'line') { var a = pr(o.a), b = pr(o.b); sh = '<path d="M' + n1(a[0]) + ' ' + n1(a[1]) + ' L' + n1(b[0]) + ' ' + n1(b[1]) + '"' + (o.w ? ' stroke-width="' + o.w + '"' : '') + '/>'; }
       else if (o.type === 'poly') { sh = '<path d="M' + o.pts.map(function (p) { p = pr(p); return n1(p[0]) + ' ' + n1(p[1]); }).join(' L') + (o.open ? '' : ' Z') + '"/>'; }
       else if (o.type === 'circle') { // Kreis in der y-z-Ebene (Ring, Rad, Rolle)
@@ -202,15 +208,15 @@
 
   /* Eine Übung = Funktion pose(p) mit p von 0 bis 1 über eine Wiederholung, liefert 3D-Gelenke.
      ex = {pose, yaw, dur (s)}. Liefert alle Bilder und den gemeinsamen Ausschnitt. */
-  function frames(ex) {
-    var n = Math.round(ex.dur * STYLE.fps), list = [], exts = [];
-    for (var i = 0; i < n; i++) { var r = figure(ex.pose(i / n), ex.yaw, i, { floor: ex.floor }); list.push(r.svg); exts.push(r.ext); }
+  function frames(ex, pal) {
+    var n = Math.round(ex.dur * STYLE.fps), list = [], exts = [], P = pal ? PALETTES[pal] || pal : null;
+    for (var i = 0; i < n; i++) { var r = figure(ex.pose(i / n), ex.yaw, i, { floor: ex.floor, pal: P }); list.push(r.svg); exts.push(r.ext); }
     return { frames: list, box: fitBox(exts, ex.floor), n: n, dur: ex.dur };
   }
 
   /* Für Entwürfe: eine SVG-Datei mit SMIL-Animation (läuft ohne Skript). */
-  function animatedSVG(ex, w, h) {
-    var F = frames(ex), N = F.n, out = '';
+  function animatedSVG(ex, w, h, pal) {
+    var F = frames(ex, pal), N = F.n, out = '';
     F.frames.forEach(function (svg, i) {
       var vals, kt;
       if (i === 0) { vals = '1;0'; kt = '0;' + (1 / N).toFixed(4); }
@@ -223,8 +229,8 @@
 
   /* Für die App: zeichnet live in ein Element, Bild für Bild. Gibt eine Stopp-Funktion zurück.
      Hört von selbst auf, wenn das Element nicht mehr auf der Seite ist. Bei „Bewegung reduzieren“ nur ein Standbild. */
-  function play(el, ex) {
-    var F = ex._F || (ex._F = frames(ex)), i = 0, stop = false, last = 0;
+  function play(el, ex, pal) {
+    var C = ex._F || (ex._F = {}), F = C[pal || 'light'] || (C[pal || 'light'] = frames(ex, pal)), i = 0, stop = false, last = 0;
     el.innerHTML = '<svg viewBox="' + F.box.join(' ') + '" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + (ex.name || '') + '"></svg>';
     var svg = el.firstChild;
     svg.innerHTML = F.frames[0];
@@ -421,7 +427,7 @@
 
 
   var api = {
-    STYLE: STYLE, STAND: STAND, figure: figure, fitBox: fitBox, frames: frames, animatedSVG: animatedSVG, play: play,
+    STYLE: STYLE, PALETTES: PALETTES, STAND: STAND, figure: figure, fitBox: fitBox, frames: frames, animatedSVG: animatedSVG, play: play,
     build: build, ik3: ik3, rep: rep, sway: sway, ease: ease, rings: rings, bench: bench,
     // name, pose(p), Blickwinkel, Dauer einer Wiederholung (s), Boden zeichnen
     EXERCISES: {
