@@ -87,7 +87,9 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
     (scrollWidth > clientWidth), Strecke = Überstand; Ablauf: stehen → einmal durchlaufen → ausblenden →
     am Anfang einblenden → von vorn (kein Endlosband).
     → **Medaillen weglassen.** Final: B1 Glas-Kapsel mit „Aktuelle Stufe“ und goldenem Chip „★ Bestwert“
-    (gleich = nur goldener Stern neben „Aktuelle Stufe“). Laufschrift-Dauer 5 s + Überstand/45 s, damit alle gleich schnell laufen.
+    (gleich = nur goldener Stern neben „Aktuelle Stufe“).
+    Laufschrift **nur beim Antippen**: zu lange Namen (gemessen) enden mit „…“; Tippen = einmal durchlaufen,
+    ausblenden, wieder am Anfang mit „…“. Dauer 3 s + Überstand/45 s. Passende Namen reagieren nicht.
     Im Canvas: Pull-up, Nordic Curl und eine erfundene Leiter mit langen Namen. **Wartet auf Dennis' Freigabe.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
