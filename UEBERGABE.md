@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026 (App-Symbol D3, Dunkelmodus in Graphit)
+Stand: 3. Oktober 2026 (Schwerpunkte und Blöcke eingebaut)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -166,14 +166,21 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   einer Familie nehmen (Können + Geräte, nie `tempo`) ist der nächste Schritt, erst nach Rückmeldung von Dennis.
   Suche muss Varianten direkt finden. Mobility (56 Übungen) bleibt außen vor.
 
-## Trainingsaufbau und Schwerpunkte (in Planung)
+## Trainingsaufbau und Schwerpunkte (eingebaut, PR offen)
 - Dennis: neue Woche: Tag 1 Ganzkörper (Zug + Druck), Tag 3 Zug, Tag 6 Druck (Läufe und Ruhetage bleiben).
-- Sechs Schwerpunkte: Allround, Kraft & Muskelaufbau, Calisthenics, CrossFit, Beweglichkeit, Laufen. Sie dürfen den Wochenaufbau
-  ändern. Dennis: nicht alle mit gleichem Grundaufbau, Ziele und Reize sind zu verschieden. Neu ausgearbeitet in
-  `design/schwerpunkte.md`: je Plan eigene Häufigkeit, Format (EMOM, Sätze mit Pause, Halten, WOD, Lauf), Steigerung,
-  Entlastung, Tests und Länge. Gemeinsam nur: Durchgänge, automatische Wahl aus Familien, Rückblick am Blockende.
-- Reihenfolge danach: Schritt A (automatische Wahl in der Familie, Stillstand, Schwächen), dann Schritt B (Schwerpunkte, Ziele).
-  Vorher Entwurf im Canvas.
+- Sechs Schwerpunkte mit eigenem Aufbau (Details `design/schwerpunkte.md`): Allround (Standard), Kraft & Muskelaufbau
+  (Ober-/Unterkörper an 4 Tagen, Sätze mit Pause, Phasen), Calisthenics (Skill-Block mit 1–2 Skill-Zielen, Handstand an den
+  kurzen Tagen), CrossFit (Kraft/Technik + WOD, Benchmarks Cindy, Mary, Chelsea in 1, 6, 12, Murph monatlich), Beweglichkeit
+  (3 lange Einheiten à 35 Min, täglich kurz, Check in 1, 4, 8), Laufen (Ziel 5 km / 10 km / Halbmarathon, Puls-Zonen nach Karvonen).
+- Entwurf im Canvas (P49) von Dennis freigegeben: „Wir bauen das jetzt so ein“.
+- Eingebaut: Auswahl (Plan › Schwerpunkt ändern, Block-Karte auf Heute, Onboarding), Laufziel, Skill-Ziele, Block-Karte mit
+  Fortschritt, Rückblick am Blockende (Weiter so / Nächste Stufe / Wechseln), Maximal- und Ruhepuls in Einstellungen › Profil.
+- Schritt A eingebaut: automatische Übungswahl je Muster (begonnene Leiter vor neuer, dann Nutzen, nie Tempo-Varianten im
+  Kraftteil), Stillstand nach 3 gleichen Einheiten schlägt eine andere Variante vor, Allround Tag 1 Platz 3 gleicht den
+  schwächsten Kraft-Teil aus.
+- Bestehende Daten: erster Block beginnt beim aktuellen Durchgang; gewählte Übungen der alten Woche wandern mit (`S.picksV`).
+- Offen / zu beobachten: Rückmeldung von Dennis zu Tagesnamen, Länge der langen Dehn-Einheiten (Übungen laufen in Runden),
+  Inhalte der WODs aus dem Metcon-Pool.
 
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.

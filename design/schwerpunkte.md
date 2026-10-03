@@ -1,6 +1,6 @@
-# Schwerpunkte: sechs eigenständige Pläne (Entwurf zum Besprechen)
+# Schwerpunkte: sechs eigenständige Pläne
 
-Stand: Oktober 2026. Noch nicht eingebaut.
+Stand: Oktober 2026. Eingebaut (`FOKUS` in `index.html`).
 
 Jeder Plan hat **seinen eigenen Aufbau**, weil Ziel und Reiz sich unterscheiden:
 - **Häufigkeit:** wie oft pro Woche, wie viele Tage

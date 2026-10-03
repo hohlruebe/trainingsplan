@@ -593,6 +593,44 @@ button.chip{cursor:pointer;border:0}
 .t-node.lock{opacity:.6}
 .t-leg{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
 .unl{display:flex;gap:14px;align-items:center}
+/* Schwerpunkte: Auswahl, Block-Karte, Laufziel, Rückblick */
+button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.fk-list .card.fk{display:flex;gap:12px;align-items:flex-start;margin:10px 0;padding:14px;outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s,transform .15s}
+.fk-list .card.fk.on{outline-color:var(--acc)}
+.fk-ic{flex:0 0 40px;height:40px;border-radius:12px;background:var(--board);color:var(--ink2);display:flex;align-items:center;justify-content:center}
+.fk-ic svg{width:22px;height:22px}
+.fk.on .fk-ic{background:var(--acc);color:var(--on-acc)}
+.fk-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.fk-n{display:flex;align-items:center;justify-content:space-between;gap:8px}.fk-n b{font-size:16px}
+.fk-t small{color:var(--ink2);font-size:13px;line-height:1.35}
+.fk-c{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:4px;font-size:12px;color:var(--ink2)}
+.fk-info{margin:4px 2px 0}
+.fk-cur{display:flex;gap:12px;align-items:center;margin:6px 0 4px}
+.blk{padding:14px 16px}
+.blk-h{display:flex;align-items:center;justify-content:space-between;gap:8px}.blk-h b{font-size:15px;min-width:0}
+.blk-h .chip{background:var(--board);gap:5px;flex:none}.blk-h .chip svg{width:14px;height:14px}
+.blk-bar{display:flex;gap:4px;margin:12px 0 8px}
+.blk-bar i{flex:1;height:6px;border-radius:3px;background:var(--line2)}
+.blk-bar i.lite{background:color-mix(in srgb,var(--acc) 22%,var(--line))}
+.blk-bar i.done{background:var(--acc)}
+.blk-bar i.done.lite{background:color-mix(in srgb,var(--acc) 55%,var(--paper))}
+.blk-bar i.now{background:var(--acc);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 30%,transparent)}
+.blk .small{display:block}
+.zones{list-style:none;margin:12px 0 6px;padding:0}
+.zones li{display:flex;align-items:center;gap:10px;min-height:38px;border-top:1px solid var(--line);font-size:14px}
+.zones li:first-child{border-top:0}
+.zones i{flex:0 0 6px;height:18px;border-radius:3px}
+.zones b{width:24px}.zones span{flex:1;color:var(--ink2)}.zones .z-r{flex:none;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.sz-list{padding:6px 16px}
+.sz-row{display:flex;width:100%;align-items:center;gap:10px;min-height:56px;padding:8px 0;border:0;border-top:1px solid var(--line);background:none;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.sz-row:first-child{border-top:0}
+.sz-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.sz-t small{color:var(--ink2);font-size:13px;display:flex;align-items:center;gap:4px}
+.sz-n{flex:none;min-width:58px;text-align:center;border-radius:999px;font-size:13px;font-weight:600;padding:5px 10px;color:var(--ink2);border:1.5px solid var(--line2)}
+.sz-row.on .sz-n{background:var(--acc);color:var(--on-acc);border-color:var(--acc)}
+.rv-grid .tile b{font-size:22px}
+.rv-x{font-size:12px;color:var(--ink2)}
+.rv-d{color:var(--green);font-weight:600}.rv-d.neg{color:var(--red)}
+tr.now td{background:color-mix(in srgb,var(--acc) 10%,transparent)}
 .unl-ring{width:58px;height:58px;flex:0 0 auto}
 .unl-t{flex:1;min-width:0}.unl-t small{display:block;color:var(--ink2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
 .unl-t b{display:block;font-size:17px;margin:2px 0}.unl-t span{font-size:13px;color:var(--ink2);line-height:1.35}
@@ -1336,7 +1374,8 @@ var WARMUP = [
   { t: '10', n: 'Band Pass-Through', g: true, x: 'sehr leichtes Band' }
 ];
 
-var DAYS = {
+// Frühere feste Woche: Standardübungen und Metcons als Rückfall für den Allround-Plan.
+var DAYS0 = {
   1: { type: 'kraft', key: 'A', name: 'Lift Off', title: 'Kraft A', focus: 'Pull', rings: 'Ringe ganz oben',
     jumps: { t: '3 × 5', n: 'Squat Jump' },
     kraft: [{ n: 'Ring Pull-up', target: '3–6', hi: 6, note: 'Hauptzugtag' },
@@ -1389,7 +1428,8 @@ var TEST_BASE = {
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, swipe: true, swipeRev: false };
+  trainCustom: false, trainModes: null, roundCounter: true, swipe: true, swipeRev: false,
+  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -1418,12 +1458,20 @@ var S = Object.assign({}, DEF, LS.get('tp.state', {}));
 // Neues Design (Stil A): einmalig auf die klare Schrift umstellen.
 if (LS.get('tp.state', {}).look !== 2) { S.font = 'klar'; S.look = 2; LS.set('tp.state', S); }
 ensureOrte();
+// Schwerpunkte: bestehende Nutzer beginnen ihren ersten Block beim aktuellen Durchgang.
+// Gewählte Übungen der alten Woche wandern mit (Zug war Tag 1, jetzt Tag 3; Druck war Tag 3, jetzt Tag 6).
+if (S.started && S.blockStart == null) S.blockStart = Math.max(1, S.durchgang);
+if (!S.picksV) {
+  var P1 = {};
+  Object.keys(S.picks || {}).forEach(function (k) { var m = /^(.*):([136]):(\d+)$/.exec(k); P1[m ? m[1] + ':' + { 1: 3, 3: 6, 6: 1 }[m[2]] + ':' + m[3] : k] = S.picks[k]; });
+  S.picks = P1; S.picksV = 2;
+}
 var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen', 'rm'] };
 var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Routinen', rm: '1RM' };
-var HIDDEN = { einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil' };
+var HIDDEN = { einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', laufziel: 'coach', skillziel: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
@@ -1442,7 +1490,7 @@ function num(v) { if (v === '' || v == null) return null; var n = Number(v); ret
 function newId() { return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8); }
 // Tagesname verrät nicht den Inhalt, den zeigt die Übersicht (dayWhat für den Plan).
 function dayLabel(t) { return DAYS[t].name; }
-function dayWhat(t) { var d = DAYS[t]; return d.type === 'kraft' ? 'Kraft ' + d.focus : d.type === 'rest' ? 'frei' : d.title; }
+function dayWhat(t) { return DAYS[t].what || ''; }
 function viewTag() { return ui.viewTag || S.tag; }
 function draftKey(tag) { return S.durchgang + '-' + tag; }
 function easyMinutes(D) { return D <= 2 ? 20 : Math.min(45, 20 + 5 * Math.floor((D - 1) / 2)); }
@@ -1456,17 +1504,13 @@ function toast(msg) { var t = document.getElementById('toast'); t.textContent = 
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
 function isKurz(tag) { var k = draftKey(tag); if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7; }
+// Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
-  if (S.durchgang < 3) return false;
-  var start = null;
-  if (S.tag === 1 && tag === 1) start = new Date();
-  else if (S.cycleDurchgang === S.durchgang && S.cycleStart) start = parseISO(S.cycleStart);
-  if (!start) return false;
-  var dim = new Date(start.getFullYear(), start.getMonth() + 1, 0).getDate();
-  return start.getDate() > dim - 7;
+  var d = DAYS[tag];
+  return S.durchgang > 0 && !!d && d.maxout != null && curPhase().test;
 }
 function murphDue() {
-  if (S.durchgang < 1 || !S.startDate) return false;
+  if (S.durchgang < 1 || !S.startDate || !fokus().murph) return false;
   var today = new Date();
   if (daysBetween(parseISO(S.startDate), today) < 28) return false;
   return S.lastTag1Month !== monthKey(today);
@@ -1474,7 +1518,7 @@ function murphDue() {
 function lastFor(name) {
   for (var i = LOGS.length - 1; i >= 0; i--) {
     var l = LOGS[i];
-    if (l.kind !== 'kraft' || !l.kraft) continue;
+    if (!l.kraft) continue;
     for (var j = 0; j < l.kraft.length; j++) {
       var k = l.kraft[j];
       if (k.n === name && k.reps && k.reps.some(function (v) { return v != null; })) return k;
@@ -1541,7 +1585,7 @@ function initDb() {
 }
 
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = PWA ? LS.get('tp.sync', null) : null;
@@ -1653,7 +1697,8 @@ function isTyping() { var a = document.activeElement; return a && $view.contains
 function scheduleRender() { if (isTyping()) { pendingRender = true; return; } render(); }
 function render() {
   pendingRender = false;
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, skill: renderSkill }[ui.tab];
+  syncDays();
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, skill: renderSkill, fokus: renderFokus, laufziel: renderLaufziel, skillziel: renderSkillziel }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
@@ -1699,7 +1744,8 @@ function onboardingHTML() {
     '<button type="button" class="btn primary block" data-act="start-test">Mit dem Einstiegstest starten</button></section>' +
     '<section class="card"><h2>Schon mittendrin?</h2><p>Dann stell deinen aktuellen Stand ein.</p>' +
     standTilesHTML('ob', ui.ob || (ui.ob = { d: 1, t: 1 })) +
-    '<button type="button" class="btn block" data-act="start-at">Hier weitermachen</button></section>';
+    '<button type="button" class="btn block" data-act="start-at">Hier weitermachen</button></section>' +
+    '<section class="card"><h2>Dein Schwerpunkt</h2><p><b>' + esc(fokusLabel()) + '</b>. ' + esc(fokus().kurz) + '</p><button type="button" class="btn block" data-act="fk-open" data-from="heute">Schwerpunkt wählen</button></section>';
 }
 
 function restHTML(tag) {
@@ -1725,13 +1771,14 @@ function changeIv(delta) {
 function advance() {
   var t = S.tag;
   if (t === 1) { S.lastTag1Month = monthKey(new Date()); S.cycleStart = isoToday(); S.cycleDurchgang = S.durchgang; }
-  if (t === 7) { S.tag = 1; S.durchgang += 1; } else S.tag = t + 1;
+  if (t === 7) { S.tag = 1; S.durchgang += 1; blockCheck(); } else S.tag = t + 1;
   ui.viewTag = null;
 }
 function saveDay() {
+  syncDays();
   var ladBefore = areaStates(LOGS);
   var tag = S.tag, d = DAYS[tag], key = draftKey(tag), v = collectInputs(), extra = '';
-  var base = { id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, notes: v.notes || '' };
+  var base = { id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, name: dayLabel(tag), fokus: S.fokus, notes: v.notes || '' };
   var log = null;
   if (S.durchgang === 0 && TESTDAYS[tag]) {
     var td = TESTDAYS[tag], rows = PLAN.tests[td.rows], map = TEST_BASE[td.rows];
@@ -1746,29 +1793,36 @@ function saveDay() {
   } else if (tag === 1 && murphDue() && !ui.skipMurph) {
     log = Object.assign(base, { kind: 'murph', murph: { stage: S.murphStage, time: v.murphTime || '' } });
   } else if (d.type === 'kraft') {
-    var kurz = isKurz(tag), rounds = kurz ? 3 : 4;
-    var stages = d.metcon.map(function (m, i) {
-      if (!metconLad(m.n)) return null;
-      var st = v['m' + i + 'stage'] != null ? v['m' + i + 'stage'] : lastMetconStage(m.n);
-      return st ? { n: m.n, stage: st } : null;
-    }).filter(Boolean);
-    var metcon = { rounds: num(v.mr), reps: num(v.mw), min: kurz ? 5 : 8, items: d.metcon.map(function (m) { return m.n; }) };
-    if (stages.length) metcon.stages = stages;
-    log = Object.assign(base, { kind: 'kraft', key: d.key, kurz: kurz, test: (tag === 1 || tag === 3) && isTestCycle(tag),
-      hs: v.hsStage != null || v.hsSec != null ? composeHs(v) : (v.hs || ''),
+    var kurz = isKurz(tag), rounds = kraftRounds(tag);
+    log = Object.assign(base, { kind: 'kraft', key: d.key || null, kurz: kurz, test: isTestCycle(tag),
+      hs: !d.hs ? '' : v.hsStage != null || v.hsSec != null ? composeHs(v) : (v.hs || ''),
       kraft: d.kraft.map(function (x, i) {
         var reps = []; for (var r = 0; r < rounds; r++) reps.push(num(v['k' + i + 'r' + r]));
         return { n: x.n, stage: v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n), reps: reps };
-      }),
-      metcon: metcon });
+      }) });
+    if (d.kfmt === 'saetze' && d.kraft.length) log.sets = rounds;
+    if ((d.mmin || d.bench) && d.metcon.length) {
+      var stages = d.metcon.map(function (m, i) {
+        if (!metconLad(m.n)) return null;
+        var st = v['m' + i + 'stage'] != null ? v['m' + i + 'stage'] : lastMetconStage(m.n);
+        return st ? { n: m.n, stage: st } : null;
+      }).filter(Boolean);
+      log.metcon = { rounds: num(v.mr), reps: num(v.mw), min: metconMin(tag), items: d.metcon.map(function (m) { return m.n; }) };
+      if (d.bench) { log.metcon.bench = BENCH[d.bench].name; log.metcon.fmt = BENCH[d.bench].fmt; }
+      if (stages.length) log.metcon.stages = stages;
+    }
+    if (d.skill) { var sk = skillFrom(v, d); if (sk) log.skill = sk; }
+    if (d.mobl) log.mobl = { art: d.mobl, min: mobRoutine(d.mobl).dauer_min, done: flowState(moblFlow(tag), v).done.length || null };
+    if (d.run) {
+      var rs = runSpec(d), rr = runFrom(v, rs);
+      log.kind = rs.type; log[rs.type === 'interval' ? 'interval' : 'run'] = rr;
+    }
   } else if (d.type === 'easy') {
-    var es = num(v.runSec) || (num(v.runMin) != null ? num(v.runMin) * 60 : planRunSec('easy'));
-    var eo = runMode(v) === 'ergo';
-    log = Object.assign(base, { kind: 'easy', run: { min: Math.round(es / 60), target: easyMinutes(S.durchgang), ergo: eo, sec: es, km: parseKm(v.runKm), hr: num(v.runHr), watt: eo ? num(v.runW) : null } });
+    var spec = runSpec(d);
+    log = Object.assign(base, { kind: 'easy', run: runFrom(v, spec) });
+    if (d.pre === 'hs' && (v.hsStage != null || v.hsSec != null)) log.hs = composeHs(v);
   } else if (d.type === 'interval') {
-    var is = num(v.runSec) || planRunSec('interval');
-    var io = runMode(v) === 'ergo';
-    log = Object.assign(base, { kind: 'interval', interval: { stage: S.ivStage, reps: S.ivReps, done: num(v.ivDone), watt: io ? (v.runW || '') : (v.ivWatt || ''), ergo: io, sec: is, km: parseKm(v.runKm), hr: num(v.runHr) } });
+    log = Object.assign(base, { kind: 'interval', interval: runFrom(v, runSpec(d)) });
     if (S.durchgang - (S.ivBumpD || 0) >= 2) { changeIv(1); S.ivBumpD = S.durchgang; extra = ' Nächstes Mal: Stufe ' + S.ivStage + ', ' + S.ivReps + '×.'; }
   }
   if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; }
@@ -1949,23 +2003,26 @@ function timerConfigHTML() {
 }
 /* ---------- Verlauf ---------- */
 function logTitle(l) {
-  var k = { murph: 'Murph', test: TESTDAYS[l.tag] ? TESTDAYS[l.tag].title : 'Test' }[l.kind] || (DAYS[l.tag] ? dayLabel(l.tag) : 'Training');
+  var k = { murph: 'Murph', test: TESTDAYS[l.tag] ? TESTDAYS[l.tag].title : 'Test' }[l.kind] || l.name || (DAYS0[l.tag] ? DAYS0[l.tag].name : 'Training');
   return 'Tag ' + l.tag + ': ' + k;
 }
 function logLines(l) {
   var out = [];
+  if (l.kraft && l.kind !== 'kraft') logKraft(l, out);
   if (l.kind === 'kraft') {
+    if (l.mobl) out.push('<b>' + esc(MOB_ART[l.mobl.art] ? MOB_ART[l.mobl.art].name : 'Beweglichkeit') + '</b>: ' + l.mobl.min + ' Min');
+    if (l.skill) l.skill.forEach(function (x) { out.push('<b>Skill ' + esc(FAM[x.fam] ? FAM[x.fam].name : '') + '</b>: ' + esc(uName(x.uebung)) + ', ' + x.best + (x.unit === 's' ? ' s' : ' Wdh.')); });
     l.kraft.forEach(function (k) { var r = k.reps.filter(function (v) { return v != null; }); out.push('<b>' + esc(k.n) + '</b>: ' + (r.length ? r.join(' / ') : '–') + (k.stage ? ' <span class="muted">(' + esc(stageText(k.stage)) + ')</span>' : '')); });
-    if (l.metcon && l.metcon.rounds != null) out.push('<b>AMRAP ' + (l.metcon.min || 8) + '</b>: ' + l.metcon.rounds + ' Runden + ' + (l.metcon.reps || 0));
+    if (l.metcon && l.metcon.rounds != null) out.push('<b>' + (l.metcon.bench ? esc(l.metcon.bench) + ' · ' : '') + (l.metcon.fmt === 'emom' ? 'EMOM ' : 'AMRAP ') + (l.metcon.min || 8) + '</b>: ' + l.metcon.rounds + ' Runden' + (l.metcon.fmt === 'emom' ? '' : ' + ' + (l.metcon.reps || 0)));
     if (l.metcon && l.metcon.stages) out.push('<span class="muted">Metcon: ' + l.metcon.stages.map(function (m) { return esc(m.n) + ' (' + esc(stageText(m.stage)) + ')'; }).join(', ') + '</span>');
     if (l.hs) out.push('<b>Handstand</b>: ' + esc(l.hs));
     if (l.kurz) out.push('<span class="muted">Kurzversion</span>');
     if (l.test) out.push('<span class="muted">Test-Durchgang mit Maxout</span>');
   } else if (l.kind === 'easy') {
-    out.push((l.run.sec ? fmtDur(l.run.sec) : (l.run.min != null ? l.run.min : '–')) + ' von ' + l.run.target + ' Min' + (l.run.ergo ? ' auf dem Ergometer' : ''));
+    out.push(({ lang: 'Langer Lauf: ', tempo: 'Tempolauf: ', test: 'Testlauf 5 km: ', ziel: 'Ziel-Lauf: ' }[l.run.art] || '') + (l.run.sec ? fmtDur(l.run.sec) : (l.run.min != null ? l.run.min : '–')) + ' von ' + l.run.target + ' Min' + (l.run.ergo ? ' auf dem Ergometer' : ''));
     if (l.run.km || l.run.hr) out.push(runLine(l.run));
   } else if (l.kind === 'interval') {
-    out.push('Stufe ' + l.interval.stage + ': ' + (l.interval.done != null ? l.interval.done : '–') + ' von ' + l.interval.reps + ' Intervallen' + (l.interval.watt ? ', ' + esc(l.interval.watt) + ' W' : ''));
+    out.push((l.interval.stage ? 'Stufe ' + l.interval.stage : l.interval.reps + ' × ' + l.interval.work + ' Min') + ': ' + (l.interval.done != null ? l.interval.done : '–') + ' von ' + l.interval.reps + ' Intervallen' + (l.interval.watt ? ', ' + esc(l.interval.watt) + ' W' : ''));
     if (l.interval.km || l.interval.hr || l.interval.ergo) out.push(runLine(l.interval));
   } else if (l.kind === 'murph') {
     out.push('Stufe ' + l.murph.stage + ': ' + (l.murph.time ? esc(l.murph.time) : 'ohne Zeit'));
@@ -1976,6 +2033,9 @@ function logLines(l) {
   if (l.cool) out.push('<span class="muted">Mit Cool-down</span>');
   if (l.notes) out.push('<span class="muted">„' + esc(l.notes) + '“</span>');
   return '<ul class="log-lines">' + out.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
+}
+function logKraft(l, out) {
+  l.kraft.forEach(function (k) { var r = k.reps.filter(function (v) { return v != null; }); out.push('<b>' + esc(k.n) + '</b>: ' + (r.length ? r.join(' / ') : '–') + (k.stage ? ' <span class="muted">(' + esc(stageText(k.stage)) + ')</span>' : '')); });
 }
 function runLine(r) {
   return [r.ergo ? 'Ergometer' : '', r.sec ? fmtDur(r.sec) : '', r.km ? fmtKm(r.km) + ' km' : '', r.sec && r.km && !r.ergo ? fmtPace(r.sec / r.km) + ' /km' : '', r.ergo && r.watt ? r.watt + ' W' : '', r.hr ? 'Puls ' + r.hr : ''].filter(Boolean).join(' · ');
@@ -2102,9 +2162,17 @@ function bandLegend() {
 function sec(title, body, open) { var o = Object.prototype.hasOwnProperty.call(ui.openSec, title) ? ui.openSec[title] : open; return '<details class="card" data-sec="' + esc(title) + '"' + (o ? ' open' : '') + '><summary><h2>' + title + '</h2></summary>' + body + '</details>'; }
 function renderPlan() {
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="heute" aria-label="Zurück zu Heute">' + BACK + '</button><section class="hero"><h1>Plan</h1><p class="hero-title">So funktioniert dein Training</p></section>';
+  var F = fokus(), ph = curPhase();
+  h += '<section class="card"><p class="kicker muted">Schwerpunkt</p><div class="fk-cur"><span class="fk-ic">' + fkIcon(F.ic) + '</span><span><b>' + esc(fokusLabel()) + '</b><br><span class="small muted">' +
+    (S.durchgang ? 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + esc(ph.lab) : '') : 'Startet nach dem Einstiegstest') + '</span></span></div>' +
+    '<p class="small">' + esc(F.info) + '</p><button type="button" class="btn block" data-act="fk-open" data-from="plan">Schwerpunkt ändern</button></section>';
   var days = '<ul class="list">';
   for (var t = 1; t <= 7; t++) days += '<li><span class="qty">Tag ' + t + '</span><span><b>' + esc(dayLabel(t)) + '</b> <span class="muted">' + esc(dayWhat(t)) + '</span>' + (DAYS[t].rings ? ' <span class="muted small">(' + esc(DAYS[t].rings) + ')</span>' : '') + '</span></li>';
-  days += '</ul><p class="small muted" style="margin-top:8px">Jede Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, Kraft als EMOM 12, Metcon als AMRAP 8 – rund 35 Min.</p>';
+  days += '</ul>';
+  var bl = '';
+  for (var b = 1; b <= ph.n; b++) { var q = phaseAt(b); bl += '<tr' + (b === ph.bd && S.durchgang ? ' class="now"' : '') + '><td class="hand" style="font-size:20px">' + b + '</td><td>' + esc(q.lab || '–') + '</td></tr>'; }
+  days += '<h3 style="margin-top:12px">Der Block</h3><div class="tbl-wrap"><table><thead><tr><th>Durchgang</th><th>Phase</th></tr></thead><tbody>' + bl + '</tbody></table></div>' +
+    '<p class="small muted" style="margin-top:8px">Am Ende des Blocks zeigt die App einen Rückblick. Dann: weiter so, nächste Stufe oder wechseln.</p>';
   h += sec('Der Durchgang', days, true);
   h += sec('Regeln', '<ol class="rules">' + [
     '<b>Tag für Tag:</b> 1 bis 7, dann wieder Tag 1 – egal, auf welchen Wochentag ein Tag fällt.',
@@ -2115,7 +2183,7 @@ function renderPlan() {
     '<b>Kurzversion</b> bei Nachtschicht, schlechtem Schlaf oder starkem Muskelkater: Kraft 3 Runden, Metcon 5 Min, Intervalle werden zum lockeren Lauf. Fällt ein Lauf aus, nimm das Ergometer.',
     '<b>3 Durchgänge ohne Steigerung</b> oder dauerhaft platt: 1 Durchgang Kurzversion zur Entlastung.',
     '<b>Letzte Stufe geschafft:</b> Weste an, klein anfangen (z. B. 5 kg; bis dahin Rucksack). Sprünge nie mit Weste.',
-    '<b>Monat:</b> Der erste Tag 1 im Monat wird zum Murph. Beginnt ein Durchgang in den letzten 7 Tagen des Monats, ist er der Test-Durchgang.'
+    '<b>Murph:</b> Der erste Tag 1 im Monat wird zum Murph (Allround, Calisthenics, CrossFit). <b>Entlastung und Tests</b> kommen je nach Schwerpunkt, meist jeder 4. Durchgang.'
   ].map(function (r) { return '<li>' + r + '</li>'; }).join('') + '</ol>');
   h += sec('Methode', '<h3>Calisthenics</h3><p class="small muted">nach Städele, Kraft ohne Grenzen</p><ul class="list"><li>Kraft zuerst: Pull-up, Push-up und Dip sind der rote Faden.</li><li>Kraftblock mit 3–6 Wdh. und 2 Wdh. Reserve (RIR 2).</li><li>Pull-up 2× pro Durchgang: Tag 1 schwer, Tag 6 leichter.</li><li>Handstand in jeder Einheit, Stack-Atmung vor jedem Satz.</li><li>Stufen mit Voraussetzungen, Bänder, Tests und Entlastung.</li></ul>' +
     '<h3 style="margin-top:12px">CrossFit</h3><ul class="list"><li>Metcon (AMRAP) in jeder Einheit: einfache Übungen, hohe Intensität.</li><li>Ergebnis als Zahl: Runden und Wiederholungen.</li><li>Murph einmal im Monat, Laufen und Ergometer für die Ausdauer.</li></ul>' +
@@ -2130,7 +2198,7 @@ function renderPlan() {
     '<div class="tbl-wrap"><table><thead><tr><th>Stufe</th><th>Laufen</th><th>Runden</th><th>Pull-ups</th></tr></thead><tbody>' +
     [1, 2, 3, 4].map(function (s) { var m = MURPH[s]; return '<tr><td class="hand" style="font-size:20px">' + s + (m.name ? ' <span class="small muted">' + m.name + '</span>' : '') + '</td><td>2 × ' + m.run + '</td><td>' + m.rounds + '</td><td>' + esc(m.pull) + '</td></tr>'; }).join('') +
     '</tbody></table></div><p class="small muted" style="margin-top:8px">Eine Runde: 5 Pull-ups, 10 Push-ups, 15 Air Squats. Nicht nach einer Nachtschicht. Colafarbener Urin oder stark geschwollene, schmerzende Muskeln danach: sofort zum Arzt.</p>' +
-    '<p style="margin-top:8px"><b>Test-Durchgang:</b> Beginnt ein Durchgang in den letzten 7 Tagen des Monats, ist Runde 1 von Pull-up (Tag 1) und Push-up (Tag 3) ein Maxout mit RIR 0. Danach normal weiter. Bist du danach platt: ein Durchgang Kurzversion.</p>');
+    '<p style="margin-top:8px"><b>Test-Durchgang:</b> Im Test-Durchgang des Blocks ist die erste Runde der Hauptübung ein Maxout mit RIR 0, dazu kommt der Beweglichkeits-Check. Danach normal weiter. Bist du danach platt: ein Durchgang Kurzversion.</p>');
   var lastTest = LOGS.filter(function (l) { return l.kind === 'test'; });
   var testBody = '<p>Vor dem ersten Durchgang findest du an drei Testtagen deine Startstufen: Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Tag 2 und 4 laufen normal.</p><p class="small"><b>Formel:</b> Stufe mit 5–8 sauberen Wdh. suchen, Start = Max – 2 (Chin-up: Max – 3).</p>';
   if (lastTest.length) {
@@ -2327,9 +2395,9 @@ function ladderStates(logs) {
   Object.keys(S.base || {}).forEach(function (n) { var g = GL[n]; if (g && LAD[g.key]) set(g.key, stageIndex(LAD[g.key], S.base[n].stage), S.base[n].start, null); });
   logs.forEach(function (l) {
     if (l.kind === 'test' && l.tests) l.tests.forEach(function (t) { var g = GL[t.name]; if (g && LAD[g.key]) set(g.key, stageIndex(LAD[g.key], t.stage), t.max, l.date); });
-    if (l.kind === 'kraft' && l.kraft) {
-      l.kraft.forEach(function (k) { var g = GL[k.n]; if (g && LAD[g.key]) set(g.key, stageIndex(LAD[g.key], k.stage), maxRep(k.reps), l.date); });
-      if (l.hs) set('g_handstand', stageIndex(LAD.g_handstand, l.hs), null, l.date);
+    if (l.kraft) l.kraft.forEach(function (k) { var g = GL[k.n]; if (g && LAD[g.key]) set(g.key, stageIndex(LAD[g.key], k.stage), maxRep(k.reps), l.date); });
+    if (l.hs && l.kind !== 'mobility') set('g_handstand', stageIndex(LAD.g_handstand, l.hs), null, l.date);
+    if (l.kind === 'kraft') {
       if (l.metcon && l.metcon.stages) l.metcon.stages.forEach(function (m) { var g = GL[m.n]; if (g && LAD[g.key]) set(g.key, stageIndex(LAD[g.key], m.stage), null, l.date); });
     }
     if (l.kind === 'murph' && l.murph && l.murph.time) set('murph', l.murph.stage, null, l.date);
@@ -2528,6 +2596,7 @@ function renderEinst() {
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="profil" aria-label="Zurück zum Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><section class="hero"><h1>Einstellungen</h1></section>';
   h += '<section class="card"><h2>Profil</h2><div class="setting col"><label class="field"><span>Name</span><input type="text" data-change="name" value="' + esc(S.name || '') + '" placeholder="Dein Name"></label></div>' +
     '<div class="pick-grid one">' + weightTile() + '</div>' +
+    '<div class="pick-grid">' + hrTilesHTML() + '</div><p class="small muted">Puls-Zonen nach Karvonen für den Laufplan und die lockeren Läufe.</p>' +
     '<div class="bgrp"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div>' +
     '<p class="small muted" style="margin-top:8px">Name und Foto bleiben nur auf diesem Gerät.</p></section>';
   if (PWA) h += sec('Sync über GitHub', syncHTML());
@@ -2695,8 +2764,8 @@ var ACT = {
   'skip-murph': function () { ui.skipMurph = true; render(); },
   'murph-stage': function (el) { S.murphStage = +el.dataset.s; saveState(); render(); },
   'iv-reps': function (el) { changeIv(+el.dataset.d); saveState(); render(); },
-  'start-test': function () { Object.assign(S, { started: true, startDate: isoToday(), durchgang: 0, tag: 1 }); saveState(); render(); },
-  'start-at': function () { var o = ui.ob || { d: 1, t: 1 }; Object.assign(S, { started: true, startDate: isoToday(), durchgang: o.d, tag: o.t }); ui.ob = null; saveState(); render(); },
+  'start-test': function () { Object.assign(S, { started: true, startDate: isoToday(), durchgang: 0, tag: 1, blockStart: 1 }); saveState(); render(); },
+  'start-at': function () { var o = ui.ob || { d: 1, t: 1 }; Object.assign(S, { started: true, startDate: isoToday(), durchgang: o.d, tag: o.t, blockStart: Math.max(1, o.d) }); ui.ob = null; saveState(); render(); },
   't-mode': function (el) { if (TM.running) { toast('Halte erst den Timer an.'); return; } tmr().mode = el.dataset.m; saveState(); toolSetup(); render(); },
   't-toggle': timerToggle,
   't-reset': function () { timerReset(); render(); },
@@ -2781,6 +2850,15 @@ ACT.choose = function (el) {
     var wv = S.weight || 75;
     openSheet('Körpergewicht', [{ head: 'kg', items: numItems(35, 200), val: String(Math.floor(wv)) }, { head: '', items: [{ v: '0', t: ',0' }, { v: '5', t: ',5' }], val: wv % 1 ? '5' : '0' }],
       function (v) { S.weight = +v[0] + (v[1] === '5' ? 0.5 : 0); saveState(); render(); toast('Körpergewicht gespeichert.'); });
+  } else if (k === 'hrmax' || k === 'hrrest') {
+    var hv = hrVals(), mx = k === 'hrmax';
+    openSheet(mx ? 'Maximalpuls' : 'Ruhepuls', [{ head: 'bpm', items: mx ? numItems(140, 220) : numItems(35, 100), val: String(mx ? hv.max : hv.rest) }], function (v) {
+      if (mx) S.hrMax = +v[0]; else S.hrRest = +v[0]; saveState(); render(); toast((mx ? 'Maximalpuls' : 'Ruhepuls') + ' gespeichert.');
+    }, { num: 0 });
+  } else if (k === 'lz-time') {
+    var z = ui.lz, ds = { '5': 1500, '10': 3120, '21': 6900 }, t0 = z.ziel || ds[z.dist] || 3120;
+    openSheet('Zielzeit', [{ head: 'Std.', items: numItems(0, 3), val: String(Math.floor(t0 / 3600)) }, { head: 'Min.', items: numItems(0, 59), val: String(Math.floor(t0 % 3600 / 60)) }, { head: 'Sek.', items: numItems(0, 59), val: String(t0 % 60) }],
+      function (v) { var t = (+v[0]) * 3600 + (+v[1]) * 60 + (+v[2]); z.ziel = t || null; render(); });
   } else if (k === 'murph') {
     openTimeSheet('Deine Zeit', secOf(dr(S.tag).murphTime), function (sec) { setDraft('murphTime', sec ? fmt(sec) : ''); render(); });
   } else if (k === 'start') {
@@ -2863,32 +2941,65 @@ function stepsOf(c) {
       body: function (D) { return murphStepHTML(D); } }];
   }
   if (d.type !== 'kraft') return [];
-  var kurz = isKurz(tag), rounds = kurz ? 3 : 4, am = kurz ? 5 : 8, names = d.kraft.map(function (k) { return k.n; });
-  return [
-    { id: 'warm', title: 'Aufwärmen', sub: '8 Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: 8,
-      desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
-      timer: { mode: 'block', cfg: { minutes: 8, label: 'Aufwärmen', tag: tag }, label: '8 Min starten', info: 'Aufwärmen' },
-      body: function (D) { return warmStepHTML(tag, D); } },
-    { id: 'hs', title: 'Handstand', sub: '5 Min · 20–30 s pro Satz', dur: 5, desc: 'An der Wand, 20–30 s pro Satz',
-      timer: { mode: 'block', cfg: { minutes: 5, label: 'Handstand', tag: tag }, label: '5 Min starten', info: 'Handstand an der Wand' },
-      body: function (D) { return hsStepHTML(D); } },
-    { id: 'kraft', title: 'Kraft · EMOM ' + rounds * 3, sub: rounds + ' Runden · 3–6 Wdh. · RIR 2', dur: rounds * 3, desc: names.join(' · '),
-      timer: { mode: 'emom', cfg: { minutes: rounds * 3, stations: names, tag: tag }, label: 'EMOM ' + rounds * 3 + ' starten', info: names.join(' · ') },
-      body: function (D) { return kraftStepHTML(tag, D, rounds); } },
-    { id: 'metcon', title: 'Metcon · AMRAP ' + am, sub: am + ' Min · so viele Runden wie möglich', dur: am,
+  var out = [], rounds = kraftRounds(tag), names = d.kraft.map(function (k) { return k.n; });
+  if (d.run) {
+    var rs = runSpec(d), rT = rs.type === 'interval' ? 'Intervalle' : { tempo: 'Tempolauf', test: 'Testlauf 5 km', ziel: 'Ziel-Lauf' }[rs.art] || 'Lauf';
+    out.push({ id: 'run', title: rT, sub: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min · Zone ' + rs.iv.zone : rs.min ? rs.min + ' Min · Zone 3–4' : rs.art === 'test' ? '5 km auf Zeit' : laufGoal().name, dur: Math.round(planRunSec(rs) / 60),
+      desc: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben' : 'Ergebnis von der Uhr eintragen', body: function (D) { return runHTML(c, D, rs, true); } });
+  }
+  if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: '8 Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: 8,
+    desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
+    timer: { mode: 'block', cfg: { minutes: 8, label: 'Aufwärmen', tag: tag }, label: '8 Min starten', info: 'Aufwärmen' },
+    body: function (D) { return warmStepHTML(tag, D); } });
+  if (d.mobl) {
+    var mr = mobRoutine(d.mobl);
+    out.push({ id: 'mobl', title: mr.name, sub: mr.dauer_min + ' Min · ' + mr.bloecke.length + ' Übungen', dur: mr.dauer_min, desc: mr.ziel,
+      timer: { mode: 'routine', cfg: { rid: mr.id, tag: tag }, label: mr.dauer_min + ' Min starten', info: mr.name },
+      body: function (D) { var F = moblFlow(tag); return modeOf('mobl') === 'single' ? '<p class="small muted">' + esc(mr.ziel) + '</p>' + flowHTML(F, D) : '<section class="card"><p>' + esc(mr.ziel) + '</p>' + flowHTML(F, D) + '</section>'; } });
+  }
+  if (d.hs) out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
+    timer: { mode: 'block', cfg: { minutes: d.hs, label: 'Handstand', tag: tag }, label: d.hs + ' Min starten', info: 'Handstand an der Wand' },
+    body: function (D) { return hsStepHTML(D); } });
+  if (d.skill) {
+    var sk = skillOf(d);
+    out.push({ id: 'skill', title: 'Skill · ' + sk.goal.name, sub: d.skill + ' Min · frisch, nie bis zum Versagen', dur: d.skill, desc: uName(sk.v.uebung) + (sk.pre ? ' (Voraussetzung für ' + sk.goal.name + ')' : ''),
+      timer: { mode: 'block', cfg: { minutes: d.skill, label: 'Skill-Block', tag: tag }, label: d.skill + ' Min starten', info: sk.f.name },
+      body: function (D) { return skillStepHTML(tag, d, D); } });
+  }
+  if (names.length && rounds) {
+    var rg = d.kfmt === 'saetze' ? d.reps : '3–6', p = curPhase(), rir = p.rir != null ? p.rir : p.deload ? 3 : 2;
+    if (d.kfmt === 'saetze') {
+      var sMin = Math.round(names.length * rounds * (d.rest + 45) / 60);
+      out.push({ id: 'kraft', title: 'Kraft · ' + rounds + ' Sätze', sub: rg + ' Wdh. · ' + fmtT(d.rest) + ' Pause · RIR ' + rir, dur: sMin, desc: names.join(' · '),
+        timer: { mode: 'hiit', cfg: { work: 45, rest: d.rest, rounds: names.length * rounds, tag: tag }, label: 'Sätze starten', info: rounds + ' Sätze je Übung, ' + fmtT(d.rest) + ' Pause' },
+        body: function (D) { return kraftStepHTML(tag, D, rounds); } });
+    } else {
+      var em = rounds * names.length;
+      out.push({ id: 'kraft', title: 'Kraft · EMOM ' + em, sub: rounds + ' Runden · ' + rg + ' Wdh. · RIR ' + rir, dur: em, desc: names.join(' · '),
+        timer: { mode: 'emom', cfg: { minutes: em, stations: names, tag: tag }, label: 'EMOM ' + em + ' starten', info: names.join(' · ') },
+        body: function (D) { return kraftStepHTML(tag, D, rounds); } });
+    }
+  }
+  if ((d.mmin || d.bench) && d.metcon.length) {
+    var am = metconMin(tag), B = d.bench ? BENCH[d.bench] : null, em2 = B && B.fmt === 'emom';
+    out.push({ id: 'metcon', title: B ? B.name + ' · ' + (em2 ? 'EMOM ' : 'AMRAP ') + am : (d.wod ? 'WOD' : 'Metcon') + ' · AMRAP ' + am,
+      sub: em2 ? am + ' Min · jede Minute eine Runde' : am + ' Min · so viele Runden wie möglich', dur: am, opt: !!d.mopt,
       desc: d.metcon.map(function (m) { return m.n; }).join(' · '),
-      timer: { mode: 'amrap', cfg: { minutes: am, tag: tag }, label: 'AMRAP ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
-      body: function (D) { return metconStepHTML(tag, D, am); } }
-  ].concat(mobCheckStep(tag)).concat(coolStep(tag));
+      timer: em2 ? { mode: 'emom', cfg: { minutes: am, tag: tag }, label: 'EMOM ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') }
+        : { mode: 'amrap', cfg: { minutes: am, tag: tag }, label: 'AMRAP ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
+      body: function (D) { return metconStepHTML(tag, D, am); } });
+  }
+  return out.concat(mobCheckStep(tag)).concat(coolStep(tag));
 }
-// Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und im Test-Durchgang.
+// Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in den Test-Durchgängen des Schwerpunkts.
 function mobCheckStep(tag) {
-  if (tag !== 1 || !MOB.check.leitern.length || !(S.durchgang === 0 || isTestCycle(1))) return [];
+  if (tag !== 1 || !MOB.check.leitern.length || !(S.durchgang === 0 || curPhase().check)) return [];
   return [{ id: 'mob', title: 'Beweglichkeits-Check', sub: (MOB.check.dauer_min || 5) + ' Min · warm · je ein Versuch', dur: MOB.check.dauer_min || 5,
     desc: MOB.check.leitern.map(function (k) { return LAD[k] ? LAD[k].name : k; }).join(' · '), body: function (D) { return mobCheckHTML(D); } }];
 }
+function coolOf(tag) { var d = DAYS[tag]; return d && d.cool && ROUT[d.cool] ? ROUT[d.cool] : null; }
 function coolStep(tag) {
-  var r = S.cooldown === false ? null : routineFor('cooldown', tag);
+  var r = S.cooldown === false ? null : coolOf(tag);
   if (!r) return [];
   return [{ id: 'cool', title: r.name, sub: r.dauer_min + ' Min · optional', dur: r.dauer_min, desc: r.ziel, opt: true,
     timer: { mode: 'routine', cfg: { rid: r.id, tag: tag }, label: r.dauer_min + ' Min starten', info: r.name },
@@ -2902,8 +3013,8 @@ function routineListHTML(r) {
   return '<ul class="rlist">' + r.bloecke.map(function (b, i) { return '<li data-bi="' + i + '"><span>' + esc(ueName(b.uebung)) + '</span><span class="muted">' + esc(blockText(b)) + '</span></li>'; }).join('') + '</ul>';
 }
 /* ---------- Ablauf im Training: Einzeln (eine Übung pro Bildschirm) oder Liste (Glas-Kapsel, aktuelle Übung offen) ---------- */
-var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['kraft', 'Kraft · EMOM'], ['metcon', 'Metcon · AMRAP'], ['murph', 'Murph'], ['cool', 'Cool-down']];
-var TRAIN_STD = { warm: 'list', kraft: 'list', metcon: 'list', murph: 'list', cool: 'single' };
+var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['murph', 'Murph'], ['mobl', 'Beweglichkeit'], ['cool', 'Cool-down']];
+var TRAIN_STD = { warm: 'list', kraft: 'list', metcon: 'list', murph: 'list', mobl: 'list', cool: 'single' };
 function modeOf(t) { var m = S.trainCustom && S.trainModes ? S.trainModes[t] : null; return m === 'single' || m === 'list' ? m : TRAIN_STD[t]; }
 function flowItem(n, qty, x, key, note) {
   var g = GL[n];
@@ -2927,11 +3038,15 @@ function murphFlow() {
   return { id: 'murph', items: [flowItem('Laufen', m.run, null, '', run), flowItem('Ring Pull-up', 5, m.pull), flowItem('Push-up', 10), flowItem('Air Squat', 15), flowItem('Laufen', m.run, null, '', run)],
     loop: { from: 1, to: 3, times: m.rounds } };
 }
+function routineFlow(id, r) {
+  return { id: id, items: r.bloecke.map(function (b) { var u = UE[b.uebung]; return flowItem(ueName(b.uebung), blockText(b), null, b.uebung, b.hinweis || (u && u.sauber) || ''); }) };
+}
+function moblFlow(tag) { var d = DAYS[tag]; return d && d.mobl ? routineFlow('mobl', mobRoutine(d.mobl)) : null; }
 function coolFlow(tag) {
-  var r = routineFor('cooldown', tag); if (!r) return null;
+  var r = coolOf(tag); if (!r) return null;
   return { id: 'cool', items: r.bloecke.map(function (b) { var u = UE[b.uebung]; return flowItem(ueName(b.uebung), blockText(b), null, b.uebung, b.hinweis || (u && u.sauber) || ''); }) };
 }
-function flowById(id) { return { warm: warmFlow, metcon: metconFlow, murph: murphFlow, cool: coolFlow }[id](S.tag); }
+function flowById(id) { return { warm: warmFlow, metcon: metconFlow, murph: murphFlow, mobl: moblFlow, cool: coolFlow }[id](S.tag); }
 // Stand im Entwurf: _c_ aktuelle Übung, _d_ abgehakte (Liste), _r_ Runde.
 function flowState(F, D) {
   D = D || dr(S.tag);
@@ -3094,20 +3209,22 @@ function mobFrom(v) { return MOB.check.leitern.map(function (k, i) { return { la
 
 function renderHeute() {
   if (!S.started) return onboardingHTML();
-  var tag = viewTag(), c = dayCtx(tag), cur = c.cur, d = c.d, next = tag % 7 + 1, D = dr(tag), st = stepsOf(c);
+  if (S.review) return reviewHTML();
+  var tag = viewTag(), c = dayCtx(tag), cur = c.cur, d = c.d, next = tag % 7 + 1, D = dr(tag), st = stepsOf(c), ph = curPhase();
   if (cur && st.length && D._step != null && st[+D._step]) { ui.noSub = true; ui.focus = true; return stepPageHTML(c, st, +D._step, D); }
-  var mins = st.reduce(function (a, s) { return a + (s.dur || 0); }, 0), kick = 'Tag ' + tag + ' · ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang);
+  var mins = st.reduce(function (a, s) { return a + (s.opt ? 0 : s.dur || 0); }, 0);
+  var kick = 'Tag ' + tag + ' · ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + ph.bd + ' von ' + ph.n);
   if (mins) kick += ' · ca. ' + (mins + 2) + ' Min';
-  else if (d.type === 'easy') kick += ' · ' + easyMinutes(S.durchgang) + ' Min';
-  else if (d.type === 'interval') kick += ' · Stufe ' + S.ivStage + ', ' + S.ivReps + '×';
+  else if (d.type === 'easy' || d.type === 'interval') kick += ' · ca. ' + Math.round(planRunSec(runSpec(d)) / 60) + ' Min';
   var title = c.isMurph ? 'Murph' : c.isTest ? TESTDAYS[tag].title : dayLabel(tag);
   var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + '<button type="button" class="rbtn" data-act="tab" data-tab="plan" aria-label="Plan und Regeln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg></button></span></div><section class="hero"><h1>' + esc(title) + '</h1></section>';
   h += '<nav class="pills" aria-label="Tage">';
   for (var t = 1; t <= 7; t++) {
     var cls = 'pill' + (DAYS[t].type === 'rest' ? ' rest' : '') + (t === S.tag ? ' cur' : '') + (t === tag && !cur ? ' view' : '');
-    h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + (t === S.tag ? ', dran' : '') + '" aria-pressed="' + (t === tag) + '">' + t + '</button>';
+    h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + ': ' + esc(dayLabel(t)) + (t === S.tag ? ', dran' : '') + '" aria-pressed="' + (t === tag) + '">' + t + '</button>';
   }
   h += '</nav>';
+  if (S.durchgang > 0) h += blockCardHTML();
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
@@ -3118,11 +3235,13 @@ function renderHeute() {
   if (cur && p > 7) tips.push('<b>Willkommen zurück.</b> Dein letztes Training ist ' + p + ' Tage her. ' +
     (p > 14 ? 'Mach einen ganzen Durchgang als Kurzversion, erst danach wieder auf deine alten Zahlen zielen.' : 'Mach die ersten 2 Krafteinheiten als Kurzversion mit RIR 3–4.'));
   if (S.durchgang === 1 || S.durchgang === 2) tips.push('Einstieg: Kurzversion mit RIR 3–4, also je 1 Wdh. unter deinem Startwert.');
-  if (cur && !c.isTest) h += ortPickHTML();
+  if (ph.deload && S.durchgang > 0) tips.push('Entlastung: weniger Sätze und kürzere Einheiten, damit du im nächsten Durchgang frisch bist.');
+  if (cur && !c.isTest && (st.length || d.type === 'kraft')) h += ortPickHTML();
   if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
     h += suggHTML(tag);
     var miss = planFill().missing[tag] || [];
     if (miss.length) tips.push('Hier fehlen Geräte für ' + esc(miss.join(', ')) + '. Bis dahin bleibt die Standardübung im Plan. Kreuz unter Tools › Übungen › Stift an, was es hier gibt.');
+    (planFill().why[tag] || []).forEach(function (w) { tips.push(esc(w)); });
   }
   if (st.length) {
     if (c.isTest) {
@@ -3145,24 +3264,29 @@ function renderHeute() {
     }
     h += tipsHTML(tips, tipBtn);
     if (!c.isTest && !c.isMurph) {
-      var kurz = isKurz(tag);
-      h += '<section class="card"><label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – Kraft 3 Runden, Metcon 5 Min</span></label>' +
-        '<p class="small muted">Für Einstieg, Nachtschicht, schlechten Schlaf, starken Muskelkater und Entlastungswochen.</p>' +
-        (routineFor('cooldown', tag) ? '<label class="check" style="margin-top:6px"><input type="checkbox" data-change="cooldown"' + (S.cooldown !== false ? ' checked' : '') + '> <span><b>Cool-down am Ende</b> – ' + routineFor('cooldown', tag).dauer_min + ' Min, passend zum Tag</span></label>' : '') + '</section>';
+      var kurz = isKurz(tag), hasK = d.kraft.length || d.mmin;
+      h += '<section class="card">' + (hasK ? '<label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – ' + (d.kfmt === 'saetze' ? 'ein Satz weniger' : 'Kraft 3 Runden') + (d.mmin ? ', Metcon kürzer' : '') + '</span></label>' +
+        '<p class="small muted">Für Einstieg, Nachtschicht, schlechten Schlaf und starken Muskelkater.</p>' : '') +
+        (d.cool && ROUT[d.cool] ? '<label class="check"' + (hasK ? ' style="margin-top:6px"' : '') + '><input type="checkbox" data-change="cooldown"' + (S.cooldown !== false ? ' checked' : '') + '> <span><b>Cool-down am Ende</b> – ' + ROUT[d.cool].dauer_min + ' Min, passend zum Tag</span></label>' : '') + '</section>';
     }
     if (!cur) {
       h += '<p class="small muted">Starten kannst du, sobald dieser Tag dran ist.</p>';
     }
   } else if (d.type === 'easy' || d.type === 'interval') {
+    if (d.pre === 'hs') h += '<p class="kicker muted gl-group">Zuerst: Handstand 10 Min</p>' + hsStepHTML(D);
+    else if (d.pre) h += '<p class="kicker muted gl-group">Zuerst: 10 Min Dehnen</p>' + routineCardHTML(mobRoutine(d.pre), false, 'Dehnen starten');
     h += runHTML(c, D);
-    if (cur) h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
-    else h += '<p class="small muted">Speichern kannst du, sobald dieser Tag dran ist.</p>';
-    var rc = routineFor('cooldown', tag);
+    if (cur) {
+      h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
+      if (d.opt) h += '<button type="button" class="btn block" data-act="skip-day">Heute auslassen</button>';
+    } else h += '<p class="small muted">Speichern kannst du, sobald dieser Tag dran ist.</p>';
+    var rc = coolOf(tag);
     if (rc) h += routineCardHTML(rc, false);
+    if (d.opt) tips.push('Dieser Lauf ist optional. Bist du müde, lass ihn aus: Erholung zählt mehr als Umfang.');
     h += tipsHTML(tips);
   } else {
     h += restHTML(tag);
-    var rr = routineFor('ruhetag', tag);
+    var rr = d.flow && ROUT[d.flow];
     if (rr) h += routineCardHTML(rr, true);
     if (cur) h += '<button type="button" class="btn ' + (rr ? '' : 'primary ') + 'block" data-act="save">Ruhetag abhaken</button>';
     h += tipsHTML(tips);
@@ -3221,10 +3345,9 @@ function defRep(D, name, i, r) {
   return 3;
 }
 function kraftStepHTML(tag, D, rounds) {
-  var d = DAYS[tag], test = (tag === 1 || tag === 3) && isTestCycle(tag), n = d.kraft.length;
-  var own = d.kraft.some(function (x) { return x.lib; });
-  var h = '<p class="small muted">' + esc(own ? 'Stufe so wählen, dass die Zielspanne mit RIR 2 klappt. Schwerste Übung zuerst.' : d.kraftNote) + '</p>';
-  if (test) h += '<p class="flag">Test-Durchgang: Runde 1 vom ' + (tag === 1 ? 'Pull-up' : 'Push-up') + ' ist ein Maxout – so viele saubere Wdh. wie möglich, danach normal weiter.</p>';
+  var d = DAYS[tag], test = isTestCycle(tag), n = d.kraft.length, sets = d.kfmt === 'saetze', ph = curPhase(), rir = ph.rir != null ? ph.rir : ph.deload ? 3 : 2;
+  var h = '<p class="small muted">' + esc(sets ? 'Stufe so wählen, dass ' + d.reps + ' Wdh. mit RIR ' + rir + ' klappen. Alle Sätze einer Übung, dann die nächste. ' + fmtT(d.rest) + ' Pause zwischen den Sätzen.' : 'Stufe so wählen, dass die Zielspanne mit RIR 2 klappt. Schwerste Übung zuerst.') + '</p>';
+  if (test) h += '<p class="flag">' + (d.maxout === 'all' ? 'Test-Durchgang: der erste Satz jeder Übung ist ein Maxout – so viele saubere Wdh. wie möglich, danach normal weiter.' : 'Test-Durchgang: ' + (sets ? 'Satz' : 'Runde') + ' 1 von ' + esc(d.kraft[d.maxout] ? d.kraft[d.maxout].n : '') + ' ist ein Maxout – so viele saubere Wdh. wie möglich, danach normal weiter.') + '</p>';
   d.kraft.forEach(function (x, i) {
     var g = GL[x.n], lad = ladFor(x.n), last = lastFor(x.n), base = S.base[x.n], sf = 'k' + i + 'stage';
     var stage = D[sf] != null ? D[sf] : stageDef(x.n), hint = '';
@@ -3232,10 +3355,10 @@ function kraftStepHTML(tag, D, rounds) {
     else if (base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
     var cells = '';
     for (var r = 0; r < rounds; r++) {
-      var f = 'k' + i + 'r' + r, v = D[f], minute = r * n + i + 1, mx = test && i === 0 && r === 0;
+      var f = 'k' + i + 'r' + r, v = D[f], minute = r * n + i + 1, mx = test && r === 0 && (d.maxout === 'all' || d.maxout === i), lab = sets ? 'Satz ' + (r + 1) : 'Min ' + minute;
       cells += '<button type="button" class="cell' + (v ? ' set' : '') + '" data-cell="' + i + '-' + r + '" ' +
-        pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · Min ' + minute }) +
-        '><small>' + (mx ? 'Max · ' : '') + 'Min ' + minute + '</small><b>' + (v ? esc(v) : '–') + '</b></button>';
+        pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · ' + lab }) +
+        '><small>' + (mx ? 'Max · ' : '') + lab + '</small><b>' + (v ? esc(v) : '–') + '</b></button>';
     }
     var fk = g && figOf(g.key) ? g.key : null;
     h += '<section class="card ex-card" data-ex="' + i + '"><div class="card-head"><h3>' + gl(x.n) + '</h3><span class="small muted">' + esc(x.target) + '</span></div>' +
@@ -3247,10 +3370,10 @@ function kraftStepHTML(tag, D, rounds) {
   return h;
 }
 function metconStepHTML(tag, D, am) {
-  var d = DAYS[tag], single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon');
+  var d = DAYS[tag], single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon'), B = d.bench ? BENCH[d.bench] : null, em = B && B.fmt === 'emom';
   var h = single ? flowHTML(metconFlow(tag), D) + '<section class="card">' : '<section class="card">' + flowHTML(metconFlow(tag), D);
-  var own = d.metcon.some(function (m) { return m.lib; }), items = d.metcon.map(function (m) { return m.n; }).join('|');
-  h += (own ? '<p class="small muted">Der Metcon wechselt mit jedem Durchgang.</p>' : '<p class="small muted">' + esc(d.metconNote) + '</p>');
+  var items = d.metcon.map(function (m) { return m.n; }).join('|');
+  h += '<p class="small muted">' + (B ? 'Benchmark: dasselbe Workout in Durchgang 1, 6 und 12. So siehst du, was der Block gebracht hat.' + (em ? ' Jede Minute eine Runde. Schaffst du sie nicht in der Minute, ist Schluss.' : '') : d.wod ? 'Das WOD wechselt mit jedem Durchgang. Tempo-Varianten wie Kipping sind hier erwünscht.' : 'Der Metcon wechselt mit jedem Durchgang.') + '</p>';
   d.metcon.forEach(function (m, i) {
     var lad = metconLad(m.n); if (!lad) return;
     var sf = 'm' + i + 'stage', stage = D[sf] != null ? D[sf] : lastMetconStage(m.n);
@@ -3259,9 +3382,10 @@ function metconStepHTML(tag, D, am) {
   var lm = null;
   for (var i = LOGS.length - 1; i >= 0; i--) {
     var L = LOGS[i];
-    if (L.kind === 'kraft' && L.tag === tag && L.metcon && L.metcon.rounds != null && (L.metcon.items ? L.metcon.items.join('|') : DEF_METCON[tag].map(function (m) { return m.n; }).join('|')) === items) { lm = L.metcon; break; }
+    if (L.kind === 'kraft' && L.tag === tag && L.metcon && L.metcon.rounds != null && L.metcon.items && L.metcon.items.join('|') === items) { lm = L.metcon; break; }
   }
-  if (lm) h += '<p class="small hint">Letztes Mal mit diesen Übungen: ' + lm.rounds + ' Runden + ' + (lm.reps || 0) + ' Wdh. Ziel heute: mindestens 1 Wdh. mehr.</p>';
+  if (lm) h += '<p class="small hint">Letztes Mal mit diesen Übungen: ' + lm.rounds + (em ? ' Runden geschafft' : ' Runden + ' + (lm.reps || 0) + ' Wdh.') + '. Ziel heute: mindestens 1 ' + (em ? 'Runde' : 'Wdh.') + ' mehr.</p>';
+  if (em) return h + '<div class="pick-grid">' + tile('Runden geschafft', '<b>' + (D.mr ? esc(D.mr) : '–') + ' <span class="unit">von ' + am + '</span></b>', pickAttrs({ f: 'mr', min: 0, max: am, unit: 'Runden', def: lm ? lm.rounds : am, title: B.name }), D.mr ? 'set' : '') + '</div></section>';
   if (single && run) return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
   h += '<div class="pick-grid">' +
     tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: lm ? lm.rounds : 4, title: 'AMRAP ' + am }), D.mr ? 'set' : '') +
@@ -3303,16 +3427,38 @@ function murphStepHTML(D) {
 }
 
 /* ---------- Lauf: Ergebnis von der Uhr oder vom Ergometer ---------- */
-function planRunSec(type) {
-  if (type === 'easy') return easyMinutes(S.durchgang) * 60;
+// Was der Tag vom Lauf erwartet: locker, lang, Tempo, Test, Ziel-Lauf oder Intervalle.
+function runSpec(d) {
+  if (d.run) return d.run.type === 'interval' ? { type: 'interval', iv: d.run.iv } : { type: 'easy', art: d.run.art, min: d.run.min };
+  if (d.type === 'interval') return { type: 'interval' };
+  return { type: 'easy', art: d.art || 'locker', min: d.min || easyMinutes(S.durchgang), allround: !d.min };
+}
+function planRunSec(spec) {
+  if (spec.type === 'easy') {
+    if (spec.art === 'test') return 30 * 60;
+    if (spec.art === 'ziel') { var g = laufGoal(); return g.ziel || Math.round(g.km * 6 * 60); }
+    return (spec.min || 30) * 60;
+  }
+  if (spec.iv) return (10 + spec.iv.reps * (spec.iv.work + spec.iv.rest) + 5) * 60;
   var p = IV[S.ivStage]; return (10 + S.ivReps * (p.work + p.rest) + 5) * 60;
 }
+function runFrom(v, spec) {
+  var sec = num(v.runSec) || (num(v.runMin) != null ? num(v.runMin) * 60 : planRunSec(spec)), ergo = runMode(v) === 'ergo', km = parseKm(v.runKm), hr = num(v.runHr);
+  if (spec.type === 'interval') {
+    if (spec.iv) return { stage: null, reps: spec.iv.reps, work: spec.iv.work, zone: spec.iv.zone, done: num(v.ivDone), watt: ergo ? (v.runW || '') : '', ergo: ergo, sec: sec, km: km, hr: hr };
+    return { stage: S.ivStage, reps: S.ivReps, done: num(v.ivDone), watt: ergo ? (v.runW || '') : (v.ivWatt || ''), ergo: ergo, sec: sec, km: km, hr: hr };
+  }
+  var r = { min: Math.round(sec / 60), target: Math.round(planRunSec(spec) / 60), ergo: ergo, sec: sec, km: km, hr: hr, watt: ergo ? num(v.runW) : null };
+  if (spec.art && spec.art !== 'locker') r.art = spec.art;
+  return r;
+}
 function runMode(D) { return D.mode ? D.mode : D.ergo ? 'ergo' : 'lauf'; }
-// Laufen wird nur mit Läufen verglichen, Ergometer nur mit Ergometer.
-function runsOf(kind, ergo) {
+// Laufen wird nur mit Läufen verglichen, Ergometer nur mit Ergometer, und nur mit der gleichen Art (locker, lang, Tempo).
+function runsOf(kind, ergo, art) {
+  art = art || 'locker';
   return LOGS.filter(function (l) { return l.kind === kind; }).map(function (l) {
     var r = kind === 'easy' ? l.run : l.interval;
-    if (!r || !r.sec || !!r.ergo !== !!ergo) return null;
+    if (!r || !r.sec || !!r.ergo !== !!ergo || (kind === 'easy' && (r.art || 'locker') !== art)) return null;
     var w = num(r.watt);
     if (ergo) return w ? { date: l.date, sec: r.sec, km: r.km || null, hr: r.hr || null, watt: w } : null;
     return r.km ? { date: l.date, sec: r.sec, km: r.km, hr: r.hr || null, pace: r.sec / r.km } : null;
@@ -3320,8 +3466,8 @@ function runsOf(kind, ergo) {
 }
 function avg(a) { return a.reduce(function (x, y) { return x + y; }, 0) / a.length; }
 // Vergleich mit der aktuellen Form: Einheiten der gleichen Art aus den letzten 6 Wochen, mindestens die letzten 3.
-function runRef(kind, ergo) {
-  var all = runsOf(kind, ergo), lim = isoDate(new Date(Date.now() - 42 * 864e5)), recent = all.filter(function (r) { return r.date >= lim; });
+function runRef(kind, ergo, art) {
+  var all = runsOf(kind, ergo, art), lim = isoDate(new Date(Date.now() - 42 * 864e5)), recent = all.filter(function (r) { return r.date >= lim; });
   return recent.length >= 3 ? recent : all.slice(-3);
 }
 var VERDICT = {
@@ -3340,8 +3486,8 @@ function ergoText(t) {
   return t.replace('Schneller als sonst', 'Mehr Watt als sonst').replace('Langsamer als sonst', 'Weniger Watt als sonst')
     .replace('Tempo und Puls wie sonst', 'Watt und Puls wie sonst').replace('Tempo wie sonst', 'Watt wie sonst').replace('Ruhiger gelaufen', 'Ruhiger gefahren');
 }
-function runVerdict(kind, ergo, sec, km, hr, watt) {
-  var ref = runRef(kind, ergo);
+function runVerdict(kind, ergo, sec, km, hr, watt, art) {
+  var ref = runRef(kind, ergo, art);
   if (!ref.length || !sec || (ergo ? !watt : !km)) return null;
   var perf = ergo ? watt : sec / km, refPerf = ref.map(function (r) { return ergo ? r.watt : r.pace; }), ap = avg(refPerf);
   var hrs = ref.filter(function (r) { return r.hr; }).map(function (r) { return r.hr; }), ah = hrs.length ? avg(hrs) : null;
@@ -3352,15 +3498,28 @@ function runVerdict(kind, ergo, sec, km, hr, watt) {
   return { t: t, p: p, tPos: pos(refPerf, perf, !ergo), hPos: p == null ? null : pos(hrs, hr, false), cls: v[0], text: ergo ? ergoText(v[1]) : v[1] };
 }
 function toneOf(x) { return x == null ? '' : x > 0 ? 'good' : x < 0 ? 'bad' : 'ok'; }
-function runHTML(c, D) {
-  var d = c.d, easy = d.type === 'easy', kind = easy ? 'easy' : 'interval', mode = runMode(D), ergo = mode === 'ergo', h = '';
+function runHTML(c, D, spec, inStep) {
+  spec = spec || runSpec(c.d);
+  var easy = spec.type === 'easy', kind = spec.type, art = spec.art || 'locker', mode = runMode(D), ergo = mode === 'ergo', h = '', g = laufGoal();
+  var goalPace = S.fokus === 'laufen' && g.ziel ? fmtPace(g.ziel / g.km) + ' /km' : '';
   h += '<div class="seg" role="group" aria-label="Laufen oder Ergometer">' + [['lauf', 'Laufen'], ['ergo', 'Ergometer']].map(function (m) {
     return '<button type="button" class="seg-btn' + (mode === m[0] ? ' on' : '') + '" data-act="run-mode" data-m="' + m[0] + '" aria-pressed="' + (mode === m[0]) + '">' + m[1] + '</button>';
   }).join('') + '</div>';
   if (easy) {
-    var min = easyMinutes(S.durchgang);
-    h += '<section class="card"><p class="hand big-quote">Du kannst noch ganze Sätze sprechen.</p><p>' + (ergo ? 'Gleiche Dauer auf dem Ergometer im Gesprächstempo, feste Wattzahl. Gut bei starkem Regen.' : 'Gesprächstempo, Gehpausen erlaubt. ' + min + ' Min. Starte den Lauf auf deiner Uhr und trag danach ein, was sie anzeigt.') + '</p>' +
-      '<p class="small muted">Steigerung: +5 Min alle 2 Durchgänge, maximal 45 Min.</p></section>';
+    var min = spec.min, T = {
+      locker: ['Du kannst noch ganze Sätze sprechen.', ergo ? 'Gleiche Dauer auf dem Ergometer im Gesprächstempo, feste Wattzahl. Gut bei starkem Regen.' : 'Gesprächstempo, Gehpausen erlaubt. ' + min + ' Min. Starte den Lauf auf deiner Uhr und trag danach ein, was sie anzeigt.', zoneText(2)],
+      lang: ['Lang und ruhig.', min + ' Min gleichmäßig im Gesprächstempo. Nimm etwas zu trinken mit. Die letzten 10 Min dürfen etwas zügiger sein.', zoneText(2)],
+      tempo: ['Komfortabel hart.', '10 Min einlaufen, dann ' + min + ' Min an der Schwelle: nur noch kurze Sätze sprechen. 5 Min auslaufen.', zoneText(3, 4)],
+      test: ['Testlauf 5 km.', '10 Min einlaufen, dann 5 km so schnell, wie du gleichmäßig durchhältst. Danach locker auslaufen.', goalPace ? 'Zieltempo ' + goalPace : ''],
+      ziel: ['Dein Ziel-Lauf.', g.name + (g.ziel ? ' in ' + fmtDur(g.ziel) + ' ' + (g.ziel >= 3600 ? 'h' : 'Min') : '') + '. Ruhig starten, die zweite Hälfte darf schneller werden.', goalPace ? 'Zieltempo ' + goalPace : '']
+    }[art] || [];
+    h += '<section class="card"><p class="hand big-quote">' + esc(T[0]) + '</p><p>' + esc(T[1]) + '</p>' + (T[2] ? '<div class="chips"><span class="chip">' + esc(T[2]) + '</span></div>' : '') +
+      (spec.allround ? '<p class="small muted">Steigerung: +5 Min alle 2 Durchgänge, maximal 45 Min.</p>' : '') + '</section>';
+  } else if (spec.iv) {
+    var iv = spec.iv;
+    h += '<section class="card"><ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + iv.reps + '×</b> ' + iv.work + ' Min schnell, dazwischen ' + iv.rest + ' Min locker traben</li><li>5 Min locker auslaufen</li></ol>' +
+      '<div class="chips"><span class="chip">' + esc(zoneText(iv.zone, iv.zone === 4 ? 5 : null)) + '</span>' + (goalPace ? '<span class="chip">Zieltempo ' + esc(goalPace) + '</span>' : '') + '</div>' +
+      '<p class="small muted">Alle Wiederholungen gleich schnell, die letzte darf nicht die langsamste sein.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p></section>';
   } else {
     var st = S.ivStage, reps = S.ivReps, p = IV[st];
     h += '<section class="card"><ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + reps + '×</b> ' + p.work + ' Min zügig, dazwischen ' + p.rest + ' Min ' + p.restLabel + '</li><li>5 Min locker auslaufen</li></ol>' +
@@ -3369,8 +3528,8 @@ function runHTML(c, D) {
       '<b>' + reps + ' Wdh.</b><button type="button" data-act="iv-reps" data-d="1" aria-label="Eine Wiederholung mehr">+</button></div></div>' +
       '<p class="small muted" style="margin-top:8px">Steigerung: +1 Wdh. alle 2 Durchgänge – die App erhöht automatisch. Nach Nachtschicht oder schlechtem Schlaf: statt Intervallen einen lockeren Lauf.</p></section>';
   }
-  var sec = num(D.runSec) || (D.runMin ? num(D.runMin) * 60 : planRunSec(d.type)), hr = num(D.runHr), km = parseKm(D.runKm), watt = num(D.runW);
-  var v = runVerdict(kind, ergo, sec, km, hr, watt), pace = km ? sec / km : null, ref = runRef(kind, ergo);
+  var sec = num(D.runSec) || (D.runMin ? num(D.runMin) * 60 : planRunSec(spec)), hr = num(D.runHr), km = parseKm(D.runKm), watt = num(D.runW);
+  var v = runVerdict(kind, ergo, sec, km, hr, watt, art), pace = km ? sec / km : null, ref = runRef(kind, ergo, art);
   function bar(dir, at) { return at == null ? '' : '<span class="bar ' + dir + '"><i style="left:' + at + '%"></i></span>'; }
   var kmTile = '<label class="tile' + (km ? ' set' : '') + '"><small>Strecke' + (ergo ? ' · optional' : '') + '</small><span class="km"><input type="text" inputmode="decimal" autocomplete="off" data-draft="runKm" value="' + val(D, 'runKm') + '" placeholder="0,000" aria-label="Strecke in km"><span class="unit">km</span></span></label>';
   h += '<section class="card"><h2>' + (ergo ? 'Ergebnis vom Ergometer' : 'Ergebnis von der Uhr') + '</h2><div class="pick-grid">' +
@@ -3383,9 +3542,13 @@ function runHTML(c, D) {
   }
   h += '</div>';
   if (v) h += '<p class="verdict ' + v.cls + '">' + esc(v.text) + '</p>';
-  if (!easy) h += '<div class="pick-grid">' + tile('Intervalle geschafft', '<b>' + (D.ivDone ? esc(D.ivDone) : '–') + ' <span class="unit">von ' + S.ivReps + '</span></b>', pickAttrs({ f: 'ivDone', min: 0, max: IV[S.ivStage].max, unit: 'geschafft', def: S.ivReps, title: 'Intervalle' }), D.ivDone ? 'set' : '') + '</div>';
+  if (hr && S.hrMax && easy && (art === 'locker' || art === 'lang') && hr > zoneRange(2)[1]) h += '<p class="verdict bad">Puls über Zone 2. Beim nächsten Mal langsamer, auch wenn es sich zu leicht anfühlt.</p>';
+  if (!easy) {
+    var ivMax = spec.iv ? spec.iv.reps : IV[S.ivStage].max, ivN = spec.iv ? spec.iv.reps : S.ivReps;
+    h += '<div class="pick-grid">' + tile('Intervalle geschafft', '<b>' + (D.ivDone ? esc(D.ivDone) : '–') + ' <span class="unit">von ' + ivN + '</span></b>', pickAttrs({ f: 'ivDone', min: 0, max: ivMax, unit: 'geschafft', def: ivN, title: 'Intervalle' }), D.ivDone ? 'set' : '') + '</div>';
+  }
   h += '</section>';
-  return h + notesBlock(D);
+  return inStep ? h : h + notesBlock(D);
 }
 ACT['run-mode'] = function (el) { setDraft('mode', el.dataset.m); render(); };
 
@@ -3621,13 +3784,13 @@ ACT['rm-new'] = function (el) {
 
 /* ---------- Mobility-Routinen: Karten, Seite Tools › Routinen, Player ---------- */
 function doneToday(rid) { var t = isoToday(); return LOGS.some(function (l) { return l.kind === 'mobility' && l.rid === rid && l.date === t; }); }
-function routineCardHTML(r, main) {
+function routineCardHTML(r, main, label) {
   var more = r.bloecke.length - 3, done = doneToday(r.id);
   return '<section class="card r-card"><div class="row between"><h2>' + esc(r.name) + '</h2>' + (done ? '<span class="chip blue">Heute gemacht</span>' : '') + '</div>' +
     '<p class="small muted">' + r.dauer_min + ' Min · ' + r.bloecke.length + ' Übungen · ' + esc(r.ziel) + '</p>' +
     '<ul class="rlist">' + r.bloecke.slice(0, 3).map(function (b) { return '<li><span>' + esc(ueName(b.uebung)) + '</span><span class="muted">' + esc(blockText(b)) + '</span></li>'; }).join('') +
     (more > 0 ? '<li class="muted">+ ' + more + ' weitere</li>' : '') + '</ul>' +
-    '<button type="button" class="btn ' + (main ? 'primary' : '') + ' block" data-act="r-open" data-v="' + r.id + '">' + PLAY + (main ? 'Flow starten' : 'Cool-down starten') + '</button></section>';
+    '<button type="button" class="btn ' + (main ? 'primary' : '') + ' block" data-act="r-open" data-v="' + r.id + '">' + PLAY + (label || (main ? 'Flow starten' : 'Cool-down starten')) + '</button></section>';
 }
 function renderRoutinen() {
   var groups = [['morgen', 'Morgens', 'Sanft wach werden, höchstens 5 Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für Tag 5 und 7.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
@@ -3929,68 +4092,6 @@ function ladderOk(key, have, st) {
 }
 function byNutzen(a, b) { return nutzenOf(b) - nutzenOf(a) || ladOf(a).name.localeCompare(ladOf(b).name, 'de'); }
 function fmtMenge(m) { return m.menge + ({ sek: ' s', meter: ' m', kalorien: ' kcal', kg: ' kg' }[m.einheit] || ''); }
-var SLOTS = {};
-LIB.plaetze.slice().sort(function (a, b) { return a.platz - b.platz; }).forEach(function (p) {
-  var t = SLOTS[p.tag] || (SLOTS[p.tag] = { kraft: [], metcon: [] }); (t[p.block] || (t[p.block] = [])).push(p);
-});
-var DEF_KRAFT = {}, DEF_METCON = {}, FILL = { k: null, v: null };
-[1, 3, 6].forEach(function (t) {
-  DEF_KRAFT[t] = DAYS[t].kraft; DEF_METCON[t] = DAYS[t].metcon;
-  Object.defineProperty(DAYS[t], 'kraft', { get: function () { return planFill().kraft[t]; } });
-  Object.defineProperty(DAYS[t], 'metcon', { get: function () { return planFill().metcon[t]; } });
-});
-function slotKey(tag, platz) { return S.ort + ':' + tag + ':' + platz; }
-// Füllt die Plätze für den aktuellen Ort: Kraft bleibt bei der gewählten Leiter, Metcon wechselt pro Durchgang.
-function planFill() {
-  ensureOrte();
-  var k = [LOGS.length, S.ort, S.durchgang, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
-  if (FILL.k === k) return FILL.v;
-  var st = ladderStates(LOGS), have = haveEq(), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {}, missing: {} };
-  [1, 3, 6].forEach(function (tag) {
-    var slots = (SLOTS[tag] && SLOTS[tag].kraft) || [], kr = [];
-    out.sugg[tag] = []; out.missing[tag] = [];
-    DEF_KRAFT[tag].forEach(function (d0, i) {
-      var p = slots[i], defKey = GL[d0.n] ? GL[d0.n].key : null;
-      if (!p) { kr.push(d0); used[defKey] = 1; return; }
-      var cands = Object.keys(LAD).filter(function (key) { return LAD[key].lib && p.muster.indexOf(LAD[key].muster) >= 0 && !used[key] && ladderOk(key, have, st); }).sort(byNutzen);
-      var sk = slotKey(tag, p.platz), pk = S.picks[sk];
-      var cur = pk && cands.indexOf(pk) >= 0 ? pk : defKey && cands.indexOf(defKey) >= 0 ? defKey : cands[0] || defKey;
-      if (!cands.length) out.missing[tag].push(p.muster.map(function (m) { return MUSTER[m] || m; }).join(' oder '));
-      used[cur] = 1; out.kraftKeys[cur] = 1;
-      var best = cands.filter(function (x) { return x !== cur; })[0];
-      if (best && nutzenOf(best) > nutzenOf(cur) && S.pickSkip[sk] !== S.durchgang) out.sugg[tag].push({ slot: sk, from: cur, to: best });
-      if (GL[d0.n] && GL[d0.n].key === cur) kr.push(d0);
-      else { var l = LAD[cur], rg = rangeOf(l); kr.push({ n: l.name, target: String(l.range || '').split(',')[0], hi: rg ? rg.hi : 6, lib: true }); }
-    });
-    out.kraft[tag] = kr;
-  });
-  [1, 3, 6].forEach(function (tag) {
-    var slots = (SLOTS[tag] && SLOTS[tag].metcon) || [], mu = {}, today = {};
-    out.kraft[tag].forEach(function (x) { if (GL[x.n]) today[GL[x.n].key] = 1; });
-    out.metcon[tag] = DEF_METCON[tag].map(function (d0, i) {
-      var p = slots[i]; if (!p) return d0;
-      var cands = LIB.metcon.filter(function (m) {
-        var u = UE[m.uebung];
-        return u && p.muster.indexOf(u.muster) >= 0 && !mu[m.uebung] && !today[m.uebung] && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st);
-      }).sort(function (a, b) { return UE[b.uebung].nutzen - UE[a.uebung].nutzen; }).slice(0, 4);
-      if (!cands.length) return d0;
-      var m = cands[(S.durchgang + i) % cands.length]; mu[m.uebung] = 1;
-      return { r: fmtMenge(m), n: UE[m.uebung].name, scale: m.skalierung || '', lib: true };
-    });
-  });
-  FILL = { k: k, v: out };
-  return out;
-}
-function suggHTML(tag) {
-  var list = planFill().sugg[tag] || [];
-  return list.map(function (s) {
-    var a = LAD[s.from], b = LAD[s.to];
-    return '<section class="card unlock"><p class="unlock-k">Neu freigeschaltet · ' + esc(ortName(curOrt())) + '</p>' +
-      '<p><b>' + esc(b.name) + '</b> statt ' + esc(a ? a.name : '–') + '. Mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + ' (' + nutzenOf(s.to) + ' statt ' + nutzenOf(s.from) + ').</p>' +
-      '<div class="unlock-b"><button type="button" class="btn small" data-act="pick-skip" data-slot="' + esc(s.slot) + '">Später</button>' +
-      '<button type="button" class="btn small save" data-act="pick-take" data-slot="' + esc(s.slot) + '" data-to="' + esc(s.to) + '">Übernehmen</button></div></section>';
-  }).join('');
-}
 function ortPickHTML() {
   if (orteOn().length < 2) return '';
   return '<section class="card ort-pick"><p class="small muted">Wo trainierst du heute?</p>' + ortCapHTML('in-card') + '</section>';
@@ -4204,6 +4305,7 @@ function usedSet() {
     (l.kraft || []).forEach(function (k) { if (k.reps && k.reps.some(function (v) { return v != null; })) u[k.n] = 1; });
     (l.tests || []).forEach(function (t) { if (t.max != null) u[t.name] = 1; });
     if (l.metcon && l.metcon.items) l.metcon.items.forEach(function (n) { u[n] = 1; });
+    (l.skill || []).forEach(function (x) { if (x.best != null) u[uName(x.uebung)] = 1; });
   });
   Object.keys(S.base || {}).forEach(function (n) { u[n] = 1; });
   return u;
@@ -4330,6 +4432,533 @@ function drawTree() {
   svg.innerHTML = out;
 }
 window.addEventListener('resize', function () { if (ui.tab === 'skill') drawTree(); });
+
+/* ---------- Schwerpunkte: sechs eigene Pläne mit Blöcken und Phasen ---------- */
+// Jeder Schwerpunkt hat seine eigene Woche (Tag 1–7), Länge in Durchgängen, Entlastung und Tests.
+// Plätze (kslots, mslots) nennen nur Bewegungsmuster; die Übung wählt planFill() je Ort automatisch.
+var FB_KRAFT = { zug_vertikal: 'Ring Pull-up', einbein: 'Pistol Squat', beinbeuger: 'Nordic Curl', druck_horizontal: 'Push-up', druck_vertikal: 'Ring Dip',
+  huefte: 'Glute Bridge', rumpf_anti_streckung: 'Ab Wheel Rollout', zug_horizontal: 'Ring Row', kniebeuge: 'Air Squat', rumpf_beugung: 'Hollow Body Hold' };
+var MFB_STD = [{ r: '10', n: 'Push-up' }, { r: '15', n: 'Air Squat' }, { r: '20 s', n: 'Hollow Body Hold' }];
+var PART_MU = { zug: ['zug_vertikal', 'zug_horizontal'], druck: ['druck_horizontal', 'druck_vertikal'], beine: ['kniebeuge', 'einbein', 'huefte', 'beinbeuger'], rumpf: ['rumpf_anti_streckung', 'rumpf_beugung', 'rumpf_rotation'] };
+var PART_NAME = { zug: 'Zug', druck: 'Druck', beine: 'Beine', rumpf: 'Rumpf' };
+var LAUF_DIST = [['5', '5 km', 5, 8], ['10', '10 km', 10, 10], ['21', 'Halbmarathon', 21.0975, 14]];
+function laufGoal() { var l = S.lauf || {}; var d = LAUF_DIST.filter(function (x) { return x[0] === String(l.dist); })[0] || LAUF_DIST[1]; return { id: d[0], name: d[1], km: d[2], n: d[3], ziel: l.ziel || null }; }
+function kday(o) { return Object.assign({ type: 'kraft', warm: true, hs: 0, skill: 0, kfmt: 'emom', sets: 4, mmin: 0, kslots: [], mslots: [] }, o); }
+function rday(flow, o) { return Object.assign({ type: 'rest', name: 'Ruhetag', what: 'frei', flow: flow }, o || {}); }
+// Länge der Läufe im Laufplan: steigt von a bis b, Entlastung −30 %, Tapering −50 %.
+function lerpMin(p, a, b) { var k = p.n > 2 ? Math.min(1, (p.bd - 1) / (p.n - 2)) : 0, v = a + (b - a) * k; if (p.taper) v *= 0.5; else if (p.deload) v *= 0.7; return Math.max(10, Math.round(v / 5) * 5); }
+var FOKUS = {
+  allround: { name: 'Allround', kurz: 'Kraft und Ausdauer zugleich. Dein bisheriger Plan.', chips: ['12 Durchgänge', '5 Tage', 'EMOM'], len: 12, murph: true,
+    ic: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+    info: 'Krafttage: 8 Min Aufwärmen, 5 Min Handstand, Kraft als EMOM 12 (3–6 Wdh., RIR 2), Metcon als AMRAP 8. Dazu zwei Läufe.',
+    phase: function (p) { p.deload = p.test = p.check = p.bd % 4 === 0; p.lab = p.test ? 'Entlastung · Test' : 'Aufbau'; },
+    next: 'Mehr Umfang: EMOM 15 mit 5 Runden statt 4.',
+    days: function (p) { return {
+      1: kday({ name: 'Ganzkörper', what: 'Zug, Druck und Ausgleich', hs: 5, fill: 3, maxout: 0, cool: 'r_cooldown_tag6', jumps: { t: '3 × 4 je Seite', n: 'Skater Jump' }, rings: 'Ringe ganz oben',
+        kslots: [['zug_vertikal'], ['druck_horizontal'], { schwach: ['beine', 'rumpf'] }], mslots: [['ausdauer'], ['druck_vertikal', 'druck_horizontal'], ['kniebeuge', 'huefte']], mmin: 8, mfb: 6 }),
+      2: { type: 'easy', name: 'Lauf locker', what: 'Grundlage, Zone 2', cool: 'r_cooldown_tag2' },
+      3: kday({ name: 'Zug', what: 'Zug, Einbein, Beinbeuger', hs: 5, fill: 1, maxout: 0, cool: 'r_cooldown_tag1', jumps: { t: '3 × 5', n: 'Squat Jump' }, rings: 'Ringe ganz oben',
+        kslots: [['zug_vertikal'], ['einbein'], ['beinbeuger']], mslots: [['druck_horizontal', 'druck_vertikal'], ['kniebeuge', 'sprung'], ['rumpf_anti_streckung', 'rumpf_beugung']], mmin: 8, mfb: 1 }),
+      4: { type: 'interval', name: 'Intervall-Lauf', what: 'Tempo', cool: 'r_cooldown_tag4' },
+      5: rday('r_ruhetag_a'),
+      6: kday({ name: 'Druck', what: 'Druck horizontal und vertikal, Hüfte', hs: 5, fill: 2, maxout: 0, cool: 'r_cooldown_tag3', rings: 'Ringe hüfthoch',
+        kslots: [['druck_horizontal'], ['druck_vertikal'], ['huefte']], mslots: [['zug_horizontal', 'zug_vertikal'], ['einbein', 'kniebeuge'], ['rumpf_beugung', 'rumpf_rotation']], mmin: 8, mfb: 3 }),
+      7: rday('r_ruhetag_b')
+    }; } },
+  kraft: { name: 'Kraft & Muskelaufbau', kurz: 'Ober- und Unterkörper, schwer und mit Volumen.', chips: ['12 Durchgänge', '4 + 1 Tage', 'Sätze'], len: 12,
+    ic: 'M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12',
+    info: 'Oberkörper und Unterkörper je 2× pro Durchgang: ein schwerer Tag, ein Volumen-Tag. Klassische Sätze mit voller Pause statt EMOM.',
+    phase: function (p) {
+      var b = p.bd;
+      if (b === 12) { p.test = p.check = true; p.lab = 'Test'; p.heavy = '1–3'; p.vol = '6–8'; p.rir = 0; }
+      else if (b % 4 === 0) { p.deload = true; p.lab = 'Entlastung'; p.heavy = '6–8'; p.vol = '10–12'; p.rir = 4; }
+      else if (b <= 3) { p.lab = 'Phase Aufbau'; p.heavy = '6–8'; p.vol = '10–12'; p.rir = 2; }
+      else if (b <= 7) { p.lab = 'Phase Kraft'; p.heavy = '4–6'; p.vol = '8–10'; p.rir = 2; }
+      else { p.lab = 'Phase Maximalkraft'; p.heavy = '2–4'; p.vol = '6–8'; p.rir = 1; }
+    },
+    next: 'Ein Satz mehr an den schweren Tagen.',
+    days: function (p) {
+      var up = [['zug_vertikal'], ['druck_horizontal'], ['zug_horizontal'], ['druck_vertikal']], lo = [['kniebeuge'], ['huefte'], ['einbein'], ['rumpf_anti_streckung', 'rumpf_beugung']], hs = 4 + lvl();
+      return {
+        1: kday({ name: 'Oberkörper schwer', what: 'Zug und Druck, ' + p.heavy + ' Wdh.', kfmt: 'saetze', sets: hs, reps: p.heavy, rest: 150, fill: 1, kslots: up, cool: 'r_cooldown_tag1', maxout: p.test ? 'all' : null }),
+        2: kday({ name: 'Unterkörper schwer', what: 'Beine und Rumpf, ' + p.heavy + ' Wdh.', kfmt: 'saetze', sets: hs, reps: p.heavy, rest: 150, fill: 2, kslots: lo, cool: 'r_cooldown_tag6', maxout: p.test ? 'all' : null }),
+        3: { type: 'easy', name: 'Locker', what: 'Lauf oder Ergometer + Mobility', min: 25, cool: 'r_cooldown_tag2' },
+        4: kday({ name: 'Oberkörper Volumen', what: 'Andere Varianten, ' + p.vol + ' Wdh.', kfmt: 'saetze', sets: 3, reps: p.vol, rest: 90, fill: 3, kslots: up, cool: 'r_cooldown_tag3' }),
+        5: kday({ name: 'Unterkörper Volumen', what: 'Andere Varianten, ' + p.vol + ' Wdh.', kfmt: 'saetze', sets: 3, reps: p.vol, rest: 90, fill: 4, kslots: lo, cool: 'r_cooldown_tag6' }),
+        6: rday('r_ruhetag_a'),
+        7: rday('r_ruhetag_b')
+      };
+    } },
+  calisthenics: { name: 'Calisthenics', kurz: 'Skills mit dem eigenen Körper, mit Skill-Ziel.', chips: ['12 Durchgänge', '4 + täglich', 'Halten'], len: 12, murph: true, ziele: true,
+    ic: 'M8 3v9M16 3v9M5 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0M13 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0',
+    info: 'Vier Einheiten, immer zuerst der Skill-Block für dein Ziel, frisch und nie bis zum Versagen. Danach Kraft in Sätzen. An den kurzen Tagen Handstand.',
+    phase: function (p) {
+      var b = p.bd;
+      if (b === 12) { p.test = p.check = true; p.lab = 'Test: Ziel geschafft?'; }
+      else if (b % 4 === 0) { p.deload = p.test = p.check = true; p.lab = 'Entlastung · Skill-Test'; }
+      else p.lab = b <= 3 ? 'Voraussetzungen' : b <= 7 ? 'Teilbewegungen' : 'Zielstufe üben';
+    },
+    next: 'Neues Skill-Ziel aus dem Skill-Baum.',
+    days: function (p) { return {
+      1: kday({ name: 'Zug + Skill', what: 'Skill-Block 20 Min, Zug in Sätzen', skill: 20, zi: 0, kfmt: 'saetze', sets: 4, reps: '5–8', rest: 120, fill: 1, maxout: 0, cool: 'r_cooldown_tag1',
+        kslots: [['zug_vertikal'], ['zug_horizontal'], ['rumpf_anti_streckung', 'rumpf_beugung']] }),
+      2: { type: 'easy', name: 'Handstand + locker', what: 'Handstand 10 Min, Lauf 20 Min', min: 20, pre: 'hs', cool: 'r_cooldown_tag2' },
+      3: kday({ name: 'Druck + Skill', what: 'Skill-Block 20 Min, Druck in Sätzen', skill: 20, zi: 1, kfmt: 'saetze', sets: 4, reps: '5–8', rest: 120, fill: 2, maxout: 0, cool: 'r_cooldown_tag3',
+        kslots: [['druck_horizontal'], ['druck_vertikal'], ['druck_horizontal', 'druck_vertikal']] }),
+      4: kday({ name: 'Handstand + Mobility', what: 'Handgelenke, Schulter', warm: false, hs: 10, mobl: 'S' }),
+      5: kday({ name: 'Beine + Rumpf', what: 'Pistol, Nordic, L-Sit, Dragon Flag', kfmt: 'saetze', sets: 4, reps: '5–8', rest: 120, fill: 3, cool: 'r_cooldown_tag6',
+        kslots: [['einbein'], ['beinbeuger'], ['rumpf_anti_streckung'], ['rumpf_beugung']] }),
+      6: kday({ name: 'Ganzkörper + Skill', what: 'Skill 15 Min, Voraussetzungen, Metcon 5', skill: 15, zi: 0, kfmt: 'saetze', sets: 3, reps: '5–8', rest: 120, fill: 4, cool: 'r_cooldown_tag6',
+        kslots: [['zug_vertikal'], ['druck_vertikal'], ['kniebeuge', 'einbein']], mslots: [['ausdauer'], ['druck_horizontal'], ['kniebeuge']], mmin: 5, mopt: true }),
+      7: rday('r_ruhetag_b')
+    }; } },
+  crossfit: { name: 'CrossFit', kurz: 'Kraft, Turnen, Gewichtheben und WODs.', chips: ['12 Durchgänge', '5 Tage', 'WOD'], len: 12, murph: true,
+    ic: 'M7.5 9.5V8a4.5 3.5 0 0 1 9 0v1.5M5 15a7 6 0 0 1 14 0c0 2.3-1 4.3-2.5 5.5h-9C6 19.3 5 17.3 5 15zM7.5 9.5h9',
+    info: 'Jede Einheit hat einen Kraft- oder Technikteil und ein WOD in wechselnder Länge. Benchmarks in Durchgang 1, 6 und 12.',
+    phase: function (p) { p.deload = p.bd % 6 === 0; p.bench = [1, 6, 12].indexOf(p.bd) >= 0; p.test = p.bench; p.lab = p.bench ? 'Benchmark' : p.deload ? 'Entlastung' : 'Variieren'; },
+    next: 'Längere WODs: +2 Min je WOD.',
+    days: function (p) {
+      var x = 2 * lvl(), bench = p.bd === 1 ? 'cindy' : p.bd === 6 ? 'mary' : p.bd === 12 ? 'chelsea' : null;
+      return {
+        1: kday({ name: 'Kraft + WOD kurz', what: 'Kniebeuge oder Kreuzheben 5 × 3–5, WOD unter 8 Min', kfmt: 'saetze', sets: 5, reps: '3–5', rest: 120, fill: 1, cool: 'r_cooldown_tag6',
+          kslots: [['kniebeuge', 'huefte']], mslots: [['ausdauer'], ['druck_horizontal', 'druck_vertikal'], ['sprung', 'kniebeuge']], mmin: 7 + x, wod: true }),
+        2: kday({ name: 'Gymnastics + WOD', what: 'Turnen, WOD 10–15 Min', hs: 5, kfmt: 'saetze', sets: 4, reps: '5–8', rest: 90, fill: 2, cool: 'r_cooldown_tag1',
+          kslots: [['rumpf_beugung'], ['zug_vertikal']], mslots: [['zug_vertikal', 'zug_horizontal'], ['rumpf_beugung', 'rumpf_anti_streckung'], ['ausdauer'], ['kniebeuge', 'einbein']], mmin: 12 + x, wod: true }),
+        3: { type: 'interval', name: 'Ausdauer', what: 'Lauf- oder Ergometer-Intervalle', cool: 'r_cooldown_tag4' },
+        4: rday('r_ruhetag_a'),
+        5: kday({ name: 'Gewichtheben + WOD', what: 'Technik mit Gewicht, WOD 8–12 Min', kfmt: 'saetze', sets: 5, reps: '3', rest: 120, fill: 3, cool: 'r_cooldown_tag6',
+          kslots: [['olympisch', 'huefte']], mslots: [['olympisch', 'huefte'], ['druck_vertikal'], ['ausdauer']], mmin: 10 + x, wod: true }),
+        6: kday({ name: bench ? 'Benchmark ' + BENCH[bench].name : 'WOD lang', what: bench ? BENCH[bench].what : 'Chipper 20–30 Min', fill: 4, bench: bench,
+          mslots: [['ausdauer'], ['zug_vertikal', 'zug_horizontal'], ['kniebeuge', 'einbein'], ['druck_horizontal'], ['rumpf_beugung', 'rumpf_anti_streckung']], mmin: 25 + x, wod: true, cool: 'r_cooldown_tag6' }),
+        7: rday('r_ruhetag_b')
+      };
+    } },
+  beweglichkeit: { name: 'Beweglichkeit', kurz: 'Spagat, Brücke, tiefe Hocke. Täglich kurz.', chips: ['8 Durchgänge', 'täglich', 'Dehnen'], len: 8,
+    ic: 'M12 3a2 2 0 1 0 0 4a2 2 0 1 0 0-4M4 11l8-2 8 2M12 9v6M8 21l4-6 4 6',
+    info: 'Täglich kurz, dreimal lang: Hüfte, Schulter und deine Schwachstellen aus dem Beweglichkeits-Check. Kraft nur zum Erhalten.',
+    phase: function (p) { p.hold = p.bd <= 3 ? 30 : p.bd <= 6 ? 60 : 90; if (lvl()) p.hold = Math.max(p.hold, 60); p.check = [1, 4, 8].indexOf(p.bd) >= 0; p.lab = 'Haltezeit ' + p.hold + ' s'; },
+    next: 'Längere Haltezeiten von Anfang an (60 s).',
+    days: function (p) {
+      var emom = { kfmt: 'emom', krounds: 3, warm: false };
+      return {
+        1: kday({ name: 'Lang A: Hüfte', what: 'PNF für Spagat und Pancake, Jefferson Curl', warm: false, mobl: 'A' }),
+        2: kday(Object.assign({ name: 'Kurz + Kraft', what: '10 Min Dehnen, EMOM 9 zum Erhalten', mobl: 'K', fill: 1, kslots: [['zug_vertikal'], ['druck_horizontal'], ['kniebeuge', 'einbein']] }, emom)),
+        3: kday({ name: 'Lang B: Schulter', what: 'Brücke, Schulter über Kopf, Thorax', warm: false, mobl: 'B' }),
+        4: { type: 'easy', name: 'Kurz + Lauf', what: '10 Min Dehnen, Lauf locker 20 Min', min: 20, pre: 'K' },
+        5: kday({ name: 'Lang C: Schwachstellen', what: 'Die zwei schwächsten Regionen aus dem Check', warm: false, mobl: 'C' }),
+        6: kday(Object.assign({ name: 'Kurz + Kraft', what: '10 Min Dehnen, EMOM 9', mobl: 'K', fill: 2, kslots: [['zug_horizontal', 'zug_vertikal'], ['druck_vertikal', 'druck_horizontal'], ['huefte', 'beinbeuger']] }, emom)),
+        7: rday('r_ruhetag_b')
+      };
+    } },
+  laufen: { name: 'Laufen', kurz: 'Schneller oder weiter laufen, mit Laufziel.', chips: ['8–14 Durchgänge', '4–5 Läufe', 'Puls-Zonen'], lauf: true,
+    ic: 'M13 4a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 20l3-5 3 2 1-5 4 3M9 11l3-3 3 1',
+    info: 'Viel locker, wenig hart (80/20). Kraft am selben Tag wie Intervalle und Tempolauf, damit lockere Tage locker bleiben. Puls-Zonen nach Karvonen.',
+    phase: function (p) {
+      var n = p.n, b = p.bd;
+      if (b === n) { p.taper = true; p.lab = 'Tapering + Ziel-Lauf'; }
+      else if (b % 4 === 0) { p.deload = p.test = true; p.lab = 'Entlastung + Testlauf'; }
+      else if (b === n - 1) p.lab = 'Renntempo';
+      else if (b <= Math.ceil(n * 0.3)) p.lab = 'Grundlage';
+      else p.lab = 'Aufbau';
+    },
+    next: 'Nächstes Ziel: längere Strecke oder schnellere Zielzeit.',
+    days: function (p) {
+      var g = laufGoal(), L = { '5': [40, 60], '10': [50, 85], '21': [70, 120] }[g.id];
+      return {
+        1: kday({ name: 'Intervalle + Kraft', what: 'Intervalle, danach Kraft 25 Min', warm: false, run: { type: 'interval', iv: lauIv(g, p) }, kfmt: 'saetze', sets: 3, reps: '6–10', rest: 60, fill: 1, cool: 'r_cooldown_tag4',
+          kslots: [['einbein'], ['beinbeuger'], ['rumpf_anti_streckung', 'rumpf_beugung', 'rumpf_rotation']] }),
+        2: { type: 'easy', name: 'Lauf locker', what: 'Zone 2', min: lerpMin(p, 30, 45), cool: 'r_cooldown_tag2' },
+        3: rday(null, { what: 'Mobility für Hüfte und Waden', mob: 'L' }),
+        4: kday({ name: p.test ? 'Testlauf + Kraft' : p.taper ? 'Ziel-Lauf' : 'Tempolauf + Kraft', what: p.test ? '5 km auf Zeit, danach Kraft' : p.taper ? g.name + ' auf Zielzeit' : 'An der Schwelle, danach Kraft 20 Min',
+          warm: false, run: { type: 'easy', art: p.test ? 'test' : p.taper ? 'ziel' : 'tempo', min: p.test || p.taper ? null : lerpMin(p, 20, 30) }, kfmt: 'saetze', sets: p.taper ? 0 : 3, reps: '6–10', rest: 60, fill: 2, cool: 'r_cooldown_tag6',
+          kslots: p.taper ? [] : [['zug_vertikal', 'zug_horizontal'], ['druck_horizontal'], ['rumpf_anti_streckung']] }),
+        5: { type: 'easy', name: 'Lauf locker', what: 'Optional, Zone 2', min: lerpMin(p, 25, 35), opt: true },
+        6: { type: 'easy', name: 'Langer Lauf', what: 'Zone 2, wird länger', art: 'lang', min: lerpMin(p, L[0], L[1]), cool: 'r_cooldown_tag2' },
+        7: rday('r_ruhetag_b')
+      };
+    } }
+};
+var FOKUS_IDS = ['allround', 'kraft', 'calisthenics', 'crossfit', 'beweglichkeit', 'laufen'];
+// Intervalle im Laufplan: je Ziel und Phase. Zone 5 für 5 km, Zone 4 für längere Strecken.
+function lauIv(g, p) {
+  var t = { '5': [[5, 2], [5, 3], [6, 3]], '10': [[5, 3], [5, 4], [4, 6]], '21': [[4, 5], [3, 8], [3, 10]] }[g.id];
+  var k = p.lab === 'Grundlage' ? 0 : p.lab === 'Renntempo' || p.taper ? 2 : 1, r = t[k].slice();
+  if (p.deload || p.taper) r[0] = Math.max(2, r[0] - 2);
+  return { reps: r[0], work: r[1], rest: g.id === '21' ? 3 : 2, zone: g.id === '5' ? 5 : 4 };
+}
+var BENCH = {
+  cindy: { name: 'Cindy', what: '20 Min AMRAP: 5 Pull-ups, 10 Push-ups, 15 Air Squats', fmt: 'amrap', min: 20, items: [['5', 'g_pullup'], ['10', 'g_push'], ['15', 'g_air']] },
+  mary: { name: 'Mary', what: '20 Min AMRAP: 5 HSPU, 10 Pistols, 15 Pull-ups', fmt: 'amrap', min: 20, items: [['5', 'g_hspu', 'Pike Push-up'], ['10', 'g_pistol', 'auf eine Box'], ['15', 'g_pullup', 'mit Band']] },
+  chelsea: { name: 'Chelsea', what: '30 Min EMOM: 5 Pull-ups, 10 Push-ups, 15 Air Squats', fmt: 'emom', min: 30, items: [['5', 'g_pullup'], ['10', 'g_push'], ['15', 'g_air']] }
+};
+function fokus() { return FOKUS[S.fokus] || FOKUS.allround; }
+function lvl() { return (S.lvl && S.lvl[S.fokus]) || 0; }
+function blockN() { var F = fokus(); return F.lauf ? laufGoal().n : F.len; }
+// Durchgang im Block: 1 bis Länge. Der Einstiegstest (Durchgang 0) gehört noch zu keinem Block.
+function blockD() { return Math.max(1, Math.min(blockN(), S.durchgang - (S.blockStart || 1) + 1)); }
+function phaseAt(bd) { var p = { bd: bd, n: blockN(), deload: false, test: false, check: false, lab: '' }; fokus().phase(p); return p; }
+function curPhase() { return phaseAt(blockD()); }
+var DAYS = {}, DAYS_K = null;
+// Woche des aktiven Schwerpunkts. Kraft und Metcon der Krafttage füllt planFill() nach Ort.
+function syncDays() {
+  var p = curPhase(), k = [S.fokus, p.bd, JSON.stringify(S.lauf), lvl(), S.durchgang].join('|');
+  if (DAYS_K === k) return;
+  DAYS_K = k; var W = fokus().days(p);
+  DAYS = {};
+  Object.keys(W).forEach(function (t) {
+    var d = W[t]; d.title = d.name; d.focus = d.what;
+    if (d.mob) d.flow = mobRoutine(d.mob).id;
+    if (d.type === 'kraft') {
+      Object.defineProperty(d, 'kraft', { get: function () { return planFill().kraft[t] || []; } });
+      Object.defineProperty(d, 'metcon', { get: function () { return planFill().metcon[t] || []; } });
+    }
+    DAYS[t] = d;
+  });
+  FILL.k = null;
+}
+// Kraft: Anzahl der Runden (EMOM) oder Sätze je Übung.
+function kraftRounds(tag) {
+  var d = DAYS[tag], p = curPhase(), kurz = isKurz(tag);
+  if (d.kfmt === 'emom') return d.krounds || ((kurz ? 3 : 4) + (S.fokus === 'allround' && lvl() ? 1 : 0));
+  var s = d.sets;
+  if (p.deload) s = Math.max(2, Math.ceil(s / 2)); else if (kurz) s = Math.max(2, s - 1);
+  return s;
+}
+function metconMin(tag) {
+  var d = DAYS[tag]; if (d.bench) return BENCH[d.bench].min;
+  var m = d.mmin, p = curPhase();
+  if (isKurz(tag) || p.deload) m = m === 8 ? 5 : Math.max(3, Math.round(m * 0.6));
+  return m;
+}
+// Puls-Zonen nach Karvonen: Ruhepuls + Anteil der Herzfrequenzreserve.
+var ZONES = [[1, 'Erholung', 0.5, 0.6, '#9DB4D6'], [2, 'Grundlage', 0.6, 0.7, '#4E9C78'], [3, 'Tempo', 0.7, 0.8, '#CFA43C'], [4, 'Schwelle', 0.8, 0.9, '#E08A3C'], [5, 'Maximal', 0.9, 1, '#EE6A5C']];
+function hrMaxEst() {
+  var hi = 0; LOGS.forEach(function (l) { var r = l.run || l.interval; if (r && r.hr && r.hr > hi) hi = r.hr; });
+  return Math.max(185, hi + 5);
+}
+function hrVals() { return { max: S.hrMax || hrMaxEst(), rest: S.hrRest || 60, est: !S.hrMax || !S.hrRest }; }
+function zoneRange(z, hv) { hv = hv || hrVals(); var Z = ZONES[z - 1], r = hv.max - hv.rest; return [Math.round(hv.rest + r * Z[2]), Math.round(hv.rest + r * Z[3])]; }
+function zoneText(z, z2) { var a = zoneRange(z), b = zoneRange(z2 || z); return 'Zone ' + z + (z2 ? '–' + z2 : '') + ' · ' + a[0] + '–' + b[1] + ' bpm'; }
+function zonesListHTML(hv) {
+  return '<ul class="zones">' + ZONES.map(function (Z) { var r = zoneRange(Z[0], hv); return '<li><i style="background:' + Z[4] + '"></i><b>Z' + Z[0] + '</b><span>' + Z[1] + '</span><span class="z-r">' + r[0] + '–' + r[1] + ' bpm</span></li>'; }).join('') + '</ul>';
+}
+
+/* ---------- Beweglichkeit: lange und kurze Einheiten aus den Mobility-Übungen ---------- */
+var MOB_REG = {
+  g_mob_vorbeuge: ['g_pike_stretch', 'g_supine_hamstring', 'g_jefferson_curl', 'g_ragdoll'],
+  g_mob_hocke: ['g_deep_squat', 'g_assisted_squat', 'g_frog', 'g_cossack'],
+  g_mob_schulter: ['g_wall_slide', 'g_puppy_pose', 'g_wall_flexion_hold', 'g_doorway_pec'],
+  g_mob_bruecke: ['g_cobra', 'g_glute_bridge_hold', 'g_elevated_bridge', 'g_full_bridge'],
+  g_mob_spagat: ['g_lizard', 'g_hip_flexor_stretch', 'g_pigeon', 'g_half_split'],
+  g_mob_handgelenk: ['g_wrist_rocks', 'g_wrist_extension_stretch', 'g_wrist_flexion_stretch', 'g_prayer_stretch'],
+  g_mob_sprunggelenk: ['g_knee_to_wall', 'g_calf_wall_stretch', 'g_ankle_cars', 'g_kneeling_shin'],
+  g_mob_rueckenkratzen: ['g_sleeper_stretch', 'g_towel_stretch', 'g_triceps_stretch', 'g_thread_needle']
+};
+var MOB_SIDE = /hip_flexor|pigeon|lizard|half_split|front_split|sleeper|couch|calf_wall|knee_to_wall|doorway|wall_biceps|triceps|thread_needle|open_book|supine_hamstring|hip_cars|shoulder_cars|wgs|ankle_cars|towel|cossack/;
+var MOB_REPS = { g_jefferson_curl: 8, g_cossack: 10, g_cat_cow: 8, g_wrist_rocks: 15 };
+// Die zwei Regionen mit dem niedrigsten Stand im Beweglichkeits-Check.
+function mobWeak() {
+  var st = ladderStates(LOGS), L = Object.keys(MOB_REG).filter(function (k) { return LAD[k]; });
+  var sc = L.map(function (k) { var s = st[k]; return { k: k, v: s && s.cur ? s.cur / LAD[k].steps.length : 0.5 }; }).sort(function (a, b) { return a.v - b.v; });
+  return sc.slice(0, 2).map(function (x) { return x.k; });
+}
+var MOB_ART = {
+  A: { name: 'Lang A: Hüfte', ziel: 'Beinrückseite und Hüfte. PNF: 10 s anspannen, ausatmen, tiefer sinken.', min: 35, warm: ['g_cat_cow', 'g_hip_cars', 'g_leg_swings'], main: ['g_pancake', 'g_pike_stretch', 'g_jefferson_curl', 'g_half_split', 'g_lizard', 'g_cossack', 'g_frog'] },
+  B: { name: 'Lang B: Schulter', ziel: 'Schulter über Kopf, Brustwirbelsäule und Brücke.', min: 35, warm: ['g_cat_cow', 'g_shoulder_cars', 'g_thoracic_rotation'], main: ['g_wall_slide', 'g_puppy_pose', 'g_doorway_pec', 'g_open_book', 'g_cobra', 'g_elevated_bridge', 'g_full_bridge'] },
+  C: { name: 'Lang C: Schwachstellen', ziel: 'Deine zwei schwächsten Regionen aus dem Beweglichkeits-Check.', min: 35, warm: ['g_cat_cow', 'g_wgs', 'g_hip_cars'] },
+  K: { name: 'Kurz: Ganzkörper', ziel: 'Einmal alles durchbewegen, 10 Minuten.', min: 10, warm: [], main: ['g_cat_cow', 'g_wgs', 'g_deep_squat', 'g_shoulder_cars', 'g_half_split', 'g_wrist_rocks', 'g_cobra'] },
+  S: { name: 'Handgelenke und Schulter', ziel: 'Für Handstand und Stütz: Handgelenke, Schulter über Kopf.', min: 15, warm: ['g_wrist_rocks'], main: ['g_wrist_extension_stretch', 'g_wrist_flexion_stretch', 'g_puppy_pose', 'g_wall_slide', 'g_wall_flexion_hold', 'g_sleeper_stretch'] },
+  L: { name: 'Hüfte und Waden', ziel: 'Für Läufer: Hüftbeuger, Gesäß, Waden und Sprunggelenk.', min: 15, warm: ['g_hip_cars', 'g_leg_swings'], main: ['g_hip_flexor_stretch', 'g_pigeon', 'g_calf_wall_stretch', 'g_knee_to_wall', 'g_half_split', 'g_couch_stretch'] }
+};
+function mobRoutine(art) {
+  var A = MOB_ART[art], hold = S.fokus === 'beweglichkeit' ? curPhase().hold : 30, main = A.main;
+  if (art === 'C') { main = []; mobWeak().forEach(function (k) { main = main.concat(MOB_REG[k]); }); }
+  var id = 'r_lang_' + art + '_' + hold + (art === 'C' ? '_' + mobWeak().join('') : ''), ex = function (u) { return UE[u]; };
+  if (ROUT[id]) return ROUT[id];
+  var B = [], tot = 0;
+  function add(u, warm, rnd) {
+    var side = MOB_SIDE.test(u), reps = MOB_REPS[u], b = reps ? { uebung: u, menge: String(reps), einheit: 'wdh', je_seite: side } : { uebung: u, menge: String(warm ? 30 : hold), einheit: 'sek', je_seite: side };
+    if (!warm && !reps && /pancake|pike|half_split|lizard|front_split|puppy|wall_slide/.test(u)) b.hinweis = 'PNF: nach der Hälfte 10 s gegen den Widerstand anspannen, dann tiefer.';
+    if (rnd > 1) b.hinweis = 'Runde ' + rnd + (b.hinweis ? '. ' + b.hinweis : ': etwas tiefer als beim ersten Mal.');
+    B.push(b); tot += blockSec(b) * (side ? 2 : 1);
+  }
+  A.warm.filter(ex).forEach(function (u) { add(u, true); });
+  main = main.filter(ex);
+  for (var i = 0; main.length && tot < A.min * 60 - 20 && i < 60; i++) add(main[i % main.length], false, Math.floor(i / main.length) + 1);
+  var r = { id: id, name: A.name, wann: 'lang', tage: [], dauer_min: Math.max(1, Math.round(tot / 60)), ziel: A.ziel, bloecke: B };
+  ROUT[id] = r;
+  return r;
+}
+
+/* ---------- Übungswahl: automatisch aus den Familien ---------- */
+// Tempo-Varianten (CrossFit-Ausführung) gehören nie in den Kraftteil.
+var TEMPO_KEYS = {};
+FAMD.familien.forEach(function (f) { f.varianten.forEach(function (v) { if (v.art === 'tempo') TEMPO_KEYS[v.uebung] = 1; }); });
+// Schwächster Teil der Kraft (Zug, Druck, Beine, Rumpf) aus den begonnenen Leitern.
+function partScores(st) {
+  var out = {};
+  Object.keys(PART_MU).forEach(function (p) {
+    var sc = Object.keys(LAD).filter(function (k) { return LAD[k].lib && PART_MU[p].indexOf(LAD[k].muster) >= 0; }).map(function (k) { return ladderScore(k, st[k]); }).filter(function (v) { return v > 0; });
+    out[p] = sc.length ? Math.round(sc.reduce(function (a, b) { return a + b; }, 0) / sc.length) : null;
+  });
+  return out;
+}
+function weakPart(parts, sc) {
+  var w = parts.filter(function (p) { return sc[p] != null; }).sort(function (a, b) { return sc[a] - sc[b]; })[0];
+  return w || parts[0];
+}
+// Stillstand: dreimal hintereinander dieselbe Stufe ohne mehr Wiederholungen.
+function stallOf(key) {
+  var name = LAD[key] ? LAD[key].name : '', hist = [];
+  for (var i = LOGS.length - 1; i >= 0 && hist.length < 3; i--) {
+    (LOGS[i].kraft || []).forEach(function (k) {
+      if (hist.length >= 3 || !(k.n === name || (GL[k.n] && GL[k.n].key === key))) return;
+      var r = (k.reps || []).filter(function (v) { return typeof v === 'number'; });
+      if (r.length) hist.push({ stage: k.stage || '', sum: r.reduce(function (a, b) { return a + b; }, 0) });
+    });
+  }
+  return hist.length === 3 && hist.every(function (h) { return h.stage === hist[0].stage; }) && hist[0].sum <= hist[2].sum;
+}
+function slotKey(tag, platz) { return S.ort + ':' + (S.fokus === 'allround' ? '' : S.fokus + ':') + tag + ':' + platz; }
+var FILL = { k: null, v: null };
+// Füllt die Plätze für Ort und Schwerpunkt. Gewählte Leiter bleibt (S.picks), sonst: begonnene Leiter vor neuer,
+// dann nach Nutzen. Ein Platz mit Ausgleich nimmt den schwächsten Teil. Metcon wechselt pro Durchgang.
+function planFill() {
+  ensureOrte();
+  var k = [LOGS.length, S.ort, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
+  if (FILL.k === k) return FILL.v;
+  var st = ladderStates(LOGS), have = haveEq(), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
+  var tags = Object.keys(DAYS).filter(function (t) { return DAYS[t].type === 'kraft'; }).sort(function (a, b) { return (DAYS[a].fill || 9) - (DAYS[b].fill || 9) || a - b; });
+  tags.forEach(function (tag) {
+    var d = DAYS[tag], kr = [], rg0 = d.kfmt === 'saetze' && d.reps ? d.reps : null;
+    out.sugg[tag] = []; out.missing[tag] = []; out.why[tag] = [];
+    (d.kslots || []).forEach(function (spec, i) {
+      var mu = spec;
+      if (spec.schwach) { var wp = weakPart(spec.schwach, sc); mu = PART_MU[wp]; if (sc[wp] != null) out.why[tag].push('Ausgleich: ' + PART_NAME[wp] + ' ist gerade dein schwächster Teil (' + sc[wp] + ').'); }
+      function cand(all) { return Object.keys(LAD).filter(function (key) { return LAD[key].lib && mu.indexOf(LAD[key].muster) >= 0 && (all || !used[key]) && !TEMPO_KEYS[key] && ladderOk(key, have, st); }); }
+      var cands = cand(false); if (!cands.length) cands = cand(true);
+      cands.sort(function (a, b) { return (st[b] && st[b].cur ? 1 : 0) - (st[a] && st[a].cur ? 1 : 0) || byNutzen(a, b); });
+      var sk = slotKey(tag, i + 1), pk = S.picks[sk], fbn = FB_KRAFT[mu[0]], fb = fbn && GL[fbn] ? GL[fbn].key : null;
+      var cur = pk && cands.indexOf(pk) >= 0 ? pk : fb && cands.indexOf(fb) >= 0 ? fb : cands[0] || null;
+      if (!cands.length) out.missing[tag].push(mu.map(function (m) { return MUSTER[m] || m; }).join(' oder '));
+      if (!cur && fbn && GL[fbn]) cur = fb;
+      if (!cur) return;
+      used[cur] = 1; out.kraftKeys[cur] = 1;
+      var alt = cands.filter(function (x) { return x !== cur; });
+      if (S.pickSkip[sk] !== S.durchgang) {
+        var best = alt[0];
+        if (best && nutzenOf(best) > nutzenOf(cur)) out.sugg[tag].push({ slot: sk, from: cur, to: best });
+        else if (alt.length && stallOf(cur)) out.sugg[tag].push({ slot: sk, from: cur, to: alt[0], stall: true });
+      }
+      var l = LAD[cur], rg = rangeOf(l || {}), o0 = null;
+      [1, 3, 6].forEach(function (t0) { DAYS0[t0].kraft.forEach(function (x) { if (GL[x.n] && GL[x.n].key === cur) o0 = x; }); });
+      var item = o0 && !rg0 && S.fokus === 'allround' ? Object.assign({}, o0) : { n: l ? l.name : fbn, target: rg0 || String((l && l.range) || '3–6').split(',')[0], hi: rg ? rg.hi : 6, lib: true };
+      if (rg0) { var m = /(\d+)\s*[–-]\s*(\d+)/.exec(rg0); item.hi = m ? +m[2] : +rg0 || 5; item.target = rg0 + (/je Seite/.test(item.target || '') ? ' je Seite' : ''); }
+      kr.push(item);
+    });
+    out.kraft[tag] = kr;
+  });
+  tags.forEach(function (tag) {
+    var d = DAYS[tag], mu = {}, today = {}, cf = S.fokus === 'crossfit';
+    if (d.bench) { out.metcon[tag] = BENCH[d.bench].items.map(function (x) { return { r: x[0], n: uName(x[1]), scale: x[2] || '', lib: true }; }); return; }
+    if (!d.mmin) { out.metcon[tag] = []; return; }
+    (out.kraft[tag] || []).forEach(function (x) { if (GL[x.n]) today[GL[x.n].key] = 1; });
+    var fb = d.mfb ? DAYS0[d.mfb].metcon : [], res = [];
+    (d.mslots || []).forEach(function (spec, i) {
+      var cands = LIB.metcon.filter(function (m) {
+        var u = UE[m.uebung];
+        return u && spec.indexOf(u.muster) >= 0 && !mu[m.uebung] && !today[m.uebung] && (cf || !TEMPO_KEYS[m.uebung]) && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st);
+      }).sort(function (a, b) { return UE[b.uebung].nutzen - UE[a.uebung].nutzen; }).slice(0, 4);
+      if (!cands.length) { if (fb[i]) res.push(fb[i]); return; }
+      var m = cands[(S.durchgang + i) % cands.length]; mu[m.uebung] = 1;
+      res.push({ r: fmtMenge(m), n: UE[m.uebung].name, scale: m.skalierung || '', lib: true });
+    });
+    out.metcon[tag] = res.length ? res : MFB_STD.slice();
+  });
+  FILL = { k: k, v: out };
+  return out;
+}
+function suggHTML(tag) {
+  var list = planFill().sugg[tag] || [];
+  return list.map(function (s) {
+    var a = LAD[s.from], b = LAD[s.to];
+    var txt = s.stall ? '<b>' + esc(a ? a.name : '–') + '</b> steht seit 3 Einheiten auf derselben Stufe. Eine andere Variante setzt einen neuen Reiz: <b>' + esc(b.name) + '</b>.'
+      : '<b>' + esc(b.name) + '</b> statt ' + esc(a ? a.name : '–') + '. Mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + ' (' + nutzenOf(s.to) + ' statt ' + nutzenOf(s.from) + ').';
+    return '<section class="card unlock"><p class="unlock-k">' + (s.stall ? 'Stillstand · neuer Reiz' : 'Neu freigeschaltet · ' + esc(ortName(curOrt()))) + '</p><p>' + txt + '</p>' +
+      '<div class="unlock-b"><button type="button" class="btn small" data-act="pick-skip" data-slot="' + esc(s.slot) + '">Später</button>' +
+      '<button type="button" class="btn small save" data-act="pick-take" data-slot="' + esc(s.slot) + '" data-to="' + esc(s.to) + '">' + (s.stall ? 'Wechseln' : 'Übernehmen') + '</button></div></section>';
+  }).join('');
+}
+
+/* ---------- Skill-Block (Calisthenics): übt für das Skill-Ziel, sonst für dessen Voraussetzung ---------- */
+var SKILL_FAM = FAMD.familien.filter(function (f) { return f.ebene === 3 || ['f_handstand', 'f_lsit', 'f_pistol', 'f_dragon_flag'].indexOf(f.id) >= 0; }).map(function (f) { return f.id; });
+function skillGoals() { var z = (S.ziele || []).filter(function (id) { return FAM[id]; }); return z.length ? z : ['f_handstand']; }
+function skillOf(d) {
+  var z = skillGoals(), goal = FAM[z[d.zi || 0] || z[0]], c = famCtx(), f = goal, pre = false;
+  for (var k = 0; k < 4 && !famPreOk(f, c); k++) {
+    var p = (f.voraussetzt || []).filter(function (x) { return FAM[x.familie] && famLevel(FAM[x.familie], c) < x.ab_rang; })[0];
+    if (!p) break; f = FAM[p.familie]; pre = true;
+  }
+  var stf = famStufen(f), lv = famLevel(f, c), v = stf[Math.max(0, lv - 1)] || stf[0] || f.varianten[0];
+  return { goal: goal, f: f, v: v, lv: lv, stf: stf, pre: pre };
+}
+function skillStepHTML(tag, d, D) {
+  var sk = skillOf(d), u = D.sku || sk.v.uebung, U = UE[u], secs = !!U && U.einheit === 'sek', best = D.skb;
+  var vv = sk.f.varianten.filter(function (x) { return x.uebung === u; })[0] || sk.v, rang = vv.rang || sk.lv || 1;
+  return '<section class="card">' + figBox(u) + '<div class="chips"><span class="chip">' + esc(sk.f.name) + (sk.stf.length ? ' · Stufe ' + rang + ' von ' + sk.stf.length : '') + '</span>' +
+    (sk.pre ? '<span class="chip">Voraussetzung für ' + esc(sk.goal.name) + '</span>' : '') + '</div>' +
+    '<p><b>Übe: ' + esc(uName(u)) + '</b></p><p class="small muted">' + (secs ? '5–8 Sätze à 5–10 s halten' : '5–8 Sätze à 3–5 saubere Wdh.') + ', 2 Min Pause. Immer frisch, nie bis zum Versagen.</p>' +
+    (vv.ziel ? '<p class="small hint">Weiter zur nächsten Stufe: ' + esc(vv.ziel) + '</p>' : '') +
+    '<div class="pick-grid">' + tile('Stufe', '<b class="txt">' + esc(uName(u)) + '</b>', 'data-act="sk-pick" data-k="u" data-tag="' + tag + '"', 'set') +
+    tile(secs ? 'Beste Zeit' : 'Beste Wdh.', '<b>' + (best ? esc(best) + ' <span class="unit">' + (secs ? 's' : 'Wdh.') + '</span>' : '–') + '</b>', 'data-act="sk-pick" data-k="b" data-tag="' + tag + '"', best ? 'set' : '') + '</div></section>';
+}
+ACT['sk-pick'] = function (el) {
+  var d = DAYS[+el.dataset.tag], sk = skillOf(d), D = dr(S.tag), u = D.sku || sk.v.uebung, U = UE[u], secs = !!U && U.einheit === 'sek';
+  if (el.dataset.k === 'u') {
+    var list = sk.stf.concat(sk.f.varianten.filter(function (v) { return v.art === 'variante'; }));
+    openSheet(sk.f.name, [{ head: 'Stufe', wide: true, items: list.map(function (v) { return { v: v.uebung, t: uName(v.uebung) }; }), val: u }], function (v) { setDraft('sku', v[0]); render(); });
+  } else {
+    openSheet(uName(u), [{ head: secs ? 'Sek.' : 'Wdh.', items: numItems(0, secs ? 120 : 40, true), val: D.skb != null ? D.skb : '' }], function (v) { setDraft('skb', v[0]); render(); }, { num: 0 });
+  }
+};
+function skillFrom(v, d) {
+  var sk = skillOf(d), u = v.sku || sk.v.uebung, b = num(v.skb);
+  if (b == null) return null;
+  return [{ fam: sk.f.id, goal: sk.goal.id, uebung: u, best: b, unit: UE[u] && UE[u].einheit === 'sek' ? 's' : 'wdh' }];
+}
+
+/* ---------- Block: Fortschritt, Ende und Rückblick ---------- */
+function blockCheck() {
+  if (S.durchgang < 1 || S.review) return;
+  var bs = S.blockStart || 1;
+  if (S.durchgang - bs + 1 > blockN()) S.review = { fokus: S.fokus, start: bs, end: S.durchgang - 1 };
+}
+function fokusLabel() {
+  var F = fokus();
+  if (F.lauf) { var g = laufGoal(); return F.name + ' · ' + g.name + (g.ziel ? ' in ' + fmtDur(g.ziel) : ''); }
+  if (F.ziele) return F.name + ' · ' + skillGoals().map(function (id) { return FAM[id].name; }).join(', ');
+  return F.name;
+}
+function fkIcon(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; }
+function blockCardHTML() {
+  var F = fokus(), p = curPhase(), seg = '';
+  for (var i = 1; i <= p.n; i++) { var q = phaseAt(i); seg += '<i class="' + (i < p.bd ? 'done' : i === p.bd ? 'now' : '') + (q.deload || q.test || q.taper ? ' lite' : '') + '"></i>'; }
+  return '<button type="button" class="card blk" data-act="fk-open" data-from="heute"><span class="blk-h"><b>' + esc(fokusLabel()) + '</b><span class="chip">' + fkIcon(F.ic) + 'Schwerpunkt</span></span>' +
+    '<span class="blk-bar" aria-label="Durchgang ' + p.bd + ' von ' + p.n + '">' + seg + '</span><span class="small muted">' + (p.lab ? '<b>' + esc(p.lab) + '</b> · ' : '') + 'Hell: leichtere Wochen mit Tests</span></button>';
+}
+function reviewHTML() {
+  var R = S.review, F = FOKUS[R.fokus] || FOKUS.allround, inB = function (l) { return l.durchgang >= R.start && l.durchgang <= R.end; };
+  var first = LOGS.filter(inB).map(function (l) { return l.date; }).sort()[0] || isoToday();
+  var before = statsOf(LOGS.filter(function (l) { return l.date < first; })), now = statsOf(LOGS), tiles = [];
+  function plus(v) { return v ? '<span class="rv-d' + (v < 0 ? ' neg' : '') + '">' + (v > 0 ? '+' : '') + v + '</span>' : ''; }
+  var ar = now.areas.filter(function (a) { return a.val; }).map(function (a) { var b = before.areas.filter(function (x) { return x.id === a.id; })[0]; return { a: a, d: a.val - (b ? b.val : 0) }; }).sort(function (x, y) { return y.d - x.d; });
+  if (ar[0]) tiles.push([ar[0].a.name, ar[0].a.val, plus(ar[0].d)]);
+  tiles.push(['Gesamtwert', now.total, plus(now.total - before.total)]);
+  var gain = Object.keys(now.st).filter(function (k) { return LAD[k] && now.st[k].cur; }).map(function (k) { return { k: k, d: now.st[k].cur - (before.st[k] ? before.st[k].cur : 0) }; }).filter(function (x) { return x.d > 0; }).sort(function (x, y) { return y.d - x.d; });
+  if (gain[0]) { var L = LAD[gain[0].k]; tiles.push([L.name, esc(stageText(L.steps[now.st[gain[0].k].cur - 1])), plus(gain[0].d) + ' ' + (gain[0].d === 1 ? 'Stufe' : 'Stufen')]); }
+  var rm = LOGS.filter(function (l) { return l.kind === 'rm' && inB(l); }).map(function (l) { var p = rmOf(l.lift, LOGS.filter(function (x) { return x.date < first; })); return { l: l, d: l.e1 - (p ? p.best.e1 : 0) }; }).sort(function (x, y) { return y.d - x.d; })[0];
+  if (rm) tiles.push([UE[rm.l.lift] ? UE[rm.l.lift].name + ' 1RM' : '1RM', fmtKg(rm.l.e1, rm.l.lift), rm.d > 0 ? plus(Math.round(rm.d * 10) / 10) : '']);
+  var done = LOGS.filter(function (l) { return inB(l) && l.kind !== 'mobility' && l.kind !== 'rm'; }).length;
+  var perWeek = Object.keys(DAYS).filter(function (t) { return DAYS[t].type !== 'rest' && !DAYS[t].opt; }).length, planned = perWeek * (R.end - R.start + 1);
+  var stalls = Object.keys(planFill().kraftKeys).filter(stallOf).map(function (k) { return LAD[k].name; });
+  var v = ui.rv || 'weiter', ex = { weiter: 'Gleicher Plan, neuer Block mit ' + (F.lauf ? laufGoal().n : F.len) + ' Durchgängen.', stufe: F.next, wechseln: 'Öffnet die Auswahl der Schwerpunkte.' }[v];
+  var h = '<p class="kicker muted">Durchgang ' + R.start + '–' + R.end + ' · ' + esc(F.name) + '</p><section class="hero"><h1>Block geschafft</h1><p class="hero-title">' + (R.end - R.start + 1) + ' Durchgänge ' + esc(F.name) + '</p></section>';
+  h += '<section class="card"><div class="pick-grid rv-grid">' + tiles.map(function (t) { return '<div class="tile calc set"><small>' + esc(t[0]) + '</small><b>' + t[1] + '</b>' + (t[2] ? '<span class="rv-x">' + t[2] + '</span>' : '') + '</div>'; }).join('') + '</div>' +
+    '<p class="small muted">' + done + ' von ' + planned + ' Einheiten gemacht.' + (stalls.length ? ' Stillstand bei ' + esc(stalls.join(', ')) + ': im nächsten Block wechselt dort die Variante.' : '') + '</p></section>';
+  h += '<section class="card"><h3 style="margin-top:0">Wie geht es weiter?</h3><div class="seg" role="group" aria-label="Wie geht es weiter">' + [['weiter', 'Weiter so'], ['stufe', 'Nächste Stufe'], ['wechseln', 'Wechseln']].map(function (o) {
+    return '<button type="button" class="seg-btn' + (v === o[0] ? ' on' : '') + '" data-act="rv" data-v="' + o[0] + '" aria-pressed="' + (v === o[0]) + '">' + o[1] + '</button>';
+  }).join('') + '</div><p class="small muted" style="margin-top:8px">' + esc(ex) + '</p></section>';
+  h += '<button type="button" class="btn primary block go" data-act="rv-go">' + (v === 'wechseln' ? 'Schwerpunkt wählen' : 'Nächsten Block starten') + '</button>';
+  return h;
+}
+function startBlock(fk) {
+  if (fk !== S.fokus) { delete DRAFTS[draftKey(S.tag)]; LS.set('tp.drafts', DRAFTS); }
+  S.fokus = fk; S.blockStart = Math.max(1, S.durchgang); S.review = null; ui.rv = null; ui.viewTag = null; ui.fkSel = null; DAYS_K = null;
+  saveState(); ui.tab = 'heute'; window.scrollTo(0, 0); render();
+  toast('Neuer Block: ' + FOKUS[fk].name + ', ' + blockN() + ' Durchgänge.');
+}
+ACT.rv = function (el) { ui.rv = el.dataset.v; render(); };
+ACT['rv-go'] = function () {
+  var v = ui.rv || 'weiter', fk = S.review.fokus;
+  if (v === 'wechseln') { ui.fkSel = null; ui.fkFrom = 'heute'; ui.tab = 'fokus'; window.scrollTo(0, 0); render(); return; }
+  if (v === 'stufe') {
+    if (fk === 'laufen') {
+      var g = laufGoal(), i = LAUF_DIST.map(function (x) { return x[0]; }).indexOf(g.id);
+      ui.lz = i < 2 ? { dist: LAUF_DIST[i + 1][0], ziel: null } : { dist: g.id, ziel: g.ziel ? Math.round(g.ziel * 0.97) : null };
+      ui.tab = 'laufziel'; window.scrollTo(0, 0); render(); return;
+    }
+    if (fk === 'calisthenics') { ui.sz = []; ui.tab = 'skillziel'; window.scrollTo(0, 0); render(); return; }
+    S.lvl = Object.assign({}, S.lvl || {}); S.lvl[fk] = (S.lvl[fk] || 0) + 1;
+  }
+  startBlock(fk);
+};
+ACT['skip-day'] = function () {
+  delete DRAFTS[draftKey(S.tag)]; LS.set('tp.drafts', DRAFTS);
+  advance(); saveState(); window.scrollTo(0, 0); render(); toast('Ausgelassen. Weiter mit Tag ' + S.tag + '.');
+};
+
+/* ---------- Seiten: Schwerpunkt wählen, Laufziel, Skill-Ziele ---------- */
+function renderFokus() {
+  var sel = ui.fkSel || (S.review ? S.review.fokus : S.fokus), back = S.review ? 'heute' : (ui.fkFrom || 'heute'), F = FOKUS[sel];
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + back + '" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Schwerpunkt</h1><p class="hero-title">Wähl, worauf die nächsten Wochen zielen</p></section>';
+  h += '<div class="fk-list">' + FOKUS_IDS.map(function (id) {
+    var G = FOKUS[id], on = id === sel;
+    return '<button type="button" class="card fk' + (on ? ' on' : '') + '" data-act="fk-pick" data-v="' + id + '" aria-pressed="' + on + '"><span class="fk-ic">' + fkIcon(G.ic) + '</span><span class="fk-t"><span class="fk-n"><b>' + esc(G.name) + '</b>' +
+      (id === S.fokus && !S.review ? '<span class="chip blue">Aktiv</span>' : '') + '</span><small>' + esc(G.kurz) + '</small><span class="fk-c">' + G.chips.map(function (c) { return '<span>' + esc(c) + '</span>'; }).join('') + '</span></span></button>';
+  }).join('') + '</div>';
+  h += '<p class="small muted fk-info">' + esc(F.info) + '</p>';
+  h += '<button type="button" class="btn primary block go" data-act="fk-go">' + esc(F.name) + (F.lauf ? ': Laufziel wählen' : F.ziele ? ': Skill-Ziele wählen' : ' starten') + '</button>';
+  if (sel === S.fokus && !S.review) h += '<p class="small muted" style="text-align:center">Startet einen neuen Block. Dein Verlauf bleibt.</p>';
+  return h;
+}
+ACT['fk-open'] = function (el) { ui.fkFrom = el.dataset.from || 'heute'; ui.fkSel = null; ui.tab = 'fokus'; window.scrollTo(0, 0); render(); };
+ACT['fk-pick'] = function (el) { ui.fkSel = el.dataset.v; render(); };
+ACT['fk-go'] = function () {
+  var sel = ui.fkSel || (S.review ? S.review.fokus : S.fokus);
+  if (sel === 'laufen') { ui.lz = Object.assign({ dist: '10', ziel: null }, S.lauf || {}); ui.tab = 'laufziel'; }
+  else if (sel === 'calisthenics') { ui.sz = (S.ziele || []).slice(); ui.tab = 'skillziel'; }
+  else { startBlock(sel); return; }
+  window.scrollTo(0, 0); render();
+};
+function renderLaufziel() {
+  var z = ui.lz || (ui.lz = Object.assign({ dist: '10', ziel: null }, S.lauf || {})), g = LAUF_DIST.filter(function (x) { return x[0] === String(z.dist); })[0] || LAUF_DIST[1], hv = hrVals();
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="fokus" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Laufziel</h1><p class="hero-title">Daraus baut die App deinen Plan</p></section>';
+  h += '<section class="card"><div class="seg" role="group" aria-label="Strecke">' + LAUF_DIST.map(function (x) {
+    var on = x[0] === g[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="lz-dist" data-v="' + x[0] + '" aria-pressed="' + on + '">' + x[1] + '</button>';
+  }).join('') + '</div><div class="pick-grid">' +
+    tile('Zielzeit', '<b>' + (z.ziel ? fmtDur(z.ziel) + ' <span class="unit">' + (z.ziel >= 3600 ? 'h' : 'Min') + '</span>' : '–') + '</b>', 'data-act="choose" data-k="lz-time"', z.ziel ? 'set' : '') +
+    '<div class="tile calc set"><small>Ziel-Lauf</small><b class="txt">in ' + g[3] + ' Durchgängen</b></div></div>' +
+    '<p class="small muted">' + (z.ziel ? 'Zieltempo ' + fmtPace(z.ziel / g[2]) + ' /km.' : 'Ohne Zielzeit: gut ankommen. Das Tempo kommt aus den Puls-Zonen.') + '</p></section>';
+  h += '<section class="card"><h2>Puls-Zonen</h2><div class="pick-grid">' + hrTilesHTML() + '</div>' + zonesListHTML(hv) +
+    '<p class="small muted">Nach Karvonen aus Maximal- und Ruhepuls.' + (hv.est ? ' Fehlt ein Wert, schätzt die App ihn und verbessert ihn mit deinen Läufen.' : '') + '</p></section>';
+  h += '<button type="button" class="btn primary block go" data-act="lz-go">Laufplan starten</button>';
+  return h;
+}
+function hrTilesHTML() {
+  var hv = hrVals();
+  return tile('Maximalpuls', '<b>' + hv.max + ' <span class="unit">bpm</span></b>' + (S.hrMax ? '' : '<span class="small muted">geschätzt</span>'), 'data-act="choose" data-k="hrmax"', S.hrMax ? 'set' : '') +
+    tile('Ruhepuls', '<b>' + hv.rest + ' <span class="unit">bpm</span></b>' + (S.hrRest ? '' : '<span class="small muted">geschätzt</span>'), 'data-act="choose" data-k="hrrest"', S.hrRest ? 'set' : '');
+}
+ACT['lz-dist'] = function (el) { ui.lz.dist = el.dataset.v; ui.lz.ziel = null; render(); };
+ACT['lz-go'] = function () { S.lauf = { dist: String(ui.lz.dist), ziel: ui.lz.ziel || null }; DAYS_K = null; startBlock('laufen'); };
+function renderSkillziel() {
+  var sel = ui.sz || (ui.sz = (S.ziele || []).slice()), c = famCtx(), ord = { cur: 0, next: 1, lock: 2, done: 3 };
+  var list = SKILL_FAM.map(function (id) { return FAM[id]; }).sort(function (a, b) { return ord[famStatus(a, c)] - ord[famStatus(b, c)] || famTop(b) - famTop(a); });
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="fokus" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Skill-Ziele</h1><p class="hero-title">Wähl 1–2 Skills für diesen Block</p></section>';
+  h += '<section class="card sz-list">' + list.map(function (f) {
+    var st = famStatus(f, c), i = sel.indexOf(f.id), lv = famLevel(f, c), stf = famStufen(f);
+    var sub = st === 'done' ? 'Geschafft' : st === 'cur' ? 'Du: ' + uName(stf[Math.max(0, lv - 1)] ? stf[Math.max(0, lv - 1)].uebung : f.varianten[0].uebung) : st === 'next' ? 'Bereit: ' + (stf[0] ? uName(stf[0].uebung) : f.name) : 'Erst: ' + famPreText(f, c);
+    return '<button type="button" class="sz-row' + (i >= 0 ? ' on' : '') + '" data-act="sz-pick" data-v="' + f.id + '" aria-pressed="' + (i >= 0) + '"><span class="sz-t"><b>' + esc(f.name) + '</b><small>' + (st === 'lock' ? LOCK_SVG : '') + esc(sub) + '</small></span><span class="sz-n">' + (i >= 0 ? 'Ziel ' + (i + 1) : '') + '</span></button>';
+  }).join('') + '</section><p class="small muted">Gesperrt heißt nicht verboten: Der Skill-Block übt dann zuerst die Voraussetzung.</p>';
+  h += '<button type="button" class="btn primary block go" data-act="sz-go"' + (sel.length ? '' : ' disabled') + '>Calisthenics starten</button>';
+  return h;
+}
+ACT['sz-pick'] = function (el) {
+  var id = el.dataset.v, i = ui.sz.indexOf(id);
+  if (i >= 0) ui.sz.splice(i, 1); else { ui.sz.push(id); if (ui.sz.length > 2) ui.sz.shift(); }
+  render();
+};
+ACT['sz-go'] = function () { if (!ui.sz.length) { toast('Wähl mindestens ein Ziel.'); return; } S.ziele = ui.sz.slice(); DAYS_K = null; startBlock('calisthenics'); };
 
 // Heute: das eine Ziel, das am nächsten liegt (aus den Kraftübungen des Tages).
 function nextUnlockHTML(tag) {
@@ -4462,6 +5091,7 @@ document.addEventListener('visibilitychange', function () { if (SY && document.v
 if (SY) syncSoon(700);
 
 applyTheme();
+blockCheck();
 render();
 initDb();
 })();
