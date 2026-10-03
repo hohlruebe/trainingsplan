@@ -60,6 +60,18 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Zu lange Stufennamen enden mit „…“ (gemessen, `fitLadders`), Antippen lässt sie einmal durchlaufen.
 - Stufen und Wiederholungen wählt man mit dem Rad-Blatt von unten (`openSheet`, `ACT.pick`), nicht mit Textfeldern.
   Stufen-Listen bleiben in der Reihenfolge der Leiter (nicht alphabetisch). Im EMOM zeigt jedes Feld seine Minute.
+- Ablauf im Training (`flowHTML`, Abläufe `warmFlow`, `metconFlow`, `murphFlow`, `coolFlow`): je Trainingsart „Liste“ (Glas-Kapsel,
+  aktuelle Übung offen mit Figur und „Erledigt“) oder „Einzeln“ (eine Karte, `.bgrp` „‹ Zurück | Erledigt ›“, letzte Übung springt
+  zum nächsten Schritt, Chip „Danach: …“). Einstellung unter Einstellungen › Training: `S.trainCustom`, `S.trainModes` (Standard
+  `TRAIN_STD`: Liste, Cool-down einzeln, `modeOf`), `S.roundCounter`, `S.swipe`, `S.swipeRev`, nur auf dem Gerät.
+  Stand im Entwurf: `_c_<id>` aktuelle Übung, `_d_<id>` abgehakt (Liste), `_r_<id>` Runde. Metcon und Murph laufen in Runden (`loop`).
+  Wischen (`data-swipe`, `swipeDo`): links = erledigt / weiter / +, rechts = zurück / rückgängig / –, umkehrbar.
+  Metcon: Rundenzähler (`.stepper`) nur in der Liste; Einzeln ohne Kacheln und Hauptaktion, solange der AMRAP läuft.
+  Am Ende des AMRAP fragt `amrapCheck` „Stimmt dein Ergebnis?“ mit gezählten Runden und Wdh. (`amrapCount`).
+  Kraft einzeln zeigt nur die laufende Karte. EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
+  Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) in allen Schritten, gestartet von `wakeFigs`.
+- Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
+- Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
 - Jeder Schritt bringt seinen Timer fertig eingestellt mit (helle Glas-Leiste `#tbar`, `paintMini`), Timer-Art `block`
   für Aufwärmen und Handstand. Die laufende EMOM-Übung ist blau umrandet. Vorlagen aus dem Plan gibt es nur dort.
 - Tools › Timer ist frei einstellbar: EMOM (Alle, Runden), AMRAP (Dauer), Intervall (Arbeit, Pause, Runden), Auf Zeit

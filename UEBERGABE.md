@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026 (nach PR #25)
+Stand: 3. Oktober 2026 (Trainingsmodi Einzeln/Liste eingebaut)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -119,7 +119,7 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
 
-## In Arbeit: Figur in allen Trainingsschritten
+## Figur in allen Trainingsschritten und Trainingsmodi
 - Wunsch: Animation während des ganzen Trainings, für Übungen ohne Grafik ein Platzhalter: winkendes Maskottchen
   mit Hinweis, dass noch etwas fehlt. Pose `_wave` ist in der Vorlage.
 - Im Canvas (P33): Aufwärmen und Metcon mit Figur über der Liste (gewählte Zeile als weiße Pille, Tippen wechselt),
@@ -146,6 +146,16 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   Doppelung behoben: im Modus „Einzeln“ kein großer „Weiter zu …“-Knopf, solange Übungen offen sind; er erscheint nach
   beim Metcon erst nach „Stimmt dein Ergebnis?“. Aufwärmen: „Erledigt, weiter“ auf der letzten Übung springt direkt zum
   nächsten Schritt (Chip „Danach: Handstand“), kein zweiter Knopf. Board P36.
-  **Nächster Schritt: alles einbauen** (Einstellungen in Abschnitten, Modi Einzeln/Liste, Wischen + umkehren,
-  Rundenzähler Liste, Ergebnis prüfen, Figur/Platzhalter in allen Schritten, EMOM-Vorschau).
+  Dennis: Knöpfe mit je einem Wort → „‹ Zurück | Erledigt ›“. Ergebnis-Eingabe bleibt Rad, nochmal tippen = Zahlenfeld.
+- **Eingebaut (PR offen, Branch `claude/beautiful-lamport-m3v241`):**
+  - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten. Training: Standard | Benutzerdefiniert,
+    je Trainingsart Einzeln | Liste, Rundenzähler, Wischen statt Tippen, Wischen umkehren (alles nur auf dem Gerät).
+  - Liste und Einzeln für Aufwärmen, Metcon, Murph (Runden), Cool-down (folgt der Uhr); Kraft einzeln = nur die laufende Karte.
+  - Metcon: Zähler in der Liste (zählt beim Abhaken mit), Einzeln ohne Kacheln und Hauptaktion, solange der AMRAP läuft.
+    Am Ende „Stimmt dein Ergebnis?“ (Stimmt, speichern | Ändern).
+  - EMOM: Chip „Als Nächstes · Min 2 · Name“ mit Mini-Figur und Countdown in der laufenden Karte.
+  - Figur oder winkender Platzhalter „Grafik folgt“ in allen Schritten (Handstand, Testtag, Abläufe).
+  - Rad-Blätter mit Zahl: nochmal auf den großen Wert tippen = Zahlenfeld.
+  - Getestet: alle Reiter hell und dunkel, alte Prüfskripte, neue Abläufe (Liste, Einzeln, Runden, Wischen, Ergebnis, Zahlenfeld).
+  Offen: Rückmeldung von Dennis auf dem Handy, besonders Wischen und die Länge der Hinweise (erste zwei Sätze).
 
