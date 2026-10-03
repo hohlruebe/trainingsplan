@@ -535,18 +535,25 @@
     var deep = st(324, 0, 'back'); // unten: Hüfte tiefer als das Knie
     return limbs(keys(p, [[0, deep], [.16, st(222, 0, 'up')], [.28, st(222, 34, 'up')], [.42, st(232, 0, 'up')], [.64, deep], [1, deep]]));
   }
-  function skater(p) { // seitlich springen, auf einem Bein landen, das andere kreuzt hinten
+  function skater(p) { // weit seitlich springen, kurz ganz in der Luft, auf einem Bein landen, das andere kreuzt hinten
+    var X = 170;
     function land(x) {
-      var pc = [x * 118, 288, -24];
+      var pc = [x * X, 288, -24];
       return { pc: pc, a: 22, nod: -6, ta: add(pc, [x * 56, 40, 40]), tb: add(pc, [x * 10, 30, 70]), pa: [x, 0, -.5], pb: [x * .2, 0, -1],
-        la: x < 0 ? [-126, 390, 6] : [72, 352, -86], lb: x < 0 ? [-72, 352, -86] : [126, 390, 6],
+        la: x < 0 ? [-X - 8, 390, 6] : [X - 46, 352, -86], lb: x < 0 ? [-X + 46, 352, -86] : [X + 8, 390, 6],
         qa: x < 0 ? FWD : [0, .3, 1], qb: x < 0 ? [0, .3, 1] : FWD, ea: x < 0 ? [0, .28, 1] : [0, .6, -.7], eb: x < 0 ? [0, .6, -.7] : [0, .28, 1] };
     }
-    var air = { pc: [0, 214, -10], a: 8, nod: -2, ta: [-40, 236, 46], tb: [40, 236, 46], pa: [-.6, .3, -.6], pb: [.6, .3, -.6],
-      la: [-24, 360, 4], lb: [24, 360, 4], qa: FWD, qb: FWD, ea: [0, .6, .8], eb: [0, .6, .8] };
-    return limbs(keys(p, [[0, land(-1)], [.25, air], [.5, land(1)], [.75, air], [1, land(-1)]]));
+    // Halbe Runde: erst auf dem Bein abfangen und laden (40 %), dann Flug ohne Halt (60 %): seitlich gleichmäßig, Höhe als Bogen.
+    var half = p < .5 ? 0 : 1, h = (p - half * .5) * 2, from = half ? 1 : -1, to = -from;
+    if (h < .4) { var c = Math.sin(h / .4 * Math.PI) * 14, L = land(from); L.pc = add(L.pc, [0, c, 0]); return limbs(L); }
+    var s = (h - .4) / .6, arc = Math.sin(s * Math.PI), o = mix(land(from), land(to), s);
+    o.pc = [lerp(from, to, s) * X, 288 - 84 * arc, -24 + 10 * arc]; o.a = 22 - 12 * arc;
+    var lift = Math.min(1, arc * 3); // Füße sofort vom Boden, beide Beine unter dem Körper
+    o.la = mix(o.la, add(o.pc, [-20, 128, -18]), lift); o.lb = mix(o.lb, add(o.pc, [20, 128, -18]), lift); // Knie leicht angezogen
+    o.ea = o.eb = [0, .6, .8]; o.qa = o.qb = FWD;
+    return limbs(o);
   }
-  function slideFeet(z) { return [-1, 1].map(function (x) { return { type: 'poly', pts: [[x * 11 - 9, 397, z - 14], [x * 11 + 9, 397, z - 14], [x * 11 + 9, 397, z + 10], [x * 11 - 9, 397, z + 10]], keep: true }; }); }
+  function slideFeet(z, w, y) { w = w || 11; y = y || 397; return [-1, 1].map(function (x) { return { type: 'poly', pts: [[x * w - 9, y, z - 14], [x * w + 9, y, z - 14], [x * w + 9, y, z + 10], [x * w - 9, y, z + 10]], keep: true }; }); }
   function kneeTuck(p) { // Liegestütz, Füße auf dem Handtuch, Knie zur Brust
     var t = rep(p, .4, .1), P = plankAt(0, 276, -268), Az = lerp(-268, -116, t), S = [0, 274, 2];
     var pc = mix(P.pc, [0, 264, -108], t), a = lerp(P.a, trunkTo([0, 264, -108], S), t);
@@ -614,8 +621,8 @@
     var pz = S[2] + Math.sqrt(Math.max(0, 112 * 112 - Math.pow(py - S[1], 2))), pc = [0, py, pz];
     var J = build({ pc: pc, a: trunkTo(pc, S), hc: [0, 380, -195],
       arms: both(function (x) { return { to: [x * 40, 388, S[2] + 118], pole: [x, -.5, 0], dir: [0, .1, 1] }; }),
-      legs: both(function (x) { return { to: [x * 16, 386, Fz], pole: [0, -1, .3], dir: [0, -.2, 1] }; }) });
-    J._props = slideFeet((J.ana[2] + J.anb[2]) / 2 + 2); // Handtuch bleibt unter den Fersen
+      legs: both(function (x) { return { to: [x * 16, 391, Fz], pole: [0, -1, .3], dir: [0, -.45, .9] }; }) });
+    J._props = slideFeet((J.ana[2] + J.anb[2]) / 2 + 2, 16, 397); // Ferse liegt auf dem Handtuch // Handtuch bleibt unter den Fersen
     return J;
   }
   function hipThrust(p) { // Schultern auf der Bank, Hüfte nach oben bis zur Linie
