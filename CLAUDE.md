@@ -57,10 +57,26 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
-  Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und im Test-Durchgang (`mobCheckStep`).
+  Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in der Testwoche am Blockende (`mobCheckStep`).
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
   Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
+- Schwerpunkte (`FOKUS`, `S.fokus`, Standard `allround`): Allround, Kraft & Muskelaufbau, Calisthenics, CrossFit, Beweglichkeit,
+  Laufen. Jeder hat eine eigene Woche (`days(phase)`), Länge (`len`, Laufen nach Ziel 8/10/14), Phasen (`phase`: `deload`, `test`,
+  `check`, `lab`) und „Nächste Stufe“ (`next`, `S.lvl`). `syncDays()` baut daraus `DAYS` (in `render()` und `saveDay()`); die frühere
+  feste Woche heißt `DAYS0` und liefert nur noch Rückfall-Übungen. Gezählt wird in Blöcken: `S.blockStart`, `blockD()`, `blockN()`,
+  `curPhase()`. Am Blockende setzt `blockCheck()` `S.review`, Heute zeigt dann „Block geschafft“ (`reviewHTML`, Weiter so /
+  Nächste Stufe / Wechseln, `startBlock`). Versteckte Seiten `fokus` (Auswahl), `laufziel` (Strecke, Zielzeit, Puls-Zonen),
+  `skillziel` (1–2 Skill-Ziele, `S.ziele`). Heute zeigt die Block-Karte (`blockCardHTML`) mit Fortschritt je Durchgang.
+  Tage vom Typ `kraft` sind Schritt-Tage aus Bausteinen: `run` (Lauf als erster Schritt), `warm`, `mobl` (lange/kurze Dehn-Einheit,
+  `mobRoutine`, `MOB_ART` A/B/C/K/S/L, Haltezeit aus der Phase, C = schwächste Regionen aus dem Check), `hs`, `skill`
+  (`skillOf`: Ziel oder seine offene Voraussetzung), `kslots` (Kraft, `kfmt` `emom` oder `saetze` mit `sets`, `reps`, `rest`),
+  `mslots`/`mmin` (Metcon/WOD), `bench` (CrossFit-Benchmarks Cindy, Mary, Chelsea in Durchgang 1, 6, 12).
+  Lauftage: `runSpec(d)` (locker, lang, Tempo, Test, Ziel-Lauf, Intervalle mit `iv`), verglichen nur mit der gleichen Art (`runsOf(kind, ergo, art)`).
+  Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil; ohne Wert geschätzt).
+  Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort und Schwerpunkt `slotKey`) bleibt,
+  sonst begonnene Leiter vor neuer, dann Nutzen. Tempo-Varianten (`TEMPO_KEYS`) nie im Kraftteil. Platz `{ schwach: [...] }` nimmt den
+  schwächsten Kraft-Teil (`partScores`). Stillstand (`stallOf`: 3× gleiche Stufe ohne mehr Wdh.) schlägt eine andere Variante vor.
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
   Danach Schritt für Schritt (`stepsOf`, `stepPageHTML`): Krafttag Aufwärmen, Handstand, Kraft, Metcon; Testtag eine Übung
   pro Schritt; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
@@ -163,12 +179,13 @@ Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Dat
 Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
-- Tag 1 Lift Off (Kraft Zug), Tag 2 Base Builder (Lauf locker), Tag 3 Push Through (Kraft Druck), Tag 4 Redline (Intervall-Lauf),
-  Tag 5 Rest Day, Tag 6 Full Circle (Kraft Zug + Druck, leichter), Tag 7 Rest Day. Der Name (`name` in `DAYS`) verrät nicht den Inhalt.
-- Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2),
-  Metcon AMRAP 8.
-- Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph.
-  Beginnt ein Durchgang in den letzten 7 Tagen des Monats: Test-Durchgang.
+- Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Lauf locker, Tag 3 Zug, Tag 4 Intervall-Lauf, Tag 5 Ruhetag,
+  Tag 6 Druck, Tag 7 Ruhetag. Der Tagesname zeigt den Inhalt. Die anderen Schwerpunkte stehen in `design/schwerpunkte.md`.
+- Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8.
+  Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
+  Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende (Laufen: Testläufe auch
+  zwischendurch, CrossFit: Benchmarks in 1, 6, 12, Beweglichkeit: Check in Durchgang 1 und 8).
+- Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph, nur bei Allround, Calisthenics und CrossFit.
 - Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
 ## Übergabe zwischen Sitzungen

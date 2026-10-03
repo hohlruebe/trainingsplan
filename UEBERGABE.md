@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026 (App-Symbol D3, Dunkelmodus in Graphit)
+Stand: 3. Oktober 2026 (Schwerpunkte und Blöcke eingebaut)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -165,6 +165,24 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - **Noch offen:** Das Training wählt die Übung weiter über die Leitern und `planFill` wie bisher. Automatisch die höchste Stufe
   einer Familie nehmen (Können + Geräte, nie `tempo`) ist der nächste Schritt, erst nach Rückmeldung von Dennis.
   Suche muss Varianten direkt finden. Mobility (56 Übungen) bleibt außen vor.
+
+## Trainingsaufbau und Schwerpunkte (eingebaut, PR offen)
+- Dennis: neue Woche: Tag 1 Ganzkörper (Zug + Druck), Tag 3 Zug, Tag 6 Druck (Läufe und Ruhetage bleiben).
+- Sechs Schwerpunkte mit eigenem Aufbau (Details `design/schwerpunkte.md`): Allround (Standard), Kraft & Muskelaufbau
+  (Ober-/Unterkörper an 4 Tagen, Sätze mit Pause, Phasen), Calisthenics (Skill-Block mit 1–2 Skill-Zielen, Handstand an den
+  kurzen Tagen), CrossFit (Kraft/Technik + WOD, Benchmarks Cindy, Mary, Chelsea in 1, 6, 12, Murph monatlich), Beweglichkeit
+  (3 lange Einheiten à 35 Min, täglich kurz, Check in 1, 4, 8), Laufen (Ziel 5 km / 10 km / Halbmarathon, Puls-Zonen nach Karvonen).
+- Entwurf im Canvas (P49) von Dennis freigegeben: „Wir bauen das jetzt so ein“.
+- Eingebaut: Auswahl (Plan › Schwerpunkt ändern, Block-Karte auf Heute, Onboarding), Laufziel, Skill-Ziele, Block-Karte mit
+  Fortschritt, Rückblick am Blockende (Weiter so / Nächste Stufe / Wechseln), Maximal- und Ruhepuls in Einstellungen › Profil.
+- Schritt A eingebaut: automatische Übungswahl je Muster (begonnene Leiter vor neuer, dann Nutzen, nie Tempo-Varianten im
+  Kraftteil), Stillstand nach 3 gleichen Einheiten schlägt eine andere Variante vor, Allround Tag 1 Platz 3 gleicht den
+  schwächsten Kraft-Teil aus.
+- Bestehende Daten: erster Block beginnt beim aktuellen Durchgang; gewählte Übungen der alten Woche wandern mit (`S.picksV`).
+- Dennis: Test nicht jeden 4. Durchgang, sondern am Ende des Blocks. Umgesetzt: 4 und 8 nur Entlastung, 12 = Testwoche
+  (Maxout, Beweglichkeits-Check, dann Rückblick). Laufen behält Testläufe, CrossFit Benchmarks 1/6/12, Beweglichkeit prüft in 1 und 8.
+- Offen / zu beobachten: Rückmeldung von Dennis zu Tagesnamen, Länge der langen Dehn-Einheiten (Übungen laufen in Runden),
+  Inhalte der WODs aus dem Metcon-Pool.
 
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.

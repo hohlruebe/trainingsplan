@@ -76,6 +76,13 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Netzdiagramm für die Bereiche, Linien für Verläufe, Akzentfarbe für „jetzt“, gestrichelt für den Vergleich.
 - Jede Zahl im Diagramm ist antippbar und führt zur Aufschlüsselung.
 
+## Auswahl-Karten und Fortschritt
+- Eine Wahl aus mehreren ausführlichen Möglichkeiten (z. B. Schwerpunkt): ganze Karte tippbar, Symbol in runder Kachel,
+  Name, ein Satz, kleine Kennzahlen darunter. Gewählt = blaue Umrandung und gefüllte Symbol-Kachel. Darunter eine Hauptaktion.
+- Fortschritt über einen Block: flache Balken je Durchgang in einer Zeile. Geschafft = `--acc`, aktuell mit leichtem Ring,
+  leichtere Wochen (Entlastung, Test) heller.
+- Puls-Zonen als Liste: farbiger Strich, Zone, Name, Bereich rechtsbündig in bpm.
+
 ## Fenster und Blätter
 - Blätter von unten (`openSheet`, `openForm`, `openChoice`), Kopf mit „Abbrechen“ und Aktion.
 - Gleichartige Fenster haben dieselbe Höhe, Knöpfe sitzen immer an derselben Stelle (z. B. Medaillen-Momente).
