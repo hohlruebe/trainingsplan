@@ -1,4 +1,4 @@
-# Maskottchen-Entwurf (Stil C): Figur in 3D, gedreht und als Skizze gezeichnet.
+# Maskottchen-Entwurf (Stil C1 mit drei Varianten): Figur in 3D, gedreht und als Skizze gezeichnet.
 # Aufruf: python3 maskottchen.py  ->  out/rundum.html und out/app.html
 import math, json, random, os
 HERE=os.path.dirname(os.path.abspath(__file__)); OUT=os.path.join(HERE,'out'); os.makedirs(OUT,exist_ok=True)
@@ -6,18 +6,21 @@ _s=open(os.path.join(HERE,'gesture.py')).read(); exec(_s[:_s.index('\ndef figure
 STAND={'nb':(0,96,2),'hc':(0,58,7),'pc':(0,222,-4),
  'sha':(-31,110,-2),'shb':(31,110,-2),'ela':(-39,166,-6),'elb':(38,166,-3),'wra':(-41,220,6),'wrb':(40,218,9),'haa':(-42,244,10),'hab':(41,242,13),
  'hia':(-18,228,-4),'hib':(18,228,-4),'kna':(-19,308,3),'knb':(22,306,10),'ana':(-20,390,-3),'anb':(24,388,2),'toa':(-22,397,22),'tob':(27,395,26)}
+BASE=dict(passes=3,sw=1.1,jit=1.4,fill='none',fop=0,dot=False,loa=4,far='#A8A7CC',boil=False,work=(),shadow=False)
 V={
- 'C1':dict(name='C1 · Fein',sub='Drei dünne Striche, kräftige Line of Action',passes=3,sw=1.1,jit=1.4,fill='none',fop=0,dot=False,loa=4,far='#A8A7CC'),
- 'C2':dict(name='C2 · Kräftig',sub='Zwei Striche, dicker Hauptstrich, Gelenke als Punkte',passes=2,sw=2.0,jit=1.0,fill='none',fop=0,dot=True,loa=3,far='#9C9AD0'),
- 'C3':dict(name='C3 · Mit Volumen',sub='Drei Striche, leicht gefüllte Körperteile',passes=3,sw=1.1,jit=1.4,fill='#E3EAFB',fop=1,dot=False,loa=3.5,far='#A8A7CC'),
+ 'A':dict(BASE,name='C1-A · Fein',sub='Wie C1, Striche stehen still'),
+ 'B':dict(BASE,name='C1-B · Lebendige Striche',sub='Die Skizzenstriche zittern leicht wie gezeichnet',boil=True),
+ 'C':dict(BASE,name='C1-C · Arbeitende Muskeln',sub='Was trainiert wird, ist blau gezeichnet, dazu ein Bodenschatten',work=('legs','pelvis'),shadow=True),
 }
+FRAME=[0]; EXT=[]
 def stroke(shape,col,st,seed):
-    rnd=random.Random(seed); out=''
+    rnd=random.Random(seed+(FRAME[0]//2)*1009 if st['boil'] else seed); out=''
     for i in range(st['passes']):
         tr='' if i==0 else ' transform="translate(%.1f %.1f) rotate(%.1f)"'%(rnd.uniform(-1,1)*st['jit'],rnd.uniform(-1,1)*st['jit'],rnd.uniform(-.8,.8))
         sh=shape if i==0 else shape.replace('fill="%s"'%st['fill'],'fill="none"')
         out+='<g stroke-width="%s" opacity="%s"%s>%s</g>'%(st['sw'] if i==0 else st['sw']*.6,1 if i==0 else .5,tr,sh)
     return '<g fill="none" stroke="%s" stroke-linecap="round" stroke-linejoin="round">%s</g>'%(col,out)
+WK='#3F6FE0'
 def sub3(a,b): return (a[0]-b[0],a[1]-b[1],a[2]-b[2])
 def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     c,s=math.cos(math.radians(yaw)),math.sin(math.radians(yaw)); f=s
@@ -36,11 +39,16 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
         if st['dot']: return '<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s"/>'%(p[0],p[1],r*.62,col)
         return '<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" stroke="%s" stroke-width="1.3"/>'%(p[0],p[1],r,col)
     def limbs(sd,col,fill):
-        g=segm(P['hi'+sd],P['kn'+sd],11,col,fill)+segm(P['kn'+sd],P['an'+sd],8.5,col,fill)+segm(P['an'+sd],P['to'+sd],5,col,fill,.25)
+        lc=(WK if col==INK else '#9FB6EE') if 'legs' in st['work'] else col
+        g=segm(P['hi'+sd],P['kn'+sd],11,lc,fill)+segm(P['kn'+sd],P['an'+sd],8.5,lc,fill)+segm(P['an'+sd],P['to'+sd],5,col,fill,.25)
         g+=segm(P['sh'+sd],P['el'+sd],8,col,fill)+segm(P['el'+sd],P['wr'+sd],6.5,col,fill)+segm(P['wr'+sd],P['ha'+sd],4.6,col,fill,.2)
         for j,r in (('hi',5.5),('kn',5.2),('an',4),('sh',5.5),('el',4.5),('wr',3.4)): g+=jnt(P[j+sd],r,col)
         return g
     g='<line x1="20" x2="300" y1="401" y2="401" stroke="#DADAD3" stroke-width="2" stroke-linecap="round"/>' if floor else ''
+    if st['shadow']:
+        xs=[P[k][0] for k in ('ana','anb','toa','tob')]; cx=(min(xs)+max(xs))/2; wd=(max(xs)-min(xs))/2+22
+        g+='<ellipse cx="%.1f" cy="401" rx="%.1f" ry="5" fill="#34327E" opacity=".08"/>'%(cx,wd)
+    EXT.extend(P.values())
     fc=st['far'] if side else INK
     g+=limbs(farr,fc,F)
     # Rumpf: Winkel und Verkürzung aus der Wirbelsäule
@@ -55,7 +63,7 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     wr=(loc(rc,th,(RX*.8,RY*.55)),loc(rc,th,(RX*.72,RY*1.15)),loc(pc,th,(PX*.85,-8)))
     g+=S('<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f M%.1f %.1f Q%.1f %.1f %.1f %.1f"/>'%(*wl[0],*wl[1],*wl[2],*wr[0],*wr[1],*wr[2]),INK)
     pel='<ellipse fill="%s" rx="%.1f" ry="19"/><path d="%s"/><path d="%s" opacity=".7"/>'%(F,PX,mer(PX,19,f*.9 if c>-.2 else -f*.9),equ(PX,19,-.1,.12))
-    g+='<g transform="translate(%.1f %.1f) rotate(%.1f)">%s</g>'%(pc[0],pc[1],th,S(pel,INK))
+    g+='<g transform="translate(%.1f %.1f) rotate(%.1f)">%s</g>'%(pc[0],pc[1],th,S(pel,WK if 'pelvis' in st['work'] else INK))
     rib=egg(RX,RY).replace('fill="#fff"','fill="%s"'%F)+'<path d="%s"/>'%mer(RX*.95,RY,f*.9 if c>-.2 else -f*.9)
     for y,b in ((-.3,.07),(.42,.12)): rib+='<path d="%s" opacity=".7"/>'%equ(RX*1.02,RY,y,b)
     g+='<g transform="translate(%.1f %.1f) rotate(%.1f)">%s</g>'%(rc[0],rc[1],th,S(rib,INK))
@@ -72,7 +80,7 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
         if c>.4: hd+='<path d="M%.1f 12 q3 1.5 6 0"/>'%(nx-3)
     g+='<g transform="translate(%.1f %.1f) rotate(%.1f)">%s</g>'%(P['hc'][0],P['hc'][1],hth,S(hd,INK))
     top=loc(P['hc'],hth,(f*4 if c>-.2 else 0,-22))
-    sup='a'
+    sup='a'; EXT.append(top)
     g+='<path d="%s" fill="none" stroke="%s" stroke-width="%s" stroke-linecap="round" opacity=".85"/>'%(smooth([top,nb,rc,pc,P['kn'+sup],P['an'+sup]]),ORA,st['loa'])
     g+=limbs(near,INK,F)
     return '<svg viewBox="%s" width="%d" height="%d">%s</svg>'%(vb,w,h,g)
@@ -104,9 +112,11 @@ def squat(t):
 def frames(fn,N,dur,args):
     out=''
     for i in range(N):
+        FRAME[0]=i
         if i==0: vals,kt='1;0','0;%.4f'%(1/N)
         elif i==N-1: vals,kt='0;1','0;%.4f'%(i/N)
         else: vals,kt='0;1;0','0;%.4f;%.4f'%(i/N,(i+1)/N)
+        FRAME[0]=i
         out+='<g opacity="%d"><animate attributeName="opacity" calcMode="discrete" values="%s" keyTimes="%s" dur="%ss" repeatCount="indefinite"/>%s</g>'%(1 if i==0 else 0,vals,kt,dur,fn(i,*args))
     return out
 def inner(svg): return svg[svg.index('>')+1:svg.rindex('</svg>')]
@@ -129,25 +139,28 @@ for k,st in V.items():
     cells+='<div style="display:flex;flex-direction:column;align-items:center;border-left:1px solid #EEE;padding-left:10px"><span style="font-size:11px;color:#6E6E73">dreht sich</span><svg viewBox="0 20 320 395" width="118" height="146">%s</svg></div>'%spin
     rows+='<div style="%s;padding:14px 20px 8px"><div style="display:flex;gap:12px;align-items:baseline"><b style="font-size:16px">%s</b><span style="color:#6E6E73;font-size:13px">%s</span></div><div style="display:flex;justify-content:space-between">%s</div></div>'%(CARD,st['name'],st['sub'],cells)
 b1=HEAD%'Rundumansicht'+'''<div style="width:1340px;box-sizing:border-box;padding:36px;background:#ECECE7;font-family:'Geist',system-ui,sans-serif;color:#111214;display:flex;flex-direction:column;gap:16px">
-<div style="font-size:18px;font-weight:600">Stil C · drei Varianten · Rundumansicht in 8 Positionen</div>%s
+<div style="font-size:18px;font-weight:600">C1 · drei Varianten · Rundumansicht in 8 Positionen</div>%s
 <div style="font-size:13px;color:#6E6E73;line-height:1.5">Von hinten verschwindet das Gesicht, die Mittellinie wird zur Wirbelsäule. Rechts dreht sich die Figur einmal ganz herum: das ist schon dieselbe Zeichnung wie in der Animation.</div></div>'''%rows+FOOT
 open(os.path.join(OUT,'rundum.html'),'w').write(b1)
 # Board 2: so in der App
 phones=''
 for k,st in V.items():
+    del EXT[:]
     anim=frames(lambda i,st: inner(fig(st,38,squat(sq_t(i/32)),floor=True)),32,2.6,(st,))
+    M=26; x0=min(p[0] for p in EXT)-M; x1=max(p[0] for p in EXT)+M; y0=min(p[1] for p in EXT)-M; y1=410
+    VB='%.0f %.0f %.0f %.0f'%(x0,y0,x1-x0,y1-y0)
     phones+='''<div style="width:390px;height:760px;box-sizing:border-box;border-radius:44px;background:#F2F2EE;box-shadow:0 0 0 10px #1C1C1E,0 20px 50px rgba(0,0,0,.25);padding:54px 18px 18px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden">
 <div style="position:absolute;top:56px;right:18px;width:36px;height:36px;border-radius:50%%;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;font-size:16px;color:#6E6E73">✕</div>
 <div style="font-size:11px;letter-spacing:.08em;color:#6E6E73;font-weight:600">TAG 6 · SCHRITT 4 VON 4 · METCON</div>
 <div><div style="font-size:30px;font-weight:800;line-height:1.1">Air Squat</div><div style="width:64px;height:6px;border-radius:3px;background:#3F6FE0;margin-top:6px;opacity:.85"></div></div>
-<div style="%s;padding:6px;display:flex;justify-content:center"><svg viewBox="50 40 250 370" width="320" height="300" preserveAspectRatio="xMidYMax meet">%s</svg></div>
+<div style="%s;padding:6px;display:flex;justify-content:center"><svg viewBox="%s" width="270" height="250" preserveAspectRatio="xMidYMid meet" style="overflow:hidden">%s</svg></div>
 <div style="display:flex;gap:8px"><span style="background:#fff;border-radius:999px;padding:6px 12px;font-size:13px">AMRAP 8 Min</span><span style="background:#fff;border-radius:999px;padding:6px 12px;font-size:13px">15 Wdh.</span></div>
 <div style="font-size:14px;line-height:1.45;color:#3A3A3C">Hüfte nach hinten, Knie über die Zehen, Brust bleibt oben. Unten kurz halten, dann kräftig hoch.</div>
 <div style="margin-top:auto;border-radius:999px;background:rgba(255,255,255,.75);box-shadow:0 6px 20px rgba(0,0,0,.08);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-weight:700"><span style="font-size:22px;font-variant-numeric:tabular-nums">06:42</span><span style="font-size:13px;color:#6E6E73;font-weight:500">Runde 3</span><span style="width:40px;height:40px;border-radius:50%%;background:#3F6FE0;color:#fff;display:flex;align-items:center;justify-content:center">❚❚</span></div>
 <div style="text-align:center;font-size:12px;color:#6E6E73">%s</div>
-</div>'''%(CARD,anim,st['name'])
+</div>'''%(CARD,VB,anim,st['name'])
 b2=HEAD%'Animiert in der App'+'''<div style="width:1340px;box-sizing:border-box;padding:36px 46px;background:#ECECE7;font-family:'Geist',system-ui,sans-serif;color:#111214;display:flex;flex-direction:column;gap:22px">
 <div style="font-size:18px;font-weight:600">So würde es im Training aussehen · animiert, halb gedreht</div>
 <div style="display:flex;justify-content:space-between;padding:10px">%s</div>
-<div style="font-size:13px;color:#6E6E73;line-height:1.5">Jedes Bild der Bewegung wird mit genau derselben Zeichnung erzeugt wie die Skizzen oben, aus Gelenkwinkeln in 3D. Dadurch sieht die Figur in Bewegung so aus wie im Stand. Air Squat nur als Beispiel; der Rest ist nachgebaut, nicht die echte Seite.</div></div>'''%phones+FOOT
+<div style="font-size:13px;color:#6E6E73;line-height:1.5">Jedes Bild der Bewegung wird mit genau derselben Zeichnung erzeugt wie die Skizzen oben, aus Gelenkwinkeln in 3D. Dadurch sieht die Figur in Bewegung so aus wie im Stand. Der Bildausschnitt wird aus allen Bildern der Bewegung berechnet, damit nichts abgeschnitten wird. Air Squat nur als Beispiel; der Rest ist nachgebaut, nicht die echte Seite.</div></div>'''%phones+FOOT
 open(os.path.join(OUT,'app.html'),'w').write(b2)

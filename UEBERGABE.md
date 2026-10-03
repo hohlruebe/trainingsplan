@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026
+Stand: 3. Oktober 2026 (nach PR #24)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -20,12 +20,9 @@ Stand: 3. Oktober 2026
 - PR #22: Paket 1 (Heute aufgeräumt, Bandnamen, Übungen nach Ort, Räder statt Klapp-Listen, `DESIGN.md`).
 - PR #23: Paket 2 (Plan hinter Info-Knopf, Werte mit Netzdiagramm und 5 Bereichen, Bandfarben, Mobility mit
   Cool-down, Ruhetag-Flows, Routinen unter Tools, Beweglichkeits-Check).
-
-## Offen zum Mergen
-- PR #24 (https://github.com/hohlruebe/trainingsplan/pull/24), Paket 3: Tools › 1RM (Epley, 2,5 kg),
-  Körpergewicht in den Einstellungen, 1RM zählt relativ zum Körpergewicht in Kraft/Schnellkraft,
-  Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Bereichs-Aufstieg und 1RM-Bestwert.
-  `CLAUDE.md` in diesem PR beschreibt das schon.
+- PR #24: Paket 3 (Tools › 1RM mit Epley und 2,5 kg, Körpergewicht in den Einstellungen, 1RM zählt relativ
+  zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
+- PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 
 ## In Arbeit: Maskottchen für Übungsgrafiken
 Ziel: animierte Figur, die jede Übung zeigt. Gezeigt im Training (Schritt-Seiten), unter Tools › Übungen
@@ -44,7 +41,11 @@ Weg bis jetzt (Rückmeldungen von Dennis):
 6. Drei Stile in Front-, Halb- und Seitenansicht → **Stil C „Geste“ gefällt am besten**
    (lockere Mehrfach-Striche, starke Line of Action).
 7. Jetzt im Canvas: drei Varianten von C (C1 Fein, C2 Kräftig, C3 Mit Volumen) in 8 Positionen rundum
-   plus animierte Probe (Air Squat) in einer nachgebauten Trainings-Seite. **Wartet auf Dennis' Wahl.**
+   plus animierte Probe (Air Squat) in einer nachgebauten Trainings-Seite → **C1 „Fein“ gefällt am besten.**
+   Bei der Animation war oben ein Teil des Kopfes abgeschnitten → Bild kleiner, Ausschnitt begrenzen.
+8. Jetzt im Canvas: drei Varianten von C1 (rundum und animiert):
+   C1-A Fein (Striche stehen still), C1-B Lebendige Striche (Skizzenstriche zittern leicht),
+   C1-C Arbeitende Muskeln (trainierte Teile blau, Bodenschatten). **Wartet auf Dennis' Wahl.**
 
 Technik (Skripte in `design/maskottchen/`, Aufruf `python3 maskottchen.py`, Ausgabe in `out/`):
 - Die Figur ist ein 3D-Skelett (Gelenke x, y, z), wird um die Hochachse gedreht und flach gezeichnet.
@@ -54,6 +55,8 @@ Technik (Skripte in `design/maskottchen/`, Aufruf `python3 maskottchen.py`, Ausg
   (SMIL-Verschieben/Drehen/Strecken fertiger Formen zwischen zwei 2D-Posen). Formen wurden dabei gestreckt
   und Gelenkpositionen geradlinig statt über Winkel überblendet. Jetzt wird jedes Bild mit derselben
   Zeichenfunktion aus Gelenkwinkeln erzeugt.
+- Bildausschnitt einer Animation = Ausdehnung über alle Bilder der Bewegung plus Rand. So wird nie etwas
+  abgeschnitten (Kopf oben, Hände vorn).
 - Für die App geplant: dieselbe Zeichenfunktion in JavaScript in `index.html`, Bilder live im Browser
   berechnen (keine großen Dateien, offline). Posen je Übung als Gelenkwinkel-Keyframes.
 
