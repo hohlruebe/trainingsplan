@@ -133,5 +133,9 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   teilen (Aussehen · Training · Gerät · Daten, dazu Profil und Sync). Im Canvas (P34) aktualisiert.
   Danach ergänzt: Schalter „Wischen umkehren“; „Runden zählen beim Metcon“ (Zähler „+ Runde fertig“, tippen oder
   wischen, Runden stehen am Ende schon drin); EMOM: der Timer schaltet weiter, in der laufenden Karte unten
-  „Als Nächstes · Min 2“ mit kleiner Figur und Countdown. **Wartet auf Dennis' Freigabe, dann einbauen.**
+  „Als Nächstes · Min 2“ mit kleiner Figur und Countdown.
+  Rückmeldung: Rundenzähler **nur in der Liste** (Einzeln zählt Übung für Übung und Wdh. mit), am Ende in beiden
+  Modi **Ergebnis prüfen** (Blatt „Stimmt dein Ergebnis?“ mit vorausgefüllten Kacheln). Alles Neue strikt aus den
+  Bausteinen: Zähler = `.stepper`, Infos = `.chip`/`.chip.blue`, Werte = `.tile`. EMOM-Vorschau als Chip mit
+  Mini-Figur + blauer Countdown-Chip. Im Canvas (P34) mit echten App-Bildern. **Wartet auf Dennis' Freigabe.**
 
