@@ -8,7 +8,9 @@ for (var k in M.EXERCISES){var e=M.EXERCISES[k],n=Math.round(e.dur*12),eMin=999,
 
 // Kontaktpunkte: Hände und Füße, die am Boden, Ring oder Gerät sind, dürfen sich nie lösen (höchstens 1,5 px vom Ziel).
 var C = { g_pullup: 'H', g_chinup: 'H', g_dip: 'H', g_row: 'HF', g_kneeraise: 'H', g_push: 'HF', g_pike: 'HF', g_tuck: 'HF', g_ring_push: 'HF', g_hspu: 'H', g_lsit: 'H',
-  g_mountain_climber: 'H', g_plank: 'F', g_scap: 'HF', g_diamond_push: 'HF', g_slider_curl: 'HF', g_hip_thrust: 'F', g_bridge: 'HF', g_handstand: 'H', g_air: 'F', g_nordic: 'F', g_abwheel: 'F' };
+  g_mountain_climber: 'H', g_plank: 'F', g_scap: 'HF', g_diamond_push: 'HF', g_slider_curl: 'HF', g_hip_thrust: 'F', g_bridge: 'HF', g_handstand: 'H', g_air: 'F', g_nordic: 'F', g_abwheel: 'F',
+  g_push_knee: 'H', g_push_parallettes: 'HF', g_push_decline: 'HF', g_push_band: 'HF', g_push_weighted: 'HF', g_pistol_assisted: 'H', g_support_hold: 'H', g_free_handstand: 'H',
+  g_wrist_extension_stretch: 'H', g_planche_lean: 'HF', g_knee_to_wall: 'F', g_wall_flexion_hold: 'F', g_wall_slide: 'F', g_deep_squat: 'F', g_overhead_squat_hold: 'F', g_ragdoll: 'F', g_jefferson_curl: 'F', g_pike_stretch: 'F' };
 var bad = 0;
 for (var k2 in C) {
   var e2 = M.EXERCISES[k2]; if (!e2) continue;
