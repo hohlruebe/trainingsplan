@@ -207,6 +207,10 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - Danach: Runde 3 mit den nächsten 20 (z. B. Wall Walk, Box Jump, Kettlebell Swing, Goblet Squat, Thruster,
   Walking Lunge, Step-up, Hollow Hold-Varianten, Bear Crawl, Russian Twist, Wall Sit, Band-Übungen, Dragon Flag, Front Lever …).
 
+## Allround: Rhythmus der Woche
+- Dennis: lieber 2–1–3–1 oder 3–1–2–1 statt 4 Tage Training am Stück. Umgesetzt 3–1–2–1: Tag 4 Ruhetag (Flow A),
+  Tag 5 Intervall-Lauf. So folgt auf den Zug-Tag (mit Beinen) ein Ruhetag, und die Intervalle laufen mit frischen Beinen.
+
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
 

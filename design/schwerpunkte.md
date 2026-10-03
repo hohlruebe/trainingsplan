@@ -29,15 +29,15 @@ Kurzübersicht:
 ## 1 · Allround (Hybrid)
 
 **Ziel:** vielseitig fit, Kraft und Ausdauer zugleich. Das ist dein bisheriger Plan mit der neuen Reihenfolge.
-**Reiz:** gleichzeitiges Training (concurrent training). Drei Krafttage, zwei Läufe, kurze Metcons.
+**Reiz:** gleichzeitiges Training (concurrent training). Drei Krafttage, zwei Läufe, kurze Metcons. Rhythmus 3 Tage Training, 1 frei, 2 Training, 1 frei.
 
 | Tag | Einheit | Dauer |
 |---|---|---|
 | 1 | **Ganzkörper:** Aufwärmen · Handstand 5 Min · EMOM 12 (Zug, Druck, Beine) · Metcon 8 Min | ~45 Min |
 | 2 | Lauf locker | 20–45 Min |
 | 3 | **Zug:** EMOM 12 (Zug vertikal, Einbein, Beinbeuger) · Metcon 8 Min | ~45 Min |
-| 4 | Intervall-Lauf | 30–40 Min |
-| 5 | Ruhetag, Flow A | 12 Min |
+| 4 | Ruhetag, Flow A | 12 Min |
+| 5 | Intervall-Lauf | 30–40 Min |
 | 6 | **Druck:** EMOM 12 (Druck horizontal, Druck vertikal, Hüfte) · Metcon 8 Min | ~45 Min |
 | 7 | Ruhetag, Flow B | 12 Min |
 
