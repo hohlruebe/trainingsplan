@@ -585,6 +585,8 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .eq-scroll{max-height:56vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
 .rbtn.sm{width:40px;height:40px;flex:0 0 auto}
 .rbtn.sm svg{width:18px;height:18px}
+.ort-prev{margin:4px auto 14px;pointer-events:none}
+.ort-hint{margin:4px 0 14px}
 .ic-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
 .ic-pick{height:52px;border:0;border-radius:16px;background:var(--board);color:var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .ic-pick svg{width:24px;height:24px}
@@ -1378,7 +1380,7 @@ var ORT_K = {}; ORTE_FIX.forEach(function (f) { ORT_K[f.k] = f; });
 // Eigener Name (nm) und eigenes Symbol (ic) je Ort, sonst die festen Werte.
 var ORT_IC = { berg: 'M3 20l6-10 4 6 3-4 5 8z', sonne: 'M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
   wasser: 'M3 15c2 0 2-2 4.5-2s2.5 2 4.5 2 2-2 4.5-2 2.5 2 4.5 2M3 19c2 0 2-2 4.5-2s2.5 2 4.5 2 2-2 4.5-2 2.5 2 4.5 2M8 10a4 4 0 0 1 8 0',
-  ringe: 'M8 3v9M16 3v9M5 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0M13 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0', kettlebell: 'M9 9V7a3 3 0 0 1 6 0v2M7 14a5 5 0 1 0 10 0a5 5 0 0 0-10 0',
+  ringe: 'M8 3v9M16 3v9M5 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0M13 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0', kettlebell: 'M7.5 9.5V8a4.5 3.5 0 0 1 9 0v1.5M5 15a7 6 0 0 1 14 0c0 2.3-1 4.3-2.5 5.5h-9C6 19.3 5 17.3 5 15zM7.5 9.5h9',
   auto: 'M4 16v-3l2-5h12l2 5v3zM7 16v2M17 16v2M4 13h16', bett: 'M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5M5.5 11a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0',
   herz: 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z', stern: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6l-5.4 2.9 1.2-6-4.5-4.2 6.1-.7z' };
 ORTE_FIX.slice().reverse().forEach(function (f) { var o = {}; o[f.k] = f.d; ORT_IC = Object.assign(o, ORT_IC); });
@@ -3360,7 +3362,8 @@ function closeSheet() { var s = document.getElementById('sheet'); if (s) { if (s
 // Blatt mit Textfeld: Höhe an den sichtbaren Bereich anpassen, damit die Tastatur das Feld nicht verdeckt.
 function fitKeyboard(bg) {
   var vv = window.visualViewport; if (!vv) return;
-  function fit() { bg.style.top = vv.offsetTop + 'px'; bg.style.height = vv.height + 'px'; bg.style.bottom = 'auto'; }
+  // Abstand unten = Teil der Seite, den die Tastatur verdeckt. Der dunkle Hintergrund bleibt über allem.
+  function fit() { bg.style.paddingBottom = Math.max(0, Math.round(window.innerHeight - vv.offsetTop - vv.height)) + 'px'; }
   vv.addEventListener('resize', fit); vv.addEventListener('scroll', fit); fit();
   bg._unfit = function () { vv.removeEventListener('resize', fit); vv.removeEventListener('scroll', fit); };
 }
@@ -4008,7 +4011,7 @@ CHG.eq = function (el) {
   saveState(); setTimeout(function () { render(); refreshEqSheet(); }, 420);
 };
 ACT['eq-open'] = function (el) { ui.eqOpen = ui.eqOpen === el.dataset.id ? null : el.dataset.id; ui.eqAnim = ui.eqOpen; refreshEqSheet(); ui.eqAnim = null; };
-function openForm(title, body, okLabel, ok) {
+function openForm(title, body, okLabel, ok, opt) {
   closeSheet();
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">' + esc(okLabel) + '</button></div><div class="sh-body">' + body + '</div></div>';
@@ -4022,7 +4025,7 @@ function openForm(title, body, okLabel, ok) {
   });
   document.addEventListener('keydown', sheetKey);
   fitKeyboard(bg);
-  requestAnimationFrame(function () { bg.classList.add('open'); var i = bg.querySelector('input'); if (i) i.focus(); });
+  requestAnimationFrame(function () { bg.classList.add('open'); var i = bg.querySelector('input'); if (i && !(opt && opt.noFocus)) i.focus(); });
 }
 ACT['band-col'] = function (el) {
   var name = el.dataset.v, cur = bandColor(name);
@@ -4047,15 +4050,23 @@ ACT.orte = function (el) {
 ACT['ort-edit'] = function (el) {
   var o = S.orte.filter(function (x) { return x.id === el.dataset.id; })[0]; if (!o) return;
   var std = ORT_K[o.k].name, cur = o.ic && ORT_IC[o.ic] ? o.ic : o.k, from = el.dataset.from;
-  openForm('Ort bearbeiten', '<label class="field"><span>Name</span><input type="text" id="ort-nm" maxlength="20" autocomplete="off" value="' + esc(o.nm || '') + '" placeholder="' + esc(std) + '"></label>' +
-    '<p class="small muted">Leer lassen für „' + esc(std) + '“.</p><h3 style="margin-top:14px">Symbol</h3><div class="ic-grid">' + Object.keys(ORT_IC).map(function (k) {
-      return '<button type="button" class="ic-pick' + (k === cur ? ' on' : '') + '" data-seg="' + k + '" aria-label="Symbol ' + k + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + ORT_IC[k] + '"/></svg></button>';
+  function ic(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; }
+  openForm('Ort bearbeiten', '<div class="cap ort-prev" aria-hidden="true"><span class="cap-btn on">' + ic(ORT_IC[cur]) + '<span>' + esc(ortName(o)) + '</span></span></div>' +
+    '<label class="field"><span>Name</span><input type="text" id="ort-nm" maxlength="20" autocomplete="off" autocapitalize="words" enterkeyhint="done" value="' + esc(ortName(o)) + '"></label>' +
+    '<p class="small muted ort-hint">Leer lassen für „' + esc(std) + '“.</p><div class="field"><span>Symbol</span></div><div class="ic-grid">' + Object.keys(ORT_IC).map(function (k) {
+      return '<button type="button" class="ic-pick' + (k === cur ? ' on' : '') + '" data-seg="' + k + '" aria-label="Symbol ' + k + '">' + ic(ORT_IC[k]) + '</button>';
     }).join('') + '</div>', 'Sichern', function (bg) {
     var n = bg.querySelector('#ort-nm').value.trim().slice(0, 20), sel = bg.querySelector('[data-seg].on');
     if (n && n !== std) o.nm = n; else delete o.nm;
     if (sel && sel.dataset.seg !== o.k) o.ic = sel.dataset.seg; else delete o.ic;
     saveState(); render(); setTimeout(function () { ACT.orte({ dataset: { from: from } }); }, 320);
-  });
+  }, { noFocus: true });
+  // Vorschau oben läuft live mit.
+  var bg = document.getElementById('sheet'), inp = bg.querySelector('#ort-nm'), pv = bg.querySelector('.ort-prev .cap-btn');
+  function prev() { var s2 = bg.querySelector('[data-seg].on'); pv.innerHTML = ic(ORT_IC[s2 ? s2.dataset.seg : cur]) + '<span>' + esc(inp.value.trim() || std) + '</span>'; }
+  inp.addEventListener('input', prev);
+  inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } });
+  bg.addEventListener('click', function (e) { if (e.target.closest('[data-seg]')) setTimeout(prev, 0); });
 };
 CHG['ort-on'] = function (el) {
   var o = S.orte.filter(function (x) { return x.id === el.dataset.id; })[0]; if (!o) return;

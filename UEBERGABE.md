@@ -130,7 +130,7 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - Auf dem Handy: Chrome prüft das Manifest beim Öffnen und aktualisiert das Symbol selbst (kann etwas dauern, evtl. mit
   Nachfrage). Klappt das nicht: erst exportieren oder syncen, dann neu installieren.
 
-## Bibliothek, Orte, Bewegung, Off-White (PR #30)
+## Bibliothek, Orte, Bewegung, Off-White (PR #30, gemergt)
 - Tools › Übungen: „Alle“ ganz links in der Orte-Kapsel (jede Übung, egal wo). Ort gewählt → kleine Kapsel nur mit Orten plus Stift.
   Ort nochmal tippen → große Kapsel. Die Zeile „… brauchen anderes Equipment · Zeigen“ ist weg. Ort gilt sofort auch fürs Training.
 - Orte und Equipment aus dem Profil in die Bibliothek verlagert (Dennis: Variante C, Blatt von unten). Profil hat nur noch
@@ -138,6 +138,14 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - Bewegung als feste Regel in `DESIGN.md`: Pille gleitet, Drücken gibt nach, kein blaues Antipp-Leuchten (Board P44).
 - Off-White (Board P46): Dennis will durchschalten → Einstellungen › Aussehen › Hintergrund: Weiß | Kreide | Leinen | Nebel
   (nur Hellmodus, nur auf dem Gerät). Offen: welche Variante Standard wird.
+
+## Ort bearbeiten verbessert (PR offen)
+- Dennis' Screenshot: Tastatur sprang sofort auf, Lücke zwischen Blatt und Tastatur, grauer Platzhalter wirkte wie ein Wert,
+  Kettlebell-Symbol sah aus wie eine Schachfigur.
+- Jetzt: Blatt öffnet ohne Tastatur (`openForm` mit `noFocus`), Vorschau oben zeigt live die Kapsel mit Symbol und Name,
+  im Feld steht der echte Name, „Name“ und „Symbol“ gleich gestaltet, neues Kettlebell-Symbol.
+- `fitKeyboard` hält das Blatt jetzt über Abstand unten direkt über der Tastatur, der dunkle Hintergrund deckt alles ab.
+  Auf dem Handy prüfen (auch im Vollbild).
 
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
