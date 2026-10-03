@@ -27,7 +27,7 @@
 
   // Farbsätze: hell ist der Standard (STYLE).
   // Dunkel = „Kreide auf Dunkel“ (D1, von Dennis gewählt): helle Striche auf einer Fläche knapp heller als die Karte.
-  var PALETTES = { dark: { ink: '#E4E3F7', far: '#6D6B9C', action: '#F0A04B', floor: '#3A3B40', joint: '#1A1B1E', panel: '#222327' } };
+  var PALETTES = { dark: { ink: '#E4E3F7', far: '#6D6B9C', action: '#F0A04B', floor: '#4A4B52', joint: '#2A2B30', panel: '#33343A' } };
 
   // ---- Grundhaltung: 3D-Gelenke (x rechts, y unten, z zum Betrachter), a = linke Bildseite von vorn ----
   var STAND = {

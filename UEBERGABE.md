@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026 (Trainingsmodi Einzeln/Liste eingebaut)
+Stand: 3. Oktober 2026 (App-Symbol D3, Dunkelmodus in Graphit)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -23,6 +23,7 @@ Stand: 3. Oktober 2026 (Trainingsmodi Einzeln/Liste eingebaut)
 - PR #24: Paket 3 (Tools › 1RM mit Epley und 2,5 kg, Körpergewicht in den Einstellungen, 1RM zählt relativ
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
+- PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
 ## In Arbeit: Maskottchen für Übungsgrafiken
 Ziel: animierte Figur, die jede Übung zeigt. Gezeigt im Training (Schritt-Seiten), unter Tools › Übungen
@@ -116,6 +117,19 @@ Gewünscht (erst Entwurf im Canvas):
   Regionen mit Empfehlungen).
 Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Namen und Stufen nie ändern.
 
+## App-Symbol und Dunkelmodus in Graphit (PR offen)
+- Dennis: Das alte Symbol (Ringe auf Whiteboard mit grauem Rahmen) passt nicht mehr zu „Emaille“.
+- Runden im Canvas: 3 Vorschläge → 5 Konzepte ohne Ringe → minimalistisch Mensch oder Gerät → doch Ringe (R2 frei hängend)
+  → dazu der Marker-Strich wie auf dem Whiteboard (links bündig, sonst wirkt es wie ein Gesicht) → Hintergrund Graphit wie die
+  Übungsgrafik im Dunkelmodus → **D3**: Kreide-Ringe, hellblauer Strich, Graphit.
+- Ein Symbol je Hell/Dunkel geht bei Web-Apps nicht (Chrome legt es beim Installieren fest). Dafür `icon-mono-512.png`
+  (`purpose: monochrome`) für die Designsymbole von Android.
+- Dunkelmodus der App ebenfalls in Graphit (Board P43, Alt neben Neu): Hintergrund #1E1F23, Karten #2A2B30, Glas #24252A,
+  Pille #41424A, Grafik-Fläche #33343A, Linien #36373D, Statusleiste #1E1F23. Maskottchen-Farbsatz dunkel: Gelenke #2A2B30,
+  Fläche #33343A, Boden #4A4B52 (Vorlage und Kopie gleich).
+- Auf dem Handy: Chrome prüft das Manifest beim Öffnen und aktualisiert das Symbol selbst (kann etwas dauern, evtl. mit
+  Nachfrage). Klappt das nicht: erst exportieren oder syncen, dann neu installieren.
+
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
 
@@ -147,7 +161,7 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   beim Metcon erst nach „Stimmt dein Ergebnis?“. Aufwärmen: „Erledigt, weiter“ auf der letzten Übung springt direkt zum
   nächsten Schritt (Chip „Danach: Handstand“), kein zweiter Knopf. Board P36.
   Dennis: Knöpfe mit je einem Wort → „‹ Zurück | Erledigt ›“. Ergebnis-Eingabe bleibt Rad, nochmal tippen = Zahlenfeld.
-- **Eingebaut (PR offen, Branch `claude/beautiful-lamport-m3v241`):**
+- **Eingebaut (PR #28, gemergt):**
   - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten. Training: Standard | Benutzerdefiniert,
     je Trainingsart Einzeln | Liste, Rundenzähler, Wischen statt Tippen, Wischen umkehren (alles nur auf dem Gerät).
   - Liste und Einzeln für Aufwärmen, Metcon, Murph (Runden), Cool-down (folgt der Uhr); Kraft einzeln = nur die laufende Karte.

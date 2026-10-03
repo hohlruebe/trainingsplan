@@ -44,15 +44,15 @@
 :root[data-font="hand"] .hand,:root[data-font="hand"] .qty,:root[data-font="hand"] .rules li::marker{-webkit-text-stroke:.6px currentColor}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --board:#0E0F11; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#26272B; --line2:#3A3B40; --red:#FF8B7B;
-    --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --plate:#1F2226; --plate-line:#33373D; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
-    --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark; --fig:#222327;
+    --board:#1E1F23; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#36373D; --line2:#4A4B52; --red:#FF8B7B;
+    --paper:#2A2B30; --fill:#36373D; --pill:#41424A; --plate:#26272C; --plate-line:#3A3B42; --tray:#24252A; --tray-line:#36373D; --green:#8ED1A0;
+    --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark; --fig:#33343A;
   }
 }
 :root[data-theme="dark"]{
-  --board:#0E0F11; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#26272B; --line2:#3A3B40; --red:#FF8B7B;
-  --paper:#1A1B1E; --fill:#2A2B30; --pill:#33343A; --plate:#1F2226; --plate-line:#33373D; --tray:#151618; --tray-line:#26272B; --green:#8ED1A0;
-  --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark; --fig:#222327;
+  --board:#1E1F23; --ink:#F2F2EF; --ink2:#9C9CA3; --line:#36373D; --line2:#4A4B52; --red:#FF8B7B;
+  --paper:#2A2B30; --fill:#36373D; --pill:#41424A; --plate:#26272C; --plate-line:#3A3B42; --tray:#24252A; --tray-line:#36373D; --green:#8ED1A0;
+  --note:#2E2716; --note-ink:#FFE3A3; --acc:#8DB8FF; --on-acc:#0E1B2B; --shadow:none; color-scheme:dark; --fig:#33343A;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%;background:var(--board)}
@@ -765,7 +765,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 
   // Farbsätze: hell ist der Standard (STYLE).
   // Dunkel = „Kreide auf Dunkel“ (D1, von Dennis gewählt): helle Striche auf einer Fläche knapp heller als die Karte.
-  var PALETTES = { dark: { ink: '#E4E3F7', far: '#6D6B9C', action: '#F0A04B', floor: '#3A3B40', joint: '#1A1B1E', panel: '#222327' } };
+  var PALETTES = { dark: { ink: '#E4E3F7', far: '#6D6B9C', action: '#F0A04B', floor: '#4A4B52', joint: '#2A2B30', panel: '#33343A' } };
 
   // ---- Grundhaltung: 3D-Gelenke (x rechts, y unten, z zum Betrachter), a = linke Bildseite von vorn ----
   var STAND = {
@@ -2602,7 +2602,7 @@ function applyTheme() {
   r.dataset.font = FONTS.some(function (f) { return f.id === S.font; }) ? S.font : 'klar';
   r.style.setProperty('--acc', dark ? c.dark : c.light);
   r.style.setProperty('--on-acc', dark ? '#0E1B2B' : '#FFFFFF');
-  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? '#0E0F11' : '#F5F5F2');
+  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? '#1E1F23' : '#F5F5F2');
   refreshFigs();
 }
 

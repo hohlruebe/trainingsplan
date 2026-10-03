@@ -21,7 +21,7 @@ Den Stil nur ändern, wenn Dennis es ausdrücklich will.
 - Orange Line of Action vom Kopf über die Wirbelsäule bis zum Standbein.
 - Farben hell: vorn `#34327E`, hintere Seite in der Drehung `#A8A7CC`, Line of Action `#E8963A`, Boden `#DADAD3`, Fläche weiß.
 - Farben dunkel („Kreide auf Dunkel“, `PALETTES.dark`): vorn `#E4E3F7`, hinten `#6D6B9C`, Line of Action `#F0A04B`,
-  Boden `#3A3B40`, Gelenke `#1A1B1E`, Fläche `#222327`. Übergabe mit `pal: 'dark'` an `play`, `frames`, `animatedSVG`.
+  Boden `#4A4B52`, Gelenke `#2A2B30`, Fläche `#33343A` (Graphit, seit Oktober 2026). Übergabe mit `pal: 'dark'` an `play`, `frames`, `animatedSVG`.
 - Alle festen Werte stehen oben in `maskottchen.js` unter `STYLE`.
 
 ## Eine neue Übung anlegen
