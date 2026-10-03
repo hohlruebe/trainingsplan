@@ -313,8 +313,8 @@
   // ---- Übungen (Schlüssel = ID in der Übungsbibliothek) ----
   function air(t) { // Air Squat
     var J = {}, k; for (k in STAND) J[k] = STAND[k].slice();
-    var pc = [0, 222 + 78 * t, -4 - 34 * t]; J.pc = pc;
-    var lean = 38 * t * R;
+    var pc = [0, 222 + 100 * t, -4 - 46 * t]; J.pc = pc; // unten: Hüfte unter Kniehöhe (below parallel)
+    var lean = 44 * t * R;
     function up(d, dx, ex) { return [dx, pc[1] - d * Math.cos(lean), pc[2] + d * Math.sin(lean) + ex]; }
     J.nb = up(126, 0, 2); var hc = up(164, 0, 7 - 4 * t); J.hc = [0, hc[1] + 6 * t, hc[2] - 10 * t];
     [['a', -1], ['b', 1]].forEach(function (q) {
@@ -388,7 +388,7 @@
       props: rings(27, RY, 0, -200) });
   }
   function bridge(p) {
-    var t = rep(p, .38, .16), S = [0, 384, -150], py = lerp(372, 300, t);
+    var t = rep(p, .38, .16), S = [0, 384, -150], py = lerp(372, 340, t); // oben: Schulter, Hüfte, Knie in einer Linie
     var pz = S[2] + Math.sqrt(Math.max(0, 112 * 112 - Math.pow(py - S[1], 2))), pc = [0, py, pz];
     var u = norm(sub3(S, pc)), a = Math.atan2(u[2], -u[1]) / R;
     return build({ pc: pc, a: a, hc: [0, 380, -195],
@@ -402,16 +402,20 @@
       legs: { a: { to: [-14, 390, 46], pole: [0, 0, 1] }, b: { to: [14, 324, -92], pole: [0, 1, .3], dir: [0, .2, -1] } },
       props: bench(-128, -64, 332, 34) });
   }
-  function abwheel(p) {
-    var t = rep(p, .44, .06), q = lerp(18, 66, t) * R, K = [0, 386, 0];
-    var hip = add(K, [0, -80 * Math.cos(q), 80 * Math.sin(q)]), a = lerp(48, 80, t), u = [0, -Math.cos(a * R), Math.sin(a * R)];
-    var pc = add(hip, mul(u, 6)), sh = add(pc, mul(u, 112)), wy = 383;
-    var wz = sh[2] + Math.sqrt(Math.max(0, 104 * 104 - Math.pow(wy - sh[1], 2)));
-    return build({ pc: pc, a: a, nod: lerp(-10, 6, t),
+  function abwheel(p) { // Hände bleiben immer am Rad: das Rad sitzt dort, wo die Hände sind
+    var t = rep(p, .44, .06), q = lerp(14, 64, t) * R, K = [0, 386, 0];
+    var hip = add(K, [0, -80 * Math.cos(q), 80 * Math.sin(q)]), a = lerp(74, 86, t), u = [0, -Math.cos(a * R), Math.sin(a * R)];
+    var pc = add(hip, mul(u, 6)), sh = add(pc, mul(u, 112)), wy = 380;
+    var reach = Math.sqrt(104 * 104 - 13 * 13), dy = wy - sh[1];
+    var wz = sh[2] + Math.sqrt(Math.max(0, reach * reach - dy * dy));
+    var J = build({ pc: pc, a: a, nod: lerp(-14, 4, t),
       arms: both(function (x) { return { to: [x * 18, wy, wz], pole: [x * .4, .3, -1], dir: [0, .2, 1] }; }),
-      legs: both(function (x) { return { to: [x * 14, 384, -82], pole: [0, .6, 1], dir: [0, .3, -1] }; }),
-      props: [{ type: 'circle', c: [0, 383, wz], r: 14, hub: true, layer: 'mid', keep: true }, { type: 'line', a: [-26, 383, wz], b: [26, 383, wz], w: 2, layer: 'mid' }] });
+      legs: both(function (x) { return { to: [x * 14, 384, -82], pole: [0, .6, 1], dir: [0, .3, -1] }; }) });
+    var c = [0, (J.wra[1] + J.wrb[1]) / 2 + 3, (J.wra[2] + J.wrb[2]) / 2];
+    J._props = [{ type: 'circle', c: c, r: 14, hub: true, layer: 'mid', keep: true }, { type: 'line', a: [-26, c[1], c[2]], b: [26, c[1], c[2]], w: 2, layer: 'mid' }];
+    return J;
   }
+
 
   var api = {
     STYLE: STYLE, STAND: STAND, figure: figure, fitBox: fitBox, frames: frames, animatedSVG: animatedSVG, play: play,

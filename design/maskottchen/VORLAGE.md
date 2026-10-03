@@ -39,7 +39,10 @@ Den Stil nur ändern, wenn Dennis es ausdrücklich will.
 4. In `EXERCISES` mit der ID aus der Übungsbibliothek eintragen: `{ name, pose, yaw, dur, floor }`.
    `yaw`: 38 (halb gedreht) für Zug und Kniebeugen, 55–70 (eher seitlich) für Boden-Übungen.
    `floor: false`, wenn die Figur hängt oder stützt (Ringe), dann keine Bodenlinie.
-5. Prüfen mit Standbildern (Start, Mitte, Umkehrpunkt), dann animiert.
+5. Prüfen mit Standbildern (Start, Mitte, Umkehrpunkt), dann animiert. Dabei nachmessen, nicht nur schauen:
+   - Geräte, die man hält (Rad, Hantel), werden aus den berechneten Handgelenken gesetzt, damit die Hände nie abheben.
+   - Kniebeugen gehen unten **below parallel**: Hüftgelenk tiefer als das Knie.
+   - Endpositionen sauber wie im Testtag-Text, z. B. Glute Bridge oben Schulter, Hüfte, Knie in einer Linie (kein Hohlkreuz).
 
 Vorhanden: g_air, g_pullup, g_push, g_pistol, g_nordic, g_hollow, g_handstand, g_dip, g_bridge, g_chinup, g_bss, g_abwheel.
 

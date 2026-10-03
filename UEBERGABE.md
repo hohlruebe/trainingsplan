@@ -63,7 +63,9 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
 
 11. Jetzt im Canvas: Probe aller 11 Testtag-Übungen (plus Air Squat) mit der Vorlage, animiert.
     Neu in der Vorlage: Posen-Baukasten `build` und Geräte (Ringe, Bank, Wand, Rad, Fersenhalter).
-    **Wartet auf Dennis' Rückmeldung zu den einzelnen Bewegungen.**
+    Rückmeldung: Ab Wheel – Hände lösten sich vom Rad; Glute Bridge – oben zu weit durchgedrückt;
+    Air Squat – muss wirklich below parallel gehen. Alles korrigiert und nachgemessen (Rad folgt den Händen,
+    Bridge oben in einer Linie, Hüfte unten 14 px unter dem Knie). **Wartet auf weitere Rückmeldung.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
 - Figur als 3D-Skelett, um die Hochachse gedreht, Bild für Bild aus Gelenkwinkeln gezeichnet.
