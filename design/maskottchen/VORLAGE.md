@@ -49,6 +49,12 @@ Den Stil nur ändern, wenn Dennis es ausdrücklich will.
      Deshalb das Ziel für gestreckte Glieder 3–5 px über die volle Länge hinaus setzen (die Lücke zur Hand bleibt unsichtbar).
      Nachmessen mit `node design/maskottchen/pruefen.js`.
    - Die andere Seite ebenso: Pull-up oben Kinn über dem Ring, Dip unten Oberarm waagerecht, Push-up unten Brust etwa eine Faust über dem Boden.
+   - **Kontaktpunkte halten (Dennis):** Hände und Füße, die am Boden, an den Ringen oder am Gerät sind, lösen sich nie.
+     `ik3` dehnt ein gestrecktes Glied dafür um bis zu 12 px (unsichtbar), statt die Hand schweben zu lassen.
+     `build` merkt sich die Ziele (`_to`), `pruefen.js` misst den Abstand (höchstens 1,5 px).
+   - **Ringe:** die Hand ist im Ring am unteren Rand. Hängen: Handgelenk 20 px unter der Ringmitte, Hand nach oben.
+     Stütz (Dip, Ring Push-up): Handgelenk 12 px über der Ringmitte, Hand nach unten auf den unteren Rand.
+   - **Kniebeugen** gehen in jeder Grafik unten below parallel (auch Squat Jump, Burpee, Thruster …).
    - Endpositionen sauber wie im Testtag-Text, z. B. Glute Bridge oben Schulter, Hüfte, Knie in einer Linie (kein Hohlkreuz).
 
 Vorhanden: g_air, g_pullup, g_push, g_pistol, g_nordic, g_hollow, g_handstand, g_dip, g_bridge, g_chinup, g_bss, g_abwheel.
