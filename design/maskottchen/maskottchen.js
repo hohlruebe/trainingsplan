@@ -330,15 +330,15 @@
   }
   function hang(p, chin) { // Ring Pull-up und Ring Chin-up
     var t = rep(p, .4, .1), RY = 30, gx = chin ? 22 : 28;
-    var pc = [0, lerp(250, 168, t), lerp(14, 4, t)], a = lerp(-6, -12, t);
+    var pc = [0, lerp(266, 157, t), lerp(13.7, 6, t)], a = lerp(-6, -12, t); // unten toter Hang: Arme ganz gestreckt
     return build({ pc: pc, a: a, nod: lerp(0, -10, t),
       arms: both(function (x) { return { to: [x * gx, RY + 12, 0], pole: [x * (chin ? .3 : .8), .5, chin ? .9 : .4], dir: [0, -1, 0] }; }),
-      legs: both(function (x) { return { to: add(pc, [x * 9, 150, 34]), pole: [0, 0, 1], dir: [0, .7, .7] }; }),
+      legs: both(function (x) { return { to: add(pc, [x * 12, 168, 26]), pole: [0, 0, 1], dir: [0, .7, .7] }; }), // Beine gestreckt, leicht vor dem Körper
       props: rings(gx, RY, 0, -200) });
   }
   function pushup(p) {
-    var t = rep(p), A = [0, 384, -268], S = [0, lerp(283, 336, t), lerp(0, 10, t)];
-    var L = norm(sub3(S, A)), pc = add(A, mul(L, 160)), a = Math.atan2(L[2], -L[1]) / R;
+    var t = rep(p), A = [0, 384, -268], S = [0, lerp(271, 336, t), lerp(0, 10, t)]; // oben Arme ganz gestreckt
+    var L = norm(sub3(S, A)), pc = add(A, mul(L, 172)), a = Math.atan2(L[2], -L[1]) / R; // Körper gerade, Beine gestreckt
     return build({ pc: pc, a: a, nod: -10,
       arms: both(function (x) { return { to: [x * 32, 386, 0], pole: [x * .45, -.2, -1], dir: [0, .1, 1] }; }),
       legs: both(function (x) { return { to: [x * 11, 384, -268], pole: [0, 1, 0], dir: [0, .55, .85] }; }) });
@@ -348,7 +348,7 @@
     var hb = add(pc, [18, 6, 0]), ang_ = lerp(25, 84, t) * R;
     return build({ pc: pc, a: a, nod: lerp(0, -20, t),
       arms: both(function (x) { var b = lerp(15, 92, t) * R, sh = [x * 31, 0, 0]; return { to: add(add(pc, [x * 28, -112 * Math.cos(a * R), 112 * Math.sin(a * R)]), [0, 108 * Math.cos(b), 108 * Math.sin(b)]), pole: [0, 1, -.4] }; }),
-      legs: { a: { to: [-15, 390, 0], pole: [0, 0, 1] }, b: { to: add(hb, [2, 161 * Math.cos(ang_), 161 * Math.sin(ang_)]), pole: [0, -.3, 1], dir: [0, -.3, 1] } } });
+      legs: { a: { to: [-15, 390, 0], pole: [0, 0, 1] }, b: { to: add(hb, [2, 166 * Math.cos(ang_), 166 * Math.sin(ang_)]), pole: [0, -.3, 1], dir: [0, -.3, 1] } } });
   }
   function nordic(p) {
     var t = rep(p, .5, .1), q = lerp(0, 68, t) * R, K = [0, 384, 0];
@@ -368,20 +368,20 @@
     var e = 14 + sway(p, 2.5), pc = [0, 380, 0], a = -72 + sway(p, 1.5);
     var u = [0, -Math.cos(a * R), Math.sin(a * R)];
     return build({ pc: pc, a: a, nod: 18,
-      arms: both(function (x) { var sh = add(add(pc, mul(u, 112)), [x * 31, 0, 0]); return { to: add(sh, mul(norm([0, -.32, -1]), 108)), pole: [0, -1, 0] }; }),
-      legs: both(function (x) { var hi = add(pc, [x * 10, 6, 0]); return { to: add(hi, [0, -161 * Math.sin(e * R), 161 * Math.cos(e * R)]), pole: [0, -1, 0], dir: [0, -.4, 1] }; }) });
+      arms: both(function (x) { var sh = add(add(pc, mul(u, 112)), [x * 31, 0, 0]); return { to: add(sh, mul(norm([0, -.32, -1]), 114)), pole: [0, -1, 0] }; }),
+      legs: both(function (x) { var hi = add(pc, [x * 10, 6, 0]); return { to: add(hi, [0, -176 * Math.sin(e * R), 176 * Math.cos(e * R)]), pole: [0, -1, 0], dir: [0, -.4, 1] }; }) });
   }
   function handstand(p) {
     var a = 172 + sway(p, 1.2), u = [0, -Math.cos(a * R), Math.sin(a * R)];
-    var S = [0, 282, -4], pc = sub3(S, mul(u, 112));
+    var S = [0, 273, -1], pc = sub3(S, mul(u, 112)); // Arme ganz gestreckt
     var hb = add(pc, [0, 6, 0]), wallZ = add(hb, mul(u, -165))[2] - 12;
     return build({ pc: pc, a: a, nod: -12,
       arms: both(function (x) { return { to: [x * 30, 386, 0], pole: [x, 0, .3], dir: [0, .1, -1] }; }),
-      legs: both(function (x) { return { to: add(add(pc, [x * 8, 0, 0]), mul(u, -165)), pole: [0, 0, -1], dir: [0, -1, .15] }; }),
+      legs: both(function (x) { return { to: add(add(pc, [x * 16, 0, 0]), mul(u, -175)), pole: [0, 0, -1], dir: [0, -1, .15] }; }),
       props: wall(wallZ) });
   }
   function dip(p) {
-    var t = rep(p), RY = 150, pc = [0, lerp(155, 205, t), lerp(-8, -20, t)], a = lerp(6, 26, t);
+    var t = rep(p), RY = 150, pc = [0, lerp(144, 205, t), lerp(-9.7, -20, t)], a = lerp(6, 26, t); // oben Arme ganz gestreckt, unten Oberarm waagerecht
     return build({ pc: pc, a: a, nod: lerp(0, -8, t),
       arms: both(function (x) { return { to: [x * 27, RY - 4, 0], pole: [x * .25, 0, -1], dir: [0, .35, 1] }; }),
       legs: both(function (x) { return { to: add(pc, [x * 8, 112, -78]), pole: [0, .2, 1], dir: [0, .6, -.8] }; }),
@@ -392,13 +392,13 @@
     var pz = S[2] + Math.sqrt(Math.max(0, 112 * 112 - Math.pow(py - S[1], 2))), pc = [0, py, pz];
     var u = norm(sub3(S, pc)), a = Math.atan2(u[2], -u[1]) / R;
     return build({ pc: pc, a: a, hc: [0, 380, -195],
-      arms: both(function (x) { return { to: [x * 40, 388, S[2] + 100], pole: [x, -.5, 0], dir: [0, .1, 1] }; }),
+      arms: both(function (x) { return { to: [x * 40, 388, S[2] + 118], pole: [x, -.5, 0], dir: [0, .1, 1] }; }),
       legs: both(function (x) { return { to: [x * 16, 388, 40], pole: [0, -1, .3], dir: [0, .35, 1] }; }) });
   }
   function bss(p) {
     var t = rep(p), pc = [0, lerp(232, 304, t), lerp(-14, -22, t)], a = lerp(4, 14, t);
     return build({ pc: pc, a: a, nod: -4,
-      arms: both(function (x) { return { to: add(pc, [x * 36, -4, 12]), pole: [x * .3, 0, -1] }; }),
+      arms: both(function (x) { return { to: add(pc, [x * 38, 2, 12]), pole: [x * .3, 0, -1] }; }),
       legs: { a: { to: [-14, 390, 46], pole: [0, 0, 1] }, b: { to: [14, 324, -92], pole: [0, 1, .3], dir: [0, .2, -1] } },
       props: bench(-128, -64, 332, 34) });
   }
@@ -406,7 +406,7 @@
     var t = rep(p, .44, .06), q = lerp(14, 64, t) * R, K = [0, 386, 0];
     var hip = add(K, [0, -80 * Math.cos(q), 80 * Math.sin(q)]), a = lerp(74, 86, t), u = [0, -Math.cos(a * R), Math.sin(a * R)];
     var pc = add(hip, mul(u, 6)), sh = add(pc, mul(u, 112)), wy = 380;
-    var reach = Math.sqrt(104 * 104 - 13 * 13), dy = wy - sh[1];
+    var reach = Math.sqrt(109.6 * 109.6 - 13 * 13), dy = wy - sh[1]; // Arme gestreckt
     var wz = sh[2] + Math.sqrt(Math.max(0, reach * reach - dy * dy));
     var J = build({ pc: pc, a: a, nod: lerp(-14, 4, t),
       arms: both(function (x) { return { to: [x * 18, wy, wz], pole: [x * .4, .3, -1], dir: [0, .2, 1] }; }),

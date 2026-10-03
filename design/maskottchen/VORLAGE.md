@@ -42,6 +42,11 @@ Den Stil nur ändern, wenn Dennis es ausdrücklich will.
 5. Prüfen mit Standbildern (Start, Mitte, Umkehrpunkt), dann animiert. Dabei nachmessen, nicht nur schauen:
    - Geräte, die man hält (Rad, Hantel), werden aus den berechneten Handgelenken gesetzt, damit die Hände nie abheben.
    - Kniebeugen gehen unten **below parallel**: Hüftgelenk tiefer als das Knie.
+   - **Volle Bewegung (Range of Motion):** wo der Arm oder das Bein gestreckt ist (toter Hang, Dip oben, Push-up oben,
+     Handstand, gestreckte Beine), muss das Gelenk mindestens 175° haben. Schon 1 px zu kurz knickt sichtbar ein.
+     Deshalb das Ziel für gestreckte Glieder 3–5 px über die volle Länge hinaus setzen (die Lücke zur Hand bleibt unsichtbar).
+     Nachmessen mit `node design/maskottchen/pruefen.js`.
+   - Die andere Seite ebenso: Pull-up oben Kinn über dem Ring, Dip unten Oberarm waagerecht, Push-up unten Brust etwa eine Faust über dem Boden.
    - Endpositionen sauber wie im Testtag-Text, z. B. Glute Bridge oben Schulter, Hüfte, Knie in einer Linie (kein Hohlkreuz).
 
 Vorhanden: g_air, g_pullup, g_push, g_pistol, g_nordic, g_hollow, g_handstand, g_dip, g_bridge, g_chinup, g_bss, g_abwheel.
