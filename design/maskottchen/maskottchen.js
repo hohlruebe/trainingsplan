@@ -693,7 +693,9 @@
   function pushBand(p) { // Band über den oberen Rücken, Enden unter den Händen
     return pushStd(p, function (J) {
       var top = add(mid(J.sha, J.shb), [0, -14, -10]);
-      return [{ type: 'poly', pts: [J.wra, add(J.sha, [-6, -12, -6]), top, add(J.shb, [6, -12, -6]), J.wrb], open: true, layer: 'front', col: '#4E9C78', w: 4.5 }];
+      var P = [J.wra, add(J.sha, [-6, -12, -6]), top, add(J.shb, [6, -12, -6]), J.wrb], out = [];
+      for (var i = 0; i < P.length - 1; i++) out.push({ type: 'line', a: P[i], b: P[i + 1], col: '#4E9C78', w: 9, layer: 'front' }); // breites grünes Band
+      return out;
     });
   }
   function pushVest(p) { // Weste um den Brustkorb
@@ -720,7 +722,7 @@
   }
   function pistolBox(p) { // einbeinig auf einen Stuhl absitzen
     var J = pistolAt(rep(p, .42, .14), [304, -52, 26], function (pc, a) { return both(function (x) { return { to: add(pc, [x * 26, -40, 120]), pole: [x * .3, 1, -.4] }; }); });
-    J._props = bench(-130, -40, 322, 30);
+    J._props = bench(-118, -36, 320, 30); // Sitzfläche direkt unter dem Becken
     return J;
   }
   function freeHand(p) { // freier Handstand: Balance über die Finger
@@ -761,18 +763,19 @@
       legs: both(function (x) { return { to: add(hi, [x * 10, 8, 166]), pole: UP, dir: [0, -.8, .4] }; }) });
   }
   function jefferson(p) { // auf einer Stufe, Wirbel für Wirbel abrollen, Gewicht hängt vor den Zehen
-    var t = rep(p, .45, .1), k = Math.max(0, (t - .22) / .78), a = lerp(0, 150, k), pc = [0, 222 + 4 * k, lerp(-4, -30, k)], u = trunkU(a), sh = add(pc, mul(u, 112));
+    var t = rep(p, .45, .1), k = Math.max(0, (t - .22) / .78), a = lerp(0, 135, k), pc = [0, 222 + 10 * k, lerp(-4, -20, k)], u = trunkU(a), sh = add(pc, mul(u, 112));
     var J = build({ pc: pc, a: a, nod: Math.min(1, t / .22) * 62, // zuerst Kinn zur Brust, dann abrollen
       arms: both(function (x) { return { to: add(sh, [x * 6, 113, lerp(4, 10, t)]), pole: [x * .4, 0, -1], dir: DOWN }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 0], pole: FWD }; }) });
     // Rücken rund: der obere Rücken und der Kopf rollen weiter ein als das Becken (Brustwirbelsäule krümmt sich)
-    var curl = k * 26 * R, piv = add(pc, mul(u, 50)), cs = Math.cos(curl), sn = Math.sin(curl);
+    var curl = k * 12 * R, piv = add(pc, mul(u, 40)), cs = Math.cos(curl), sn = Math.sin(curl); // Kopf bleibt vor den Schienbeinen
     ['nb', 'hc', 'sha', 'shb', 'ela', 'elb', 'wra', 'wrb', 'haa', 'hab'].forEach(function (q) {
       var y = J[q][1] - piv[1], z = J[q][2] - piv[2]; J[q] = [J[q][0], piv[1] + y * cs + z * sn, piv[2] - y * sn + z * cs];
     });
     var hm = mid(J.haa, J.hab);
-    J._props = [{ type: 'poly', pts: [[-46, 401, -70], [46, 401, -70], [46, 401, 46], [-46, 401, 46]], keep: true },
-      { type: 'poly', pts: [[-46, 401, 46], [-46, 470, 46], [46, 470, 46], [46, 401, 46]], open: true, keep: true },
+    J._props = [{ type: 'poly', pts: [[-46, 401, -120], [46, 401, -120], [46, 401, 16], [-46, 401, 16]], keep: true },
+      { type: 'poly', pts: [[-46, 401, 16], [-46, 470, 16], [46, 470, 16], [46, 401, 16]], open: true, keep: true },
+      { type: 'line', a: [0, 401, -120], b: [0, 470, -120], col: STYLE.far },
       { type: 'line', a: [0, 470, -160], b: [0, 470, 200], keep: true, col: '#DADAD3' },
       { type: 'circle', c: add(hm, [0, 14, 0]), r: 10, layer: 'front', keep: true }, { type: 'line', a: add(J.haa, [0, -2, 0]), b: add(J.hab, [0, -2, 0]), layer: 'front' }];
     return J;
@@ -796,25 +799,27 @@
     for (var y = -60; y < 401; y += 22) l.push({ type: 'line', a: [0, y, z], b: [0, y + 20, z - 30], col: STYLE.far });
     return l;
   }
+  function wallPlane(z) { return [{ type: 'poly', pts: [[-110, -40, z], [110, -40, z], [110, 401, z], [-110, 401, z]], col: STYLE.far, keep: true }]; }
+  function armsIn(J, d) { ['sh', 'el', 'wr', 'ha'].forEach(function (q) { J[q + 'a'][0] += d; J[q + 'b'][0] -= d; }); return J; } // Arme näher an den Rumpf
   function wallFlex(p) { // Rücken an der Wand, gestreckte Arme so weit wie möglich nach hinten
     var t = rep(p, .4, .2), pc = [0, 222, -4], sh = add(pc, [0, -112, 0]);
     var d = norm([0, lerp(.1, -1, t), lerp(1, -.2, t)]);
     var J = build({ pc: pc, a: 0, nod: 0,
       arms: both(function (x) { return { to: add(add(sh, [x * 31, 0, 0]), mul(d, 114)), pole: [x, 0, 0], dir: d }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 30], pole: FWD }; }) });
-    J._props = wallBig(-36);
-    return J;
+    J._props = wallPlane(-40);
+    return armsIn(J, 6);
   }
   function wallSlide(p) { // Unterarme und Handrücken an der Wand, von W nach Y schieben
     var t = rep(p, .42, .08), pc = [0, 222, -4], sh = add(pc, [0, -112, 0]);
     var J = build({ pc: pc, a: 0, nod: 0,
       arms: both(function (x) { return { to: add(sh, [x * lerp(40, 30, t), lerp(-50, -104, t), -24]), pole: [x, lerp(.8, .2, t), -.3], dir: UP }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 30], pole: FWD }; }) });
-    J._props = [{ type: 'poly', pts: [[-110, -30, -40], [110, -30, -40], [110, 401, -40], [-110, 401, -40]], col: STYLE.far }];
-    return J;
+    J._props = wallPlane(-40);
+    return armsIn(J, 12);
   }
   function wristExt(p) { // Vierfüßler, Finger nach vorn, Schultern über die Handgelenke schieben
-    var t = rep(p, .4, .16), K = [0, 386, -116], S = [0, 276, lerp(-22, 6, t)], pc = [0, 296, -108];
+    var t = rep(p, .4, .16), K = [0, 386, -116], S = [0, lerp(276, 280, t), lerp(-22, 34, t)], pc = [0, 296, lerp(-112, -82, t)];
     return build({ pc: pc, a: trunkTo(pc, S), nod: -12,
       arms: both(function (x) { return { to: [x * 30, 386, 0], pole: [x * .3, -.2, -1], dir: [0, .1, 1] }; }),
       legs: both(function (x) { return { to: add([x * 12, 0, 0], add(K, [0, -14, -80])), pole: DOWN, dir: [0, .3, -1] }; }) });
@@ -889,8 +894,8 @@
       g_jefferson_curl: { name: 'Jefferson Curl', pose: jefferson, yaw: 62, dur: 4, floor: false },
       g_deep_squat: { name: 'Deep Squat Hold', pose: deepSquat, yaw: 40, dur: 4 },
       g_overhead_squat_hold: { name: 'Overhead Deep Squat Hold', pose: ohSquat, yaw: 40, dur: 4 },
-      g_wall_flexion_hold: { name: 'Wall Flexion Hold', pose: wallFlex, yaw: 62, dur: 3.6 },
-      g_wall_slide: { name: 'Wall Slide', pose: wallSlide, yaw: 12, dur: 3 },
+      g_wall_flexion_hold: { name: 'Wall Flexion Hold', pose: wallFlex, yaw: 42, dur: 3.6 },
+      g_wall_slide: { name: 'Wall Slide', pose: wallSlide, yaw: 30, dur: 3 },
       g_wrist_extension_stretch: { name: 'Wrist Extension Stretch', pose: wristExt, yaw: 62, dur: 3.4 },
       g_planche_lean: { name: 'Planche Lean', pose: plancheLean, yaw: 62, dur: 3.4 },
       g_knee_to_wall: { name: 'Knee-to-Wall Mobilization', pose: kneeWall, yaw: 62, dur: 2.8 }
