@@ -147,7 +147,7 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - `fitKeyboard` hält das Blatt jetzt über Abstand unten direkt über der Tastatur, der dunkle Hintergrund deckt alles ab.
   Auf dem Handy prüfen (auch im Vollbild).
 
-## Nächste große Aufgabe: Übungsfamilien
+## Übungsfamilien (eingebaut, PR offen)
 - Dennis: Varianten (z. B. 15× Pull-up) in der Bibliothek zu Familien zusammenfassen, erst beim Antippen aufklappen.
   Im Training automatisch die beste Variante nach Können und Geräten.
 - Aufteilung: Cowork ordnet die Übungen Familien zu und rankt sie. Auftrag: `design/auftraege/familien.md`, Ergebnis `familien.json`.
@@ -159,6 +159,11 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   Tempo-Abschnitt, „Führt zu“, Skill-Baum je Bereich (eigene Seite, z. B. Profil › Werte), Karte „Als Nächstes freischalten“ auf Heute.
   Dafür im Cowork-Auftrag ergänzt: `bereich`, `ebene`, `voraussetzt` (mit `ab_rang`), `fuehrt_zu`, `ziel` je Stufe.
 - Beim Einbau beachten: IDs und Namen nie ändern, Familie nur als neues Feld; Aufstieg weiter nur über die Leiter-Regel.
+- **Eingebaut:** `familien.json` von Cowork (48 Familien, 207 Übungen, 20 Entscheidungen, u. a. Chin-up eigene Familie,
+  neuer Bereich Gewichtheben) liegt geprüft in `design/familien.json` und in `index.html` (`fam-data`).
+  Bibliothek mit Familien und Skill-Pfad, Skill-Baum (Profil › Werte), Karte „Als Nächstes freischalten“ auf Heute.
+- **Noch offen:** Das Training wählt die Übung weiter über die Leitern und `planFill` wie bisher. Automatisch die höchste Stufe
+  einer Familie nehmen (Können + Geräte, nie `tempo`) ist der nächste Schritt, erst nach Rückmeldung von Dennis.
   Suche muss Varianten direkt finden. Mobility (56 Übungen) bleibt außen vor.
 
 ## Ideen für später
