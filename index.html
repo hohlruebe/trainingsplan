@@ -2619,7 +2619,7 @@ function renderPlan() {
   h += sec('Der Durchgang', days, true);
   h += sec('Regeln', '<ol class="rules">' + [
     '<b>Tag für Tag:</b> 1 bis 7, dann wieder Tag 1 – egal, auf welchen Wochentag ein Tag fällt.',
-    '<b>Ruhetage zählen mit:</b> Tag 5 und 7 nie überspringen. Ein ungeplant freier Tag zählt nur, wenn als Nächstes ohnehin ein Ruhetag dran ist.',
+    '<b>Ruhetage zählen mit:</b> nie überspringen. Ein ungeplant freier Tag zählt nur, wenn als Nächstes ohnehin ein Ruhetag dran ist.',
     '<b>Ringe:</b> innerhalb eines Blocks (EMOM, AMRAP, Murph) nie umstellen. Zwischen den Blöcken darfst du umhängen.',
     '<b>Einstieg:</b> Einstiegstest, dann 2 Durchgänge Kurzversion mit RIR 3–4.',
     '<b>Pause?</b> Mit dem nächsten Tag weitermachen. Ab 1 Woche Pause erst Kurzversion.',
@@ -2643,7 +2643,7 @@ function renderPlan() {
     '</tbody></table></div><p class="small muted" style="margin-top:8px">Eine Runde: 5 Pull-ups, 10 Push-ups, 15 Air Squats. Nicht nach einer Nachtschicht. Colafarbener Urin oder stark geschwollene, schmerzende Muskeln danach: sofort zum Arzt.</p>' +
     '<p style="margin-top:8px"><b>Testwoche:</b> Der letzte Durchgang des Blocks ist die Testwoche. Die erste Runde der Hauptübung ist ein Maxout mit RIR 0, dazu kommt der Beweglichkeits-Check. Danach folgt der Rückblick. Danach normal weiter. Bist du danach platt: ein Durchgang Kurzversion.</p>');
   var lastTest = LOGS.filter(function (l) { return l.kind === 'test'; });
-  var testBody = '<p>Vor dem ersten Durchgang findest du an drei Testtagen deine Startstufen: Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Tag 2 und 4 laufen normal.</p><p class="small"><b>Formel:</b> Stufe mit 5–8 sauberen Wdh. suchen, Start = Max – 2 (Chin-up: Max – 3).</p>';
+  var testBody = '<p>Vor dem ersten Durchgang findest du an drei Testtagen deine Startstufen: Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Die Lauftage laufen normal.</p><p class="small"><b>Formel:</b> Stufe mit 5–8 sauberen Wdh. suchen, Start = Max – 2 (Chin-up: Max – 3).</p>';
   if (lastTest.length) {
     testBody += '<h3 style="margin-top:10px">Deine Startwerte</h3><div class="tbl-wrap"><table><thead><tr><th>Übung</th><th>Stufe</th><th>Start</th></tr></thead><tbody>' +
       Object.keys(S.base).map(function (n) { var b = S.base[n]; return '<tr><td>' + esc(n) + '</td><td>' + esc(b.stage || '–') + '</td><td>' + (b.start != null ? b.start : '–') + '</td></tr>'; }).join('') + '</tbody></table></div>';
@@ -4236,7 +4236,7 @@ function routineCardHTML(r, main, label) {
     '<button type="button" class="btn ' + (main ? 'primary' : '') + ' block" data-act="r-open" data-v="' + r.id + '">' + PLAY + (label || (main ? 'Flow starten' : 'Cool-down starten')) + '</button></section>';
 }
 function renderRoutinen() {
-  var groups = [['morgen', 'Morgens', 'Sanft wach werden, höchstens 5 Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für Tag 5 und 7.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
+  var groups = [['morgen', 'Morgens', 'Sanft wach werden, höchstens 5 Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
   var h = '<section class="hero"><h1>Routinen</h1><p class="hero-title">Mobility für jeden Tag</p></section>';
   groups.forEach(function (g) {
     var list = MOB.routinen.filter(function (r) { return r.wann === g[0]; });
@@ -4902,8 +4902,8 @@ var FOKUS = {
       2: { type: 'easy', name: 'Lauf locker', what: 'Grundlage, Zone 2', cool: 'r_cooldown_tag2' },
       3: kday({ name: 'Zug', what: 'Zug, Einbein, Beinbeuger', hs: 5, fill: 1, maxout: 0, cool: 'r_cooldown_tag1', jumps: { t: '3 × 5', n: 'Squat Jump' }, rings: 'Ringe ganz oben',
         kslots: [['zug_vertikal'], ['einbein'], ['beinbeuger']], mslots: [['druck_horizontal', 'druck_vertikal'], ['kniebeuge', 'sprung'], ['rumpf_anti_streckung', 'rumpf_beugung']], mmin: 8, mfb: 1 }),
-      4: { type: 'interval', name: 'Intervall-Lauf', what: 'Tempo', cool: 'r_cooldown_tag4' },
-      5: rday('r_ruhetag_a'),
+      4: rday('r_ruhetag_a'), // 3 Tage Training, 1 frei, 2 Training, 1 frei: Intervalle mit frischen Beinen nach dem Ruhetag
+      5: { type: 'interval', name: 'Intervall-Lauf', what: 'Tempo', cool: 'r_cooldown_tag4' },
       6: kday({ name: 'Druck', what: 'Druck horizontal und vertikal, Hüfte', hs: 5, fill: 2, maxout: 0, cool: 'r_cooldown_tag3', rings: 'Ringe hüfthoch',
         kslots: [['druck_horizontal'], ['druck_vertikal'], ['huefte']], mslots: [['zug_horizontal', 'zug_vertikal'], ['einbein', 'kniebeuge'], ['rumpf_beugung', 'rumpf_rotation']], mmin: 8, mfb: 3 }),
       7: rday('r_ruhetag_b')
