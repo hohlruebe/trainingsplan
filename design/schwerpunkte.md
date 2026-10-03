@@ -230,10 +230,10 @@ Pflicht ist ein Laufziel mit Zahl:
 
 ---
 
-## Offene Fragen an Dennis
-1. Kraft-Plan: Oberkörper/Unterkörper mit 4 Tagen? Oder lieber Push/Pull/Beine mit 3 oder 6 Tagen?
-2. Calisthenics: täglich 10 Min Handstand passt, oder ist das zu viel?
-3. CrossFit: 5 Tage mit Ruhetag nach Tag 3 und Tag 6 passt? Benchmarks wie „Cindy“, „Mary“ und „Chelsea“ aufnehmen?
-4. Beweglichkeit: 3 lange Einheiten à 35 Min realistisch, oder kürzer?
-5. Laufen: Puls-Zonen von der Uhr nutzen oder nach Gefühl („locker = du kannst noch reden“)?
-6. Allround bleibt dein Standard, wie wir ihn besprochen haben?
+## Entscheidungen von Dennis
+1. Kraft: Oberkörper/Unterkörper an 4 Tagen.
+2. Calisthenics: täglich 10 Min Handstand ist ok, wenn der Plan es erfordert.
+3. CrossFit: 5 Tage mit Ruhetag nach Tag 3 und 6, Benchmarks Cindy, Mary, Chelsea und Murph.
+4. Beweglichkeit: 3 lange Einheiten à 35 Min.
+5. Laufen: Puls-Zonen. Dafür braucht die App Maximal- und Ruhepuls (Einstellungen › Profil), Zonen nach Karvonen.
+6. Allround bleibt der Standard.
