@@ -181,8 +181,6 @@ details.card[open]>summary{margin-bottom:6px}
 .bdot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:1px;flex:none;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--paper) 70%,transparent)}
 .band-list li{justify-content:space-between}
 .search{display:block;margin:12px 0}
-.st-row.gl-more{background:var(--paper);border-radius:16px;min-height:52px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.05);margin:12px 0}
-.gl-more b{color:var(--acc);font-weight:600;white-space:nowrap}
 .search input{width:100%}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;pointer-events:none;padding:34px 0 calc(max(env(safe-area-inset-bottom,0px),12px) + 8px);background:linear-gradient(to bottom,color-mix(in srgb,var(--board) 0%,transparent),color-mix(in srgb,var(--board) 85%,transparent) 55%,var(--board))}
 .tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:200px;background:var(--board);pointer-events:none}
@@ -568,6 +566,27 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .tr-row:first-child{border-top:0}
 .tr-row .seg{width:180px;margin:0;flex:0 0 auto}
 .tr-row .seg-btn{font-size:13px}
+/* Bewegung: Antippen gibt nach (kein blaues Aufleuchten), die weiße Pille gleitet, Neues blendet ein */
+*{-webkit-tap-highlight-color:transparent}
+button,.tile,.st-row,.btn,.seg-btn,.cap-btn,.pill,.check{transition:transform .14s cubic-bezier(.3,.9,.4,1)}
+button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
+.seg-btn:active,.cap-btn:active,.pill:active{transform:scale(.92)}
+.seg,.cap,.pills{position:relative}
+.glide{position:absolute;border-radius:999px;background:var(--pill);box-shadow:0 2px 8px rgba(17,18,20,.1);pointer-events:none;z-index:0}
+.seg-btn,.cap-btn,.pill{position:relative;z-index:1}
+.no-pill{background:transparent!important;box-shadow:none!important}
+.eq-row.anim .eq-more{animation:slideIn .3s cubic-bezier(.3,.9,.4,1)}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.cap.in-sheet{margin:2px auto 8px}
+.eq-sum{text-align:center;margin:0 0 8px}
+.eq-scroll{max-height:56vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+.rbtn.sm{width:40px;height:40px;flex:0 0 auto}
+.rbtn.sm svg{width:18px;height:18px}
+.ic-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
+.ic-pick{height:52px;border:0;border-radius:16px;background:var(--board);color:var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.ic-pick svg{width:24px;height:24px}
+.ic-pick.on{background:var(--pill);color:var(--acc);box-shadow:0 0 0 2px var(--acc)}
+@media (prefers-reduced-motion:reduce){button,.tile,.st-row,.btn,.seg-btn,.cap-btn,.pill,.check{transition:none}.eq-row.anim .eq-more{animation:none}}
 .pick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
 .pick-grid.one{grid-template-columns:1fr}
 .tile{min-height:70px;border:0;border-radius:14px;background:var(--board);color:var(--ink);font:inherit;text-align:left;padding:9px 12px;display:flex;flex-direction:column;justify-content:center;gap:3px;cursor:pointer;min-width:0}
@@ -1353,7 +1372,15 @@ var ORTE_FIX = [
   { k: 'reise', name: 'Unterwegs', d: 'M4 8h16v12H4zM9 8V5h6v3M4 13h16', re: /reise|hotel|urlaub|unterwegs|trip/ }
 ];
 var ORT_K = {}; ORTE_FIX.forEach(function (f) { ORT_K[f.k] = f; });
-function ortName(o) { return (ORT_K[o.k] || ORTE_FIX[0]).name; }
+// Eigener Name (nm) und eigenes Symbol (ic) je Ort, sonst die festen Werte.
+var ORT_IC = { berg: 'M3 20l6-10 4 6 3-4 5 8z', sonne: 'M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+  wasser: 'M3 15c2 0 2-2 4.5-2s2.5 2 4.5 2 2-2 4.5-2 2.5 2 4.5 2M3 19c2 0 2-2 4.5-2s2.5 2 4.5 2 2-2 4.5-2 2.5 2 4.5 2M8 10a4 4 0 0 1 8 0',
+  ringe: 'M8 3v9M16 3v9M5 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0M13 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0', kettlebell: 'M9 9V7a3 3 0 0 1 6 0v2M7 14a5 5 0 1 0 10 0a5 5 0 0 0-10 0',
+  auto: 'M4 16v-3l2-5h12l2 5v3zM7 16v2M17 16v2M4 13h16', bett: 'M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5M5.5 11a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0',
+  herz: 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z', stern: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6l-5.4 2.9 1.2-6-4.5-4.2 6.1-.7z' };
+ORTE_FIX.slice().reverse().forEach(function (f) { var o = {}; o[f.k] = f.d; ORT_IC = Object.assign(o, ORT_IC); });
+function ortName(o) { return (o && o.nm) || (ORT_K[o.k] || ORTE_FIX[0]).name; }
+function ortIc(o) { return ORT_IC[o.ic] || (ORT_K[o.k] || ORTE_FIX[0]).d; }
 var S = Object.assign({}, DEF, LS.get('tp.state', {}));
 // Neues Design (Stil A): einmalig auf die klare Schrift umstellen.
 if (LS.get('tp.state', {}).look !== 2) { S.font = 'klar'; S.look = 2; LS.set('tp.state', S); }
@@ -2336,13 +2363,12 @@ function profileHead(stats) {
 }
 
 var PVIEWS = [
-  ['equipment', 'Equipment', 'Deine Orte und Geräte', 'M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12'],
   ['erfolge', 'Erfolge', 'Medaillen für jede Stufe', 'M7 10a5 5 0 1 0 10 0a5 5 0 1 0-10 0M9.5 14.5L8 21l4-2.5 4 2.5-1.5-6.5'],
   ['verlauf', 'Verlauf', 'Alle gespeicherten Trainings', 'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01'],
   ['werte', 'Werte', 'Die fünf Bereiche', 'M12 3l8 5v8l-8 5-8-5V8zM12 8l4 2.5v3L12 16l-4-2.5v-3z']
 ];
 function renderProfil() {
-  if (ui.pview === 'entwicklung') ui.pview = 'werte';
+  if (ui.pview === 'entwicklung' || ui.pview === 'equipment') ui.pview = 'werte';
   var stats = statsOf(LOGS), view = ui.pview || 'werte', cur = PVIEWS.filter(function (p) { return p[0] === view; })[0];
   var h = profileHead(stats);
   h += '<nav class="cap pcap" aria-label="Ansicht">' + PVIEWS.map(function (p) {
@@ -2351,7 +2377,6 @@ function renderProfil() {
   }).join('') + '</nav>';
   if (view === 'werte') h += werteHTML(stats);
   else if (view === 'erfolge') h += erfolgeHTML(stats);
-  else if (view === 'equipment') h += equipmentHTML();
   else h += verlaufHTML();
   return h;
 }
@@ -3051,7 +3076,7 @@ function renderHeute() {
   if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
     h += suggHTML(tag);
     var miss = planFill().missing[tag] || [];
-    if (miss.length) tips.push('Hier fehlen Geräte für ' + esc(miss.join(', ')) + '. Bis dahin bleibt die Standardübung im Plan. Kreuz unter Profil › Equipment an, was es hier gibt.');
+    if (miss.length) tips.push('Hier fehlen Geräte für ' + esc(miss.join(', ')) + '. Bis dahin bleibt die Standardübung im Plan. Kreuz unter Tools › Übungen › Stift an, was es hier gibt.');
   }
   if (st.length) {
     if (c.isTest) {
@@ -3833,7 +3858,7 @@ function capHTML(items, act, sel, label, cls) {
   }).join('') + '</nav>';
 }
 function ortCapHTML(cls) {
-  return capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ORT_K[o.k].d }; }), 'ort-pick', S.ort, 'Ort', cls);
+  return capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'ort-pick', S.ort, 'Ort', cls);
 }
 function curOrt() { ensureOrte(); return S.orte.filter(function (o) { return o.id === S.ort; })[0]; }
 function haveEq(o) { var h = {}; (o || curOrt()).eq.forEach(function (e) { h[e] = 1; }); return h; }
@@ -3931,32 +3956,46 @@ ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); }
 ACT['pick-take'] = function (el) { S.picks[el.dataset.slot] = el.dataset.to; saveState(); render(); toast(LAD[el.dataset.to].name + ' ist jetzt im Plan.'); };
 ACT['pick-skip'] = function (el) { S.pickSkip[el.dataset.slot] = S.durchgang; saveState(); render(); };
 
-/* ---------- Profil › Equipment ---------- */
+/* ---------- Orte und Equipment (Tools › Übungen) ---------- */
 var EQ_USE = {};
 LIB.uebungen.forEach(function (u) { u.equipment.forEach(function (g) { g.forEach(function (x) { (EQ_USE[x] || (EQ_USE[x] = [])).push(u); }); }); });
 Object.keys(EQ_USE).forEach(function (x) { EQ_USE[x].sort(function (a, b) { return b.nutzen - a.nutzen; }); });
-function equipmentHTML() {
-  var o = curOrt(), have = haveEq(o);
-  var h = '<div class="ort-bar">' + ortCapHTML() + '<button type="button" class="rbtn" data-act="orte" aria-label="Orte auswählen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button></div>' +
-    '<p class="small muted ort-n">' + esc(ortName(o)) + ' · ' + o.eq.length + ' von ' + LIB.equipment.length + ' Geräten</p>';
-  h += '<section class="card eq-list">' + LIB.equipment.map(function (e) {
-    var on = !!have[e.id], fixed = false, open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
-    return '<div class="eq-row' + (open ? ' open' : '') + '"><div class="eq-top"><button type="button" class="eq-main" data-act="eq-open" data-id="' + e.id + '" aria-expanded="' + open + '"><span class="eq-sc">' + e.score + '</span>' +
+// Geräte eines Orts: Blatt von unten in Tools › Übungen (Stift neben der Orte-Kapsel).
+function eqRowsHTML(o) {
+  var have = haveEq(o);
+  return LIB.equipment.map(function (e) {
+    var on = !!have[e.id], open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
+    return '<div class="eq-row' + (open ? ' open' : '') + (open && ui.eqAnim === e.id ? ' anim' : '') + '"><div class="eq-top"><button type="button" class="eq-main" data-act="eq-open" data-id="' + e.id + '" aria-expanded="' + open + '"><span class="eq-sc">' + e.score + '</span>' +
       '<span class="eq-t"><b>' + esc(e.name) + '</b><small>' + esc(e.preis) + ' · ' + use.length + (use.length === 1 ? ' Übung' : ' Übungen') + '</small></span></button>' +
-      (fixed ? '<span class="small muted">immer dabei</span>' : '<label class="check"><input type="checkbox" data-change="eq" data-id="' + e.id + '"' + (on ? ' checked' : '') + '><span class="sr">' + esc(e.name) + '</span></label>') + '</div>' +
+      '<label class="check"><input type="checkbox" data-change="eq" data-id="' + e.id + '"' + (on ? ' checked' : '') + '><span class="sr">' + esc(e.name) + '</span></label></div>' +
       (open ? '<div class="eq-more"><p>' + esc(e.warum) + '</p>' + (use.length ? '<p><b>Schaltet frei:</b> ' + use.slice(0, 5).map(function (u) { return esc(u.name); }).join(', ') + (use.length > 5 ? ' …' : '') + '</p>' : '') + '<p class="small muted">Platz: ' + esc(e.platz) + '</p></div>' : '') + '</div>';
-  }).join('') + '</section><p class="small muted" style="text-align:center">Sortiert nach Score aus Nutzen und Kosten.</p>' +
-    '<section class="card"><h2>Bandfarben</h2><p class="small muted">Wähl die Farbe, die dein Band wirklich hat. So erkennst du es im Training sofort.</p>' + BANDS.map(function (b) {
-      return '<button type="button" class="bc-row" data-act="band-col" data-v="' + esc(b.name) + '"><span>' + bdot(bandColor(b.name)) + esc(BAND_LABEL[b.name]) + '</span><span class="muted small">' + b.kg + ' ›</span></button>';
-    }).join('') + '</section>';
-  return h;
+  }).join('');
 }
+function eqSheetBody() {
+  var o = curOrt();
+  return capHTML(orteOn().map(function (x) { return { id: x.id, label: ortName(x), d: ortIc(x) }; }), 'eq-ort', S.ort, 'Ort', 'in-sheet') +
+    '<p class="small muted eq-sum">' + o.eq.length + ' von ' + LIB.equipment.length + ' Geräten · <button type="button" class="link" data-act="orte" data-from="eq">Orte wählen</button></p>' +
+    '<div class="eq-list eq-scroll">' + eqRowsHTML(o) + '</div><p class="small muted" style="text-align:center;margin:10px 0 0">Sortiert nach Score aus Nutzen und Kosten.</p>';
+}
+function refreshEqSheet() {
+  var b = document.getElementById('eq-sheet'); if (!b) return;
+  var sc = b.querySelector('.eq-scroll'), top = sc ? sc.scrollTop : 0;
+  b.innerHTML = eqSheetBody(); b.querySelector('.eq-scroll').scrollTop = top;
+  var t = b.closest('.sheet').querySelector('.sh-head b'); if (t) t.textContent = ortName(curOrt()) + ' · Equipment';
+}
+ACT['eq-sheet'] = function () {
+  openForm(ortName(curOrt()) + ' · Equipment', '<div id="eq-sheet">' + eqSheetBody() + '</div>', 'Fertig', function () { render(); });
+  // Änderungen gelten sofort, deshalb nur „Fertig“.
+  var x = document.querySelector('#sheet .sh-x'); if (x) x.style.visibility = 'hidden';
+  var i = document.activeElement; if (i && i.blur) i.blur();
+};
+ACT['eq-ort'] = function (el) { S.ort = el.dataset.v; saveState(); refreshEqSheet(); render(); };
 CHG.eq = function (el) {
   var o = curOrt(), id = el.dataset.id, i = o.eq.indexOf(id);
   if (el.checked && i < 0) o.eq.push(id); else if (!el.checked && i >= 0) o.eq.splice(i, 1);
-  saveState(); setTimeout(render, 420);
+  saveState(); setTimeout(function () { render(); refreshEqSheet(); }, 420);
 };
-ACT['eq-open'] = function (el) { ui.eqOpen = ui.eqOpen === el.dataset.id ? null : el.dataset.id; render(); };
+ACT['eq-open'] = function (el) { ui.eqOpen = ui.eqOpen === el.dataset.id ? null : el.dataset.id; ui.eqAnim = ui.eqOpen; refreshEqSheet(); ui.eqAnim = null; };
 function openForm(title, body, okLabel, ok) {
   closeSheet();
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
@@ -3983,13 +4022,28 @@ ACT['band-col'] = function (el) {
   });
 };
 // Orte ein- und ausschalten. Mindestens einer bleibt an.
-ACT.orte = function () {
-  ensureOrte();
+ACT.orte = function (el) {
+  ensureOrte(); var back = !!(el && el.dataset && el.dataset.from === 'eq');
   openForm('Orte', '<p class="small muted">Wähle, wo du trainierst. Jeder Ort hat seine eigene Geräte-Liste.</p><div class="orte-list">' + S.orte.map(function (o) {
-    var f = ORT_K[o.k];
-    return '<label class="check orte-row"><span class="orte-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + f.d + '"/></svg></span>' +
-      '<span class="orte-t"><b>' + esc(f.name) + '</b><small>' + o.eq.length + (o.eq.length === 1 ? ' Gerät' : ' Geräte') + '</small></span><input type="checkbox" data-change="ort-on" data-id="' + esc(o.id) + '"' + (o.on ? ' checked' : '') + '></label>';
-  }).join('') + '</div>', 'Fertig', function () { render(); });
+    return '<label class="check orte-row"><span class="orte-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + ortIc(o) + '"/></svg></span>' +
+      '<span class="orte-t"><b>' + esc(ortName(o)) + '</b><small>' + o.eq.length + (o.eq.length === 1 ? ' Gerät' : ' Geräte') + '</small></span>' +
+      '<button type="button" class="rbtn sm" data-act="ort-edit" data-id="' + esc(o.id) + '" data-from="' + (back ? 'eq' : '') + '" aria-label="' + esc(ortName(o)) + ' bearbeiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button>' +
+      '<input type="checkbox" data-change="ort-on" data-id="' + esc(o.id) + '"' + (o.on ? ' checked' : '') + '></label>';
+  }).join('') + '</div>', 'Fertig', function () { render(); if (back) setTimeout(ACT['eq-sheet'], 320); });
+};
+// Ort umbenennen und Symbol wählen. Leerer Name = fester Name.
+ACT['ort-edit'] = function (el) {
+  var o = S.orte.filter(function (x) { return x.id === el.dataset.id; })[0]; if (!o) return;
+  var std = ORT_K[o.k].name, cur = o.ic && ORT_IC[o.ic] ? o.ic : o.k, from = el.dataset.from;
+  openForm('Ort bearbeiten', '<label class="field"><span>Name</span><input type="text" id="ort-nm" maxlength="20" autocomplete="off" value="' + esc(o.nm || '') + '" placeholder="' + esc(std) + '"></label>' +
+    '<p class="small muted">Leer lassen für „' + esc(std) + '“.</p><h3 style="margin-top:14px">Symbol</h3><div class="ic-grid">' + Object.keys(ORT_IC).map(function (k) {
+      return '<button type="button" class="ic-pick' + (k === cur ? ' on' : '') + '" data-seg="' + k + '" aria-label="Symbol ' + k + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + ORT_IC[k] + '"/></svg></button>';
+    }).join('') + '</div>', 'Sichern', function (bg) {
+    var n = bg.querySelector('#ort-nm').value.trim().slice(0, 20), sel = bg.querySelector('[data-seg].on');
+    if (n && n !== std) o.nm = n; else delete o.nm;
+    if (sel && sel.dataset.seg !== o.k) o.ic = sel.dataset.seg; else delete o.ic;
+    saveState(); render(); setTimeout(function () { ACT.orte({ dataset: { from: from } }); }, 320);
+  });
 };
 CHG['ort-on'] = function (el) {
   var o = S.orte.filter(function (x) { return x.id === el.dataset.id; })[0]; if (!o) return;
@@ -3997,6 +4051,52 @@ CHG['ort-on'] = function (el) {
   o.on = el.checked ? 1 : 0; if (o.on && orteOn().length === 1) S.ort = o.id;
   ensureOrte(); saveState();
 };
+
+/* ---------- Bewegung: weiße Pille gleitet, Kapsel-Knöpfe rutschen, neue blenden ein ---------- */
+(function () {
+  var EASE = 'cubic-bezier(.3,.9,.4,1)', GROUPS = [['.seg', '.seg-btn.on'], ['.cap', '.cap-btn.on'], ['.pills', '.pill.view']], old = null;
+  function still() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function key(c, i) { return (c.getAttribute('aria-label') || '') + '|' + i; }
+  function snap() {
+    var o = { pill: {}, btn: {}, pen: {} };
+    GROUPS.forEach(function (g) {
+      document.querySelectorAll(g[0]).forEach(function (c, i) {
+        var on = c.querySelector(g[1]) || (g[0] === '.pills' ? c.querySelector('.pill.cur') : null);
+        if (on) o.pill[g[0] + key(c, i)] = on.getBoundingClientRect();
+        if (g[0] === '.cap') { var m = o.btn[key(c, i)] = {}; c.querySelectorAll('.cap-btn').forEach(function (b) { m[b.dataset.v] = b.getBoundingClientRect(); }); }
+      });
+    });
+    document.querySelectorAll('.ort-bar').forEach(function (b, i) { o.pen[i] = !!b.querySelector('.rbtn'); });
+    return o;
+  }
+  document.addEventListener('pointerdown', function () { old = still() ? null : snap(); }, true);
+  function run() {
+    if (!old) return; var o = old; old = null;
+    GROUPS.forEach(function (g) {
+      document.querySelectorAll(g[0]).forEach(function (c, i) {
+        if (g[0] === '.cap') {
+          var m = o.btn[key(c, i)];
+          if (m) c.querySelectorAll('.cap-btn').forEach(function (b) {
+            var r = m[b.dataset.v], n = b.getBoundingClientRect();
+            if (!r) b.animate([{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: EASE });
+            else if (Math.abs(r.left - n.left) > 1) b.animate([{ transform: 'translateX(' + (r.left - n.left) + 'px)' }, { transform: 'none' }], { duration: 300, easing: EASE });
+          });
+        }
+        var r = o.pill[g[0] + key(c, i)], on = c.querySelector(g[1]); if (!r || !on) return;
+        var n = on.getBoundingClientRect(), cr = c.getBoundingClientRect();
+        if (Math.abs(n.left - r.left) < 1 && Math.abs(n.width - r.width) < 1) return;
+        var gl = document.createElement('span'); gl.className = 'glide'; gl.style.top = (n.top - cr.top) + 'px'; gl.style.height = n.height + 'px';
+        c.insertBefore(gl, c.firstChild); on.classList.add('no-pill');
+        var a = gl.animate([{ left: (r.left - cr.left + c.scrollLeft) + 'px', width: r.width + 'px' }, { left: (n.left - cr.left + c.scrollLeft) + 'px', width: n.width + 'px' }], { duration: 300, easing: EASE, fill: 'forwards' });
+        a.onfinish = function () { gl.remove(); on.classList.remove('no-pill'); };
+      });
+    });
+    document.querySelectorAll('.ort-bar').forEach(function (b, i) {
+      var p = b.querySelector('.rbtn'); if (p && o.pen[i] === false) p.animate([{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: EASE });
+    });
+  }
+  new MutationObserver(function () { if (old) requestAnimationFrame(run); }).observe(document.body, { childList: true, subtree: true });
+})();
 
 /* ---------- Tools › Übungen ---------- */
 function filteredGloss() {
@@ -4006,16 +4106,12 @@ function filteredGloss() {
     return !q || e.name.toLowerCase().indexOf(q) >= 0 || (u.trainiert || '').toLowerCase().indexOf(q) >= 0 || (MUSTER[u.muster] || '').toLowerCase().indexOf(q) >= 0;
   });
 }
-// Verfügbare Übungen für den gewählten Ort zuerst, die übrigen nur auf Wunsch.
+// „Alle“: jede Übung. Sonst nur, was am gewählten Ort geht.
 function glossListHTML(list) {
   if (!list.length) return '<p class="muted">Keine Übung gefunden. Probier einen anderen Begriff, zum Beispiel „Ring“ oder „Rumpf“.</p>';
-  var have = haveEq(), ok = list.filter(function (e) { return eqOk(e.lib.equipment, have); }), rest = list.filter(function (e) { return !eqOk(e.lib.equipment, have); });
-  var h = ok.length ? glossGroupsHTML(ok) : '<p class="muted">Hier gibt es dafür kein passendes Equipment.</p>';
-  if (rest.length) {
-    h += '<button type="button" class="st-row gl-more" data-act="gl-more"><span class="muted">' + rest.length + (rest.length === 1 ? ' weitere braucht' : ' weitere brauchen') + ' anderes Equipment</span><b>' + (ui.showLocked ? 'Ausblenden' : 'Zeigen ›') + '</b></button>';
-    if (ui.showLocked) h += glossGroupsHTML(rest);
-  }
-  return h;
+  if (ui.libAll) return glossGroupsHTML(list);
+  var have = haveEq(), ok = list.filter(function (e) { return eqOk(e.lib.equipment, have); });
+  return ok.length ? glossGroupsHTML(ok) : '<p class="muted">Hier gibt es dafür kein passendes Equipment. Tippe den Ort nochmal an und wähle „Alle“.</p>';
 }
 function glossGroupsHTML(list) {
   var st = ladderStates(LOGS), have = haveEq(), groups = {};
@@ -4036,13 +4132,32 @@ function glossGroupsHTML(list) {
   }).join('');
 }
 function renderUebungen() {
-  return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + Object.keys(UE).length + ' Übungen nach Bewegungsmuster</p></section>' +
-    '<div class="ort-bar">' + ortCapHTML() + '</div>' +
+  var sub = ui.libAll ? Object.keys(UE).length + ' Übungen · alle, egal wo' : esc(ortName(curOrt())) + ' · ' + libCount() + ' Übungen';
+  return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + sub + '</p></section>' + libCapHTML() +
     '<label class="search"><span class="sr">Übung suchen</span><input id="gloss-search" type="search" placeholder="Übung suchen" value="' + esc(ui.glossQuery) + '"></label>' +
-    '<div id="gloss-list">' + glossListHTML(filteredGloss()) + '</div>' +
-    '<section class="card"><h3>Bänder</h3>' + bandLegend() + '<p class="small muted">Hilfe bei Pull-up, Chin-up und Dip, Widerstand bei Push-up und Glute Bridge. In den Leitern zeigen farbige Stufen das Band.</p></section>';
+    '<div id="gloss-list">' + glossListHTML(filteredGloss()) + '</div>' + libBandsHTML();
 }
-ACT['gl-more'] = function () { ui.showLocked = !ui.showLocked; render(); };
+// Kapsel der Bibliothek: groß mit „Alle“ links, klein nur mit den Orten (und dem Stift für Equipment).
+var ALLE_D = 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z', PEN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>';
+function libCapHTML() {
+  var big = ui.libAll || ui.libOpen, items = orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; });
+  if (big) items.unshift({ id: '_alle', label: 'Alle', d: ALLE_D });
+  return '<div class="ort-bar">' + capHTML(items, 'lib-ort', ui.libAll ? '_alle' : S.ort, 'Ort') +
+    (big ? '' : '<button type="button" class="rbtn" data-act="eq-sheet" aria-label="Equipment für ' + esc(ortName(curOrt())) + '">' + PEN_SVG + '</button>') + '</div>';
+}
+ACT['lib-ort'] = function (el) {
+  var v = el.dataset.v;
+  if (v === '_alle') { ui.libAll = true; ui.libOpen = false; }
+  else if (!ui.libAll && !ui.libOpen && v === S.ort) ui.libOpen = true;
+  else { ui.libAll = false; ui.libOpen = false; S.ort = v; saveState(); }
+  render();
+};
+function libCount() { var have = haveEq(); return Object.keys(GL).filter(function (n) { return GL[n].lib && eqOk(GL[n].lib.equipment, have); }).length; }
+function libBandsHTML() {
+  return '<section class="card"><h3>Bänder</h3>' + BANDS.map(function (b) {
+    return '<button type="button" class="bc-row" data-act="band-col" data-v="' + esc(b.name) + '"><span>' + bdot(bandColor(b.name)) + esc(BAND_LABEL[b.name]) + '</span><span class="muted small">' + b.kg + ' ›</span></button>';
+  }).join('') + '<p class="small muted">Tippe ein Band an und wähl die Farbe, die es wirklich hat. Hilfe bei Pull-up, Chin-up und Dip, Widerstand bei Push-up und Glute Bridge.</p></section>';
+}
 function exportData() {
   var data = JSON.stringify({ exportiert: new Date().toISOString(), stand: S, einheiten: LOGS }, null, 2);
   var name = 'trainingsplan-' + isoToday() + '.json';

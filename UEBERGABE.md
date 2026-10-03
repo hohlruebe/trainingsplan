@@ -117,7 +117,7 @@ Gewünscht (erst Entwurf im Canvas):
   Regionen mit Empfehlungen).
 Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Namen und Stufen nie ändern.
 
-## App-Symbol und Dunkelmodus in Graphit (PR offen)
+## App-Symbol und Dunkelmodus in Graphit (PR #29 offen)
 - Dennis: Das alte Symbol (Ringe auf Whiteboard mit grauem Rahmen) passt nicht mehr zu „Emaille“.
 - Runden im Canvas: 3 Vorschläge → 5 Konzepte ohne Ringe → minimalistisch Mensch oder Gerät → doch Ringe (R2 frei hängend)
   → dazu der Marker-Strich wie auf dem Whiteboard (links bündig, sonst wirkt es wie ein Gesicht) → Hintergrund Graphit wie die
@@ -129,6 +129,14 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   Fläche #33343A, Boden #4A4B52 (Vorlage und Kopie gleich).
 - Auf dem Handy: Chrome prüft das Manifest beim Öffnen und aktualisiert das Symbol selbst (kann etwas dauern, evtl. mit
   Nachfrage). Klappt das nicht: erst exportieren oder syncen, dann neu installieren.
+
+## Bibliothek, Orte, Bewegung (im selben PR #29)
+- Tools › Übungen: „Alle“ ganz links in der Orte-Kapsel (jede Übung, egal wo). Ort gewählt → kleine Kapsel nur mit Orten plus Stift.
+  Ort nochmal tippen → große Kapsel. Die Zeile „… brauchen anderes Equipment · Zeigen“ ist weg. Ort gilt sofort auch fürs Training.
+- Orte und Equipment aus dem Profil in die Bibliothek verlagert (Dennis: Variante C, Blatt von unten). Profil hat nur noch
+  Erfolge, Verlauf, Werte. Orte umbenennen und Symbol wählen (15 Symbole), synchronisiert. Bandfarben: Karte „Bänder“ in der Bibliothek.
+- Bewegung als feste Regel in `DESIGN.md`: Pille gleitet, Drücken gibt nach, kein blaues Antipp-Leuchten (Board P44).
+- Offen: Rückmeldung zum Hintergrund in Off-White (drei Beispiele im Canvas).
 
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.

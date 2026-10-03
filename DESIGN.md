@@ -80,6 +80,13 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Gleichartige Fenster haben dieselbe Höhe, Knöpfe sitzen immer an derselben Stelle (z. B. Medaillen-Momente).
 - Haptik bei jeder Interaktion (`haptic(kind)`).
 
+## Bewegung (gilt für alles Neue)
+- Jede Zustandsänderung bewegt sich weich, nichts springt hart um. Dauer etwa 0,3 s, Kurve `cubic-bezier(.3,.9,.4,1)` wie der Glas-Tropfen der Schalter.
+- Wahl wechseln: die weiße Pille gleitet zur neuen Wahl. Knöpfe in einer Kapsel rutschen an ihren Platz, neue blenden mit kurzem Wachsen ein.
+- Drücken: jede Kapsel und jeder Knopf gibt leicht nach (96 %, Umschalter 92 %) und federt zurück. Kein blaues Antipp-Leuchten.
+- Aufklappen: Inhalt gleitet von oben ein. Blätter fahren von unten hoch.
+- Zusammen mit der Haptik. Bei „Bewegung reduzieren“ im System keine Animation.
+
 ## Arbeitsweise
 - Neue Oberflächen zuerst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
 - Entwürfe immer direkt im Stil dieses Konzepts bauen, am besten in der echten App (Bildschirmfoto mit eingesetzten Bausteinen),

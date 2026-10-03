@@ -22,7 +22,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
 - Profil: Kopfkarte mit rundem Foto, Fortschrittsring (Gesamtwert 0–99), Stufe Bronze/Silber/Gold/Platin,
   Name und „Diese Woche“. Darunter eine Kapsel wie die Reiterleiste (nur die aktive Ansicht zeigt ihren Namen):
-  Equipment, Erfolge, Verlauf, Werte (`PVIEWS`).
+  Erfolge, Verlauf, Werte (`PVIEWS`). Orte und Equipment liegen in Tools › Übungen.
   Werte: fünf Bereiche nach den motorischen Grundfähigkeiten, alphabetisch: Ausdauer, Beweglichkeit, Koordination, Kraft
   (Teile Zug, Druck, Beine, Rumpf), Schnellkraft (`AREAS`, Zuordnung je Leiter in `areaOf`). Netzdiagramm (`radarSVG`) mit
   Stand vor 4 Wochen, darunter jeder Bereich mit Verlaufslinie; Tippen öffnet die Aufschlüsselung (`areaDetailHTML`) mit Kurve,
@@ -32,6 +32,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Beweglichkeit kommt aus den Mobility-Leitern (`g_mob_*`), gemessen im Beweglichkeits-Check (`log.mob`).
   1RM zählt in Kraft (bzw. Schnellkraft bei olympischen Lifts) als Pseudo-Leiter `rm:<id>`: 40 + 59 × Anteil zwischen Einsteiger- und
   Spitzen-Norm (1RM / Körpergewicht, `RM_STD`). Ohne Körpergewicht (`S.weight`, Einstellungen › Profil, synchronisiert) zählt es nicht.
+- Tools › Übungen (`renderUebungen`): Orte-Kapsel `libCapHTML`. Groß mit „Alle“ ganz links (`ui.libAll`, jede Übung, ändert den
+  Trainingsort nicht), klein nur mit den Orten zum schnellen Umschalten plus Stift. Den gewählten Ort nochmal tippen = große Kapsel
+  (`ui.libOpen`). Ein Ort gilt sofort auch fürs Training (`S.ort`, dieselbe Wahl wie auf Heute). Der Stift öffnet das Blatt
+  „<Ort> · Equipment“ (`ACT['eq-sheet']`, `eqSheetBody`, Ort oben umschaltbar, Änderungen gelten sofort). „Orte wählen“ (`ACT.orte`)
+  schaltet Orte ein/aus, der Stift je Zeile (`ACT['ort-edit']`) gibt einen eigenen Namen (`nm`) und ein Symbol aus `ORT_IC` (`ic`).
+  `ortName(o)`, `ortIc(o)` überall benutzen. Unten die Karte „Bänder“: Band antippen = Farbe wählen (Blatt).
 - Tools › 1RM (`renderRM`): Gewichtsübungen mit Equipment am Ort plus selbst hinzugefügte (`S.rmLifts`), nach Nutzen. Eintrag über das Rad
   (kg, ,0/,5, Wdh. 1–10), Schätzung nach Epley (`e1rm`), Prozent-Tabelle auf 2,5 kg gerundet, Verlauf mit Bestwert golden gestrichelt.
   Einträge `kind: 'rm'` (`lift, kg, reps, e1, bw`), zählen nicht als Training. Bei Weighted Pull-up/Dip zählt das Zusatzgewicht.
@@ -73,6 +79,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) in allen Schritten, gestartet von `wakeFigs`.
 - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
+- Bewegung: kein blaues Antipp-Leuchten (`-webkit-tap-highlight-color`), gedrückte Kapseln geben nach (96 %, Umschalter 92 %).
+  Wechselt die Wahl in `.seg`, `.cap` oder `.pills`, gleitet die weiße Pille (`.glide`), Kapsel-Knöpfe rutschen, neue blenden ein
+  (Block „Bewegung“ im Skript, merkt sich die Lage beim `pointerdown` und animiert nach dem Neuzeichnen). Bei „Bewegung reduzieren“ aus.
 - Jeder Schritt bringt seinen Timer fertig eingestellt mit (helle Glas-Leiste `#tbar`, `paintMini`), Timer-Art `block`
   für Aufwärmen und Handstand. Die laufende EMOM-Übung ist blau umrandet. Vorlagen aus dem Plan gibt es nur dort.
 - Tools › Timer ist frei einstellbar: EMOM (Alle, Runden), AMRAP (Dauer), Intervall (Arbeit, Pause, Runden), Auf Zeit
@@ -82,7 +91,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.
 - Orte: sechs feste Orte mit Symbol (`ORTE_FIX`: Zuhause, Gym, Park, Garage, Arbeit, Unterwegs), je eigene Equipment-Liste.
   In `S.orte` je `{id, k, on, eq, zh}`; angezeigt werden nur eingeschaltete (`on`), mindestens einer bleibt an.
-  Einschalten über den Stift neben der Orte-Kapsel unter Profil › Equipment (`ACT.orte`). Früher frei benannte Orte
+  Einschalten, Umbenennen und Symbol über Tools › Übungen › Stift › „Orte wählen“ (`ACT.orte`). Früher frei benannte Orte
   ordnet `ensureOrte()` einem festen Ort zu (IDs, Geräte und `S.picks` bleiben). Auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
   Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
   Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
@@ -139,7 +148,7 @@ Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen g
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
 Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
 Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion, dann Tipps-Karte (`tipsHTML`).
-Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Profil › Equipment (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
+Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Tag 1 Lift Off (Kraft Zug), Tag 2 Base Builder (Lauf locker), Tag 3 Push Through (Kraft Druck), Tag 4 Redline (Intervall-Lauf),
