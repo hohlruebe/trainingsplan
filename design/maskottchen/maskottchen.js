@@ -281,7 +281,7 @@
       J['sh' + sd] = sh; J['el' + sd] = ar[0]; J['wr' + sd] = ar[1];
       J['ha' + sd] = add(ar[1], mul(norm(A.dir || sub3(ar[1], ar[0])), LEN.hand));
       J['hi' + sd] = hi; J['kn' + sd] = lg[0]; J['an' + sd] = lg[1];
-      J['to' + sd] = add(lg[1], mul(norm(L.dir || add(mul(fw, 1), [0, .28, 0])), LEN.foot));
+      J['to' + sd] = add(lg[1], mul(norm(L.dir || [0, .28, 1]), LEN.foot)); // Fuß flach nach vorn, auch wenn sich der Rumpf neigt
     });
     J._props = o.props || [];
     J._to = { wra: o.arms.a.to, wrb: o.arms.b.to, ana: o.legs.a.to, anb: o.legs.b.to }; // Ziele, zum Nachmessen der Kontaktpunkte
@@ -693,14 +693,18 @@
   function pushBand(p) { // Band über den oberen Rücken, Enden unter den Händen
     return pushStd(p, function (J) {
       var top = add(mid(J.sha, J.shb), [0, -14, -10]);
-      return [{ type: 'poly', pts: [J.wra, add(J.sha, [-6, -12, -6]), top, add(J.shb, [6, -12, -6]), J.wrb], open: true, layer: 'front' }];
+      return [{ type: 'poly', pts: [J.wra, add(J.sha, [-6, -12, -6]), top, add(J.shb, [6, -12, -6]), J.wrb], open: true, layer: 'front', col: '#4E9C78', w: 4.5 }];
     });
   }
   function pushVest(p) { // Weste um den Brustkorb
     return pushStd(p, function (J) {
-      var u = norm(sub3(J.nb, J.pc)), f = norm([0, u[2], -u[1]]), c1 = add(J.nb, mul(u, -14)), c2 = add(J.nb, mul(u, -64));
-      return [{ type: 'poly', pts: [add(c1, mul(f, -24)), add(c2, mul(f, -24)), add(c2, mul(f, 22)), add(c1, mul(f, 22))], layer: 'front' },
-        { type: 'line', a: add(mid(c1, c2), mul(f, -24)), b: add(mid(c1, c2), mul(f, 22)), layer: 'front' }];
+      var u = norm(sub3(J.nb, J.pc)), f = norm([0, u[2], -u[1]]), c1 = add(J.nb, mul(u, -10)), c2 = add(J.nb, mul(u, -70)), V = '#7C7B98';
+      var out = [];
+      [-1, 1].forEach(function (x) { // Weste vorn und hinten, von der Seite als zwei dicke Platten mit Trägern über die Schulter
+        [-26, 24].forEach(function (d) { out.push({ type: 'line', a: add(add(c1, mul(f, d * .85)), [x * 20, 0, 0]), b: add(add(c2, mul(f, d)), [x * 20, 0, 0]), col: V, w: 7, layer: 'front' }); });
+        out.push({ type: 'poly', pts: [add(add(c1, mul(f, -22)), [x * 20, 0, 0]), add(J.nb, [x * 22, 0, 0]), add(add(c1, mul(f, 20)), [x * 20, 0, 0])], open: true, col: V, w: 3, layer: 'front' });
+      });
+      return out;
     });
   }
   function pistolAt(t, low, hands) { // Pistol-Ablauf mit wählbarer Tiefe und Armen
@@ -733,19 +737,22 @@
       props: rings(27, RY, 0, -200) });
   }
   function shrimp(p) { // hinteren Fuß festhalten, hinteres Knie bis zum Boden
-    var t = rep(p, .44, .08), pc = [0, lerp(226, 318, t), lerp(-6, -22, t)], a = lerp(6, 30, t);
-    var ankB = add(pc, [20, lerp(-12, 4, t), -66]);
-    var J = build({ pc: pc, a: a, nod: -6,
+    var t = rep(p, .44, .08), pc = [0, lerp(226, 336, t), lerp(-6, -18, t)], a = lerp(6, 32, t);
+    var ankB = add(pc, [20, lerp(-30, -20, t), -50]); // Ferse nah am Po, damit die Hand den Fuß halten kann
+    var o = { pc: pc, a: a, nod: -6,
       arms: { a: { to: add(pc, [-20, -170, 120]), pole: [-.4, 1, 0] }, b: { to: ankB, pole: [.4, 0, -1] } },
-      legs: { a: { to: [-14, 390, 22], pole: FWD }, b: { to: ankB, pole: [0, 1, .15], dir: [0, -.2, -1] } } });
-    return J;
+      legs: { a: { to: [-14, 390, 22], pole: FWD, dir: [0, .28, 1] }, b: { to: ankB, pole: [0, 1, .15], dir: [0, -.2, -1] } } };
+    var J0 = build(o), d = sub3(J0.anb, J0.shb), L = len(d);
+    if (L > 108) { o.legs.b.to = add(J0.shb, mul(d, 108 / L)); J0 = build(o); } // Fuß bleibt in Reichweite der Hand
+    o.arms.b.to = J0.anb.slice(); // die Hand greift den Fuß dort, wo er wirklich ist
+    return build(o);
   }
   // Beweglichkeits-Check
   function ragdoll(p) { // Oberkörper hängt locker, Hände greifen die Ellbogen
-    var a = 150 + sway(p, 3), pc = [0, 236, -30], u = trunkU(a), sh = add(pc, mul(u, 112));
+    var a = 148 + sway(p, 3), pc = [0, 232, -30], u = trunkU(a), sh = add(pc, mul(u, 112));
     return build({ pc: pc, a: a, nod: 30,
       arms: both(function (x) { return { to: add(sh, [-x * 22, 62, 30]), pole: [x * .6, .6, -.2] }; }),
-      legs: both(function (x) { return { to: [x * 20, 390, 0], pole: FWD }; }) });
+      legs: both(function (x) { return { to: [x * 20, 390, 0], pole: FWD, dir: [0, .28, 1] }; }) }); // Knie leicht gebeugt
   }
   function pikeStretch(p) { // Langsitz, mit geradem Rücken zu den Füßen
     var a = 64 + sway(p, 4), pc = [0, 372, -10], hi = add(pc, [0, 6, 0]), u = trunkU(a);
@@ -754,10 +761,15 @@
       legs: both(function (x) { return { to: add(hi, [x * 10, 8, 166]), pole: UP, dir: [0, -.8, .4] }; }) });
   }
   function jefferson(p) { // auf einer Stufe, Wirbel für Wirbel abrollen, Gewicht hängt vor den Zehen
-    var t = rep(p, .45, .1), a = lerp(0, 158, t), pc = [0, 222 + 4 * t, lerp(-4, -34, t)], u = trunkU(a), sh = add(pc, mul(u, 112));
-    var J = build({ pc: pc, a: a, nod: lerp(0, 34, t),
+    var t = rep(p, .45, .1), k = Math.max(0, (t - .22) / .78), a = lerp(0, 150, k), pc = [0, 222 + 4 * k, lerp(-4, -30, k)], u = trunkU(a), sh = add(pc, mul(u, 112));
+    var J = build({ pc: pc, a: a, nod: Math.min(1, t / .22) * 62, // zuerst Kinn zur Brust, dann abrollen
       arms: both(function (x) { return { to: add(sh, [x * 6, 113, lerp(4, 10, t)]), pole: [x * .4, 0, -1], dir: DOWN }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 0], pole: FWD }; }) });
+    // Rücken rund: der obere Rücken und der Kopf rollen weiter ein als das Becken (Brustwirbelsäule krümmt sich)
+    var curl = k * 26 * R, piv = add(pc, mul(u, 50)), cs = Math.cos(curl), sn = Math.sin(curl);
+    ['nb', 'hc', 'sha', 'shb', 'ela', 'elb', 'wra', 'wrb', 'haa', 'hab'].forEach(function (q) {
+      var y = J[q][1] - piv[1], z = J[q][2] - piv[2]; J[q] = [J[q][0], piv[1] + y * cs + z * sn, piv[2] - y * sn + z * cs];
+    });
     var hm = mid(J.haa, J.hab);
     J._props = [{ type: 'poly', pts: [[-46, 401, -70], [46, 401, -70], [46, 401, 46], [-46, 401, 46]], keep: true },
       { type: 'poly', pts: [[-46, 401, 46], [-46, 470, 46], [46, 470, 46], [46, 401, 46]], open: true, keep: true },
@@ -769,15 +781,20 @@
     var pc = [0, 352 + sway(p, 2), -46], a = 28;
     return build({ pc: pc, a: a, nod: -4,
       arms: both(function (x) { return { to: add(pc, [x * 6, -86, 76]), pole: [x, .6, 0], dir: [0, -1, .2] }; }),
-      legs: both(function (x) { return { to: [x * 24, 390, 0], pole: [x * .45, -.2, 1] }; }) });
+      legs: both(function (x) { return { to: [x * 24, 390, 0], pole: [x * .45, -.2, 1], dir: [x * .3, .28, 1] }; }) });
   }
   function ohSquat(p) { // tiefe Hocke, Arme gestreckt über dem Kopf, Stab in den Händen
     var pc = [0, 342 + sway(p, 2), -42], a = 22, u = trunkU(a), sh = add(pc, mul(u, 112));
     var J = build({ pc: pc, a: a, nod: -6,
       arms: both(function (x) { return { to: add(add(sh, [x * 31, 0, 0]), mul(norm([x * .35, -1, -.12]), 114)), pole: [x, 0, 0], dir: UP }; }),
-      legs: both(function (x) { return { to: [x * 24, 390, 0], pole: [x * .45, -.2, 1] }; }) });
+      legs: both(function (x) { return { to: [x * 24, 390, 0], pole: [x * .45, -.2, 1], dir: [x * .3, .28, 1] }; }) });
     J._props = [{ type: 'line', a: add(J.wra, [-30, -6, 0]), b: add(J.wrb, [30, -6, 0]), w: 2, layer: 'front', keep: true }];
     return J;
+  }
+  function wallBig(z) { // Wand als Fläche: Vorderkante, Rückseite und Schraffur dazwischen
+    var l = [{ type: 'line', a: [0, -70, z], b: [0, 401, z], keep: true }, { type: 'line', a: [0, -70, z - 30], b: [0, 401, z - 30], col: STYLE.far }];
+    for (var y = -60; y < 401; y += 22) l.push({ type: 'line', a: [0, y, z], b: [0, y + 20, z - 30], col: STYLE.far });
+    return l;
   }
   function wallFlex(p) { // Rücken an der Wand, gestreckte Arme so weit wie möglich nach hinten
     var t = rep(p, .4, .2), pc = [0, 222, -4], sh = add(pc, [0, -112, 0]);
@@ -785,13 +802,13 @@
     var J = build({ pc: pc, a: 0, nod: 0,
       arms: both(function (x) { return { to: add(add(sh, [x * 31, 0, 0]), mul(d, 114)), pole: [x, 0, 0], dir: d }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 30], pole: FWD }; }) });
-    J._props = wall(-36);
+    J._props = wallBig(-36);
     return J;
   }
   function wallSlide(p) { // Unterarme und Handrücken an der Wand, von W nach Y schieben
     var t = rep(p, .42, .08), pc = [0, 222, -4], sh = add(pc, [0, -112, 0]);
     var J = build({ pc: pc, a: 0, nod: 0,
-      arms: both(function (x) { return { to: add(sh, [x * lerp(46, 56, t), lerp(-54, -104, t), -24]), pole: [x, lerp(.8, .2, t), -.3], dir: UP }; }),
+      arms: both(function (x) { return { to: add(sh, [x * lerp(40, 30, t), lerp(-50, -104, t), -24]), pole: [x, lerp(.8, .2, t), -.3], dir: UP }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 30], pole: FWD }; }) });
     J._props = [{ type: 'poly', pts: [[-110, -30, -40], [110, -30, -40], [110, 401, -40], [-110, 401, -40]], col: STYLE.far }];
     return J;
@@ -867,7 +884,7 @@
       g_free_handstand: { name: 'Freestanding Handstand', pose: freeHand, yaw: 62, dur: 4 },
       g_support_hold: { name: 'Ring Support Hold', pose: support, yaw: 45, dur: 4, floor: false },
       g_shrimp: { name: 'Shrimp Squat', pose: shrimp, yaw: 58, dur: 3.2 },
-      g_ragdoll: { name: 'Ragdoll Hang', pose: ragdoll, yaw: 72, dur: 4 },
+      g_ragdoll: { name: 'Ragdoll Hang', pose: ragdoll, yaw: 90, dur: 4 },
       g_pike_stretch: { name: 'Pike Stretch', pose: pikeStretch, yaw: 62, dur: 4 },
       g_jefferson_curl: { name: 'Jefferson Curl', pose: jefferson, yaw: 62, dur: 4, floor: false },
       g_deep_squat: { name: 'Deep Squat Hold', pose: deepSquat, yaw: 40, dur: 4 },
