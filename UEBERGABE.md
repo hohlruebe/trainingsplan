@@ -166,6 +166,14 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   einer Familie nehmen (Können + Geräte, nie `tempo`) ist der nächste Schritt, erst nach Rückmeldung von Dennis.
   Suche muss Varianten direkt finden. Mobility (56 Übungen) bleibt außen vor.
 
+## Trainingsaufbau und Schwerpunkte (in Planung)
+- Dennis: neue Woche: Tag 1 Ganzkörper (Zug + Druck), Tag 3 Zug, Tag 6 Druck (Läufe und Ruhetage bleiben).
+- Sechs Schwerpunkte: Allround, Kraft & Muskelaufbau, Calisthenics, CrossFit, Beweglichkeit, Laufen. Sie dürfen den Wochenaufbau
+  ändern. Ausgearbeitet in `design/schwerpunkte.md` (Wochen, Phasen, Messung, offene Fragen). Blöcke in Durchgängen mit
+  eigener Länge, jeder 4. leichter mit Tests, am Ende Rückblick und Frage zum nächsten Block.
+- Reihenfolge danach: Schritt A (automatische Wahl in der Familie, Stillstand, Schwächen), dann Schritt B (Schwerpunkte, Ziele).
+  Vorher Entwurf im Canvas.
+
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
 
