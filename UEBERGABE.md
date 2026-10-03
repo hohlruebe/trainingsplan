@@ -147,6 +147,17 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - `fitKeyboard` hält das Blatt jetzt über Abstand unten direkt über der Tastatur, der dunkle Hintergrund deckt alles ab.
   Auf dem Handy prüfen (auch im Vollbild).
 
+## Nächste große Aufgabe: Übungsfamilien
+- Dennis: Varianten (z. B. 15× Pull-up) in der Bibliothek zu Familien zusammenfassen, erst beim Antippen aufklappen.
+  Im Training automatisch die beste Variante nach Können und Geräten.
+- Aufteilung: Cowork ordnet die Übungen Familien zu und rankt sie. Auftrag: `design/auftraege/familien.md`, Ergebnis `familien.json`.
+  Claude Code prüft das Ergebnis, zeigt einen Entwurf im Canvas und baut dann ein.
+- Arten je Variante: `stufe` (Steigerung, Rang nach Schwierigkeit), `variante` (gleichwertig), `tempo`
+  (CrossFit-Schnelligkeit, Vermerk, ersetzt nie automatisch eine Stufe; Dennis: keine eigene Familie).
+- Cowork soll Grenzfälle vorher mit Argumenten dafür und dagegen vorlegen. Offen: Chin-up eigene Familie oder Pull-up-Variante.
+- Beim Einbau beachten: IDs und Namen nie ändern, Familie nur als neues Feld; Aufstieg weiter nur über die Leiter-Regel.
+  Suche muss Varianten direkt finden. Mobility (56 Übungen) bleibt außen vor.
+
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
 
