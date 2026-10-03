@@ -79,7 +79,11 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
     B2 Fortschrittslinie (bis zur eigenen Stufe blau gefüllt), B3 Liste mit Kacheln (Trenner, Nummer-Kachel, Chip).
     → **B1 Glas-Kapsel gewählt.** Dazu eine Markierung für die höchste je geschaffte Stufe (kann über der aktuellen liegen).
     Im Canvas drei Variationen in Gold (wie 1RM-Bestwert): M1 goldener Chip „Bestwert“, M2 goldener Ring + Stern am
-    Nummernkreis, M3 goldene Marke links an der Kapsel. **Wartet auf Dennis' Wahl.**
+    Nummernkreis, M3 goldene Marke links an der Kapsel → **M1**, aber als glänzende Medaille: holt die abgeschafften
+    Leiter-Erfolge über Umwege zurück. Metall des Bestwerts per `tierOf(best, n)` (Bronze/Silber/Gold, letzte Stufe Platin),
+    Farben aus `METAL`, Glanz wie `sheen`. Zu lange Stufennamen laufen als Laufschrift statt umzubrechen.
+    Im Canvas drei Variationen: V1 Metall-Chip, V2 Mini-Medaille + Metallname, V3 Nummernkreis als Medaille.
+    **Wartet auf Dennis' Wahl.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
 - Figur als 3D-Skelett, um die Hochachse gedreht, Bild für Bild aus Gelenkwinkeln gezeichnet.
