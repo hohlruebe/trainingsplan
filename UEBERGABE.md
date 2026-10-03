@@ -169,8 +169,9 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 ## Trainingsaufbau und Schwerpunkte (in Planung)
 - Dennis: neue Woche: Tag 1 Ganzkörper (Zug + Druck), Tag 3 Zug, Tag 6 Druck (Läufe und Ruhetage bleiben).
 - Sechs Schwerpunkte: Allround, Kraft & Muskelaufbau, Calisthenics, CrossFit, Beweglichkeit, Laufen. Sie dürfen den Wochenaufbau
-  ändern. Ausgearbeitet in `design/schwerpunkte.md` (Wochen, Phasen, Messung, offene Fragen). Blöcke in Durchgängen mit
-  eigener Länge, jeder 4. leichter mit Tests, am Ende Rückblick und Frage zum nächsten Block.
+  ändern. Dennis: nicht alle mit gleichem Grundaufbau, Ziele und Reize sind zu verschieden. Neu ausgearbeitet in
+  `design/schwerpunkte.md`: je Plan eigene Häufigkeit, Format (EMOM, Sätze mit Pause, Halten, WOD, Lauf), Steigerung,
+  Entlastung, Tests und Länge. Gemeinsam nur: Durchgänge, automatische Wahl aus Familien, Rückblick am Blockende.
 - Reihenfolge danach: Schritt A (automatische Wahl in der Familie, Stillstand, Schwächen), dann Schritt B (Schwerpunkte, Ziele).
   Vorher Entwurf im Canvas.
 
