@@ -142,5 +142,9 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   App gebaut): Umschalter 42 px; Einzeln mit Chip „Übung 2 von 9“ statt Punkten und `.bgrp` „‹ Zurück | Erledigt, weiter ›“
   statt Hinweis-Chips; Liste als Glas-Kapsel mit weißer Pille (wie Leiter), keine Abhak-Kreise, „Erledigt“ als
   `.btn.small`, erledigt = grüner Haken an der Menge. EMOM, Ergebnis-Blatt, Einstellungen Standard unverändert.
-  **Wartet auf Dennis' Wahl je Bildschirm.**
+  → **Neu gefällt viel besser.** Regel (in DESIGN.md): Entwürfe ab jetzt immer direkt im besprochenen Stil bauen.
+  Doppelung behoben: im Modus „Einzeln“ kein großer „Weiter zu …“-Knopf, solange Übungen offen sind; er erscheint nach
+  der letzten Übung („✓ alle erledigt“) bzw. beim Metcon erst nach „Stimmt dein Ergebnis?“. Board P36.
+  **Nächster Schritt: alles einbauen** (Einstellungen in Abschnitten, Modi Einzeln/Liste, Wischen + umkehren,
+  Rundenzähler Liste, Ergebnis prüfen, Figur/Platzhalter in allen Schritten, EMOM-Vorschau).
 

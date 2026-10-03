@@ -68,4 +68,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 
 ## Arbeitsweise
 - Neue Oberflächen zuerst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
+- Entwürfe immer direkt im Stil dieses Konzepts bauen, am besten in der echten App (Bildschirmfoto mit eingesetzten Bausteinen),
+  nie frei nachgezeichnet. Vor dem Zeigen jeden Bildschirm gegen die Bausteine-Tabelle prüfen (Tippflächen, Chips vs. Knöpfe, keine neuen Bedienelemente).
+- Eine Hauptaktion pro Seite und kein doppelter Weg: „Weiter zu …“ erst, wenn der Schritt fertig ist (z. B. nach der letzten Übung oder nach der Ergebnis-Eingabe).
 - Vor jedem neuen Arbeitsschritt alte Canvas-Boards löschen, dann die neuen anlegen.
