@@ -194,7 +194,17 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
   `pruefen.js` misst Kontakte); Ringe am unteren Rand greifen, Hand im Ring; Sprünge mit echter Flugphase ohne Pause;
   Plank mit Unterarmen flach am Boden; V-up mit gestreckten Armen; Scapular Push-up: Rumpf sackt zwischen die Schulterblätter
   („perfekt“). Pull-up, Chin-up, Dip wurden dafür am Griff korrigiert.
-- Als Nächstes: Runde 2 mit den nächsten 20 (z. B. Wall Walk, Box Jump, Kettlebell Swing, Goblet Squat, Thruster,
+- Runde 2 (eingebaut, Dennis: „alle Sachen, die in den Testtagen vorkommen“): Stufen der Testübungen (Knee, Parallette,
+  Decline, Banded, Weighted Push-up, Assisted Pistol, Box Pistol, Freestanding Handstand, Ring Support Hold, Shrimp Squat) und
+  Beweglichkeits-Check (Ragdoll, Pike Stretch, Jefferson Curl, Deep Squat Hold, Overhead Deep Squat Hold, Wall Flexion Hold,
+  Wall Slide, Wrist Extension Stretch, Planche Lean, Knee-to-Wall). Rückmeldungen: Geräte deutlich (breites grünes Band,
+  Weste als dicke Platten), Hand hält den Fuß wirklich (Shrimp), Jefferson: erst Kinn zur Brust, Oberkörper hängt vor den Beinen
+  und vor der Stufe, Füße flach nach vorn (Standard in `build`), Wände als glatte Fläche statt Schraffur, Handrichtung in der
+  Beschreibung (Wrist Extension: Finger nach vorn; Planche Lean: Finger zur Seite oder schräg nach hinten).
+  Canvas-Boards höchstens ~2 MB (6 Bilder/s in der Vorschau), sonst lädt der Canvas sie nicht zuverlässig.
+- Offen aus dem Beweglichkeits-Check: Supine Hamstring Stretch, Assisted Deep Squat, Wall Flexion Lift-off, Wrist Rocks,
+  Wall Calf Stretch. Frage an Dennis: Wand bei Handstand und HSPU auch glatt statt Schraffur?
+- Danach: Runde 3 mit den nächsten 20 (z. B. Wall Walk, Box Jump, Kettlebell Swing, Goblet Squat, Thruster,
   Walking Lunge, Step-up, Hollow Hold-Varianten, Bear Crawl, Russian Twist, Wall Sit, Band-Übungen, Dragon Flag, Front Lever …).
 
 ## Ideen für später
