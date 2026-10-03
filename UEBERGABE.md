@@ -55,22 +55,18 @@ Weg bis jetzt (Rückmeldungen von Dennis):
     B3-1 Definiert (feine Muskellinien: Brust, Bauch, Oberschenkel, Wade),
     B3-2 V-Form (noch breitere Schultern mit Schulterkappen),
     B3-3 Nacken und Kiefer (kräftiger Nacken mit Trapez, kantiges Kinn).
-    **Wartet auf Dennis' Wahl.**
+    → **B3-2 ist genau so, wie Dennis es sich vorstellt. Als feste Vorlage gespeichert.**
 
-Technik (Skripte in `design/maskottchen/`, Einstellungen je Variante im Wörterbuch `V`, Aufruf `python3 maskottchen.py`, Ausgabe in `out/`):
-- Die Figur ist ein 3D-Skelett (Gelenke x, y, z), wird um die Hochachse gedreht und flach gezeichnet.
-- Brustkorb als Ei, Becken als Oval, beide mit Mittel- und Querlinien; Glieder als Ovale, Gelenke als Kreise;
-  hintere Seite blasser; Kopf mit Augen, Nase, Mittellinie (von hinten ohne Gesicht).
-- Warum frühere Animationen anders aussahen als die Skizzen: Die Animation war ein eigener Weg
-  (SMIL-Verschieben/Drehen/Strecken fertiger Formen zwischen zwei 2D-Posen). Formen wurden dabei gestreckt
-  und Gelenkpositionen geradlinig statt über Winkel überblendet. Jetzt wird jedes Bild mit derselben
-  Zeichenfunktion aus Gelenkwinkeln erzeugt.
-- Bildausschnitt einer Animation = Ausdehnung über alle Bilder der Bewegung plus Rand. So wird nie etwas
-  abgeschnitten (Kopf oben, Hände vorn).
-- Für die App geplant: dieselbe Zeichenfunktion in JavaScript in `index.html`, Bilder live im Browser
-  berechnen (keine großen Dateien, offline). Posen je Übung als Gelenkwinkel-Keyframes.
+**Vorlage:** `design/maskottchen/maskottchen.js` (einzige Zeichenfunktion, für Canvas und App),
+Beschreibung und Regeln in `design/maskottchen/VORLAGE.md`, Vorschau mit `node design/maskottchen/vorschau.js`.
+Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gibt.
 
-Nächste Schritte: Variante wählen → Testtag-Übungen als Probe → Rückfrage → Einbau.
+Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
+- Figur als 3D-Skelett, um die Hochachse gedreht, Bild für Bild aus Gelenkwinkeln gezeichnet.
+- Bildausschnitt einer Animation über alle Bilder der Bewegung plus Rand, damit nichts abgeschnitten wird.
+- In der App zeichnet `play()` live im Browser (offline, keine großen Dateien).
+
+Nächste Schritte: alle 11 Testtag-Übungen mit der Vorlage als Probe im Canvas → Rückfrage → Einbau in Training, Übungen und Routinen-Player → erst dann Pull Request.
 
 ## Danach: `mobility2.json` einbauen
 Datei: `design/mobility2.json` (von Dennis aus Cowork, `v: 2`, 42 Übungen, 8 Leitern, Analyse mit 14 Tests und 8 Regionen, 4 Routinen: `r_lauf_abc`, `r_aufwaermen_kraft`, `r_yoga_flow`, `r_abend`).
