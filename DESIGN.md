@@ -46,6 +46,16 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Stufen mit Band werden ausgeschrieben („Normales Band“) mit Farbpunkt davor (`stageHTML`, `bdot`); gespeichert bleibt der kurze Name.
 - Bandfarben: Standard in `BANDS`, je Band aus 10 Farben (`BAND_PAL`) wählbar, passend zu den echten Bändern (`bandColor()`).
 
+## Leitern
+- Eine Leiter ist ein Aufstieg: Stufe 1 unten, die schwerste oben, darüber „↑ Schwerer“, darunter „Leichter“.
+- Stufen liegen in einer Glas-Kapsel, jede Zeile mindestens 44 px, Nummer im Kreis (Bandfarbe, Weste schwarz, erreichte Stufen `--acc`).
+- „Aktuelle Stufe“ ist die weiße Pille wie die Wahl in jeder Kapsel. Die höchste je geschaffte Stufe trägt den goldenen Chip „★ Bestwert“.
+- Text bricht nicht um: zu lange Namen enden mit „…“ und laufen beim Antippen einmal durch, blenden aus und stehen wieder am Anfang.
+
+## Übungsgrafiken
+- Immer die Maskottchen-Vorlage (`design/maskottchen/VORLAGE.md`). Bildfeld überall gleich groß, Figur in einer weißen Fläche.
+- Im Training nur bei der Übung, die gerade dran ist. Ähnliche Übungen werden über den Text unterschieden (z. B. Griff).
+
 ## Diagramme
 - Netzdiagramm für die Bereiche, Linien für Verläufe, Akzentfarbe für „jetzt“, gestrichelt für den Vergleich.
 - Jede Zahl im Diagramm ist antippbar und führt zur Aufschlüsselung.

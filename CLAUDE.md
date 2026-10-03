@@ -14,6 +14,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 263 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
+  - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
 - Reiter von links nach rechts: Tools (Timer, Übungen, Routinen, 1RM), Coach (nur Heute), Profil.
   Der Plan (Regeln, Methode, Tests) ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute.
@@ -50,6 +51,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   fragt nach: Zwischenspeichern (weiter beim Schritt), Training abbrechen (Entwurf weg) oder Weiter trainieren.
   Lauftage haben keine Schritte und keinen Timer, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).
+- Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
+  Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
+  vor dem Start in der ersten (`syncFig`), darunter der Griff bei ähnlichen Übungen (`GRIP`, Pull-up/Chin-up).
+- Leiter in Tools › Übungen (`ladderHTML(lad, state)`): Glas-Kapsel als Aufstieg (Stufe 1 unten, schwerste oben),
+  „Aktuelle Stufe“ als weiße Pille, höchste geschaffte Stufe mit goldenem Chip „★ Bestwert“ (gleich = nur Stern).
+  Zu lange Stufennamen enden mit „…“ (gemessen, `fitLadders`), Antippen lässt sie einmal durchlaufen.
 - Stufen und Wiederholungen wählt man mit dem Rad-Blatt von unten (`openSheet`, `ACT.pick`), nicht mit Textfeldern.
   Stufen-Listen bleiben in der Reihenfolge der Leiter (nicht alphabetisch). Im EMOM zeigt jedes Feld seine Minute.
 - Jeder Schritt bringt seinen Timer fertig eingestellt mit (helle Glas-Leiste `#tbar`, `paintMini`), Timer-Art `block`
@@ -130,7 +137,8 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
 ## Übergabe zwischen Sitzungen
 - Zu Beginn jeder Sitzung `UEBERGABE.md` lesen (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 - Am Ende jeder Aufgabe `UEBERGABE.md` im selben Pull Request aktualisieren.
-- `design/` enthält nur Entwürfe und Rohdaten (Maskottchen-Skripte, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
+- `design/` enthält nur Entwürfe und Rohdaten (Maskottchen, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
+- Übungsgrafiken: immer die Maskottchen-Vorlage `design/maskottchen/maskottchen.js` benutzen, Regeln in `design/maskottchen/VORLAGE.md`.
 
 ## Vor dem Abschluss
 - Prüfen, dass `index.html` ohne JavaScript-Fehler lädt und alle drei Reiter mit ihren Unterseiten funktionieren.
