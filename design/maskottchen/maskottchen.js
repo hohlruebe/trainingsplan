@@ -253,8 +253,12 @@
   function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
   function lerp(a, b, t) { return typeof a === 'number' ? a + (b - a) * t : [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
   // Zwei Glieder (Oberschenkel/Unterschenkel, Oberarm/Unterarm) mit festen Längen zum Ziel; pole = Richtung, in die das Gelenk zeigt.
+  // Ist das Ziel bis 12 px weiter als das gestreckte Glied, wird es minimal gedehnt: Hand bzw. Fuß bleibt am Kontaktpunkt
+  // (Boden, Ring, Gerät), das Gelenk ganz gestreckt. Die Dehnung sieht man nicht, eine schwebende Hand schon.
   function ik3(root, target, l1, l2, pole) {
-    var d = sub3(target, root), D = Math.min(len(d), l1 + l2 - .01), dir = norm(d);
+    var d = sub3(target, root), T = len(d), dir = norm(d);
+    if (T >= l1 + l2 && T <= l1 + l2 + 12) return [add(root, mul(dir, T * l1 / (l1 + l2))), target.slice()];
+    var D = Math.min(T, l1 + l2 - .01);
     var b = norm(sub3(pole, mul(dir, dot(pole, dir))));
     var a = (l1 * l1 + D * D - l2 * l2) / (2 * D), h = Math.sqrt(Math.max(0, l1 * l1 - a * a));
     return [add(add(root, mul(dir, a)), mul(b, h)), add(root, mul(dir, D))];
@@ -280,6 +284,7 @@
       J['to' + sd] = add(lg[1], mul(norm(L.dir || add(mul(fw, 1), [0, .28, 0])), LEN.foot));
     });
     J._props = o.props || [];
+    J._to = { wra: o.arms.a.to, wrb: o.arms.b.to, ana: o.legs.a.to, anb: o.legs.b.to }; // Ziele, zum Nachmessen der Kontaktpunkte
     return J;
   }
   function side(x, v) { return [v[0] * x, v[1], v[2]]; } // Wert für Seite a (x=-1) oder b (x=1)
@@ -349,10 +354,10 @@
     return J;
   }
   function hang(p, chin) { // Ring Pull-up und Ring Chin-up
-    var t = rep(p, .4, .1), RY = 30, gx = chin ? 22 : 28;
-    var pc = [0, lerp(266, 157, t), lerp(13.7, 6, t)], a = lerp(-6, -12, t); // unten toter Hang: Arme ganz gestreckt
+    var t = rep(p, .4, .1), RY = 22, gx = chin ? 22 : 28;
+    var pc = [0, lerp(266, 149, t), lerp(13.7, 6, t)], a = lerp(-6, -12, t); // unten toter Hang: Arme ganz gestreckt
     return build({ pc: pc, a: a, nod: lerp(0, -10, t),
-      arms: both(function (x) { return { to: [x * gx, RY + 12, 0], pole: [x * (chin ? .3 : .8), .5, chin ? .9 : .4], dir: [0, -1, 0] }; }),
+      arms: both(function (x) { return { to: [x * gx, RY + 20, 0], pole: [x * (chin ? .3 : .8), .5, chin ? .9 : .4], dir: [0, -1, 0] }; }), // Hand im Ring am unteren Rand
       legs: both(function (x) { return { to: add(pc, [x * 12, 168, 26]), pole: [0, 0, 1], dir: [0, .7, .7] }; }), // Beine gestreckt, leicht vor dem Körper
       props: rings(gx, RY, 0, -200) });
   }
@@ -401,9 +406,9 @@
       props: wall(wallZ) });
   }
   function dip(p) {
-    var t = rep(p), RY = 150, pc = [0, lerp(144, 205, t), lerp(-9.7, -20, t)], a = lerp(6, 26, t); // oben Arme ganz gestreckt, unten Oberarm waagerecht
+    var t = rep(p), RY = 158, pc = [0, lerp(144, 205, t), lerp(-9.7, -20, t)], a = lerp(6, 26, t); // oben Arme ganz gestreckt, unten Oberarm waagerecht
     return build({ pc: pc, a: a, nod: lerp(0, -8, t),
-      arms: both(function (x) { return { to: [x * 27, RY - 4, 0], pole: [x * .25, 0, -1], dir: [0, .35, 1] }; }),
+      arms: both(function (x) { return { to: [x * 27, RY - 12, 0], pole: [x * .25, 0, -1], dir: [0, 1, .15] }; }), // Hand im Ring, drückt auf den unteren Rand
       legs: both(function (x) { return { to: add(pc, [x * 8, 112, -78]), pole: [0, .2, 1], dir: [0, .6, -.8] }; }),
       props: rings(27, RY, 0, -200) });
   }
@@ -437,6 +442,219 @@
   }
 
 
+  // ---- Zweite Runde (Oktober 2026): Hilfen für Bewegungen mit mehreren Phasen ----
+  // Werte (Zahlen, Punkte, verschachtelte Objekte) gleichmäßig mischen. Ellbogen und Knie rechnet danach build().
+  function mix(A, B, t) {
+    if (typeof A === 'number') return A + (B - A) * t;
+    if (Array.isArray(A)) return A.map(function (v, i) { return mix(v, B[i], t); });
+    var o = {}; for (var k in A) o[k] = k === 'props' ? A[k] : mix(A[k], B[k], t); return o;
+  }
+  // Schlüsselbilder [[Zeitpunkt, Werte], …] mit weichem Übergang; Werte sind Funktionen von x (Seite) oder fest.
+  function keys(p, K) {
+    for (var i = 0; i < K.length - 1; i++) if (p <= K[i + 1][0]) return mix(K[i][1], K[i + 1][1], ease((p - K[i][0]) / (K[i + 1][0] - K[i][0] || 1)));
+    return K[K.length - 1][1];
+  }
+  function limbs(o) { // {pc, a, nod, ta, tb, pa, pb, da, db, la, lb, qa, qb, ea, eb} → build
+    return build({ pc: o.pc, a: o.a, nod: o.nod || 0, props: o.props,
+      arms: { a: { to: o.ta, pole: o.pa, dir: o.da }, b: { to: o.tb, pole: o.pb, dir: o.db } },
+      legs: { a: { to: o.la, pole: o.qa, dir: o.ea }, b: { to: o.lb, pole: o.qb, dir: o.eb } } });
+  }
+  // Gerader Körper zwischen Knöchel A und Schulter S (Liegestütz, Planke): Becken auf der Linie, Winkel daraus.
+  function line(A, S) { var L = norm(sub3(S, A)); return { pc: add(A, mul(L, 172)), a: Math.atan2(L[2], -L[1]) / R }; }
+  // Schnittpunkt zweier Kreise in der y-z-Ebene (Becken zwischen Füßen und Schultern), die obere Lösung.
+  function meet(A, rA, B, rB) {
+    var dy = B[1] - A[1], dz = B[2] - A[2], d = Math.min(Math.hypot(dy, dz), rA + rB - .01), a = (rA * rA - rB * rB + d * d) / (2 * d), h = Math.sqrt(Math.max(0, rA * rA - a * a));
+    var my = A[1] + a * dy / d, mz = A[2] + a * dz / d, s1 = [0, my - h * dz / d, mz + h * dy / d], s2 = [0, my + h * dz / d, mz - h * dy / d];
+    return s1[1] < s2[1] ? s1 : s2;
+  }
+  function trunkTo(pc, S) { var u = norm(sub3(S, pc)); return Math.atan2(u[2], -u[1]) / R; }
+  function rotYZ(J, c, deg) { // ganze Figur um einen Punkt kippen (Hollow Rock)
+    var r = deg * R, cs = Math.cos(r), sn = Math.sin(r), O = {}, k;
+    function f(v) { var y = v[1] - c[1], z = v[2] - c[2]; return [v[0], c[1] + y * cs - z * sn, c[2] + y * sn + z * cs]; }
+    for (k in J) O[k] = k.charAt(0) === '_' ? J[k] : f(J[k]);
+    return O;
+  }
+  var UP = [0, -1, 0], DOWN = [0, 1, 0], FWD = [0, 0, 1], BACK = [0, 0, -1];
+  function stand(x) { return [x * 20, 390, 0]; }
+
+  function ringRow(p) { // Körper gerade schräg unter den Ringen, Fersen am Boden
+    var t = rep(p, .4, .1), A = [0, 386, 240], Sy = lerp(322, 254, t), S = [0, Sy, 240 - Math.sqrt(284 * 284 - Math.pow(386 - Sy, 2))], L = line(A, S);
+    return build({ pc: L.pc, a: L.a, nod: lerp(4, -6, t),
+      arms: both(function (x) { return { to: [x * 26, 210, 0], pole: [x * .7, .7, -.3], dir: UP }; }), // Hand im Ring am unteren Rand
+      legs: both(function (x) { return { to: [x * 11, 386, 240], pole: UP, dir: [0, -.6, .8] }; }),
+      props: rings(26, 190, 0, -200) });
+  }
+  function pikePush(p) { // Hüfte hoch, Kopf zwischen die Hände zum Boden
+    var t = rep(p), F = [0, 386, -240], S = [0, lerp(306, 340, t), lerp(-86, -28, t)], pc = meet(F, 168, S, 112);
+    return build({ pc: pc, a: trunkTo(pc, S), nod: lerp(-30, -10, t),
+      arms: both(function (x) { return { to: [x * 30, 386, 0], pole: [x * .5, -.2, 1], dir: [0, .1, 1] }; }),
+      legs: both(function (x) { return { to: [x * 12, 386, -240], pole: [0, -1, .2], dir: [0, .4, -.9] }; }) });
+  }
+  function lunge(p) { // Schritt nach hinten, hinteres Knie knapp über dem Boden
+    var t = rep(p, .42, .1), pc = [0, lerp(222, 300, t), lerp(-4, -58, t)];
+    return build({ pc: pc, a: lerp(0, 6, t), nod: -2,
+      arms: both(function (x) { return { to: add(pc, [x * 40, 12, 8]), pole: [x * .3, 0, -1] }; }),
+      legs: { a: { to: [-16, 390, 8], pole: FWD },
+        b: { to: [16, lerp(390, 366, t) - 16 * Math.sin(Math.PI * t), lerp(0, -172, t)], pole: [0, .9, .5], dir: mix([0, .28, 1], [0, .95, .3], t) } } });
+  }
+  function kneeRaise(p) { // toter Hang, Oberschenkel bis waagerecht
+    var t = rep(p, .38, .14), RY = 22, pc = [0, 266, lerp(13.7, 18, t)];
+    return build({ pc: pc, a: lerp(-6, -14, t), nod: -4,
+      arms: both(function (x) { return { to: [x * 28, RY + 20, 0], pole: [x * .8, .5, .4], dir: UP }; }),
+      legs: both(function (x) { return { to: add(pc, [x * 12, lerp(168, 92, t), lerp(26, 74, t)]), pole: FWD, dir: [0, .7, .7] }; }),
+      props: rings(28, RY, 0, -200) });
+  }
+  function plankAt(Sz, Sy, Az) { var A = [0, 384, Az], S = [0, Sy, Sz], L = line(A, S); return { pc: L.pc, a: L.a, A: A }; }
+  function burpee(p) {
+    var hz = 40, P1 = plankAt(hz, 276, -228), P2 = plankAt(hz + 8, 334, -228);
+    function stand0(lift, up) {
+      var pc = [0, 222 - lift, -4];
+      return { pc: pc, a: 0, nod: 0,
+        ta: up ? add(pc, [-34, -236, 6]) : add(pc, [-40, 12, 8]), tb: up ? add(pc, [34, -236, 6]) : add(pc, [40, 12, 8]),
+        pa: up ? [-1, 0, 0] : [-.3, 0, -1], pb: up ? [1, 0, 0] : [.3, 0, -1], da: up ? UP : DOWN, db: up ? UP : DOWN,
+        la: [-20, 390 - lift, 0], lb: [20, 390 - lift, 0], qa: FWD, qb: FWD, ea: [0, .28 + lift / 60, 1], eb: [0, .28 + lift / 60, 1] };
+    }
+    function floor(P, sq) {
+      return { pc: sq ? [0, 332, -40] : P.pc, a: sq ? 46 : P.a, nod: -12, // Hocke: Hüfte unter dem Knie
+        ta: [-32, 386, hz], tb: [32, 386, hz], pa: [-.45, -.2, -1], pb: [.45, -.2, -1], da: [0, .1, 1], db: [0, .1, 1],
+        la: sq ? [-20, 390, 0] : [-11, 384, -228], lb: sq ? [20, 390, 0] : [11, 384, -228], qa: sq ? FWD : DOWN, qb: sq ? FWD : DOWN,
+        ea: sq ? [0, .28, 1] : [0, .55, .85], eb: sq ? [0, .28, 1] : [0, .55, .85] };
+    }
+    var o = limbs(keys(p, [[0, stand0(0)], [.14, floor(P1, true)], [.26, floor(P1)], [.38, floor(P2)], [.5, floor(P1)], [.62, floor(P1, true)], [.76, stand0(26, true)], [.88, stand0(0)], [1, stand0(0)]]));
+    return o;
+  }
+  function squatJump(p) {
+    function st(y, lift, arms) {
+      var k = (y - 222) / 102, pc = [0, y - lift, lerp(-4, -52, k)], a = k * 42;
+      return { pc: pc, a: a, nod: -4,
+        ta: arms === 'up' ? add(pc, [-30, -230, 20]) : arms === 'back' ? add(pc, [-34, 30, -70]) : add(pc, [-40, 12, 8]),
+        tb: arms === 'up' ? add(pc, [30, -230, 20]) : arms === 'back' ? add(pc, [34, 30, -70]) : add(pc, [40, 12, 8]),
+        pa: [-.3, 0, -1], pb: [.3, 0, -1], la: [-20, 390 - lift, 0], lb: [20, 390 - lift, 0], qa: [-.2, 0, 1], qb: [.2, 0, 1],
+        ea: [0, .28 + lift / 40, 1], eb: [0, .28 + lift / 40, 1] };
+    }
+    var deep = st(324, 0, 'back'); // unten: Hüfte tiefer als das Knie
+    return limbs(keys(p, [[0, deep], [.16, st(222, 0, 'up')], [.28, st(222, 34, 'up')], [.42, st(232, 0, 'up')], [.64, deep], [1, deep]]));
+  }
+  function skater(p) { // weit seitlich springen, kurz ganz in der Luft, auf einem Bein landen, das andere kreuzt hinten
+    var X = 170;
+    function land(x) {
+      var pc = [x * X, 288, -24];
+      return { pc: pc, a: 22, nod: -6, ta: add(pc, [x * 56, 40, 40]), tb: add(pc, [x * 10, 30, 70]), pa: [x, 0, -.5], pb: [x * .2, 0, -1],
+        la: x < 0 ? [-X - 8, 390, 6] : [X - 46, 352, -86], lb: x < 0 ? [-X + 46, 352, -86] : [X + 8, 390, 6],
+        qa: x < 0 ? FWD : [0, .3, 1], qb: x < 0 ? [0, .3, 1] : FWD, ea: x < 0 ? [0, .28, 1] : [0, .6, -.7], eb: x < 0 ? [0, .6, -.7] : [0, .28, 1] };
+    }
+    // Halbe Runde: erst auf dem Bein abfangen und laden (40 %), dann Flug ohne Halt (60 %): seitlich gleichmäßig, Höhe als Bogen.
+    var half = p < .5 ? 0 : 1, h = (p - half * .5) * 2, from = half ? 1 : -1, to = -from;
+    if (h < .4) { var c = Math.sin(h / .4 * Math.PI) * 14, L = land(from); L.pc = add(L.pc, [0, c, 0]); return limbs(L); }
+    var s = (h - .4) / .6, arc = Math.sin(s * Math.PI), o = mix(land(from), land(to), s);
+    o.pc = [lerp(from, to, s) * X, 288 - 84 * arc, -24 + 10 * arc]; o.a = 22 - 12 * arc;
+    var lift = Math.min(1, arc * 3); // Füße sofort vom Boden, beide Beine unter dem Körper
+    o.la = mix(o.la, add(o.pc, [-20, 128, -18]), lift); o.lb = mix(o.lb, add(o.pc, [20, 128, -18]), lift); // Knie leicht angezogen
+    o.ea = o.eb = [0, .6, .8]; o.qa = o.qb = FWD;
+    return limbs(o);
+  }
+  function slideFeet(z, w, y) { w = w || 11; y = y || 397; return [-1, 1].map(function (x) { return { type: 'poly', pts: [[x * w - 9, y, z - 14], [x * w + 9, y, z - 14], [x * w + 9, y, z + 10], [x * w - 9, y, z + 10]], keep: true }; }); }
+  function kneeTuck(p) { // Liegestütz, Füße auf dem Handtuch, Knie zur Brust
+    var t = rep(p, .4, .1), P = plankAt(0, 276, -268), Az = lerp(-268, -116, t), S = [0, 274, 2];
+    var pc = mix(P.pc, [0, 264, -108], t), a = lerp(P.a, trunkTo([0, 264, -108], S), t);
+    var J = build({ pc: pc, a: a, nod: lerp(-10, -22, t),
+      arms: both(function (x) { return { to: [x * 32, 386, 0], pole: [x * .45, -.2, -1], dir: [0, .1, 1] }; }),
+      legs: both(function (x) { return { to: [x * 11, 384, Az], pole: mix(DOWN, [0, .6, 1], t), dir: [0, .55, -.85] }; }) });
+    J._props = slideFeet((J.toa[2] + J.tob[2]) / 2 + 4); // Handtuch bleibt unter den Zehen
+    return J;
+  }
+  function ringPush(p) { // Liegestütz an tiefen Ringen
+    var t = rep(p), A = [0, 384, -240], Sy = lerp(222, 292, t), S = [0, Sy, -240 + Math.sqrt(286 * 286 - Math.pow(384 - Sy, 2))], L = line(A, S);
+    return build({ pc: L.pc, a: L.a, nod: -10,
+      arms: both(function (x) { return { to: [x * 30, 334, 0], pole: [x * .45, -.2, -1], dir: [0, 1, .15] }; }),
+      legs: both(function (x) { return { to: [x * 11, 384, -240], pole: DOWN, dir: [0, .55, .85] }; }),
+      props: rings(30, 346, 0, -200) });
+  }
+  function hspu(p) { // Handstand an der Wand, Kopf bis zum Boden
+    var t = rep(p, .45, .06), a = 172, u = [0, -Math.cos(a * R), Math.sin(a * R)];
+    var S = [0, lerp(273, 326, t), lerp(-1, -4, t)], pc = sub3(S, mul(u, 112));
+    var top = sub3([0, 273, -1], mul(u, 112)), wallZ = add(add(top, [0, 6, 0]), mul(u, -165))[2] - 12;
+    return build({ pc: pc, a: a, nod: -12,
+      arms: both(function (x) { return { to: [x * 32, 386, 0], pole: [x * .7, 0, .7], dir: [0, .1, -1] }; }),
+      legs: both(function (x) { return { to: add(add(pc, [x * 16, 0, 0]), mul(u, -175)), pole: [0, 0, -1], dir: [0, -1, .15] }; }),
+      props: wall(wallZ) });
+  }
+  function lsit(p) { // Stütz auf Parallettes, Beine waagerecht nach vorn
+    var pc = [0, 338 + sway(p, 1.5), 4], a = -6, hi = add(pc, [0, 6, 0]);
+    var par = [-1, 1].reduce(function (l, x) {
+      return l.concat([{ type: 'line', a: [x * 32, 344, -26], b: [x * 32, 344, 26], w: 2, keep: true }, { type: 'line', a: [x * 32, 344, -20], b: [x * 32, 397, -28] }, { type: 'line', a: [x * 32, 344, 20], b: [x * 32, 397, 28] }]);
+    }, []);
+    return build({ pc: pc, a: a, nod: -6,
+      arms: both(function (x) { return { to: [x * 32, 342, 2], pole: [x * .3, 0, -1], dir: [0, .1, 1] }; }),
+      legs: both(function (x) { return { to: add(hi, [x * 9, -3 + sway(p, 2), 168]), pole: UP, dir: [0, -.5, .85] }; }),
+      props: par });
+  }
+  function climber(p) { // Liegestütz oben, Knie im Wechsel zur Brust
+    var P = plankAt(0, 276, -268), s = Math.sin(p * 2 * Math.PI), da = Math.max(0, s), db = Math.max(0, -s);
+    function leg(x, d) { return { to: mix([x * 11, 384, -268], [x * 11, 362, -150], ease(d)), pole: mix(DOWN, [0, .4, 1], d), dir: [0, .55, .85] }; }
+    return build({ pc: P.pc, a: P.a, nod: -12,
+      arms: both(function (x) { return { to: [x * 32, 386, 0], pole: [x * .45, -.2, -1], dir: [0, .1, 1] }; }),
+      legs: { a: leg(-1, da), b: leg(1, db) } });
+  }
+  function plank(p) { // Unterarmstütz: Ellbogen unter den Schultern
+    var S = [0, 330 + sway(p, 1), 0], A = [0, 384, -262], L = line(A, S), J;
+    J = build({ pc: L.pc, a: L.a, nod: -8,
+      arms: both(function (x) { return { to: [x * 16, 388, 48], pole: [x * .05, 1, -.2], dir: [0, .1, 1] }; }),
+      legs: both(function (x) { return { to: [x * 11, 384, -262], pole: DOWN, dir: [0, .55, .85] }; }) });
+    ['a', 'b'].forEach(function (sd) { J['el' + sd] = [J['el' + sd][0], 384, J['sh' + sd][2] + 2]; J['wr' + sd] = [J['wr' + sd][0], 387, J['el' + sd][2] + 52]; J['ha' + sd] = add(J['wr' + sd], [0, 1, 24]); }); // Unterarme flach am Boden
+    return J;
+  }
+  function hollowRock(p) { return rotYZ(hollow(p * 0), [0, 384, 0], Math.sin(p * 2 * Math.PI) * 9); }
+  function vup(p) { // flach liegen, dann zum V falten und die Zehen berühren
+    var t = rep(p, .4, .12), pc = [0, 380, 0], a = lerp(-90, -38, t), e = lerp(4, 58, t) * R;
+    var u = [0, -Math.cos(a * R), Math.sin(a * R)], hi = add(pc, [0, 6, 0]);
+    return build({ pc: pc, a: a, nod: lerp(0, 22, t),
+      arms: both(function (x) {
+        var sh = add(add(pc, mul(u, 112)), [x * 31, 0, 0]), toe = add(hi, [x * 12, -150 * Math.sin(e) - 6, 150 * Math.cos(e) - 26]);
+        var d = norm(mix(u, norm(sub3(toe, sh)), t)); // Arm immer ganz gestreckt: von über dem Kopf zu den Füßen
+        return { to: add(sh, mul(d, 114)), pole: mix(DOWN, UP, t), dir: d };
+      }),
+      legs: both(function (x) { return { to: add(hi, [x * 10, -176 * Math.sin(e), 176 * Math.cos(e)]), pole: UP, dir: [0, -.4, 1] }; }) });
+  }
+  function legCurl(p) { // Brücke halten, Fersen auf dem Handtuch heranziehen
+    var t = rep(p, .42, .1), S = [0, 384, -150], Fz = lerp(128, 40, t), py = lerp(356, 340, t);
+    var pz = S[2] + Math.sqrt(Math.max(0, 112 * 112 - Math.pow(py - S[1], 2))), pc = [0, py, pz];
+    var J = build({ pc: pc, a: trunkTo(pc, S), hc: [0, 380, -195],
+      arms: both(function (x) { return { to: [x * 40, 388, S[2] + 118], pole: [x, -.5, 0], dir: [0, .1, 1] }; }),
+      legs: both(function (x) { return { to: [x * 16, 391, Fz], pole: [0, -1, .3], dir: [0, -.45, .9] }; }) });
+    J._props = slideFeet((J.ana[2] + J.anb[2]) / 2 + 2, 16, 397); // Ferse liegt auf dem Handtuch // Handtuch bleibt unter den Fersen
+    return J;
+  }
+  function hipThrust(p) { // Schultern auf der Bank, Hüfte nach oben bis zur Linie
+    var t = rep(p, .38, .16), S = [0, 300, -120], py = lerp(362, 296, t);
+    var pz = S[2] + Math.sqrt(Math.max(0, 112 * 112 - Math.pow(py - S[1], 2))), pc = [0, py, pz];
+    return build({ pc: pc, a: trunkTo(pc, S), nod: lerp(-30, 6, t),
+      arms: both(function (x) { return { to: [x * 46, 300, -160], pole: [x, -.3, 0], dir: [0, .1, -1] }; }),
+      legs: both(function (x) { return { to: [x * 16, 388, 64], pole: [0, -1, .4], dir: [0, .3, 1] }; }),
+      props: bench(-240, -128, 306, 34) });
+  }
+  function scapPush(p) { // Liegestütz oben, Arme bleiben gestreckt, nur die Schulterblätter bewegen sich
+    var t = rep(p, .4, .1), S = [0, 276, 0], A = [0, 384, -268], L = line(A, S), d = lerp(-6, 16, t);
+    var J = build({ pc: L.pc, a: L.a, nod: -10,
+      arms: both(function (x) { return { to: [x * 32, 386, 0], pole: [x * .45, -.2, -1], dir: [0, .1, 1] }; }),
+      legs: both(function (x) { return { to: [x * 11, 384, -268], pole: DOWN, dir: [0, .55, .85] }; }) });
+    [['nb', 1], ['hc', 1], ['pc', .55], ['hia', .5], ['hib', .5], ['kna', .25], ['knb', .25]].forEach(function (q) { J[q[0]] = add(J[q[0]], [0, d * q[1], 0]); });
+    return J;
+  }
+  function diamond(p) { // Hände unter der Brust, Ellbogen eng nach hinten
+    var t = rep(p), A = [0, 384, -268], S = [0, lerp(276, 336, t), lerp(0, 8, t)], L = line(A, S);
+    return build({ pc: L.pc, a: L.a, nod: -10,
+      arms: both(function (x) { return { to: [x * 8, 386, 4], pole: [x * .2, -.3, -1], dir: [-x * .5, .1, 1] }; }),
+      legs: both(function (x) { return { to: [x * 11, 384, -268], pole: DOWN, dir: [0, .55, .85] }; }) });
+  }
+  function splitSquat(p) { // feste Schrittstellung, hinterer Fuß auf den Zehen
+    var t = rep(p), pc = [0, lerp(238, 302, t), lerp(-30, -40, t)];
+    return build({ pc: pc, a: lerp(2, 6, t), nod: -3,
+      arms: both(function (x) { return { to: add(pc, [x * 38, 4, 12]), pole: [x * .3, 0, -1] }; }),
+      legs: { a: { to: [-15, 390, 40], pole: FWD }, b: { to: [15, 370, -142], pole: [0, .8, .6], dir: [0, .92, .38] } } });
+  }
+
+
   var api = {
     STYLE: STYLE, PALETTES: PALETTES, STAND: STAND, figure: figure, fitBox: fitBox, frames: frames, animatedSVG: animatedSVG, play: play,
     build: build, ik3: ik3, rep: rep, sway: sway, ease: ease, rings: rings, bench: bench,
@@ -454,7 +672,27 @@
       g_bridge: { name: 'Glute Bridge', pose: bridge, yaw: 62, dur: 2.8 },
       g_chinup: { name: 'Ring Chin-up', pose: function (p) { return hang(p, true); }, yaw: 38, dur: 3, floor: false },
       g_bss: { name: 'Bulgarian Split Squat', pose: bss, yaw: 58, dur: 3 },
-      g_abwheel: { name: 'Ab Wheel Rollout', pose: abwheel, yaw: 66, dur: 3.4 }
+      g_abwheel: { name: 'Ab Wheel Rollout', pose: abwheel, yaw: 66, dur: 3.4 },
+      g_row: { name: 'Ring Row', pose: ringRow, yaw: 62, dur: 2.8 },
+      g_pike: { name: 'Pike Push-up', pose: pikePush, yaw: 64, dur: 2.8 },
+      g_lunge: { name: 'Reverse Lunge', pose: lunge, yaw: 58, dur: 2.8 },
+      g_kneeraise: { name: 'Hanging Knee Raise', pose: kneeRaise, yaw: 50, dur: 2.6, floor: false },
+      g_burpee: { name: 'Burpee', pose: burpee, yaw: 60, dur: 4 },
+      g_squatjump: { name: 'Squat Jump', pose: squatJump, yaw: 38, dur: 2.4 },
+      g_skater: { name: 'Skater Jump', pose: skater, yaw: 14, dur: 2.4 },
+      g_tuck: { name: 'Slider Knee Tuck', pose: kneeTuck, yaw: 64, dur: 2.6 },
+      g_ring_push: { name: 'Ring Push-up', pose: ringPush, yaw: 62, dur: 2.8 },
+      g_hspu: { name: 'Strict Handstand Push-up', pose: hspu, yaw: 62, dur: 3.4 },
+      g_lsit: { name: 'L-Sit', pose: lsit, yaw: 62, dur: 4 },
+      g_mountain_climber: { name: 'Mountain Climber', pose: climber, yaw: 62, dur: 1.2 },
+      g_plank: { name: 'Plank', pose: plank, yaw: 62, dur: 4 },
+      g_hollow_rock: { name: 'Hollow Rock', pose: hollowRock, yaw: 62, dur: 1.8 },
+      g_v_up: { name: 'V-up', pose: vup, yaw: 62, dur: 2.8 },
+      g_slider_curl: { name: 'Slider Leg Curl', pose: legCurl, yaw: 62, dur: 3 },
+      g_hip_thrust: { name: 'Hip Thrust', pose: hipThrust, yaw: 62, dur: 2.8 },
+      g_scap: { name: 'Scapular Push-up', pose: scapPush, yaw: 62, dur: 2 },
+      g_diamond_push: { name: 'Diamond Push-up', pose: diamond, yaw: 52, dur: 2.6 },
+      g_split_squat: { name: 'Split Squat', pose: splitSquat, yaw: 58, dur: 2.8 }
     }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Maskottchen = api;
