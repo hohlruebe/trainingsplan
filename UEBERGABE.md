@@ -155,6 +155,9 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - Arten je Variante: `stufe` (Steigerung, Rang nach Schwierigkeit), `variante` (gleichwertig), `tempo`
   (CrossFit-Schnelligkeit, Vermerk, ersetzt nie automatisch eine Stufe; Dennis: keine eigene Familie).
 - Cowork soll Grenzfälle vorher mit Argumenten dafür und dagegen vorlegen. Offen: Chin-up eigene Familie oder Pull-up-Variante.
+- Entwurf im Canvas (Board P47), Dennis: „wirklich cool“. Bibliothek mit Familien, Familie mit Skill-Pfad, Varianten und
+  Tempo-Abschnitt, „Führt zu“, Skill-Baum je Bereich (eigene Seite, z. B. Profil › Werte), Karte „Als Nächstes freischalten“ auf Heute.
+  Dafür im Cowork-Auftrag ergänzt: `bereich`, `ebene`, `voraussetzt` (mit `ab_rang`), `fuehrt_zu`, `ziel` je Stufe.
 - Beim Einbau beachten: IDs und Namen nie ändern, Familie nur als neues Feld; Aufstieg weiter nur über die Leiter-Regel.
   Suche muss Varianten direkt finden. Mobility (56 Übungen) bleibt außen vor.
 
