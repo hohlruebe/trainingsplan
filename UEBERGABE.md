@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026 (nach PR #24)
+Stand: 3. Oktober 2026 (nach PR #25)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -45,9 +45,14 @@ Weg bis jetzt (Rückmeldungen von Dennis):
    Bei der Animation war oben ein Teil des Kopfes abgeschnitten → Bild kleiner, Ausschnitt begrenzen.
 8. Jetzt im Canvas: drei Varianten von C1 (rundum und animiert):
    C1-A Fein (Striche stehen still), C1-B Lebendige Striche (Skizzenstriche zittern leicht),
-   C1-C Arbeitende Muskeln (trainierte Teile blau, Bodenschatten). **Wartet auf Dennis' Wahl.**
+   C1-C Arbeitende Muskeln (trainierte Teile blau, Bodenschatten) → **C1-B gefällt sehr gut, davon aus weiter verfeinern.**
+9. Jetzt im Canvas: drei Verfeinerungen von C1-B (rundum und animiert):
+   B1 Ruhiger (Striche zittern langsamer und feiner, schmalere Line of Action),
+   B2 Hände und Füße (Hände mit Daumen, Füße mit Ferse und Spann),
+   B3 Athletischer (breitere Schultern, schmalere Taille, Glieder verjüngen sich zum Gelenk).
+   **Wartet auf Dennis' Wahl** (Kombinationen möglich).
 
-Technik (Skripte in `design/maskottchen/`, Aufruf `python3 maskottchen.py`, Ausgabe in `out/`):
+Technik (Skripte in `design/maskottchen/`, Einstellungen je Variante im Wörterbuch `V`, Aufruf `python3 maskottchen.py`, Ausgabe in `out/`):
 - Die Figur ist ein 3D-Skelett (Gelenke x, y, z), wird um die Hochachse gedreht und flach gezeichnet.
 - Brustkorb als Ei, Becken als Oval, beide mit Mittel- und Querlinien; Glieder als Ovale, Gelenke als Kreise;
   hintere Seite blasser; Kopf mit Augen, Nase, Mittellinie (von hinten ohne Gesicht).

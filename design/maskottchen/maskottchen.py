@@ -1,4 +1,4 @@
-# Maskottchen-Entwurf (Stil C1 mit drei Varianten): Figur in 3D, gedreht und als Skizze gezeichnet.
+# Maskottchen-Entwurf (Stil C1-B mit drei Verfeinerungen): Figur in 3D, gedreht und als Skizze gezeichnet.
 # Aufruf: python3 maskottchen.py  ->  out/rundum.html und out/app.html
 import math, json, random, os
 HERE=os.path.dirname(os.path.abspath(__file__)); OUT=os.path.join(HERE,'out'); os.makedirs(OUT,exist_ok=True)
@@ -7,14 +7,15 @@ STAND={'nb':(0,96,2),'hc':(0,58,7),'pc':(0,222,-4),
  'sha':(-31,110,-2),'shb':(31,110,-2),'ela':(-39,166,-6),'elb':(38,166,-3),'wra':(-41,220,6),'wrb':(40,218,9),'haa':(-42,244,10),'hab':(41,242,13),
  'hia':(-18,228,-4),'hib':(18,228,-4),'kna':(-19,308,3),'knb':(22,306,10),'ana':(-20,390,-3),'anb':(24,388,2),'toa':(-22,397,22),'tob':(27,395,26)}
 BASE=dict(passes=3,sw=1.1,jit=1.4,fill='none',fop=0,dot=False,loa=4,far='#A8A7CC',boil=False,work=(),shadow=False)
+BASE.update(boil=True,boilstep=2,hands=False,taper=False,athl=False)
 V={
- 'A':dict(BASE,name='C1-A · Fein',sub='Wie C1, Striche stehen still'),
- 'B':dict(BASE,name='C1-B · Lebendige Striche',sub='Die Skizzenstriche zittern leicht wie gezeichnet',boil=True),
- 'C':dict(BASE,name='C1-C · Arbeitende Muskeln',sub='Was trainiert wird, ist blau gezeichnet, dazu ein Bodenschatten',work=('legs','pelvis'),shadow=True),
+ 'A':dict(BASE,name='B1 · Ruhiger',sub='Striche zittern langsamer und feiner, schmalere Line of Action',boilstep=3,jit=1.0,loa=3),
+ 'B':dict(BASE,name='B2 · Hände und Füße',sub='Hände mit Daumen, Füße mit Ferse und Spann',hands=True),
+ 'C':dict(BASE,name='B3 · Athletischer',sub='Breitere Schultern, schmalere Taille, Glieder laufen zum Gelenk hin schmaler zu',taper=True,athl=True),
 }
 FRAME=[0]; EXT=[]
 def stroke(shape,col,st,seed):
-    rnd=random.Random(seed+(FRAME[0]//2)*1009 if st['boil'] else seed); out=''
+    rnd=random.Random(seed+(FRAME[0]//st['boilstep'])*1009 if st['boil'] else seed); out=''
     for i in range(st['passes']):
         tr='' if i==0 else ' transform="translate(%.1f %.1f) rotate(%.1f)"'%(rnd.uniform(-1,1)*st['jit'],rnd.uniform(-1,1)*st['jit'],rnd.uniform(-.8,.8))
         sh=shape if i==0 else shape.replace('fill="%s"'%st['fill'],'fill="none"')
@@ -24,6 +25,10 @@ WK='#3F6FE0'
 def sub3(a,b): return (a[0]-b[0],a[1]-b[1],a[2]-b[2])
 def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     c,s=math.cos(math.radians(yaw)),math.sin(math.radians(yaw)); f=s
+    if st['athl']:
+        J=dict(J)
+        for sd,x in (('a',-1),('b',1)):
+            for k,dx in (('sh',4),('el',4.5),('wr',4),('ha',4)): v=J[k+sd]; J[k+sd]=(v[0]+x*dx,v[1],v[2])
     P={};Z={}
     for k,(x,y,z) in J.items(): P[k]=(160+x*c+z*s,y); Z[k]=-x*s+z*c
     near='a' if Z['sha']+Z['hia']>=Z['shb']+Z['hib'] else 'b'; farr='b' if near=='a' else 'a'
@@ -34,14 +39,28 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     F=st['fill']
     def segm(a,b,wd,col,fill,ext=.1):
         L=d(a,b);cx,cy=(a[0]+b[0])/2,(a[1]+b[1])/2
+        if st['taper'] and wd>6 and L>wd:
+            h=L/2*(1+ext); w1=wd*1.12; w2=wd*.62
+            pth='M%.1f 0 C%.1f %.1f %.1f %.1f 0 %.1f C%.1f %.1f %.1f %.1f %.1f 0 C%.1f %.1f %.1f %.1f 0 %.1f C%.1f %.1f %.1f %.1f %.1f 0 Z'%(
+                -h,-h,-w1*.9,-h*.5,-w1,w1*-0+-((w1+w2)/2),h*.5,-w2,h,-w2*.8,h,h,w2*.8,h*.5,w2,(w1+w2)/2,-h*.5,w1,-h,w1*.9,-h)
+            return S('<path fill="%s" d="%s" transform="translate(%.1f %.1f) rotate(%.1f)"/>'%(fill,pth,cx,cy,ang(a,b)),col)
         return S('<ellipse fill="%s" rx="%.1f" ry="%.1f" transform="translate(%.1f %.1f) rotate(%.1f)"/>'%(fill,max(L/2*(1+ext),wd),wd,cx,cy,ang(a,b) if L>.5 else 0),col)
     def jnt(p,r,col):
         if st['dot']: return '<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s"/>'%(p[0],p[1],r*.62,col)
         return '<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" stroke="%s" stroke-width="1.3"/>'%(p[0],p[1],r,col)
+    def foot(a,t,col,fill):
+        L=max(d(a,t),3); an=ang(a,t)
+        return S('<path fill="%s" d="M-5 -3 C-7 3 -4 5.5 0 5.5 L%.1f 5.5 C%.1f 5.5 %.1f 2 %.1f 0 C%.1f -3 %.1f -5 0 -5.5 C-3 -5.5 -4.5 -4.5 -5 -3 Z" transform="translate(%.1f %.1f) rotate(%.1f)"/>'%(
+            fill,L*.9,L*1.12,L*1.12,L*.8,L*.4,L*.1,a[0],a[1],an),col)
     def limbs(sd,col,fill):
         lc=(WK if col==INK else '#9FB6EE') if 'legs' in st['work'] else col
-        g=segm(P['hi'+sd],P['kn'+sd],11,lc,fill)+segm(P['kn'+sd],P['an'+sd],8.5,lc,fill)+segm(P['an'+sd],P['to'+sd],5,col,fill,.25)
-        g+=segm(P['sh'+sd],P['el'+sd],8,col,fill)+segm(P['el'+sd],P['wr'+sd],6.5,col,fill)+segm(P['wr'+sd],P['ha'+sd],4.6,col,fill,.2)
+        g=segm(P['hi'+sd],P['kn'+sd],11,lc,fill)+segm(P['kn'+sd],P['an'+sd],8.5,lc,fill)+(foot(P['an'+sd],P['to'+sd],col,fill) if st['hands'] else segm(P['an'+sd],P['to'+sd],5,col,fill,.25))
+        g+=segm(P['sh'+sd],P['el'+sd],8,col,fill)+segm(P['el'+sd],P['wr'+sd],6.5,col,fill)
+        if st['hands']:
+            w,t=P['wr'+sd],P['ha'+sd]; L=max(d(w,t),6); an=ang(w,t); th=-1 if sd=='a' else 1
+            g+=S('<g transform="translate(%.1f %.1f) rotate(%.1f)"><path fill="%s" d="M0 -4.2 C%.1f -6 %.1f -4.5 %.1f 0 C%.1f 4.5 %.1f 6 0 4.2 Z"/><ellipse fill="%s" cx="%.1f" cy="%.1f" rx="4" ry="1.9" transform="rotate(%d %.1f %.1f)"/></g>'%(
+                w[0],w[1],an,fill,L*.7,L*1.1,L*1.15,L*1.1,L*.7,fill,L*.35,th*4.3,th*25,L*.35,th*4.3),col)
+        else: g+=segm(P['wr'+sd],P['ha'+sd],4.6,col,fill,.2)
         for j,r in (('hi',5.5),('kn',5.2),('an',4),('sh',5.5),('el',4.5),('wr',3.4)): g+=jnt(P[j+sd],r,col)
         return g
     g='<line x1="20" x2="300" y1="401" y2="401" stroke="#DADAD3" stroke-width="2" stroke-linecap="round"/>' if floor else ''
@@ -54,13 +73,13 @@ def fig(st,yaw,J,vb='0 20 320 395',w=250,h=309,floor=True):
     # Rumpf: Winkel und Verkürzung aus der Wirbelsäule
     sp=sub3(J['nb'],J['pc']); L3=math.sqrt(sum(v*v for v in sp)) or 1
     dx=sp[0]*c+sp[2]*s; dy=sp[1]; th=math.degrees(math.atan2(dx,-dy)); ratio=max(.55,math.hypot(dx,dy)/L3)
-    RX=math.hypot(27*c,25*s); RY=42*ratio; PX=math.hypot(29*c,23*s)
+    RX=math.hypot((30 if st['athl'] else 27)*c,(26 if st['athl'] else 25)*s); RY=42*ratio; PX=math.hypot((26 if st['athl'] else 29)*c,23*s)
     nb=P['nb']; rc=loc(nb,th,(0,RY)); pc=P['pc']
     hs=sub3(J['hc'],J['nb']); hth=math.degrees(math.atan2(hs[0]*c+hs[2]*s,-hs[1]))
     hb=loc(P['hc'],hth,(0,18))
     g+=S('<path d="M%.1f %.1f L%.1f %.1f M%.1f %.1f L%.1f %.1f"/>'%(*loc(hb,hth,(-6,0)),*loc(nb,th,(-7,4)),*loc(hb,hth,(6,0)),*loc(nb,th,(7,4))),INK)
-    wl=(loc(rc,th,(-RX*.8,RY*.55)),loc(rc,th,(-RX*.72,RY*1.15)),loc(pc,th,(-PX*.85,-8)))
-    wr=(loc(rc,th,(RX*.8,RY*.55)),loc(rc,th,(RX*.72,RY*1.15)),loc(pc,th,(PX*.85,-8)))
+    wl=(loc(rc,th,(-RX*.8,RY*.55)),loc(rc,th,(-RX*(.55 if st['athl'] else .72),RY*1.15)),loc(pc,th,(-PX*.85,-8)))
+    wr=(loc(rc,th,(RX*.8,RY*.55)),loc(rc,th,(RX*(.55 if st['athl'] else .72),RY*1.15)),loc(pc,th,(PX*.85,-8)))
     g+=S('<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f M%.1f %.1f Q%.1f %.1f %.1f %.1f"/>'%(*wl[0],*wl[1],*wl[2],*wr[0],*wr[1],*wr[2]),INK)
     pel='<ellipse fill="%s" rx="%.1f" ry="19"/><path d="%s"/><path d="%s" opacity=".7"/>'%(F,PX,mer(PX,19,f*.9 if c>-.2 else -f*.9),equ(PX,19,-.1,.12))
     g+='<g transform="translate(%.1f %.1f) rotate(%.1f)">%s</g>'%(pc[0],pc[1],th,S(pel,WK if 'pelvis' in st['work'] else INK))
@@ -139,7 +158,7 @@ for k,st in V.items():
     cells+='<div style="display:flex;flex-direction:column;align-items:center;border-left:1px solid #EEE;padding-left:10px"><span style="font-size:11px;color:#6E6E73">dreht sich</span><svg viewBox="0 20 320 395" width="118" height="146">%s</svg></div>'%spin
     rows+='<div style="%s;padding:14px 20px 8px"><div style="display:flex;gap:12px;align-items:baseline"><b style="font-size:16px">%s</b><span style="color:#6E6E73;font-size:13px">%s</span></div><div style="display:flex;justify-content:space-between">%s</div></div>'%(CARD,st['name'],st['sub'],cells)
 b1=HEAD%'Rundumansicht'+'''<div style="width:1340px;box-sizing:border-box;padding:36px;background:#ECECE7;font-family:'Geist',system-ui,sans-serif;color:#111214;display:flex;flex-direction:column;gap:16px">
-<div style="font-size:18px;font-weight:600">C1 · drei Varianten · Rundumansicht in 8 Positionen</div>%s
+<div style="font-size:18px;font-weight:600">C1-B verfeinert · drei Varianten · Rundumansicht in 8 Positionen</div>%s
 <div style="font-size:13px;color:#6E6E73;line-height:1.5">Von hinten verschwindet das Gesicht, die Mittellinie wird zur Wirbelsäule. Rechts dreht sich die Figur einmal ganz herum: das ist schon dieselbe Zeichnung wie in der Animation.</div></div>'''%rows+FOOT
 open(os.path.join(OUT,'rundum.html'),'w').write(b1)
 # Board 2: so in der App
