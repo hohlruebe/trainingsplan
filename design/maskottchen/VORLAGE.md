@@ -23,15 +23,25 @@ Den Stil nur ändern, wenn Dennis es ausdrücklich will.
 - Alle festen Werte stehen oben in `maskottchen.js` unter `STYLE`.
 
 ## Eine neue Übung anlegen
-1. Eine Funktion `pose(p)` schreiben: `p` läuft von 0 bis 1 über eine Wiederholung, Rückgabe sind die 3D-Gelenke
-   wie in `STAND` (x rechts, y unten, z zum Betrachter; `a` = linke Bildseite von vorn).
-2. Gelenke immer über Winkel und feste Längen berechnen (z. B. `ik2` für Knie und Ellbogen), nie Punkte gerade
-   überblenden. Sonst werden Glieder in der Bewegung kürzer oder länger.
-   Längen: Oberschenkel 80, Unterschenkel 82, Oberarm 56, Unterarm 54, Hand 24, Wirbelsäule Becken–Hals 126.
-3. Halte- und Umkehrpunkte mit `ease` weich machen, oben und unten kurz halten.
-4. In `EXERCISES` eintragen: `{ pose, yaw, dur }`. `yaw` = Blickwinkel (0 von vorn, 90 von der Seite);
-   Standard 38° (halb gedreht), Seitenansicht nur, wenn man die Bewegung sonst nicht sieht (z. B. Push-up).
-5. Geräte (Ringe, Stange, Bank, Wand) als eigene Formen im selben Strich, sie bewegen sich mit.
+1. Eine Funktion `pose(p)` schreiben: `p` läuft von 0 bis 1 über eine Wiederholung. Am einfachsten mit `build({...})`:
+   - `pc` Beckenmitte, `a` Rumpfwinkel (0 aufrecht, 90 bäuchlings mit Kopf nach vorn, -90 rücklings, 180 kopfüber),
+     `nod` Kopf zur Brust in Grad.
+   - `arms` und `legs` je Seite (`a` = linke Bildseite von vorn, `b` = rechte): `to` = wohin Handgelenk bzw. Knöchel soll,
+     `pole` = Richtung, in die Ellbogen bzw. Knie zeigen, `dir` = Richtung von Hand bzw. Fuß.
+   - Ellbogen und Knie rechnet `build` mit festen Längen aus (`ik3`), nie Punkte gerade überblenden.
+     Längen: Oberschenkel 80, Unterschenkel 82, Oberarm 56, Unterarm 54, Hand 24, Fuß 24, Becken–Hals 126.
+   - Koordinaten: x rechts, y unten, z nach vorn (Blickrichtung der Figur). Boden bei y = 397 (Zehen), Knöchel bei 384–390.
+2. Ablauf mit `rep(p, runter, halten)` (runter, unten halten, hoch, oben halten) oder `sway(p, stärke)` für Halteübungen.
+   Feste Kontaktpunkte (Hände am Boden, Füße am Boden, Hände an den Ringen) bleiben fest, der Körper bewegt sich darum.
+3. Geräte als `props`: `rings(x, y, z, oben)`, `bench(z0, z1, y, breite)`, `wall(z)`, sonst `line`, `poly`, `circle`
+   (Kreis in der y-z-Ebene, `hub` für Nabe). `layer`: `back` (hinter der Figur), `mid` (zwischen den Seiten), `front`.
+   `keep: true` = gehört in den Bildausschnitt.
+4. In `EXERCISES` mit der ID aus der Übungsbibliothek eintragen: `{ name, pose, yaw, dur, floor }`.
+   `yaw`: 38 (halb gedreht) für Zug und Kniebeugen, 55–70 (eher seitlich) für Boden-Übungen.
+   `floor: false`, wenn die Figur hängt oder stützt (Ringe), dann keine Bodenlinie.
+5. Prüfen mit Standbildern (Start, Mitte, Umkehrpunkt), dann animiert.
+
+Vorhanden: g_air, g_pullup, g_push, g_pistol, g_nordic, g_hollow, g_handstand, g_dip, g_bridge, g_chinup, g_bss, g_abwheel.
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).

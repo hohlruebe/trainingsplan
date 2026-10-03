@@ -61,12 +61,16 @@ Weg bis jetzt (Rückmeldungen von Dennis):
 Beschreibung und Regeln in `design/maskottchen/VORLAGE.md`, Vorschau mit `node design/maskottchen/vorschau.js`.
 Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gibt.
 
+11. Jetzt im Canvas: Probe aller 11 Testtag-Übungen (plus Air Squat) mit der Vorlage, animiert.
+    Neu in der Vorlage: Posen-Baukasten `build` und Geräte (Ringe, Bank, Wand, Rad, Fersenhalter).
+    **Wartet auf Dennis' Rückmeldung zu den einzelnen Bewegungen.**
+
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
 - Figur als 3D-Skelett, um die Hochachse gedreht, Bild für Bild aus Gelenkwinkeln gezeichnet.
 - Bildausschnitt einer Animation über alle Bilder der Bewegung plus Rand, damit nichts abgeschnitten wird.
 - In der App zeichnet `play()` live im Browser (offline, keine großen Dateien).
 
-Nächste Schritte: alle 11 Testtag-Übungen mit der Vorlage als Probe im Canvas → Rückfrage → Einbau in Training, Übungen und Routinen-Player → erst dann Pull Request.
+Nächste Schritte: Rückmeldung zur Probe einarbeiten → Einbau in Training, Übungen und Routinen-Player → erst dann Pull Request.
 
 ## Danach: `mobility2.json` einbauen
 Datei: `design/mobility2.json` (von Dennis aus Cowork, `v: 2`, 42 Übungen, 8 Leitern, Analyse mit 14 Tests und 8 Regionen, 4 Routinen: `r_lauf_abc`, `r_aufwaermen_kraft`, `r_yoga_flow`, `r_abend`).
