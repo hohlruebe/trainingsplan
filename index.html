@@ -464,6 +464,24 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .mc-how summary{font-weight:600;cursor:pointer;min-height:44px;display:flex;align-items:center}
 .mc-how p{margin:6px 0 0;font-size:15px;line-height:1.45}
 .tl li.opt .tl-n{border-style:dashed}
+.rm-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:60px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left;padding:10px 0;cursor:pointer}
+.a-lads>.rm-row:first-child,.a-lads .card-head+.rm-row{border-top:0}
+.rm-row b{font-size:16px}
+.rm-row small{display:block;font-size:13px;color:var(--ink2);font-weight:400}
+.rm-kg{text-align:right;font-family:var(--head);font-size:20px;font-weight:700;white-space:nowrap}
+.rm-kg small{font-family:var(--text);font-size:12px;font-weight:600}
+.rm-kg small.neg{color:var(--red)}
+.rm-kg small.pos{color:var(--green)}
+.a-big small{font-size:18px}
+.chip.gold{background:#FFF4D6;color:#8A6A12;font-weight:600}
+.pct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
+.pct span{border-radius:12px;background:var(--board);padding:8px 10px;font-size:13px;color:var(--ink2)}
+.pct span b{display:block;font-family:var(--head);font-size:17px;color:var(--ink)}
+.pct span.hi{background:color-mix(in srgb,var(--acc) 13%,var(--paper))}
+.dev-chart .rm-best{stroke:#D9A21B;stroke-dasharray:4 3}
+.dev-chart .rm-bdot{fill:#D9A21B}
+.sh-live{text-align:center;margin:10px 0 0;padding:10px;border-radius:14px;background:color-mix(in srgb,var(--acc) 13%,var(--paper));font-size:15px}
+.sh-live b{color:var(--acc)}
 .tips-h{margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
 .tips ul{list-style:none;margin:0;padding:0}
 .tips li{position:relative;padding:8px 0 8px 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.45}
@@ -802,7 +820,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -826,8 +844,8 @@ ensureOrte();
 var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
-var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen'] };
-var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Routinen' };
+var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen', 'rm'] };
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Routinen', rm: '1RM' };
 var HIDDEN = { einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
@@ -858,7 +876,7 @@ function gl(name, label) {
 }
 function whereLabel(w) { return w === 'AUFWÄRMEN' ? 'Aufwärmen' : w === 'MURPH' ? 'Murph' : w.replace('TAG', 'Tag'); }
 function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600); }
-function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && (!d || l.date > d)) d = l.date; }); return d; }
+function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
 function isKurz(tag) { var k = draftKey(tag); if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7; }
 function isTestCycle(tag) {
@@ -946,7 +964,7 @@ function initDb() {
 }
 
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = PWA ? LS.get('tp.sync', null) : null;
@@ -1058,7 +1076,7 @@ function isTyping() { var a = document.activeElement; return a && $view.contains
 function scheduleRender() { if (isTyping()) { pendingRender = true; return; } render(); }
 function render() {
   pendingRender = false;
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine }[ui.tab];
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
@@ -1132,7 +1150,7 @@ function advance() {
   ui.viewTag = null;
 }
 function saveDay() {
-  var ladBefore = ladderStates(LOGS);
+  var ladBefore = areaStates(LOGS);
   var tag = S.tag, d = DAYS[tag], key = draftKey(tag), v = collectInputs(), extra = '';
   var base = { id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, notes: v.notes || '' };
   var log = null;
@@ -1182,7 +1200,7 @@ function saveDay() {
   advance(); saveState();
   window.scrollTo(0, 0); render();
   toast((log ? 'Gespeichert. ' : 'Abgehakt. ') + 'Weiter mit Tag ' + S.tag + '.' + extra);
-  if (log) { MOMENTS = medalEvents(ladBefore, ladderStates(LOGS)); showMoment(); }
+  if (log) { MOMENTS = medalEvents(ladBefore, areaStates(LOGS), AREA_KEYS); showMoment(); }
 }
 
 /* ---------- timer ---------- */
@@ -1382,7 +1400,7 @@ function logLines(l) {
 function runLine(r) {
   return [r.ergo ? 'Ergometer' : '', r.sec ? fmtDur(r.sec) : '', r.km ? fmtKm(r.km) + ' km' : '', r.sec && r.km && !r.ergo ? fmtPace(r.sec / r.km) + ' /km' : '', r.ergo && r.watt ? r.watt + ' W' : '', r.hr ? 'Puls ' + r.hr : ''].filter(Boolean).join(' · ');
 }
-function trainLogs() { return LOGS.filter(function (l) { return l.kind !== 'mobility'; }); }
+function trainLogs() { return LOGS.filter(function (l) { return l.kind !== 'mobility' && l.kind !== 'rm'; }); }
 function verlaufHTML() {
   var mob = LOGS.filter(function (l) { return l.kind === 'mobility'; }), v = ui.vtab === 'mob' ? 'mob' : 'train';
   var h = '<div class="seg" role="group" aria-label="Verlauf">' + [['train', 'Training'], ['mob', 'Mobility']].map(function (x) {
@@ -1535,12 +1553,30 @@ var XLAD = {
   murph: { key: 'murph', name: 'Murph', nutzen: 85, steps: ['Half Murph', 'Voll mit Band', 'Voll und frei', 'Original mit Weste'] },
   interval: { key: 'interval', name: 'Intervall-Lauf', nutzen: 80, steps: ['1 Min', '2 Min', '4 Min'] }
 };
-function ladOf(key) { return LAD[key] || XLAD[key]; }
+function ladOf(key) {
+  if (key.indexOf('rm:') === 0) { var u = UE[key.slice(3)]; return { key: key, name: u ? u.name : key, nutzen: u ? u.nutzen : 0, steps: ['1RM'] }; }
+  return LAD[key] || XLAD[key] || AREA_LAD[key];
+}
+/* One Rep Max: Gewichtsübungen der Bibliothek. Kraftnormen (1RM / Körpergewicht) von Einsteiger bis sehr stark. */
+var RM_ALL = LIB.uebungen.filter(function (u) { return u.einheit === 'kg'; }).sort(function (a, b) { return b.nutzen - a.nutzen; }).map(function (u) { return u.id; });
+var RM_STD = { g_deadlift: [1, 2.75], g_back_squat: [0.75, 2.5], g_front_squat: [0.6, 2.1], g_bench_press: [0.5, 2], g_strict_press: [0.35, 1.25], g_push_press: [0.45, 1.5],
+  g_power_clean: [0.5, 1.6], g_squat_clean: [0.6, 1.8], g_clean_and_jerk: [0.55, 1.7], g_power_snatch: [0.4, 1.3], g_squat_snatch: [0.45, 1.4], g_overhead_squat: [0.4, 1.5],
+  g_weighted_pullup: [0, 1], g_weighted_dip: [0, 1.2], g_rdl: [0.75, 2.2], g_barbell_row: [0.5, 1.6], g_thruster: [0.4, 1.4] };
+function rmAdd(id) { return /weighted/.test(id); }
+function e1rm(kg, reps) { return Math.round(kg * (reps > 1 ? 1 + reps / 30 : 1) * 2) / 2; }
+function fmtKg(v, id) { return (id && rmAdd(id) ? '+' : '') + String(Math.round(v * 10) / 10).replace('.', ',') + ' kg'; }
+function rmScore(id, e1, bw) { var sd = RM_STD[id]; if (!sd || !bw) return 0; return Math.round(40 + 59 * Math.max(0, Math.min(1, (e1 / bw - sd[0]) / (sd[1] - sd[0])))); }
+function rmOf(id, logs) {
+  var L = (logs || LOGS).filter(function (l) { return l.kind === 'rm' && l.lift === id; }).sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : (a.ts || 0) - (b.ts || 0); });
+  if (!L.length) return null;
+  return { cur: L[L.length - 1], best: L.reduce(function (a, l) { return l.e1 > a.e1 ? l : a; }, L[0]), list: L };
+}
 function nutzenOf(k) { if (k === 'easy') return 75; var l = ladOf(k); return l && l.nutzen != null ? l.nutzen : 0; }
 // Listen nach Nutzen sortieren, höchster zuerst.
 var ALL_LADDERS = Object.keys(LAD).concat(['murph', 'interval']).sort(function (a, b) { return nutzenOf(b) - nutzenOf(a) || ladOf(a).name.localeCompare(ladOf(b).name, 'de'); });
 // Welche Leiter zu welchem Bereich gehört; Kraft merkt sich zusätzlich den Teil (Zug, Druck, Beine, Rumpf).
 function areaOf(k) {
+  if (k.indexOf('rm:') === 0) { var u = UE[k.slice(3)]; return u && u.muster === 'olympisch' ? 'schnellkraft' : 'kraft'; }
   if (k === 'murph') return 'ausdauer';
   if (k === 'interval') return 'schnellkraft';
   var l = LAD[k]; if (!l) return null;
@@ -1550,9 +1586,21 @@ function areaOf(k) {
   if (l.bereich === 'skill') return 'koordination';
   return 'kraft';
 }
-function partOf(k) { var l = LAD[k]; return l ? l.bereich : null; }
+var PART_MUSTER = { kniebeuge: 'beine', huefte: 'beine', beinbeuger: 'beine', einbein: 'beine', druck_horizontal: 'druck', druck_vertikal: 'druck', zug_horizontal: 'zug', zug_vertikal: 'zug' };
+function partOf(k) { if (k.indexOf('rm:') === 0) { var u = UE[k.slice(3)]; return u ? PART_MUSTER[u.muster] || null : null; } var l = LAD[k]; return l ? l.bereich : null; }
 var AREA = {}; AREAS.forEach(function (a) { AREA[a.id] = a; });
-Object.keys(LAD).concat(['murph', 'interval']).forEach(function (k) { var a = AREA[areaOf(k)]; if (a) a.keys.push(k); });
+Object.keys(LAD).concat(['murph', 'interval']).concat(Object.keys(RM_STD).filter(function (id) { return UE[id]; }).map(function (id) { return 'rm:' + id; })).forEach(function (k) { var a = AREA[areaOf(k)]; if (a) a.keys.push(k); });
+// Medaille je Bereich: eine Pseudo-Leiter mit den vier Metallen.
+var AREA_LAD = {}; AREAS.forEach(function (a) { AREA_LAD['area_' + a.id] = { key: 'area_' + a.id, name: a.name, steps: ['Bronze', 'Silber', 'Gold', 'Platin'] }; });
+var AREA_KEYS = Object.keys(AREA_LAD);
+function tierIdx(v) { return v >= 85 ? 4 : v >= 75 ? 3 : v >= 65 ? 2 : v > 0 ? 1 : 0; }
+function areaStates(logs) {
+  var best = {}, out = {}, dates = {};
+  logs.forEach(function (l) { dates[l.date] = 1; });
+  Object.keys(dates).sort().forEach(function (d) { statsOf(logs.filter(function (l) { return l.date <= d; })).areas.forEach(function (a) { best[a.id] = Math.max(best[a.id] || 0, tierIdx(a.val)); }); });
+  statsOf(logs).areas.forEach(function (a) { var t = tierIdx(a.val); out['area_' + a.id] = { cur: t, best: Math.max(best[a.id] || 0, t), val: a.val }; });
+  return out;
+}
 var ICONS = {
   g_pullup: 'M4 4h16M8 4v3M16 4v3M12 21v-9M8.5 15.5L12 12l3.5 3.5',
   g_chinup: 'M4 4h16M12 21v-8M8.5 16.5L12 13l3.5 3.5M10 8a2 2 0 1 0 4 0a2 2 0 1 0-4 0',
@@ -1577,6 +1625,9 @@ var MUSTER_ICON = { zug_vertikal: ICONS.g_pullup, zug_horizontal: ICONS.g_row, d
   huefte: ICONS.g_bridge, beinbeuger: ICONS.g_nordic, rumpf_anti_streckung: ICONS.g_abwheel, rumpf_beugung: ICONS.g_kneeraise, rumpf_rotation: ICONS.g_hollow, handstand_skill: ICONS.g_handstand,
   sprung: 'M4 20h16M8 16l4-8 4 8M12 4v2', olympisch: 'M3 8h18M6 5v6M18 5v6M12 8v12', tragen: 'M7 5v14M17 5v14M4 9h6M14 9h6', ausdauer: ICONS.interval, mobilitaet: ICONS.g_hollow };
 Object.keys(LAD).forEach(function (k) { if (!ICONS[k]) ICONS[k] = MUSTER_ICON[LAD[k].muster] || ICONS.g_hollow; });
+RM_ALL.forEach(function (id) { ICONS['rm:' + id] = MUSTER_ICON[UE[id].muster] || ICONS.g_hollow; });
+var AREA_ICON = { ausdauer: ICONS.interval || ICONS.g_hollow, beweglichkeit: ICONS.g_bridge, koordination: ICONS.g_handstand, kraft: ICONS.g_pullup, schnellkraft: MUSTER_ICON.sprung };
+AREAS.forEach(function (a) { ICONS['area_' + a.id] = AREA_ICON[a.id] || ICONS.g_hollow; });
 var METAL = {
   bronze: { name: 'Bronze', base: '#B0764B', hi: '#F1C9A2', lo: '#6E4527' },
   silber: { name: 'Silber', base: '#A9B0B7', hi: '#FFFFFF', lo: '#6B7178' },
@@ -1618,12 +1669,14 @@ function ladderStates(logs) {
     }
     if (l.kind === 'murph' && l.murph && l.murph.time) set('murph', l.murph.stage, null, l.date);
     if (l.mob) l.mob.forEach(function (m) { if (LAD[m.lad]) set(m.lad, stageIndex(LAD[m.lad], m.stage), null, l.date); });
+    if (l.kind === 'rm' && l.e1) st['rm:' + l.lift] = { cur: 1, best: 1, reps: null, score: rmScore(l.lift, l.e1, l.bw || S.weight), e1: l.e1 };
     if (l.kind === 'interval' && l.interval && l.interval.done != null) set('interval', l.interval.stage, null, l.date);
   });
   return st;
 }
 function rangeOf(lad) { var m = /(\d+)\s*[–-]\s*(\d+)/.exec(lad.range || ''); return m ? { lo: +m[1], hi: +m[2] } : null; }
 function ladderScore(key, s) {
+  if (key.indexOf('rm:') === 0) return s ? s.score || 0 : 0;
   if (!s || !s.cur) return 0;
   var lad = ladOf(key), n = lad.steps.length, rg = rangeOf(lad), frac = 0.5;
   if (rg && s.reps != null) frac = Math.max(0, Math.min(1, (s.reps - rg.lo) / (rg.hi - rg.lo)));
@@ -1658,14 +1711,14 @@ function medalHTML(key, s, extra) {
   var rim = t ? 'background:linear-gradient(145deg,' + t.hi + ' 0%,' + t.lo + ' 55%,' + t.base + ' 100%)' : '';
   return '<span class="medal' + (t ? '' : ' locked') + (extra || '') + '"><svg class="wreath" viewBox="0 0 104 104" aria-hidden="true">' + leaves + '</svg>' +
     '<span class="m-rim" style="' + rim + '"></span><span class="m-face" style="' + face + '"><svg viewBox="0 0 24 24" fill="none" stroke="' + (t ? t.lo : 'currentColor') + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + ICONS[key] + '"/></svg><span class="m-sheen"></span></span>' +
-    '<span class="m-tag">' + (t ? t.name + ' · ' + cur + '/' + n : 'gesperrt') + '</span></span>';
+    '<span class="m-tag">' + (!t ? 'gesperrt' : key.indexOf('rm:') === 0 ? 'Bestwert' : key.indexOf('area_') === 0 ? t.name : t.name + ' · ' + cur + '/' + n) + '</span></span>';
 }
 
 function profileHead(stats) {
   var v = stats.total, before = statsOf(LOGS.filter(function (l) { return l.date < mondayISO(); })).total, diff = v - before;
   var foto = LS.get('tp.foto', null), dash = Math.round(358 * v / 99);
   var mon = mondayISO(), days = {}, today = isoToday();
-  LOGS.forEach(function (l) { if (l.date >= mon && l.kind !== 'mobility') days[l.date] = true; });
+  LOGS.forEach(function (l) { if (l.date >= mon && l.kind !== 'mobility' && l.kind !== 'rm') days[l.date] = true; });
   var week = '', cnt = 0, d0 = parseISO(mon);
   ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].forEach(function (lab, i) {
     var d = new Date(d0); d.setDate(d0.getDate() + i); var iso = isoDate(d), done = !!days[iso];
@@ -1766,6 +1819,12 @@ function areaDetailHTML(stats, id) {
   var done = keys.filter(function (k) { return stats.st[k] && stats.st[k].cur; }).sort(byNutzen), open = keys.length - done.length;
   if (!done.length) h += '<section class="card"><p class="muted">' + (id === 'beweglichkeit' ? 'Noch keine Daten. Der Beweglichkeits-Check läuft als letzter Schritt an Tag 1 im Test-Durchgang.' : 'Noch keine Daten. Sobald du eine Übung aus diesem Bereich trainierst, erscheint sie hier.') + '</p></section>';
   else h += '<section class="card a-lads">' + done.map(function (k) {
+    if (k.indexOf('rm:') === 0) {
+      var r = stats.st[k], id = k.slice(3), sc2 = ladderScore(k, r);
+      return '<button type="button" class="a-lad" data-act="rm-open" data-v="' + id + '"><span class="a-lt"><b>' + esc(ladOf(k).name) + '</b><span class="muted">1RM ' + fmtKg(r.e1, id) +
+        (S.weight ? ' · ' + String(Math.round((r.e1 / S.weight) * 100) / 100).replace('.', ',') + '× Körpergewicht' : ' · Körpergewicht fehlt') + '</span></span>' +
+        '<span class="a-bar"><i style="width:' + sc2 + '%;background:' + (AREA_PART_COL[partOf(k)] || def.col) + '"></i></span></button>';
+    }
     var s2 = stats.st[k], lad = ladOf(k), n = lad.steps.length, sc = ladderScore(k, s2), on = ui.track === k;
     return '<button type="button" class="a-lad" data-act="ptrack" data-v="' + k + '" aria-expanded="' + on + '"><span class="a-lt"><b>' + esc(lad.name) + '</b><span class="muted">Stufe ' + s2.cur + ' von ' + n + ' · ' + METAL[tierOf(s2.cur, n)].name + '</span></span>' +
       '<span class="a-bar"><i style="width:' + sc + '%;background:' + (def.parts ? (AREA_PART_COL[partOf(k)] || def.col) : def.col) + '"></i></span></button>' + (on ? '<div class="a-dev">' + devLadderHTML(k) + '</div>' : '');
@@ -1777,12 +1836,17 @@ function areaDetailHTML(stats, id) {
 var AREA_PART_COL = { zug: '#1E5BD8', druck: '#C8734E', beine: '#4E9C78', rumpf: '#3A8E9C' };
 function erfolgeHTML(stats) {
   var first = !ui.medShown; ui.medShown = true;
-  var got = ALL_LADDERS.filter(function (k) { return stats.st[k] && stats.st[k].cur; }).length;
-  return '<section class="card"><div class="card-head"><h2>Medaillen</h2><span class="chip">' + got + ' von ' + ALL_LADDERS.length + '</span></div><div class="medals">' + ALL_LADDERS.map(function (k) {
-    var s = stats.st[k], lad = ladOf(k), sub = s && s.cur ? lad.steps[s.cur - 1] : 'Nächste: ' + lad.steps[0];
-    var lost = s && s.best > s.cur;
-    return '<button type="button" class="m-cell" data-act="medal">' + medalHTML(k, s, first && s && s.cur ? ' shine' : '') + '<b>' + esc(lad.name) + '</b><span class="' + (lost ? 'm-best' : 'muted') + '">' + esc(lost ? 'Bestwert: ' + lad.steps[s.best - 1] : sub) + '</span></button>';
-  }).join('') + '</div></section>';
+  var ast = areaStates(LOGS);
+  var h = '<section class="card"><div class="card-head"><h2>Medaillen</h2><span class="chip">je Bereich</span></div><div class="medals">' + AREAS.map(function (a) {
+    var k = 'area_' + a.id, s2 = ast[k], lost = s2.best > s2.cur;
+    return '<button type="button" class="m-cell" data-act="parea-go" data-v="' + a.id + '">' + medalHTML(k, s2, first && s2.cur ? ' shine' : '') + '<b>' + esc(a.name) + '</b><span class="' + (lost ? 'm-best' : 'muted') + '">' +
+      esc(s2.cur ? AREA_LAD[k].steps[s2.cur - 1] + ' · ' + s2.val : 'noch offen') + (lost ? ' · Bestwert ' + AREA_LAD[k].steps[s2.best - 1] : '') + '</span></button>';
+  }).join('') + '</div><p class="small muted">Bronze ab Start · Silber ab 65 · Gold ab 75 · Platin ab 85</p></section>';
+  var arch = RM_ALL.map(function (id) { return { id: id, r: rmOf(id) }; }).filter(function (x) { return x.r; });
+  h += '<section class="card a-lads"><div class="card-head"><h2>1RM-Archiv</h2><span class="chip">Bestwerte</span></div>' + (arch.length ? arch.map(function (x) {
+    return '<button type="button" class="rm-row" data-act="rm-go" data-v="' + x.id + '"><span><b>' + esc(UE[x.id].name) + '</b><small>' + esc(fmtDate(x.r.best.date)) + '</small></span><span class="rm-kg">' + esc(fmtKg(x.r.best.e1, x.id)) + '</span></button>';
+  }).join('') : '<p class="muted">Noch keine Werte. Trag sie unter Tools › 1RM ein.</p>') + '</section>';
+  return h;
 }
 function renderHaptik() {
   var on = S.haptik !== false;
@@ -1800,6 +1864,7 @@ function renderEinst() {
   var foto = LS.get('tp.foto', null);
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="profil" aria-label="Zurück zum Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><section class="hero"><h1>Einstellungen</h1></section>';
   h += '<section class="card"><h2>Profil</h2><div class="setting col"><label class="field"><span>Name</span><input type="text" data-change="name" value="' + esc(S.name || '') + '" placeholder="Dein Name"></label></div>' +
+    '<div class="pick-grid one">' + weightTile() + '</div>' +
     '<div class="bgrp"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div>' +
     '<p class="small muted" style="margin-top:8px">Name und Foto bleiben nur auf diesem Gerät.</p></section>';
   if (PWA) h += sec('Sync über GitHub', syncHTML());
@@ -1835,13 +1900,13 @@ var QUOTES = [
   'Du hast es schon einmal geschafft. Du schaffst es wieder.',
   'Müde Tage zählen auch. Morgen ist der Körper wieder bereit.'
 ];
-function medalEvents(before, after) {
+function medalEvents(before, after, keys) {
   var ev = [];
-  ALL_LADDERS.forEach(function (k) {
+  (keys || ALL_LADDERS).forEach(function (k) {
     var b = before[k] || { cur: 0, best: 0 }, a = after[k] || { cur: 0, best: 0 };
     if (a.cur === b.cur) return;
     var type = !b.best && a.cur ? 'gift' : (a.cur > b.cur ? (a.cur <= b.best ? 'back' : 'up') : 'down');
-    ev.push({ key: k, type: type, from: b.cur, to: a.cur, best: Math.max(a.best, b.best) });
+    ev.push({ key: k, type: type, from: b.cur, to: a.cur, best: Math.max(a.best, b.best), val: a.val });
   });
   var rank = { gift: 0, up: 1, back: 2, down: 3 };
   return ev.sort(function (x, y) { return rank[x.type] - rank[y.type]; });
@@ -1855,13 +1920,15 @@ function showMoment() {
   var head = e.type === 'gift' ? 'Erste Medaille freigeschaltet' : e.type === 'down' ? 'Abgestiegen' + (tFrom !== tTo ? ': ' + tFrom + ' → ' + tTo : '') :
     e.type === 'back' ? 'Zurückerobert' + (tFrom !== tTo ? ': ' + tFrom + ' → ' + tTo : '') : (tFrom !== tTo ? 'Aufgestiegen: ' + tFrom + ' → ' + tTo : 'Neue Stufe');
   var body = e.type === 'down' ? esc(QUOTES[Math.floor(Math.random() * QUOTES.length)]) + '<br><b class="m-best">Dein Bestwert ' + esc(METAL[tierOf(e.best, n)].name) + ' bleibt gespeichert.</b>' :
-    'Stufe ' + e.to + ' von ' + n + ' „' + esc(lad.steps[e.to - 1]) + '“.';
+    e.rec ? 'Geschätztes 1RM ' + esc(fmtKg(e.kg, e.lift)) + (e.prev ? ', vorher ' + esc(fmtKg(e.prev, e.lift)) : '') + '.' :
+    e.key.indexOf('area_') === 0 ? 'Dein Wert in ' + esc(lad.name) + ': ' + e.val + '.' : 'Stufe ' + e.to + ' von ' + n + ' „' + esc(lad.steps[e.to - 1]) + '“.';
+  if (e.rec) head = 'Neuer Bestwert';
   var stage = e.type === 'gift' ? '<button type="button" class="gift" data-act="gift" aria-label="Geschenk öffnen"><span class="g-burst"></span><span class="g-box"><span class="g-base"></span><span class="g-lid"><i></i><i></i></span></span><span class="g-medal">' + medalHTML(e.key, st, ' big') + '</span></button><p class="g-hint">Tippe auf das Geschenk</p>' :
     '<div class="mo-stage ' + e.type + '"><span class="mo-halo"></span><span class="mo-old">' + medalHTML(e.key, prev, ' big') + '<span class="mo-rust"></span></span><span class="mo-new">' + medalHTML(e.key, st, ' big') + '</span>' + (e.type !== 'down' ? '<span class="mo-sparks">' + sparksHTML() + '</span>' : '') + '</div>';
   var box = document.createElement('div');
   box.id = 'moment'; box.className = 'moment mo-' + e.type;
-  box.innerHTML = '<div class="mo-card" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">Training gespeichert</p>' + stage +
-    '<div class="mo-text"><p class="mo-head">' + head + '</p><h2 id="mo-t">' + esc(lad.name) + (e.to ? ' · ' + tTo : '') + '</h2><p class="mo-body">' + body + '</p></div>' +
+  box.innerHTML = '<div class="mo-card" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">' + (e.rec ? 'One Rep Max' : 'Training gespeichert') + '</p>' + stage +
+    '<div class="mo-text"><p class="mo-head">' + head + '</p><h2 id="mo-t">' + esc(lad.name) + (e.rec ? '' : e.to ? ' · ' + tTo : '') + '</h2><p class="mo-body">' + body + '</p></div>' +
     '<div class="mo-btns"><button type="button" class="btn" data-act="mo-next">' + (MOMENTS.length ? 'Nächste' : 'Weiter') + '</button><button type="button" class="btn primary" data-act="mo-view">Ansehen</button></div></div>';
   document.body.appendChild(box);
   if (e.type !== 'gift') buzz(e.type === 'down' ? [600, 900, 80] : [120, 250, 40, 180, 40, 180, 220]);
@@ -2029,6 +2096,10 @@ ACT.choose = function (el) {
     else { for (var t = 1; t <= 7; t++) items.push({ v: String(t), t: 'Tag ' + t + ' · ' + dayLabel(t) }); }
     var f = k.slice(-1);
     openSheet(f === 'd' ? 'Durchgang' : 'Tag', [{ wide: true, items: items, val: String(o[f]) }], function (v) { o[f] = +v[0]; render(); });
+  } else if (k === 'weight') {
+    var wv = S.weight || 75;
+    openSheet('Körpergewicht', [{ head: 'kg', items: numItems(35, 200), val: String(Math.floor(wv)) }, { head: '', items: [{ v: '0', t: ',0' }, { v: '5', t: ',5' }], val: wv % 1 ? '5' : '0' }],
+      function (v) { S.weight = +v[0] + (v[1] === '5' ? 0.5 : 0); saveState(); render(); toast('Körpergewicht gespeichert.'); });
   } else if (k === 'murph') {
     openTimeSheet('Deine Zeit', secOf(dr(S.tag).murphTime), function (sec) { setDraft('murphTime', sec ? fmt(sec) : ''); render(); });
   } else if (k === 'start') {
@@ -2473,9 +2544,10 @@ function openSheet(title, cols, done, o) {
     (o.time ? '<div class="sh-tv"><button type="button" class="sh-time" data-sh="time" aria-label="Zeit eintippen"></button><input class="sh-tin" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" tabindex="-1" aria-label="Zeit eintippen"><p class="sh-hint">Nochmal tippen zum Eintippen</p></div>' : '') +
     '<div class="wheels" style="grid-template-columns:' + cols.map(function (c) { return c.wide ? '1.6fr' : '1fr'; }).join(' ') + '">' +
     cols.map(function (c) { return '<div class="wcol"><span class="wh">' + esc(c.head || '') + '</span><div class="wheel" tabindex="0">' + c.items.map(function (it, k) { return '<div class="wi" data-k="' + k + '">' + (it.c ? bdot(it.c) : '') + esc(it.t) + '</div>'; }).join('') + '</div></div>'; }).join('') +
-    '</div></div>';
+    '</div>' + (o.live ? '<p class="sh-live"></p>' : '') + '</div>';
   document.body.appendChild(bg);
   var wheels = bg.querySelectorAll('.wheel'), idx = [];
+  function live() { var el = bg.querySelector('.sh-live'); if (el) el.innerHTML = o.live(cols.map(function (c, j) { return c.items[idx[j]].v; })); }
   function mark(w, k) { for (var n = 0; n < w.children.length; n++) w.children[n].classList.toggle('sel', n === k); }
   cols.forEach(function (c, j) {
     var w = wheels[j], k = 0;
@@ -2483,7 +2555,7 @@ function openSheet(title, cols, done, o) {
     idx[j] = k; w.scrollTop = k * WH; mark(w, k);
     w.addEventListener('scroll', function () {
       var n = Math.max(0, Math.min(c.items.length - 1, Math.round(w.scrollTop / WH)));
-      if (n !== idx[j]) { idx[j] = n; mark(w, n); haptic('wheel'); showTime(); }
+      if (n !== idx[j]) { idx[j] = n; mark(w, n); haptic('wheel'); showTime(); live(); }
     }, { passive: true });
     w.addEventListener('click', function (e) { var it = e.target.closest('.wi'); if (it) w.scrollTo({ top: +it.dataset.k * WH, behavior: 'smooth' }); });
     w.addEventListener('keydown', function (e) {
@@ -2509,6 +2581,7 @@ function openSheet(title, cols, done, o) {
     if (typed) { var t = (+typed.slice(0, -2) || 0) * 60 + (+typed.slice(-2)); t = Math.min(t, 99 * 60 + 59); vals = [String(Math.floor(t / 60)), String(t % 60)]; }
     closeSheet(); done(vals);
   }
+  if (o.live) live();
   if (tin) {
     tin.addEventListener('input', function () { typed = tin.value.replace(/\D/g, '').slice(-4).replace(/^0+/, ''); tin.value = typed; showTime(); });
     tin.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); haptic('step'); commit(); } });
@@ -2598,6 +2671,80 @@ function openChoice(title, text, opts, done) {
   document.addEventListener('keydown', sheetKey);
   requestAnimationFrame(function () { bg.classList.add('open'); });
 }
+
+/* ---------- Tools › 1RM: Maximalkraft eintragen, Prozente, Verlauf ---------- */
+function rmLifts() {
+  var have = haveEq(), own = S.rmLifts || [], set = {};
+  RM_ALL.forEach(function (id) { if (eqOk(UE[id].equipment, have) || own.indexOf(id) >= 0 || rmOf(id)) set[id] = 1; });
+  return RM_ALL.filter(function (id) { return set[id]; });
+}
+function weightTile() { return tile('Körpergewicht', '<b>' + (S.weight ? fmtKg(S.weight) : '–') + '</b>', 'data-act="choose" data-k="weight"', S.weight ? 'set' : ''); }
+function renderRM() {
+  if (ui.rmLift && UE[ui.rmLift]) return rmDetailHTML(ui.rmLift);
+  var h = '<section class="hero"><h1>Maximalkraft</h1><p class="hero-title">One Rep Max · deine schwersten Wiederholungen</p></section>';
+  if (!S.weight) h += '<section class="card"><p>Trag dein Körpergewicht ein, dann zählt dein 1RM im Wert Kraft mit.</p><div class="pick-grid one">' + weightTile() + '</div></section>';
+  h += '<section class="card a-lads">' + rmLifts().map(function (id) {
+    var r = rmOf(id), d = r ? r.cur.e1 - r.best.e1 : 0;
+    return '<button type="button" class="rm-row" data-act="rm-open" data-v="' + id + '"><span><b>' + esc(UE[id].name) + '</b><small>' + (r ? esc(sinceText(r.cur.date)) + (d < 0 ? ' · Bestwert ' + esc(fmtKg(r.best.e1, id)) : '') : 'noch kein Wert') + '</small></span>' +
+      '<span class="rm-kg">' + (r ? esc(fmtKg(r.cur.e1, id)) + '<small class="' + (d < 0 ? 'neg' : 'pos') + '">' + (d < 0 ? String(d).replace('.', ',') + ' zum Bestwert' : 'Bestwert') + '</small>' : '<span class="muted">–</span>') + '</span></button>';
+  }).join('') + '</section><p class="small muted">Gezeigt werden Übungen mit Equipment an deinem Ort, sortiert nach Nutzen.</p>' +
+    '<button type="button" class="btn block" data-act="rm-add">＋ Weitere Übung</button>';
+  return h;
+}
+function sinceText(iso) { var n = daysBetween(parseISO(iso), parseISO(isoToday())); return n === 0 ? 'heute' : n === 1 ? 'gestern' : n < 14 ? 'vor ' + n + ' Tagen' : 'vor ' + Math.round(n / 7) + ' Wochen'; }
+function rmDetailHTML(id) {
+  var r = rmOf(id), u = UE[id];
+  var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button></div>';
+  h += '<div class="a-head"><h2>' + esc(u.name) + '</h2><span class="a-big">' + (r ? esc(fmtKg(r.cur.e1, id)).replace(' kg', '<small> kg</small>') : '–') + '</span></div>';
+  if (rmAdd(id)) h += '<p class="small muted">Gezählt wird das Zusatzgewicht (Weste oder Gürtel).</p>';
+  if (r) {
+    h += '<div class="chips"><span class="chip gold">Bestwert ' + esc(fmtKg(r.best.e1, id)) + ' · ' + esc(fmtDate(r.best.date)) + '</span><span class="chip">' + r.list.length + (r.list.length === 1 ? ' Eintrag' : ' Einträge') + '</span></div>';
+    if (r.list.length > 1) {
+      var vals = r.list.map(function (l) { return l.e1; }), lo = Math.min.apply(null, vals) * 0.95, hi = r.best.e1 * 1.03, n = vals.length;
+      var y = function (v) { return (110 - (v - lo) / Math.max(1, hi - lo) * 96).toFixed(1); }, x = function (i) { return (8 + i * 304 / (n - 1)).toFixed(1); };
+      var bi = r.list.indexOf(r.best);
+      h += '<section class="card"><svg class="dev-chart" viewBox="0 0 320 130" aria-hidden="true"><line class="rm-best" x1="0" y1="' + y(r.best.e1) + '" x2="320" y2="' + y(r.best.e1) + '"/>' +
+        '<polyline class="line" points="' + vals.map(function (v, i) { return x(i) + ',' + y(v); }).join(' ') + '"/><circle class="rm-bdot" cx="' + x(bi) + '" cy="' + y(r.best.e1) + '" r="5"/><circle class="dot1" cx="' + x(n - 1) + '" cy="' + y(vals[n - 1]) + '" r="5"/>' +
+        '<text x="8" y="126">' + esc(shortDate(r.list[0].date)) + '</text><text x="312" y="126" text-anchor="end">' + esc(shortDate(r.cur.date)) + '</text></svg></section>';
+    }
+    var base = r.cur.e1;
+    h += '<section class="card"><p class="tips-h">Prozent von ' + esc(fmtKg(base, id)) + '</p><div class="pct">' + [95, 90, 85, 80, 75, 70, 65, 60, 50].map(function (p) {
+      return '<span' + (p >= 90 ? ' class="hi"' : '') + '>' + p + ' %<b>' + esc(fmtKg(Math.round(base * p / 100 / 2.5) * 2.5, id)) + '</b></span>';
+    }).join('') + '</div><p class="small muted" style="margin-top:8px">Auf 2,5 kg gerundet.</p></section>';
+  }
+  h += '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
+  if (r) h += '<section class="card"><h3>Einträge</h3>' + r.list.slice().reverse().map(function (l) {
+    return '<div class="log-item"><div class="row between"><span><b>' + esc(fmtKg(l.kg, id)) + ' × ' + l.reps + '</b> <span class="muted small">≈ ' + esc(fmtKg(l.e1, id)) + '</span></span><span class="small muted">' + esc(fmtDate(l.date)) + '</span></div>' +
+      '<button type="button" class="btn small red" style="margin-top:6px" data-act="del-log" data-id="' + esc(l.id) + '">Löschen</button></div>';
+  }).join('') + '</section>';
+  return h;
+}
+ACT['parea-go'] = function (el) { ui.pview = 'werte'; ui.parea = el.dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); };
+ACT['rm-go'] = function (el) { ui.rmLift = el.dataset.v; ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
+ACT['rm-open'] = function (el) { ui.rmLift = el.dataset.v || null; if (ui.tab !== 'rm') ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
+ACT['rm-add'] = function () {
+  var shown = rmLifts(), rest = RM_ALL.filter(function (id) { return shown.indexOf(id) < 0; });
+  if (!rest.length) { toast('Alle Übungen sind schon da.'); return; }
+  openSheet('Weitere Übung', [{ wide: true, items: rest.map(function (id) { return { v: id, t: UE[id].name }; }), val: rest[0] }], function (v) {
+    S.rmLifts = (S.rmLifts || []).concat([v[0]]); saveState(); render();
+  });
+};
+ACT['rm-new'] = function (el) {
+  var id = el.dataset.v, r = rmOf(id), last = r ? r.cur : null, kg = last ? last.kg : (rmAdd(id) ? 10 : 60), max = rmAdd(id) ? 120 : 350;
+  openSheet('Neuer Wert · ' + UE[id].name, [
+    { head: rmAdd(id) ? 'Zusatz kg' : 'kg', items: numItems(0, max), val: String(Math.floor(kg)) },
+    { head: '', items: [{ v: '0', t: ',0' }, { v: '5', t: ',5' }], val: kg % 1 ? '5' : '0' },
+    { head: 'Wdh.', items: numItems(1, 10), val: String(last ? last.reps : 1) }
+  ], function (v) {
+    var w = +v[0] + (v[1] === '5' ? 0.5 : 0), reps = +v[2];
+    if (!w && !rmAdd(id)) { toast('Trag ein Gewicht ein.'); return; }
+    var before = areaStates(LOGS), prev = r ? r.best.e1 : 0, e1 = e1rm(w, reps);
+    addLog({ id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: S.tag, kind: 'rm', lift: id, kg: w, reps: reps, e1: e1, bw: S.weight || null, notes: '' });
+    render();
+    MOMENTS = (e1 > prev ? [{ key: 'rm:' + id, type: prev ? 'up' : 'gift', rec: true, from: prev ? 1 : 0, to: 1, best: 1, kg: e1, prev: prev, lift: id }] : []).concat(medalEvents(before, areaStates(LOGS), AREA_KEYS));
+    if (MOMENTS.length) showMoment(); else toast('Gespeichert: ' + fmtKg(e1, id) + '.');
+  }, { live: function (v) { var w = +v[0] + (v[1] === '5' ? 0.5 : 0), reps = +v[2]; return reps > 1 ? 'Geschätztes 1RM: <b>' + esc(fmtKg(e1rm(w, reps), id)) + '</b>' : 'Echtes 1RM: <b>' + esc(fmtKg(w, id)) + '</b>'; } });
+};
 
 /* ---------- Mobility-Routinen: Karten, Seite Tools › Routinen, Player ---------- */
 function doneToday(rid) { var t = isoToday(); return LOGS.some(function (l) { return l.kind === 'mobility' && l.rid === rid && l.date === t; }); }

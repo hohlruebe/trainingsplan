@@ -15,7 +15,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter von links nach rechts: Tools (Timer, Übungen, Routinen), Coach (nur Heute), Profil.
+- Reiter von links nach rechts: Tools (Timer, Übungen, Routinen, 1RM), Coach (nur Heute), Profil.
   Der Plan (Regeln, Methode, Tests) ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute.
   Unterseiten über den Umschalter oben (`GROUPS` im Skript). Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
@@ -29,15 +29,20 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Jede Leiter zählt 40 + 59 × ((Stufe − 1) + Anteil der Wdh. in der Zielspanne) / Stufenzahl; Bereich = Mittel der begonnenen
   Leitern, Gesamtwert = Mittel der Bereiche mit Daten. Alles wird aus den Einheiten berechnet (`ladderStates`).
   Beweglichkeit kommt aus den Mobility-Leitern (`g_mob_*`), gemessen im Beweglichkeits-Check (`log.mob`).
+  1RM zählt in Kraft (bzw. Schnellkraft bei olympischen Lifts) als Pseudo-Leiter `rm:<id>`: 40 + 59 × Anteil zwischen Einsteiger- und
+  Spitzen-Norm (1RM / Körpergewicht, `RM_STD`). Ohne Körpergewicht (`S.weight`, Einstellungen › Profil, synchronisiert) zählt es nicht.
+- Tools › 1RM (`renderRM`): Gewichtsübungen mit Equipment am Ort plus selbst hinzugefügte (`S.rmLifts`), nach Nutzen. Eintrag über das Rad
+  (kg, ,0/,5, Wdh. 1–10), Schätzung nach Epley (`e1rm`), Prozent-Tabelle auf 2,5 kg gerundet, Verlauf mit Bestwert golden gestrichelt.
+  Einträge `kind: 'rm'` (`lift, kg, reps, e1, bw`), zählen nicht als Training. Bei Weighted Pull-up/Dip zählt das Zusatzgewicht.
 - Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag als optionaler letzter Schritt an Krafttagen (`coolStep`, Schalter `S.cooldown`,
   `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (Tag 5) und B (Tag 7) auf dem Ruhetag. Tools › Routinen startet
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
   Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und im Test-Durchgang (`mobCheckStep`).
-  Erfolge: je Leiter eine Metall-Medaille mit Lorbeerkranz (ein Blattpaar pro Stufe), letzte Stufe Platin.
-  Nach dem Speichern zeigt `showMoment()` neue Stufen: Geschenk (erste Medaille), Glühen (Aufstieg),
-  Anlaufen mit aufmunterndem Spruch (Abstieg), mit Vibrationsmuster (`buzz`).
+  Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
+  darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
+  Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
   Danach Schritt für Schritt (`stepsOf`, `stepPageHTML`): Krafttag Aufwärmen, Handstand, Kraft, Metcon; Testtag eine Übung
   pro Schritt; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
