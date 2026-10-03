@@ -118,3 +118,11 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
+
+## In Arbeit: Figur in allen Trainingsschritten
+- Wunsch: Animation während des ganzen Trainings, für Übungen ohne Grafik ein Platzhalter: winkendes Maskottchen
+  mit Hinweis, dass noch etwas fehlt. Pose `_wave` ist in der Vorlage.
+- Im Canvas (P33): Aufwärmen und Metcon mit Figur über der Liste (gewählte Zeile als weiße Pille, Tippen wechselt),
+  Handstand und Testtag mit Figur oben in der Karte, Platzhalter „Grafik folgt“ hell und dunkel.
+  **Wartet auf Dennis' Freigabe** (Fragen: Tippen vs. automatisch wechseln, Text des Platzhalters, Murph).
+
