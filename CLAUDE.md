@@ -14,6 +14,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 263 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
+  - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 48 Familien,
+    jede Übung (ohne Mobility) genau einmal; je Variante `art` (`stufe` mit `rang` und `ziel`, `variante`, `tempo` mit `vermerk`),
+    je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
 - Reiter von links nach rechts: Tools (Timer, Übungen, Routinen, 1RM), Coach (nur Heute), Profil.
@@ -38,6 +41,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   „<Ort> · Equipment“ (`ACT['eq-sheet']`, `eqSheetBody`, Ort oben umschaltbar, Änderungen gelten sofort). „Orte wählen“ (`ACT.orte`)
   schaltet Orte ein/aus, der Stift je Zeile (`ACT['ort-edit']`) gibt einen eigenen Namen (`nm`) und ein Symbol aus `ORT_IC` (`ic`).
   `ortName(o)`, `ortIc(o)` überall benutzen. Unten die Karte „Bänder“: Band antippen = Farbe wählen (Blatt).
+  Ohne Suche zeigt die Liste Familien (`famListHTML`, `famItemHTML`), gruppiert nach Bewegungsmuster: Chips „Du: …“, „Als Nächstes: …“
+  oder gesperrt mit Grund. Aufgeklappt: Figur, Skill-Pfad (`famPathHTML`, Leiter-Stil, aktuelle Stufe als weiße Pille, Ziel für die
+  nächste), darunter die Übungen als Unterpunkte (`glItemHTML`, Klasse `sub`) nach Stufen, Varianten, „Auf Tempo (CrossFit)“ mit Vermerk,
+  dazu „Gehört auch dazu“ (`auch_in`), „Baut auf“ und „Führt zu“ (`ACT['fam-go']`). Mit Suche: Einzelübungen wie bisher.
+  Stand je Familie (`famLevel`, `famStatus`): höchste Stufe, die trainiert wurde (Leiterstand oder Eintrag mit dem Namen).
+- Skill-Baum (versteckte Seite `skill`, Zugang über Profil › Werte, `renderSkill`, `drawTree`): je Bereich Zug, Druck, Beine, Rumpf,
+  Mehr; Zeilen nach `ebene`, Linien aus `voraussetzt`; Knoten geschafft, aktuell (weiße Pille), als Nächstes, gesperrt. Antippen öffnet
+  die Familie. Heute zeigt unter „Training starten“ die Karte „Als Nächstes freischalten“ (`nextUnlockHTML`).
 - Tools › 1RM (`renderRM`): Gewichtsübungen mit Equipment am Ort plus selbst hinzugefügte (`S.rmLifts`), nach Nutzen. Eintrag über das Rad
   (kg, ,0/,5, Wdh. 1–10), Schätzung nach Epley (`e1rm`), Prozent-Tabelle auf 2,5 kg gerundet, Verlauf mit Bestwert golden gestrichelt.
   Einträge `kind: 'rm'` (`lift, kg, reps, e1, bw`), zählen nicht als Training. Bei Weighted Pull-up/Dip zählt das Zusatzgewicht.

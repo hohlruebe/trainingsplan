@@ -22,6 +22,9 @@ Du hilfst mir, die Übungsbibliothek meiner Trainings-App aufzuräumen. Die App 
 Jede Übung gehört zu genau einer **Familie** (z. B. „Pull-up“).
 - **Bibliothek:** Die App zeigt nur noch die Familie. Erst wenn ich sie antippe, sehe ich die Varianten, nach Rang sortiert.
 - **Training:** Die App nimmt automatisch die beste Variante, die zu meinem Können und den Geräten am Ort passt.
+- **Skill-Pfad:** In jeder Familie zeigt die App die Stufen von leicht nach schwer, meine aktuelle Stufe und was als Nächstes kommt. Dafür braucht jede Stufe ein klares, messbares Ziel.
+- **Skill-Baum:** Je Bereich (Zug, Druck, Beine, Rumpf …) zeigt die App einen Baum: unten die Grundlagen, oben die schweren Skills. Linien zeigen, welche Familie welche freischaltet, z. B. Pull-up + Dip → Muscle-up.
+- **Als Nächstes freischalten:** Auf der Startseite zeigt die App das eine Ziel, das ich am nächsten erreiche, und was ich heute dafür tue.
 
 ## Deine Aufgabe
 
@@ -49,7 +52,11 @@ Jede Übung gehört zu genau einer **Familie** (z. B. „Pull-up“).
 
    Dann wartest du auf meine Entscheidung. Erster Grenzfall, bitte auf jeden Fall vorlegen:
    - **Ist der Chin-up eine Variante der Familie Pull-up oder eine eigene Familie?**
-4. Ich antworte auf die Grenzfälle. Erst danach kommt Schritt 2.
+4. **Verbindungen für den Skill-Baum:** Gib je Familie an, welche anderen Familien sie voraussetzt und ab welcher Stufe.
+   - Beispiel: Muscle-up setzt Pull-up ab Stufe „Pull-up frei“ und Dip ab „Dip frei“ voraus.
+   - Zeig mir die Verbindungen als kurze Liste, z. B. „Pull-up (frei) + Dip (frei) → Muscle-up“.
+   - Unsichere Verbindungen sind ebenfalls Grenzfälle: Frag nach, mit Argumenten dafür und dagegen.
+5. Ich antworte auf die Grenzfälle. Erst danach kommt Schritt 2.
 
 ### Schritt 2: Endergebnis als JSON
 Erst nach meinen Entscheidungen gibst du **genau eine** Datei `familien.json` aus. Gültiges JSON in UTF-8, in einem einzigen Codeblock:
@@ -63,11 +70,17 @@ Erst nach meinen Entscheidungen gibst du **genau eine** Datei `familien.json` au
       "id": "f_pullup",
       "name": "Pull-up",
       "muster": "zug_vertikal",
+      "bereich": "zug",
+      "ebene": 2,
       "kurz": "Ein Satz, was die Familie trainiert.",
       "leiter": "g_pullup",
+      "voraussetzt": [
+        { "familie": "f_australian_pullup", "ab_rang": 2 }
+      ],
+      "fuehrt_zu": ["f_muscle_up", "f_front_lever"],
       "varianten": [
-        { "uebung": "g_pullup_negative", "art": "stufe", "rang": 1, "effekt": 70, "grund": "Ein Satz, warum dieser Platz." },
-        { "uebung": "g_pullup", "art": "stufe", "rang": 2, "effekt": 95, "grund": "…" },
+        { "uebung": "g_pullup_negative", "art": "stufe", "rang": 1, "effekt": 70, "ziel": "3 × 5 Negative mit 5 s Absenken.", "grund": "Ein Satz, warum dieser Platz." },
+        { "uebung": "g_pullup", "art": "stufe", "rang": 2, "effekt": 95, "ziel": "Alle 4 Runden mit 6 Wdh. bei RIR 2.", "grund": "…" },
         { "uebung": "g_chinup", "art": "variante", "rang": null, "effekt": 90, "grund": "…" },
         { "uebung": "g_kipping_pullup", "art": "tempo", "rang": null, "effekt": 68, "grund": "…", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz." }
       ]
@@ -92,6 +105,17 @@ Erst nach meinen Entscheidungen gibst du **genau eine** Datei `familien.json` au
   - Alle anderen Texte auf Deutsch, kurze klare Sätze.
   - Eine Familie darf aus einer einzigen Übung bestehen, wenn es wirklich keine Varianten gibt.
 - **`muster`:** das Bewegungsmuster der Familie, aus Anhang A übernommen.
+- **`bereich`:** einer von `zug`, `druck`, `beine`, `rumpf`, `skill`, `ausdauer`. Daraus baut die App je Bereich einen Skill-Baum.
+- **`ebene`:** Höhe im Skill-Baum, 1 = Grundlage ohne Voraussetzung, bis 6 = schwerster Skill.
+  - Eine Familie liegt immer mindestens eine Ebene über allen Familien, die sie voraussetzt.
+- **`voraussetzt`:** Liste der Familien, die man vorher können sollte, jeweils mit `ab_rang`, der Stufe in der Vorgänger-Familie.
+  - Leer `[]` für Grundlagen.
+  - Nur echte Voraussetzungen für Kraft und Technik, keine bloße Ähnlichkeit.
+  - Höchstens 3 je Familie.
+- **`fuehrt_zu`:** die Familien, die diese freischaltet. Muss genau zu `voraussetzt` passen: Steht A in `voraussetzt` von B, steht B in `fuehrt_zu` von A.
+- **`ziel`:** Pflicht bei `art: "stufe"`. Ein Satz, messbar ohne Hilfsmittel, wann man zur nächsten Stufe darf.
+  - Gibt es eine Leiter, nimm deren Aufstiegsregel (meist: alle Runden mit 6 Wdh. bei RIR 2).
+  - Bei der schwersten Stufe ein Erhaltungsziel.
 - **`leiter`:** die passende Leiter aus Anhang B, wenn es eine gibt, sonst `null`.
   - Die Reihenfolge der `stufe`-Varianten soll zur Leiter passen und darf ihr nicht widersprechen.
 - **Rang und Effekt:**
@@ -109,6 +133,10 @@ Erst nach meinen Entscheidungen gibst du **genau eine** Datei `familien.json` au
 - [ ] Jede ID aus Anhang A kommt genau einmal vor.
 - [ ] Jede Familie mit `stufe`-Varianten hat Ränge 1, 2, 3 … ohne Lücke.
 - [ ] Jede `tempo`-Variante hat einen `vermerk`.
+- [ ] Jede `stufe` hat ein `ziel`.
+- [ ] Jedes `voraussetzt` zeigt auf eine vorhandene Familie und einen vorhandenen `ab_rang`.
+- [ ] `voraussetzt` und `fuehrt_zu` passen überall zueinander, es gibt keinen Kreis (A braucht B, B braucht A).
+- [ ] Jede Familie liegt mindestens eine `ebene` über ihren Voraussetzungen.
 - [ ] Alle Grenzfälle hast du mir vorgelegt und meine Entscheidung steht in `entscheidungen`.
 
 ## Anhang A: Alle Übungen ohne Mobility (207)
