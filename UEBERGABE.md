@@ -71,7 +71,11 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
 12. Ähnliche Übungen (Pull-up/Chin-up) sollen über die Beschreibung unterscheidbar werden.
     Im Canvas: beide in Bibliothek und Training (echte App-Bilder, Figur an geplanter Stelle, Griff-Text blau).
     Vorschlag: Pull-up Schritt 1 „Im Obergriff hängen, Handflächen von dir weg“, im Training eine Griff-Zeile unter der Figur.
-    **Wartet auf Dennis' Entscheidung.**
+    Entschieden: Figur im Training **nur in der Karte der gerade laufenden EMOM-Übung**; Griff-Texte „perfekt“;
+    Bildfeld **immer gleich groß** (keine Sonderformate für hohe Übungen).
+13. Bibliothek: die Leiter unter der Beschreibung (heute Treppe aus Balken, `ladderHTML`) wirkt „krumm und schief“,
+    nicht polished. Im Canvas drei Entwürfe: A Kapsel-Leiste, B Liste mit Linie, C Treppe aufgeräumt.
+    **Wartet auf Dennis' Wahl.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
 - Figur als 3D-Skelett, um die Hochachse gedreht, Bild für Bild aus Gelenkwinkeln gezeichnet.
