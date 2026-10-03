@@ -836,7 +836,7 @@
     var J = build({ pc: pc, a: lerp(2, 8, t), nod: -4,
       arms: both(function (x) { return { to: add(pc, [x * 36, -8, 8]), pole: [x * .5, 0, -1], dir: [0, .4, .6] }; }), // Hände an der Hüfte
       legs: { a: { to: [-14, 390, 58], pole: FWD, dir: [0, .28, 1] }, b: { to: [16, 386, -100], pole: [0, .2, 1], dir: [0, .7, .7] } } });
-    J._props = wall(114).map(function (l) { return Object.assign({}, l, { keep: false }); });
+    J._props = [{ type: 'poly', pts: [[-90, 60, 114], [90, 60, 114], [90, 401, 114], [-90, 401, 114]], col: STYLE.far }]; // Wand als Fläche wie beim Wall Flexion Hold
     return J;
   }
 
@@ -898,7 +898,7 @@
       g_wall_slide: { name: 'Wall Slide', pose: wallSlide, yaw: 30, dur: 3 },
       g_wrist_extension_stretch: { name: 'Wrist Extension Stretch', pose: wristExt, yaw: 62, dur: 3.4 },
       g_planche_lean: { name: 'Planche Lean', pose: plancheLean, yaw: 62, dur: 3.4 },
-      g_knee_to_wall: { name: 'Knee-to-Wall Mobilization', pose: kneeWall, yaw: 62, dur: 2.8 }
+      g_knee_to_wall: { name: 'Knee-to-Wall Mobilization', pose: kneeWall, yaw: 80, dur: 2.8 }
     }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Maskottchen = api;
