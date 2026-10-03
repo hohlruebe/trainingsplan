@@ -4,6 +4,7 @@ Gilt für jede Seite und alles Neue. Ruhig, an iOS angelehnt, Handy zuerst (390 
 Kurzfassung der Regeln steht auch in `CLAUDE.md`.
 
 ## Grundlagen
+- Hellmodus wählbar in Weiß oder Off-White (Kreide `#FAF9F5`, Leinen `#F8F5EF`, Nebel `#F7F8F6` für Karten), Hintergrund je eine Stufe dunkler.
 - Dunkelmodus in Graphit, passend zum App-Symbol: Hintergrund `#1E1F23`, Karten `#2A2B30`, Kapseln `#24252A`, Pille `#41424A`,
   Grafik-Fläche `#33343A`, Linien `#36373D`. Jede Ebene eine Stufe heller als die darunter.
 - Schrift: Geist für alles. Die Schrift-Einstellung (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengen (`--hand`).
@@ -79,6 +80,13 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Blätter von unten (`openSheet`, `openForm`, `openChoice`), Kopf mit „Abbrechen“ und Aktion.
 - Gleichartige Fenster haben dieselbe Höhe, Knöpfe sitzen immer an derselben Stelle (z. B. Medaillen-Momente).
 - Haptik bei jeder Interaktion (`haptic(kind)`).
+
+## Bewegung (gilt für alles Neue)
+- Jede Zustandsänderung bewegt sich weich, nichts springt hart um. Dauer etwa 0,3 s, Kurve `cubic-bezier(.3,.9,.4,1)` wie der Glas-Tropfen der Schalter.
+- Wahl wechseln: die weiße Pille gleitet zur neuen Wahl. Knöpfe in einer Kapsel rutschen an ihren Platz, neue blenden mit kurzem Wachsen ein.
+- Drücken: jede Kapsel und jeder Knopf gibt leicht nach (96 %, Umschalter 92 %) und federt zurück. Kein blaues Antipp-Leuchten.
+- Aufklappen: Inhalt gleitet von oben ein. Blätter fahren von unten hoch.
+- Zusammen mit der Haptik. Bei „Bewegung reduzieren“ im System keine Animation.
 
 ## Arbeitsweise
 - Neue Oberflächen zuerst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
