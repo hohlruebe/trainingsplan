@@ -52,6 +52,9 @@ Den Stil nur ändern, wenn Dennis es ausdrücklich will.
    - Endpositionen sauber wie im Testtag-Text, z. B. Glute Bridge oben Schulter, Hüfte, Knie in einer Linie (kein Hohlkreuz).
 
 Vorhanden: g_air, g_pullup, g_push, g_pistol, g_nordic, g_hollow, g_handstand, g_dip, g_bridge, g_chinup, g_bss, g_abwheel.
+Runde 1 (im Canvas zur Prüfung): g_row, g_pike, g_lunge, g_kneeraise, g_burpee, g_squatjump, g_skater, g_tuck, g_ring_push, g_hspu,
+g_lsit, g_mountain_climber, g_plank, g_hollow_rock, g_v_up, g_slider_curl, g_hip_thrust, g_scap, g_diamond_push, g_split_squat.
+Hilfen dafür: `keys` (Schlüsselbilder mit weichem Übergang), `limbs`, `line` (gerader Körper), `meet` (Becken zwischen Füßen und Schultern), `rotYZ`.
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
