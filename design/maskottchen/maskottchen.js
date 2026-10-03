@@ -221,13 +221,16 @@
     return '<svg viewBox="' + F.box.join(' ') + '" width="' + w + '" height="' + h + '" preserveAspectRatio="xMidYMid meet">' + out + '</svg>';
   }
 
-  /* Für die App: zeichnet live in ein Element, Bild für Bild. Gibt eine Stopp-Funktion zurück. */
+  /* Für die App: zeichnet live in ein Element, Bild für Bild. Gibt eine Stopp-Funktion zurück.
+     Hört von selbst auf, wenn das Element nicht mehr auf der Seite ist. Bei „Bewegung reduzieren“ nur ein Standbild. */
   function play(el, ex) {
-    var F = frames(ex), i = 0, stop = false, last = 0;
-    el.innerHTML = '<svg viewBox="' + F.box.join(' ') + '" width="100%" height="100%" preserveAspectRatio="xMidYMid meet"></svg>';
+    var F = ex._F || (ex._F = frames(ex)), i = 0, stop = false, last = 0;
+    el.innerHTML = '<svg viewBox="' + F.box.join(' ') + '" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + (ex.name || '') + '"></svg>';
     var svg = el.firstChild;
+    svg.innerHTML = F.frames[0];
+    if (root.matchMedia && root.matchMedia('(prefers-reduced-motion: reduce)').matches) return function () {};
     function tick(t) {
-      if (stop) return;
+      if (stop || !el.isConnected) return;
       if (t - last >= 1000 / STYLE.fps) { last = t; svg.innerHTML = F.frames[i]; i = (i + 1) % F.n; }
       requestAnimationFrame(tick);
     }

@@ -90,6 +90,10 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
     (gleich = nur goldener Stern neben „Aktuelle Stufe“).
     Laufschrift **nur beim Antippen**: zu lange Namen (gemessen) enden mit „…“; Tippen = einmal durchlaufen,
     ausblenden, wieder am Anfang mit „…“. Dauer 3 s + Überstand/45 s. Passende Namen reagieren nicht.
+
+**Eingebaut (Pull Request, siehe unten):** Figur in Tools › Übungen und in der Karte der laufenden EMOM-Übung,
+Griff-Zeile für Pull-up/Chin-up, Pull-up-Schritt 1 „Im Obergriff hängen, Handflächen von dir weg.“, neue Leiter.
+Im Dunkelmodus bleibt die Fläche der Figur weiß (Figur ist dunkel gezeichnet) – Dennis fragen, ob ihm das passt.
     Im Canvas: Pull-up, Nordic Curl und eine erfundene Leiter mit langen Namen. **Wartet auf Dennis' Freigabe.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
@@ -97,7 +101,7 @@ Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
 - Bildausschnitt einer Animation über alle Bilder der Bewegung plus Rand, damit nichts abgeschnitten wird.
 - In der App zeichnet `play()` live im Browser (offline, keine großen Dateien).
 
-Nächste Schritte: Rückmeldung zur Probe einarbeiten → Einbau in Training, Übungen und Routinen-Player → erst dann Pull Request.
+Nächste Schritte: Grafiken für weitere Übungen (Bibliothek, Aufwärmen, Metcon), Routinen-Player mit Figur.
 
 ## Danach: `mobility2.json` einbauen
 Datei: `design/mobility2.json` (von Dennis aus Cowork, `v: 2`, 42 Übungen, 8 Leitern, Analyse mit 14 Tests und 8 Regionen, 4 Routinen: `r_lauf_abc`, `r_aufwaermen_kraft`, `r_yoga_flow`, `r_abend`).

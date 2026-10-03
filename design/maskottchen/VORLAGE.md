@@ -55,4 +55,6 @@ Vorhanden: g_air, g_pullup, g_push, g_pistol, g_nordic, g_hollow, g_handstand, g
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
   So wird nie etwas abgeschnitten (Kopf, Hände, Füße).
 - 12 Bilder pro Sekunde. In der App zeichnet `play(el, übung)` live; im Canvas erzeugt `animatedSVG` eine SVG-Animation.
-- Die Figur steht in einer weißen Karte, etwa 270 × 250 px auf dem Handy.
+  `play` hört von selbst auf, wenn das Element nicht mehr auf der Seite ist, und zeigt bei „Bewegung reduzieren“ nur ein Standbild.
+- In der App steckt eine Kopie dieser Datei in `index.html` (`<script id="maskottchen">`). Nach jeder Änderung hier die Kopie ersetzen.
+- Die Figur steht in einer weißen Fläche, 200 px hoch über die ganze Kartenbreite (`.fig`), in Bibliothek und Training gleich.
