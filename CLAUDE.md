@@ -54,6 +54,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
   Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
   vor dem Start in der ersten (`syncFig`), darunter der Griff bei ähnlichen Übungen (`GRIP`, Pull-up/Chin-up).
+  Dunkelmodus: Farbsatz „Kreide auf Dunkel“ (`Maskottchen.PALETTES.dark`, Fläche `--fig`), Wechsel über `applyTheme` → `refreshFigs`.
 - Leiter in Tools › Übungen (`ladderHTML(lad, state)`): Glas-Kapsel als Aufstieg (Stufe 1 unten, schwerste oben),
   „Aktuelle Stufe“ als weiße Pille, höchste geschaffte Stufe mit goldenem Chip „★ Bestwert“ (gleich = nur Stern).
   Zu lange Stufennamen enden mit „…“ (gemessen, `fitLadders`), Antippen lässt sie einmal durchlaufen.

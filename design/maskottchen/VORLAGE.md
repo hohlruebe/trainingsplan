@@ -19,7 +19,9 @@ Den Stil nur ändern, wenn Dennis es ausdrücklich will.
 - Kopf als Ei mit Mittellinie und Augenlinie. Augen, Nase und Mund nur, wenn das Gesicht zum Betrachter zeigt.
   Von hinten ohne Gesicht, die Mittellinie wird zur Wirbelsäule. So ist die Blickrichtung immer klar.
 - Orange Line of Action vom Kopf über die Wirbelsäule bis zum Standbein.
-- Farben: vorn `#34327E`, hintere Seite in der Drehung `#A8A7CC`, Line of Action `#E8963A`, Boden `#DADAD3`.
+- Farben hell: vorn `#34327E`, hintere Seite in der Drehung `#A8A7CC`, Line of Action `#E8963A`, Boden `#DADAD3`, Fläche weiß.
+- Farben dunkel („Kreide auf Dunkel“, `PALETTES.dark`): vorn `#E4E3F7`, hinten `#6D6B9C`, Line of Action `#F0A04B`,
+  Boden `#3A3B40`, Gelenke `#1A1B1E`, Fläche `#222327`. Übergabe mit `pal: 'dark'` an `play`, `frames`, `animatedSVG`.
 - Alle festen Werte stehen oben in `maskottchen.js` unter `STYLE`.
 
 ## Eine neue Übung anlegen

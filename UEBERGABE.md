@@ -95,7 +95,7 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
 Griff-Zeile für Pull-up/Chin-up, Pull-up-Schritt 1 „Im Obergriff hängen, Handflächen von dir weg.“, neue Leiter.
 Dunkelmodus: weiße Fläche ist nicht polished → eigener Farbsatz nötig. Vorlage kann jetzt Farbsätze (`PALETTES`, `pal`
 an `frames`/`play`/`animatedSVG`), hell unverändert. Im Canvas drei Entwürfe: D1 Kreide auf Dunkel, D2 Nachtblau,
-D3 gedämpfte helle Fläche. **Wartet auf Dennis' Wahl**, danach in `index.html` einbauen (Kopie der Vorlage ersetzen).
+D3 gedämpfte helle Fläche → **D1 „Kreide auf Dunkel“ gewählt und eingebaut** (wechselt live mit Hell/Dunkel).
     Im Canvas: Pull-up, Nordic Curl und eine erfundene Leiter mit langen Namen. **Wartet auf Dennis' Freigabe.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:

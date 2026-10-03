@@ -12,6 +12,7 @@
     action: '#E8963A',   // Line of Action
     floor: '#DADAD3',
     joint: '#FFFFFF',    // Füllung der Gelenkkreise
+    panel: '#FFFFFF',    // Fläche hinter der Figur (in der App `--fig`)
     passes: 3,           // Skizzenstriche je Form
     sw: 1.1,             // Hauptstrich
     jit: 1.4,            // Versatz der Nebenstriche (px)
@@ -24,8 +25,9 @@
     fps: 12              // Bilder pro Sekunde in der App
   };
 
-  // Farbsätze: hell ist der Standard (STYLE). Dunkel für den Dunkelmodus der App.
-  var PALETTES = { dark: { ink: '#E4E3F7', far: '#6D6B9C', action: '#F0A04B', floor: '#3A3B40', joint: '#1A1B1E' } };
+  // Farbsätze: hell ist der Standard (STYLE).
+  // Dunkel = „Kreide auf Dunkel“ (D1, von Dennis gewählt): helle Striche auf einer Fläche knapp heller als die Karte.
+  var PALETTES = { dark: { ink: '#E4E3F7', far: '#6D6B9C', action: '#F0A04B', floor: '#3A3B40', joint: '#1A1B1E', panel: '#222327' } };
 
   // ---- Grundhaltung: 3D-Gelenke (x rechts, y unten, z zum Betrachter), a = linke Bildseite von vorn ----
   var STAND = {
