@@ -77,7 +77,9 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
     nicht polished. Drei Entwürfe (A Kapsel-Leiste, B Liste mit Linie, C Treppe) → **B gewählt**, aber als Aufstieg:
     Stufe 1 unten, die schwerste oben. Jetzt im Canvas drei Variationen: B1 Glas-Kapsel (deine Stufe als weiße Pille),
     B2 Fortschrittslinie (bis zur eigenen Stufe blau gefüllt), B3 Liste mit Kacheln (Trenner, Nummer-Kachel, Chip).
-    **Wartet auf Dennis' Wahl.**
+    → **B1 Glas-Kapsel gewählt.** Dazu eine Markierung für die höchste je geschaffte Stufe (kann über der aktuellen liegen).
+    Im Canvas drei Variationen in Gold (wie 1RM-Bestwert): M1 goldener Chip „Bestwert“, M2 goldener Ring + Stern am
+    Nummernkreis, M3 goldene Marke links an der Kapsel. **Wartet auf Dennis' Wahl.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
 - Figur als 3D-Skelett, um die Hochachse gedreht, Bild für Bild aus Gelenkwinkeln gezeichnet.
