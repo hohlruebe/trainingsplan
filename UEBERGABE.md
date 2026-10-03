@@ -83,7 +83,9 @@ Die früheren Python-Entwurfsskripte sind entfernt, damit es nur eine Quelle gib
     Leiter-Erfolge über Umwege zurück. Metall des Bestwerts per `tierOf(best, n)` (Bronze/Silber/Gold, letzte Stufe Platin),
     Farben aus `METAL`, Glanz wie `sheen`. Zu lange Stufennamen laufen als Laufschrift statt umzubrechen.
     Im Canvas drei Variationen: V1 Metall-Chip, V2 Mini-Medaille + Metallname, V3 Nummernkreis als Medaille.
-    **Wartet auf Dennis' Wahl.**
+    Text „Aktuelle Stufe“ (nicht „Deine Stufe“). Laufschrift nur, wenn der Name gemessen nicht passt
+    (scrollWidth > clientWidth), Strecke = Überstand; Ablauf: stehen → einmal durchlaufen → ausblenden →
+    am Anfang einblenden → von vorn (kein Endlosband). **Wartet auf Dennis' Wahl der Variation.**
 
 Technik: siehe `design/maskottchen/VORLAGE.md`. Kurz:
 - Figur als 3D-Skelett, um die Hochachse gedreht, Bild für Bild aus Gelenkwinkeln gezeichnet.
