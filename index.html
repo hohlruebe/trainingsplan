@@ -534,6 +534,40 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .ex-card{transition:box-shadow .25s}
 .ex-card.now{box-shadow:0 0 0 2px var(--acc),var(--shadow)}
 .ex-card.now .card-head::after{content:"jetzt dran";font-size:13px;font-weight:600;color:var(--acc)}
+/* Ablauf im Training: Liste als Glas-Kapsel (aktuelle Übung als offene weiße Pille) oder Einzeln als Karte */
+.flow{list-style:none;margin:0 0 6px;padding:4px;border-radius:24px;background:var(--tray);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);display:flex;flex-direction:column;gap:2px}
+.fl-row{border-radius:20px;touch-action:pan-y;transition:transform .2s,background .2s}
+.fl-h{display:flex;align-items:baseline;gap:10px;width:100%;min-height:44px;padding:8px 12px;border:0;border-radius:20px;background:transparent;color:inherit;font-family:var(--text);font-size:15px;text-align:left;cursor:pointer}
+.fl-h .qty{min-width:84px;white-space:nowrap}
+.fl-n{flex:1 1 0;min-width:0}
+.fl-row.done{color:var(--ink2)}
+.fl-row.done .qty{color:var(--green)}
+.fl-row.open{background:var(--pill);box-shadow:0 2px 8px rgba(17,18,20,.1)}
+.fl-row.open .fl-h{font-weight:600}
+.fl-body{padding:0 12px 12px}
+.fl-body .chips{margin-bottom:6px}
+.fl-body .fig,.fl-body .figph{height:170px;margin-top:0}
+.fl-body p{margin:0 0 8px}
+.flow-one{touch-action:pan-y;transition:transform .2s}
+.flow-one .chips{margin-bottom:4px}
+.fo-h{display:flex;align-items:baseline;gap:10px}
+.fo-h .qty{min-width:0;white-space:nowrap}
+.fo-h h3{margin:0}
+.flow-one > p{margin:6px 0 0}
+.bgrp button:disabled{opacity:.35;cursor:default}
+.fl-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 4px;touch-action:pan-y;transition:transform .2s}
+.figph{display:flex;align-items:center;height:200px;margin:6px 0 10px;border-radius:18px;background:var(--fig);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 6%,transparent);overflow:hidden}
+.figph .fig{flex:0 0 44%;height:100%;margin:0;border-radius:0;box-shadow:none;background:transparent}
+.figph p{margin:0;padding:0 16px 0 0;display:flex;flex-direction:column;gap:4px}
+.figph b{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.figph span{font-size:13px;line-height:1.35;color:var(--ink2)}
+.ex-next{margin-top:12px}
+.ex-next .chip b{color:var(--ink);margin-left:4px}
+.mini-fig{width:22px;height:28px;margin:-4px 6px -4px -6px;background:var(--fig);border-radius:50%;flex:0 0 auto}
+.tr-row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:58px;border-top:1px solid var(--line)}
+.tr-row:first-child{border-top:0}
+.tr-row .seg{width:180px;margin:0;flex:0 0 auto}
+.tr-row .seg-btn{font-size:13px}
 .pick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
 .pick-grid.one{grid-template-columns:1fr}
 .tile{min-height:70px;border:0;border-radius:14px;background:var(--board);color:var(--ink);font:inherit;text-align:left;padding:9px 12px;display:flex;flex-direction:column;justify-content:center;gap:3px;cursor:pointer;min-width:0}
@@ -1023,6 +1057,17 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
     return l;
   }
 
+  // Platzhalter: winkt, solange eine Übung noch keine eigene Animation hat.
+  function wave(p) {
+    var J = {}, k; for (k in STAND) J[k] = STAND[k].slice();
+    var sh = J.shb, u = 128 * R, f = (180 + Math.sin(p * 4 * Math.PI) * 24) * R;
+    var el = [sh[0] + 56 * Math.sin(u), sh[1] + 56 * Math.cos(u), sh[2] + 4];
+    var wr = [el[0] + 54 * Math.sin(f), el[1] + 54 * Math.cos(f), el[2] + 2];
+    J.elb = el; J.wrb = wr; J.hab = [wr[0] + 24 * Math.sin(f), wr[1] + 24 * Math.cos(f), wr[2]];
+    J.hc = [J.hc[0] + 3, J.hc[1], J.hc[2]];
+    return J;
+  }
+
   // ---- Übungen (Schlüssel = ID in der Übungsbibliothek) ----
   function air(t) { // Air Squat
     var J = {}, k; for (k in STAND) J[k] = STAND[k].slice();
@@ -1135,6 +1180,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
     build: build, ik3: ik3, rep: rep, sway: sway, ease: ease, rings: rings, bench: bench,
     // name, pose(p), Blickwinkel, Dauer einer Wiederholung (s), Boden zeichnen
     EXERCISES: {
+      _wave: { name: 'Maskottchen winkt', pose: wave, yaw: 18, dur: 1.6 },
       g_air: { name: 'Air Squat', pose: function (p) { return air(rep(p)); }, yaw: 38, dur: 2.6 },
       g_pullup: { name: 'Ring Pull-up', pose: function (p) { return hang(p, false); }, yaw: 38, dur: 3, floor: false },
       g_push: { name: 'Push-up', pose: pushup, yaw: 62, dur: 2.6 },
@@ -1290,7 +1336,8 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null };
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null,
+  trainCustom: false, trainModes: null, roundCounter: true, swipe: true, swipeRev: false };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -1560,7 +1607,7 @@ function render() {
     if (b.dataset.group === g) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
   if (ui.tab === 'timer') paintNow();
-  if (ui.tab === 'heute') { paintMini(); syncFig(document.querySelector('.ex-card.now') ? +document.querySelector('.ex-card.now').dataset.ex : 0); }
+  if (ui.tab === 'heute') { wakeFigs(); paintMini(); syncFig(document.querySelector('.ex-card.now') ? +document.querySelector('.ex-card.now').dataset.ex : 0); }
   if (ui.tab === 'routine') paintRoutine();
   if (ui.tab === 'uebungen') wakeGloss();
 }
@@ -1786,6 +1833,7 @@ function finish() {
   TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; cue(true); showFinished(); setToggle();
   if (TM.mode === 'routine') routineDone();
   if (TM.mode === 'zeit' && TM.cfg && TM.cfg.step) { setDraft('murphTime', fmt(Math.max(0, TM.finalElapsed - 10))); if (ui.tab === 'heute') render(); }
+  if (TM.mode === 'amrap' && TM.cfg && TM.cfg.step === draftKey(S.tag) + ':metcon') { if (ui.tab === 'heute') render(); amrapCheck(); }
   paintMini();
 }
 function showFinished() {
@@ -1960,6 +2008,8 @@ function refreshFigs() {
   var pal = isDark() ? 'dark' : null;
   document.querySelectorAll('.fig').forEach(function (el) { if (el._stop && el._pal !== pal) { stopFig(el); startFig(el); } });
 }
+// Training: Figuren im Ablauf, im Handstand und im Test gleich starten (EMOM-Karten steuert syncFig).
+function wakeFigs() { document.querySelectorAll('#view .fig').forEach(function (f) { if (!f.closest('[hidden]') && !f.closest('.ex-fig')) startFig(f); }); }
 function stopFig(el) { if (el && el._stop) { el._stop(); el._stop = null; el.innerHTML = ''; } }
 // Bibliothek: Figur und Leiter erst, wenn eine Übung aufgeklappt ist.
 function wakeGloss() {
@@ -1970,12 +2020,15 @@ function wakeGloss() {
 }
 document.addEventListener('toggle', function (e) { if (e.target.classList && e.target.classList.contains('gl-item')) wakeGloss(); }, true);
 // Training: Figur nur in der Karte der Übung, die im EMOM gerade läuft (vor dem Start: die erste).
+// Einzeln zeigt nur diese Karte.
 function syncFig(idx) {
   var cards = document.querySelectorAll('.ex-card'); if (!cards.length) return;
   if (idx == null || !cards[idx]) idx = 0;
+  var one = modeOf('kraft') === 'single';
   cards.forEach(function (c, i) {
-    var box = c.querySelector('.ex-fig'); if (!box) return;
     var on = i === idx;
+    if (c.hidden !== (one && !on)) c.hidden = one && !on;
+    var box = c.querySelector('.ex-fig'); if (!box) return;
     if (on === !box.hidden) return;
     box.hidden = !on;
     if (on) startFig(box.querySelector('.fig')); else stopFig(box.querySelector('.fig'));
@@ -2037,7 +2090,7 @@ function renderPlan() {
 }
 function settingsHTML() {
   var dark = isDark();
-  var h = '<h3>Hell oder dunkel</h3><div class="seg" role="group" aria-label="Hell oder dunkel">' + [['light', 'Hell'], ['dark', 'Dunkel'], ['auto', 'System']].map(function (o) {
+  var h = '<h3 style="margin-top:0">Hell oder dunkel</h3><div class="seg" role="group" aria-label="Hell oder dunkel">' + [['light', 'Hell'], ['dark', 'Dunkel'], ['auto', 'System']].map(function (o) {
     return '<button type="button" class="seg-btn' + (S.theme === o[0] ? ' on' : '') + '" data-act="theme" data-v="' + o[0] + '" aria-pressed="' + (S.theme === o[0]) + '">' + o[1] + '</button>';
   }).join('') + '</div><p class="small muted">„System“ richtet sich nach dem Dunkelmodus deines Handys.</p>';
   h += '<h3 style="margin-top:16px">Markerfarbe</h3><div class="swatches" role="group" aria-label="Markerfarbe">' + COLORS.map(function (c) {
@@ -2048,10 +2101,12 @@ function settingsHTML() {
     var on = S.font === f.id;
     return '<button type="button" class="fopt" data-act="font" data-v="' + f.id + '" aria-pressed="' + on + '"><b style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">Tag 1</b><span>' + esc(f.label) + '</span></button>';
   }).join('') + '</div>';
-  h += '<h3 style="margin-top:16px">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
+  var out = sec('Aussehen', h) + sec('Training', trainingHTML(), true);
+  h = '<h3 style="margin-top:0">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
   h += '<h3 style="margin-top:16px">Vollbild</h3><label class="check"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Beim ersten Tippen Vollbild (installierte App)</label>';
+  out += sec('Gerät', h);
   var sd = ui.stand || { d: S.durchgang, t: S.tag };
-  h += '<h3 style="margin-top:12px">Stand</h3>' + standTilesHTML('set', sd) + '<button type="button" class="btn small" style="margin-top:10px" data-act="set-stand">Übernehmen</button>';
+  h = '<h3 style="margin-top:0">Stand</h3>' + standTilesHTML('set', sd) + '<button type="button" class="btn small" style="margin-top:10px" data-act="set-stand">Übernehmen</button>';
   h += '<div class="pick-grid">' + tile('Startdatum', '<b class="txt">' + (S.startDate ? esc(fmtDateLong(S.startDate)) : 'wählen') + '</b>', 'data-act="choose" data-k="start"', 'set') + '</div>';
   var where = DB.ready ? 'Deine Daten liegen in deinem Claude-Konto und sind auf jedem Gerät gleich.'
     : (PWA && SY) ? 'Deine Daten liegen auf diesem Handy und werden über GitHub mit deinen anderen Geräten abgeglichen. „Exportieren“ erstellt zusätzlich eine Sicherungsdatei.'
@@ -2060,6 +2115,26 @@ function settingsHTML() {
   h += '<h3 style="margin-top:16px">Daten</h3><p class="small">' + where + '</p>';
   h += '<div class="bgrp"><button type="button" data-act="export">Exportieren</button><button type="button" data-act="import">Importieren</button></div><button type="button" class="btn small red" style="margin-top:10px" data-act="reset-all">Alles zurücksetzen</button>';
   if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
+  return out + sec('Daten', h);
+}
+// Training: Ablauf je Trainingsart, Rundenzähler, Gesten. Bleibt auf dem Gerät.
+function trainingHTML() {
+  var c = !!S.trainCustom, rev = !!S.swipeRev;
+  function seg(label, opts, cur, attrs) {
+    return '<div class="seg" role="group" aria-label="' + esc(label) + '">' + opts.map(function (o) {
+      return '<button type="button" class="seg-btn' + (cur === o[0] ? ' on' : '') + '" ' + attrs + ' data-v="' + o[0] + '" aria-pressed="' + (cur === o[0]) + '">' + o[1] + '</button>';
+    }).join('') + '</div>';
+  }
+  var h = '<h3 style="margin-top:0">Ablauf im Training</h3>' + seg('Ablauf im Training', [['std', 'Standard'], ['custom', 'Benutzerdefiniert']], c ? 'custom' : 'std', 'data-act="tr-custom"');
+  if (c) h += '<div class="tr-modes">' + TRAIN_TYPES.map(function (t) {
+    return '<div class="tr-row"><span>' + t[1] + '</span>' + seg(t[1], [['single', 'Einzeln'], ['list', 'Liste']], modeOf(t[0]), 'data-act="tr-mode" data-t="' + t[0] + '"') + '</div>';
+  }).join('') + '</div>';
+  else h += '<p class="small muted">Liste beim Aufwärmen, bei Kraft, Metcon und Murph: die aktuelle Übung klappt mit Figur auf und läuft mit. Cool-down einzeln.</p>';
+  h += '<label class="check" style="margin-top:10px"><input type="checkbox" data-change="roundCounter"' + (S.roundCounter !== false ? ' checked' : '') + '> Rundenzähler beim Metcon (Liste)</label>' +
+    '<p class="small muted">In der Liste zählt er mit, sobald eine Runde abgehakt ist, mit – und + korrigierst du. Einzeln zählt die App Übung für Übung mit. Am Ende prüfst du das Ergebnis.</p>';
+  h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
+    '<label class="check"><input type="checkbox" data-change="swipeRev"' + (rev ? ' checked' : '') + '> Wischen umkehren</label>' +
+    '<p class="small muted">Nach ' + (rev ? 'rechts' : 'links') + ' wischen: erledigt, weiter. Nach ' + (rev ? 'links' : 'rechts') + ': zurück. Immer gleich, ob einzeln, in der Liste oder am Rundenzähler.</p>';
   return h;
 }
 
@@ -2393,7 +2468,7 @@ function renderEinst() {
     '<div class="bgrp"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div>' +
     '<p class="small muted" style="margin-top:8px">Name und Foto bleiben nur auf diesem Gerät.</p></section>';
   if (PWA) h += sec('Sync über GitHub', syncHTML());
-  h += sec('Einstellungen', settingsHTML(), true);
+  h += settingsHTML();
   return h;
 }
 
@@ -2599,11 +2674,20 @@ ACT.gift = function (el) {
 };
 ACT['mo-next'] = function () { showMoment(); };
 ACT['mo-view'] = function () { MOMENTS = []; showMoment(); ui.tab = 'profil'; ui.pview = 'erfolge'; ui.medShown = false; window.scrollTo(0, 0); render(); };
+ACT['tr-custom'] = function (el) {
+  S.trainCustom = el.dataset.v === 'custom';
+  if (S.trainCustom && !S.trainModes) S.trainModes = Object.assign({}, TRAIN_STD);
+  saveState(); render();
+};
+ACT['tr-mode'] = function (el) { S.trainModes = Object.assign({}, TRAIN_STD, S.trainModes || {}); S.trainModes[el.dataset.t] = el.dataset.v; saveState(); render(); };
 var CHG = {
   cooldown: function (el) { S.cooldown = el.checked; saveState(); setTimeout(render, 420); },
   sound: function (el) { S.sound = el.checked; saveState(); },
   haptik: function (el) { S.haptik = el.checked; saveState(); setTimeout(render, 420); },
   name: function (el) { S.name = el.value.trim(); saveState(); },
+  roundCounter: function (el) { S.roundCounter = el.checked; saveState(); },
+  swipe: function (el) { S.swipe = el.checked; saveState(); },
+  swipeRev: function (el) { S.swipeRev = el.checked; saveState(); setTimeout(render, 420); },
   vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
 };
 // Auswahl über das Rad statt Klapp-Listen und Datumsfeld.
@@ -2713,7 +2797,7 @@ function stepsOf(c) {
     { id: 'warm', title: 'Aufwärmen', sub: '8 Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: 8,
       desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
       timer: { mode: 'block', cfg: { minutes: 8, label: 'Aufwärmen', tag: tag }, label: '8 Min starten', info: 'Aufwärmen' },
-      body: function () { return warmStepHTML(d); } },
+      body: function (D) { return warmStepHTML(tag, D); } },
     { id: 'hs', title: 'Handstand', sub: '5 Min · 20–30 s pro Satz', dur: 5, desc: 'An der Wand, 20–30 s pro Satz',
       timer: { mode: 'block', cfg: { minutes: 5, label: 'Handstand', tag: tag }, label: '5 Min starten', info: 'Handstand an der Wand' },
       body: function (D) { return hsStepHTML(D); } },
@@ -2737,10 +2821,193 @@ function coolStep(tag) {
   if (!r) return [];
   return [{ id: 'cool', title: r.name, sub: r.dauer_min + ' Min · optional', dur: r.dauer_min, desc: r.ziel, opt: true,
     timer: { mode: 'routine', cfg: { rid: r.id, tag: tag }, label: r.dauer_min + ' Min starten', info: r.name },
-    body: function () { return '<section class="card"><p>' + esc(r.ziel) + '</p>' + routineListHTML(r) + '</section><p class="small muted" style="text-align:center">Keine Zeit? Einfach direkt speichern.</p>'; } }];
+    body: function (D) {
+      var F = coolFlow(tag);
+      return (modeOf('cool') === 'single' ? '<p class="small muted">' + esc(r.ziel) + '</p>' + flowHTML(F, D) : '<section class="card"><p>' + esc(r.ziel) + '</p>' + flowHTML(F, D) + '</section>') +
+        '<p class="small muted" style="text-align:center">Keine Zeit? Einfach direkt speichern.</p>';
+    } }];
 }
 function routineListHTML(r) {
   return '<ul class="rlist">' + r.bloecke.map(function (b, i) { return '<li data-bi="' + i + '"><span>' + esc(ueName(b.uebung)) + '</span><span class="muted">' + esc(blockText(b)) + '</span></li>'; }).join('') + '</ul>';
+}
+/* ---------- Ablauf im Training: Einzeln (eine Übung pro Bildschirm) oder Liste (Glas-Kapsel, aktuelle Übung offen) ---------- */
+var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['kraft', 'Kraft · EMOM'], ['metcon', 'Metcon · AMRAP'], ['murph', 'Murph'], ['cool', 'Cool-down']];
+var TRAIN_STD = { warm: 'list', kraft: 'list', metcon: 'list', murph: 'list', cool: 'single' };
+function modeOf(t) { var m = S.trainCustom && S.trainModes ? S.trainModes[t] : null; return m === 'single' || m === 'list' ? m : TRAIN_STD[t]; }
+function flowItem(n, qty, x, key, note) {
+  var g = GL[n];
+  return { n: n, qty: String(qty), x: x || '', key: key || (g ? g.key : ''), note: note != null ? note : shortCue(g && g.cue) };
+}
+// Im Training reichen die ersten zwei Sätze des Hinweises.
+function shortCue(t) { return ((t || '').match(/[^.!?]+[.!?]*/g) || []).slice(0, 2).join('').trim(); }
+function warmFlow(tag) {
+  var d = DAYS[tag], it = WARMUP.map(function (w) { return flowItem(w.n, w.t, w.x); });
+  if (d.jumps) it.push(flowItem(d.jumps.n, d.jumps.t, 'ohne Weste'));
+  return { id: 'warm', items: it };
+}
+function metconFlow(tag) {
+  var d = DAYS[tag];
+  return { id: 'metcon', items: d.metcon.map(function (m) {
+    var g = GL[m.n]; return flowItem(m.n, m.r, m.note, null, [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
+  }), loop: { from: 0, to: d.metcon.length - 1, times: 0 } };
+}
+function murphFlow() {
+  var m = MURPH[S.murphStage], run = 'Gleichmäßig loslaufen, nicht zu schnell starten.';
+  return { id: 'murph', items: [flowItem('Laufen', m.run, null, '', run), flowItem('Ring Pull-up', 5, m.pull), flowItem('Push-up', 10), flowItem('Air Squat', 15), flowItem('Laufen', m.run, null, '', run)],
+    loop: { from: 1, to: 3, times: m.rounds } };
+}
+function coolFlow(tag) {
+  var r = routineFor('cooldown', tag); if (!r) return null;
+  return { id: 'cool', items: r.bloecke.map(function (b) { var u = UE[b.uebung]; return flowItem(ueName(b.uebung), blockText(b), null, b.uebung, b.hinweis || (u && u.sauber) || ''); }) };
+}
+function flowById(id) { return { warm: warmFlow, metcon: metconFlow, murph: murphFlow, cool: coolFlow }[id](S.tag); }
+// Stand im Entwurf: _c_ aktuelle Übung, _d_ abgehakte (Liste), _r_ Runde.
+function flowState(F, D) {
+  D = D || dr(S.tag);
+  return { c: Math.max(0, Math.min(F.items.length, +(D['_c_' + F.id] || 0))), r: Math.max(1, +(D['_r_' + F.id] || 1)),
+    done: String(D['_d_' + F.id] || '').split(',').filter(Boolean).map(Number) };
+}
+function flowSave(F, s) { setDraft('_c_' + F.id, s.c); setDraft('_r_' + F.id, s.r > 1 ? s.r : ''); setDraft('_d_' + F.id, s.done.join(',')); }
+function nextStepOf(stepId) {
+  var st = stepsOf(dayCtx(S.tag));
+  for (var i = 0; i < st.length; i++) if (st[i].id === stepId) return i + 1 < st.length ? { to: i + 1, title: st[i + 1].title } : null;
+  return null;
+}
+// Figur der Übung oder, solange es keine gibt, das winkende Maskottchen mit kurzem Hinweis.
+function figBox(key) {
+  if (figOf(key)) return figHTML(key);
+  return '<div class="figph">' + figHTML('_wave') + '<p><b>Grafik folgt</b><span>Für diese Übung zeichne ich noch. Bis dahin hilft die Beschreibung.</span></p></div>';
+}
+function miniFig(key) {
+  var ex = figOf(key) || figOf('_wave'); if (!ex) return '';
+  var pal = isDark() ? 'dark' : null, C = ex._F || (ex._F = {}), F = C[pal || 'light'] || (C[pal || 'light'] = Maskottchen.frames(ex, pal));
+  return '<svg class="mini-fig" viewBox="' + F.box.join(' ') + '" aria-hidden="true">' + F.frames[0] + '</svg>';
+}
+function flowHTML(F, D) {
+  var mode = modeOf(F.id), s = flowState(F, D), n = F.items.length, L = F.loop, h;
+  if (mode === 'single') {
+    if (s.c >= n) {
+      return '<section class="card flow-one" data-flow="' + F.id + '" data-swipe="card"><div class="chips"><span class="chip">Alles erledigt</span></div>' +
+        '<p>Stark. Alle Übungen sind abgehakt.</p><div class="bgrp"><button type="button" data-act="fl-back" data-flow="' + F.id + '">‹ Zurück</button></div></section>';
+    }
+    var it = F.items[s.c], chips = [], more = L && s.c === L.to && (!L.times || s.r < L.times);
+    if (L && (s.c >= L.from && s.c <= L.to)) chips.push('Runde ' + s.r + (L.times ? ' von ' + L.times : ''));
+    chips.push('Übung ' + (s.c + 1) + ' von ' + n);
+    if (s.c === n - 1 && !more) { var nx = nextStepOf(F.id); if (nx) chips.push('Danach: ' + nx.title); }
+    h = '<section class="card flow-one" data-flow="' + F.id + '" data-swipe="card"><div class="chips">' + chips.map(function (c) { return '<span class="chip">' + esc(c) + '</span>'; }).join('') + '</div>' +
+      figBox(it.key) + '<div class="fo-h"><span class="qty">' + esc(it.qty) + '</span><h3>' + gl(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + '</h3></div>' +
+      (it.note ? '<p class="small muted">' + esc(it.note) + '</p>' : '') +
+      '<div class="bgrp"><button type="button" data-act="fl-back" data-flow="' + F.id + '"' + (s.c === 0 && s.r === 1 ? ' disabled' : '') + '>‹ Zurück</button><button type="button" data-act="fl-done" data-flow="' + F.id + '">Erledigt ›</button></div></section>';
+    return h;
+  }
+  var open = s.c < n ? s.c : -1, chip = L && (F.id !== 'metcon' || S.roundCounter === false) ? 'Runde ' + s.r + (L.times ? ' von ' + L.times : '') : '';
+  h = '<ul class="flow" data-flow="' + F.id + '">' + F.items.map(function (it, i) {
+    var dn = s.done.indexOf(i) >= 0, op = i === open;
+    return '<li class="fl-row' + (dn ? ' done' : '') + (op ? ' open' : '') + '" data-swipe="row" data-flow="' + F.id + '" data-i="' + i + '">' +
+      '<button type="button" class="fl-h" data-act="fl-pick" data-flow="' + F.id + '" data-i="' + i + '" aria-expanded="' + op + '"><span class="qty">' + (dn ? '✓ ' : '') + esc(it.qty) + '</span><span class="fl-n">' + esc(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + '</span></button>' +
+      (op ? '<div class="fl-body">' + (chip && i >= L.from && i <= L.to ? '<div class="chips"><span class="chip">' + esc(chip) + '</span></div>' : '') + figBox(it.key) +
+        (it.note ? '<p class="small muted">' + esc(it.note) + '</p>' : '') + '<button type="button" class="btn small" data-act="fl-done" data-flow="' + F.id + '" data-i="' + i + '">Erledigt</button></div>' : '') + '</li>';
+  }).join('') + '</ul>';
+  if (F.id === 'metcon' && S.roundCounter !== false) {
+    h += '<div class="fl-count" data-swipe="count" data-flow="metcon"><span><b>Runden</b><br><span class="small muted">zählt beim Abhaken mit</span></span>' +
+      '<div class="stepper"><button type="button" data-act="fl-count" data-d="-1" aria-label="Eine Runde weniger">–</button><b>' + (s.r - 1) + '</b><button type="button" class="primary" data-act="fl-count" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
+  }
+  return h;
+}
+// Einzeln: weiter (mit Runden) oder zurück. Die letzte Übung springt direkt zum nächsten Schritt.
+function flowStep(id, fwd) {
+  var F = flowById(id), s = flowState(F), L = F.loop, n = F.items.length;
+  if (fwd) {
+    if (s.c >= n) return;
+    if (L && s.c === L.to && (!L.times || s.r < L.times)) { s.r++; s.c = L.from; toast('Runde ' + (s.r - 1) + ' geschafft.'); }
+    else s.c++;
+    flowSave(F, s);
+    if (s.c >= n) { var nx = nextStepOf(F.step || id); if (nx) { ACT.step({ dataset: { to: nx.to } }); return; } }
+  } else {
+    if (L && s.c === L.from && s.r > 1) { s.r--; s.c = L.to; }
+    else if (s.c > 0) s.c = Math.min(s.c, n) - 1;
+    else return;
+    flowSave(F, s);
+  }
+  render();
+}
+// Liste: Zeile abhaken oder zurücknehmen. Ist eine Runde komplett, beginnt die nächste.
+function flowRow(id, i, on) {
+  var F = flowById(id), s = flowState(F), L = F.loop, n = F.items.length, k = s.done.indexOf(i), again = false;
+  if (on && k < 0) s.done.push(i);
+  if (!on && k >= 0) s.done.splice(k, 1);
+  if (on && L) {
+    var all = true;
+    for (var j = L.from; j <= L.to; j++) if (s.done.indexOf(j) < 0) all = false;
+    if (all && (!L.times || s.r < L.times)) { s.r++; again = true; s.done = s.done.filter(function (j) { return j < L.from || j > L.to; }); toast('Runde ' + (s.r - 1) + ' geschafft.'); }
+  }
+  if (again) s.c = L.from;
+  else if (on) {
+    s.c = n;
+    for (var a = 1; a <= n; a++) { var x = (i + a) % n; if (s.done.indexOf(x) < 0) { s.c = x; break; } }
+  } else s.c = i;
+  flowSave(F, s); render();
+}
+function flowCount(d) {
+  var F = flowById('metcon'), s = flowState(F); s.r = Math.max(1, Math.min(99, s.r + d)); flowSave(F, s); render();
+}
+ACT['fl-done'] = function (el) { if (el.dataset.i != null) flowRow(el.dataset.flow, +el.dataset.i, true); else flowStep(el.dataset.flow, true); };
+ACT['fl-back'] = function (el) { flowStep(el.dataset.flow, false); };
+ACT['fl-pick'] = function (el) {
+  var F = flowById(el.dataset.flow), s = flowState(F), i = +el.dataset.i;
+  if (s.done.indexOf(i) >= 0) { flowRow(F.id, i, false); return; }
+  s.c = i; flowSave(F, s); render();
+};
+ACT['fl-count'] = function (el) { flowCount(+el.dataset.d); };
+// AMRAP: gezählte Runden und Wiederholungen der angefangenen Runde.
+function amrapCount(tag) {
+  var F = metconFlow(tag), s = flowState(F, dr(tag)), single = modeOf('metcon') === 'single', w = 0;
+  F.items.forEach(function (it, i) {
+    var m = /^(\d+)(?!\s*(s|sek|min|m|km)\b)/i.exec(it.qty);
+    if (m && (single ? i < s.c : s.done.indexOf(i) >= 0)) w += +m[1];
+  });
+  return { r: s.r - 1, w: w };
+}
+function amrapCheck() {
+  var x = amrapCount(S.tag);
+  openChoice('Stimmt dein Ergebnis?', 'Gezählt: ' + x.r + (x.r === 1 ? ' Runde' : ' Runden') + ' + ' + x.w + ' Wdh.', [['ok', 'Stimmt, speichern', 'primary'], ['edit', 'Ändern', '']], function (v) {
+    if (v === 'ok') { setDraft('mr', x.r); setDraft('mw', x.w); render(); }
+    else if (v === 'edit') {
+      openSheet('Ergebnis', [{ head: 'Runden', items: numItems(0, 30), val: String(Math.min(30, x.r)) }, { head: 'Extra-Wdh.', items: numItems(0, 60), val: String(Math.min(60, x.w)) }],
+        function (v2) { setDraft('mr', v2[0]); setDraft('mw', v2[1]); render(); }, { num: 0 });
+    }
+  });
+}
+function stepRun(step) { return !!(TM.cfg && TM.cfg.step === step && !TM.finished && (TM.running || TM.acc > 0)); }
+// Wischen: immer gleich, links = erledigt / weiter / +, rechts = zurück / rückgängig / – (umkehrbar).
+(function () {
+  var el = null, sx = 0, sy = 0, moved = false;
+  function reset() { if (el) { el.style.transition = ''; el.style.transform = ''; } el = null; }
+  document.addEventListener('touchstart', function (e) {
+    el = null;
+    if (S.swipe === false || e.touches.length !== 1 || !e.target.closest) return;
+    el = e.target.closest('[data-swipe]'); sx = e.touches[0].clientX; sy = e.touches[0].clientY; moved = false;
+  }, { passive: true });
+  document.addEventListener('touchmove', function (e) {
+    if (!el) return;
+    var dx = e.touches[0].clientX - sx, dy = e.touches[0].clientY - sy;
+    if (!moved && Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { reset(); return; }
+    if (Math.abs(dx) > 8) { moved = true; el.style.transition = 'none'; el.style.transform = 'translateX(' + Math.round(dx * 0.5) + 'px)'; }
+  }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (!el) return;
+    var t = el, dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; reset();
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    swipeDo(t, (dx < 0) !== !!S.swipeRev);
+  }, { passive: true });
+  document.addEventListener('touchcancel', reset, { passive: true });
+})();
+function swipeDo(t, fwd) {
+  haptic('step');
+  var k = t.dataset.swipe, id = t.dataset.flow;
+  if (k === 'card') flowStep(id, fwd);
+  else if (k === 'row') flowRow(id, +t.dataset.i, fwd);
+  else if (k === 'count') flowCount(fwd ? 1 : -1);
 }
 function mobCheckHTML(D) {
   var h = '<section class="card"><p>Mach den Check warm. Pro Test ein Versuch, trag jeweils die höchste saubere Stufe ein. Wie es geht, steht unten.</p><div class="pick-grid">' + MOB.check.leitern.map(function (k, i) {
@@ -2842,7 +3109,8 @@ function stepPageHTML(c, st, i, D) {
   if (last) {
     var label = c.isTest ? 'Testtag speichern' : c.isMurph ? 'Murph speichern' : 'Training speichern';
     h += notesBlock(D) + '<button type="button" class="btn block go save" data-act="save">' + TICK + label + '</button>';
-  } else {
+  } else if (!(s.id === 'warm' && modeOf('warm') === 'single') && !(s.id === 'metcon' && modeOf('metcon') === 'single' && stepRun(key + ':metcon'))) {
+    // Einzeln führt die letzte Übung direkt weiter, deshalb dort keine zweite Hauptaktion.
     h += '<button type="button" class="btn primary block go" data-act="step" data-to="' + (i + 1) + '">Weiter zu ' + esc(st[i + 1].title) + ' ›</button>';
   }
   if (s.timer) {
@@ -2861,17 +3129,13 @@ function stageRow(label, stage, o) {
   return '<button type="button" class="st-row" ' + pickAttrs(Object.assign({ only: 'stage' }, o)) + '><span><span class="muted">' + esc(label) + '</span> <b>' + (stage ? stageHTML(stage) : 'wählen') + '</b></span>' + CHEV + '</button>';
 }
 
-function warmStepHTML(d) {
-  var h = '<section class="card"><ul class="list">';
-  WARMUP.forEach(function (w) {
-    h += '<li><span class="qty">' + esc(w.t) + '</span><span>' + (w.g ? gl(w.n) : esc(w.n)) + (w.x ? ' <span class="muted small">(' + esc(w.x) + ')</span>' : '') + '</span></li>';
-  });
-  if (d.jumps) h += '<li><span class="qty">' + esc(d.jumps.t) + '</span><span>' + gl(d.jumps.n) + ' <span class="muted small">(ohne Weste)</span></span></li>';
-  return h + '</ul></section>';
+function warmStepHTML(tag, D) {
+  var F = warmFlow(tag);
+  return modeOf('warm') === 'single' ? flowHTML(F, D) : '<section class="card">' + flowHTML(F, D) + '</section>';
 }
 function hsStepHTML(D) {
   var stage = D.hsStage != null ? D.hsStage : (D.hs && D.hsSec == null ? D.hs : lastHsStage()), sec = D.hsSec;
-  return '<section class="card"><p>' + gl('Handstand') + ' an der Wand: Sätze à 20–30 s mit 2 s Reserve, Pause nach Gefühl.</p><div class="pick-grid">' +
+  return '<section class="card">' + figBox('g_handstand') + '<p>' + gl('Handstand') + ' an der Wand: Sätze à 20–30 s mit 2 s Reserve, Pause nach Gefühl.</p><div class="pick-grid">' +
     tile('Stufe', '<b class="txt">' + (stage ? stageHTML(stage) : 'wählen') + '</b>', pickAttrs({ only: 'stage', sf: 'hsStage', sdef: stage, lad: 'g_handstand', title: 'Handstand' })) +
     tile('Beste Zeit', '<b>' + (sec ? esc(sec) + ' <span class="unit">s</span>' : '–') + '</b>', pickAttrs({ f: 'hsSec', sf: 'hsStage', sdef: stage, lad: 'g_handstand', min: 0, max: 120, unit: 'Sek.', def: 20, title: 'Handstand' }), sec ? 'set' : '') +
     '</div></section>';
@@ -2911,12 +3175,10 @@ function kraftStepHTML(tag, D, rounds) {
   return h;
 }
 function metconStepHTML(tag, D, am) {
-  var d = DAYS[tag], h = '<section class="card"><ul class="list">';
-  d.metcon.forEach(function (m) {
-    h += '<li><span class="qty">' + esc(m.r) + '</span><span>' + gl(m.n) + (m.note ? ' <span class="muted small">(' + esc(m.note) + ')</span>' : '') + (m.scale ? '<br><span class="muted small">Leichter: ' + esc(m.scale) + '</span>' : '') + '</span></li>';
-  });
+  var d = DAYS[tag], single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon');
+  var h = single ? flowHTML(metconFlow(tag), D) + '<section class="card">' : '<section class="card">' + flowHTML(metconFlow(tag), D);
   var own = d.metcon.some(function (m) { return m.lib; }), items = d.metcon.map(function (m) { return m.n; }).join('|');
-  h += '</ul>' + (own ? '<p class="small muted">Der Metcon wechselt mit jedem Durchgang.</p>' : '<p class="small muted">' + esc(d.metconNote) + '</p>');
+  h += (own ? '<p class="small muted">Der Metcon wechselt mit jedem Durchgang.</p>' : '<p class="small muted">' + esc(d.metconNote) + '</p>');
   d.metcon.forEach(function (m, i) {
     var lad = metconLad(m.n); if (!lad) return;
     var sf = 'm' + i + 'stage', stage = D[sf] != null ? D[sf] : lastMetconStage(m.n);
@@ -2928,6 +3190,7 @@ function metconStepHTML(tag, D, am) {
     if (L.kind === 'kraft' && L.tag === tag && L.metcon && L.metcon.rounds != null && (L.metcon.items ? L.metcon.items.join('|') : DEF_METCON[tag].map(function (m) { return m.n; }).join('|')) === items) { lm = L.metcon; break; }
   }
   if (lm) h += '<p class="small hint">Letztes Mal mit diesen Übungen: ' + lm.rounds + ' Runden + ' + (lm.reps || 0) + ' Wdh. Ziel heute: mindestens 1 Wdh. mehr.</p>';
+  if (single && run) return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
   h += '<div class="pick-grid">' +
     tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: lm ? lm.rounds : 4, title: 'AMRAP ' + am }), D.mr ? 'set' : '') +
     tile('Extra-Wdh.', '<b>' + (D.mw ? esc(D.mw) : '–') + '</b>', pickAttrs({ f: 'mw', min: 0, max: 60, unit: 'Wdh.', def: 0, title: 'AMRAP ' + am }), D.mw ? 'set' : '') +
@@ -2937,7 +3200,7 @@ function metconStepHTML(tag, D, am) {
 function testStepHTML(tag, r, i, D) {
   var ex = TEST_BASE[TESTDAYS[tag].rows][i], lad = ladFor(r.name), secs = isSecs(lad), sf = 't' + i + 'stage', f = 't' + i + 'max';
   var stage = D[sf] || '', mx = num(D[f]), u = secs ? 's' : 'Wdh.';
-  var h = '<section class="card"><p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
+  var h = '<section class="card">' + figBox(GL[r.name] ? GL[r.name].key : '') + '<p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
   h += '<section class="card"><div class="pick-grid">' +
     tile('Stufe', '<b class="txt">' + (stage ? stageHTML(stage) : 'wählen') + '</b>', lad ? pickAttrs({ only: 'stage', sf: sf, lad: GL[r.name].key, title: r.name }) : 'disabled') +
     tile(secs ? 'Bestzeit' : 'Geschafft', '<b>' + (mx != null ? mx + ' <span class="unit">' + u + '</span>' : '–') + '</b>',
@@ -2959,7 +3222,8 @@ function testStepHTML(tag, r, i, D) {
 function murphStepHTML(D) {
   var st = S.murphStage, m = MURPH[st], stages = '';
   for (var s = 1; s <= 4; s++) stages += '<button type="button" class="seg-btn' + (s === st ? ' on' : '') + '" data-act="murph-stage" data-s="' + s + '" aria-pressed="' + (s === st) + '">Stufe ' + s + '</button>';
-  return '<section class="card"><ol class="steps"><li>' + m.run + ' laufen</li><li>' + m.rounds + ' Runden mit je 5 ' + gl('Ring Pull-up') + ', 10 ' + gl('Push-up') + ' und 15 ' + gl('Air Squat') + '</li><li>' + m.run + ' laufen</li></ol>' +
+  var single = modeOf('murph') === 'single', fl = flowHTML(murphFlow(), D);
+  return (single ? fl + '<section class="card">' : '<section class="card"><p>' + m.run + ' laufen, ' + m.rounds + ' Runden mit je 5 Pull-ups, 10 Push-ups und 15 Air Squats, ' + m.run + ' laufen.</p>' + fl) +
     '<p class="small muted">Pull-ups: ' + esc(m.pull) + '. Ringe ganz oben, das Band bleibt an den Ringen. Push-ups immer am Boden, damit die Zeiten vergleichbar bleiben.</p>' +
     '<div class="seg" role="group" aria-label="Murph-Stufe">' + stages + '</div><p class="small muted" style="margin-top:6px">Nächste Stufe, wenn du die aktuelle ohne Abbruch durchziehst.</p>' +
     '<div class="pick-grid">' + tile('Deine Zeit', '<b>' + (D.murphTime ? esc(D.murphTime) : '–') + '</b>', 'data-act="choose" data-k="murph"', D.murphTime ? 'set' : '') + '</div></section>' +
@@ -3069,7 +3333,7 @@ function openSheet(title, cols, done, o) {
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div>' +
     '<div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">Fertig</button></div>' +
-    (o.time ? '<div class="sh-tv"><button type="button" class="sh-time" data-sh="time" aria-label="Zeit eintippen"></button><input class="sh-tin" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" tabindex="-1" aria-label="Zeit eintippen"><p class="sh-hint">Nochmal tippen zum Eintippen</p></div>' : '') +
+    (o.time || o.num != null ? '<div class="sh-tv"><button type="button" class="sh-time" data-sh="time" aria-label="' + (o.time ? 'Zeit' : 'Zahl') + ' eintippen"></button><input class="sh-tin" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" tabindex="-1" aria-label="' + (o.time ? 'Zeit' : 'Zahl') + ' eintippen"><p class="sh-hint">Nochmal tippen zum Eintippen</p></div>' : '') +
     '<div class="wheels" style="grid-template-columns:' + cols.map(function (c) { return c.wide ? '1.6fr' : '1fr'; }).join(' ') + '">' +
     cols.map(function (c) { return '<div class="wcol"><span class="wh">' + esc(c.head || '') + '</span><div class="wheel" tabindex="0">' + c.items.map(function (it, k) { return '<div class="wi" data-k="' + k + '">' + (it.c ? bdot(it.c) : '') + esc(it.t) + '</div>'; }).join('') + '</div></div>'; }).join('') +
     '</div>' + (o.live ? '<p class="sh-live"></p>' : '') + '</div>';
@@ -3095,23 +3359,31 @@ function openSheet(title, cols, done, o) {
   var tv = bg.querySelector('.sh-time'), tin = bg.querySelector('.sh-tin'), typed = null;
   function showTime() {
     if (!tv) return;
+    if (o.num != null) { tv.textContent = typed == null ? cols[o.num].items[idx[o.num]].t : (typed || '0'); return; }
     if (typed == null) { tv.textContent = cols[0].items[idx[0]].v + ':' + pad(+cols[1].items[idx[1]].v); return; }
     var m = typed.slice(0, -2), x = typed.slice(-2);
     tv.innerHTML = '<span class="ph">' + (m ? '' : '0:') + (x.length < 2 ? '0'.repeat(2 - x.length) : '') + '</span>' + (m ? (+m) + ':' : '') + x;
   }
   function typeMode() {
     if (typed != null) { tin.focus(); return; }
-    typed = ''; tin.value = ''; bg.classList.add('typing'); bg.querySelector('.sh-hint').textContent = 'Ziffern laufen von rechts ein: 1 3 0 = 1:30';
+    typed = ''; tin.value = ''; bg.classList.add('typing'); bg.querySelector('.sh-hint').textContent = o.num != null ? (cols[o.num].head || 'Zahl') + ' eintippen, dann Fertig' : 'Ziffern laufen von rechts ein: 1 3 0 = 1:30';
     fitKeyboard(bg); tin.focus(); showTime();
   }
   function commit() {
     var vals = cols.map(function (c, j) { return c.items[idx[j]].v; });
-    if (typed) { var t = (+typed.slice(0, -2) || 0) * 60 + (+typed.slice(-2)); t = Math.min(t, 99 * 60 + 59); vals = [String(Math.floor(t / 60)), String(t % 60)]; }
+    if (typed && o.num != null) {
+      var nums = cols[o.num].items.filter(function (it) { return it.v !== ''; }).map(function (it) { return +it.v; });
+      vals[o.num] = String(Math.max(Math.min.apply(null, nums), Math.min(Math.max.apply(null, nums), +typed)));
+    } else if (typed) { var t = (+typed.slice(0, -2) || 0) * 60 + (+typed.slice(-2)); t = Math.min(t, 99 * 60 + 59); vals = [String(Math.floor(t / 60)), String(t % 60)]; }
     closeSheet(); done(vals);
   }
   if (o.live) live();
   if (tin) {
-    tin.addEventListener('input', function () { typed = tin.value.replace(/\D/g, '').slice(-4).replace(/^0+/, ''); tin.value = typed; showTime(); });
+    tin.addEventListener('input', function () {
+      var x = tin.value.replace(/\D/g, '');
+      typed = o.num != null ? x.slice(-3).replace(/^0+(?=\d)/, '') : x.slice(-4).replace(/^0+/, '');
+      tin.value = typed; showTime();
+    });
     tin.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); haptic('step'); commit(); } });
     showTime();
   }
@@ -3155,7 +3427,7 @@ ACT.pick = function (el) {
   openSheet(ds.title || '', cols, function (v) {
     cols.forEach(function (c, j) { setDraft(c.f, v[j]); });
     render();
-  });
+  }, { num: ds.only !== 'stage' ? cols.length - 1 : null });
 };
 ACT.step = function (el) {
   var to = +el.dataset.to, k = draftKey(S.tag), d = DRAFTS[k] || (DRAFTS[k] = {});
@@ -3168,7 +3440,7 @@ ACT['t-set'] = function (el) {
   var k = el.dataset.k, f = TFIELDS[TM.mode].filter(function (x) { return x[0] === k; })[0]; if (!f) return;
   var t = tmr(), c = t[TM.mode];
   function set(v) { c[k] = Math.max(f[3], v); saveState(); toolSetup(); render(); }
-  if (f[2] === 'count') openSheet(f[1], [{ head: 'Runden', items: numItems(1, 99), val: String(c[k]) }], function (v) { set(+v[0]); });
+  if (f[2] === 'count') openSheet(f[1], [{ head: 'Runden', items: numItems(1, 99), val: String(c[k]) }], function (v) { set(+v[0]); }, { num: 0 });
   else openTimeSheet(f[1], c[k], set);
 };
 // Training verlassen: im Training gibt es keine Reiterleiste, nur das X oben rechts.
@@ -3327,6 +3599,12 @@ function paintRoutine(L) {
   L = TM.finished ? null : L || locate(idle ? 0 : elapsed());
   var p = idle ? TM.phases[1] : L && L.p, cur = TM.finished ? 1e9 : p && p.bi != null ? p.bi : -1;
   marks.forEach(function (li) { var bi = +li.dataset.bi; li.classList.toggle('now', bi === cur); li.classList.toggle('done', bi < cur); });
+  // Cool-down im Training: der Ablauf folgt der Uhr, sobald sie zur nächsten Übung springt.
+  if (TM.cfg && TM.cfg.step && !idle && !TM.finished && cur >= 0 && cur !== TM.coolBi && document.querySelector('[data-flow="cool"]')) {
+    TM.coolBi = cur;
+    var CF = coolFlow(S.tag), cs = CF && flowState(CF);
+    if (cs && cur < CF.items.length && cs.c !== cur) { cs.c = cur; cs.done = []; for (var j = 0; j < cur; j++) cs.done.push(j); flowSave(CF, cs); if (isTyping()) pendingRender = true; else { render(); return; } }
+  }
   if (!$('rp-n')) return;
   if (TM.finished) {
     $('rp-k').textContent = 'Geschafft'; $('rp-n').textContent = 'Stark gemacht.'; $('rp-s').textContent = ''; $('rp-s').hidden = true;
@@ -3377,11 +3655,27 @@ function stepTimer(stepId) {
 ACT['tb-start'] = function () {
   var b = document.getElementById('tbar'); if (!b) return;
   var t = stepTimer(b.dataset.step.split(':').pop()); if (!t) return;
-  timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({}, t.cfg, { step: b.dataset.step }); timerReset(); timerToggle(); paintMini();
+  timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({}, t.cfg, { step: b.dataset.step }); TM.coolBi = null; timerReset(); timerToggle();
+  if (t.mode === 'amrap') render(); else paintMini();
 };
 ACT['tb-toggle'] = function () { timerToggle(); paintMini(); };
 ACT['tb-finish'] = function () { finish(); };
-ACT['tb-clear'] = function () { timerReset(); TM.cfg.step = null; paintMini(); };
+ACT['tb-clear'] = function () { var am = TM.mode === 'amrap'; timerReset(); TM.cfg.step = null; if (am) render(); else paintMini(); };
+// EMOM: in der laufenden Karte, was als Nächstes kommt und wann.
+function emomNext(card, mi, L) {
+  var c = TM.cfg, n = c.stations.length, ni = mi + 1;
+  document.querySelectorAll('.ex-next').forEach(function (x) { if (x.parentNode !== card) x.remove(); });
+  if (!card) return;
+  var box = card.querySelector('.ex-next');
+  if (!box || box.dataset.k !== String(ni)) {
+    if (!box) { box = document.createElement('div'); box.className = 'chips ex-next'; card.appendChild(box); }
+    box.dataset.k = String(ni);
+    var nm = c.stations[ni % n], g = GL[nm];
+    box.innerHTML = ni < c.minutes ? '<span class="chip">' + miniFig(g ? g.key : '') + 'Als Nächstes · Min ' + (ni + 1) + ' · <b>' + esc(nm) + '</b></span><span class="chip blue"></span>'
+      : '<span class="chip">Letzte Minute</span><span class="chip blue"></span>';
+  }
+  box.lastChild.textContent = (ni < c.minutes ? 'in ' : 'noch ') + fmtT(Math.ceil(L.rem));
+}
 function paintMini(L) {
   var b = document.getElementById('tbar'); if (!b) return;
   var mine = TM.cfg && TM.cfg.step === b.dataset.step, active = mine && (TM.running || TM.acc > 0 || TM.finished);
@@ -3395,7 +3689,7 @@ function paintMini(L) {
   }
   if (TM.mode === 'routine') paintRoutine(L);
   document.querySelectorAll('.ex-card.now,.cell.now').forEach(function (x) { x.classList.remove('now'); });
-  if (state !== 'run') { syncFig(0); return; }
+  if (state !== 'run') { document.querySelectorAll('.ex-next').forEach(function (x) { x.remove(); }); syncFig(0); return; }
   L = L || locate(elapsed()); if (!L) return;
   var $ = function (id) { return document.getElementById(id); }, c = TM.cfg, title = '', sub = '';
   var frac = isFinite(L.p.dur) ? L.inPhase / L.p.dur : (L.inPhase % 60) / 60;
@@ -3407,7 +3701,7 @@ function paintMini(L) {
     title = 'Minute ' + (mi + 1) + ' von ' + c.minutes; sub = L.p.label + (L.p.next && L.p.next !== 'Fertig' ? ' · danach ' + L.p.next : '');
     var card = document.querySelector('.ex-card[data-ex="' + (mi % n) + '"]'), cell = document.querySelector('.cell[data-cell="' + (mi % n) + '-' + Math.floor(mi / n) + '"]');
     if (card) card.classList.add('now'); if (cell) cell.classList.add('now');
-    syncFig(mi % n);
+    syncFig(mi % n); emomNext(card, mi, L);
   } else if (TM.mode === 'amrap') { title = 'AMRAP ' + c.minutes; sub = 'Runden zählst du selbst'; }
   else if (TM.mode === 'zeit') { title = 'Murph läuft'; sub = 'Tippe auf ■, wenn du fertig bist'; }
   else if (TM.mode === 'routine') { title = L.p.label + (L.p.side ? ' · ' + L.p.side : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }

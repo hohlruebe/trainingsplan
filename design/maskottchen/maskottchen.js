@@ -319,6 +319,17 @@
     return l;
   }
 
+  // Platzhalter: winkt, solange eine Übung noch keine eigene Animation hat.
+  function wave(p) {
+    var J = {}, k; for (k in STAND) J[k] = STAND[k].slice();
+    var sh = J.shb, u = 128 * R, f = (180 + Math.sin(p * 4 * Math.PI) * 24) * R;
+    var el = [sh[0] + 56 * Math.sin(u), sh[1] + 56 * Math.cos(u), sh[2] + 4];
+    var wr = [el[0] + 54 * Math.sin(f), el[1] + 54 * Math.cos(f), el[2] + 2];
+    J.elb = el; J.wrb = wr; J.hab = [wr[0] + 24 * Math.sin(f), wr[1] + 24 * Math.cos(f), wr[2]];
+    J.hc = [J.hc[0] + 3, J.hc[1], J.hc[2]];
+    return J;
+  }
+
   // ---- Übungen (Schlüssel = ID in der Übungsbibliothek) ----
   function air(t) { // Air Squat
     var J = {}, k; for (k in STAND) J[k] = STAND[k].slice();
@@ -431,6 +442,7 @@
     build: build, ik3: ik3, rep: rep, sway: sway, ease: ease, rings: rings, bench: bench,
     // name, pose(p), Blickwinkel, Dauer einer Wiederholung (s), Boden zeichnen
     EXERCISES: {
+      _wave: { name: 'Maskottchen winkt', pose: wave, yaw: 18, dur: 1.6 },
       g_air: { name: 'Air Squat', pose: function (p) { return air(rep(p)); }, yaw: 38, dur: 2.6 },
       g_pullup: { name: 'Ring Pull-up', pose: function (p) { return hang(p, false); }, yaw: 38, dur: 3, floor: false },
       g_push: { name: 'Push-up', pose: pushup, yaw: 62, dur: 2.6 },

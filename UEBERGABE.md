@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026 (nach PR #25)
+Stand: 3. Oktober 2026 (Trainingsmodi Einzeln/Liste eingebaut)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -118,3 +118,44 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
+
+## Figur in allen Trainingsschritten und Trainingsmodi
+- Wunsch: Animation während des ganzen Trainings, für Übungen ohne Grafik ein Platzhalter: winkendes Maskottchen
+  mit Hinweis, dass noch etwas fehlt. Pose `_wave` ist in der Vorlage.
+- Im Canvas (P33): Aufwärmen und Metcon mit Figur über der Liste (gewählte Zeile als weiße Pille, Tippen wechselt),
+  Handstand und Testtag mit Figur oben in der Karte, Platzhalter „Grafik folgt“ hell und dunkel.
+  → Dennis' neue Idee: **Trainingsmodus als Einstellung**. „Einzeln“ (eine Übung pro Bildschirm, wischen) oder
+  „Liste“ (ganzes Training, Übung klappt mit Figur auf, läuft mit). Einstellung Training: Umschalter Standard |
+  Benutzerdefiniert, erst bei Benutzerdefiniert je Trainingsart (Aufwärmen, Kraft, Metcon, Murph, Cool-down) wählbar.
+  Gesten: „Wischen statt Tippen“ als Schalter (links = weiter, rechts = zurück, in der Liste rechts = abhaken).
+  Rückmeldung: Wischen muss **immer dieselbe Richtung** haben → nach links = erledigt und weiter (einzeln und in
+  der Liste), nach rechts = zurück. Kein eigenes Fenster für Trainingseinstellungen: Einstellungsseite in Abschnitte
+  teilen (Aussehen · Training · Gerät · Daten, dazu Profil und Sync). Im Canvas (P34) aktualisiert.
+  Danach ergänzt: Schalter „Wischen umkehren“; „Runden zählen beim Metcon“ (Zähler „+ Runde fertig“, tippen oder
+  wischen, Runden stehen am Ende schon drin); EMOM: der Timer schaltet weiter, in der laufenden Karte unten
+  „Als Nächstes · Min 2“ mit kleiner Figur und Countdown.
+  Rückmeldung: Rundenzähler **nur in der Liste** (Einzeln zählt Übung für Übung und Wdh. mit), am Ende in beiden
+  Modi **Ergebnis prüfen** (Blatt „Stimmt dein Ergebnis?“ mit vorausgefüllten Kacheln). Alles Neue strikt aus den
+  Bausteinen: Zähler = `.stepper`, Infos = `.chip`/`.chip.blue`, Werte = `.tile`. EMOM-Vorschau als Chip mit
+  Mini-Figur + blauer Countdown-Chip. Im Canvas (P34) mit echten App-Bildern.
+  Dennis: auch der Rest wirkt nicht im Kapsel-Stil → alles geprüft, Alt neben Neu im Canvas (P35, Neu in der echten
+  App gebaut): Umschalter 42 px; Einzeln mit Chip „Übung 2 von 9“ statt Punkten und `.bgrp` „‹ Zurück | Erledigt, weiter ›“
+  statt Hinweis-Chips; Liste als Glas-Kapsel mit weißer Pille (wie Leiter), keine Abhak-Kreise, „Erledigt“ als
+  `.btn.small`, erledigt = grüner Haken an der Menge. EMOM, Ergebnis-Blatt, Einstellungen Standard unverändert.
+  → **Neu gefällt viel besser.** Regel (in DESIGN.md): Entwürfe ab jetzt immer direkt im besprochenen Stil bauen.
+  Doppelung behoben: im Modus „Einzeln“ kein großer „Weiter zu …“-Knopf, solange Übungen offen sind; er erscheint nach
+  beim Metcon erst nach „Stimmt dein Ergebnis?“. Aufwärmen: „Erledigt, weiter“ auf der letzten Übung springt direkt zum
+  nächsten Schritt (Chip „Danach: Handstand“), kein zweiter Knopf. Board P36.
+  Dennis: Knöpfe mit je einem Wort → „‹ Zurück | Erledigt ›“. Ergebnis-Eingabe bleibt Rad, nochmal tippen = Zahlenfeld.
+- **Eingebaut (PR offen, Branch `claude/beautiful-lamport-m3v241`):**
+  - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten. Training: Standard | Benutzerdefiniert,
+    je Trainingsart Einzeln | Liste, Rundenzähler, Wischen statt Tippen, Wischen umkehren (alles nur auf dem Gerät).
+  - Liste und Einzeln für Aufwärmen, Metcon, Murph (Runden), Cool-down (folgt der Uhr); Kraft einzeln = nur die laufende Karte.
+  - Metcon: Zähler in der Liste (zählt beim Abhaken mit), Einzeln ohne Kacheln und Hauptaktion, solange der AMRAP läuft.
+    Am Ende „Stimmt dein Ergebnis?“ (Stimmt, speichern | Ändern).
+  - EMOM: Chip „Als Nächstes · Min 2 · Name“ mit Mini-Figur und Countdown in der laufenden Karte.
+  - Figur oder winkender Platzhalter „Grafik folgt“ in allen Schritten (Handstand, Testtag, Abläufe).
+  - Rad-Blätter mit Zahl: nochmal auf den großen Wert tippen = Zahlenfeld.
+  - Getestet: alle Reiter hell und dunkel, alte Prüfskripte, neue Abläufe (Liste, Einzeln, Runden, Wischen, Ergebnis, Zahlenfeld).
+  Offen: Rückmeldung von Dennis auf dem Handy, besonders Wischen und die Länge der Hinweise (erste zwei Sätze).
+

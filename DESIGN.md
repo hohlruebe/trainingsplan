@@ -33,6 +33,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 ## Eingaben
 - Werte sind Kacheln (`.tile` in `.pick-grid`), Tippen öffnet ein Blatt von unten.
 - Zahlen, Stufen, Listen, Datum: Rad-Blatt (`openSheet`). Keine Klapp-Listen (`<select>`), kein System-Datumsfeld.
+- Rad-Blätter mit Zahl zeigen den Wert groß darüber: nochmal tippen öffnet die Zahlentastatur (wie beim Zeit-Blatt).
 - Zeiten: Zeit-Blatt (`openTimeSheet`), Rad Min/Sek, nochmal auf die Zeit tippen = Zahlentastatur.
 - Freitext nur, wo es wirklich Text ist (Name, Notizen, Suche).
 - Schalter: alle Checkboxen in `.check` sind „Glas-Tropfen“: an grün mit Strich, aus rot mit Kreis.
@@ -56,6 +57,17 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Immer die Maskottchen-Vorlage (`design/maskottchen/VORLAGE.md`). Bildfeld überall gleich groß, Figur in einer eigenen Fläche (`--fig`):
   hell weiß mit dunkler Figur, dunkel „Kreide auf Dunkel“ (helle Striche, Fläche knapp heller als die Karte).
 - Im Training nur bei der Übung, die gerade dran ist. Ähnliche Übungen werden über den Text unterschieden (z. B. Griff).
+- Fehlt eine Animation: Platzhalter mit winkendem Maskottchen (`_wave`), daneben „Grafik folgt“ und ein kurzer Satz (`figBox`).
+
+## Ablauf im Training
+- Zwei Modi je Trainingsart (Einstellungen › Training): **Liste** und **Einzeln**. Standard: Liste, nur Cool-down einzeln.
+- Liste: alle Übungen in einer Glas-Kapsel wie die Leiter. Die aktuelle Übung ist die offene weiße Pille mit Figur, Hinweis und `.btn.small` „Erledigt“.
+  Erledigt = grüner Haken an der Menge, Text grau. Keine Abhak-Kreise.
+- Einzeln: eine Karte mit Chip „Übung 2 von 9“ (bei Runden zusätzlich „Runde 3“), Figur, Menge und Name, Hinweis,
+  darunter `.bgrp` „‹ Zurück | Erledigt ›“. Auf der letzten Übung Chip „Danach: …“, „Erledigt“ springt direkt weiter.
+- Wischen immer gleich: nach links = erledigt / weiter / +, nach rechts = zurück / rückgängig / – (umkehrbar).
+- Zähler (`.stepper`) nur in der Liste. Am Ende eines AMRAP immer „Stimmt dein Ergebnis?“ mit den gezählten Werten.
+- EMOM: der Timer schaltet weiter. In der laufenden Karte Chip „Als Nächstes · Min 2 · Name“ mit Mini-Figur und blauer Countdown-Chip.
 
 ## Diagramme
 - Netzdiagramm für die Bereiche, Linien für Verläufe, Akzentfarbe für „jetzt“, gestrichelt für den Vergleich.
@@ -68,4 +80,8 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 
 ## Arbeitsweise
 - Neue Oberflächen zuerst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
+- Entwürfe immer direkt im Stil dieses Konzepts bauen, am besten in der echten App (Bildschirmfoto mit eingesetzten Bausteinen),
+  nie frei nachgezeichnet. Vor dem Zeigen jeden Bildschirm gegen die Bausteine-Tabelle prüfen (Tippflächen, Chips vs. Knöpfe, keine neuen Bedienelemente).
+- Eine Hauptaktion pro Seite und kein doppelter Weg: Im Modus „Einzeln“ springt „Erledigt“ auf der letzten Übung direkt zum nächsten Schritt
+  (vorher Chip „Danach: …“). Wo ein Ergebnis eingetragen wird, kommt „Weiter zu …“ erst nach der Eingabe bzw. nach „Stimmt dein Ergebnis?“.
 - Vor jedem neuen Arbeitsschritt alte Canvas-Boards löschen, dann die neuen anlegen.
