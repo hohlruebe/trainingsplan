@@ -184,6 +184,19 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - Offen / zu beobachten: Rückmeldung von Dennis zu Tagesnamen, Länge der langen Dehn-Einheiten (Übungen laufen in Runden),
   Inhalte der WODs aus dem Metcon-Pool.
 
+## Übungsgrafiken für die Bibliothek (Runde 1 eingebaut)
+- Dennis: Übungen nach und nach mit Animationen bestücken, 20 pro Überprüfung im Canvas, dann Pull Request.
+- Runde 1 (eingebaut): Ring Row, Pike Push-up, Reverse Lunge, Hanging Knee Raise, Burpee, Squat Jump, Skater Jump,
+  Slider Knee Tuck, Ring Push-up, Strict Handstand Push-up, L-Sit, Mountain Climber, Plank, Hollow Rock, V-up,
+  Slider Leg Curl, Hip Thrust, Scapular Push-up, Diamond Push-up, Split Squat.
+- Rückmeldungen und Regeln (stehen in `design/maskottchen/VORLAGE.md`):
+  Kniebeugen immer below parallel; Hände und Füße lösen sich nie von Boden, Ring oder Gerät (`ik3` dehnt bis 12 px,
+  `pruefen.js` misst Kontakte); Ringe am unteren Rand greifen, Hand im Ring; Sprünge mit echter Flugphase ohne Pause;
+  Plank mit Unterarmen flach am Boden; V-up mit gestreckten Armen; Scapular Push-up: Rumpf sackt zwischen die Schulterblätter
+  („perfekt“). Pull-up, Chin-up, Dip wurden dafür am Griff korrigiert.
+- Als Nächstes: Runde 2 mit den nächsten 20 (z. B. Wall Walk, Box Jump, Kettlebell Swing, Goblet Squat, Thruster,
+  Walking Lunge, Step-up, Hollow Hold-Varianten, Bear Crawl, Russian Twist, Wall Sit, Band-Übungen, Dragon Flag, Front Lever …).
+
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
 

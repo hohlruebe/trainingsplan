@@ -193,6 +193,8 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
 - Am Ende jeder Aufgabe `UEBERGABE.md` im selben Pull Request aktualisieren.
 - `design/` enthält nur Entwürfe und Rohdaten (Maskottchen, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
 - Übungsgrafiken: immer die Maskottchen-Vorlage `design/maskottchen/maskottchen.js` benutzen, Regeln in `design/maskottchen/VORLAGE.md`.
+  Neue Grafiken in Runden zu 20 im Canvas zeigen, nach Freigabe in `index.html` kopieren. Vorher `node design/maskottchen/pruefen.js`
+  (gestreckte Gelenke, Kontaktpunkte halten).
 
 ## Vor dem Abschluss
 - Prüfen, dass `index.html` ohne JavaScript-Fehler lädt und alle drei Reiter mit ihren Unterseiten funktionieren.
