@@ -1,0 +1,74 @@
+# Übergabe – Stand der Arbeit
+
+Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder Sitzung lesen,
+am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
+Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
+
+Stand: 3. Oktober 2026
+
+## Arbeitsweise mit Dennis
+- Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
+- Canvas (Design-Entwürfe): https://claude.ai/artifact/ASD8ADh36QGDQ4FpuWTJvC
+  Vor neuen Boards die alten löschen. Es gibt immer nur die aktuellen Boards.
+- Jede Änderung als Pull Request, PR kurz auf Deutsch beschreiben, am Ende den vollständigen Link nennen.
+- Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze.
+- Dennis schaut die App auf einem Google Pixel in Chrome (installierte App).
+
+## Erledigt (in `main`)
+- PR #20: freier Timer unter Tools.
+- PR #21: Kapsel-Konzept, feste Orte mit Symbolen.
+- PR #22: Paket 1 (Heute aufgeräumt, Bandnamen, Übungen nach Ort, Räder statt Klapp-Listen, `DESIGN.md`).
+- PR #23: Paket 2 (Plan hinter Info-Knopf, Werte mit Netzdiagramm und 5 Bereichen, Bandfarben, Mobility mit
+  Cool-down, Ruhetag-Flows, Routinen unter Tools, Beweglichkeits-Check).
+
+## Offen zum Mergen
+- PR #24 (https://github.com/hohlruebe/trainingsplan/pull/24), Paket 3: Tools › 1RM (Epley, 2,5 kg),
+  Körpergewicht in den Einstellungen, 1RM zählt relativ zum Körpergewicht in Kraft/Schnellkraft,
+  Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Bereichs-Aufstieg und 1RM-Bestwert.
+  `CLAUDE.md` in diesem PR beschreibt das schon.
+
+## In Arbeit: Maskottchen für Übungsgrafiken
+Ziel: animierte Figur, die jede Übung zeigt. Gezeigt im Training (Schritt-Seiten), unter Tools › Übungen
+und im Routinen-Player. Erste Probe: alle Übungen der drei Testtage (Ring Pull-up, Push-up, Pistol Squat,
+Nordic Curl, Hollow Body Hold, Handstand, Ring Dip, Glute Bridge, Ring Chin-up, Bulgarian Split Squat,
+Ab Wheel Rollout).
+
+Weg bis jetzt (Rückmeldungen von Dennis):
+1. Einfache Grafik-Stile → „lieber ein Maskottchen“.
+2. Durchtrainierter Cthulhu → doch lieber Richtung muskulöse Gliederpuppe (Skizze).
+3. Muskulöse Puppe → „hat keine Hände“, näher an die Vorlage; Seitenansicht „viel zu eckig“;
+   „das Skizzenhafte behalten“; „noch etwas speckig“.
+4. Neue Vorlage: Gesten-Gliederpuppen wie beim Figurenzeichnen (Ovale, Kugelgelenke, orange Line of Action).
+   Blickrichtung muss sichtbar sein.
+5. Brustkorb war ein Kreis statt eines Ovals, zu wenig dynamisch → erst die Figur ausarbeiten, dann animieren.
+6. Drei Stile in Front-, Halb- und Seitenansicht → **Stil C „Geste“ gefällt am besten**
+   (lockere Mehrfach-Striche, starke Line of Action).
+7. Jetzt im Canvas: drei Varianten von C (C1 Fein, C2 Kräftig, C3 Mit Volumen) in 8 Positionen rundum
+   plus animierte Probe (Air Squat) in einer nachgebauten Trainings-Seite. **Wartet auf Dennis' Wahl.**
+
+Technik (Skripte in `design/maskottchen/`, Aufruf `python3 maskottchen.py`, Ausgabe in `out/`):
+- Die Figur ist ein 3D-Skelett (Gelenke x, y, z), wird um die Hochachse gedreht und flach gezeichnet.
+- Brustkorb als Ei, Becken als Oval, beide mit Mittel- und Querlinien; Glieder als Ovale, Gelenke als Kreise;
+  hintere Seite blasser; Kopf mit Augen, Nase, Mittellinie (von hinten ohne Gesicht).
+- Warum frühere Animationen anders aussahen als die Skizzen: Die Animation war ein eigener Weg
+  (SMIL-Verschieben/Drehen/Strecken fertiger Formen zwischen zwei 2D-Posen). Formen wurden dabei gestreckt
+  und Gelenkpositionen geradlinig statt über Winkel überblendet. Jetzt wird jedes Bild mit derselben
+  Zeichenfunktion aus Gelenkwinkeln erzeugt.
+- Für die App geplant: dieselbe Zeichenfunktion in JavaScript in `index.html`, Bilder live im Browser
+  berechnen (keine großen Dateien, offline). Posen je Übung als Gelenkwinkel-Keyframes.
+
+Nächste Schritte: Variante wählen → Testtag-Übungen als Probe → Rückfrage → Einbau.
+
+## Danach: `mobility2.json` einbauen
+Datei: `design/mobility2.json` (von Dennis aus Cowork, `v: 2`, 42 Übungen, 8 Leitern, Analyse mit 14 Tests und 8 Regionen, 4 Routinen: `r_lauf_abc`, `r_aufwaermen_kraft`, `r_yoga_flow`, `r_abend`).
+Gewünscht (erst Entwurf im Canvas):
+- Lauf-ABC als Aufwärmen vor Tag 2 und 4.
+- Dynamisches Aufwärmen vor Tag 1, 3 und 6.
+- Yoga-Flow an Tag 5 und 7.
+- Abend-Routine.
+- Ganzkörper-Beweglichkeitsanalyse, jederzeit und ohne Equipment (14 Tests, links/rechts getrennt,
+  Regionen mit Empfehlungen).
+Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Namen und Stufen nie ändern.
+
+## Ideen für später
+- Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.

@@ -122,6 +122,11 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
   Beginnt ein Durchgang in den letzten 7 Tagen des Monats: Test-Durchgang.
 - Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
+## Übergabe zwischen Sitzungen
+- Zu Beginn jeder Sitzung `UEBERGABE.md` lesen (Stand, offene Aufgaben, Rückmeldungen von Dennis).
+- Am Ende jeder Aufgabe `UEBERGABE.md` im selben Pull Request aktualisieren.
+- `design/` enthält nur Entwürfe und Rohdaten (Maskottchen-Skripte, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
+
 ## Vor dem Abschluss
 - Prüfen, dass `index.html` ohne JavaScript-Fehler lädt und alle drei Reiter mit ihren Unterseiten funktionieren.
 - Die Änderung im Pull Request kurz auf Deutsch beschreiben.
