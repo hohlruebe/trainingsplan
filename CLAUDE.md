@@ -54,6 +54,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
   Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
   vor dem Start in der ersten (`syncFig`), darunter der Griff bei ähnlichen Übungen (`GRIP`, Pull-up/Chin-up).
+  Dunkelmodus in Graphit (Hintergrund `#1E1F23`, Karten `#2A2B30`, Grafik-Fläche `#33343A`, passend zum App-Symbol).
   Dunkelmodus: Farbsatz „Kreide auf Dunkel“ (`Maskottchen.PALETTES.dark`, Fläche `--fig`), Wechsel über `applyTheme` → `refreshFigs`.
 - Leiter in Tools › Übungen (`ladderHTML(lad, state)`): Glas-Kapsel als Aufstieg (Stufe 1 unten, schwerste oben),
   „Aktuelle Stufe“ als weiße Pille, höchste geschaffte Stufe mit goldenem Chip „★ Bestwert“ (gleich = nur Stern).
@@ -99,7 +100,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Auf dem iPhone zeichnet sie bis unter Statusleiste und Home-Balken (`black-translucent`).
   Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
 - `sw.js`: Service Worker für den Offline-Betrieb
-- `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`
+- `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `icon-mono-512.png`.
+  App-Symbol „D3“: Turnringe frei hängend in Kreide (#E4E3F7) auf Graphit, darunter links der Marker-Strich in Hellblau (#8DB8FF).
+  `icon-mono-512.png` (weiß auf transparent, `purpose: monochrome`) für die Designsymbole von Android. Vorlagen: `design/symbol/`.
 
 ## Regeln
 - Die App muss offline laufen: keine CDNs, keine externen Schriften oder Skripte.
