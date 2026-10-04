@@ -185,7 +185,20 @@ details.card[open]>summary{margin-bottom:6px}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;pointer-events:none;padding:34px 0 calc(max(env(safe-area-inset-bottom,0px),12px) + 8px);background:linear-gradient(to bottom,color-mix(in srgb,var(--board) 0%,transparent),color-mix(in srgb,var(--board) 85%,transparent) 55%,var(--board))}
 .tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:200px;background:var(--board);pointer-events:none}
 .tabbar-in{pointer-events:auto;width:max-content;margin:0 auto;display:flex;gap:6px;padding:6px;border-radius:32px;background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 10px 30px rgba(17,18,20,.08)}
-.subnav{margin:2px 0 18px}
+.subttl{cursor:pointer;-webkit-user-select:none;user-select:none}
+.subttl[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.subttl .chev{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-left:6px;vertical-align:middle;color:color-mix(in srgb,var(--ink) 50%,transparent);transition:transform .2s}
+.subttl .chev svg{width:17px;height:17px}
+.subttl{position:relative;z-index:62}
+.subdim{position:fixed;inset:0;z-index:60;background:rgba(17,18,20,.14);animation:subfd .2s ease-out}
+.subdd{position:fixed;z-index:61;width:280px;padding:7px;box-sizing:border-box;border-radius:26px;background:var(--paper);border:1px solid color-mix(in srgb,var(--ink) 8%,transparent);box-shadow:0 20px 48px rgba(17,18,20,.2);transform-origin:24px 0;animation:subgrow .24s cubic-bezier(.3,.9,.4,1)}
+.subdd button{display:flex;align-items:center;gap:14px;width:100%;min-height:58px;padding:0 16px;border:0;border-radius:19px;background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:19px;text-align:left;cursor:pointer}
+.subdd button svg{width:25px;height:25px;flex:none}
+.subdd button.on{background:color-mix(in srgb,var(--acc) 13%,transparent);color:var(--acc);font-weight:600}
+.subdd .ok{margin-left:auto;width:20px;height:20px}
+.subdd button:active{transform:scale(.97)}
+@keyframes subgrow{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+@keyframes subfd{from{opacity:0}}
 .tab{display:flex;align-items:center;justify-content:center;height:48px;min-width:48px;padding:0 12px;border:0;border-radius:24px;background:transparent;color:var(--ink2);font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:-.01em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .25s,color .25s,padding .3s,box-shadow .25s}
 .tab span{display:block;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;line-height:1.15;transition:max-width .3s ease,opacity .2s,margin .3s ease}
 .tab[aria-current="page"]{background:var(--pill);color:var(--acc);padding:0 18px 0 14px;box-shadow:0 2px 8px rgba(17,18,20,.1)}
@@ -1913,7 +1926,7 @@ var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen', 'rm'] };
-var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Routinen', rm: '1RM' };
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Mobility', rm: '1RM' };
 var HIDDEN = { einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', laufziel: 'coach', skillziel: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
@@ -2147,10 +2160,8 @@ function render() {
   ui.noSub = false; ui.focus = false;
   var body = fn();
   document.body.classList.toggle('focus', ui.focus);
-  var sub = views.length < 2 || ui.noSub ? '' : '<div class="seg subnav" role="group" aria-label="Bereich">' + views.map(function (v) {
-    return '<button type="button" class="seg-btn' + (v === ui.tab ? ' on' : '') + '" data-act="tab" data-tab="' + v + '" aria-pressed="' + (v === ui.tab) + '">' + VIEW_LABEL[v] + '</button>';
-  }).join('') + '</div>';
-  $view.innerHTML = sub + body;
+  $view.innerHTML = body;
+  if (views.length > 1 && !ui.noSub) subTitle(views); else ui.subOpen = false;
   document.querySelectorAll('.tab').forEach(function (b) {
     if (b.dataset.group === g) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
@@ -2160,6 +2171,29 @@ function render() {
   if (ui.tab === 'uebungen') wakeGloss();
   if (ui.tab === 'skill') drawTree();
 }
+// Unterseiten: Titel mit Pfeil, Tippen öffnet das Drop-down darunter.
+var SUB_IC = {
+  timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2.5h6"/>',
+  uebungen: '<path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/>',
+  routinen: '<circle cx="12" cy="4.5" r="2"/><path d="M5 9.5l7 1.5 7-1.5M12 11v4l-3.5 6M12 15l3.5 6"/>',
+  rm: '<path d="M3.5 20h17M6 16l4.5-5.5 3 3L18 7.5M14.5 7.5H18V11"/>'
+};
+function subTitle(views) {
+  var h = $view.querySelector('.hero h1');
+  if (!h) return;
+  h.classList.add('subttl'); h.dataset.act = ui.subOpen ? 'subclose' : 'subopen'; h.setAttribute('role', 'button'); h.setAttribute('aria-expanded', ui.subOpen ? 'true' : 'false');
+  h.insertAdjacentHTML('beforeend', '<span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>');
+  if (!ui.subOpen) return;
+  var svg = function (p) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
+  $view.insertAdjacentHTML('beforeend', '<div class="subdim" data-act="subclose"></div><div class="subdd" role="menu" aria-label="Bereich">' + views.map(function (v) {
+    var on = v === ui.tab;
+    return '<button type="button" role="menuitem" class="' + (on ? 'on' : '') + '" data-act="' + (on ? 'subclose' : 'tab') + '" data-tab="' + v + '" aria-current="' + on + '">' + svg(SUB_IC[v] || '') + VIEW_LABEL[v] + (on ? '<svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' : '') + '</button>';
+  }).join('') + '</div>');
+  var r = h.getBoundingClientRect(), dd = $view.querySelector('.subdd');
+  dd.style.left = Math.max(8, r.left - 6) + 'px';
+  dd.style.top = (r.bottom + 18) + 'px';
+}
+window.addEventListener('scroll', function () { if (ui.subOpen) { ui.subOpen = false; render(); } }, { passive: true });
 function tipsHTML(tips, extra) {
   if (!tips.length && !extra) return '';
   return '<section class="card tips"><p class="tips-h">Tipps</p><ul>' + tips.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>' + (extra || '') + '</section>';
@@ -2490,7 +2524,7 @@ function verlaufHTML() {
     return '<button type="button" class="seg-btn' + (v === x[0] ? ' on' : '') + '" data-act="vtab" data-v="' + x[0] + '" aria-pressed="' + (v === x[0]) + '">' + x[1] + '</button>';
   }).join('') + '</div>';
   if (v === 'train') return h + trainVerlaufHTML();
-  if (!mob.length) return h + '<section class="card"><h2>Noch keine Routine</h2><p>Cool-downs nach dem Lauf, Ruhetag-Flows und die Morgen-Routine erscheinen hier, sobald du eine durchgezogen hast.</p><button type="button" class="btn primary" data-act="tab" data-tab="routinen">Zu den Routinen</button></section>';
+  if (!mob.length) return h + '<section class="card"><h2>Noch keine Routine</h2><p>Cool-downs nach dem Lauf, Ruhetag-Flows und die Morgen-Routine erscheinen hier, sobald du eine durchgezogen hast.</p><button type="button" class="btn primary" data-act="tab" data-tab="routinen">Zu Mobility</button></section>';
   var since = isoDaysAgo(6), week = mob.filter(function (l) { return l.date >= since; });
   h += '<div class="chips"><span class="chip">' + mob.length + (mob.length === 1 ? ' Routine' : ' Routinen') + '</span><span class="chip">' + week.length + ' in 7 Tagen</span><span class="chip">' + Math.round(mob.reduce(function (x, l) { return x + (l.sec || 0); }, 0) / 60) + ' Min gesamt</span></div>';
   return h + '<section class="card">' + mob.slice().reverse().slice(0, ui.logLimit).map(function (l) {
@@ -3192,7 +3226,12 @@ function twoStep(el, fn) {
   setTimeout(function () { if (el.isConnected) { el.dataset.armed = ''; el.textContent = old; } }, 4000);
 }
 var ACT = {
-  tab: function (el) { ui.tab = el.dataset.group ? ui.last[el.dataset.group] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
+  subopen: function () { ui.subOpen = true; haptic('tap'); render(); },
+  subclose: function () { ui.subOpen = false; render(); },
+  tab: function (el) {
+    var g = el.dataset.group;
+    if (g && g === groupOf(ui.tab) && !HIDDEN[ui.tab] && GROUPS[g].length > 1 && !ui.subOpen) { ui.subOpen = true; render(); return; }
+    ui.subOpen = false; ui.tab = g ? ui.last[g] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
   viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
   'do-this-day': function (el) { S.tag = +el.dataset.tag; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
@@ -4235,7 +4274,7 @@ ACT['rm-new'] = function (el) {
   }, { live: function (v) { var w = +v[0] + (v[1] === '5' ? 0.5 : 0), reps = +v[2]; return reps > 1 ? 'Geschätztes 1RM: <b>' + esc(fmtKg(e1rm(w, reps), id)) + '</b>' : 'Echtes 1RM: <b>' + esc(fmtKg(w, id)) + '</b>'; } });
 };
 
-/* ---------- Mobility-Routinen: Karten, Seite Tools › Routinen, Player ---------- */
+/* ---------- Mobility-Routinen: Karten, Seite Tools › Mobility, Player ---------- */
 function doneToday(rid) { var t = isoToday(); return LOGS.some(function (l) { return l.kind === 'mobility' && l.rid === rid && l.date === t; }); }
 function routineCardHTML(r, main, label) {
   var more = r.bloecke.length - 3, done = doneToday(r.id);
@@ -4247,7 +4286,7 @@ function routineCardHTML(r, main, label) {
 }
 function renderRoutinen() {
   var groups = [['morgen', 'Morgens', 'Sanft wach werden, höchstens 5 Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
-  var h = '<section class="hero"><h1>Routinen</h1><p class="hero-title">Mobility für jeden Tag</p></section>';
+  var h = '<section class="hero"><h1>Mobility</h1><p class="hero-title">Routinen für jeden Tag</p></section>';
   groups.forEach(function (g) {
     var list = MOB.routinen.filter(function (r) { return r.wann === g[0]; });
     if (!list.length) return;
