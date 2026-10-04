@@ -93,6 +93,11 @@ Seiten mit Unterseiten (heute Tools) zeigen keine Kapsel oben. Der Titel trägt 
 (Karte 236 px, Zeilen 48 px, Symbol und Name, aktuelle Seite blau hinterlegt mit Haken), die Seite dahinter dunkelt leicht ab.
 Wahl, Tippen daneben oder Scrollen schließt.
 
+## Timer im Vollbild
+Hintergrund `--board`, Zeit in Geist 800 mit festen Ziffernbreiten (Arbeit `--ink`, Vorlauf und Pause `--green`), Fortschritt als
+Kapsel-Leiste in `--acc`, rechts bzw. unten eine weiße Karte. Werkzeuge oben als runde Glas-Knöpfe (Drehen, Minimieren, Pause, ✕).
+In der Timer-Leiste bilden Pause und Vollbild eine Kapsel mit feinem Trenner, nichts schwebt zusätzlich über dem Inhalt.
+
 ## Bewegung (gilt für alles Neue)
 - Jede Zustandsänderung bewegt sich weich, nichts springt hart um. Dauer etwa 0,3 s, Kurve `cubic-bezier(.3,.9,.4,1)` wie der Glas-Tropfen der Schalter.
 - Wahl wechseln: die weiße Pille gleitet zur neuen Wahl. Knöpfe in einer Kapsel rutschen an ihren Platz, neue blenden mit kurzem Wachsen ein.

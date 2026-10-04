@@ -189,7 +189,7 @@ details.card[open]>summary{margin-bottom:6px}
 .subttl[aria-expanded="true"] .chev{transform:rotate(180deg)}
 .subttl .chev{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-left:6px;vertical-align:middle;color:color-mix(in srgb,var(--ink) 50%,transparent);transition:transform .2s}
 .subttl .chev svg{width:17px;height:17px}
-.subttl{position:relative;z-index:62}
+.subttl[aria-expanded="true"]{position:relative;z-index:62}
 .subdim{position:fixed;inset:0;z-index:60;background:rgba(17,18,20,.14);animation:subfd .2s ease-out}
 .subdd{position:fixed;z-index:61;width:236px;padding:6px;box-sizing:border-box;border-radius:22px;background:var(--paper);border:1px solid color-mix(in srgb,var(--ink) 8%,transparent);box-shadow:0 20px 48px rgba(17,18,20,.2);transform-origin:24px 0;animation:subgrow .24s cubic-bezier(.3,.9,.4,1)}
 .subdd button{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:0 12px;border:0;border-radius:16px;background:transparent;color:var(--ink);font-family:var(--head);font-weight:500;font-size:17px;text-align:left;cursor:pointer}
@@ -204,7 +204,7 @@ details.card[open]>summary{margin-bottom:6px}
 .tab[aria-current="page"]{background:var(--pill);color:var(--acc);padding:0 18px 0 14px;box-shadow:0 2px 8px rgba(17,18,20,.1)}
 .tab[aria-current="page"] span{max-width:96px;opacity:1;margin-left:8px}
 .tab svg{width:24px;height:24px}
-.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--board);padding:10px 16px;border-radius:14px;font-size:15px;z-index:20;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--board);padding:10px 16px;border-radius:14px;font-size:15px;z-index:46;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:15px}
@@ -708,6 +708,57 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .tr-fg{stroke:var(--acc);stroke-linecap:round;transition:stroke-dashoffset .2s linear}
 .tb-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums}
 .tb-btn{flex:0 0 44px;height:44px;border:0;border-radius:22px;background:var(--board);color:var(--acc);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tb-grp{flex:none;display:flex;border-radius:22px;background:var(--board)}
+.tb-grp .tb-btn{background:none}
+.tb-grp .tb-btn+.tb-btn{border-left:1px solid color-mix(in srgb,var(--ink) 10%,transparent);border-radius:0 22px 22px 0}
+.tb-grp .tb-btn:first-child{border-radius:22px 0 0 22px}
+#fs{position:fixed;left:0;top:0;z-index:30;background:var(--board);color:var(--ink);font-family:var(--head);overflow:hidden}
+#fs[hidden]{display:none}
+#fs.turn{transform-origin:0 0;transform:rotate(90deg) translateY(-100%)}
+.fs-in{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;box-sizing:border-box;padding:calc(env(safe-area-inset-top,0px) + 16px) calc(env(safe-area-inset-right,0px) + 20px) calc(env(safe-area-inset-bottom,0px) + 16px) calc(env(safe-area-inset-left,0px) + 24px)}
+#fs.turn .fs-in{padding:16px 20px 16px 24px}
+.fs-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fs-kick{margin:0;min-width:0;font-size:15px;font-weight:500;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs-tools{display:flex;gap:10px;flex:none}
+.fs-tools .rbtn[hidden]{display:none}
+.fs-main{flex:1;min-height:0;display:flex;align-items:center;gap:24px}
+#fs[data-view="port"] .fs-main{flex-direction:column;align-items:stretch;justify-content:space-around;gap:20px}
+.fs-dig{flex:1;min-width:0}
+#fs[data-view="port"] .fs-dig{flex:none;text-align:center}
+.fs-st{margin:0 0 2px 4px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.fs-num{font-weight:800;font-size:120px;line-height:.92;letter-spacing:-.05em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fs-num.grn,.fs-st.grn{color:var(--green)}
+.fs-num.hot{animation:fshot 1s ease-in-out infinite}
+@keyframes fshot{50%{opacity:.5}}
+.fs-prog{display:flex;align-items:center;gap:14px;margin-top:16px}
+.fs-trk{flex:1;height:10px;border-radius:5px;background:var(--fill);overflow:hidden}
+.fs-trk i{display:block;height:100%;width:0;border-radius:5px;background:var(--acc);transition:width .2s linear}
+.fs-prog span{font-size:15px;color:var(--ink2);white-space:nowrap}
+.fs-side{flex:none;width:300px;max-height:100%;overflow:auto;box-sizing:border-box;padding:16px;border-radius:24px;background:var(--paper);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;gap:12px}
+#fs[data-view="port"] .fs-side{width:auto;flex:1;max-height:none;align-items:center;text-align:center}
+.fs-rows,.fs-rh{align-self:stretch;text-align:left}
+.fs-side.tap{cursor:pointer;align-items:center;text-align:center}
+.fs-side:empty{display:none}
+.fs-lbl{margin:0;white-space:nowrap;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.fs-big{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.fs-big small{font-size:20px;font-weight:600;letter-spacing:0;color:var(--ink2)}
+.fs-sub{font-size:28px;font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums}
+.fs-hint{margin:0;font-size:13px;color:var(--ink2)}
+.fs-exn{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.fs-ex{display:flex;align-items:center;gap:12px}
+.fs-ex>div:last-child{min-width:0}
+.fs-ex .chip{margin-top:6px;white-space:normal;display:inline-block}
+.fs-fig{flex:none;width:120px}
+.fs-fig .fig{height:150px;margin:0}
+.fs-rh{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fs-rows{border-radius:20px;background:var(--fill);padding:4px}
+.fs-row{display:flex;align-items:center;gap:12px;min-height:42px;padding:0 12px;border-radius:16px;font-size:16px}
+.fs-row b{min-width:44px;color:var(--acc)}
+.fs-row.on{min-height:56px;background:var(--paper);box-shadow:0 2px 8px rgba(17,18,20,.1);font-weight:600}
+.fs-row.done{opacity:.45}
+.fs-row .btn{margin-left:auto}
+body.fs-open{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.fs-num.hot{animation:none}}
 .sheet-bg{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(17,18,20,0);transition:background-color .25s}
 .sheet-bg.open{background:rgba(17,18,20,.3)}
 .sheet{width:100%;max-width:560px;background:var(--paper);border-radius:28px 28px 0 0;padding:10px 16px calc(max(env(safe-area-inset-bottom,0px),12px) + 18px);box-shadow:0 -10px 30px rgba(0,0,0,.12);transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
@@ -1884,7 +1935,7 @@ var TEST_BASE = {
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, swipe: true, swipeRev: false,
+  trainCustom: false, trainModes: null, roundCounter: true, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
 
 var LS = {
@@ -2170,6 +2221,7 @@ function render() {
   if (ui.tab === 'routine') paintRoutine();
   if (ui.tab === 'uebungen') wakeGloss();
   if (ui.tab === 'skill') drawTree();
+  if (FS.on) fsPaint(undefined, true);
 }
 // Unterseiten: Titel mit Pfeil, Tippen öffnet das Drop-down darunter.
 var SUB_IC = {
@@ -2382,7 +2434,7 @@ function tick() {
   if (!L) { finish(); return; }
   if (L.i !== TM.idx) { if (TM.idx >= 0) cue(true); TM.idx = L.i; TM.lastSec = null; }
   if (L.rem != null) { var s = Math.ceil(L.rem); if (s <= 3 && s >= 1 && s !== TM.lastSec) { TM.lastSec = s; cue(false); } }
-  paint(L); paintMini(L); paintRoutine(L);
+  paint(L); paintMini(L); paintRoutine(L); fsPaint(L);
 }
 function paint(L) {
   var $ = function (id) { return document.getElementById(id); };
@@ -2415,14 +2467,21 @@ function setToggle() {
   var b = document.getElementById('t-toggle'); if (!b) return;
   b.textContent = TM.running ? 'Pause' : (TM.acc > 0 && !TM.finished ? 'Weiter' : 'Start');
   var f = document.getElementById('t-finish'); if (f) f.hidden = !(TM.mode === 'zeit' && (TM.running || TM.acc > 0) && !TM.finished);
+  var rr = document.getElementById('t-rrow'); if (rr) rr.hidden = !(TM.running || (TM.acc > 0 && !TM.finished));
 }
 function timerToggle() {
   if (TM.finished) timerReset();
-  if (TM.running) { TM.acc = elapsed(); timerStop(); setToggle(); paint(locate(TM.acc)); paintMini(); return; }
+  if (TM.running) { TM.acc = elapsed(); timerStop(); setToggle(); paint(locate(TM.acc)); paintMini(); fsPaint(); return; }
   ensureAudio(); TM.t0 = Date.now(); TM.running = true; TM.int = setInterval(tick, 200); wakeOn(); tick(); setToggle();
+}
+function timerToggleTools() {
+  var start = !TM.running && (TM.acc === 0 || TM.finished);
+  timerToggle(); if (FS.on) fsPaint();
+  if (start && TM.running && !FS.on && timerModeOf('tools') === 'full') fsOpen('auto');
 }
 function finish() {
   TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; cue(true); showFinished(); setToggle();
+  if (FS.on) { if (TM.cfg && TM.cfg.step) fsClose(); else fsPaint(); }
   if (TM.mode === 'routine') routineDone();
   if (TM.mode === 'zeit' && TM.cfg && TM.cfg.step) { setDraft('murphTime', fmt(Math.max(0, TM.finalElapsed - 10))); if (ui.tab === 'heute') render(); }
   if (TM.mode === 'amrap' && TM.cfg && TM.cfg.step === draftKey(S.tag) + ':metcon') { if (ui.tab === 'heute') render(); amrapCheck(); }
@@ -2447,9 +2506,10 @@ function renderTimer() {
   h += '<section class="card timer"><p id="t-label" class="t-label">Bereit</p><button type="button" id="t-digits" class="t-digits" data-act="t-set" data-k="' + { emom: 'every', amrap: 'sec', hiit: 'work', zeit: 'cap' }[TM.mode] + '" aria-label="Zeit einstellen">00:00</button><p id="t-sub" class="t-sub"></p><p id="t-next" class="small muted"></p>' +
     '<div class="t-bar" aria-hidden="true"><div id="t-fill"></div></div>' +
     '<div class="row t-ctl"><button type="button" class="btn primary" id="t-toggle" data-act="t-toggle">Start</button><button type="button" class="btn" data-act="t-reset">Zurücksetzen</button>' +
+    '<button type="button" class="rbtn" data-act="fs-open" aria-label="Vollbild">' + I_EXP + '</button>' +
     '<button type="button" class="btn" id="t-finish" data-act="t-finish" hidden>Fertig</button></div>';
   if (TM.mode === 'amrap' || TM.mode === 'zeit') {
-    h += '<div class="row t-rounds" style="margin-top:12px"><div class="stepper"><button type="button" data-act="t-round" data-d="-1" aria-label="Eine Runde weniger">–</button><b id="t-rounds">' + TM.rounds + ' Runden</b><button type="button" class="primary" data-act="t-round" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
+    h += '<div class="row t-rounds" id="t-rrow" style="margin-top:12px"' + (TM.running || (TM.acc > 0 && !TM.finished) ? '' : ' hidden') + '><div class="stepper"><button type="button" data-act="t-round" data-d="-1" aria-label="Eine Runde weniger">–</button><b id="t-rounds">' + TM.rounds + ' Runden</b><button type="button" class="primary" data-act="t-round" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
   }
   h += '<div id="t-done"></div></section><section class="card">' + timerConfigHTML() + '</section>';
   return h;
@@ -2740,8 +2800,16 @@ function trainingHTML() {
     return '<div class="tr-row"><span>' + t[1] + '</span>' + seg(t[1], [['single', 'Einzeln'], ['list', 'Liste']], modeOf(t[0]), 'data-act="tr-mode" data-t="' + t[0] + '"') + '</div>';
   }).join('') + '</div>';
   else h += '<p class="small muted">Liste beim Aufwärmen, bei Kraft, Metcon und Murph: die aktuelle Übung klappt mit Figur auf und läuft mit. Cool-down einzeln.</p>';
-  h += '<label class="check" style="margin-top:10px"><input type="checkbox" data-change="roundCounter"' + (S.roundCounter !== false ? ' checked' : '') + '> Rundenzähler beim Metcon (Liste)</label>' +
-    '<p class="small muted">In der Liste zählt er mit, sobald eine Runde abgehakt ist, mit – und + korrigierst du. Einzeln zählt die App Übung für Übung mit. Am Ende prüfst du das Ergebnis.</p>';
+  h += '<h3 style="margin-top:16px">Runden zählen</h3>' + seg('Runden zählen', [['ex', 'Übung für Übung'], ['rd', 'Nur Runden'], ['off', 'Aus']], roundMode(), 'data-act="tr-round"') +
+    '<p class="small muted">' + { ex: 'Metcon und Murph: Übung für Übung abhaken, der Zähler zählt die Runden mit, – und + korrigieren. Am Ende prüfst du das Ergebnis.',
+      rd: 'Metcon und Murph: das Workout steht nur da. Nach jeder Runde einmal + tippen.', off: 'Metcon und Murph: nur das Workout und die Zeit. Am Ende trägst du das Ergebnis ein, wenn du willst.' }[roundMode()] + '</p>';
+  h += '<h3 style="margin-top:16px">Timer</h3>' + seg('Timer', [['std', 'Standard'], ['custom', 'Benutzerdefiniert']], S.timerCustom ? 'custom' : 'std', 'data-act="tm-custom"');
+  if (S.timerCustom) h += '<div class="tr-modes">' + TIMER_TYPES.map(function (t) {
+    return '<div class="tr-row"><span>' + t[1] + '</span>' + seg(t[1], [['bar', 'Leiste'], ['full', 'Vollbild']], timerModeOf(t[0]), 'data-act="tm-mode" data-t="' + t[0] + '"') + '</div>';
+  }).join('') + '</div>';
+  else h += '<p class="small muted">Tools › Timer startet im Vollbild, im Training läuft der Timer unten als Leiste. Vollbild jederzeit über den Pfeil-Knopf, Handy quer drehen öffnet es auch.</p>';
+  h += '<p class="small" style="margin:12px 0 0"><b>Vollbild-Ansicht</b></p>' + seg('Vollbild-Ansicht', [['auto', 'Automatisch'], ['port', 'Hochkant'], ['land', 'Quer']], S.timerView === 'port' || S.timerView === 'land' ? S.timerView : 'auto', 'data-act="tm-view"') +
+    '<p class="small muted">Automatisch dreht mit dem Handy. Im Vollbild hält der Dreh-Knopf die Ansicht fest, lange drücken = wieder automatisch.</p>';
   h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
     '<label class="check"><input type="checkbox" data-change="swipeRev"' + (rev ? ' checked' : '') + '> Wischen umkehren</label>' +
     '<p class="small muted">Nach ' + (rev ? 'rechts' : 'links') + ' wischen: erledigt, weiter. Nach ' + (rev ? 'links' : 'rechts') + ': zurück. Immer gleich, ob einzeln, in der Liste oder am Rundenzähler.</p>';
@@ -3249,10 +3317,10 @@ var ACT = {
   'start-test': function () { Object.assign(S, { started: true, startDate: isoToday(), durchgang: 0, tag: 1, blockStart: 1 }); saveState(); render(); },
   'start-at': function () { var o = ui.ob || { d: 1, t: 1 }; Object.assign(S, { started: true, startDate: isoToday(), durchgang: o.d, tag: o.t, blockStart: Math.max(1, o.d) }); ui.ob = null; saveState(); render(); },
   't-mode': function (el) { if (TM.running) { toast('Halte erst den Timer an.'); return; } tmr().mode = el.dataset.m; saveState(); toolSetup(); render(); },
-  't-toggle': timerToggle,
-  't-reset': function () { timerReset(); render(); },
+  't-toggle': timerToggleTools,
+  't-reset': function () { timerReset(); render(); fsPaint(undefined, true); },
   't-finish': function () { if (TM.mode === 'zeit') finish(); },
-  't-round': function (el) { TM.rounds = Math.max(0, TM.rounds + (+el.dataset.d)); var n = document.getElementById('t-rounds'); if (n) n.textContent = TM.rounds + ' Runden'; },
+  't-round': function (el) { TM.rounds = Math.max(0, TM.rounds + (+el.dataset.d)); var n = document.getElementById('t-rounds'); if (n) n.textContent = TM.rounds + ' Runden'; fsPaint(undefined, true); },
   theme: function (el) { S.theme = el.dataset.v; saveState(); applyTheme(); render(); },
   color: function (el) { S.color = el.dataset.v; saveState(); applyTheme(); render(); },
   paper: function (el) { S.paper = el.dataset.v; saveState(); applyTheme(); render(); },
@@ -3301,6 +3369,10 @@ ACT['tr-custom'] = function (el) {
   if (S.trainCustom && !S.trainModes) S.trainModes = Object.assign({}, TRAIN_STD);
   saveState(); render();
 };
+ACT['tr-round'] = function (el) { S.roundMode = el.dataset.v; saveState(); render(); };
+ACT['tm-custom'] = function (el) { S.timerCustom = el.dataset.v === 'custom'; if (S.timerCustom && !S.timerModes) S.timerModes = Object.assign({}, TIMER_STD); saveState(); render(); };
+ACT['tm-mode'] = function (el) { S.timerModes = Object.assign({}, TIMER_STD, S.timerModes || {}); S.timerModes[el.dataset.t] = el.dataset.v; saveState(); render(); };
+ACT['tm-view'] = function (el) { S.timerView = el.dataset.v; saveState(); render(); };
 ACT['tr-mode'] = function (el) { S.trainModes = Object.assign({}, TRAIN_STD, S.trainModes || {}); S.trainModes[el.dataset.t] = el.dataset.v; saveState(); render(); };
 var CHG = {
   cooldown: function (el) { S.cooldown = el.checked; saveState(); setTimeout(render, 420); },
@@ -3551,8 +3623,18 @@ function miniFig(key) {
   var pal = isDark() ? 'dark' : null, C = ex._F || (ex._F = {}), F = C[pal || 'light'] || (C[pal || 'light'] = Maskottchen.frames(ex, pal));
   return '<svg class="mini-fig" viewBox="' + F.box.join(' ') + '" aria-hidden="true">' + F.frames[0] + '</svg>';
 }
+// Runden zählen „Nur Runden“ oder „Aus“: das Workout steht nur da, ohne Abhaken.
+function flowStaticHTML(F, s) {
+  var h = '<ul class="flow static" data-flow="' + F.id + '">' + F.items.map(function (it) {
+    return '<li class="fl-row"><div class="fl-h"><span class="qty">' + esc(it.qty) + '</span><span class="fl-n">' + esc(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + '</span></div></li>';
+  }).join('') + '</ul>';
+  if (roundMode() === 'rd') h += '<div class="fl-count" data-swipe="count" data-flow="' + F.id + '"><span><b>Runden</b><br><span class="small muted">nach jeder Runde tippen</span></span>' +
+    '<div class="stepper"><button type="button" data-act="fl-count" data-flow="' + F.id + '" data-d="-1" aria-label="Eine Runde weniger">–</button><b>' + (s.r - 1) + '</b><button type="button" class="primary" data-act="fl-count" data-flow="' + F.id + '" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
+  return h;
+}
 function flowHTML(F, D) {
   var mode = modeOf(F.id), s = flowState(F, D), n = F.items.length, L = F.loop, h;
+  if (L && roundMode() !== 'ex') return flowStaticHTML(F, s);
   if (mode === 'single') {
     if (s.c >= n) {
       return '<section class="card flow-one" data-flow="' + F.id + '" data-swipe="card"><div class="chips"><span class="chip">Alles erledigt</span></div>' +
@@ -3578,7 +3660,7 @@ function flowHTML(F, D) {
   }).join('') + '</ul>';
   if (F.id === 'metcon' && S.roundCounter !== false) {
     h += '<div class="fl-count" data-swipe="count" data-flow="metcon"><span><b>Runden</b><br><span class="small muted">zählt beim Abhaken mit</span></span>' +
-      '<div class="stepper"><button type="button" data-act="fl-count" data-d="-1" aria-label="Eine Runde weniger">–</button><b>' + (s.r - 1) + '</b><button type="button" class="primary" data-act="fl-count" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
+      '<div class="stepper"><button type="button" data-act="fl-count" data-flow="metcon" data-d="-1" aria-label="Eine Runde weniger">–</button><b>' + (s.r - 1) + '</b><button type="button" class="primary" data-act="fl-count" data-flow="metcon" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
   }
   return h;
 }
@@ -3616,8 +3698,8 @@ function flowRow(id, i, on) {
   } else s.c = i;
   flowSave(F, s); render();
 }
-function flowCount(d) {
-  var F = flowById('metcon'), s = flowState(F); s.r = Math.max(1, Math.min(99, s.r + d)); flowSave(F, s); render();
+function flowCount(d, id) {
+  var F = flowById(id || 'metcon'), s = flowState(F); s.r = Math.max(1, Math.min(99, s.r + d)); flowSave(F, s); render();
 }
 ACT['fl-done'] = function (el) { if (el.dataset.i != null) flowRow(el.dataset.flow, +el.dataset.i, true); else flowStep(el.dataset.flow, true); };
 ACT['fl-back'] = function (el) { flowStep(el.dataset.flow, false); };
@@ -3626,7 +3708,7 @@ ACT['fl-pick'] = function (el) {
   if (s.done.indexOf(i) >= 0) { flowRow(F.id, i, false); return; }
   s.c = i; flowSave(F, s); render();
 };
-ACT['fl-count'] = function (el) { flowCount(+el.dataset.d); };
+ACT['fl-count'] = function (el) { flowCount(+el.dataset.d, el.dataset.flow); };
 // AMRAP: gezählte Runden und Wiederholungen der angefangenen Runde.
 function amrapCount(tag) {
   var F = metconFlow(tag), s = flowState(F, dr(tag)), single = modeOf('metcon') === 'single', w = 0;
@@ -3638,12 +3720,14 @@ function amrapCount(tag) {
 }
 function amrapCheck() {
   var x = amrapCount(S.tag);
+  function edit() {
+    openSheet('Ergebnis', [{ head: 'Runden', items: numItems(0, 30), val: String(Math.min(30, x.r)) }, { head: 'Extra-Wdh.', items: numItems(0, 60), val: String(Math.min(60, x.w)) }],
+      function (v2) { setDraft('mr', v2[0]); setDraft('mw', v2[1]); render(); }, { num: 0 });
+  }
+  if (roundMode() === 'off') { openChoice('Ergebnis eintragen?', 'Runden und Extra-Wdh. aus dem AMRAP. Du kannst es auch leer lassen.', [['edit', 'Eintragen', 'primary'], ['skip', 'Leer lassen', '']], function (v) { if (v === 'edit') edit(); }); return; }
   openChoice('Stimmt dein Ergebnis?', 'Gezählt: ' + x.r + (x.r === 1 ? ' Runde' : ' Runden') + ' + ' + x.w + ' Wdh.', [['ok', 'Stimmt, speichern', 'primary'], ['edit', 'Ändern', '']], function (v) {
     if (v === 'ok') { setDraft('mr', x.r); setDraft('mw', x.w); render(); }
-    else if (v === 'edit') {
-      openSheet('Ergebnis', [{ head: 'Runden', items: numItems(0, 30), val: String(Math.min(30, x.r)) }, { head: 'Extra-Wdh.', items: numItems(0, 60), val: String(Math.min(60, x.w)) }],
-        function (v2) { setDraft('mr', v2[0]); setDraft('mw', v2[1]); render(); }, { num: 0 });
-    }
+    else if (v === 'edit') edit();
   });
 }
 function stepRun(step) { return !!(TM.cfg && TM.cfg.step === step && !TM.finished && (TM.running || TM.acc > 0)); }
@@ -3675,7 +3759,7 @@ function swipeDo(t, fwd) {
   var k = t.dataset.swipe, id = t.dataset.flow;
   if (k === 'card') flowStep(id, fwd);
   else if (k === 'row') flowRow(id, +t.dataset.i, fwd);
-  else if (k === 'count') flowCount(fwd ? 1 : -1);
+  else if (k === 'count') flowCount(fwd ? 1 : -1, id);
 }
 // Beweglichkeits-Check: je Test eine Karte mit Figur der gewählten (sonst der zuletzt erreichten) Stufe, Auswahl und Anleitung.
 function mobCheckHTML(D) {
@@ -3876,7 +3960,7 @@ function metconStepHTML(tag, D, am) {
   }
   if (lm) h += '<p class="small hint">Letztes Mal mit diesen Übungen: ' + lm.rounds + (em ? ' Runden geschafft' : ' Runden + ' + (lm.reps || 0) + ' Wdh.') + '. Ziel heute: mindestens 1 ' + (em ? 'Runde' : 'Wdh.') + ' mehr.</p>';
   if (em) return h + '<div class="pick-grid">' + tile('Runden geschafft', '<b>' + (D.mr ? esc(D.mr) : '–') + ' <span class="unit">von ' + am + '</span></b>', pickAttrs({ f: 'mr', min: 0, max: am, unit: 'Runden', def: lm ? lm.rounds : am, title: B.name }), D.mr ? 'set' : '') + '</div></section>';
-  if (single && run) return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
+  if (single && run && roundMode() === 'ex') return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
   h += '<div class="pick-grid">' +
     tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: lm ? lm.rounds : 4, title: 'AMRAP ' + am }), D.mr ? 'set' : '') +
     tile('Extra-Wdh.', '<b>' + (D.mw ? esc(D.mw) : '–') + '</b>', pickAttrs({ f: 'mw', min: 0, max: 60, unit: 'Wdh.', def: 0, title: 'AMRAP ' + am }), D.mw ? 'set' : '') +
@@ -4385,6 +4469,7 @@ ACT['tb-start'] = function () {
   var t = stepTimer(b.dataset.step.split(':').pop()); if (!t) return;
   timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({}, t.cfg, { step: b.dataset.step }); TM.coolBi = null; timerReset(); timerToggle();
   if (t.mode === 'amrap') render(); else paintMini();
+  if (!FS.on && timerModeOf(timerTypeOf(b.dataset.step)) === 'full') fsOpen('auto');
 };
 ACT['tb-toggle'] = function () { timerToggle(); paintMini(); };
 ACT['tb-finish'] = function () { finish(); };
@@ -4410,10 +4495,12 @@ function paintMini(L) {
   var state = !active ? 'idle' : TM.finished ? 'done' : 'run';
   if (b.dataset.state !== state) {
     b.dataset.state = state;
-    if (state === 'idle') b.innerHTML = '<button type="button" class="tb-main" data-act="tb-start"><span class="tb-play">' + PLAY + '</span><span class="tb-txt"><b>' + esc(b.dataset.label) + '</b><small>' + esc(b.dataset.info) + '</small></span></button>';
+    if (state === 'idle') b.innerHTML = '<button type="button" class="tb-main" data-act="tb-start"><span class="tb-play">' + PLAY + '</span><span class="tb-txt"><b>' + esc(b.dataset.label) + '</b><small>' + esc(b.dataset.info) + '</small></span></button>' +
+      '<button type="button" class="tb-btn" data-act="fs-open" data-start="1" aria-label="Im Vollbild starten">' + I_EXP + '</button>';
     else if (state === 'done') b.innerHTML = '<button type="button" class="tb-main" data-act="' + (b.dataset.next ? 'step' : 'tb-clear') + '" data-to="' + (b.dataset.next || '') + '"><span class="tb-play done">' + TICK + '</span><span class="tb-txt"><b>' + (b.dataset.next ? 'Weiter zu ' + esc(b.dataset.nextl) : 'Geschafft') + '</b><small>' + (b.dataset.next ? 'Block geschafft' : 'Trag dein Ergebnis ein') + '</small></span></button>';
-    else b.innerHTML = '<div class="tb-main" role="timer"><span class="tb-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tr-bg" cx="24" cy="24" r="21"/><circle class="tr-fg" id="tb-arc" cx="24" cy="24" r="21" stroke-dasharray="' + RING.toFixed(1) + '"/></svg><b id="tb-time"></b></span><span class="tb-txt"><b id="tb-title"></b><small id="tb-sub"></small></span></div>' +
-      '<button type="button" class="tb-btn" id="tb-tg" data-act="' + (TM.mode === 'zeit' ? 'tb-finish' : 'tb-toggle') + '"></button>';
+    else b.innerHTML = '<div class="tb-main" role="timer" data-act="fs-open" aria-label="Vollbild"><span class="tb-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tr-bg" cx="24" cy="24" r="21"/><circle class="tr-fg" id="tb-arc" cx="24" cy="24" r="21" stroke-dasharray="' + RING.toFixed(1) + '"/></svg><b id="tb-time"></b></span><span class="tb-txt"><b id="tb-title"></b><small id="tb-sub"></small></span></div>' +
+      '<span class="tb-grp"><button type="button" class="tb-btn" id="tb-tg" data-act="' + (TM.mode === 'zeit' ? 'tb-finish' : 'tb-toggle') + '"></button>' +
+      '<button type="button" class="tb-btn" data-act="fs-open" aria-label="Vollbild">' + I_EXP + '</button></span>';
   }
   if (TM.mode === 'routine') paintRoutine(L);
   document.querySelectorAll('.ex-card.now,.cell.now').forEach(function (x) { x.classList.remove('now'); });
@@ -4440,6 +4527,168 @@ function paintMini(L) {
   if (TM.mode === 'zeit') { if (tg.dataset.i !== 's') { tg.dataset.i = 's'; tg.innerHTML = STOP; tg.setAttribute('aria-label', 'Fertig'); } }
   else { var want = TM.running ? 'p' : 'r'; if (tg.dataset.i !== want) { tg.dataset.i = want; tg.innerHTML = TM.running ? PAUSE : PLAY; tg.setAttribute('aria-label', TM.running ? 'Pause' : 'Weiter'); } }
 }
+
+/* ---------- Timer im Vollbild: hochkant oder quer, je Trainingsart Leiste oder Vollbild ---------- */
+var TIMER_TYPES = [['tools', 'Tools › Timer'], ['warm', 'Aufwärmen'], ['hs', 'Handstand · Skill'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['murph', 'Murph'], ['mobl', 'Beweglichkeit'], ['cool', 'Cool-down']];
+var TIMER_STD = { tools: 'full', warm: 'bar', hs: 'bar', kraft: 'bar', metcon: 'bar', murph: 'bar', mobl: 'bar', cool: 'bar' };
+function timerTypeOf(step) { if (!step) return 'tools'; var id = String(step).split(':').pop(); return id === 'skill' ? 'hs' : TIMER_STD[id] ? id : 'kraft'; }
+function timerModeOf(t) { var m = S.timerCustom && S.timerModes ? S.timerModes[t] : null; return m === 'bar' || m === 'full' ? m : TIMER_STD[t]; }
+function roundMode() { return S.roundMode === 'rd' || S.roundMode === 'off' ? S.roundMode : 'ex'; }
+var ICO = function (p, w) { return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 2) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
+var I_ROT = ICO('<rect x="7.5" y="3" width="9" height="18" rx="2.5"/><path d="M3 9.5A9 9 0 0 1 6 4.5M21 14.5a9 9 0 0 1-3 5M3 4.5v5h5M21 19.5v-5h-5"/>', 1.8),
+  I_MIN = ICO('<path d="M4 10h6V4M20 14h-6v6M10 10L3.5 3.5M14 14l6.5 6.5"/>', 2.2),
+  I_EXP = ICO('<path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/>', 2.2),
+  I_X = ICO('<path d="M6 6l12 12M18 6L6 18"/>', 2.2);
+var FS = { on: false, why: '', lock: null, key: '', lp: false }, MQ_LAND = window.matchMedia ? window.matchMedia('(orientation: landscape)') : null;
+function fsEl() { var f = document.getElementById('fs'); if (!f) { f = document.createElement('div'); f.id = 'fs'; f.hidden = true; f.setAttribute('role', 'dialog'); f.setAttribute('aria-label', 'Timer im Vollbild'); document.body.appendChild(f); } return f; }
+function fsWant() {
+  var act = MQ_LAND && MQ_LAND.matches ? 'land' : 'port', v = S.timerView === 'port' || S.timerView === 'land' ? S.timerView : null;
+  return { act: act, want: FS.lock || v || act };
+}
+function fsOrient() {
+  if (!FS.on) return;
+  var f = fsEl(), o = fsWant(), turn = o.want !== o.act, W = window.innerWidth, H = window.innerHeight;
+  if (turn) { var t = W; W = H; H = t; }
+  f.dataset.view = o.want; f.classList.toggle('turn', turn);
+  f.style.width = W + 'px'; f.style.height = H + 'px';
+  var n = document.getElementById('fs-num');
+  if (n) n.style.fontSize = Math.round(o.want === 'land' ? Math.min(H * 0.4, (W - 400) / 2.7) : Math.min((W - 48) / 2.8, H * 0.15)) + 'px';
+  if (turn) { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock(o.want === 'land' ? 'landscape' : 'portrait').catch(function () {}); } catch (e) { /* nicht möglich */ } }
+}
+function fsOpen(why) {
+  var f = fsEl(); FS.on = true; FS.why = why || 'btn'; FS.key = '';
+  f.hidden = false; document.body.classList.add('fs-open'); fsRender(); fsOrient(); fsPaint();
+}
+function fsClose() {
+  var f = fsEl(); FS.on = false; FS.lock = null; FS.key = '';
+  f.querySelectorAll('.fig').forEach(stopFig); f.innerHTML = ''; f.hidden = true; f.classList.remove('turn'); document.body.classList.remove('fs-open');
+  try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (e) { /* egal */ }
+  if (ui.tab === 'timer') paintNow(); paintMini();
+}
+function fsStepTitle(step) {
+  var id = String(step).split(':').pop(), st = stepsOf(dayCtx(S.tag));
+  for (var i = 0; i < st.length; i++) if (st[i].id === id) return st[i].title + ' · Schritt ' + (i + 1) + ' von ' + st.length;
+  return '';
+}
+function fsKick() {
+  var c = TM.cfg || {};
+  if (c.step) return fsStepTitle(c.step);
+  return { emom: 'EMOM · alle ' + fmtT(c.every) + ' · ' + c.rounds + ' Runden', amrap: 'AMRAP · ' + fmtT(c.sec), hiit: 'Intervall · ' + fmtT(c.work) + ' / ' + fmtT(c.rest) + ' · ' + c.rounds + ' Runden',
+    zeit: 'Auf Zeit' + (c.cap ? ' · Limit ' + fmtT(c.cap) : '') }[TM.mode] || '';
+}
+function fsRender() {
+  var tools = !(TM.cfg && TM.cfg.step);
+  fsEl().innerHTML = '<div class="fs-in"><div class="fs-top"><p class="fs-kick">' + esc(fsKick()) + '</p><div class="fs-tools">' +
+    '<button type="button" class="rbtn" data-act="fs-rot" aria-label="Ansicht drehen, lange drücken = automatisch">' + I_ROT + '</button>' +
+    '<button type="button" class="rbtn" data-act="fs-min" aria-label="Minimieren">' + I_MIN + '</button>' +
+    '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button>' +
+    (tools ? '<button type="button" class="rbtn" data-act="fs-x" aria-label="Timer beenden">' + I_X + '</button>' : '') + '</div></div>' +
+    '<div class="fs-main"><div class="fs-dig"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div>' +
+    '<div class="fs-prog"><div class="fs-trk"><i id="fs-fill"></i></div><span id="fs-pl"></span></div></div><div class="fs-side" id="fs-side"></div></div></div>';
+  FS.key = '';
+}
+function fsStepper(val, act, flow) {
+  var f = flow ? ' data-flow="' + flow + '"' : '';
+  return '<div class="stepper"><button type="button" data-act="' + act + '" data-d="-1"' + f + ' aria-label="Eine Runde weniger">–</button><b>' + val + '</b><button type="button" class="primary" data-act="' + act + '" data-d="1"' + f + ' aria-label="Eine Runde mehr">+</button></div>';
+}
+// Übungen der Runde (Metcon, Murph) je nach „Runden zählen“.
+function fsFlowHTML(F) {
+  var s = flowState(F), rm = roundMode(), single = modeOf(F.id) === 'single', n = F.items.length, cur = rm !== 'ex' ? -1 : single ? s.c : s.c < n ? s.c : -1;
+  var h = rm === 'off' ? '<p class="fs-lbl">' + (F.id === 'murph' ? 'Murph' : 'Workout') + '</p>'
+    : '<div class="fs-rh"><p class="fs-lbl">Runden' + (F.loop.times ? ' / ' + F.loop.times : '') + '</p>' + fsStepper(s.r - 1, 'fl-count', F.id) + '</div>';
+  h += '<div class="fs-rows">' + F.items.map(function (it, i) {
+    var on = i === cur, dn = rm === 'ex' && (single ? i < s.c : s.done.indexOf(i) >= 0);
+    return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + '"><b>' + esc(it.qty) + '</b><span>' + esc(it.n) + '</span>' +
+      (on ? '<button type="button" class="btn small" data-act="fl-done" data-flow="' + F.id + '"' + (single ? '' : ' data-i="' + i + '"') + '>Erledigt</button>' : '') + '</div>';
+  }).join('') + '</div>';
+  return h;
+}
+function fsSide(L) {
+  var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx;
+  if (TM.finished && !c.step) return { k: 'fin' + TM.rounds, h: '<p class="fs-lbl">Fertig</p><div class="fs-big">' + (TM.mode === 'amrap' || TM.mode === 'zeit' ? TM.rounds + '<small> Runden</small>' : 'Stark') + '</div><button type="button" class="btn primary block" data-act="fs-min">Fertig</button>' };
+  if (c.step && ((t === 'metcon' && TM.mode === 'amrap') || t === 'murph')) {
+    var F = flowById(t), s = flowState(F);
+    return { k: 'fl' + roundMode() + s.c + '|' + s.r + '|' + s.done.join(','), h: fsFlowHTML(F) };
+  }
+  if (TM.mode === 'emom' && c.stations) {
+    var nm = c.stations[mi % c.stations.length], g = GL[nm], nn = mi + 1 < c.minutes ? c.stations[(mi + 1) % c.stations.length] : '';
+    return { k: 'em' + mi + (L && L.p.kind === 'pre' ? 'p' : ''), h: '<div class="fs-ex">' + (g && figOf(g.key) ? '<div class="fs-fig">' + figHTML(g.key) + '</div>' : '') + '<div><p class="fs-lbl">' + (L && L.p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(nm) + '</p>' +
+      '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' };
+  }
+  if (TM.mode === 'amrap' || TM.mode === 'zeit') return { k: 'rd' + TM.rounds, tap: true, h: '<p class="fs-lbl">Runden</p>' + fsStepper(TM.rounds, 't-round') + '<p class="fs-hint">oder hier irgendwo tippen</p>' };
+  if (TM.mode === 'emom') { var n = c.rounds || c.minutes; return { k: 'er' + mi, h: '<p class="fs-lbl">Runde</p><div class="fs-big">' + (mi + 1) + '<small> / ' + n + '</small></div>' }; }
+  if (TM.mode === 'hiit') {
+    nx = L && L.p.kind !== 'pre' ? TM.phases[L.i + 1] : TM.phases[1];
+    return { k: 'hi' + (L ? L.i : 0), h: '<p class="fs-lbl">Als Nächstes</p>' + (nx ? '<div class="fs-big">' + esc(nx.label) + '</div><div class="fs-sub">' + fmtT(nx.dur) + '</div>' : '<div class="fs-big">Fertig</div>') };
+  }
+  if (TM.mode === 'routine' && p) return { k: 'ro' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><div class="fs-exn">' + esc(p.kind === 'pre' && TM.phases[1] ? TM.phases[1].label : p.label) + (p.side ? ' · ' + esc(p.side) : '') + '</div>' + (p.next ? '<p class="fs-hint">Danach: ' + esc(p.next) + '</p>' : '') };
+  var b = document.getElementById('tbar');
+  return { k: 'bl', h: '<p class="fs-lbl">' + esc(c.label || 'Timer') + '</p>' + (b && b.dataset.nextl ? '<p class="fs-hint">Danach: ' + esc(b.dataset.nextl) + '</p>' : '') };
+}
+function fsPaint(L, force) {
+  if (!FS.on) return;
+  if (!document.getElementById('fs-num')) { fsRender(); fsOrient(); }
+  if (force) FS.key = '';
+  if (L === undefined) L = TM.phases.length ? locate(elapsed()) : null;
+  var $ = function (id) { return document.getElementById(id); }, c = TM.cfg || {}, idle = !TM.running && TM.acc === 0 && !TM.finished, first = TM.phases[1] || {}, p = L ? L.p : first;
+  var num = TM.finished ? (TM.mode === 'zeit' ? fmt(Math.max(0, TM.finalElapsed - 10)) : '00:00') : idle || !L ? (first.up || !isFinite(first.dur) ? '00:00' : fmt(first.dur)) : L.rem == null || p.up ? fmt(L.inPhase) : fmt(Math.ceil(L.rem));
+  var green = !TM.finished && !idle && (p.kind === 'pre' || (TM.mode === 'hiit' && p.kind === 'easy'));
+  var hot = TM.running && L && L.rem != null && Math.ceil(L.rem) <= 3;
+  var st = TM.finished ? 'Fertig' : idle ? 'Bereit' : !TM.running ? 'Angehalten' : p.kind === 'pre' ? 'Vorlauf' : TM.mode === 'hiit' && p.kind === 'easy' ? 'Pause' : 'Läuft';
+  $('fs-num').textContent = num; $('fs-num').className = 'fs-num' + (green ? ' grn' : '') + (hot ? ' hot' : '');
+  $('fs-st').textContent = st; $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
+  var total = 0; TM.phases.forEach(function (x) { if (isFinite(x.dur)) total += x.dur; });
+  $('fs-fill').style.width = (TM.finished ? (TM.mode === 'zeit' ? 0 : 100) : TM.mode === 'zeit' && !c.cap ? 0 : Math.min(100, elapsed() / (total || 1) * 100)) + '%';
+  var pl = '';
+  if (TM.finished) pl = TM.mode === 'zeit' ? 'Deine Zeit' : 'Geschafft';
+  else if (idle) pl = 'Start mit 10 Sekunden Vorlauf';
+  else if (p.kind === 'pre') pl = 'In Position kommen';
+  else if (TM.mode === 'emom') pl = c.stations ? 'Runde ' + (Math.floor((L.i - 1) / c.stations.length) + 1) + ' von ' + Math.ceil(c.minutes / c.stations.length) : 'Runde ' + L.i + ' von ' + (c.rounds || c.minutes);
+  else if (TM.mode === 'hiit') pl = p.sub || '';
+  else if (TM.mode === 'zeit') pl = c.cap ? 'Limit ' + fmtT(c.cap) : c.rounds ? c.rounds + ' Runden' : 'Ohne Zeitlimit';
+  else if (TM.mode === 'routine') pl = p.next ? 'Danach: ' + p.next : '';
+  else if (L && L.rem != null) pl = 'noch ' + fmtT(Math.ceil(L.rem));
+  $('fs-pl').textContent = pl;
+  var tg = $('fs-tg'), want = TM.finished ? 'f' : TM.mode === 'zeit' && TM.running ? 's' : TM.running ? 'p' : 'r';
+  if (tg.dataset.i !== want) {
+    tg.dataset.i = want; tg.hidden = want === 'f';
+    tg.innerHTML = want === 's' ? STOP : want === 'p' ? PAUSE : PLAY;
+    tg.setAttribute('aria-label', want === 's' ? 'Fertig' : want === 'p' ? 'Pause' : 'Start');
+  }
+  var sd = fsSide(L), box = $('fs-side');
+  if (sd.k !== FS.key) {
+    FS.key = sd.k; box.querySelectorAll('.fig').forEach(stopFig);
+    box.innerHTML = sd.h; box.classList.toggle('tap', !!sd.tap); if (sd.tap) box.dataset.act = 'fs-plus'; else delete box.dataset.act;
+    box.querySelectorAll('.fig').forEach(startFig);
+  }
+  var nx = $('fs-nxt'); if (nx && L && L.rem != null) nx.textContent = 'in ' + fmtT(Math.ceil(L.rem));
+}
+ACT['fs-open'] = function (el) { if (el.dataset.start) ACT['tb-start'](); fsOpen('btn'); };
+ACT['fs-min'] = function () { fsClose(); };
+ACT['fs-x'] = function () {
+  if (!TM.running && TM.acc === 0) { fsClose(); return; }
+  openChoice('Timer beenden?', 'Der Timer stoppt und startet wieder von vorn.', [['stop', 'Beenden', 'red'], ['go', 'Weiter', '']], function (v) { if (v === 'stop') { timerReset(); fsClose(); render(); } });
+};
+ACT['fs-toggle'] = function () { if (TM.mode === 'zeit' && TM.running) { finish(); return; } timerToggle(); paintMini(); fsPaint(); };
+ACT['fs-plus'] = function () { ACT['t-round']({ dataset: { d: 1 } }); };
+ACT['fs-rot'] = function () { if (FS.lp) { FS.lp = false; return; } FS.lock = fsWant().want === 'land' ? 'port' : 'land'; fsOrient(); fsPaint(undefined, true); };
+(function () {
+  var t = null;
+  document.addEventListener('pointerdown', function (e) {
+    var b = e.target.closest && e.target.closest('[data-act="fs-rot"]'); if (!b) return;
+    clearTimeout(t); t = setTimeout(function () { FS.lp = true; FS.lock = null; fsOrient(); haptic('switch'); toast('Die Ansicht dreht wieder mit dem Handy.'); }, 650);
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { document.addEventListener(k, function () { clearTimeout(t); }); });
+})();
+// Handy drehen: läuft ein Timer, öffnet quer das Vollbild; zurück hochkant schließt es wieder, wenn es so geöffnet wurde.
+function fsTurn() {
+  var land = MQ_LAND && MQ_LAND.matches, auto = S.timerView !== 'port' && S.timerView !== 'land';
+  if (FS.on) { if (!land && FS.why === 'rot' && !FS.lock && auto) fsClose(); else fsOrient(); return; }
+  var step = TM.cfg && TM.cfg.step;
+  if (land && auto && TM.running && (step ? ui.tab === 'heute' && document.getElementById('tbar') : ui.tab === 'timer')) fsOpen('rot');
+}
+if (MQ_LAND) { if (MQ_LAND.addEventListener) MQ_LAND.addEventListener('change', fsTurn); else if (MQ_LAND.addListener) MQ_LAND.addListener(fsTurn); }
+window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 
 /* ---------- Entwicklung von Anfang an ---------- */
 function ladderSeries(key) {

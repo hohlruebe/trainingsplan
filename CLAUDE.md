@@ -117,6 +117,17 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   für Aufwärmen und Handstand. Die laufende EMOM-Übung ist blau umrandet. Vorlagen aus dem Plan gibt es nur dort.
 - Tools › Timer ist frei einstellbar: EMOM (Alle, Runden), AMRAP (Dauer), Intervall (Arbeit, Pause, Runden), Auf Zeit
   (Zeitlimit oder ohne), immer mit 10 s Vorlauf. Einstellung je Art in `S.tmr` (`tmr()`, nur auf dem Gerät).
+  Rundenzähler auf der Timer-Seite nur, solange der Timer läuft (`#t-rrow`).
+- Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`): große Zeit in Geist, rechts (quer) bzw. unten (hochkant) eine Karte:
+  Runden (Tools AMRAP/Auf Zeit, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), laufende EMOM-Übung mit
+  Figur und „Als Nächstes“, Intervall „Als Nächstes“. Oben Drehen (`fs-rot`, hält die Ansicht, lange drücken = automatisch), Minimieren
+  (`fs-min`, Timer läuft weiter), Pause, ✕ nur in Tools (mit Nachfrage). Vorlauf und Intervall-Pause grün, letzte 3 s pulsieren.
+  Öffnen: Pfeil-Knopf in der Timer-Leiste (mit Pause in einer Kapsel `.tb-grp`), Tippen auf die Zeit, Pfeil-Knopf auf der Timer-Seite,
+  Handy quer drehen, während ein Timer läuft (`fsTurn`; zurück hochkant schließt wieder). Ansicht weicht vom Handy ab = CSS-Drehung
+  (`.turn`), dazu `screen.orientation.lock`, wo erlaubt. Einstellungen › Training › Timer: Standard oder je Trainingsart Leiste/Vollbild
+  (`TIMER_TYPES`, `TIMER_STD`: nur Tools › Timer im Vollbild, `S.timerCustom`, `S.timerModes`, `timerModeOf`), Vollbild-Ansicht
+  Automatisch/Hochkant/Quer (`S.timerView`). Runden zählen (`S.roundMode`, `roundMode()`): Übung für Übung (wie bisher), Nur Runden
+  (Workout ohne Abhaken plus Zähler, `flowStaticHTML`), Aus (nur Workout, am Ende „Ergebnis eintragen?“). Alles nur auf dem Gerät.
   Zeiten wählt man im Zeit-Blatt (`openTimeSheet`): Rad Min/Sek in 1er-Schritten, nochmal auf die Zeit tippen = Zahlentastatur
   (Ziffern laufen von rechts ein). Auch die große Zeit lässt sich antippen.
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.

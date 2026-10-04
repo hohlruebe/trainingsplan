@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 4. Oktober 2026 (Tools: Drop-down am Titel, Routinen heißt Mobility)
+Stand: 4. Oktober 2026 (Timer im Vollbild, Timer je Trainingsart, Runden zählen)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,14 @@ Stand: 4. Oktober 2026 (Tools: Drop-down am Titel, Routinen heißt Mobility)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Timer im Vollbild (4. Oktober)
+- Entwurf im Canvas (Board „Timer im Vollbild“), von Dennis freigegeben: App-Design statt LED-Box-Timer, hochkant und quer,
+  Minimieren-Knopf, Vollbild-Knopf in der Timer-Kapsel unten (nicht schwebend), kein Text „letzte 3 s piepen“,
+  Intervall „Als Nächstes“ untereinander, Runden zählen mit drei Stufen, Timer je Trainingsart einstellbar.
+- Der Rundenzähler unter „Start“ (Tools › Timer) erscheint nur noch, solange der Timer läuft.
+- Offen/zu beobachten: Drehen per `screen.orientation.lock` klappt in Chrome nur im Vollbild der installierten App, sonst dreht die
+  App den Inhalt per CSS. Dennis fragen, ob die Drehrichtung beim festen Querformat passt.
 
 ## Tools: Drop-down am Titel (4. Oktober)
 - Die Kapsel Timer/Übungen/Routinen/1RM oben ist weg. Der Titel hat einen Pfeil, Tippen öffnet ein Drop-down (Variante A im Canvas, Größe wie im Entwurf: größere Version war Dennis auf dem Handy zu groß).
