@@ -464,6 +464,8 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .rp-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:52px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .rp-ring b svg{width:56px;height:56px;color:var(--on)}
 .rp p{margin:0}
+.rp-fig{align-self:stretch;text-align:left;margin:8px 0 4px}
+.rp-fig .fig,.rp-fig .figph{margin:0}
 .rp-ctl{display:flex;gap:14px;justify-content:center;margin:10px 0 2px}
 .rp-tg{width:56px;height:56px;border-radius:28px;background:var(--acc);color:var(--on-acc);border-color:transparent}
 .rp #rp-done{margin-top:12px}
@@ -583,7 +585,10 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 :root[data-paper="leinen"]{--board:#EFEBE3;--paper:#F8F5EF;--pill:#FCFAF6;--fig:#F8F5EF;--tray:#E8E4DB;--tray-line:#DBD6CB;--fill:#E1DDD3;--line:#E4DFD5;--plate:#E7E5E0}
 :root[data-paper="nebel"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
 /* Übungsfamilien, Skill-Pfad, Skill-Baum */
-.gl-item.fam>summary{padding:12px 0}
+.gl-row{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:12px 0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.gl-item.locked>.gl-row{opacity:.5}
+.gl-chev{flex:none;width:18px;height:18px;color:var(--ink2)}
+.hero+.fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 4px}
 .gl-item.fam .gl-t{flex:1}
 .gl-item.fam .fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .gl-item.fam .fam-chips .chip{border-radius:12px;white-space:normal;line-height:1.25;text-align:left;max-width:100%;box-sizing:border-box;min-height:24px;font-size:12px;padding:4px 9px}
@@ -1840,7 +1845,7 @@ function routinePhases(r) {
   var P = [], n = r.bloecke.length;
   r.bloecke.forEach(function (b, i) {
     (b.je_seite ? ['Links', 'Rechts'] : ['']).forEach(function (side) {
-      P.push({ label: ueName(b.uebung), sub: 'Übung ' + (i + 1) + ' von ' + n, side: side, hint: b.hinweis || '', dur: Math.max(5, blockSec(b)), kind: 'easy', bi: i });
+      P.push({ label: ueName(b.uebung), sub: 'Übung ' + (i + 1) + ' von ' + n, side: side, hint: b.hinweis || '', dur: Math.max(5, blockSec(b)), kind: 'easy', bi: i, key: b.uebung });
     });
   });
   P.forEach(function (x, i) { x.next = P[i + 1] ? P[i + 1].label + (P[i + 1].side ? ' · ' + P[i + 1].side : '') : 'Fertig'; });
@@ -1984,7 +1989,7 @@ var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen', 'rm'] };
 var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Mobility', rm: '1RM' };
-var HIDDEN = { einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', laufziel: 'coach', skillziel: 'coach' };
+var HIDDEN = { fam: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', laufziel: 'coach', skillziel: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
@@ -2211,7 +2216,7 @@ function scheduleRender() { if (isTyping()) { pendingRender = true; return; } re
 function render() {
   pendingRender = false;
   syncDays();
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, skill: renderSkill, fokus: renderFokus, laufziel: renderLaufziel, skillziel: renderSkillziel }[ui.tab];
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, skill: renderSkill, fokus: renderFokus, laufziel: renderLaufziel, skillziel: renderSkillziel }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
@@ -2225,7 +2230,8 @@ function render() {
   if (ui.tab === 'timer') paintNow();
   if (ui.tab === 'heute') { wakeFigs(); paintMini(); syncFig(document.querySelector('.ex-card.now') ? +document.querySelector('.ex-card.now').dataset.ex : 0); }
   if (ui.tab === 'routine') paintRoutine();
-  if (ui.tab === 'uebungen') wakeGloss();
+  if (ui.tab === 'uebungen' || ui.tab === 'fam') wakeGloss();
+  if (ui.tab === 'fam') { document.querySelectorAll('#view .fam-top .fig').forEach(startFig); fitLadders($view); }
   if (ui.tab === 'skill') drawTree();
   if (FS.on) fsPaint(undefined, true);
 }
@@ -3370,10 +3376,10 @@ var ACT = {
   'back-today': function () { ui.viewTag = null; render(); },
   'do-this-day': function (el) { S.tag = +el.dataset.tag; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
   gloss: function (el) {
-    var name = el.dataset.name, e = GL[name]; ui.tab = 'uebungen'; ui.glossOpen = name; ui.glossQuery = '';
-    // Die Übung steckt in ihrer Familie: Familie aufklappen, bei fehlendem Equipment „Alle“ zeigen.
-    if (e && FAM_OF[e.key]) { ui.famOpen = FAM_OF[e.key].id; if (e.lib && !eqOk(e.lib.equipment, haveEq())) { ui.libAll = true; ui.libOpen = false; } }
-    render();
+    var name = el.dataset.name, e = GL[name], from = ui.tab; ui.tab = 'uebungen'; ui.glossOpen = name; ui.glossQuery = ''; if (from !== 'fam') ui.famBack = 'uebungen';
+    // Die Übung steckt in ihrer Familie: deren Seite öffnen, die Übung aufgeklappt.
+    if (e && FAM_OF[e.key]) { var back = ui.famBack || 'uebungen'; famOpen(FAM_OF[e.key].id, name); ui.famBack = back; }
+    else render();
     var n = document.getElementById('g-' + e.key); if (n) n.scrollIntoView({ block: 'start' });
   },
   save: saveDay,
@@ -4008,9 +4014,9 @@ function kraftStepHTML(tag, D, rounds) {
         pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · ' + lab }) +
         '><small>' + (mx ? 'Max · ' : '') + lab + '</small><b>' + (v ? esc(v) : '–') + '</b></button>';
     }
-    var fk = g && figOf(g.key) ? g.key : null;
+    var fk = g ? g.key : '';
     h += '<section class="card ex-card" data-ex="' + i + '"><div class="card-head"><h3>' + gl(x.n) + '</h3><span class="small muted">' + esc(x.target) + '</span></div>' +
-      (fk ? '<div class="ex-fig" hidden>' + figHTML(fk) + (GRIP[fk] ? '<p class="grip">' + esc(GRIP[fk]) + '</p>' : '') + '</div>' : '') +
+      '<div class="ex-fig" hidden>' + figBox(fk) + (GRIP[fk] ? '<p class="grip">' + esc(GRIP[fk]) + '</p>' : '') + '</div>' +
       (x.note ? '<p class="small muted">' + esc(x.note) + '</p>' : '') + (hint ? '<p class="small hint">' + hint + '</p>' : '') +
       (lad ? stageRow('Stufe', stage, { sf: sf, sdef: stage, lad: g.key, title: x.n }) : '') +
       '<div class="cells" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div></section>';
@@ -4472,7 +4478,7 @@ function renderRoutine() {
   if (!(TM.mode === 'routine' && TM.cfg && TM.cfg.rid === r.id && TM.cfg.player)) { timerStop(); TM.mode = 'routine'; TM.cfg = { rid: r.id, player: true }; timerReset(); }
   var h = '<div class="st-top"><button type="button" class="rbtn" data-act="r-close" aria-label="Schließen">' + BACK + '</button><span class="small muted">' + r.dauer_min + ' Min · ' + r.bloecke.length + ' Übungen</span></div>';
   h += '<section class="hero"><h1>' + esc(r.name) + '</h1><p class="st-sub muted">' + esc(r.ziel) + '</p></section>';
-  h += '<section class="card rp"><p class="kicker muted" id="rp-k"></p><h2 id="rp-n"></h2><p class="rp-side"><span id="rp-s"></span></p>' +
+  h += '<section class="card rp"><p class="kicker muted" id="rp-k"></p><h2 id="rp-n"></h2><p class="rp-side"><span id="rp-s"></span></p><div id="rp-fig" class="rp-fig"></div>' +
     '<div class="rp-ring"><svg viewBox="0 0 190 190" aria-hidden="true"><circle class="rr-bg" cx="95" cy="95" r="84"/><circle class="rr-fg" id="rp-arc" cx="95" cy="95" r="84" stroke-dasharray="' + RRING.toFixed(1) + '"/></svg><b id="rp-t"></b></div>' +
     '<p class="small muted" id="rp-h"></p><p class="small muted" id="rp-x"></p>' +
     '<div class="rp-ctl"><button type="button" class="rbtn" data-act="r-jump" data-d="-1" aria-label="Zurück">' + BACK + '</button>' +
@@ -4503,6 +4509,7 @@ function paintRoutine(L) {
     $('rp-tg').hidden = true; $('rp-done').hidden = false; return;
   }
   if (!p) return;
+  var fb = $('rp-fig'); if (fb && fb.dataset.k !== String(p.key || '')) { fb.querySelectorAll('.fig').forEach(stopFig); fb.dataset.k = p.key || ''; fb.innerHTML = figBox(p.key || ''); fb.querySelectorAll('.fig').forEach(startFig); }
   $('rp-tg').hidden = false; $('rp-done').hidden = true;
   var pre = p.kind === 'pre';
   $('rp-k').textContent = pre ? 'Gleich geht’s los' : p.sub;
@@ -4691,7 +4698,7 @@ function fsSide(L) {
   }
   if (TM.mode === 'emom' && c.stations) {
     var nm = c.stations[mi % c.stations.length], g = GL[nm], nn = mi + 1 < c.minutes ? c.stations[(mi + 1) % c.stations.length] : '';
-    return { k: 'em' + mi + (L && L.p.kind === 'pre' ? 'p' : ''), h: '<div class="fs-ex">' + (g && figOf(g.key) ? '<div class="fs-fig">' + figHTML(g.key) + '</div>' : '') + '<div><p class="fs-lbl">' + (L && L.p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(nm) + '</p>' +
+    return { k: 'em' + mi + (L && L.p.kind === 'pre' ? 'p' : ''), h: '<div class="fs-ex">' + '<div class="fs-fig">' + figHTML(g && figOf(g.key) ? g.key : '_wave') + '</div>' + '<div><p class="fs-lbl">' + (L && L.p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(nm) + '</p>' +
       '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' };
   }
   if (TM.mode === 'amrap' || TM.mode === 'zeit') return { k: 'rd' + TM.rounds, tap: true, h: '<p class="fs-lbl">Runden</p>' + fsStepper(TM.rounds, 't-round') + '<p class="fs-hint">oder hier irgendwo tippen</p>' };
@@ -5094,8 +5101,8 @@ function glossListHTML(list) {
 function glItemHTML(e, st, have, cls) {
   var u = e.lib, lad = LAD[e.key], s = st[e.key], miss = eqMissing(u.equipment, have), req = reqText(u.voraussetzung, st);
   var sub = lad && s && s.cur ? 'Leiter · aktuell: ' + stageText(lad.steps[s.cur - 1]) : miss ? 'Gesperrt: braucht ' + miss : req ? req : lad ? 'Leiter · ' + lad.steps.length + ' Stufen' : u.trainiert;
-  return '<details class="gl-item' + (cls ? ' ' + cls : '') + (miss ? ' locked' : '') + '" id="g-' + esc(e.key) + '"' + (ui.glossOpen === e.name ? ' open' : '') + '><summary><span class="gl-sc">' + u.nutzen + '</span><span class="gl-t"><b>' + esc(e.name) + '</b><small>' + esc(sub) + '</small></span></summary>' +
-    '<div class="gl-body">' + figHTML(e.key) + '<p class="muted small">Trainiert: ' + esc(u.trainiert) + '</p><ol class="steps">' + u.schritte.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
+  return '<details class="gl-item' + (cls ? ' ' + cls : '') + (miss ? ' locked' : '') + '" id="g-' + esc(e.key) + '"' + (ui.glossOpen === e.name ? ' open' : '') + '><summary><span class="gl-t"><b>' + esc(e.name) + '</b><small>' + esc(sub) + '</small></span></summary>' +
+    '<div class="gl-body">' + figBox(e.key) + '<p class="muted small">Trainiert: ' + esc(u.trainiert) + '</p><ol class="steps">' + u.schritte.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
     ladderHTML(lad, s) + (lad && lad.pre ? '<p class="small muted">' + esc(lad.pre) + '</p>' : '') +
     '<p class="cue"><b>Sauber:</b> ' + esc(u.sauber) + '</p>' + (u.fehler ? '<p class="small"><b>Häufiger Fehler:</b> ' + esc(u.fehler) + '</p>' : '') +
     (u.skalierung ? '<p class="small"><b>Skalierung:</b> ' + esc(u.skalierung) + '</p>' : '') +
@@ -5176,21 +5183,34 @@ function famChipsHTML(f, c, avail) {
   if (!avail.length) { var u = UE[f.varianten[0].uebung]; ch.push('<span class="chip lock">' + LOCK_SVG + ' braucht ' + esc(eqMissing(u.equipment, c.have) || 'anderes Equipment') + '</span>'); }
   return ch.length ? '<span class="fam-chips">' + ch.join('') + '</span>' : '';
 }
-function famItemHTML(f, c, avail) {
-  var n = f.varianten.length, st = famStufen(f), open = ui.famOpen === f.id || (ui.glossOpen && f.varianten.some(function (v) { return uName(v.uebung) === ui.glossOpen; }));
+function famSub(f) { var n = f.varianten.length, st = famStufen(f); return n + (n === 1 ? ' Übung' : ' Varianten') + (st.length ? ' · ' + st.length + (st.length === 1 ? ' Stufe' : ' Stufen') : ''); }
+// Inhalt der Familien-Seite: oben Figur, Kurztext und Skill-Pfad, darunter Stufen, Varianten, Tempo und Verweise.
+function famBody(f, c) {
+  var n = f.varianten.length, st = famStufen(f);
   var sub = n + (n === 1 ? ' Übung' : ' Varianten') + (st.length ? ' · ' + st.length + (st.length === 1 ? ' Stufe' : ' Stufen') : '');
   var item = function (v) { var e = GL[uName(v.uebung)]; return e && e.lib ? glItemHTML(e, c.st, c.have, 'sub') : ''; };
   var vars = f.varianten.filter(function (v) { return v.art === 'variante'; }), tempo = f.varianten.filter(function (v) { return v.art === 'tempo'; });
   var also = []; FAMD.familien.forEach(function (g) { if (g !== f) g.varianten.forEach(function (v) { if ((v.auch_in || []).indexOf(f.id) >= 0) also.push(v); }); });
-  var body = figHTML(famFigKey(f, c)) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c) +
-    (st.length ? '<p class="sec-k">Stufen</p><div class="fam-list">' + st.map(item).join('') + '</div>' : '') +
+  var top = figBox(famFigKey(f, c)) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c);
+  var body = (st.length ? '<p class="sec-k">Stufen</p><div class="fam-list">' + st.map(item).join('') + '</div>' : '') +
     (vars.length ? '<p class="sec-k">Gleichwertige Varianten</p><div class="fam-list">' + vars.map(item).join('') + '</div>' : '') +
     (tempo.length ? '<p class="sec-k">Auf Tempo (CrossFit)</p><p class="tempo-note">' + esc(tempo[0].vermerk || 'Auf Tempo ausgelegt, nicht auf saubere Range of Motion oder Effizienz.') + ' Ersetzt nie eine Stufe im Krafttraining.</p><div class="fam-list">' + tempo.map(item).join('') + '</div>' : '') +
     (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + ' ›</button>'; }).join('') + '</div>' : '') +
     ((f.voraussetzt || []).length ? '<p class="sec-k">Baut auf</p><div class="chips">' + f.voraussetzt.map(function (p) { return FAM[p.familie] ? '<button type="button" class="chip" data-act="fam-go" data-id="' + p.familie + '">' + esc(FAM[p.familie].name) + ' ›</button>' : ''; }).join('') + '</div>' : '') +
     ((f.fuehrt_zu || []).length ? '<p class="sec-k">Führt zu</p><div class="chips">' + f.fuehrt_zu.map(function (id) { return FAM[id] ? '<button type="button" class="chip blue" data-act="fam-go" data-id="' + id + '">' + esc(FAM[id].name) + ' ›</button>' : ''; }).join('') + '</div>' : '');
-  return '<details class="gl-item fam' + (avail.length ? '' : ' locked') + '" id="f-' + f.id + '" data-fam="' + f.id + '"' + (open ? ' open' : '') + '><summary><span class="gl-sc">' + famTop(f) + '</span><span class="gl-t"><b>' + esc(f.name) + '</b><small>' + sub + '</small>' + famChipsHTML(f, c, avail) + '</span></summary>' +
-    '<div class="gl-body">' + body + '</div></details>';
+  return { top: top, body: body };
+}
+function famItemHTML(f, c, avail) {
+  return '<div class="gl-item fam' + (avail.length ? '' : ' locked') + '" id="f-' + f.id + '"><button type="button" class="gl-row" data-act="fam-open" data-id="' + f.id + '"><span class="gl-t"><b>' + esc(f.name) + '</b><small>' + famSub(f) + '</small>' + famChipsHTML(f, c, avail) + '</span>' +
+    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
+}
+function renderFam() {
+  var f = FAM[ui.famId]; if (!f) { ui.tab = 'uebungen'; return renderUebungen(); }
+  ui.noSub = true;
+  var c = famCtx(), avail = f.varianten.filter(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, c.have); }), B = famBody(f, c);
+  return '<button type="button" class="rbtn back" data-act="tab" data-tab="' + (ui.famBack || 'uebungen') + '" aria-label="Zurück">' + BACK + '</button>' +
+    '<section class="hero"><h1>' + esc(f.name) + '</h1><p class="hero-title">' + famSub(f) + '</p></section>' + famChipsHTML(f, c, avail) +
+    '<section class="card fam-top">' + B.top + '</section>' + (B.body ? '<section class="card fam-page">' + B.body + '</section>' : '');
 }
 function famListHTML() {
   var c = famCtx(), groups = {};
@@ -5208,11 +5228,14 @@ function famListHTML() {
   }).join('');
 }
 function famCount() { var have = haveEq(); return FAMD.familien.filter(function (f) { return ui.libAll || f.varianten.some(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, have); }); }).length; }
-ACT['fam-go'] = function (el) {
-  var id = el.dataset.id; if (!FAM[id]) return;
-  ui.tab = 'uebungen'; ui.last.tools = 'uebungen'; ui.libAll = true; ui.libOpen = false; ui.famOpen = id; ui.glossOpen = null; ui.glossQuery = ''; render();
-  var d = document.getElementById('f-' + id); if (d) d.scrollIntoView({ block: 'start' }); window.scrollBy(0, -12);
-};
+// Familie als eigene Seite öffnen; Zurück führt dorthin, wo man herkam.
+function famOpen(id, gloss) {
+  if (!FAM[id]) return;
+  if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' ? ui.tab : 'uebungen';
+  ui.famId = id; ui.glossOpen = gloss || null; ui.tab = 'fam'; window.scrollTo(0, 0); render();
+}
+ACT['fam-open'] = function (el) { famOpen(el.dataset.id); };
+ACT['fam-go'] = function (el) { famOpen(el.dataset.id); };
 document.addEventListener('toggle', function (e) { var d = e.target; if (d.dataset && d.dataset.fam) { if (d.open) ui.famOpen = d.dataset.fam; else if (ui.famOpen === d.dataset.fam) ui.famOpen = null; } }, true);
 
 // Skill-Baum je Bereich: unten Grundlagen, oben die schweren Skills, Linien zeigen, was was freischaltet.
