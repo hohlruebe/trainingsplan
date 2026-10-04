@@ -211,6 +211,10 @@ Beim Einbau: `equipment` immer als Liste von Alternativen-Gruppen; alte IDs, Nam
 - Dennis: lieber 2–1–3–1 oder 3–1–2–1 statt 4 Tage Training am Stück. Umgesetzt 3–1–2–1: Tag 4 Ruhetag (Flow A),
   Tag 5 Intervall-Lauf. So folgt auf den Zug-Tag (mit Beinen) ein Ruhetag, und die Intervalle laufen mit frischen Beinen.
 
+## Figuren im Testtag und Beweglichkeits-Check
+- Dennis: im Beweglichkeits-Check fehlten die Figuren; beim Stufenwechsel im Test soll die passende Übung animiert werden.
+  Umgesetzt: Check als Karten je Test mit Figur der gewählten Stufe, Testtage zeigen die Figur der gewählten Stufe.
+
 ## Ideen für später
 - Übungsgrafiken auch für alle übrigen Übungen der Bibliothek.
 

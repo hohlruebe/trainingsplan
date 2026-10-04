@@ -58,6 +58,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
   Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in der Testwoche am Blockende (`mobCheckStep`).
+  Je Test eine Karte mit Figur der gewählten Stufe (`mobCheckHTML`; ohne Grafik die nächste Stufe mit Grafik). Auch die Testtage
+  zeigen die Figur der gewählten Stufe (`testStepHTML`, z. B. Knee Push-up bei „Auf Knien“); Stufe wechseln = Figur wechselt.
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
   Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
