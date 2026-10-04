@@ -2414,7 +2414,7 @@ function buildPhases() {
   } else if (TM.mode === 'routine') {
     P = P.concat(routinePhases(ROUT[c.rid]));
   } else {
-    P.push({ label: 'Auf Zeit', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : c.cap ? 'Zeitlimit ' + fmtT(c.cap) : 'Ohne Zeitlimit', dur: c.cap || Infinity, kind: 'work', up: true });
+    P.push({ label: 'For Time', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : c.cap ? 'Zeitlimit ' + fmtT(c.cap) : 'Ohne Zeitlimit', dur: c.cap || Infinity, kind: 'work', up: !c.cap }); // mit Zeitlimit läuft die Zeit herunter
   }
   return P;
 }
@@ -2497,7 +2497,7 @@ function showFinished() {
   $('t-fill').style.width = TM.mode === 'zeit' ? '0%' : '100%';
   $('t-done').innerHTML = '';
 }
-var TMODES = [['emom', 'EMOM'], ['amrap', 'AMRAP'], ['hiit', 'Intervall'], ['zeit', 'Auf Zeit']];
+var TMODES = [['emom', 'EMOM'], ['amrap', 'AMRAP'], ['hiit', 'Intervall'], ['zeit', 'For Time']];
 function renderTimer() {
   if (!TM.cfg || !TM.cfg.free) toolSetup();
   var h = '<section class="hero"><h1>Timer</h1></section><div class="seg" role="group" aria-label="Timer-Art">' + TMODES.map(function (m) {
@@ -4574,7 +4574,7 @@ function fsKick() {
   var c = TM.cfg || {};
   if (c.step) return fsStepTitle(c.step);
   return { emom: 'EMOM · alle ' + fmtT(c.every) + ' · ' + c.rounds + ' Runden', amrap: 'AMRAP · ' + fmtT(c.sec), hiit: 'Intervall · ' + fmtT(c.work) + ' / ' + fmtT(c.rest) + ' · ' + c.rounds + ' Runden',
-    zeit: 'Auf Zeit' + (c.cap ? ' · Limit ' + fmtT(c.cap) : '') }[TM.mode] || '';
+    zeit: 'For Time' + (c.cap ? ' · Limit ' + fmtT(c.cap) : '') }[TM.mode] || '';
 }
 function fsRender() {
   var tools = !(TM.cfg && TM.cfg.step);

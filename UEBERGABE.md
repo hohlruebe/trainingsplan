@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 4. Oktober 2026 (Timer im Vollbild, Timer je Trainingsart, Runden zählen)
+Stand: 4. Oktober 2026 (For Time zählt herunter)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,10 @@ Stand: 4. Oktober 2026 (Timer im Vollbild, Timer je Trainingsart, Runden zählen
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## For Time (4. Oktober)
+- „Auf Zeit“ heißt jetzt „For Time“. Mit Zeitlimit läuft die Zeit herunter, ohne Limit hoch. Das Ergebnis bleibt die gebrauchte Zeit.
+  Murph (ohne Limit) zählt weiter hoch.
 
 ## Timer im Vollbild (4. Oktober)
 - Entwurf im Canvas (Board „Timer im Vollbild“), von Dennis freigegeben: App-Design statt LED-Box-Timer, hochkant und quer,
