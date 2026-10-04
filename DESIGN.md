@@ -90,7 +90,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 
 ## Unterseiten
 Seiten mit Unterseiten (heute Tools) zeigen keine Kapsel oben. Der Titel trägt einen kleinen Pfeil; Tippen öffnet ein Drop-down
-(Karte 280 px, Zeilen 58 px, Symbol und Name, aktuelle Seite blau hinterlegt mit Haken), die Seite dahinter dunkelt leicht ab.
+(Karte 236 px, Zeilen 48 px, Symbol und Name, aktuelle Seite blau hinterlegt mit Haken), die Seite dahinter dunkelt leicht ab.
 Wahl, Tippen daneben oder Scrollen schließt.
 
 ## Bewegung (gilt für alles Neue)
