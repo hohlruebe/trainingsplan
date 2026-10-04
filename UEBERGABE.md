@@ -26,7 +26,8 @@ Stand: 4. Oktober 2026 (For Time zählt herunter)
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
 ## For Time (4. Oktober)
-- „Auf Zeit“ heißt jetzt „For Time“. Mit Zeitlimit läuft die Zeit herunter, ohne Limit hoch. Das Ergebnis bleibt die gebrauchte Zeit.
+- „Auf Zeit“ heißt jetzt „For Time“, mit Umschalter „Time Cap“ (läuft herunter) / „Ohne Time Cap“ (läuft hoch). Das Ergebnis bleibt die gebrauchte Zeit.
+  Alte Einstellung „Zeitlimit ohne“ wird zu „Ohne Time Cap“. Namen hat Dennis offen gelassen, ggf. noch anpassen.
   Murph (ohne Limit) zählt weiter hoch.
 
 ## Timer im Vollbild (4. Oktober)

@@ -2385,14 +2385,15 @@ function wakeOff() { try { if (TM.wake) TM.wake.release(); } catch (e) { /* igno
 document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && TM.running) wakeOn(); });
 
 // Freier Timer unter Tools: Einstellung je Art, nur auf diesem Gerät.
-var TMR_DEF = { mode: 'emom', emom: { every: 60, rounds: 10 }, amrap: { sec: 600 }, hiit: { work: 40, rest: 20, rounds: 8 }, zeit: { cap: 0 } };
+var TMR_DEF = { mode: 'emom', emom: { every: 60, rounds: 10 }, amrap: { sec: 600 }, hiit: { work: 40, rest: 20, rounds: 8 }, zeit: { cap: 600, open: false } };
 function tmr() {
   if (!S.tmr || typeof S.tmr !== 'object') S.tmr = {};
   if (!TFIELDS[S.tmr.mode]) S.tmr.mode = 'emom';
+  var z0 = S.tmr.zeit; if (z0 && z0.open == null) { z0.open = !z0.cap; if (!z0.cap) z0.cap = 600; } // früher: Zeitlimit 0 = ohne
   ['emom', 'amrap', 'hiit', 'zeit'].forEach(function (k) { S.tmr[k] = Object.assign({}, TMR_DEF[k], S.tmr[k]); });
   return S.tmr;
 }
-function toolSetup() { var t = tmr(); timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({ free: true }, t[t.mode]); timerReset(); }
+function toolSetup() { var t = tmr(); timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({ free: true }, t[t.mode]); if (t.mode === 'zeit' && TM.cfg.open) TM.cfg.cap = 0; timerReset(); }
 function buildPhases() {
   var c = TM.cfg, P = [{ label: 'Gleich geht’s los', sub: 'In Position', dur: 10, kind: 'pre' }];
   if (TM.mode === 'emom') {
@@ -2414,7 +2415,7 @@ function buildPhases() {
   } else if (TM.mode === 'routine') {
     P = P.concat(routinePhases(ROUT[c.rid]));
   } else {
-    P.push({ label: 'For Time', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : c.cap ? 'Zeitlimit ' + fmtT(c.cap) : 'Ohne Zeitlimit', dur: c.cap || Infinity, kind: 'work', up: !c.cap }); // mit Zeitlimit läuft die Zeit herunter
+    P.push({ label: 'For Time', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : c.cap ? 'Time Cap ' + fmtT(c.cap) : 'Ohne Time Cap', dur: c.cap || Infinity, kind: 'work', up: !c.cap }); // mit Zeitlimit läuft die Zeit herunter
   }
   return P;
 }
@@ -2519,7 +2520,7 @@ var TFIELDS = {
   emom: [['every', 'Alle', 'time', 10], ['rounds', 'Runden', 'count', 1]],
   amrap: [['sec', 'Dauer', 'time', 10]],
   hiit: [['work', 'Arbeit', 'time', 5], ['rest', 'Pause', 'time', 0], ['rounds', 'Runden', 'count', 1]],
-  zeit: [['cap', 'Zeitlimit', 'time', 0]]
+  zeit: [['cap', 'Time Cap', 'time', 10]]
 };
 function timerTotal(c) {
   if (TM.mode === 'emom') return c.every * c.rounds;
@@ -2527,13 +2528,21 @@ function timerTotal(c) {
   return null;
 }
 function timerConfigHTML() {
-  var c = TM.cfg, tot = timerTotal(c);
-  var h = '<div class="pick-grid t-grid">' + TFIELDS[TM.mode].map(function (f) {
-    var v = c[f[0]], txt = f[2] === 'count' ? String(v) : f[0] === 'cap' && !v ? 'ohne' : fmtT(v);
+  var c = TM.cfg, tot = timerTotal(c), open = TM.mode === 'zeit' && tmr().zeit.open, h = '';
+  if (TM.mode === 'zeit') h += '<div class="seg" role="group" aria-label="For Time">' + [['cap', 'Time Cap'], ['open', 'Ohne Time Cap']].map(function (o) {
+    var on = (o[0] === 'open') === open;
+    return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="t-cap" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+  }).join('') + '</div><p class="small muted" style="margin:0 0 10px">' + (open ? 'Die Zeit läuft hoch, bis du auf „Fertig“ tippst.' : 'Die Zeit läuft herunter, bei 0 ist Schluss. Bist du vorher fertig, zählt deine Zeit.') + '</p>';
+  if (open) return h + timerFootHTML();
+  h += '<div class="pick-grid t-grid">' + TFIELDS[TM.mode].map(function (f) {
+    var v = c[f[0]], txt = f[2] === 'count' ? String(v) : fmtT(v);
     return tile(f[1], '<b>' + txt + (f[2] === 'count' ? ' <span class="unit">×</span>' : '') + '</b>', 'data-act="t-set" data-k="' + f[0] + '"', 'set');
   }).join('');
   if (tot != null) h += '<div class="tile calc"><small>Gesamt · errechnet</small><b>' + fmtT(tot) + '</b></div>';
-  h += '</div><p class="small muted" style="margin:10px 0 4px">Start mit 10 Sekunden Vorlauf, damit du in Position kommst.</p>';
+  return h + '</div>' + timerFootHTML();
+}
+function timerFootHTML() {
+  var h = '<p class="small muted" style="margin:10px 0 4px">Start mit 10 Sekunden Vorlauf, damit du in Position kommst.</p>';
   h += '<label class="check"><input type="checkbox" data-change="sound"' + (S.sound ? ' checked' : '') + '> Signaltöne</label>' +
     '<p class="small muted">Lass die Seite beim Training offen. Wo das Handy es erlaubt, bleibt der Bildschirm an, solange der Timer läuft.</p>';
   return h;
@@ -4246,11 +4255,16 @@ ACT.step = function (el) {
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
   LS.set('tp.drafts', DRAFTS); window.scrollTo(0, 0); render();
 };
+ACT['t-cap'] = function (el) {
+  if (TM.running || TM.acc > 0) { toast('Setz den Timer erst zurück.'); return; }
+  tmr().zeit.open = el.dataset.v === 'open'; saveState(); toolSetup(); render();
+};
 ACT['t-set'] = function (el) {
   if (!TM.cfg || !TM.cfg.free) return;
   if (TM.running || TM.acc > 0) { if (el.id !== 't-digits') toast('Setz den Timer erst zurück.'); return; }
   var k = el.dataset.k, f = TFIELDS[TM.mode].filter(function (x) { return x[0] === k; })[0]; if (!f) return;
   var t = tmr(), c = t[TM.mode];
+  if (TM.mode === 'zeit' && c.open) return;
   function set(v) { c[k] = Math.max(f[3], v); saveState(); toolSetup(); render(); }
   if (f[2] === 'count') openSheet(f[1], [{ head: 'Runden', items: numItems(1, 99), val: String(c[k]) }], function (v) { set(+v[0]); }, { num: 0 });
   else openTimeSheet(f[1], c[k], set);
@@ -4574,7 +4588,7 @@ function fsKick() {
   var c = TM.cfg || {};
   if (c.step) return fsStepTitle(c.step);
   return { emom: 'EMOM · alle ' + fmtT(c.every) + ' · ' + c.rounds + ' Runden', amrap: 'AMRAP · ' + fmtT(c.sec), hiit: 'Intervall · ' + fmtT(c.work) + ' / ' + fmtT(c.rest) + ' · ' + c.rounds + ' Runden',
-    zeit: 'For Time' + (c.cap ? ' · Limit ' + fmtT(c.cap) : '') }[TM.mode] || '';
+    zeit: 'For Time' + (c.cap ? ' · Time Cap ' + fmtT(c.cap) : ' · ohne Time Cap') }[TM.mode] || '';
 }
 function fsRender() {
   var tools = !(TM.cfg && TM.cfg.step);
@@ -4645,7 +4659,7 @@ function fsPaint(L, force) {
   else if (p.kind === 'pre') pl = 'In Position kommen';
   else if (TM.mode === 'emom') pl = c.stations ? 'Runde ' + (Math.floor((L.i - 1) / c.stations.length) + 1) + ' von ' + Math.ceil(c.minutes / c.stations.length) : 'Runde ' + L.i + ' von ' + (c.rounds || c.minutes);
   else if (TM.mode === 'hiit') pl = p.sub || '';
-  else if (TM.mode === 'zeit') pl = c.cap ? 'Limit ' + fmtT(c.cap) : c.rounds ? c.rounds + ' Runden' : 'Ohne Zeitlimit';
+  else if (TM.mode === 'zeit') pl = c.cap ? 'Time Cap ' + fmtT(c.cap) : c.rounds ? c.rounds + ' Runden' : 'Ohne Time Cap';
   else if (TM.mode === 'routine') pl = p.next ? 'Danach: ' + p.next : '';
   else if (L && L.rem != null) pl = 'noch ' + fmtT(Math.ceil(L.rem));
   $('fs-pl').textContent = pl;
