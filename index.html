@@ -583,8 +583,11 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 :root[data-paper="leinen"]{--board:#EFEBE3;--paper:#F8F5EF;--pill:#FCFAF6;--fig:#F8F5EF;--tray:#E8E4DB;--tray-line:#DBD6CB;--fill:#E1DDD3;--line:#E4DFD5;--plate:#E7E5E0}
 :root[data-paper="nebel"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
 /* Übungsfamilien, Skill-Pfad, Skill-Baum */
-.gl-item.fam .fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.gl-item.fam .fam-chips .chip{min-height:24px;font-size:12px;padding:2px 9px}
+.gl-item.fam>summary{padding:12px 0}
+.gl-item.fam .gl-t{flex:1}
+.gl-item.fam .fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.gl-item.fam .fam-chips .chip{border-radius:12px;white-space:normal;line-height:1.25;text-align:left;max-width:100%;box-sizing:border-box;min-height:24px;font-size:12px;padding:4px 9px}
+.gl-item.fam .fam-chips .chip svg{flex:none;align-self:flex-start;margin-top:1px}
 .chip.lock{color:var(--ink2);gap:4px}
 .chip.sm{min-height:22px;font-size:11.5px;padding:2px 8px}
 .fam-path .lad-row.lock{opacity:.5}

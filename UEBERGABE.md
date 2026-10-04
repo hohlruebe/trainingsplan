@@ -27,6 +27,7 @@ Stand: 4. Oktober 2026 (Blatt: Hintergrund scrollt nicht mehr mit)
 
 ## Blätter scrollen den Hintergrund nicht mehr (4. Oktober)
 - Dennis (Video): am Ende der Liste im Blatt „Zuhause · Equipment“ lief die Seite dahinter weiter. Behoben für alle Blätter.
+- Familienliste (Tools › Übungen): jede Zeile 12 px Abstand oben/unten, Chips gleich weit von der Trennlinie, lange Chips brechen um (abgerundetes Rechteck).
 
 ## Countdown mit Stimme (4. Oktober)
 - Wunsch von Dennis: „Three, two, one, Go!“ wählbar, Deutsch und Englisch, je Anlass einzeln an/aus (Start, Runde, Intervall, Ende).
