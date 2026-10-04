@@ -43,7 +43,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   schaltet Orte ein/aus, der Stift je Zeile (`ACT['ort-edit']`) gibt einen eigenen Namen (`nm`) und ein Symbol aus `ORT_IC` (`ic`).
   `ortName(o)`, `ortIc(o)` überall benutzen. Unten die Karte „Bänder“: Band antippen = Farbe wählen (Blatt).
   Ohne Suche zeigt die Liste Familien (`famListHTML`, `famItemHTML`), gruppiert nach Bewegungsmuster: Chips „Du: …“, „Als Nächstes: …“
-  oder gesperrt mit Grund. Aufgeklappt: Figur, Skill-Pfad (`famPathHTML`, Leiter-Stil, aktuelle Stufe als weiße Pille, Ziel für die
+  oder gesperrt mit Grund. Keine Scores bei Familien und Übungen (nur intern für die Planung, Geräte zeigen ihren Score weiter).
+  Antippen öffnet die eigene Seite der Familie (versteckte Seite `fam`, `renderFam`, `famOpen`, `ui.famId`, Zurück zu `ui.famBack`):
+  Karte oben Figur, Skill-Pfad (`famPathHTML`, Leiter-Stil, aktuelle Stufe als weiße Pille, Ziel für die
   nächste), darunter die Übungen als Unterpunkte (`glItemHTML`, Klasse `sub`) nach Stufen, Varianten, „Auf Tempo (CrossFit)“ mit Vermerk,
   dazu „Gehört auch dazu“ (`auch_in`), „Baut auf“ und „Führt zu“ (`ACT['fam-go']`). Mit Suche: Einzelübungen wie bisher.
   Stand je Familie (`famLevel`, `famStatus`): höchste Stufe, die trainiert wurde (Leiterstand oder Eintrag mit dem Namen).
@@ -106,7 +108,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Metcon: Rundenzähler (`.stepper`) nur in der Liste; Einzeln ohne Kacheln und Hauptaktion, solange der AMRAP läuft.
   Am Ende des AMRAP fragt `amrapCheck` „Stimmt dein Ergebnis?“ mit gezählten Runden und Wdh. (`amrapCount`).
   Kraft einzeln zeigt nur die laufende Karte. EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
-  Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) in allen Schritten, gestartet von `wakeFigs`.
+  Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,
+  Bibliothek (Familien-Seite, jede Übung), Mobility-Player (`#rp-fig`). Neue Grafik = nur in `Maskottchen.EXERCISES` eintragen.
 - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
   Aussehen › Hintergrund (nur Hellmodus, `S.paper`, `PAPERS`): Weiß, Kreide, Leinen, Nebel. `applyTheme` setzt `data-paper` nur im Hellen.
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
