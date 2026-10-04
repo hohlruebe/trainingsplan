@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 4. Oktober 2026 (For Time mit Time Cap, Countdown mit Stimme)
+Stand: 4. Oktober 2026 (Blatt: Hintergrund scrollt nicht mehr mit)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,9 @@ Stand: 4. Oktober 2026 (For Time mit Time Cap, Countdown mit Stimme)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Blätter scrollen den Hintergrund nicht mehr (4. Oktober)
+- Dennis (Video): am Ende der Liste im Blatt „Zuhause · Equipment“ lief die Seite dahinter weiter. Behoben für alle Blätter.
 
 ## Countdown mit Stimme (4. Oktober)
 - Wunsch von Dennis: „Three, two, one, Go!“ wählbar, Deutsch und Englisch, je Anlass einzeln an/aus (Start, Runde, Intervall, Ende).
