@@ -19,9 +19,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter von links nach rechts: Tools (Timer, Übungen, Routinen, 1RM), Coach (nur Heute), Profil.
+- Reiter von links nach rechts: Tools (Timer, Übungen, Mobility, 1RM), Coach (nur Heute), Profil.
   Der Plan (Regeln, Methode, Tests) ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute.
-  Unterseiten über den Umschalter oben (`GROUPS` im Skript). Einstellungen und Sync sind eine
+  Unterseiten über den Titel: Pfeil neben dem Titel, Tippen (oder nochmal auf den Reiter) öffnet ein Drop-down mit Symbol je Seite,
+  aktuelle blau mit Haken (`subTitle`, `SUB_IC`, `ui.subOpen`, `GROUPS` im Skript). Keine Kapsel oben mehr; Scrollen oder daneben tippen schließt. Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
 - Profil: Kopfkarte mit rundem Foto, Fortschrittsring (Gesamtwert 0–99), Stufe Bronze/Silber/Gold/Platin,
   Name und „Diese Woche“. Darunter eine Kapsel wie die Reiterleiste (nur die aktive Ansicht zeigt ihren Namen):
@@ -53,7 +54,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (kg, ,0/,5, Wdh. 1–10), Schätzung nach Epley (`e1rm`), Prozent-Tabelle auf 2,5 kg gerundet, Verlauf mit Bestwert golden gestrichelt.
   Einträge `kind: 'rm'` (`lift, kg, reps, e1, bw`), zählen nicht als Training. Bei Weighted Pull-up/Dip zählt das Zusatzgewicht.
 - Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag als optionaler letzter Schritt an Krafttagen (`coolStep`, Schalter `S.cooldown`,
-  `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Routinen startet
+  `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).

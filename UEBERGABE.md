@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 3. Oktober 2026 (Schwerpunkte und Blöcke eingebaut)
+Stand: 4. Oktober 2026 (Tools: Drop-down am Titel, Routinen heißt Mobility)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,10 @@ Stand: 3. Oktober 2026 (Schwerpunkte und Blöcke eingebaut)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Tools: Drop-down am Titel (4. Oktober)
+- Die Kapsel Timer/Übungen/Routinen/1RM oben ist weg. Der Titel hat einen Pfeil, Tippen öffnet ein Drop-down (Variante A im Canvas, auf Wunsch größer).
+- Nochmal auf den Reiter Tools tippen öffnet es auch. „Routinen“ heißt jetzt „Mobility“ (interner Name `routinen` bleibt).
 
 ## In Arbeit: Maskottchen für Übungsgrafiken
 Ziel: animierte Figur, die jede Übung zeigt. Gezeigt im Training (Schritt-Seiten), unter Tools › Übungen

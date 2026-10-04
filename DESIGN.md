@@ -88,6 +88,11 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Gleichartige Fenster haben dieselbe Höhe, Knöpfe sitzen immer an derselben Stelle (z. B. Medaillen-Momente).
 - Haptik bei jeder Interaktion (`haptic(kind)`).
 
+## Unterseiten
+Seiten mit Unterseiten (heute Tools) zeigen keine Kapsel oben. Der Titel trägt einen kleinen Pfeil; Tippen öffnet ein Drop-down
+(Karte 280 px, Zeilen 58 px, Symbol und Name, aktuelle Seite blau hinterlegt mit Haken), die Seite dahinter dunkelt leicht ab.
+Wahl, Tippen daneben oder Scrollen schließt.
+
 ## Bewegung (gilt für alles Neue)
 - Jede Zustandsänderung bewegt sich weich, nichts springt hart um. Dauer etwa 0,3 s, Kurve `cubic-bezier(.3,.9,.4,1)` wie der Glas-Tropfen der Schalter.
 - Wahl wechseln: die weiße Pille gleitet zur neuen Wahl. Knöpfe in einer Kapsel rutschen an ihren Platz, neue blenden mit kurzem Wachsen ein.
