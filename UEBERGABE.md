@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 4. Oktober 2026 (For Time zählt herunter)
+Stand: 4. Oktober 2026 (For Time mit Time Cap, Countdown mit Stimme)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,10 @@ Stand: 4. Oktober 2026 (For Time zählt herunter)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Countdown mit Stimme (4. Oktober)
+- Wunsch von Dennis: „Three, two, one, Go!“ wählbar, Deutsch und Englisch, je Anlass einzeln an/aus (Start, Runde, Intervall, Ende).
+- Stimme kommt aus der Sprachausgabe des Handys (keine Audiodateien). Offen: auf dem Pixel testen, ob die Stimme offline kommt und im Takt liegt.
 
 ## For Time (4. Oktober)
 - „Auf Zeit“ heißt jetzt „For Time“, mit Umschalter „Time Cap“ (läuft herunter) / „Ohne Time Cap“ (läuft hoch). Das Ergebnis bleibt die gebrauchte Zeit.
