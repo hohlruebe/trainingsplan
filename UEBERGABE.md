@@ -26,7 +26,7 @@ Stand: 4. Oktober 2026 (Tools: Drop-down am Titel, Routinen heißt Mobility)
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
 ## Tools: Drop-down am Titel (4. Oktober)
-- Die Kapsel Timer/Übungen/Routinen/1RM oben ist weg. Der Titel hat einen Pfeil, Tippen öffnet ein Drop-down (Variante A im Canvas, auf Wunsch größer).
+- Die Kapsel Timer/Übungen/Routinen/1RM oben ist weg. Der Titel hat einen Pfeil, Tippen öffnet ein Drop-down (Variante A im Canvas, Größe wie im Entwurf: größere Version war Dennis auf dem Handy zu groß).
 - Nochmal auf den Reiter Tools tippen öffnet es auch. „Routinen“ heißt jetzt „Mobility“ (interner Name `routinen` bleibt).
 
 ## In Arbeit: Maskottchen für Übungsgrafiken
