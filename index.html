@@ -589,7 +589,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .gl-item.locked>.gl-row{opacity:.5}
 .gl-chev{flex:none;width:18px;height:18px;color:var(--ink2)}
 .hero+.fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 4px}
-.gl-item.fam .gl-t{flex:1}
+.gl-row .gl-t{flex:1}
 .gl-item.fam .fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .gl-item.fam .fam-chips .chip{border-radius:12px;white-space:normal;line-height:1.25;text-align:left;max-width:100%;box-sizing:border-box;min-height:24px;font-size:12px;padding:4px 9px}
 .gl-item.fam .fam-chips .chip svg{flex:none;align-self:flex-start;margin-top:1px}
@@ -636,6 +636,14 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .blk-bar i.done{background:var(--acc)}
 .blk-bar i.done.lite{background:color-mix(in srgb,var(--acc) 55%,var(--paper))}
 .blk-bar i.now{background:var(--acc);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 30%,transparent)}
+.blk-bar i.sel{outline:2px solid var(--acc);outline-offset:2px}
+.pw-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pw-h .rbtn[disabled]{opacity:.35}
+.pw-t{display:flex;flex-direction:column;align-items:center;text-align:center}
+.pw-t b{font-size:17px}
+.pw .pills{margin:10px 0 14px}
+.pd-k{margin:0 0 10px}
+.pd-n{margin:12px 0 0}
 .blk .small{display:block}
 .zones{list-style:none;margin:12px 0 6px;padding:0}
 .zones li{display:flex;align-items:center;gap:10px;min-height:38px;border-top:1px solid var(--line);font-size:14px}
@@ -2753,20 +2761,58 @@ function bandLegend() {
 }
 /* ---------- Plan ---------- */
 function sec(title, body, open) { var o = Object.prototype.hasOwnProperty.call(ui.openSec, title) ? ui.openSec[title] : open; return '<details class="card" data-sec="' + esc(title) + '"' + (o ? ' open' : '') + '><summary><h2>' + title + '</h2></summary>' + body + '</details>'; }
+// Plan: oben Überblick (Schwerpunkt, Block, Woche zum Durchblättern), darunter das Wissen als Liste mit eigenen kurzen Seiten.
+function planPreview(dg, fn) {
+  var keep = S.durchgang, r; S.durchgang = dg; DAYS_K = null; syncDays();
+  try { r = fn(); } finally { S.durchgang = keep; DAYS_K = null; syncDays(); }
+  return r;
+}
+function tlHTML(st) {
+  return '<ol class="tl">' + st.map(function (s, i) {
+    return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div></div></li>';
+  }).join('') + '</ol>';
+}
+// Was an Tag t im Durchgang dg dran ist (Vorschau aus dem Plan).
+function planDayHTML(dg, t) {
+  return planPreview(dg, function () {
+    var d = DAYS[t], now = dg === S.durchgang && t === S.tag, c = now ? dayCtx(t) : { tag: t, cur: false, d: d, isTest: false, isMurph: false }, st = [];
+    if (d.type === 'kraft') st = stepsOf(c);
+    else if (d.type === 'easy' || d.type === 'interval') {
+      var rs = runSpec(d), rc = coolOf(t);
+      if (d.pre) st.push({ title: d.pre === 'hs' ? 'Handstand' : 'Dehnen', dur: 10, desc: 'Vor dem Lauf' });
+      if (rs.iv) st.push({ title: 'Einlaufen', dur: 10, desc: 'Locker' }, { title: 'Intervalle', desc: rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben · Zone ' + rs.iv.zone }, { title: 'Auslaufen', dur: 5, desc: 'Locker' });
+      else st.push({ title: dayLabel(t), dur: Math.round(planRunSec(rs) / 60), desc: dayWhat(t) });
+      if (rc) st.push({ title: rc.name, dur: rc.dauer_min, desc: rc.ziel, opt: true });
+    }
+    var h = '<p class="kicker muted pd-k">Tag ' + t + ' · ' + esc(dayLabel(t)) + '</p>';
+    if (st.length) h += tlHTML(st);
+    else h += '<p>Frei.' + (d.flow && ROUT[d.flow] ? ' Wenn du magst: ' + esc(ROUT[d.flow].name) + ', ' + ROUT[d.flow].dauer_min + ' Min.' : '') + '</p>';
+    if (dg > S.durchgang || (dg === S.durchgang && t > S.tag)) h += '<p class="small muted pd-n">Vorschau: Übungen und Stufen können sich noch ändern, wenn du Neues freischaltest.</p>';
+    return h;
+  });
+}
+function planWeekHTML() {
+  var bs = S.blockStart || 1, n = blockN(), first = Math.max(1, Math.min(bs, S.durchgang || 1)), last = bs + n - 1;
+  if (ui.planDg == null || ui.planDg < first || ui.planDg > last) ui.planDg = Math.max(first, Math.min(last, S.durchgang || first));
+  if (!ui.planTag) ui.planTag = S.tag;
+  var dg = ui.planDg, q = phaseAt(Math.max(1, Math.min(n, dg - bs + 1))), seg = '';
+  for (var i = 1; i <= n; i++) { var x = phaseAt(i), at = bs + i - 1; seg += '<i class="' + (at < S.durchgang ? 'done' : at === S.durchgang ? 'now' : '') + (x.deload || x.test || x.taper ? ' lite' : '') + (at === dg ? ' sel' : '') + '"></i>'; }
+  var h = '<section class="card pw"><div class="pw-h"><button type="button" class="rbtn" data-act="plan-wk" data-d="-1" aria-label="Durchgang davor"' + (dg <= first ? ' disabled' : '') + '>' + BACK + '</button>' +
+    '<div class="pw-t"><b>Durchgang ' + (dg - bs + 1) + ' von ' + n + '</b><span class="small muted">' + esc(q.lab || '') + (dg === S.durchgang ? ' · jetzt' : '') + '</span></div>' +
+    '<button type="button" class="rbtn" data-act="plan-wk" data-d="1" aria-label="Nächster Durchgang"' + (dg >= last ? ' disabled' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>' +
+    '<span class="blk-bar">' + seg + '</span><nav class="pills" aria-label="Tage">';
+  for (var t = 1; t <= 7; t++) {
+    var cls = 'pill' + (DAYS[t].type === 'rest' ? ' rest' : '') + (dg === S.durchgang && t === S.tag ? ' cur' : '') + (t === ui.planTag && !(dg === S.durchgang && t === S.tag) ? ' view' : '');
+    h += '<button type="button" class="' + cls + '" data-act="plan-day" data-tag="' + t + '" aria-label="Tag ' + t + '" aria-pressed="' + (t === ui.planTag) + '">' + t + '</button>';
+  }
+  return h + '</nav>' + planDayHTML(dg, ui.planTag) + '</section>';
+}
+var PLAN_SUB = { 'Regeln': 'Tag für Tag, Ruhetage, Kurzversion', 'Methode': 'Calisthenics, CrossFit, RIR und Atmung', 'Steigerung': 'Wann es mehr Wdh. oder die nächste Stufe gibt',
+  'Bänder': 'Welche Farbe wie viel hilft', 'Pause? Einfach weiter': 'Was nach Krankheit oder Urlaub gilt', 'Murph und Test-Durchgang': 'Wann und wie getestet wird',
+  'Einstiegstest': 'Deine Startstufen', 'Skill-Ziele': 'Ab wann welcher Skill dran ist' };
 function renderPlan() {
-  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="heute" aria-label="Zurück zu Heute">' + BACK + '</button><section class="hero"><h1>Plan</h1><p class="hero-title">So funktioniert dein Training</p></section>';
-  var F = fokus(), ph = curPhase();
-  h += '<section class="card"><p class="kicker muted">Schwerpunkt</p><div class="fk-cur"><span class="fk-ic">' + fkIcon(F.ic) + '</span><span><b>' + esc(fokusLabel()) + '</b><br><span class="small muted">' +
-    (S.durchgang ? 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + esc(ph.lab) : '') : 'Startet nach dem Einstiegstest') + '</span></span></div>' +
-    '<p class="small">' + esc(F.info) + '</p><button type="button" class="btn block" data-act="fk-open" data-from="plan">Schwerpunkt ändern</button></section>';
-  var days = '<ul class="list">';
-  for (var t = 1; t <= 7; t++) days += '<li><span class="qty">Tag ' + t + '</span><span><b>' + esc(dayLabel(t)) + '</b> <span class="muted">' + esc(dayWhat(t)) + '</span>' + (DAYS[t].rings ? ' <span class="muted small">(' + esc(DAYS[t].rings) + ')</span>' : '') + '</span></li>';
-  days += '</ul>';
-  var bl = '';
-  for (var b = 1; b <= ph.n; b++) { var q = phaseAt(b); bl += '<tr' + (b === ph.bd && S.durchgang ? ' class="now"' : '') + '><td class="hand" style="font-size:20px">' + b + '</td><td>' + esc(q.lab || '–') + '</td></tr>'; }
-  days += '<h3 style="margin-top:12px">Der Block</h3><div class="tbl-wrap"><table><thead><tr><th>Durchgang</th><th>Phase</th></tr></thead><tbody>' + bl + '</tbody></table></div>' +
-    '<p class="small muted" style="margin-top:8px">Am Ende des Blocks zeigt die App einen Rückblick. Dann: weiter so, nächste Stufe oder wechseln.</p>';
-  h += sec('Der Durchgang', days, true);
+  var K = [], sec = function (title, body) { K.push({ t: title, b: body }); return ''; };
+  var h = '', F = fokus(), ph = curPhase();
   h += sec('Regeln', '<ol class="rules">' + [
     '<b>Tag für Tag:</b> 1 bis 7, dann wieder Tag 1 – egal, auf welchen Wochentag ein Tag fällt.',
     '<b>Ruhetage zählen mit:</b> nie überspringen. Ein ungeplant freier Tag zählt nur, wenn als Nächstes ohnehin ein Ruhetag dran ist.',
@@ -2808,6 +2854,20 @@ function renderPlan() {
     ['Weighted Pull-up', '12 freie Pull-ups (3 × 10 sauber)', 'Mit Weste, für schwere Lasten später ein Dip-Gürtel.'],
     ['Ring Muscle-up', 'Chin-up mit ca. 35–45 % Körpergewicht extra, 1–2 tiefe Ring Dips', 'False Grip üben, Chin-up aus dem False Grip, Muscle-up mit Band, frei.']
   ].map(function (r) { return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>'; }).join('') + '</tbody></table></div>');
+  var open = K.filter(function (k) { return k.t === ui.planSec; })[0];
+  if (open) {
+    return '<button type="button" class="rbtn back" data-act="plan-sec" data-k="" aria-label="Zurück zum Plan">' + BACK + '</button><section class="hero"><h1>' + esc(open.t) + '</h1><p class="hero-title">' + esc(PLAN_SUB[open.t] || '') + '</p></section>' +
+      '<section class="card">' + open.b + '</section>';
+  }
+  h = '<button type="button" class="rbtn back" data-act="tab" data-tab="heute" aria-label="Zurück zu Heute">' + BACK + '</button><section class="hero"><h1>Dein Plan</h1><p class="hero-title">' + esc(fokusLabel()) + (S.durchgang ? ' · Durchgang ' + ph.bd + ' von ' + ph.n : '') + '</p></section>';
+  h += '<section class="card"><p class="kicker muted">Schwerpunkt</p><div class="fk-cur"><span class="fk-ic">' + fkIcon(F.ic) + '</span><span><b>' + esc(fokusLabel()) + '</b><br><span class="small muted">' +
+    (S.durchgang ? 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + esc(ph.lab) : '') : 'Startet nach dem Einstiegstest') + '</span></span></div>' +
+    '<p class="small">' + esc(F.info) + '</p><button type="button" class="btn block" data-act="fk-open" data-from="plan">Schwerpunkt ändern</button></section>';
+  h += '<p class="kicker muted gl-group">Woche</p>' + planWeekHTML();
+  h += '<p class="kicker muted gl-group">Wissen</p><section class="card gl-card">' + K.map(function (k) {
+    return '<div class="gl-item"><button type="button" class="gl-row" data-act="plan-sec" data-k="' + esc(k.t) + '"><span class="gl-t"><b>' + esc(k.t) + '</b><small>' + esc(PLAN_SUB[k.t] || '') + '</small></span>' +
+      '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
+  }).join('') + '</section>';
   return h;
 }
 function settingsHTML() {
@@ -3371,7 +3431,7 @@ var ACT = {
   tab: function (el) {
     var g = el.dataset.group;
     if (g && g === groupOf(ui.tab) && !HIDDEN[ui.tab] && GROUPS[g].length > 1 && !ui.subOpen) { ui.subOpen = true; render(); return; }
-    ui.subOpen = false; ui.tab = g ? ui.last[g] : el.dataset.tab; ui.exportText = null; window.scrollTo(0, 0); render(); },
+    ui.subOpen = false; ui.tab = g ? ui.last[g] : el.dataset.tab; if (ui.tab === 'plan') ui.planSec = null; ui.exportText = null; window.scrollTo(0, 0); render(); },
   viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
   'do-this-day': function (el) { S.tag = +el.dataset.tag; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
@@ -4776,6 +4836,10 @@ function fsTurn() {
 if (MQ_LAND) { if (MQ_LAND.addEventListener) MQ_LAND.addEventListener('change', fsTurn); else if (MQ_LAND.addListener) MQ_LAND.addListener(fsTurn); }
 window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 
+// Plan-Seite: Durchgang blättern, Tag wählen, Wissen öffnen.
+ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
+ACT['plan-day'] = function (el) { ui.planTag = +el.dataset.tag; render(); };
+ACT['plan-sec'] = function (el) { ui.planSec = el.dataset.k || null; window.scrollTo(0, 0); render(); };
 /* ---------- Entwicklung von Anfang an ---------- */
 function ladderSeries(key) {
   var lad = ladOf(key), pts = [];
