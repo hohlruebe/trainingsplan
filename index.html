@@ -583,8 +583,11 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 :root[data-paper="leinen"]{--board:#EFEBE3;--paper:#F8F5EF;--pill:#FCFAF6;--fig:#F8F5EF;--tray:#E8E4DB;--tray-line:#DBD6CB;--fill:#E1DDD3;--line:#E4DFD5;--plate:#E7E5E0}
 :root[data-paper="nebel"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
 /* Übungsfamilien, Skill-Pfad, Skill-Baum */
-.gl-item.fam .fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.gl-item.fam .fam-chips .chip{min-height:24px;font-size:12px;padding:2px 9px}
+.gl-item.fam>summary{padding:12px 0}
+.gl-item.fam .gl-t{flex:1}
+.gl-item.fam .fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.gl-item.fam .fam-chips .chip{border-radius:12px;white-space:normal;line-height:1.25;text-align:left;max-width:100%;box-sizing:border-box;min-height:24px;font-size:12px;padding:4px 9px}
+.gl-item.fam .fam-chips .chip svg{flex:none;align-self:flex-start;margin-top:1px}
 .chip.lock{color:var(--ink2);gap:4px}
 .chip.sm{min-height:22px;font-size:11.5px;padding:2px 8px}
 .fam-path .lad-row.lock{opacity:.5}
@@ -660,7 +663,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 @keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .cap.in-sheet{margin:2px auto 8px}
 .eq-sum{text-align:center;margin:0 0 8px}
-.eq-scroll{max-height:56vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+.eq-scroll{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border-radius:16px}
 .rbtn.sm{width:40px;height:40px;flex:0 0 auto}
 .rbtn.sm svg{width:18px;height:18px}
 .ort-prev{margin:4px auto 14px;pointer-events:none}
@@ -734,7 +737,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-trk{flex:1;height:10px;border-radius:5px;background:var(--fill);overflow:hidden}
 .fs-trk i{display:block;height:100%;width:0;border-radius:5px;background:var(--acc);transition:width .2s linear}
 .fs-prog span{font-size:15px;color:var(--ink2);white-space:nowrap}
-.fs-side{flex:none;width:300px;max-height:100%;overflow:auto;box-sizing:border-box;padding:16px;border-radius:24px;background:var(--paper);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;gap:12px}
+.fs-side{flex:none;width:300px;max-height:100%;overflow:auto;overscroll-behavior:contain;box-sizing:border-box;padding:16px;border-radius:24px;background:var(--paper);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;gap:12px}
 #fs[data-view="port"] .fs-side{width:auto;flex:1;max-height:none;align-items:center;text-align:center}
 .fs-rows,.fs-rh{align-self:stretch;text-align:left}
 .fs-side.tap{cursor:pointer;align-items:center;text-align:center}
@@ -761,6 +764,9 @@ body.fs-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.fs-num.hot{animation:none}}
 .sheet-bg{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(17,18,20,0);transition:background-color .25s}
 .sheet-bg.open{background:rgba(17,18,20,.3)}
+/* Blatt offen: Hintergrund scrollt nicht mit, auch nicht am Ende einer Liste im Blatt */
+html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
+.sheet-bg{overscroll-behavior:contain}
 .sheet{width:100%;max-width:560px;background:var(--paper);border-radius:28px 28px 0 0;padding:10px 16px calc(max(env(safe-area-inset-bottom,0px),12px) + 18px);box-shadow:0 -10px 30px rgba(0,0,0,.12);transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
 .sheet-bg.open .sheet{transform:none}
 .sh-grab{width:40px;height:5px;border-radius:3px;background:var(--line2);margin:0 auto 8px}

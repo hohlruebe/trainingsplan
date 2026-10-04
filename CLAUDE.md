@@ -110,6 +110,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
   Aussehen › Hintergrund (nur Hellmodus, `S.paper`, `PAPERS`): Weiß, Kreide, Leinen, Nebel. `applyTheme` setzt `data-paper` nur im Hellen.
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
+- Ist ein Blatt offen, scrollt der Hintergrund nicht (`html:has(.sheet-bg.open)`), Listen im Blatt haben `overscroll-behavior: contain`.
 - Bewegung: kein blaues Antipp-Leuchten (`-webkit-tap-highlight-color`), gedrückte Kapseln geben nach (96 %, Umschalter 92 %).
   Wechselt die Wahl in `.seg`, `.cap` oder `.pills`, gleitet die weiße Pille (`.glide`), Kapsel-Knöpfe rutschen, neue blenden ein
   (Block „Bewegung“ im Skript, merkt sich die Lage beim `pointerdown` und animiert nach dem Neuzeichnen). Bei „Bewegung reduzieren“ aus.
