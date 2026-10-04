@@ -1934,7 +1934,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
 
@@ -2368,7 +2368,7 @@ function saveDay() {
 /* ---------- timer ---------- */
 var TM = { mode: 'emom', cfg: null, phases: [], running: false, t0: 0, acc: 0, idx: -1, lastSec: null, rounds: 0, finished: false, finalElapsed: 0, wake: null, int: null };
 var AC = null;
-function ensureAudio() { try { if (!AC) { var C = window.AudioContext || window.webkitAudioContext; if (C) AC = new C(); } if (AC && AC.state === 'suspended') AC.resume(); } catch (e) { /* no sound */ } }
+function ensureAudio() { try { if (S.cdVoice && window.speechSynthesis && !ensureAudio.sp) { ensureAudio.sp = 1; var u0 = new SpeechSynthesisUtterance(' '); u0.volume = 0; speechSynthesis.speak(u0); } } catch (e) { /* egal */ } try { if (!AC) { var C = window.AudioContext || window.webkitAudioContext; if (C) AC = new C(); } if (AC && AC.state === 'suspended') AC.resume(); } catch (e) { /* no sound */ } }
 function beep(freq, ms) {
   if (!S.sound || !AC) return;
   try {
@@ -2380,19 +2380,49 @@ function beep(freq, ms) {
 }
 function vib(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) { /* ignore */ } }
 function cue(long) { if (long) beep(660, 450); else beep(880, 110); hapTimer(long); }
+// Countdown mit Stimme (Sprachausgabe des Handys, offline mit installierter Stimme). Je Anlass an/aus, sonst Piepen.
+var CD_WHEN = [['start', 'Start nach dem Vorlauf'], ['round', 'Jede neue Runde (EMOM)'], ['interval', 'Intervall: Arbeit und Pause'], ['end', 'Ende des Workouts']];
+var CD_WORDS = { en: { n: ['One', 'Two', 'Three'], go: 'Go!', rest: 'Rest!', end: 'Time!' }, de: { n: ['Eins', 'Zwei', 'Drei'], go: 'Los!', rest: 'Pause!', end: 'Zeit!' } };
+function cdWhen() { return Object.assign({ start: true, round: false, interval: false, end: false }, S.cdWhen || {}); }
+function cdLang() { return S.cdLang === 'de' ? 'de' : 'en'; }
+function cdVoice() {
+  try {
+    if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) return null;
+    var vs = speechSynthesis.getVoices(), l = cdLang();
+    if (!vs.length) return { lang: l === 'de' ? 'de-DE' : 'en-US' };
+    var v = vs.filter(function (x) { return x.lang && x.lang.toLowerCase().indexOf(l) === 0; })[0];
+    return v ? { voice: v, lang: v.lang } : null;
+  } catch (e) { return null; }
+}
+function say(text) {
+  var v = cdVoice(); if (!v || !S.sound) return false;
+  try { var u = new SpeechSynthesisUtterance(text); u.lang = v.lang; if (v.voice) u.voice = v.voice; u.rate = 1.05; speechSynthesis.cancel(); speechSynthesis.speak(u); return true; } catch (e) { return false; }
+}
+// Welcher Anlass kommt am Ende der laufenden Phase?
+function cdEvent(L) {
+  if (TM.mode === 'routine') return null;
+  var nx = TM.phases[L.i + 1];
+  if (L.p.kind === 'pre') return { k: 'start', w: 'go' };
+  if (!nx) return { k: 'end', w: 'end' };
+  if (TM.mode === 'hiit') return { k: 'interval', w: nx.kind === 'easy' ? 'rest' : 'go' };
+  return { k: 'round', w: 'go' };
+}
+function cdOn(ev) { return S.cdVoice && ev && cdWhen()[ev.k] && !!cdVoice(); }
+if (window.speechSynthesis && speechSynthesis.addEventListener) speechSynthesis.addEventListener('voiceschanged', function () { if (ui.tab === 'einst') render(); });
 function wakeOn() { try { if ('wakeLock' in navigator && !TM.wake) navigator.wakeLock.request('screen').then(function (w) { TM.wake = w; w.addEventListener('release', function () { TM.wake = null; }); }).catch(function () {}); } catch (e) { /* ignore */ } }
 function wakeOff() { try { if (TM.wake) TM.wake.release(); } catch (e) { /* ignore */ } TM.wake = null; }
 document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && TM.running) wakeOn(); });
 
 // Freier Timer unter Tools: Einstellung je Art, nur auf diesem Gerät.
-var TMR_DEF = { mode: 'emom', emom: { every: 60, rounds: 10 }, amrap: { sec: 600 }, hiit: { work: 40, rest: 20, rounds: 8 }, zeit: { cap: 0 } };
+var TMR_DEF = { mode: 'emom', emom: { every: 60, rounds: 10 }, amrap: { sec: 600 }, hiit: { work: 40, rest: 20, rounds: 8 }, zeit: { cap: 600, open: false } };
 function tmr() {
   if (!S.tmr || typeof S.tmr !== 'object') S.tmr = {};
   if (!TFIELDS[S.tmr.mode]) S.tmr.mode = 'emom';
+  var z0 = S.tmr.zeit; if (z0 && z0.open == null) { z0.open = !z0.cap; if (!z0.cap) z0.cap = 600; } // früher: Zeitlimit 0 = ohne
   ['emom', 'amrap', 'hiit', 'zeit'].forEach(function (k) { S.tmr[k] = Object.assign({}, TMR_DEF[k], S.tmr[k]); });
   return S.tmr;
 }
-function toolSetup() { var t = tmr(); timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({ free: true }, t[t.mode]); timerReset(); }
+function toolSetup() { var t = tmr(); timerStop(); TM.mode = t.mode; TM.cfg = Object.assign({ free: true }, t[t.mode]); if (t.mode === 'zeit' && TM.cfg.open) TM.cfg.cap = 0; timerReset(); }
 function buildPhases() {
   var c = TM.cfg, P = [{ label: 'Gleich geht’s los', sub: 'In Position', dur: 10, kind: 'pre' }];
   if (TM.mode === 'emom') {
@@ -2414,7 +2444,7 @@ function buildPhases() {
   } else if (TM.mode === 'routine') {
     P = P.concat(routinePhases(ROUT[c.rid]));
   } else {
-    P.push({ label: 'Auf Zeit', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : c.cap ? 'Zeitlimit ' + fmtT(c.cap) : 'Ohne Zeitlimit', dur: c.cap || Infinity, kind: 'work', up: true });
+    P.push({ label: 'For Time', sub: c.rounds ? 'Murph: ' + c.rounds + ' Runden, Runden unten zählen' : c.cap ? 'Time Cap ' + fmtT(c.cap) : 'Ohne Time Cap', dur: c.cap || Infinity, kind: 'work', up: !c.cap }); // mit Zeitlimit läuft die Zeit herunter
   }
   return P;
 }
@@ -2432,8 +2462,11 @@ function locate(e) {
 function tick() {
   var e = elapsed(), L = locate(e);
   if (!L) { finish(); return; }
-  if (L.i !== TM.idx) { if (TM.idx >= 0) cue(true); TM.idx = L.i; TM.lastSec = null; }
-  if (L.rem != null) { var s = Math.ceil(L.rem); if (s <= 3 && s >= 1 && s !== TM.lastSec) { TM.lastSec = s; cue(false); } }
+  if (L.i !== TM.idx) {
+    if (TM.idx >= 0) { var ev = cdEvent({ i: TM.idx, p: TM.phases[TM.idx] }); if (cdOn(ev) && say(CD_WORDS[cdLang()][ev.w])) hapTimer(true); else cue(true); }
+    TM.idx = L.i; TM.lastSec = null;
+  }
+  if (L.rem != null) { var s = Math.ceil(L.rem); if (s <= 3 && s >= 1 && s !== TM.lastSec) { TM.lastSec = s; if (cdOn(cdEvent(L)) && say(CD_WORDS[cdLang()].n[s - 1])) hapTimer(false); else cue(false); } }
   paint(L); paintMini(L); paintRoutine(L); fsPaint(L);
 }
 function paint(L) {
@@ -2480,7 +2513,8 @@ function timerToggleTools() {
   if (start && TM.running && !FS.on && timerModeOf('tools') === 'full') fsOpen('auto');
 }
 function finish() {
-  TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; cue(true); showFinished(); setToggle();
+  var endL = TM.phases.length ? { i: TM.phases.length - 1, p: TM.phases[TM.phases.length - 1] } : null, endEv = endL && endL.p.kind !== 'pre' && isFinite(endL.p.dur) ? cdEvent(endL) : null;
+  TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; if (cdOn(endEv) && say(CD_WORDS[cdLang()].end)) hapTimer(true); else cue(true); showFinished(); setToggle();
   if (FS.on) { if (TM.cfg && TM.cfg.step) fsClose(); else fsPaint(); }
   if (TM.mode === 'routine') routineDone();
   if (TM.mode === 'zeit' && TM.cfg && TM.cfg.step) { setDraft('murphTime', fmt(Math.max(0, TM.finalElapsed - 10))); if (ui.tab === 'heute') render(); }
@@ -2497,7 +2531,7 @@ function showFinished() {
   $('t-fill').style.width = TM.mode === 'zeit' ? '0%' : '100%';
   $('t-done').innerHTML = '';
 }
-var TMODES = [['emom', 'EMOM'], ['amrap', 'AMRAP'], ['hiit', 'Intervall'], ['zeit', 'Auf Zeit']];
+var TMODES = [['emom', 'EMOM'], ['amrap', 'AMRAP'], ['hiit', 'Intervall'], ['zeit', 'For Time']];
 function renderTimer() {
   if (!TM.cfg || !TM.cfg.free) toolSetup();
   var h = '<section class="hero"><h1>Timer</h1></section><div class="seg" role="group" aria-label="Timer-Art">' + TMODES.map(function (m) {
@@ -2519,7 +2553,7 @@ var TFIELDS = {
   emom: [['every', 'Alle', 'time', 10], ['rounds', 'Runden', 'count', 1]],
   amrap: [['sec', 'Dauer', 'time', 10]],
   hiit: [['work', 'Arbeit', 'time', 5], ['rest', 'Pause', 'time', 0], ['rounds', 'Runden', 'count', 1]],
-  zeit: [['cap', 'Zeitlimit', 'time', 0]]
+  zeit: [['cap', 'Time Cap', 'time', 10]]
 };
 function timerTotal(c) {
   if (TM.mode === 'emom') return c.every * c.rounds;
@@ -2527,14 +2561,24 @@ function timerTotal(c) {
   return null;
 }
 function timerConfigHTML() {
-  var c = TM.cfg, tot = timerTotal(c);
-  var h = '<div class="pick-grid t-grid">' + TFIELDS[TM.mode].map(function (f) {
-    var v = c[f[0]], txt = f[2] === 'count' ? String(v) : f[0] === 'cap' && !v ? 'ohne' : fmtT(v);
+  var c = TM.cfg, tot = timerTotal(c), open = TM.mode === 'zeit' && tmr().zeit.open, h = '';
+  if (TM.mode === 'zeit') h += '<div class="seg" role="group" aria-label="For Time">' + [['cap', 'Time Cap'], ['open', 'Ohne Time Cap']].map(function (o) {
+    var on = (o[0] === 'open') === open;
+    return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="t-cap" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+  }).join('') + '</div><p class="small muted" style="margin:0 0 10px">' + (open ? 'Die Zeit läuft hoch, bis du auf „Fertig“ tippst.' : 'Die Zeit läuft herunter, bei 0 ist Schluss. Bist du vorher fertig, zählt deine Zeit.') + '</p>';
+  if (open) return h + timerFootHTML();
+  h += '<div class="pick-grid t-grid">' + TFIELDS[TM.mode].map(function (f) {
+    var v = c[f[0]], txt = f[2] === 'count' ? String(v) : fmtT(v);
     return tile(f[1], '<b>' + txt + (f[2] === 'count' ? ' <span class="unit">×</span>' : '') + '</b>', 'data-act="t-set" data-k="' + f[0] + '"', 'set');
   }).join('');
   if (tot != null) h += '<div class="tile calc"><small>Gesamt · errechnet</small><b>' + fmtT(tot) + '</b></div>';
-  h += '</div><p class="small muted" style="margin:10px 0 4px">Start mit 10 Sekunden Vorlauf, damit du in Position kommst.</p>';
+  return h + '</div>' + timerFootHTML();
+}
+function timerFootHTML() {
+  var h = '<p class="small muted" style="margin:10px 0 4px">Start mit 10 Sekunden Vorlauf, damit du in Position kommst.</p>';
   h += '<label class="check"><input type="checkbox" data-change="sound"' + (S.sound ? ' checked' : '') + '> Signaltöne</label>' +
+    (S.sound ? '<div class="seg" role="group" aria-label="Countdown">' + [['0', 'Piepen'], ['1', 'Stimme']].map(function (o) { var on = (o[0] === '1') === !!S.cdVoice; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="cd-voice" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+      (S.cdVoice ? '<p class="small muted">„' + (cdLang() === 'de' ? 'Drei, zwei, eins, los!' : 'Three, two, one, Go!') + '“ · Sprache und Anlässe unter Einstellungen › Training.</p>' : '') : '') +
     '<p class="small muted">Lass die Seite beim Training offen. Wo das Handy es erlaubt, bleibt der Bildschirm an, solange der Timer läuft.</p>';
   return h;
 }
@@ -2787,6 +2831,21 @@ function settingsHTML() {
   if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
   return out + sec('Daten', h);
 }
+// Countdown: Piepen oder Stimme, Sprache, je Anlass an/aus. Bleibt auf dem Gerät.
+function countdownHTML() {
+  function seg(label, opts, cur, act) {
+    return '<div class="seg" role="group" aria-label="' + label + '">' + opts.map(function (o) { var on = cur === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="' + act + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
+  }
+  var h = '<h3 style="margin-top:16px">Countdown</h3>' + seg('Countdown', [['0', 'Piepen'], ['1', 'Stimme']], S.cdVoice ? '1' : '0', 'cd-voice');
+  if (!S.cdVoice) return h + '<p class="small muted">Die letzten 3 Sekunden jeder Phase piepen, dann ein langer Ton.</p>';
+  var w = cdWhen(), ok = !!cdVoice();
+  h += seg('Sprache', [['de', 'Deutsch'], ['en', 'Englisch']], cdLang(), 'cd-lang') +
+    '<p class="small muted">' + (cdLang() === 'de' ? '„Drei, zwei, eins, los!“ · Pause: „… Pause!“ · Ende: „… Zeit!“' : '„Three, two, one, Go!“ · Pause: „… Rest!“ · Ende: „… Time!“') + '</p>' +
+    CD_WHEN.map(function (x) { return '<label class="check"><input type="checkbox" data-change="cdWhen" data-k="' + x[0] + '"' + (w[x[0]] ? ' checked' : '') + '> ' + x[1] + '</label>'; }).join('') +
+    '<p class="small muted">Ausgeschaltet piept es dort wie gewohnt.' + (ok ? '' : ' <b>Auf diesem Gerät gibt es keine ' + (cdLang() === 'de' ? 'deutsche' : 'englische') + ' Stimme</b>, deshalb piept es. In den Android-Einstellungen unter Sprachausgabe lässt sie sich laden.') + '</p>' +
+    '<button type="button" class="btn small" data-act="cd-test">Probe anhören</button>';
+  return h;
+}
 // Training: Ablauf je Trainingsart, Rundenzähler, Gesten. Bleibt auf dem Gerät.
 function trainingHTML() {
   var c = !!S.trainCustom, rev = !!S.swipeRev;
@@ -2810,6 +2869,7 @@ function trainingHTML() {
   else h += '<p class="small muted">Tools › Timer startet im Vollbild, im Training läuft der Timer unten als Leiste. Vollbild jederzeit über den Pfeil-Knopf, Handy quer drehen öffnet es auch.</p>';
   h += '<p class="small" style="margin:12px 0 0"><b>Vollbild-Ansicht</b></p>' + seg('Vollbild-Ansicht', [['auto', 'Automatisch'], ['port', 'Hochkant'], ['land', 'Quer']], S.timerView === 'port' || S.timerView === 'land' ? S.timerView : 'auto', 'data-act="tm-view"') +
     '<p class="small muted">Automatisch dreht mit dem Handy. Im Vollbild hält der Dreh-Knopf die Ansicht fest, lange drücken = wieder automatisch.</p>';
+  h += countdownHTML();
   h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
     '<label class="check"><input type="checkbox" data-change="swipeRev"' + (rev ? ' checked' : '') + '> Wischen umkehren</label>' +
     '<p class="small muted">Nach ' + (rev ? 'rechts' : 'links') + ' wischen: erledigt, weiter. Nach ' + (rev ? 'links' : 'rechts') + ': zurück. Immer gleich, ob einzeln, in der Liste oder am Rundenzähler.</p>';
@@ -3369,6 +3429,13 @@ ACT['tr-custom'] = function (el) {
   if (S.trainCustom && !S.trainModes) S.trainModes = Object.assign({}, TRAIN_STD);
   saveState(); render();
 };
+ACT['cd-voice'] = function (el) { S.cdVoice = el.dataset.v === '1'; saveState(); render(); if (S.cdVoice) ACT['cd-test'](); };
+ACT['cd-lang'] = function (el) { S.cdLang = el.dataset.v; saveState(); render(); ACT['cd-test'](); };
+ACT['cd-test'] = function () {
+  var W = CD_WORDS[cdLang()], seq = [W.n[2], W.n[1], W.n[0], W.go], i = 0;
+  if (!cdVoice()) { toast('Keine passende Stimme auf diesem Gerät.'); return; }
+  (function next() { if (i < seq.length) { say(seq[i++]); setTimeout(next, 1000); } })();
+};
 ACT['tr-round'] = function (el) { S.roundMode = el.dataset.v; saveState(); render(); };
 ACT['tm-custom'] = function (el) { S.timerCustom = el.dataset.v === 'custom'; if (S.timerCustom && !S.timerModes) S.timerModes = Object.assign({}, TIMER_STD); saveState(); render(); };
 ACT['tm-mode'] = function (el) { S.timerModes = Object.assign({}, TIMER_STD, S.timerModes || {}); S.timerModes[el.dataset.t] = el.dataset.v; saveState(); render(); };
@@ -3376,7 +3443,8 @@ ACT['tm-view'] = function (el) { S.timerView = el.dataset.v; saveState(); render
 ACT['tr-mode'] = function (el) { S.trainModes = Object.assign({}, TRAIN_STD, S.trainModes || {}); S.trainModes[el.dataset.t] = el.dataset.v; saveState(); render(); };
 var CHG = {
   cooldown: function (el) { S.cooldown = el.checked; saveState(); setTimeout(render, 420); },
-  sound: function (el) { S.sound = el.checked; saveState(); },
+  sound: function (el) { S.sound = el.checked; saveState(); if (ui.tab === 'timer') render(); },
+  cdWhen: function (el) { S.cdWhen = cdWhen(); S.cdWhen[el.dataset.k] = el.checked; saveState(); },
   haptik: function (el) { S.haptik = el.checked; saveState(); setTimeout(render, 420); },
   name: function (el) { S.name = el.value.trim(); saveState(); },
   roundCounter: function (el) { S.roundCounter = el.checked; saveState(); },
@@ -4246,11 +4314,16 @@ ACT.step = function (el) {
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
   LS.set('tp.drafts', DRAFTS); window.scrollTo(0, 0); render();
 };
+ACT['t-cap'] = function (el) {
+  if (TM.running || TM.acc > 0) { toast('Setz den Timer erst zurück.'); return; }
+  tmr().zeit.open = el.dataset.v === 'open'; saveState(); toolSetup(); render();
+};
 ACT['t-set'] = function (el) {
   if (!TM.cfg || !TM.cfg.free) return;
   if (TM.running || TM.acc > 0) { if (el.id !== 't-digits') toast('Setz den Timer erst zurück.'); return; }
   var k = el.dataset.k, f = TFIELDS[TM.mode].filter(function (x) { return x[0] === k; })[0]; if (!f) return;
   var t = tmr(), c = t[TM.mode];
+  if (TM.mode === 'zeit' && c.open) return;
   function set(v) { c[k] = Math.max(f[3], v); saveState(); toolSetup(); render(); }
   if (f[2] === 'count') openSheet(f[1], [{ head: 'Runden', items: numItems(1, 99), val: String(c[k]) }], function (v) { set(+v[0]); }, { num: 0 });
   else openTimeSheet(f[1], c[k], set);
@@ -4574,7 +4647,7 @@ function fsKick() {
   var c = TM.cfg || {};
   if (c.step) return fsStepTitle(c.step);
   return { emom: 'EMOM · alle ' + fmtT(c.every) + ' · ' + c.rounds + ' Runden', amrap: 'AMRAP · ' + fmtT(c.sec), hiit: 'Intervall · ' + fmtT(c.work) + ' / ' + fmtT(c.rest) + ' · ' + c.rounds + ' Runden',
-    zeit: 'Auf Zeit' + (c.cap ? ' · Limit ' + fmtT(c.cap) : '') }[TM.mode] || '';
+    zeit: 'For Time' + (c.cap ? ' · Time Cap ' + fmtT(c.cap) : ' · ohne Time Cap') }[TM.mode] || '';
 }
 function fsRender() {
   var tools = !(TM.cfg && TM.cfg.step);
@@ -4645,7 +4718,7 @@ function fsPaint(L, force) {
   else if (p.kind === 'pre') pl = 'In Position kommen';
   else if (TM.mode === 'emom') pl = c.stations ? 'Runde ' + (Math.floor((L.i - 1) / c.stations.length) + 1) + ' von ' + Math.ceil(c.minutes / c.stations.length) : 'Runde ' + L.i + ' von ' + (c.rounds || c.minutes);
   else if (TM.mode === 'hiit') pl = p.sub || '';
-  else if (TM.mode === 'zeit') pl = c.cap ? 'Limit ' + fmtT(c.cap) : c.rounds ? c.rounds + ' Runden' : 'Ohne Zeitlimit';
+  else if (TM.mode === 'zeit') pl = c.cap ? 'Time Cap ' + fmtT(c.cap) : c.rounds ? c.rounds + ' Runden' : 'Ohne Time Cap';
   else if (TM.mode === 'routine') pl = p.next ? 'Danach: ' + p.next : '';
   else if (L && L.rem != null) pl = 'noch ' + fmtT(Math.ceil(L.rem));
   $('fs-pl').textContent = pl;

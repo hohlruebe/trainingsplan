@@ -115,11 +115,15 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Block „Bewegung“ im Skript, merkt sich die Lage beim `pointerdown` und animiert nach dem Neuzeichnen). Bei „Bewegung reduzieren“ aus.
 - Jeder Schritt bringt seinen Timer fertig eingestellt mit (helle Glas-Leiste `#tbar`, `paintMini`), Timer-Art `block`
   für Aufwärmen und Handstand. Die laufende EMOM-Übung ist blau umrandet. Vorlagen aus dem Plan gibt es nur dort.
-- Tools › Timer ist frei einstellbar: EMOM (Alle, Runden), AMRAP (Dauer), Intervall (Arbeit, Pause, Runden), Auf Zeit
-  (Zeitlimit oder ohne), immer mit 10 s Vorlauf. Einstellung je Art in `S.tmr` (`tmr()`, nur auf dem Gerät).
+- Tools › Timer ist frei einstellbar: EMOM (Alle, Runden), AMRAP (Dauer), Intervall (Arbeit, Pause, Runden), For Time
+  (Umschalter „Time Cap“ / „Ohne Time Cap“, `S.tmr.zeit.open`; mit Time Cap läuft die Zeit herunter, ohne hoch; Ergebnis ist immer die gebrauchte Zeit), immer mit 10 s Vorlauf. Einstellung je Art in `S.tmr` (`tmr()`, nur auf dem Gerät).
   Rundenzähler auf der Timer-Seite nur, solange der Timer läuft (`#t-rrow`).
+- Countdown (`countdownHTML`, Einstellungen › Training, kurz auch unter Tools › Timer): Piepen oder Stimme (`S.cdVoice`), Sprache
+  Deutsch/Englisch (`S.cdLang`, `CD_WORDS`: „Drei, zwei, eins, los!“ / „Three, two, one, Go!“, Pause „Pause!/Rest!“, Ende „Zeit!/Time!“),
+  je Anlass an/aus (`S.cdWhen`, `CD_WHEN`: Start nach dem Vorlauf, jede neue Runde, Intervall Arbeit/Pause, Ende; aus = Piepen).
+  Stimme über die Sprachausgabe des Handys (`say`, `cdVoice`, `cdEvent` in `tick`/`finish`); ohne passende Stimme piept es. Nur auf dem Gerät.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`): große Zeit in Geist, rechts (quer) bzw. unten (hochkant) eine Karte:
-  Runden (Tools AMRAP/Auf Zeit, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), laufende EMOM-Übung mit
+  Runden (Tools AMRAP/For Time, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), laufende EMOM-Übung mit
   Figur und „Als Nächstes“, Intervall „Als Nächstes“. Oben Drehen (`fs-rot`, hält die Ansicht, lange drücken = automatisch), Minimieren
   (`fs-min`, Timer läuft weiter), Pause, ✕ nur in Tools (mit Nachfrage). Vorlauf und Intervall-Pause grün, letzte 3 s pulsieren.
   Öffnen: Pfeil-Knopf in der Timer-Leiste (mit Pause in einer Kapsel `.tb-grp`), Tippen auf die Zeit, Pfeil-Knopf auf der Timer-Seite,
