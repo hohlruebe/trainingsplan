@@ -3638,14 +3638,22 @@ function swipeDo(t, fwd) {
   else if (k === 'row') flowRow(id, +t.dataset.i, fwd);
   else if (k === 'count') flowCount(fwd ? 1 : -1);
 }
+// Beweglichkeits-Check: je Test eine Karte mit Figur der gewählten (sonst der zuletzt erreichten) Stufe, Auswahl und Anleitung.
 function mobCheckHTML(D) {
-  var h = '<section class="card"><p>Mach den Check warm. Pro Test ein Versuch, trag jeweils die höchste saubere Stufe ein. Wie es geht, steht unten.</p><div class="pick-grid">' + MOB.check.leitern.map(function (k, i) {
-    var lad = LAD[k], stg = D['mc' + i] || '';
-    return lad ? tile(lad.name, '<b class="txt">' + esc(stg || 'wählen') + '</b>', pickAttrs({ only: 'stage', sf: 'mc' + i, lad: k, title: lad.name }), stg ? 'set' : '') : '';
-  }).join('') + '</div></section>';
-  return h + MOB.check.leitern.map(function (k) {
-    var t = LAD[k] && LAD[k].lib && LAD[k].lib.test; if (!t) return '';
-    return '<details class="card mc-how"><summary>So geht’s · ' + esc(LAD[k].name) + '</summary><p>' + esc(t.finden) + '</p><p class="small muted"><b>Sauber:</b> ' + esc(t.sauber) + '</p></details>';
+  var st = ladderStates(LOGS);
+  var h = '<p class="small muted">Mach den Check warm. Pro Test ein Versuch, trag jeweils die höchste saubere Stufe ein.</p>';
+  return h + MOB.check.leitern.map(function (k, i) {
+    var lad = LAD[k]; if (!lad) return '';
+    var stg = D['mc' + i] || '', steps = (lad.lib && lad.lib.stufen) || [], s0 = st[k] && st[k].cur ? steps[st[k].cur - 1] : null;
+    var cur = steps.filter(function (x) { return x.name === stg; })[0] || s0 || steps[0] || {}, t = lad.lib && lad.lib.test;
+    if (!figOf(cur.uebung)) { // noch keine Grafik für diese Stufe: die nächste Stufe mit Grafik zeigen
+      var ci = steps.indexOf(cur), alt = steps.slice(ci + 1).concat(steps.slice(0, Math.max(0, ci)).reverse()).filter(function (x) { return figOf(x.uebung); })[0];
+      if (alt) cur = alt;
+    }
+    return '<section class="card mc-card"><div class="card-head"><h3>' + esc(lad.name) + '</h3><span class="small muted">Test ' + (i + 1) + ' von ' + MOB.check.leitern.length + '</span></div>' +
+      figBox(cur.uebung || '') + (cur.name ? '<p class="small muted">Gezeigt: ' + esc(cur.name) + '</p>' : '') +
+      '<div class="pick-grid one">' + tile('Höchste saubere Stufe', '<b class="txt">' + esc(stg || 'wählen') + '</b>', pickAttrs({ only: 'stage', sf: 'mc' + i, lad: k, title: lad.name }), stg ? 'set' : '') + '</div>' +
+      (t ? '<details class="mc-how"><summary>So geht’s</summary><p>' + esc(t.finden) + '</p><p class="small muted"><b>Sauber:</b> ' + esc(t.sauber) + '</p></details>' : '') + '</section>';
   }).join('');
 }
 function mobFrom(v) { return MOB.check.leitern.map(function (k, i) { return { lad: k, stage: v['mc' + i] || '' }; }).filter(function (x) { return x.stage; }); }
@@ -3839,7 +3847,9 @@ function metconStepHTML(tag, D, am) {
 function testStepHTML(tag, r, i, D) {
   var ex = TEST_BASE[TESTDAYS[tag].rows][i], lad = ladFor(r.name), secs = isSecs(lad), sf = 't' + i + 'stage', f = 't' + i + 'max';
   var stage = D[sf] || '', mx = num(D[f]), u = secs ? 's' : 'Wdh.';
-  var h = '<section class="card">' + figBox(GL[r.name] ? GL[r.name].key : '') + '<p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
+  var gk = GL[r.name] ? GL[r.name].key : '', sv = lad && lad.lib && stage ? lad.lib.stufen.filter(function (x) { return x.name === stage; })[0] : null;
+  if (sv && figOf(sv.uebung)) gk = sv.uebung; // Figur der gewählten Stufe, z. B. Knee Push-up bei „Auf Knien“
+  var h = '<section class="card">' + figBox(gk) + '<p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
   h += '<section class="card"><div class="pick-grid">' +
     tile('Stufe', '<b class="txt">' + (stage ? stageHTML(stage) : 'wählen') + '</b>', lad ? pickAttrs({ only: 'stage', sf: sf, lad: GL[r.name].key, title: r.name }) : 'disabled') +
     tile(secs ? 'Bestzeit' : 'Geschafft', '<b>' + (mx != null ? mx + ' <span class="unit">' + u + '</span>' : '–') + '</b>',
