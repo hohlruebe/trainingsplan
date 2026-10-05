@@ -42,7 +42,9 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Schalter: alle Checkboxen in `.check` sind „Glas-Tropfen“: an grün mit Strich, aus rot mit Kreis.
 
 ## Hinweise
-- Erst der Ablauf, dann die Aktion, dann Tipps. Hinweise sammeln sich in einer ruhigen Tipps-Karte (`tipsHTML`).
+- Erst der Ablauf, dann die Aktion. Hinweise stehen dort, wo sie hingehören: grau unter dem Schritt (`.tl-x`), Phase in der Block-Karte.
+  Eine Tipps-Karte (`tipsHTML`) nur für echte Anleitungen (Testtag, Murph).
+- Anpassungen für heute: grauer Link „Session anpassen“, Blatt mit Liste der Anliegen, Aktives grau hinterlegt, gilt sofort, nur „Fertig“.
 - Farbige Hinweise (gelb `.flag`) nur für echte Warnungen im Moment des Handelns.
 - Reine Infos sind Chips (`.chip`), nicht tippbar. Zustände nur zeigen, wenn etwas nicht stimmt (z. B. „Sync-Fehler“).
 

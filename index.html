@@ -434,7 +434,7 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .tl-b{flex:1;min-width:0;padding-top:4px}
 .tl-h{display:flex;justify-content:space-between;gap:8px;font-size:16px;font-weight:600}
 .tl-h span{font-weight:400;font-size:14px;color:var(--ink2);white-space:nowrap}
-.tl-d{font-size:14px;color:var(--ink2);margin-top:2px}
+.tl-x{margin:6px 0 0;padding:6px 10px;border-radius:10px;background:var(--board);font-size:13px;line-height:1.4;color:var(--ink2)}.tl-d{font-size:14px;color:var(--ink2);margin-top:2px}
 .btn.go{min-height:56px;font-size:18px}
 .btn.save{background:var(--on);color:#fff;border-color:transparent}
 .ov-foot{text-align:center;font-size:14px;color:var(--ink2);margin:12px 0}
@@ -613,7 +613,7 @@ button.chip{cursor:pointer;border:0}
 .t-node.next{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line2)}
 .t-node.lock{opacity:.6}
 .t-leg{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
-.unl{display:flex;gap:14px;align-items:center}
+.unl{display:flex;gap:14px;align-items:center}.pg .unl{padding-top:2px}.pg-neu{display:flex;flex-direction:column;gap:2px;padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line)}.pg-neu b{font-size:17px}.pg-neu span:last-child{font-size:13px;color:var(--ink2);line-height:1.35}.pg-chip{align-self:flex-start;margin:0 0 4px;color:var(--green);font-weight:700}.pg-neu:last-child{border:0;margin:0;padding:0}
 /* Schwerpunkte: Auswahl, Block-Karte, Laufziel, Rückblick */
 button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
 .fk-list .card.fk{display:flex;gap:12px;align-items:flex-start;margin:10px 0;padding:14px;outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s,transform .15s}
@@ -644,6 +644,16 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .pw .pills{margin:10px 0 14px}
 .pd-k{margin:0 0 10px}
 .pd-n{margin:12px 0 0}
+.adj{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 14px;margin:-6px 0 14px;font-size:13px;color:var(--ink2)}
+.adj-q{min-height:44px;padding:0 6px;border:0;background:none;color:var(--ink2);font:inherit;font-size:13px;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink2) 40%,transparent);text-underline-offset:3px;cursor:pointer}
+.ad-list{margin:0;padding:2px 14px}
+.ad-it .gl-row{min-height:60px}
+.ad-it.sel,.ad-it.open{background:var(--board);margin:0 -14px;padding:0 14px;border-radius:14px;border-bottom-color:transparent}.ad-it:has(+.ad-it.sel),.ad-it:has(+.ad-it.open){border-bottom-color:transparent}.ad-it.sel+.ad-it.sel,.ad-it.sel+.ad-it.open,.ad-it.open+.ad-it.sel{margin-top:6px}.ad-ok{width:22px;height:22px;flex:none;color:var(--acc);opacity:0;transition:opacity .2s}.ad-it.sel .ad-ok{opacity:1}.ad-it.open>.gl-row .gl-chev{transform:rotate(90deg)}
+.gl-chev{transition:transform .2s}
+.ad-p{padding:2px 0 14px}
+.ad-p .check{margin:4px 0}
+.ad-p .cap{margin:4px 0 0}
+
 .blk .small{display:block}
 .zones{list-style:none;margin:12px 0 6px;padding:0}
 .zones li{display:flex;align-items:center;gap:10px;min-height:38px;border-top:1px solid var(--line);font-size:14px}
@@ -1837,6 +1847,10 @@ LIB.leitern.forEach(function (l) {
   else if (names.length > r.steps.length && names.slice(0, r.steps.length).join('|') === r.steps.join('|')) r.steps = names;
   r.lib = l; r.nutzen = l.nutzen; r.muster = l.muster; r.bereich = l.bereich;
 });
+// Nahe Muster für den Ersatz, wenn am Ort das Gerät fehlt.
+var MUSTER_NEAR = { zug_vertikal: ['zug_horizontal'], zug_horizontal: ['zug_vertikal'], druck_vertikal: ['druck_horizontal'], druck_horizontal: ['druck_vertikal'],
+  einbein: ['kniebeuge'], kniebeuge: ['einbein'], beinbeuger: ['huefte'], huefte: ['beinbeuger'],
+  rumpf_beugung: ['rumpf_anti_streckung'], rumpf_anti_streckung: ['rumpf_beugung'], rumpf_rotation: ['rumpf_anti_streckung'] };
 var MUSTER = { ausdauer: 'Ausdauer', beinbeuger: 'Beinbeuger', druck_horizontal: 'Druck horizontal', druck_vertikal: 'Druck vertikal', einbein: 'Einbeinig', handstand_skill: 'Handstand und Skill',
   huefte: 'Hüfte', kniebeuge: 'Kniebeuge', mobilitaet: 'Mobilität', olympisch: 'Gewichtheben', rumpf_anti_streckung: 'Rumpf gegen Hohlkreuz', rumpf_beugung: 'Rumpf beugen',
   rumpf_rotation: 'Rumpf drehen', sprung: 'Sprung', tragen: 'Tragen', zug_horizontal: 'Zug horizontal', zug_vertikal: 'Zug vertikal' };
@@ -1954,7 +1968,7 @@ var TEST_BASE = {
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
+  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
 
 var LS = {
@@ -2029,7 +2043,8 @@ function whereLabel(w) { return w === 'AUFWÄRMEN' ? 'Aufwärmen' : w === 'MURPH
 function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600); }
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
-function isKurz(tag) { var k = draftKey(tag); if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7; }
+function isKurz(tag) { return zeitLv(tag) >= 2 || isKurz0(tag); }
+function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 }
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
   var d = DAYS[tag];
@@ -2111,7 +2126,7 @@ function initDb() {
 }
 
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = PWA ? LS.get('tp.sync', null) : null;
@@ -2323,6 +2338,19 @@ function advance() {
   if (t === 7) { S.tag = 1; S.durchgang += 1; blockCheck(); } else S.tag = t + 1;
   ui.viewTag = null;
 }
+// Nach dem letzten Trainingsschritt fragt die App nach dem Cool-down (nur an Krafttagen, einmal pro Einheit).
+function saveAsk() {
+  var tag = S.tag, c = dayCtx(tag), D = DRAFTS[draftKey(tag)] || {}, r = coolOf(tag);
+  if (!r || D._step == null || D._cd != null || D._cool || c.isTest || c.isMurph || c.d.type !== 'kraft') { saveDay(); return; }
+  openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + r.dauer_min + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
+    if (v === 'nein') { setDraft('_cd', '0'); saveDay(); return; }
+    if (v !== 'ja') return;
+    setDraft('_cd', '1');
+    var st = stepsOf(dayCtx(tag)), to = 0;
+    st.forEach(function (x, i) { if (x.id === 'cool') to = i; });
+    ACT.step({ dataset: { to: String(to) } });
+  });
+}
 function saveDay() {
   syncDays();
   var ladBefore = areaStates(LOGS);
@@ -2350,7 +2378,7 @@ function saveDay() {
         return { n: x.n, stage: v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n), reps: reps };
       }) });
     if (d.kfmt === 'saetze' && d.kraft.length) log.sets = rounds;
-    if ((d.mmin || d.bench) && d.metcon.length) {
+    if ((d.mmin || d.bench) && d.metcon.length && zeitLv(tag) < 3) {
       var stages = d.metcon.map(function (m, i) {
         if (!metconLad(m.n)) return null;
         var st = v['m' + i + 'stage'] != null ? v['m' + i + 'stage'] : lastMetconStage(m.n);
@@ -2360,7 +2388,7 @@ function saveDay() {
       if (d.bench) { log.metcon.bench = BENCH[d.bench].name; log.metcon.fmt = BENCH[d.bench].fmt; }
       if (stages.length) log.metcon.stages = stages;
     }
-    if (d.skill) { var sk = skillFrom(v, d); if (sk) log.skill = sk; }
+    if (d.skill && zeitLv(tag) < 1) { var sk = skillFrom(v, d); if (sk) log.skill = sk; }
     if (d.mobl) log.mobl = { art: d.mobl, min: mobRoutine(d.mobl).dauer_min, done: flowState(moblFlow(tag), v).done.length || null };
     if (d.run) {
       var rs = runSpec(d), rr = runFrom(v, rs);
@@ -2370,6 +2398,8 @@ function saveDay() {
     var spec = runSpec(d);
     log = Object.assign(base, { kind: 'easy', run: runFrom(v, spec) });
     if (d.pre === 'hs' && (v.hsStage != null || v.hsSec != null)) log.hs = composeHs(v);
+  } else if (d.type === 'interval' && isKurz(tag)) {
+    log = Object.assign(base, { kind: 'easy', kurz: true, run: runFrom(v, { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) }) });
   } else if (d.type === 'interval') {
     log = Object.assign(base, { kind: 'interval', interval: runFrom(v, runSpec(d)) });
     if (S.durchgang - (S.ivBumpD || 0) >= 2) { changeIv(1); S.ivBumpD = S.durchgang; extra = ' Nächstes Mal: Stufe ' + S.ivStage + ', ' + S.ivReps + '×.'; }
@@ -3464,7 +3494,7 @@ var ACT = {
     else render();
     var n = document.getElementById('g-' + e.key); if (n) n.scrollIntoView({ block: 'start' });
   },
-  save: saveDay,
+  save: saveAsk,
   'skip-murph': function () { ui.skipMurph = true; render(); },
   'murph-stage': function (el) { S.murphStage = +el.dataset.s; saveState(); render(); },
   'iv-reps': function (el) { changeIv(+el.dataset.d); saveState(); render(); },
@@ -3643,7 +3673,7 @@ function dayCtx(tag) {
   return { tag: tag, cur: cur, d: d, isTest: isTest, isMurph: isMurph };
 }
 function stepsOf(c) {
-  var tag = c.tag, d = c.d;
+  var tag = c.tag, d = c.d, D0 = c.cur ? (DRAFTS[draftKey(tag)] || {}) : {}, zl = c.cur ? zeitLv(tag) : 0, wm = zl >= 4 ? 4 : 8;
   if (c.isTest) {
     return PLAN.tests[TESTDAYS[tag].rows].map(function (r, i) {
       return { id: 't' + i, title: r.name, sub: r.note, desc: r.note, body: function (D) { return testStepHTML(tag, r, i, D); } };
@@ -3663,9 +3693,9 @@ function stepsOf(c) {
     out.push({ id: 'run', title: rT, sub: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min · Zone ' + rs.iv.zone : rs.min ? rs.min + ' Min · Zone 3–4' : rs.art === 'test' ? '5 km auf Zeit' : laufGoal().name, dur: Math.round(planRunSec(rs) / 60),
       desc: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben' : 'Ergebnis von der Uhr eintragen', body: function (D) { return runHTML(c, D, rs, true); } });
   }
-  if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: '8 Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: 8,
+  if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: wm + ' Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: wm,
     desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
-    timer: { mode: 'block', cfg: { minutes: 8, label: 'Aufwärmen', tag: tag }, label: '8 Min starten', info: 'Aufwärmen' },
+    timer: { mode: 'block', cfg: { minutes: wm, label: 'Aufwärmen', tag: tag }, label: wm + ' Min starten', info: 'Aufwärmen' },
     body: function (D) { return warmStepHTML(tag, D); } });
   if (d.mobl) {
     var mr = mobRoutine(d.mobl);
@@ -3673,10 +3703,10 @@ function stepsOf(c) {
       timer: { mode: 'routine', cfg: { rid: mr.id, tag: tag }, label: mr.dauer_min + ' Min starten', info: mr.name },
       body: function (D) { var F = moblFlow(tag); return modeOf('mobl') === 'single' ? '<p class="small muted">' + esc(mr.ziel) + '</p>' + flowHTML(F, D) : '<section class="card"><p>' + esc(mr.ziel) + '</p>' + flowHTML(F, D) + '</section>'; } });
   }
-  if (d.hs) out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
+  if (d.hs && zl < 1) out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
     timer: { mode: 'block', cfg: { minutes: d.hs, label: 'Handstand', tag: tag }, label: d.hs + ' Min starten', info: 'Handstand an der Wand' },
     body: function (D) { return hsStepHTML(D); } });
-  if (d.skill) {
+  if (d.skill && zl < 1) {
     var sk = skillOf(d);
     out.push({ id: 'skill', title: 'Skill · ' + sk.goal.name, sub: d.skill + ' Min · frisch, nie bis zum Versagen', dur: d.skill, desc: uName(sk.v.uebung) + (sk.pre ? ' (Voraussetzung für ' + sk.goal.name + ')' : ''),
       timer: { mode: 'block', cfg: { minutes: d.skill, label: 'Skill-Block', tag: tag }, label: d.skill + ' Min starten', info: sk.f.name },
@@ -3696,7 +3726,7 @@ function stepsOf(c) {
         body: function (D) { return kraftStepHTML(tag, D, rounds); } });
     }
   }
-  if ((d.mmin || d.bench) && d.metcon.length) {
+  if ((d.mmin || d.bench) && d.metcon.length && zl < 3) {
     var am = metconMin(tag), B = d.bench ? BENCH[d.bench] : null, em2 = B && B.fmt === 'emom';
     out.push({ id: 'metcon', title: B ? B.name + ' · ' + (em2 ? 'EMOM ' : 'AMRAP ') + am : (d.wod ? 'WOD' : 'Metcon') + ' · AMRAP ' + am,
       sub: em2 ? am + ' Min · jede Minute eine Runde' : am + ' Min · so viele Runden wie möglich', dur: am, opt: !!d.mopt,
@@ -3705,7 +3735,7 @@ function stepsOf(c) {
         : { mode: 'amrap', cfg: { minutes: am, tag: tag }, label: 'AMRAP ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
       body: function (D) { return metconStepHTML(tag, D, am); } });
   }
-  return out.concat(mobCheckStep(tag)).concat(coolStep(tag));
+  return out.concat(mobCheckStep(tag)).concat(D0._cd === '1' || D0._cool ? coolStep(tag) : []);
 }
 // Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in den Test-Durchgängen des Schwerpunkts.
 function mobCheckStep(tag) {
@@ -3715,14 +3745,14 @@ function mobCheckStep(tag) {
 }
 function coolOf(tag) { var d = DAYS[tag]; return d && d.cool && ROUT[d.cool] ? ROUT[d.cool] : null; }
 function coolStep(tag) {
-  var r = S.cooldown === false ? null : coolOf(tag);
+  var r = coolOf(tag);
   if (!r) return [];
-  return [{ id: 'cool', title: r.name, sub: r.dauer_min + ' Min · optional', dur: r.dauer_min, desc: r.ziel, opt: true,
+  return [{ id: 'cool', title: r.name, sub: r.dauer_min + ' Min · passend zum Tag', dur: r.dauer_min, desc: r.ziel, opt: true,
     timer: { mode: 'routine', cfg: { rid: r.id, tag: tag }, label: r.dauer_min + ' Min starten', info: r.name },
     body: function (D) {
       var F = coolFlow(tag);
       return (modeOf('cool') === 'single' ? '<p class="small muted">' + esc(r.ziel) + '</p>' + flowHTML(F, D) : '<section class="card"><p>' + esc(r.ziel) + '</p>' + flowHTML(F, D) + '</section>') +
-        '<p class="small muted" style="text-align:center">Keine Zeit? Einfach direkt speichern.</p>';
+        '<p class="small muted" style="text-align:center">Doch keine Zeit? Einfach direkt speichern.</p>';
     } }];
 }
 function routineListHTML(r) {
@@ -3943,6 +3973,15 @@ function mobCheckHTML(D) {
 }
 function mobFrom(v) { return MOB.check.leitern.map(function (k, i) { return { lad: k, stage: v['mc' + i] || '' }; }).filter(function (x) { return x.stage; }); }
 
+// Ringhöhe nur, wenn eine Übung wirklich an den Ringen läuft, und immer in Bezug auf den eigenen Körper.
+var RING_H = [[/Push-up/, 'auf Knöchelhöhe, höher = leichter'], [/Leg Curl/, 'auf Wadenhöhe, Fersen in die Ringe'], [/Fallout/, 'auf Kniehöhe, höher = leichter'],
+  [/Row/, 'auf Brusthöhe, höher = leichter'], [/Dip|Support|RTO|L-Sit/, 'auf Hüfthöhe, Knie anwinkeln'], [/Pistol/, 'auf Brusthöhe zum Festhalten'],
+  [/./, 'so hoch, dass du mit gestreckten Armen frei hängst. Reicht die Höhe nicht ganz, Beine anwinkeln']];
+function ringNotes(names) {
+  return names.filter(function (n) { return /\bRing\b|RTO|False Grip/.test(n || ''); }).map(function (n) {
+    for (var i = 0; i < RING_H.length; i++) if (RING_H[i][0].test(n)) return esc(n) + ': Ringe ' + RING_H[i][1] + '.';
+  });
+}
 function renderHeute() {
   if (!S.started) return onboardingHTML();
   if (S.review) return reviewHTML();
@@ -3960,50 +3999,52 @@ function renderHeute() {
     h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + ': ' + esc(dayLabel(t)) + (t === S.tag ? ', dran' : '') + '" aria-pressed="' + (t === tag) + '">' + t + '</button>';
   }
   h += '</nav>';
-  if (S.durchgang > 0) h += blockCardHTML();
+  // Hinweise stehen dort, wo sie hingehören: Phase in der Block-Karte, Geräte beim Ort, Übungs-Hinweise im Ablauf.
+  var p = pauseDays(), pn = '';
+  if (cur && p > 7) pn = 'Willkommen zurück: ' + p + ' Tage Pause, ' + (p > 14 ? 'dieser Durchgang kürzer.' : 'die nächsten 2 Einheiten kürzer.');
+  else if (S.durchgang === 1 || S.durchgang === 2) pn = 'Einstieg: kürzer, je 1 Wdh. unter deinem Startwert.';
+  else if (ph.deload) pn = 'Weniger Sätze, damit du frisch bleibst.';
+  else if (ph.test) pn = 'Maxout in Runde 1, gut schlafen.';
+  if (S.durchgang > 0) h += blockCardHTML(pn);
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
       '<button type="button" class="btn small" data-act="back-today">Zurück</button></span></div>';
   }
   // Hinweise kommen gesammelt als ruhige Tipps-Karte nach dem Ablauf.
-  var tips = [], p = pauseDays(), tipBtn = '';
-  if (cur && p > 7) tips.push('<b>Willkommen zurück.</b> Dein letztes Training ist ' + p + ' Tage her. ' +
-    (p > 14 ? 'Mach einen ganzen Durchgang als Kurzversion, erst danach wieder auf deine alten Zahlen zielen.' : 'Mach die ersten 2 Krafteinheiten als Kurzversion mit RIR 3–4.'));
-  if (S.durchgang === 1 || S.durchgang === 2) tips.push('Einstieg: Kurzversion mit RIR 3–4, also je 1 Wdh. unter deinem Startwert.');
-  if (ph.deload && S.durchgang > 0) tips.push('Entlastung: weniger Sätze und kürzere Einheiten, damit du im nächsten Durchgang frisch bist.'); if (ph.test && S.durchgang > 0) tips.push('Testwoche: Maxout statt normaler erster Runde. Gut schlafen, frisch kommen.');
-  if (cur && !c.isTest && (st.length || d.type === 'kraft')) h += ortPickHTML();
+  var tips = [], tipBtn = '', notes = {}, miss = [];
+  if (S.durchgang === 0 && cur && p > 7) tips.push('<b>Willkommen zurück.</b> Dein letztes Training ist ' + p + ' Tage her.');
   if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
-    h += suggHTML(tag);
-    var miss = planFill().missing[tag] || [];
-    if (miss.length) tips.push('Hier fehlen Geräte für ' + esc(miss.join(', ')) + '. Bis dahin bleibt die Standardübung im Plan. Kreuz unter Tools › Übungen › Stift an, was es hier gibt.');
-    (planFill().why[tag] || []).forEach(function (w) { tips.push(esc(w)); });
+    miss = planFill().missing[tag] || [];
+    notes.kraft = (planFill().why[tag] || []).map(esc);
   }
+  if (miss.length) notes.kraft.push('Für ' + esc(miss.join(', ')) + ' fehlt hier ein Gerät, das fällt heute weg. Ankreuzen unter Tools › Übungen › Stift.');
   if (st.length) {
     if (c.isTest) {
       var td = TESTDAYS[tag];
-      tips.push('Statt Tag ' + tag + ', ' + td.rings + '.', 'Normal aufwärmen, schwerste Übung zuerst.',
+      tips.push.apply(tips, ringNotes(PLAN.tests[td.rows].map(function (r) { return r.name; })));
+      tips.push('Statt Tag ' + tag + '. Normal aufwärmen, schwerste Übung zuerst.',
         'Pro Übung erst leichtere Stufen zum Einwärmen, dann ein Satz mit so vielen sauberen Wdh. wie möglich.',
         '3 Min Pause zwischen Testsätzen, 3–5 Min zwischen Übungen. Film dich dabei.',
         '<b>Formel:</b> Such die Stufe mit 5–8 sauberen Wdh. Start = Max – 2, beim Chin-up Max – 3. Glute Bridge und Ab Wheel: Ziel 10–14.');
     } else if (c.isMurph) {
-      tips.push('Der erste Tag 1 im Monat wird zum Murph. Die Uhr läuft durch, Pausen sind erlaubt.', 'Ringe ganz oben, das Band bleibt an den Ringen.');
+      tips.push('Der erste Tag 1 im Monat wird zum Murph. Die Uhr läuft durch, Pausen sind erlaubt.', 'Ringe so hoch, dass du mit gestreckten Armen frei hängst, sonst Beine anwinkeln. Das Band bleibt an den Ringen.');
       tipBtn = '<button type="button" class="btn small block" data-act="skip-murph">Heute doch normales Training</button>';
-    } else if (d.rings) tips.push(d.rings + '.');
+    } else {
+      notes.kraft = ringNotes(d.kraft.map(function (k) { return k.n; })).concat(notes.kraft || []);
+      notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; }));
+    }
     h += '<section class="card"><ol class="tl">' + st.map(function (s, i) {
-      return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div></div></li>';
+      return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
     }).join('') + '</ol></section>';
+    if (cur && !c.isTest && !c.isMurph && (d.kraft.length || d.mmin)) h += adaptLineHTML(tag, false);
     if (cur) {
       var at = +(D._at || 0);
       h += '<button type="button" class="btn primary block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : 'Training starten') + '</button>';
-      if (!c.isTest && !c.isMurph) h += nextUnlockHTML(tag);
+      if (!c.isTest && !c.isMurph) h += progressHTML(tag);
     }
     h += tipsHTML(tips, tipBtn);
     if (!c.isTest && !c.isMurph) {
-      var kurz = isKurz(tag), hasK = d.kraft.length || d.mmin;
-      h += '<section class="card">' + (hasK ? '<label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – ' + (d.kfmt === 'saetze' ? 'ein Satz weniger' : 'Kraft 3 Runden') + (d.mmin ? ', Metcon kürzer' : '') + '</span></label>' +
-        '<p class="small muted">Für Einstieg, Nachtschicht, schlechten Schlaf und starken Muskelkater.</p>' : '') +
-        (d.cool && ROUT[d.cool] ? '<label class="check"' + (hasK ? ' style="margin-top:6px"' : '') + '><input type="checkbox" data-change="cooldown"' + (S.cooldown !== false ? ' checked' : '') + '> <span><b>Cool-down am Ende</b> – ' + ROUT[d.cool].dauer_min + ' Min, passend zum Tag</span></label>' : '') + '</section>';
     }
     if (!cur) {
       h += '<p class="small muted">Starten kannst du, sobald dieser Tag dran ist.</p>';
@@ -4011,7 +4052,9 @@ function renderHeute() {
   } else if (d.type === 'easy' || d.type === 'interval') {
     if (d.pre === 'hs') h += '<p class="kicker muted gl-group">Zuerst: Handstand 10 Min</p>' + hsStepHTML(D);
     else if (d.pre) h += '<p class="kicker muted gl-group">Zuerst: 10 Min Dehnen</p>' + routineCardHTML(mobRoutine(d.pre), false, 'Dehnen starten');
-    h += runHTML(c, D);
+    var ik = d.type === 'interval' && isKurz(tag);
+    h += runHTML(c, D, ik ? { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) } : null);
+    if (cur && d.type === 'interval') h += adaptLineHTML(tag, true);
     if (cur) {
       h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
       if (d.opt) h += '<button type="button" class="btn block" data-act="skip-day">Heute auslassen</button>';
@@ -4859,6 +4902,102 @@ if (MQ_LAND) { if (MQ_LAND.addEventListener) MQ_LAND.addEventListener('change', 
 window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 
 // Plan-Seite: Durchgang blättern, Tag wählen, Wissen öffnen.
+// Session anpassen: unter der Einheit ein grauer Link, das Blatt von unten bietet die Anpassungen für heute.
+// Wenig Zeit (_zeit = 45/30/15 Min im Entwurf): der Coach kürzt in Stufen, bis es passt.
+// 1 = ohne Handstand und Skill, 2 = Kraft und Metcon kürzer, 3 = ohne Metcon, 4 = Aufwärmen 4 Min.
+var ZF = null;
+function zeitLv(tag) {
+  if (ZF && ZF.tag === tag) return ZF.lv;
+  var D = DRAFTS[draftKey(tag)], B = D && +D._zeit, c;
+  if (!B || tag !== S.tag || !DAYS[tag] || DAYS[tag].type !== 'kraft') return 0;
+  c = dayCtx(tag); if (c.isTest || c.isMurph) return 0;
+  for (var lv = 0; lv < 4; lv++) if (zeitMin(c, lv) <= B) return lv;
+  return 4;
+}
+function zeitMin(c, lv) {
+  var o = ZF, m = 0; ZF = { tag: c.tag, lv: lv };
+  try { stepsOf(c).forEach(function (x) { if (x.id !== 'cool') m += x.dur || 0; }); } finally { ZF = o; }
+  return m;
+}
+function zeitCuts(tag, lv) {
+  var d = DAYS[tag], met = (d.mmin || d.bench) && d.metcon.length, out = [];
+  if (lv >= 1) { if (d.hs) out.push('ohne Handstand'); if (d.skill) out.push('ohne Skill-Block'); }
+  if (lv >= 3 && met) out.push('ohne Metcon');
+  if (lv >= 2 && d.kraft.length) out.push('Kraft kürzer');
+  if (lv === 2 && met) out.push('Metcon kürzer');
+  if (lv >= 4 && d.warm) out.push('Aufwärmen 4 Min');
+  return out;
+}
+// Vorschau für eine Zeit, ohne den Entwurf zu ändern.
+function zeitPreview(tag, B) {
+  var k = draftKey(tag), had = k in DRAFTS, D = DRAFTS[k] || (DRAFTS[k] = {}), old = D._zeit, lv;
+  if (B) D._zeit = String(B); else delete D._zeit;
+  lv = zeitLv(tag); var m = zeitMin(dayCtx(tag), lv);
+  if (old != null) D._zeit = old; else delete D._zeit;
+  if (!had) delete DRAFTS[k];
+  return { lv: lv, m: m, cuts: zeitCuts(tag, lv) };
+}
+function zeitText(tag, B) {
+  var z = zeitPreview(tag, B);
+  if (!B) return 'Die ganze Einheit dauert etwa ' + z.m + ' Min.';
+  if (!z.lv) return 'Passt schon, die Einheit dauert etwa ' + z.m + ' Min.';
+  return 'Etwa ' + z.m + ' Min: ' + z.cuts.join(', ') + '.';
+}
+function adaptChanges(tag, run) {
+  var D = DRAFTS[draftKey(tag)] || {}, out = [], B = +D._zeit || 0;
+  if (isKurz0(tag) && D._kurz === '1') out.push(run ? 'lockerer Lauf' : 'leichter');
+  if (B && !run) out.push('unter ' + B + ' Min');
+  if (D._ort && D._ort !== S.ort && trainOrt().id === D._ort) out.push('Ort ' + ortName(trainOrt()));
+  return out;
+}
+function adaptLineHTML(tag, run) {
+  var ch = adaptChanges(tag, run);
+  return '<div class="adj">' + (ch.length ? '<span>Angepasst: ' + esc(ch.join(', ')) + '</span>' : '') + '<button type="button" class="adj-q" data-act="adapt" data-run="' + (run ? 1 : '') + '">Session anpassen</button></div>';
+}
+// Blatt „Session anpassen“: Liste der Anliegen. Alles gilt nur für heute und sofort, Gewähltes ist grau hinterlegt.
+ACT.adapt = function (el) {
+  var tag = S.tag, run = !!el.dataset.run, D = DRAFTS[draftKey(tag)] || {}, z0 = +D._zeit || 0;
+  var CH = '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+  var OK = '<svg class="ad-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var row = function (k, t, sub, end, act) { return '<button type="button" class="gl-row" data-act="' + act + '" data-k="' + k + '"><span class="gl-t"><b>' + t + '</b><small>' + sub + '</small></span>' + end + '</button>'; };
+  var item = function (k, t, sub, panel, on) { return '<div class="gl-item ad-it' + (on ? ' sel' : '') + '" data-k="' + k + '">' + row(k, t, sub, CH, 'adapt-sub') + '<div class="ad-p" hidden>' + panel + '</div></div>'; };
+  var body = '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, worauf er heute achten soll.</p><section class="card gl-card ad-list">' +
+    '<div class="gl-item ad-it' + (isKurz0(tag) ? ' sel' : '') + '" data-k="int">' + row('int', 'Mir geht’s heute nicht gut', run ? 'Lockerer Lauf statt Intervalle' : 'Der Coach nimmt Intensität raus', OK, 'adapt-int') + '</div>' +
+    (!run ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
+      '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + [45, 30, 15].map(function (B) {
+        var on = B === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + B + '" aria-pressed="' + on + '">&lt; ' + B + ' Min</button>';
+      }).join('') + '</div><p class="small muted ad-cut" style="margin:8px 0 0">' + esc(zeitText(tag, z0)) + '</p>', z0) : '') +
+    (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Nur heute, die Übungen passen sich an',
+      capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'adapt-ort', trainOrt().id, 'Ort', 'in-card'), D._ort && D._ort !== S.ort) : '') +
+    '</section>';
+  openForm('Session anpassen', body, 'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
+};
+ACT['adapt-sub'] = function (el) {
+  var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
+  document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); var q = x.querySelector('.ad-p'); if (q) q.hidden = true; });
+  if (open) { it.classList.add('open'); p.hidden = false; }
+};
+// Woanders: gilt nur für diese Einheit, der Trainingsort in Tools › Übungen bleibt.
+ACT['adapt-ort'] = function (el) {
+  var v = el.dataset.v, it = el.closest('.ad-it');
+  setDraft('_ort', v === S.ort ? '' : v); it.classList.toggle('sel', v !== S.ort);
+  it.querySelector('.ad-p').innerHTML = capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'adapt-ort', v, 'Ort', 'in-card');
+  render();
+};
+// Nicht gut: Antippen setzt es sofort um, nochmal tippen nimmt es zurück.
+ACT['adapt-int'] = function (el) {
+  var tag = S.tag, D = DRAFTS[draftKey(tag)] || {}, it = el.closest('.ad-it'), on = !isKurz0(tag);
+  delete D._kurz; var auto = isKurz0(tag);
+  setDraft('_kurz', on === auto ? '' : on ? '1' : '0');
+  it.classList.toggle('sel', on); render();
+};
+// Zeit: gilt sofort, nochmal auf die gewählte Zeit tippen = wieder normale Dauer.
+ACT['adapt-zeit'] = function (el) {
+  var tag = S.tag, p = el.closest('.ad-p'), D = DRAFTS[draftKey(tag)] || {}, z = +D._zeit === +el.dataset.z ? 0 : +el.dataset.z;
+  p.querySelectorAll('.seg-btn').forEach(function (b) { var on = +b.dataset.z === z; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  setDraft('_zeit', z || ''); el.closest('.ad-it').classList.toggle('sel', !!z);
+  p.querySelector('.ad-cut').textContent = zeitText(tag, z); render();
+};
 ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
 ACT['plan-day'] = function (el) { ui.planTag = +el.dataset.tag; render(); };
 ACT['plan-sec'] = function (el) { ui.planSec = el.dataset.k || null; window.scrollTo(0, 0); render(); };
@@ -4985,6 +5124,11 @@ function ortCapHTML(cls) {
   return capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'ort-pick', S.ort, 'Ort', cls);
 }
 function curOrt() { ensureOrte(); return S.orte.filter(function (o) { return o.id === S.ort; })[0]; }
+// Ort fürs Training: „Session anpassen › Ich trainiere woanders“ gilt nur für die heutige Einheit (_ort im Entwurf).
+function trainOrt() {
+  var D = DRAFTS[draftKey(S.tag)], o = D && D._ort ? S.orte.filter(function (x) { return x.id === D._ort && x.on; })[0] : null;
+  return o || curOrt();
+}
 function haveEq(o) { var h = {}; (o || curOrt()).eq.forEach(function (e) { h[e] = 1; }); return h; }
 // Equipment-Gruppen: jede Gruppe muss erfüllt sein, innerhalb einer Gruppe reicht ein Gerät.
 function eqOk(groups, have) { return !groups || groups.every(function (g) { return !g.length || g.some(function (x) { return have[x]; }); }); }
@@ -5005,18 +5149,12 @@ function ladderOk(key, have, st) {
 }
 function byNutzen(a, b) { return nutzenOf(b) - nutzenOf(a) || ladOf(a).name.localeCompare(ladOf(b).name, 'de'); }
 function fmtMenge(m) { return m.menge + ({ sek: ' s', meter: ' m', kalorien: ' kcal', kg: ' kg' }[m.einheit] || ''); }
-function ortPickHTML() {
-  if (orteOn().length < 2) return '';
-  return '<section class="card ort-pick"><p class="small muted">Wo trainierst du heute?</p>' + ortCapHTML('in-card') + '</section>';
-}
 ACT.hlev = function (el) {
   var k = el.dataset.k; S.hapt = Object.assign({}, S.hapt || {}); S.hapt[k] = +el.dataset.v; saveState();
   el.parentNode.querySelectorAll('.seg-btn').forEach(function (b) { var on = b === el; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   if (k === 'moment') buzz(MOMENT_DEMO); else if (k === 'timer') hapTimer(true); else haptic(k);
 };
 ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); };
-ACT['pick-take'] = function (el) { S.picks[el.dataset.slot] = el.dataset.to; saveState(); render(); toast(LAD[el.dataset.to].name + ' ist jetzt im Plan.'); };
-ACT['pick-skip'] = function (el) { S.pickSkip[el.dataset.slot] = S.durchgang; saveState(); render(); };
 
 /* ---------- Orte und Equipment (Tools › Übungen) ---------- */
 var EQ_USE = {};
@@ -5061,7 +5199,7 @@ ACT['eq-open'] = function (el) { ui.eqOpen = ui.eqOpen === el.dataset.id ? null 
 function openForm(title, body, okLabel, ok, opt) {
   closeSheet();
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
-  bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">' + esc(okLabel) + '</button></div><div class="sh-body">' + body + '</div></div>';
+  bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-head">' + (opt && opt.noCancel ? '<span class="sh-x"></span>' : '<button type="button" class="sh-x" data-sh="x">Abbrechen</button>') + '<b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">' + esc(okLabel) + '</button></div><div class="sh-body">' + body + '</div></div>';
   document.body.appendChild(bg);
   bg.addEventListener('click', function (e) {
     var b = e.target.closest('[data-sh]'), seg = e.target.closest('[data-seg]');
@@ -5648,37 +5786,53 @@ function stallOf(key) {
   }
   return hist.length === 3 && hist.every(function (h) { return h.stage === hist[0].stage; }) && hist[0].sum <= hist[2].sum;
 }
-function slotKey(tag, platz) { return S.ort + ':' + (S.fokus === 'allround' ? '' : S.fokus + ':') + tag + ':' + platz; }
+function slotKey(tag, platz) { return trainOrt().id + ':' + (S.fokus === 'allround' ? '' : S.fokus + ':') + tag + ':' + platz; }
 var FILL = { k: null, v: null };
 // Füllt die Plätze für Ort und Schwerpunkt. Gewählte Leiter bleibt (S.picks), sonst: begonnene Leiter vor neuer,
 // dann nach Nutzen. Ein Platz mit Ausgleich nimmt den schwächsten Teil. Metcon wechselt pro Durchgang.
 function planFill() {
   ensureOrte();
-  var k = [LOGS.length, S.ort, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
+  var O = trainOrt(), k = [LOGS.length, O.id, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
   if (FILL.k === k) return FILL.v;
-  var st = ladderStates(LOGS), have = haveEq(), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
+  var st = ladderStates(LOGS), have = haveEq(O), used = {}, out = { kraft: {}, metcon: {}, neu: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
   var tags = Object.keys(DAYS).filter(function (t) { return DAYS[t].type === 'kraft'; }).sort(function (a, b) { return (DAYS[a].fill || 9) - (DAYS[b].fill || 9) || a - b; });
   tags.forEach(function (tag) {
     var d = DAYS[tag], kr = [], rg0 = d.kfmt === 'saetze' && d.reps ? d.reps : null;
-    out.sugg[tag] = []; out.missing[tag] = []; out.why[tag] = [];
+    out.neu[tag] = []; out.missing[tag] = []; out.why[tag] = [];
     (d.kslots || []).forEach(function (spec, i) {
       var mu = spec;
       if (spec.schwach) { var wp = weakPart(spec.schwach, sc); mu = PART_MU[wp]; if (sc[wp] != null) out.why[tag].push('Ausgleich: ' + PART_NAME[wp] + ' ist gerade dein schwächster Teil (' + sc[wp] + ').'); }
       function cand(all) { return Object.keys(LAD).filter(function (key) { return LAD[key].lib && mu.indexOf(LAD[key].muster) >= 0 && (all || !used[key]) && !TEMPO_KEYS[key] && ladderOk(key, have, st); }); }
       var cands = cand(false); if (!cands.length) cands = cand(true);
+      // Kein Gerät für das Muster: Ersatz, der ohne das fehlende Gerät geht. Erst eine Leiter mit nahem Muster, sonst eine Einzelübung.
+      if (!cands.length) {
+        var near = []; mu.forEach(function (m) { (MUSTER_NEAR[m] || []).forEach(function (x) { if (mu.indexOf(x) < 0 && near.indexOf(x) < 0) near.push(x); }); });
+        var mu0 = mu; mu = near; cands = cand(false); mu = mu0;
+        var ue = !cands.length ? Object.keys(UE).filter(function (id) { var u = UE[id]; return (mu.indexOf(u.muster) >= 0 || near.indexOf(u.muster) >= 0) && !used[id] && !TEMPO_KEYS[id] && (u.rolle || []).indexOf('kraft') >= 0 && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st); })
+          .sort(function (a, b) { return (mu.indexOf(UE[b].muster) >= 0) - (mu.indexOf(UE[a].muster) >= 0) || UE[b].nutzen - UE[a].nutzen; })[0] : null;
+        var gone = mu.map(function (m) { return MUSTER[m] || m; }).join(' oder ');
+        if (cands.length) { cands.sort(byNutzen); out.why[tag].push('Ersatz: ' + LAD[cands[0]].name + ', weil hier das Gerät für ' + gone + ' fehlt.'); }
+        else if (ue) {
+          used[ue] = 1; out.why[tag].push('Ersatz: ' + UE[ue].name + ', weil hier das Gerät für ' + gone + ' fehlt.');
+          kr.push({ n: UE[ue].name, target: rg0 || '6–10', hi: 10, lib: true }); return;
+        }
+      }
       cands.sort(function (a, b) { return (st[b] && st[b].cur ? 1 : 0) - (st[a] && st[a].cur ? 1 : 0) || byNutzen(a, b); });
       var sk = slotKey(tag, i + 1), pk = S.picks[sk], fbn = FB_KRAFT[mu[0]], fb = fbn && GL[fbn] ? GL[fbn].key : null;
       var cur = pk && cands.indexOf(pk) >= 0 ? pk : fb && cands.indexOf(fb) >= 0 ? fb : cands[0] || null;
       if (!cands.length) out.missing[tag].push(mu.map(function (m) { return MUSTER[m] || m; }).join(' oder '));
-      if (!cur && fbn && GL[fbn]) cur = fb;
+      // Ohne passendes Gerät fällt der Platz heute weg (keine Übung, die man hier nicht machen kann).
       if (!cur) return;
+      // Der Coach wechselt selbst: auf eine neu freigeschaltete Leiter mit mehr Nutzen, oder bei Stillstand
+      // (3-mal gleiche Stufe ohne mehr Wdh.) auf eine andere Variante. Gezeigt wird das, bis die neue Übung einmal trainiert ist.
+      var swap = function (to, why) { S.picks[sk] = to; S.swapped = Object.assign({}, S.swapped || {}); S.swapped[sk] = { from: cur, to: to, why: why, ts: Date.now() }; setTimeout(saveState, 0); cur = to; };
+      var free = cands.filter(function (x) { return x !== cur && !used[x]; });
+      if (free[0] && nutzenOf(free[0]) > nutzenOf(cur)) swap(free[0], 'neu');
+      else if (LAD[cur] && stallOf(cur) && free[0]) swap(free[0], 'reiz');
+      var sw = (S.swapped || {})[sk];
+      if (sw && sw.to === cur && LAD[sw.from] && !LOGS.some(function (l) { return (l.ts || 0) > (sw.ts || 0) && (l.kraft || []).some(function (x) { return GL[x.n] && GL[x.n].key === cur; }); }))
+        out.neu[tag].push({ from: sw.from, to: cur, why: sw.why || 'reiz' });
       used[cur] = 1; out.kraftKeys[cur] = 1;
-      var alt = cands.filter(function (x) { return x !== cur; });
-      if (S.pickSkip[sk] !== S.durchgang) {
-        var best = alt[0];
-        if (best && nutzenOf(best) > nutzenOf(cur)) out.sugg[tag].push({ slot: sk, from: cur, to: best });
-        else if (alt.length && stallOf(cur)) out.sugg[tag].push({ slot: sk, from: cur, to: alt[0], stall: true });
-      }
       var l = LAD[cur], rg = rangeOf(l || {}), o0 = null;
       [1, 3, 6].forEach(function (t0) { DAYS0[t0].kraft.forEach(function (x) { if (GL[x.n] && GL[x.n].key === cur) o0 = x; }); });
       var item = o0 && !rg0 && S.fokus === 'allround' ? Object.assign({}, o0) : { n: l ? l.name : fbn, target: rg0 || String((l && l.range) || '3–6').split(',')[0], hi: rg ? rg.hi : 6, lib: true };
@@ -5698,7 +5852,7 @@ function planFill() {
         var u = UE[m.uebung];
         return u && spec.indexOf(u.muster) >= 0 && !mu[m.uebung] && !today[m.uebung] && (cf || !TEMPO_KEYS[m.uebung]) && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st);
       }).sort(function (a, b) { return UE[b.uebung].nutzen - UE[a.uebung].nutzen; }).slice(0, 4);
-      if (!cands.length) { if (fb[i]) res.push(fb[i]); return; }
+      if (!cands.length) { if (fb[i] && (!GL[fb[i].n] || !GL[fb[i].n].lib || eqOk(GL[fb[i].n].lib.equipment, have))) res.push(fb[i]); return; }
       var m = cands[(S.durchgang + i) % cands.length]; mu[m.uebung] = 1;
       res.push({ r: fmtMenge(m), n: UE[m.uebung].name, scale: m.skalierung || '', lib: true });
     });
@@ -5706,17 +5860,6 @@ function planFill() {
   });
   FILL = { k: k, v: out };
   return out;
-}
-function suggHTML(tag) {
-  var list = planFill().sugg[tag] || [];
-  return list.map(function (s) {
-    var a = LAD[s.from], b = LAD[s.to];
-    var txt = s.stall ? '<b>' + esc(a ? a.name : '–') + '</b> steht seit 3 Einheiten auf derselben Stufe. Eine andere Variante setzt einen neuen Reiz: <b>' + esc(b.name) + '</b>.'
-      : '<b>' + esc(b.name) + '</b> statt ' + esc(a ? a.name : '–') + '. Mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + ' (' + nutzenOf(s.to) + ' statt ' + nutzenOf(s.from) + ').';
-    return '<section class="card unlock"><p class="unlock-k">' + (s.stall ? 'Stillstand · neuer Reiz' : 'Neu freigeschaltet · ' + esc(ortName(curOrt()))) + '</p><p>' + txt + '</p>' +
-      '<div class="unlock-b"><button type="button" class="btn small" data-act="pick-skip" data-slot="' + esc(s.slot) + '">Später</button>' +
-      '<button type="button" class="btn small save" data-act="pick-take" data-slot="' + esc(s.slot) + '" data-to="' + esc(s.to) + '">' + (s.stall ? 'Wechseln' : 'Übernehmen') + '</button></div></section>';
-  }).join('');
 }
 
 /* ---------- Skill-Block (Calisthenics): übt für das Skill-Ziel, sonst für dessen Voraussetzung ---------- */
@@ -5769,11 +5912,11 @@ function fokusLabel() {
   return F.name;
 }
 function fkIcon(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; }
-function blockCardHTML() {
+function blockCardHTML(note) {
   var F = fokus(), p = curPhase(), seg = '';
   for (var i = 1; i <= p.n; i++) { var q = phaseAt(i); seg += '<i class="' + (i < p.bd ? 'done' : i === p.bd ? 'now' : '') + (q.deload || q.test || q.taper ? ' lite' : '') + '"></i>'; }
   return '<button type="button" class="card blk" data-act="fk-open" data-from="heute"><span class="blk-h"><b>' + esc(fokusLabel()) + '</b><span class="chip">' + fkIcon(F.ic) + 'Schwerpunkt</span></span>' +
-    '<span class="blk-bar" aria-label="Durchgang ' + p.bd + ' von ' + p.n + '">' + seg + '</span><span class="small muted">' + (p.lab ? '<b>' + esc(p.lab) + '</b> · ' : '') + 'Hell: Entlastung und Testwoche</span></button>';
+    '<span class="blk-bar" aria-label="Durchgang ' + p.bd + ' von ' + p.n + '">' + seg + '</span><span class="small muted">' + (p.lab ? '<b>' + esc(p.lab) + '</b> · ' : '') + (note ? esc(note) : 'Hell: Entlastung und Testwoche') + '</span></button>';
 }
 function reviewHTML() {
   var R = S.review, F = FOKUS[R.fokus] || FOKUS.allround, inB = function (l) { return l.durchgang >= R.start && l.durchgang <= R.end; };
@@ -5890,7 +6033,18 @@ ACT['sz-pick'] = function (el) {
 ACT['sz-go'] = function () { if (!ui.sz.length) { toast('Wähl mindestens ein Ziel.'); return; } S.ziele = ui.sz.slice(); DAYS_K = null; startBlock('calisthenics'); };
 
 // Heute: das eine Ziel, das am nächsten liegt (aus den Kraftübungen des Tages).
-function nextUnlockHTML(tag) {
+// Fortschritt unter dem Start: neu im Plan (bis die Übung einmal trainiert ist) und was als Nächstes freigeschaltet wird.
+function progressHTML(tag) {
+  var neu = DAYS[tag] && DAYS[tag].type === 'kraft' ? planFill().neu[tag] || [] : [], nx = nextUnlockHTML(tag, true), h = '';
+  neu.forEach(function (n) {
+    var a = LAD[n.from], b = LAD[n.to];
+    h += '<div class="pg-neu"><span class="chip pg-chip">' + (n.why === 'neu' ? 'Neu freigeschaltet' : 'Neuer Reiz') + '</span><b>' + esc(b.name) + '</b><span>' +
+      (n.why === 'neu' ? 'statt ' + esc(a.name) + ', mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + '.' : 'statt ' + esc(a.name) + ', das kam 3-mal nicht weiter.') + '</span></div>';
+  });
+  if (!h && !nx) return '';
+  return '<section class="card pg">' + h + nx + '</section>';
+}
+function nextUnlockHTML(tag, inner) {
   var d = DAYS[tag]; if (!d || d.type !== 'kraft') return '';
   var c = famCtx(), best = null;
   d.kraft.forEach(function (k) {
@@ -5900,9 +6054,9 @@ function nextUnlockHTML(tag) {
   });
   if (!best) return '';
   var cur = best.st[best.lv - 1], next = best.st[best.lv], u = UE[next.uebung], miss = u ? eqMissing(u.equipment, c.have) : '', R = 24, C = 2 * Math.PI * R;
-  return '<section class="card unl"><svg class="unl-ring" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + (C * best.fr).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 29 29)"/><text x="29" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">' + best.lv + '/' + best.st.length + '</text></svg>' +
+  return '<div class="unl' + (inner ? '' : ' card') + '"><svg class="unl-ring" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + (C * best.fr).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 29 29)"/><text x="29" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">' + best.lv + '/' + best.st.length + '</text></svg>' +
     '<div class="unl-t"><small>Als Nächstes freischalten</small><b>' + esc(uName(next.uebung)) + '</b><span>' + esc(best.f.name) + ', Stufe ' + (best.lv + 1) + ' von ' + best.st.length + '. ' + esc(cur.ziel) + (miss ? ' Braucht ' + esc(miss) + '.' : '') + '</span></div>' +
-    '<button type="button" class="rbtn sm" data-act="fam-go" data-id="' + best.f.id + '" aria-label="Skill-Pfad öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></section>';
+    '<button type="button" class="rbtn sm" data-act="fam-go" data-id="' + best.f.id + '" aria-label="Skill-Pfad öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
 }
 function renderUebungen() {
   var sub = (ui.libAll ? 'Alle' : esc(ortName(curOrt()))) + ' · ' + famCount() + ' Familien · ' + (ui.libAll ? Object.keys(UE).length : libCount()) + ' Übungen';
@@ -5989,7 +6143,7 @@ document.addEventListener('click', function (e) {
   var fn = ACT[el.dataset.act];
   if (fn) { e.preventDefault(); if (el.dataset.act !== 'hlev') haptic(STEP_ACTS[el.dataset.act] ? 'step' : 'tap'); fn(el, e); }
 });
-var STEP_ACTS = { step: 1, save: 1, 't-take': 1, 'pick-take': 1, 'start-test': 1, 'start-at': 1, 'tb-start': 1 };
+var STEP_ACTS = { step: 1, save: 1, 't-take': 1, 'start-test': 1, 'start-at': 1, 'tb-start': 1 };
 document.addEventListener('change', function (e) {
   var el = e.target;
   if (el.type === 'checkbox' && el.closest('.check')) { el.classList.add('live'); haptic('switch'); }

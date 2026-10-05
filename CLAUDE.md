@@ -56,12 +56,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Stand je Familie (`famLevel`, `famStatus`): höchste Stufe, die trainiert wurde (Leiterstand oder Eintrag mit dem Namen).
 - Skill-Baum (versteckte Seite `skill`, Zugang über Profil › Werte, `renderSkill`, `drawTree`): je Bereich Zug, Druck, Beine, Rumpf,
   Mehr; Zeilen nach `ebene`, Linien aus `voraussetzt`; Knoten geschafft, aktuell (weiße Pille), als Nächstes, gesperrt. Antippen öffnet
-  die Familie. Heute zeigt unter „Training starten“ die Karte „Als Nächstes freischalten“ (`nextUnlockHTML`).
+  die Familie. Heute zeigt unter „Training starten“ den Block Fortschritt (`progressHTML`): „Neu freigeschaltet“ / „Neuer Reiz“
+  (`planFill().neu`, bis die neue Übung einmal trainiert ist) und „Als Nächstes freischalten“ (`nextUnlockHTML`).
 - Tools › 1RM (`renderRM`): Gewichtsübungen mit Equipment am Ort plus selbst hinzugefügte (`S.rmLifts`), nach Nutzen. Eintrag über das Rad
   (kg, ,0/,5, Wdh. 1–10), Schätzung nach Epley (`e1rm`), Prozent-Tabelle auf 2,5 kg gerundet, Verlauf mit Bestwert golden gestrichelt.
   Einträge `kind: 'rm'` (`lift, kg, reps, e1, bw`), zählen nicht als Training. Bei Weighted Pull-up/Dip zählt das Zusatzgewicht.
-- Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag als optionaler letzter Schritt an Krafttagen (`coolStep`, Schalter `S.cooldown`,
-  `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
+- Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag an Krafttagen: nicht im Ablauf, nach dem letzten Schritt fragt `saveAsk`
+  „Möchtest du noch ein Cool-down?“ (Ja = Schritt `coolStep` kommt dazu, Entwurf `_cd` '1'/'0'; `S.cooldown` wird nicht mehr genutzt, `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
@@ -86,7 +87,18 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil; ohne Wert geschätzt).
   Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort und Schwerpunkt `slotKey`) bleibt,
   sonst begonnene Leiter vor neuer, dann Nutzen. Tempo-Varianten (`TEMPO_KEYS`) nie im Kraftteil. Platz `{ schwach: [...] }` nimmt den
-  schwächsten Kraft-Teil (`partScores`). Stillstand (`stallOf`: 3× gleiche Stufe ohne mehr Wdh.) schlägt eine andere Variante vor.
+  schwächsten Kraft-Teil (`partScores`). Der Coach entscheidet, nicht der Nutzer: eine neu freigeschaltete Leiter mit mehr Nutzen
+  und bei Stillstand (`stallOf`: 3× gleiche Stufe ohne mehr Wdh.) eine andere Variante werden sofort übernommen (`S.picks`, `S.swapped`
+  je Platz `{from, to, why: 'neu'|'reiz', ts}`). Fehlt am Ort das Gerät für ein Muster, nimmt `planFill` einen Ersatz ohne dieses Gerät
+  (erst Leiter aus nahem Muster `MUSTER_NEAR`, sonst Einzelübung mit Rolle `kraft`); gibt es keinen, fällt der Platz weg (Hinweis am Schritt).
+- Session anpassen (`adaptLineHTML`, `ACT.adapt`): grauer Link unter dem Ablauf (Krafttag) bzw. dem Lauf (Intervall). Blatt von unten
+  „Sag deinem Coach, worauf er heute achten soll.“, nur „Fertig“, gilt nur für heute und sofort, Aktives grau hinterlegt (`.ad-it.sel/.open`):
+  „Mir geht’s heute nicht gut“ (Antippen = Kurzversion bzw. lockerer Lauf statt Intervalle, Entwurf `_kurz`), „Ich habe wenig Zeit“
+  (< 45 / < 30 / < 15 Min, `_zeit`; `zeitLv` kürzt in Stufen: ohne Handstand/Skill, Kraft und Metcon kürzer, ohne Metcon, Aufwärmen 4 Min),
+  „Ich trainiere woanders“ (`_ort`, `trainOrt()`, nur diese Einheit; `S.ort` bleibt). Kein Ort-Feld mehr auf Heute.
+- Hinweise auf Heute stehen dort, wo sie hingehören: Phase (Einstieg, Entlastung, Testwoche, Willkommen zurück) in der Block-Karte,
+  Übungs-Hinweise grau unter dem Schritt (`notes`, `.tl-x`). Ringhöhe nur bei Ring-Übungen, in Bezug auf den Körper (`ringNotes`, `RING_H`).
+  Tipps-Karte nur noch an Testtagen, beim Murph und bei optionalen Läufen.
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
   Danach Schritt für Schritt (`stepsOf`, `stepPageHTML`): Krafttag Aufwärmen, Handstand, Kraft, Metcon; Testtag eine Übung
   pro Schritt; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
@@ -150,7 +162,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   ordnet `ensureOrte()` einem festen Ort zu (IDs, Geräte und `S.picks` bleiben). Auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
   Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
   Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
-  eine Leiter mit mehr Nutzen wird als „Neu freigeschaltet“ vorgeschlagen (Später = bis zum nächsten Durchgang, `S.pickSkip`).
+  eine Leiter mit mehr Nutzen übernimmt der Coach selbst (`S.pickSkip` wird nicht mehr genutzt).
   Metcon wechselt pro Durchgang aus den 4 nützlichsten passenden Einträgen. Lauftage: Laufen oder Ergometer (Watt), getrennt verglichen.
 - Listen nach Nutzen sortieren (höchster zuerst), Equipment nach Score. Nur wo es keinen Nutzen gibt (Profil-Menü, Bereiche), alphabetisch.
   Reiterleiste: schwebende Glas-Kapsel ohne Glanz, nur der aktive Reiter zeigt seinen Namen.
@@ -202,7 +214,7 @@ Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen g
 7. Zähler: `.stepper` mit runden – / + und dem Wert in der Mitte.
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
 Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
-Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion, dann Tipps-Karte (`tipsHTML`).
+Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
 Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
