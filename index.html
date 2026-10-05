@@ -4005,7 +4005,7 @@ function renderHeute() {
     miss = planFill().missing[tag] || [];
     notes.kraft = (planFill().why[tag] || []).map(esc);
   }
-  if (cur && !c.isTest && (st.length || d.type === 'kraft')) h += ortPickHTML(miss.length ? 'Hier fehlen Geräte für ' + esc(miss.join(', ')) + ', bis dahin bleibt die Standardübung. Ankreuzen unter Tools › Übungen › Stift.' : '');
+  if (miss.length) notes.kraft.push('Hier fehlen Geräte für ' + esc(miss.join(', ')) + ', bis dahin bleibt die Standardübung. Ankreuzen unter Tools › Übungen › Stift.');
   if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
     h += suggHTML(tag);
   }
@@ -4933,6 +4933,7 @@ function adaptChanges(tag, run) {
   var D = DRAFTS[draftKey(tag)] || {}, out = [], B = +D._zeit || 0;
   if (isKurz0(tag) && D._kurz === '1') out.push(run ? 'lockerer Lauf' : 'leichter');
   if (B && !run) out.push('unter ' + B + ' Min');
+  if (D._ort && D._ort !== S.ort && trainOrt().id === D._ort) out.push('Ort ' + ortName(trainOrt()));
   return out;
 }
 function adaptLineHTML(tag, run) {
@@ -4952,7 +4953,8 @@ ACT.adapt = function (el) {
       '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + [45, 30, 15].map(function (B) {
         var on = B === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + B + '" aria-pressed="' + on + '">&lt; ' + B + ' Min</button>';
       }).join('') + '</div><p class="small muted ad-cut" style="margin:8px 0 0">' + esc(zeitText(tag, z0)) + '</p>', z0) : '') +
-    (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Ort wechseln, die Übungen passen sich an', ortCapHTML('in-card')) : '') +
+    (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Nur heute, die Übungen passen sich an',
+      capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'adapt-ort', trainOrt().id, 'Ort', 'in-card'), D._ort && D._ort !== S.ort) : '') +
     '</section>';
   openForm('Session anpassen', body, 'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
 };
@@ -4960,6 +4962,13 @@ ACT['adapt-sub'] = function (el) {
   var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
   document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); var q = x.querySelector('.ad-p'); if (q) q.hidden = true; });
   if (open) { it.classList.add('open'); p.hidden = false; }
+};
+// Woanders: gilt nur für diese Einheit, der Trainingsort in Tools › Übungen bleibt.
+ACT['adapt-ort'] = function (el) {
+  var v = el.dataset.v, it = el.closest('.ad-it');
+  setDraft('_ort', v === S.ort ? '' : v); it.classList.toggle('sel', v !== S.ort);
+  it.querySelector('.ad-p').innerHTML = capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'adapt-ort', v, 'Ort', 'in-card');
+  render();
 };
 // Nicht gut: Antippen setzt es sofort um, nochmal tippen nimmt es zurück.
 ACT['adapt-int'] = function (el) {
@@ -5101,6 +5110,11 @@ function ortCapHTML(cls) {
   return capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'ort-pick', S.ort, 'Ort', cls);
 }
 function curOrt() { ensureOrte(); return S.orte.filter(function (o) { return o.id === S.ort; })[0]; }
+// Ort fürs Training: „Session anpassen › Ich trainiere woanders“ gilt nur für die heutige Einheit (_ort im Entwurf).
+function trainOrt() {
+  var D = DRAFTS[draftKey(S.tag)], o = D && D._ort ? S.orte.filter(function (x) { return x.id === D._ort && x.on; })[0] : null;
+  return o || curOrt();
+}
 function haveEq(o) { var h = {}; (o || curOrt()).eq.forEach(function (e) { h[e] = 1; }); return h; }
 // Equipment-Gruppen: jede Gruppe muss erfüllt sein, innerhalb einer Gruppe reicht ein Gerät.
 function eqOk(groups, have) { return !groups || groups.every(function (g) { return !g.length || g.some(function (x) { return have[x]; }); }); }
@@ -5121,16 +5135,12 @@ function ladderOk(key, have, st) {
 }
 function byNutzen(a, b) { return nutzenOf(b) - nutzenOf(a) || ladOf(a).name.localeCompare(ladOf(b).name, 'de'); }
 function fmtMenge(m) { return m.menge + ({ sek: ' s', meter: ' m', kalorien: ' kcal', kg: ' kg' }[m.einheit] || ''); }
-function ortPickHTML(miss) {
-  if (orteOn().length < 2) return miss ? '<section class="card ort-pick"><p class="small muted" style="margin:0">' + miss + '</p></section>' : '';
-  return '<section class="card ort-pick"><p class="small muted">Wo trainierst du heute?</p>' + ortCapHTML('in-card') + (miss ? '<p class="small muted" style="margin:10px 0 0">' + miss + '</p>' : '') + '</section>';
-}
 ACT.hlev = function (el) {
   var k = el.dataset.k; S.hapt = Object.assign({}, S.hapt || {}); S.hapt[k] = +el.dataset.v; saveState();
   el.parentNode.querySelectorAll('.seg-btn').forEach(function (b) { var on = b === el; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   if (k === 'moment') buzz(MOMENT_DEMO); else if (k === 'timer') hapTimer(true); else haptic(k);
 };
-ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); var sp = document.querySelector('#sheet .ad-it[data-k="ort"] .ad-p'); if (sp) sp.innerHTML = ortCapHTML('in-card'); };
+ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); };
 ACT['pick-take'] = function (el) { S.picks[el.dataset.slot] = el.dataset.to; saveState(); render(); toast(LAD[el.dataset.to].name + ' ist jetzt im Plan.'); };
 ACT['pick-skip'] = function (el) { S.pickSkip[el.dataset.slot] = S.durchgang; saveState(); render(); };
 
@@ -5764,15 +5774,15 @@ function stallOf(key) {
   }
   return hist.length === 3 && hist.every(function (h) { return h.stage === hist[0].stage; }) && hist[0].sum <= hist[2].sum;
 }
-function slotKey(tag, platz) { return S.ort + ':' + (S.fokus === 'allround' ? '' : S.fokus + ':') + tag + ':' + platz; }
+function slotKey(tag, platz) { return trainOrt().id + ':' + (S.fokus === 'allround' ? '' : S.fokus + ':') + tag + ':' + platz; }
 var FILL = { k: null, v: null };
 // Füllt die Plätze für Ort und Schwerpunkt. Gewählte Leiter bleibt (S.picks), sonst: begonnene Leiter vor neuer,
 // dann nach Nutzen. Ein Platz mit Ausgleich nimmt den schwächsten Teil. Metcon wechselt pro Durchgang.
 function planFill() {
   ensureOrte();
-  var k = [LOGS.length, S.ort, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
+  var O = trainOrt(), k = [LOGS.length, O.id, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
   if (FILL.k === k) return FILL.v;
-  var st = ladderStates(LOGS), have = haveEq(), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
+  var st = ladderStates(LOGS), have = haveEq(O), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
   var tags = Object.keys(DAYS).filter(function (t) { return DAYS[t].type === 'kraft'; }).sort(function (a, b) { return (DAYS[a].fill || 9) - (DAYS[b].fill || 9) || a - b; });
   tags.forEach(function (tag) {
     var d = DAYS[tag], kr = [], rg0 = d.kfmt === 'saetze' && d.reps ? d.reps : null;
@@ -5833,7 +5843,7 @@ function suggHTML(tag) {
     var a = LAD[s.from], b = LAD[s.to];
     var txt = s.stall ? '<b>' + esc(a ? a.name : '–') + '</b> steht seit 3 Einheiten auf derselben Stufe. Eine andere Variante setzt einen neuen Reiz: <b>' + esc(b.name) + '</b>.'
       : '<b>' + esc(b.name) + '</b> statt ' + esc(a ? a.name : '–') + '. Mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + ' (' + nutzenOf(s.to) + ' statt ' + nutzenOf(s.from) + ').';
-    return '<section class="card unlock"><p class="unlock-k">' + (s.stall ? 'Stillstand · neuer Reiz' : 'Neu freigeschaltet · ' + esc(ortName(curOrt()))) + '</p><p>' + txt + '</p>' +
+    return '<section class="card unlock"><p class="unlock-k">' + (s.stall ? 'Stillstand · neuer Reiz' : 'Neu freigeschaltet · ' + esc(ortName(trainOrt()))) + '</p><p>' + txt + '</p>' +
       '<div class="unlock-b"><button type="button" class="btn small" data-act="pick-skip" data-slot="' + esc(s.slot) + '">Später</button>' +
       '<button type="button" class="btn small save" data-act="pick-take" data-slot="' + esc(s.slot) + '" data-to="' + esc(s.to) + '">' + (s.stall ? 'Wechseln' : 'Übernehmen') + '</button></div></section>';
   }).join('');
