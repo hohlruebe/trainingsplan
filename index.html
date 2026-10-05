@@ -653,7 +653,7 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .ad-p{padding:2px 0 14px}
 .ad-p .check{margin:4px 0}
 .ad-p .cap{margin:4px 0 0}
-.ad-days .st-row{min-height:46px}
+
 .blk .small{display:block}
 .zones{list-style:none;margin:12px 0 6px;padding:0}
 .zones li{display:flex;align-items:center;gap:10px;min-height:38px;border-top:1px solid var(--line);font-size:14px}
@@ -2039,7 +2039,8 @@ function whereLabel(w) { return w === 'AUFWÄRMEN' ? 'Aufwärmen' : w === 'MURPH
 function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600); }
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
-function isKurz(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 || (S.kurzDg > 0 && S.kurzDg === S.durchgang); }
+function isKurz(tag) { var D = DRAFTS[draftKey(tag)]; return !!(D && +D._zeit >= 3) || isKurz0(tag); }
+function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 || (S.kurzDg > 0 && S.kurzDg === S.durchgang); }
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
   var d = DAYS[tag];
@@ -3685,7 +3686,7 @@ function stepsOf(c) {
       timer: { mode: 'routine', cfg: { rid: mr.id, tag: tag }, label: mr.dauer_min + ' Min starten', info: mr.name },
       body: function (D) { var F = moblFlow(tag); return modeOf('mobl') === 'single' ? '<p class="small muted">' + esc(mr.ziel) + '</p>' + flowHTML(F, D) : '<section class="card"><p>' + esc(mr.ziel) + '</p>' + flowHTML(F, D) + '</section>'; } });
   }
-  if (d.hs && D0._nohs !== '1') out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
+  if (d.hs && !(+D0._zeit >= 2)) out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
     timer: { mode: 'block', cfg: { minutes: d.hs, label: 'Handstand', tag: tag }, label: d.hs + ' Min starten', info: 'Handstand an der Wand' },
     body: function (D) { return hsStepHTML(D); } });
   if (d.skill) {
@@ -3717,7 +3718,7 @@ function stepsOf(c) {
         : { mode: 'amrap', cfg: { minutes: am, tag: tag }, label: 'AMRAP ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
       body: function (D) { return metconStepHTML(tag, D, am); } });
   }
-  return out.concat(mobCheckStep(tag)).concat(D0._nocool === '1' ? [] : coolStep(tag));
+  return out.concat(mobCheckStep(tag)).concat(+D0._zeit >= 1 ? [] : coolStep(tag));
 }
 // Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in den Test-Durchgängen des Schwerpunkts.
 function mobCheckStep(tag) {
@@ -4874,11 +4875,21 @@ window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 // Session anpassen: unter der Einheit ein grauer Link, das Blatt von unten bietet die Anpassungen für heute.
 function adaptChanges(tag, run) {
   var D = DRAFTS[draftKey(tag)] || {}, d = DAYS[tag], out = [];
-  if (isKurz(tag)) out.push(run ? 'lockerer Lauf' : 'Kurzversion');
-  if (D._nohs === '1' && d.hs) out.push('ohne Handstand');
-  if (D._nocool === '1' && coolOf(tag)) out.push('ohne Cool-down');
+  var z = +D._zeit || 0;
+  if (z) out.push('kürzer, ' + adaptMin(tag, z) + ' Min');
+  else if (isKurz(tag)) out.push(run ? 'lockerer Lauf' : 'Kurzversion');
   if (S.kurzDg > 0 && S.kurzDg === S.durchgang) out.push('ganzer Durchgang kurz');
   return out;
+}
+// Wenig Zeit: der Coach kürzt in Stufen. 1 = ohne Cool-down, 2 = auch ohne Handstand, 3 = dazu die Kurzversion.
+var ZEIT_CUT = ['', 'Cool-down', 'Cool-down und Handstand', 'Cool-down und Handstand, Kraft und Metcon kürzer'];
+function adaptMin(tag, z) {
+  var k = draftKey(tag), had = k in DRAFTS, D = DRAFTS[k] || (DRAFTS[k] = {}), old = D._zeit, m = 0;
+  if (z) D._zeit = String(z); else delete D._zeit;
+  stepsOf(dayCtx(tag)).forEach(function (x) { m += x.dur || 0; });
+  if (old != null) D._zeit = old; else delete D._zeit;
+  if (!had) delete DRAFTS[k];
+  return m;
 }
 function adaptLineHTML(tag, run) {
   var ch = adaptChanges(tag, run);
@@ -4890,23 +4901,23 @@ ACT.adapt = function (el) {
   var CH = '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
   var sw = function (name, on, t, sub) { return '<label class="check"><input type="checkbox" name="' + name + '"' + (on ? ' checked' : '') + '> <span><b>' + t + '</b>' + (sub ? ' – ' + sub : '') + '</span></label>'; };
   var item = function (k, t, sub, panel) { return '<div class="gl-item ad-it" data-k="' + k + '"><button type="button" class="gl-row" data-act="adapt-sub" data-k="' + k + '"><span class="gl-t"><b>' + t + '</b><small>' + sub + '</small></span>' + CH + '</button><div class="ad-p" hidden>' + panel + '</div></div>'; };
-  var kurzSub = run ? 'lockerer Lauf statt Intervalle' : (d.kfmt === 'saetze' ? 'ein Satz weniger' : 'Kraft 3 Runden') + (d.mmin ? ', Metcon kürzer' : '');
-  var days = '';
-  for (var t = 1; t <= 7; t++) if (t !== tag) days += '<button type="button" class="st-row" data-act="adapt-day" data-tag="' + t + '"><span>Tag ' + t + ' · ' + esc(dayLabel(t)) + '</span>' + CH + '</button>';
+  var kurzSub = run ? 'lockerer Lauf statt Intervalle' : 'der Coach kürzt Kraft' + (d.mmin ? ' und Metcon' : '');
+  var z0 = +D._zeit || 0, zs = [], seen = {};
+  if (!run) for (var z = 0; z <= 3; z++) { var mz = adaptMin(tag, z); if (!seen[mz]) { seen[mz] = 1; zs.push({ z: z, m: mz }); } }
+  if (z0 && !zs.some(function (o) { return o.z === z0; })) z0 = 0;
   var body = '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, worauf er heute achten soll.</p><section class="card gl-card ad-list">' +
-    item('int', 'Mir geht’s heute nicht gut', 'Weniger Intensität', sw('kurz', isKurz(tag), 'Kurzversion', kurzSub) + sw('dg', dg, 'Ganzer Durchgang kurz', 'auch die übrigen Tage bis Tag 7')) +
-    (!run ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
-      (d.hs ? sw('nohs', D._nohs === '1', 'Handstand weglassen', 'spart ' + d.hs + ' Min') : '') +
-      (rc && S.cooldown !== false ? sw('nocool', D._nocool === '1', 'Cool-down weglassen', 'spart ' + rc.dauer_min + ' Min') : '') +
-      '<p class="small muted" style="margin:6px 0 0">Noch kürzer: oben „Kurzversion“ einschalten.</p>') : '') +
+    item('int', 'Mir geht’s heute nicht gut', 'Weniger Intensität', sw('kurz', isKurz0(tag), 'Heute leichter', kurzSub) + sw('dg', dg, 'Auch die nächsten Tage', 'leichter bis Tag 7')) +
+    (!run && zs.length > 1 ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
+      '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + zs.map(function (o) {
+        var on = o.z === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + o.z + '" data-cut="' + esc(ZEIT_CUT[o.z]) + '" aria-pressed="' + on + '">' + o.m + ' Min</button>';
+      }).join('') + '</div><input type="hidden" name="zeit" value="' + z0 + '"><p class="small muted ad-cut" style="margin:8px 0 0">' + (z0 ? 'Der Coach lässt weg: ' + esc(ZEIT_CUT[z0]) + '.' : 'Die ganze Einheit.') + '</p>') : '') +
     (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Ort wechseln, die Übungen passen sich an', ortCapHTML('in-card')) : '') +
-    item('tag', 'Ich möchte eine andere Session machen', 'Einen anderen Tag vorziehen', '<div class="ad-days">' + days + '</div>') +
     '</section>';
   openForm('Session anpassen', body, 'Fertig', function (bg) {
     var v = function (n) { var i = bg.querySelector('input[name="' + n + '"]'); return i ? i.checked : null; };
-    setDraft('_kurz', v('kurz') === isKurz(tag) && D._kurz == null ? '' : v('kurz') ? '1' : '0');
-    if (v('nohs') != null) setDraft('_nohs', v('nohs') ? '1' : '');
-    if (v('nocool') != null) setDraft('_nocool', v('nocool') ? '1' : '');
+    var zi = bg.querySelector('input[name="zeit"]'), kz = isKurz0(tag);
+    if (zi) setDraft('_zeit', +zi.value || '');
+    if (v('kurz') !== kz || D._kurz != null) setDraft('_kurz', v('kurz') === kz && D._kurz == null ? '' : v('kurz') ? '1' : '0');
     S.kurzDg = v('dg') ? S.durchgang : (dg ? 0 : S.kurzDg); saveState(); render();
   }, { noFocus: true });
 };
@@ -4915,7 +4926,12 @@ ACT['adapt-sub'] = function (el) {
   document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); x.querySelector('.ad-p').hidden = true; });
   if (open) { it.classList.add('open'); p.hidden = false; }
 };
-ACT['adapt-day'] = function (el) { closeSheet(); ACT['do-this-day'](el); };
+ACT['adapt-zeit'] = function (el) {
+  var p = el.closest('.ad-p'), z = +el.dataset.z;
+  p.querySelectorAll('.seg-btn').forEach(function (b) { var on = b === el; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  p.querySelector('input[name="zeit"]').value = z;
+  p.querySelector('.ad-cut').textContent = z ? 'Der Coach lässt weg: ' + el.dataset.cut + '.' : 'Die ganze Einheit.';
+};
 ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
 ACT['plan-day'] = function (el) { ui.planTag = +el.dataset.tag; render(); };
 ACT['plan-sec'] = function (el) { ui.planSec = el.dataset.k || null; window.scrollTo(0, 0); render(); };
