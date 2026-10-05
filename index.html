@@ -650,6 +650,13 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .kv-small .check{font-size:14px;color:var(--ink2)}
 .kv-small .check b{font-weight:600}
 .kv-small p{font-size:12px}
+.kv-fold{margin:-4px 2px 16px;color:var(--ink2)}
+.kv-tog{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;padding:0 4px;border:0;background:none;color:var(--ink2);font:inherit;font-size:13px;text-align:left;cursor:pointer}
+.kv-l{display:inline-flex;align-items:center;gap:4px;flex:none;font-weight:600}
+.kv-l svg{width:16px;height:16px;transition:transform .2s}
+.kv-fold.open .kv-l svg{transform:rotate(180deg)}
+.kv-body{padding:4px 4px 0}
+.kv-body .check{font-size:14px;color:var(--ink2)}
 .kv-hint{margin:0 0 10px;padding:8px 10px;border-radius:12px;background:var(--fill)}
 .blk .small{display:block}
 .zones{list-style:none;margin:12px 0 6px;padding:0}
@@ -2051,6 +2058,15 @@ function stallDg() {
   return true;
 }
 var KV = (function () { try { return localStorage.getItem('tp.kv') || 'a'; } catch (e) { return 'a'; } })();
+// Variante E: unter der Einheit nur eine graue Zeile; die Schalter erscheinen erst nach dem Antippen.
+function kvFoldHTML(tag, stall, run) {
+  var kurz = isKurz(tag), lab = stall ? 'Festgefahren? 3 Durchgänge ohne Steigerung' : kurz ? 'Kurzversion ist an' : run ? 'Heute lieber locker?' : 'Weniger Kraft heute?';
+  var h = '<div class="kv-fold' + (ui.kvOpen ? ' open' : '') + '"><button type="button" class="kv-tog" data-act="kv-open" aria-expanded="' + !!ui.kvOpen + '"><span>' + lab + '</span><span class="kv-l">Kurzversion<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button>';
+  if (ui.kvOpen) h += '<div class="kv-body"><label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + '> <span><b>Kurzversion</b> – ' + (run ? 'lockerer Lauf statt Intervalle' : 'Kraft 3 Runden, Metcon kürzer') + '</span></label>' +
+    '<p class="small muted">Für Nachtschicht, schlechten Schlaf und starken Muskelkater.' + (stall ? ' Nach 3 Durchgängen ohne Steigerung hilft ein ganzer Durchgang kurz.' : '') + '</p>' + kurzDgHTML() +
+    (stall ? '<button type="button" class="btn small" style="margin-top:8px" data-act="stall-no">Hinweis ausblenden</button>' : '') + '</div>';
+  return h + '</div>';
+}
 function stallNoteHTML() {
   return '<div class="kv-note"><span>Festgefahren: 3 Durchgänge ohne Steigerung.</span><span class="row"><button type="button" class="btn small" data-act="stall-yes">Durchgang kurz</button><button type="button" class="btn small" data-act="stall-no">Später</button></span></div>';
 }
@@ -4029,6 +4045,7 @@ function renderHeute() {
       return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div></div></li>';
     }).join('') + '</ol></section>';
     if (stall && KV === 'b') h += stallNoteHTML();
+    if (KV === 'e' && cur && !c.isTest && !c.isMurph && (d.kraft.length || d.mmin)) h += kvFoldHTML(tag, stall);
     if (stall && KV === 'd') tips.unshift('<b>Festgefahren?</b> 3 Durchgänge ohne Steigerung. Ein Durchgang Kurzversion gibt dir Luft.');
     if (cur) {
       var at = +(D._at || 0);
@@ -4037,7 +4054,7 @@ function renderHeute() {
     }
     h += tipsHTML(tips, stall && KV === 'd' ? '<div class="row" style="margin-top:8px"><button type="button" class="btn small" data-act="stall-yes">Durchgang kurz</button><button type="button" class="btn small" data-act="stall-no">Später</button></div>' : tipBtn);
     if (!c.isTest && !c.isMurph) {
-      var kurz = isKurz(tag), hasK = d.kraft.length || d.mmin;
+      var kurz = isKurz(tag), hasK = (d.kraft.length || d.mmin) && !(KV === 'e' && cur);
       h += '<section class="card' + (KV === 'b' ? ' kv-small' : '') + '">' + (stall && KV === 'c' ? '<p class="small kv-hint"><b>Festgefahren?</b> 3 Durchgänge ohne Steigerung. Schalte den ganzen Durchgang kurz, das gibt dir Luft.</p>' : '') + (hasK ? '<label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – ' + (d.kfmt === 'saetze' ? 'ein Satz weniger' : 'Kraft 3 Runden') + (d.mmin ? ', Metcon kürzer' : '') + '</span></label>' +
         '<p class="small muted">Für Einstieg, Nachtschicht, schlechten Schlaf und starken Muskelkater.</p>' + (cur ? kurzDgHTML() : '') : '') +
         (d.cool && ROUT[d.cool] ? '<label class="check"' + (hasK ? ' style="margin-top:6px"' : '') + '><input type="checkbox" data-change="cooldown"' + (S.cooldown !== false ? ' checked' : '') + '> <span><b>Cool-down am Ende</b> – ' + ROUT[d.cool].dauer_min + ' Min, passend zum Tag</span></label>' : '') + '</section>';
@@ -4049,8 +4066,9 @@ function renderHeute() {
     if (d.pre === 'hs') h += '<p class="kicker muted gl-group">Zuerst: Handstand 10 Min</p>' + hsStepHTML(D);
     else if (d.pre) h += '<p class="kicker muted gl-group">Zuerst: 10 Min Dehnen</p>' + routineCardHTML(mobRoutine(d.pre), false, 'Dehnen starten');
     var ik = d.type === 'interval' && isKurz(tag);
-    if (d.type === 'interval') h += '<section class="card' + (KV === 'b' ? ' kv-small' : '') + '"><label class="check"><input type="checkbox" data-act="kurz" ' + (ik ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – lockerer Lauf statt Intervalle</span></label>' + (cur ? kurzDgHTML() : '') + '</section>';
+    if (d.type === 'interval' && !(KV === 'e' && cur)) h += '<section class="card' + (KV === 'b' ? ' kv-small' : '') + '"><label class="check"><input type="checkbox" data-act="kurz" ' + (ik ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – lockerer Lauf statt Intervalle</span></label>' + (cur ? kurzDgHTML() : '') + '</section>';
     h += runHTML(c, D, ik ? { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) } : null);
+    if (d.type === 'interval' && KV === 'e' && cur) h += kvFoldHTML(tag, stall, true);
     if (cur) {
       h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
       if (d.opt) h += '<button type="button" class="btn block" data-act="skip-day">Heute auslassen</button>';
@@ -4898,6 +4916,7 @@ if (MQ_LAND) { if (MQ_LAND.addEventListener) MQ_LAND.addEventListener('change', 
 window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 
 // Plan-Seite: Durchgang blättern, Tag wählen, Wissen öffnen.
+ACT['kv-open'] = function () { ui.kvOpen = !ui.kvOpen; render(); };
 ACT['stall-yes'] = function () { S.kurzDg = S.durchgang; ui.kurz = {}; saveState(); render(); toast('Dieser Durchgang läuft als Kurzversion.'); };
 ACT['stall-no'] = function () { S.stallAsk = S.durchgang; saveState(); render(); };
 ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
