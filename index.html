@@ -1964,7 +1964,7 @@ var TEST_BASE = {
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, kurzDg: 0, swapped: null, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
+  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
 
 var LS = {
@@ -2039,8 +2039,8 @@ function whereLabel(w) { return w === 'AUFWÄRMEN' ? 'Aufwärmen' : w === 'MURPH
 function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600); }
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
-function isKurz(tag) { var D = DRAFTS[draftKey(tag)]; return !!(D && +D._zeit >= 3) || isKurz0(tag); }
-function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 || (S.kurzDg > 0 && S.kurzDg === S.durchgang); }
+function isKurz(tag) { return zeitLv(tag) >= 2 || isKurz0(tag); }
+function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 }
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
   var d = DAYS[tag];
@@ -2122,7 +2122,7 @@ function initDb() {
 }
 
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'kurzDg', 'swapped'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = PWA ? LS.get('tp.sync', null) : null;
@@ -2334,6 +2334,19 @@ function advance() {
   if (t === 7) { S.tag = 1; S.durchgang += 1; blockCheck(); } else S.tag = t + 1;
   ui.viewTag = null;
 }
+// Nach dem letzten Trainingsschritt fragt die App nach dem Cool-down (nur an Krafttagen, einmal pro Einheit).
+function saveAsk() {
+  var tag = S.tag, c = dayCtx(tag), D = DRAFTS[draftKey(tag)] || {}, r = coolOf(tag);
+  if (!r || D._step == null || D._cool != null || c.isTest || c.isMurph || c.d.type !== 'kraft') { saveDay(); return; }
+  openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + r.dauer_min + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
+    if (v === 'nein') { setDraft('_cool', '0'); saveDay(); return; }
+    if (v !== 'ja') return;
+    setDraft('_cool', '1');
+    var st = stepsOf(dayCtx(tag)), to = 0;
+    st.forEach(function (x, i) { if (x.id === 'cool') to = i; });
+    ACT.step({ dataset: { to: String(to) } });
+  });
+}
 function saveDay() {
   syncDays();
   var ladBefore = areaStates(LOGS);
@@ -2361,7 +2374,7 @@ function saveDay() {
         return { n: x.n, stage: v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n), reps: reps };
       }) });
     if (d.kfmt === 'saetze' && d.kraft.length) log.sets = rounds;
-    if ((d.mmin || d.bench) && d.metcon.length) {
+    if ((d.mmin || d.bench) && d.metcon.length && zeitLv(tag) < 3) {
       var stages = d.metcon.map(function (m, i) {
         if (!metconLad(m.n)) return null;
         var st = v['m' + i + 'stage'] != null ? v['m' + i + 'stage'] : lastMetconStage(m.n);
@@ -2371,7 +2384,7 @@ function saveDay() {
       if (d.bench) { log.metcon.bench = BENCH[d.bench].name; log.metcon.fmt = BENCH[d.bench].fmt; }
       if (stages.length) log.metcon.stages = stages;
     }
-    if (d.skill) { var sk = skillFrom(v, d); if (sk) log.skill = sk; }
+    if (d.skill && zeitLv(tag) < 1) { var sk = skillFrom(v, d); if (sk) log.skill = sk; }
     if (d.mobl) log.mobl = { art: d.mobl, min: mobRoutine(d.mobl).dauer_min, done: flowState(moblFlow(tag), v).done.length || null };
     if (d.run) {
       var rs = runSpec(d), rr = runFrom(v, rs);
@@ -3477,7 +3490,7 @@ var ACT = {
     else render();
     var n = document.getElementById('g-' + e.key); if (n) n.scrollIntoView({ block: 'start' });
   },
-  save: saveDay,
+  save: saveAsk,
   'skip-murph': function () { ui.skipMurph = true; render(); },
   'murph-stage': function (el) { S.murphStage = +el.dataset.s; saveState(); render(); },
   'iv-reps': function (el) { changeIv(+el.dataset.d); saveState(); render(); },
@@ -3656,7 +3669,7 @@ function dayCtx(tag) {
   return { tag: tag, cur: cur, d: d, isTest: isTest, isMurph: isMurph };
 }
 function stepsOf(c) {
-  var tag = c.tag, d = c.d, D0 = c.cur ? (DRAFTS[draftKey(tag)] || {}) : {};
+  var tag = c.tag, d = c.d, D0 = c.cur ? (DRAFTS[draftKey(tag)] || {}) : {}, zl = c.cur ? zeitLv(tag) : 0, wm = zl >= 4 ? 4 : 8;
   if (c.isTest) {
     return PLAN.tests[TESTDAYS[tag].rows].map(function (r, i) {
       return { id: 't' + i, title: r.name, sub: r.note, desc: r.note, body: function (D) { return testStepHTML(tag, r, i, D); } };
@@ -3676,9 +3689,9 @@ function stepsOf(c) {
     out.push({ id: 'run', title: rT, sub: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min · Zone ' + rs.iv.zone : rs.min ? rs.min + ' Min · Zone 3–4' : rs.art === 'test' ? '5 km auf Zeit' : laufGoal().name, dur: Math.round(planRunSec(rs) / 60),
       desc: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben' : 'Ergebnis von der Uhr eintragen', body: function (D) { return runHTML(c, D, rs, true); } });
   }
-  if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: '8 Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: 8,
+  if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: wm + ' Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: wm,
     desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
-    timer: { mode: 'block', cfg: { minutes: 8, label: 'Aufwärmen', tag: tag }, label: '8 Min starten', info: 'Aufwärmen' },
+    timer: { mode: 'block', cfg: { minutes: wm, label: 'Aufwärmen', tag: tag }, label: wm + ' Min starten', info: 'Aufwärmen' },
     body: function (D) { return warmStepHTML(tag, D); } });
   if (d.mobl) {
     var mr = mobRoutine(d.mobl);
@@ -3686,10 +3699,10 @@ function stepsOf(c) {
       timer: { mode: 'routine', cfg: { rid: mr.id, tag: tag }, label: mr.dauer_min + ' Min starten', info: mr.name },
       body: function (D) { var F = moblFlow(tag); return modeOf('mobl') === 'single' ? '<p class="small muted">' + esc(mr.ziel) + '</p>' + flowHTML(F, D) : '<section class="card"><p>' + esc(mr.ziel) + '</p>' + flowHTML(F, D) + '</section>'; } });
   }
-  if (d.hs && !(+D0._zeit >= 2)) out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
+  if (d.hs && zl < 1) out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
     timer: { mode: 'block', cfg: { minutes: d.hs, label: 'Handstand', tag: tag }, label: d.hs + ' Min starten', info: 'Handstand an der Wand' },
     body: function (D) { return hsStepHTML(D); } });
-  if (d.skill) {
+  if (d.skill && zl < 1) {
     var sk = skillOf(d);
     out.push({ id: 'skill', title: 'Skill · ' + sk.goal.name, sub: d.skill + ' Min · frisch, nie bis zum Versagen', dur: d.skill, desc: uName(sk.v.uebung) + (sk.pre ? ' (Voraussetzung für ' + sk.goal.name + ')' : ''),
       timer: { mode: 'block', cfg: { minutes: d.skill, label: 'Skill-Block', tag: tag }, label: d.skill + ' Min starten', info: sk.f.name },
@@ -3709,7 +3722,7 @@ function stepsOf(c) {
         body: function (D) { return kraftStepHTML(tag, D, rounds); } });
     }
   }
-  if ((d.mmin || d.bench) && d.metcon.length) {
+  if ((d.mmin || d.bench) && d.metcon.length && zl < 3) {
     var am = metconMin(tag), B = d.bench ? BENCH[d.bench] : null, em2 = B && B.fmt === 'emom';
     out.push({ id: 'metcon', title: B ? B.name + ' · ' + (em2 ? 'EMOM ' : 'AMRAP ') + am : (d.wod ? 'WOD' : 'Metcon') + ' · AMRAP ' + am,
       sub: em2 ? am + ' Min · jede Minute eine Runde' : am + ' Min · so viele Runden wie möglich', dur: am, opt: !!d.mopt,
@@ -3718,7 +3731,7 @@ function stepsOf(c) {
         : { mode: 'amrap', cfg: { minutes: am, tag: tag }, label: 'AMRAP ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
       body: function (D) { return metconStepHTML(tag, D, am); } });
   }
-  return out.concat(mobCheckStep(tag)).concat(+D0._zeit >= 1 ? [] : coolStep(tag));
+  return out.concat(mobCheckStep(tag)).concat(D0._cool === '1' ? coolStep(tag) : []);
 }
 // Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in den Test-Durchgängen des Schwerpunkts.
 function mobCheckStep(tag) {
@@ -3728,14 +3741,14 @@ function mobCheckStep(tag) {
 }
 function coolOf(tag) { var d = DAYS[tag]; return d && d.cool && ROUT[d.cool] ? ROUT[d.cool] : null; }
 function coolStep(tag) {
-  var r = S.cooldown === false ? null : coolOf(tag);
+  var r = coolOf(tag);
   if (!r) return [];
-  return [{ id: 'cool', title: r.name, sub: r.dauer_min + ' Min · optional', dur: r.dauer_min, desc: r.ziel, opt: true,
+  return [{ id: 'cool', title: r.name, sub: r.dauer_min + ' Min · passend zum Tag', dur: r.dauer_min, desc: r.ziel, opt: true,
     timer: { mode: 'routine', cfg: { rid: r.id, tag: tag }, label: r.dauer_min + ' Min starten', info: r.name },
     body: function (D) {
       var F = coolFlow(tag);
       return (modeOf('cool') === 'single' ? '<p class="small muted">' + esc(r.ziel) + '</p>' + flowHTML(F, D) : '<section class="card"><p>' + esc(r.ziel) + '</p>' + flowHTML(F, D) + '</section>') +
-        '<p class="small muted" style="text-align:center">Keine Zeit? Einfach direkt speichern.</p>';
+        '<p class="small muted" style="text-align:center">Doch keine Zeit? Einfach direkt speichern.</p>';
     } }];
 }
 function routineListHTML(r) {
@@ -4014,7 +4027,6 @@ function renderHeute() {
     }
     h += tipsHTML(tips, tipBtn);
     if (!c.isTest && !c.isMurph) {
-      if (d.cool && ROUT[d.cool]) h += '<section class="card"><label class="check"><input type="checkbox" data-change="cooldown"' + (S.cooldown !== false ? ' checked' : '') + '> <span><b>Cool-down am Ende</b> – ' + ROUT[d.cool].dauer_min + ' Min, passend zum Tag</span></label></section>';
     }
     if (!cur) {
       h += '<p class="small muted">Starten kannst du, sobald dieser Tag dran ist.</p>';
@@ -4873,52 +4885,76 @@ window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 
 // Plan-Seite: Durchgang blättern, Tag wählen, Wissen öffnen.
 // Session anpassen: unter der Einheit ein grauer Link, das Blatt von unten bietet die Anpassungen für heute.
-function adaptChanges(tag, run) {
-  var D = DRAFTS[draftKey(tag)] || {}, d = DAYS[tag], out = [];
-  var z = +D._zeit || 0;
-  if (z) out.push('kürzer, ' + adaptMin(tag, z) + ' Min');
-  else if (isKurz(tag)) out.push(run ? 'lockerer Lauf' : 'Kurzversion');
-  if (S.kurzDg > 0 && S.kurzDg === S.durchgang) out.push('ganzer Durchgang kurz');
+// Wenig Zeit (_zeit = 45/30/15 Min im Entwurf): der Coach kürzt in Stufen, bis es passt.
+// 1 = ohne Handstand und Skill, 2 = Kraft und Metcon kürzer, 3 = ohne Metcon, 4 = Aufwärmen 4 Min.
+var ZF = null;
+function zeitLv(tag) {
+  if (ZF && ZF.tag === tag) return ZF.lv;
+  var D = DRAFTS[draftKey(tag)], B = D && +D._zeit, c;
+  if (!B || tag !== S.tag || !DAYS[tag] || DAYS[tag].type !== 'kraft') return 0;
+  c = dayCtx(tag); if (c.isTest || c.isMurph) return 0;
+  for (var lv = 0; lv < 4; lv++) if (zeitMin(c, lv) <= B) return lv;
+  return 4;
+}
+function zeitMin(c, lv) {
+  var o = ZF, m = 0; ZF = { tag: c.tag, lv: lv };
+  try { stepsOf(c).forEach(function (x) { if (x.id !== 'cool') m += x.dur || 0; }); } finally { ZF = o; }
+  return m;
+}
+function zeitCuts(tag, lv) {
+  var d = DAYS[tag], met = (d.mmin || d.bench) && d.metcon.length, out = [];
+  if (lv >= 1) { if (d.hs) out.push('ohne Handstand'); if (d.skill) out.push('ohne Skill-Block'); }
+  if (lv >= 3 && met) out.push('ohne Metcon');
+  if (lv >= 2 && d.kraft.length) out.push('Kraft kürzer');
+  if (lv === 2 && met) out.push('Metcon kürzer');
+  if (lv >= 4 && d.warm) out.push('Aufwärmen 4 Min');
   return out;
 }
-// Wenig Zeit: der Coach kürzt in Stufen. 1 = ohne Cool-down, 2 = auch ohne Handstand, 3 = dazu die Kurzversion.
-var ZEIT_CUT = ['', 'Cool-down', 'Cool-down und Handstand', 'Cool-down und Handstand, Kraft und Metcon kürzer'];
-function adaptMin(tag, z) {
-  var k = draftKey(tag), had = k in DRAFTS, D = DRAFTS[k] || (DRAFTS[k] = {}), old = D._zeit, m = 0;
-  if (z) D._zeit = String(z); else delete D._zeit;
-  stepsOf(dayCtx(tag)).forEach(function (x) { m += x.dur || 0; });
+// Vorschau für eine Zeit, ohne den Entwurf zu ändern.
+function zeitPreview(tag, B) {
+  var k = draftKey(tag), had = k in DRAFTS, D = DRAFTS[k] || (DRAFTS[k] = {}), old = D._zeit, lv;
+  if (B) D._zeit = String(B); else delete D._zeit;
+  lv = zeitLv(tag); var m = zeitMin(dayCtx(tag), lv);
   if (old != null) D._zeit = old; else delete D._zeit;
   if (!had) delete DRAFTS[k];
-  return m;
+  return { lv: lv, m: m, cuts: zeitCuts(tag, lv) };
+}
+function zeitText(tag, B) {
+  var z = zeitPreview(tag, B);
+  if (!B) return 'Die ganze Einheit dauert etwa ' + z.m + ' Min.';
+  if (!z.lv) return 'Passt schon, die Einheit dauert etwa ' + z.m + ' Min.';
+  return 'Etwa ' + z.m + ' Min: ' + z.cuts.join(', ') + '.';
+}
+function adaptChanges(tag, run) {
+  var D = DRAFTS[draftKey(tag)] || {}, out = [], B = +D._zeit || 0;
+  if (D._kurz === '1') out.push(run ? 'lockerer Lauf' : 'leichter');
+  if (B && !run) out.push('unter ' + B + ' Min');
+  return out;
 }
 function adaptLineHTML(tag, run) {
   var ch = adaptChanges(tag, run);
   return '<div class="adj">' + (ch.length ? '<span>Angepasst: ' + esc(ch.join(', ')) + '</span>' : '') + '<button type="button" class="adj-q" data-act="adapt" data-run="' + (run ? 1 : '') + '">Session anpassen</button></div>';
 }
-// Blatt „Session anpassen“: Liste der Anliegen, Antippen klappt die passenden Schalter auf.
+// Blatt „Session anpassen“: Liste der Anliegen, Antippen klappt die Auswahl auf. Gilt nur für heute.
 ACT.adapt = function (el) {
-  var tag = S.tag, d = DAYS[tag], run = !!el.dataset.run, D = DRAFTS[draftKey(tag)] || {}, rc = coolOf(tag), dg = S.kurzDg > 0 && S.kurzDg === S.durchgang;
+  var tag = S.tag, d = DAYS[tag], run = !!el.dataset.run, D = DRAFTS[draftKey(tag)] || {}, z0 = +D._zeit || 0;
   var CH = '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
   var sw = function (name, on, t, sub) { return '<label class="check"><input type="checkbox" name="' + name + '"' + (on ? ' checked' : '') + '> <span><b>' + t + '</b>' + (sub ? ' – ' + sub : '') + '</span></label>'; };
   var item = function (k, t, sub, panel) { return '<div class="gl-item ad-it" data-k="' + k + '"><button type="button" class="gl-row" data-act="adapt-sub" data-k="' + k + '"><span class="gl-t"><b>' + t + '</b><small>' + sub + '</small></span>' + CH + '</button><div class="ad-p" hidden>' + panel + '</div></div>'; };
   var kurzSub = run ? 'lockerer Lauf statt Intervalle' : 'der Coach kürzt Kraft' + (d.mmin ? ' und Metcon' : '');
-  var z0 = +D._zeit || 0, zs = [], seen = {};
-  if (!run) for (var z = 0; z <= 3; z++) { var mz = adaptMin(tag, z); if (!seen[mz]) { seen[mz] = 1; zs.push({ z: z, m: mz }); } }
-  if (z0 && !zs.some(function (o) { return o.z === z0; })) z0 = 0;
   var body = '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, worauf er heute achten soll.</p><section class="card gl-card ad-list">' +
-    item('int', 'Mir geht’s heute nicht gut', 'Weniger Intensität', sw('kurz', isKurz0(tag), 'Heute leichter', kurzSub) + sw('dg', dg, 'Auch die nächsten Tage', 'leichter bis Tag 7')) +
-    (!run && zs.length > 1 ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
-      '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + zs.map(function (o) {
-        var on = o.z === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + o.z + '" data-cut="' + esc(ZEIT_CUT[o.z]) + '" aria-pressed="' + on + '">' + o.m + ' Min</button>';
-      }).join('') + '</div><input type="hidden" name="zeit" value="' + z0 + '"><p class="small muted ad-cut" style="margin:8px 0 0">' + (z0 ? 'Der Coach lässt weg: ' + esc(ZEIT_CUT[z0]) + '.' : 'Die ganze Einheit.') + '</p>') : '') +
+    item('int', 'Mir geht’s heute nicht gut', 'Weniger Intensität', sw('kurz', isKurz0(tag), 'Heute leichter', kurzSub)) +
+    (!run ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
+      '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + [45, 30, 15].map(function (B) {
+        var on = B === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + B + '" data-t="' + esc(zeitText(tag, B)) + '" aria-pressed="' + on + '">&lt; ' + B + ' Min</button>';
+      }).join('') + '</div><input type="hidden" name="zeit" value="' + z0 + '" data-t0="' + esc(zeitText(tag, 0)) + '"><p class="small muted ad-cut" style="margin:8px 0 0">' + esc(zeitText(tag, z0)) + '</p>') : '') +
     (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Ort wechseln, die Übungen passen sich an', ortCapHTML('in-card')) : '') +
     '</section>';
   openForm('Session anpassen', body, 'Fertig', function (bg) {
-    var v = function (n) { var i = bg.querySelector('input[name="' + n + '"]'); return i ? i.checked : null; };
-    var zi = bg.querySelector('input[name="zeit"]'), kz = isKurz0(tag);
+    var k = bg.querySelector('input[name="kurz"]'), zi = bg.querySelector('input[name="zeit"]'), kz = isKurz0(tag);
     if (zi) setDraft('_zeit', +zi.value || '');
-    if (v('kurz') !== kz || D._kurz != null) setDraft('_kurz', v('kurz') === kz && D._kurz == null ? '' : v('kurz') ? '1' : '0');
-    S.kurzDg = v('dg') ? S.durchgang : (dg ? 0 : S.kurzDg); saveState(); render();
+    if (k && (k.checked !== kz || D._kurz != null)) setDraft('_kurz', k.checked === kz && D._kurz == null ? '' : k.checked ? '1' : '0');
+    render();
   }, { noFocus: true });
 };
 ACT['adapt-sub'] = function (el) {
@@ -4926,11 +4962,12 @@ ACT['adapt-sub'] = function (el) {
   document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); x.querySelector('.ad-p').hidden = true; });
   if (open) { it.classList.add('open'); p.hidden = false; }
 };
+// Nochmal auf die gewählte Zeit tippen = wieder normale Dauer.
 ACT['adapt-zeit'] = function (el) {
-  var p = el.closest('.ad-p'), z = +el.dataset.z;
-  p.querySelectorAll('.seg-btn').forEach(function (b) { var on = b === el; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
-  p.querySelector('input[name="zeit"]').value = z;
-  p.querySelector('.ad-cut').textContent = z ? 'Der Coach lässt weg: ' + el.dataset.cut + '.' : 'Die ganze Einheit.';
+  var p = el.closest('.ad-p'), inp = p.querySelector('input[name="zeit"]'), z = +inp.value === +el.dataset.z ? 0 : +el.dataset.z;
+  p.querySelectorAll('.seg-btn').forEach(function (b) { var on = +b.dataset.z === z; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  inp.value = z;
+  p.querySelector('.ad-cut').textContent = z ? el.dataset.t : inp.dataset.t0;
 };
 ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
 ACT['plan-day'] = function (el) { ui.planTag = +el.dataset.tag; render(); };
