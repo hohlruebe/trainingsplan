@@ -644,6 +644,13 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .pw .pills{margin:10px 0 14px}
 .pd-k{margin:0 0 10px}
 .pd-n{margin:12px 0 0}
+.kv-note{display:flex;flex-direction:column;gap:8px;margin:-4px 6px 16px;font-size:13px;color:var(--ink2)}
+.kv-note .btn.small{min-height:34px;font-size:13px;padding:0 12px}
+.kv-small{background:none;box-shadow:none;padding:4px 6px;color:var(--ink2)}
+.kv-small .check{font-size:14px;color:var(--ink2)}
+.kv-small .check b{font-weight:600}
+.kv-small p{font-size:12px}
+.kv-hint{margin:0 0 10px;padding:8px 10px;border-radius:12px;background:var(--fill)}
 .blk .small{display:block}
 .zones{list-style:none;margin:12px 0 6px;padding:0}
 .zones li{display:flex;align-items:center;gap:10px;min-height:38px;border-top:1px solid var(--line);font-size:14px}
@@ -2042,6 +2049,10 @@ function stallDg() {
     ls.forEach(function (l) { l.kraft.forEach(function (x) { best[x.n] = Math.max(best[x.n] || 0, val(x)); }); });
   }
   return true;
+}
+var KV = (function () { try { return localStorage.getItem('tp.kv') || 'a'; } catch (e) { return 'a'; } })();
+function stallNoteHTML() {
+  return '<div class="kv-note"><span>Festgefahren: 3 Durchgänge ohne Steigerung.</span><span class="row"><button type="button" class="btn small" data-act="stall-yes">Durchgang kurz</button><button type="button" class="btn small" data-act="stall-no">Später</button></span></div>';
 }
 function stallCardHTML() {
   return '<section class="card"><p class="kicker muted">Festgefahren?</p><p>In den letzten 3 Durchgängen ging es bei keiner Kraftübung weiter. Ein Durchgang Kurzversion gibt dir Luft, danach geht es meist wieder voran.</p>' +
@@ -3983,7 +3994,8 @@ function renderHeute() {
   }
   h += '</nav>';
   if (S.durchgang > 0) h += blockCardHTML();
-  if (cur && S.durchgang > 0 && !(S.kurzDg === S.durchgang) && S.stallAsk !== S.durchgang && d.type !== 'rest' && stallDg()) h += stallCardHTML();
+  var stall = cur && S.durchgang > 0 && !(S.kurzDg === S.durchgang) && S.stallAsk !== S.durchgang && d.type !== 'rest' && stallDg();
+  if (stall && KV === 'a') h += stallCardHTML();
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
@@ -4016,15 +4028,17 @@ function renderHeute() {
     h += '<section class="card"><ol class="tl">' + st.map(function (s, i) {
       return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div></div></li>';
     }).join('') + '</ol></section>';
+    if (stall && KV === 'b') h += stallNoteHTML();
+    if (stall && KV === 'd') tips.unshift('<b>Festgefahren?</b> 3 Durchgänge ohne Steigerung. Ein Durchgang Kurzversion gibt dir Luft.');
     if (cur) {
       var at = +(D._at || 0);
       h += '<button type="button" class="btn primary block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : 'Training starten') + '</button>';
       if (!c.isTest && !c.isMurph) h += nextUnlockHTML(tag);
     }
-    h += tipsHTML(tips, tipBtn);
+    h += tipsHTML(tips, stall && KV === 'd' ? '<div class="row" style="margin-top:8px"><button type="button" class="btn small" data-act="stall-yes">Durchgang kurz</button><button type="button" class="btn small" data-act="stall-no">Später</button></div>' : tipBtn);
     if (!c.isTest && !c.isMurph) {
       var kurz = isKurz(tag), hasK = d.kraft.length || d.mmin;
-      h += '<section class="card">' + (hasK ? '<label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – ' + (d.kfmt === 'saetze' ? 'ein Satz weniger' : 'Kraft 3 Runden') + (d.mmin ? ', Metcon kürzer' : '') + '</span></label>' +
+      h += '<section class="card' + (KV === 'b' ? ' kv-small' : '') + '">' + (stall && KV === 'c' ? '<p class="small kv-hint"><b>Festgefahren?</b> 3 Durchgänge ohne Steigerung. Schalte den ganzen Durchgang kurz, das gibt dir Luft.</p>' : '') + (hasK ? '<label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – ' + (d.kfmt === 'saetze' ? 'ein Satz weniger' : 'Kraft 3 Runden') + (d.mmin ? ', Metcon kürzer' : '') + '</span></label>' +
         '<p class="small muted">Für Einstieg, Nachtschicht, schlechten Schlaf und starken Muskelkater.</p>' + (cur ? kurzDgHTML() : '') : '') +
         (d.cool && ROUT[d.cool] ? '<label class="check"' + (hasK ? ' style="margin-top:6px"' : '') + '><input type="checkbox" data-change="cooldown"' + (S.cooldown !== false ? ' checked' : '') + '> <span><b>Cool-down am Ende</b> – ' + ROUT[d.cool].dauer_min + ' Min, passend zum Tag</span></label>' : '') + '</section>';
     }
@@ -4035,7 +4049,7 @@ function renderHeute() {
     if (d.pre === 'hs') h += '<p class="kicker muted gl-group">Zuerst: Handstand 10 Min</p>' + hsStepHTML(D);
     else if (d.pre) h += '<p class="kicker muted gl-group">Zuerst: 10 Min Dehnen</p>' + routineCardHTML(mobRoutine(d.pre), false, 'Dehnen starten');
     var ik = d.type === 'interval' && isKurz(tag);
-    if (d.type === 'interval') h += '<section class="card"><label class="check"><input type="checkbox" data-act="kurz" ' + (ik ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – lockerer Lauf statt Intervalle</span></label>' + (cur ? kurzDgHTML() : '') + '</section>';
+    if (d.type === 'interval') h += '<section class="card' + (KV === 'b' ? ' kv-small' : '') + '"><label class="check"><input type="checkbox" data-act="kurz" ' + (ik ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – lockerer Lauf statt Intervalle</span></label>' + (cur ? kurzDgHTML() : '') + '</section>';
     h += runHTML(c, D, ik ? { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) } : null);
     if (cur) {
       h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
