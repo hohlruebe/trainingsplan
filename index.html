@@ -2813,51 +2813,73 @@ var PLAN_SUB = { 'Regeln': 'Tag für Tag, Ruhetage, Kurzversion', 'Methode': 'Ca
 function renderPlan() {
   var K = [], sec = function (title, body) { K.push({ t: title, b: body }); return ''; };
   var h = '', F = fokus(), ph = curPhase();
-  h += sec('Regeln', '<ol class="rules">' + [
-    '<b>Tag für Tag:</b> 1 bis 7, dann wieder Tag 1 – egal, auf welchen Wochentag ein Tag fällt.',
-    '<b>Ruhetage zählen mit:</b> nie überspringen. Ein ungeplant freier Tag zählt nur, wenn als Nächstes ohnehin ein Ruhetag dran ist.',
-    '<b>Ringe:</b> innerhalb eines Blocks (EMOM, AMRAP, Murph) nie umstellen. Zwischen den Blöcken darfst du umhängen.',
-    '<b>Einstieg:</b> Einstiegstest, dann 2 Durchgänge Kurzversion mit RIR 3–4.',
-    '<b>Pause?</b> Mit dem nächsten Tag weitermachen. Ab 1 Woche Pause erst Kurzversion.',
-    '<b>Kurzversion</b> bei Nachtschicht, schlechtem Schlaf oder starkem Muskelkater: Kraft 3 Runden, Metcon 5 Min, Intervalle werden zum lockeren Lauf. Fällt ein Lauf aus, nimm das Ergometer.',
-    '<b>3 Durchgänge ohne Steigerung</b> oder dauerhaft platt: 1 Durchgang Kurzversion zur Entlastung.',
-    '<b>Letzte Stufe geschafft:</b> Weste an, klein anfangen (z. B. 5 kg; bis dahin Rucksack). Sprünge nie mit Weste.',
-    '<b>Murph:</b> Der erste Tag 1 im Monat wird zum Murph (Allround, Calisthenics, CrossFit). <b>Entlastung</b> kommt je nach Schwerpunkt, meist jeder 4. Durchgang. <b>Getestet</b> wird am Ende des Blocks.'
-  ].map(function (r) { return '<li>' + r + '</li>'; }).join('') + '</ol>');
-  h += sec('Methode', '<h3>Calisthenics</h3><p class="small muted">nach Städele, Kraft ohne Grenzen</p><ul class="list"><li>Kraft zuerst: Pull-up, Push-up und Dip sind der rote Faden.</li><li>Kraftblock mit 3–6 Wdh. und 2 Wdh. Reserve (RIR 2).</li><li>Pull-up 2× pro Durchgang: Tag 1 schwer, Tag 6 leichter.</li><li>Handstand in jeder Einheit, Stack-Atmung vor jedem Satz.</li><li>Stufen mit Voraussetzungen, Bänder, Tests und Entlastung.</li></ul>' +
-    '<h3 style="margin-top:12px">CrossFit</h3><ul class="list"><li>Metcon (AMRAP) in jeder Einheit: einfache Übungen, hohe Intensität.</li><li>Ergebnis als Zahl: Runden und Wiederholungen.</li><li>Murph einmal im Monat, Laufen und Ergometer für die Ausdauer.</li></ul>' +
-    '<h3 style="margin-top:12px">Qualität vor Tempo</h3><p>Unter Zeitdruck leidet die Technik. Deshalb laufen Handstand und schwere Übungen im EMOM mit fester Pause und Reserve, im Metcon stehen nur einfache Übungen. Bricht die Technik ein: kurz pausieren statt schlampig weitermachen.</p>' +
-    '<h3 style="margin-top:12px">Wie hart? RIR und SIR</h3><p class="small muted">RIR = Wiederholungen in Reserve. SIR = dasselbe in Sekunden, für Halteübungen.</p><div class="tbl-wrap"><table><tbody>' +
-    [['RIR 3–4', 'Einstieg, Kurzversion, Entlastung'], ['RIR 3', 'leichter Zugtag an Tag 6'], ['RIR 2', 'normaler Kraftsatz'], ['RIR 0', 'Maxout im Test-Durchgang'], ['SIR 2', 'Handstand und Hollow Body Hold']].map(function (r) { return '<tr><td class="hand" style="font-size:20px;color:var(--red);white-space:nowrap">' + r[0] + '</td><td>' + r[1] + '</td></tr>'; }).join('') + '</tbody></table></div>' +
-    '<h3 style="margin-top:12px">Stack-Atmung</h3><p>Brustkorb über das Becken, 5 s ausatmen wie beim Anhauchen einer Scheibe, durch die Nase einatmen und den Brustkorb rundum weiten, Spannung halten. Schritt für Schritt: ' + gl('Stack Breathing') + '.</p>');
-  h += sec('Steigerung', '<ul class="list"><li><b>Kraft:</b> Spanne 3–6 Wdh. (Glute Bridge, Ab Wheel: 8–12). Alle 4 Runden mit RIR 2 geschafft: nächstes Mal +1 Wdh.</li><li><b>Oberes Ende erreicht:</b> nächste Stufe, zurück ans untere Ende. Nach der letzten Stufe kommt die Weste.</li><li><b>Metcon:</b> jedes Mal mindestens 1 Wdh. mehr. Ab 6 Runden wird die leichteste Übung 1 Stufe schwerer.</li><li><b>Handstand:</b> nächste Stufe bei 3 × 30 s sauber. <b>Sprünge</b> bleiben immer gleich.</li></ul>');
-  h += sec('Bänder', bandLegend() + '<ul class="list"><li><b>Hilfe</b> bei Pull-up, Chin-up und Dip: von sehr stark zu sehr leicht, danach frei.</li><li><b>Setup Pull-up:</b> Band am Aufhängepunkt oder um beide Gurte über den Ringen, ein Knie in die Schlaufe. <b>Dip:</b> Band zwischen den Ringen, Schienbeine darauf.</li><li><b>Widerstand</b> bei Push-up und Glute Bridge: Band über Rücken bzw. Hüfte, Enden unter den Händen. Für die Beine dehnen sich die Stoffbänder zu wenig – dort bleiben Rucksack und Weste.</li></ul>');
-  h += sec('Pause? Einfach weiter', '<ul class="list"><li>Schau, welcher Tag zuletzt dran war, und mach mit dem nächsten weiter. Die App merkt sich das für dich.</li><li>Bis 1 Woche Pause: normal weiter. 1–2 Wochen: die ersten 2 Krafteinheiten als Kurzversion mit RIR 3–4.</li><li>Mehr als 2 Wochen: ein ganzer Durchgang Kurzversion, erst danach wieder auf die alten Zahlen zielen.</li></ul>');
-  h += sec('Murph und Test-Durchgang', '<p><b>Murph:</b> Der erste Tag 1 in einem neuen Monat wird zum Murph – frühestens 4 Wochen nach deinem Start. Die App zeigt ihn dir automatisch an.</p>' +
-    '<div class="tbl-wrap"><table><thead><tr><th>Stufe</th><th>Laufen</th><th>Runden</th><th>Pull-ups</th></tr></thead><tbody>' +
-    [1, 2, 3, 4].map(function (s) { var m = MURPH[s]; return '<tr><td class="hand" style="font-size:20px">' + s + (m.name ? ' <span class="small muted">' + m.name + '</span>' : '') + '</td><td>2 × ' + m.run + '</td><td>' + m.rounds + '</td><td>' + esc(m.pull) + '</td></tr>'; }).join('') +
-    '</tbody></table></div><p class="small muted" style="margin-top:8px">Eine Runde: 5 Pull-ups, 10 Push-ups, 15 Air Squats. Nicht nach einer Nachtschicht. Colafarbener Urin oder stark geschwollene, schmerzende Muskeln danach: sofort zum Arzt.</p>' +
-    '<p style="margin-top:8px"><b>Testwoche:</b> Der letzte Durchgang des Blocks ist die Testwoche. Die erste Runde der Hauptübung ist ein Maxout mit RIR 0, dazu kommt der Beweglichkeits-Check. Danach folgt der Rückblick. Danach normal weiter. Bist du danach platt: ein Durchgang Kurzversion.</p>');
+  // Wissen: je Seite nummerierte Schritte, dazu Tabelle oder Knopf, Tipps als eigene Karte.
+  var W = function (steps, extra, tips, pre) {
+    return '<section class="card">' + (pre ? '<div style="margin-bottom:16px">' + pre + '</div>' : '') + tlHTML(steps.map(function (x) { return { title: x[0], desc: x[1] }; })) + (extra || '') + '</section>' + tipsHTML(tips || []);
+  };
+  var tbl = function (head, rows) {
+    return '<div class="tbl-wrap" style="margin-top:12px"><table>' + (head ? '<thead><tr>' + head.map(function (x) { return '<th>' + x + '</th>'; }).join('') + '</tr></thead>' : '') + '<tbody>' + rows.map(function (r) { return '<tr>' + r.map(function (x) { return '<td>' + x + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+  };
+  h += sec('Regeln', W([
+    ['Tag für Tag', '1 bis 7, dann wieder Tag 1. Egal, auf welchen Wochentag ein Tag fällt.'],
+    ['Ruhetage zählen mit', 'Nie überspringen. Ein ungeplant freier Tag zählt nur, wenn ohnehin ein Ruhetag dran ist.'],
+    ['Ringe bleiben hängen', 'Innerhalb eines Blocks nie umhängen, zwischen den Blöcken schon.'],
+    ['Kurzversion bei Bedarf', 'Nachtschicht, schlechter Schlaf, starker Muskelkater: Kraft 3 Runden, Metcon 5 Min, Intervalle werden locker.'],
+    ['Festgefahren?', '3 Durchgänge ohne Steigerung oder dauerhaft platt: ein Durchgang Kurzversion.']
+  ], '', ['Fällt ein Lauf aus, nimm das Ergometer.', 'Letzte Stufe geschafft: Weste an, klein anfangen (z. B. 5 kg). Sprünge nie mit Weste.']));
+  h += sec('Methode', W([
+    ['Kraft zuerst', 'Pull-up, Push-up und Dip sind der rote Faden: 3–6 Wdh. mit 2 in Reserve (nach Städele).'],
+    ['Handstand in jeder Einheit', 'Kurze Sätze mit Reserve, vor jedem Satz Stack-Atmung.'],
+    ['Metcon für die Kondition', 'AMRAP mit einfachen Übungen. Das Ergebnis sind Runden und Wdh. (CrossFit).'],
+    ['Qualität vor Tempo', 'Bricht die Technik ein: kurz pausieren statt schlampig weiter.']
+  ], '<p class="sec-k" style="margin-top:14px">Wie hart?</p>' + tbl(null, [['<b>RIR 3–4</b>', 'Einstieg, Kurzversion, Entlastung'], ['<b>RIR 2</b>', 'normaler Kraftsatz'], ['<b>RIR 0</b>', 'Maxout in der Testwoche'], ['<b>SIR 2</b>', 'Handstand, Hollow Body Hold']]) +
+    '<p class="small muted" style="margin-top:8px">RIR = Wiederholungen in Reserve, SIR = Sekunden in Reserve.</p>',
+    ['<b>Stack-Atmung:</b> Brustkorb über das Becken, 5 s ausatmen, durch die Nase einatmen und rundum weiten. Schritt für Schritt: ' + gl('Stack Breathing') + '.']));
+  h += sec('Steigerung', W([
+    ['+1 Wdh.', 'Alle 4 Runden in der Spanne 3–6 mit RIR 2 geschafft: nächstes Mal 1 Wdh. mehr. Glute Bridge und Ab Wheel: 8–12.'],
+    ['Nächste Stufe', 'Oberes Ende erreicht: eine Stufe schwerer, zurück ans untere Ende. Nach der letzten Stufe kommt die Weste.'],
+    ['Stillstand', '3-mal gleiche Stufe ohne mehr Wdh.: die App schlägt eine andere Variante vor.'],
+    ['Metcon', 'Jedes Mal mindestens 1 Wdh. mehr. Ab 6 Runden wird die leichteste Übung schwerer.'],
+    ['Handstand', 'Nächste Stufe bei 3 × 30 s sauber.']
+  ], '', ['Lieber eine Stufe zu leicht und sauber als zu schwer mit Schwung.', 'Sprünge bleiben immer gleich.']));
+  h += sec('Bänder', W([
+    ['Hilfe', 'Pull-up, Chin-up und Dip: von sehr stark zu sehr leicht, danach frei.'],
+    ['Pull-up', 'Band am Aufhängepunkt oder um beide Gurte über den Ringen, ein Knie in die Schlaufe.'],
+    ['Dip', 'Band zwischen den Ringen, die Schienbeine darauf.'],
+    ['Widerstand', 'Push-up und Glute Bridge: Band über Rücken bzw. Hüfte, die Enden unter den Händen.']
+  ], '', ['Für die Beine dehnen sich die Bänder zu wenig, dort bleiben Rucksack und Weste.', 'Die Farbe jedes Bands stellst du unter Tools › Übungen › Bänder ein.'], bandLegend()));
+  h += sec('Pause? Einfach weiter', W([
+    ['Weitermachen', 'Mit dem Tag nach dem letzten weitermachen. Die App merkt sich das.'],
+    ['Bis 1 Woche', 'Normal weiter.'],
+    ['1–2 Wochen', 'Die ersten 2 Krafteinheiten als Kurzversion mit RIR 3–4.'],
+    ['Mehr als 2 Wochen', 'Ein ganzer Durchgang Kurzversion, danach wieder auf die alten Zahlen zielen.']
+  ]));
+  h += sec('Murph und Test-Durchgang', W([
+    ['Murph', 'Der erste Tag 1 im Monat, frühestens 4 Wochen nach dem Start (Allround, Calisthenics, CrossFit). Eine Runde: 5 Pull-ups, 10 Push-ups, 15 Air Squats.'],
+    ['Testwoche', 'Letzter Durchgang des Blocks: Maxout mit RIR 0 in der ersten Runde der Hauptübung, dazu der Beweglichkeits-Check.'],
+    ['Rückblick', 'Danach zeigt die App, was der Block gebracht hat: weiter so, nächste Stufe oder wechseln.']
+  ], '<p class="sec-k" style="margin-top:14px">Murph-Stufen</p>' + tbl(['Stufe', 'Laufen', 'Runden', 'Pull-ups'], [1, 2, 3, 4].map(function (st) { var m = MURPH[st]; return ['<b>' + st + '</b>' + (m.name ? ' <span class="small muted">' + m.name + '</span>' : ''), '<span style="white-space:nowrap">2 × ' + m.run + '</span>', m.rounds, esc(m.pull)]; })),
+    ['Nicht nach einer Nachtschicht, und genug trinken.', 'Colafarbener Urin oder stark geschwollene, schmerzende Muskeln danach: sofort zum Arzt.', 'Nach der Testwoche platt? Ein Durchgang Kurzversion.']));
   var lastTest = LOGS.filter(function (l) { return l.kind === 'test'; });
-  var testBody = '<p>Vor dem ersten Durchgang findest du an drei Testtagen deine Startstufen: Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Die Lauftage laufen normal.</p><p class="small"><b>Formel:</b> Stufe mit 5–8 sauberen Wdh. suchen, Start = Max – 2 (Chin-up: Max – 3).</p>';
-  if (lastTest.length) {
-    testBody += '<h3 style="margin-top:10px">Deine Startwerte</h3><div class="tbl-wrap"><table><thead><tr><th>Übung</th><th>Stufe</th><th>Start</th></tr></thead><tbody>' +
-      Object.keys(S.base).map(function (n) { var b = S.base[n]; return '<tr><td>' + esc(n) + '</td><td>' + esc(b.stage || '–') + '</td><td>' + (b.start != null ? b.start : '–') + '</td></tr>'; }).join('') + '</tbody></table></div>';
-  }
-  testBody += '<button type="button" class="btn block" data-act="restart-test">Einstiegstest neu starten</button>';
-  h += sec('Einstiegstest', testBody);
-  h += sec('Skill-Ziele', '<p class="small muted">Voraussetzungen nach Städele. Ein neuer Skill ersetzt die passende Übung, statt oben draufzukommen.</p><div class="tbl-wrap"><table><thead><tr><th>Skill</th><th>Ab wann</th><th>Weg</th></tr></thead><tbody>' + [
-    ['Handstand', '3–5 saubere Push-ups', 'Face-to-Wall 20–30 s, dann Fuß-Taps, dann frei. Braucht Monate bis Jahre.'],
-    ['L-Sit', '5–10 Push-ups, bewegliche Beinrückseite', 'Tuck, einbeinig, voll – am besten auf Parallettes.'],
-    ['Toes to Rings', 'L-Sit sitzt; Knee Raises ab 3–5 Pull-ups', '10–12 Knee Raises, dann Leg Raises, dann Zehen zu den Ringen.'],
-    ['Ring Dip', '15 Push-ups, besser plus 8–10 enge', 'Support Hold, mit Band, frei. Ab 10–12 Dips mit Zusatzgewicht.'],
-    ['Weighted Pull-up', '12 freie Pull-ups (3 × 10 sauber)', 'Mit Weste, für schwere Lasten später ein Dip-Gürtel.'],
-    ['Ring Muscle-up', 'Chin-up mit ca. 35–45 % Körpergewicht extra, 1–2 tiefe Ring Dips', 'False Grip üben, Chin-up aus dem False Grip, Muscle-up mit Band, frei.']
-  ].map(function (r) { return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>'; }).join('') + '</tbody></table></div>');
+  h += sec('Einstiegstest', W([
+    ['Drei Testtage', 'Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Die Lauftage laufen normal.'],
+    ['Stufe suchen', 'Die Stufe, bei der 5–8 saubere Wdh. gehen.'],
+    ['Startwert', 'Max – 2, beim Chin-up Max – 3.'],
+    ['Sanft einsteigen', 'Danach 2 Durchgänge Kurzversion mit RIR 3–4.']
+  ], (lastTest.length ? '<p class="sec-k" style="margin-top:14px">Deine Startwerte</p>' + tbl(['Übung', 'Stufe', 'Start'], Object.keys(S.base).map(function (n) { var b = S.base[n]; return [esc(n), esc(b.stage || '–'), b.start != null ? b.start : '–']; })) : '') +
+    '<button type="button" class="btn block" style="margin-top:14px" data-act="restart-test">Einstiegstest neu starten</button>'));
+  h += sec('Skill-Ziele', W([
+    ['Handstand', 'Ab 3–5 sauberen Push-ups. Face-to-Wall 20–30 s, dann Fuß-Taps, dann frei.'],
+    ['L-Sit', 'Ab 5–10 Push-ups und beweglicher Beinrückseite. Tuck, einbeinig, voll, am besten auf Parallettes.'],
+    ['Toes to Rings', 'Wenn der L-Sit sitzt. 10–12 Knee Raises, dann Leg Raises, dann Zehen zu den Ringen.'],
+    ['Ring Dip', 'Ab 15 Push-ups. Support Hold, mit Band, frei. Ab 10–12 Dips mit Zusatzgewicht.'],
+    ['Weighted Pull-up', 'Ab 12 freien Pull-ups (3 × 10 sauber). Mit Weste, später mit Dip-Gürtel.'],
+    ['Ring Muscle-up', 'Ab Chin-up mit 35–45 % Körpergewicht extra und tiefen Ring Dips. False Grip, Muscle-up mit Band, frei.']
+  ], '', ['Ein neuer Skill ersetzt die passende Übung, statt oben draufzukommen.', 'Der Handstand braucht Monate bis Jahre. Dranbleiben lohnt sich.']));
   var open = K.filter(function (k) { return k.t === ui.planSec; })[0];
   if (open) {
     return '<button type="button" class="rbtn back" data-act="plan-sec" data-k="" aria-label="Zurück zum Plan">' + BACK + '</button><section class="hero"><h1>' + esc(open.t) + '</h1><p class="hero-title">' + esc(PLAN_SUB[open.t] || '') + '</p></section>' +
-      '<section class="card">' + open.b + '</section>';
+      open.b;
   }
   h = '<button type="button" class="rbtn back" data-act="tab" data-tab="heute" aria-label="Zurück zu Heute">' + BACK + '</button><section class="hero"><h1>Dein Plan</h1><p class="hero-title">' + esc(fokusLabel()) + (S.durchgang ? ' · Durchgang ' + ph.bd + ' von ' + ph.n : '') + '</p></section>';
   h += '<section class="card"><p class="kicker muted">Schwerpunkt</p><div class="fk-cur"><span class="fk-ic">' + fkIcon(F.ic) + '</span><span><b>' + esc(fokusLabel()) + '</b><br><span class="small muted">' +
