@@ -20,7 +20,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
 - Reiter von links nach rechts: Tools (Timer, Übungen, Mobility, 1RM), Coach (nur Heute), Profil.
-  Der Plan (Regeln, Methode, Tests) ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute.
+  Der Plan ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute (`renderPlan`): „Dein Plan“ mit
+  Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
+  `ui.planTag`; darunter der Ablauf des Tages als nummerierte Schritte, `planDayHTML`/`tlHTML`, berechnet über `planPreview`, das
+  `S.durchgang` nur kurz umstellt; künftige Tage mit Hinweis „Vorschau“). Darunter „Wissen“ als Liste (`PLAN_SUB`), jeder Punkt eine
+  eigene Seite (`ui.planSec`, `plan-sec`): Regeln, Methode, Steigerung, Bänder, Pause, Murph und Test-Durchgang, Einstiegstest, Skill-Ziele.
   Unterseiten über den Titel: Pfeil neben dem Titel, Tippen (oder nochmal auf den Reiter) öffnet ein Drop-down mit Symbol je Seite,
   aktuelle blau mit Haken (`subTitle`, `SUB_IC`, `ui.subOpen`, `GROUPS` im Skript). Keine Kapsel oben mehr; Scrollen oder daneben tippen schließt. Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
