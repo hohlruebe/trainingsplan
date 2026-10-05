@@ -648,7 +648,7 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .adj-q{min-height:44px;padding:0 6px;border:0;background:none;color:var(--ink2);font:inherit;font-size:13px;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink2) 40%,transparent);text-underline-offset:3px;cursor:pointer}
 .ad-list{margin:0;padding:2px 14px}
 .ad-it .gl-row{min-height:60px}
-.ad-it.sel{background:var(--board);margin:0 -14px;padding:0 14px;border-radius:14px;border-bottom-color:transparent}.ad-it:has(+.ad-it.sel){border-bottom-color:transparent}.ad-it.sel+.ad-it.sel{margin-top:6px}.ad-ok{width:22px;height:22px;flex:none;color:var(--acc);opacity:0;transition:opacity .2s}.ad-it.sel .ad-ok{opacity:1}.ad-it.open>.gl-row .gl-chev{transform:rotate(90deg)}
+.ad-it.sel,.ad-it.open{background:var(--board);margin:0 -14px;padding:0 14px;border-radius:14px;border-bottom-color:transparent}.ad-it:has(+.ad-it.sel),.ad-it:has(+.ad-it.open){border-bottom-color:transparent}.ad-it.sel+.ad-it.sel,.ad-it.sel+.ad-it.open,.ad-it.open+.ad-it.sel{margin-top:6px}.ad-ok{width:22px;height:22px;flex:none;color:var(--acc);opacity:0;transition:opacity .2s}.ad-it.sel .ad-ok{opacity:1}.ad-it.open>.gl-row .gl-chev{transform:rotate(90deg)}
 .gl-chev{transition:transform .2s}
 .ad-p{padding:2px 0 14px}
 .ad-p .check{margin:4px 0}
@@ -1847,6 +1847,10 @@ LIB.leitern.forEach(function (l) {
   else if (names.length > r.steps.length && names.slice(0, r.steps.length).join('|') === r.steps.join('|')) r.steps = names;
   r.lib = l; r.nutzen = l.nutzen; r.muster = l.muster; r.bereich = l.bereich;
 });
+// Nahe Muster für den Ersatz, wenn am Ort das Gerät fehlt.
+var MUSTER_NEAR = { zug_vertikal: ['zug_horizontal'], zug_horizontal: ['zug_vertikal'], druck_vertikal: ['druck_horizontal'], druck_horizontal: ['druck_vertikal'],
+  einbein: ['kniebeuge'], kniebeuge: ['einbein'], beinbeuger: ['huefte'], huefte: ['beinbeuger'],
+  rumpf_beugung: ['rumpf_anti_streckung'], rumpf_anti_streckung: ['rumpf_beugung'], rumpf_rotation: ['rumpf_anti_streckung'] };
 var MUSTER = { ausdauer: 'Ausdauer', beinbeuger: 'Beinbeuger', druck_horizontal: 'Druck horizontal', druck_vertikal: 'Druck vertikal', einbein: 'Einbeinig', handstand_skill: 'Handstand und Skill',
   huefte: 'Hüfte', kniebeuge: 'Kniebeuge', mobilitaet: 'Mobilität', olympisch: 'Gewichtheben', rumpf_anti_streckung: 'Rumpf gegen Hohlkreuz', rumpf_beugung: 'Rumpf beugen',
   rumpf_rotation: 'Rumpf drehen', sprung: 'Sprung', tragen: 'Tragen', zug_horizontal: 'Zug horizontal', zug_vertikal: 'Zug vertikal' };
@@ -5800,6 +5804,19 @@ function planFill() {
       if (spec.schwach) { var wp = weakPart(spec.schwach, sc); mu = PART_MU[wp]; if (sc[wp] != null) out.why[tag].push('Ausgleich: ' + PART_NAME[wp] + ' ist gerade dein schwächster Teil (' + sc[wp] + ').'); }
       function cand(all) { return Object.keys(LAD).filter(function (key) { return LAD[key].lib && mu.indexOf(LAD[key].muster) >= 0 && (all || !used[key]) && !TEMPO_KEYS[key] && ladderOk(key, have, st); }); }
       var cands = cand(false); if (!cands.length) cands = cand(true);
+      // Kein Gerät für das Muster: Ersatz, der ohne das fehlende Gerät geht. Erst eine Leiter mit nahem Muster, sonst eine Einzelübung.
+      if (!cands.length) {
+        var near = []; mu.forEach(function (m) { (MUSTER_NEAR[m] || []).forEach(function (x) { if (mu.indexOf(x) < 0 && near.indexOf(x) < 0) near.push(x); }); });
+        var mu0 = mu; mu = near; cands = cand(false); mu = mu0;
+        var ue = !cands.length ? Object.keys(UE).filter(function (id) { var u = UE[id]; return (mu.indexOf(u.muster) >= 0 || near.indexOf(u.muster) >= 0) && !used[id] && !TEMPO_KEYS[id] && (u.rolle || []).indexOf('kraft') >= 0 && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st); })
+          .sort(function (a, b) { return (mu.indexOf(UE[b].muster) >= 0) - (mu.indexOf(UE[a].muster) >= 0) || UE[b].nutzen - UE[a].nutzen; })[0] : null;
+        var gone = mu.map(function (m) { return MUSTER[m] || m; }).join(' oder ');
+        if (cands.length) { cands.sort(byNutzen); out.why[tag].push('Ersatz: ' + LAD[cands[0]].name + ', weil hier das Gerät für ' + gone + ' fehlt.'); }
+        else if (ue) {
+          used[ue] = 1; out.why[tag].push('Ersatz: ' + UE[ue].name + ', weil hier das Gerät für ' + gone + ' fehlt.');
+          kr.push({ n: UE[ue].name, target: rg0 || '6–10', hi: 10, lib: true }); return;
+        }
+      }
       cands.sort(function (a, b) { return (st[b] && st[b].cur ? 1 : 0) - (st[a] && st[a].cur ? 1 : 0) || byNutzen(a, b); });
       var sk = slotKey(tag, i + 1), pk = S.picks[sk], fbn = FB_KRAFT[mu[0]], fb = fbn && GL[fbn] ? GL[fbn].key : null;
       var cur = pk && cands.indexOf(pk) >= 0 ? pk : fb && cands.indexOf(fb) >= 0 ? fb : cands[0] || null;
