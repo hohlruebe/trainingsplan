@@ -1954,7 +1954,7 @@ var TEST_BASE = {
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
+  trainCustom: false, trainModes: null, roundCounter: true, kurzDg: 0, stallAsk: 0, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
 
 var LS = {
@@ -2029,7 +2029,27 @@ function whereLabel(w) { return w === 'AUFWÄRMEN' ? 'Aufwärmen' : w === 'MURPH
 function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600); }
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
-function isKurz(tag) { var k = draftKey(tag); if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7; }
+function isKurz(tag) { var k = draftKey(tag); if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 || (S.kurzDg > 0 && S.kurzDg === S.durchgang); }
+// Festgefahren: 3 abgeschlossene Durchgänge, in denen keine Kraftübung über ihren bisherigen Bestwert (Stufe, dann Wdh.) kam.
+function stallDg() {
+  var D = S.durchgang; if (D < 5) return false;
+  function val(x) { var lad = ladFor(x.n), r = (x.reps || []).filter(function (v) { return v != null; }); return (lad && x.stage ? stageIndex(lad, x.stage) : 0) * 100 + (r.length ? Math.max.apply(null, r) : 0); }
+  var best = {}, kl = LOGS.filter(function (l) { return l.kind === 'kraft' && l.kraft && l.fokus === S.fokus; });
+  kl.filter(function (l) { return l.durchgang < D - 3; }).forEach(function (l) { l.kraft.forEach(function (x) { best[x.n] = Math.max(best[x.n] || 0, val(x)); }); });
+  for (var d = D - 3; d < D; d++) {
+    var ls = kl.filter(function (l) { return l.durchgang === d; }); if (!ls.length) return false;
+    for (var i = 0; i < ls.length; i++) for (var j = 0; j < ls[i].kraft.length; j++) { var x = ls[i].kraft[j]; if (best[x.n] != null && val(x) > best[x.n]) return false; }
+    ls.forEach(function (l) { l.kraft.forEach(function (x) { best[x.n] = Math.max(best[x.n] || 0, val(x)); }); });
+  }
+  return true;
+}
+function stallCardHTML() {
+  return '<section class="card"><p class="kicker muted">Festgefahren?</p><p>In den letzten 3 Durchgängen ging es bei keiner Kraftübung weiter. Ein Durchgang Kurzversion gibt dir Luft, danach geht es meist wieder voran.</p>' +
+    '<div class="bgrp"><button type="button" data-act="stall-yes">Durchgang ' + curPhase().bd + ' kurz</button><button type="button" data-act="stall-no">Später</button></div></section>';
+}
+function kurzDgHTML() {
+  return '<label class="check" style="margin-top:6px"><input type="checkbox" data-act="kurz-dg"' + (S.kurzDg > 0 && S.kurzDg === S.durchgang ? ' checked' : '') + '> <span><b>Ganzer Durchgang kurz</b> – alle Tage bis Tag 7</span></label>';
+}
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
   var d = DAYS[tag];
@@ -2111,7 +2131,7 @@ function initDb() {
 }
 
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'kurzDg', 'stallAsk'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = PWA ? LS.get('tp.sync', null) : null;
@@ -2370,6 +2390,8 @@ function saveDay() {
     var spec = runSpec(d);
     log = Object.assign(base, { kind: 'easy', run: runFrom(v, spec) });
     if (d.pre === 'hs' && (v.hsStage != null || v.hsSec != null)) log.hs = composeHs(v);
+  } else if (d.type === 'interval' && isKurz(tag)) {
+    log = Object.assign(base, { kind: 'easy', kurz: true, run: runFrom(v, { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) }) });
   } else if (d.type === 'interval') {
     log = Object.assign(base, { kind: 'interval', interval: runFrom(v, runSpec(d)) });
     if (S.durchgang - (S.ivBumpD || 0) >= 2) { changeIv(1); S.ivBumpD = S.durchgang; extra = ' Nächstes Mal: Stufe ' + S.ivStage + ', ' + S.ivReps + '×.'; }
@@ -3961,6 +3983,7 @@ function renderHeute() {
   }
   h += '</nav>';
   if (S.durchgang > 0) h += blockCardHTML();
+  if (cur && S.durchgang > 0 && !(S.kurzDg === S.durchgang) && S.stallAsk !== S.durchgang && d.type !== 'rest' && stallDg()) h += stallCardHTML();
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
@@ -4002,7 +4025,7 @@ function renderHeute() {
     if (!c.isTest && !c.isMurph) {
       var kurz = isKurz(tag), hasK = d.kraft.length || d.mmin;
       h += '<section class="card">' + (hasK ? '<label class="check"><input type="checkbox" data-act="kurz" ' + (kurz ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – ' + (d.kfmt === 'saetze' ? 'ein Satz weniger' : 'Kraft 3 Runden') + (d.mmin ? ', Metcon kürzer' : '') + '</span></label>' +
-        '<p class="small muted">Für Einstieg, Nachtschicht, schlechten Schlaf und starken Muskelkater.</p>' : '') +
+        '<p class="small muted">Für Einstieg, Nachtschicht, schlechten Schlaf und starken Muskelkater.</p>' + (cur ? kurzDgHTML() : '') : '') +
         (d.cool && ROUT[d.cool] ? '<label class="check"' + (hasK ? ' style="margin-top:6px"' : '') + '><input type="checkbox" data-change="cooldown"' + (S.cooldown !== false ? ' checked' : '') + '> <span><b>Cool-down am Ende</b> – ' + ROUT[d.cool].dauer_min + ' Min, passend zum Tag</span></label>' : '') + '</section>';
     }
     if (!cur) {
@@ -4011,7 +4034,9 @@ function renderHeute() {
   } else if (d.type === 'easy' || d.type === 'interval') {
     if (d.pre === 'hs') h += '<p class="kicker muted gl-group">Zuerst: Handstand 10 Min</p>' + hsStepHTML(D);
     else if (d.pre) h += '<p class="kicker muted gl-group">Zuerst: 10 Min Dehnen</p>' + routineCardHTML(mobRoutine(d.pre), false, 'Dehnen starten');
-    h += runHTML(c, D);
+    var ik = d.type === 'interval' && isKurz(tag);
+    if (d.type === 'interval') h += '<section class="card"><label class="check"><input type="checkbox" data-act="kurz" ' + (ik ? 'checked' : '') + (cur ? '' : ' disabled') + '> <span><b>Kurzversion</b> – lockerer Lauf statt Intervalle</span></label>' + (cur ? kurzDgHTML() : '') + '</section>';
+    h += runHTML(c, D, ik ? { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) } : null);
     if (cur) {
       h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
       if (d.opt) h += '<button type="button" class="btn block" data-act="skip-day">Heute auslassen</button>';
@@ -4859,6 +4884,8 @@ if (MQ_LAND) { if (MQ_LAND.addEventListener) MQ_LAND.addEventListener('change', 
 window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 
 // Plan-Seite: Durchgang blättern, Tag wählen, Wissen öffnen.
+ACT['stall-yes'] = function () { S.kurzDg = S.durchgang; ui.kurz = {}; saveState(); render(); toast('Dieser Durchgang läuft als Kurzversion.'); };
+ACT['stall-no'] = function () { S.stallAsk = S.durchgang; saveState(); render(); };
 ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
 ACT['plan-day'] = function (el) { ui.planTag = +el.dataset.tag; render(); };
 ACT['plan-sec'] = function (el) { ui.planSec = el.dataset.k || null; window.scrollTo(0, 0); render(); };
@@ -5995,6 +6022,7 @@ document.addEventListener('change', function (e) {
   if (el.type === 'checkbox' && el.closest('.check')) { el.classList.add('live'); haptic('switch'); }
   // Erst die Schalter-Animation zeigen, dann neu zeichnen.
   if (el.dataset.act === 'kurz') { ui.kurz[draftKey(viewTag())] = el.checked; setTimeout(render, 420); return; }
+  if (el.dataset.act === 'kurz-dg') { S.kurzDg = el.checked ? S.durchgang : 0; ui.kurz = {}; saveState(); setTimeout(render, 420); return; }
   if (el.dataset.change && CHG[el.dataset.change]) { CHG[el.dataset.change](el); return; }
   if (el.dataset.draft) { storeDraft(el); if (el.dataset.draft === 'runKm') render(); }
 });
