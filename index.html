@@ -613,7 +613,7 @@ button.chip{cursor:pointer;border:0}
 .t-node.next{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line2)}
 .t-node.lock{opacity:.6}
 .t-leg{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
-.unl{display:flex;gap:14px;align-items:center}
+.unl{display:flex;gap:14px;align-items:center}.pg .unl{padding-top:2px}.pg-neu{display:flex;flex-direction:column;gap:2px;padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line)}.pg-neu b{font-size:17px}.pg-neu span:last-child{font-size:13px;color:var(--ink2);line-height:1.35}.pg-chip{align-self:flex-start;margin:0 0 4px;color:var(--green);font-weight:700}.pg-neu:last-child{border:0;margin:0;padding:0}
 /* Schwerpunkte: Auswahl, Block-Karte, Laufziel, Rückblick */
 button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
 .fk-list .card.fk{display:flex;gap:12px;align-items:flex-start;margin:10px 0;padding:14px;outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s,transform .15s}
@@ -3969,6 +3969,15 @@ function mobCheckHTML(D) {
 }
 function mobFrom(v) { return MOB.check.leitern.map(function (k, i) { return { lad: k, stage: v['mc' + i] || '' }; }).filter(function (x) { return x.stage; }); }
 
+// Ringhöhe nur, wenn eine Übung wirklich an den Ringen läuft, und immer in Bezug auf den eigenen Körper.
+var RING_H = [[/Push-up/, 'auf Knöchelhöhe, höher = leichter'], [/Leg Curl/, 'auf Wadenhöhe, Fersen in die Ringe'], [/Fallout/, 'auf Kniehöhe, höher = leichter'],
+  [/Row/, 'auf Brusthöhe, höher = leichter'], [/Dip|Support|RTO|L-Sit/, 'auf Hüfthöhe, Knie anwinkeln'], [/Pistol/, 'auf Brusthöhe zum Festhalten'],
+  [/./, 'über Kopfhöhe, so dass du mit gestreckten Armen frei hängst']];
+function ringNotes(names) {
+  return names.filter(function (n) { return /\bRing\b|RTO|False Grip/.test(n || ''); }).map(function (n) {
+    for (var i = 0; i < RING_H.length; i++) if (RING_H[i][0].test(n)) return esc(n) + ': Ringe ' + RING_H[i][1] + '.';
+  });
+}
 function renderHeute() {
   if (!S.started) return onboardingHTML();
   if (S.review) return reviewHTML();
@@ -4005,21 +4014,22 @@ function renderHeute() {
     miss = planFill().missing[tag] || [];
     notes.kraft = (planFill().why[tag] || []).map(esc);
   }
-  if (miss.length) notes.kraft.push('Hier fehlen Geräte für ' + esc(miss.join(', ')) + ', bis dahin bleibt die Standardübung. Ankreuzen unter Tools › Übungen › Stift.');
-  if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
-    h += suggHTML(tag);
-  }
+  if (miss.length) notes.kraft.push('Für ' + esc(miss.join(', ')) + ' fehlt hier ein Gerät, das fällt heute weg. Ankreuzen unter Tools › Übungen › Stift.');
   if (st.length) {
     if (c.isTest) {
       var td = TESTDAYS[tag];
-      tips.push('Statt Tag ' + tag + ', ' + td.rings + '.', 'Normal aufwärmen, schwerste Übung zuerst.',
+      tips.push.apply(tips, ringNotes(PLAN.tests[td.rows].map(function (r) { return r.name; })));
+      tips.push('Statt Tag ' + tag + '. Normal aufwärmen, schwerste Übung zuerst.',
         'Pro Übung erst leichtere Stufen zum Einwärmen, dann ein Satz mit so vielen sauberen Wdh. wie möglich.',
         '3 Min Pause zwischen Testsätzen, 3–5 Min zwischen Übungen. Film dich dabei.',
         '<b>Formel:</b> Such die Stufe mit 5–8 sauberen Wdh. Start = Max – 2, beim Chin-up Max – 3. Glute Bridge und Ab Wheel: Ziel 10–14.');
     } else if (c.isMurph) {
-      tips.push('Der erste Tag 1 im Monat wird zum Murph. Die Uhr läuft durch, Pausen sind erlaubt.', 'Ringe ganz oben, das Band bleibt an den Ringen.');
+      tips.push('Der erste Tag 1 im Monat wird zum Murph. Die Uhr läuft durch, Pausen sind erlaubt.', 'Ringe über Kopfhöhe, so dass du frei hängst. Das Band bleibt an den Ringen.');
       tipBtn = '<button type="button" class="btn small block" data-act="skip-murph">Heute doch normales Training</button>';
-    } else if (d.rings) (notes.kraft || (notes.kraft = [])).unshift(d.rings + '.');
+    } else {
+      notes.kraft = ringNotes(d.kraft.map(function (k) { return k.n; })).concat(notes.kraft || []);
+      notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; }));
+    }
     h += '<section class="card"><ol class="tl">' + st.map(function (s, i) {
       return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
     }).join('') + '</ol></section>';
@@ -4027,7 +4037,7 @@ function renderHeute() {
     if (cur) {
       var at = +(D._at || 0);
       h += '<button type="button" class="btn primary block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : 'Training starten') + '</button>';
-      if (!c.isTest && !c.isMurph) h += nextUnlockHTML(tag);
+      if (!c.isTest && !c.isMurph) h += progressHTML(tag);
     }
     h += tipsHTML(tips, tipBtn);
     if (!c.isTest && !c.isMurph) {
@@ -5141,8 +5151,6 @@ ACT.hlev = function (el) {
   if (k === 'moment') buzz(MOMENT_DEMO); else if (k === 'timer') hapTimer(true); else haptic(k);
 };
 ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); };
-ACT['pick-take'] = function (el) { S.picks[el.dataset.slot] = el.dataset.to; saveState(); render(); toast(LAD[el.dataset.to].name + ' ist jetzt im Plan.'); };
-ACT['pick-skip'] = function (el) { S.pickSkip[el.dataset.slot] = S.durchgang; saveState(); render(); };
 
 /* ---------- Orte und Equipment (Tools › Übungen) ---------- */
 var EQ_USE = {};
@@ -5782,11 +5790,11 @@ function planFill() {
   ensureOrte();
   var O = trainOrt(), k = [LOGS.length, O.id, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
   if (FILL.k === k) return FILL.v;
-  var st = ladderStates(LOGS), have = haveEq(O), used = {}, out = { kraft: {}, metcon: {}, sugg: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
+  var st = ladderStates(LOGS), have = haveEq(O), used = {}, out = { kraft: {}, metcon: {}, neu: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
   var tags = Object.keys(DAYS).filter(function (t) { return DAYS[t].type === 'kraft'; }).sort(function (a, b) { return (DAYS[a].fill || 9) - (DAYS[b].fill || 9) || a - b; });
   tags.forEach(function (tag) {
     var d = DAYS[tag], kr = [], rg0 = d.kfmt === 'saetze' && d.reps ? d.reps : null;
-    out.sugg[tag] = []; out.missing[tag] = []; out.why[tag] = [];
+    out.neu[tag] = []; out.missing[tag] = []; out.why[tag] = [];
     (d.kslots || []).forEach(function (spec, i) {
       var mu = spec;
       if (spec.schwach) { var wp = weakPart(spec.schwach, sc); mu = PART_MU[wp]; if (sc[wp] != null) out.why[tag].push('Ausgleich: ' + PART_NAME[wp] + ' ist gerade dein schwächster Teil (' + sc[wp] + ').'); }
@@ -5796,19 +5804,18 @@ function planFill() {
       var sk = slotKey(tag, i + 1), pk = S.picks[sk], fbn = FB_KRAFT[mu[0]], fb = fbn && GL[fbn] ? GL[fbn].key : null;
       var cur = pk && cands.indexOf(pk) >= 0 ? pk : fb && cands.indexOf(fb) >= 0 ? fb : cands[0] || null;
       if (!cands.length) out.missing[tag].push(mu.map(function (m) { return MUSTER[m] || m; }).join(' oder '));
-      if (!cur && fbn && GL[fbn]) cur = fb;
+      // Ohne passendes Gerät fällt der Platz heute weg (keine Übung, die man hier nicht machen kann).
       if (!cur) return;
-      // Stillstand (3-mal gleiche Stufe ohne mehr Wdh.): die App wechselt selbst auf eine andere Variante und sagt es in den Tipps.
-      var nw = LAD[cur] && stallOf(cur) ? cands.filter(function (x) { return x !== cur && !used[x]; })[0] : null;
-      if (nw) { S.picks[sk] = nw; S.swapped = Object.assign({}, S.swapped || {}); S.swapped[sk] = { from: cur, to: nw, dg: S.durchgang }; setTimeout(saveState, 0); cur = nw; }
+      // Der Coach wechselt selbst: auf eine neu freigeschaltete Leiter mit mehr Nutzen, oder bei Stillstand
+      // (3-mal gleiche Stufe ohne mehr Wdh.) auf eine andere Variante. Gezeigt wird das, bis die neue Übung einmal trainiert ist.
+      var swap = function (to, why) { S.picks[sk] = to; S.swapped = Object.assign({}, S.swapped || {}); S.swapped[sk] = { from: cur, to: to, why: why, ts: Date.now() }; setTimeout(saveState, 0); cur = to; };
+      var free = cands.filter(function (x) { return x !== cur && !used[x]; });
+      if (free[0] && nutzenOf(free[0]) > nutzenOf(cur)) swap(free[0], 'neu');
+      else if (LAD[cur] && stallOf(cur) && free[0]) swap(free[0], 'reiz');
       var sw = (S.swapped || {})[sk];
-      if (sw && sw.to === cur && sw.dg === S.durchgang && LAD[sw.from]) out.why[tag].push('Neuer Reiz: ' + LAD[sw.from].name + ' kam 3-mal nicht weiter, deshalb jetzt ' + LAD[cur].name + '.');
+      if (sw && sw.to === cur && LAD[sw.from] && !LOGS.some(function (l) { return (l.ts || 0) > (sw.ts || 0) && (l.kraft || []).some(function (x) { return GL[x.n] && GL[x.n].key === cur; }); }))
+        out.neu[tag].push({ from: sw.from, to: cur, why: sw.why || 'reiz' });
       used[cur] = 1; out.kraftKeys[cur] = 1;
-      var alt = cands.filter(function (x) { return x !== cur; });
-      if (S.pickSkip[sk] !== S.durchgang) {
-        var best = alt[0];
-        if (best && nutzenOf(best) > nutzenOf(cur)) out.sugg[tag].push({ slot: sk, from: cur, to: best });
-      }
       var l = LAD[cur], rg = rangeOf(l || {}), o0 = null;
       [1, 3, 6].forEach(function (t0) { DAYS0[t0].kraft.forEach(function (x) { if (GL[x.n] && GL[x.n].key === cur) o0 = x; }); });
       var item = o0 && !rg0 && S.fokus === 'allround' ? Object.assign({}, o0) : { n: l ? l.name : fbn, target: rg0 || String((l && l.range) || '3–6').split(',')[0], hi: rg ? rg.hi : 6, lib: true };
@@ -5828,7 +5835,7 @@ function planFill() {
         var u = UE[m.uebung];
         return u && spec.indexOf(u.muster) >= 0 && !mu[m.uebung] && !today[m.uebung] && (cf || !TEMPO_KEYS[m.uebung]) && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st);
       }).sort(function (a, b) { return UE[b.uebung].nutzen - UE[a.uebung].nutzen; }).slice(0, 4);
-      if (!cands.length) { if (fb[i]) res.push(fb[i]); return; }
+      if (!cands.length) { if (fb[i] && (!GL[fb[i].n] || !GL[fb[i].n].lib || eqOk(GL[fb[i].n].lib.equipment, have))) res.push(fb[i]); return; }
       var m = cands[(S.durchgang + i) % cands.length]; mu[m.uebung] = 1;
       res.push({ r: fmtMenge(m), n: UE[m.uebung].name, scale: m.skalierung || '', lib: true });
     });
@@ -5836,17 +5843,6 @@ function planFill() {
   });
   FILL = { k: k, v: out };
   return out;
-}
-function suggHTML(tag) {
-  var list = planFill().sugg[tag] || [];
-  return list.map(function (s) {
-    var a = LAD[s.from], b = LAD[s.to];
-    var txt = s.stall ? '<b>' + esc(a ? a.name : '–') + '</b> steht seit 3 Einheiten auf derselben Stufe. Eine andere Variante setzt einen neuen Reiz: <b>' + esc(b.name) + '</b>.'
-      : '<b>' + esc(b.name) + '</b> statt ' + esc(a ? a.name : '–') + '. Mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + ' (' + nutzenOf(s.to) + ' statt ' + nutzenOf(s.from) + ').';
-    return '<section class="card unlock"><p class="unlock-k">' + (s.stall ? 'Stillstand · neuer Reiz' : 'Neu freigeschaltet · ' + esc(ortName(trainOrt()))) + '</p><p>' + txt + '</p>' +
-      '<div class="unlock-b"><button type="button" class="btn small" data-act="pick-skip" data-slot="' + esc(s.slot) + '">Später</button>' +
-      '<button type="button" class="btn small save" data-act="pick-take" data-slot="' + esc(s.slot) + '" data-to="' + esc(s.to) + '">' + (s.stall ? 'Wechseln' : 'Übernehmen') + '</button></div></section>';
-  }).join('');
 }
 
 /* ---------- Skill-Block (Calisthenics): übt für das Skill-Ziel, sonst für dessen Voraussetzung ---------- */
@@ -6020,7 +6016,18 @@ ACT['sz-pick'] = function (el) {
 ACT['sz-go'] = function () { if (!ui.sz.length) { toast('Wähl mindestens ein Ziel.'); return; } S.ziele = ui.sz.slice(); DAYS_K = null; startBlock('calisthenics'); };
 
 // Heute: das eine Ziel, das am nächsten liegt (aus den Kraftübungen des Tages).
-function nextUnlockHTML(tag) {
+// Fortschritt unter dem Start: neu im Plan (bis die Übung einmal trainiert ist) und was als Nächstes freigeschaltet wird.
+function progressHTML(tag) {
+  var neu = DAYS[tag] && DAYS[tag].type === 'kraft' ? planFill().neu[tag] || [] : [], nx = nextUnlockHTML(tag, true), h = '';
+  neu.forEach(function (n) {
+    var a = LAD[n.from], b = LAD[n.to];
+    h += '<div class="pg-neu"><span class="chip pg-chip">' + (n.why === 'neu' ? 'Neu freigeschaltet' : 'Neuer Reiz') + '</span><b>' + esc(b.name) + '</b><span>' +
+      (n.why === 'neu' ? 'statt ' + esc(a.name) + ', mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + '.' : 'statt ' + esc(a.name) + ', das kam 3-mal nicht weiter.') + '</span></div>';
+  });
+  if (!h && !nx) return '';
+  return '<section class="card pg">' + h + nx + '</section>';
+}
+function nextUnlockHTML(tag, inner) {
   var d = DAYS[tag]; if (!d || d.type !== 'kraft') return '';
   var c = famCtx(), best = null;
   d.kraft.forEach(function (k) {
@@ -6030,9 +6037,9 @@ function nextUnlockHTML(tag) {
   });
   if (!best) return '';
   var cur = best.st[best.lv - 1], next = best.st[best.lv], u = UE[next.uebung], miss = u ? eqMissing(u.equipment, c.have) : '', R = 24, C = 2 * Math.PI * R;
-  return '<section class="card unl"><svg class="unl-ring" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + (C * best.fr).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 29 29)"/><text x="29" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">' + best.lv + '/' + best.st.length + '</text></svg>' +
+  return '<div class="unl' + (inner ? '' : ' card') + '"><svg class="unl-ring" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + (C * best.fr).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 29 29)"/><text x="29" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">' + best.lv + '/' + best.st.length + '</text></svg>' +
     '<div class="unl-t"><small>Als Nächstes freischalten</small><b>' + esc(uName(next.uebung)) + '</b><span>' + esc(best.f.name) + ', Stufe ' + (best.lv + 1) + ' von ' + best.st.length + '. ' + esc(cur.ziel) + (miss ? ' Braucht ' + esc(miss) + '.' : '') + '</span></div>' +
-    '<button type="button" class="rbtn sm" data-act="fam-go" data-id="' + best.f.id + '" aria-label="Skill-Pfad öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></section>';
+    '<button type="button" class="rbtn sm" data-act="fam-go" data-id="' + best.f.id + '" aria-label="Skill-Pfad öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
 }
 function renderUebungen() {
   var sub = (ui.libAll ? 'Alle' : esc(ortName(curOrt()))) + ' · ' + famCount() + ' Familien · ' + (ui.libAll ? Object.keys(UE).length : libCount()) + ' Übungen';
@@ -6119,7 +6126,7 @@ document.addEventListener('click', function (e) {
   var fn = ACT[el.dataset.act];
   if (fn) { e.preventDefault(); if (el.dataset.act !== 'hlev') haptic(STEP_ACTS[el.dataset.act] ? 'step' : 'tap'); fn(el, e); }
 });
-var STEP_ACTS = { step: 1, save: 1, 't-take': 1, 'pick-take': 1, 'start-test': 1, 'start-at': 1, 'tb-start': 1 };
+var STEP_ACTS = { step: 1, save: 1, 't-take': 1, 'start-test': 1, 'start-at': 1, 'tb-start': 1 };
 document.addEventListener('change', function (e) {
   var el = e.target;
   if (el.type === 'checkbox' && el.closest('.check')) { el.classList.add('live'); haptic('switch'); }
