@@ -434,7 +434,7 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .tl-b{flex:1;min-width:0;padding-top:4px}
 .tl-h{display:flex;justify-content:space-between;gap:8px;font-size:16px;font-weight:600}
 .tl-h span{font-weight:400;font-size:14px;color:var(--ink2);white-space:nowrap}
-.tl-d{font-size:14px;color:var(--ink2);margin-top:2px}
+.tl-x{margin:6px 0 0;padding:6px 10px;border-radius:10px;background:var(--board);font-size:13px;line-height:1.4;color:var(--ink2)}.tl-d{font-size:14px;color:var(--ink2);margin-top:2px}
 .btn.go{min-height:56px;font-size:18px}
 .btn.save{background:var(--on);color:#fff;border-color:transparent}
 .ov-foot{text-align:center;font-size:14px;color:var(--ink2);margin:12px 0}
@@ -648,7 +648,7 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .adj-q{min-height:44px;padding:0 6px;border:0;background:none;color:var(--ink2);font:inherit;font-size:13px;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink2) 40%,transparent);text-underline-offset:3px;cursor:pointer}
 .ad-list{margin:0;padding:2px 14px}
 .ad-it .gl-row{min-height:60px}
-.ad-it.open>.gl-row .gl-chev{transform:rotate(90deg)}
+.ad-it.sel{background:var(--board);margin:0 -14px;padding:0 14px;border-radius:14px;border-bottom-color:transparent}.ad-it:has(+.ad-it.sel){border-bottom-color:transparent}.ad-it.sel+.ad-it.sel{margin-top:6px}.ad-ok{width:22px;height:22px;flex:none;color:var(--acc);opacity:0;transition:opacity .2s}.ad-it.sel .ad-ok{opacity:1}.ad-it.open>.gl-row .gl-chev{transform:rotate(90deg)}
 .gl-chev{transition:transform .2s}
 .ad-p{padding:2px 0 14px}
 .ad-p .check{margin:4px 0}
@@ -3986,24 +3986,28 @@ function renderHeute() {
     h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + ': ' + esc(dayLabel(t)) + (t === S.tag ? ', dran' : '') + '" aria-pressed="' + (t === tag) + '">' + t + '</button>';
   }
   h += '</nav>';
-  if (S.durchgang > 0) h += blockCardHTML();
+  // Hinweise stehen dort, wo sie hingehören: Phase in der Block-Karte, Geräte beim Ort, Übungs-Hinweise im Ablauf.
+  var p = pauseDays(), pn = '';
+  if (cur && p > 7) pn = 'Willkommen zurück: ' + p + ' Tage Pause, ' + (p > 14 ? 'dieser Durchgang kürzer.' : 'die nächsten 2 Einheiten kürzer.');
+  else if (S.durchgang === 1 || S.durchgang === 2) pn = 'Einstieg: kürzer, je 1 Wdh. unter deinem Startwert.';
+  else if (ph.deload) pn = 'Weniger Sätze, damit du frisch bleibst.';
+  else if (ph.test) pn = 'Maxout in Runde 1, gut schlafen.';
+  if (S.durchgang > 0) h += blockCardHTML(pn);
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
       '<button type="button" class="btn small" data-act="back-today">Zurück</button></span></div>';
   }
   // Hinweise kommen gesammelt als ruhige Tipps-Karte nach dem Ablauf.
-  var tips = [], p = pauseDays(), tipBtn = '';
-  if (cur && p > 7) tips.push('<b>Willkommen zurück.</b> Dein letztes Training ist ' + p + ' Tage her. ' +
-    (p > 14 ? 'Mach einen ganzen Durchgang als Kurzversion, erst danach wieder auf deine alten Zahlen zielen.' : 'Mach die ersten 2 Krafteinheiten als Kurzversion mit RIR 3–4.'));
-  if (S.durchgang === 1 || S.durchgang === 2) tips.push('Einstieg: Kurzversion mit RIR 3–4, also je 1 Wdh. unter deinem Startwert.');
-  if (ph.deload && S.durchgang > 0) tips.push('Entlastung: weniger Sätze und kürzere Einheiten, damit du im nächsten Durchgang frisch bist.'); if (ph.test && S.durchgang > 0) tips.push('Testwoche: Maxout statt normaler erster Runde. Gut schlafen, frisch kommen.');
-  if (cur && !c.isTest && (st.length || d.type === 'kraft')) h += ortPickHTML();
+  var tips = [], tipBtn = '', notes = {}, miss = [];
+  if (S.durchgang === 0 && cur && p > 7) tips.push('<b>Willkommen zurück.</b> Dein letztes Training ist ' + p + ' Tage her.');
+  if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
+    miss = planFill().missing[tag] || [];
+    notes.kraft = (planFill().why[tag] || []).map(esc);
+  }
+  if (cur && !c.isTest && (st.length || d.type === 'kraft')) h += ortPickHTML(miss.length ? 'Hier fehlen Geräte für ' + esc(miss.join(', ')) + ', bis dahin bleibt die Standardübung. Ankreuzen unter Tools › Übungen › Stift.' : '');
   if (cur && !c.isTest && !c.isMurph && d.type === 'kraft') {
     h += suggHTML(tag);
-    var miss = planFill().missing[tag] || [];
-    if (miss.length) tips.push('Hier fehlen Geräte für ' + esc(miss.join(', ')) + '. Bis dahin bleibt die Standardübung im Plan. Kreuz unter Tools › Übungen › Stift an, was es hier gibt.');
-    (planFill().why[tag] || []).forEach(function (w) { tips.push(esc(w)); });
   }
   if (st.length) {
     if (c.isTest) {
@@ -4015,9 +4019,9 @@ function renderHeute() {
     } else if (c.isMurph) {
       tips.push('Der erste Tag 1 im Monat wird zum Murph. Die Uhr läuft durch, Pausen sind erlaubt.', 'Ringe ganz oben, das Band bleibt an den Ringen.');
       tipBtn = '<button type="button" class="btn small block" data-act="skip-murph">Heute doch normales Training</button>';
-    } else if (d.rings) tips.push(d.rings + '.');
+    } else if (d.rings) (notes.kraft || (notes.kraft = [])).unshift(d.rings + '.');
     h += '<section class="card"><ol class="tl">' + st.map(function (s, i) {
-      return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div></div></li>';
+      return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
     }).join('') + '</ol></section>';
     if (cur && !c.isTest && !c.isMurph && (d.kraft.length || d.mmin)) h += adaptLineHTML(tag, false);
     if (cur) {
@@ -4927,7 +4931,7 @@ function zeitText(tag, B) {
 }
 function adaptChanges(tag, run) {
   var D = DRAFTS[draftKey(tag)] || {}, out = [], B = +D._zeit || 0;
-  if (D._kurz === '1') out.push(run ? 'lockerer Lauf' : 'leichter');
+  if (isKurz0(tag) && D._kurz === '1') out.push(run ? 'lockerer Lauf' : 'leichter');
   if (B && !run) out.push('unter ' + B + ' Min');
   return out;
 }
@@ -4935,39 +4939,41 @@ function adaptLineHTML(tag, run) {
   var ch = adaptChanges(tag, run);
   return '<div class="adj">' + (ch.length ? '<span>Angepasst: ' + esc(ch.join(', ')) + '</span>' : '') + '<button type="button" class="adj-q" data-act="adapt" data-run="' + (run ? 1 : '') + '">Session anpassen</button></div>';
 }
-// Blatt „Session anpassen“: Liste der Anliegen, Antippen klappt die Auswahl auf. Gilt nur für heute.
+// Blatt „Session anpassen“: Liste der Anliegen. Alles gilt nur für heute und sofort, Gewähltes ist grau hinterlegt.
 ACT.adapt = function (el) {
-  var tag = S.tag, d = DAYS[tag], run = !!el.dataset.run, D = DRAFTS[draftKey(tag)] || {}, z0 = +D._zeit || 0;
+  var tag = S.tag, run = !!el.dataset.run, D = DRAFTS[draftKey(tag)] || {}, z0 = +D._zeit || 0;
   var CH = '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
-  var sw = function (name, on, t, sub) { return '<label class="check"><input type="checkbox" name="' + name + '"' + (on ? ' checked' : '') + '> <span><b>' + t + '</b>' + (sub ? ' – ' + sub : '') + '</span></label>'; };
-  var item = function (k, t, sub, panel) { return '<div class="gl-item ad-it" data-k="' + k + '"><button type="button" class="gl-row" data-act="adapt-sub" data-k="' + k + '"><span class="gl-t"><b>' + t + '</b><small>' + sub + '</small></span>' + CH + '</button><div class="ad-p" hidden>' + panel + '</div></div>'; };
-  var kurzSub = run ? 'lockerer Lauf statt Intervalle' : 'der Coach kürzt Kraft' + (d.mmin ? ' und Metcon' : '');
+  var OK = '<svg class="ad-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var row = function (k, t, sub, end, act) { return '<button type="button" class="gl-row" data-act="' + act + '" data-k="' + k + '"><span class="gl-t"><b>' + t + '</b><small>' + sub + '</small></span>' + end + '</button>'; };
+  var item = function (k, t, sub, panel, on) { return '<div class="gl-item ad-it' + (on ? ' sel' : '') + '" data-k="' + k + '">' + row(k, t, sub, CH, 'adapt-sub') + '<div class="ad-p" hidden>' + panel + '</div></div>'; };
   var body = '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, worauf er heute achten soll.</p><section class="card gl-card ad-list">' +
-    item('int', 'Mir geht’s heute nicht gut', 'Weniger Intensität', sw('kurz', isKurz0(tag), 'Heute leichter', kurzSub)) +
+    '<div class="gl-item ad-it' + (isKurz0(tag) ? ' sel' : '') + '" data-k="int">' + row('int', 'Mir geht’s heute nicht gut', run ? 'Lockerer Lauf statt Intervalle' : 'Der Coach nimmt Intensität raus', OK, 'adapt-int') + '</div>' +
     (!run ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
       '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + [45, 30, 15].map(function (B) {
-        var on = B === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + B + '" data-t="' + esc(zeitText(tag, B)) + '" aria-pressed="' + on + '">&lt; ' + B + ' Min</button>';
-      }).join('') + '</div><input type="hidden" name="zeit" value="' + z0 + '" data-t0="' + esc(zeitText(tag, 0)) + '"><p class="small muted ad-cut" style="margin:8px 0 0">' + esc(zeitText(tag, z0)) + '</p>') : '') +
+        var on = B === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + B + '" aria-pressed="' + on + '">&lt; ' + B + ' Min</button>';
+      }).join('') + '</div><p class="small muted ad-cut" style="margin:8px 0 0">' + esc(zeitText(tag, z0)) + '</p>', z0) : '') +
     (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Ort wechseln, die Übungen passen sich an', ortCapHTML('in-card')) : '') +
     '</section>';
-  openForm('Session anpassen', body, 'Fertig', function (bg) {
-    var k = bg.querySelector('input[name="kurz"]'), zi = bg.querySelector('input[name="zeit"]'), kz = isKurz0(tag);
-    if (zi) setDraft('_zeit', +zi.value || '');
-    if (k && (k.checked !== kz || D._kurz != null)) setDraft('_kurz', k.checked === kz && D._kurz == null ? '' : k.checked ? '1' : '0');
-    render();
-  }, { noFocus: true });
+  openForm('Session anpassen', body, 'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
 };
 ACT['adapt-sub'] = function (el) {
   var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
-  document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); x.querySelector('.ad-p').hidden = true; });
+  document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); var q = x.querySelector('.ad-p'); if (q) q.hidden = true; });
   if (open) { it.classList.add('open'); p.hidden = false; }
 };
-// Nochmal auf die gewählte Zeit tippen = wieder normale Dauer.
+// Nicht gut: Antippen setzt es sofort um, nochmal tippen nimmt es zurück.
+ACT['adapt-int'] = function (el) {
+  var tag = S.tag, D = DRAFTS[draftKey(tag)] || {}, it = el.closest('.ad-it'), on = !isKurz0(tag);
+  delete D._kurz; var auto = isKurz0(tag);
+  setDraft('_kurz', on === auto ? '' : on ? '1' : '0');
+  it.classList.toggle('sel', on); render();
+};
+// Zeit: gilt sofort, nochmal auf die gewählte Zeit tippen = wieder normale Dauer.
 ACT['adapt-zeit'] = function (el) {
-  var p = el.closest('.ad-p'), inp = p.querySelector('input[name="zeit"]'), z = +inp.value === +el.dataset.z ? 0 : +el.dataset.z;
+  var tag = S.tag, p = el.closest('.ad-p'), D = DRAFTS[draftKey(tag)] || {}, z = +D._zeit === +el.dataset.z ? 0 : +el.dataset.z;
   p.querySelectorAll('.seg-btn').forEach(function (b) { var on = +b.dataset.z === z; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
-  inp.value = z;
-  p.querySelector('.ad-cut').textContent = z ? el.dataset.t : inp.dataset.t0;
+  setDraft('_zeit', z || ''); el.closest('.ad-it').classList.toggle('sel', !!z);
+  p.querySelector('.ad-cut').textContent = zeitText(tag, z); render();
 };
 ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
 ACT['plan-day'] = function (el) { ui.planTag = +el.dataset.tag; render(); };
@@ -5115,16 +5121,16 @@ function ladderOk(key, have, st) {
 }
 function byNutzen(a, b) { return nutzenOf(b) - nutzenOf(a) || ladOf(a).name.localeCompare(ladOf(b).name, 'de'); }
 function fmtMenge(m) { return m.menge + ({ sek: ' s', meter: ' m', kalorien: ' kcal', kg: ' kg' }[m.einheit] || ''); }
-function ortPickHTML() {
-  if (orteOn().length < 2) return '';
-  return '<section class="card ort-pick"><p class="small muted">Wo trainierst du heute?</p>' + ortCapHTML('in-card') + '</section>';
+function ortPickHTML(miss) {
+  if (orteOn().length < 2) return miss ? '<section class="card ort-pick"><p class="small muted" style="margin:0">' + miss + '</p></section>' : '';
+  return '<section class="card ort-pick"><p class="small muted">Wo trainierst du heute?</p>' + ortCapHTML('in-card') + (miss ? '<p class="small muted" style="margin:10px 0 0">' + miss + '</p>' : '') + '</section>';
 }
 ACT.hlev = function (el) {
   var k = el.dataset.k; S.hapt = Object.assign({}, S.hapt || {}); S.hapt[k] = +el.dataset.v; saveState();
   el.parentNode.querySelectorAll('.seg-btn').forEach(function (b) { var on = b === el; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   if (k === 'moment') buzz(MOMENT_DEMO); else if (k === 'timer') hapTimer(true); else haptic(k);
 };
-ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); };
+ACT['ort-pick'] = function (el) { S.ort = el.dataset.v; saveState(); render(); var sp = document.querySelector('#sheet .ad-it[data-k="ort"] .ad-p'); if (sp) sp.innerHTML = ortCapHTML('in-card'); };
 ACT['pick-take'] = function (el) { S.picks[el.dataset.slot] = el.dataset.to; saveState(); render(); toast(LAD[el.dataset.to].name + ' ist jetzt im Plan.'); };
 ACT['pick-skip'] = function (el) { S.pickSkip[el.dataset.slot] = S.durchgang; saveState(); render(); };
 
@@ -5171,7 +5177,7 @@ ACT['eq-open'] = function (el) { ui.eqOpen = ui.eqOpen === el.dataset.id ? null 
 function openForm(title, body, okLabel, ok, opt) {
   closeSheet();
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
-  bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">' + esc(okLabel) + '</button></div><div class="sh-body">' + body + '</div></div>';
+  bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-head">' + (opt && opt.noCancel ? '<span class="sh-x"></span>' : '<button type="button" class="sh-x" data-sh="x">Abbrechen</button>') + '<b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">' + esc(okLabel) + '</button></div><div class="sh-body">' + body + '</div></div>';
   document.body.appendChild(bg);
   bg.addEventListener('click', function (e) {
     var b = e.target.closest('[data-sh]'), seg = e.target.closest('[data-seg]');
@@ -5883,11 +5889,11 @@ function fokusLabel() {
   return F.name;
 }
 function fkIcon(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; }
-function blockCardHTML() {
+function blockCardHTML(note) {
   var F = fokus(), p = curPhase(), seg = '';
   for (var i = 1; i <= p.n; i++) { var q = phaseAt(i); seg += '<i class="' + (i < p.bd ? 'done' : i === p.bd ? 'now' : '') + (q.deload || q.test || q.taper ? ' lite' : '') + '"></i>'; }
   return '<button type="button" class="card blk" data-act="fk-open" data-from="heute"><span class="blk-h"><b>' + esc(fokusLabel()) + '</b><span class="chip">' + fkIcon(F.ic) + 'Schwerpunkt</span></span>' +
-    '<span class="blk-bar" aria-label="Durchgang ' + p.bd + ' von ' + p.n + '">' + seg + '</span><span class="small muted">' + (p.lab ? '<b>' + esc(p.lab) + '</b> · ' : '') + 'Hell: Entlastung und Testwoche</span></button>';
+    '<span class="blk-bar" aria-label="Durchgang ' + p.bd + ' von ' + p.n + '">' + seg + '</span><span class="small muted">' + (p.lab ? '<b>' + esc(p.lab) + '</b> · ' : '') + (note ? esc(note) : 'Hell: Entlastung und Testwoche') + '</span></button>';
 }
 function reviewHTML() {
   var R = S.review, F = FOKUS[R.fokus] || FOKUS.allround, inB = function (l) { return l.durchgang >= R.start && l.durchgang <= R.end; };
