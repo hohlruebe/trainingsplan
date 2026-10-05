@@ -2341,11 +2341,11 @@ function advance() {
 // Nach dem letzten Trainingsschritt fragt die App nach dem Cool-down (nur an Krafttagen, einmal pro Einheit).
 function saveAsk() {
   var tag = S.tag, c = dayCtx(tag), D = DRAFTS[draftKey(tag)] || {}, r = coolOf(tag);
-  if (!r || D._step == null || D._cool != null || c.isTest || c.isMurph || c.d.type !== 'kraft') { saveDay(); return; }
+  if (!r || D._step == null || D._cd != null || D._cool || c.isTest || c.isMurph || c.d.type !== 'kraft') { saveDay(); return; }
   openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + r.dauer_min + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
-    if (v === 'nein') { setDraft('_cool', '0'); saveDay(); return; }
+    if (v === 'nein') { setDraft('_cd', '0'); saveDay(); return; }
     if (v !== 'ja') return;
-    setDraft('_cool', '1');
+    setDraft('_cd', '1');
     var st = stepsOf(dayCtx(tag)), to = 0;
     st.forEach(function (x, i) { if (x.id === 'cool') to = i; });
     ACT.step({ dataset: { to: String(to) } });
@@ -3735,7 +3735,7 @@ function stepsOf(c) {
         : { mode: 'amrap', cfg: { minutes: am, tag: tag }, label: 'AMRAP ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
       body: function (D) { return metconStepHTML(tag, D, am); } });
   }
-  return out.concat(mobCheckStep(tag)).concat(D0._cool === '1' ? coolStep(tag) : []);
+  return out.concat(mobCheckStep(tag)).concat(D0._cd === '1' || D0._cool ? coolStep(tag) : []);
 }
 // Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in den Test-Durchgängen des Schwerpunkts.
 function mobCheckStep(tag) {
@@ -3976,7 +3976,7 @@ function mobFrom(v) { return MOB.check.leitern.map(function (k, i) { return { la
 // Ringhöhe nur, wenn eine Übung wirklich an den Ringen läuft, und immer in Bezug auf den eigenen Körper.
 var RING_H = [[/Push-up/, 'auf Knöchelhöhe, höher = leichter'], [/Leg Curl/, 'auf Wadenhöhe, Fersen in die Ringe'], [/Fallout/, 'auf Kniehöhe, höher = leichter'],
   [/Row/, 'auf Brusthöhe, höher = leichter'], [/Dip|Support|RTO|L-Sit/, 'auf Hüfthöhe, Knie anwinkeln'], [/Pistol/, 'auf Brusthöhe zum Festhalten'],
-  [/./, 'über Kopfhöhe, so dass du mit gestreckten Armen frei hängst']];
+  [/./, 'so hoch, dass du mit gestreckten Armen frei hängst. Reicht die Höhe nicht ganz, Beine anwinkeln']];
 function ringNotes(names) {
   return names.filter(function (n) { return /\bRing\b|RTO|False Grip/.test(n || ''); }).map(function (n) {
     for (var i = 0; i < RING_H.length; i++) if (RING_H[i][0].test(n)) return esc(n) + ': Ringe ' + RING_H[i][1] + '.';
@@ -4028,7 +4028,7 @@ function renderHeute() {
         '3 Min Pause zwischen Testsätzen, 3–5 Min zwischen Übungen. Film dich dabei.',
         '<b>Formel:</b> Such die Stufe mit 5–8 sauberen Wdh. Start = Max – 2, beim Chin-up Max – 3. Glute Bridge und Ab Wheel: Ziel 10–14.');
     } else if (c.isMurph) {
-      tips.push('Der erste Tag 1 im Monat wird zum Murph. Die Uhr läuft durch, Pausen sind erlaubt.', 'Ringe über Kopfhöhe, so dass du frei hängst. Das Band bleibt an den Ringen.');
+      tips.push('Der erste Tag 1 im Monat wird zum Murph. Die Uhr läuft durch, Pausen sind erlaubt.', 'Ringe so hoch, dass du mit gestreckten Armen frei hängst, sonst Beine anwinkeln. Das Band bleibt an den Ringen.');
       tipBtn = '<button type="button" class="btn small block" data-act="skip-murph">Heute doch normales Training</button>';
     } else {
       notes.kraft = ringNotes(d.kraft.map(function (k) { return k.n; })).concat(notes.kraft || []);

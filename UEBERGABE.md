@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 5. Oktober 2026 (Plan-Seite neu)
+Stand: 5. Oktober 2026 (Session anpassen, Coach entscheidet)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,21 @@ Stand: 5. Oktober 2026 (Plan-Seite neu)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Session anpassen, Coach entscheidet (5. Oktober)
+- Dennis: Der Nutzer soll nicht über sein Training entscheiden, nur Programm und Fortschritt. Deshalb:
+  Kurzversion-Karte weg, statt dessen grauer Link „Session anpassen“ (Blatt wie in einer anderen App: „Sag deinem Coach …“).
+  „Mir geht’s heute nicht gut“ ohne Schalter (nur heute), „Ich habe wenig Zeit“ mit < 45 / < 30 / < 15 Min (Coach kürzt selbst),
+  „Ich trainiere woanders“ nur für diese Einheit. „Andere Session machen“ und „Ganzer Durchgang kurz“ hat Dennis gestrichen.
+- Cool-down nicht mehr im Ablauf und keine Karte mehr, sondern die Frage „Möchtest du noch ein Cool-down?“ nach dem letzten Schritt.
+- „Festgefahren“ gestrichen: bei Stillstand und bei neu freigeschalteten Leitern wechselt der Coach selbst (kein Übernehmen/Später).
+  „Neu freigeschaltet“ steht nur bis zur ersten Einheit mit der Übung, zusammen mit „Als Nächstes freischalten“ unter dem Start.
+- Karte „Wo trainierst du heute?“ weg (Ort kommt aus Tools › Übungen). Tipps-Karte auf Krafttagen weg, Hinweise am Schritt.
+- Ohne Gerät keine Übung mit diesem Gerät: Ersatz ohne das Gerät. Ringhöhe nur bei Ring-Übungen und relativ zum Körper.
+- Offen: Für Zug gibt es keine Übung ganz ohne Gerät (Table Row, Towel Door Row wären Kandidaten). Dennis noch fragen.
+- Nächster PR (Dennis): Sehnen und Bänder passen sich langsamer an als Muskeln. Manche Steigerungen bewusst verzögern
+  (z. B. Mindestzahl Einheiten je Stufe, Sperre für Sprünge über mehrere Stufen, bei Ringen/Handstand/Planche/Lever länger),
+  um Verletzungen zu vermeiden. Erst Konzept zeigen.
 
 ## Plan-Seite neu (5. Oktober)
 - Dennis mochte die alte Textseite mit Akkordeons nicht. Freigegeben (Canvas „Plan in der App“): Überblick mit Woche zum Durchblättern,
