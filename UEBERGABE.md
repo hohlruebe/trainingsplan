@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 4. Oktober 2026 (Bibliothek: Familie als eigene Seite, Platzhalter überall)
+Stand: 5. Oktober 2026 (Plan-Seite neu)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,12 @@ Stand: 4. Oktober 2026 (Bibliothek: Familie als eigene Seite, Platzhalter übera
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Plan-Seite neu (5. Oktober)
+- Dennis mochte die alte Textseite mit Akkordeons nicht. Freigegeben (Canvas „Plan in der App“): Überblick mit Woche zum Durchblättern,
+  Tag antippen zeigt den Ablauf (Vorschau), Wissen als Liste mit eigenen Seiten. Erste Entwürfe wichen vom Design ab, deshalb direkt in der
+  App mit den vorhandenen Bausteinen gebaut. „So läuft ein Krafttag“ hat Dennis verwirrt und ist raus.
+- Offen: Inhalte der Wissens-Seiten sind noch der alte Text, könnten kürzer und mit nummerierten Schritten kommen.
 
 ## Bibliothek: Familie als eigene Seite (4. Oktober)
 - Dennis: Übungs-Scores nicht mehr zeigen (nur für die Planung), Geräte-Scores bleiben. Familie öffnet eine eigene Seite statt aufzuklappen.
