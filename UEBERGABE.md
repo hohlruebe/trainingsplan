@@ -29,7 +29,7 @@ Stand: 5. Oktober 2026 (Plan-Seite neu)
 - Dennis mochte die alte Textseite mit Akkordeons nicht. Freigegeben (Canvas „Plan in der App“): Überblick mit Woche zum Durchblättern,
   Tag antippen zeigt den Ablauf (Vorschau), Wissen als Liste mit eigenen Seiten. Erste Entwürfe wichen vom Design ab, deshalb direkt in der
   App mit den vorhandenen Bausteinen gebaut. „So läuft ein Krafttag“ hat Dennis verwirrt und ist raus.
-- Offen: Inhalte der Wissens-Seiten sind noch der alte Text, könnten kürzer und mit nummerierten Schritten kommen.
+- Wissens-Seiten gekürzt: je 3–6 nummerierte Schritte plus Tipps-Karte. Veraltetes entfernt (z. B. „Tag 6 leichter Zugtag“, „jeder 4. Durchgang Entlastung“).
 
 ## Bibliothek: Familie als eigene Seite (4. Oktober)
 - Dennis: Übungs-Scores nicht mehr zeigen (nur für die Planung), Geräte-Scores bleiben. Familie öffnet eine eigene Seite statt aufzuklappen.

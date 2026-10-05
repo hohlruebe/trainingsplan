@@ -25,6 +25,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `ui.planTag`; darunter der Ablauf des Tages als nummerierte Schritte, `planDayHTML`/`tlHTML`, berechnet über `planPreview`, das
   `S.durchgang` nur kurz umstellt; künftige Tage mit Hinweis „Vorschau“). Darunter „Wissen“ als Liste (`PLAN_SUB`), jeder Punkt eine
   eigene Seite (`ui.planSec`, `plan-sec`): Regeln, Methode, Steigerung, Bänder, Pause, Murph und Test-Durchgang, Einstiegstest, Skill-Ziele.
+  Jede Wissens-Seite: Karte mit nummerierten Schritten (`W(steps, extra, tips, pre)` in `renderPlan`, `tlHTML`), ggf. Tabelle, dann Tipps-Karte.
   Unterseiten über den Titel: Pfeil neben dem Titel, Tippen (oder nochmal auf den Reiter) öffnet ein Drop-down mit Symbol je Seite,
   aktuelle blau mit Haken (`subTitle`, `SUB_IC`, `ui.subOpen`, `GROUPS` im Skript). Keine Kapsel oben mehr; Scrollen oder daneben tippen schließt. Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
