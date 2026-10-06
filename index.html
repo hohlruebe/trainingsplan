@@ -3964,7 +3964,11 @@ function stepsOf(c) {
   var tag = c.tag, d = c.d, D0 = c.cur ? (DRAFTS[draftKey(tag)] || {}) : {}, zl = c.cur ? zeitLv(tag) : 0, wm = zl >= 4 ? 4 : 8;
   if (c.isTest) {
     return PLAN.tests[TESTDAYS[tag].rows].map(function (r, i) {
-      return { id: 't' + i, title: r.name, sub: r.note, desc: r.note, body: function (D) { return testStepHTML(tag, r, i, D); } };
+      // Pause zwischen zwei Versuchen: so lange, wie im Test steht, sonst 3 Min (2 Min bei Halteübungen).
+      var pm = /(\d+)\s*Min Pause/.exec(r.find + ' ' + r.clean), lad = ladFor(r.name), pmin = pm ? +pm[1] : isSecs(lad) ? 2 : 3;
+      return { id: 't' + i, title: r.name, sub: r.note, desc: r.note,
+        timer: { mode: 'block', cfg: { minutes: pmin, label: 'Pause', tag: tag, again: 1 }, label: pmin + ' Min Pause starten', info: 'Zwischen zwei Versuchen, dann voll erholt testen' },
+        body: function (D) { return testStepHTML(tag, r, i, D); } };
     }).concat(mobCheckStep(tag));
   }
   if (c.isMurph) {
@@ -5113,6 +5117,8 @@ function paintMini(L) {
     b.dataset.state = state;
     if (state === 'idle') b.innerHTML = '<button type="button" class="tb-main" data-act="tb-start"><span class="tb-play">' + PLAY + '</span><span class="tb-txt"><b>' + esc(b.dataset.label) + '</b><small>' + esc(b.dataset.info) + '</small></span></button>' +
       '<button type="button" class="tb-btn" data-act="fs-open" data-start="1" aria-label="Im Vollbild starten">' + I_EXP + '</button>';
+    // Test-Pause: nach dem Ablauf wieder bereit für die nächste Pause, nicht automatisch zur nächsten Übung.
+    else if (state === 'done' && TM.cfg.again) b.innerHTML = '<button type="button" class="tb-main" data-act="tb-clear"><span class="tb-play done">' + TICK + '</span><span class="tb-txt"><b>Pause vorbei</b><small>Nächster Versuch. Tippen setzt den Timer zurück.</small></span></button>';
     else if (state === 'done') b.innerHTML = '<button type="button" class="tb-main" data-act="' + (b.dataset.next ? 'step' : 'tb-clear') + '" data-to="' + (b.dataset.next || '') + '"><span class="tb-play done">' + TICK + '</span><span class="tb-txt"><b>' + (b.dataset.next ? 'Weiter zu ' + esc(b.dataset.nextl) : 'Geschafft') + '</b><small>' + (b.dataset.next ? 'Block geschafft' : 'Trag dein Ergebnis ein') + '</small></span></button>';
     else b.innerHTML = '<div class="tb-main" role="timer" data-act="fs-open" aria-label="Vollbild"><span class="tb-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tr-bg" cx="24" cy="24" r="21"/><circle class="tr-fg" id="tb-arc" cx="24" cy="24" r="21" stroke-dasharray="' + RING.toFixed(1) + '"/></svg><b id="tb-time"></b></span><span class="tb-txt"><b id="tb-title"></b><small id="tb-sub"></small></span></div>' +
       '<span class="tb-grp"><button type="button" class="tb-btn" id="tb-tg" data-act="' + (TM.mode === 'zeit' ? 'tb-finish' : 'tb-toggle') + '"></button>' +
@@ -5136,6 +5142,7 @@ function paintMini(L) {
   } else if (TM.mode === 'amrap') { title = 'AMRAP ' + c.minutes; sub = 'Runden zählst du selbst'; }
   else if (TM.mode === 'zeit') { title = 'Murph läuft'; sub = 'Tippe auf ■, wenn du fertig bist'; }
   else if (TM.mode === 'routine') { title = L.p.label + (L.p.side ? ' · ' + L.p.side : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }
+  else if (c.again) { title = c.label; sub = 'Danach: nächster Versuch'; }
   else { title = c.label; sub = b.dataset.nextl ? 'Danach: ' + b.dataset.nextl : ''; }
   if (!TM.running) sub = 'Pausiert · ' + sub;
   $('tb-title').textContent = title; $('tb-sub').textContent = sub;
@@ -5253,7 +5260,7 @@ function fsSide(L) {
   }
   if (TM.mode === 'routine' && p) return { k: 'ro' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><div class="fs-exn">' + esc(p.kind === 'pre' && TM.phases[1] ? TM.phases[1].label : p.label) + (p.side ? ' · ' + esc(p.side) : '') + '</div>' + (p.next ? '<p class="fs-hint">Danach: ' + esc(p.next) + '</p>' : '') };
   var b = document.getElementById('tbar');
-  return { k: 'bl', h: '<p class="fs-lbl">' + esc(c.label || 'Timer') + '</p>' + (b && b.dataset.nextl ? '<p class="fs-hint">Danach: ' + esc(b.dataset.nextl) + '</p>' : '') };
+  return { k: 'bl', h: '<p class="fs-lbl">' + esc(c.label || 'Timer') + '</p>' + (c.again ? '<p class="fs-hint">Danach: nächster Versuch</p>' : b && b.dataset.nextl ? '<p class="fs-hint">Danach: ' + esc(b.dataset.nextl) + '</p>' : '') };
 }
 function fsPaint(L, force) {
   if (!FS.on) return;

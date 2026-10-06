@@ -37,6 +37,11 @@ Stand: 6. Oktober 2026 (One Rep Max und Gewicht im Training)
   erst danach Übungswechsel. Metcon mit Ziel Rx, Schritt hoch nur bei mehr Runden.
 - Offen: Werte in `KG_UP` und `RX` (Männer) bei Bedarf mit Dennis anpassen. Kein Gewicht für Frauen-Rx (bisher nicht nötig).
 
+## Pausen-Timer auf den Testtagen (6. Oktober)
+- Dennis: Auf den Testseiten die Pause zwischen den Versuchen direkt starten können. Umgesetzt (Entwurf im Canvas, Freigabe offen).
+- Dennis fragte, wie der Sync abgleicht. Erklärt: Einheiten nach ID zusammenführen, Löschvermerke, Stand als Ganzes nach `standTs`.
+  Angeboten: Zeitstempel je Feld statt für den ganzen Stand (offen).
+
 ## Desktop-Ansicht (6. Oktober)
 - Dennis trainiert zu Hause oft mit dem Mac (Chrome). Gleicher Link, erkennt Desktop selbst, manuell umstellbar. Alles auf einmal gebaut:
   Seitenleiste, Heute zweispaltig, Training mit großem Timer rechts (aus 2–3 m lesbar, keine Übergröße), Tastenkürzel, Übungen
