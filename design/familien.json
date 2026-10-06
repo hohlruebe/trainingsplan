@@ -120,7 +120,9 @@
         { "uebung": "g_one_arm_row", "art": "stufe", "rang": 3, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Der ganze Körper wird mit einem Arm gezogen." },
         { "uebung": "g_tuck_fl_row", "art": "stufe", "rang": 4, "effekt": 78, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Rudern in der Tuck-Front-Lever-Position, höchste Stufe der Leiter." },
         { "uebung": "g_australian_pullup", "art": "variante", "rang": null, "effekt": 76, "grund": "Gleiche Bewegung an Stange oder Barren statt an Ringen." },
-        { "uebung": "g_band_row", "art": "variante", "rang": null, "effekt": 55, "grund": "Ersatz ohne Ringe oder Stange mit geringerem Reiz." }
+        { "uebung": "g_band_row", "art": "variante", "rang": null, "effekt": 55, "grund": "Ersatz ohne Ringe oder Stange mit geringerem Reiz." },
+        { "uebung": "g_table_row", "art": "variante", "rang": null, "effekt": 62, "grund": "Ersatz ohne Geräte: unter einem stabilen Tisch." },
+        { "uebung": "g_towel_door_row", "art": "variante", "rang": null, "effekt": 52, "grund": "Ersatz ohne Geräte: Handtuch an einer Tür." }
       ]
     },
     {
