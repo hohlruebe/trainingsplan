@@ -480,6 +480,13 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .rm-kg small{font-family:var(--text);font-size:12px;font-weight:600}
 .rm-kg small.neg{color:var(--red)}
 .rm-kg small.pos{color:var(--green)}
+.rm-kg small.gold{color:#B8860B}
+.rm-list{padding-top:2px;padding-bottom:2px}
+.rm-sw{position:relative;overflow:hidden;border-top:1px solid var(--line)}
+.rm-sw:first-child{border-top:0}
+.rm-sw .rm-row{position:relative;z-index:1;border-top:0;background:var(--paper);transition:transform .2s}
+.rm-del{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding-right:14px;color:#fff;background:var(--off);font-weight:700;font-size:14px;border-radius:12px}
+
 .a-big small{font-size:18px}
 .chip.gold{background:#FFF4D6;color:#8A6A12;font-weight:600}
 .pct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
@@ -4080,16 +4087,17 @@ function stepRun(step) { return !!(TM.cfg && TM.cfg.step === step && !TM.finishe
     if (!el) return;
     var t = el, dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; reset();
     if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
-    swipeDo(t, (dx < 0) !== !!S.swipeRev);
+    swipeDo(t, (dx < 0) !== !!S.swipeRev, dx < 0);
   }, { passive: true });
   document.addEventListener('touchcancel', reset, { passive: true });
 })();
-function swipeDo(t, fwd) {
+function swipeDo(t, fwd, left) {
   haptic('step');
   var k = t.dataset.swipe, id = t.dataset.flow;
   if (k === 'card') flowStep(id, fwd);
   else if (k === 'row') flowRow(id, +t.dataset.i, fwd);
   else if (k === 'count') flowCount(fwd ? 1 : -1, id);
+  else if (k === 'rm' && left) rmClear(t.dataset.v);
 }
 // Beweglichkeits-Check: je Test eine Karte mit Figur der gewählten (sonst der zuletzt erreichten) Stufe, Auswahl und Anleitung.
 function mobCheckHTML(D) {
@@ -4695,23 +4703,38 @@ function openChoice(title, text, opts, done) {
 }
 
 /* ---------- Tools › 1RM: Maximalkraft eintragen, Prozente, Verlauf ---------- */
-function rmLifts() {
-  var have = haveEq(), own = S.rmLifts || [], set = {};
-  RM_ALL.forEach(function (id) { if (eqOk(UE[id].equipment, have) || own.indexOf(id) >= 0 || rmOf(id)) set[id] = 1; });
-  return RM_ALL.filter(function (id) { return set[id]; });
-}
 function weightTile() { return tile('Körpergewicht', '<b>' + (S.weight ? fmtKg(S.weight) : '–') + '</b>', 'data-act="choose" data-k="weight"', S.weight ? 'set' : ''); }
 function renderRM() {
   if (ui.rmLift && UE[ui.rmLift]) return rmDetailHTML(ui.rmLift);
+  var best = ui.rmBest === true;
   var h = '<section class="hero"><h1>Maximalkraft</h1><p class="hero-title">One Rep Max · deine schwersten Wiederholungen</p></section>';
   if (!S.weight) h += '<section class="card"><p>Trag dein Körpergewicht ein, dann zählt dein 1RM im Wert Kraft mit.</p><div class="pick-grid one">' + weightTile() + '</div></section>';
-  h += '<section class="card a-lads">' + rmLifts().map(function (id) {
-    var r = rmOf(id), d = r ? r.cur.e1 - r.best.e1 : 0;
-    return '<button type="button" class="rm-row" data-act="rm-open" data-v="' + id + '"><span><b>' + esc(UE[id].name) + '</b><small>' + (r ? esc(sinceText(r.cur.date)) + (d < 0 ? ' · Bestwert ' + esc(fmtKg(r.best.e1, id)) : '') : 'noch kein Wert') + '</small></span>' +
-      '<span class="rm-kg">' + (r ? esc(fmtKg(r.cur.e1, id)) + '<small class="' + (d < 0 ? 'neg' : 'pos') + '">' + (d < 0 ? String(d).replace('.', ',') + ' zum Bestwert' : 'Bestwert') + '</small>' : '<span class="muted">–</span>') + '</span></button>';
-  }).join('') + '</section><p class="small muted">Gezeigt werden Übungen mit Equipment an deinem Ort, sortiert nach Nutzen.</p>' +
-    '<button type="button" class="btn block" data-act="rm-add">＋ Weitere Übung</button>';
+  h += '<div class="seg" role="group" aria-label="Wert">' + [['', 'Aktuell'], ['1', 'Bestwert']].map(function (o) {
+    var on = !!o[0] === best; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="rm-view" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+  }).join('') + '</div>';
+  // Alle Übungen mit 1RM: zuerst die mit Werten, dann der Rest, jeweils nach Nutzen.
+  var row = function (id) {
+    var r = rmOf(id), d = r ? r.cur.e1 - r.best.e1 : 0, big = r ? (best ? r.best : r.cur) : null;
+    var sub = !r ? 'noch kein Wert' : best ? 'am ' + shortDate(r.best.date).replace(/\.$/, '') + (d < 0 ? ' · aktuell ' + fmtKg(r.cur.e1, id) : ' · ist auch aktuell') : sinceText(r.cur.date) + (d < 0 ? ' · Bestwert ' + fmtKg(r.best.e1, id) : ' · ist dein Bestwert');
+    return '<div class="rm-sw">' + (r ? '<span class="rm-del" aria-hidden="true">Leeren</span>' : '') +
+      '<button type="button" class="rm-row" data-act="rm-open" data-v="' + id + '"' + (r ? ' data-swipe="rm"' : '') + '><span><b>' + esc(UE[id].name) + '</b><small>' + esc(sub) + '</small></span>' +
+      '<span class="rm-kg">' + (r ? esc(fmtKg(big.e1, id)) + (best || d >= 0 ? '<small class="gold">★ Bestwert</small>' : '<small class="neg">' + String(d).replace('.', ',') + ' kg zum Bestwert</small>') : '<span class="muted">–</span>') + '</span></button></div>';
+  };
+  var withV = RM_ALL.filter(function (id) { return rmOf(id); }), rest = RM_ALL.filter(function (id) { return !rmOf(id); });
+  if (withV.length) h += '<p class="sec-k">Deine Werte</p><section class="card a-lads rm-list">' + withV.map(row).join('') + '</section>';
+  h += '<p class="sec-k">' + (withV.length ? 'Weitere Übungen' : 'Alle Übungen') + '</p><section class="card a-lads rm-list">' + rest.map(row).join('') + '</section>';
+  h += '<p class="small muted">' + (withV.length ? 'Nach links wischen leert die Werte einer Übung (mit Nachfrage). ' : '') + 'Antippen öffnet Verlauf, Prozent-Tabelle und „Neuer Wert“.</p>';
   return h;
+}
+ACT['rm-view'] = function (el) { ui.rmBest = !!el.dataset.v; render(); };
+// Wischen nach links: alle Werte einer Übung leeren, erst nach Nachfrage.
+function rmClear(id) {
+  var r = rmOf(id); if (!r) return;
+  openChoice(UE[id].name + ' leeren?', r.list.length + (r.list.length === 1 ? ' Eintrag wird' : ' Einträge werden') + ' gelöscht, auch der Bestwert ' + fmtKg(r.best.e1, id) + '. Das lässt sich nicht rückgängig machen.',
+    [['del', 'Werte löschen', 'red'], ['', 'Abbrechen', '']], function (v) {
+      if (v !== 'del') return;
+      r.list.forEach(function (l) { removeLog(l.id); }); render(); toast(UE[id].name + ' ist geleert.');
+    });
 }
 function sinceText(iso) { var n = daysBetween(parseISO(iso), parseISO(isoToday())); return n === 0 ? 'heute' : n === 1 ? 'gestern' : n < 14 ? 'vor ' + n + ' Tagen' : 'vor ' + Math.round(n / 7) + ' Wochen'; }
 function rmDetailHTML(id) {
@@ -4744,13 +4767,6 @@ function rmDetailHTML(id) {
 ACT['parea-go'] = function (el) { ui.pview = 'werte'; ui.parea = el.dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); };
 ACT['rm-go'] = function (el) { ui.rmLift = el.dataset.v; ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
 ACT['rm-open'] = function (el) { ui.rmLift = el.dataset.v || null; if (ui.tab !== 'rm') ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
-ACT['rm-add'] = function () {
-  var shown = rmLifts(), rest = RM_ALL.filter(function (id) { return shown.indexOf(id) < 0; });
-  if (!rest.length) { toast('Alle Übungen sind schon da.'); return; }
-  openSheet('Weitere Übung', [{ wide: true, items: rest.map(function (id) { return { v: id, t: UE[id].name }; }), val: rest[0] }], function (v) {
-    S.rmLifts = (S.rmLifts || []).concat([v[0]]); saveState(); render();
-  });
-};
 ACT['rm-new'] = function (el) {
   var id = el.dataset.v, r = rmOf(id), last = r ? r.cur : null, kg = last ? last.kg : (rmAdd(id) ? 10 : 60), max = rmAdd(id) ? 120 : 350;
   openSheet('Neuer Wert · ' + UE[id].name, [
