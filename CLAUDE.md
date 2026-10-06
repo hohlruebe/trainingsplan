@@ -158,7 +158,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Intervallen 3 × 10 s schnell), Schritt 2 `ergo` Hauptteil (Intervalle/Pause bzw. Ziel-Watt, ausfahren) mit Ergebnis und Speichern.
   Timer-Art `seq` (`ergoSeq` mit `warm`-Kennung, `ergoPart`, `ergoTimer`, Abschnitte mit `watt`), Vollbild zeigt Watt groß.
   Im Training stehen alle Abschnitte als Zeilen wie beim EMOM (`seqRowsHTML`, `.sq-row`, `ergoListHTML`): der laufende blau umrandet
-  mit Restzeit, der nächste mit „in 0:23“, erledigte blass, die Liste rollt mit (`paintSeq` in `paintMini`). Dennis' Ergometer läuft im
+  mit Restzeit (nur er zählt herunter), erledigte blass, die Liste rollt mit (`paintSeq` in `paintMini`). Dennis' Ergometer läuft im
   Watt-Modus: Texte sagen „Watt einstellen“, nicht „Widerstand für 80–90 U/min“.
   Krafttage mit Lauf (nur Schwerpunkt Laufen, Tag 1 und 4): Schritt `run` mit der ganzen Einheit als Timer.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).

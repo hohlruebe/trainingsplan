@@ -560,7 +560,6 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .sq-t{font-family:var(--head);font-variant-numeric:tabular-nums;text-align:right;color:var(--ink2);white-space:nowrap}
 .sq-row.now{background:color-mix(in srgb,var(--acc) 10%,var(--paper));box-shadow:inset 0 0 0 2px var(--acc)}
 .sq-row.now .sq-t{font-size:20px;font-weight:700;color:var(--acc)}
-.sq-row.nx .sq-t{color:var(--acc)}
 .sq-row.done{opacity:.45}
 .abc-l{margin:8px 0 0;padding:0 0 0 22px;display:flex;flex-direction:column;gap:6px}
 .abc-l li{line-height:1.3}
@@ -5316,7 +5315,8 @@ function paintSeq(L) {
   var cur = !on ? -1 : TM.finished ? rows.length : L && L.p.kind !== 'pre' ? L.i - 1 : -1;
   rows.forEach(function (r, i) {
     r.classList.toggle('now', i === cur); r.classList.toggle('done', on && i < cur); r.classList.toggle('nx', on && i === cur + 1 && cur < rows.length);
-    var t = r.querySelector('.sq-t'); if (t) t.textContent = i === cur && L && L.rem != null ? fmtT(Math.ceil(L.rem)) : i === cur + 1 && cur >= 0 && L && L.rem != null ? 'in ' + fmtT(Math.ceil(L.rem)) : r.dataset.d;
+    // Nur der laufende Abschnitt zählt herunter, alle anderen zeigen ihre Dauer.
+    var t = r.querySelector('.sq-t'); if (t) t.textContent = i === cur && L && L.rem != null ? fmtT(Math.ceil(L.rem)) : r.dataset.d;
   });
   if (cur !== paintSeq.last) { paintSeq.last = cur; var el = rows[cur]; if (el && el.scrollIntoView) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
 }
