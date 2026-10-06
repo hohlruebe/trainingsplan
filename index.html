@@ -491,17 +491,17 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .rm-base b small{font-size:20px;font-weight:700}
 .rm-bw{font-size:14px;font-weight:600;color:#B8860B}
 .rm-pct{display:flex;flex-direction:column}
-.rm-p{display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid var(--line)}
+.rm-p{display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 0;border-bottom:1px solid var(--line)}
 .rm-p:last-child{border-bottom:0}
-.rm-pp{flex:0 0 56px;font-family:var(--head);font-weight:700;font-size:15px;color:var(--ink2)}
-.rm-pt{flex:1;min-width:0;display:flex;flex-direction:column}
-.rm-pt b{font-size:15px;font-weight:600}
-.rm-pt small{font-size:13px;color:var(--ink2)}
-.rm-pk{font-family:var(--head);font-weight:700;font-size:19px;white-space:nowrap}
+.rm-pp{flex:0 0 52px;font-family:var(--head);font-weight:700;font-size:13px;color:var(--ink2)}
+.rm-pt{flex:1;min-width:0;font-size:14px;line-height:1.3}
+.rm-pt b{font-weight:600}
+.rm-pt small{font-size:13px;color:var(--ink2);white-space:nowrap}
+.rm-pk{font-family:var(--head);font-weight:700;font-size:16px;white-space:nowrap}
 .rm-p{--rc:color-mix(in srgb,hsl(var(--hue) var(--sat) var(--lt)) var(--mx),var(--ink))}
 .rm-p .rm-pp,.rm-p .rm-pk{color:var(--rc)}
 .rm-p .rm-pp{display:flex;align-items:center;gap:8px}
-.rm-p .rm-pp::before{content:"";flex:none;width:4px;height:28px;border-radius:2px;background:var(--rc)}
+.rm-p .rm-pp::before{content:"";flex:none;width:3px;height:18px;border-radius:2px;background:var(--rc)}
 .pct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
 .pct span{border-radius:12px;background:var(--board);padding:8px 10px;font-size:13px;color:var(--ink2)}
 .pct span b{display:block;font-family:var(--head);font-size:17px;color:var(--ink)}
@@ -4743,7 +4743,7 @@ function dateY(iso) { return parseISO(iso).toLocaleDateString('de-DE', { day: 'n
 function sinceText(iso) { var n = daysBetween(parseISO(iso), parseISO(isoToday())); return n === 0 ? 'heute' : n === 1 ? 'gestern' : n < 14 ? 'vor ' + n + ' Tagen' : 'vor ' + Math.round(n / 7) + ' Wochen'; }
 // Übliche Trainingsbereiche in Prozent vom 1RM (Wdh. ungefähr, mit 1–2 Wdh. Reserve).
 var RM_PCT = [[100, '1', 'Maximalversuch'], [95, '1–2', 'Maximalkraft'], [90, '2–3', 'Maximalkraft'], [85, '4–5', 'Kraft'], [80, '5–6', 'Kraft'],
-  [75, '8', 'Kraft und Muskelaufbau'], [70, '10', 'Muskelaufbau'], [65, '12', 'Muskelaufbau, Technik'], [60, '15', 'Technik, Tempo'], [50, '–', 'Aufwärmen']];
+  [75, '8', 'Muskelaufbau'], [70, '10', 'Muskelaufbau'], [65, '12', 'Technik'], [60, '15', 'Technik, Tempo'], [50, '–', 'Aufwärmen']];
 function rmDetailHTML(id) {
   var r = rmOf(id), u = UE[id], base = r ? r.cur : null;
   ui.noSub = true;
@@ -4758,7 +4758,7 @@ function rmDetailHTML(id) {
       var kg = p[0] === 100 ? base.e1 : Math.round(base.e1 * p[0] / 100 / 2.5) * 2.5;
       // Farbe nach Schwere: 50 % grün, je schwerer desto dunkler rot.
       var t = (p[0] - 50) / 50, hue = Math.round(140 * (1 - t)), sat = Math.round(55 + 25 * t), lt = Math.round(46 - 8 * t), mx = Math.round(80 - 14 * t);
-      return '<div class="rm-p" style="--hue:' + hue + ';--sat:' + sat + '%;--lt:' + lt + '%;--mx:' + mx + '%"><span class="rm-pp">' + p[0] + ' %</span><span class="rm-pt"><b>' + esc(p[2]) + '</b><small>' + (p[1] === '–' ? 'locker' : p[1] + ' Wdh.') + '</small></span><span class="rm-pk">' + esc(fmtKg(kg, id)) + '</span></div>';
+      return '<div class="rm-p" style="--hue:' + hue + ';--sat:' + sat + '%;--lt:' + lt + '%;--mx:' + mx + '%"><span class="rm-pp">' + p[0] + ' %</span><span class="rm-pt"><b>' + esc(p[2]) + '</b> <small>· ' + (p[1] === '–' ? 'locker' : p[1] + ' Wdh.') + '</small></span><span class="rm-pk">' + esc(fmtKg(kg, id)) + '</span></div>';
     }).join('') + '</div><p class="small muted" style="margin:8px 0 0">Auf 2,5 kg gerundet. Wdh. sind Richtwerte mit 1–2 Wdh. Reserve.</p></section>';
   h += '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
   if (r.list.length > 1) {
