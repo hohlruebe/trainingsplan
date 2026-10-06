@@ -41,6 +41,8 @@ Stand: 6. Oktober 2026 (Pistol-Leiter, Check, Ergometer)
 - Dennis: Warm-up für Lauftage. Laufen: Lauf-ABC (Fuß – Knie – Ferse – Hopser – Seit – Steigern), immer gleich, vor jedem Lauf,
   in den Einstellungen abschaltbar, keine Ansagen (beim Laufen schaut er nicht aufs Handy). Ergometer: zu Hause, deshalb
   Timer für die ganze Einheit mit Watt je Abschnitt (einfahren, Steigerungen, Intervalle, ausfahren).
+- Dennis: Das Ergometer-Aufwärmen kommt erst nach „Training starten“, wie sonst auch. Ergometer-Lauftag ist jetzt ein Schritt-Tag
+  (Einfahren, Hauptteil). Krafttage mit Lauf gibt es nur im Schwerpunkt Laufen (Tag 1 Intervalle + Kraft, Tag 4 Tempo/Test + Kraft).
 
 ## Pistol mit Halt, je Seite, Stoppuhr im Check (6. Oktober)
 - Dennis: Pistol an den Ringen statt am Türrahmen, er kommt so tiefer (eher Beweglichkeit als Kraft begrenzt). Stufe heißt in der

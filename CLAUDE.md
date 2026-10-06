@@ -153,9 +153,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   fragt nach: Zwischenspeichern (weiter beim Schritt), Training abbrechen (Entwurf weg) oder Weiter trainieren.
   Lauftage haben keine Schritte, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
   Laufen: vor jedem Lauf das Lauf-ABC (`laufAbcHTML`, `LAUF_ABC`, immer gleich, keine Ansagen), abschaltbar unter Einstellungen ›
-  Training › Laufen (`S.laufAbc`, nur auf dem Gerät). Ergometer: die ganze Einheit als Timer (Timer-Art `seq`, `ergoSeq`, `ergoTimer`,
-  Abschnitte mit `watt`: einfahren in Stufen 50/70/85 % bzw. 3 Min 60 %, vor Intervallen 3 × 10 s, Intervalle/Pause, ausfahren),
-  Leiste `#tbar` mit Schritt-ID `ergo` (`stepTimer`), im Krafttag am Schritt `run`; Ablauf als Liste (`ergoStepsHTML`), Vollbild zeigt Watt groß.
+  Training › Laufen (`S.laufAbc`, nur auf dem Gerät). Ergometer am Lauftag = Schritt-Tag wie ein Krafttag (`stepsOf`): Übersicht mit
+  Umschalter (`runSegHTML`), Ziel-Watt und „Training starten“, Schritt 1 `ewarm` Einfahren (Stufen 50/70/85 % bzw. 3 Min 60 %, vor
+  Intervallen 3 × 10 s schnell), Schritt 2 `ergo` Hauptteil (Intervalle/Pause bzw. Ziel-Watt, ausfahren) mit Ergebnis und Speichern.
+  Timer-Art `seq` (`ergoSeq` mit `warm`-Kennung, `ergoPart`, `ergoTimer`, Abschnitte mit `watt`), Vollbild zeigt Watt groß.
+  Krafttage mit Lauf (nur Schwerpunkt Laufen, Tag 1 und 4): Schritt `run` mit der ganzen Einheit als Timer.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).
 - Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
   Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
