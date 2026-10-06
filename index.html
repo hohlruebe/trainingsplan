@@ -4702,12 +4702,12 @@ function openChoice(title, text, opts, done) {
   requestAnimationFrame(function () { bg.classList.add('open'); });
 }
 
-/* ---------- Tools › 1RM: Maximalkraft eintragen, Prozente, Verlauf ---------- */
+/* ---------- Tools › 1RM: One Rep Max eintragen, Prozente, Verlauf ---------- */
 function weightTile() { return tile('Körpergewicht', '<b>' + (S.weight ? fmtKg(S.weight) : '–') + '</b>', 'data-act="choose" data-k="weight"', S.weight ? 'set' : ''); }
 function renderRM() {
   if (ui.rmLift && UE[ui.rmLift]) return rmDetailHTML(ui.rmLift);
   var best = ui.rmBest === true;
-  var h = '<section class="hero"><h1>Maximalkraft</h1><p class="hero-title">One Rep Max · deine schwersten Wiederholungen</p></section>';
+  var h = '<section class="hero"><h1>One Rep Max</h1><p class="hero-title">Deine schwersten Wiederholungen</p></section>';
   if (!S.weight) h += '<section class="card"><p>Trag dein Körpergewicht ein, dann zählt dein 1RM im Wert Kraft mit.</p><div class="pick-grid one">' + weightTile() + '</div></section>';
   h += '<div class="seg" role="group" aria-label="Wert">' + [['', 'Aktuell'], ['1', 'Bestwert']].map(function (o) {
     var on = !!o[0] === best; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="rm-view" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
