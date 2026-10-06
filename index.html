@@ -549,6 +549,9 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .kg-rec b{font-family:var(--head);font-size:20px;font-weight:700;color:var(--acc);justify-self:end}
 .kg-rec span:last-child{grid-column:1/-1;line-height:1.35}
 .kg-row{padding:8px 14px}
+.abc-l{margin:8px 0 0;padding:0 0 0 22px;display:flex;flex-direction:column;gap:6px}
+.abc-l li{line-height:1.3}
+.abc-l li b{font-weight:600;margin-right:6px}
 .mc-sw{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding:6px 6px 6px 16px;border-radius:999px;background:var(--board)}
 .mc-sw .mc-t{font-family:var(--head);font-weight:800;font-size:28px;letter-spacing:-.02em;min-width:72px;font-variant-numeric:tabular-nums}
 .mc-sw .chip,.mc-sw .small{flex:none;margin-right:auto}
@@ -2084,7 +2087,7 @@ var TEST_BASE = {
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
-  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null };
+  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -2618,7 +2621,7 @@ function cdEvent(L) {
   var nx = TM.phases[L.i + 1];
   if (L.p.kind === 'pre') return { k: 'start', w: 'go' };
   if (!nx) return { k: 'end', w: 'end' };
-  if (TM.mode === 'hiit') return { k: 'interval', w: nx.kind === 'easy' ? 'rest' : 'go' };
+  if (TM.mode === 'hiit' || TM.mode === 'seq') return { k: 'interval', w: nx.kind === 'easy' ? 'rest' : 'go' };
   return { k: 'round', w: 'go' };
 }
 function cdOn(ev) { return S.cdVoice && ev && cdWhen()[ev.k] && !!cdVoice(); }
@@ -2655,6 +2658,8 @@ function buildPhases() {
     }
   } else if (TM.mode === 'block') {
     P.push({ label: c.label, sub: c.minutes + ' Min', dur: c.minutes * 60, kind: 'easy' });
+  } else if (TM.mode === 'seq') {
+    P = P.concat(c.seq.map(function (q) { return Object.assign({}, q); }));
   } else if (TM.mode === 'routine') {
     P = P.concat(routinePhases(ROUT[c.rid]));
   } else {
@@ -3163,6 +3168,8 @@ function trainingHTML() {
   h += '<p class="small" style="margin:12px 0 0"><b>Vollbild-Ansicht</b></p>' + seg('Vollbild-Ansicht', [['auto', 'Automatisch'], ['port', 'Hochkant'], ['land', 'Quer']], S.timerView === 'port' || S.timerView === 'land' ? S.timerView : 'auto', 'data-act="tm-view"') +
     '<p class="small muted">Automatisch dreht mit dem Handy. Im Vollbild hält der Dreh-Knopf die Ansicht fest, lange drücken = wieder automatisch.</p>';
   h += countdownHTML();
+  h += '<h3 style="margin-top:16px">Laufen</h3><label class="check"><input type="checkbox" data-change="laufAbc"' + (S.laufAbc !== false ? ' checked' : '') + '> Lauf-ABC vor jedem Lauf zeigen</label>' +
+    '<p class="small muted">Immer gleich, damit du es auswendig kannst. Auf dem Ergometer gibt es statt dessen das Einfahren im Timer.</p>';
   h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
     '<label class="check"><input type="checkbox" data-change="swipeRev"' + (rev ? ' checked' : '') + '> Wischen umkehren</label>' +
     '<p class="small muted">Nach ' + (rev ? 'rechts' : 'links') + ' wischen: erledigt, weiter. Nach ' + (rev ? 'links' : 'rechts') + ': zurück. Immer gleich, ob einzeln, in der Liste oder am Rundenzähler.</p>';
@@ -3836,6 +3843,7 @@ var CHG = {
   cdWhen: function (el) { S.cdWhen = cdWhen(); S.cdWhen[el.dataset.k] = el.checked; saveState(); },
   haptik: function (el) { S.haptik = el.checked; saveState(); setTimeout(render, 420); },
   name: function (el) { S.name = el.value.trim(); saveState(); },
+  laufAbc: function (el) { S.laufAbc = el.checked; saveState(); setTimeout(render, 420); },
   roundCounter: function (el) { S.roundCounter = el.checked; saveState(); },
   swipe: function (el) { S.swipe = el.checked; saveState(); },
   swipeRev: function (el) { S.swipeRev = el.checked; saveState(); setTimeout(render, 420); },
@@ -4025,7 +4033,7 @@ function stepsOf(c) {
   if (d.run) {
     var rs = runSpec(d), rT = rs.type === 'interval' ? 'Intervalle' : { tempo: 'Tempolauf', test: 'Testlauf 5 km', ziel: 'Ziel-Lauf' }[rs.art] || 'Lauf';
     out.push({ id: 'run', title: rT, sub: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min · Zone ' + rs.iv.zone : rs.min ? rs.min + ' Min · Zone 3–4' : rs.art === 'test' ? '5 km auf Zeit' : laufGoal().name, dur: Math.round(planRunSec(rs) / 60),
-      desc: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben' : 'Ergebnis von der Uhr eintragen', body: function (D) { return runHTML(c, D, rs, true); } });
+      desc: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben' : 'Ergebnis von der Uhr eintragen', timer: runMode(D0) === 'ergo' ? ergoTimer(rs) : null, body: function (D) { return runHTML(c, D, rs, true); } });
   }
   if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: wm + ' Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: wm,
     desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
@@ -4444,8 +4452,9 @@ function renderHeute() {
   } else if (d.type === 'easy' || d.type === 'interval') {
     if (d.pre === 'hs') h += '<p class="kicker muted gl-group">Zuerst: Handstand 10 Min</p>' + hsStepHTML(D);
     else if (d.pre) h += '<p class="kicker muted gl-group">Zuerst: 10 Min Dehnen</p>' + routineCardHTML(mobRoutine(d.pre), false, 'Dehnen starten');
-    var ik = d.type === 'interval' && isKurz(tag);
-    h += runHTML(c, D, ik ? { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) } : null);
+    h += runHTML(c, D, todayRunSpec(tag));
+    // Ergometer: die ganze Einheit läuft als Timer (Leiste unten, Vollbild möglich).
+    if (cur && runMode(D) === 'ergo') { var et = ergoTimer(todayRunSpec(tag)); h += '<div class="st-space"></div><div class="tbar" id="tbar" data-step="' + esc(draftKey(tag) + ':ergo') + '" data-label="' + esc(et.label) + '" data-info="' + esc(et.info) + '"></div>'; }
     if (cur && d.type === 'interval') h += adaptLineHTML(tag, true);
     if (cur) {
       h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
@@ -4752,6 +4761,53 @@ function ergoTargetHTML(spec) {
   return '<div class="kg-rec"><span class="small muted">' + (iv ? 'Intervall' : 'Ziel') + '</span><b>' + t.w + ' W' + (iv ? ' · Pause ' + (Math.round(t.w / 10) * 5) + ' W' : '') + '</b>' +
     '<span class="small muted">' + esc(t.why) + '. Widerstand so einstellen, dass bei 80–90 U/min etwa ' + t.w + ' W stehen. Passt der Puls nicht in Zone ' + t.z + ', etwas anpassen.</span></div>';
 }
+// Ergometer: die ganze Einheit als Timer (Aufwärmen in Stufen, Hauptteil, Ausfahren), Watt je Abschnitt.
+function ergoSeq(spec) {
+  var t = ergoTarget(spec).w, w = function (f) { return Math.max(30, Math.round(t * f / 5) * 5); }, Q = [];
+  function add(label, min, f, kind, sub) { Q.push({ label: label, sub: sub || '', dur: Math.round(min * 60), kind: kind || 'easy', watt: w(f) }); }
+  var hard = spec.type !== 'easy' || ['tempo', 'test', 'ziel'].indexOf(spec.art) >= 0;
+  if (hard) { add('Einfahren', 2, .5, 'easy', 'Aufwärmen 1 von 3'); add('Einfahren', 2, .7, 'easy', 'Aufwärmen 2 von 3'); add('Einfahren', 1, .85, 'easy', 'Aufwärmen 3 von 3'); }
+  else add('Einfahren', 3, .6, 'easy', 'Aufwärmen');
+  if (spec.type !== 'easy') {
+    var iv = spec.iv || IV[S.ivStage], reps = spec.iv ? spec.iv.reps : S.ivReps;
+    for (var k = 0; k < 3; k++) { add('Steigerung', 10 / 60, 1.15, 'work', 'Kurz schnell ' + (k + 1) + ' von 3'); add('Locker', 50 / 60, .5, 'easy', 'Vor den Intervallen'); }
+    for (var r = 0; r < reps; r++) { add('Intervall', iv.work, 1, 'work', 'Intervall ' + (r + 1) + ' von ' + reps); if (r + 1 < reps) add('Pause', iv.rest, .5, 'easy', 'Locker treten'); }
+    add('Ausfahren', 5, .5, 'easy', 'Locker treten');
+  } else if (spec.art === 'tempo') {
+    add('Locker', 5, .6, 'easy', 'Vor dem Tempo'); add('Tempo', spec.min || 20, 1, 'work', 'An der Schwelle'); add('Ausfahren', 5, .5, 'easy', 'Locker treten');
+  } else {
+    var main = Math.max(5, Math.round(planRunSec(spec) / 60) - (hard ? 5 : 3));
+    add(spec.art === 'lang' ? 'Lange Einheit' : spec.art === 'test' || spec.art === 'ziel' ? 'Hauptteil' : 'Locker', main, 1, 'work', 'Ziel-Watt halten');
+  }
+  for (var i = 0; i < Q.length; i++) Q[i].next = Q[i + 1] ? Q[i + 1].label + ' · ' + Q[i + 1].watt + ' W' : 'Fertig';
+  return Q;
+}
+// Ablauf der Ergometer-Einheit als Liste, passend zum Timer.
+function ergoStepsHTML(spec) {
+  var Q = ergoSeq(spec), out = [], i = 0, mn = function (d) { return d % 60 ? fmtT(d) + ' Min' : d / 60 + ' Min'; };
+  while (i < Q.length) {
+    var q = Q[i];
+    if (q.label === 'Einfahren') { var m = 0, ws = []; while (Q[i] && Q[i].label === 'Einfahren') { m += Q[i].dur; ws.push(Q[i].watt); i++; } out.push('<b>' + Math.round(m / 60) + ' Min einfahren</b> · ' + ws.join(' → ') + ' W'); continue; }
+    if (q.label === 'Steigerung') { out.push('<b>3 × 10 s schnell</b> · ' + q.watt + ' W, dazwischen 50 s locker'); i += 6; continue; }
+    if (q.label === 'Intervall') { var n = Q.filter(function (x) { return x.label === 'Intervall'; }).length, pz = Q[i + 1] && Q[i + 1].label === 'Pause' ? Q[i + 1] : null;
+      out.push('<b>' + n + ' × ' + mn(q.dur) + '</b> bei ' + q.watt + ' W' + (pz ? ', dazwischen ' + mn(pz.dur) + ' bei ' + pz.watt + ' W' : '')); i += n * 2 - 1; continue; }
+    out.push('<b>' + Math.round(q.dur / 60) + ' Min ' + esc(q.label === 'Locker' || q.label === 'Ausfahren' ? q.label.toLowerCase() : q.label) + '</b> · ' + q.watt + ' W'); i++;
+  }
+  return '<ol class="steps">' + out.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol>';
+}
+function ergoTimer(spec) {
+  var Q = ergoSeq(spec), sec = Q.reduce(function (a, q) { return a + q.dur; }, 0);
+  return { mode: 'seq', cfg: { seq: Q, label: 'Ergometer' }, label: 'Einheit starten · ' + Math.round(sec / 60) + ' Min', info: Q.length + ' Abschnitte, Watt je Abschnitt' };
+}
+// Lauf-ABC: immer gleich, damit man es auswendig kann (Fuß – Knie – Ferse – Hopser – Seit – Steigern).
+var LAUF_ABC = [['5 Min sehr locker einlaufen', ''], ['Fußgelenksarbeit', '2 × 20 m'], ['Skippings', 'Knie hoch · 2 × 20 m'], ['Anfersen', '2 × 20 m'],
+  ['Hopserlauf', '2 × 20 m'], ['Seitgalopp', '20 m je Seite'], ['Steigerungsläufe', '3 × 80 m, locker bis zügig']];
+function laufAbcHTML() {
+  return '<section class="card abc"><div class="card-head"><h3>Lauf-ABC</h3><span class="small muted">10 Min · immer gleich</span></div>' +
+    '<p class="small muted">Fuß – Knie – Ferse – Hopser – Seit – Steigern. Zurück jeweils gehen, danach startet der Lauf.</p>' +
+    '<ol class="abc-l">' + LAUF_ABC.map(function (x) { return '<li><b>' + esc(x[0]) + '</b>' + (x[1] ? '<span class="small muted">' + esc(x[1]) + '</span>' : '') + '</li>'; }).join('') + '</ol></section>';
+}
+function todayRunSpec(tag) { var d = DAYS[tag]; return d.type === 'interval' && isKurz(tag) ? { type: 'easy', art: 'locker', min: easyMinutes(S.durchgang) } : runSpec(d); }
 function runHTML(c, D, spec, inStep) {
   spec = spec || runSpec(c.d);
   var easy = spec.type === 'easy', kind = spec.type, art = spec.art || 'locker', mode = runMode(D), ergo = mode === 'ergo', h = '', g = laufGoal();
@@ -4759,6 +4815,7 @@ function runHTML(c, D, spec, inStep) {
   h += '<div class="seg" role="group" aria-label="Laufen oder Ergometer">' + [['lauf', 'Laufen'], ['ergo', 'Ergometer']].map(function (m) {
     return '<button type="button" class="seg-btn' + (mode === m[0] ? ' on' : '') + '" data-act="run-mode" data-m="' + m[0] + '" aria-pressed="' + (mode === m[0]) + '">' + m[1] + '</button>';
   }).join('') + '</div>';
+  if (!ergo && S.laufAbc !== false) h += laufAbcHTML();
   if (easy) {
     var min = spec.min, T = {
       locker: ['Du kannst noch ganze Sätze sprechen.', ergo ? 'Gleiche Dauer auf dem Ergometer im Gesprächstempo, feste Wattzahl. Gut bei starkem Regen.' : 'Gesprächstempo, Gehpausen erlaubt. ' + min + ' Min. Starte den Lauf auf deiner Uhr und trag danach ein, was sie anzeigt.', zoneText(2)],
@@ -4767,17 +4824,17 @@ function runHTML(c, D, spec, inStep) {
       test: ['Testlauf 5 km.', '10 Min einlaufen, dann 5 km so schnell, wie du gleichmäßig durchhältst. Danach locker auslaufen.', goalPace ? 'Zieltempo ' + goalPace : ''],
       ziel: ['Dein Ziel-Lauf.', g.name + (g.ziel ? ' in ' + fmtDur(g.ziel) + ' ' + (g.ziel >= 3600 ? 'h' : 'Min') : '') + '. Ruhig starten, die zweite Hälfte darf schneller werden.', goalPace ? 'Zieltempo ' + goalPace : '']
     }[art] || [];
-    h += '<section class="card"><p class="hand big-quote">' + esc(T[0]) + '</p><p>' + esc(T[1]) + '</p>' + (T[2] ? '<div class="chips"><span class="chip">' + esc(T[2]) + '</span></div>' : '') +
+    h += '<section class="card"><p class="hand big-quote">' + esc(T[0]) + '</p><p>' + esc(T[1]) + '</p>' + (ergo ? ergoStepsHTML(spec) : '') + (T[2] ? '<div class="chips"><span class="chip">' + esc(T[2]) + '</span></div>' : '') +
       (spec.allround ? '<p class="small muted">Steigerung: +5 Min alle 2 Durchgänge, maximal 45 Min.</p>' : '') +
       (spec.capped ? '<p class="tl-x">Heute ' + min + ' statt ' + spec.capped + ' Min: diese Woche höchstens 1,3-mal so viel wie dein Schnitt der letzten 4 Wochen. Sehnen und Knochen brauchen Zeit.</p>' : '') + (ergo ? ergoTargetHTML(spec) : '') + '</section>';
   } else if (spec.iv) {
     var iv = spec.iv;
-    h += '<section class="card"><ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + iv.reps + '×</b> ' + iv.work + ' Min schnell, dazwischen ' + iv.rest + ' Min locker traben</li><li>5 Min locker auslaufen</li></ol>' +
+    h += '<section class="card">' + (ergo ? ergoStepsHTML(spec) : '<ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + iv.reps + '×</b> ' + iv.work + ' Min schnell, dazwischen ' + iv.rest + ' Min locker traben</li><li>5 Min locker auslaufen</li></ol>') +
       '<div class="chips"><span class="chip">' + esc(zoneText(iv.zone, iv.zone === 4 ? 5 : null)) + '</span>' + (goalPace ? '<span class="chip">Zieltempo ' + esc(goalPace) + '</span>' : '') + '</div>' +
       '<p class="small muted">Alle Wiederholungen gleich schnell, die letzte darf nicht die langsamste sein.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p>' + (ergo ? ergoTargetHTML(spec) : '') + '</section>';
   } else {
     var st = S.ivStage, reps = S.ivReps, p = IV[st];
-    h += '<section class="card"><ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + reps + '×</b> ' + p.work + ' Min zügig, dazwischen ' + p.rest + ' Min ' + p.restLabel + '</li><li>5 Min locker auslaufen</li></ol>' +
+    h += '<section class="card">' + (ergo ? ergoStepsHTML(spec) : '<ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + reps + '×</b> ' + p.work + ' Min zügig, dazwischen ' + p.rest + ' Min ' + p.restLabel + '</li><li>5 Min locker auslaufen</li></ol>') +
       '<p><b>Zügig</b> heißt etwa 8 von 10: kein Sprint, alle Wiederholungen gleich schnell.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p>' + (ergo ? ergoTargetHTML(spec) : '') +
       '<div class="row between wrap"><span class="chip">Stufe ' + st + '</span><div class="stepper"><button type="button" data-act="iv-reps" data-d="-1" aria-label="Eine Wiederholung weniger">–</button>' +
       '<b>' + reps + ' Wdh.</b><button type="button" data-act="iv-reps" data-d="1" aria-label="Eine Wiederholung mehr">+</button></div></div>' +
@@ -5186,7 +5243,9 @@ ACT.vtab = function (el) { ui.vtab = el.dataset.v; render(); };
 /* ---------- Timer-Leiste im Schritt ---------- */
 var RING = 2 * Math.PI * 21;
 function stepTimer(stepId) {
-  var c = dayCtx(S.tag), st = stepsOf(c);
+  var c = dayCtx(S.tag), st;
+  if (stepId === 'ergo') return ergoTimer(todayRunSpec(S.tag));
+  st = stepsOf(c);
   for (var i = 0; i < st.length; i++) if (st[i].id === stepId) return st[i].timer;
   return null;
 }
@@ -5248,6 +5307,7 @@ function paintMini(L) {
   } else if (TM.mode === 'amrap') { title = 'AMRAP ' + c.minutes; sub = 'Runden zählst du selbst'; }
   else if (TM.mode === 'zeit') { title = 'Murph läuft'; sub = 'Tippe auf ■, wenn du fertig bist'; }
   else if (TM.mode === 'routine') { title = L.p.label + (L.p.side ? ' · ' + L.p.side : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }
+  else if (TM.mode === 'seq') { title = L.p.label + (L.p.watt ? ' · ' + L.p.watt + ' W' : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }
   else if (c.again) { title = c.label; sub = 'Danach: nächster Versuch'; }
   else { title = c.label; sub = b.dataset.nextl ? 'Danach: ' + b.dataset.nextl : ''; }
   if (!TM.running) sub = 'Pausiert · ' + sub;
@@ -5258,9 +5318,9 @@ function paintMini(L) {
 }
 
 /* ---------- Timer im Vollbild: hochkant oder quer, je Trainingsart Leiste oder Vollbild ---------- */
-var TIMER_TYPES = [['tools', 'Tools › Timer'], ['warm', 'Aufwärmen'], ['hs', 'Handstand · Skill'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['murph', 'Murph'], ['mobl', 'Beweglichkeit'], ['cool', 'Cool-down']];
-var TIMER_STD = { tools: 'full', warm: 'bar', hs: 'bar', kraft: 'bar', metcon: 'bar', murph: 'bar', mobl: 'bar', cool: 'bar' };
-function timerTypeOf(step) { if (!step) return 'tools'; var id = String(step).split(':').pop(); return id === 'skill' ? 'hs' : TIMER_STD[id] ? id : 'kraft'; }
+var TIMER_TYPES = [['tools', 'Tools › Timer'], ['warm', 'Aufwärmen'], ['hs', 'Handstand · Skill'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['murph', 'Murph'], ['mobl', 'Beweglichkeit'], ['cool', 'Cool-down'], ['ergo', 'Ergometer']];
+var TIMER_STD = { tools: 'full', warm: 'bar', hs: 'bar', kraft: 'bar', metcon: 'bar', murph: 'bar', mobl: 'bar', cool: 'bar', ergo: 'bar' };
+function timerTypeOf(step) { if (!step) return 'tools'; var id = String(step).split(':').pop(); return id === 'skill' ? 'hs' : id === 'run' ? 'ergo' : TIMER_STD[id] ? id : 'kraft'; }
 function timerModeOf(t) { var m = S.timerCustom && S.timerModes ? S.timerModes[t] : null; return m === 'bar' || m === 'full' ? m : TIMER_STD[t]; }
 function roundMode() { return S.roundMode === 'rd' || S.roundMode === 'off' ? S.roundMode : 'ex'; }
 var ICO = function (p, w) { return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 2) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
@@ -5363,6 +5423,11 @@ function fsSide(L) {
   if (TM.mode === 'hiit') {
     nx = L && L.p.kind !== 'pre' ? TM.phases[L.i + 1] : TM.phases[1];
     return { k: 'hi' + (L ? L.i : 0), h: '<p class="fs-lbl">Als Nächstes</p>' + (nx ? '<div class="fs-big">' + esc(nx.label) + '</div><div class="fs-sub">' + fmtT(nx.dur) + '</div>' : '<div class="fs-big">Fertig</div>') };
+  }
+  if (TM.mode === 'seq' && p) {
+    var sq = p.kind === 'pre' ? TM.phases[1] : p;
+    return { k: 'sq' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(sq.label) + '</p>' + (sq.watt ? '<p class="fs-kg">' + sq.watt + ' W</p>' : '') +
+      '<p class="fs-hint">' + esc(sq.sub || '') + '</p>' + (sq.next && p.kind !== 'pre' ? '<span class="chip">Danach: ' + esc(sq.next) + '</span>' : '') };
   }
   if (TM.mode === 'routine' && p) return { k: 'ro' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><div class="fs-exn">' + esc(p.kind === 'pre' && TM.phases[1] ? TM.phases[1].label : p.label) + (p.side ? ' · ' + esc(p.side) : '') + '</div>' + (p.next ? '<p class="fs-hint">Danach: ' + esc(p.next) + '</p>' : '') };
   var b = document.getElementById('tbar');

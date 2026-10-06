@@ -151,7 +151,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   pro Schritt; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
   Im Training (Schritt-Seiten) ist die Reiterleiste ausgeblendet (`body.focus`); oben rechts ein kleines X (`ACT.quit`)
   fragt nach: Zwischenspeichern (weiter beim Schritt), Training abbrechen (Entwurf weg) oder Weiter trainieren.
-  Lauftage haben keine Schritte und keinen Timer, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
+  Lauftage haben keine Schritte, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
+  Laufen: vor jedem Lauf das Lauf-ABC (`laufAbcHTML`, `LAUF_ABC`, immer gleich, keine Ansagen), abschaltbar unter Einstellungen ›
+  Training › Laufen (`S.laufAbc`, nur auf dem Gerät). Ergometer: die ganze Einheit als Timer (Timer-Art `seq`, `ergoSeq`, `ergoTimer`,
+  Abschnitte mit `watt`: einfahren in Stufen 50/70/85 % bzw. 3 Min 60 %, vor Intervallen 3 × 10 s, Intervalle/Pause, ausfahren),
+  Leiste `#tbar` mit Schritt-ID `ergo` (`stepTimer`), im Krafttag am Schritt `run`; Ablauf als Liste (`ergoStepsHTML`), Vollbild zeigt Watt groß.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).
 - Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
   Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
