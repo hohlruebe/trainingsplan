@@ -19,7 +19,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter von links nach rechts: Tools (Timer, Übungen, Mobility, 1RM), Coach (nur Heute), Profil.
+- Reiter von links nach rechts: Tools (Timer, Übungen, Mobility, 1RM = One Rep Max), Coach (nur Heute), Profil.
   Der Plan ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute (`renderPlan`): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
   `ui.planTag`; darunter der Ablauf des Tages als nummerierte Schritte, `planDayHTML`/`tlHTML`, berechnet über `planPreview`, das
@@ -64,9 +64,29 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Mehr; Zeilen nach `ebene`, Linien aus `voraussetzt`; Knoten geschafft, aktuell (weiße Pille), als Nächstes, gesperrt. Antippen öffnet
   die Familie. Heute zeigt unter „Training starten“ den Block Fortschritt (`progressHTML`): „Neu freigeschaltet“ / „Neuer Reiz“
   (`planFill().neu`, bis die neue Übung einmal trainiert ist) und „Als Nächstes freischalten“ (`nextUnlockHTML`).
-- Tools › 1RM (`renderRM`): Gewichtsübungen mit Equipment am Ort plus selbst hinzugefügte (`S.rmLifts`), nach Nutzen. Eintrag über das Rad
-  (kg, ,0/,5, Wdh. 1–10), Schätzung nach Epley (`e1rm`), Prozent-Tabelle auf 2,5 kg gerundet, Verlauf mit Bestwert golden gestrichelt.
-  Einträge `kind: 'rm'` (`lift, kg, reps, e1, bw`), zählen nicht als Training. Bei Weighted Pull-up/Dip zählt das Zusatzgewicht.
+- Tools › 1RM (`renderRM`): Titel „One Rep Max“, alle Übungen mit Einheit kg (`RM_ALL`, nach Nutzen), oben „Deine Werte“, darunter
+  die übrigen. Umschalter Aktuell/Bestwert nur in der Liste (`ui.rmBest`, `ACT['rm-view']`), Bestwert mit Jahr (`dateY`).
+  Antippen öffnet den Prozent-Rechner (`rmDetailHTML`, `ui.rmLift`): Basis immer der aktuelle Wert, Bestwert golden darunter,
+  Tabelle `RM_PCT` (100–50 %, Zweck, Wdh., auf 2,5 kg gerundet), Farbe je Zeile von Grün (leicht) nach dunklem Rot (schwer) über
+  `--hue/--sat/--lt/--mx` und `color-mix` mit `--ink`. Neuer Wert über das kleine Plus oben rechts (`ACT['rm-new']`, Rad kg, ,0/,5,
+  Wdh. 1–10, Epley `e1rm`), darunter Verlauf und Einträge (Löschen mit Nachfrage). `S.rmLifts` bleibt in `DEF`, wird nicht mehr genutzt.
+  Einträge `kind: 'rm'` (`lift, kg, reps, e1, bw`, aus dem Training zusätzlich `src: 'training'`), zählen nicht als Training.
+  Bei Weighted Pull-up/Dip zählt das Zusatzgewicht.
+- Gewicht im Training (`kgUe`: Übung der Stufe mit Einheit kg): Kraftteil zeigt unter der Stufe „Empfohlen“ (`.kg-rec`, `kgRec`), jeder
+  Satz Wdh. und kg (`.kgv`, Entwurf `k<i>kg<r>`, `kgOfEx`: eingetragen, sonst wie der Satz davor, sonst Empfehlung). Das Rad des Satzes hat
+  kg, ,0/,5 und Wdh. und zeigt live das geschätzte 1RM; liegt es über dem Bestwert, kommt sofort „★ Neuer Bestwert“ mit Vibration
+  (`kgBest`, einmal je Wert, `_rmb_<id>`). Gespeichert als `ue` und `kg` (Liste je Satz) im Kraft-Eintrag; der beste Satz bis 10 Wdh.
+  wird zum 1RM-Eintrag, wenn er über dem aktuellen Wert liegt. Vollbild-Timer im Kraftteil zeigt das Gewicht des Satzes groß
+  (`fsKg`, `.fs-kg`, in der Pause schon den nächsten Satz); Metcon und WOD nicht.
+  Fortschritt mit Gewicht: doppelte Progression (`kgRec`, `kgHist`): alle Sätze am oberen Ende → +2,5 kg (Kniebeuge/Hüfte +5,
+  `kgStep`), höchstens einmal pro Durchgang (`kgUpHere`), nicht in der Entlastung, nach über 14 Tagen Pause und bei Stillstand
+  (`kgStallN`: 3× gleiches Gewicht ohne mehr Wdh.) 10 % leichter. Ohne Verlauf aus dem 1RM (Epley rückwärts mit RIR).
+  Gewichtsstufen steigen nicht über Wdh.: `coachStage` wechselt sie nur an Übergängen in `KG_UP` (z. B. Goblet → Front Squat,
+  RDL → Deadlift), wenn das 1RM der Stufe das Vielfache vom Körpergewicht erreicht (Hinweis `kgGate` am Schritt), nach Pause keine
+  Stufe zurück. `stallOf` wechselt die Übung erst, wenn es nach dem 10-%-Neuaufbau wieder stehen bleibt (`kgDeloaded`).
+  Metcon: Gewicht je Übung (`mKg`, Zeile `.kg-row`, im Ablauf „10 · 32,5 kg“, gespeichert in `metcon.kg` als `{n, ue, kg}`), Ziel ist
+  das Rx-Gewicht (`RX`). `kgRecM`: mehr geschafft als zuletzt mit denselben Übungen (oder ohne Vergleich zweimal mit dem Gewicht)
+  → ein Schritt Richtung Rx (Kettlebell 4 kg, sonst 2,5, `kgStepM`), sonst gleich; Start 50 % 1RM (über 10 Wdh. 40 %) oder 60 % Rx.
 - Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag an Krafttagen: nicht im Ablauf, nach dem letzten Schritt fragt `saveAsk`
   „Möchtest du noch ein Cool-down?“ (Ja = Schritt `coolStep` kommt dazu, Entwurf `_cd` '1'/'0'; `S.cooldown` wird nicht mehr genutzt, `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für

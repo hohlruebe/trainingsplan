@@ -3171,38 +3171,80 @@ function kgUe(name, stage) {
 // Beine und Hüfte steigen in 5-kg-Schritten, alles andere in 2,5 kg.
 function kgStep(id) { return { kniebeuge: 1, huefte: 1 }[UE[id].muster] ? 5 : 2.5; }
 function kgRound(v) { return Math.max(0, Math.floor(v / 2.5 + 1e-9) * 2.5); }
-// Zuletzt im Kraftteil genommen: schwerster Satz und die Wdh. aller Sätze.
-function lastKg(id) {
-  for (var i = LOGS.length - 1; i >= 0; i--) {
-    var ks = LOGS[i].kraft || [];
-    for (var j = 0; j < ks.length; j++) if (ks[j].ue === id && ks[j].kg && ks[j].kg.some(function (v) { return v != null; })) {
-      var kg = ks[j].kg.filter(function (v) { return v != null; });
-      return { kg: Math.max.apply(null, kg), reps: ks[j].reps.filter(function (v, r) { return v != null && ks[j].kg[r] === Math.max.apply(null, kg); }) };
-    }
-  }
-  return null;
+// Verlauf im Kraftteil: je Einheit schwerstes Gewicht und die Wdh. der Sätze damit.
+function kgHist(id) {
+  var out = [];
+  LOGS.forEach(function (l) {
+    (l.kraft || []).forEach(function (k) {
+      if (k.ue !== id || !k.kg) return;
+      var ws = k.kg.filter(function (v) { return v != null; }); if (!ws.length) return;
+      var mx = Math.max.apply(null, ws), rr = k.reps.filter(function (v, r) { return v != null && k.kg[r] === mx; });
+      out.push({ date: l.date, ts: l.ts || 0, dg: l.durchgang, kg: mx, reps: rr, sum: rr.reduce(function (a, b) { return a + b; }, 0) });
+    });
+  });
+  return out.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts; });
 }
-// Empfehlung Kraftteil: doppelte Progression. Alle Sätze am oberen Ende → mehr Gewicht, sonst gleich.
+// Stillstand mit Gewicht: 3-mal dasselbe Gewicht ohne mehr Wdh.
+function kgStallN(H, hi) { var t = H.slice(-3); return t.length === 3 && t.every(function (h) { return h.kg === t[0].kg; }) && t[2].sum <= t[0].sum && !(hi && t[2].reps.length && Math.min.apply(null, t[2].reps) >= hi); }
+// Schon einmal 10 % leichter neu aufgebaut (in den letzten 8 Einheiten)?
+function kgDeloaded(H) { var t = H.slice(-8); for (var i = 1; i < t.length; i++) if (t[i].kg <= t[i - 1].kg * 0.92) return true; return false; }
+// In diesem Durchgang schon gesteigert? Höchstens eine Steigerung pro Durchgang (Sehnen).
+function kgUpHere(H) { for (var i = 1; i < H.length; i++) if (H[i].dg === S.durchgang && H[i].kg > H[i - 1].kg) return true; return false; }
+function kgPlus(v) { return '+' + String(v).replace('.', ',') + ' kg'; }
+// Empfehlung Kraftteil: doppelte Progression mit Sehnen-Bremse. Alle Sätze am oberen Ende → mehr Gewicht,
+// aber höchstens einmal pro Durchgang und nicht in der Entlastung. Nach Pause oder Stillstand 10 % leichter.
 // Ohne Verlauf aus dem 1RM: Gewicht, mit dem lo Wdh. plus Reserve gehen (Epley rückwärts).
 function kgRec(id, lo, hi, rir) {
-  var L = lastKg(id), st = kgStep(id);
+  var H = kgHist(id), L = H[H.length - 1], st = kgStep(id);
   if (L && L.reps.length) {
+    var gap = daysBetween(parseISO(L.date), new Date());
+    if (gap > 14) return { kg: kgRound(L.kg * 0.9), why: 'Nach ' + gap + ' Tagen Pause 10 % leichter' };
     var top = Math.min.apply(null, L.reps) >= hi;
-    return { kg: top ? L.kg + st : L.kg, why: top ? 'Letztes Mal alle Sätze mit ' + hi + ' Wdh., deshalb +' + String(st).replace('.', ',') + ' kg' : 'Wie letztes Mal, bis alle Sätze ' + hi + ' Wdh. schaffen' };
+    if (kgStallN(H, hi)) return { kg: kgRound(L.kg * 0.9), why: '3-mal gleich ohne mehr Wdh.: 10 % leichter und neu aufbauen' };
+    if (top && curPhase().deload) return { kg: L.kg, why: 'Entlastung: das Gewicht bleibt' };
+    if (top && kgUpHere(H)) return { kg: L.kg, why: 'Diesen Durchgang schon gesteigert, mehr im nächsten' };
+    if (top) return { kg: L.kg + st, why: 'Letztes Mal alle Sätze mit ' + hi + ' Wdh., deshalb ' + kgPlus(st) };
+    return { kg: L.kg, why: 'Wie letztes Mal, bis alle Sätze ' + hi + ' Wdh. schaffen' };
   }
   var rm = rmOf(id);
   if (rm) return { kg: kgRound(rm.cur.e1 / (1 + (lo + rir) / 30)), why: 'Aus deinem 1RM (' + fmtKg(rm.cur.e1, id) + ')' };
   return null;
 }
-// Empfehlung Metcon: wie zuletzt im Metcon, sonst rund die Hälfte des 1RM (bei mehr als 10 Wdh. 40 %).
-function lastKgM(id) {
-  for (var i = LOGS.length - 1; i >= 0; i--) { var m = LOGS[i].metcon; if (m && m.kg) for (var j = 0; j < m.kg.length; j++) if (m.kg[j].ue === id && m.kg[j].kg) return m.kg[j].kg; }
-  return null;
+// Gewichtsübungen steigen über kg. Die Stufe wechselt nur an diesen Übergängen (Kurzhantel/Kettlebell → Langhantel,
+// leichtere → schwerere Hebe-Variante), wenn das 1RM der Stufe dieses Vielfache vom Körpergewicht erreicht.
+var KG_UP = { g_goblet_squat: 0.4, g_front_squat: 1, g_kb_deadlift: 0.6, g_rdl: 0.8, g_db_press: 0.25, g_db_clean_jerk: 0.25,
+  g_hang_power_clean: 0.6, g_power_clean: 0.8, g_squat_clean: 0.9, g_overhead_squat: 0.5, g_hang_power_snatch: 0.5, g_power_snatch: 0.6 };
+// CrossFit-Standardgewicht (Rx, Männer) als Ziel im Metcon.
+var RX = { g_thruster: 43, g_push_press: 43, g_push_jerk: 52, g_split_jerk: 52, g_strict_press: 43, g_deadlift: 102, g_rdl: 61, g_sdhp: 34, g_back_squat: 61, g_front_squat: 61,
+  g_overhead_squat: 43, g_goblet_squat: 24, g_kb_deadlift: 32, g_kb_clean: 24, g_kb_snatch: 24, g_db_snatch: 22.5, g_db_clean_jerk: 22.5, g_devil_press: 22.5, g_db_press: 22.5,
+  g_db_row: 22.5, g_floor_press: 22.5, g_hang_power_clean: 61, g_power_clean: 61, g_squat_clean: 61, g_clean_and_jerk: 61, g_hang_power_snatch: 43, g_power_snatch: 43, g_squat_snatch: 43,
+  g_barbell_row: 61, g_bench_press: 61 };
+// Kettlebells gibt es in 4-kg-Schritten, alles andere in 2,5 kg.
+function kgStepM(id) { return /_kb_|^g_kb/.test(id) ? 4 : 2.5; }
+function kgRoundM(v, id) { var s = kgStepM(id); return Math.max(s === 4 ? 8 : 0, Math.floor(v / s + 1e-9) * s); }
+// Verlauf im Metcon: Gewicht, Übungen, Dauer und Ergebnis.
+function kgHistM(id) {
+  var out = [];
+  LOGS.forEach(function (l) { var m = l.metcon; if (m && m.kg) m.kg.forEach(function (x) { if (x.ue === id && x.kg) out.push({ date: l.date, ts: l.ts || 0, dg: l.durchgang, kg: x.kg, items: (m.items || []).join('|') + '@' + (m.min || ''), score: m.rounds != null ? m.rounds * 1000 + (m.reps || 0) : null }); }); });
+  return out.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts; });
 }
+// Empfehlung Metcon: Ziel ist das Rx-Gewicht. Mehr geschafft als beim letzten Mal mit denselben Übungen
+// (oder ohne Vergleich zweimal mit diesem Gewicht) → ein Schritt Richtung Rx. Sonst gleich. Start: 50 % 1RM bzw. 60 % Rx.
 function kgRecM(id, reps) {
-  var l = lastKgM(id); if (l) return { kg: l, why: 'Wie letztes Mal im Metcon' };
+  var H = kgHistM(id), L = H[H.length - 1], rx = RX[id] || null, st = kgStepM(id);
+  if (L) {
+    var gap = daysBetween(parseISO(L.date), new Date());
+    if (gap > 14) return { kg: kgRoundM(L.kg * 0.9, id), why: 'Nach ' + gap + ' Tagen Pause 10 % leichter', rx: rx };
+    if (rx && L.kg >= rx) return { kg: L.kg, why: 'Rx-Gewicht erreicht', rx: rx };
+    var P = null; for (var i = H.length - 2; i >= 0; i--) if (H[i].items === L.items) { P = H[i]; break; }
+    var better = P && L.score != null && P.score != null && L.score > P.score, twice = !P && H.length >= 2 && H[H.length - 2].kg === L.kg;
+    var hold = curPhase().deload || H.some(function (h, j) { return j && h.dg === S.durchgang && h.kg > H[j - 1].kg; });
+    if ((better || twice) && !hold) { var nk = rx ? Math.min(rx, L.kg + st) : L.kg + st; return { kg: nk, why: (better ? 'Letztes Mal mehr geschafft als davor' : 'Zweimal mit diesem Gewicht') + ', deshalb ' + kgPlus(nk - L.kg), rx: rx }; }
+    return { kg: L.kg, why: P && !better ? 'Wie letztes Mal, erst mehr Runden schaffen' : 'Wie letztes Mal', rx: rx };
+  }
   var rm = rmOf(id), p = reps > 10 ? 40 : 50;
-  if (rm) return { kg: kgRound(rm.cur.e1 * p / 100), why: 'Etwa ' + p + ' % deines 1RM' };
+  if (rm) return { kg: kgRoundM(Math.min(rx || 1e9, rm.cur.e1 * p / 100), id), why: 'Etwa ' + p + ' % deines 1RM', rx: rx };
+  if (rx) return { kg: kgRoundM(rx * 0.6, id), why: 'Start mit 60 % vom Rx-Gewicht', rx: rx };
   return null;
 }
 // Neuer Bestwert schon während des Trainings: Meldung mit Vibration, einmal je Übung und Wert.
@@ -3838,11 +3880,20 @@ function coachStage(key, hi) {
     return bi ? { idx: bi, kl: kl } : null;
   }
   var last = h[h.length - 1], cur = last.idx, out = { idx: cur, kl: kl }, gap = daysBetween(parseISO(last.date), new Date());
-  if (gap > SEHNE_PAUSE[kl]) { if (cur > 1) { out.idx = cur - 1; out.down = gap; } return out; }
+  var cu = lad.lib && lad.lib.stufen && lad.lib.stufen[cur - 1], isKg = !!(cu && UE[cu.uebung] && UE[cu.uebung].einheit === 'kg');
+  // Nach einer Pause eine Stufe leichter; mit Gewicht bleibt die Übung und das Gewicht sinkt (kgRec).
+  if (gap > SEHNE_PAUSE[kl] && !isKg) { if (cur > 1) { out.idx = cur - 1; out.down = gap; } return out; }
   var i = h.length - 1; while (i > 0 && h[i - 1].idx === cur) i--;
   var upHere = i > 0 && h[i - 1].idx < cur && h[i].dg === S.durchgang;
   var full = h.slice(i).filter(function (e) { return e.reps.length; }).slice(-2);
   var ok = full.length === 2 && full.every(function (e) { var r = e.reps.filter(function (v) { return typeof v === 'number'; }); return r.length >= 2 && Math.min.apply(null, r) >= top; });
+  // Gewichtsübung: Fortschritt über kg. Die Stufe wechselt nur an festen Übergängen (KG_UP), wenn das 1RM reicht.
+  if (isKg) {
+    var gate = KG_UP[cu.uebung]; if (!gate || cur >= lad.steps.length) return out;
+    var rm = rmOf(cu.uebung), need = S.weight ? Math.ceil(gate * S.weight / 2.5) * 2.5 : null;
+    if (!need || !rm || rm.best.e1 < need) { out.kgGate = { ue: cu.uebung, need: need, next: lad.steps[cur] }; return out; }
+    ok = true;
+  }
   if (!ok || cur >= lad.steps.length) return out;
   var nx = lad.lib && lad.lib.stufen && lad.lib.stufen[cur], have = haveEq(trainOrt());
   if (nx && !eqOk(nx.equipment, have)) { out.wait = { why: 'geraet', miss: eqMissing(nx.equipment, have) }; return out; }
@@ -3859,6 +3910,7 @@ function brakeNote(name, cs) {
   var lad = ladFor(name), st = lad ? stageText(lad.steps[cs.idx - 1]) : '';
   if (cs.up) return esc(name) + ': heute die nächste Stufe, „' + esc(st) + '“. Wdh. wieder am unteren Ende.';
   if (cs.down) return esc(name) + ': nach ' + cs.down + ' Tagen Pause eine Stufe leichter, „' + esc(st) + '“.';
+  if (cs.kgGate) return cs.kgGate.need ? esc(stageText(cs.kgGate.next)) + ' kommt, sobald dein 1RM hier ' + esc(fmtKg(cs.kgGate.need, cs.kgGate.ue)) + ' erreicht. Bis dahin steigt das Gewicht.' : 'Trag dein Körpergewicht ein (Einstellungen › Profil), dann sagt dir der Coach, ab wann ' + esc(stageText(cs.kgGate.next)) + ' kommt.';
   if (!cs.wait) return '';
   if (cs.wait.why === 'sehne') return esc(name) + ': Wdh. geschafft. Sehnen brauchen länger als Muskeln, nächste Stufe ab ' + shortDate(cs.wait.date).replace(/\.$/, '') + '. Bis dahin 3 s absenken, unten 1 s Pause.';
   if (cs.wait.why === 'geraet') return esc(name) + ': Wdh. geschafft. Für die nächste Stufe fehlt hier ' + esc(cs.wait.miss || 'ein Gerät') + '.';
@@ -4404,11 +4456,16 @@ function kraftStepHTML(tag, D, rounds) {
     var g = GL[x.n], lad = ladFor(x.n), last = lastFor(x.n), base = S.base[x.n], sf = 'k' + i + 'stage';
     var cs = lad ? coachStage(g.key, x.hi) : null, bn = brakeNote(x.n, cs), cmax = cs ? cs.idx : null;
     var stage = D[sf] != null ? D[sf] : stageDef(x.n, x.hi), hint = '';
-    if (last) hint = 'Letztes Mal: ' + (last.stage ? esc(last.stage) + ', ' : '') + last.reps.filter(function (v) { return v != null; }).join(' / ') + (bn ? '' : esc(suggest(x, last)));
+    var K = kgOfEx(x, i, stage, D, rounds), kid = K ? K.id : null, rec = K ? K.rec : null;
+    // Mit Gewicht steht das Letzte Mal als „Wdh. × kg“; die Steigerung sagt die Empfehlung.
+    if (last) {
+      var lk = kid && last.kg ? last.kg.filter(function (w, r) { return w != null && last.reps[r] != null; }) : [], same = lk.length && lk.every(function (w) { return w === lk[0]; });
+      hint = 'Letztes Mal: ' + (last.stage ? esc(last.stage) + ', ' : '') + last.reps.map(function (v, r) { return v == null ? null : v + (lk.length && !same && last.kg[r] ? ' × ' + esc(fmtKg(last.kg[r], kid)) : ''); }).filter(function (v) { return v != null; }).join(' / ') +
+        (same ? ' × ' + esc(fmtKg(lk[0], kid)) : '') + (bn || kid ? '' : esc(suggest(x, last)));
+    }
     if (bn) hint += (hint ? '<br>' : '') + bn;
     else if (base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
     // Übung mit Gewicht: Empfehlung oben, je Satz Gewicht und Wdh. im selben Rad.
-    var K = kgOfEx(x, i, stage, D, rounds), kid = K ? K.id : null, rec = K ? K.rec : null;
     var cells = '';
     for (var r = 0; r < rounds; r++) {
       var f = 'k' + i + 'r' + r, v = D[f], minute = r * n + i + 1, mx = test && r === 0 && (d.maxout === 'all' || d.maxout === i), lab = sets ? 'Satz ' + (r + 1) : 'Min ' + minute;
@@ -4448,7 +4505,7 @@ function metconStepHTML(tag, D, am) {
   d.metcon.forEach(function (m, i) {
     var k = mKg(tag, m, i, D); if (!k) return;
     h += '<button type="button" class="st-row kg-row" ' + pickAttrs({ only: 'kg', kg: 'm' + i + 'kg', kgdef: k.kg, kgid: k.id, title: m.n + ' · Gewicht' }) + '><span><span class="muted">' + esc(m.n) + '</span> <b>' + (k.kg != null ? esc(fmtKg(k.kg, k.id)) : 'wählen') + '</b>' +
-      (k.set ? '' : '<br><span class="small muted">' + esc(k.rec ? 'Empfohlen · ' + k.rec.why : 'Leicht starten, die Runden sollen flüssig laufen') + '</span>') + '</span>' + CHEV + '</button>';
+      '<br><span class="small muted">' + esc((k.set ? (k.rec ? 'Empfohlen ' + fmtKg(k.rec.kg, k.id) : '') : k.rec ? 'Empfohlen · ' + k.rec.why : 'Leicht starten, die Runden sollen flüssig laufen') + (k.rec && k.rec.rx ? ' · Ziel (Rx) ' + fmtKg(k.rec.rx, k.id) : '')) + '</span>' + '</span>' + CHEV + '</button>';
   });
   var lm = null;
   for (var i = LOGS.length - 1; i >= 0; i--) {
@@ -6146,6 +6203,9 @@ function stallOf(key) {
       if (r.length) hist.push({ stage: k.stage || '', sum: r.reduce(function (a, b) { return a + b; }, 0) });
     });
   }
+  // Gewichtsübung: erst 10 % leichter neu aufbauen (kgRec). Bleibt es danach wieder stehen, wechselt der Coach.
+  var lad = LAD[key], cs0 = coachStage(key), cu = lad && lad.lib && cs0 ? lad.lib.stufen[cs0.idx - 1] : null;
+  if (cu && UE[cu.uebung] && UE[cu.uebung].einheit === 'kg') { var H = kgHist(cu.uebung); var rg1 = rangeOf(lad); return H.length >= 3 && kgStallN(H, rg1 ? rg1.hi : 5) && kgDeloaded(H); }
   if (!(hist.length === 3 && hist.every(function (h) { return h.stage === hist[0].stage; }) && hist[0].sum <= hist[2].sum)) return false;
   // Wdh. am oberen Ende und die Sehnen-Bremse hält die Stufe: das ist kein Stillstand.
   var cs = coachStage(key); return !(cs && (cs.up || cs.wait));
