@@ -756,6 +756,12 @@
       arms: both(function (x) { return { to: add(sh, [-x * 22, 62, 30]), pole: [x * .6, .6, -.2] }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 0], pole: FWD, dir: [0, .28, 1] }; }) }); // Knie leicht gebeugt
   }
+  function forwardFold(p) { // Standing Forward Fold (Beweglichkeits-Check): Knie gestreckt, Arme hängen, Fingerspitzen Richtung Boden
+    var a = 99 + 8 * (1 - Math.cos(p * 2 * Math.PI)) / 2, pc = [0, 228, -30], u = trunkU(a), sh = add(pc, mul(u, 112)); // ausatmen = tiefer
+    return build({ pc: pc, a: a, nod: 18,
+      arms: both(function (x) { return { to: add(sh, [x * 4, 114, 2]), pole: [x * .3, 0, -1], dir: DOWN }; }), // gestreckt, hängt senkrecht
+      legs: both(function (x) { return { to: [x * 20, 392, 0], pole: FWD }; }) }); // Knie gestreckt
+  }
   function pikeStretch(p) { // Langsitz, mit geradem Rücken zu den Füßen
     var a = 64 + sway(p, 4), pc = [0, 372, -10], hi = add(pc, [0, 6, 0]), u = trunkU(a);
     return build({ pc: pc, a: a, nod: 10,
@@ -890,6 +896,7 @@
       g_support_hold: { name: 'Ring Support Hold', pose: support, yaw: 45, dur: 4, floor: false },
       g_shrimp: { name: 'Shrimp Squat', pose: shrimp, yaw: 58, dur: 3.2 },
       g_ragdoll: { name: 'Ragdoll Hang', pose: ragdoll, yaw: 90, dur: 4 },
+      g_forward_fold: { name: 'Standing Forward Fold', pose: forwardFold, yaw: 70, dur: 5 },
       g_pike_stretch: { name: 'Pike Stretch', pose: pikeStretch, yaw: 62, dur: 4 },
       g_jefferson_curl: { name: 'Jefferson Curl', pose: jefferson, yaw: 62, dur: 4, floor: false },
       g_deep_squat: { name: 'Deep Squat Hold', pose: deepSquat, yaw: 40, dur: 4 },

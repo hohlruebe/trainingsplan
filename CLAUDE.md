@@ -88,7 +88,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   das Rx-Gewicht (`RX`). `kgRecM`: mehr geschafft als zuletzt mit denselben Übungen (oder ohne Vergleich zweimal mit dem Gewicht)
   → ein Schritt Richtung Rx (Kettlebell 4 kg, sonst 2,5, `kgStepM`), sonst gleich; Start 50 % 1RM (über 10 Wdh. 40 %) oder 60 % Rx.
 - Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag an Krafttagen: nicht im Ablauf, nach dem letzten Schritt fragt `saveAsk`
-  „Möchtest du noch ein Cool-down?“ (Ja = Schritt `coolStep` kommt dazu, Entwurf `_cd` '1'/'0'; `S.cooldown` wird nicht mehr genutzt, `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
+  „Möchtest du noch ein Cool-down?“ (Ja = Schritt `coolStep` kommt dazu, Entwurf `_cd` '1'/'0'; `S.cooldown` wird nicht mehr genutzt, `log.cool`), auf Lauftagen (Laufen und Ergometer) ebenfalls als Frage beim Speichern (`saveAsk`): Ja speichert den Lauf und öffnet das Cool-down im Player, keine Karte mehr in der Übersicht. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
@@ -98,6 +98,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Eingabe am Testtag: Kachel „Stufe“ (Rad) und darunter Zähler „Wiederholungen“ bzw. „Bestzeit“ in 5-s-Schritten (`ACT['t-rep']`, `.t-rep`).
   Beweglichkeits-Check: Tests mit Haltezeit im Stufennamen (Hocke, Schulter) haben eine Stoppuhr in der Karte (`mcSwHTML`, `MCSW`,
   `ACT['mc-sw']`): Zeit groß, Ziel der gewählten Stufe als Chip (`mcGoal`), beim Erreichen `cue(true)` und grüner Chip.
+  Tests mit fester Position zeigen immer dieselbe Figur (`MC_FIG`, Vorbeuge = `g_forward_fold`, stehend mit gestreckten Knien).
   Angezeigte Stufennamen über `STAGE_LABEL` in `stageText` (z. B. „Am Türrahmen“ → „Mit Halt (Ringe oder Türrahmen)“), gespeichert
   bleibt der alte Name. Übungen „je Seite“: Hinweis „Schwache Seite zuerst, sie zählt“ an der Kraft-Karte. Pistol mit Halt und Ringen
   am Ort bekommt die Ringhöhe (`ringNotes`).

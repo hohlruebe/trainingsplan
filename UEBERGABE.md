@@ -42,6 +42,9 @@ Stand: 6. Oktober 2026 (One Rep Max und Gewicht im Training)
   Anzeige „Mit Halt (Ringe oder Türrahmen)“. Links/rechts nicht getrennt eintragen: schwache Seite zuerst, sie zählt.
 - Dennis: Beweglichkeits-Check braucht eine Uhr für Haltepositionen. Stoppuhr mit Ziel aus der Stufe eingebaut.
 - Dennis: Am Lauftag auf dem Ergometer fehlte die Wattzahl (Widerstand magnetisch einstellbar). Ziel-Watt eingebaut.
+- Dennis: Cool-down auch an Lauftagen (Laufen und Ergometer) als Frage nach dem Training, nicht in der Übersicht. Umgesetzt.
+- Dennis: Im Check zeigte der Standing Forward Fold eine sitzende Figur (Pike Stretch). Neue Figur `g_forward_fold` (stehend,
+  Knie gestreckt, Fingerspitzen Richtung Boden), `pruefen.js` geprüft.
 - Offen (vorgeschlagen): Pistol länger mit Halt in voller Tiefe statt „Auf Stuhl absitzen“, wenn der Check Sprunggelenk/Hocke schwach zeigt.
 
 ## Pausen-Timer auf den Testtagen, Sync je Feld (6. Oktober)
