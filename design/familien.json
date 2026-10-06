@@ -376,8 +376,8 @@
       ],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_pistol_assisted", "art": "stufe", "rang": 1, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Halt am Türrahmen oder an Ringen." },
-        { "uebung": "g_pistol_box", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Absitzen auf einen Stuhl begrenzt die Tiefe." },
+        { "uebung": "g_pistol_box", "art": "stufe", "rang": 1, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Absitzen auf einen Stuhl begrenzt die Tiefe, leichtester Einstieg." },
+        { "uebung": "g_pistol_assisted", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Halt an Ringen oder Türrahmen in voller Tiefe." },
         { "uebung": "g_pistol", "art": "stufe", "rang": 3, "effekt": 86, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Freie einbeinige Kniebeuge." },
         { "uebung": "g_shrimp", "art": "variante", "rang": null, "effekt": 82, "grund": "Freie Einbeinkniebeuge mit Bein hinten, mehr Quadrizeps; auch Ziel der BSS-Leiter.", "auch_in": ["f_split_squat"] },
         { "uebung": "g_cossack", "art": "variante", "rang": null, "effekt": 66, "grund": "Seitliche Kniebeuge, mehr Adduktoren und Mobilität." }

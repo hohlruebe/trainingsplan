@@ -13,7 +13,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
   - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 265 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
-    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
+    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahme mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; dann plan-data, lib-data und fam-data gleich halten).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 48 Familien,
     jede Übung (ohne Mobility) genau einmal; je Variante `art` (`stufe` mit `rang` und `ziel`, `variante`, `tempo` mit `vermerk`),
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
@@ -151,7 +151,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   pro Schritt; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
   Im Training (Schritt-Seiten) ist die Reiterleiste ausgeblendet (`body.focus`); oben rechts ein kleines X (`ACT.quit`)
   fragt nach: Zwischenspeichern (weiter beim Schritt), Training abbrechen (Entwurf weg) oder Weiter trainieren.
-  Lauftage haben keine Schritte und keinen Timer, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
+  Lauftage haben keine Schritte, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
+  Laufen: vor jedem Lauf das Lauf-ABC (`laufAbcHTML`, `LAUF_ABC`, immer gleich, keine Ansagen), abschaltbar unter Einstellungen ›
+  Training › Laufen (`S.laufAbc`, nur auf dem Gerät). Ergometer am Lauftag = Schritt-Tag wie ein Krafttag (`stepsOf`): Übersicht mit
+  Umschalter (`runSegHTML`), Ziel-Watt und „Training starten“, Schritt 1 `ewarm` Einfahren (Stufen 50/70/85 % bzw. 3 Min 60 %, vor
+  Intervallen 3 × 10 s schnell), Schritt 2 `ergo` Hauptteil (Intervalle/Pause bzw. Ziel-Watt, ausfahren) mit Ergebnis und Speichern.
+  Timer-Art `seq` (`ergoSeq` mit `warm`-Kennung, `ergoPart`, `ergoTimer`, Abschnitte mit `watt`), Vollbild zeigt Watt groß.
+  Krafttage mit Lauf (nur Schwerpunkt Laufen, Tag 1 und 4): Schritt `run` mit der ganzen Einheit als Timer.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).
 - Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
   Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
@@ -207,6 +213,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   In `S.orte` je `{id, k, on, eq, zh}`; angezeigt werden nur eingeschaltete (`on`), mindestens einer bleibt an.
   Einschalten, Umbenennen und Symbol über Tools › Übungen › Stift › „Orte wählen“ (`ACT.orte`). Früher frei benannte Orte
   ordnet `ensureOrte()` einem festen Ort zu (IDs, Geräte und `S.picks` bleiben). Auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
+  Laufstrecke (`eq_laufstrecke`) ist ein Gerät je Ort: nur damit kommt „Run“ (200/400 m) in den Metcon. Einmalig angekreuzt bei Gym,
+  Park und Unterwegs (Kennung `lf` je Ort).
   Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
   Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
   eine Leiter mit mehr Nutzen übernimmt der Coach selbst (`S.pickSkip` wird nicht mehr genutzt).
