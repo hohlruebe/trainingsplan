@@ -802,6 +802,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-sub{font-size:28px;font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums}
 .fs-hint{margin:0;font-size:13px;color:var(--ink2)}
 .fs-exn{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.fs-kg{margin:2px 0 4px;font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:var(--acc)}
 .fs-ex{display:flex;align-items:center;gap:12px}
 .fs-ex>div:last-child{min-width:0}
 .fs-ex .chip{margin-top:6px;white-space:normal;display:inline-block}
@@ -5161,8 +5162,14 @@ function fsFlowHTML(F) {
   }).join('') + '</div>';
   return h;
 }
+// Kraftteil im Vollbild: Gewicht des Satzes groß, damit man zwischen den Sätzen umbauen kann.
+function fsKg(ex, r) {
+  var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
+  var D = dr(S.tag), stage = D['k' + ex + 'stage'] != null ? D['k' + ex + 'stage'] : stageDef(x.n, x.hi), K = kgOfEx(x, ex, stage, D, kraftRounds(S.tag));
+  return { n: x.n, kg: K && K.kg[r] != null ? fmtKg(K.kg[r], K.id) : '' };
+}
 function fsSide(L) {
-  var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx;
+  var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx, k0, k1;
   if (TM.finished && !c.step) return { k: 'fin' + TM.rounds, h: '<p class="fs-lbl">Fertig</p><div class="fs-big">' + (TM.mode === 'amrap' || TM.mode === 'zeit' ? TM.rounds + '<small> Runden</small>' : 'Stark') + '</div><button type="button" class="btn primary block" data-act="fs-min">Fertig</button>' };
   if (c.step && ((t === 'metcon' && TM.mode === 'amrap') || t === 'murph')) {
     var F = flowById(t), s = flowState(F);
@@ -5171,7 +5178,15 @@ function fsSide(L) {
   if (TM.mode === 'emom' && c.stations) {
     var nm = c.stations[mi % c.stations.length], g = GL[nm], nn = mi + 1 < c.minutes ? c.stations[(mi + 1) % c.stations.length] : '';
     return { k: 'em' + mi + (L && L.p.kind === 'pre' ? 'p' : ''), h: '<div class="fs-ex">' + '<div class="fs-fig">' + figHTML(g && figOf(g.key) ? g.key : '_wave') + '</div>' + '<div><p class="fs-lbl">' + (L && L.p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(nm) + '</p>' +
-      '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' };
+      (t === 'kraft' && (k0 = fsKg(mi % c.stations.length, Math.floor(mi / c.stations.length))) && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
+      '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + (t === 'kraft' && (k1 = fsKg((mi + 1) % c.stations.length, Math.floor((mi + 1) / c.stations.length))) && k1.kg ? ', ' + esc(k1.kg) : '') + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' };
+  }
+  if (TM.mode === 'hiit' && t === 'kraft' && c.rounds) {
+    // Sätze: alle Sätze einer Übung, dann die nächste. In der Pause steht schon der nächste Satz da.
+    var w = L ? TM.phases.slice(1, L.i + 1).filter(function (x) { return x.kind === 'work'; }).length - 1 : -1, work = L && L.p.kind === 'work', si = work ? w : w + 1;
+    var nr = kraftRounds(S.tag), ks = si < c.rounds ? fsKg(Math.floor(si / nr), si % nr) : null;
+    if (!ks) return { k: 'kf', h: '<p class="fs-lbl">Fertig</p><div class="fs-big">Stark</div>' };
+    return { k: 'ks' + si + (work ? 'w' : 'r'), h: '<p class="fs-lbl">' + (work ? 'Jetzt' : 'Als Nächstes') + '</p><p class="fs-exn">' + esc(ks.n) + '</p>' + (ks.kg ? '<p class="fs-kg">' + esc(ks.kg) + '</p>' : '') + '<p class="fs-hint">Satz ' + (si % nr + 1) + ' von ' + nr + '</p>' };
   }
   if (TM.mode === 'amrap' || TM.mode === 'zeit') return { k: 'rd' + TM.rounds, tap: true, h: '<p class="fs-lbl">Runden</p>' + fsStepper(TM.rounds, 't-round') + '<p class="fs-hint">oder hier irgendwo tippen</p>' };
   if (TM.mode === 'emom') { var n = c.rounds || c.minutes; return { k: 'er' + mi, h: '<p class="fs-lbl">Runde</p><div class="fs-big">' + (mi + 1) + '<small> / ' + n + '</small></div>' }; }
