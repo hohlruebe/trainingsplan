@@ -4727,7 +4727,7 @@ function renderRM() {
   // Alle Übungen mit 1RM: zuerst die mit Werten, dann der Rest, jeweils nach Nutzen.
   var row = function (id) {
     var r = rmOf(id), d = r ? r.cur.e1 - r.best.e1 : 0, big = r ? (best ? r.best : r.cur) : null;
-    var sub = !r ? 'noch kein Wert' : best ? 'am ' + shortDate(r.best.date).replace(/\.$/, '') + (d < 0 ? ' · aktuell ' + fmtKg(r.cur.e1, id) : ' · ist auch aktuell') : sinceText(r.cur.date) + (d < 0 ? ' · Bestwert ' + fmtKg(r.best.e1, id) : ' · ist dein Bestwert');
+    var sub = !r ? 'noch kein Wert' : best ? 'am ' + dateY(r.best.date) + (d < 0 ? ' · aktuell ' + fmtKg(r.cur.e1, id) : ' · ist auch aktuell') : sinceText(r.cur.date) + (d < 0 ? ' · Bestwert ' + fmtKg(r.best.e1, id) : ' · ist dein Bestwert');
     return '<button type="button" class="rm-row" data-act="rm-open" data-v="' + id + '"><span><b>' + esc(UE[id].name) + '</b><small>' + esc(sub) + '</small></span>' +
       '<span class="rm-kg">' + (r ? esc(fmtKg(big.e1, id)) + (best || d >= 0 ? '<small class="gold">★ Bestwert</small>' : '<small class="neg">' + String(d).replace('.', ',') + ' kg zum Bestwert</small>') : '<span class="muted">–</span>') + '</span></button>';
   };
@@ -4738,6 +4738,8 @@ function renderRM() {
   return h;
 }
 ACT['rm-view'] = function (el) { ui.rmBest = !!el.dataset.v; render(); };
+// Datum mit Jahr, z. B. „27. Aug. 2026“ (für Bestwerte).
+function dateY(iso) { return parseISO(iso).toLocaleDateString('de-DE', { day: 'numeric', month: 'short', year: 'numeric' }); }
 function sinceText(iso) { var n = daysBetween(parseISO(iso), parseISO(isoToday())); return n === 0 ? 'heute' : n === 1 ? 'gestern' : n < 14 ? 'vor ' + n + ' Tagen' : 'vor ' + Math.round(n / 7) + ' Wochen'; }
 // Übliche Trainingsbereiche in Prozent vom 1RM (Wdh. ungefähr, mit 1–2 Wdh. Reserve).
 var RM_PCT = [[100, '1', 'Maximalversuch'], [95, '1–2', 'Maximalkraft'], [90, '2–3', 'Maximalkraft'], [85, '4–5', 'Kraft'], [80, '5–6', 'Kraft'],
@@ -4750,7 +4752,7 @@ function rmDetailHTML(id) {
   if (!r) return h + '<section class="card"><p>Noch kein Wert. Trag einen schweren Satz ein (1–10 Wdh.), daraus schätzt die App dein 1RM und rechnet die Trainingsgewichte aus.</p></section>' +
     '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
   h += '<section class="card rm-calc"><div class="rm-base"><span class="small muted">Aktuell, vom ' + esc(fmtDate(base.date)) + '</span><b>' + esc(fmtKg(base.e1, id)).replace(' kg', '<small> kg</small>') + '</b>' +
-    '<span class="rm-bw">★ Bestwert ' + esc(fmtKg(r.best.e1, id)) + (r.best === r.cur ? ' · das ist dein aktueller Wert' : ' · ' + esc(fmtDate(r.best.date))) + '</span>' +
+    '<span class="rm-bw">★ Bestwert ' + esc(fmtKg(r.best.e1, id)) + ' · ' + esc(dateY(r.best.date)) + (r.best === r.cur ? ' · das ist dein aktueller Wert' : '') + '</span>' +
     (rmAdd(id) ? '<span class="small muted">Gezählt wird das Zusatzgewicht (Weste oder Gürtel).</span>' : '') + '</div>' +
     '<div class="rm-pct">' + RM_PCT.map(function (p) {
       var kg = p[0] === 100 ? base.e1 : Math.round(base.e1 * p[0] / 100 / 2.5) * 2.5;
