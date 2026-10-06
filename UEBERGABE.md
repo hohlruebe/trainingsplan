@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 6. Oktober 2026 (One Rep Max und Gewicht im Training)
+Stand: 6. Oktober 2026 (Pistol-Leiter, Check, Ergometer)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -45,7 +45,9 @@ Stand: 6. Oktober 2026 (One Rep Max und Gewicht im Training)
 - Dennis: Cool-down auch an Lauftagen (Laufen und Ergometer) als Frage nach dem Training, nicht in der Übersicht. Umgesetzt.
 - Dennis: Im Check zeigte der Standing Forward Fold eine sitzende Figur (Pike Stretch). Neue Figur `g_forward_fold` (stehend,
   Knie gestreckt, Fingerspitzen Richtung Boden), `pruefen.js` geprüft.
-- Offen (vorgeschlagen): Pistol länger mit Halt in voller Tiefe statt „Auf Stuhl absitzen“, wenn der Check Sprunggelenk/Hocke schwach zeigt.
+- Dennis: Die Pistol-Leiter war falsch sortiert. Jetzt: Auf Stuhl absitzen (Vorstufe) → Mit Halt (Ringe oder Türrahmen, volle Tiefe)
+  → Frei → Weste. Ausnahme von der Regel „Stufen nie umsortieren“ auf Dennis' Wunsch; gespeichert wird der Name, alte Einträge passen weiter.
+  Geändert in plan-data, lib-data, fam-data und `design/familien.json` (Rang, Nutzen 66/70, Testtexte).
 
 ## Pausen-Timer auf den Testtagen, Sync je Feld (6. Oktober)
 - Dennis: Auf den Testseiten die Pause zwischen den Versuchen direkt starten können. Umgesetzt; der Timer springt nicht weiter,

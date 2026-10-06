@@ -13,7 +13,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
   - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 265 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
-    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
+    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahme mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; dann plan-data, lib-data und fam-data gleich halten).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 48 Familien,
     jede Übung (ohne Mobility) genau einmal; je Variante `art` (`stufe` mit `rang` und `ziel`, `variante`, `tempo` mit `vermerk`),
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
