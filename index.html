@@ -489,6 +489,7 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .rm-base{display:flex;flex-direction:column;gap:2px;padding:0 0 12px;margin:0 0 6px;border-bottom:1px solid var(--line)}
 .rm-base b{font-family:var(--head);font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
 .rm-base b small{font-size:20px;font-weight:700}
+.rm-bw{font-size:14px;font-weight:600;color:#B8860B}
 .rm-pct{display:flex;flex-direction:column}
 .rm-p{display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid var(--line)}
 .rm-p:last-child{border-bottom:0}
@@ -4742,16 +4743,14 @@ function sinceText(iso) { var n = daysBetween(parseISO(iso), parseISO(isoToday()
 var RM_PCT = [[100, '1', 'Maximalversuch'], [95, '1–2', 'Maximalkraft'], [90, '2–3', 'Maximalkraft'], [85, '4–5', 'Kraft'], [80, '5–6', 'Kraft'],
   [75, '8', 'Kraft und Muskelaufbau'], [70, '10', 'Muskelaufbau'], [65, '12', 'Muskelaufbau, Technik'], [60, '15', 'Technik, Tempo'], [50, '–', 'Aufwärmen']];
 function rmDetailHTML(id) {
-  var r = rmOf(id), u = UE[id], best = ui.rmBest === true, base = r ? (best ? r.best : r.cur) : null;
+  var r = rmOf(id), u = UE[id], base = r ? r.cur : null;
   ui.noSub = true;
   var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button></div>';
   h += '<section class="hero"><h1>' + esc(u.name) + '</h1><p class="hero-title">Prozent-Rechner</p></section>';
   if (!r) return h + '<section class="card"><p>Noch kein Wert. Trag einen schweren Satz ein (1–10 Wdh.), daraus schätzt die App dein 1RM und rechnet die Trainingsgewichte aus.</p></section>' +
     '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
-  h += '<div class="seg" role="group" aria-label="Grundlage">' + [['', 'Aktuell'], ['1', 'Bestwert']].map(function (o) {
-    var on = !!o[0] === best; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="rm-view" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
-  }).join('') + '</div>';
-  h += '<section class="card rm-calc"><div class="rm-base"><span class="small muted">' + (best ? 'Bestwert vom ' : 'Aktuell, vom ') + esc(fmtDate(base.date)) + '</span><b>' + esc(fmtKg(base.e1, id)).replace(' kg', '<small> kg</small>') + '</b>' +
+  h += '<section class="card rm-calc"><div class="rm-base"><span class="small muted">Aktuell, vom ' + esc(fmtDate(base.date)) + '</span><b>' + esc(fmtKg(base.e1, id)).replace(' kg', '<small> kg</small>') + '</b>' +
+    '<span class="rm-bw">★ Bestwert ' + esc(fmtKg(r.best.e1, id)) + (r.best === r.cur ? ' · das ist dein aktueller Wert' : ' · ' + esc(fmtDate(r.best.date))) + '</span>' +
     (rmAdd(id) ? '<span class="small muted">Gezählt wird das Zusatzgewicht (Weste oder Gürtel).</span>' : '') + '</div>' +
     '<div class="rm-pct">' + RM_PCT.map(function (p) {
       var kg = p[0] === 100 ? base.e1 : Math.round(base.e1 * p[0] / 100 / 2.5) * 2.5;
