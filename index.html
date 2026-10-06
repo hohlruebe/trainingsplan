@@ -4747,10 +4747,11 @@ var RM_PCT = [[100, '1', 'Maximalversuch'], [95, '1–2', 'Maximalkraft'], [90, 
 function rmDetailHTML(id) {
   var r = rmOf(id), u = UE[id], base = r ? r.cur : null;
   ui.noSub = true;
-  var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button></div>';
+  var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button>' +
+    '<button type="button" class="rbtn" data-act="rm-new" data-v="' + id + '" aria-label="Neuen Wert eintragen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>';
   h += '<section class="hero"><h1>' + esc(u.name) + '</h1><p class="hero-title">Prozent-Rechner</p></section>';
   if (!r) return h + '<section class="card"><p>Noch kein Wert. Trag einen schweren Satz ein (1–10 Wdh.), daraus schätzt die App dein 1RM und rechnet die Trainingsgewichte aus.</p></section>' +
-    '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
+    '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">Ersten Wert eintragen</button>';
   h += '<section class="card rm-calc"><div class="rm-base"><span class="small muted">Aktuell, vom ' + esc(fmtDate(base.date)) + '</span><b>' + esc(fmtKg(base.e1, id)).replace(' kg', '<small> kg</small>') + '</b>' +
     '<span class="rm-bw">★ Bestwert ' + esc(fmtKg(r.best.e1, id)) + ' · ' + esc(dateY(r.best.date)) + (r.best === r.cur ? ' · das ist dein aktueller Wert' : '') + '</span>' +
     (rmAdd(id) ? '<span class="small muted">Gezählt wird das Zusatzgewicht (Weste oder Gürtel).</span>' : '') + '</div>' +
@@ -4760,7 +4761,6 @@ function rmDetailHTML(id) {
       var t = (p[0] - 50) / 50, hue = Math.round(140 * (1 - t)), sat = Math.round(55 + 25 * t), lt = Math.round(46 - 8 * t), mx = Math.round(80 - 14 * t);
       return '<div class="rm-p" style="--hue:' + hue + ';--sat:' + sat + '%;--lt:' + lt + '%;--mx:' + mx + '%"><span class="rm-pp">' + p[0] + ' %</span><span class="rm-pt"><b>' + esc(p[2]) + '</b> <small>· ' + (p[1] === '–' ? 'locker' : p[1] + ' Wdh.') + '</small></span><span class="rm-pk">' + esc(fmtKg(kg, id)) + '</span></div>';
     }).join('') + '</div><p class="small muted" style="margin:8px 0 0">Auf 2,5 kg gerundet. Wdh. sind Richtwerte mit 1–2 Wdh. Reserve.</p></section>';
-  h += '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
   if (r.list.length > 1) {
     var vals = r.list.map(function (l) { return l.e1; }), lo = Math.min.apply(null, vals) * 0.95, hi = r.best.e1 * 1.03, n = vals.length;
     var y = function (v) { return (110 - (v - lo) / Math.max(1, hi - lo) * 96).toFixed(1); }, x = function (i) { return (8 + i * 304 / (n - 1)).toFixed(1); };
