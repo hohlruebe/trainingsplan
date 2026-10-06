@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 5. Oktober 2026 (Session anpassen, Coach entscheidet)
+Stand: 6. Oktober 2026 (Sehnen-Bremse)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -25,6 +25,17 @@ Stand: 5. Oktober 2026 (Session anpassen, Coach entscheidet)
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Sehnen-Bremse (6. Oktober)
+- Dennis: Sehnen und Bänder passen sich langsamer an als Muskeln, Steigerungen bewusst verzögern. Nur Programm und Fortschritt
+  entscheiden, nicht der Nutzer. Forschung (Arampatzis/Mersmann: Sehnen 8–12 Wochen und länger, Magnusson/Kjær: 48–72 h Erholung,
+  Nielsen: große Sprünge im Laufumfang riskant) als Grundlage, Zahlen sind vorsichtige Schätzungen.
+- Umgesetzt: Coach setzt die Stufe, Mindestzeit 2/4/6 Wochen je Klasse, 2× volle Wdh., eine Stufe pro Durchgang, keine in der Entlastung,
+  nach Pause eine Stufe leichter, Rad nur nach unten. Laufen: Woche höchstens 1,3 × Schnitt der letzten 4 Wochen.
+- Neu: Table Row und Towel Door Row (Zug mit Alltagsgegenständen, nur mit Häkchen „Alltagsgegenstände“ am Ort).
+- Fehler aus #47 behoben: automatischer Übungswechsel sprang zwischen Stillstand-Wechsel und „mehr Nutzen“ hin und her.
+- #47 wurde wegen einer Störung bei GitHub Pages nicht veröffentlicht (Build nach 15 Min abgebrochen). Der nächste Merge veröffentlicht neu.
+- Offen: Klassen je Leiter mit Dennis prüfen. Intervalle steigen weiter nach festem Plan (`changeIv`), ggf. später auch bremsen.
+
 ## Session anpassen, Coach entscheidet (5. Oktober)
 - Dennis: Der Nutzer soll nicht über sein Training entscheiden, nur Programm und Fortschritt. Deshalb:
   Kurzversion-Karte weg, statt dessen grauer Link „Session anpassen“ (Blatt wie in einer anderen App: „Sag deinem Coach …“).
@@ -35,10 +46,6 @@ Stand: 5. Oktober 2026 (Session anpassen, Coach entscheidet)
   „Neu freigeschaltet“ steht nur bis zur ersten Einheit mit der Übung, zusammen mit „Als Nächstes freischalten“ unter dem Start.
 - Karte „Wo trainierst du heute?“ weg (Ort kommt aus Tools › Übungen). Tipps-Karte auf Krafttagen weg, Hinweise am Schritt.
 - Ohne Gerät keine Übung mit diesem Gerät: Ersatz ohne das Gerät. Ringhöhe nur bei Ring-Übungen und relativ zum Körper.
-- Offen: Für Zug gibt es keine Übung ganz ohne Gerät (Table Row, Towel Door Row wären Kandidaten). Dennis noch fragen.
-- Nächster PR (Dennis): Sehnen und Bänder passen sich langsamer an als Muskeln. Manche Steigerungen bewusst verzögern
-  (z. B. Mindestzahl Einheiten je Stufe, Sperre für Sprünge über mehrere Stufen, bei Ringen/Handstand/Planche/Lever länger),
-  um Verletzungen zu vermeiden. Erst Konzept zeigen.
 
 ## Plan-Seite neu (5. Oktober)
 - Dennis mochte die alte Textseite mit Akkordeons nicht. Freigegeben (Canvas „Plan in der App“): Überblick mit Woche zum Durchblättern,
