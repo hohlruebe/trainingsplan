@@ -213,6 +213,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   In `S.orte` je `{id, k, on, eq, zh}`; angezeigt werden nur eingeschaltete (`on`), mindestens einer bleibt an.
   Einschalten, Umbenennen und Symbol über Tools › Übungen › Stift › „Orte wählen“ (`ACT.orte`). Früher frei benannte Orte
   ordnet `ensureOrte()` einem festen Ort zu (IDs, Geräte und `S.picks` bleiben). Auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
+  Laufstrecke (`eq_laufstrecke`) ist ein Gerät je Ort: nur damit kommt „Run“ (200/400 m) in den Metcon. Einmalig angekreuzt bei Gym,
+  Park und Unterwegs (Kennung `lf` je Ort).
   Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
   Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
   eine Leiter mit mehr Nutzen übernimmt der Coach selbst (`S.pickSkip` wird nicht mehr genutzt).
