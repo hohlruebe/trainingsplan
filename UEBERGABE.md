@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 6. Oktober 2026 (Testtag-Eingabe)
+Stand: 6. Oktober 2026 (Desktop-Ansicht)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,13 @@ Stand: 6. Oktober 2026 (Testtag-Eingabe)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Desktop-Ansicht (6. Oktober)
+- Dennis trainiert zu Hause oft mit dem Mac (Chrome). Gleicher Link, erkennt Desktop selbst, manuell umstellbar. Alles auf einmal gebaut:
+  Seitenleiste, Heute zweispaltig, Training mit großem Timer rechts (aus 2–3 m lesbar, keine Übergröße), Tastenkürzel, Übungen
+  Liste + Familie, Blätter als Fenster. Sync am Mac: in den Einstellungen dieselben GitHub-Daten eintragen.
+- Dennis: Zeitangabe in der aufgeklappten Übung klebte an der Ecke („nicht premium“) → mehr Innenabstand, gilt auch am Handy.
+- Offen: Lesbarkeit aus 2–3 m am echten Mac prüfen lassen.
 
 ## Testtag-Eingabe (6. Oktober)
 - Dennis: Auf dem Testtag fragte „Geschafft“ noch einmal das Band ab, obwohl die Kachel „Stufe“ das schon tut.

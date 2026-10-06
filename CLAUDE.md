@@ -29,6 +29,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Unterseiten über den Titel: Pfeil neben dem Titel, Tippen (oder nochmal auf den Reiter) öffnet ein Drop-down mit Symbol je Seite,
   aktuelle blau mit Haken (`subTitle`, `SUB_IC`, `ui.subOpen`, `GROUPS` im Skript). Keine Kapsel oben mehr; Scrollen oder daneben tippen schließt. Einstellungen und Sync sind eine
   versteckte Seite `einst` (Regler-Symbol oben rechts im Profil, `HIDDEN` im Skript).
+- Desktop-Ansicht (`deskOn`, Klasse `html.desk`): automatisch ab 1024 px mit Maus/Trackpad (`MQ_DESK`), oder fest über Einstellungen ›
+  Gerät › Ansicht Automatisch/Handy/Desktop (`S.layout`, nur auf dem Gerät, nicht in `SYNC_KEYS`). Seitenleiste links (`#side`, `sideHTML`,
+  `SIDE`) statt Reiter-Kapsel und Titel-Drop-down. Heute in zwei Spalten (`.dk2`: Ablauf/Start links, Block, Fortschritt und
+  `weekCardHTML` rechts). Training ohne Seitenleiste (`body.focus`), Inhalt etwas größer (`zoom`), rechts `.dk-side` mit großem Timer
+  (`#tbar` als Karte, Zeit im Ring, aus 2–3 m lesbar) und Ablauf (`.dk-steps`). Tastenkürzel: Leertaste Timer, → Erledigt/Weiter,
+  ← Zurück, F Vollbild. Übungen: Liste links, Familie rechts (`.dk-lib`). Blätter als Fenster in der Mitte. Am Handy ändert sich nichts.
 - Profil: Kopfkarte mit rundem Foto, Fortschrittsring (Gesamtwert 0–99), Stufe Bronze/Silber/Gold/Platin,
   Name und „Diese Woche“. Darunter eine Kapsel wie die Reiterleiste (nur die aktive Ansicht zeigt ihren Namen):
   Erfolge, Verlauf, Werte (`PVIEWS`). Orte und Equipment liegen in Tools › Übungen.
