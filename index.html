@@ -2068,7 +2068,7 @@ var TEST_BASE = {
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
-  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
+  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -2180,8 +2180,10 @@ var DB = { ready: false, stateRef: null, logsCol: null, q: Promise.resolve() };
 function enqueue(fn) { DB.q = DB.q.then(fn).catch(function () { /* stays on device */ }); return DB.q; }
 function plain(o) { return JSON.parse(JSON.stringify(o)); }
 function saveState() {
-  var tp = JSON.stringify(trainPart(S));
-  if (tp !== lastTrain) { lastTrain = tp; S.standTs = Date.now(); markDirty(); }
+  // Zeitstempel je Feld: nur was sich geändert hat, bekommt die neue Zeit (Abgleich Feld für Feld).
+  var snap = feldSnap(), now = Date.now(), ch = false;
+  SYNC_KEYS.forEach(function (k) { if (snap[k] !== lastFeld[k]) { S.feldTs[k] = now; ch = true; } });
+  if (ch) { lastFeld = snap; S.standTs = now; markDirty(); }
   LS.set('tp.state', S);
   if (DB.ready) { var data = plain(S); enqueue(function () { return DB.stateRef.set(data); }); }
 }
@@ -2225,7 +2227,7 @@ function initDb() {
 }
 
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = PWA ? LS.get('tp.sync', null) : null;
@@ -2233,7 +2235,13 @@ var syncState = { status: SY ? 'idle' : 'off', msg: '' };
 var syncT = null, syncBusy = false, syncAgain = false;
 function trainPart(s) { var o = {}; SYNC_KEYS.forEach(function (k) { o[k] = s[k] === undefined ? null : s[k]; }); return o; }
 if (S.started && !S.standTs) S.standTs = 1;
-var lastTrain = JSON.stringify(trainPart(S));
+function feldSnap() { var o = {}; SYNC_KEYS.forEach(function (k) { o[k] = JSON.stringify(S[k] === undefined ? null : S[k]); }); return o; }
+// Ältere Stände ohne Zeit je Feld: alle Felder bekommen die Zeit des ganzen Stands.
+if (!S.feldTs || typeof S.feldTs !== 'object') S.feldTs = {};
+SYNC_KEYS.forEach(function (k) { if (S.feldTs[k] == null) S.feldTs[k] = S.standTs || 0; });
+var lastFeld = feldSnap();
+// Profilfoto: eigener Schlüssel (tp.foto) mit eigener Zeit (tp.fotoTs), wird mit abgeglichen.
+function setFoto(data) { LS.set('tp.foto', data); LS.set('tp.fotoTs', Date.now()); markDirty(); }
 function markDirty() { if (!SY) return; SY.dirty = true; LS.set('tp.sync', SY); syncSoon(); }
 function syncSoon(ms) { if (!SY) return; clearTimeout(syncT); syncT = setTimeout(runSync, ms == null ? 1500 : ms); }
 function setSync(status, msg) { syncState = { status: status, msg: msg || '' }; if (ui.tab === 'profil' || ui.tab === 'einst' || ui.tab === 'heute') scheduleRender(); }
@@ -2266,7 +2274,9 @@ function ghPut(doc, sha) {
 function localDoc() {
   var logs = LOGS.slice().sort(function (a, b) { return (a.ts || 0) - (b.ts || 0) || String(a.id).localeCompare(String(b.id)); });
   var del = {}; Object.keys(DELETED).sort().forEach(function (k) { del[k] = DELETED[k]; });
-  return { app: 'trainingsplan', v: 1, standTs: S.standTs || 0, stand: trainPart(S), einheiten: logs, geloescht: del };
+  var doc = { app: 'trainingsplan', v: 1, standTs: S.standTs || 0, stand: trainPart(S), einheiten: logs, geloescht: del, feldTs: S.feldTs };
+  var ft = LS.get('tp.fotoTs', 0); if (ft) doc.foto = { ts: ft, data: LS.get('tp.foto', null) };
+  return doc;
 }
 function mergeRemote(r) {
   if (!r || r.app !== 'trainingsplan') return false;
@@ -2276,10 +2286,17 @@ function mergeRemote(r) {
   LOGS = LOGS.filter(function (l) { if (DELETED[l.id]) { changed = true; return false; } have[l.id] = true; return true; });
   (r.einheiten || []).forEach(function (l) { if (l && l.id && !have[l.id] && !DELETED[l.id]) { LOGS.push(l); have[l.id] = true; changed = true; } });
   if (changed) LOGS.sort(function (a, b) { return (a.ts || 0) - (b.ts || 0); });
-  if ((r.standTs || 0) > (S.standTs || 0) && r.stand) {
-    SYNC_KEYS.forEach(function (k) { if (Object.prototype.hasOwnProperty.call(r.stand, k)) S[k] = r.stand[k]; });
-    ensureOrte(); S.standTs = r.standTs; lastTrain = JSON.stringify(trainPart(S)); changed = true;
+  // Stand Feld für Feld: das neuere gewinnt. Ältere Dateien ohne feldTs zählen mit der Zeit des ganzen Stands.
+  if (r.stand) {
+    var rt = r.feldTs && typeof r.feldTs === 'object' ? r.feldTs : null, took = false;
+    SYNC_KEYS.forEach(function (k) {
+      if (!Object.prototype.hasOwnProperty.call(r.stand, k)) return;
+      var t = rt ? (rt[k] || 0) : (r.standTs || 0);
+      if (t > (S.feldTs[k] || 0)) { S[k] = r.stand[k]; S.feldTs[k] = t; took = true; }
+    });
+    if (took) { ensureOrte(); S.standTs = Math.max(S.standTs || 0, r.standTs || 0); lastFeld = feldSnap(); changed = true; }
   }
+  if (r.foto && (r.foto.ts || 0) > LS.get('tp.fotoTs', 0)) { LS.set('tp.foto', r.foto.data || null); LS.set('tp.fotoTs', r.foto.ts); changed = true; }
   return changed;
 }
 function runSync() {
@@ -3550,13 +3567,13 @@ function renderEinst() {
     '<div class="pick-grid one">' + weightTile() + '</div>' +
     '<div class="pick-grid">' + hrTilesHTML() + '</div><p class="small muted">Puls-Zonen nach Karvonen für den Laufplan und die lockeren Läufe.</p>' +
     '<div class="bgrp"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div>' +
-    '<p class="small muted" style="margin-top:8px">Name und Foto bleiben nur auf diesem Gerät.</p></section>';
+    '<p class="small muted" style="margin-top:8px">' + (SY ? 'Name und Foto kommen über den Sync auf deine anderen Geräte.' : 'Name und Foto bleiben auf diesem Gerät, bis du den Sync einrichtest.') + '</p></section>';
   if (PWA) h += sec('Sync über GitHub', syncHTML());
   h += settingsHTML();
   return h;
 }
 
-/* Foto: verkleinert auf 320 px, nur auf diesem Gerät (tp.foto) */
+/* Foto: verkleinert auf 320 px (tp.foto, Zeit in tp.fotoTs), wird mit abgeglichen */
 var $foto = document.createElement('input');
 $foto.type = 'file'; $foto.accept = 'image/*'; $foto.hidden = true; $foto.setAttribute('aria-hidden', 'true');
 document.body.appendChild($foto);
@@ -3570,7 +3587,7 @@ $foto.addEventListener('change', function () {
       var sz = 320, c = document.createElement('canvas'), m = Math.min(img.width, img.height);
       c.width = c.height = sz;
       c.getContext('2d').drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, sz, sz);
-      try { LS.set('tp.foto', c.toDataURL('image/jpeg', 0.85)); render(); toast('Foto gespeichert.'); } catch (e) { toast('Foto zu groß.'); }
+      try { setFoto(c.toDataURL('image/jpeg', 0.85)); render(); toast('Foto gespeichert.'); } catch (e) { toast('Foto zu groß.'); }
     };
     img.src = rd.result;
   };
@@ -3763,7 +3780,7 @@ ACT.medal = function (el) {
   m.classList.remove('tilt', 'shine'); void m.offsetWidth; m.classList.add('tilt', 'shine');
 };
 ACT.foto = function () { $foto.click(); };
-ACT['foto-del'] = function () { LS.set('tp.foto', null); render(); toast('Foto entfernt.'); };
+ACT['foto-del'] = function () { setFoto(null); render(); toast('Foto entfernt.'); };
 ACT.gift = function (el) {
   if (el.classList.contains('open')) return;
   el.classList.add('open'); var box = document.getElementById('moment'); if (box) box.classList.add('opened');
@@ -3964,7 +3981,11 @@ function stepsOf(c) {
   var tag = c.tag, d = c.d, D0 = c.cur ? (DRAFTS[draftKey(tag)] || {}) : {}, zl = c.cur ? zeitLv(tag) : 0, wm = zl >= 4 ? 4 : 8;
   if (c.isTest) {
     return PLAN.tests[TESTDAYS[tag].rows].map(function (r, i) {
-      return { id: 't' + i, title: r.name, sub: r.note, desc: r.note, body: function (D) { return testStepHTML(tag, r, i, D); } };
+      // Pause zwischen zwei Versuchen: so lange, wie im Test steht, sonst 3 Min (2 Min bei Halteübungen).
+      var pm = /(\d+)\s*Min Pause/.exec(r.find + ' ' + r.clean), lad = ladFor(r.name), pmin = pm ? +pm[1] : isSecs(lad) ? 2 : 3;
+      return { id: 't' + i, title: r.name, sub: r.note, desc: r.note,
+        timer: { mode: 'block', cfg: { minutes: pmin, label: 'Pause', tag: tag, again: 1 }, label: pmin + ' Min Pause starten', info: 'Zwischen zwei Versuchen, dann voll erholt testen' },
+        body: function (D) { return testStepHTML(tag, r, i, D); } };
     }).concat(mobCheckStep(tag));
   }
   if (c.isMurph) {
@@ -5113,6 +5134,8 @@ function paintMini(L) {
     b.dataset.state = state;
     if (state === 'idle') b.innerHTML = '<button type="button" class="tb-main" data-act="tb-start"><span class="tb-play">' + PLAY + '</span><span class="tb-txt"><b>' + esc(b.dataset.label) + '</b><small>' + esc(b.dataset.info) + '</small></span></button>' +
       '<button type="button" class="tb-btn" data-act="fs-open" data-start="1" aria-label="Im Vollbild starten">' + I_EXP + '</button>';
+    // Test-Pause: nach dem Ablauf wieder bereit für die nächste Pause, nicht automatisch zur nächsten Übung.
+    else if (state === 'done' && TM.cfg.again) b.innerHTML = '<button type="button" class="tb-main" data-act="tb-clear"><span class="tb-play done">' + TICK + '</span><span class="tb-txt"><b>Pause vorbei</b><small>Nächster Versuch. Tippen setzt den Timer zurück.</small></span></button>';
     else if (state === 'done') b.innerHTML = '<button type="button" class="tb-main" data-act="' + (b.dataset.next ? 'step' : 'tb-clear') + '" data-to="' + (b.dataset.next || '') + '"><span class="tb-play done">' + TICK + '</span><span class="tb-txt"><b>' + (b.dataset.next ? 'Weiter zu ' + esc(b.dataset.nextl) : 'Geschafft') + '</b><small>' + (b.dataset.next ? 'Block geschafft' : 'Trag dein Ergebnis ein') + '</small></span></button>';
     else b.innerHTML = '<div class="tb-main" role="timer" data-act="fs-open" aria-label="Vollbild"><span class="tb-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tr-bg" cx="24" cy="24" r="21"/><circle class="tr-fg" id="tb-arc" cx="24" cy="24" r="21" stroke-dasharray="' + RING.toFixed(1) + '"/></svg><b id="tb-time"></b></span><span class="tb-txt"><b id="tb-title"></b><small id="tb-sub"></small></span></div>' +
       '<span class="tb-grp"><button type="button" class="tb-btn" id="tb-tg" data-act="' + (TM.mode === 'zeit' ? 'tb-finish' : 'tb-toggle') + '"></button>' +
@@ -5136,6 +5159,7 @@ function paintMini(L) {
   } else if (TM.mode === 'amrap') { title = 'AMRAP ' + c.minutes; sub = 'Runden zählst du selbst'; }
   else if (TM.mode === 'zeit') { title = 'Murph läuft'; sub = 'Tippe auf ■, wenn du fertig bist'; }
   else if (TM.mode === 'routine') { title = L.p.label + (L.p.side ? ' · ' + L.p.side : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }
+  else if (c.again) { title = c.label; sub = 'Danach: nächster Versuch'; }
   else { title = c.label; sub = b.dataset.nextl ? 'Danach: ' + b.dataset.nextl : ''; }
   if (!TM.running) sub = 'Pausiert · ' + sub;
   $('tb-title').textContent = title; $('tb-sub').textContent = sub;
@@ -5253,7 +5277,7 @@ function fsSide(L) {
   }
   if (TM.mode === 'routine' && p) return { k: 'ro' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><div class="fs-exn">' + esc(p.kind === 'pre' && TM.phases[1] ? TM.phases[1].label : p.label) + (p.side ? ' · ' + esc(p.side) : '') + '</div>' + (p.next ? '<p class="fs-hint">Danach: ' + esc(p.next) + '</p>' : '') };
   var b = document.getElementById('tbar');
-  return { k: 'bl', h: '<p class="fs-lbl">' + esc(c.label || 'Timer') + '</p>' + (b && b.dataset.nextl ? '<p class="fs-hint">Danach: ' + esc(b.dataset.nextl) + '</p>' : '') };
+  return { k: 'bl', h: '<p class="fs-lbl">' + esc(c.label || 'Timer') + '</p>' + (c.again ? '<p class="fs-hint">Danach: nächster Versuch</p>' : b && b.dataset.nextl ? '<p class="fs-hint">Danach: ' + esc(b.dataset.nextl) + '</p>' : '') };
 }
 function fsPaint(L, force) {
   if (!FS.on) return;
@@ -6558,7 +6582,9 @@ function importFile(file) {
     LOGS.forEach(function (l) { have[l.id] = true; });
     d.einheiten.forEach(function (l) { if (l && l.id && !have[l.id]) { addLog(l); have[l.id] = true; added++; } });
     LOGS.sort(function (a, b) { return (a.ts || 0) - (b.ts || 0); }); LS.set('tp.logs', LOGS);
-    S = Object.assign({}, DEF, d.stand); ensureOrte(); saveState(); applyTheme();
+    // Die geladene Sicherung ist jetzt der neueste Stand: alle Felder bekommen die aktuelle Zeit.
+    var nowI = Date.now(); S = Object.assign({}, DEF, d.stand); S.feldTs = {}; SYNC_KEYS.forEach(function (k) { S.feldTs[k] = nowI; }); S.standTs = nowI;
+    ensureOrte(); lastFeld = feldSnap(); saveState(); markDirty(); applyTheme();
     ui.viewTag = null; ui.exportText = null; render();
     toast('Sicherung geladen: Stand übernommen, ' + added + (added === 1 ? ' Einheit' : ' Einheiten') + ' dazu.');
   };

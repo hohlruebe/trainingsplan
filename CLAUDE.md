@@ -96,6 +96,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Je Test eine Karte mit Figur der gewählten Stufe (`mobCheckHTML`; ohne Grafik die nächste Stufe mit Grafik). Auch die Testtage
   zeigen die Figur der gewählten Stufe (`testStepHTML`, z. B. Knee Push-up bei „Auf Knien“); Stufe wechseln = Figur wechselt.
   Eingabe am Testtag: Kachel „Stufe“ (Rad) und darunter Zähler „Wiederholungen“ bzw. „Bestzeit“ in 5-s-Schritten (`ACT['t-rep']`, `.t-rep`).
+  Jede Testseite hat einen Pausen-Timer (Timer-Art `block`, `cfg.again`): Pause aus dem Test-Text („3 Min Pause“), sonst 3 Min, Halteübungen
+  2 Min; ohne Vorlauf, „Danach: nächster Versuch“, nach Ablauf „Pause vorbei“ (Tippen setzt zurück), kein Sprung zur nächsten Übung.
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
   Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
@@ -220,10 +222,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Ändert sich außer `index.html` eine Datei oder kommt eine neue dazu:
   `CACHE` in `sw.js` hochzählen und neue Dateien in `ASSETS` eintragen.
 - Gespeicherte Daten nie brechen. localStorage-Schlüssel: `tp.state`, `tp.logs`,
-  `tp.drafts`, `tp.deleted`, `tp.sync`, `tp.foto` (Profilfoto, nur auf dem Gerät). Neue Felder mit Standardwert in `DEF` ergänzen.
+  `tp.drafts`, `tp.deleted`, `tp.sync`, `tp.foto` (Profilfoto, mit `tp.fotoTs`, wird abgeglichen). Neue Felder mit Standardwert in `DEF` ergänzen.
 - Export-Format `{exportiert, stand, einheiten}` muss importierbar bleiben.
 - Sync: Datei `trainingsplan.json` im privaten Daten-Repository des Nutzers,
-  Format `{app, v, standTs, stand, einheiten, geloescht}` kompatibel halten.
+  Format `{app, v, standTs, stand, einheiten, geloescht}` kompatibel halten, dazu `feldTs` (Zeit je Feld in `SYNC_KEYS`, `S.feldTs`)
+  und `foto` (`{ts, data}`). Einheiten nach ID zusammenführen, Löschvermerke gewinnen, Stand Feld für Feld (neuere Zeit gewinnt,
+  ohne `feldTs` gilt `standTs` für alle Felder). Name (`S.name`) wird mit abgeglichen; der gewählte Ort `S.ort` bleibt pro Gerät.
   Den Token nie in Code, Export oder Logs schreiben.
 - Aussehen (Farbe, Schrift, Hell/Dunkel) bleibt pro Gerät und wird nicht synchronisiert.
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze.
