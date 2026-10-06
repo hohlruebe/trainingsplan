@@ -697,7 +697,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .ic-pick.on{background:var(--pill);color:var(--acc);box-shadow:0 0 0 2px var(--acc)}
 @media (prefers-reduced-motion:reduce){button,.tile,.st-row,.btn,.seg-btn,.cap-btn,.pill,.check{transition:none}.eq-row.anim .eq-more{animation:none}}
 .pick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
-.pick-grid.one{grid-template-columns:1fr}
+.pick-grid.one{grid-template-columns:1fr}.t-rep{margin-top:14px;gap:12px;align-items:center}.t-rep .stepper b{min-width:64px}
 .tile{min-height:70px;border:0;border-radius:14px;background:var(--board);color:var(--ink);font:inherit;text-align:left;padding:9px 12px;display:flex;flex-direction:column;justify-content:center;gap:3px;cursor:pointer;min-width:0}
 .tile small{font-size:12px;font-weight:500;color:var(--ink2)}
 .tile b{font-family:var(--hand);font-weight:var(--hand-w);font-size:22px;line-height:1.1;color:var(--ink2)}
@@ -4237,11 +4237,12 @@ function testStepHTML(tag, r, i, D) {
   var gk = GL[r.name] ? GL[r.name].key : '', sv = lad && lad.lib && stage ? lad.lib.stufen.filter(function (x) { return x.name === stage; })[0] : null;
   if (sv && figOf(sv.uebung)) gk = sv.uebung; // Figur der gewählten Stufe, z. B. Knee Push-up bei „Auf Knien“
   var h = '<section class="card">' + figBox(gk) + '<p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
-  h += '<section class="card"><div class="pick-grid">' +
+  // Stufe über das Rad, Wiederholungen (bzw. Sekunden) mit dem Zähler: schnell zwischen zwei Testsätzen.
+  h += '<section class="card"><div class="pick-grid one">' +
     tile('Stufe', '<b class="txt">' + (stage ? stageHTML(stage) : 'wählen') + '</b>', lad ? pickAttrs({ only: 'stage', sf: sf, lad: GL[r.name].key, title: r.name }) : 'disabled') +
-    tile(secs ? 'Bestzeit' : 'Geschafft', '<b>' + (mx != null ? mx + ' <span class="unit">' + u + '</span>' : '–') + '</b>',
-      pickAttrs({ f: f, sf: lad ? sf : null, lad: lad ? GL[r.name].key : null, min: 0, max: secs ? 180 : 60, unit: secs ? 'Sek.' : 'Wdh.', def: secs ? 20 : 6, title: r.name }), mx != null ? 'set' : '') +
-    '</div>';
+    '</div><div class="row between t-rep"><span><b>' + (secs ? 'Bestzeit' : 'Wiederholungen') + '</b><br><span class="small muted">' + (secs ? 'in Sekunden, am Stück' : 'saubere Wdh. am Stück') + '</span></span>' +
+    '<div class="stepper"><button type="button" data-act="t-rep" data-f="' + f + '" data-d="-' + (secs ? 5 : 1) + '" data-def="' + (secs ? 20 : 5) + '" aria-label="Weniger">–</button><b>' + (mx != null ? mx : '–') + '</b>' +
+    '<button type="button" class="primary" data-act="t-rep" data-f="' + f + '" data-d="' + (secs ? 5 : 1) + '" data-def="' + (secs ? 20 : 5) + '" aria-label="Mehr">+</button></div></div>';
   if (mx != null) {
     var v = null;
     if (ex && !secs) {
@@ -4520,6 +4521,8 @@ ACT.pick = function (el) {
     render();
   }, { num: ds.only !== 'stage' ? cols.length - 1 : null });
 };
+// Testtag: Zähler für Wiederholungen bzw. Sekunden. Der erste Tipp setzt einen Startwert.
+ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = v == null ? (+el.dataset.def || 0) : Math.max(0, v + (+el.dataset.d)); setDraft(el.dataset.f, v); render(); };
 ACT.step = function (el) {
   var to = +el.dataset.to, k = draftKey(S.tag), d = DRAFTS[k] || (DRAFTS[k] = {});
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
