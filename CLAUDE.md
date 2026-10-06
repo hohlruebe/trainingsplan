@@ -118,6 +118,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`skillOf`: Ziel oder seine offene Voraussetzung), `kslots` (Kraft, `kfmt` `emom` oder `saetze` mit `sets`, `reps`, `rest`),
   `mslots`/`mmin` (Metcon/WOD), `bench` (CrossFit-Benchmarks Cindy, Mary, Chelsea in Durchgang 1, 6, 12).
   Lauftage: `runSpec(d)` (locker, lang, Tempo, Test, Ziel-Lauf, Intervalle mit `iv`), verglichen nur mit der gleichen Art (`runsOf(kind, ergo, art)`).
+  Ergometer (Umschalter Laufen/Ergometer): Ziel-Watt im Kasten `.kg-rec` (`ergoTarget`, `ergoTargetHTML`), Intervalle mit Pause-Watt
+  (halb so viel). Verlauf gleicher Art: Puls letztes Mal über der Zone → −10 W, darunter → +10 W, zweimal gleich in der Zone → +5 W.
+  Ohne Verlauf abgeleitet aus dem letzten Ergometer-Training anderer Art (`ERGO_WKG` je Zone), sonst Körpergewicht × W/kg. Feld Watt Ø
+  ist mit dem Ziel vorbelegt.
   Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil; ohne Wert geschätzt).
   Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort und Schwerpunkt `slotKey`) bleibt,
   sonst begonnene Leiter vor neuer, dann Nutzen. Tempo-Varianten (`TEMPO_KEYS`) nie im Kraftteil. Platz `{ schwach: [...] }` nimmt den

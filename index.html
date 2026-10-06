@@ -4702,6 +4702,38 @@ function runVerdict(kind, ergo, sec, km, hr, watt, art) {
   return { t: t, p: p, tPos: pos(refPerf, perf, !ergo), hPos: p == null ? null : pos(hrs, hr, false), cls: v[0], text: ergo ? ergoText(v[1]) : v[1] };
 }
 function toneOf(x) { return x == null ? '' : x > 0 ? 'good' : x < 0 ? 'bad' : 'ok'; }
+/* ---------- Ergometer: Wattzahl als Ziel (Widerstand am Gerät einstellbar) ---------- */
+// Watt pro kg Körpergewicht je Puls-Zone als Startschätzung, danach zählt der eigene Verlauf.
+var ERGO_WKG = { 2: 1.5, 3: 2.0, 4: 2.5, 5: 2.9 };
+function ergoZone(kind, art, iv) { if (kind === 'easy') return { locker: 2, lang: 2, tempo: 3, test: 4, ziel: 3 }[art] || 2; return iv ? iv.zone || 4 : 4; }
+// Alle Ergometer-Einheiten mit Watt, mit ihrer Zone.
+function ergoAll() {
+  var out = [];
+  LOGS.forEach(function (l) {
+    var r = l.kind === 'easy' ? l.run : l.kind === 'interval' ? l.interval : null, w = r && r.ergo ? num(r.watt) : null;
+    if (w) out.push({ date: l.date, watt: w, z: ergoZone(l.kind, r.art || 'locker', r.zone ? { zone: r.zone } : null) });
+  });
+  return out.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+}
+function ergoTarget(spec) {
+  var kind = spec.type, art = spec.art || 'locker', z = ergoZone(kind, art, spec.iv), R = runsOf(kind, true, art), L = R[R.length - 1], w, why;
+  if (L) {
+    var zr = zoneRange(z); w = L.watt; why = 'Wie letztes Mal';
+    if (L.hr && L.hr > zr[1]) { w -= 10; why = 'Puls war über Zone ' + z + ', deshalb 10 W weniger'; }
+    else if (L.hr && L.hr < zr[0]) { w += 10; why = 'Puls war unter Zone ' + z + ', deshalb 10 W mehr'; }
+    else if (R.length >= 2 && R[R.length - 2].watt === L.watt && (!L.hr || L.hr <= zr[1])) { w += 5; why = 'Zweimal sauber geschafft, deshalb 5 W mehr'; }
+  } else {
+    var A = ergoAll(), a = A[A.length - 1];
+    if (a) { w = a.watt * ERGO_WKG[z] / ERGO_WKG[a.z]; why = 'Abgeleitet aus deinem letzten Ergometer-Training'; }
+    else { w = (S.weight || 75) * ERGO_WKG[z]; why = S.weight ? 'Schätzung aus deinem Körpergewicht, wird mit jedem Training genauer' : 'Schätzung, wird mit jedem Training genauer'; }
+  }
+  return { w: Math.max(40, Math.round(w / 5) * 5), why: why, z: z };
+}
+function ergoTargetHTML(spec) {
+  var t = ergoTarget(spec), iv = spec.type !== 'easy';
+  return '<div class="kg-rec"><span class="small muted">' + (iv ? 'Intervall' : 'Ziel') + '</span><b>' + t.w + ' W' + (iv ? ' · Pause ' + (Math.round(t.w / 10) * 5) + ' W' : '') + '</b>' +
+    '<span class="small muted">' + esc(t.why) + '. Widerstand so einstellen, dass bei 80–90 U/min etwa ' + t.w + ' W stehen. Passt der Puls nicht in Zone ' + t.z + ', etwas anpassen.</span></div>';
+}
 function runHTML(c, D, spec, inStep) {
   spec = spec || runSpec(c.d);
   var easy = spec.type === 'easy', kind = spec.type, art = spec.art || 'locker', mode = runMode(D), ergo = mode === 'ergo', h = '', g = laufGoal();
@@ -4719,16 +4751,16 @@ function runHTML(c, D, spec, inStep) {
     }[art] || [];
     h += '<section class="card"><p class="hand big-quote">' + esc(T[0]) + '</p><p>' + esc(T[1]) + '</p>' + (T[2] ? '<div class="chips"><span class="chip">' + esc(T[2]) + '</span></div>' : '') +
       (spec.allround ? '<p class="small muted">Steigerung: +5 Min alle 2 Durchgänge, maximal 45 Min.</p>' : '') +
-      (spec.capped ? '<p class="tl-x">Heute ' + min + ' statt ' + spec.capped + ' Min: diese Woche höchstens 1,3-mal so viel wie dein Schnitt der letzten 4 Wochen. Sehnen und Knochen brauchen Zeit.</p>' : '') + '</section>';
+      (spec.capped ? '<p class="tl-x">Heute ' + min + ' statt ' + spec.capped + ' Min: diese Woche höchstens 1,3-mal so viel wie dein Schnitt der letzten 4 Wochen. Sehnen und Knochen brauchen Zeit.</p>' : '') + (ergo ? ergoTargetHTML(spec) : '') + '</section>';
   } else if (spec.iv) {
     var iv = spec.iv;
     h += '<section class="card"><ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + iv.reps + '×</b> ' + iv.work + ' Min schnell, dazwischen ' + iv.rest + ' Min locker traben</li><li>5 Min locker auslaufen</li></ol>' +
       '<div class="chips"><span class="chip">' + esc(zoneText(iv.zone, iv.zone === 4 ? 5 : null)) + '</span>' + (goalPace ? '<span class="chip">Zieltempo ' + esc(goalPace) + '</span>' : '') + '</div>' +
-      '<p class="small muted">Alle Wiederholungen gleich schnell, die letzte darf nicht die langsamste sein.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p></section>';
+      '<p class="small muted">Alle Wiederholungen gleich schnell, die letzte darf nicht die langsamste sein.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p>' + (ergo ? ergoTargetHTML(spec) : '') + '</section>';
   } else {
     var st = S.ivStage, reps = S.ivReps, p = IV[st];
     h += '<section class="card"><ol class="steps"><li>10 Min locker einlaufen</li><li><b>' + reps + '×</b> ' + p.work + ' Min zügig, dazwischen ' + p.rest + ' Min ' + p.restLabel + '</li><li>5 Min locker auslaufen</li></ol>' +
-      '<p><b>Zügig</b> heißt etwa 8 von 10: kein Sprint, alle Wiederholungen gleich schnell.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p>' +
+      '<p><b>Zügig</b> heißt etwa 8 von 10: kein Sprint, alle Wiederholungen gleich schnell.' + (ergo ? ' Auf dem Ergometer: feste Wattzahl pro Intervall.' : '') + '</p>' + (ergo ? ergoTargetHTML(spec) : '') +
       '<div class="row between wrap"><span class="chip">Stufe ' + st + '</span><div class="stepper"><button type="button" data-act="iv-reps" data-d="-1" aria-label="Eine Wiederholung weniger">–</button>' +
       '<b>' + reps + ' Wdh.</b><button type="button" data-act="iv-reps" data-d="1" aria-label="Eine Wiederholung mehr">+</button></div></div>' +
       '<p class="small muted" style="margin-top:8px">Steigerung: +1 Wdh. alle 2 Durchgänge – die App erhöht automatisch. Nach Nachtschicht oder schlechtem Schlaf: statt Intervallen einen lockeren Lauf.</p></section>';
@@ -4741,7 +4773,7 @@ function runHTML(c, D, spec, inStep) {
     tile('Dauer', '<b>' + fmtDur(sec) + ' <span class="unit">' + (sec >= 3600 ? 'h' : 'Min') + '</span></b>', pickAttrs({ dur: 1, f: 'runSec', def: sec, title: 'Dauer' }), 'set') +
     tile('Puls Ø', '<b>' + (hr ? hr + ' <span class="unit">bpm</span>' : '–') + '</b>' + (v ? bar('down', v.hPos) : ''), pickAttrs({ f: 'runHr', min: 60, max: 220, unit: 'bpm', def: (ref.filter(function (r) { return r.hr; }).slice(-1)[0] || { hr: 140 }).hr, title: 'Puls Ø' }), hr ? 'set ' + toneOf(v && v.p) : '');
   if (ergo) {
-    h += tile('Watt Ø', '<b>' + (watt ? watt + ' <span class="unit">W</span>' : '–') + '</b>' + (v ? bar('up', v.tPos) : ''), pickAttrs({ f: 'runW', min: 20, max: 500, unit: 'Watt', def: (ref.slice(-1)[0] || { watt: 120 }).watt, title: 'Watt Ø' }), watt ? 'set ' + toneOf(v && v.t) : '') + kmTile;
+    h += tile('Watt Ø', '<b>' + (watt ? watt + ' <span class="unit">W</span>' : '–') + '</b>' + (v ? bar('up', v.tPos) : ''), pickAttrs({ f: 'runW', min: 20, max: 500, unit: 'Watt', def: ergoTarget(spec).w, title: 'Watt Ø' }), watt ? 'set ' + toneOf(v && v.t) : '') + kmTile;
   } else {
     h += kmTile + '<div class="tile calc' + (pace ? ' set ' + toneOf(v && v.t) : '') + '"><small>Tempo · errechnet</small><b>' + (pace ? fmtPace(pace) + ' <span class="unit">/km</span>' : '–') + '</b>' + (v ? bar('up', v.tPos) : '') + '</div>';
   }
