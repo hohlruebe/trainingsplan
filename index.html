@@ -4041,7 +4041,8 @@ function stepsOf(c) {
   if (d.run) {
     var rs = runSpec(d), rT = rs.type === 'interval' ? 'Intervalle' : { tempo: 'Tempolauf', test: 'Testlauf 5 km', ziel: 'Ziel-Lauf' }[rs.art] || 'Lauf';
     out.push({ id: 'run', title: rT, sub: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min · Zone ' + rs.iv.zone : rs.min ? rs.min + ' Min · Zone 3–4' : rs.art === 'test' ? '5 km auf Zeit' : laufGoal().name, dur: Math.round(planRunSec(rs) / 60),
-      desc: rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben' : 'Ergebnis von der Uhr eintragen', timer: runMode(D0) === 'ergo' ? ergoTimer(rs) : null, body: function (D) { return runHTML(c, D, rs, true); } });
+      desc: runMode(D0) === 'ergo' ? 'Ergometer · ' + ergoPart(rs).filter(function (q) { return q.kind === 'work' && q.label !== 'Steigerung'; }).map(function (q) { return q.watt; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(', ') + ' W'
+        : rs.iv ? rs.iv.reps + ' × ' + rs.iv.work + ' Min schnell, ' + rs.iv.rest + ' Min traben' : 'Ergebnis von der Uhr eintragen', timer: runMode(D0) === 'ergo' ? ergoTimer(rs) : null, body: function (D) { return runHTML(c, D, rs, true); } });
   }
   if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: wm + ' Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: wm,
     desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
@@ -4882,7 +4883,8 @@ function runHTML(c, D, spec, inStep) {
   h += '</section>';
   return inStep ? h : h + notesBlock(D);
 }
-ACT['run-mode'] = function (el) { setDraft('mode', el.dataset.m); render(); };
+// Laufen/Ergometer gilt für den Tag, den man gerade anschaut (auch in der Vorschau eines späteren Tages).
+ACT['run-mode'] = function (el) { var k = draftKey(viewTag()), d = DRAFTS[k] || (DRAFTS[k] = {}); d.mode = el.dataset.m; LS.set('tp.drafts', DRAFTS); render(); };
 
 /* ---------- Rad zum Auswählen ---------- */
 var WH = 44;

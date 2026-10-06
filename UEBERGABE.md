@@ -38,6 +38,8 @@ Stand: 6. Oktober 2026 (Pistol-Leiter, Check, Ergometer)
 - Offen: Werte in `KG_UP` und `RX` (Männer) bei Bedarf mit Dennis anpassen. Kein Gewicht für Frauen-Rx (bisher nicht nötig).
 
 ## Lauf-ABC und Ergometer-Timer (6. Oktober)
+- Dennis: Beim Intervall-Lauf war kein Ergometer-Plan zu sehen. Ursache: In der Vorschau eines späteren Tages landete der
+  Umschalter Laufen/Ergometer beim aktuellen Tag. Jetzt gilt er für den angeschauten Tag (`ACT['run-mode']` mit `viewTag()`).
 - Dennis: Laufen im Metcon nur, wo man laufen kann. Neues Gerät „Laufstrecke“ je Ort (Gym, Park, Unterwegs vorbelegt),
   „Run“ braucht es, dazu 400 m als zweite Strecke. Shuttle Run (5–10 m) bleibt ohne.
 - Dennis: Warm-up für Lauftage. Laufen: Lauf-ABC (Fuß – Knie – Ferse – Hopser – Seit – Steigern), immer gleich, vor jedem Lauf,
