@@ -88,7 +88,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   das Rx-Gewicht (`RX`). `kgRecM`: mehr geschafft als zuletzt mit denselben Übungen (oder ohne Vergleich zweimal mit dem Gewicht)
   → ein Schritt Richtung Rx (Kettlebell 4 kg, sonst 2,5, `kgStepM`), sonst gleich; Start 50 % 1RM (über 10 Wdh. 40 %) oder 60 % Rx.
 - Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag an Krafttagen: nicht im Ablauf, nach dem letzten Schritt fragt `saveAsk`
-  „Möchtest du noch ein Cool-down?“ (Ja = Schritt `coolStep` kommt dazu, Entwurf `_cd` '1'/'0'; `S.cooldown` wird nicht mehr genutzt, `log.cool`), auf Lauftagen als Karte nach dem Lauf. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
+  „Möchtest du noch ein Cool-down?“ (Ja = Schritt `coolStep` kommt dazu, Entwurf `_cd` '1'/'0'; `S.cooldown` wird nicht mehr genutzt, `log.cool`), auf Lauftagen (Laufen und Ergometer) ebenfalls als Frage beim Speichern (`saveAsk`): Ja speichert den Lauf und öffnet das Cool-down im Player, keine Karte mehr in der Übersicht. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
@@ -96,6 +96,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Je Test eine Karte mit Figur der gewählten Stufe (`mobCheckHTML`; ohne Grafik die nächste Stufe mit Grafik). Auch die Testtage
   zeigen die Figur der gewählten Stufe (`testStepHTML`, z. B. Knee Push-up bei „Auf Knien“); Stufe wechseln = Figur wechselt.
   Eingabe am Testtag: Kachel „Stufe“ (Rad) und darunter Zähler „Wiederholungen“ bzw. „Bestzeit“ in 5-s-Schritten (`ACT['t-rep']`, `.t-rep`).
+  Beweglichkeits-Check: Tests mit Haltezeit im Stufennamen (Hocke, Schulter) haben eine Stoppuhr in der Karte (`mcSwHTML`, `MCSW`,
+  `ACT['mc-sw']`): Zeit groß, Ziel der gewählten Stufe als Chip (`mcGoal`), beim Erreichen `cue(true)` und grüner Chip.
+  Tests mit fester Position zeigen immer dieselbe Figur (`MC_FIG`, Vorbeuge = `g_forward_fold`, stehend mit gestreckten Knien).
+  Angezeigte Stufennamen über `STAGE_LABEL` in `stageText` (z. B. „Am Türrahmen“ → „Mit Halt (Ringe oder Türrahmen)“), gespeichert
+  bleibt der alte Name. Übungen „je Seite“: Hinweis „Schwache Seite zuerst, sie zählt“ an der Kraft-Karte. Pistol mit Halt und Ringen
+  am Ort bekommt die Ringhöhe (`ringNotes`).
   Jede Testseite hat einen Pausen-Timer (Timer-Art `block`, `cfg.again`): Pause aus dem Test-Text („3 Min Pause“), sonst 3 Min, Halteübungen
   2 Min; ohne Vorlauf, „Danach: nächster Versuch“, nach Ablauf „Pause vorbei“ (Tippen setzt zurück), kein Sprung zur nächsten Übung.
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
@@ -113,6 +119,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`skillOf`: Ziel oder seine offene Voraussetzung), `kslots` (Kraft, `kfmt` `emom` oder `saetze` mit `sets`, `reps`, `rest`),
   `mslots`/`mmin` (Metcon/WOD), `bench` (CrossFit-Benchmarks Cindy, Mary, Chelsea in Durchgang 1, 6, 12).
   Lauftage: `runSpec(d)` (locker, lang, Tempo, Test, Ziel-Lauf, Intervalle mit `iv`), verglichen nur mit der gleichen Art (`runsOf(kind, ergo, art)`).
+  Ergometer (Umschalter Laufen/Ergometer): Ziel-Watt im Kasten `.kg-rec` (`ergoTarget`, `ergoTargetHTML`), Intervalle mit Pause-Watt
+  (halb so viel). Verlauf gleicher Art: Puls letztes Mal über der Zone → −10 W, darunter → +10 W, zweimal gleich in der Zone → +5 W.
+  Ohne Verlauf abgeleitet aus dem letzten Ergometer-Training anderer Art (`ERGO_WKG` je Zone), sonst Körpergewicht × W/kg. Feld Watt Ø
+  ist mit dem Ziel vorbelegt.
   Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil; ohne Wert geschätzt).
   Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort und Schwerpunkt `slotKey`) bleibt,
   sonst begonnene Leiter vor neuer, dann Nutzen. Tempo-Varianten (`TEMPO_KEYS`) nie im Kraftteil. Platz `{ schwach: [...] }` nimmt den
