@@ -37,6 +37,12 @@ Stand: 6. Oktober 2026 (One Rep Max und Gewicht im Training)
   erst danach Übungswechsel. Metcon mit Ziel Rx, Schritt hoch nur bei mehr Runden.
 - Offen: Werte in `KG_UP` und `RX` (Männer) bei Bedarf mit Dennis anpassen. Kein Gewicht für Frauen-Rx (bisher nicht nötig).
 
+## Pistol mit Halt, je Seite, Stoppuhr im Check (6. Oktober)
+- Dennis: Pistol an den Ringen statt am Türrahmen, er kommt so tiefer (eher Beweglichkeit als Kraft begrenzt). Stufe heißt in der
+  Anzeige „Mit Halt (Ringe oder Türrahmen)“. Links/rechts nicht getrennt eintragen: schwache Seite zuerst, sie zählt.
+- Dennis: Beweglichkeits-Check braucht eine Uhr für Haltepositionen. Stoppuhr mit Ziel aus der Stufe eingebaut.
+- Offen (vorgeschlagen): Pistol länger mit Halt in voller Tiefe statt „Auf Stuhl absitzen“, wenn der Check Sprunggelenk/Hocke schwach zeigt.
+
 ## Pausen-Timer auf den Testtagen, Sync je Feld (6. Oktober)
 - Dennis: Auf den Testseiten die Pause zwischen den Versuchen direkt starten können. Umgesetzt; der Timer springt nicht weiter,
   weil die App nicht weiß, ob noch eine leichtere Stufe getestet wird.

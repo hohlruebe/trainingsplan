@@ -96,6 +96,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Je Test eine Karte mit Figur der gewählten Stufe (`mobCheckHTML`; ohne Grafik die nächste Stufe mit Grafik). Auch die Testtage
   zeigen die Figur der gewählten Stufe (`testStepHTML`, z. B. Knee Push-up bei „Auf Knien“); Stufe wechseln = Figur wechselt.
   Eingabe am Testtag: Kachel „Stufe“ (Rad) und darunter Zähler „Wiederholungen“ bzw. „Bestzeit“ in 5-s-Schritten (`ACT['t-rep']`, `.t-rep`).
+  Beweglichkeits-Check: Tests mit Haltezeit im Stufennamen (Hocke, Schulter) haben eine Stoppuhr in der Karte (`mcSwHTML`, `MCSW`,
+  `ACT['mc-sw']`): Zeit groß, Ziel der gewählten Stufe als Chip (`mcGoal`), beim Erreichen `cue(true)` und grüner Chip.
+  Angezeigte Stufennamen über `STAGE_LABEL` in `stageText` (z. B. „Am Türrahmen“ → „Mit Halt (Ringe oder Türrahmen)“), gespeichert
+  bleibt der alte Name. Übungen „je Seite“: Hinweis „Schwache Seite zuerst, sie zählt“ an der Kraft-Karte. Pistol mit Halt und Ringen
+  am Ort bekommt die Ringhöhe (`ringNotes`).
   Jede Testseite hat einen Pausen-Timer (Timer-Art `block`, `cfg.again`): Pause aus dem Test-Text („3 Min Pause“), sonst 3 Min, Halteübungen
   2 Min; ohne Vorlauf, „Danach: nächster Versuch“, nach Ablauf „Pause vorbei“ (Tippen setzt zurück), kein Sprung zur nächsten Übung.
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
