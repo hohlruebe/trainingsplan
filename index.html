@@ -510,6 +510,8 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .dev-chart .rm-bdot{fill:#D9A21B}
 .sh-live{text-align:center;margin:10px 0 0;padding:10px;border-radius:14px;background:color-mix(in srgb,var(--acc) 13%,var(--paper));font-size:15px}
 .sh-live b{color:var(--acc)}
+.sh-live:empty{display:none}
+.sh-live .gold{color:#B8860B;font-weight:600}
 .tips-h{margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
 .tips ul{list-style:none;margin:0;padding:0}
 .tips li{position:relative;padding:8px 0 8px 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.45}
@@ -541,6 +543,13 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .cell b{font-family:var(--hand);font-weight:var(--hand-w);font-size:20px}
 .cell.set{background:color-mix(in srgb,var(--acc) 13%,var(--paper));color:var(--acc)}
 .cell.now{box-shadow:inset 0 0 0 2px var(--acc);color:var(--acc)}
+.cell.kgc{min-height:64px}
+.cell .kgv{font-family:var(--head);font-weight:600;font-size:12px;margin-top:2px}
+.kg-rec{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:10px;row-gap:2px;margin:10px 0;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--acc) 9%,var(--paper))}
+.kg-rec b{font-family:var(--head);font-size:20px;font-weight:700;color:var(--acc);justify-self:end}
+.kg-rec span:last-child{grid-column:1/-1;line-height:1.35}
+.kg-row{padding:8px 14px}
+.kg-row .small{line-height:1.35}
 .lad{margin:12px 0 6px}
 .lad-k{margin:0;font-size:11px;letter-spacing:.08em;font-weight:600;color:var(--ink2);text-transform:uppercase}
 .lad-cap{margin:6px 0;padding:4px;border-radius:24px;background:var(--tray);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);display:flex;flex-direction:column;gap:2px}
@@ -2473,7 +2482,12 @@ function saveDay() {
       hs: !d.hs ? '' : v.hsStage != null || v.hsSec != null ? composeHs(v) : (v.hs || ''),
       kraft: d.kraft.map(function (x, i) {
         var reps = []; for (var r = 0; r < rounds; r++) reps.push(num(v['k' + i + 'r' + r]));
-        return { n: x.n, stage: v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n, x.hi), reps: reps };
+        var stg = v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n, x.hi), o = { n: x.n, stage: stg, reps: reps }, kid = kgUe(x.n, stg);
+        if (kid) {
+          var K = kgOfEx(x, i, stg, v, rounds), kg = K.kg.map(function (w, r2) { return reps[r2] != null ? w : null; });
+          if (kg.some(function (w) { return w != null; })) { o.ue = kid; o.kg = kg; }
+        }
+        return o;
       }) });
     if (d.kfmt === 'saetze' && d.kraft.length) log.sets = rounds;
     if ((d.mmin || d.bench) && d.metcon.length && zeitLv(tag) < 3) {
@@ -2485,6 +2499,8 @@ function saveDay() {
       log.metcon = { rounds: num(v.mr), reps: num(v.mw), min: metconMin(tag), items: d.metcon.map(function (m) { return m.n; }) };
       if (d.bench) { log.metcon.bench = BENCH[d.bench].name; log.metcon.fmt = BENCH[d.bench].fmt; }
       if (stages.length) log.metcon.stages = stages;
+      var kgs = d.metcon.map(function (m, i) { var k = mKg(tag, m, i, v); return k && k.kg != null ? { n: m.n, ue: k.id, kg: k.kg } : null; }).filter(Boolean);
+      if (kgs.length) log.metcon.kg = kgs;
     }
     if (d.skill && zeitLv(tag) < 1) { var sk = skillFrom(v, d); if (sk) log.skill = sk; }
     if (d.mobl) log.mobl = { art: d.mobl, min: mobRoutine(d.mobl).dauer_min, done: flowState(moblFlow(tag), v).done.length || null };
@@ -2504,6 +2520,13 @@ function saveDay() {
   }
   if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; }
   if (log) addLog(log);
+  // Schwerster Satz im Kraftteil zählt fürs 1RM, wenn er über dem aktuellen Wert liegt (bis 10 Wdh., Epley).
+  if (log && log.kraft) log.kraft.forEach(function (k) {
+    if (!k.ue) return;
+    var b = null; k.kg.forEach(function (w, r) { var n = k.reps[r]; if (w && n && n <= 10 && (!b || e1rm(w, n) > b.e1)) b = { kg: w, reps: n, e1: e1rm(w, n) }; });
+    var rm = rmOf(k.ue); if (!b || (rm && b.e1 <= rm.cur.e1)) return;
+    addLog({ id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, kind: 'rm', lift: k.ue, kg: b.kg, reps: b.reps, e1: b.e1, bw: S.weight || null, src: 'training', notes: '' });
+  });
   if (TM.cfg && TM.cfg.step && TM.cfg.step.indexOf(key + ':') === 0) { timerReset(); TM.cfg.step = null; }
   delete DRAFTS[key]; LS.set('tp.drafts', DRAFTS);
   delete ui.kurz[key]; ui.skipMurph = false;
@@ -3135,6 +3158,60 @@ function rmOf(id, logs) {
   var L = (logs || LOGS).filter(function (l) { return l.kind === 'rm' && l.lift === id; }).sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : (a.ts || 0) - (b.ts || 0); });
   if (!L.length) return null;
   return { cur: L[L.length - 1], best: L.reduce(function (a, l) { return l.e1 > a.e1 ? l : a; }, L[0]), list: L };
+}
+/* ---------- Gewicht im Training: Empfehlung und Eintrag (Kraftteil und Metcon) ---------- */
+// Übung mit Gewicht: bei Leitern die Übung der gewählten Stufe, sonst die Übung selbst.
+function kgUe(name, stage) {
+  var lad = ladFor(name), id = null;
+  if (lad && lad.lib && stage) { var s = lad.lib.stufen.filter(function (x) { return x.name === stage; })[0]; if (s) id = s.uebung; }
+  if (!id && GL[name] && GL[name].lib) id = GL[name].lib.id;
+  return id && UE[id] && UE[id].einheit === 'kg' ? id : null;
+}
+// Beine und Hüfte steigen in 5-kg-Schritten, alles andere in 2,5 kg.
+function kgStep(id) { return { kniebeuge: 1, huefte: 1 }[UE[id].muster] ? 5 : 2.5; }
+function kgRound(v) { return Math.max(0, Math.floor(v / 2.5 + 1e-9) * 2.5); }
+// Zuletzt im Kraftteil genommen: schwerster Satz und die Wdh. aller Sätze.
+function lastKg(id) {
+  for (var i = LOGS.length - 1; i >= 0; i--) {
+    var ks = LOGS[i].kraft || [];
+    for (var j = 0; j < ks.length; j++) if (ks[j].ue === id && ks[j].kg && ks[j].kg.some(function (v) { return v != null; })) {
+      var kg = ks[j].kg.filter(function (v) { return v != null; });
+      return { kg: Math.max.apply(null, kg), reps: ks[j].reps.filter(function (v, r) { return v != null && ks[j].kg[r] === Math.max.apply(null, kg); }) };
+    }
+  }
+  return null;
+}
+// Empfehlung Kraftteil: doppelte Progression. Alle Sätze am oberen Ende → mehr Gewicht, sonst gleich.
+// Ohne Verlauf aus dem 1RM: Gewicht, mit dem lo Wdh. plus Reserve gehen (Epley rückwärts).
+function kgRec(id, lo, hi, rir) {
+  var L = lastKg(id), st = kgStep(id);
+  if (L && L.reps.length) {
+    var top = Math.min.apply(null, L.reps) >= hi;
+    return { kg: top ? L.kg + st : L.kg, why: top ? 'Letztes Mal alle Sätze mit ' + hi + ' Wdh., deshalb +' + String(st).replace('.', ',') + ' kg' : 'Wie letztes Mal, bis alle Sätze ' + hi + ' Wdh. schaffen' };
+  }
+  var rm = rmOf(id);
+  if (rm) return { kg: kgRound(rm.cur.e1 / (1 + (lo + rir) / 30)), why: 'Aus deinem 1RM (' + fmtKg(rm.cur.e1, id) + ')' };
+  return null;
+}
+// Empfehlung Metcon: wie zuletzt im Metcon, sonst rund die Hälfte des 1RM (bei mehr als 10 Wdh. 40 %).
+function lastKgM(id) {
+  for (var i = LOGS.length - 1; i >= 0; i--) { var m = LOGS[i].metcon; if (m && m.kg) for (var j = 0; j < m.kg.length; j++) if (m.kg[j].ue === id && m.kg[j].kg) return m.kg[j].kg; }
+  return null;
+}
+function kgRecM(id, reps) {
+  var l = lastKgM(id); if (l) return { kg: l, why: 'Wie letztes Mal im Metcon' };
+  var rm = rmOf(id), p = reps > 10 ? 40 : 50;
+  if (rm) return { kg: kgRound(rm.cur.e1 * p / 100), why: 'Etwa ' + p + ' % deines 1RM' };
+  return null;
+}
+// Neuer Bestwert schon während des Trainings: Meldung mit Vibration, einmal je Übung und Wert.
+function kgBest(id, kg, reps) {
+  if (!id || !kg || !reps || reps > 10) return;
+  var e1 = e1rm(kg, reps), r = rmOf(id), D = dr(S.tag), f = '_rmb_' + id;
+  if (e1 <= (r ? r.best.e1 : 0) || e1 <= num(D[f] || 0)) return;
+  setDraft(f, e1);
+  toast('★ Neuer Bestwert: ' + UE[id].name + ' ≈ ' + fmtKg(e1, id) + ' (1RM)');
+  buzz([120, 250, 40, 180, 40, 180, 220]);
 }
 function nutzenOf(k) { if (k === 'easy') return 75; var l = ladOf(k); return l && l.nutzen != null ? l.nutzen : 0; }
 // Listen nach Nutzen sortieren, höchster zuerst.
@@ -3934,7 +4011,8 @@ function warmFlow(tag) {
 function metconFlow(tag) {
   var d = DAYS[tag];
   return { id: 'metcon', items: d.metcon.map(function (m) {
-    var g = GL[m.n]; return flowItem(m.n, m.r, m.note, null, [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
+    var g = GL[m.n], k = mKg(tag, m, d.metcon.indexOf(m), dr(tag));
+    return flowItem(m.n, m.r + (k && k.kg != null ? ' · ' + fmtKg(k.kg, k.id) : ''), m.note, null, [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
   }), loop: { from: 0, to: d.metcon.length - 1, times: 0 } };
 }
 function murphFlow() {
@@ -4309,6 +4387,14 @@ function defRep(D, name, i, r) {
   if (base && base.start != null) return base.start;
   return 3;
 }
+// Gewicht je Satz: eingetragen, sonst wie der Satz davor, sonst die Empfehlung.
+function kgOfEx(x, i, stage, D, rounds) {
+  var id = kgUe(x.n, stage); if (!id) return null;
+  var ph = curPhase(), rir = ph.rir != null ? ph.rir : ph.deload ? 3 : 2, rg = /(\d+)\s*[–-]\s*(\d+)/.exec(x.target || '');
+  var rec = kgRec(id, rg ? +rg[1] : 3, x.hi || (rg ? +rg[2] : 6), rir), kg = [], prev = rec ? rec.kg : null;
+  for (var r = 0; r < rounds; r++) { var v = num(D['k' + i + 'kg' + r]); if (v != null) prev = v; kg.push(prev); }
+  return { id: id, rec: rec, rir: rir, kg: kg };
+}
 function kraftStepHTML(tag, D, rounds) {
   var d = DAYS[tag], test = isTestCycle(tag), n = d.kraft.length, sets = d.kfmt === 'saetze', ph = curPhase(), rir = ph.rir != null ? ph.rir : ph.deload ? 3 : 2;
   var h = '<p class="small muted">' + esc(sets ? 'Stufe so wählen, dass ' + d.reps + ' Wdh. mit RIR ' + rir + ' klappen. Alle Sätze einer Übung, dann die nächste. ' + fmtT(d.rest) + ' Pause zwischen den Sätzen.' : 'Stufe so wählen, dass die Zielspanne mit RIR 2 klappt. Schwerste Übung zuerst.') + '</p>';
@@ -4320,21 +4406,32 @@ function kraftStepHTML(tag, D, rounds) {
     if (last) hint = 'Letztes Mal: ' + (last.stage ? esc(last.stage) + ', ' : '') + last.reps.filter(function (v) { return v != null; }).join(' / ') + (bn ? '' : esc(suggest(x, last)));
     if (bn) hint += (hint ? '<br>' : '') + bn;
     else if (base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
+    // Übung mit Gewicht: Empfehlung oben, je Satz Gewicht und Wdh. im selben Rad.
+    var K = kgOfEx(x, i, stage, D, rounds), kid = K ? K.id : null, rec = K ? K.rec : null;
     var cells = '';
     for (var r = 0; r < rounds; r++) {
       var f = 'k' + i + 'r' + r, v = D[f], minute = r * n + i + 1, mx = test && r === 0 && (d.maxout === 'all' || d.maxout === i), lab = sets ? 'Satz ' + (r + 1) : 'Min ' + minute;
-      cells += '<button type="button" class="cell' + (v ? ' set' : '') + '" data-cell="' + i + '-' + r + '" ' +
-        pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, cmax: cmax, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · ' + lab }) +
-        '><small>' + (mx ? 'Max · ' : '') + lab + '</small><b>' + (v ? esc(v) : '–') + '</b></button>';
+      var kw = K ? K.kg[r] : null;
+      cells += '<button type="button" class="cell' + (v ? ' set' : '') + (kid ? ' kgc' : '') + '" data-cell="' + i + '-' + r + '" ' +
+        pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, cmax: cmax, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · ' + lab, kg: kid ? 'k' + i + 'kg' + r : null, kgdef: kid ? (kw != null ? kw : rmAdd(kid) ? 0 : 20) : null, kgid: kid }) +
+        '><small>' + (mx ? 'Max · ' : '') + lab + '</small><b>' + (v ? esc(v) : '–') + '</b>' + (kid ? '<small class="kgv">' + (kw != null ? esc(fmtKg(kw, kid)) : '– kg') + '</small>' : '') + '</button>';
     }
+    var kgLine = kid ? '<div class="kg-rec"><span class="small muted">Empfohlen</span><b>' + (rec ? esc(fmtKg(rec.kg, kid)) : 'herantasten') + '</b><span class="small muted">' + esc(rec ? rec.why : 'Noch kein Wert: leicht starten und steigern, bis ' + (x.target || '') + ' Wdh. mit RIR ' + K.rir + ' klappen.') + '</span></div>' : '';
     var fk = g ? g.key : '';
     h += '<section class="card ex-card" data-ex="' + i + '"><div class="card-head"><h3>' + gl(x.n) + '</h3><span class="small muted">' + esc(x.target) + '</span></div>' +
       '<div class="ex-fig" hidden>' + figBox(fk) + (GRIP[fk] ? '<p class="grip">' + esc(GRIP[fk]) + '</p>' : '') + '</div>' +
       (x.note ? '<p class="small muted">' + esc(x.note) + '</p>' : '') + (hint ? '<p class="small hint">' + hint + '</p>' : '') +
-      (lad ? stageRow('Stufe', stage, { sf: sf, sdef: stage, lad: g.key, cmax: cmax, title: x.n }) : '') +
+      (lad ? stageRow('Stufe', stage, { sf: sf, sdef: stage, lad: g.key, cmax: cmax, title: x.n }) : '') + kgLine +
       '<div class="cells" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div></section>';
   });
   return h;
+}
+// Metcon-Übung mit Gewicht: gewählter Wert oder Empfehlung.
+function mKg(tag, m, i, D) {
+  var lad = metconLad(m.n), st = D['m' + i + 'stage'] != null ? D['m' + i + 'stage'] : lad ? lastMetconStage(m.n) : '', id = kgUe(m.n, st);
+  if (!id) return null;
+  var v = num(D['m' + i + 'kg']), rec = kgRecM(id, parseInt(m.r, 10) || 10);
+  return { id: id, kg: v != null ? v : rec ? rec.kg : null, rec: rec, set: v != null };
 }
 function metconStepHTML(tag, D, am) {
   var d = DAYS[tag], single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon'), B = d.bench ? BENCH[d.bench] : null, em = B && B.fmt === 'emom';
@@ -4345,6 +4442,12 @@ function metconStepHTML(tag, D, am) {
     var lad = metconLad(m.n); if (!lad) return;
     var sf = 'm' + i + 'stage', stage = D[sf] != null ? D[sf] : lastMetconStage(m.n);
     h += stageRow(m.n, stage, { sf: sf, sdef: stage, lad: GL[m.n].key, title: m.n });
+  });
+  // Gewicht je Metcon-Übung: Empfehlung vorbelegt, Tippen öffnet das Rad.
+  d.metcon.forEach(function (m, i) {
+    var k = mKg(tag, m, i, D); if (!k) return;
+    h += '<button type="button" class="st-row kg-row" ' + pickAttrs({ only: 'kg', kg: 'm' + i + 'kg', kgdef: k.kg, kgid: k.id, title: m.n + ' · Gewicht' }) + '><span><span class="muted">' + esc(m.n) + '</span> <b>' + (k.kg != null ? esc(fmtKg(k.kg, k.id)) : 'wählen') + '</b>' +
+      (k.set ? '' : '<br><span class="small muted">' + esc(k.rec ? 'Empfohlen · ' + k.rec.why : 'Leicht starten, die Runden sollen flüssig laufen') + '</span>') + '</span>' + CHEV + '</button>';
   });
   var lm = null;
   for (var i = LOGS.length - 1; i >= 0; i--) {
@@ -4657,11 +4760,28 @@ ACT.pick = function (el) {
     items.unshift('');
     cols.push({ head: 'Stufe', wide: true, f: ds.sf, val: cur, items: items.map(function (s) { return { v: s, t: s ? stageText(s) : '–', c: bandColor(s) }; }) });
   }
-  if (ds.only !== 'stage') cols.push({ head: ds.unit || '', f: ds.f, val: D[ds.f] != null ? D[ds.f] : (ds.def != null ? String(ds.def) : ''), items: numItems(+ds.min || 0, +ds.max || 60, true) });
+  // Gewicht: ganze kg und ,0/,5 als zwei Räder, wie beim 1RM.
+  var kj = -1, add = ds.kgid && rmAdd(ds.kgid);
+  if (ds.kg) {
+    var kg0 = num(D[ds.kg]) != null ? num(D[ds.kg]) : +ds.kgdef || 0;
+    kj = cols.length;
+    cols.push({ head: add ? 'Zusatz kg' : 'kg', items: numItems(0, add ? 120 : 350), val: String(Math.floor(kg0)) });
+    cols.push({ head: '', items: [{ v: '0', t: ',0' }, { v: '5', t: ',5' }], val: kg0 % 1 ? '5' : '0' });
+  }
+  if (ds.only !== 'stage' && ds.only !== 'kg') cols.push({ head: ds.unit || '', f: ds.f, val: D[ds.f] != null ? D[ds.f] : (ds.def != null ? String(ds.def) : ''), items: numItems(+ds.min || 0, +ds.max || 60, true) });
+  var hasRep = ds.only !== 'stage' && ds.only !== 'kg';
+  function kgOf(v) { return kj < 0 ? null : +v[kj] + (v[kj + 1] === '5' ? 0.5 : 0); }
   openSheet(ds.title || '', cols, function (v) {
-    cols.forEach(function (c, j) { setDraft(c.f, v[j]); });
+    cols.forEach(function (c, j) { if (c.f) setDraft(c.f, v[j]); });
+    if (kj >= 0) setDraft(ds.kg, kgOf(v));
     render();
-  }, { num: ds.only !== 'stage' ? cols.length - 1 : null });
+    if (kj >= 0 && hasRep) kgBest(ds.kgid, kgOf(v), +v[cols.length - 1]);
+  }, { num: hasRep ? cols.length - 1 : null, live: kj >= 0 && hasRep ? function (v) {
+    var w = kgOf(v), reps = +v[cols.length - 1], r = rmOf(ds.kgid);
+    if (!w || !reps || reps > 10) return '';
+    var e1 = e1rm(w, reps);
+    return 'Geschätztes 1RM: <b>' + esc(fmtKg(e1, ds.kgid)) + '</b>' + (r && e1 > r.best.e1 ? ' · <span class="gold">★ Neuer Bestwert</span>' : '');
+  } : null });
 };
 // Testtag: Zähler für Wiederholungen bzw. Sekunden. Der erste Tipp setzt einen Startwert.
 ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = v == null ? (+el.dataset.def || 0) : Math.max(0, v + (+el.dataset.d)); setDraft(el.dataset.f, v); render(); };
