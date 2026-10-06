@@ -899,6 +899,72 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 .hapt-row:last-child{border-bottom:0}
 .hapt-row .seg{margin:8px 0 0}
 .hapt-row .seg-btn{font-size:13px;min-height:40px}
+/* ---------- Desktop (html.desk): Seitenleiste, zwei Spalten, großer Timer ---------- */
+.side{display:none}
+html.desk body{padding-left:248px}
+html.desk .tabbar{display:none}
+html.desk .side{display:block;position:fixed;left:0;top:0;bottom:0;width:248px;z-index:12;padding:28px 16px;overflow:auto;background:var(--paper);box-shadow:1px 0 0 var(--line)}
+.side-brand{font-family:var(--head);font-weight:800;font-size:21px;letter-spacing:-.02em;margin:0 10px 14px}
+.side-k{margin:20px 12px 6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.side-it{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:14px;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:500;text-align:left;cursor:pointer}
+.side-it svg{width:20px;height:20px;flex:none;color:var(--ink2)}
+.side-it:hover{background:var(--board)}
+.side-it.on{background:var(--board);color:var(--acc);font-weight:700}
+.side-it.on svg{color:var(--acc)}
+.side-keys{margin:28px 12px 0;line-height:1.5}
+html.desk main{max-width:880px;padding:36px 40px 64px}
+html.desk main[data-tab=heute],html.desk main[data-tab=uebungen],html.desk main[data-tab=fam]{max-width:1200px}
+html.desk body.focus{padding-left:0}
+html.desk body.focus .side{display:none}
+html.desk body.focus main{max-width:1320px}
+html.desk .frame{display:none}
+.dk2{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;align-items:start}
+.dk-step{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:32px;align-items:start}
+.dk-side{position:sticky;top:24px}
+.dk-side .ov-foot{text-align:left;margin:4px 4px 0}
+.dk-week .sec-k{margin:0 0 8px}
+.dk-day{display:flex;align-items:center;gap:12px;width:100%;min-height:42px;padding:0 8px;border:0;border-radius:12px;background:none;color:var(--ink);font:inherit;font-size:15px;text-align:left;cursor:pointer}
+.dk-day:hover,.dk-day.view{background:var(--board)}
+.dk-day.rest{color:var(--ink2)}
+.dk-n{flex:none;width:28px;height:28px;border-radius:14px;background:var(--board);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.dk-day.cur .dk-n{background:var(--acc);color:var(--on-acc)}
+.dk-steps .sec-k{margin:0 0 8px}
+.dk-steps ol{list-style:none;margin:0;padding:0}
+.dk-steps li{display:flex;align-items:center;gap:12px;min-height:40px;font-size:16px;color:var(--ink2)}
+.dk-steps li span{flex:none;width:28px;height:28px;border-radius:14px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.dk-steps li.now{color:var(--ink);font-weight:700}
+.dk-steps li.now span{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.dk-steps li.done{text-decoration:line-through}
+.dk-steps li.done span{border-color:var(--acc);color:var(--acc)}
+html.desk .st-space{display:none}
+html.desk .tbar{position:static;transform:none;width:auto;flex-direction:column;align-items:stretch;gap:18px;padding:28px 24px;margin:0 0 16px;border-radius:28px}
+html.desk .tbar .tb-main{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px}
+html.desk .tbar .tb-ring{flex:none;width:240px;height:240px}
+html.desk .tbar .tb-ring svg{width:240px;height:240px}
+html.desk .tbar .tb-ring b{font-family:var(--head);font-size:68px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+html.desk .tbar .tb-txt{align-items:center}
+html.desk .tbar .tb-txt b{font-size:28px;line-height:1.2}
+html.desk .tbar .tb-txt small{font-size:22px;line-height:1.3;white-space:normal;color:var(--ink)}
+html.desk body.focus .dk-main{zoom:1.12}
+html.desk body.focus .hero h1{font-size:52px}
+html.desk .tbar .tb-play{flex:none;width:112px;height:112px;border-radius:56px}
+html.desk .tbar .tb-play svg{width:40px;height:40px}
+html.desk .tbar>.tb-btn,html.desk .tbar .tb-grp{align-self:center}
+html.desk .tbar .tb-btn{flex-basis:56px;width:56px;height:56px;border-radius:28px}
+html.desk .tbar .tb-grp{border-radius:28px}
+html.desk .ex-card h3{font-size:22px}
+html.desk .cell{min-height:64px}
+html.desk .cell b{font-size:26px}
+.dk-lib{display:grid;grid-template-columns:420px minmax(0,1fr);gap:32px;align-items:start}
+.dk-det{position:sticky;top:24px;max-height:calc(100vh - 48px);overflow:auto;overscroll-behavior:contain;padding:2px 4px 24px}
+.dk-det .rbtn.back{display:none}
+.dk-empty{min-height:240px;display:flex;align-items:center;justify-content:center;text-align:center}
+html.desk .sheet-bg{align-items:center}
+html.desk .sheet{max-width:520px;border-radius:28px;padding-bottom:20px;opacity:0;transform:translateY(24px) scale(.98);transition:transform .22s cubic-bezier(.3,.9,.4,1),opacity .2s}
+html.desk .sheet-bg.open .sheet{opacity:1;transform:none}
+html.desk .sh-grab{visibility:hidden}
+html.desk .gl-row:hover,html.desk .st-row:hover,html.desk .tile:hover{filter:brightness(.98)}
+html.desk .btn:hover{filter:brightness(1.05)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
@@ -906,6 +972,7 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 <body>
 <div class="frame" aria-hidden="true"></div>
 <main id="view" aria-live="polite"></main>
+<nav class="side" id="side" aria-label="Navigation"></nav>
 <nav class="tabbar" aria-label="Hauptmenü">
   <div class="tabbar-in">
     <button type="button" class="tab" data-act="tab" data-group="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span>Tools</span></button>
@@ -1968,7 +2035,7 @@ var TEST_BASE = {
 
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
+  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null };
 
 var LS = {
@@ -2243,10 +2310,19 @@ function render() {
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
+  var desk = deskOn();
+  document.documentElement.classList.toggle('desk', desk);
   var body = fn();
+  // Desktop: Übungen als Liste links, die geöffnete Familie rechts.
+  if (desk && (ui.tab === 'fam' || ui.tab === 'uebungen')) {
+    var list = ui.tab === 'fam' ? renderUebungen() : body, det = ui.tab === 'fam' ? body : '<section class="card dk-empty"><p class="muted">Wähl links eine Familie, hier siehst du ihren Skill-Pfad und alle Übungen.</p></section>';
+    body = '<div class="dk-lib"><div class="dk-list">' + list + '</div><div class="dk-det">' + det + '</div></div>';
+  }
   document.body.classList.toggle('focus', ui.focus);
   $view.innerHTML = body;
-  if (views.length > 1 && !ui.noSub) subTitle(views); else ui.subOpen = false;
+  $view.dataset.tab = ui.tab;
+  var $side = document.getElementById('side'); if ($side) $side.innerHTML = desk ? sideHTML() : '';
+  if (views.length > 1 && !ui.noSub && !desk) subTitle(views); else ui.subOpen = false;
   document.querySelectorAll('.tab').forEach(function (b) {
     if (b.dataset.group === g) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
@@ -2943,6 +3019,9 @@ function settingsHTML() {
   }).join('') + '</div>';
   var out = sec('Aussehen', h) + sec('Training', trainingHTML(), true);
   h = '<h3 style="margin-top:0">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
+  h += '<h3 style="margin-top:16px">Ansicht</h3><div class="seg" role="group" aria-label="Ansicht">' + [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']].map(function (o) {
+    var on = (S.layout || 'auto') === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="layout" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+  }).join('') + '</div><p class="small muted" style="margin:6px 0 0">Automatisch: breites Fenster mit Maus oder Trackpad = Desktop. Gilt nur auf diesem Gerät.</p>';
   h += '<h3 style="margin-top:16px">Vollbild</h3><label class="check"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Beim ersten Tippen Vollbild (installierte App)</label>';
   out += sec('Gerät', h);
   var sd = ui.stand || { d: S.durchgang, t: S.tag };
@@ -4039,6 +4118,29 @@ function ringNotes(names) {
     for (var i = 0; i < RING_H.length; i++) if (RING_H[i][0].test(n)) return esc(n) + ': Ringe ' + RING_H[i][1] + '.';
   });
 }
+/* ---------- Desktop: gleiche App, breiter Aufbau ab 1024 px mit Maus/Trackpad oder fest eingestellt ---------- */
+var MQ_DESK = window.matchMedia ? window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)') : null;
+function deskOn() { var m = S.layout || 'auto'; if (m === 'desk') return window.innerWidth >= 900; if (m === 'mobil') return false; return !!(MQ_DESK && MQ_DESK.matches); }
+if (MQ_DESK) { var deskRe = function () { render(); }; if (MQ_DESK.addEventListener) MQ_DESK.addEventListener('change', deskRe); else if (MQ_DESK.addListener) MQ_DESK.addListener(deskRe); }
+// Seitenleiste statt der Reiter-Kapsel: alle Seiten direkt erreichbar.
+var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
+var SIDE_IC = { heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
+  profil: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/>', einst: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>' };
+function sideHTML() {
+  var g = groupOf(ui.tab), cur = ui.tab === 'fam' ? 'uebungen' : ui.tab === 'routine' ? 'routinen' : ui.tab === 'haptik' ? 'einst' : ui.tab === 'skill' ? 'profil' : ui.tab;
+  return '<div class="side-in"><p class="side-brand">Trainingsplan</p>' + SIDE.map(function (grp) {
+    return '<p class="side-k">' + grp[0] + '</p>' + grp[1].map(function (v) {
+      var on = v[0] === cur;
+      return '<button type="button" class="side-it' + (on ? ' on' : '') + '" data-act="tab" data-tab="' + v[0] + '"' + (on ? ' aria-current="page"' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (SUB_IC[v[0]] || SIDE_IC[v[0]] || '') + '</svg>' + v[1] + '</button>';
+    }).join('');
+  }).join('') + '<p class="side-keys small muted">Leertaste: Timer · → Weiter · ← Zurück · F: Vollbild</p></div>';
+}
+// Woche am Desktop: die 7 Tage mit Inhalt, heute blau.
+function weekCardHTML(tag) {
+  var h = '<section class="card dk-week"><p class="sec-k">Diese Woche</p>';
+  for (var t = 1; t <= 7; t++) h += '<button type="button" class="dk-day' + (t === S.tag ? ' cur' : '') + (t === tag ? ' view' : '') + (DAYS[t].type === 'rest' ? ' rest' : '') + '" data-act="viewtag" data-tag="' + t + '"><span class="dk-n">' + t + '</span><span>' + esc(dayLabel(t)) + '</span></button>';
+  return h + '</section>';
+}
 function renderHeute() {
   if (!S.started) return onboardingHTML();
   if (S.review) return reviewHTML();
@@ -4056,13 +4158,15 @@ function renderHeute() {
     h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + ': ' + esc(dayLabel(t)) + (t === S.tag ? ', dran' : '') + '" aria-pressed="' + (t === tag) + '">' + t + '</button>';
   }
   h += '</nav>';
+  // Desktop: rechts eine Seitenspalte mit Block, Fortschritt und Woche.
+  var desk = deskOn() && cur, side = '', cut = h.length;
   // Hinweise stehen dort, wo sie hingehören: Phase in der Block-Karte, Geräte beim Ort, Übungs-Hinweise im Ablauf.
   var p = pauseDays(), pn = '';
   if (cur && p > 7) pn = 'Willkommen zurück: ' + p + ' Tage Pause, ' + (p > 14 ? 'dieser Durchgang kürzer.' : 'die nächsten 2 Einheiten kürzer.');
   else if (S.durchgang === 1 || S.durchgang === 2) pn = 'Einstieg: kürzer, je 1 Wdh. unter deinem Startwert.';
   else if (ph.deload) pn = 'Weniger Sätze, damit du frisch bleibst.';
   else if (ph.test) pn = 'Maxout in Runde 1, gut schlafen.';
-  if (S.durchgang > 0) h += blockCardHTML(pn);
+  if (S.durchgang > 0) { if (desk) side += blockCardHTML(pn); else h += blockCardHTML(pn); }
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
@@ -4098,7 +4202,7 @@ function renderHeute() {
     if (cur) {
       var at = +(D._at || 0);
       h += '<button type="button" class="btn primary block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : 'Training starten') + '</button>';
-      if (!c.isTest && !c.isMurph) h += progressHTML(tag);
+      if (!c.isTest && !c.isMurph) { if (desk) side += progressHTML(tag); else h += progressHTML(tag); }
     }
     h += tipsHTML(tips, tipBtn);
     if (!c.isTest && !c.isMurph) {
@@ -4127,8 +4231,9 @@ function renderHeute() {
     if (cur) h += '<button type="button" class="btn ' + (rr ? '' : 'primary ') + 'block" data-act="save">Ruhetag abhaken</button>';
     h += tipsHTML(tips);
   }
-  h += '<p class="ov-foot">Danach: Tag ' + next + ' – ' + esc(dayLabel(next)) + '</p>';
-  return h;
+  var foot = '<p class="ov-foot">Danach: Tag ' + next + ' – ' + esc(dayLabel(next)) + '</p>';
+  if (!desk) return h + foot;
+  return h.slice(0, cut) + '<div class="dk2"><div class="dk-main">' + h.slice(cut) + '</div><aside class="dk-side">' + side + weekCardHTML(tag) + foot + '</aside></div>';
 }
 
 function stepPageHTML(c, st, i, D) {
@@ -4137,6 +4242,7 @@ function stepPageHTML(c, st, i, D) {
     '<button type="button" class="st-x" data-act="quit" aria-label="Training verlassen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></div>';
   h += '<div class="st-prog" aria-hidden="true">' + st.map(function (x, j) { return '<span' + (j <= i ? ' class="on"' : '') + '></span>'; }).join('') + '</div>';
   h += '<section class="hero"><h1>' + esc(s.title) + '</h1><p class="st-sub muted">' + esc(s.sub || '') + '</p></section>';
+  var top = h.length, desk = deskOn();
   h += s.body(D);
   if (last) {
     var label = c.isTest ? 'Testtag speichern' : c.isMurph ? 'Murph speichern' : 'Training speichern';
@@ -4145,11 +4251,12 @@ function stepPageHTML(c, st, i, D) {
     // Einzeln führt die letzte Übung direkt weiter, deshalb dort keine zweite Hauptaktion.
     h += '<button type="button" class="btn primary block go" data-act="step" data-to="' + (i + 1) + '">Weiter zu ' + esc(st[i + 1].title) + ' ›</button>';
   }
-  if (s.timer) {
-    h += '<div class="st-space"></div><div class="tbar" id="tbar" data-step="' + esc(key + ':' + s.id) + '" data-label="' + esc(s.timer.label) + '" data-info="' + esc(s.timer.info) + '"' +
-      (last ? '' : ' data-next="' + (i + 1) + '" data-nextl="' + esc(st[i + 1].title) + '"') + '></div>';
-  }
-  return h;
+  var bar = s.timer ? '<div class="tbar" id="tbar" data-step="' + esc(key + ':' + s.id) + '" data-label="' + esc(s.timer.label) + '" data-info="' + esc(s.timer.info) + '"' +
+      (last ? '' : ' data-next="' + (i + 1) + '" data-nextl="' + esc(st[i + 1].title) + '"') + '></div>' : '';
+  if (!desk) return h + (bar ? '<div class="st-space"></div>' + bar : '');
+  // Desktop: rechts der Timer groß (aus 2–3 m lesbar) und darunter der Ablauf der Einheit.
+  var steps = '<section class="card dk-steps"><p class="sec-k">Ablauf</p><ol>' + st.map(function (x, j) { return '<li class="' + (j < i ? 'done' : j === i ? 'now' : '') + '"><span>' + (j + 1) + '</span>' + esc(x.title) + '</li>'; }).join('') + '</ol></section>';
+  return h.slice(0, top) + '<div class="dk-step"><div class="dk-main">' + h.slice(top) + '</div><aside class="dk-side">' + bar + steps + '</aside></div>';
 }
 function tile(label, value, attrs, cls) {
   return '<button type="button" class="tile' + (cls ? ' ' + cls : '') + '" ' + attrs + '><small>' + esc(label) + '</small>' + value + '</button>';
@@ -4419,6 +4526,19 @@ function fitKeyboard(bg) {
   bg._unfit = function () { vv.removeEventListener('resize', fit); vv.removeEventListener('scroll', fit); };
 }
 function sheetKey(e) { if (e.key === 'Escape') closeSheet(); }
+// Tastenkürzel am Desktop: Leertaste Timer, → Erledigt/Weiter, ← Zurück, F Vollbild-Timer.
+document.addEventListener('keydown', function (e) {
+  if (e.metaKey || e.ctrlKey || e.altKey || document.getElementById('sheet')) return;
+  var t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+  var q = function (sel) { var all = document.querySelectorAll(sel); for (var i = 0; i < all.length; i++) if (all[i].offsetParent !== null || FS.on) return all[i]; return null; };
+  var b = null, k = e.key;
+  if (k === ' ') b = FS.on ? q('#fs [data-act="fs-toggle"]') : q('#tbar [data-act="tb-start"]') || q('#tb-tg') || q('[data-act="t-toggle"]');
+  else if (k === 'ArrowRight' && !FS.on) b = q('.flow-one [data-act="fl-done"]') || q('.flow .now [data-act="fl-done"]') || q('#view .btn.go');
+  else if (k === 'ArrowLeft' && !FS.on) b = q('.flow-one [data-act="fl-back"]') || q('.st-top [data-act="step"]');
+  else if (k === 'f' || k === 'F') b = FS.on ? q('#fs [data-act="fs-min"]') : q('#tbar [data-act="fs-open"]') || q('[data-act="fs-open"]');
+  if (!b) return;
+  e.preventDefault(); b.click();
+});
 function openSheet(title, cols, done, o) {
   closeSheet(); o = o || {};
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
@@ -4523,6 +4643,7 @@ ACT.pick = function (el) {
 };
 // Testtag: Zähler für Wiederholungen bzw. Sekunden. Der erste Tipp setzt einen Startwert.
 ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = v == null ? (+el.dataset.def || 0) : Math.max(0, v + (+el.dataset.d)); setDraft(el.dataset.f, v); render(); };
+ACT.layout = function (el) { S.layout = el.dataset.v; saveState(); render(); };
 ACT.step = function (el) {
   var to = +el.dataset.to, k = draftKey(S.tag), d = DRAFTS[k] || (DRAFTS[k] = {});
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
