@@ -11,7 +11,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 263 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 265 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen.
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 48 Familien,
@@ -90,7 +90,15 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   schwächsten Kraft-Teil (`partScores`). Der Coach entscheidet, nicht der Nutzer: eine neu freigeschaltete Leiter mit mehr Nutzen
   und bei Stillstand (`stallOf`: 3× gleiche Stufe ohne mehr Wdh.) eine andere Variante werden sofort übernommen (`S.picks`, `S.swapped`
   je Platz `{from, to, why: 'neu'|'reiz', ts}`). Fehlt am Ort das Gerät für ein Muster, nimmt `planFill` einen Ersatz ohne dieses Gerät
-  (erst Leiter aus nahem Muster `MUSTER_NEAR`, sonst Einzelübung mit Rolle `kraft`); gibt es keinen, fällt der Platz weg (Hinweis am Schritt).
+  (erst Leiter aus nahem Muster `MUSTER_NEAR`, sonst Einzelübung mit Rolle `kraft`, z. B. Table Row / Towel Door Row mit `eq_zuhause`);
+  gibt es keinen, fällt der Platz weg (Hinweis am Schritt). Neu nur auf höheren Nutzen wechseln, nie auf eine Leiter, die ein anderer
+  Platz am Ort hält oder die wegen Stillstand verlassen wurde (sonst springt die Wahl hin und her).
+- Sehnen-Bremse (`coachStage`, `ladHist`, `brakeNote`): die Stufe setzt der Coach (`stageDef`), das Rad zeigt nur Stufen bis dahin (`cmax`).
+  Aufstieg nur, wenn 2 Einheiten in Folge alle Runden am oberen Ende der Spanne liegen UND die Mindestzeit auf der Stufe um ist
+  (`SEHNE` Klasse 0/1/2 je Leiter, `SEHNE_TAGE` 14/28/42). Höchstens eine Stufe pro Durchgang, keine in der Entlastung, keine ohne Gerät
+  für die nächste Stufe. Nach einer Pause über `SEHNE_PAUSE` (14, hoch 10 Tage) eine Stufe leichter. Wartet die Sehne, steht der Hinweis
+  am Kraft-Schritt (3 s absenken, 1 s Pause) und „Bald freigeschaltet“ mit Datum im Fortschritt-Block. Volle Wdh. beim Warten sind kein Stillstand.
+  Laufen (`runCap`): lockerer Lauf heute höchstens so lang, dass die Woche 1,3 × Schnitt der letzten 4 Wochen nicht übersteigt (ab 3 Wochen Laufdaten).
 - Session anpassen (`adaptLineHTML`, `ACT.adapt`): grauer Link unter dem Ablauf (Krafttag) bzw. dem Lauf (Intervall). Blatt von unten
   „Sag deinem Coach, worauf er heute achten soll.“, nur „Fertig“, gilt nur für heute und sofort, Aktives grau hinterlegt (`.ad-it.sel/.open`):
   „Mir geht’s heute nicht gut“ (Antippen = Kurzversion bzw. lockerer Lauf statt Intervalle, Entwurf `_kurz`), „Ich habe wenig Zeit“
