@@ -3023,7 +3023,7 @@ function settingsHTML() {
   h = '<h3 style="margin-top:0">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
   h += '<h3 style="margin-top:16px">Ansicht</h3><div class="seg" role="group" aria-label="Ansicht">' + [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']].map(function (o) {
     var on = (S.layout || 'auto') === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="layout" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
-  }).join('') + '</div><p class="small muted" style="margin:6px 0 0">Automatisch: breites Fenster mit Maus oder Trackpad = Desktop. Gilt nur auf diesem Gerät.</p>';
+  }).join('') + '</div><p class="small muted" style="margin:6px 0 0">' + (S.layout === 'desk' && !deskOn() ? 'Desktop braucht ein Fenster ab 900 px Breite, z. B. am Mac oder am Tablet quer. Auf diesem Bildschirm bleibt die Handy-Ansicht.' : 'Automatisch: breites Fenster mit Maus oder Trackpad = Desktop. Gilt nur auf diesem Gerät.') + '</p>';
   h += '<h3 style="margin-top:16px">Vollbild</h3><label class="check"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Beim ersten Tippen Vollbild (installierte App)</label>';
   out += sec('Gerät', h);
   var sd = ui.stand || { d: S.durchgang, t: S.tag };
@@ -4645,7 +4645,7 @@ ACT.pick = function (el) {
 };
 // Testtag: Zähler für Wiederholungen bzw. Sekunden. Der erste Tipp setzt einen Startwert.
 ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = v == null ? (+el.dataset.def || 0) : Math.max(0, v + (+el.dataset.d)); setDraft(el.dataset.f, v); render(); };
-ACT.layout = function (el) { S.layout = el.dataset.v; saveState(); render(); };
+ACT.layout = function (el) { S.layout = el.dataset.v; saveState(); render(); if (S.layout === 'desk' && !deskOn()) toast('Zu schmal für Desktop: ab 900 px Breite, z. B. am Mac.'); };
 ACT.step = function (el) {
   var to = +el.dataset.to, k = draftKey(S.tag), d = DRAFTS[k] || (DRAFTS[k] = {});
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
