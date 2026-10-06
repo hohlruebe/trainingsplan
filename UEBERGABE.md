@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 6. Oktober 2026 (Sehnen-Bremse)
+Stand: 6. Oktober 2026 (Testtag-Eingabe)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,10 @@ Stand: 6. Oktober 2026 (Sehnen-Bremse)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Testtag-Eingabe (6. Oktober)
+- Dennis: Auf dem Testtag fragte „Geschafft“ noch einmal das Band ab, obwohl die Kachel „Stufe“ das schon tut.
+  Drei Varianten im Canvas, Dennis wählte C: Kachel „Stufe“ plus Zähler – / + für die Wiederholungen (Bestzeit in 5-s-Schritten).
 
 ## Sehnen-Bremse (6. Oktober)
 - Dennis: Sehnen und Bänder passen sich langsamer an als Muskeln, Steigerungen bewusst verzögern. Nur Programm und Fortschritt
