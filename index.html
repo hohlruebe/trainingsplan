@@ -497,7 +497,10 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .rm-pt b{font-size:15px;font-weight:600}
 .rm-pt small{font-size:13px;color:var(--ink2)}
 .rm-pk{font-family:var(--head);font-weight:700;font-size:19px;white-space:nowrap}
-.rm-p.hi .rm-pp,.rm-p.hi .rm-pk{color:var(--acc)}
+.rm-p{--rc:color-mix(in srgb,hsl(var(--hue) var(--sat) var(--lt)) var(--mx),var(--ink))}
+.rm-p .rm-pp,.rm-p .rm-pk{color:var(--rc)}
+.rm-p .rm-pp{display:flex;align-items:center;gap:8px}
+.rm-p .rm-pp::before{content:"";flex:none;width:4px;height:28px;border-radius:2px;background:var(--rc)}
 .pct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
 .pct span{border-radius:12px;background:var(--board);padding:8px 10px;font-size:13px;color:var(--ink2)}
 .pct span b{display:block;font-family:var(--head);font-size:17px;color:var(--ink)}
@@ -4752,7 +4755,9 @@ function rmDetailHTML(id) {
     (rmAdd(id) ? '<span class="small muted">Gezählt wird das Zusatzgewicht (Weste oder Gürtel).</span>' : '') + '</div>' +
     '<div class="rm-pct">' + RM_PCT.map(function (p) {
       var kg = p[0] === 100 ? base.e1 : Math.round(base.e1 * p[0] / 100 / 2.5) * 2.5;
-      return '<div class="rm-p' + (p[0] >= 85 && p[0] < 100 ? ' hi' : '') + '"><span class="rm-pp">' + p[0] + ' %</span><span class="rm-pt"><b>' + esc(p[2]) + '</b><small>' + (p[1] === '–' ? 'locker' : p[1] + ' Wdh.') + '</small></span><span class="rm-pk">' + esc(fmtKg(kg, id)) + '</span></div>';
+      // Farbe nach Schwere: 50 % grün, je schwerer desto dunkler rot.
+      var t = (p[0] - 50) / 50, hue = Math.round(140 * (1 - t)), sat = Math.round(55 + 25 * t), lt = Math.round(46 - 8 * t), mx = Math.round(80 - 14 * t);
+      return '<div class="rm-p" style="--hue:' + hue + ';--sat:' + sat + '%;--lt:' + lt + '%;--mx:' + mx + '%"><span class="rm-pp">' + p[0] + ' %</span><span class="rm-pt"><b>' + esc(p[2]) + '</b><small>' + (p[1] === '–' ? 'locker' : p[1] + ' Wdh.') + '</small></span><span class="rm-pk">' + esc(fmtKg(kg, id)) + '</span></div>';
     }).join('') + '</div><p class="small muted" style="margin:8px 0 0">Auf 2,5 kg gerundet. Wdh. sind Richtwerte mit 1–2 Wdh. Reserve.</p></section>';
   h += '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
   if (r.list.length > 1) {
