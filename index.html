@@ -480,8 +480,28 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .rm-kg small{font-family:var(--text);font-size:12px;font-weight:600}
 .rm-kg small.neg{color:var(--red)}
 .rm-kg small.pos{color:var(--green)}
+.rm-kg small.gold{color:#B8860B}
+.rm-list{padding-top:2px;padding-bottom:2px}
+.rm-list .rm-row:first-child{border-top:0}
+
 .a-big small{font-size:18px}
 .chip.gold{background:#FFF4D6;color:#8A6A12;font-weight:600}
+.rm-base{display:flex;flex-direction:column;gap:2px;padding:0 0 12px;margin:0 0 6px;border-bottom:1px solid var(--line)}
+.rm-base b{font-family:var(--head);font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.rm-base b small{font-size:20px;font-weight:700}
+.rm-bw{font-size:14px;font-weight:600;color:#B8860B}
+.rm-pct{display:flex;flex-direction:column}
+.rm-p{display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 0;border-bottom:1px solid var(--line)}
+.rm-p:last-child{border-bottom:0}
+.rm-pp{flex:0 0 52px;font-family:var(--head);font-weight:700;font-size:13px;color:var(--ink2)}
+.rm-pt{flex:1;min-width:0;font-size:14px;line-height:1.3}
+.rm-pt b{font-weight:600}
+.rm-pt small{font-size:13px;color:var(--ink2);white-space:nowrap}
+.rm-pk{font-family:var(--head);font-weight:700;font-size:16px;white-space:nowrap}
+.rm-p{--rc:color-mix(in srgb,hsl(var(--hue) var(--sat) var(--lt)) var(--mx),var(--ink))}
+.rm-p .rm-pp,.rm-p .rm-pk{color:var(--rc)}
+.rm-p .rm-pp{display:flex;align-items:center;gap:8px}
+.rm-p .rm-pp::before{content:"";flex:none;width:3px;height:18px;border-radius:2px;background:var(--rc)}
 .pct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
 .pct span{border-radius:12px;background:var(--board);padding:8px 10px;font-size:13px;color:var(--ink2)}
 .pct span b{display:block;font-family:var(--head);font-size:17px;color:var(--ink)}
@@ -490,6 +510,8 @@ th{font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:.06em;t
 .dev-chart .rm-bdot{fill:#D9A21B}
 .sh-live{text-align:center;margin:10px 0 0;padding:10px;border-radius:14px;background:color-mix(in srgb,var(--acc) 13%,var(--paper));font-size:15px}
 .sh-live b{color:var(--acc)}
+.sh-live:empty{display:none}
+.sh-live .gold{color:#B8860B;font-weight:600}
 .tips-h{margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
 .tips ul{list-style:none;margin:0;padding:0}
 .tips li{position:relative;padding:8px 0 8px 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.45}
@@ -521,6 +543,13 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .cell b{font-family:var(--hand);font-weight:var(--hand-w);font-size:20px}
 .cell.set{background:color-mix(in srgb,var(--acc) 13%,var(--paper));color:var(--acc)}
 .cell.now{box-shadow:inset 0 0 0 2px var(--acc);color:var(--acc)}
+.cell.kgc{min-height:64px}
+.cell .kgv{font-family:var(--head);font-weight:600;font-size:12px;margin-top:2px}
+.kg-rec{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:10px;row-gap:2px;margin:10px 0;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--acc) 9%,var(--paper))}
+.kg-rec b{font-family:var(--head);font-size:20px;font-weight:700;color:var(--acc);justify-self:end}
+.kg-rec span:last-child{grid-column:1/-1;line-height:1.35}
+.kg-row{padding:8px 14px}
+.kg-row .small{line-height:1.35}
 .lad{margin:12px 0 6px}
 .lad-k{margin:0;font-size:11px;letter-spacing:.08em;font-weight:600;color:var(--ink2);text-transform:uppercase}
 .lad-cap{margin:6px 0;padding:4px;border-radius:24px;background:var(--tray);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);display:flex;flex-direction:column;gap:2px}
@@ -773,6 +802,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-sub{font-size:28px;font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums}
 .fs-hint{margin:0;font-size:13px;color:var(--ink2)}
 .fs-exn{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.fs-kg{margin:2px 0 4px;font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:var(--acc)}
 .fs-ex{display:flex;align-items:center;gap:12px}
 .fs-ex>div:last-child{min-width:0}
 .fs-ex .chip{margin-top:6px;white-space:normal;display:inline-block}
@@ -2453,7 +2483,12 @@ function saveDay() {
       hs: !d.hs ? '' : v.hsStage != null || v.hsSec != null ? composeHs(v) : (v.hs || ''),
       kraft: d.kraft.map(function (x, i) {
         var reps = []; for (var r = 0; r < rounds; r++) reps.push(num(v['k' + i + 'r' + r]));
-        return { n: x.n, stage: v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n, x.hi), reps: reps };
+        var stg = v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n, x.hi), o = { n: x.n, stage: stg, reps: reps }, kid = kgUe(x.n, stg);
+        if (kid) {
+          var K = kgOfEx(x, i, stg, v, rounds), kg = K.kg.map(function (w, r2) { return reps[r2] != null ? w : null; });
+          if (kg.some(function (w) { return w != null; })) { o.ue = kid; o.kg = kg; }
+        }
+        return o;
       }) });
     if (d.kfmt === 'saetze' && d.kraft.length) log.sets = rounds;
     if ((d.mmin || d.bench) && d.metcon.length && zeitLv(tag) < 3) {
@@ -2465,6 +2500,8 @@ function saveDay() {
       log.metcon = { rounds: num(v.mr), reps: num(v.mw), min: metconMin(tag), items: d.metcon.map(function (m) { return m.n; }) };
       if (d.bench) { log.metcon.bench = BENCH[d.bench].name; log.metcon.fmt = BENCH[d.bench].fmt; }
       if (stages.length) log.metcon.stages = stages;
+      var kgs = d.metcon.map(function (m, i) { var k = mKg(tag, m, i, v); return k && k.kg != null ? { n: m.n, ue: k.id, kg: k.kg } : null; }).filter(Boolean);
+      if (kgs.length) log.metcon.kg = kgs;
     }
     if (d.skill && zeitLv(tag) < 1) { var sk = skillFrom(v, d); if (sk) log.skill = sk; }
     if (d.mobl) log.mobl = { art: d.mobl, min: mobRoutine(d.mobl).dauer_min, done: flowState(moblFlow(tag), v).done.length || null };
@@ -2484,6 +2521,13 @@ function saveDay() {
   }
   if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; }
   if (log) addLog(log);
+  // Schwerster Satz im Kraftteil zählt fürs 1RM, wenn er über dem aktuellen Wert liegt (bis 10 Wdh., Epley).
+  if (log && log.kraft) log.kraft.forEach(function (k) {
+    if (!k.ue) return;
+    var b = null; k.kg.forEach(function (w, r) { var n = k.reps[r]; if (w && n && n <= 10 && (!b || e1rm(w, n) > b.e1)) b = { kg: w, reps: n, e1: e1rm(w, n) }; });
+    var rm = rmOf(k.ue); if (!b || (rm && b.e1 <= rm.cur.e1)) return;
+    addLog({ id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, kind: 'rm', lift: k.ue, kg: b.kg, reps: b.reps, e1: b.e1, bw: S.weight || null, src: 'training', notes: '' });
+  });
   if (TM.cfg && TM.cfg.step && TM.cfg.step.indexOf(key + ':') === 0) { timerReset(); TM.cfg.step = null; }
   delete DRAFTS[key]; LS.set('tp.drafts', DRAFTS);
   delete ui.kurz[key]; ui.skipMurph = false;
@@ -3116,6 +3160,102 @@ function rmOf(id, logs) {
   if (!L.length) return null;
   return { cur: L[L.length - 1], best: L.reduce(function (a, l) { return l.e1 > a.e1 ? l : a; }, L[0]), list: L };
 }
+/* ---------- Gewicht im Training: Empfehlung und Eintrag (Kraftteil und Metcon) ---------- */
+// Übung mit Gewicht: bei Leitern die Übung der gewählten Stufe, sonst die Übung selbst.
+function kgUe(name, stage) {
+  var lad = ladFor(name), id = null;
+  if (lad && lad.lib && stage) { var s = lad.lib.stufen.filter(function (x) { return x.name === stage; })[0]; if (s) id = s.uebung; }
+  if (!id && GL[name] && GL[name].lib) id = GL[name].lib.id;
+  return id && UE[id] && UE[id].einheit === 'kg' ? id : null;
+}
+// Beine und Hüfte steigen in 5-kg-Schritten, alles andere in 2,5 kg.
+function kgStep(id) { return { kniebeuge: 1, huefte: 1 }[UE[id].muster] ? 5 : 2.5; }
+function kgRound(v) { return Math.max(0, Math.floor(v / 2.5 + 1e-9) * 2.5); }
+// Verlauf im Kraftteil: je Einheit schwerstes Gewicht und die Wdh. der Sätze damit.
+function kgHist(id) {
+  var out = [];
+  LOGS.forEach(function (l) {
+    (l.kraft || []).forEach(function (k) {
+      if (k.ue !== id || !k.kg) return;
+      var ws = k.kg.filter(function (v) { return v != null; }); if (!ws.length) return;
+      var mx = Math.max.apply(null, ws), rr = k.reps.filter(function (v, r) { return v != null && k.kg[r] === mx; });
+      out.push({ date: l.date, ts: l.ts || 0, dg: l.durchgang, kg: mx, reps: rr, sum: rr.reduce(function (a, b) { return a + b; }, 0) });
+    });
+  });
+  return out.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts; });
+}
+// Stillstand mit Gewicht: 3-mal dasselbe Gewicht ohne mehr Wdh.
+function kgStallN(H, hi) { var t = H.slice(-3); return t.length === 3 && t.every(function (h) { return h.kg === t[0].kg; }) && t[2].sum <= t[0].sum && !(hi && t[2].reps.length && Math.min.apply(null, t[2].reps) >= hi); }
+// Schon einmal 10 % leichter neu aufgebaut (in den letzten 8 Einheiten)?
+function kgDeloaded(H) { var t = H.slice(-8); for (var i = 1; i < t.length; i++) if (t[i].kg <= t[i - 1].kg * 0.92) return true; return false; }
+// In diesem Durchgang schon gesteigert? Höchstens eine Steigerung pro Durchgang (Sehnen).
+function kgUpHere(H) { for (var i = 1; i < H.length; i++) if (H[i].dg === S.durchgang && H[i].kg > H[i - 1].kg) return true; return false; }
+function kgPlus(v) { return '+' + String(v).replace('.', ',') + ' kg'; }
+// Empfehlung Kraftteil: doppelte Progression mit Sehnen-Bremse. Alle Sätze am oberen Ende → mehr Gewicht,
+// aber höchstens einmal pro Durchgang und nicht in der Entlastung. Nach Pause oder Stillstand 10 % leichter.
+// Ohne Verlauf aus dem 1RM: Gewicht, mit dem lo Wdh. plus Reserve gehen (Epley rückwärts).
+function kgRec(id, lo, hi, rir) {
+  var H = kgHist(id), L = H[H.length - 1], st = kgStep(id);
+  if (L && L.reps.length) {
+    var gap = daysBetween(parseISO(L.date), new Date());
+    if (gap > 14) return { kg: kgRound(L.kg * 0.9), why: 'Nach ' + gap + ' Tagen Pause 10 % leichter' };
+    var top = Math.min.apply(null, L.reps) >= hi;
+    if (kgStallN(H, hi)) return { kg: kgRound(L.kg * 0.9), why: '3-mal gleich ohne mehr Wdh.: 10 % leichter und neu aufbauen' };
+    if (top && curPhase().deload) return { kg: L.kg, why: 'Entlastung: das Gewicht bleibt' };
+    if (top && kgUpHere(H)) return { kg: L.kg, why: 'Diesen Durchgang schon gesteigert, mehr im nächsten' };
+    if (top) return { kg: L.kg + st, why: 'Letztes Mal alle Sätze mit ' + hi + ' Wdh., deshalb ' + kgPlus(st) };
+    return { kg: L.kg, why: 'Wie letztes Mal, bis alle Sätze ' + hi + ' Wdh. schaffen' };
+  }
+  var rm = rmOf(id);
+  if (rm) return { kg: kgRound(rm.cur.e1 / (1 + (lo + rir) / 30)), why: 'Aus deinem 1RM (' + fmtKg(rm.cur.e1, id) + ')' };
+  return null;
+}
+// Gewichtsübungen steigen über kg. Die Stufe wechselt nur an diesen Übergängen (Kurzhantel/Kettlebell → Langhantel,
+// leichtere → schwerere Hebe-Variante), wenn das 1RM der Stufe dieses Vielfache vom Körpergewicht erreicht.
+var KG_UP = { g_goblet_squat: 0.4, g_front_squat: 1, g_kb_deadlift: 0.6, g_rdl: 0.8, g_db_press: 0.25, g_db_clean_jerk: 0.25,
+  g_hang_power_clean: 0.6, g_power_clean: 0.8, g_squat_clean: 0.9, g_overhead_squat: 0.5, g_hang_power_snatch: 0.5, g_power_snatch: 0.6 };
+// CrossFit-Standardgewicht (Rx, Männer) als Ziel im Metcon.
+var RX = { g_thruster: 43, g_push_press: 43, g_push_jerk: 52, g_split_jerk: 52, g_strict_press: 43, g_deadlift: 102, g_rdl: 61, g_sdhp: 34, g_back_squat: 61, g_front_squat: 61,
+  g_overhead_squat: 43, g_goblet_squat: 24, g_kb_deadlift: 32, g_kb_clean: 24, g_kb_snatch: 24, g_db_snatch: 22.5, g_db_clean_jerk: 22.5, g_devil_press: 22.5, g_db_press: 22.5,
+  g_db_row: 22.5, g_floor_press: 22.5, g_hang_power_clean: 61, g_power_clean: 61, g_squat_clean: 61, g_clean_and_jerk: 61, g_hang_power_snatch: 43, g_power_snatch: 43, g_squat_snatch: 43,
+  g_barbell_row: 61, g_bench_press: 61 };
+// Kettlebells gibt es in 4-kg-Schritten, alles andere in 2,5 kg.
+function kgStepM(id) { return /_kb_|^g_kb/.test(id) ? 4 : 2.5; }
+function kgRoundM(v, id) { var s = kgStepM(id); return Math.max(s === 4 ? 8 : 0, Math.floor(v / s + 1e-9) * s); }
+// Verlauf im Metcon: Gewicht, Übungen, Dauer und Ergebnis.
+function kgHistM(id) {
+  var out = [];
+  LOGS.forEach(function (l) { var m = l.metcon; if (m && m.kg) m.kg.forEach(function (x) { if (x.ue === id && x.kg) out.push({ date: l.date, ts: l.ts || 0, dg: l.durchgang, kg: x.kg, items: (m.items || []).join('|') + '@' + (m.min || ''), score: m.rounds != null ? m.rounds * 1000 + (m.reps || 0) : null }); }); });
+  return out.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts; });
+}
+// Empfehlung Metcon: Ziel ist das Rx-Gewicht. Mehr geschafft als beim letzten Mal mit denselben Übungen
+// (oder ohne Vergleich zweimal mit diesem Gewicht) → ein Schritt Richtung Rx. Sonst gleich. Start: 50 % 1RM bzw. 60 % Rx.
+function kgRecM(id, reps) {
+  var H = kgHistM(id), L = H[H.length - 1], rx = RX[id] || null, st = kgStepM(id);
+  if (L) {
+    var gap = daysBetween(parseISO(L.date), new Date());
+    if (gap > 14) return { kg: kgRoundM(L.kg * 0.9, id), why: 'Nach ' + gap + ' Tagen Pause 10 % leichter', rx: rx };
+    if (rx && L.kg >= rx) return { kg: L.kg, why: 'Rx-Gewicht erreicht', rx: rx };
+    var P = null; for (var i = H.length - 2; i >= 0; i--) if (H[i].items === L.items) { P = H[i]; break; }
+    var better = P && L.score != null && P.score != null && L.score > P.score, twice = !P && H.length >= 2 && H[H.length - 2].kg === L.kg;
+    var hold = curPhase().deload || H.some(function (h, j) { return j && h.dg === S.durchgang && h.kg > H[j - 1].kg; });
+    if ((better || twice) && !hold) { var nk = rx ? Math.min(rx, L.kg + st) : L.kg + st; return { kg: nk, why: (better ? 'Letztes Mal mehr geschafft als davor' : 'Zweimal mit diesem Gewicht') + ', deshalb ' + kgPlus(nk - L.kg), rx: rx }; }
+    return { kg: L.kg, why: P && !better ? 'Wie letztes Mal, erst mehr Runden schaffen' : 'Wie letztes Mal', rx: rx };
+  }
+  var rm = rmOf(id), p = reps > 10 ? 40 : 50;
+  if (rm) return { kg: kgRoundM(Math.min(rx || 1e9, rm.cur.e1 * p / 100), id), why: 'Etwa ' + p + ' % deines 1RM', rx: rx };
+  if (rx) return { kg: kgRoundM(rx * 0.6, id), why: 'Start mit 60 % vom Rx-Gewicht', rx: rx };
+  return null;
+}
+// Neuer Bestwert schon während des Trainings: Meldung mit Vibration, einmal je Übung und Wert.
+function kgBest(id, kg, reps) {
+  if (!id || !kg || !reps || reps > 10) return;
+  var e1 = e1rm(kg, reps), r = rmOf(id), D = dr(S.tag), f = '_rmb_' + id;
+  if (e1 <= (r ? r.best.e1 : 0) || e1 <= num(D[f] || 0)) return;
+  setDraft(f, e1);
+  toast('★ Neuer Bestwert: ' + UE[id].name + ' ≈ ' + fmtKg(e1, id) + ' (1RM)');
+  buzz([120, 250, 40, 180, 40, 180, 220]);
+}
 function nutzenOf(k) { if (k === 'easy') return 75; var l = ladOf(k); return l && l.nutzen != null ? l.nutzen : 0; }
 // Listen nach Nutzen sortieren, höchster zuerst.
 var ALL_LADDERS = Object.keys(LAD).concat(['murph', 'interval']).sort(function (a, b) { return nutzenOf(b) - nutzenOf(a) || ladOf(a).name.localeCompare(ladOf(b).name, 'de'); });
@@ -3740,11 +3880,20 @@ function coachStage(key, hi) {
     return bi ? { idx: bi, kl: kl } : null;
   }
   var last = h[h.length - 1], cur = last.idx, out = { idx: cur, kl: kl }, gap = daysBetween(parseISO(last.date), new Date());
-  if (gap > SEHNE_PAUSE[kl]) { if (cur > 1) { out.idx = cur - 1; out.down = gap; } return out; }
+  var cu = lad.lib && lad.lib.stufen && lad.lib.stufen[cur - 1], isKg = !!(cu && UE[cu.uebung] && UE[cu.uebung].einheit === 'kg');
+  // Nach einer Pause eine Stufe leichter; mit Gewicht bleibt die Übung und das Gewicht sinkt (kgRec).
+  if (gap > SEHNE_PAUSE[kl] && !isKg) { if (cur > 1) { out.idx = cur - 1; out.down = gap; } return out; }
   var i = h.length - 1; while (i > 0 && h[i - 1].idx === cur) i--;
   var upHere = i > 0 && h[i - 1].idx < cur && h[i].dg === S.durchgang;
   var full = h.slice(i).filter(function (e) { return e.reps.length; }).slice(-2);
   var ok = full.length === 2 && full.every(function (e) { var r = e.reps.filter(function (v) { return typeof v === 'number'; }); return r.length >= 2 && Math.min.apply(null, r) >= top; });
+  // Gewichtsübung: Fortschritt über kg. Die Stufe wechselt nur an festen Übergängen (KG_UP), wenn das 1RM reicht.
+  if (isKg) {
+    var gate = KG_UP[cu.uebung]; if (!gate || cur >= lad.steps.length) return out;
+    var rm = rmOf(cu.uebung), need = S.weight ? Math.ceil(gate * S.weight / 2.5) * 2.5 : null;
+    if (!need || !rm || rm.best.e1 < need) { out.kgGate = { ue: cu.uebung, need: need, next: lad.steps[cur] }; return out; }
+    ok = true;
+  }
   if (!ok || cur >= lad.steps.length) return out;
   var nx = lad.lib && lad.lib.stufen && lad.lib.stufen[cur], have = haveEq(trainOrt());
   if (nx && !eqOk(nx.equipment, have)) { out.wait = { why: 'geraet', miss: eqMissing(nx.equipment, have) }; return out; }
@@ -3761,6 +3910,7 @@ function brakeNote(name, cs) {
   var lad = ladFor(name), st = lad ? stageText(lad.steps[cs.idx - 1]) : '';
   if (cs.up) return esc(name) + ': heute die nächste Stufe, „' + esc(st) + '“. Wdh. wieder am unteren Ende.';
   if (cs.down) return esc(name) + ': nach ' + cs.down + ' Tagen Pause eine Stufe leichter, „' + esc(st) + '“.';
+  if (cs.kgGate) return cs.kgGate.need ? esc(stageText(cs.kgGate.next)) + ' kommt, sobald dein 1RM hier ' + esc(fmtKg(cs.kgGate.need, cs.kgGate.ue)) + ' erreicht. Bis dahin steigt das Gewicht.' : 'Trag dein Körpergewicht ein (Einstellungen › Profil), dann sagt dir der Coach, ab wann ' + esc(stageText(cs.kgGate.next)) + ' kommt.';
   if (!cs.wait) return '';
   if (cs.wait.why === 'sehne') return esc(name) + ': Wdh. geschafft. Sehnen brauchen länger als Muskeln, nächste Stufe ab ' + shortDate(cs.wait.date).replace(/\.$/, '') + '. Bis dahin 3 s absenken, unten 1 s Pause.';
   if (cs.wait.why === 'geraet') return esc(name) + ': Wdh. geschafft. Für die nächste Stufe fehlt hier ' + esc(cs.wait.miss || 'ein Gerät') + '.';
@@ -3914,7 +4064,8 @@ function warmFlow(tag) {
 function metconFlow(tag) {
   var d = DAYS[tag];
   return { id: 'metcon', items: d.metcon.map(function (m) {
-    var g = GL[m.n]; return flowItem(m.n, m.r, m.note, null, [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
+    var g = GL[m.n], k = mKg(tag, m, d.metcon.indexOf(m), dr(tag));
+    return flowItem(m.n, m.r + (k && k.kg != null ? ' · ' + fmtKg(k.kg, k.id) : ''), m.note, null, [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
   }), loop: { from: 0, to: d.metcon.length - 1, times: 0 } };
 }
 function murphFlow() {
@@ -4289,6 +4440,14 @@ function defRep(D, name, i, r) {
   if (base && base.start != null) return base.start;
   return 3;
 }
+// Gewicht je Satz: eingetragen, sonst wie der Satz davor, sonst die Empfehlung.
+function kgOfEx(x, i, stage, D, rounds) {
+  var id = kgUe(x.n, stage); if (!id) return null;
+  var ph = curPhase(), rir = ph.rir != null ? ph.rir : ph.deload ? 3 : 2, rg = /(\d+)\s*[–-]\s*(\d+)/.exec(x.target || '');
+  var rec = kgRec(id, rg ? +rg[1] : 3, x.hi || (rg ? +rg[2] : 6), rir), kg = [], prev = rec ? rec.kg : null;
+  for (var r = 0; r < rounds; r++) { var v = num(D['k' + i + 'kg' + r]); if (v != null) prev = v; kg.push(prev); }
+  return { id: id, rec: rec, rir: rir, kg: kg };
+}
 function kraftStepHTML(tag, D, rounds) {
   var d = DAYS[tag], test = isTestCycle(tag), n = d.kraft.length, sets = d.kfmt === 'saetze', ph = curPhase(), rir = ph.rir != null ? ph.rir : ph.deload ? 3 : 2;
   var h = '<p class="small muted">' + esc(sets ? 'Stufe so wählen, dass ' + d.reps + ' Wdh. mit RIR ' + rir + ' klappen. Alle Sätze einer Übung, dann die nächste. ' + fmtT(d.rest) + ' Pause zwischen den Sätzen.' : 'Stufe so wählen, dass die Zielspanne mit RIR 2 klappt. Schwerste Übung zuerst.') + '</p>';
@@ -4297,24 +4456,40 @@ function kraftStepHTML(tag, D, rounds) {
     var g = GL[x.n], lad = ladFor(x.n), last = lastFor(x.n), base = S.base[x.n], sf = 'k' + i + 'stage';
     var cs = lad ? coachStage(g.key, x.hi) : null, bn = brakeNote(x.n, cs), cmax = cs ? cs.idx : null;
     var stage = D[sf] != null ? D[sf] : stageDef(x.n, x.hi), hint = '';
-    if (last) hint = 'Letztes Mal: ' + (last.stage ? esc(last.stage) + ', ' : '') + last.reps.filter(function (v) { return v != null; }).join(' / ') + (bn ? '' : esc(suggest(x, last)));
+    var K = kgOfEx(x, i, stage, D, rounds), kid = K ? K.id : null, rec = K ? K.rec : null;
+    // Mit Gewicht steht das Letzte Mal als „Wdh. × kg“; die Steigerung sagt die Empfehlung.
+    if (last) {
+      var lk = kid && last.kg ? last.kg.filter(function (w, r) { return w != null && last.reps[r] != null; }) : [], same = lk.length && lk.every(function (w) { return w === lk[0]; });
+      hint = 'Letztes Mal: ' + (last.stage ? esc(last.stage) + ', ' : '') + last.reps.map(function (v, r) { return v == null ? null : v + (lk.length && !same && last.kg[r] ? ' × ' + esc(fmtKg(last.kg[r], kid)) : ''); }).filter(function (v) { return v != null; }).join(' / ') +
+        (same ? ' × ' + esc(fmtKg(lk[0], kid)) : '') + (bn || kid ? '' : esc(suggest(x, last)));
+    }
     if (bn) hint += (hint ? '<br>' : '') + bn;
     else if (base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
+    // Übung mit Gewicht: Empfehlung oben, je Satz Gewicht und Wdh. im selben Rad.
     var cells = '';
     for (var r = 0; r < rounds; r++) {
       var f = 'k' + i + 'r' + r, v = D[f], minute = r * n + i + 1, mx = test && r === 0 && (d.maxout === 'all' || d.maxout === i), lab = sets ? 'Satz ' + (r + 1) : 'Min ' + minute;
-      cells += '<button type="button" class="cell' + (v ? ' set' : '') + '" data-cell="' + i + '-' + r + '" ' +
-        pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, cmax: cmax, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · ' + lab }) +
-        '><small>' + (mx ? 'Max · ' : '') + lab + '</small><b>' + (v ? esc(v) : '–') + '</b></button>';
+      var kw = K ? K.kg[r] : null;
+      cells += '<button type="button" class="cell' + (v ? ' set' : '') + (kid ? ' kgc' : '') + '" data-cell="' + i + '-' + r + '" ' +
+        pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, cmax: cmax, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · ' + lab, kg: kid ? 'k' + i + 'kg' + r : null, kgdef: kid ? (kw != null ? kw : rmAdd(kid) ? 0 : 20) : null, kgid: kid }) +
+        '><small>' + (mx ? 'Max · ' : '') + lab + '</small><b>' + (v ? esc(v) : '–') + '</b>' + (kid ? '<small class="kgv">' + (kw != null ? esc(fmtKg(kw, kid)) : '– kg') + '</small>' : '') + '</button>';
     }
+    var kgLine = kid ? '<div class="kg-rec"><span class="small muted">Empfohlen</span><b>' + (rec ? esc(fmtKg(rec.kg, kid)) : 'herantasten') + '</b><span class="small muted">' + esc(rec ? rec.why : 'Noch kein Wert: leicht starten und steigern, bis ' + (x.target || '') + ' Wdh. mit RIR ' + K.rir + ' klappen.') + '</span></div>' : '';
     var fk = g ? g.key : '';
     h += '<section class="card ex-card" data-ex="' + i + '"><div class="card-head"><h3>' + gl(x.n) + '</h3><span class="small muted">' + esc(x.target) + '</span></div>' +
       '<div class="ex-fig" hidden>' + figBox(fk) + (GRIP[fk] ? '<p class="grip">' + esc(GRIP[fk]) + '</p>' : '') + '</div>' +
       (x.note ? '<p class="small muted">' + esc(x.note) + '</p>' : '') + (hint ? '<p class="small hint">' + hint + '</p>' : '') +
-      (lad ? stageRow('Stufe', stage, { sf: sf, sdef: stage, lad: g.key, cmax: cmax, title: x.n }) : '') +
+      (lad ? stageRow('Stufe', stage, { sf: sf, sdef: stage, lad: g.key, cmax: cmax, title: x.n }) : '') + kgLine +
       '<div class="cells" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div></section>';
   });
   return h;
+}
+// Metcon-Übung mit Gewicht: gewählter Wert oder Empfehlung.
+function mKg(tag, m, i, D) {
+  var lad = metconLad(m.n), st = D['m' + i + 'stage'] != null ? D['m' + i + 'stage'] : lad ? lastMetconStage(m.n) : '', id = kgUe(m.n, st);
+  if (!id) return null;
+  var v = num(D['m' + i + 'kg']), rec = kgRecM(id, parseInt(m.r, 10) || 10);
+  return { id: id, kg: v != null ? v : rec ? rec.kg : null, rec: rec, set: v != null };
 }
 function metconStepHTML(tag, D, am) {
   var d = DAYS[tag], single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon'), B = d.bench ? BENCH[d.bench] : null, em = B && B.fmt === 'emom';
@@ -4325,6 +4500,12 @@ function metconStepHTML(tag, D, am) {
     var lad = metconLad(m.n); if (!lad) return;
     var sf = 'm' + i + 'stage', stage = D[sf] != null ? D[sf] : lastMetconStage(m.n);
     h += stageRow(m.n, stage, { sf: sf, sdef: stage, lad: GL[m.n].key, title: m.n });
+  });
+  // Gewicht je Metcon-Übung: Empfehlung vorbelegt, Tippen öffnet das Rad.
+  d.metcon.forEach(function (m, i) {
+    var k = mKg(tag, m, i, D); if (!k) return;
+    h += '<button type="button" class="st-row kg-row" ' + pickAttrs({ only: 'kg', kg: 'm' + i + 'kg', kgdef: k.kg, kgid: k.id, title: m.n + ' · Gewicht' }) + '><span><span class="muted">' + esc(m.n) + '</span> <b>' + (k.kg != null ? esc(fmtKg(k.kg, k.id)) : 'wählen') + '</b>' +
+      '<br><span class="small muted">' + esc((k.set ? (k.rec ? 'Empfohlen ' + fmtKg(k.rec.kg, k.id) : '') : k.rec ? 'Empfohlen · ' + k.rec.why : 'Leicht starten, die Runden sollen flüssig laufen') + (k.rec && k.rec.rx ? ' · Ziel (Rx) ' + fmtKg(k.rec.rx, k.id) : '')) + '</span>' + '</span>' + CHEV + '</button>';
   });
   var lm = null;
   for (var i = LOGS.length - 1; i >= 0; i--) {
@@ -4637,11 +4818,28 @@ ACT.pick = function (el) {
     items.unshift('');
     cols.push({ head: 'Stufe', wide: true, f: ds.sf, val: cur, items: items.map(function (s) { return { v: s, t: s ? stageText(s) : '–', c: bandColor(s) }; }) });
   }
-  if (ds.only !== 'stage') cols.push({ head: ds.unit || '', f: ds.f, val: D[ds.f] != null ? D[ds.f] : (ds.def != null ? String(ds.def) : ''), items: numItems(+ds.min || 0, +ds.max || 60, true) });
+  // Gewicht: ganze kg und ,0/,5 als zwei Räder, wie beim 1RM.
+  var kj = -1, add = ds.kgid && rmAdd(ds.kgid);
+  if (ds.kg) {
+    var kg0 = num(D[ds.kg]) != null ? num(D[ds.kg]) : +ds.kgdef || 0;
+    kj = cols.length;
+    cols.push({ head: add ? 'Zusatz kg' : 'kg', items: numItems(0, add ? 120 : 350), val: String(Math.floor(kg0)) });
+    cols.push({ head: '', items: [{ v: '0', t: ',0' }, { v: '5', t: ',5' }], val: kg0 % 1 ? '5' : '0' });
+  }
+  if (ds.only !== 'stage' && ds.only !== 'kg') cols.push({ head: ds.unit || '', f: ds.f, val: D[ds.f] != null ? D[ds.f] : (ds.def != null ? String(ds.def) : ''), items: numItems(+ds.min || 0, +ds.max || 60, true) });
+  var hasRep = ds.only !== 'stage' && ds.only !== 'kg';
+  function kgOf(v) { return kj < 0 ? null : +v[kj] + (v[kj + 1] === '5' ? 0.5 : 0); }
   openSheet(ds.title || '', cols, function (v) {
-    cols.forEach(function (c, j) { setDraft(c.f, v[j]); });
+    cols.forEach(function (c, j) { if (c.f) setDraft(c.f, v[j]); });
+    if (kj >= 0) setDraft(ds.kg, kgOf(v));
     render();
-  }, { num: ds.only !== 'stage' ? cols.length - 1 : null });
+    if (kj >= 0 && hasRep) kgBest(ds.kgid, kgOf(v), +v[cols.length - 1]);
+  }, { num: hasRep ? cols.length - 1 : null, live: kj >= 0 && hasRep ? function (v) {
+    var w = kgOf(v), reps = +v[cols.length - 1], r = rmOf(ds.kgid);
+    if (!w || !reps || reps > 10) return '';
+    var e1 = e1rm(w, reps);
+    return 'Geschätztes 1RM: <b>' + esc(fmtKg(e1, ds.kgid)) + '</b>' + (r && e1 > r.best.e1 ? ' · <span class="gold">★ Neuer Bestwert</span>' : '');
+  } : null });
 };
 // Testtag: Zähler für Wiederholungen bzw. Sekunden. Der erste Tipp setzt einen Startwert.
 ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = v == null ? (+el.dataset.def || 0) : Math.max(0, v + (+el.dataset.d)); setDraft(el.dataset.f, v); render(); };
@@ -4694,49 +4892,63 @@ function openChoice(title, text, opts, done) {
   requestAnimationFrame(function () { bg.classList.add('open'); });
 }
 
-/* ---------- Tools › 1RM: Maximalkraft eintragen, Prozente, Verlauf ---------- */
-function rmLifts() {
-  var have = haveEq(), own = S.rmLifts || [], set = {};
-  RM_ALL.forEach(function (id) { if (eqOk(UE[id].equipment, have) || own.indexOf(id) >= 0 || rmOf(id)) set[id] = 1; });
-  return RM_ALL.filter(function (id) { return set[id]; });
-}
+/* ---------- Tools › 1RM: One Rep Max eintragen, Prozente, Verlauf ---------- */
 function weightTile() { return tile('Körpergewicht', '<b>' + (S.weight ? fmtKg(S.weight) : '–') + '</b>', 'data-act="choose" data-k="weight"', S.weight ? 'set' : ''); }
 function renderRM() {
   if (ui.rmLift && UE[ui.rmLift]) return rmDetailHTML(ui.rmLift);
-  var h = '<section class="hero"><h1>Maximalkraft</h1><p class="hero-title">One Rep Max · deine schwersten Wiederholungen</p></section>';
+  var best = ui.rmBest === true;
+  var h = '<section class="hero"><h1>One Rep Max</h1><p class="hero-title">Deine schwersten Wiederholungen</p></section>';
   if (!S.weight) h += '<section class="card"><p>Trag dein Körpergewicht ein, dann zählt dein 1RM im Wert Kraft mit.</p><div class="pick-grid one">' + weightTile() + '</div></section>';
-  h += '<section class="card a-lads">' + rmLifts().map(function (id) {
-    var r = rmOf(id), d = r ? r.cur.e1 - r.best.e1 : 0;
-    return '<button type="button" class="rm-row" data-act="rm-open" data-v="' + id + '"><span><b>' + esc(UE[id].name) + '</b><small>' + (r ? esc(sinceText(r.cur.date)) + (d < 0 ? ' · Bestwert ' + esc(fmtKg(r.best.e1, id)) : '') : 'noch kein Wert') + '</small></span>' +
-      '<span class="rm-kg">' + (r ? esc(fmtKg(r.cur.e1, id)) + '<small class="' + (d < 0 ? 'neg' : 'pos') + '">' + (d < 0 ? String(d).replace('.', ',') + ' zum Bestwert' : 'Bestwert') + '</small>' : '<span class="muted">–</span>') + '</span></button>';
-  }).join('') + '</section><p class="small muted">Gezeigt werden Übungen mit Equipment an deinem Ort, sortiert nach Nutzen.</p>' +
-    '<button type="button" class="btn block" data-act="rm-add">＋ Weitere Übung</button>';
+  h += '<div class="seg" role="group" aria-label="Wert">' + [['', 'Aktuell'], ['1', 'Bestwert']].map(function (o) {
+    var on = !!o[0] === best; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="rm-view" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+  }).join('') + '</div>';
+  // Alle Übungen mit 1RM: zuerst die mit Werten, dann der Rest, jeweils nach Nutzen.
+  var row = function (id) {
+    var r = rmOf(id), d = r ? r.cur.e1 - r.best.e1 : 0, big = r ? (best ? r.best : r.cur) : null;
+    var sub = !r ? 'noch kein Wert' : best ? 'am ' + dateY(r.best.date) + (d < 0 ? ' · aktuell ' + fmtKg(r.cur.e1, id) : ' · ist auch aktuell') : sinceText(r.cur.date) + (d < 0 ? ' · Bestwert ' + fmtKg(r.best.e1, id) : ' · ist dein Bestwert');
+    return '<button type="button" class="rm-row" data-act="rm-open" data-v="' + id + '"><span><b>' + esc(UE[id].name) + '</b><small>' + esc(sub) + '</small></span>' +
+      '<span class="rm-kg">' + (r ? esc(fmtKg(big.e1, id)) + (best || d >= 0 ? '<small class="gold">★ Bestwert</small>' : '<small class="neg">' + String(d).replace('.', ',') + ' kg zum Bestwert</small>') : '<span class="muted">–</span>') + '</span></button>';
+  };
+  var withV = RM_ALL.filter(function (id) { return rmOf(id); }), rest = RM_ALL.filter(function (id) { return !rmOf(id); });
+  if (withV.length) h += '<p class="sec-k">Deine Werte</p><section class="card a-lads rm-list">' + withV.map(row).join('') + '</section>';
+  h += '<p class="sec-k">' + (withV.length ? 'Weitere Übungen' : 'Alle Übungen') + '</p><section class="card a-lads rm-list">' + rest.map(row).join('') + '</section>';
+  h += '<p class="small muted">Antippen öffnet den Prozent-Rechner mit den üblichen Trainingswerten.</p>';
   return h;
 }
+ACT['rm-view'] = function (el) { ui.rmBest = !!el.dataset.v; render(); };
+// Datum mit Jahr, z. B. „27. Aug. 2026“ (für Bestwerte).
+function dateY(iso) { return parseISO(iso).toLocaleDateString('de-DE', { day: 'numeric', month: 'short', year: 'numeric' }); }
 function sinceText(iso) { var n = daysBetween(parseISO(iso), parseISO(isoToday())); return n === 0 ? 'heute' : n === 1 ? 'gestern' : n < 14 ? 'vor ' + n + ' Tagen' : 'vor ' + Math.round(n / 7) + ' Wochen'; }
+// Übliche Trainingsbereiche in Prozent vom 1RM (Wdh. ungefähr, mit 1–2 Wdh. Reserve).
+var RM_PCT = [[100, '1', 'Maximalversuch'], [95, '1–2', 'Maximalkraft'], [90, '2–3', 'Maximalkraft'], [85, '4–5', 'Kraft'], [80, '5–6', 'Kraft'],
+  [75, '8', 'Muskelaufbau'], [70, '10', 'Muskelaufbau'], [65, '12', 'Technik'], [60, '15', 'Technik, Tempo'], [50, '–', 'Aufwärmen']];
 function rmDetailHTML(id) {
-  var r = rmOf(id), u = UE[id];
-  var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button></div>';
-  h += '<div class="a-head"><h2>' + esc(u.name) + '</h2><span class="a-big">' + (r ? esc(fmtKg(r.cur.e1, id)).replace(' kg', '<small> kg</small>') : '–') + '</span></div>';
-  if (rmAdd(id)) h += '<p class="small muted">Gezählt wird das Zusatzgewicht (Weste oder Gürtel).</p>';
-  if (r) {
-    h += '<div class="chips"><span class="chip gold">Bestwert ' + esc(fmtKg(r.best.e1, id)) + ' · ' + esc(fmtDate(r.best.date)) + '</span><span class="chip">' + r.list.length + (r.list.length === 1 ? ' Eintrag' : ' Einträge') + '</span></div>';
-    if (r.list.length > 1) {
-      var vals = r.list.map(function (l) { return l.e1; }), lo = Math.min.apply(null, vals) * 0.95, hi = r.best.e1 * 1.03, n = vals.length;
-      var y = function (v) { return (110 - (v - lo) / Math.max(1, hi - lo) * 96).toFixed(1); }, x = function (i) { return (8 + i * 304 / (n - 1)).toFixed(1); };
-      var bi = r.list.indexOf(r.best);
-      h += '<section class="card"><svg class="dev-chart" viewBox="0 0 320 130" aria-hidden="true"><line class="rm-best" x1="0" y1="' + y(r.best.e1) + '" x2="320" y2="' + y(r.best.e1) + '"/>' +
-        '<polyline class="line" points="' + vals.map(function (v, i) { return x(i) + ',' + y(v); }).join(' ') + '"/><circle class="rm-bdot" cx="' + x(bi) + '" cy="' + y(r.best.e1) + '" r="5"/><circle class="dot1" cx="' + x(n - 1) + '" cy="' + y(vals[n - 1]) + '" r="5"/>' +
-        '<text x="8" y="126">' + esc(shortDate(r.list[0].date)) + '</text><text x="312" y="126" text-anchor="end">' + esc(shortDate(r.cur.date)) + '</text></svg></section>';
-    }
-    var base = r.cur.e1;
-    h += '<section class="card"><p class="tips-h">Prozent von ' + esc(fmtKg(base, id)) + '</p><div class="pct">' + [95, 90, 85, 80, 75, 70, 65, 60, 50].map(function (p) {
-      return '<span' + (p >= 90 ? ' class="hi"' : '') + '>' + p + ' %<b>' + esc(fmtKg(Math.round(base * p / 100 / 2.5) * 2.5, id)) + '</b></span>';
-    }).join('') + '</div><p class="small muted" style="margin-top:8px">Auf 2,5 kg gerundet.</p></section>';
+  var r = rmOf(id), u = UE[id], base = r ? r.cur : null;
+  ui.noSub = true;
+  var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button>' +
+    '<button type="button" class="rbtn" data-act="rm-new" data-v="' + id + '" aria-label="Neuen Wert eintragen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>';
+  h += '<section class="hero"><h1>' + esc(u.name) + '</h1><p class="hero-title">Prozent-Rechner</p></section>';
+  if (!r) return h + '<section class="card"><p>Noch kein Wert. Trag einen schweren Satz ein (1–10 Wdh.), daraus schätzt die App dein 1RM und rechnet die Trainingsgewichte aus.</p></section>' +
+    '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">Ersten Wert eintragen</button>';
+  h += '<section class="card rm-calc"><div class="rm-base"><span class="small muted">Aktuell, vom ' + esc(fmtDate(base.date)) + '</span><b>' + esc(fmtKg(base.e1, id)).replace(' kg', '<small> kg</small>') + '</b>' +
+    '<span class="rm-bw">★ Bestwert ' + esc(fmtKg(r.best.e1, id)) + ' · ' + esc(dateY(r.best.date)) + (r.best === r.cur ? ' · das ist dein aktueller Wert' : '') + '</span>' +
+    (rmAdd(id) ? '<span class="small muted">Gezählt wird das Zusatzgewicht (Weste oder Gürtel).</span>' : '') + '</div>' +
+    '<div class="rm-pct">' + RM_PCT.map(function (p) {
+      var kg = p[0] === 100 ? base.e1 : Math.round(base.e1 * p[0] / 100 / 2.5) * 2.5;
+      // Farbe nach Schwere: 50 % grün, je schwerer desto dunkler rot.
+      var t = (p[0] - 50) / 50, hue = Math.round(140 * (1 - t)), sat = Math.round(55 + 25 * t), lt = Math.round(46 - 8 * t), mx = Math.round(80 - 14 * t);
+      return '<div class="rm-p" style="--hue:' + hue + ';--sat:' + sat + '%;--lt:' + lt + '%;--mx:' + mx + '%"><span class="rm-pp">' + p[0] + ' %</span><span class="rm-pt"><b>' + esc(p[2]) + '</b> <small>· ' + (p[1] === '–' ? 'locker' : p[1] + ' Wdh.') + '</small></span><span class="rm-pk">' + esc(fmtKg(kg, id)) + '</span></div>';
+    }).join('') + '</div><p class="small muted" style="margin:8px 0 0">Auf 2,5 kg gerundet. Wdh. sind Richtwerte mit 1–2 Wdh. Reserve.</p></section>';
+  if (r.list.length > 1) {
+    var vals = r.list.map(function (l) { return l.e1; }), lo = Math.min.apply(null, vals) * 0.95, hi = r.best.e1 * 1.03, n = vals.length;
+    var y = function (v) { return (110 - (v - lo) / Math.max(1, hi - lo) * 96).toFixed(1); }, x = function (i) { return (8 + i * 304 / (n - 1)).toFixed(1); };
+    var bi = r.list.indexOf(r.best);
+    h += '<p class="sec-k">Verlauf</p><section class="card"><svg class="dev-chart" viewBox="0 0 320 130" aria-hidden="true"><line class="rm-best" x1="0" y1="' + y(r.best.e1) + '" x2="320" y2="' + y(r.best.e1) + '"/>' +
+      '<polyline class="line" points="' + vals.map(function (v, i) { return x(i) + ',' + y(v); }).join(' ') + '"/><circle class="rm-bdot" cx="' + x(bi) + '" cy="' + y(r.best.e1) + '" r="5"/><circle class="dot1" cx="' + x(n - 1) + '" cy="' + y(vals[n - 1]) + '" r="4"/>' +
+      '<text x="8" y="126">' + esc(shortDate(r.list[0].date)) + '</text><text x="312" y="126" text-anchor="end">' + esc(shortDate(r.cur.date)) + '</text></svg></section>';
   }
-  h += '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">＋ Neuer Wert</button>';
-  if (r) h += '<section class="card"><h3>Einträge</h3>' + r.list.slice().reverse().map(function (l) {
-    return '<div class="log-item"><div class="row between"><span><b>' + esc(fmtKg(l.kg, id)) + ' × ' + l.reps + '</b> <span class="muted small">≈ ' + esc(fmtKg(l.e1, id)) + '</span></span><span class="small muted">' + esc(fmtDate(l.date)) + '</span></div>' +
+  h += '<p class="sec-k">Einträge</p><section class="card">' + r.list.slice().reverse().map(function (l) {
+    return '<div class="log-item"><div class="row between"><span><b>' + esc(fmtKg(l.kg, id)) + ' × ' + l.reps + '</b> <span class="muted small">≈ ' + esc(fmtKg(l.e1, id)) + (l === r.best ? ' · ★ Bestwert' : '') + '</span></span><span class="small muted">' + esc(fmtDate(l.date)) + '</span></div>' +
       '<button type="button" class="btn small red" style="margin-top:6px" data-act="del-log" data-id="' + esc(l.id) + '">Löschen</button></div>';
   }).join('') + '</section>';
   return h;
@@ -4744,13 +4956,6 @@ function rmDetailHTML(id) {
 ACT['parea-go'] = function (el) { ui.pview = 'werte'; ui.parea = el.dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); };
 ACT['rm-go'] = function (el) { ui.rmLift = el.dataset.v; ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
 ACT['rm-open'] = function (el) { ui.rmLift = el.dataset.v || null; if (ui.tab !== 'rm') ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
-ACT['rm-add'] = function () {
-  var shown = rmLifts(), rest = RM_ALL.filter(function (id) { return shown.indexOf(id) < 0; });
-  if (!rest.length) { toast('Alle Übungen sind schon da.'); return; }
-  openSheet('Weitere Übung', [{ wide: true, items: rest.map(function (id) { return { v: id, t: UE[id].name }; }), val: rest[0] }], function (v) {
-    S.rmLifts = (S.rmLifts || []).concat([v[0]]); saveState(); render();
-  });
-};
 ACT['rm-new'] = function (el) {
   var id = el.dataset.v, r = rmOf(id), last = r ? r.cur : null, kg = last ? last.kg : (rmAdd(id) ? 10 : 60), max = rmAdd(id) ? 120 : 350;
   openSheet('Neuer Wert · ' + UE[id].name, [
@@ -5014,8 +5219,14 @@ function fsFlowHTML(F) {
   }).join('') + '</div>';
   return h;
 }
+// Kraftteil im Vollbild: Gewicht des Satzes groß, damit man zwischen den Sätzen umbauen kann.
+function fsKg(ex, r) {
+  var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
+  var D = dr(S.tag), stage = D['k' + ex + 'stage'] != null ? D['k' + ex + 'stage'] : stageDef(x.n, x.hi), K = kgOfEx(x, ex, stage, D, kraftRounds(S.tag));
+  return { n: x.n, kg: K && K.kg[r] != null ? fmtKg(K.kg[r], K.id) : '' };
+}
 function fsSide(L) {
-  var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx;
+  var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx, k0, k1;
   if (TM.finished && !c.step) return { k: 'fin' + TM.rounds, h: '<p class="fs-lbl">Fertig</p><div class="fs-big">' + (TM.mode === 'amrap' || TM.mode === 'zeit' ? TM.rounds + '<small> Runden</small>' : 'Stark') + '</div><button type="button" class="btn primary block" data-act="fs-min">Fertig</button>' };
   if (c.step && ((t === 'metcon' && TM.mode === 'amrap') || t === 'murph')) {
     var F = flowById(t), s = flowState(F);
@@ -5024,7 +5235,15 @@ function fsSide(L) {
   if (TM.mode === 'emom' && c.stations) {
     var nm = c.stations[mi % c.stations.length], g = GL[nm], nn = mi + 1 < c.minutes ? c.stations[(mi + 1) % c.stations.length] : '';
     return { k: 'em' + mi + (L && L.p.kind === 'pre' ? 'p' : ''), h: '<div class="fs-ex">' + '<div class="fs-fig">' + figHTML(g && figOf(g.key) ? g.key : '_wave') + '</div>' + '<div><p class="fs-lbl">' + (L && L.p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(nm) + '</p>' +
-      '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' };
+      (t === 'kraft' && (k0 = fsKg(mi % c.stations.length, Math.floor(mi / c.stations.length))) && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
+      '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + (t === 'kraft' && (k1 = fsKg((mi + 1) % c.stations.length, Math.floor((mi + 1) / c.stations.length))) && k1.kg ? ', ' + esc(k1.kg) : '') + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' };
+  }
+  if (TM.mode === 'hiit' && t === 'kraft' && c.rounds) {
+    // Sätze: alle Sätze einer Übung, dann die nächste. In der Pause steht schon der nächste Satz da.
+    var w = L ? TM.phases.slice(1, L.i + 1).filter(function (x) { return x.kind === 'work'; }).length - 1 : -1, work = L && L.p.kind === 'work', si = work ? w : w + 1;
+    var nr = kraftRounds(S.tag), ks = si < c.rounds ? fsKg(Math.floor(si / nr), si % nr) : null;
+    if (!ks) return { k: 'kf', h: '<p class="fs-lbl">Fertig</p><div class="fs-big">Stark</div>' };
+    return { k: 'ks' + si + (work ? 'w' : 'r'), h: '<p class="fs-lbl">' + (work ? 'Jetzt' : 'Als Nächstes') + '</p><p class="fs-exn">' + esc(ks.n) + '</p>' + (ks.kg ? '<p class="fs-kg">' + esc(ks.kg) + '</p>' : '') + '<p class="fs-hint">Satz ' + (si % nr + 1) + ' von ' + nr + '</p>' };
   }
   if (TM.mode === 'amrap' || TM.mode === 'zeit') return { k: 'rd' + TM.rounds, tap: true, h: '<p class="fs-lbl">Runden</p>' + fsStepper(TM.rounds, 't-round') + '<p class="fs-hint">oder hier irgendwo tippen</p>' };
   if (TM.mode === 'emom') { var n = c.rounds || c.minutes; return { k: 'er' + mi, h: '<p class="fs-lbl">Runde</p><div class="fs-big">' + (mi + 1) + '<small> / ' + n + '</small></div>' }; }
@@ -5984,6 +6203,9 @@ function stallOf(key) {
       if (r.length) hist.push({ stage: k.stage || '', sum: r.reduce(function (a, b) { return a + b; }, 0) });
     });
   }
+  // Gewichtsübung: erst 10 % leichter neu aufbauen (kgRec). Bleibt es danach wieder stehen, wechselt der Coach.
+  var lad = LAD[key], cs0 = coachStage(key), cu = lad && lad.lib && cs0 ? lad.lib.stufen[cs0.idx - 1] : null;
+  if (cu && UE[cu.uebung] && UE[cu.uebung].einheit === 'kg') { var H = kgHist(cu.uebung); var rg1 = rangeOf(lad); return H.length >= 3 && kgStallN(H, rg1 ? rg1.hi : 5) && kgDeloaded(H); }
   if (!(hist.length === 3 && hist.every(function (h) { return h.stage === hist[0].stage; }) && hist[0].sum <= hist[2].sum)) return false;
   // Wdh. am oberen Ende und die Sehnen-Bremse hält die Stufe: das ist kein Stillstand.
   var cs = coachStage(key); return !(cs && (cs.up || cs.wait));

@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 6. Oktober 2026 (Desktop-Ansicht)
+Stand: 6. Oktober 2026 (One Rep Max und Gewicht im Training)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,18 @@ Stand: 6. Oktober 2026 (Desktop-Ansicht)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## One Rep Max und Gewicht im Training (6. Oktober)
+- Dennis: Auf der 1RM-Seite alle Übungen zeigen, die ein 1RM haben können, Aktuell und Bestwert (mit Jahr). Titel „One Rep Max“.
+  Wischen zum Leeren erst gewünscht, dann gestrichen (Aktuell + Bestwert reichen). Antippen = Prozent-Rechner mit den üblichen Werten,
+  Farbverlauf Grün (leicht) nach dunklem Rot (schwer), ohne Umschalter, kompakt. „Neuer Wert“ als kleines Plus oben.
+- Dennis: Gewicht gehört zum Fortschritt und wird im Training eingetragen, nicht danach (empfohlen und genommen), vor allem im
+  Kraftteil und bei CrossFit. Bestwert sofort melden. Vollbild nur im Kraftteil mit Gewicht (man baut zwischen den Sätzen um),
+  im EMOM/Metcon nicht nötig (dort baut man vorher auf).
+- Logik mit Dennis abgestimmt: Gewichtsübungen steigen über kg (doppelte Progression mit Sehnen-Bremse), Stufe nur an festen
+  Übergängen nach 1RM/Körpergewicht (`KG_UP`), vorher sprang z. B. Deadlift auf Sumo Deadlift High Pull. Stillstand = 10 % leichter,
+  erst danach Übungswechsel. Metcon mit Ziel Rx, Schritt hoch nur bei mehr Runden.
+- Offen: Werte in `KG_UP` und `RX` (Männer) bei Bedarf mit Dennis anpassen. Kein Gewicht für Frauen-Rx (bisher nicht nötig).
 
 ## Desktop-Ansicht (6. Oktober)
 - Dennis trainiert zu Hause oft mit dem Mac (Chrome). Gleicher Link, erkennt Desktop selbst, manuell umstellbar. Alles auf einmal gebaut:
