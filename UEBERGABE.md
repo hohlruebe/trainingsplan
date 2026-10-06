@@ -31,6 +31,7 @@ Stand: 6. Oktober 2026 (Desktop-Ansicht)
   Liste + Familie, Blätter als Fenster. Sync am Mac: in den Einstellungen dieselben GitHub-Daten eintragen.
 - Dennis: Zeitangabe in der aufgeklappten Übung klebte an der Ecke („nicht premium“) → mehr Innenabstand, gilt auch am Handy.
 - Offen: Lesbarkeit aus 2–3 m am echten Mac prüfen lassen.
+- Dennis hat am Handy „Desktop“ gewählt, es passierte nichts (Absicht: Desktop erst ab 900 px Breite). Jetzt mit Hinweis und Toast.
 
 ## Testtag-Eingabe (6. Oktober)
 - Dennis: Auf dem Testtag fragte „Geschafft“ noch einmal das Band ab, obwohl die Kachel „Stufe“ das schon tut.
