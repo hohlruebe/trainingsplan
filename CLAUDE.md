@@ -117,7 +117,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Heute zeigt die Block-Karte (`blockCardHTML`) mit Fortschritt je Durchgang.
   Krafttage (`kday`) sind Schritt-Tage aus Bausteinen: `warm`, `hs`, `kslots` (Kraft als EMOM, `kraftRounds`), `mslots`/`mmin` (Metcon),
   `cmc` (Metcon einer Challenge). Kardio-Tage siehe unten (`runSpec` = `kardioSpec`), verglichen nur mit der gleichen Art (`runsOf(kind, ergo, art)`).
-  Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil; ohne Wert geschätzt).
+  Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil). Ohne eigenen Maximalpuls aus dem
+  Geburtsjahr (`S.birthYear`, synchronisiert, `hrMaxEst`: Tanaka 208 − 0,7 × Alter, nie unter dem höchsten gemessenen Puls), sonst 185.
+  `hrKnown()`: Maximalpuls eingetragen oder aus dem Alter; nur dann ändert ein lockerer Kardio-Tag den Kernwert.
   Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort, Tag und Platz `slotKey`) bleibt,
   sonst begonnene Leiter vor neuer, dann Nutzen. Tempo-Varianten (`TEMPO_KEYS`) nie im Kraftteil. Platz `{ schwach: [...] }` nimmt den
   schwächsten Kraft-Teil (`partScores`). Der Coach entscheidet, nicht der Nutzer: eine neu freigeschaltete Leiter mit mehr Nutzen
@@ -243,6 +245,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Manifest-Vollbild nicht verwenden: Chrome lässt dort den Kamera-Bereich oben nach dem Start schwarz.
   Auf dem iPhone zeichnet sie bis unter Statusleiste und Home-Balken (`black-translucent`).
   Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
+- Speichern nur auf dem Gerät (localStorage) plus Sync über GitHub. Der frühere Weg über `window.claude` (App als Claude-Artifact,
+  `initDb`, `TP_BUILD`) ist gelöscht.
 - `sw.js`: Service Worker für den Offline-Betrieb
 - `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `icon-mono-512.png`.
   App-Symbol „D3“: Turnringe frei hängend in Kreide (#E4E3F7) auf Graphit, darunter links der Marker-Strich in Hellblau (#8DB8FF).

@@ -37,8 +37,12 @@ Stand: 7. Oktober 2026 (Code-Durchsicht und Aufräumen)
 - Schneller: Medaillen-Berechnung (`areaStates`) rechnet beim Speichern nur noch ab dem letzten Tag neu (vorher alles, wurde jedes Jahr
   langsamer). Gefixt: „Wdh.. Ziel heute“ (doppelter Punkt) beim Metcon.
 - App: 1165 KB → etwa 940 KB.
-- Offen: der Speicherweg über `window.claude` (`initDb`, aus der Zeit als Claude-Artifact) ist in der installierten App ohne Funktion,
-  bleibt aber als Rückfall. Lockere Kardio-Tage ändern den Kernwert nur, wenn ein Maximalpuls eingetragen ist.
+- Dennis: alten Speicherweg löschen, wenn er nichts bringt. Gelöscht (`window.claude`, `initDb`, `TP_BUILD`), er griff nur als
+  Claude-Artifact. Export teilt die Datei oder lädt sie herunter.
+- Dennis: Maximalpuls aus dem Alter berechnen. Geburtsjahr unter Einstellungen › Profil, Formel Tanaka (208 − 0,7 × Alter).
+  Eigener Maximalpuls hat Vorrang, „–“ im Rad = wieder aus dem Alter.
+- Offen (Fragen von Dennis, beantwortet im Chat): größte Übungsbibliothek mit Cowork, zusätzliche Felder je Übung, Schmerz-Feld,
+  neue Übungen hinzufügen. Wartet auf seine Entscheidung.
 
 ## Kardio und Challenges (7. Oktober)
 - Dennis: Allround soll ein Plan fürs Leben sein, Ziele bucht man auf Zeit dazu. Die anderen Schwerpunkte sind vorerst
