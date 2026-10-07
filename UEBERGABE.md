@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 7. Oktober 2026 (Kardio mit Kernwert, Challenges, nur noch Allround)
+Stand: 7. Oktober 2026 (Code-Durchsicht und Aufräumen)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,21 @@ Stand: 7. Oktober 2026 (Kardio mit Kernwert, Challenges, nur noch Allround)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Code-Durchsicht (7. Oktober)
+- Dennis: einmal den ganzen Code auf Funktion, Fehler und Unnötiges prüfen, damit es nicht zu groß wird.
+- Geprüft: ESLint (keine undefinierten Namen, keine doppelten Definitionen), alle Tests, alter Stand mit anderem Schwerpunkt und
+  alten Einträgen, Tempo mit einem Jahr Daten. Sync, Export und Import unverändert kompatibel.
+- Entfernt: Schrift Barlow (6 Schnitte, ~176 KB, wurde nie geladen; mit Dennis abgesprochen, obwohl der Schriften-Block sonst
+  unangetastet bleibt), 9 ungenutzte Funktionen, 47 ungenutzte CSS-Regeln, ungenutzte Variablen.
+- Mit Dennis: die ausgeblendeten Schwerpunkte ganz gelöscht (Kraft, Calisthenics, CrossFit, Beweglichkeit, Laufen) samt allem, was nur
+  sie brauchten: Laufziel- und Skillziel-Seite, Skill-Block, lange Dehn-Einheiten (`MOB_ART`, `mobRoutine`), Benchmarks, Sätze-Format,
+  Krafttage mit Lauf, alter Intervall-Lauf mit Stufen (`IV`) und die alte Ergometer-Logik. Alte Einträge zeigt der Verlauf weiter an.
+- Schneller: Medaillen-Berechnung (`areaStates`) rechnet beim Speichern nur noch ab dem letzten Tag neu (vorher alles, wurde jedes Jahr
+  langsamer). Gefixt: „Wdh.. Ziel heute“ (doppelter Punkt) beim Metcon.
+- App: 1165 KB → etwa 940 KB.
+- Offen: der Speicherweg über `window.claude` (`initDb`, aus der Zeit als Claude-Artifact) ist in der installierten App ohne Funktion,
+  bleibt aber als Rückfall. Lockere Kardio-Tage ändern den Kernwert nur, wenn ein Maximalpuls eingetragen ist.
 
 ## Kardio und Challenges (7. Oktober)
 - Dennis: Allround soll ein Plan fürs Leben sein, Ziele bucht man auf Zeit dazu. Die anderen Schwerpunkte sind vorerst
