@@ -47,9 +47,9 @@ Stand: 7. Oktober 2026 (Code-Durchsicht und Aufräumen)
   sie auch an anderen passenden Stellen. Neuer Baustein Wert-Zeilen (`valRow`, `valRows`, in `DESIGN.md`): Profil (Gewicht, Geburtsjahr,
   Maximal- und Ruhepuls), Stand und Startdatum, erster Start, Challenge (Datum, FTP-Ziel), Körpergewicht unter 1RM.
   Eingaben im Training bleiben Kacheln.
-- Dennis: Schmerz-Feld nicht in „Session anpassen“, sondern bei der jeweiligen Übung. Entwurf im Canvas: grauer Link „Tut etwas weh?“ an
-  jeder Übungskarte, Blatt „<Übung> · Tut etwas weh?“ (wo: zwei Umschalter Ober-/Unterkörper, wie: unangenehm/Schmerz, darunter
-  „Heute stattdessen …“), danach Hinweis an der Karte und „Tut wieder gut“. Einbau, sobald die Übungen das Feld `gelenke` haben.
+- Dennis: Schmerz-Feld nicht in „Session anpassen“, sondern bei der jeweiligen Übung. Entwurf im Canvas: grauer Link „Schmerzen“ an
+  jeder Übungskarte, Blatt „<Übung> · Schmerzen“ (wo: zwei Umschalter Ober-/Unterkörper, wie: unangenehm/Schmerz, darunter
+  „Heute stattdessen …“), danach Hinweis an der Karte und „Schmerzen weg“ (Namen von Dennis). Einbau, sobald die Übungen das Feld `gelenke` haben.
 - Cowork-Auftrag `design/auftraege/bibliothek.md`: neue Felder für alle Übungen (`muskeln`, `gelenke`, `sehne`, `ermuedung`, `technik`,
   `seitig`, `laut`, `rx`, `alias`) und neue Übungen in Paketen je Bewegungsmuster, mit Grenzfällen und Prüfliste. Anhänge aus den
   echten Daten erzeugt. Wenn die Pakete kommen: prüfen, einbauen, Grafiken in Runden zu 20.

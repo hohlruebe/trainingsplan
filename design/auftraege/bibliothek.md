@@ -25,12 +25,12 @@ Du hilfst mir, die Übungsbibliothek meiner Trainings-App auszubauen. Die App pr
    - leise Übungen für die Wohnung finden
 2. **Die Bibliothek wird die größte, die es in einer Fitness-App gibt.** Aber nur mit echten, verschiedenen Übungen, jede vollständig beschrieben. Lieber 50 gute als 500 halbe.
 
-## Neu in der App: „Mir tut etwas weh“
-In „Session anpassen“ kann ich sagen, wo es wehtut und wie stark:
+## Neu in der App: „Schmerzen“
+An jeder Übung im Training gibt es den Punkt „Schmerzen“. Dort sage ich, wo es wehtut und wie stark:
 - **Wo:** Schulter, Ellbogen, Handgelenk, Rücken, Hüfte, Knie, Fuß
 - **Wie:** unangenehm oder Schmerz
 
-Der Coach tauscht dann für heute jede Übung, die diese Stelle stark belastet, gegen eine Variante derselben Familie mit wenig Belastung dort. Gibt es keine, fällt die Übung heute weg. Dafür braucht jede Übung das Feld `gelenke`.
+Der Coach tauscht dann für heute diese Übung gegen eine Variante derselben Familie mit wenig Belastung an dieser Stelle. Gibt es keine, fällt die Übung heute weg. „Schmerzen weg“ nimmt das zurück. Dafür braucht jede Übung das Feld `gelenke`.
 
 ## Die Felder einer Übung
 
