@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 7. Oktober 2026 (Code-Durchsicht und Aufräumen)
+Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,24 @@ Stand: 7. Oktober 2026 (Code-Durchsicht und Aufräumen)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Übungsbibliothek mit Cowork (7. Oktober)
+- PR #59 gemergt (Aufräumen, Wert-Zeilen, Geburtsjahr, Cowork-Auftrag).
+- Rückfragen von Cowork beantwortet und in `design/auftraege/bibliothek.md` eingebaut:
+  - Startpaket `zug_vertikal` als Testlauf, `mobilitaet` zuletzt.
+  - Je Paket: Recherche, Grenzfälle im Chat, dann JSON als Datei (`felder_<muster>.json`, `neu_<muster>.json`).
+  - Erst Teil 1, dann Teil 2 je Muster.
+  - Anhang E listet alle 64 Leitern mit gültigen Stufennamen („Frei“ ist eine Stufe der Leiter `g_pullup`).
+  - Anhang F enthält das Familien-Format direkt (kein Verweis mehr auf `familien.md`).
+  - Gym-Geräte (Kabelzug, Latzug, Beinpresse …) dürfen über `geraete_neu` dazukommen.
+- Neues Prüfprogramm `design/auftraege/pruefen_bibliothek.js`: `node design/auftraege/pruefen_bibliothek.js <datei.json> …`.
+  - Prüft gegen `index.html`: IDs, Muskeln, Gelenke, Wertebereiche, Equipment, Leitern und Stufen, Familien-Zuordnung, Dubletten beim Namen.
+  - Meldet jeden Fehler mit Übung und Grund.
+- Wenn Pakete kommen:
+  1. Prüfen.
+  2. Fehlerliste an Cowork.
+  3. Einbauen: Felder in `lib-data`, neue Übungen und Familien in `lib-data` und `fam-data`/`design/familien.json`, Grafiken in Runden zu 20.
+  4. Danach Schmerzen (`gelenke`) und Muskelausgleich bauen.
 
 ## Code-Durchsicht (7. Oktober)
 - Dennis: einmal den ganzen Code auf Funktion, Fehler und Unnötiges prüfen, damit es nicht zu groß wird.
