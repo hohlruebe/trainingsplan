@@ -682,7 +682,7 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .blk-ch{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:14px}.blk-ch svg{width:18px;height:18px;color:var(--acc);flex:none}
 .ch-ic{flex:0 0 36px;height:36px;border-radius:11px;background:var(--board);color:var(--ink2);display:flex;align-items:center;justify-content:center}.ch-ic svg{width:20px;height:20px}
 .ch-h{margin:22px 2px 8px}.gl-card .gl-row+.gl-row{border-top:1px solid var(--line)}.gl-t .chip{margin-left:6px;vertical-align:1px}
-.ch-act .gl-row{padding-top:4px}.ch-act .bgrp{margin-top:6px}
+.ch-now .gl-row.on .ch-ic{background:var(--acc);color:var(--on-acc)}.ch-ok{width:22px;height:22px;flex:none;color:var(--acc)}.ch-now .bgrp{margin:4px 0 12px}
 .fk-cur{display:flex;gap:12px;align-items:center;margin:6px 0 4px}
 .blk{padding:14px 16px}
 .blk-h{display:flex;align-items:center;justify-content:space-between;gap:8px}.blk-h b{font-size:15px;min-width:0}
@@ -7090,13 +7090,13 @@ function renderFokus() {
   }).join('') + '</div>';
   h += '<p class="small muted fk-info">' + esc(F.info) + '</p>';
   if (S.review) h += '<button type="button" class="btn primary block go" data-act="fk-go">' + esc(F.name) + ' starten</button>';
-  if (C) {
-    var dl = chalLeft();
-    h += '<section class="card ch-act"><div class="card-head"><h2>Deine Challenge</h2><span class="chip blue">' + (dl <= 0 ? 'Heute' : dl <= 14 ? 'Taper' : 'Aufbau') + '</span></div>' +
-      '<button type="button" class="gl-row" data-act="ch-open" data-v="' + S.challenge.id + '"><span class="ch-ic">' + fkIcon(C.ic) + '</span><span class="gl-t"><b>' + esc(C.name) + '</b><small>' + esc(fmtDateLong(S.challenge.date)) + ' · ' + (dl <= 0 ? 'heute' : dl === 1 ? 'morgen' : 'noch ' + dl + ' Tage') + '</small></span>' + CHEV_R + '</button>' +
-      '<div class="bgrp"><button type="button" class="red" data-act="ch-end">Challenge beenden</button></div></section>';
-  }
-  h += '<h2 class="ch-h">Challenges</h2><p class="small muted" style="margin-top:-4px">Ein Ziel mit Datum. Der Plan rechnet rückwärts, mit Taper, danach geht es mit Allround weiter.</p>';
+  // Ohne Wettkampf läuft Allround einfach weiter, Block für Block. Das ist eine eigene Wahl, keine Lücke.
+  var OK2 = '<svg class="ch-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>', dl = C ? chalLeft() : 0;
+  h += '<h2 class="ch-h">Worauf trainierst du?</h2><section class="card gl-card ch-now">' +
+    '<button type="button" class="gl-row' + (C ? '' : ' on') + '" data-act="ch-none" aria-pressed="' + !C + '"><span class="ch-ic">' + fkIcon(CH_FREE) + '</span><span class="gl-t"><b>Einfach trainieren</b><small>Kein Wettkampf: Allround läuft ohne Datum weiter, Block für Block.</small></span>' + (C ? '' : OK2) + '</button>' +
+    (C ? '<button type="button" class="gl-row on" data-act="ch-open" data-v="' + S.challenge.id + '" aria-pressed="true"><span class="ch-ic">' + fkIcon(C.ic) + '</span><span class="gl-t"><b>' + esc(C.name) + '</b><small>' + esc(fmtDateLong(S.challenge.date)) + ' · ' + (dl <= 0 ? 'heute' : dl === 1 ? 'morgen' : 'noch ' + dl + ' Tage') + (dl > 0 && dl <= 14 ? ' · Taper' : '') + '</small></span>' + OK2 + '</button>' +
+      '<div class="bgrp"><button type="button" class="red" data-act="ch-end">Challenge beenden</button></div>' : '') + '</section>';
+  h += '<h2 class="ch-h">' + (C ? 'Andere Challenge' : 'Challenge dazubuchen') + '</h2><p class="small muted" style="margin-top:-4px">Ein Ziel mit Datum. Der Plan rechnet rückwärts, mit Taper, danach geht es mit Allround weiter.</p>';
   CHAL_GRP.forEach(function (g) {
     var ids = CHAL_IDS.filter(function (id) { return CHAL[id].grp === g[0]; });
     h += '<p class="kicker muted gl-group">' + esc(g[1]) + '</p><section class="card gl-card">' + ids.map(function (id) {
@@ -7107,6 +7107,9 @@ function renderFokus() {
   h += '<p class="small muted" style="text-align:center">Schwimmen und Triathlon kommen später dazu.</p>';
   return h;
 }
+var CH_FREE = 'M7 9a3 3 0 1 0 0 6c2 0 3-1.5 5-3s3-3 5-3a3 3 0 1 1 0 6c-2 0-3-1.5-5-3S9 9 7 9z';
+// „Einfach trainieren“: ohne Challenge ist es schon gewählt, mit Challenge fragt es, ob sie enden soll.
+ACT['ch-none'] = function () { if (chal()) ACT['ch-end'](); else toast('Läuft schon: Allround ohne Wettkampf.'); };
 ACT['fk-open'] = function (el) { ui.fkFrom = el.dataset.from || 'heute'; ui.fkSel = null; ui.tab = 'fokus'; window.scrollTo(0, 0); render(); };
 ACT['fk-pick'] = function (el) { ui.fkSel = el.dataset.v; render(); };
 ACT['fk-go'] = function () {

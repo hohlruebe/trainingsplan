@@ -39,6 +39,8 @@ Stand: 7. Oktober 2026 (Kardio mit Kernwert, Challenges, nur noch Allround)
 - Dennis: Challenges mit Datum: 5 km, 10 km, Hindernislauf, Halbmarathon, Marathon (mit Warnung), Hyrox, Murph auf Zeit,
   FTP-Ziel, Radtouristikfahrt, Duathlon. Schwimmen und Triathlon später. Rückwärts geplant, 2 Wochen Taper, Wettkampftag mit
   Ergebnis, danach weiter mit Allround.
+- Dennis: Es braucht eine Option, in der der Plan einfach läuft, wenn kein Wettkampf ansteht. Oben auf „Plan & Challenges“
+  steht jetzt „Worauf trainierst du?“ mit „Einfach trainieren“ (Standard, Haken) oder der aktiven Challenge.
 - Offen: Rückmeldung von Dennis zu Prozentwerten, Steigerung (+1 % je geschafftem Intervall-Tag) und den Challenge-Metcons.
   Zielzeit für Lauf-Challenges noch nicht eingebaut (Tempo kommt aus dem Kernwert).
 

@@ -147,7 +147,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `kardioTargetHTML` den Ziel-Kasten. `kardioUpdate` nach dem Speichern (Snapshot `log.kw`), Pseudo-Leiter `cardio` in Ausdauer
   (`cardioScore`: W/kg 1,5–4,5 und Schwelle 8:00–3:30), Kurve `kardioDevHTML`. Alte Läufe und `IV`/`changeIv` bleiben für alte Daten.
 - Challenges (`CHAL`, `CHAL_GRP`, `S.challenge {id, date, start, dg, goal}`, synchronisiert): versteckte Seite `fokus` heißt jetzt
-  „Plan & Challenges“, je Challenge die Seite `challenge` (`renderChallenge`, Datum als Räder Tag/Monat/Jahr `ch-date`, FTP-Ziel W/kg).
+  „Plan & Challenges“ (oben „Worauf trainierst du?“: „Einfach trainieren“ = kein Wettkampf, Allround läuft ohne Datum, `ACT['ch-none']`;
+  mit Challenge fragt es, ob sie enden soll), je Challenge die Seite `challenge` (`renderChallenge`, Datum als Räder Tag/Monat/Jahr `ch-date`, FTP-Ziel W/kg).
   Während der Challenge: Kardio-Rotation aus `ints`/`easy`, lange Einheit wächst (`lang`, `chalProg`), Wettkampftempo `rp`, eigene
   Formate `tempo`, `hyrox`, `brick`; Metcon an Tag 1 aus `mc` (`cmc`, `chalMetcon`); letzte 14 Tage Taper (`p.taper`: Kraft 3 Runden,
   Metcon kürzer, Kardio −40 %). Am Datum zeigt Heute `raceHTML` (Ergebnis, Log `kind: 'race'`, setzt den Kernwert), danach Allround.
