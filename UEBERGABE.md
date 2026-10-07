@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 7. Oktober 2026 (Kardio mit Kernwert, Challenges, nur noch Allround)
+Stand: 7. Oktober 2026 (Code-Durchsicht und Aufräumen)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,35 @@ Stand: 7. Oktober 2026 (Kardio mit Kernwert, Challenges, nur noch Allround)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Code-Durchsicht (7. Oktober)
+- Dennis: einmal den ganzen Code auf Funktion, Fehler und Unnötiges prüfen, damit es nicht zu groß wird.
+- Geprüft: ESLint (keine undefinierten Namen, keine doppelten Definitionen), alle Tests, alter Stand mit anderem Schwerpunkt und
+  alten Einträgen, Tempo mit einem Jahr Daten. Sync, Export und Import unverändert kompatibel.
+- Entfernt: Schrift Barlow (6 Schnitte, ~176 KB, wurde nie geladen; mit Dennis abgesprochen, obwohl der Schriften-Block sonst
+  unangetastet bleibt), 9 ungenutzte Funktionen, 47 ungenutzte CSS-Regeln, ungenutzte Variablen.
+- Mit Dennis: die ausgeblendeten Schwerpunkte ganz gelöscht (Kraft, Calisthenics, CrossFit, Beweglichkeit, Laufen) samt allem, was nur
+  sie brauchten: Laufziel- und Skillziel-Seite, Skill-Block, lange Dehn-Einheiten (`MOB_ART`, `mobRoutine`), Benchmarks, Sätze-Format,
+  Krafttage mit Lauf, alter Intervall-Lauf mit Stufen (`IV`) und die alte Ergometer-Logik. Alte Einträge zeigt der Verlauf weiter an.
+- Schneller: Medaillen-Berechnung (`areaStates`) rechnet beim Speichern nur noch ab dem letzten Tag neu (vorher alles, wurde jedes Jahr
+  langsamer). Gefixt: „Wdh.. Ziel heute“ (doppelter Punkt) beim Metcon.
+- App: 1165 KB → etwa 940 KB.
+- Dennis: alten Speicherweg löschen, wenn er nichts bringt. Gelöscht (`window.claude`, `initDb`, `TP_BUILD`), er griff nur als
+  Claude-Artifact. Export teilt die Datei oder lädt sie herunter.
+- Dennis: Maximalpuls aus dem Alter berechnen. Geburtsjahr unter Einstellungen › Profil, Formel Tanaka (208 − 0,7 × Alter).
+  Eigener Maximalpuls hat Vorrang, „–“ im Rad = wieder aus dem Alter.
+- Gefixt: Die CSS-Bereinigung hatte einen Kommentar mit Komma zerschnitten. Der offene Kommentar hat die Regeln für Listenzeilen
+  (`.gl-t`) verschluckt, Titel und Untertitel standen nebeneinander. Repariert und gegen `main` geprüft: nur die 47 gewollten Regeln fehlen.
+- Dennis: Körpergewicht war eine breite Kachel, der Rest nicht. Er hat Variante C gewählt (Liste wie in den iOS-Einstellungen) und will
+  sie auch an anderen passenden Stellen. Neuer Baustein Wert-Zeilen (`valRow`, `valRows`, in `DESIGN.md`): Profil (Gewicht, Geburtsjahr,
+  Maximal- und Ruhepuls), Stand und Startdatum, erster Start, Challenge (Datum, FTP-Ziel), Körpergewicht unter 1RM.
+  Eingaben im Training bleiben Kacheln.
+- Dennis: Schmerz-Feld nicht in „Session anpassen“, sondern bei der jeweiligen Übung. Entwurf im Canvas: grauer Link „Schmerzen“ an
+  jeder Übungskarte, Blatt „<Übung> · Schmerzen“ (wo: zwei Umschalter Ober-/Unterkörper, wie: unangenehm/Schmerz, darunter
+  „Heute stattdessen …“), danach Hinweis an der Karte und „Schmerzen weg“ (Namen von Dennis). Einbau, sobald die Übungen das Feld `gelenke` haben.
+- Cowork-Auftrag `design/auftraege/bibliothek.md`: neue Felder für alle Übungen (`muskeln`, `gelenke`, `sehne`, `ermuedung`, `technik`,
+  `seitig`, `laut`, `rx`, `alias`) und neue Übungen in Paketen je Bewegungsmuster, mit Grenzfällen und Prüfliste. Anhänge aus den
+  echten Daten erzeugt. Wenn die Pakete kommen: prüfen, einbauen, Grafiken in Runden zu 20.
 
 ## Kardio und Challenges (7. Oktober)
 - Dennis: Allround soll ein Plan fürs Leben sein, Ziele bucht man auf Zeit dazu. Die anderen Schwerpunkte sind vorerst

@@ -104,27 +104,23 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   am Ort bekommt die Ringhöhe (`ringNotes`).
   Jede Testseite hat einen Pausen-Timer (Timer-Art `block`, `cfg.again`): Pause aus dem Test-Text („3 Min Pause“), sonst 3 Min, Halteübungen
   2 Min; ohne Vorlauf, „Danach: nächster Versuch“, nach Ablauf „Pause vorbei“ (Tippen setzt zurück), kein Sprung zur nächsten Übung.
-  Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
+  Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`, gemerkt in `AS_C`: beim Speichern wird nur ab dem letzten Tag neu gerechnet): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
   Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
-- Schwerpunkte (`FOKUS`, `S.fokus`, Standard `allround`): Allround, Kraft & Muskelaufbau, Calisthenics, CrossFit, Beweglichkeit,
-  Laufen. Sichtbar ist nur Allround (`FOKUS_IDS`), die anderen sind ausgeblendet; `render()` setzt `S.fokus` auf Allround zurück. Jeder hat eine eigene Woche (`days(phase)`), Länge (`len`, Laufen nach Ziel 8/10/14), Phasen (`phase`: `deload`, `test`,
-  `check`, `lab`) und „Nächste Stufe“ (`next`, `S.lvl`). `syncDays()` baut daraus `DAYS` (in `render()` und `saveDay()`); die frühere
-  feste Woche heißt `DAYS0` und liefert nur noch Rückfall-Übungen. Gezählt wird in Blöcken: `S.blockStart`, `blockD()`, `blockN()`,
-  `curPhase()`. Am Blockende setzt `blockCheck()` `S.review`, Heute zeigt dann „Block geschafft“ (`reviewHTML`, Weiter so /
-  Nächste Stufe / Wechseln, `startBlock`). Versteckte Seiten `fokus` (Auswahl), `laufziel` (Strecke, Zielzeit, Puls-Zonen),
-  `skillziel` (1–2 Skill-Ziele, `S.ziele`). Heute zeigt die Block-Karte (`blockCardHTML`) mit Fortschritt je Durchgang.
-  Tage vom Typ `kraft` sind Schritt-Tage aus Bausteinen: `run` (Lauf als erster Schritt), `warm`, `mobl` (lange/kurze Dehn-Einheit,
-  `mobRoutine`, `MOB_ART` A/B/C/K/S/L, Haltezeit aus der Phase, C = schwächste Regionen aus dem Check), `hs`, `skill`
-  (`skillOf`: Ziel oder seine offene Voraussetzung), `kslots` (Kraft, `kfmt` `emom` oder `saetze` mit `sets`, `reps`, `rest`),
-  `mslots`/`mmin` (Metcon/WOD), `bench` (CrossFit-Benchmarks Cindy, Mary, Chelsea in Durchgang 1, 6, 12).
-  Lauftage: `runSpec(d)` (locker, lang, Tempo, Test, Ziel-Lauf, Intervalle mit `iv`), verglichen nur mit der gleichen Art (`runsOf(kind, ergo, art)`).
-  Ergometer (Umschalter Laufen/Ergometer): Ziel-Watt im Kasten `.kg-rec` (`ergoTarget`, `ergoTargetHTML`), Intervalle mit Pause-Watt
-  (halb so viel). Verlauf gleicher Art: Puls letztes Mal über der Zone → −10 W, darunter → +10 W, zweimal gleich in der Zone → +5 W.
-  Ohne Verlauf abgeleitet aus dem letzten Ergometer-Training anderer Art (`ERGO_WKG` je Zone), sonst Körpergewicht × W/kg. Feld Watt Ø
-  ist mit dem Ziel vorbelegt.
-  Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil; ohne Wert geschätzt).
-  Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort und Schwerpunkt `slotKey`) bleibt,
+- Plan (`FOKUS`, `S.fokus`): nur noch Allround (`FOKUS_IDS`). Die anderen Schwerpunkte (Kraft, Calisthenics, CrossFit, Beweglichkeit,
+  Laufen) sind mit Dennis gelöscht; ihre Beschreibung steht noch in `design/schwerpunkte.md`. Alte Stände mit anderem `S.fokus` setzt
+  `render()` auf Allround, alte Einträge (Skill, lange Dehn-Einheit `mobl`, Benchmark, Intervall-Stufe) zeigt der Verlauf weiter an.
+  `FOKUS.allround` hat Woche (`days(phase)`), Länge (`len` 12), Phasen (`phase`: `deload`, `test`, `check`, `taper`, `lab`) und „Nächste
+  Stufe“ (`next`, `S.lvl`). `syncDays()` baut daraus `DAYS` (in `render()` und `saveDay()`); die frühere feste Woche heißt `DAYS0` und
+  liefert nur noch Rückfall-Übungen. Gezählt wird in Blöcken: `S.blockStart`, `blockD()`, `blockN()`, `curPhase()`. Am Blockende setzt
+  `blockCheck()` `S.review`, Heute zeigt dann „Block geschafft“ (`reviewHTML`, Weiter so / Nächste Stufe / Challenge, `startBlock`).
+  Heute zeigt die Block-Karte (`blockCardHTML`) mit Fortschritt je Durchgang.
+  Krafttage (`kday`) sind Schritt-Tage aus Bausteinen: `warm`, `hs`, `kslots` (Kraft als EMOM, `kraftRounds`), `mslots`/`mmin` (Metcon),
+  `cmc` (Metcon einer Challenge). Kardio-Tage siehe unten (`runSpec` = `kardioSpec`), verglichen nur mit der gleichen Art (`runsOf(kind, ergo, art)`).
+  Puls-Zonen nach Karvonen (`ZONES`, `zoneRange`, `S.hrMax`, `S.hrRest`, Einstellungen › Profil). Ohne eigenen Maximalpuls aus dem
+  Geburtsjahr (`S.birthYear`, synchronisiert, `hrMaxEst`: Tanaka 208 − 0,7 × Alter, nie unter dem höchsten gemessenen Puls), sonst 185.
+  `hrKnown()`: Maximalpuls eingetragen oder aus dem Alter; nur dann ändert ein lockerer Kardio-Tag den Kernwert.
+  Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort, Tag und Platz `slotKey`) bleibt,
   sonst begonnene Leiter vor neuer, dann Nutzen. Tempo-Varianten (`TEMPO_KEYS`) nie im Kraftteil. Platz `{ schwach: [...] }` nimmt den
   schwächsten Kraft-Teil (`partScores`). Der Coach entscheidet, nicht der Nutzer: eine neu freigeschaltete Leiter mit mehr Nutzen
   und bei Stillstand (`stallOf`: 3× gleiche Stufe ohne mehr Wdh.) eine andere Variante werden sofort übernommen (`S.picks`, `S.swapped`
@@ -145,7 +141,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Testwoche `k5`/`ramp`. Umfang steigt je Drittel des Blocks, Entlastung/Taper weniger. Ergebnis: `main` (Abschnitte), `list` (Text),
   `iv.reps` für „Intervalle geschafft“. `ergoSeq` baut daraus den Ergometer-Timer, `kardioRunListHTML` die Laufliste mit Tempo,
   `kardioTargetHTML` den Ziel-Kasten. `kardioUpdate` nach dem Speichern (Snapshot `log.kw`), Pseudo-Leiter `cardio` in Ausdauer
-  (`cardioScore`: W/kg 1,5–4,5 und Schwelle 8:00–3:30), Kurve `kardioDevHTML`. Alte Läufe und `IV`/`changeIv` bleiben für alte Daten.
+  (`cardioScore`: W/kg 1,5–4,5 und Schwelle 8:00–3:30), Kurve `kardioDevHTML`. `S.ivStage`/`ivReps`/`ivBumpD`, `S.lauf`, `S.ziele` bleiben
+  nur für alte Daten in `DEF` und `SYNC_KEYS`.
 - Challenges (`CHAL`, `CHAL_GRP`, `S.challenge {id, date, start, dg, goal}`, synchronisiert): versteckte Seite `fokus` heißt jetzt
   „Plan & Challenges“ (oben „Worauf trainierst du?“: „Einfach trainieren“ = kein Wettkampf, Allround läuft ohne Datum, `ACT['ch-none']`;
   mit Challenge fragt es, ob sie enden soll), je Challenge die Seite `challenge` (`renderChallenge`, Datum als Räder Tag/Monat/Jahr `ch-date`, FTP-Ziel W/kg).
@@ -176,7 +173,6 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Im Training stehen alle Abschnitte als Zeilen wie beim EMOM (`seqRowsHTML`, `.sq-row`, `ergoListHTML`): der laufende blau umrandet
   mit Restzeit (nur er zählt herunter), erledigte blass, die Liste rollt mit (`paintSeq` in `paintMini`). Dennis' Ergometer läuft im
   Watt-Modus: Texte sagen „Watt einstellen“, nicht „Widerstand für 80–90 U/min“.
-  Krafttage mit Lauf (nur Schwerpunkt Laufen, Tag 1 und 4): Schritt `run` mit der ganzen Einheit als Timer.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).
 - Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
   Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
@@ -249,6 +245,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Manifest-Vollbild nicht verwenden: Chrome lässt dort den Kamera-Bereich oben nach dem Start schwarz.
   Auf dem iPhone zeichnet sie bis unter Statusleiste und Home-Balken (`black-translucent`).
   Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
+- Speichern nur auf dem Gerät (localStorage) plus Sync über GitHub. Der frühere Weg über `window.claude` (App als Claude-Artifact,
+  `initDb`, `TP_BUILD`) ist gelöscht.
 - `sw.js`: Service Worker für den Offline-Betrieb
 - `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `icon-mono-512.png`.
   App-Symbol „D3“: Turnringe frei hängend in Kreide (#E4E3F7) auf Graphit, darunter links der Marker-Strich in Hellblau (#8DB8FF).
@@ -290,17 +288,18 @@ Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen g
 7. Zähler: `.stepper` mit runden – / + und dem Wert in der Mitte.
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
 Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
-Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
+Eingaben im Training sind Kacheln (`.tile`) mit Rad-Blatt, Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
+(`valRows`/`valRow`, `.vrows`, Name links, Wert rechts, Pfeil). Keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
 Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,
-  Tag 6 Druck, Tag 7 Ruhetag (3 Training, 1 frei, 2 Training, 1 frei; Dennis). Der Tagesname zeigt den Inhalt. Die anderen Schwerpunkte stehen in `design/schwerpunkte.md`.
+  Tag 6 Druck, Tag 7 Ruhetag (3 Training, 1 frei, 2 Training, 1 frei; Dennis). Der Tagesname zeigt den Inhalt. Die gelöschten Schwerpunkte stehen noch in `design/schwerpunkte.md`.
 - Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8.
   Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
-  Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende (Laufen: Testläufe auch
-  zwischendurch, CrossFit: Benchmarks in 1, 6, 12, Beweglichkeit: Check in Durchgang 1 und 8).
-- Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph, nur bei Allround, Calisthenics und CrossFit.
+  Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende
+  (Kardio: Rampentest oder 5 km am Tag 5).
+- Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph.
 - Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
 ## Übergabe zwischen Sitzungen

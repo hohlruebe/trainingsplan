@@ -34,7 +34,12 @@ Die Tage 1–7 auf „Heute“ sind eine Kapsel (`.pills`): fälliger Tag gefül
 Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“ / „Fertig“).
 
 ## Eingaben
-- Werte sind Kacheln (`.tile` in `.pick-grid`), Tippen öffnet ein Blatt von unten.
+- Eingaben im Training (Runden, Zeit, Puls, Strecke, Stufe) sind Kacheln (`.tile` in `.pick-grid`), Tippen öffnet ein Blatt von unten.
+  Sie sind groß zum schnellen Tippen und zeigen Vergleichsbalken.
+- Einstellungswerte, die man selten ändert (Profil, Stand, Startdatum, Challenge-Datum und -Ziel), sind **Wert-Zeilen**
+  (`valRows([valRow(…)])`, `.vrows`/`.vrow`): eine Glas-Fläche in `--board`, je Zeile Name links (darunter grau ein Zusatz),
+  Wert rechts in `--acc` (geschätzt grau), dann der Pfeil. Feine Trenner, Zeilen mindestens 56 px. Tippen öffnet das Rad-Blatt.
+  Errechnete Werte ohne Pfeil (`valRow` ohne `attrs`). Zahlen in `--hand`, Text (Datum, „Einstiegstest“) in Geist 600.
 - Zahlen, Stufen, Listen, Datum: Rad-Blatt (`openSheet`). Keine Klapp-Listen (`<select>`), kein System-Datumsfeld.
 - Rad-Blätter mit Zahl zeigen den Wert groß darüber: nochmal tippen öffnet die Zahlentastatur (wie beim Zeit-Blatt).
 - Zeiten: Zeit-Blatt (`openTimeSheet`), Rad Min/Sek, nochmal auf die Zeit tippen = Zahlentastatur.
