@@ -308,6 +308,8 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
 - `design/` enthält nur Entwürfe und Rohdaten (Maskottchen, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
 - Aufträge für Cowork liegen in `design/auftraege/` (`familien.md` erledigt, `bibliothek.md` läuft). Pakete von Cowork immer zuerst mit
   `node design/auftraege/pruefen_bibliothek.js <datei.json>` prüfen, erst dann einbauen.
+  Neue Felder je Übung: `muskeln`, `gelenke` (Belastung), `bewegt` (bewegte Gelenke: eins = isoliert, keins = statisch), `sehne`,
+  `ermuedung`, `technik`, `seitig`, `laut`, `rx`, `alias`. Muster `isolation` kommt neu dazu (nur Zusatz, nie Hauptübung).
 - Übungsgrafiken: immer die Maskottchen-Vorlage `design/maskottchen/maskottchen.js` benutzen, Regeln in `design/maskottchen/VORLAGE.md`.
   Neue Grafiken in Runden zu 20 im Canvas zeigen, nach Freigabe in `index.html` kopieren. Vorher `node design/maskottchen/pruefen.js`
   (gestreckte Gelenke, Kontaktpunkte halten).
