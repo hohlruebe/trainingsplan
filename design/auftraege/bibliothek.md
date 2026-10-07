@@ -23,7 +23,10 @@ Du hilfst mir, die Übungsbibliothek meiner Trainings-App auszubauen. Die App pr
    - Gelenke schonen, wenn mir etwas wehtut
    - Ermüdung und Technik einschätzen
    - leise Übungen für die Wohnung finden
-2. **Die Bibliothek wird die größte, die es in einer Fitness-App gibt.** Aber nur mit echten, verschiedenen Übungen, jede vollständig beschrieben. Lieber 50 gute als 500 halbe.
+2. **Die Bibliothek wird die größte, die es in einer Fitness-App gibt.**
+   - Ziel ist Vollständigkeit ohne Dubletten: jede echte, verschiedene Übung, jede vollständig beschrieben.
+   - Die Masse kommt über viele Pakete und über Geräte, die heute noch fehlen. Typische Gym-Geräte dürfen dazukommen (`geraete_neu`), z. B. Kabelzug, Latzug, Beinpresse, Multipresse, Rudermaschine mit Sitz, Hyperextension-Bank.
+   - Qualität geht vor Menge. Sag mir ehrlich, wenn ein Vorschlag nur eine Dublette wäre.
 
 ## Neu in der App: „Schmerzen“
 An jeder Übung im Training gibt es den Punkt „Schmerzen“. Dort sage ich, wo es wehtut und wie stark:
@@ -46,7 +49,7 @@ Der Coach tauscht dann für heute diese Übung gegen eine Variante derselben Fam
 | `equipment` | Liste von Gruppen, aus jeder Gruppe reicht ein Gerät. `[]` = ohne Gerät. Nur IDs aus Anhang B |
 | `nutzen` | 0–100, Trainingswert für Kraft und Muskelaufbau |
 | `level` | 1–5, wie schwer für Einsteiger |
-| `voraussetzung` | Liste `{ "leiter": "g_…", "stufe": "Stufenname" }` oder `[]` |
+| `voraussetzung` | Liste `{ "leiter": "g_…", "stufe": "Stufenname" }` oder `[]`. Leiter und Stufenname exakt aus Anhang E (z. B. Leiter `g_pullup`, Stufe `Frei` = Pull-up ohne Band) |
 | `trainiert` | kurzer Text, z. B. „Rücken, Bizeps, Griff“ |
 | `schritte` | 2–4 kurze Sätze, wie es geht |
 | `sauber` | ein Satz: woran man saubere Ausführung erkennt |
@@ -79,8 +82,18 @@ Der Coach tauscht dann für heute diese Übung gegen eine Variante derselben Fam
 
 ## Deine Aufgabe
 
+### Ablauf je Paket
+- **Ein Paket = ein Bewegungsmuster.** Erst Teil 1 (Felder), dann Teil 2 (neue Übungen) für dasselbe Muster, dann das nächste Muster.
+- **Startpaket:** `zug_vertikal` (24 Übungen) als Testlauf. Danach die Reihenfolge aus Anhang D, `mobilitaet` zuletzt.
+- **Schritte:**
+  1. Recherche: Quellen zu Muskelaktivität und Gelenkbelastung für das Paket.
+  2. Grenzfälle hier im Chat vorlegen und auf meine Entscheidung warten.
+  3. Erst dann das JSON.
+- **Ausgabe:** als Datei zum Herunterladen, Name `felder_<muster>.json` bzw. `neu_<muster>.json`. Nur wenn keine Datei geht: ein einziger Codeblock.
+- **Prüfung:** Ich lasse jede Datei durch ein Prüfprogramm laufen. Es meldet jeden Fehler mit Übung und Grund, z. B. „Stufe „Pull-up frei“ gibt es in g_pullup nicht. Gültig: Sehr stark, Stark, Normal, Leicht, Sehr leicht, Frei, Weste“. Dann bekommst du die Liste und korrigierst.
+
 ### Teil 1: Neue Felder für die bestehenden Übungen
-Arbeite in **Paketen je Bewegungsmuster** (Reihenfolge wie in Anhang D). Für jedes Paket:
+Für jedes Paket:
 
 1. **Grenzfälle zuerst.**
    - Ein Grenzfall ist z. B. eine Gelenkbelastung zwischen 2 und 3 oder eine unklare Haupt- und Hilfsmuskulatur.
@@ -142,8 +155,7 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
 - `familien_ergaenzt`: neue Varianten in bestehenden Familien.
   - Bei `stufe` sagt `nach`, hinter welcher bestehenden Stufe sie einsortiert wird (`null` = ganz vorn). Bestehende Ränge änderst du nicht, die App sortiert neu.
   - Bei `variante` und `tempo`: kein `nach`. Bei `tempo` zusätzlich ein `vermerk`.
-- `familien_neu`: ganz neue Familien im Format aus `design/auftraege/familien.md`:
-  - `id`, `name`, `muster`, `bereich`, `ebene`, `kurz`, `leiter: null`, `voraussetzt`, `fuehrt_zu`, `varianten` mit `rang`, `effekt`, `ziel`, `grund`
+- `familien_neu`: ganz neue Familien im Format aus Anhang F.
 - `geraete_neu`: nur wenn ein Gerät wirklich fehlt.
   - Format wie in Anhang B: `id` mit `eq_`, `name`, `preis`, `platz`, `warum`.
   - Erst vorschlagen, dann aufnehmen.
@@ -173,6 +185,7 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
 - [ ] `rx` nur bei Einheit `kg` und Rolle `metcon`, sonst `null`.
 - [ ] Neue Übungen: alle Felder aus beiden Tabellen, `equipment` nur mit vorhandenen IDs.
 - [ ] Jede neue Übung steht in genau einer Familie (`familien_ergaenzt` oder `familien_neu`).
+- [ ] Jede `voraussetzung` nutzt Leiter und Stufenname exakt aus Anhang E.
 - [ ] Alle Grenzfälle sind mir vorgelegt, meine Entscheidungen stehen in `entscheidungen`.
 
 ## Anhang A: Werte für `muster` und `bereich`
@@ -562,3 +575,100 @@ Format: ID | Name | Bereich | Einheit | Nutzen | Level | Equipment | Rolle | Fam
 - g_ring_leg_curl | Ring Leg Curl | beine | wdh | 74 | 2 | [["eq_ringe"]] | kraft | f_leg_curl
 - g_slider_curl | Slider Leg Curl | beine | wdh | 70 | 1 | [["eq_zuhause"]] | kraft,metcon | f_leg_curl
 
+## Anhang E: Leitern und gültige Stufennamen (64)
+Für `voraussetzung`: `leiter` = ID links, `stufe` = einer der Namen rechts, exakt so geschrieben. Reihenfolge von leicht nach schwer.
+
+- `g_pullup` Ring Pull-up: „Sehr stark“ → „Stark“ → „Normal“ → „Leicht“ → „Sehr leicht“ → „Frei“ → „Weste“
+- `g_chinup` Ring Chin-up: „Sehr stark“ → „Stark“ → „Normal“ → „Leicht“ → „Sehr leicht“ → „Frei“ → „Weste“
+- `g_row` Ring Row: „Körper steil“ → „Flacher“ → „Füße erhöht“ → „Weste“
+- `g_push` Push-up: „Auf Knien“ → „Boden“ → „Parallettes“ → „Füße erhöht“ → „Band“ → „Weste“
+- `g_dip` Ring Dip: „Support Hold, 20 s“ → „Stark“ → „Normal“ → „Leicht“ → „Frei“ → „Weste“
+- `g_pike` Pike Push-up: „Füße am Boden“ → „Füße auf Stuhl“ → „Weste“
+- `g_pistol` Pistol Squat: „Auf Stuhl absitzen“ → „Am Türrahmen“ → „Frei“ → „Weste“
+- `g_bss` Bulgarian Split Squat: „Normal“ → „3 s absenken“ → „Shrimp Squat“ → „Weste“
+- `g_lunge` Reverse Lunge: „Normal“ → „3 s absenken“ → „Weste“
+- `g_nordic` Nordic Curl: „Früh abfangen“ → „Tiefer absenken“ → „Volle Bewegung“ → „Weste“
+- `g_bridge` Glute Bridge: „Beidbeinig“ → „Einbeinig“ → „Oben 2 s halten“ → „Band“ → „Weste auf Hüfte“
+- `g_hollow` Hollow Body Hold: „Knie angezogen“ → „Beine gestreckt“ → „Arme über Kopf“ → „30 s sauber“
+- `g_kneeraise` Hanging Knee Raise: „Knee Raise“ → „Leg Raise“ → „Toes to Rings“
+- `g_abwheel` Ab Wheel Rollout: „Bis zur Wand“ → „Voller Weg“ → „Weste“
+- `g_tuck` Slider Knee Tuck: „Knee Tuck“ → „Slider Pike“ → „Weste“
+- `g_handstand` Handstand: „Face-to-Wall“ → „1 Fußlänge, 30 s“ → „Fuß-Taps“ → „Frei“
+- `g_ring_muscle_up` Ring Muscle-up: „False Grip Hang“ → „False Grip Chin-up“ → „Transition“ → „Banded Ring Muscle-up“ → „Ring Muscle-up“
+- `g_bar_muscle_up` Bar Muscle-up: „Chest-to-Bar“ → „Explosive Pull-up“ → „Straight Bar Dip“ → „Bar Muscle-up“
+- `g_one_arm_pullup` One-Arm Pull-up: „Archer Pull-up“ → „Assisted One-Arm Pull-up“ → „One-Arm Pull-up“
+- `g_kipping_pullup` Kipping Pull-up: „Kip Swing“ → „Kipping Pull-up“ → „Chest-to-Bar“ → „Butterfly“
+- `g_rope_climb` Rope Climb: „Pull-up frei“ → „Rope Climb“ → „Legless“
+- `g_front_lever` Front Lever: „Tuck“ → „Advanced Tuck“ → „Einbeinig“ → „Voll“
+- `g_back_lever` Back Lever: „German Hang“ → „Tuck“ → „Advanced Tuck“ → „Voll“
+- `g_one_arm_row` One-Arm Ring Row: „Archer Ring Row“ → „One-Arm Ring Row“ → „Tuck Front Lever Row“
+- `g_one_arm_push` One-Arm Push-up: „Archer Push-up“ → „Incline One-Arm Push-up“ → „One-Arm Push-up“
+- `g_planche` Planche: „Planche Lean“ → „Pseudo Planche Push-up“ → „Tuck“ → „Advanced Tuck“ → „Straddle“ → „Full Planche“
+- `g_hspu` Strict Handstand Push-up: „Wall Walk“ → „Negative“ → „Strict Handstand Push-up“ → „Deficit“ → „Freestanding“
+- `g_bar_dip` Parallel Bar Dip: „Bench Dip“ → „Parallel Bar Dip“ → „Weighted Dip“
+- `g_strict_press` Strict Press: „Band Press“ → „Dumbbell Press“ → „Strict Press“ → „Push Press“ → „Push Jerk“ → „Split Jerk“
+- `g_air` Air Squat: „Box Squat“ → „Air Squat“ → „Weste“ → „Goblet Squat“
+- `g_back_squat` Back Squat: „Goblet Squat“ → „Front Squat“ → „Back Squat“ → „Overhead Squat“
+- `g_thruster` Thruster: „Air Squat“ → „Wall Ball Shot“ → „Thruster“
+- `g_kb_swing` Kettlebell Swing: „Kettlebell Deadlift“ → „Kettlebell Swing“ → „American Swing“ → „Single-Arm Swing“ → „Kettlebell Snatch“
+- `g_deadlift` Deadlift: „Kettlebell Deadlift“ → „Romanian Deadlift“ → „Deadlift“ → „Sumo Deadlift High Pull“
+- `g_hip_thrust` Hip Thrust: „Hip Thrust“ → „Einbeinig“ → „Weste“
+- `g_slider_curl` Slider Leg Curl: „Slider Leg Curl“ → „Single-Leg Slider Curl“ → „Ring Leg Curl“
+- `g_dragon_flag` Dragon Flag: „Tuck Dragon Flag“ → „Dragon Flag Raise“ → „Dragon Flag“
+- `g_ring_fallout` Ring Fallout: „Plank“ → „Body Saw“ → „Ring Fallout“
+- `g_lsit` L-Sit: „Compression Leg Lift“ → „Tuck L-Sit“ → „L-Sit“ → „Ring L-Sit“ → „V-Sit“
+- `g_kipping_t2b` Kipping Toes to Bar: „Kip Swing“ → „Knees to Elbows“ → „Kipping Toes to Bar“
+- `g_v_up` V-up: „Tuck-up“ → „V-up“ → „GHD Sit-up“
+- `g_human_flag` Human Flag: „Side Plank“ → „Tuck Human Flag“ → „Human Flag“
+- `g_turkish_getup` Turkish Get-up: „Pallof Press“ → „Side Plank“ → „Turkish Get-up“
+- `g_handstand_walk` Handstand Walk: „Kick-up“ → „Freestanding Handstand“ → „Handstand Walk“
+- `g_double_under` Double-Under: „Single-Under“ → „Double-Under“
+- `g_box_jump` Box Jump: „Step-up“ → „Box Jump“ → „Box Jump Over“ → „Burpee Box Jump Over“
+- `g_broad_jump` Broad Jump: „Squat Jump“ → „Broad Jump“ → „Tuck Jump“
+- `g_clean_and_jerk` Clean and Jerk: „Medicine Ball Clean“ → „Hang Power Clean“ → „Power Clean“ → „Squat Clean“ → „Clean and Jerk“
+- `g_squat_snatch` Squat Snatch: „Burgener Warm-up“ → „Overhead Squat“ → „Hang Power Snatch“ → „Power Snatch“ → „Squat Snatch“
+- `g_db_snatch` Dumbbell Snatch: „Dumbbell Clean and Jerk“ → „Dumbbell Snatch“ → „Devil Press“
+- `g_farmers_carry` Farmer's Carry: „Backpack Carry“ → „Farmer's Carry“ → „Suitcase Carry“ → „Overhead Carry“
+- `g_sandbag_carry` Sandbag Carry: „Sandbag Bear Hug Carry“ → „Sandbag Shoulder Carry“ → „Sled Push“
+- `g_burpee` Burpee: „Step-back Burpee“ → „Burpee“ → „Burpee Pull-up“
+- `g_run` Run: „Gehen und Laufen“ → „20 Min am Stück“ → „45 Min am Stück“ → „Intervalle“
+- `g_passthrough` Band Pass-Through: „Weiter Griff“ → „Enger Griff“ → „German Hang“
+- `g_pancake` Pancake Stretch: „Pike Stretch“ → „Pancake Stretch“ → „Jefferson Curl“
+- `g_mob_vorbeuge` Standing Forward Fold: „Fingerspitzen bis Knie“ → „Fingerspitzen bis Schienbeinmitte“ → „Fingerspitzen bis Knöchel“ → „Fingerspitzen am Boden“ → „Handflächen flach am Boden“
+- `g_mob_hocke` Deep Squat Test: „Hocke mit Halt, 30 s“ → „Freie Hocke, 30 s“ → „Freie Hocke aufrecht, 60 s“ → „Overhead-Hocke, 30 s“ → „Overhead-Hocke, Füße parallel, 30 s“
+- `g_mob_schulter` Wall Shoulder Flexion: „Arme senkrecht über den Schultern“ → „Hände eine Handbreite vor der Wand“ → „Daumen berühren die Wand“ → „Handrücken flach an der Wand“ → „Hände 5 s aktiv von der Wand abheben“
+- `g_mob_bruecke` Bridge Progression: „Glute Bridge in einer Linie“ → „Brücke mit Händen auf Sofa“ → „Brücke am Boden, Arme gebeugt“ → „Brücke am Boden, Arme gestreckt“ → „Brücke, Schultern über Handgelenken“
+- `g_mob_spagat` Front Split Progression: „Half Split, Fingerspitzen neben dem Fuß“ → „Becken eine Unterarmlänge über dem Boden“ → „Becken eine Faust über dem Boden“ → „Becken am Boden, Hände stützen“ → „Spagat aufrecht ohne Hände, 30 s“
+- `g_mob_handgelenk` Wrist Extension Test: „Schultern hinter den Händen“ → „Schultern über den Handgelenken“ → „Schultern eine Handbreite vor den Handgelenken“ → „Schultern über den Fingerspitzen“
+- `g_mob_sprunggelenk` Knee-to-Wall Test: „Zehen an der Wand“ → „Zwei Fingerbreit Abstand“ → „Handbreite ohne Daumen“ → „Handbreite mit Daumen“ → „Handbreite plus zwei Finger“
+- `g_mob_rueckenkratzen` Back Scratch Reach: „Lücke kleiner als zwei Handlängen“ → „Lücke kleiner als anderthalb Handlängen“ → „Lücke kleiner als eine Handlänge“ → „Fingerspitzen berühren sich“ → „Finger haken ineinander“
+
+## Anhang F: Format für neue Familien (`familien_neu`)
+```json
+{
+  "id": "f_cable_row",
+  "name": "Cable Row",
+  "muster": "zug_horizontal",
+  "bereich": "zug",
+  "ebene": 1,
+  "kurz": "Ein Satz, was die Familie trainiert.",
+  "leiter": null,
+  "voraussetzt": [ { "familie": "f_row", "ab_rang": 1 } ],
+  "fuehrt_zu": [],
+  "varianten": [
+    { "uebung": "g_seated_cable_row", "art": "stufe", "rang": 1, "effekt": 75, "ziel": "Messbares Ziel für die nächste Stufe.", "grund": "Ein Satz, warum dieser Platz." },
+    { "uebung": "g_single_arm_cable_row", "art": "variante", "rang": null, "effekt": 72, "grund": "…" }
+  ]
+}
+```
+- `id` beginnt mit `f_`, nur Kleinbuchstaben, Ziffern und `_`. `name` englisch, alle anderen Texte deutsch.
+- `bereich`: `zug`, `druck`, `beine`, `rumpf`, `skill`, `ausdauer` oder `gewichtheben`.
+- `ebene`: 1 = Grundlage ohne Voraussetzung bis 6 = schwerster Skill. Immer mindestens eine Ebene über den Familien in `voraussetzt`.
+- `voraussetzt`: höchstens 3 echte Voraussetzungen für Kraft und Technik, mit `ab_rang` (Stufe in der Vorgänger-Familie). Leer `[]` bei Grundlagen.
+- `fuehrt_zu`: passt genau zu `voraussetzt` (steht A in `voraussetzt` von B, steht B in `fuehrt_zu` von A). Betrifft eine bestehende Familie, nenn es mir in `entscheidungen`, ich trage es dort nach.
+- `leiter`: bei neuen Familien immer `null`.
+- `varianten`:
+  - `art: "stufe"` mit `rang` 1, 2, 3 … ohne Lücke (1 = leichteste) und `ziel` (ein Satz, messbar ohne Hilfsmittel).
+  - `art: "variante"`: gleichwertige Abwandlung mit anderem Reiz, `rang: null`.
+  - `art: "tempo"`: auf Schnelligkeit ausgelegt wie im CrossFit, `rang: null`, dazu `vermerk`. Ersetzt im Training nie eine Stufe.
+  - `effekt` 0–100, Trainingswirkung bei sauberer Ausführung, am `nutzen` orientiert.
