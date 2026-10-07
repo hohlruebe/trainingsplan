@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 6. Oktober 2026 (Pistol-Leiter, Check, Ergometer)
+Stand: 7. Oktober 2026 (Kardio mit Kernwert, Challenges, nur noch Allround)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,25 @@ Stand: 6. Oktober 2026 (Pistol-Leiter, Check, Ergometer)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Kardio und Challenges (7. Oktober)
+- Dennis: Allround soll ein Plan fürs Leben sein, Ziele bucht man auf Zeit dazu. Die anderen Schwerpunkte sind vorerst
+  ausgeblendet (`FOKUS_IDS = ['allround']`, Daten und Code bleiben, alte Auswahl wird beim Laden zu Allround).
+- Dennis: Laufen und Ergometer zusammenlegen. Tag 2 „Kardio locker“, Tag 5 „Kardio intensiv“, jeweils Laufen oder Ergometer.
+  Ein Kernwert (`S.cardio`: FTP in Watt und Schwellentempo in s/km), alle Ziele in Prozent davon (locker 65 %, Tempo 88 %,
+  Schwelle 95 %, VO2max 110 %, 30/30 125 %). Jede Einheit passt ihn an (Intervalle geschafft +1 %, sonst −1/−2 %, lockerer
+  Tag nach Puls ±0,5 %), die Hälfte geht aufs andere Gerät. Tests in der Testwoche: Rampentest (FTP = 75 % der letzten vollen
+  Minute) oder 5 km (Schwelle = 5-km-Tempo × 1,05). Startwert geschätzt (Gewicht × 2,4 W bzw. aus den bisherigen Läufen).
+- Dennis: mehr Abwechslung. Intensiv im 4er-Takt: 4 × 4 VO2max, 30/30, Schwelle, Pyramide (Laufen) bzw. Over-Under (Ergometer);
+  im mittleren Drittel Bergsprints statt 30/30 beim Laufen. Locker: Zone 2, mit Steigerungen (Ergometer: Trittfrequenz), lang.
+  80/20 und `runCap` bleiben. Session anpassen: „Ich habe keine Steigung“ (flache Sprints, Entwurf `_flat`).
+- Dennis: Challenges mit Datum: 5 km, 10 km, Hindernislauf, Halbmarathon, Marathon (mit Warnung), Hyrox, Murph auf Zeit,
+  FTP-Ziel, Radtouristikfahrt, Duathlon. Schwimmen und Triathlon später. Rückwärts geplant, 2 Wochen Taper, Wettkampftag mit
+  Ergebnis, danach weiter mit Allround.
+- Dennis: Es braucht eine Option, in der der Plan einfach läuft, wenn kein Wettkampf ansteht. Oben auf „Plan & Challenges“
+  steht jetzt „Worauf trainierst du?“ mit „Einfach trainieren“ (Standard, Haken) oder der aktiven Challenge.
+- Offen: Rückmeldung von Dennis zu Prozentwerten, Steigerung (+1 % je geschafftem Intervall-Tag) und den Challenge-Metcons.
+  Zielzeit für Lauf-Challenges noch nicht eingebaut (Tempo kommt aus dem Kernwert).
 
 ## One Rep Max und Gewicht im Training (6. Oktober)
 - Dennis: Auf der 1RM-Seite alle Übungen zeigen, die ein 1RM haben können, Aktuell und Bestwert (mit Jahr). Titel „One Rep Max“.

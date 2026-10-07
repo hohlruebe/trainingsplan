@@ -108,7 +108,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
   Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
 - Schwerpunkte (`FOKUS`, `S.fokus`, Standard `allround`): Allround, Kraft & Muskelaufbau, Calisthenics, CrossFit, Beweglichkeit,
-  Laufen. Jeder hat eine eigene Woche (`days(phase)`), Länge (`len`, Laufen nach Ziel 8/10/14), Phasen (`phase`: `deload`, `test`,
+  Laufen. Sichtbar ist nur Allround (`FOKUS_IDS`), die anderen sind ausgeblendet; `render()` setzt `S.fokus` auf Allround zurück. Jeder hat eine eigene Woche (`days(phase)`), Länge (`len`, Laufen nach Ziel 8/10/14), Phasen (`phase`: `deload`, `test`,
   `check`, `lab`) und „Nächste Stufe“ (`next`, `S.lvl`). `syncDays()` baut daraus `DAYS` (in `render()` und `saveDay()`); die frühere
   feste Woche heißt `DAYS0` und liefert nur noch Rückfall-Übungen. Gezählt wird in Blöcken: `S.blockStart`, `blockD()`, `blockN()`,
   `curPhase()`. Am Blockende setzt `blockCheck()` `S.review`, Heute zeigt dann „Block geschafft“ (`reviewHTML`, Weiter so /
@@ -138,11 +138,27 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   für die nächste Stufe. Nach einer Pause über `SEHNE_PAUSE` (14, hoch 10 Tage) eine Stufe leichter. Wartet die Sehne, steht der Hinweis
   am Kraft-Schritt (3 s absenken, 1 s Pause) und „Bald freigeschaltet“ mit Datum im Fortschritt-Block. Volle Wdh. beim Warten sind kein Stillstand.
   Laufen (`runCap`): lockerer Lauf heute höchstens so lang, dass die Woche 1,3 × Schnitt der letzten 4 Wochen nicht übersteigt (ab 3 Wochen Laufdaten).
+- Kardio (Allround Tag 2 „Kardio locker“, Tag 5 „Kardio intensiv“, `kardio: true`): Laufen oder Ergometer, ein Kernwert `S.cardio`
+  (`ftp`, `thr` in s/km, `ftpT`/`thrT` = Datum des Tests, synchronisiert; ohne Wert schätzt `cardioKw`). Ziele in Prozent (`kW`, `kP`,
+  Faktor `f` für Watt, `pf` für Tempo). `kardioSpec(d, {kurz})` wählt das Format (`KF`): locker im 4er-Takt `locker`, `strides`
+  (Ergometer `kadenz`), `lang`, `locker`; intensiv `vo2`, `3030` (im mittleren Drittel beim Laufen `hill`), `thr`, `pyr` (Ergometer `ou`);
+  Testwoche `k5`/`ramp`. Umfang steigt je Drittel des Blocks, Entlastung/Taper weniger. Ergebnis: `main` (Abschnitte), `list` (Text),
+  `iv.reps` für „Intervalle geschafft“. `ergoSeq` baut daraus den Ergometer-Timer, `kardioRunListHTML` die Laufliste mit Tempo,
+  `kardioTargetHTML` den Ziel-Kasten. `kardioUpdate` nach dem Speichern (Snapshot `log.kw`), Pseudo-Leiter `cardio` in Ausdauer
+  (`cardioScore`: W/kg 1,5–4,5 und Schwelle 8:00–3:30), Kurve `kardioDevHTML`. Alte Läufe und `IV`/`changeIv` bleiben für alte Daten.
+- Challenges (`CHAL`, `CHAL_GRP`, `S.challenge {id, date, start, dg, goal}`, synchronisiert): versteckte Seite `fokus` heißt jetzt
+  „Plan & Challenges“ (oben „Worauf trainierst du?“: „Einfach trainieren“ = kein Wettkampf, Allround läuft ohne Datum, `ACT['ch-none']`;
+  mit Challenge fragt es, ob sie enden soll), je Challenge die Seite `challenge` (`renderChallenge`, Datum als Räder Tag/Monat/Jahr `ch-date`, FTP-Ziel W/kg).
+  Während der Challenge: Kardio-Rotation aus `ints`/`easy`, lange Einheit wächst (`lang`, `chalProg`), Wettkampftempo `rp`, eigene
+  Formate `tempo`, `hyrox`, `brick`; Metcon an Tag 1 aus `mc` (`cmc`, `chalMetcon`); letzte 14 Tage Taper (`p.taper`: Kraft 3 Runden,
+  Metcon kürzer, Kardio −40 %). Am Datum zeigt Heute `raceHTML` (Ergebnis, Log `kind: 'race'`, setzt den Kernwert), danach Allround.
+  Block-Karte zeigt `chalLabel()`. Standard-Modus der Kardio-Tage kommt aus der Challenge (`runMode`).
 - Session anpassen (`adaptLineHTML`, `ACT.adapt`): grauer Link unter dem Ablauf (Krafttag) bzw. dem Lauf (Intervall). Blatt von unten
   „Sag deinem Coach, worauf er heute achten soll.“, nur „Fertig“, gilt nur für heute und sofort, Aktives grau hinterlegt (`.ad-it.sel/.open`):
   „Mir geht’s heute nicht gut“ (Antippen = Kurzversion bzw. lockerer Lauf statt Intervalle, Entwurf `_kurz`), „Ich habe wenig Zeit“
   (< 45 / < 30 / < 15 Min, `_zeit`; `zeitLv` kürzt in Stufen: ohne Handstand/Skill, Kraft und Metcon kürzer, ohne Metcon, Aufwärmen 4 Min),
-  „Ich trainiere woanders“ (`_ort`, `trainOrt()`, nur diese Einheit; `S.ort` bleibt). Kein Ort-Feld mehr auf Heute.
+  „Ich trainiere woanders“ (`_ort`, `trainOrt()`, nur diese Einheit; `S.ort` bleibt), am Bergsprint-Tag „Ich habe keine Steigung“
+  (`_flat`, flache Sprints). Kein Ort-Feld mehr auf Heute.
 - Hinweise auf Heute stehen dort, wo sie hingehören: Phase (Einstieg, Entlastung, Testwoche, Willkommen zurück) in der Block-Karte,
   Übungs-Hinweise grau unter dem Schritt (`notes`, `.tl-x`). Ringhöhe nur bei Ring-Übungen, in Bezug auf den Körper (`ringNotes`, `RING_H`).
   Tipps-Karte nur noch an Testtagen, beim Murph und bei optionalen Läufen.
@@ -278,7 +294,7 @@ Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Dat
 Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
-- Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Lauf locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Intervall-Lauf,
+- Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,
   Tag 6 Druck, Tag 7 Ruhetag (3 Training, 1 frei, 2 Training, 1 frei; Dennis). Der Tagesname zeigt den Inhalt. Die anderen Schwerpunkte stehen in `design/schwerpunkte.md`.
 - Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8.
   Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
