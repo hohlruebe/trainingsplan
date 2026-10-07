@@ -43,10 +43,13 @@ Stand: 7. Oktober 2026 (Code-Durchsicht und Aufräumen)
   Eigener Maximalpuls hat Vorrang, „–“ im Rad = wieder aus dem Alter.
 - Gefixt: Die CSS-Bereinigung hatte einen Kommentar mit Komma zerschnitten. Der offene Kommentar hat die Regeln für Listenzeilen
   (`.gl-t`) verschluckt, Titel und Untertitel standen nebeneinander. Repariert und gegen `main` geprüft: nur die 47 gewollten Regeln fehlen.
-- Dennis: Körpergewicht war eine breite Kachel, der Rest nicht. Im Canvas drei Möglichkeiten (A 2 × 2, B Kacheln in Gruppen „Körper“ und
-  „Puls“, C Liste). Empfehlung B. Wartet auf seine Wahl.
-- Dennis: Schmerz-Feld wie „Session anpassen“. Entwurf im Canvas: Punkt „Mir tut etwas weh“ (wo: zwei Umschalter Ober-/Unterkörper,
-  wie: unangenehm/Schmerz), dazu grauer Link „Tut etwas weh?“ im Training. Einbau erst, wenn die Übungen das Feld `gelenke` haben.
+- Dennis: Körpergewicht war eine breite Kachel, der Rest nicht. Er hat Variante C gewählt (Liste wie in den iOS-Einstellungen) und will
+  sie auch an anderen passenden Stellen. Neuer Baustein Wert-Zeilen (`valRow`, `valRows`, in `DESIGN.md`): Profil (Gewicht, Geburtsjahr,
+  Maximal- und Ruhepuls), Stand und Startdatum, erster Start, Challenge (Datum, FTP-Ziel), Körpergewicht unter 1RM.
+  Eingaben im Training bleiben Kacheln.
+- Dennis: Schmerz-Feld nicht in „Session anpassen“, sondern bei der jeweiligen Übung. Entwurf im Canvas: grauer Link „Tut etwas weh?“ an
+  jeder Übungskarte, Blatt „<Übung> · Tut etwas weh?“ (wo: zwei Umschalter Ober-/Unterkörper, wie: unangenehm/Schmerz, darunter
+  „Heute stattdessen …“), danach Hinweis an der Karte und „Tut wieder gut“. Einbau, sobald die Übungen das Feld `gelenke` haben.
 - Cowork-Auftrag `design/auftraege/bibliothek.md`: neue Felder für alle Übungen (`muskeln`, `gelenke`, `sehne`, `ermuedung`, `technik`,
   `seitig`, `laut`, `rx`, `alias`) und neue Übungen in Paketen je Bewegungsmuster, mit Grenzfällen und Prüfliste. Anhänge aus den
   echten Daten erzeugt. Wenn die Pakete kommen: prüfen, einbauen, Grafiken in Runden zu 20.

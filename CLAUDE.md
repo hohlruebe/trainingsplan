@@ -288,7 +288,8 @@ Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen g
 7. Zähler: `.stepper` mit runden – / + und dem Wert in der Mitte.
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
 Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
-Eingabewerte sind Kacheln (`.tile`) mit Rad-Blatt, keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
+Eingaben im Training sind Kacheln (`.tile`) mit Rad-Blatt, Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
+(`valRows`/`valRow`, `.vrows`, Name links, Wert rechts, Pfeil). Keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
 Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
