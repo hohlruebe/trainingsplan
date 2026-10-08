@@ -610,6 +610,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .bf figure{margin:0;text-align:center}.bf figcaption{font-size:12px;color:var(--ink2);margin-top:4px}
 .bf svg{display:block;width:128px;height:auto}.bf.sm{gap:18px}.bf.sm svg{width:76px}
 .bf .sil{fill:var(--g);stroke:var(--paper);stroke-width:1.6;stroke-linejoin:round}
+.bf .hair{fill:color-mix(in srgb,var(--ink) 38%,var(--paper));stroke:none}
 .bf .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.2;stroke-linejoin:round}
 .bf .mu.b0{fill:var(--mb0)}.bf .mu.b1{fill:var(--mb1)}.bf .mu.b2{fill:var(--mb2)}.bf .mu.b3{fill:var(--mb3)}
 .bf .mu.p1{fill:var(--acc)}.bf .mu.p2{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
@@ -7130,18 +7131,24 @@ var MUS_PAIRS = [[['brust', 'schulter_vorn', 'trizeps'], 'Druck', ['latissimus',
   [['quadrizeps'], 'Oberschenkel vorn', ['beinbeuger', 'gesaess'], 'Rückseite'],
   [['bauch_gerade', 'bauch_schraeg'], 'Bauch', ['rueckenstrecker'], 'Rückenstrecker']];
 // Weibliche und neutrale Figur: dieselben Linien, verzogen. Schultern und Taille schmaler, Hüfte und Oberschenkel breiter,
-// die Arme rücken mit den Schultern nach innen. Neutral (divers) liegt genau in der Mitte.
-var BODY_WARP = [[60, 1], [80, .84], [120, .86], [165, .84], [212, .76], [262, 1.13], [300, 1.11], [350, 1], [440, .97]];
-// Brust der weiblichen Figur: unten runder.
-var BODY_BRUST_W = 'M98 102 C92 96 82 94 73 97 C63 101 58 112 60 124 C62 136 71 143 82 143 C91 143 96 138 98 132 Z';
+// Arme schlanker und mit den Schultern nach innen, dazu Brust und Haare. Neutral (divers) liegt genau in der Mitte.
+var BODY_WARP = [[60, 1], [78, .8], [118, .82], [160, .8], [208, .7], [236, .9], [266, 1.17], [300, 1.15], [338, .98], [380, .96], [440, .94]];
+// Brust der weiblichen Figur: rund, unten mit Schatten-Bogen.
+var BODY_BRUST_W = 'M98 104 C93 97 83 95 74 98 C63 102 57 114 59 127 C61 140 71 148 83 148 C92 148 97 142 98 135 Z';
+// Haare: vorn Scheitel und lange Strähnen bis zu den Schultern, hinten ganz mit Pferdeschwanz. Halbe Breite, wird gespiegelt.
+var BODY_HAIR_F = 'M100 6 C86 6 76 15 75 30 C74 48 76 68 79 86 L87 84 C85 70 84 56 84 44 C84 30 90 21 100 19 Z';
+var BODY_HAIR_B = 'M100 6 C86 6 76 15 75 30 C74 46 78 58 86 62 C90 64 95 65 100 65 Z M100 56 C93 62 91 78 94 100 C96 106 99 108 100 108 Z';
 function bodyScale(y) {
   var W = BODY_WARP; if (y <= W[0][0]) return 1;
   for (var i = 1; i < W.length; i++) if (y <= W[i][0]) { var q = (y - W[i - 1][0]) / (W[i][0] - W[i - 1][0]); return W[i - 1][1] + (W[i][1] - W[i - 1][1]) * q; }
-  return 1;
+  return W[W.length - 1][1];
 }
 function bodyPt(x, y, t) {
-  var arm = (y > 118 && y <= 200 && x < 57.5) || (y > 200 && y < 300 && x < 50);
-  var nx = arm ? x + (100 - 40) * (1 - BODY_WARP[1][1]) * t : 100 - (100 - x) * (1 + (bodyScale(y) - 1) * t);
+  var arm = (y > 118 && y <= 200 && x < 57.5) || (y > 200 && y < 300 && x < 50), nx;
+  if (arm) {
+    var c = 49.5 - (y - 130) * 0.16;
+    nx = c + (x - c) * (1 - 0.18 * t) + (100 - 40) * (1 - BODY_WARP[1][1]) * t;
+  } else nx = 100 - (100 - x) * (1 + (bodyScale(y) - 1) * t);
   return [Math.round(nx * 10) / 10, y];
 }
 function bodyWarp(d, t) { return t ? d.replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, function (_, x, y) { return bodyPt(+x, +y, t).join(' '); }) : d; }
@@ -7149,12 +7156,14 @@ var BODY_C = {};
 function bodyOf(t) {
   if (BODY_C[t]) return BODY_C[t];
   var wp = function (P) { var o = {}; Object.keys(P).forEach(function (k) { o[k] = bodyWarp(k === 'brust' && t === 1 ? BODY_BRUST_W : P[k], t); }); return o; };
-  return (BODY_C[t] = { sil: bodyWarp(BODY_SIL, t), f: wp(BODY_F), b: wp(BODY_B), head: 19 - 1.5 * t, neck: 22 - 3 * t });
+  return (BODY_C[t] = { sil: bodyWarp(BODY_SIL, t), f: wp(BODY_F), b: wp(BODY_B), head: 19 - 2 * t, neck: 22 - 6 * t, hair: t === 1 });
 }
 function bodySVG(parts, cls) {
-  var B = bodyOf(sexT()), P = parts === BODY_B ? B.b : parts === BODY_F ? B.f : parts;
+  var B = bodyOf(sexT()), back = parts === BODY_B, P = back ? B.b : parts === BODY_F ? B.f : parts;
   var half = '<path class="sil" d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path class="mu' + (m.charAt(0) === '_' ? '' : ' ' + (cls(m) || '')) + '" d="' + P[m] + '"/>'; }).join('');
-  return '<svg viewBox="0 0 200 440" aria-hidden="true"><ellipse class="sil" cx="100" cy="34" rx="' + B.head + '" ry="24"/><rect class="sil" x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>' + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g></svg>';
+  var hair = B.hair ? '<path class="hair" d="' + (back ? BODY_HAIR_B : BODY_HAIR_F) + '"/>' : '';
+  return '<svg viewBox="0 0 200 440" aria-hidden="true"><ellipse class="sil" cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair ? 23 : 24) + '"/><rect class="sil" x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>' + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
+    (hair ? hair + '<g transform="translate(200,0) scale(-1,1)">' + hair + '</g>' : '') + '</svg>';
 }
 function musFigHTML(cls, small) {
   return '<div class="bf' + (small ? ' sm' : '') + '"><figure>' + bodySVG(BODY_F, cls) + '<figcaption>Vorn</figcaption></figure><figure>' + bodySVG(BODY_B, cls) + '<figcaption>Hinten</figcaption></figure></div>';
