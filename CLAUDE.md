@@ -78,7 +78,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Schmerzen (`painApply` im Getter `DAYS[t].kraft`, `painApplyM` im Getter `DAYS[t].metcon`, `painFlow` in `warmFlow`/`coolFlow`/`murphFlow`,
   `painForUe`, `painSubUe`, `painBody`): grauer Link „Schmerzen“ unter jeder Kraft-Karte (`ACT.pain`) und unter jedem anderen Schritt
   (`painStepLinkHTML`, `ACT['pain-s']`, `PAIN_STEPS`: Aufwärmen, Handstand, Metcon, Ausgleich, Cool-down, Murph), Blatt „<Übung bzw. Schritt> · Schmerzen“,
-  bei mehreren Übungen zuerst „Bei welcher Übung?“ (`painItems`, `ui.painSlot`). Metcon: Ersatz aus dem Metcon-Pool mit dessen Menge;
+  bei mehreren Übungen zuerst „Bei welcher Übung?“ (`painItems`, `ui.painSlot`). Dann „Wo zwickt es?“ Gelenk | Muskel (`ui.painK`, `ACT['pain-k']`),
+  darunter nur die Gelenke bzw. Muskeln, die diese Übung belastet (Link „Andere Gelenke“ = alle, `ui.painAll`), dann erst die Stärke. Metcon: Ersatz aus dem Metcon-Pool mit dessen Menge;
   Aufwärmen, Cool-down, Murph: betroffene Übung „heute auslassen“ bzw. „leichter“; Handstand: ab mittel heute keiner; Ausgleich: andere Übung
   ohne Last auf der Stelle (`painBlocks`), sonst Schritt mit Hinweis ohne Speichern (`A.skip`). Stelle = Gelenk (`PAIN_J`, Last aus `gelenke` 0–3) oder Muskel der Übung (höchstens 3, Last
   Hauptmuskel 2, mitarbeitend 1, `siteLoad`). Stärke nach dem Schmerz-Ampel-Modell (`PAIN_W`): leicht 1–3 = Übung bleibt, leichter (`soft`);

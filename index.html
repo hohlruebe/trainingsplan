@@ -678,7 +678,7 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .adj{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 14px;margin:-6px 0 14px;font-size:13px;color:var(--ink2)}
 .pn-adj{margin:4px 0 -8px}
 .pn-l{margin:12px 0 8px}
-.pn-phys{margin-top:12px}
+.pn-phys{margin-top:12px}.pn-more{margin:2px 0 -10px}
 .ph-lg{display:flex;justify-content:center;gap:16px;font-size:13px;color:var(--ink2);margin:0 0 12px}.ph-lg span{display:inline-flex;align-items:center;gap:6px}
 .ph-lg i,.ph-tl i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}.ph-lg i.b0,.ph-tl i.b0{background:var(--mb0)}.ph-lg i.b1,.ph-tl i.b1{background:var(--mb1)}.ph-lg i.b2,.ph-tl i.b2{background:var(--mb2)}
 .ph-site{margin:0 0 12px}.ph-site .vr-v{font-size:16px;font-weight:600;color:var(--ink)}.ph-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.ph-h b{font-size:18px}.ph-site .sec-k{margin:14px 0 6px}
@@ -6828,16 +6828,25 @@ function painBody(tag) {
     return '<div class="seg" role="group">' + l.map(function (o) { var on = p && p.t.k === k && p.t.id === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-j" data-k="' + k + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
   };
   var wseg = function (l) { return l.map(function (o) { var on = wv === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-w" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + (o[2] ? '<small>' + o[2] + '</small>' : '') + '</button>'; }).join(''); };
-  h += '<p class="small muted pn-l">Wo? Oberkörper</p>' + seg('j', PAIN_J.slice(0, 4)) + '<p class="small muted pn-l">Unterkörper</p>' + seg('j', PAIN_J.slice(4)) +
-    (mus.length ? '<p class="small muted pn-l">Muskel</p>' + seg('m', mus.map(function (m) { return [m, MUS_SHORT[m] || MUS_NAME[m]]; })) : '');
+  // Erst Gelenk oder Muskel, dann nur die Stellen, die diese Übung belastet (alle Gelenke auf Wunsch).
+  var kind = p ? p.t.k : ui.painK || 'j', jl = PAIN_J.filter(function (o) { return siteLoad(u, { k: 'j', id: o[0] }); }).sort(function (a, b) { return siteLoad(u, { k: 'j', id: b[0] }) - siteLoad(u, { k: 'j', id: a[0] }); });
+  var all = ui.painAll || !jl.length || (p && p.t.k === 'j' && !jl.some(function (o) { return o[0] === p.t.id; }));
+  h += '<p class="small muted pn-l">Wo zwickt es?</p><div class="seg" role="group">' + [['j', 'Gelenk'], ['m', 'Muskel']].map(function (o) {
+    var on = kind === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-k" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+  }).join('') + '</div>';
+  if (kind === 'j') {
+    var J = all ? PAIN_J : jl;
+    h += '<p class="small muted pn-l">' + (all ? 'Gelenk' : 'Gelenke dieser Übung') + '</p>' + (J.length > 4 ? seg('j', J.slice(0, 4)) + '<div style="height:8px"></div>' + seg('j', J.slice(4)) : seg('j', J)) +
+      (all && jl.length ? '' : '<div class="adj pn-more"><button type="button" class="adj-q" data-act="pain-all">Andere Gelenke</button></div>');
+  } else h += mus.length ? '<p class="small muted pn-l">Muskeln dieser Übung</p>' + seg('m', mus.map(function (m) { return [m, MUS_SHORT[m] || MUS_NAME[m]]; })) : '<p class="small muted pn-l">Für diese Übung sind keine Muskeln hinterlegt.</p>';
   if (p && p.t.k === 'm') {
     var kat = wv === 'k';
     h += '<p class="small muted pn-l">Wie fühlt es sich an?</p><div class="seg" role="group">' + [['k', 'Muskelkater'], ['m', 'Plötzlich, stechend']].map(function (o) {
       var on = kat === (o[0] === 'k'); return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-w" data-v="' + (o[0] === 'k' ? 'k' : kat ? 'm' : wv) + '" aria-pressed="' + on + '">' + o[1] + '</button>';
     }).join('') + '</div>' + (kat ? '' : '<p class="small muted pn-l">Wie stark? (0–10)</p><div class="seg pn-w" role="group">' + wseg(PAIN_W) + '</div>');
-  } else h += '<p class="small muted pn-l">Wie stark? (0–10)</p><div class="seg pn-w" role="group">' + wseg(PAIN_W) + '</div>';
+  } else if (p) h += '<p class="small muted pn-l">Wie stark? (0–10)</p><div class="seg pn-w" role="group">' + wseg(PAIN_W) + '</div>';
   if (p && p.w !== 'k') h += '<p class="small muted" style="margin:6px 0 0;text-align:center">' + esc(PAIN_W.filter(function (o) { return o[0] === wv; })[0][3]) + '</p>';
-  if (!p) return h + '<p class="small muted" style="margin:14px 0 0">Tipp an, wo es zwickt. Muskelkater ist kein Grund zum Tauschen, er geht beim Aufwärmen meist weg.</p>';
+  if (!p) return h + '<p class="small muted" style="margin:14px 0 0">' + (kind === 'm' ? 'Muskelkater ist kein Grund zum Tauschen, er geht beim Aufwärmen meist weg.' : 'Tipp an, wo es zwickt. Danach fragt der Coach, wie stark.') + '</p>';
   var s = painPreview(tag, step, it, p), jn = siteDat(p.t), n = it.n;
   if (!s) return h;
   var why = s.kater ? 'Muskelkater ist kein Grund zum Tauschen. Normal trainieren, er wird beim Aufwärmen meist besser. Ist er stark, nimm 1–2 Wdh. weniger.'
@@ -6850,7 +6859,10 @@ function painBody(tag) {
 }
 function painRefresh() { var b = document.querySelector('#sheet .pn-body'); if (b) b.innerHTML = painBody(S.tag); render(); }
 var PAIN_TITLE = { warm: 'Aufwärmen', hs: 'Handstand', metcon: 'Metcon', ausgl: 'Ausgleich', cool: 'Cool-down', murph: 'Murph' };
+ACT['pain-k'] = function (el) { var sl = ui.painSlot, p = painOf(S.tag, sl); ui.painK = el.dataset.v; ui.painAll = false; if (p && p.t.k !== el.dataset.v) setDraft('_p' + sl, ''); painRefresh(); };
+ACT['pain-all'] = function () { ui.painAll = true; painRefresh(); };
 function painOpen(title) {
+  ui.painAll = false; ui.painK = null;
   openForm(title + ' · Schmerzen', '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, wo es zwickt. Er passt die Übung an und merkt es sich.</p><section class="card pn-body">' + painBody(S.tag) + '</section>',
     'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
 }
@@ -6859,7 +6871,7 @@ ACT['pain-s'] = function (el) {
   var st = el.dataset.s, its = painItems(S.tag, st), on = its.filter(function (x) { return painOf(S.tag, x.slot); })[0];
   ui.painStep = st; ui.painOne = its.length < 2; ui.painSlot = (on || its[0] || {}).slot; painOpen(PAIN_TITLE[st] || 'Training');
 };
-ACT['pain-it'] = function (el) { ui.painSlot = el.dataset.slot; painRefresh(); };
+ACT['pain-it'] = function (el) { ui.painSlot = el.dataset.slot; ui.painAll = false; painRefresh(); };
 ACT['pain-j'] = function (el) {
   var sl = ui.painSlot, p = painOf(S.tag, sl), k = el.dataset.k || 'j', w = p ? p.w : ui.painW || 'm';
   if (k === 'j' && w === 'k') w = 'm';
