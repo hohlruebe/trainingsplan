@@ -67,7 +67,10 @@ Neue Hilfen: `twist` (Oberkörper um die Wirbelsäule drehen), `reArm` (Arm nach
 Nach Dennis' Rückmeldung zur Runde 3: **Kamera von schräg oben** `tilt` (Grad) in `EXERCISES`, dazu `mat: [x0, x1, z0, z1]` (Matte statt Bodenlinie).
 Für Liegen und Bodenübungen, bei denen die Seitenansicht nichts zeigt (Supine Twist, Frog, Open Book, Thread the Needle, Doorway Pec).
 Ohne `tilt` bleibt jede Figur wie bisher. Neue Hilfen: `kneelLeg` (Knie am Boden, Fuß flach), `legVia` (Bein über ein gewünschtes Knie),
-`rollLeg` (Bein samt Hüfte kippen), `sofa`, `doorFrame`. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
+`rollLeg` (Bein samt Hüfte kippen), `sofa`, `doorFrame`.
+Gedrehter Oberkörper (`twist`), liegende Figur (`turnAll`) oder Kamera von oben: Brustkorb und Becken werden als Körper im Raum gezeichnet
+(ausgerichtet an Wirbelsäule, Schulter- und Hüftlinie) und ohne V-Verschiebung, damit die Schultern in jeder Lage am Rumpf sitzen.
+Für alle anderen Figuren bleibt die Zeichnung exakt wie bisher. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).

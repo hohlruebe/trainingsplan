@@ -97,8 +97,9 @@
     for (k in J) if (k.charAt(0) !== '_') K[k] = J[k].slice();
     var props = J._props || [];
     // entlang der Schulterlinie, damit gedrehte oder liegende Figuren ihre Schultern behalten
-    var SL = norm(sub3(J.shb, J.sha));
-    [['a', -1], ['b', 1]].forEach(function (q) {
+    var SL = norm(sub3(J.shb, J.sha)), SLj = sub3(J.shb, J.sha), turned = !!(J._tw || opt.tilt || Math.abs(SLj[1]) + Math.abs(SLj[2]) > 3);
+    // gedrehte oder liegende Figur: ohne V-Verschiebung, damit die Schultern im mitgedrehten Brustkorb sitzen
+    if (!turned) [['a', -1], ['b', 1]].forEach(function (q) {
       for (var j in st.shoulder) K[j + q[0]] = add(K[j + q[0]], mul(SL, q[1] * st.shoulder[j]));
     });
     var P = {}, Z = {}, ext = [];
@@ -169,25 +170,30 @@
     var sp = sub3(K.nb, K.pc), L3 = Math.hypot(sp[0], sp[1], sp[2]) || 1;
     var dx = P.nb[0] - P.pc[0], dy = P.nb[1] - P.pc[1], th = Math.atan2(dx, -dy) / R, ratio = Math.max(.55, Math.hypot(dx, dy) / L3);
     var RX = Math.hypot(st.ribW * c, st.ribD * s), RY = st.ribH * ratio, PX = Math.hypot(st.pelW * c, st.pelD * s);
-    // Brustkorb mindestens so breit, wie die Schultern quer zur Wirbelsäule im Bild auseinander liegen (gedrehter Oberkörper, Kamera von oben)
-    var sl = Math.hypot(dx, dy) || 1, perp = function (q) { return Math.abs((q[0] - P.nb[0]) * dy - (q[1] - P.nb[1]) * dx) / sl; };
-    RX = Math.max(RX, Math.max(perp(P.sha), perp(P.shb)) - 8);
-    if (opt.tilt) PX = Math.max(PX, dist(P.hia, P.hib) / 2 + 2);
-    var nb = P.nb, rc = loc(nb, th, [0, RY]), pc = P.pc;
+    var nb = P.nb, rc = loc(nb, th, [0, RY]), pc = P.pc, PH = st.pelH, mf = c > -.2 ? f * .9 : -f * .9;
+    // Gedrehter Oberkörper, liegende Figur oder Kamera von oben: Brustkorb und Becken als Körper im Raum, ausgerichtet an Wirbelsäule,
+    // Schulter- und Hüftlinie, und so ins Bild gebracht. Dann sitzen Schultern und Hüften in jeder Lage am Rumpf.
+    if (turned) {
+      var Uv = norm(sub3(J.nb, J.pc)), orth = function (v) { return norm(sub3(v, mul(Uv, dot(v, Uv)))); };
+      var Lv = orth(SLj), Fv = norm(cross(Uv, Lv)), Lh = orth(sub3(J.hib, J.hia));
+      var pv = function (v) { return [v[0] * c + v[2] * s, v[1] * tc + (-v[0] * s + v[2] * c) * ts]; };
+      var sl = Math.hypot(dx, dy) || 1, s2 = [dx / sl, dy / sl], p2 = [-s2[1], s2[0]];
+      var extOf = function (ax, d) { return Math.sqrt(ax.reduce(function (t, a) { var q = pv(a); return t + Math.pow(q[0] * d[0] + q[1] * d[1], 2); }, 0)); };
+      var ribAx = [mul(Lv, st.ribW), mul(Uv, st.ribH), mul(Fv, st.ribD)], pelAx = [mul(Lh, st.pelW), mul(Uv, st.pelH), mul(Fv, st.pelD)];
+      RX = extOf(ribAx, p2); RY = extOf(ribAx, s2); PX = extOf(pelAx, p2); PH = extOf(pelAx, s2);
+      rc = prj(sub3(J.nb, mul(Uv, st.ribH)));
+      var fq = pv(Fv), fx = fq[0] * p2[0] + fq[1] * p2[1];
+      mf = (-Fv[0] * s + Fv[2] * c) > -.2 ? fx * .9 : -fx * .9;
+    }
     var hth = Math.atan2(P.hc[0] - P.nb[0], -(P.hc[1] - P.nb[1])) / R;
     var hb = loc(P.hc, hth, [0, 18]);
     var a1 = loc(hb, hth, [-6, 0]), a2 = loc(nb, th, [-7, 4]), b1 = loc(hb, hth, [6, 0]), b2 = loc(nb, th, [7, 4]);
     g += S('<path d="M' + n1(a1[0]) + ' ' + n1(a1[1]) + ' L' + n1(a2[0]) + ' ' + n1(a2[1]) + ' M' + n1(b1[0]) + ' ' + n1(b1[1]) + ' L' + n1(b2[0]) + ' ' + n1(b2[1]) + '"/>', INK);
-    // Schulter über dem Hals (stark gedrehter Oberkörper): Schlüsselbein zum Hals zeichnen, damit der Arm am Körper bleibt
-    ['sha', 'shb'].forEach(function (q) {
-      if (Math.abs(J._tw || 0) > 30 && ((P[q][0] - P.nb[0]) * dx + (P[q][1] - P.nb[1]) * dy) / sl > 4) g += S('<path d="M' + n1(P.nb[0]) + ' ' + n1(P.nb[1]) + ' L' + n1(P[q][0]) + ' ' + n1(P[q][1]) + '"/>', INK);
-    });
     var wl = [loc(rc, th, [-RX * .8, RY * .55]), loc(rc, th, [-RX * st.waist, RY * 1.15]), loc(pc, th, [-PX * .85, -8])];
     var wr = [loc(rc, th, [RX * .8, RY * .55]), loc(rc, th, [RX * st.waist, RY * 1.15]), loc(pc, th, [PX * .85, -8])];
     function q3(w) { return 'M' + n1(w[0][0]) + ' ' + n1(w[0][1]) + ' Q' + n1(w[1][0]) + ' ' + n1(w[1][1]) + ' ' + n1(w[2][0]) + ' ' + n1(w[2][1]); }
     g += S('<path d="' + q3(wl) + ' ' + q3(wr) + '"/>', INK);
-    var mf = c > -.2 ? f * .9 : -f * .9;
-    var pel = '<ellipse rx="' + n1(PX) + '" ry="' + st.pelH + '"/><path d="' + mer(PX, st.pelH, mf) + '"/><path d="' + equ(PX, st.pelH, -.1, .12) + '" opacity=".7"/>';
+    var pel = '<ellipse rx="' + n1(PX) + '" ry="' + n1(PH) + '"/><path d="' + mer(PX, PH, mf) + '"/><path d="' + equ(PX, PH, -.1, .12) + '" opacity=".7"/>';
     g += '<g transform="translate(' + n1(pc[0]) + ' ' + n1(pc[1]) + ') rotate(' + n1(th) + ')">' + S(pel, INK) + '</g>';
     var rib = egg(RX, RY) + '<path d="' + mer(RX * .95, RY, mf) + '"/>';
     [[-.3, .07], [.42, .12]].forEach(function (q) { rib += '<path d="' + equ(RX * 1.02, RY, q[0], q[1]) + '" opacity=".7"/>'; });
