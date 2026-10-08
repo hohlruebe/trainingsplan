@@ -24,7 +24,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
   `ui.planTag`; darunter der Ablauf des Tages als nummerierte Schritte, `planDayHTML`/`tlHTML`, berechnet über `planPreview`, das
   `S.durchgang` nur kurz umstellt; künftige Tage mit Hinweis „Vorschau“). Darunter „Wissen“ als Liste (`PLAN_SUB`), jeder Punkt eine
-  eigene Seite (`ui.planSec`, `plan-sec`): Regeln, Methode, Steigerung, Bänder, Pause, Murph und Test-Durchgang, Einstiegstest, Skill-Ziele.
+  eigene Seite (`ui.planSec`, `plan-sec`): Regeln, Methode, Grundmuster (`GRUND`, `grundHTML`: fünf Figuren Squat/Hinge/Push/Pull/Carry
+  in einer Reihe, je Muster eine Karte mit Figur, Satz, Muskeln und „Bei dir“ = zuletzt trainierte Übungen im Muster, `grundMine`), Steigerung, Bänder, Pause, Murph und Test-Durchgang, Einstiegstest, Skill-Ziele.
   Jede Wissens-Seite: Karte mit nummerierten Schritten (`W(steps, extra, tips, pre)` in `renderPlan`, `tlHTML`), ggf. Tabelle, dann Tipps-Karte.
   Unterseiten über den Titel: Pfeil neben dem Titel, Tippen (oder nochmal auf den Reiter) öffnet ein Drop-down mit Symbol je Seite,
   aktuelle blau mit Haken (`subTitle`, `SUB_IC`, `ui.subOpen`, `GROUPS` im Skript). Keine Kapsel oben mehr; Scrollen oder daneben tippen schließt. Einstellungen und Sync sind eine

@@ -31,7 +31,8 @@ Stand: 8. Oktober 2026 (Geschlecht im Profil, Aufwärmen im Vollbild, Testtage m
   Einstellungen › Profil: Geschlecht –/Männlich/Weiblich/Divers. Normen, Rx, Kardio-Wert, Maximalpuls, Figur. Divers = Mitte.
 - Figur: Dennis fand die erste weibliche Version „nicht weiblich genug“ → stärkere Taille/Hüfte, schlankere Arme, Brust, lange Haare.
   Danach auch beim Mann eine Frisur (Kurzhaarschnitt). Canvas „Paket 33 · Geschlecht“ (Board P89).
-- Offen: Seite „Grundmuster“ (Squat, Hinge, Push, Pull, Carry) unter Plan › Wissen angeboten, noch keine Antwort.
+- PR #68 gemergt. Danach Seite „Grundmuster“ unter Plan › Wissen (fünf Figuren wie im FortisTracking-Bild, je Muster Karte mit
+  „Bei dir“). Dennis: „kann nicht schaden, bau es ein“. Canvas „Paket 34 · Grundmuster“ (Board P90).
 
 ## Grafiken Runde 3 und Testtage (8. Oktober)
 - PR #65 (Schmerzen) gemergt.
