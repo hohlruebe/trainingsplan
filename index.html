@@ -3149,6 +3149,12 @@ function logKraft(l, out) {
 function runLine(r) {
   return [r.ergo ? 'Ergometer' : '', r.sec ? fmtDur(r.sec) : '', r.km ? fmtKm(r.km) + ' km' : '', r.sec && r.km && !r.ergo ? fmtPace(r.sec / r.km) + ' /km' : '', r.ergo && r.watt ? r.watt + ' W' : '', r.hr ? 'Puls ' + r.hr : ''].filter(Boolean).join(' · ');
 }
+// Eintrag eines Tages, der in diesem Durchgang schon dran war (Tag vor dem aktuellen).
+function dayLog(tag) {
+  if (tag >= S.tag) return null;
+  for (var i = LOGS.length - 1; i >= 0; i--) { var l = LOGS[i]; if (l.tag === tag && l.durchgang === S.durchgang && l.kind !== 'mobility' && l.kind !== 'rm') return l; }
+  return null;
+}
 function trainLogs() { return LOGS.filter(function (l) { return l.kind !== 'mobility' && l.kind !== 'rm'; }); }
 function verlaufHTML() {
   var mob = LOGS.filter(function (l) { return l.kind === 'mobility'; }), v = ui.vtab === 'mob' ? 'mob' : 'train';
@@ -4766,7 +4772,9 @@ function renderHeute() {
   if (cur && st.length && D._step != null && st[+D._step]) { ui.noSub = true; ui.focus = true; return stepPageHTML(c, st, +D._step, D); }
   var mins = st.reduce(function (a, s) { return a + (s.opt ? 0 : s.dur || 0); }, 0);
   var kick = 'Tag ' + tag + ' · ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + ph.bd + ' von ' + ph.n);
-  if (mins) kick += ' · ca. ' + (mins + 2) + ' Min';
+  var dl = !cur ? dayLog(tag) : null;
+  if (dl) kick += ' · erledigt';
+  else if (mins) kick += ' · ca. ' + (mins + 2) + ' Min';
   else if (d.type === 'easy' || d.type === 'interval') kick += ' · ca. ' + Math.round(planRunSec(runSpec(d)) / 60) + ' Min';
   var title = c.isMurph ? 'Murph' : c.isTest ? TESTDAYS[tag].title : dayLabel(tag);
   var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + '<button type="button" class="rbtn" data-act="tab" data-tab="plan" aria-label="Plan und Regeln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg></button></span></div><section class="hero"><h1>' + esc(title) + '</h1></section>';
@@ -4786,6 +4794,15 @@ function renderHeute() {
   else if (ph.taper) pn = 'Weniger Umfang, Tempo bleibt. Frisch an den Start.';
   else if (ph.test) pn = 'Maxout in Runde 1, gut schlafen.';
   if (S.durchgang > 0) { if (desk) side += blockCardHTML(pn); else h += blockCardHTML(pn); }
+  // Schon erledigter Tag dieses Durchgangs: Ergebnis zeigen, kein zweites Training.
+  if (dl) {
+    h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><button type="button" class="btn small" data-act="back-today">Zurück</button></div>' +
+      '<section class="card"><div class="row between wrap"><h2>Ergebnis</h2><span class="chip">' + TICK + 'Erledigt</span></div>' +
+      '<p class="small muted">' + esc(fmtDate(dl.date)) + '</p>' + logLines(dl) + '</section>';
+    var ft = '<p class="ov-foot">Danach: Tag ' + next + ' – ' + esc(dayLabel(next)) + '</p>';
+    if (!desk) return h + ft;
+    return h.slice(0, cut) + '<div class="dk2"><div class="dk-main">' + h.slice(cut) + '</div><aside class="dk-side">' + side + weekCardHTML(tag) + ft + '</aside></div>';
+  }
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +

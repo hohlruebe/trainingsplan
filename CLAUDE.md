@@ -201,6 +201,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Übungs-Hinweise grau unter dem Schritt (`notes`, `.tl-x`). Ringhöhe nur bei Ring-Übungen, in Bezug auf den Körper (`ringNotes`, `RING_H`).
   Tipps-Karte nur noch an Testtagen, beim Murph und bei optionalen Läufen.
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
+  Ein Tag vor dem aktuellen, der in diesem Durchgang schon gespeichert ist (`dayLog`), zeigt nur die Karte „Ergebnis“ (`logLines` wie im
+  Verlauf) und „Zurück“, kein „Tag machen“ und kein Start.
   Danach Schritt für Schritt (`stepsOf`, `stepPageHTML`): Krafttag Aufwärmen, Handstand, Kraft, Metcon; Testtag (Einstiegstest, `isTestDay`)
   Aufwärmen, eine Übung pro Schritt, an Tag 1 der Beweglichkeits-Check, zum Schluss Metcon AMRAP 8 (`testMetcon`, `testMetconStep`,
   `testMetconHTML`): je Muster aus `TEST_MC_ORDER`, das heute nicht getestet wurde, die Metcon-Übung mit der kleinsten Überschneidung der
