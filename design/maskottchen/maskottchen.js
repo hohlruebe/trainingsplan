@@ -909,27 +909,32 @@
   }
 
 
-  function wgs(p) { // World's Greatest Stretch: tiefer Ausfallschritt, hinteres Bein gestreckt. Ellbogen zum vorderen Fuß, dann aufdrehen:
-    // beide Arme gestreckt in einer Linie, Brust öffnet zur Seite. Danach Hüfte zurück, vorderes Bein gestreckt (Beinrückseite).
-    var k = keys(p, [[0, { d: 0, tw: 0, h: 0 }], [.12, { d: 1, tw: 0, h: 0 }], [.2, { d: 1, tw: 0, h: 0 }], [.36, { d: 0, tw: 1, h: 0 }], [.5, { d: 0, tw: 1, h: 0 }],
-      [.62, { d: 0, tw: 0, h: 0 }], [.76, { d: 0, tw: 0, h: 1 }], [.88, { d: 0, tw: 0, h: 1 }], [1, { d: 0, tw: 0, h: 0 }]]);
-    var FA = [-22, 390, 96], HB = [26, 395, 104], RB = [18, 377, -150];
-    var pc = add(lerp([0, 302, 2], [0, 272, -15], k.h), [0, 10 * k.d, 0]);
-    function shB(a) { var J0 = build({ pc: pc, a: a, arms: both(function () { return { to: pc, pole: FWD }; }), legs: both(function () { return { to: pc, pole: FWD }; }) }); twist(J0, 84 * k.tw); return J0.shb; }
-    var best = 60, err = 1e9;
-    for (var a0 = 30; a0 <= 110; a0 += .5) { var e = Math.abs(len(sub3(shB(a0), HB)) - 112); if (e < err && shB(a0)[1] < HB[1]) { err = e; best = a0; } }
-    best += 16 * k.d; // Ellbogen zum Fuß: Brust sinkt tief, die Stützhand bleibt
-    var J = build({ pc: pc, a: best, nod: lerp(6, -4, k.tw),
-      arms: { a: { to: [-2, 395, 108], pole: [-.3, -.2, -1], dir: [0, .12, 1] }, b: { to: HB, pole: [.4, -.2, -1], dir: [0, .12, 1] } },
+  function wgs(p) { // World's Greatest Stretch: tiefer Ausfallschritt, hinteres Bein gestreckt, beide Hände innen am vorderen Fuß.
+    // 1. Ellbogen sinkt zum vorderen Fuß. 2. Aufdrehen: der Arm geht gestreckt im Bogen über die Seite zur Decke, beide Arme in einer Linie,
+    // die Brust öffnet sich. 3. Zurück im Bogen. 4. Hüfte nach hinten, vorderes Bein gestreckt (Beinrückseite). Die Stützhand bleibt immer stehen.
+    var k = keys(p, [[0, { d: 0, tw: 0, h: 0 }], [.1, { d: 1, tw: 0, h: 0 }], [.2, { d: 1, tw: 0, h: 0 }], [.28, { d: 0, tw: 0, h: 0 }], [.46, { d: 0, tw: 1, h: 0 }],
+      [.58, { d: 0, tw: 1, h: 0 }], [.74, { d: 0, tw: 0, h: 0 }], [.84, { d: 0, tw: 0, h: 1 }], [.94, { d: 0, tw: 0, h: 1 }], [1, { d: 0, tw: 0, h: 0 }]]);
+    var FA = [-22, 390, 104], HB = [24, 395, 110], RB = [18, 377, -150];
+    var pc = add(lerp([0, 316, 4], [0, 272, -15], k.h), [0, 8 * k.d, 0]), tw = 88 * k.tw;
+    function shB(a) { var J0 = build({ pc: pc, a: a, arms: both(function () { return { to: pc, pole: FWD }; }), legs: both(function () { return { to: pc, pole: FWD }; }) }); twist(J0, tw); return J0.shb; }
+    var best = 70, err = 1e9;
+    for (var a0 = 40; a0 <= 112; a0 += .5) { var sb = shB(a0), e = Math.abs(len(sub3(sb, HB)) - 113); if (e < err && sb[1] < HB[1]) { err = e; best = a0; } }
+    best += 12 * k.d; // Ellbogen zum Fuß: die Brust sinkt, der Stützarm gibt nach
+    var J = build({ pc: pc, a: best, nod: lerp(4, -6, k.tw),
+      arms: { a: { to: [-4, 395, 112], pole: [-.3, -.2, -1], dir: [0, .12, 1] }, b: { to: HB, pole: [.4, -.2, -1], dir: [0, .12, 1] } },
       legs: { a: { to: FA, pole: [0, -.3, 1] }, b: { to: RB, pole: DOWN, dir: [0, .88, .48] } } });
-    twist(J, 84 * k.tw);
-    reArm(J, 'b', HB, [.6, -.2, -1], [0, .12, 1]);
-    // Ellbogen zum Fuß: der Ellbogen sinkt innen neben den vorderen Fuß, der Unterarm liegt nach vorn auf dem Boden
-    var floorA = [-2, 395, 108], EL = [-10, 376, 92], elbowDown = [-10, 395, 142], up = add(J.sha, mul(norm(sub3(J.sha, J.shb)), 116));
-    if (k.tw > 0) return reArm(J, 'a', lerp(floorA, up, k.tw), [0, 0, 1], k.tw > .5 ? norm(sub3(J.sha, J.shb)) : [0, .12, 1]);
-    var to = lerp(floorA, elbowDown, k.d);
-    return reArm(J, 'a', to, lerp([-.3, -.2, -1], sub3(EL, mid(J.sha, to)), k.d), [0, .12, 1]);
+    twist(J, tw);
+    reArm(J, 'b', HB, [.7, -.2, -.8], [0, .12, 1]);
+    var floorA = [-4, 395, 112];
+    if (k.tw > 0) { // gestreckt im Bogen: nach unten → zur Seite → zur Decke (in Richtung der Schulterlinie)
+      var dDown = norm(sub3(floorA, J.sha)), dSide = norm([-1, 0, .15]), dUp = norm(sub3(J.sha, J.shb)), q = k.tw;
+      var dir = q < .5 ? norm(lerp(dDown, dSide, q * 2)) : norm(lerp(dSide, dUp, q * 2 - 1));
+      return reArm(J, 'a', add(J.sha, mul(dir, 114)), [0, 0, 1], dir);
+    }
+    var EL = [-12, 378, 96], wr = lerp(floorA, [-10, 395, 146], k.d); // Ellbogen innen neben den Fuß, Unterarm nach vorn auf den Boden
+    return reArm(J, 'a', wr, lerp([-.3, -.2, -1], sub3(EL, mid(J.sha, wr)), k.d), [0, .12, 1]);
   }
+
 
   function pullApart(p) { // Band Pull-Apart: gestreckte Arme vor der Brust, Band bis zur Brust auseinanderziehen
     var t = rep(p, .38, .12), pc = [0, 222, -4], J = build({ pc: pc, a: 0, nod: 0,
@@ -1209,7 +1214,7 @@
       g_knee_to_wall: { name: 'Knee-to-Wall Mobilization', pose: kneeWall, yaw: 80, dur: 2.8 },
       // Runde 3
       g_stack: { name: 'Stack Breathing', pose: stack, yaw: 28, dur: 5 },
-      g_wgs: { name: "World's Greatest Stretch", pose: wgs, yaw: 34, dur: 8 },
+      g_wgs: { name: "World's Greatest Stretch", pose: wgs, yaw: 46, dur: 9 },
       g_pullapart: { name: 'Band Pull-Apart', pose: pullApart, yaw: 20, dur: 2.6 },
       g_passthrough: { name: 'Band Pass-Through', pose: passThrough, yaw: 74, dur: 3.2 },
       g_supine_twist: { name: 'Supine Spinal Twist', pose: supineTwist, yaw: -100, tilt: 40, mat: [-150, 150, -200, 200], dur: 7 },
