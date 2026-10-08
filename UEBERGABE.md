@@ -34,7 +34,7 @@ Stand: 8. Oktober 2026 (Schmerzen mit Gedächtnis)
   Canvas „Paket 31 · Schmerzen mit Gedächtnis“.
 - Dennis: „Training ist Training“: Ersatz zählt normal (eigene Leiter, Gewicht, Familie); nur „leichter“ ist kein Stillstand.
   Schmerzen überall melden (Aufwärmen, Handstand, Kraft, Metcon, Ausgleich, Cool-down, Murph), das Gedächtnis gilt in allen Schritten.
-- Offen: Übersicht für die Physio als Text (Idee, Dennis entscheidet).
+- Dennis: Übersicht für die Physio als Text mit eingebaut (Teilen bzw. Kopieren aus der Karte „Beschwerden“).
 
 ## Muskelausgleich (8. Oktober)
 - Mit Dennis entworfen (Canvas „Paket 29 · Muskelausgleich“): eine Karte mit anatomischer Figur (grau, Muskeln einzeln, Umrisse auch im

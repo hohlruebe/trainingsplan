@@ -678,6 +678,12 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .adj{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 14px;margin:-6px 0 14px;font-size:13px;color:var(--ink2)}
 .pn-adj{margin:4px 0 -8px}
 .pn-l{margin:12px 0 8px}
+.pn-phys{margin-top:12px}
+.ph-lg{display:flex;justify-content:center;gap:16px;font-size:13px;color:var(--ink2);margin:0 0 12px}.ph-lg span{display:inline-flex;align-items:center;gap:6px}
+.ph-lg i,.ph-tl i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}.ph-lg i.b0,.ph-tl i.b0{background:var(--mb0)}.ph-lg i.b1,.ph-tl i.b1{background:var(--mb1)}.ph-lg i.b2,.ph-tl i.b2{background:var(--mb2)}
+.ph-site{margin:0 0 12px}.ph-site .vr-v{font-size:16px;font-weight:600;color:var(--ink)}.ph-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.ph-h b{font-size:18px}.ph-site .sec-k{margin:14px 0 6px}
+.ph-tl{display:flex;flex-wrap:wrap;gap:6px 14px}.ph-tl span{display:inline-flex;align-items:center;gap:6px;font-size:14px}.ph-tl small{color:var(--ink2)}
+.ph-chips{display:flex;flex-wrap:wrap;gap:6px}.ph-ul{margin:0;padding-left:18px;font-size:14px;line-height:1.5}
 .pn-its{display:flex;flex-wrap:wrap;gap:8px}.pn-it{position:relative;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:var(--fill);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
 .pn-it.on{background:var(--pill,#fff);color:var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.12)}.pn-it i{position:absolute;top:8px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--mb0)}
 .pn-step{margin:6px 0 0}.pn-body>.pn-l:first-child{margin-top:0}
@@ -6922,8 +6928,55 @@ function painCardHTML() {
   Object.keys(avoid).forEach(function (id) { rows.push(valRow(UE[id].name, '<span class="chip pn-st akut">Pause</span>', null, { sub: 'Hat ' + siteAkk(avoid[id].t) + ' ' + avoid[id].n + '-mal gereizt, der Coach lässt sie eine Weile weg' })); });
   var doc = L.filter(memDoc).map(function (e) { return siteName({ k: e.k, id: e.id }); });
   return '<section class="card pn-card"><p class="sec-k">Beschwerden</p>' + painFigHTML() + '<div class="mb-lgs pn-lg"><span><span><i class="b0"></i>Schonen</span><span><i class="b1"></i>Rückkehr</span></span></div>' + valRows(rows) +
-    (doc.length ? '<p class="tl-x pn-doc">' + esc(doc.join(', ')) + ': lass es ärztlich oder physiotherapeutisch abklären.</p>' : '') + '</section>';
+    (doc.length ? '<p class="tl-x pn-doc">' + esc(doc.join(', ')) + ': lass es ärztlich oder physiotherapeutisch abklären.</p>' : '') +
+    '<button type="button" class="btn small block pn-phys" data-act="pn-physio">Für die Physio</button></section>';
 }
+// Für Ärztin oder Physio: je Stelle seit wann, Stand, Verlauf, auslösende Übungen, was der Coach angepasst hat.
+var PH_C = { l: 'b2', m: 'b1', s: 'b0' };
+function physioData() {
+  var d = function (iso) { return shortDate(iso).replace(/\.$/, ''); };
+  return memList().filter(function (e) { return memState(e).st !== 'gut' || dSince(e.free || e.last) <= 90; }).map(function (e) {
+    var t = { k: e.k, id: e.id }, m = memState(e), H = e.hist || [], ue = {}, sub = {};
+    H.forEach(function (h) { if (h.ue && UE[h.ue]) ue[UE[h.ue].name] = (ue[UE[h.ue].name] || 0) + 1; });
+    LOGS.forEach(function (l) { (l.kraft || []).forEach(function (k) { var P = k.pain; if (P && (P.k || 'j') === e.k && P.j === e.id && l.date >= e.since) { var tx = P.skip ? P.from + ' ausgelassen' : P.soft ? P.from + ' leichter' : k.n + ' statt ' + P.from; sub[tx] = (sub[tx] || 0) + 1; } }); });
+    var list = function (o) { return Object.keys(o).sort(function (a, b) { return o[b] - o[a]; }).map(function (k) { return k + (o[k] > 1 ? ' (' + o[k] + '×)' : ''); }); };
+    return { name: siteName(t) + (t.k === 'm' ? ' (Muskel)' : ''), st: m.st, stText: m.st === 'akut' ? 'Beschwerden' : m.st === 'back' ? 'Rückkehr, Woche ' + m.wk + ' von 2' : 'Wieder belastbar',
+      since: d(e.since), n: e.n || 0, s: e.s || 0, last: e.w ? PAIN_WN[e.w] + ', ' + d(e.last) : null, free: e.free ? d(e.free) : null,
+      hist: H.slice(-8).map(function (h) { return { d: d(h.d), w: h.w }; }), ue: list(ue), sub: list(sub) };
+  });
+}
+function physioText(D) {
+  var out = ['Beschwerden aus meinem Trainingsplan, Stand ' + shortDate(isoToday()).replace(/\.$/, ''), 'Schmerz-Skala 0–10: leicht 1–3 · mittel 4–6 · stark 7–10'];
+  D.forEach(function (x) {
+    out.push('', x.name.toUpperCase() + ' – ' + x.stText,
+      '• Seit: ' + x.since + ' (' + x.n + '× gemeldet' + (x.s ? ', ' + x.s + '× stark' : '') + ')');
+    if (x.st === 'akut' && x.last) out.push('• Zuletzt: ' + x.last);
+    if (x.free) out.push('• Schmerzfrei seit: ' + x.free);
+    if (x.hist.length) out.push('• Verlauf: ' + x.hist.map(function (h) { return h.d + ' ' + PAIN_WN[h.w]; }).join(' → '));
+    if (x.ue.length) out.push('• Aufgetreten bei: ' + x.ue.join(', '));
+    if (x.sub.length) out.push('• Im Training angepasst: ' + x.sub.join(', '));
+  });
+  return out.join('\n');
+}
+function physioHTML(D) {
+  var h = '<div class="ph-lg">' + PAIN_W.map(function (o) { return '<span><i class="' + PH_C[o[0]] + '"></i>' + o[1] + ' <small>' + o[2] + '</small></span>'; }).join('') + '</div>';
+  return h + D.map(function (x) {
+    var rows = [valRow('Seit', esc(x.since), null, { sub: x.n + '× gemeldet' + (x.s ? ', ' + x.s + '× stark' : '') })];
+    if (x.st === 'akut' && x.last) rows.push(valRow('Zuletzt', esc(x.last)));
+    if (x.free) rows.push(valRow('Schmerzfrei seit', esc(x.free)));
+    return '<section class="card ph-site"><div class="ph-h"><b>' + esc(x.name) + '</b><span class="chip pn-st ' + x.st + '">' + esc(x.stText) + '</span></div>' + valRows(rows) +
+      (x.hist.length ? '<p class="sec-k">Verlauf</p><div class="ph-tl">' + x.hist.map(function (q) { return '<span><i class="' + PH_C[q.w] + '"></i><b>' + esc(PAIN_WN[q.w]) + '</b><small>' + esc(q.d) + '</small></span>'; }).join('') + '</div>' : '') +
+      (x.ue.length ? '<p class="sec-k">Aufgetreten bei</p><div class="ph-chips">' + x.ue.map(function (u) { return '<span class="chip">' + esc(u) + '</span>'; }).join('') + '</div>' : '') +
+      (x.sub.length ? '<p class="sec-k">Im Training angepasst</p><ul class="ph-ul">' + x.sub.map(function (u) { return '<li>' + esc(u) + '</li>'; }).join('') + '</ul>' : '') + '</section>';
+  }).join('');
+}
+ACT['pn-physio'] = function () {
+  var D = physioData(), t = physioText(D);
+  openForm('Für die Physio', '<p class="muted" style="margin:0 0 12px">Zum Weitergeben, z. B. per Nachricht. Wird nur auf deinem Gerät erstellt.</p>' + physioHTML(D), navigator.share ? 'Teilen' : 'Kopieren', function () {
+    if (navigator.share) { navigator.share({ title: 'Beschwerden', text: t }).catch(function () {}); return; }
+    try { navigator.clipboard.writeText(t).then(function () { toast('Kopiert.'); }); } catch (e) { toast('Kopieren ging nicht.'); }
+  }, { noFocus: true });
+};
 
 /* ---------- Muskeln: Körperfigur, Ausgleich ---------- */
 // Figur wie eine anatomische Tafel: graue Silhouette, Muskeln einzeln abgegrenzt. Gezeichnet ist die linke Hälfte, rechts gespiegelt.

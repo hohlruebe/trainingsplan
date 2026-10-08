@@ -95,6 +95,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Muster (`memAvoid`): dreimal dieselbe Übung an derselben Stelle in 12 Wochen → der Coach nimmt eine Weile eine andere (`src: 'meiden'`).
   Hinweis zum Abklären (`memDoc`): seit 14 Tagen akut oder dreimal stark. Profil › Werte: Karte „Beschwerden“ (`painCardHTML`, Figur mit
   Gelenk-Punkten `JOINT_XY` und Muskeln, je Stelle eine Wert-Zeile, gemiedene Übungen), nur wenn es etwas gibt.
+  Knopf „Für die Physio“ (`ACT['pn-physio']`, `physioData`): Blatt mit Skala-Legende und je Stelle einer Karte (Status-Chip, Wert-Zeilen seit/zuletzt, Verlauf als Farbpunkte, Chips „Aufgetreten bei“, Liste „Im Training angepasst“, `physioHTML`); geteilt wird derselbe Inhalt als Text mit Aufzählung (`physioText`) über
+  `navigator.share`, sonst Kopieren. Wird nur auf dem Gerät erstellt.
 - Tools › 1RM (`renderRM`): Titel „One Rep Max“, alle Übungen mit Einheit kg (`RM_ALL`, nach Nutzen), oben „Deine Werte“, darunter
   die übrigen. Umschalter Aktuell/Bestwert nur in der Liste (`ui.rmBest`, `ACT['rm-view']`), Bestwert mit Jahr (`dateY`).
   Antippen öffnet den Prozent-Rechner (`rmDetailHTML`, `ui.rmLift`): Basis immer der aktuelle Wert, Bestwert golden darunter,
