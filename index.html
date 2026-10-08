@@ -3201,8 +3201,7 @@ function verlaufHTML() {
   h += '<div class="chips"><span class="chip">' + mob.length + (mob.length === 1 ? ' Routine' : ' Routinen') + '</span><span class="chip">' + week.length + ' in 7 Tagen</span><span class="chip">' + Math.round(mob.reduce(function (x, l) { return x + (l.sec || 0); }, 0) / 60) + ' Min gesamt</span></div>';
   return h + '<section class="card">' + mob.slice().reverse().slice(0, ui.logLimit).map(function (l) {
     return '<div class="log-item"><div class="row between wrap"><h3>' + esc(l.name || 'Routine') + '</h3><span class="small muted">' + esc(fmtDate(l.date)) + '</span></div>' +
-      '<p class="small muted">' + esc({ cooldown: 'Cool-down', ruhetag: 'Ruhetag', morgen: 'Morgen' }[l.wann] || 'Mobility') + ' · ' + fmtT(l.sec || 0) + ' Min</p>' +
-      '<button type="button" class="btn small red" style="margin-top:6px" data-act="del-log" data-id="' + esc(l.id) + '">Löschen</button></div>';
+      '<p class="small muted">' + esc({ cooldown: 'Cool-down', ruhetag: 'Ruhetag', morgen: 'Morgen' }[l.wann] || 'Mobility') + ' · ' + fmtT(l.sec || 0) + ' Min</p>' + '</div>';
   }).join('') + '</section>';
 }
 function trainVerlaufHTML() {
@@ -3225,8 +3224,7 @@ function trainVerlaufHTML() {
   }
   var list = TL.slice().reverse(), shown = list.slice(0, ui.logLimit);
   h += '<section class="card"><h2>Alle Einheiten</h2>' + shown.map(function (l) {
-    return '<div class="log-item"><div class="row between wrap"><h3>' + esc(logTitle(l)) + '</h3><span class="small muted">' + esc(fmtDate(l.date)) + (l.durchgang != null ? ', DG ' + l.durchgang : '') + '</span></div>' + logLines(l) +
-      '<button type="button" class="btn small red" style="margin-top:6px" data-act="del-log" data-id="' + esc(l.id) + '">Löschen</button></div>';
+    return '<div class="log-item"><div class="row between wrap"><h3>' + esc(logTitle(l)) + '</h3><span class="small muted">' + esc(fmtDate(l.date)) + (l.durchgang != null ? ', DG ' + l.durchgang : '') + '</span></div>' + logLines(l) + '</div>';
   }).join('') + (list.length > shown.length ? '<button type="button" class="btn block" data-act="more-logs">Ältere anzeigen</button>' : '') + '</section>';
   return h;
 }

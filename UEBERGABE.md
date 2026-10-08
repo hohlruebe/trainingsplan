@@ -25,6 +25,10 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Verlauf ohne Löschen (8. Oktober)
+- Dennis: „Ich möchte nicht die Möglichkeit, einzelne Trainings zu löschen.“ Löschen-Knopf in Profil › Verlauf (Training und Mobility) entfernt.
+  1RM-Einträge in Tools › 1RM lassen sich weiter löschen (Tippfehler beim Wert).
+
 ## Planung nach Kalender (8. Oktober)
 - Dennis fragte, wie die Planung funktioniert, und nach Schwachstellen. Danach: „Murph brauchen wir nicht“, „ist ein Tag gemacht, ist er für
   heute geloggt, es kann nicht direkt der nächste Tag gestartet werden“, „leg los“.
