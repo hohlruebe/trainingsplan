@@ -25,6 +25,10 @@ Stand: 8. Oktober 2026 (Geschlecht im Profil, Aufwärmen im Vollbild, Testtage m
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Aufwärmen-Timer (8. Oktober)
+- Dennis am zweiten Testtag: beim Aufwärmen lief ein 8-Minuten-Timer. Dennis: „immer wenn eine Zeit bei einer Übung steht ein Timer, sonst zum Abhaken“ (Ergometer 5 Min, Handgelenke 30 s; auch an Krafttagen).
+- Grafiken Runde 3: zweite Rückmeldung (7, 11, 12, 15, 18, 10, 2) in Arbeit auf dem Arbeitszweig (nur `design/`).
+
 ## Geschlecht im Profil (8. Oktober)
 - PR #67 (Aufwärmen im Vollbild) gemergt.
 - Dennis (Anlass: Bild mit Muskelfiguren je Bewegungsmuster): Geschlecht im Profil wählen, alles passt sich an („alles anpassen“).

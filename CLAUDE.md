@@ -246,7 +246,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Wechselt die Wahl in `.seg`, `.cap` oder `.pills`, gleitet die weiße Pille (`.glide`), Kapsel-Knöpfe rutschen, neue blenden ein
   (Block „Bewegung“ im Skript, merkt sich die Lage beim `pointerdown` und animiert nach dem Neuzeichnen). Bei „Bewegung reduzieren“ aus.
 - Jeder Schritt bringt seinen Timer fertig eingestellt mit (helle Glas-Leiste `#tbar`, `paintMini`), Timer-Art `block`
-  für Aufwärmen und Handstand. Die laufende EMOM-Übung ist blau umrandet. Vorlagen aus dem Plan gibt es nur dort.
+  für Aufwärmen und Handstand. Aufwärmen: jede Übung mit Zeitangabe („5 Min“, „30 s“, `flowSecs`) bekommt ihren eigenen Timer, sobald sie dran ist
+  (`warmTimer`, `cfg.warmItem`, Ergometer bei < 15 Min Zeit 2 Min); nach Ablauf ist sie abgehakt und die nächste dran. Übungen ohne Zeit
+  hakt man ab, dann gibt es keine Timer-Leiste. Die laufende EMOM-Übung ist blau umrandet. Vorlagen aus dem Plan gibt es nur dort.
 - Tools › Timer ist frei einstellbar: EMOM (Alle, Runden), AMRAP (Dauer), Intervall (Arbeit, Pause, Runden), For Time
   (Umschalter „Time Cap“ / „Ohne Time Cap“, `S.tmr.zeit.open`; mit Time Cap läuft die Zeit herunter, ohne hoch; Ergebnis ist immer die gebrauchte Zeit), immer mit 10 s Vorlauf. Einstellung je Art in `S.tmr` (`tmr()`, nur auf dem Gerät).
   Rundenzähler auf der Timer-Seite nur, solange der Timer läuft (`#t-rrow`).
