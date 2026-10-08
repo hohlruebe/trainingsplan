@@ -26,6 +26,11 @@ Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
 ## Übungsbibliothek mit Cowork (7. Oktober)
+- 8. Oktober: `zug_vertikal` eingebaut (Teil 1 und 2, beide Pakete ohne Fehler). 24 Übungen mit neuen Feldern, 16 neue Übungen
+  (265 → 281), Geräte `eq_kabelzug` und `eq_pegboard`. Neues Einbau-Programm `design/auftraege/einbauen_bibliothek.js`.
+  f_pullup hat jetzt 11 Stufen; die Voraussetzung „f_pullup ab Rang 5“ (Weighted Pull-up) der sechs Folgefamilien steht jetzt auf Rang 7.
+  1RM-Normen für Weighted Chin-up (0–1,1 × KG Zusatz) und Lat Pulldown (0,5–1,4 × KG). Suche findet `alias`.
+  Offen: Grafiken für die 16 neuen Übungen (Runde zu 20 im Canvas), `druck_horizontal` läuft bei Cowork.
 - PR #60 gemergt. `zug_vertikal` Teil 1 fertig (24 Übungen, 17 Entscheidungen), Teil 2 entschieden: alle Vorschläge außer
   Assisted Pull-up Machine (Unterstützung in kg liefe in der kg-Steigerung und im 1RM falsch herum). Neue Geräte `eq_kabelzug`,
   `eq_pegboard`. Weighted Chin-up: Zusatzgewicht beim Einbau im 1RM zählen wie beim Weighted Pull-up.

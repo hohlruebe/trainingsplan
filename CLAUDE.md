@@ -11,7 +11,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 265 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 281 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahme mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; dann plan-data, lib-data und fam-data gleich halten).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 48 Familien,
@@ -307,7 +307,11 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
 - Am Ende jeder Aufgabe `UEBERGABE.md` im selben Pull Request aktualisieren.
 - `design/` enthält nur Entwürfe und Rohdaten (Maskottchen, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
 - Aufträge für Cowork liegen in `design/auftraege/` (`familien.md` erledigt, `bibliothek.md` läuft). Pakete von Cowork immer zuerst mit
-  `node design/auftraege/pruefen_bibliothek.js <datei.json>` prüfen, erst dann einbauen.
+  `node design/auftraege/pruefen_bibliothek.js <datei.json>` prüfen, dann mit `node design/auftraege/einbauen_bibliothek.js <dateien>`
+  einbauen (prüft selbst noch einmal, schreibt lib-data, fam-data und `design/familien.json` im alten Format über `familien_format.js`,
+  reiht Stufen nach `nach` ein, zählt Ränge neu und zieht `ab_rang` anderer Familien mit, legt die Pakete in `design/auftraege/pakete/` ab).
+  Neue Geräte aus Paketen tragen `auto: true`: Kosten aus dem Preis, Nutzen aus der Zahl der Übungen, Score wird bei jedem Einbau neu gerechnet.
+  Erledigt: `zug_vertikal`. Die Suche in Tools › Übungen findet auch `alias` (deutsche Namen).
   Neue Felder je Übung: `muskeln`, `gelenke` (Belastung), `bewegt` (bewegte Gelenke: eins = isoliert, keins = statisch), `sehne`,
   `ermuedung`, `technik`, `seitig`, `laut`, `rx`, `alias`. Muster `isolation` kommt neu dazu (nur Zusatz, nie Hauptübung).
 - Übungsgrafiken: immer die Maskottchen-Vorlage `design/maskottchen/maskottchen.js` benutzen, Regeln in `design/maskottchen/VORLAGE.md`.

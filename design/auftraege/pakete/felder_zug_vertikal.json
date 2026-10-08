@@ -1,0 +1,1028 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "zug_vertikal",
+  "quelle": "EMG: Youdas et al. 2010, Dickie et al. 2017, Lusk et al. 2010, Snarr et al. 2018, Dinunzio et al. 2019, Williamson & Price 2021, Walker et al. 2023. Gelenkbelastung: Prinold & Bull 2016, Urbanczyk et al. 2020, Summitt et al. 2016, Review Brandsema et al. 2022. Sehnen: Steven Low (Overcoming Gravity, Overcoming Tendonitis) und die Sehnen-Tabelle der App. Rest: CrossFit Movement Standards.",
+  "uebungen": [
+    {
+      "id": "g_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "schulter_hinten",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Klimmzug",
+        "Klimmzüge",
+        "Klimmzug Obergriff",
+        "Ristgriff-Klimmzug",
+        "Pull-up",
+        "Pullup",
+        "Ringklimmzug",
+        "Klimmzug an Ringen"
+      ]
+    },
+    {
+      "id": "g_weighted_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "schulter_hinten",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Klimmzug mit Gewicht",
+        "Klimmzüge mit Zusatzgewicht",
+        "Gewichtete Klimmzüge",
+        "Klimmzug mit Dip-Gürtel",
+        "Klimmzug mit Gewichtsweste"
+      ]
+    },
+    {
+      "id": "g_chinup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "brust",
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Klimmzug Untergriff",
+        "Untergriff-Klimmzug",
+        "Kammgriff-Klimmzug",
+        "Chin-up",
+        "Chinup"
+      ]
+    },
+    {
+      "id": "g_ring_muscle_up",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "unterarm",
+          "schulter_vorn",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Muscle-up",
+        "Muscle-up an Ringen",
+        "Ring-MU",
+        "RMU",
+        "Strikter Muscle-up"
+      ]
+    },
+    {
+      "id": "g_bar_muscle_up",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "unterarm",
+          "schulter_vorn",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Muscle-up an der Stange",
+        "Stangen-Muscle-up",
+        "Bar MU",
+        "BMU"
+      ]
+    },
+    {
+      "id": "g_one_arm_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "oberer_ruecken",
+          "bauch_schraeg",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiger Klimmzug",
+        "Einarm-Klimmzug",
+        "OAP"
+      ]
+    },
+    {
+      "id": "g_explosive_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "unterarm",
+          "schulter_hinten",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Explosiver Klimmzug",
+        "Explosivklimmzug",
+        "Klatsch-Klimmzug",
+        "Clap Pull-up"
+      ]
+    },
+    {
+      "id": "g_chest_to_bar",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten",
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Brust-zur-Stange-Klimmzug",
+        "C2B",
+        "CTB"
+      ]
+    },
+    {
+      "id": "g_archer_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "unterarm",
+          "bauch_schraeg",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Archer-Klimmzug",
+        "Bogenschützen-Klimmzug"
+      ]
+    },
+    {
+      "id": "g_false_grip_chinup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "unterarm"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "brust",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "False-Grip-Klimmzug",
+        "Klimmzug im falschen Griff"
+      ]
+    },
+    {
+      "id": "g_ring_mu_band",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "unterarm",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Muscle-up mit Band",
+        "Bandunterstützter Muscle-up"
+      ]
+    },
+    {
+      "id": "g_legless_rope_climb",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "unterarm"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bauch_gerade",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Seilklettern ohne Beine",
+        "Tauklettern ohne Beine",
+        "Seilklettern nur mit Armen"
+      ]
+    },
+    {
+      "id": "g_one_arm_pullup_assisted",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "oberer_ruecken",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Unterstützter einarmiger Klimmzug",
+        "Einarm-Klimmzug mit Band"
+      ]
+    },
+    {
+      "id": "g_pullup_negative",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "unterarm",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Negativklimmzug",
+        "Negativer Klimmzug",
+        "Exzentrischer Klimmzug"
+      ]
+    },
+    {
+      "id": "g_kipping_ring_mu",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "hueftbeuger",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kipping Muscle-up",
+        "Muscle-up mit Schwung"
+      ]
+    },
+    {
+      "id": "g_rope_climb",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "unterarm"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bauch_gerade",
+          "hueftbeuger",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Seilklettern",
+        "Tauklettern",
+        "Seilklettern mit Beinen"
+      ]
+    },
+    {
+      "id": "g_kipping_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bauch_gerade",
+          "hueftbeuger",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kipping-Klimmzug",
+        "Klimmzug mit Schwung",
+        "Schwungklimmzug"
+      ]
+    },
+    {
+      "id": "g_ring_mu_transition",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "schulter_vorn",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Muscle-up-Übergang",
+        "Transition-Drill"
+      ]
+    },
+    {
+      "id": "g_butterfly_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "bauch_gerade",
+          "hueftbeuger",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Butterfly-Klimmzug"
+      ]
+    },
+    {
+      "id": "g_false_grip_hang",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "latissimus",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hängen im falschen Griff"
+      ]
+    },
+    {
+      "id": "g_scap_pull",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "latissimus"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schulterblatt-Klimmzug",
+        "Schulterblattzug",
+        "Scap Pull"
+      ]
+    },
+    {
+      "id": "g_dead_hang",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hängen",
+        "Toter Hang",
+        "Passives Hängen"
+      ]
+    },
+    {
+      "id": "g_band_lat_pulldown",
+      "muskeln": {
+        "primaer": [
+          "latissimus"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "oberer_ruecken",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Latzug mit Band",
+        "Latziehen mit Widerstandsband",
+        "Band-Latziehen"
+      ]
+    },
+    {
+      "id": "g_kip_swing",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "gesaess",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kip-Schwung",
+        "Kipping Swing",
+        "Hollow-Arch-Schwung"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Woher kommen die Werte für sehne?",
+      "entscheidung": "Unverändert aus der Sehnen-Tabelle der App, nicht genannte Übungen haben 0. Ausnahme sind die ausdrücklich entschiedenen Werte für Muscle-up-Übungen (siehe nächster Eintrag).",
+      "folge": "Abweichungen von der Tabelle werden künftig nur als Grenzfall vorgeschlagen."
+    },
+    {
+      "frage": "Welchen sehne-Wert bekommen die Muscle-up-Übungen?",
+      "entscheidung": "g_ring_muscle_up, g_bar_muscle_up und g_kipping_ring_mu bekommen 2, g_ring_mu_band und g_ring_mu_transition bekommen 1.",
+      "folge": "Der Bar Muscle-up bekommt 2, weil der Übergang an der Stange ruckartiger ist als an Ringen."
+    },
+    {
+      "frage": "g_pullup: sehne 0 oder 1?",
+      "entscheidung": "1.",
+      "folge": "Der Wert steuert die Mindestzeit pro Stufe. Viel Klimmzug-Volumen ist die häufigste Ursache für Sehnenprobleme am Ellbogen."
+    },
+    {
+      "frage": "Kipping und Butterfly Pull-up: Schulter 3, Rücken 3?",
+      "entscheidung": "Schulter 3, Rücken 2.",
+      "folge": "Die Schulter ist das am besten belegte Risiko. Der Rücken liegt unter dem Anker Kipping Toes to Bar."
+    },
+    {
+      "frage": "g_chest_to_bar: strikt oder gekippt bewerten?",
+      "entscheidung": "Strikt.",
+      "folge": "Schulter 2, Hüfte 0, laut false. Ein Kipping Chest-to-Bar wird in Teil 2 geprüft."
+    },
+    {
+      "frage": "laut für Schwung-Übungen?",
+      "entscheidung": "true für g_kipping_pullup, g_butterfly_pullup, g_kip_swing, g_bar_muscle_up und g_kipping_ring_mu.",
+      "folge": "Diese Übungen fallen aus dem Filter Wohnung am Abend."
+    },
+    {
+      "frage": "g_one_arm_pullup: Schulter 3, Ellbogen 3, unterarm primär?",
+      "entscheidung": "Schulter 3, Ellbogen 3, unterarm sekundär.",
+      "folge": "Einzige Übung im Paket mit Ellbogen 3."
+    },
+    {
+      "frage": "g_weighted_pullup: Schulter und Ellbogen 3?",
+      "entscheidung": "2 und 2.",
+      "folge": "Die Bewegung bleibt ein normaler Klimmzug, die Last ist frei skalierbar."
+    },
+    {
+      "frage": "False Grip: Ellbogen 3?",
+      "entscheidung": "2.",
+      "folge": "Der False-Grip-Reiz steckt in handgelenk 2."
+    },
+    {
+      "frage": "g_chinup: Handgelenk 2?",
+      "entscheidung": "1.",
+      "folge": "An Ringen dreht die Hand frei, der Supinationsstress wird über ellbogen 2 erfasst."
+    },
+    {
+      "frage": "Rope Climbs: laut und Belastung von Fuß und Knie?",
+      "entscheidung": "laut true für beide. Fuß 1 und Knie 1 nur bei g_rope_climb, beim Legless jeweils 0.",
+      "folge": "Die Fußklemme belastet Sprunggelenk und Knie leicht."
+    },
+    {
+      "frage": "g_dead_hang: Rücken 0?",
+      "entscheidung": "Rücken 0, unterarm primär, latissimus und oberer_ruecken sekundär.",
+      "folge": "Die App macht keine Aussage über eine Entlastung der Wirbelsäule."
+    },
+    {
+      "frage": "Pull-up und Chin-up: Bizeps und oberer Rücken primär?",
+      "entscheidung": "Bizeps bei beiden primär, oberer_ruecken nur beim Pull-up primär.",
+      "folge": "Das bildet den einzigen robust belegten Unterschied zwischen den Griffen ab."
+    },
+    {
+      "frage": "g_ring_mu_transition: Brust und Trizeps primär?",
+      "entscheidung": "Ja, latissimus sekundär.",
+      "folge": "Der Drill zielt auf den Wechsel in die tiefe Stütze."
+    },
+    {
+      "frage": "g_kipping_ring_mu: technik 5?",
+      "entscheidung": "5, der strikte Ring Muscle-up bekommt 4.",
+      "folge": "Das ist die koordinativ schwierigste Übung im Paket."
+    },
+    {
+      "frage": "g_explosive_pullup: laut true?",
+      "entscheidung": "true.",
+      "folge": "Release- und Klatsch-Varianten stoßen beim Nachgreifen in die Stange."
+    },
+    {
+      "frage": "ermuedung 3 im Paket?",
+      "entscheidung": "Nein, höchstens 2.",
+      "folge": "Die 3 bleibt Ganzkörper-Lastübungen vorbehalten."
+    },
+    {
+      "frage": "Neues Feld bewegt: welche Gelenke bewegen sich sichtbar?",
+      "entscheidung": "Liste mit den IDs aus gelenke, reine Halteübungen bekommen [], ruecken nur bei gewollter Beugung, Streckung oder Drehung der Wirbelsäule.",
+      "folge": "Die App leitet daraus isoliert ab, wenn genau ein Gelenk in der Liste steht."
+    }
+  ]
+}

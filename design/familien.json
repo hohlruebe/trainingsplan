@@ -17,18 +17,29 @@
       "varianten": [
         { "uebung": "g_dead_hang", "art": "stufe", "rang": 1, "effekt": 55, "ziel": "3 × 30 s sauber gehangen.", "grund": "Einstieg: baut Griffkraft und Schulterstabilität im Hang auf." },
         { "uebung": "g_scap_pull", "art": "stufe", "rang": 2, "effekt": 60, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Lehrt die Schulterblattbewegung, mit der jeder saubere Klimmzug beginnt." },
-        { "uebung": "g_pullup_negative", "art": "stufe", "rang": 3, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Exzentrisches Absenken baut die Kraft für den ersten freien Klimmzug auf." },
-        { "uebung": "g_pullup", "art": "stufe", "rang": 4, "effekt": 95, "ziel": "Leiterstufe „Weste“ geschafft: alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie; die Pull-up-Leiter steigert von Band bis Weste.", "auch_in": ["f_rope_climb"] },
-        { "uebung": "g_weighted_pullup", "art": "stufe", "rang": 5, "effekt": 92, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Gleiche Bewegung mit Zusatzlast, klassische Steigerung für Maximalkraft." },
-        { "uebung": "g_archer_pullup", "art": "stufe", "rang": 6, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Verlagert die Last auf einen Arm, erste Stufe der One-Arm-Leiter." },
-        { "uebung": "g_one_arm_pullup_assisted", "art": "stufe", "rang": 7, "effekt": 72, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einarmig mit Bandhilfe, letzte Stufe vor dem freien One-Arm Pull-up." },
-        { "uebung": "g_one_arm_pullup", "art": "stufe", "rang": 8, "effekt": 82, "ziel": "Erhalten: einmal pro Woche 3 × 1 je Arm sauber.", "grund": "Höchste Stufe: der ganze Körper wird mit einem Arm gezogen." },
+        { "uebung": "g_jackknife_pullup", "art": "stufe", "rang": 3, "effekt": 62, "ziel": "3 Sätze mit 8 sauberen Wiederholungen, die Beine nur zur Unterstützung.", "grund": "Erste Stufe mit voller Zugbewegung, die Beine nehmen einen Teil des Gewichts ab." },
+        { "uebung": "g_flexed_arm_hang", "art": "stufe", "rang": 4, "effekt": 64, "ziel": "30 Sekunden mit dem Kinn über der Stange halten.", "grund": "Volles Körpergewicht in der Endposition, bevor das Absenken im Negativ-Klimmzug kommt." },
+        { "uebung": "g_pullup_negative", "art": "stufe", "rang": 5, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Exzentrisches Absenken baut die Kraft für den ersten freien Klimmzug auf." },
+        { "uebung": "g_pullup", "art": "stufe", "rang": 6, "effekt": 95, "ziel": "Leiterstufe „Weste“ geschafft: alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie; die Pull-up-Leiter steigert von Band bis Weste.", "auch_in": ["f_rope_climb"] },
+        { "uebung": "g_weighted_pullup", "art": "stufe", "rang": 7, "effekt": 92, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Gleiche Bewegung mit Zusatzlast, klassische Steigerung für Maximalkraft." },
+        { "uebung": "g_archer_pullup", "art": "stufe", "rang": 8, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Verlagert die Last auf einen Arm, erste Stufe der One-Arm-Leiter." },
+        { "uebung": "g_typewriter_pullup", "art": "stufe", "rang": 9, "effekt": 80, "ziel": "3 Sätze mit 4 sauberen Wiederholungen, das Kinn bleibt immer über der Stange.", "grund": "Mehr einseitige Last als der Archer, aber noch beide Hände an der Stange." },
+        { "uebung": "g_one_arm_pullup_assisted", "art": "stufe", "rang": 10, "effekt": 72, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einarmig mit Bandhilfe, letzte Stufe vor dem freien One-Arm Pull-up." },
+        { "uebung": "g_one_arm_pullup", "art": "stufe", "rang": 11, "effekt": 82, "ziel": "Erhalten: einmal pro Woche 3 × 1 je Arm sauber.", "grund": "Höchste Stufe: der ganze Körper wird mit einem Arm gezogen." },
         { "uebung": "g_chest_to_bar", "art": "variante", "rang": null, "effekt": 78, "grund": "Größere Range of Motion bis zur Brust als eigener Reiz und Grundlage für den Bar Muscle-up.", "auch_in": ["f_bar_muscle_up"] },
         { "uebung": "g_explosive_pullup", "art": "variante", "rang": null, "effekt": 80, "grund": "Schnellkraftvariante für mehr Zughöhe und Grundlage für den Bar Muscle-up.", "auch_in": ["f_bar_muscle_up"] },
         { "uebung": "g_band_lat_pulldown", "art": "variante", "rang": null, "effekt": 55, "grund": "Ersatz ohne Stange oder Ringe, gleiche Zugrichtung mit geringerem Reiz." },
+        { "uebung": "g_lsit_pullup", "art": "variante", "rang": null, "effekt": 82, "grund": "Gleicher Zug mit zusätzlicher Arbeit für Bauch und Hüftbeuger." },
+        { "uebung": "g_towel_pullup", "art": "variante", "rang": null, "effekt": 76, "grund": "Gleicher Zug mit deutlich höherer Griffanforderung." },
+        { "uebung": "g_one_arm_hang", "art": "variante", "rang": null, "effekt": 60, "grund": "Bereitet Griff und Schulter einseitig auf den einarmigen Klimmzug vor." },
+        { "uebung": "g_lat_pulldown", "art": "variante", "rang": null, "effekt": 80, "grund": "Gleicher Zug mit frei wählbarer Last in kg, unabhängig vom Körpergewicht." },
+        { "uebung": "g_single_arm_pulldown", "art": "variante", "rang": null, "effekt": 70, "grund": "Einseitiger Zug zum Vergleichen und Ausgleichen beider Seiten." },
+        { "uebung": "g_straight_arm_pulldown", "art": "variante", "rang": null, "effekt": 62, "grund": "Trainiert den Latissimus ohne Ellbogenbeugung und eignet sich so als Ausweichübung bei Ellbogenschmerzen." },
         { "uebung": "g_kipping_pullup", "art": "tempo", "rang": null, "effekt": 68, "grund": "Schwung erlaubt mehr Wiederholungen, aber weniger Muskelarbeit pro Wiederholung.", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz." },
         { "uebung": "g_butterfly_pullup", "art": "tempo", "rang": null, "effekt": 62, "grund": "Schnellste Klimmzugtechnik im CrossFit, die Zugmuskulatur arbeitet nur teilweise.", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz." },
-        { "uebung": "g_kip_swing", "art": "tempo", "rang": null, "effekt": 55, "grund": "Technikdrill für den Kipping-Schwung mit kaum Zugkraftreiz.", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz.", "auch_in": ["f_toes_to_bar"] }
+        { "uebung": "g_kip_swing", "art": "tempo", "rang": null, "effekt": 55, "grund": "Technikdrill für den Kipping-Schwung mit kaum Zugkraftreiz.", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz.", "auch_in": ["f_toes_to_bar"] },
+        { "uebung": "g_kipping_c2b", "art": "tempo", "rang": null, "effekt": 70, "grund": "Metcon-Version der strikt bewerteten Chest-to-Bar.", "vermerk": "Für Tempo und Wiederholungen im Metcon, ersetzt nie den strikten Chest-to-Bar." },
+        { "uebung": "g_jumping_pullup", "art": "tempo", "rang": null, "effekt": 50, "grund": "Offizielle CrossFit-Skalierung, wenn Klimmzüge im Metcon noch nicht sauber gehen.", "vermerk": "Nur als Metcon-Skalierung, ersetzt nie eine Kraftstufe wie den Negativ-Klimmzug." }
       ]
     },
     {
@@ -44,7 +55,8 @@
       ],
       "fuehrt_zu": ["f_ring_muscle_up"],
       "varianten": [
-        { "uebung": "g_chinup", "art": "stufe", "rang": 1, "effekt": 90, "ziel": "Erhalten: einmal pro Woche Leiterstufe „Weste“ mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie; die Chin-up-Leiter steigert von Band bis Weste." }
+        { "uebung": "g_chinup", "art": "stufe", "rang": 1, "effekt": 90, "ziel": "Erhalten: einmal pro Woche Leiterstufe „Weste“ mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie; die Chin-up-Leiter steigert von Band bis Weste." },
+        { "uebung": "g_weighted_chinup", "art": "stufe", "rang": 2, "effekt": 90, "ziel": "5 saubere Wiederholungen mit 20 % des Körpergewichts als Zusatzlast.", "grund": "Gegenstück zum Weighted Pull-up für den Untergriff." }
       ]
     },
     {
@@ -56,7 +68,7 @@
       "kurz": "Übergang vom Zug in den Stütz an den Ringen, vom False Grip bis zum vollen Muscle-up.",
       "leiter": "g_ring_muscle_up",
       "voraussetzt": [
-        { "familie": "f_pullup", "ab_rang": 5 },
+        { "familie": "f_pullup", "ab_rang": 7 },
         { "familie": "f_dip", "ab_rang": 5 },
         { "familie": "f_chinup", "ab_rang": 1 }
       ],
@@ -79,12 +91,14 @@
       "kurz": "Explosiver Zug über die Stange in den Stütz.",
       "leiter": "g_bar_muscle_up",
       "voraussetzt": [
-        { "familie": "f_pullup", "ab_rang": 5 },
+        { "familie": "f_pullup", "ab_rang": 7 },
         { "familie": "f_dip", "ab_rang": 5 }
       ],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_bar_muscle_up", "art": "stufe", "rang": 1, "effekt": 84, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Zielübung; Chest-to-Bar, Explosive Pull-up und Straight Bar Dip erscheinen hier als Verweise." }
+        { "uebung": "g_low_bar_mu", "art": "stufe", "rang": 1, "effekt": 64, "ziel": "3 Sätze mit 5 sauberen Übergängen mit wenig Beinhilfe.", "grund": "Lernt den Übergang über die Stange, bevor das volle Körpergewicht hängt." },
+        { "uebung": "g_bar_muscle_up", "art": "stufe", "rang": 2, "effekt": 84, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Zielübung; Chest-to-Bar, Explosive Pull-up und Straight Bar Dip erscheinen hier als Verweise." },
+        { "uebung": "g_strict_bar_mu", "art": "stufe", "rang": 3, "effekt": 88, "ziel": "3 saubere Wiederholungen ohne Hüftimpuls.", "grund": "Deutlich schwerer als der gekippte Bar Muscle-up, weil der Schwung fehlt." }
       ]
     },
     {
@@ -96,12 +110,14 @@
       "kurz": "Klettern am Seil mit Zug- und Griffkraft.",
       "leiter": "g_rope_climb",
       "voraussetzt": [
-        { "familie": "f_pullup", "ab_rang": 5 }
+        { "familie": "f_pullup", "ab_rang": 7 }
       ],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_rope_climb", "art": "stufe", "rang": 1, "effekt": 70, "ziel": "3 Aufstiege bis oben ohne Pause.", "grund": "Mit Beinklemme, Einstieg ins Seilklettern." },
-        { "uebung": "g_legless_rope_climb", "art": "stufe", "rang": 2, "effekt": 74, "ziel": "Erhalten: einmal pro Woche 3 Aufstiege nur mit den Armen.", "grund": "Nur mit den Armen, deutlich höhere Zugkraft nötig." }
+        { "uebung": "g_rope_pull_to_stand", "art": "stufe", "rang": 1, "effekt": 58, "ziel": "3 Sätze mit 5 Wiederholungen ohne Abstoßen mit den Beinen.", "grund": "CrossFit-Skalierung unterhalb des Rope Climb, der Boden trägt einen Teil des Gewichts." },
+        { "uebung": "g_rope_climb", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "3 Aufstiege bis oben ohne Pause.", "grund": "Mit Beinklemme, Einstieg ins Seilklettern." },
+        { "uebung": "g_legless_rope_climb", "art": "stufe", "rang": 3, "effekt": 74, "ziel": "Erhalten: einmal pro Woche 3 Aufstiege nur mit den Armen.", "grund": "Nur mit den Armen, deutlich höhere Zugkraft nötig." },
+        { "uebung": "g_peg_board", "art": "variante", "rang": null, "effekt": 76, "grund": "Kletterzug mit einseitigem Halten beim Umstecken, ein anderer Reiz als am Seil." }
       ]
     },
     {
@@ -150,7 +166,7 @@
       "kurz": "Statischer Hebel am Zuggerät für Lat, Rumpf und gestreckte Arme.",
       "leiter": "g_front_lever",
       "voraussetzt": [
-        { "familie": "f_pullup", "ab_rang": 5 },
+        { "familie": "f_pullup", "ab_rang": 7 },
         { "familie": "f_hollow_body", "ab_rang": 2 }
       ],
       "fuehrt_zu": [],
@@ -170,7 +186,7 @@
       "kurz": "Statischer Hebel mit dem Rücken nach unten für Schultern, Bizeps und Rumpf.",
       "leiter": "g_back_lever",
       "voraussetzt": [
-        { "familie": "f_pullup", "ab_rang": 5 },
+        { "familie": "f_pullup", "ab_rang": 7 },
         { "familie": "f_dip", "ab_rang": 4 }
       ],
       "fuehrt_zu": [],
@@ -628,7 +644,7 @@
       "kurz": "Seitlicher Ganzkörperhebel an Stange oder Sprossenwand.",
       "leiter": "g_human_flag",
       "voraussetzt": [
-        { "familie": "f_pullup", "ab_rang": 5 },
+        { "familie": "f_pullup", "ab_rang": 7 },
         { "familie": "f_dip", "ab_rang": 4 }
       ],
       "fuehrt_zu": [],
