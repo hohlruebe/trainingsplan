@@ -64,6 +64,17 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Mehr; Zeilen nach `ebene`, Linien aus `voraussetzt`; Knoten geschafft, aktuell (weiße Pille), als Nächstes, gesperrt. Antippen öffnet
   die Familie. Heute zeigt unter „Training starten“ den Block Fortschritt (`progressHTML`): „Neu freigeschaltet“ / „Neuer Reiz“
   (`planFill().neu`, bis die neue Übung einmal trainiert ist) und „Als Nächstes freischalten“ (`nextUnlockHTML`).
+- Muskeln (`MUS_NAME`, Figur `bodySVG`/`musFigHTML` aus `BODY_SIL`, `BODY_F`, `BODY_B`: graue anatomische Figur vorn/hinten, Umrisse in
+  Kartenfarbe; Teile mit „_“ zählen nicht). Bibliothek: aufgeklappte Übung zeigt `musOfHTML` (Hauptmuskeln `--acc`, mitarbeitend hellblau,
+  aus `muskeln.primaer/sekundaer`). Muskelausgleich (`musVol`, `musBalance`, gemerkt in `MB_C`): Sätze je Muskel der letzten 4 Wochen
+  (Hauptmuskel 1, mitarbeitend ½, Metcon halbe Runden bis 4, Murph 10, `ausgleich` zählt mit), geteilt durch das Soll `MUS_W`, gemessen am
+  mittleren Muskel → Stufe 0–3 (Rot `--mb0` vernachlässigt … Grün `--mb3` im Gleichgewicht, über 2,2× wieder gelb). Gegenspieler-Paare
+  `MUS_PAIRS` als Balken (Abstand von 50:50 bis 6/10/16 Punkte = grün/gelb/orange, sonst rot). `need` = was zu kurz kommt (ab 3 Kraft-
+  einheiten in 4 Wochen). Karte `musCardHTML` in Profil › Werte unter den Bereichen. Der Coach gleicht aus: (A) `planFill` tauscht einmal
+  am Tag eine Metcon-Übung gegen eine aus denselben 4 Kandidaten, die `need` trifft (`musHit`, grauer Grund `out.mwhy` am Metcon-Schritt);
+  der Kraftteil bleibt. (B) Schritt „Ausgleich“ (`ausgleichStep`, `ausgleichUe`, 4 Min, 2 Sätze, Kacheln `a0`/`a1`) am Ende der Krafttage
+  ab Durchgang 3, nicht in Entlastung, Testwoche, Taper, Kurzversion und bei „wenig Zeit“; leichte Übung (ermüdung ≤ 1, Technik ≤ 2, nicht
+  Mobility/Ausdauer/Sprung/Tragen) für den größten Rückstand. Gespeichert als `ausgleich: {ue, reps}` im Kraft-Eintrag, im Verlauf sichtbar.
 - Tools › 1RM (`renderRM`): Titel „One Rep Max“, alle Übungen mit Einheit kg (`RM_ALL`, nach Nutzen), oben „Deine Werte“, darunter
   die übrigen. Umschalter Aktuell/Bestwert nur in der Liste (`ui.rmBest`, `ACT['rm-view']`), Bestwert mit Jahr (`dateY`).
   Antippen öffnet den Prozent-Rechner (`rmDetailHTML`, `ui.rmLift`): Basis immer der aktuelle Wert, Bestwert golden darunter,
@@ -295,7 +306,7 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
 ## Trainingslogik (Kurzfassung)
 - Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,
   Tag 6 Druck, Tag 7 Ruhetag (3 Training, 1 frei, 2 Training, 1 frei; Dennis). Der Tagesname zeigt den Inhalt. Die gelöschten Schwerpunkte stehen noch in `design/schwerpunkte.md`.
-- Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8.
+- Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8, Ausgleich 4 Min (wenn etwas zu kurz kommt).
   Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
   Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende
   (Kardio: Rampentest oder 5 km am Tag 5).

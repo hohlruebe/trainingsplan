@@ -604,6 +604,27 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .fam-path .lad-row.lock{opacity:.5}
 .lad-lk{color:var(--ink2);display:flex}
 .sec-k{margin:16px 0 6px;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--ink2);text-transform:uppercase}
+/* Muskeln: Körperfigur (Bibliothek blau, Ausgleich Rot bis Grün) */
+:root{--mb0:#E5484D;--mb1:#F0883E;--mb2:#D9BE3F;--mb3:#4DBF79}
+.bf{display:flex;justify-content:center;gap:28px;margin:8px 0 4px;--g:color-mix(in srgb,var(--ink) 13%,var(--paper));--g2:color-mix(in srgb,var(--ink) 21%,var(--paper))}
+.bf figure{margin:0;text-align:center}.bf figcaption{font-size:12px;color:var(--ink2);margin-top:4px}
+.bf svg{display:block;width:128px;height:auto}.bf.sm{gap:18px}.bf.sm svg{width:76px}
+.bf .sil{fill:var(--g);stroke:var(--paper);stroke-width:1.6;stroke-linejoin:round}
+.bf .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.2;stroke-linejoin:round}
+.bf .mu.b0{fill:var(--mb0)}.bf .mu.b1{fill:var(--mb1)}.bf .mu.b2{fill:var(--mb2)}.bf .mu.b3{fill:var(--mb3)}
+.bf .mu.p1{fill:var(--acc)}.bf .mu.p2{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
+.mus-lg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin:6px 0 10px;color:var(--ink2)}.mus-lg span{display:inline-flex;align-items:center;gap:6px}
+.mus-lg i{flex:0 0 auto;width:10px;height:10px;border-radius:3px}.mus-lg i.p1{background:var(--acc)}.mus-lg i.p2{background:color-mix(in srgb,var(--acc) 38%,color-mix(in srgb,var(--ink) 21%,var(--paper)))}
+.mus-card .sec-k{margin-top:0}.mus-empty{text-align:center}
+.mb-lgs{max-width:260px;margin:10px auto 6px}.mb-lgs>i{display:block;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mb0),var(--mb1),var(--mb2),var(--mb3))}
+.mb-lgs>span{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);margin-top:6px}
+.mb-row{padding:12px 0;border-top:1px solid var(--line)}.mb-lgs+.mb-row{border-top:0}
+.mb-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:15px;margin-bottom:6px}.mb-top b{font-variant-numeric:tabular-nums}
+.mb-bar{position:relative;height:12px;border-radius:6px;overflow:hidden}.mb-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px 0 0 6px}
+.mb-bar em{position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;margin-left:-1px;background:var(--paper)}
+.mb-row.b0 .mb-bar i{background:var(--mb0)}.mb-row.b1 .mb-bar i{background:var(--mb1)}.mb-row.b2 .mb-bar i{background:var(--mb2)}.mb-row.b3 .mb-bar i{background:var(--mb3)}
+.mb-row.b0 .mb-bar{background:color-mix(in srgb,var(--mb0) 22%,var(--board))}.mb-row.b1 .mb-bar{background:color-mix(in srgb,var(--mb1) 22%,var(--board))}.mb-row.b2 .mb-bar{background:color-mix(in srgb,var(--mb2) 22%,var(--board))}.mb-row.b3 .mb-bar{background:color-mix(in srgb,var(--mb3) 22%,var(--board))}
+.ag-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0 4px}
 .fam-list{border-radius:16px;background:var(--board);padding:0 10px}
 .fam-list .gl-item.sub{border-top:1px solid var(--line)}
 .fam-list .gl-item.sub:first-child{border-top:0}
@@ -2466,6 +2487,8 @@ function saveDay() {
       var kgs = d.metcon.map(function (m, i) { var k = mKg(tag, m, i, v); return k && k.kg != null ? { n: m.n, ue: k.id, kg: k.kg } : null; }).filter(Boolean);
       if (kgs.length) log.metcon.kg = kgs;
     }
+    var AG = ausgleichUe(tag), ar = [num(v.a0), num(v.a1)];
+    if (AG && ar.some(function (x) { return x != null; })) log.ausgleich = { ue: AG.id, reps: ar };
   }
   if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; }
   if (log) addLog(log);
@@ -2716,6 +2739,7 @@ function logLines(l) {
     l.kraft.forEach(function (k) { var r = k.reps.filter(function (v) { return v != null; }); out.push('<b>' + esc(k.n) + '</b>: ' + (r.length ? r.join(' / ') : '–') + (k.stage ? ' <span class="muted">(' + esc(stageText(k.stage)) + ')</span>' : '')); });
     if (l.metcon && l.metcon.rounds != null) out.push('<b>' + (l.metcon.bench ? esc(l.metcon.bench) + ' · ' : '') + (l.metcon.fmt === 'emom' ? 'EMOM ' : 'AMRAP ') + (l.metcon.min || 8) + '</b>: ' + l.metcon.rounds + ' Runden' + (l.metcon.fmt === 'emom' ? '' : ' + ' + (l.metcon.reps || 0)));
     if (l.metcon && l.metcon.stages) out.push('<span class="muted">Metcon: ' + l.metcon.stages.map(function (m) { return esc(m.n) + ' (' + esc(stageText(m.stage)) + ')'; }).join(', ') + '</span>');
+    if (l.ausgleich) out.push('<b>Ausgleich</b>: ' + esc(ueName(l.ausgleich.ue)) + ' · ' + l.ausgleich.reps.map(function (r) { return r == null ? '–' : r; }).join(' / ') + (UE[l.ausgleich.ue] && UE[l.ausgleich.ue].einheit === 'sek' ? ' s' : ' Wdh.'));
     if (l.hs) out.push('<b>Handstand</b>: ' + esc(l.hs));
     if (l.kurz) out.push('<span class="muted">Kurzversion</span>');
     if (l.test) out.push('<span class="muted">Test-Durchgang mit Maxout</span>');
@@ -3447,7 +3471,7 @@ function werteHTML(stats) {
     var d = a.val && prev.areas[i].val ? a.val - prev.areas[i].val : 0;
     return '<button type="button" class="a-row" data-act="parea" data-v="' + a.id + '"><b>' + esc(a.name) + '</b>' + sparkSVG(hist.map(function (x) { return x.areas[i].val; })) +
       '<span class="a-v">' + (a.val || '–') + '</span><span class="a-d' + (d < 0 ? ' neg' : '') + '">' + (d ? (d > 0 ? '+' : '') + d : '') + '</span><span class="a-ch">›</span></button>';
-  }).join('') + '</section>';
+  }).join('') + '</section>' + musCardHTML();
   return h + '<p class="small muted" style="text-align:center">Werte entstehen aus deiner Stufe in jeder Leiter und den Wiederholungen darauf. Sie können auch wieder sinken.</p>';
 }
 function areaDetailHTML(stats, id) {
@@ -3987,7 +4011,7 @@ function stepsOf(c) {
       timer: { mode: 'amrap', cfg: { minutes: am, tag: tag }, label: 'AMRAP ' + am + ' starten', info: d.metcon.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
       body: function (D) { return metconStepHTML(tag, D, am); } });
   }
-  return out.concat(mobCheckStep(tag)).concat(D0._cd === '1' || D0._cool ? coolStep(tag) : []);
+  return out.concat(ausgleichStep(tag)).concat(mobCheckStep(tag)).concat(D0._cd === '1' || D0._cool ? coolStep(tag) : []);
 }
 // Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in den Test-Durchgängen des Schwerpunkts.
 function mobCheckStep(tag) {
@@ -4340,7 +4364,7 @@ function renderHeute() {
       tipBtn = '<button type="button" class="btn small block" data-act="skip-murph">Heute doch normales Training</button>';
     } else if (d.type === 'kraft') {
       notes.kraft = ringNotes(d.kraft.map(function (k) { return k.n; })).concat(notes.kraft || []).concat(d.kraft.map(function (k) { var g = GL[k.n]; return g && LAD[g.key] ? brakeNote(k.n, coachStage(g.key, k.hi)) : ''; }).filter(Boolean));
-      notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; }));
+      notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; })).concat(planFill().mwhy[tag] ? [esc(planFill().mwhy[tag])] : []);
     }
     if (d.type !== 'kraft' && !c.isTest && !c.isMurph) h += runSegHTML(runMode(D)) + '<section class="card">' + ergoTargetHTML(todayRunSpec(tag)) + '</section>';
     h += '<section class="card"><ol class="tl">' + st.map(function (s, i) {
@@ -6179,7 +6203,7 @@ function glItemHTML(e, st, have, cls) {
   var u = e.lib, lad = LAD[e.key], s = st[e.key], miss = eqMissing(u.equipment, have), req = reqText(u.voraussetzung, st);
   var sub = lad && s && s.cur ? 'Leiter · aktuell: ' + stageText(lad.steps[s.cur - 1]) : miss ? 'Gesperrt: braucht ' + miss : req ? req : lad ? 'Leiter · ' + lad.steps.length + ' Stufen' : u.trainiert;
   return '<details class="gl-item' + (cls ? ' ' + cls : '') + (miss ? ' locked' : '') + '" id="g-' + esc(e.key) + '"' + (ui.glossOpen === e.name ? ' open' : '') + '><summary><span class="gl-t"><b>' + esc(e.name) + '</b><small>' + esc(sub) + '</small></span></summary>' +
-    '<div class="gl-body">' + figBox(e.key) + '<p class="muted small">Trainiert: ' + esc(u.trainiert) + '</p><ol class="steps">' + u.schritte.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
+    '<div class="gl-body">' + figBox(e.key) + musOfHTML(u, true) + '<ol class="steps">' + u.schritte.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
     ladderHTML(lad, s) + (lad && lad.pre ? '<p class="small muted">' + esc(lad.pre) + '</p>' : '') +
     '<p class="cue"><b>Sauber:</b> ' + esc(u.sauber) + '</p>' + (u.fehler ? '<p class="small"><b>Häufiger Fehler:</b> ' + esc(u.fehler) + '</p>' : '') +
     (u.skalierung ? '<p class="small"><b>Skalierung:</b> ' + esc(u.skalierung) + '</p>' : '') +
@@ -6480,7 +6504,7 @@ function planFill() {
   ensureOrte();
   var O = trainOrt(), k = [LOGS.length, O.id, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base)].join('|');
   if (FILL.k === k) return FILL.v;
-  var st = ladderStates(LOGS), have = haveEq(O), used = {}, out = { kraft: {}, metcon: {}, neu: {}, kraftKeys: {}, missing: {}, why: {} }, sc = partScores(st);
+  var st = ladderStates(LOGS), have = haveEq(O), used = {}, out = { kraft: {}, metcon: {}, neu: {}, kraftKeys: {}, missing: {}, why: {}, mwhy: {} }, sc = partScores(st);
   var tags = Object.keys(DAYS).filter(function (t) { return DAYS[t].type === 'kraft'; }).sort(function (a, b) { return (DAYS[a].fill || 9) - (DAYS[b].fill || 9) || a - b; });
   tags.forEach(function (tag) {
     var d = DAYS[tag], kr = [];
@@ -6535,20 +6559,198 @@ function planFill() {
     if (d.cmc && CHAL[d.cmc]) { out.metcon[tag] = chalMetcon(CHAL[d.cmc], have, st); return; }
     if (!d.mmin) { out.metcon[tag] = []; return; }
     (out.kraft[tag] || []).forEach(function (x) { if (GL[x.n]) today[GL[x.n].key] = 1; });
-    var fb = d.mfb ? DAYS0[d.mfb].metcon : [], res = [];
+    var fb = d.mfb ? DAYS0[d.mfb].metcon : [], res = [], need = musBalance().need.slice(0, 3), aus = false;
     (d.mslots || []).forEach(function (spec, i) {
       var cands = LIB.metcon.filter(function (m) {
         var u = UE[m.uebung];
         return u && spec.indexOf(u.muster) >= 0 && !mu[m.uebung] && !today[m.uebung] && !TEMPO_KEYS[m.uebung] && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st);
       }).sort(function (a, b) { return UE[b.uebung].nutzen - UE[a.uebung].nutzen; }).slice(0, 4);
       if (!cands.length) { if (fb[i] && (!GL[fb[i].n] || !GL[fb[i].n].lib || eqOk(GL[fb[i].n].lib.equipment, have))) res.push(fb[i]); return; }
-      var m = cands[(S.durchgang + i) % cands.length]; mu[m.uebung] = 1;
+      var m = cands[(S.durchgang + i) % cands.length];
+      // Muskelausgleich: einmal am Tag eine Übung, die trifft, was zu kurz kommt (aus denselben 4 Kandidaten).
+      if (!aus && need.length && !musHit(m.uebung, need)) {
+        var hit = cands.filter(function (x) { return musHit(x.uebung, need) > 0; }).sort(function (a, b) { return musHit(b.uebung, need) - musHit(a.uebung, need); })[0];
+        if (hit) {
+          var mm = (UE[hit.uebung].muskeln.primaer || []).filter(function (x) { return need.indexOf(x) >= 0; })[0];
+          out.mwhy[tag] = 'Ausgleich: ' + UE[hit.uebung].name + ' statt ' + UE[m.uebung].name + ', weil ' + (MUS_NAME[mm] || 'das') + ' zuletzt zu kurz kam.';
+          m = hit; aus = true;
+        }
+      } else if (need.length && musHit(m.uebung, need)) aus = true;
+      mu[m.uebung] = 1;
       res.push({ r: fmtMenge(m), n: UE[m.uebung].name, scale: m.skalierung || '', lib: true });
     });
     out.metcon[tag] = res.length ? res : MFB_STD.slice();
   });
   FILL = { k: k, v: out };
   return out;
+}
+
+/* ---------- Muskeln: Körperfigur, Ausgleich ---------- */
+// Figur wie eine anatomische Tafel: graue Silhouette, Muskeln einzeln abgegrenzt. Gezeichnet ist die linke Hälfte, rechts gespiegelt.
+// Muskeln mit „_“ (Trapez vorn, Knie, Schienbein) zählen nicht, sie bleiben grau.
+var BODY_SIL = 'M100 76 L84 78 C70 80 58 83 50 90 C42 98 39 112 40 126 L36 150 C33 162 32 172 32 182 C29 202 26 225 24 246 C21 260 20 272 22 284 C25 291 32 290 34 283 L38 252 C41 233 45 212 48 192 C51 180 54 166 56 150 L59 120 C61 150 63 182 64 206 C64 224 61 238 59 252 C55 282 56 312 60 336 C62 362 60 392 62 414 C61 422 55 429 60 433 L86 433 C90 429 88 420 86 412 C86 390 90 362 90 336 C92 310 96 282 98 262 L100 256 Z';
+var BODY_F = {
+  _trapez: 'M89 64 C85 74 76 80 64 85 L90 82 Z',
+  schulter_seite: 'M60 85 C47 87 39 99 39 116 L40 127 L47 124 C45 110 47 97 54 90 Z',
+  schulter_vorn: 'M68 86 C57 86 49 93 47 104 C46 112 46 118 47 124 C54 116 61 105 68 96 Z',
+  brust: 'M98 90 L71 89 C64 92 62 100 64 109 C66 119 70 128 78 131 C86 133 93 131 98 128 Z',
+  bizeps: 'M47 128 C42 140 41 156 45 170 C51 162 55 148 56 133 C53 130 50 128 47 128 Z',
+  unterarm: 'M44 174 C37 192 32 214 29 240 L36 243 C41 222 47 200 51 182 C50 177 48 174 44 174 Z',
+  bauch_schraeg: 'M64 131 C62 160 64 196 70 224 L84 232 L84 136 C76 135 70 134 64 131 Z',
+  bauch_gerade: 'M86 136 L98 136 L98 156 L86 156 Z M86 159 L98 159 L98 180 L86 180 Z M86 183 L98 183 L98 205 L86 205 Z M86 208 L98 208 L98 238 C93 238 89 234 86 229 Z',
+  hueftbeuger: 'M72 238 L86 236 L90 252 L84 258 Z',
+  quadrizeps: 'M60 250 C55 280 57 310 64 332 L72 330 C68 300 68 276 70 256 Z M71 256 C70 284 72 312 76 330 L84 330 C87 304 88 280 86 262 Z M85 300 C90 310 90 324 87 334 L78 334 C80 320 82 308 85 300 Z',
+  adduktoren: 'M87 262 L98 260 C98 280 96 296 92 306 C89 290 88 274 87 262 Z',
+  _knie: 'M64 335 L88 335 C88 343 84 348 76 348 C68 348 64 343 64 335 Z',
+  _schienbein: 'M67 352 C65 372 67 392 71 408 L75 408 C75 388 75 368 75 352 Z',
+  waden: 'M62 350 C59 368 60 388 64 402 L67 400 C65 384 64 366 66 350 Z M78 350 C82 366 86 380 86 398 C89 380 90 364 88 350 Z'
+};
+var BODY_B = {
+  oberer_ruecken: 'M100 54 L91 70 C84 78 72 82 60 86 C72 98 88 118 100 152 Z',
+  schulter_seite: 'M60 85 C47 87 39 99 39 116 L40 127 L47 124 C45 110 47 97 54 90 Z',
+  schulter_hinten: 'M62 88 C54 89 48 96 46 106 C45 113 46 119 47 125 C53 115 58 104 64 94 Z',
+  trizeps: 'M47 128 C41 144 40 160 45 174 C51 166 55 150 56 133 C53 130 50 128 47 128 Z',
+  unterarm: 'M44 176 C37 194 32 216 29 240 L36 243 C41 222 47 200 51 184 C50 179 48 176 44 176 Z',
+  latissimus: 'M64 112 C59 146 65 180 77 204 L96 196 L96 160 C84 148 72 132 64 112 Z',
+  rueckenstrecker: 'M88 158 C86 184 86 214 88 238 L98 238 L98 156 Z',
+  abduktoren: 'M62 224 C58 234 58 244 63 250 C70 240 80 234 90 234 C80 226 70 222 62 224 Z',
+  gesaess: 'M63 248 C58 266 65 286 82 289 C94 290 99 280 99 264 L99 246 C88 238 73 238 63 248 Z',
+  beinbeuger: 'M60 294 C56 312 60 330 68 340 L76 338 C74 320 74 304 76 292 Z M77 292 C77 306 78 322 80 338 L88 336 C90 318 90 302 88 293 Z',
+  waden: 'M61 348 C57 366 59 386 66 398 C71 388 74 370 75 350 Z M77 350 C79 370 82 386 86 398 C91 382 91 364 88 350 Z'
+};
+var MUS_NAME = { brust: 'Brust', schulter_vorn: 'Vordere Schulter', schulter_seite: 'Seitliche Schulter', schulter_hinten: 'Hintere Schulter',
+  trizeps: 'Trizeps', bizeps: 'Bizeps', unterarm: 'Unterarme', latissimus: 'Latissimus', oberer_ruecken: 'Oberer Rücken', rueckenstrecker: 'Rückenstrecker',
+  bauch_gerade: 'Gerader Bauch', bauch_schraeg: 'Schräge Bauchmuskeln', hueftbeuger: 'Hüftbeuger', gesaess: 'Gesäß', quadrizeps: 'Quadrizeps',
+  beinbeuger: 'Beinbeuger', adduktoren: 'Adduktoren', abduktoren: 'Abduktoren', waden: 'Waden' };
+// Soll je Muskel im Verhältnis: kleine Muskeln brauchen weniger Sätze als Brust, Rücken und Beine.
+var MUS_W = { brust: 1, latissimus: 1, oberer_ruecken: 1, quadrizeps: 1, gesaess: 1, beinbeuger: 0.7, bauch_gerade: 0.7, schulter_vorn: 0.6, trizeps: 0.6,
+  bizeps: 0.6, schulter_seite: 0.4, schulter_hinten: 0.4, rueckenstrecker: 0.4, bauch_schraeg: 0.4, waden: 0.4, unterarm: 0.3, hueftbeuger: 0.3, adduktoren: 0.3, abduktoren: 0.25 };
+// Gegenspieler: 50:50 heißt, beide Seiten bekommen ihr Soll.
+var MUS_PAIRS = [[['brust', 'schulter_vorn', 'trizeps'], 'Druck', ['latissimus', 'oberer_ruecken', 'bizeps'], 'Zug'],
+  [['schulter_vorn'], 'Schulter vorn', ['schulter_hinten'], 'Schulter hinten'],
+  [['quadrizeps'], 'Oberschenkel vorn', ['beinbeuger', 'gesaess'], 'Rückseite'],
+  [['bauch_gerade', 'bauch_schraeg'], 'Bauch', ['rueckenstrecker'], 'Rückenstrecker']];
+function bodySVG(parts, cls) {
+  var half = '<path class="sil" d="' + BODY_SIL + '"/>' + Object.keys(parts).map(function (m) { return '<path class="mu' + (m.charAt(0) === '_' ? '' : ' ' + (cls(m) || '')) + '" d="' + parts[m] + '"/>'; }).join('');
+  return '<svg viewBox="0 0 200 440" aria-hidden="true"><ellipse class="sil" cx="100" cy="34" rx="19" ry="24"/><rect class="sil" x="89" y="52" width="22" height="28" rx="6"/>' + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g></svg>';
+}
+function musFigHTML(cls, small) {
+  return '<div class="bf' + (small ? ' sm' : '') + '"><figure>' + bodySVG(BODY_F, cls) + '<figcaption>Vorn</figcaption></figure><figure>' + bodySVG(BODY_B, cls) + '<figcaption>Hinten</figcaption></figure></div>';
+}
+// Bibliothek: Hauptmuskeln kräftig blau, mitarbeitende hell (Rot bis Grün bleibt dem Ausgleich vorbehalten).
+function musOfHTML(u, small) {
+  var m = u && u.muskeln; if (!m || !(m.primaer || []).some(function (x) { return MUS_NAME[x]; })) return u && u.trainiert ? '<p class="muted small">Trainiert: ' + esc(u.trainiert) + '</p>' : '';
+  var p = {}, s = {}; (m.primaer || []).forEach(function (x) { p[x] = 1; }); (m.sekundaer || []).forEach(function (x) { s[x] = 1; });
+  var nm = function (l) { return l.filter(function (x) { return MUS_NAME[x]; }).map(function (x) { return MUS_NAME[x]; }).join(', '); };
+  return '<div class="mus-of">' + musFigHTML(function (x) { return p[x] ? 'p1' : s[x] ? 'p2' : ''; }, small) +
+    '<p class="mus-lg small"><span><i class="p1"></i>' + esc(nm(m.primaer || [])) + '</span>' + (nm(m.sekundaer || []) ? '<span><i class="p2"></i>' + esc(nm(m.sekundaer)) + '</span>' : '') + '</p></div>';
+}
+// Übung hinter einem Eintrag: Stufe der Leiter, sonst die Übung mit dem Namen.
+function ueOfEntry(n, stage) {
+  var lad = ladFor(n);
+  if (lad && lad.lib && stage) { var s = lad.lib.stufen.filter(function (x) { return x.name === stage; })[0]; if (s && UE[s.uebung]) return s.uebung; }
+  return GL[n] && GL[n].lib ? GL[n].lib.id : null;
+}
+// Sätze je Muskel in den letzten 4 Wochen: Hauptmuskel 1, mitarbeitend ½. Metcon zählt die halbe Rundenzahl (höchstens 4), Murph 10 Sätze.
+function musVol(logs, days) {
+  var from = isoDaysAgo(days || 28), v = {}, n = 0;
+  Object.keys(MUS_W).forEach(function (m) { v[m] = 0; });
+  function add(id, sets) {
+    var u = UE[id]; if (!u || !u.muskeln || !sets) return;
+    (u.muskeln.primaer || []).forEach(function (m) { if (m in v) v[m] += sets; });
+    (u.muskeln.sekundaer || []).forEach(function (m) { if (m in v) v[m] += sets / 2; });
+  }
+  function sets(r) { return (r || []).filter(function (x) { return x != null; }).length; }
+  logs.forEach(function (l) {
+    if (!l.date || l.date < from) return;
+    if (l.kind === 'kraft') {
+      n++;
+      (l.kraft || []).forEach(function (k) { add(ueOfEntry(k.n, k.stage), sets(k.reps)); });
+      if (l.metcon && l.metcon.items) {
+        var stg = {}; (l.metcon.stages || []).forEach(function (s) { stg[s.n] = s.stage; });
+        l.metcon.items.forEach(function (nm) { add(ueOfEntry(nm, stg[nm]), Math.min(8, Math.max(1, l.metcon.rounds || 0)) / 2); });
+      }
+      if (l.ausgleich) add(l.ausgleich.ue, sets(l.ausgleich.reps));
+    } else if (l.kind === 'murph') { n++; ['Ring Pull-up', 'Push-up', 'Air Squat'].forEach(function (nm) { add(ueOfEntry(nm), 10); }); }
+  });
+  return { v: v, n: n };
+}
+// Stand je Muskel: Sätze im Verhältnis zum Soll, gemessen am mittleren Muskel. 0 = vernachlässigt … 3 = im Gleichgewicht.
+// Deutlich zu viel (über 2,2-mal) ist auch nicht im Gleichgewicht und wird gelb.
+var MB_C = { k: null };
+function musBalance() {
+  var k = LOGS.length + '|' + isoToday(); if (MB_C.k === k) return MB_C.v;
+  var V = musVol(LOGS), ms = Object.keys(MUS_W), norm = {}, lv = {}, ratio = {};
+  ms.forEach(function (m) { norm[m] = V.v[m] / MUS_W[m]; });
+  var srt = ms.map(function (m) { return norm[m]; }).sort(function (a, b) { return a - b; }), ref = srt[Math.floor(srt.length / 2)] || 0;
+  ms.forEach(function (m) { var x = ref ? norm[m] / ref : 0; ratio[m] = x; lv[m] = x > 2.2 ? 2 : x >= 0.75 ? 3 : x >= 0.5 ? 2 : x >= 0.25 ? 1 : 0; });
+  var mean = function (l) { return l.reduce(function (a, m) { return a + norm[m]; }, 0) / l.length; };
+  var pairs = MUS_PAIRS.map(function (p) {
+    var a = mean(p[0]), b = mean(p[2]), sh = a + b ? Math.round(100 * a / (a + b)) : 50, d = Math.abs(sh - 50);
+    return { a: p[1], b: p[3], sa: sh, sb: 100 - sh, c: d <= 6 ? 3 : d <= 10 ? 2 : d <= 16 ? 1 : 0, weak: sh < 50 ? p[0] : p[2] };
+  });
+  var need = ms.filter(function (m) { return lv[m] <= 1 && ratio[m] < 0.5; }).sort(function (a, b) { return ratio[a] - ratio[b]; });
+  // Schwache Seite eines deutlich schiefen Paars kommt dazu, auch wenn die Muskeln allein noch reichen.
+  pairs.forEach(function (p) { if (p.c <= 1) p.weak.forEach(function (m) { if (need.indexOf(m) < 0 && ratio[m] < 1) need.push(m); }); });
+  var v = { ok: V.n >= 3, n: V.n, lv: lv, ratio: ratio, pairs: pairs, need: V.n >= 3 ? need : [] };
+  MB_C = { k: k, v: v };
+  return v;
+}
+function musCardHTML() {
+  var B = musBalance(), h = '<section class="card mus-card"><p class="sec-k">Muskeln · letzte 4 Wochen</p>';
+  if (!B.ok) return h + musFigHTML(function () { return ''; }) + '<p class="small muted mus-empty">Ab 3 Krafteinheiten in 4 Wochen siehst du hier, welche Muskeln zu kurz kommen.</p></section>';
+  h += musFigHTML(function (m) { return 'b' + B.lv[m]; }) + '<div class="mb-lgs"><i></i><span><span>Vernachlässigt</span><span>Im Gleichgewicht</span></span></div>';
+  h += B.pairs.map(function (p) {
+    return '<div class="mb-row b' + p.c + '"><div class="mb-top"><span>' + esc(p.a) + ' <b>' + p.sa + ' %</b></span><span><b>' + p.sb + ' %</b> ' + esc(p.b) + '</span></div><div class="mb-bar"><i style="width:' + p.sa + '%"></i><em></em></div></div>';
+  }).join('');
+  var low = B.need.slice(0, 4).map(function (m) { return MUS_NAME[m]; });
+  h += '<p class="tl-x">' + (low.length ? 'Kommt zu kurz: ' + esc(low.join(', ')) + '. Dein Coach gleicht das aus, im Metcon und mit dem Schritt „Ausgleich“ am Ende der Krafttage.' : 'Alles im Gleichgewicht. Weiter so.') + '</p>';
+  return h + '</section>';
+}
+// Wie gut trifft eine Übung, was zu kurz kommt? Hauptmuskeln zählen voll, je weiter vorn in der Liste, desto mehr.
+function musHit(id, need) {
+  var u = UE[id]; if (!u || !u.muskeln || !need.length) return 0;
+  return (u.muskeln.primaer || []).reduce(function (a, m) { var i = need.indexOf(m); return a + (i < 0 ? 0 : need.length - i); }, 0);
+}
+// Ausgleich am Ende der Krafttage: 2 Sätze einer leichten Übung für den größten Rückstand. Nicht im Einstieg, in Entlastung,
+// Testwoche und Taper, nicht in der Kurzversion und nicht, wenn die Zeit knapp ist.
+var AUSGL_OHNE = { mobilitaet: 1, ausdauer: 1, sprung: 1, tragen: 1, handstand_skill: 1 };
+function ausgleichOn(tag) {
+  var d = DAYS[tag], ph = curPhase();
+  if (!d || d.type !== 'kraft' || !(d.kraft || []).length || S.durchgang < 3 || ph.deload || ph.test || ph.taper) return false;
+  return !isKurz(tag) && !zeitLv(tag);
+}
+function ausgleichUe(tag) {
+  if (!ausgleichOn(tag)) return null;
+  var need = musBalance().need.slice(0, 3); if (!need.length) return null;
+  var d = DAYS[tag], have = haveEq(trainOrt()), st = ladderStates(LOGS), today = {};
+  (d.kraft || []).concat(d.metcon || []).forEach(function (k) { var id = ueOfEntry(k.n); if (id) today[id] = 1; });
+  var c = Object.keys(UE).filter(function (id) {
+    var u = UE[id];
+    return u.muskeln && !AUSGL_OHNE[u.muster] && !TEMPO_KEYS[id] && !today[id] && (u.ermuedung || 0) <= 1 && (u.technik || 0) <= 2 &&
+      ['wdh', 'sek', 'kg'].indexOf(u.einheit) >= 0 && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st) && musHit(id, need) > 0;
+  }).sort(function (a, b) { return musHit(b, need) - musHit(a, need) || (UE[b].muster === 'isolation') - (UE[a].muster === 'isolation') || UE[b].nutzen - UE[a].nutzen; });
+  if (!c.length) return null;
+  // Abwechslung: die zwei besten wechseln sich je Durchgang ab, wenn sie gleich gut treffen.
+  var id = c[1] && musHit(c[1], need) === musHit(c[0], need) ? c[S.durchgang % 2] : c[0], u = UE[id];
+  var m = (u.muskeln.primaer || []).filter(function (x) { return need.indexOf(x) >= 0; })[0];
+  return { id: id, m: m, sek: u.einheit === 'sek', menge: '2 × ' + (u.einheit === 'sek' ? '20–40 s' : '12–15') + (u.seitig ? ' je Seite' : '') + (u.einheit === 'kg' ? ', leicht' : '') };
+}
+function ausgleichStep(tag) {
+  var A = ausgleichUe(tag); if (!A) return [];
+  var nm = UE[A.id].name, menge = A.menge;
+  return [{ id: 'ausgl', title: 'Ausgleich', sub: '4 Min · ' + menge, dur: 4, desc: nm + ' · ' + menge,
+    timer: { mode: 'block', cfg: { minutes: 4, label: 'Ausgleich', tag: tag }, label: '4 Min starten', info: nm },
+    body: function (D) { return ausgleichStepHTML(A, D); } }];
+}
+function ausgleichStepHTML(A, D) {
+  var u = UE[A.id], h = '<section class="card">' + figBox(A.id) + '<h3 class="ag-h">' + esc(u.name) + '<span class="chip">' + esc(A.menge) + '</span></h3>' +
+    '<p class="small">' + esc(u.sauber || '') + '</p><div class="pick-grid">';
+  for (var r = 0; r < 2; r++) {
+    var f = 'a' + r;
+    h += tile('Satz ' + (r + 1), '<b>' + (D[f] ? esc(D[f]) + (A.sek ? ' s' : '') : '–') + '</b>', pickAttrs(A.sek ? { f: f, min: 0, max: 120, step: 5, unit: 's', def: 30, title: u.name } : { f: f, min: 0, max: 40, unit: 'Wdh.', def: 12, title: u.name }), D[f] ? 'set' : '');
+  }
+  return h + '</div><p class="tl-x">Für ' + esc(MUS_NAME[A.m] || 'deinen Ausgleich') + ': ' + (A.m ? 'kam in den letzten 4 Wochen zu kurz.' : 'kommt gerade zu kurz.') + ' 60 s Pause zwischen den Sätzen.</p></section>';
 }
 
 /* ---------- Block: Fortschritt, Ende und Rückblick ---------- */
