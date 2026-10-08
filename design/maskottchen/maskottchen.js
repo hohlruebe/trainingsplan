@@ -199,21 +199,23 @@
     [[-.3, .07], [.42, .12]].forEach(function (q) { rib += '<path d="' + equ(RX * 1.02, RY, q[0], q[1]) + '" opacity=".7"/>'; });
     g += '<g transform="translate(' + n1(rc[0]) + ' ' + n1(rc[1]) + ') rotate(' + n1(th) + ')">' + S(rib, INK) + '</g>';
     // Kopf: Augen, Nase und Mund nur, wenn das Gesicht zum Betrachter zeigt
-    var hx = Math.hypot(15.5 * c, 18.5 * s), hy = 20;
+    // Blickrichtung des Kopfes: wie der Körper, oder eigene (J._hf, z. B. zur hochgestreckten Hand)
+    var ye = yaw * R + (J._hf ? Math.atan2(J._hf[0], J._hf[2]) : 0), hc_ = Math.cos(ye), hf_ = Math.sin(ye);
+    var hx = Math.hypot(15.5 * hc_, 18.5 * hf_), hy = 20;
     var hd = '<path d="M0 ' + (-hy) + ' C' + n1(hx * 1.35) + ' ' + (-hy) + ' ' + n1(hx * 1.1) + ' ' + n1(hy * .9) + ' 0 ' + hy +
       ' C' + n1(-hx * 1.1) + ' ' + n1(hy * .9) + ' ' + n1(-hx * 1.35) + ' ' + (-hy) + ' 0 ' + (-hy) + ' Z"/>';
-    hd += '<path d="' + mer(hx, hy, c > -.2 ? f * .95 : -f * .95) + '"/><path d="' + equ(hx, hy, .05, .06) + '"/>';
+    hd += '<path d="' + mer(hx, hy, hc_ > -.2 ? hf_ * .95 : -hf_ * .95) + '"/><path d="' + equ(hx, hy, .05, .06) + '"/>';
     [-.55, .55].forEach(function (e) {
-      var a = yaw * R + e;
+      var a = ye + e;
       if (Math.cos(a) > .15) hd += '<path d="M' + n1(Math.sin(a) * hx * 1.05 - 2.5) + ' -1 q2.5 -2.6 5 0"/>';
     });
-    if (c > -.2) {
-      var nx = f * hx * 1.02, sx = f >= 0 ? 1 : -1, nl = 1 + 4 * Math.abs(f);
+    if (hc_ > -.2) {
+      var nx = hf_ * hx * 1.02, sx = hf_ >= 0 ? 1 : -1, nl = 1 + 4 * Math.abs(hf_);
       hd += '<path d="M' + n1(nx) + ' 1 l' + n1(sx * nl) + ' 6 l' + n1(-sx * nl) + ' 2"/>';
-      if (c > .4) hd += '<path d="M' + n1(nx - 3) + ' 12 q3 1.5 6 0"/>';
+      if (hc_ > .4) hd += '<path d="M' + n1(nx - 3) + ' 12 q3 1.5 6 0"/>';
     }
     g += '<g transform="translate(' + n1(P.hc[0]) + ' ' + n1(P.hc[1]) + ') rotate(' + n1(hth) + ')">' + S(hd, INK) + '</g>';
-    var top = loc(P.hc, hth, [c > -.2 ? f * 4 : 0, -22]); ext.push(top);
+    var top = loc(P.hc, hth, [hc_ > -.2 ? hf_ * 4 : 0, -22]); ext.push(top);
     g += '<path d="' + smooth([top, nb, rc, pc, P.kna, P.ana]) + '" fill="none" stroke="' + st.action + '" stroke-width="' + st.loa + '" stroke-linecap="round" opacity=".85"/>';
     g += layer('mid');
     g += limbs(near, INK);
@@ -915,12 +917,12 @@
     var k = keys(p, [[0, { d: 0, tw: 0, h: 0 }], [.1, { d: 1, tw: 0, h: 0 }], [.2, { d: 1, tw: 0, h: 0 }], [.28, { d: 0, tw: 0, h: 0 }], [.46, { d: 0, tw: 1, h: 0 }],
       [.58, { d: 0, tw: 1, h: 0 }], [.74, { d: 0, tw: 0, h: 0 }], [.84, { d: 0, tw: 0, h: 1 }], [.94, { d: 0, tw: 0, h: 1 }], [1, { d: 0, tw: 0, h: 0 }]]);
     var FA = [-22, 390, 104], HB = [24, 395, 110], RB = [18, 377, -150];
-    var pc = add(lerp([0, 316, 4], [0, 272, -15], k.h), [0, 8 * k.d, 0]), tw = 88 * k.tw;
+    var pc = add(lerp([0, 316, 4], [0, 272, -15], k.h), [0, 8 * k.d, 0]), tw = 100 * k.tw;
     function shB(a) { var J0 = build({ pc: pc, a: a, arms: both(function () { return { to: pc, pole: FWD }; }), legs: both(function () { return { to: pc, pole: FWD }; }) }); twist(J0, tw); return J0.shb; }
     var best = 70, err = 1e9;
     for (var a0 = 40; a0 <= 112; a0 += .5) { var sb = shB(a0), e = Math.abs(len(sub3(sb, HB)) - 113); if (e < err && sb[1] < HB[1]) { err = e; best = a0; } }
     best += 12 * k.d; // Ellbogen zum Fuß: die Brust sinkt, der Stützarm gibt nach
-    var J = build({ pc: pc, a: best, nod: lerp(4, -6, k.tw),
+    var J = build({ pc: pc, a: best, nod: lerp(4, -34, k.tw), // Kopf geht beim Aufdrehen mit nach oben
       arms: { a: { to: [-4, 395, 112], pole: [-.3, -.2, -1], dir: [0, .12, 1] }, b: { to: HB, pole: [.4, -.2, -1], dir: [0, .12, 1] } },
       legs: { a: { to: FA, pole: [0, -.3, 1] }, b: { to: RB, pole: DOWN, dir: [0, .88, .48] } } });
     twist(J, tw);
@@ -929,7 +931,11 @@
     if (k.tw > 0) { // gestreckt im Bogen: nach unten → zur Seite → zur Decke (in Richtung der Schulterlinie)
       var dDown = norm(sub3(floorA, J.sha)), dSide = norm([-1, 0, .15]), dUp = norm(sub3(J.sha, J.shb)), q = k.tw;
       var dir = q < .5 ? norm(lerp(dDown, dSide, q * 2)) : norm(lerp(dSide, dUp, q * 2 - 1));
-      return reArm(J, 'a', add(J.sha, mul(dir, 114)), [0, 0, 1], dir);
+      var Lr = q < .5 ? lerp(Math.min(114, len(sub3(floorA, J.sha))), 114, q * 2) : 114; // startet an der Hand am Boden, nie durch den Boden
+      reArm(J, 'a', add(J.sha, mul(dir, Lr)), [0, 0, 1], norm(lerp([0, .12, 1], dir, Math.min(1, q * 3))));
+      J._hf = norm(lerp([0, 0, 1], [-1, 0, .25], Math.min(1, q * 1.4))); // Gesicht dreht mit zur offenen Seite, Blick zur Hand nach oben
+      var hu = norm(sub3(J.hc, J.nb)), toH = norm(sub3(J.haa, J.nb)); J.hc = add(J.nb, mul(norm(lerp(hu, toH, .5 * Math.min(1, q * 1.4))), 40)); // Kopf neigt sich zur Hand
+      return J;
     }
     var EL = [-12, 378, 96], wr = lerp(floorA, [-10, 395, 146], k.d); // Ellbogen innen neben den Fuß, Unterarm nach vorn auf den Boden
     return reArm(J, 'a', wr, lerp([-.3, -.2, -1], sub3(EL, mid(J.sha, wr)), k.d), [0, .12, 1]);
@@ -1214,7 +1220,7 @@
       g_knee_to_wall: { name: 'Knee-to-Wall Mobilization', pose: kneeWall, yaw: 80, dur: 2.8 },
       // Runde 3
       g_stack: { name: 'Stack Breathing', pose: stack, yaw: 28, dur: 5 },
-      g_wgs: { name: "World's Greatest Stretch", pose: wgs, yaw: 46, dur: 9 },
+      g_wgs: { name: "World's Greatest Stretch", pose: wgs, yaw: 54, dur: 9 },
       g_pullapart: { name: 'Band Pull-Apart', pose: pullApart, yaw: 20, dur: 2.6 },
       g_passthrough: { name: 'Band Pass-Through', pose: passThrough, yaw: 74, dur: 3.2 },
       g_supine_twist: { name: 'Supine Spinal Twist', pose: supineTwist, yaw: -100, tilt: 40, mat: [-150, 150, -200, 200], dur: 7 },

@@ -70,7 +70,8 @@ Ohne `tilt` bleibt jede Figur wie bisher. Neue Hilfen: `kneelLeg` (Knie am Boden
 `rollLeg` (Bein samt Hüfte kippen), `sofa`, `doorFrame`.
 Gedrehter Oberkörper (`twist`), liegende Figur (`turnAll`) oder Kamera von oben: Brustkorb und Becken werden als Körper im Raum gezeichnet
 (ausgerichtet an Wirbelsäule, Schulter- und Hüftlinie) und ohne V-Verschiebung, damit die Schultern in jeder Lage am Rumpf sitzen.
-Für alle anderen Figuren bleibt die Zeichnung exakt wie bisher. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
+Für alle anderen Figuren bleibt die Zeichnung exakt wie bisher.
+Eigene Blickrichtung des Kopfes: `J._hf` (Vektor, nur die waagerechte Richtung zählt), z. B. World's Greatest Stretch: Gesicht dreht zur Hand. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
