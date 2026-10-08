@@ -1,0 +1,589 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "huefte",
+  "quelle": "McGill (Wirbelsäulenlast), Swinton et al. 2011 (Trap Bar vs. Langhantel), Escamilla et al. 2000 (Sumo vs. konventionelles Kreuzheben), NSCA Essentials. Gerätepreise deutsche Händler, Stand 2026.",
+  "uebungen": [
+    {
+      "id": "g_barbell_hip_thrust",
+      "name": "Barbell Hip Thrust",
+      "muster": "huefte",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel"
+        ],
+        [
+          "eq_bank"
+        ]
+      ],
+      "nutzen": 80,
+      "level": 2,
+      "voraussetzung": [
+        {
+          "leiter": "g_hip_thrust",
+          "stufe": "Hip Thrust"
+        }
+      ],
+      "trainiert": "Gesäß, Beinbeuger",
+      "schritte": [
+        "Setz dich mit den Schulterblättern an die Bank, die Langhantel gepolstert über der Hüfte.",
+        "Stell die Füße hüftbreit auf, Schienbeine oben senkrecht.",
+        "Drück die Hüfte nach oben, bis Oberkörper und Oberschenkel eine Linie bilden.",
+        "Senk die Hüfte kontrolliert ab."
+      ],
+      "sauber": "Oben bilden Knie, Hüfte und Schultern eine Linie und das Kinn bleibt zur Brust.",
+      "fehler": "Ein Hohlkreuz oben verlagert die Arbeit vom Gesäß in den unteren Rücken.",
+      "skalierung": "Leichter: Hip Thrust ohne Gewicht. Schwerer: Mehr Gewicht oder oben 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hüftstoßen mit Langhantel",
+        "Langhantel-Hip-Thrust"
+      ]
+    },
+    {
+      "id": "g_sumo_deadlift",
+      "name": "Sumo Deadlift",
+      "muster": "huefte",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 86,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_deadlift",
+          "stufe": "Deadlift"
+        }
+      ],
+      "trainiert": "Gesäß, Adduktoren, Oberschenkel, Rücken",
+      "schritte": [
+        "Stell dich breit hin, Fußspitzen nach außen, die Stange über der Fußmitte.",
+        "Greif die Stange schulterbreit innerhalb der Knie.",
+        "Drück die Knie nach außen und steh mit geradem Rücken auf.",
+        "Senk die Stange kontrolliert ab."
+      ],
+      "sauber": "Die Knie zeigen in Richtung der Fußspitzen und der Rücken bleibt neutral.",
+      "fehler": "Einknickende Knie belasten die Knieinnenseite.",
+      "skalierung": "Leichter: Kettlebell Deadlift im Sumo-Stand. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "adduktoren",
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "rueckenstrecker",
+          "unterarm",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Sumo-Kreuzheben",
+        "Kreuzheben im Sumo-Stand"
+      ]
+    },
+    {
+      "id": "g_trap_bar_deadlift",
+      "name": "Trap Bar Deadlift",
+      "muster": "huefte",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_trapbar"
+        ],
+        [
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 88,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Gesäß, Oberschenkel, Beinbeuger, Rücken",
+      "schritte": [
+        "Stell dich in die Mitte der Trap Bar und greif die Griffe seitlich.",
+        "Beug Hüfte und Knie, Rücken gerade, Brust nach vorn.",
+        "Steh auf, bis Hüfte und Knie gestreckt sind.",
+        "Senk die Stange kontrolliert ab."
+      ],
+      "sauber": "Der Rücken bleibt neutral und die Stange bewegt sich senkrecht.",
+      "fehler": "Ein runder Rücken beim Anheben verschiebt die Last in die Wirbelsäule.",
+      "skalierung": "Leichter: Hohe Griffe oder weniger Gewicht. Schwerer: Tiefe Griffe oder mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "unterarm",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Hex-Bar-Kreuzheben",
+        "Trap-Bar-Kreuzheben",
+        "Kreuzheben mit Sechskantstange"
+      ]
+    },
+    {
+      "id": "g_back_extension_45",
+      "name": "45-Degree Back Extension",
+      "muster": "huefte",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_hyperextension"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rückenstrecker, Gesäß, Beinbeuger",
+      "schritte": [
+        "Stell dich in die 45-Grad-Bank, das Polster knapp unter dem Hüftknochen.",
+        "Verschränk die Arme vor der Brust und beug dich mit geradem Rücken nach vorn.",
+        "Streck die Hüfte, bis der Körper eine Linie bildet."
+      ],
+      "sauber": "Die Bewegung kommt aus der Hüfte und der Rücken bleibt neutral.",
+      "fehler": "Ein Überstrecken oben drückt die Lendenwirbelsäule ins Hohlkreuz.",
+      "skalierung": "Leichter: Kleinerer Bewegungsweg. Schwerer: Hantelscheibe vor der Brust.",
+      "muskeln": {
+        "primaer": [
+          "rueckenstrecker",
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rückenstrecken an der Hyperextension-Bank",
+        "Hyperextension",
+        "Rückenstrecker 45 Grad"
+      ]
+    },
+    {
+      "id": "g_good_morning",
+      "name": "Good Morning",
+      "muster": "huefte",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel"
+        ],
+        [
+          "eq_rack"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_deadlift",
+          "stufe": "Romanian Deadlift"
+        }
+      ],
+      "trainiert": "Beinbeuger, Gesäß, Rückenstrecker",
+      "schritte": [
+        "Nimm die Langhantel auf den oberen Rücken wie bei der Kniebeuge.",
+        "Beug die Knie leicht und schieb die Hüfte nach hinten.",
+        "Senk den Oberkörper mit geradem Rücken, bis er fast waagerecht ist.",
+        "Streck die Hüfte zurück in den Stand."
+      ],
+      "sauber": "Der Rücken bleibt die ganze Zeit neutral und die Knie bleiben leicht gebeugt.",
+      "fehler": "Ein runder Rücken unter der Last überlastet die Lendenwirbelsäule.",
+      "skalierung": "Leichter: Band Good Morning. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "gesaess",
+          "rueckenstrecker"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 3,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Diener",
+        "Langhantel-Good-Morning"
+      ]
+    },
+    {
+      "id": "g_pvc_hip_hinge",
+      "name": "PVC Hip Hinge",
+      "muster": "huefte",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_pvc",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 35,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Bewegungsmuster Hüftbeugung",
+      "schritte": [
+        "Halt einen Stab hinter dem Rücken, sodass er Hinterkopf, oberen Rücken und Steißbein berührt.",
+        "Beug die Knie leicht und schieb die Hüfte nach hinten.",
+        "Senk den Oberkörper, solange alle drei Kontaktpunkte am Stab bleiben.",
+        "Richte dich über die Hüfte wieder auf."
+      ],
+      "sauber": "Der Stab berührt die ganze Zeit Kopf, oberen Rücken und Steißbein.",
+      "fehler": "Verliert der Stab den Kontakt am Steißbein, wird der Rücken rund.",
+      "skalierung": "Leichter: Kleinerer Weg. Schwerer: Langsamer oder einbeinig.",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hip Hinge mit Stab",
+        "Hüftbeuge-Übung mit Besenstiel"
+      ]
+    },
+    {
+      "id": "g_weighted_single_leg_rdl",
+      "name": "Weighted Single-Leg Romanian Deadlift",
+      "muster": "huefte",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 74,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Beinbeuger, Gesäß, Gleichgewicht",
+      "schritte": [
+        "Steh auf einem Bein, die Hantel in der Hand der Gegenseite.",
+        "Kipp den Oberkörper nach vorn und streck das freie Bein nach hinten.",
+        "Senk die Hantel bis etwa Schienbeinmitte, Hüfte gerade.",
+        "Komm zurück in den Stand und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Die Hüfte bleibt waagerecht und dreht nicht auf.",
+      "fehler": "Ein Aufdrehen der Hüfte nimmt dem Gesäß der Standseite die Arbeit.",
+      "skalierung": "Leichter: Single-Leg RDL ohne Gewicht. Schwerer: Mehr Gewicht oder in jeder Hand eine Hantel.",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "abduktoren",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einbeiniges RDL mit Kurzhantel",
+        "Standwaage mit Gewicht"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_hip_thrust",
+      "varianten": [
+        {
+          "uebung": "g_barbell_hip_thrust",
+          "art": "stufe",
+          "nach": "g_hip_thrust",
+          "effekt": 80,
+          "ziel": "8 saubere Wiederholungen mit dem eigenen Körpergewicht auf der Stange.",
+          "grund": "Macht den Hip Thrust in kg steigerbar."
+        }
+      ]
+    },
+    {
+      "familie": "f_deadlift",
+      "varianten": [
+        {
+          "uebung": "g_pvc_hip_hinge",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 35,
+          "ziel": "10 saubere Wiederholungen ohne Kontaktverlust am Stab.",
+          "grund": "Lernt das Hüftbeugen, bevor Gewicht dazukommt."
+        },
+        {
+          "uebung": "g_sumo_deadlift",
+          "art": "variante",
+          "effekt": 86,
+          "grund": "Breiter Stand mit mehr Adduktoren und weniger Vorneigung des Rückens."
+        },
+        {
+          "uebung": "g_trap_bar_deadlift",
+          "art": "variante",
+          "effekt": 88,
+          "grund": "Last im Körperschwerpunkt, weniger Rückenbelastung, Ausweichübung bei Rückenschmerzen."
+        },
+        {
+          "uebung": "g_good_morning",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Hüftbeugung mit der Last auf dem Rücken statt in den Händen, ohne Griffgrenze."
+        },
+        {
+          "uebung": "g_weighted_single_leg_rdl",
+          "art": "variante",
+          "effekt": 74,
+          "grund": "Einbeiniges Hüftbeugen mit kg-Last für Seitenausgleich."
+        }
+      ]
+    },
+    {
+      "familie": "f_back_extension",
+      "varianten": [
+        {
+          "uebung": "g_back_extension_45",
+          "art": "stufe",
+          "nach": "g_superman",
+          "effekt": 66,
+          "ziel": "3 Sätze mit 15 sauberen Wiederholungen.",
+          "grund": "Liegt zwischen Superman am Boden und GHD Hip Extension."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [
+    {
+      "id": "eq_trapbar",
+      "name": "Trap Bar (Hex-Stange)",
+      "preis": "ca. 80–250 €",
+      "platz": "ca. 1,5 × 0,7 m beim Training, hochkant an der Wand lagerbar, nutzt die Hantelscheiben der Langhantel",
+      "warum": "Ermöglicht Kreuzheben mit weniger Rückenbelastung."
+    },
+    {
+      "id": "eq_hyperextension",
+      "name": "Hyperextension-Bank (45 Grad)",
+      "preis": "ca. 80–300 €",
+      "platz": "ca. 1,2 × 0,7 m, viele Modelle klappbar",
+      "warum": "Für Rückenstrecken mit voller Hüftbewegung, typisches Gym-Gerät."
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 huefte",
+      "entscheidung": "7 neue Übungen: Barbell Hip Thrust, Sumo Deadlift, Trap Bar Deadlift, 45-Degree Back Extension, Good Morning, PVC Hip Hinge, Weighted Single-Leg RDL.",
+      "folge": "Alle in bestehenden Familien."
+    },
+    {
+      "frage": "Neue Geräte eq_trapbar und eq_hyperextension?",
+      "entscheidung": "Beide aufgenommen.",
+      "folge": "Trap Bar bringt eine rückenschonende Hebeform, die Hyperextension-Bank ist ein typisches Gym-Gerät mit eigenem Reiz."
+    },
+    {
+      "frage": "Abgelehnt: Single-Leg Hip Thrust, Single-Leg Glute Bridge",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Sind schon Stufe „Einbeinig“ der Leitern g_hip_thrust bzw. g_bridge."
+    },
+    {
+      "frage": "Abgelehnt: Kettlebell RDL, Stiff-Leg Deadlift, B-Stance RDL",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zum Romanian Deadlift, der Kettlebells schon erlaubt."
+    },
+    {
+      "frage": "Abgelehnt: Deficit Deadlift, Snatch-Grip Deadlift, Rack Pull",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Ausführungsvarianten des Kreuzhebens ohne eigenen Reiz für eine Coach-App."
+    },
+    {
+      "frage": "Abgelehnt: Cable Pull-Through, Frog Pump, Double Kettlebell Swing",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Band Pull-Through, Glute Bridge bzw. Kettlebell Swing."
+    },
+    {
+      "frage": "Abgelehnt: Reverse Hyper",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Braucht ein teures Spezialgerät für einen Reiz, den GHD und Hyperextension-Bank abdecken."
+    },
+    {
+      "frage": "Good Morning: Rücken 3?",
+      "entscheidung": "3.",
+      "folge": "Anker aus dem Auftrag."
+    },
+    {
+      "frage": "rx der neuen Übungen",
+      "entscheidung": "Überall null.",
+      "folge": "Keine neue kg-Übung hat die Rolle metcon."
+    }
+  ]
+}

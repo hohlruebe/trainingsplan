@@ -1,0 +1,188 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "mobilitaet",
+  "quelle": "Kinstretch/FRC (CARs), Starrett (Becoming a Supple Leopard), Overcoming Gravity (Beweglichkeit).",
+  "uebungen": [
+    {
+      "id": "g_neck_cars",
+      "name": "Neck CARs",
+      "muster": "mobilitaet",
+      "bereich": "beweglichkeit",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "ruhetag",
+        "morgen"
+      ],
+      "equipment": [],
+      "nutzen": 55,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Nackenbeweglichkeit",
+      "schritte": [
+        "Steh oder sitz aufrecht, Schultern locker.",
+        "Führ das Kinn langsam zur Brust.",
+        "Kreis den Kopf in einem großen, langsamen Bogen über eine Schulter nach hinten und über die andere zurück.",
+        "Mach alle Kreise in eine Richtung, dann in die andere."
+      ],
+      "sauber": "Die Bewegung ist langsam und die Schultern bleiben unten.",
+      "fehler": "Ein schnelles Kreisen mit Druck nach hinten staucht die Halswirbelsäule.",
+      "skalierung": "Leichter: Nur Nicken und Drehen statt Kreisen. Schwerer: Langsamer mit leichter Muskelspannung.",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Nackenkreisen kontrolliert",
+        "Kopfkreisen"
+      ]
+    },
+    {
+      "id": "g_kneeling_toe_stretch",
+      "name": "Kneeling Toe Stretch",
+      "muster": "mobilitaet",
+      "bereich": "beweglichkeit",
+      "einheit": "sek",
+      "rolle": [
+        "cooldown",
+        "ruhetag"
+      ],
+      "equipment": [],
+      "nutzen": 55,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Zehen, Fußsohle",
+      "schritte": [
+        "Knie dich hin und stell die Zehen auf, sodass sie nach vorn gebeugt sind.",
+        "Setz dich langsam mit dem Gesäß Richtung Fersen.",
+        "Halte die Dehnung unter Zehen und Fußsohle."
+      ],
+      "sauber": "Alle Zehen sind aufgestellt und das Gewicht ist gleichmäßig verteilt.",
+      "fehler": "Ein zu schnelles Absetzen überdehnt die Zehengelenke.",
+      "skalierung": "Leichter: Hände vorn abstützen. Schwerer: Länger halten oder aufrecht sitzen.",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Zehendehnung im Kniesitz",
+        "Zehen aufstellen kniend"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [],
+  "familien_neu": [
+    {
+      "id": "f_neck_mobility",
+      "name": "Neck Mobility",
+      "muster": "mobilitaet",
+      "bereich": "rumpf",
+      "ebene": 1,
+      "kurz": "Hält die Halswirbelsäule beweglich.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_neck_cars",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 55,
+          "ziel": "5 langsame Kreise je Richtung ohne Ziehen.",
+          "grund": "Grundform der Nackenmobilisation."
+        }
+      ]
+    },
+    {
+      "id": "f_foot_mobility",
+      "name": "Foot Mobility",
+      "muster": "mobilitaet",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Hält Zehen und Fußsohle beweglich.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_kneeling_toe_stretch",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 55,
+          "ziel": "60 Sekunden im Kniesitz auf aufgestellten Zehen.",
+          "grund": "Grundform der Fußmobilisation."
+        }
+      ]
+    }
+  ],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 mobilitaet",
+      "entscheidung": "2 neue Übungen: Neck CARs und Kneeling Toe Stretch.",
+      "folge": "Laut Auftrag nur, wenn eine Region fehlt: Nacken und Zehen bzw. Fußsohle fehlten. Alle anderen Regionen sind abgedeckt."
+    },
+    {
+      "frage": "Familien für Mobility",
+      "entscheidung": "Zwei neue Familien f_neck_mobility und f_foot_mobility mit je einer Stufe.",
+      "folge": "Die bestehenden Mobility-Übungen haben keine Familie. Jede neue Übung braucht aber genau eine, und eine bestehende Familie passt nicht."
+    },
+    {
+      "frage": "bereich der neuen Familien",
+      "entscheidung": "rumpf für Nacken, beine für Fuß.",
+      "folge": "Die Familienliste kennt kein beweglichkeit."
+    },
+    {
+      "frage": "Neck CARs: Gelenke und Muskeln",
+      "entscheidung": "Alle Gelenke 0, bewegt [], Muskel oberer_ruecken.",
+      "folge": "Nacken fehlt in gelenke und Muskelliste. Der obere Trapez reicht bis in den Nacken und ist die nächste passende ID."
+    },
+    {
+      "frage": "Kneeling Toe Stretch: Muskel",
+      "entscheidung": "waden.",
+      "folge": "Fußmuskeln fehlen in der Muskelliste, die Waden sind die nächste passende ID."
+    },
+    {
+      "frage": "Abgelehnt: Foam Rolling, Banded Distraction",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Brauchen Geräte, die fehlen, für Regionen, die schon abgedeckt sind."
+    }
+  ]
+}

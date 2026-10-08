@@ -1,0 +1,328 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "rumpf_beugung",
+  "quelle": "McGill (Rumpfbeugung), Escamilla et al. 2006 (EMG Bauchübungen), Overcoming Gravity (L-Sit-Varianten). eq_kabelzug wurde in neu_zug_vertikal eingeführt.",
+  "uebungen": [
+    {
+      "id": "g_crunch",
+      "name": "Crunch",
+      "muster": "rumpf_beugung",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [],
+      "nutzen": 45,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Gerader Bauch",
+      "schritte": [
+        "Leg dich auf den Rücken, Knie gebeugt, Füße am Boden.",
+        "Leg die Hände locker an die Schläfen.",
+        "Roll den Oberkörper ein, bis die Schulterblätter vom Boden abheben.",
+        "Roll kontrolliert zurück."
+      ],
+      "sauber": "Der untere Rücken bleibt am Boden und das Kinn bleibt vom Brustbein weg.",
+      "fehler": "Ein Ziehen am Kopf belastet den Nacken statt den Bauch.",
+      "skalierung": "Leichter: Arme vor der Brust verschränkt. Schwerer: Arme gestreckt über dem Kopf.",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bauchpresse",
+        "Crunches",
+        "Kurzer Sit-up"
+      ]
+    },
+    {
+      "id": "g_reverse_crunch",
+      "name": "Reverse Crunch",
+      "muster": "rumpf_beugung",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [],
+      "nutzen": 58,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Unterer Bauch, Hüftbeuger",
+      "schritte": [
+        "Leg dich auf den Rücken, Hände neben dem Körper, Knie über der Hüfte gebeugt.",
+        "Roll das Becken ein und heb den Po leicht vom Boden.",
+        "Senk das Becken langsam zurück, ohne die Füße abzulegen."
+      ],
+      "sauber": "Das Becken rollt ein, statt dass die Beine nur Schwung holen.",
+      "fehler": "Schwungvolles Werfen der Beine nimmt dem Bauch die Arbeit ab.",
+      "skalierung": "Leichter: Kleinere Bewegung. Schwerer: Beine gestreckt oder auf einer Schrägbank.",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Umgekehrter Crunch",
+        "Reverse Crunches",
+        "Beckenheben in Rückenlage"
+      ]
+    },
+    {
+      "id": "g_cable_crunch",
+      "name": "Cable Crunch",
+      "muster": "rumpf_beugung",
+      "bereich": "rumpf",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug"
+        ]
+      ],
+      "nutzen": 62,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Gerader Bauch mit Zusatzlast",
+      "schritte": [
+        "Knie dich vor den hohen Kabelzug und halt das Seil neben dem Kopf.",
+        "Die Hüfte bleibt fest über den Knien.",
+        "Roll den Oberkörper ein, bis die Ellbogen zu den Oberschenkeln kommen.",
+        "Roll dich kontrolliert zurück auf."
+      ],
+      "sauber": "Die Bewegung kommt aus dem Einrollen der Wirbelsäule, die Hüfte bleibt still.",
+      "fehler": "Ein Absitzen nach hinten macht daraus eine Hüftbewegung mit dem Körpergewicht.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder unten 1 Sekunde halten.",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kabel-Crunch",
+        "Crunch am Kabelzug",
+        "Kniender Kabel-Crunch"
+      ]
+    },
+    {
+      "id": "g_hanging_lsit",
+      "name": "Hanging L-Sit",
+      "muster": "rumpf_beugung",
+      "bereich": "rumpf",
+      "einheit": "sek",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_kneeraise",
+          "stufe": "Leg Raise"
+        }
+      ],
+      "trainiert": "Bauch, Hüftbeuger, Griff",
+      "schritte": [
+        "Häng dich mit gestreckten Armen an, Schultern aktiv unten.",
+        "Heb die gestreckten Beine bis waagerecht.",
+        "Halte die Position ruhig, ohne zu schwingen."
+      ],
+      "sauber": "Die Beine bleiben waagerecht und gestreckt, der Körper schwingt nicht.",
+      "fehler": "Ein Absinken der Beine unter die Waagerechte nimmt dem Bauch den Hebel.",
+      "skalierung": "Leichter: Gehockt im Hang. Schwerer: Länger halten oder Beine höher.",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "latissimus",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Winkelhang",
+        "L-Hang",
+        "L-Sitz im Hang"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_situp",
+      "varianten": [
+        {
+          "uebung": "g_crunch",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 45,
+          "ziel": "3 Sätze mit 20 sauberen Wiederholungen.",
+          "grund": "Leichteste Form der Rumpfbeugung ohne Hüftbeuger, noch vor dem AbMat Sit-up."
+        },
+        {
+          "uebung": "g_cable_crunch",
+          "art": "variante",
+          "effekt": 62,
+          "grund": "Rumpfbeugung mit kg-Last, damit messbar steigerbar."
+        }
+      ]
+    },
+    {
+      "familie": "f_toes_to_bar",
+      "varianten": [
+        {
+          "uebung": "g_reverse_crunch",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 58,
+          "ziel": "3 Sätze mit 15 Wiederholungen, das Becken rollt jedes Mal ein.",
+          "grund": "Lernt das Einrollen des Beckens am Boden, bevor im Hang gearbeitet wird."
+        }
+      ]
+    },
+    {
+      "familie": "f_lsit",
+      "varianten": [
+        {
+          "uebung": "g_hanging_lsit",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "L-Sit ohne Stütz auf den Händen, Ausweichübung bei Handgelenkschmerzen."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 rumpf_beugung",
+      "entscheidung": "4 neue Übungen: Crunch, Reverse Crunch, Cable Crunch, Hanging L-Sit.",
+      "folge": "Das Paket ist schon gut abgedeckt, nur echte Lücken wurden gefüllt."
+    },
+    {
+      "frage": "Abgelehnt: Toes to Rings, Pike Compression Lift",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Sind schon Stufe „Toes to Rings“ der Leiter g_kneeraise bzw. gleich dem Compression Leg Lift."
+    },
+    {
+      "frage": "Abgelehnt: Jackknife Sit-up, Butterfly Sit-up, Weighted Sit-up",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu V-up bzw. AbMat Sit-up, Gewicht ist nur eine Laststeuerung."
+    },
+    {
+      "frage": "Abgelehnt: Decline Sit-up, Swiss Ball Crunch",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Brauchen Geräte für eine Dublette zum Sit-up bzw. Crunch."
+    },
+    {
+      "frage": "Abgelehnt: Ring Pike, Garhammer Raise",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Slider Pike bzw. Hanging Knee Raise."
+    },
+    {
+      "frage": "Abgelehnt: Manna",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Elite-Element mit extremer Schulterstreckung, für eine Coach-App ohne Trainer nicht sinnvoll."
+    },
+    {
+      "frage": "sehne der neuen Übungen",
+      "entscheidung": "Hanging L-Sit 1, sonst 0.",
+      "folge": "Passend zum L-Sit."
+    }
+  ]
+}

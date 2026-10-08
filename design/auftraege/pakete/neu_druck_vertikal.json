@@ -1,0 +1,439 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "druck_vertikal",
+  "quelle": "Overcoming Gravity (Dips, HSPU), CrossFit Games Movement Standards (Wall-Facing HSPU), NSCA Essentials (Überkopfdrücken). Gerätepreis: deutsche Händler, Stand 2026.",
+  "uebungen": [
+    {
+      "id": "g_landmine_press",
+      "name": "Landmine Press",
+      "muster": "druck_vertikal",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_landmine"
+        ],
+        [
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Schulter vorn, Trizeps, obere Brust",
+      "schritte": [
+        "Steck die Langhantel in die Landmine und stell dich schräg davor.",
+        "Halt das Stangenende mit einer Hand auf Schulterhöhe.",
+        "Drück die Stange schräg nach vorn oben, bis der Arm gestreckt ist.",
+        "Senk sie kontrolliert zur Schulter und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Der Rumpf bleibt aufrecht und dreht nicht mit.",
+      "fehler": "Ein Zurücklehnen macht aus dem Schrägdrücken ein Bankdrücken im Stehen.",
+      "skalierung": "Leichter: Weniger Gewicht oder beidhändig. Schwerer: Mehr Gewicht oder im Halbkniestand.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Landmine-Drücken",
+        "Schrägdrücken an der Landmine"
+      ]
+    },
+    {
+      "id": "g_single_arm_db_press",
+      "name": "Single-Arm Dumbbell Press",
+      "muster": "druck_vertikal",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Schulter, Trizeps, seitlicher Rumpf",
+      "schritte": [
+        "Stell dich hüftbreit hin und halt eine Hantel auf Schulterhöhe.",
+        "Spann Bauch und Gesäß an.",
+        "Drück die Hantel senkrecht nach oben, bis der Arm gestreckt ist.",
+        "Senk sie kontrolliert und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Der Oberkörper neigt sich nicht zur Seite.",
+      "fehler": "Ein seitliches Ausweichen mit dem Rumpf nimmt der Schulter die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht oder im Sitzen. Schwerer: Mehr Gewicht oder im Halbkniestand.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiges Schulterdrücken",
+        "Einarmiges Kurzhantel-Schulterdrücken",
+        "Kettlebell Press"
+      ]
+    },
+    {
+      "id": "g_z_press",
+      "name": "Z Press",
+      "muster": "druck_vertikal",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel",
+          "eq_kurzhanteln"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 3,
+      "voraussetzung": [],
+      "trainiert": "Schulter, Trizeps, Rumpf",
+      "schritte": [
+        "Setz dich mit gestreckten Beinen auf den Boden, Rücken aufrecht.",
+        "Halt Langhantel oder Kurzhanteln auf Schulterhöhe.",
+        "Drück das Gewicht senkrecht über den Kopf, ohne nach hinten zu lehnen.",
+        "Senk es kontrolliert zurück zur Schulter."
+      ],
+      "sauber": "Der Oberkörper bleibt senkrecht und die Beine bleiben flach am Boden.",
+      "fehler": "Ein Zurücklehnen zeigt fehlende Beweglichkeit und verlagert die Last in den unteren Rücken.",
+      "skalierung": "Leichter: Kurzhanteln oder weniger Gewicht. Schwerer: Langhantel oder mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Z-Drücken",
+        "Schulterdrücken im Sitzen am Boden"
+      ]
+    },
+    {
+      "id": "g_wall_facing_hspu",
+      "name": "Wall-Facing Handstand Push-up",
+      "muster": "druck_vertikal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [],
+      "nutzen": 90,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_hspu",
+          "stufe": "Strict Handstand Push-up"
+        }
+      ],
+      "trainiert": "Schulter, Trizeps, Handstand-Linie",
+      "schritte": [
+        "Lauf mit Bauch zur Wand in den Handstand, Hände eine Handbreite vor der Wand.",
+        "Senk den Kopf kontrolliert bis auf die Matte.",
+        "Drück dich in die gerade Linie zurück, Bauch und Brust nah an der Wand."
+      ],
+      "sauber": "Der Körper bleibt gerade und der Kopf geht senkrecht zwischen den Händen nach unten.",
+      "fehler": "Ein Hohlkreuz drückt den Bauch von der Wand weg und belastet den unteren Rücken.",
+      "skalierung": "Leichter: Strict Handstand Push-up mit Rücken zur Wand. Schwerer: Hände näher an die Wand oder Deficit.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handstand-Liegestütz mit Bauch zur Wand",
+        "Wall Facing HSPU"
+      ]
+    },
+    {
+      "id": "g_dip_negative",
+      "name": "Negative Dip",
+      "muster": "druck_vertikal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_barren",
+          "eq_ringe"
+        ],
+        [
+          "eq_zuhause",
+          "eq_box"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 1,
+      "voraussetzung": [
+        {
+          "leiter": "g_dip",
+          "stufe": "Support Hold, 20 s"
+        }
+      ],
+      "trainiert": "Brust, Trizeps, Schulter",
+      "schritte": [
+        "Steig mit Hilfe eines Stuhls oder einer Box in den Stütz.",
+        "Senk dich in 3 bis 5 Sekunden ab, bis die Oberarme waagerecht sind.",
+        "Steig ab oder stell die Füße ab und geh wieder in den Stütz."
+      ],
+      "sauber": "Das Absenken ist gleichmäßig langsam und die Schultern bleiben unten.",
+      "fehler": "Ein zu tiefes Absinken überlastet die vordere Schulter.",
+      "skalierung": "Leichter: Kürzerer Weg oder schnelleres Absenken. Schwerer: Langsamer absenken oder Ring Dip.",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Negativer Dip",
+        "Exzentrischer Dip",
+        "Dip-Negative"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_overhead_press",
+      "varianten": [
+        {
+          "uebung": "g_landmine_press",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Schräges Drücken mit wenig Schulterbelastung, Ausweichübung bei Schulterschmerzen."
+        },
+        {
+          "uebung": "g_single_arm_db_press",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Einseitiges Drücken trainiert den seitlichen Rumpf mit."
+        },
+        {
+          "uebung": "g_z_press",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Ohne Hilfe aus Beinen und Hohlkreuz, verlangt freie Überkopf-Beweglichkeit."
+        }
+      ]
+    },
+    {
+      "familie": "f_hspu",
+      "varianten": [
+        {
+          "uebung": "g_wall_facing_hspu",
+          "art": "variante",
+          "effekt": 90,
+          "grund": "Erzwingt die gerade Linie, heute Standard in CrossFit-Wettkämpfen."
+        }
+      ]
+    },
+    {
+      "familie": "f_dip",
+      "varianten": [
+        {
+          "uebung": "g_dip_negative",
+          "art": "stufe",
+          "nach": "g_rto_support",
+          "effekt": 66,
+          "ziel": "3 Sätze mit 5 Wiederholungen bei 5 Sekunden Absenken.",
+          "grund": "Brücke zwischen Stütz und dem ersten vollen Ring Dip."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [
+    {
+      "id": "eq_landmine",
+      "name": "Landmine-Adapter",
+      "preis": "ca. 30–120 €",
+      "platz": "Steckt in einer Hantelscheibe oder am Rack, rund 2,5 × 1,5 m freie Fläche um die Stange",
+      "warum": "Ermöglicht schräges Drücken, Rotations- und Ruderübungen mit der vorhandenen Langhantel, z. B. den schulterschonenden Landmine Press."
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 druck_vertikal",
+      "entscheidung": "5 neue Übungen: Landmine Press, Single-Arm Dumbbell Press, Z Press, Wall-Facing Handstand Push-up, Negative Dip.",
+      "folge": "Alle in bestehenden Familien."
+    },
+    {
+      "frage": "Neues Gerät eq_landmine?",
+      "entscheidung": "Aufgenommen.",
+      "folge": "Günstig, klein und nutzt die vorhandene Langhantel. Wird später auch für Rotationsübungen genutzt."
+    },
+    {
+      "frage": "Negative Dip: Stufe oder Variante?",
+      "entscheidung": "Stufe nach g_rto_support.",
+      "folge": "Echte Zwischenstufe vor dem ersten Ring Dip."
+    },
+    {
+      "frage": "Abgelehnt: Dip-Maschine, Schulterpresse-Maschine",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dip-Maschine unterstützt in kg (feste Regel), die Schulterpresse ist eine Dublette zum Dumbbell Press."
+    },
+    {
+      "frage": "Abgelehnt: Arnold Press, Seated Dumbbell Press, Kettlebell Push Press, Dumbbell Push Press",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Dumbbell Press bzw. Push Press, das schon Kurzhanteln erlaubt."
+    },
+    {
+      "frage": "Abgelehnt: Behind-the-Neck Press, Snatch-Grip Push Press",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Kein eigener belegter Effekt, dafür höheres Schulterrisiko."
+    },
+    {
+      "frage": "Abgelehnt: Elevated Pike Push-up, Wall HSPU",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Ist Stufe „Füße auf Stuhl“ der Leiter g_pike bzw. gleich dem Strict HSPU."
+    },
+    {
+      "frage": "Abgelehnt: Korean Dip, Russian Dip, Bulgarian Dip, Ring HSPU",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Nischenelemente mit hoher Schulterbelastung und wenig Mehrwert gegenüber den vorhandenen Dips und HSPU."
+    },
+    {
+      "frage": "sehne der neuen Übungen",
+      "entscheidung": "Wall-Facing HSPU 2, Negative Dip 1, sonst 0.",
+      "folge": "Gleiche Logik wie HSPU-Familie bzw. Stütz."
+    }
+  ]
+}

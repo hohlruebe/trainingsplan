@@ -31,7 +31,12 @@ Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
   Übungen über alle Dateien eines Aufrufs; `felder_isolation` darf leer sein.
 - Mit Dennis: Kipping-Leiter Stufe „Chest-to-Bar“ → `g_kipping_c2b` (erledigt). `eq_laufband` als Alternative zu `eq_laufstrecke` bei `g_run`
   (kommt mit `neu_ausdauer`). Kein Nackentraining (keine neue Muskel-/Gelenk-ID).
-- Offen: die `neu_`-Dateien aller Muster (115 Übungen, 13 Geräte, 12 Familien), danach PR.
+- Alle `neu_`-Dateien eingebaut, ohne Fehler: 281 → 380 Übungen, 48 → 60 Familien, 13 neue Geräte (Score automatisch).
+  `ab_rang` in 13 Verweisen mitgezogen (z. B. f_planche setzt weiter Decline Push-up und Ring Dip voraus).
+  App: Muster-Name „Isolation“, Isolation/Mobility nicht im Skill-Baum, Ersatzübung im Kraftteil nur wdh/kg (vorher konnte z. B. eine Plank
+  mit „6–10 Wdh.“ kommen), `g_run` auch mit Laufband, 1RM-Normen für Sumo/Trap-Bar-Deadlift, Barbell Hip Thrust, Leg Press.
+- Offen: Grafiken für die neuen Übungen (Runden zu 20), Schmerzen-Funktion und Muskelausgleich bauen (Daten sind jetzt da),
+  RDL/Hip Thrust/Glute Bridge/Single-Leg RDL gelten als isoliert (nur Hüfte bewegt), Dennis fragen, ob Knie ergänzt werden soll.
 - 8. Oktober: `zug_vertikal` eingebaut (Teil 1 und 2, beide Pakete ohne Fehler). 24 Übungen mit neuen Feldern, 16 neue Übungen
   (265 → 281), Geräte `eq_kabelzug` und `eq_pegboard`. Neues Einbau-Programm `design/auftraege/einbauen_bibliothek.js`.
   f_pullup hat jetzt 11 Stufen; die Voraussetzung „f_pullup ab Rang 5“ (Weighted Pull-up) der sechs Folgefamilien steht jetzt auf Rang 7.

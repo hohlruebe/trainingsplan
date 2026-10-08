@@ -1,0 +1,329 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "handstand_skill",
+  "quelle": "Overcoming Gravity (Handstand und Press), CrossFit Movement Standards (Handstand-Varianten).",
+  "uebungen": [
+    {
+      "id": "g_box_pike_hold",
+      "name": "Box Pike Hold",
+      "muster": "handstand_skill",
+      "bereich": "skill",
+      "einheit": "sek",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_box",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Schulter, Trizeps, Überkopf-Position",
+      "schritte": [
+        "Leg die Füße auf eine Box oder ein Sofa und setz die Hände schulterbreit davor auf.",
+        "Lauf mit den Händen zurück, bis die Hüfte über den Schultern steht.",
+        "Drück dich aktiv vom Boden weg und halte die Position."
+      ],
+      "sauber": "Hüfte steht über den Schultern und die Arme sind gestreckt neben den Ohren.",
+      "fehler": "Hängende Schultern verlagern die Last in die Gelenke statt in die Muskeln.",
+      "skalierung": "Leichter: Niedrigere Box. Schwerer: Höhere Box oder Beine gestreckt.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hecht-Halten auf der Box",
+        "Pike Hold"
+      ]
+    },
+    {
+      "id": "g_parallette_handstand",
+      "name": "Parallette Handstand",
+      "muster": "handstand_skill",
+      "bereich": "skill",
+      "einheit": "sek",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_parallettes"
+        ]
+      ],
+      "nutzen": 84,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_handstand",
+          "stufe": "Face-to-Wall"
+        }
+      ],
+      "trainiert": "Schulter, Trizeps, Gleichgewicht",
+      "schritte": [
+        "Stell die Parallettes schulterbreit auf und greif die Holme.",
+        "Schwing oder lauf an einer Wand in den Handstand.",
+        "Halte die Position, die Balance kommt aus dem Griff."
+      ],
+      "sauber": "Der Körper bildet eine gerade Linie und die Handgelenke stehen neutral.",
+      "fehler": "Ein Hohlkreuz kippt dich nach vorn aus der Balance.",
+      "skalierung": "Leichter: Mit Füßen an der Wand. Schwerer: Frei ohne Wand.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handstand auf Parallettes",
+        "Handstand am Griff"
+      ]
+    },
+    {
+      "id": "g_handstand_shoulder_tap",
+      "name": "Wall Handstand Shoulder Tap",
+      "muster": "handstand_skill",
+      "bereich": "skill",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [],
+      "nutzen": 72,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_handstand",
+          "stufe": "Face-to-Wall"
+        }
+      ],
+      "trainiert": "Schulter, Rumpf, einarmige Stabilität",
+      "schritte": [
+        "Lauf mit dem Bauch zur Wand in den Handstand.",
+        "Verlager das Gewicht auf eine Hand und tipp mit der anderen die Schulter an.",
+        "Setz die Hand ab und wechsel die Seite."
+      ],
+      "sauber": "Der Körper bleibt gerade und die Hüfte schaukelt kaum.",
+      "fehler": "Ein Absinken der Schulter auf der Standseite belastet das Gelenk.",
+      "skalierung": "Leichter: Nur Gewicht verlagern ohne Abheben. Schwerer: Weiter weg von der Wand.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schultertippen im Handstand",
+        "Handstand Shoulder Taps"
+      ]
+    },
+    {
+      "id": "g_press_to_handstand",
+      "name": "Press to Handstand",
+      "muster": "handstand_skill",
+      "bereich": "skill",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 86,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_handstand",
+          "stufe": "Frei"
+        },
+        {
+          "leiter": "g_lsit",
+          "stufe": "L-Sit"
+        }
+      ],
+      "trainiert": "Schulter, Kompression, Kraft im Handstand",
+      "schritte": [
+        "Steh gegrätscht und setz die Hände vor den Füßen schulterbreit auf.",
+        "Verlager das Gewicht nach vorn auf die Hände, bis die Füße leicht werden.",
+        "Heb die gegrätschten Beine ohne Sprung bis in den Handstand.",
+        "Schließ die Beine und halte kurz."
+      ],
+      "sauber": "Die Füße heben ohne Absprung ab und die Arme bleiben gestreckt.",
+      "fehler": "Ein Abspringen nimmt den Schultern die eigentliche Kraftarbeit ab.",
+      "skalierung": "Leichter: Von einer Box starten oder nur das Absenken. Schwerer: Aus dem L-Sit drücken.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "hueftbeuger",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "oberer_ruecken",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handstand drücken",
+        "Straddle Press",
+        "Pressen in den Handstand"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_handstand",
+      "varianten": [
+        {
+          "uebung": "g_box_pike_hold",
+          "art": "stufe",
+          "nach": "g_crow",
+          "effekt": 60,
+          "ziel": "30 Sekunden mit Hüfte über den Schultern.",
+          "grund": "Erste Überkopf-Stützposition vor dem Handstand an der Wand."
+        },
+        {
+          "uebung": "g_parallette_handstand",
+          "art": "variante",
+          "effekt": 84,
+          "grund": "Handstand mit neutralem Handgelenk, Ausweichübung bei Handgelenkschmerzen."
+        },
+        {
+          "uebung": "g_handstand_shoulder_tap",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Einarmige Stabilität im Handstand, im CrossFit üblich."
+        },
+        {
+          "uebung": "g_press_to_handstand",
+          "art": "variante",
+          "effekt": 86,
+          "grund": "Kraftweg in den Handstand ohne Schwung."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 handstand_skill",
+      "entscheidung": "4 neue Übungen: Box Pike Hold, Parallette Handstand, Wall Handstand Shoulder Tap, Press to Handstand.",
+      "folge": "Alle in f_handstand."
+    },
+    {
+      "frage": "Parallette Handstand: eigene Übung?",
+      "entscheidung": "Ja, als Variante.",
+      "folge": "Das neutrale Handgelenk ist der Hauptgrund, so kann der Coach bei Handgelenkschmerzen tauschen."
+    },
+    {
+      "frage": "Press to Handstand: sehne 2?",
+      "entscheidung": "2.",
+      "folge": "Hohe Schulter- und Handgelenkslast über lange Zeit, ähnlich der Planche."
+    },
+    {
+      "frage": "Abgelehnt: Chest-to-Wall Handstand",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Ist Stufe „Face-to-Wall“ der Leiter g_handstand."
+    },
+    {
+      "frage": "Abgelehnt: One-Arm Handstand, Handstand Pirouette",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Elite-Skills, die Jahre an Übung mit Trainer brauchen."
+    },
+    {
+      "frage": "Abgelehnt: Tripod Headstand",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Belastet den Nacken, der in gelenke nicht abgebildet ist, und bringt keinen Vorteil gegenüber der Crow Pose."
+    }
+  ]
+}

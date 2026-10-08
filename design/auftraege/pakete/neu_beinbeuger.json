@@ -1,0 +1,265 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "beinbeuger",
+  "quelle": "Bourne et al. 2017 (Beinbeuger-Übungen), McAllister et al. 2014 (GHR vs. Leg Curl EMG), NSCA Essentials. Gerätepreis deutsche Händler, Stand 2026.",
+  "uebungen": [
+    {
+      "id": "g_glute_ham_raise",
+      "name": "Glute-Ham Raise",
+      "muster": "beinbeuger",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ghd"
+        ]
+      ],
+      "nutzen": 82,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_slider_curl",
+          "stufe": "Ring Leg Curl"
+        }
+      ],
+      "trainiert": "Beinbeuger, Gesäß",
+      "schritte": [
+        "Stell dich in den GHD, Knie knapp hinter dem Polster, Füße fest.",
+        "Starte mit aufrechtem Oberkörper und gestreckter Hüfte.",
+        "Senk den Oberkörper nach vorn, bis er waagerecht ist.",
+        "Zieh dich mit den Beinbeugern wieder in die aufrechte Position."
+      ],
+      "sauber": "Hüfte bleibt gestreckt und die Bewegung kommt aus dem Kniegelenk.",
+      "fehler": "Ein Abknicken in der Hüfte macht daraus eine Hüftstreckung.",
+      "skalierung": "Leichter: Mit Abstoßen der Hände am Boden. Schwerer: Langsamer absenken oder Scheibe vor der Brust.",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "waden",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "GHR",
+        "Glute Ham Raise am GHD"
+      ]
+    },
+    {
+      "id": "g_leg_curl_machine",
+      "name": "Leg Curl Machine",
+      "muster": "beinbeuger",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_beinbeuger_maschine"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Beinbeuger",
+      "schritte": [
+        "Stell die Maschine so ein, dass das Polster knapp über der Ferse liegt.",
+        "Halt dich an den Griffen fest, die Hüfte bleibt am Polster.",
+        "Zieh die Fersen Richtung Gesäß und lass sie kontrolliert zurück."
+      ],
+      "sauber": "Die Hüfte hebt sich nicht vom Polster ab.",
+      "fehler": "Ein Schwung aus der Hüfte nimmt den Beinbeugern die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder einbeinig.",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinbeuger-Maschine",
+        "Liegender Beinbeuger",
+        "Sitzender Beinbeuger"
+      ]
+    },
+    {
+      "id": "g_band_leg_curl",
+      "name": "Band Leg Curl",
+      "muster": "beinbeuger",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ],
+        [
+          "eq_rack",
+          "eq_sprossenwand",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 50,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Beinbeuger",
+      "schritte": [
+        "Befestig ein Band knapp über dem Boden an einem festen Punkt und leg es um eine Ferse.",
+        "Leg dich bäuchlings hin oder steh aufrecht, Knie nebeneinander.",
+        "Zieh die Ferse Richtung Gesäß und lass sie langsam zurück.",
+        "Wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Die Oberschenkel bleiben nebeneinander und nur das Knie beugt sich.",
+      "fehler": "Ein Mitziehen der Hüfte nimmt dem Beinbeuger die Arbeit ab.",
+      "skalierung": "Leichter: Leichteres Band. Schwerer: Stärkeres Band oder unten 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinbeugen mit Band",
+        "Band-Beinbeuger"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_leg_curl",
+      "varianten": [
+        {
+          "uebung": "g_glute_ham_raise",
+          "art": "stufe",
+          "nach": "g_ring_leg_curl",
+          "effekt": 82,
+          "ziel": "5 saubere Wiederholungen ohne Hilfe der Hände.",
+          "grund": "Liegt im Schwierigkeitsgrad zwischen Ring Leg Curl und Nordic Curl."
+        },
+        {
+          "uebung": "g_leg_curl_machine",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Beinbeuger mit kg-Last, messbar steigerbar."
+        },
+        {
+          "uebung": "g_band_leg_curl",
+          "art": "variante",
+          "effekt": 50,
+          "grund": "Leichte, einseitige Variante für zu Hause und zum Aufwärmen."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [
+    {
+      "id": "eq_beinbeuger_maschine",
+      "name": "Beinbeuger-Maschine (liegend oder sitzend)",
+      "preis": "ca. 400–2.000 €",
+      "platz": "ca. 1,6 × 0,8 m",
+      "warum": "Typisches Gym-Gerät, trainiert die Beinbeuger mit kg-Last."
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 beinbeuger",
+      "entscheidung": "3 neue Übungen: Glute-Ham Raise, Leg Curl Machine, Band Leg Curl.",
+      "folge": "Alle in f_leg_curl."
+    },
+    {
+      "frage": "Neues Gerät eq_beinbeuger_maschine?",
+      "entscheidung": "Aufgenommen, liegende und sitzende Maschine als ein Gerät.",
+      "folge": "Beide trainieren dasselbe, eine eigene Übung je Maschinenform wäre eine Dublette."
+    },
+    {
+      "frage": "Abgelehnt: Seated Leg Curl als eigene Übung",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Steckt in der Leg Curl Machine."
+    },
+    {
+      "frage": "Abgelehnt: Stability Ball Leg Curl, Hamstring Walkout, Razor Curl",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zum Slider Leg Curl bzw. Nordic Curl."
+    },
+    {
+      "frage": "Abgelehnt: Single-Leg Nordic Curl",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Extrem hohe Sehnenlast, für eine Coach-App ohne Trainer nicht sinnvoll."
+    },
+    {
+      "frage": "Glute-Ham Raise: sehne 1?",
+      "entscheidung": "1.",
+      "folge": "Hohe exzentrische Last für die Beinbeuger, aber geringer als beim Nordic Curl (2)."
+    }
+  ]
+}

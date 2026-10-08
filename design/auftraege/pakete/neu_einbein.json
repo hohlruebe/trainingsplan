@@ -1,0 +1,346 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "einbein",
+  "quelle": "Boyle (Skater Squat, Step-Down), Hyrox Rulebook (Sandbag Lunges), CrossFit Movement Standards (Overhead Lunge), Escamilla et al. 2008.",
+  "uebungen": [
+    {
+      "id": "g_lateral_step_down",
+      "name": "Lateral Step-Down",
+      "muster": "einbein",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_box",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 55,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Oberschenkel, Gesäß, Kniekontrolle",
+      "schritte": [
+        "Stell dich seitlich auf eine Stufe, ein Fuß hängt frei daneben.",
+        "Beug das Standbein langsam, bis die Ferse des freien Fußes den Boden antippt.",
+        "Streck das Standbein wieder, ohne dich abzustoßen.",
+        "Wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Das Knie des Standbeins bleibt über dem zweiten Zeh und das Becken bleibt waagerecht.",
+      "fehler": "Ein nach innen knickendes Knie belastet die Knieinnenseite.",
+      "skalierung": "Leichter: Niedrigere Stufe. Schwerer: Höhere Stufe oder langsamer absenken.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "abduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitliches Absteigen",
+        "Step-Down"
+      ]
+    },
+    {
+      "id": "g_skater_squat",
+      "name": "Skater Squat",
+      "muster": "einbein",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 82,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_bss",
+          "stufe": "Normal"
+        }
+      ],
+      "trainiert": "Oberschenkel, Gesäß, Gleichgewicht",
+      "schritte": [
+        "Steh auf einem Bein, das andere Knie nach hinten gebeugt.",
+        "Senk dich ab, bis das hintere Knie knapp den Boden berührt.",
+        "Neig den Oberkörper leicht vor und streck die Arme nach vorn.",
+        "Steh auf und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Das hintere Knie setzt nur leicht auf und du stehst ohne Schwung auf.",
+      "fehler": "Ein Fallenlassen auf das hintere Knie nimmt dem Standbein die Arbeit.",
+      "skalierung": "Leichter: Kissen unter das hintere Knie oder kürzerer Weg. Schwerer: Hanteln in den Händen.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 3,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Eisläufer-Kniebeuge",
+        "Skater-Kniebeuge"
+      ]
+    },
+    {
+      "id": "g_sandbag_lunge",
+      "name": "Sandbag Lunge",
+      "muster": "einbein",
+      "bereich": "beine",
+      "einheit": "meter",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_sandsack"
+        ]
+      ],
+      "nutzen": 74,
+      "level": 2,
+      "voraussetzung": [
+        {
+          "leiter": "g_lunge",
+          "stufe": "Normal"
+        }
+      ],
+      "trainiert": "Oberschenkel, Gesäß, Rumpf, Ausdauer",
+      "schritte": [
+        "Nimm den Sandsack auf die Schultern hinter den Nacken.",
+        "Mach einen großen Schritt nach vorn und senk das hintere Knie bis knapp über den Boden.",
+        "Steh auf und mach den nächsten Schritt mit dem anderen Bein."
+      ],
+      "sauber": "Das hintere Knie berührt fast den Boden und der Oberkörper bleibt aufrecht.",
+      "fehler": "Zu kurze Schritte belasten das vordere Knie stark.",
+      "skalierung": "Leichter: Leichterer Sack oder Walking Lunge ohne Last. Schwerer: Schwererer Sack oder längere Strecke.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "oberer_ruecken",
+          "bauch_gerade",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Sandsack-Ausfallschritte",
+        "Hyrox Lunges"
+      ]
+    },
+    {
+      "id": "g_overhead_lunge",
+      "name": "Overhead Walking Lunge",
+      "muster": "einbein",
+      "bereich": "beine",
+      "einheit": "meter",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell",
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_lunge",
+          "stufe": "Normal"
+        }
+      ],
+      "trainiert": "Oberschenkel, Gesäß, Schulterstabilität",
+      "schritte": [
+        "Halt eine Hantelscheibe, Kurzhantel oder Kettlebell mit gestreckten Armen über dem Kopf.",
+        "Mach einen großen Schritt nach vorn und senk das hintere Knie fast bis zum Boden.",
+        "Steh auf und geh in den nächsten Schritt, das Gewicht bleibt über dem Kopf."
+      ],
+      "sauber": "Die Arme bleiben gestreckt und das Gewicht bleibt senkrecht über den Schultern.",
+      "fehler": "Ein Hohlkreuz zum Ausgleich verlagert die Last in den unteren Rücken.",
+      "skalierung": "Leichter: Leichteres Gewicht oder Walking Lunge. Schwerer: Schwereres Gewicht oder einarmig.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bauch_gerade",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ausfallschritte über Kopf",
+        "OH Lunges"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_pistol",
+      "varianten": [
+        {
+          "uebung": "g_lateral_step_down",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 55,
+          "ziel": "3 Sätze mit 10 kontrollierten Wiederholungen je Seite.",
+          "grund": "Lernt die einbeinige Kniekontrolle vor dem Box Pistol Squat."
+        },
+        {
+          "uebung": "g_skater_squat",
+          "art": "variante",
+          "effekt": 82,
+          "grund": "Einbeinige Kniebeuge ohne freies Bein vorn, braucht weniger Hüftbeugung und Sprunggelenk-Beweglichkeit als die Pistol."
+        }
+      ]
+    },
+    {
+      "familie": "f_split_squat",
+      "varianten": [
+        {
+          "uebung": "g_sandbag_lunge",
+          "art": "variante",
+          "effekt": 74,
+          "grund": "Feste Hyrox-Station mit Last auf den Schultern."
+        },
+        {
+          "uebung": "g_overhead_lunge",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Ausfallschritt mit Überkopf-Stabilität, im CrossFit üblich."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 einbein",
+      "entscheidung": "4 neue Übungen: Lateral Step-Down, Skater Squat, Sandbag Lunge, Overhead Walking Lunge.",
+      "folge": "Alle in bestehenden Familien, keine neuen Geräte."
+    },
+    {
+      "frage": "Einheit bei Sandbag Lunge und Overhead Walking Lunge",
+      "entscheidung": "meter.",
+      "folge": "Beide werden auf Strecke gemacht. Damit gilt rx nicht (nur bei Einheit kg)."
+    },
+    {
+      "frage": "Abgelehnt: Dumbbell Lunge, Weighted Step-up, Weighted BSS, Weighted Pistol",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Gleiche Bewegung mit Zusatzlast. Bei Leitern ist das die Stufe „Weste“."
+    },
+    {
+      "frage": "Abgelehnt: Front Rack Lunge, Lateral Lunge, Curtsy Lunge, Deficit Reverse Lunge",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Sandbag Lunge, Cossack Squat bzw. Reverse Lunge ohne eigenen belegten Effekt."
+    },
+    {
+      "frage": "Abgelehnt: Single-Leg Box Squat, Dragon Pistol",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Gleich dem Box Pistol Squat bzw. Nischen-Skill."
+    },
+    {
+      "frage": "sehne der neuen Übungen",
+      "entscheidung": "Skater Squat 1, sonst 0.",
+      "folge": "Ähnliche Kniebelastung wie die Pistol."
+    }
+  ]
+}

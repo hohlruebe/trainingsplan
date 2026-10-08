@@ -1,0 +1,416 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "sprung",
+  "quelle": "NSCA Essentials (Plyometrie, Depth Jumps), Chmielewski et al. 2006 (Plyometrie-Progression), CrossFit Movement Standards (Springseil).",
+  "uebungen": [
+    {
+      "id": "g_snap_down",
+      "name": "Snap Down",
+      "muster": "sprung",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 45,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Landetechnik, Oberschenkel, Gesäß",
+      "schritte": [
+        "Stell dich auf die Zehenspitzen und streck die Arme über den Kopf.",
+        "Zieh die Arme schnell nach hinten und fall in eine halbe Hocke.",
+        "Lande leise auf dem ganzen Fuß und halte die Position kurz."
+      ],
+      "sauber": "Die Knie zeigen über die Zehen und die Landung ist leise.",
+      "fehler": "Nach innen knickende Knie bei der Landung belasten das Kniegelenk.",
+      "skalierung": "Leichter: Langsamer in die Hocke gehen. Schwerer: Aus einem kleinen Hüpfer landen.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Landeübung",
+        "Snap-Downs"
+      ]
+    },
+    {
+      "id": "g_depth_jump",
+      "name": "Depth Jump",
+      "muster": "sprung",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_box",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_box_jump",
+          "stufe": "Box Jump"
+        }
+      ],
+      "trainiert": "Reaktivkraft, Oberschenkel, Waden",
+      "schritte": [
+        "Stell dich auf eine Box von 30 bis 45 Zentimetern.",
+        "Steig mit einem Fuß nach vorn ab und lande beidbeinig.",
+        "Spring sofort nach der Landung so hoch wie möglich ab."
+      ],
+      "sauber": "Der Bodenkontakt ist kurz und die Knie knicken nicht nach innen.",
+      "fehler": "Eine zu hohe Box macht den Bodenkontakt lang und nimmt den Reaktivreiz.",
+      "skalierung": "Leichter: Niedrigere Box oder nur landen. Schwerer: Höhere Box oder auf eine zweite Box springen.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 3,
+        "fuss": 3
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Niedersprung",
+        "Tiefsprung",
+        "Drop Jump"
+      ]
+    },
+    {
+      "id": "g_single_leg_hop",
+      "name": "Single-Leg Hop",
+      "muster": "sprung",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [],
+      "nutzen": 70,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_broad_jump",
+          "stufe": "Broad Jump"
+        }
+      ],
+      "trainiert": "Einbeinige Sprungkraft, Kniestabilität",
+      "schritte": [
+        "Steh auf einem Bein.",
+        "Spring einbeinig so weit wie möglich nach vorn.",
+        "Lande auf demselben Bein und halte die Landung 2 Sekunden.",
+        "Wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Du landest stabil, ohne dass das Knie nach innen knickt.",
+      "fehler": "Ein Nachhüpfen bei der Landung zeigt fehlende Kontrolle.",
+      "skalierung": "Leichter: Kürzere Sprünge. Schwerer: Mehrere Sprünge hintereinander.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "abduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 3,
+        "fuss": 3
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Einbeiniger Sprung",
+        "Einbeiniger Weitsprung",
+        "Hopserlauf einbeinig"
+      ]
+    },
+    {
+      "id": "g_triple_under",
+      "name": "Triple-Under",
+      "muster": "sprung",
+      "bereich": "ausdauer",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_springseil"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_double_under",
+          "stufe": "Double-Under"
+        }
+      ],
+      "trainiert": "Waden, Koordination, Ausdauer",
+      "schritte": [
+        "Spring höher als beim Double-Under, Körper gerade.",
+        "Dreh das Seil mit sehr schnellen Handgelenken dreimal unter den Füßen durch.",
+        "Lande weich auf den Fußballen."
+      ],
+      "sauber": "Der Körper bleibt in der Luft gerade, die Kraft kommt aus den Handgelenken.",
+      "fehler": "Ein Anwinkeln der Beine statt höher zu springen führt zu Hängenbleiben.",
+      "skalierung": "Leichter: Double-Under. Schwerer: Mehrere Triple-Under hintereinander.",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "quadrizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 3
+      },
+      "bewegt": [
+        "handgelenk",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Dreifachsprung Seil",
+        "Triple Unders"
+      ]
+    },
+    {
+      "id": "g_bounding",
+      "name": "Bounding",
+      "muster": "sprung",
+      "bereich": "beine",
+      "einheit": "meter",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_laufstrecke"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_broad_jump",
+          "stufe": "Broad Jump"
+        }
+      ],
+      "trainiert": "Gesäß, Oberschenkel, Laufkraft",
+      "schritte": [
+        "Lauf locker an.",
+        "Spring im Wechsel von einem Bein weit nach vorn auf das andere.",
+        "Zieh das Knie des Schwungbeins hoch und schwing die Arme gegengleich mit."
+      ],
+      "sauber": "Jeder Sprung geht weit nach vorn und die Landung ist aktiv auf dem Vorfuß.",
+      "fehler": "Kurze, hohe Sprünge machen daraus ein Hüpfen ohne Vortrieb.",
+      "skalierung": "Leichter: Kürzere Sprünge oder Hopserlauf. Schwerer: Längere Strecke oder bergauf.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 3
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Sprunglauf",
+        "Weitsprunglauf"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_jump",
+      "varianten": [
+        {
+          "uebung": "g_snap_down",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 45,
+          "ziel": "10 leise Landungen mit stabilen Knien.",
+          "grund": "Lernt das sichere Landen vor dem ersten Squat Jump."
+        },
+        {
+          "uebung": "g_single_leg_hop",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Einbeiniger Sprung für Seitenvergleich und Laufsport."
+        },
+        {
+          "uebung": "g_bounding",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Sprung im Wechsel nach vorn, direkt übertragbar auf Laufen und Hindernislauf."
+        }
+      ]
+    },
+    {
+      "familie": "f_box_jump",
+      "varianten": [
+        {
+          "uebung": "g_depth_jump",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Reaktivsprung mit kurzem Bodenkontakt, ein anderer Reiz als der Sprung auf die Box."
+        }
+      ]
+    },
+    {
+      "familie": "f_jump_rope",
+      "varianten": [
+        {
+          "uebung": "g_triple_under",
+          "art": "stufe",
+          "nach": "g_double_under",
+          "effekt": 70,
+          "ziel": "10 Triple-Under am Stück.",
+          "grund": "Nächste Stufe nach dem Double-Under."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 sprung",
+      "entscheidung": "5 neue Übungen: Snap Down, Depth Jump, Single-Leg Hop, Triple-Under, Bounding.",
+      "folge": "Alle in bestehenden Familien, keine neuen Geräte."
+    },
+    {
+      "frage": "Depth Jump: sehne 2?",
+      "entscheidung": "2.",
+      "folge": "Sehr hohe exzentrische Last für Patellasehne und Achillessehne, wie der Nordic Curl als Beispiel für 2."
+    },
+    {
+      "frage": "Abgelehnt: Lateral Box Jump, Seated Box Jump, Star Jump, Frog Jump, Weighted Jump Squat",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Box Jump, Tuck Jump, Broad Jump bzw. Squat Jump."
+    },
+    {
+      "frage": "Abgelehnt: Lateral Line Hop, Hurdle Hop",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dublette zu Pogo und Skater bzw. braucht Hürden für denselben Reiz."
+    },
+    {
+      "frage": "Abgelehnt: Kneeling Jump, Crossover Single-Under",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Nischen ohne eigenen Trainingswert für eine Coach-App."
+    }
+  ]
+}

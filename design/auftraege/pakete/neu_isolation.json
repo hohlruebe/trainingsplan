@@ -1,0 +1,1576 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "isolation",
+  "quelle": "Schoenfeld (Hypertrophie durch eingelenkige Übungen), NSCA Essentials, Contreras (Hüftabduktion), Alfredson-Protokoll (Wadenheben). Gerätepreis deutsche Händler, Stand 2026.",
+  "uebungen": [
+    {
+      "id": "g_band_curl",
+      "name": "Band Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ]
+      ],
+      "nutzen": 45,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Bizeps",
+      "schritte": [
+        "Stell dich mit beiden Füßen auf die Mitte eines Bandes und greif die Enden.",
+        "Die Ellbogen bleiben seitlich am Körper.",
+        "Beug die Arme, bis die Hände auf Schulterhöhe sind, und senk sie langsam ab."
+      ],
+      "sauber": "Die Ellbogen bleiben am Körper und der Oberkörper schwingt nicht.",
+      "fehler": "Ein Schwung aus dem Rücken nimmt dem Bizeps die Arbeit ab.",
+      "skalierung": "Leichter: Leichteres Band. Schwerer: Stärkeres Band oder Biceps Curl mit Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "bizeps"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bizepscurl mit Band",
+        "Band-Curls"
+      ]
+    },
+    {
+      "id": "g_biceps_curl",
+      "name": "Biceps Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell",
+          "eq_langhantel",
+          "eq_kabelzug"
+        ]
+      ],
+      "nutzen": 58,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Bizeps",
+      "schritte": [
+        "Steh aufrecht, Hanteln oder Stange im Untergriff, Arme gestreckt.",
+        "Beug die Arme, die Ellbogen bleiben seitlich am Körper.",
+        "Senk das Gewicht kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Nur die Unterarme bewegen sich, Oberarme und Oberkörper bleiben still.",
+      "fehler": "Ein Vorschieben der Ellbogen lässt die Schulter mitarbeiten.",
+      "skalierung": "Leichter: Weniger Gewicht oder Band Curl. Schwerer: Mehr Gewicht oder 3 Sekunden absenken.",
+      "muskeln": {
+        "primaer": [
+          "bizeps"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bizepscurl",
+        "Kurzhantel-Curl",
+        "Langhantel-Curl",
+        "Kabel-Curl"
+      ]
+    },
+    {
+      "id": "g_hammer_curl",
+      "name": "Hammer Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 56,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Bizeps, Oberarmspeichenmuskel, Griff",
+      "schritte": [
+        "Steh aufrecht, je eine Kurzhantel mit den Daumen nach vorn.",
+        "Beug die Arme im Neutralgriff, die Ellbogen bleiben am Körper.",
+        "Senk die Hanteln kontrolliert ab."
+      ],
+      "sauber": "Die Daumen zeigen während der ganzen Bewegung nach oben.",
+      "fehler": "Ein Eindrehen der Hände macht daraus einen normalen Curl.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "bizeps",
+          "unterarm"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hammercurl",
+        "Hammer-Curls"
+      ]
+    },
+    {
+      "id": "g_ring_curl",
+      "name": "Ring Biceps Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Bizeps, Rumpfspannung",
+      "schritte": [
+        "Greif die Ringe im Untergriff und lehn dich mit gestrecktem Körper nach hinten.",
+        "Die Oberarme zeigen nach vorn und bleiben ruhig.",
+        "Beug die Arme, bis die Hände neben der Stirn sind, und streck sie langsam zurück."
+      ],
+      "sauber": "Der Körper bleibt gerade und nur die Ellbogen beugen sich.",
+      "fehler": "Ein Mitziehen mit den Schultern macht daraus ein Rudern.",
+      "skalierung": "Leichter: Aufrechter stehen. Schwerer: Füße weiter nach vorn.",
+      "muskeln": {
+        "primaer": [
+          "bizeps"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bizepscurl an Ringen",
+        "Körpergewicht-Curl"
+      ]
+    },
+    {
+      "id": "g_triceps_pushdown",
+      "name": "Triceps Pushdown",
+      "muster": "isolation",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug",
+          "eq_band"
+        ]
+      ],
+      "nutzen": 50,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Trizeps",
+      "schritte": [
+        "Stell dich vor den hohen Kabelzug oder ein hoch befestigtes Band.",
+        "Ellbogen seitlich am Körper, Unterarme waagerecht.",
+        "Drück den Griff nach unten, bis die Arme gestreckt sind, und lass ihn kontrolliert zurück."
+      ],
+      "sauber": "Die Ellbogen bleiben fest am Körper.",
+      "fehler": "Ein Mitdrücken mit dem Oberkörper nimmt dem Trizeps die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht oder leichteres Band. Schwerer: Mehr Gewicht oder einarmig.",
+      "muskeln": {
+        "primaer": [
+          "trizeps"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Trizepsdrücken",
+        "Trizeps am Kabel",
+        "Pushdowns"
+      ]
+    },
+    {
+      "id": "g_overhead_triceps_extension",
+      "name": "Overhead Triceps Extension",
+      "muster": "isolation",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 56,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Trizeps, langer Kopf",
+      "schritte": [
+        "Halt eine Kurzhantel mit beiden Händen gestreckt über dem Kopf.",
+        "Senk sie hinter den Kopf, die Ellbogen zeigen nach oben.",
+        "Streck die Arme wieder, ohne die Ellbogen zu öffnen."
+      ],
+      "sauber": "Die Oberarme bleiben neben dem Kopf und der Rücken bleibt gerade.",
+      "fehler": "Ein Hohlkreuz verlagert die Last in den unteren Rücken.",
+      "skalierung": "Leichter: Weniger Gewicht oder im Sitzen. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "trizeps"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Trizepsdrücken über Kopf",
+        "French Press mit Kurzhantel",
+        "Überkopf-Trizeps"
+      ]
+    },
+    {
+      "id": "g_skull_crusher",
+      "name": "Skull Crusher",
+      "muster": "isolation",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel",
+          "eq_kurzhanteln"
+        ],
+        [
+          "eq_bank"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Trizeps",
+      "schritte": [
+        "Leg dich mit der Stange oder den Hanteln über der Brust auf die Bank.",
+        "Beug nur die Ellbogen und senk das Gewicht zur Stirn.",
+        "Streck die Arme zurück, die Oberarme bleiben senkrecht."
+      ],
+      "sauber": "Die Oberarme bewegen sich nicht und die Ellbogen zeigen zur Decke.",
+      "fehler": "Zu schweres Gewicht zwingt die Ellbogen nach außen und belastet sie stark.",
+      "skalierung": "Leichter: Weniger Gewicht oder Kurzhanteln. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "trizeps"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Stirndrücken",
+        "Liegendes Trizepsdrücken",
+        "French Press liegend"
+      ]
+    },
+    {
+      "id": "g_ring_triceps_extension",
+      "name": "Ring Triceps Extension",
+      "muster": "isolation",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_push",
+          "stufe": "Boden"
+        }
+      ],
+      "trainiert": "Trizeps, Rumpfspannung",
+      "schritte": [
+        "Greif die Ringe oder eine tiefe Stange und lehn dich mit gestrecktem Körper nach vorn.",
+        "Beug nur die Ellbogen, bis die Hände über der Stirn sind.",
+        "Streck die Arme und drück dich zurück in die Ausgangsposition."
+      ],
+      "sauber": "Der Körper bleibt gerade und die Oberarme bewegen sich kaum.",
+      "fehler": "Ein Absinken der Hüfte verkürzt den Hebel und den Reiz.",
+      "skalierung": "Leichter: Aufrechter stehen. Schwerer: Füße weiter nach hinten.",
+      "muskeln": {
+        "primaer": [
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 3,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Trizeps-Strecken an Ringen",
+        "Körpergewicht-Trizeps"
+      ]
+    },
+    {
+      "id": "g_band_lateral_raise",
+      "name": "Band Lateral Raise",
+      "muster": "isolation",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ]
+      ],
+      "nutzen": 42,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Seitliche Schulter",
+      "schritte": [
+        "Stell dich auf ein Band und greif die Enden seitlich neben den Oberschenkeln.",
+        "Heb die fast gestreckten Arme seitlich bis Schulterhöhe.",
+        "Senk sie langsam ab."
+      ],
+      "sauber": "Die Arme kommen bis Schulterhöhe und die Schultern ziehen nicht zu den Ohren.",
+      "fehler": "Ein Hochziehen der Schultern lässt den Trapez die Arbeit machen.",
+      "skalierung": "Leichter: Leichteres Band. Schwerer: Stärkeres Band oder Lateral Raise mit Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitheben mit Band",
+        "Band-Seitheben"
+      ]
+    },
+    {
+      "id": "g_lateral_raise",
+      "name": "Lateral Raise",
+      "muster": "isolation",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kabelzug"
+        ]
+      ],
+      "nutzen": 56,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Seitliche Schulter",
+      "schritte": [
+        "Steh aufrecht, je eine Kurzhantel seitlich neben dem Körper.",
+        "Heb die leicht gebeugten Arme seitlich bis Schulterhöhe.",
+        "Senk sie langsam ab."
+      ],
+      "sauber": "Die Ellbogen führen und bleiben leicht gebeugt.",
+      "fehler": "Ein Schwung aus dem Oberkörper macht die Übung leichter, aber wirkungslos.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder oben 1 Sekunde halten.",
+      "muskeln": {
+        "primaer": [
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitheben",
+        "Kurzhantel-Seitheben",
+        "Seitheben am Kabel"
+      ]
+    },
+    {
+      "id": "g_calf_raise",
+      "name": "Calf Raise",
+      "muster": "isolation",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [],
+      "nutzen": 45,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Waden",
+      "schritte": [
+        "Stell dich hüftbreit hin, gern mit den Fußballen auf einer Stufe.",
+        "Drück dich auf die Zehenspitzen so hoch wie möglich.",
+        "Senk die Fersen langsam ab, auf der Stufe bis unter Stufenhöhe."
+      ],
+      "sauber": "Oben stehst du ganz auf den Fußballen, unten sind die Waden gedehnt.",
+      "fehler": "Ein Wippen ohne volle Bewegung nimmt den Großteil des Reizes.",
+      "skalierung": "Leichter: Mit Halt an der Wand. Schwerer: Auf einer Stufe oder einbeinig.",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 1
+      },
+      "bewegt": [
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Wadenheben",
+        "Zehenstand",
+        "Wadenheben stehend"
+      ]
+    },
+    {
+      "id": "g_single_leg_calf_raise",
+      "name": "Single-Leg Calf Raise",
+      "muster": "isolation",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_zuhause",
+          "eq_box"
+        ]
+      ],
+      "nutzen": 58,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Waden, Achillessehne",
+      "schritte": [
+        "Stell dich mit dem Fußballen eines Fußes auf eine Stufe und halt dich leicht fest.",
+        "Drück dich auf die Zehenspitze so hoch wie möglich.",
+        "Senk die Ferse langsam unter Stufenhöhe ab.",
+        "Wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Volle Bewegung von ganz unten bis ganz oben ohne Wippen.",
+      "fehler": "Ein Abknicken nach außen belastet das Sprunggelenk seitlich.",
+      "skalierung": "Leichter: Calf Raise beidbeinig. Schwerer: Hantel in der Hand.",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 2
+      },
+      "bewegt": [
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einbeiniges Wadenheben"
+      ]
+    },
+    {
+      "id": "g_seated_calf_raise",
+      "name": "Seated Calf Raise",
+      "muster": "isolation",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell",
+          "eq_langhantel"
+        ],
+        [
+          "eq_bank",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 50,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Tiefe Wadenmuskulatur",
+      "schritte": [
+        "Setz dich auf eine Bank, Fußballen auf einer Erhöhung, Gewicht auf den Knien.",
+        "Heb die Fersen so hoch wie möglich.",
+        "Senk sie langsam ab."
+      ],
+      "sauber": "Die Knie bleiben 90 Grad gebeugt und die Bewegung ist vollständig.",
+      "fehler": "Ein Abstoßen mit den Händen nimmt den Waden die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder oben 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Wadenheben sitzend",
+        "Sitzendes Wadenheben"
+      ]
+    },
+    {
+      "id": "g_wrist_curl",
+      "name": "Wrist Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 40,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Unterarmbeuger, Griff",
+      "schritte": [
+        "Setz dich und leg die Unterarme auf die Oberschenkel, Handflächen nach oben.",
+        "Lass die Hantel bis in die Finger abrollen.",
+        "Roll sie zurück und beug das Handgelenk so weit wie möglich."
+      ],
+      "sauber": "Nur das Handgelenk bewegt sich, die Unterarme bleiben liegen.",
+      "fehler": "Zu viel Gewicht verkürzt die Bewegung auf ein Zucken.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "handgelenk"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Unterarmcurl",
+        "Handgelenkbeugen"
+      ]
+    },
+    {
+      "id": "g_reverse_wrist_curl",
+      "name": "Reverse Wrist Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 38,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Unterarmstrecker",
+      "schritte": [
+        "Setz dich und leg die Unterarme auf die Oberschenkel, Handrücken nach oben.",
+        "Senk die Hantel durch Beugen des Handgelenks ab.",
+        "Heb sie durch Strecken des Handgelenks so weit wie möglich."
+      ],
+      "sauber": "Nur das Handgelenk bewegt sich und die Bewegung ist langsam.",
+      "fehler": "Zu viel Gewicht überlastet die Sehnen am äußeren Ellbogen.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "handgelenk"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Umgekehrter Unterarmcurl",
+        "Handgelenkstrecken"
+      ]
+    },
+    {
+      "id": "g_shrug",
+      "name": "Shrug",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_langhantel",
+          "eq_kettlebell",
+          "eq_trapbar"
+        ]
+      ],
+      "nutzen": 50,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Oberer Trapez",
+      "schritte": [
+        "Steh aufrecht mit je einer Hantel neben dem Körper oder einer Stange vor den Oberschenkeln.",
+        "Zieh die Schultern gerade nach oben zu den Ohren.",
+        "Halte kurz und senk sie langsam ab."
+      ],
+      "sauber": "Die Schultern gehen gerade nach oben, die Arme bleiben gestreckt.",
+      "fehler": "Ein Kreisen der Schultern belastet das Gelenk ohne Mehrwert.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder oben 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schulterheben",
+        "Shrugs",
+        "Nackenheben"
+      ]
+    },
+    {
+      "id": "g_leg_extension",
+      "name": "Leg Extension",
+      "muster": "isolation",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_beinstrecker"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Vorderer Oberschenkel",
+      "schritte": [
+        "Setz dich in den Beinstrecker, das Polster vor den Sprunggelenken.",
+        "Streck die Beine, bis die Knie fast gerade sind.",
+        "Senk das Gewicht kontrolliert ab."
+      ],
+      "sauber": "Das Gesäß bleibt auf dem Sitz und die Bewegung ist gleichmäßig.",
+      "fehler": "Ein Schwung aus der Hüfte nimmt dem Oberschenkel die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder einbeinig.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 2,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinstrecker",
+        "Beinstrecken"
+      ]
+    },
+    {
+      "id": "g_reverse_nordic",
+      "name": "Reverse Nordic",
+      "muster": "isolation",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 66,
+      "level": 3,
+      "voraussetzung": [],
+      "trainiert": "Vorderer Oberschenkel",
+      "schritte": [
+        "Knie dich auf eine weiche Unterlage, Oberkörper aufrecht, Hüfte gestreckt.",
+        "Lehn dich mit geradem Körper langsam nach hinten.",
+        "Geh so weit, wie du kontrolliert zurückkommst, und richte dich wieder auf."
+      ],
+      "sauber": "Knie, Hüfte und Schultern bilden eine Linie.",
+      "fehler": "Ein Abknicken in der Hüfte nimmt dem Oberschenkel den Hebel.",
+      "skalierung": "Leichter: Kürzerer Weg. Schwerer: Weiter nach hinten oder Arme über dem Kopf.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 3,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Umgekehrter Nordic",
+        "Reverse Nordic Curl"
+      ]
+    },
+    {
+      "id": "g_clamshell",
+      "name": "Clamshell",
+      "muster": "isolation",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [],
+      "nutzen": 40,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Seitliches Gesäß",
+      "schritte": [
+        "Leg dich auf die Seite, Knie gebeugt, Füße aufeinander.",
+        "Öffne das obere Knie wie eine Muschel, die Füße bleiben zusammen.",
+        "Schließ es langsam und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Das Becken bleibt senkrecht und kippt nicht nach hinten.",
+      "fehler": "Ein Mitdrehen des Beckens nimmt dem Gesäß die Arbeit ab.",
+      "skalierung": "Leichter: Kleinere Bewegung. Schwerer: Band um die Knie.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "abduktoren"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Muschel",
+        "Clamshells"
+      ]
+    },
+    {
+      "id": "g_lateral_band_walk",
+      "name": "Lateral Band Walk",
+      "muster": "isolation",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ]
+      ],
+      "nutzen": 45,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Seitliches Gesäß, Hüftstabilität",
+      "schritte": [
+        "Leg ein Band oberhalb der Knie oder um die Fußgelenke.",
+        "Geh in eine leichte halbe Hocke.",
+        "Mach kleine Schritte zur Seite, ohne dass das Band locker wird.",
+        "Geh dieselbe Zahl Schritte zurück."
+      ],
+      "sauber": "Die Knie zeigen nach vorn und das Band bleibt gespannt.",
+      "fehler": "Ein Nachziehen mit einknickenden Knien belastet die Knieinnenseite.",
+      "skalierung": "Leichter: Band über den Knien. Schwerer: Band um die Fußgelenke oder stärkeres Band.",
+      "muskeln": {
+        "primaer": [
+          "abduktoren",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitwärtsgehen mit Band",
+        "Monster Walk seitlich"
+      ]
+    },
+    {
+      "id": "g_band_external_rotation",
+      "name": "Band External Rotation",
+      "muster": "isolation",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ]
+      ],
+      "nutzen": 45,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Hintere Schulter, Rotatorenmanschette",
+      "schritte": [
+        "Befestig ein Band auf Ellbogenhöhe und stell dich seitlich dazu.",
+        "Halt den Griff mit der äußeren Hand, Ellbogen 90 Grad gebeugt am Körper.",
+        "Dreh den Unterarm nach außen, ohne den Ellbogen vom Körper zu lösen.",
+        "Lass ihn langsam zurück und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Der Ellbogen bleibt am Körper und nur der Unterarm dreht.",
+      "fehler": "Ein Abspreizen des Ellbogens lässt andere Muskeln mitarbeiten.",
+      "skalierung": "Leichter: Leichteres Band. Schwerer: Stärkeres Band oder Handtuch unter dem Arm.",
+      "muskeln": {
+        "primaer": [
+          "schulter_hinten"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Außenrotation mit Band",
+        "Schulter-Außenrotation"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [],
+  "familien_neu": [
+    {
+      "id": "f_biceps_curl",
+      "name": "Biceps Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert den Bizeps gezielt über die Beugung im Ellbogen.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_band_curl",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 45,
+          "ziel": "3 Sätze mit 15 sauberen Wiederholungen mit mittlerem Band.",
+          "grund": "Einstieg ohne Gewichte, auch zu Hause."
+        },
+        {
+          "uebung": "g_biceps_curl",
+          "art": "stufe",
+          "rang": 2,
+          "effekt": 58,
+          "ziel": "10 saubere Wiederholungen mit je 15 % des Körpergewichts pro Hand.",
+          "grund": "Messbar steigerbar in kg."
+        },
+        {
+          "uebung": "g_hammer_curl",
+          "art": "variante",
+          "rang": null,
+          "effekt": 56,
+          "grund": "Neutralgriff trainiert zusätzlich den Oberarmspeichenmuskel und den Griff."
+        },
+        {
+          "uebung": "g_ring_curl",
+          "art": "variante",
+          "rang": null,
+          "effekt": 60,
+          "grund": "Curl mit dem eigenen Körpergewicht an den Ringen, ohne Hanteln."
+        }
+      ]
+    },
+    {
+      "id": "f_triceps_extension",
+      "name": "Triceps Extension",
+      "muster": "isolation",
+      "bereich": "druck",
+      "ebene": 1,
+      "kurz": "Trainiert den Trizeps gezielt über die Streckung im Ellbogen.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_triceps_pushdown",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 50,
+          "ziel": "3 Sätze mit 15 sauberen Wiederholungen.",
+          "grund": "Leichteste Form mit festen Oberarmen."
+        },
+        {
+          "uebung": "g_overhead_triceps_extension",
+          "art": "stufe",
+          "rang": 2,
+          "effekt": 56,
+          "ziel": "10 saubere Wiederholungen mit 15 % des Körpergewichts.",
+          "grund": "Dehnt den langen Trizepskopf über Kopf."
+        },
+        {
+          "uebung": "g_skull_crusher",
+          "art": "stufe",
+          "rang": 3,
+          "effekt": 60,
+          "ziel": "10 saubere Wiederholungen mit 25 % des Körpergewichts.",
+          "grund": "Höchste Last für den Trizeps im Liegen."
+        },
+        {
+          "uebung": "g_ring_triceps_extension",
+          "art": "variante",
+          "rang": null,
+          "effekt": 66,
+          "grund": "Trizeps mit dem eigenen Körpergewicht, ohne Hanteln."
+        }
+      ]
+    },
+    {
+      "id": "f_lateral_raise",
+      "name": "Lateral Raise",
+      "muster": "isolation",
+      "bereich": "druck",
+      "ebene": 1,
+      "kurz": "Trainiert die seitliche Schulter, die bei Druckübungen wenig gefordert wird.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_band_lateral_raise",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 42,
+          "ziel": "3 Sätze mit 15 sauberen Wiederholungen.",
+          "grund": "Einstieg ohne Gewichte."
+        },
+        {
+          "uebung": "g_lateral_raise",
+          "art": "stufe",
+          "rang": 2,
+          "effekt": 56,
+          "ziel": "12 saubere Wiederholungen mit je 5 % des Körpergewichts pro Hand.",
+          "grund": "Messbar steigerbar in kg."
+        }
+      ]
+    },
+    {
+      "id": "f_calf_raise",
+      "name": "Calf Raise",
+      "muster": "isolation",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Trainiert Waden und Achillessehne über die Streckung im Sprunggelenk.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_calf_raise",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 45,
+          "ziel": "3 Sätze mit 20 Wiederholungen über den vollen Weg.",
+          "grund": "Grundform mit beiden Beinen."
+        },
+        {
+          "uebung": "g_single_leg_calf_raise",
+          "art": "stufe",
+          "rang": 2,
+          "effekt": 58,
+          "ziel": "3 Sätze mit 15 Wiederholungen je Bein.",
+          "grund": "Doppelte Last je Bein ohne Gewicht."
+        },
+        {
+          "uebung": "g_seated_calf_raise",
+          "art": "variante",
+          "rang": null,
+          "effekt": 50,
+          "grund": "Mit gebeugtem Knie arbeitet vor allem die tiefe Wadenmuskulatur."
+        }
+      ]
+    },
+    {
+      "id": "f_wrist_curl",
+      "name": "Wrist Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert die Unterarmmuskeln für Griff und Handgelenk.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_wrist_curl",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 40,
+          "ziel": "3 Sätze mit 15 Wiederholungen über den vollen Weg.",
+          "grund": "Grundform für die Unterarmbeuger."
+        },
+        {
+          "uebung": "g_reverse_wrist_curl",
+          "art": "variante",
+          "rang": null,
+          "effekt": 38,
+          "grund": "Trainiert die Gegenseite, die Unterarmstrecker."
+        }
+      ]
+    },
+    {
+      "id": "f_shrug",
+      "name": "Shrug",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert den oberen Trapez.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_shrug",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 50,
+          "ziel": "12 saubere Wiederholungen mit je 25 % des Körpergewichts pro Hand.",
+          "grund": "Einzige Grundform."
+        }
+      ]
+    },
+    {
+      "id": "f_leg_extension",
+      "name": "Leg Extension",
+      "muster": "isolation",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Trainiert den vorderen Oberschenkel gezielt über die Streckung im Knie.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_leg_extension",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 60,
+          "ziel": "12 saubere Wiederholungen mit 40 % des Körpergewichts.",
+          "grund": "Grundform an der Maschine."
+        },
+        {
+          "uebung": "g_reverse_nordic",
+          "art": "variante",
+          "rang": null,
+          "effekt": 66,
+          "grund": "Gleicher Reiz ohne Gerät mit dem eigenen Körpergewicht."
+        }
+      ]
+    },
+    {
+      "id": "f_hip_abduction",
+      "name": "Hip Abduction",
+      "muster": "isolation",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Trainiert das seitliche Gesäß für stabile Hüfte und Knie.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_clamshell",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 40,
+          "ziel": "3 Sätze mit 20 Wiederholungen je Seite.",
+          "grund": "Einstieg in Seitenlage."
+        },
+        {
+          "uebung": "g_lateral_band_walk",
+          "art": "stufe",
+          "rang": 2,
+          "effekt": 45,
+          "ziel": "3 Runden mit 15 Schritten je Richtung, Band um die Fußgelenke.",
+          "grund": "Hüftstabilität im Stand."
+        }
+      ]
+    },
+    {
+      "id": "f_shoulder_rotation",
+      "name": "Shoulder External Rotation",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert die Außenrotatoren der Schulter.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_band_external_rotation",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 45,
+          "ziel": "3 Sätze mit 15 Wiederholungen je Seite.",
+          "grund": "Grundform mit Band."
+        }
+      ]
+    }
+  ],
+  "geraete_neu": [
+    {
+      "id": "eq_beinstrecker",
+      "name": "Beinstrecker-Maschine",
+      "preis": "ca. 400–1.800 €",
+      "platz": "ca. 1,4 × 0,9 m",
+      "warum": "Typisches Gym-Gerät für den vorderen Oberschenkel mit kg-Last."
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 isolation",
+      "entscheidung": "21 neue Übungen in 9 neuen Familien: Bizeps, Trizeps, seitliche Schulter, Waden, Unterarm, Trapez, vorderer Oberschenkel, seitliches Gesäß, Außenrotation der Schulter.",
+      "folge": "Keine bestehende Familie passt, deshalb neue Familien. Alle mit ebene 1 und ohne Voraussetzungen."
+    },
+    {
+      "frage": "Band-Varianten als eigene Übung?",
+      "entscheidung": "Ja, nur als Stufe 1 (Band Curl, Band Lateral Raise).",
+      "folge": "Andere Einheit (wdh statt kg) und der einzige Weg, die Muskelgruppe ohne Hanteln zu trainieren."
+    },
+    {
+      "frage": "Nacken",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Muskelliste und gelenke haben keinen Nacken. Die Werte wären falsch. Shrug deckt den oberen Trapez ab. Wenn du Nackentraining willst, brauchen Muskelliste und gelenke eine neue ID."
+    },
+    {
+      "frage": "Tibialis Raise",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Der vordere Schienbeinmuskel fehlt in der Muskelliste."
+    },
+    {
+      "frage": "Neues Gerät eq_beinstrecker?",
+      "entscheidung": "Aufgenommen.",
+      "folge": "Typisches Gym-Gerät, der Reverse Nordic deckt den Reiz ohne Gerät ab."
+    },
+    {
+      "frage": "Shrug: auch mit eq_trapbar?",
+      "entscheidung": "Ja.",
+      "folge": "Die Trap Bar aus neu_huefte ist für Shrugs ideal."
+    },
+    {
+      "frage": "Abgelehnt: Barbell Curl, Preacher Curl, Cable Curl, Concentration Curl, Incline Curl",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zum Biceps Curl, der Langhantel und Kabelzug schon erlaubt."
+    },
+    {
+      "frage": "Abgelehnt: Triceps Kickback, Close-Grip Push-up",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Overhead Triceps Extension bzw. Diamond Push-up."
+    },
+    {
+      "frage": "Abgelehnt: Front Raise, Upright Row",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Die vordere Schulter arbeitet in allen Drückübungen, Upright Row mit hohem Schulterrisiko."
+    },
+    {
+      "frage": "Abgelehnt: Adduktoren- und Abduktoren-Maschine",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Copenhagen Plank und Band-Übungen decken den Reiz ohne neues Gerät ab."
+    },
+    {
+      "frage": "Abgelehnt: Wrist Roller, Plate Pinch",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Braucht ein Spezialgerät bzw. Nische für Griffsport."
+    },
+    {
+      "frage": "sehne der neuen Übungen",
+      "entscheidung": "Ring Biceps Curl, Ring Triceps Extension und Reverse Nordic 1, sonst 0.",
+      "folge": "Ringe nach Konvention bzw. hohe Last auf der Patellasehne."
+    }
+  ]
+}

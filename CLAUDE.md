@@ -11,10 +11,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 281 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 380 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahme mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; dann plan-data, lib-data und fam-data gleich halten).
-  - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 48 Familien,
+  - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 60 Familien (auch Isolation und zwei Mobility-Familien),
     jede Übung (ohne Mobility) genau einmal; je Variante `art` (`stufe` mit `rang` und `ziel`, `variante`, `tempo` mit `vermerk`),
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
@@ -311,9 +311,10 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
   einbauen (prüft selbst noch einmal, schreibt lib-data, fam-data und `design/familien.json` im alten Format über `familien_format.js`,
   reiht Stufen nach `nach` ein, zählt Ränge neu und zieht `ab_rang` anderer Familien mit, legt die Pakete in `design/auftraege/pakete/` ab).
   Neue Geräte aus Paketen tragen `auto: true`: Kosten aus dem Preis, Nutzen aus der Zahl der Übungen, Score wird bei jedem Einbau neu gerechnet.
-  Erledigt: `zug_vertikal` ganz, Teil 1 (Felder) aller Muster; alle 281 Übungen haben die neuen Felder. Leiter `g_kipping_pullup`: Stufe „Chest-to-Bar“ zeigt auf `g_kipping_c2b` (Name bleibt). Die Suche in Tools › Übungen findet auch `alias` (deutsche Namen).
+  Erledigt: alle Pakete (Teil 1 und 2 aller Muster), 380 Übungen mit allen Feldern, 13 neue Geräte (`auto`). Leiter `g_kipping_pullup`: Stufe „Chest-to-Bar“ zeigt auf `g_kipping_c2b` (Name bleibt). Die Suche in Tools › Übungen findet auch `alias` (deutsche Namen).
   Neue Felder je Übung: `muskeln`, `gelenke` (Belastung), `bewegt` (bewegte Gelenke: eins = isoliert, keins = statisch), `sehne`,
-  `ermuedung`, `technik`, `seitig`, `laut`, `rx`, `alias`. Muster `isolation` kommt neu dazu (nur Zusatz, nie Hauptübung).
+  `ermuedung`, `technik`, `seitig`, `laut`, `rx`, `alias`. Muster `isolation` (`MUSTER.isolation`): steht in keinem Platz, kommt also nie in den Kraftteil; Isolation und Mobility fehlen im Skill-Baum (`SKILL_OHNE`).
+  Ersatz-Einzelübung in `planFill` nur mit Einheit wdh oder kg (keine Halte- oder Streckenübung mit „6–10 Wdh.“). `g_run` geht auch mit `eq_laufband`.
 - Übungsgrafiken: immer die Maskottchen-Vorlage `design/maskottchen/maskottchen.js` benutzen, Regeln in `design/maskottchen/VORLAGE.md`.
   Neue Grafiken in Runden zu 20 im Canvas zeigen, nach Freigabe in `index.html` kopieren. Vorher `node design/maskottchen/pruefen.js`
   (gestreckte Gelenke, Kontaktpunkte halten).
