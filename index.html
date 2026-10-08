@@ -2692,6 +2692,10 @@ function finish() {
   TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; if (cdOn(endEv) && say(CD_WORDS[cdLang()].end)) hapTimer(true); else cue(true); showFinished(); setToggle();
   if (FS.on) { if (TM.cfg && TM.cfg.step) fsClose(); else fsPaint(); }
   if (TM.mode === 'routine') routineDone();
+  if (TM.cfg && TM.cfg.warmErgo && TM.cfg.step) { // Ergometer fertig: abhaken, die nächste Übung ist dran
+    var WF = warmFlow(S.tag), ws = flowState(WF);
+    if (modeOf('warm') === 'single') { if (ws.c === 0) flowStep('warm', true); } else if (ws.done.indexOf(0) < 0) flowRow('warm', 0, true);
+  }
   if (TM.mode === 'zeit' && TM.cfg && TM.cfg.step) { setDraft('murphTime', fmt(Math.max(0, TM.finalElapsed - 10))); if (ui.tab === 'heute') render(); }
   if (TM.mode === 'amrap' && TM.cfg && TM.cfg.step === draftKey(S.tag) + ':metcon') { if (ui.tab === 'heute') render(); amrapCheck(); }
   paintMini();
@@ -4059,8 +4063,7 @@ function dayCtx(tag) {
 function stepsOf(c) {
   var tag = c.tag, d = c.d, D0 = c.cur ? (DRAFTS[draftKey(tag)] || {}) : {}, zl = c.cur ? zeitLv(tag) : 0, wm = zl >= 4 ? 4 : 8;
   if (c.isTest) {
-    var warmT = { id: 'warm', title: 'Aufwärmen', sub: '8 Min', dur: 8, desc: 'Ergometer, Mobilität',
-      timer: { mode: 'block', cfg: { minutes: 8, label: 'Aufwärmen', tag: tag }, label: '8 Min starten', info: 'Aufwärmen' },
+    var warmT = { id: 'warm', title: 'Aufwärmen', sub: '8 Min', dur: 8, desc: 'Ergometer, Mobilität', timer: warmTimer(tag, 8),
       body: function (D) { return warmStepHTML(tag, D); } };
     return [warmT].concat(PLAN.tests[TESTDAYS[tag].rows].map(function (r, i) {
       // Pause zwischen zwei Versuchen: so lange, wie im Test steht, sonst 3 Min (2 Min bei Halteübungen).
@@ -4089,7 +4092,7 @@ function stepsOf(c) {
   var out = [], rounds = kraftRounds(tag), names = d.kraft.map(function (k) { return k.pain && k.pain.skip ? 'Pause' : k.n; });
   if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: wm + ' Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: wm,
     desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + d.jumps.n : ''),
-    timer: { mode: 'block', cfg: { minutes: wm, label: 'Aufwärmen', tag: tag }, label: wm + ' Min starten', info: 'Aufwärmen' },
+    timer: warmTimer(tag, wm),
     body: function (D) { return warmStepHTML(tag, D); } });
   if (d.hs && zl < 1) out.push({ id: 'hs', title: 'Handstand', sub: d.hs + ' Min · 20–30 s pro Satz', dur: d.hs, desc: 'An der Wand, 20–30 s pro Satz',
     timer: { mode: 'block', cfg: { minutes: d.hs, label: 'Handstand', tag: tag }, label: d.hs + ' Min starten', info: 'Handstand an der Wand' },
@@ -4548,6 +4551,12 @@ function stageRow(label, stage, o) {
   return '<button type="button" class="st-row" ' + pickAttrs(Object.assign({ only: 'stage' }, o)) + '><span><span class="muted">' + esc(label) + '</span> <b>' + (stage ? stageHTML(stage) : 'wählen') + '</b></span>' + CHEV + '</button>';
 }
 
+// Aufwärmen: der Timer läuft nur für das Ergometer (5 Min, bei wenig Zeit 2), die Übungen danach hakt man ab.
+function warmTimer(tag, wm) {
+  var F = warmFlow(tag), e = F.items[0] && /Ergometer/.test(F.items[0].n) ? (wm >= 8 ? 5 : 2) : 0;
+  if (!e) return { mode: 'block', cfg: { minutes: wm, label: 'Aufwärmen', tag: tag }, label: wm + ' Min starten', info: 'Aufwärmen' };
+  return { mode: 'block', cfg: { minutes: e, label: 'Ergometer locker', tag: tag, warmErgo: 1 }, label: e + ' Min Ergometer starten', info: 'Danach die Übungen abhaken' };
+}
 function warmStepHTML(tag, D) {
   var F = warmFlow(tag);
   return modeOf('warm') === 'single' ? flowHTML(F, D) : '<section class="card">' + flowHTML(F, D) + '</section>';
