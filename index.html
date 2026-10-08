@@ -7138,6 +7138,9 @@ var BODY_BRUST_W = 'M98 104 C93 97 83 95 74 98 C63 102 57 114 59 127 C61 140 71 
 // Haare: vorn Scheitel und lange Strähnen bis zu den Schultern, hinten ganz mit Pferdeschwanz. Halbe Breite, wird gespiegelt.
 var BODY_HAIR_F = 'M100 6 C86 6 76 15 75 30 C74 48 76 68 79 86 L87 84 C85 70 84 56 84 44 C84 30 90 21 100 19 Z';
 var BODY_HAIR_B = 'M100 6 C86 6 76 15 75 30 C74 46 78 58 86 62 C90 64 95 65 100 65 Z M100 56 C93 62 91 78 94 100 C96 106 99 108 100 108 Z';
+// Kurzhaarschnitt der männlichen Figur: vorn Ansatz über der Stirn, hinten bis in den Nacken.
+var BODY_HAIR_MF = 'M100 8 C87 8 79 15 79 28 C79 32 80 36 81 39 L83 38 C83 30 86 23 92 20 C95 19 98 18 100 18 Z';
+var BODY_HAIR_MB = 'M100 8 C87 8 79 15 79 30 C79 41 82 49 88 53 C92 55 96 56 100 56 Z';
 function bodyScale(y) {
   var W = BODY_WARP; if (y <= W[0][0]) return 1;
   for (var i = 1; i < W.length; i++) if (y <= W[i][0]) { var q = (y - W[i - 1][0]) / (W[i][0] - W[i - 1][0]); return W[i - 1][1] + (W[i][1] - W[i - 1][1]) * q; }
@@ -7156,13 +7159,13 @@ var BODY_C = {};
 function bodyOf(t) {
   if (BODY_C[t]) return BODY_C[t];
   var wp = function (P) { var o = {}; Object.keys(P).forEach(function (k) { o[k] = bodyWarp(k === 'brust' && t === 1 ? BODY_BRUST_W : P[k], t); }); return o; };
-  return (BODY_C[t] = { sil: bodyWarp(BODY_SIL, t), f: wp(BODY_F), b: wp(BODY_B), head: 19 - 2 * t, neck: 22 - 6 * t, hair: t === 1 });
+  return (BODY_C[t] = { sil: bodyWarp(BODY_SIL, t), f: wp(BODY_F), b: wp(BODY_B), head: 19 - 2 * t, neck: 22 - 6 * t, hair: t === 1 ? 'w' : t === 0 ? 'm' : '' });
 }
 function bodySVG(parts, cls) {
   var B = bodyOf(sexT()), back = parts === BODY_B, P = back ? B.b : parts === BODY_F ? B.f : parts;
   var half = '<path class="sil" d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path class="mu' + (m.charAt(0) === '_' ? '' : ' ' + (cls(m) || '')) + '" d="' + P[m] + '"/>'; }).join('');
-  var hair = B.hair ? '<path class="hair" d="' + (back ? BODY_HAIR_B : BODY_HAIR_F) + '"/>' : '';
-  return '<svg viewBox="0 0 200 440" aria-hidden="true"><ellipse class="sil" cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair ? 23 : 24) + '"/><rect class="sil" x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>' + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
+  var hair = B.hair ? '<path class="hair" d="' + (B.hair === 'w' ? (back ? BODY_HAIR_B : BODY_HAIR_F) : (back ? BODY_HAIR_MB : BODY_HAIR_MF)) + '"/>' : '';
+  return '<svg viewBox="0 0 200 440" aria-hidden="true"><ellipse class="sil" cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair === 'w' ? 23 : 24) + '"/><rect class="sil" x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>' + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
     (hair ? hair + '<g transform="translate(200,0) scale(-1,1)">' + hair + '</g>' : '') + '</svg>';
 }
 function musFigHTML(cls, small) {
