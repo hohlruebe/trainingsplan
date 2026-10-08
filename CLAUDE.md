@@ -47,6 +47,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Beweglichkeit kommt aus den Mobility-Leitern (`g_mob_*`), gemessen im Beweglichkeits-Check (`log.mob`).
   1RM zählt in Kraft (bzw. Schnellkraft bei olympischen Lifts) als Pseudo-Leiter `rm:<id>`: 40 + 59 × Anteil zwischen Einsteiger- und
   Spitzen-Norm (1RM / Körpergewicht, `RM_STD`). Ohne Körpergewicht (`S.weight`, Einstellungen › Profil, synchronisiert) zählt es nicht.
+- Geschlecht (`S.sex` 'm'/'w'/'d', ohne Angabe wie männlich, Einstellungen › Profil oben, `sexRow`, in `DEF` und `SYNC_KEYS`; `sexT()` 0/0,5/1,
+  `sexMix(m, w)`, divers = Mitte): 1RM-Normen `rmStd` (Frauen Oberkörper 60 %, Beine/Hüfte 75 %, olympisch 70 %, `rmSexF`), Schwellen `KG_UP`
+  mit denselben Anteilen, Rx `rxOf` (`RX_W`), `cardioScore` und `cardioKw`-Schätzung 12 % niedriger, erstes Gewicht aus dem 1RM (Epley mit 34
+  statt 30), Maximalpuls Frauen 206 − 0,88 × Alter. Figur: `bodyOf(t)` verzieht `BODY_SIL`/`BODY_F`/`BODY_B` über `BODY_WARP` (`bodyPt`,
+  Arme schlanker und nach innen), weiblich mit `BODY_BRUST_W` und langen Haaren (`BODY_HAIR_F/B`), männlich Kurzhaarschnitt
+  (`BODY_HAIR_MF/MB`), divers ohne Haare. Gelenkpunkte `JOINT_XY` laufen über `bodyPt` mit.
 - Tools › Übungen (`renderUebungen`): Orte-Kapsel `libCapHTML`. Groß mit „Alle“ ganz links (`ui.libAll`, jede Übung, ändert den
   Trainingsort nicht), klein nur mit den Orten zum schnellen Umschalten plus Stift. Den gewählten Ort nochmal tippen = große Kapsel
   (`ui.libOpen`). Ein Ort gilt sofort auch fürs Training (`S.ort`, dieselbe Wahl wie auf Heute). Der Stift öffnet das Blatt
