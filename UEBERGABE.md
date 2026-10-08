@@ -32,7 +32,9 @@ Stand: 8. Oktober 2026 (Schmerzen mit Gedächtnis)
 - Mit Dennis: auch Muskeln (nur die der Übung), Muskelkater ist kein Grund zum Tauschen. Gedächtnis 1–4 (nachfragen, ganze Stelle
   schonen, stufenweise zurück, Hinweis zum Abklären), dazu 5 (Muster: 3× dieselbe Übung → Pause) und 6 (Übersicht im Profil).
   Canvas „Paket 31 · Schmerzen mit Gedächtnis“.
-- Offen: Schmerzen-Link nur an Kraft-Karten (nicht Metcon, nicht Ausgleich). Übersicht für die Physio als Text (Idee, noch nicht gebaut).
+- Dennis: „Training ist Training“: Ersatz zählt normal (eigene Leiter, Gewicht, Familie); nur „leichter“ ist kein Stillstand.
+  Schmerzen überall melden (Aufwärmen, Handstand, Kraft, Metcon, Ausgleich, Cool-down, Murph), das Gedächtnis gilt in allen Schritten.
+- Offen: Übersicht für die Physio als Text (Idee, Dennis entscheidet).
 
 ## Muskelausgleich (8. Oktober)
 - Mit Dennis entworfen (Canvas „Paket 29 · Muskelausgleich“): eine Karte mit anatomischer Figur (grau, Muskeln einzeln, Umrisse auch im
