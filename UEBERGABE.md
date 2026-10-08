@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
+Stand: 8. Oktober 2026 (Muskelausgleich)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,15 @@ Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Muskelausgleich (8. Oktober)
+- Mit Dennis entworfen (Canvas „Paket 29 · Muskelausgleich“): eine Karte mit anatomischer Figur (grau, Muskeln einzeln, Umrisse auch im
+  Dunkelmodus klar) und darunter Balken der Gegenspieler-Paare; Farbe von Rot (vernachlässigt) über Orange und Gelb bis Grün (im
+  Gleichgewicht). In der Bibliothek dieselbe Figur in Blau: Hauptmuskeln kräftig, mitarbeitende hell (Rot/Grün nur für den Ausgleich).
+- Eingebaut: Wertung je Muskel aus 4 Wochen, Karte in Profil › Werte, Metcon-Tausch mit grauem Grund (A), Schritt „Ausgleich“ am Ende
+  der Krafttage (B, fällt bei wenig Zeit, Kurzversion, Entlastung, Testwoche und Taper weg), Figur in jeder aufgeklappten Übung.
+  Der Kraftteil wird bewusst nicht umgestellt (Leitern bleiben stabil, `schwach`-Platz gleicht dort schon nach Teilen aus).
+- Offen: Rückmeldung von Dennis, ob die Sollwerte `MUS_W` passen (z. B. Waden, Adduktoren). Nächster PR: Schmerzen (`gelenke`).
 
 ## Übungsbibliothek mit Cowork (7. Oktober)
 - Cowork hat alle Pakete am Stück gemacht (Grenzfälle selbst entschieden, alles in `entscheidungen`). Teil 1 aller Muster eingebaut,
