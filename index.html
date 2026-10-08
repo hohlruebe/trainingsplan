@@ -610,6 +610,11 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .bf figure{margin:0;text-align:center}.bf figcaption{font-size:12px;color:var(--ink2);margin-top:4px}
 .bf svg{display:block;width:128px;height:auto}.bf.sm{gap:18px}.bf.sm svg{width:76px}
 .bf .sil{fill:var(--g);stroke:var(--paper);stroke-width:1.6;stroke-linejoin:round}
+.gm-strip{display:grid!important;grid-template-columns:repeat(5,1fr);gap:4px!important;margin:14px 0 6px!important}
+.gm-strip figure{margin:0;text-align:center}.gm-strip svg{width:100%!important}.gm-strip figcaption{font-size:13px;margin-top:4px}
+.gm-h{display:flex;gap:14px;align-items:flex-start}.gm-h h3{margin:2px 0 4px}.gm-h p{margin:0 0 6px}
+.gm-fig{flex:none;margin:0!important}.gm-fig svg{width:64px!important}
+.gm-ex{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
 .bf .hair{fill:color-mix(in srgb,var(--ink) 38%,var(--paper));stroke:none}
 .bf .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.2;stroke-linejoin:round}
 .bf .mu.b0{fill:var(--mb0)}.bf .mu.b1{fill:var(--mb1)}.bf .mu.b2{fill:var(--mb2)}.bf .mu.b3{fill:var(--mb3)}
@@ -2967,7 +2972,42 @@ function planWeekHTML() {
   }
   return h + '</nav>' + planDayHTML(dg, ui.planTag) + '</section>';
 }
-var PLAN_SUB = { 'Regeln': 'Tag für Tag, Ruhetage, Kurzversion', 'Methode': 'Calisthenics, CrossFit, RIR und Atmung', 'Steigerung': 'Wann es mehr Wdh. oder die nächste Stufe gibt',
+// Fünf Grundmuster: fast jede Übung baut darauf auf. Figur vorn oder hinten, je nachdem, wo die Muskeln sitzen.
+var GRUND = [
+  { id: 'squat', n: 'Squat', de: 'Kniebeuge', m: ['kniebeuge', 'einbein'], back: false, p1: ['quadrizeps', 'adduktoren'], p2: ['bauch_gerade'],
+    t: 'Hüfte und Knie beugen, Oberkörper aufrecht. Für kräftige Beine und alles, was aus der Hocke kommt.', ex: ['Air Squat', 'Goblet Squat', 'Pistol Squat'] },
+  { id: 'hinge', n: 'Hinge', de: 'Hüftbeuge', m: ['huefte', 'beinbeuger'], back: true, p1: ['gesaess', 'beinbeuger'], p2: ['rueckenstrecker'],
+    t: 'Aus der Hüfte nach vorn kippen, der Rücken bleibt gerade. Stärkt die Rückseite und schützt den unteren Rücken.', ex: ['Deadlift', 'Kettlebell Swing', 'Hip Thrust'] },
+  { id: 'push', n: 'Push', de: 'Drücken', m: ['druck_horizontal', 'druck_vertikal'], back: false, p1: ['brust', 'schulter_vorn'], p2: ['schulter_seite'],
+    t: 'Gewicht vom Körper wegdrücken, nach vorn oder über den Kopf. Brust, Schultern und Trizeps.', ex: ['Push-up', 'Dip', 'Overhead Press'] },
+  { id: 'pull', n: 'Pull', de: 'Ziehen', m: ['zug_vertikal', 'zug_horizontal'], back: true, p1: ['latissimus', 'oberer_ruecken'], p2: ['schulter_hinten', 'unterarm'],
+    t: 'Zum Körper heranziehen, von oben oder von vorn. Gleicht das Drücken aus und hält die Schultern gesund.', ex: ['Pull-up', 'Ring Row', 'Barbell Row'] },
+  { id: 'carry', n: 'Carry', de: 'Tragen', m: ['tragen'], back: false, p1: ['bauch_schraeg', 'bauch_gerade'], p2: ['unterarm', 'schulter_seite'],
+    t: 'Schwer tragen und dabei aufrecht bleiben. Trainiert Rumpf und Griff, wie im Alltag.', ex: ["Farmer's Carry", 'Suitcase Carry'] }];
+function grundFig(g) { return bodySVG(g.back ? BODY_B : BODY_F, function (m) { return g.p1.indexOf(m) >= 0 ? 'p1' : g.p2.indexOf(m) >= 0 ? 'p2' : ''; }); }
+// Was du zuletzt in diesem Muster trainiert hast (Kraft und Metcon), neueste zuerst.
+function grundMine(g) {
+  var out = [];
+  for (var i = LOGS.length - 1; i >= 0 && out.length < 3; i--) {
+    var l = LOGS[i], ids = (l.kraft || []).map(function (k) { return ueOfEntry(k.n, k.stage); }).concat(((l.metcon && l.metcon.items) || []).map(function (n) { return GL[n] && GL[n].lib ? GL[n].lib.id : null; }));
+    ids.forEach(function (id) { var u = id && UE[id]; if (u && g.m.indexOf(u.muster) >= 0 && out.indexOf(u.name) < 0 && out.length < 3) out.push(u.name); });
+  }
+  return out;
+}
+function grundHTML() {
+  var h = '<section class="card"><p class="small">Fast jede Übung baut auf diesen fünf Mustern auf. Wer sie sauber kann, hat eine gute Grundlage für alles andere. Der Plan füllt seine Plätze nach diesen Mustern.</p>' +
+    '<div class="gm-strip bf">' + GRUND.map(function (g) { return '<figure>' + grundFig(g) + '<figcaption><b>' + g.n + '</b></figcaption></figure>'; }).join('') + '</div>' +
+    '<p class="mus-lg small"><span><i class="p1"></i>Hauptmuskeln</span><span><i class="p2"></i>Arbeiten mit</span></p></section>';
+  h += GRUND.map(function (g) {
+    var mine = grundMine(g);
+    return '<section class="card gm-card"><div class="gm-h"><div class="bf gm-fig">' + grundFig(g) + '</div><div><h3>' + g.n + ' <span class="muted">· ' + g.de + '</span></h3><p class="small">' + esc(g.t) + '</p>' +
+      '<p class="small muted">' + esc(g.p1.concat(g.p2).map(function (m) { return MUS_NAME[m]; }).join(', ')) + '</p></div></div>' +
+      '<div class="gm-ex">' + (mine.length ? '<span class="small muted">Bei dir</span>' + mine.map(function (n) { return '<span class="chip blue">' + esc(n) + '</span>'; }).join('') :
+        '<span class="small muted">Zum Beispiel</span>' + g.ex.map(function (n) { return '<span class="chip">' + esc(n) + '</span>'; }).join('')) + '</div></section>';
+  }).join('');
+  return h;
+}
+var PLAN_SUB = { 'Regeln': 'Tag für Tag, Ruhetage, Kurzversion', 'Methode': 'Calisthenics, CrossFit, RIR und Atmung', 'Grundmuster': 'Squat, Hinge, Push, Pull, Carry', 'Steigerung': 'Wann es mehr Wdh. oder die nächste Stufe gibt',
   'Bänder': 'Welche Farbe wie viel hilft', 'Pause? Einfach weiter': 'Was nach Krankheit oder Urlaub gilt', 'Murph und Test-Durchgang': 'Wann und wie getestet wird',
   'Einstiegstest': 'Deine Startstufen', 'Skill-Ziele': 'Ab wann welcher Skill dran ist' };
 function renderPlan() {
@@ -2995,6 +3035,7 @@ function renderPlan() {
   ], '<p class="sec-k" style="margin-top:14px">Wie hart?</p>' + tbl(null, [['<b>RIR 3–4</b>', 'Einstieg, Kurzversion, Entlastung'], ['<b>RIR 2</b>', 'normaler Kraftsatz'], ['<b>RIR 0</b>', 'Maxout in der Testwoche'], ['<b>SIR 2</b>', 'Handstand, Hollow Body Hold']]) +
     '<p class="small muted" style="margin-top:8px">RIR = Wiederholungen in Reserve, SIR = Sekunden in Reserve.</p>',
     ['<b>Stack-Atmung:</b> Brustkorb über das Becken, 5 s ausatmen, durch die Nase einatmen und rundum weiten. Schritt für Schritt: ' + gl('Stack Breathing') + '.']));
+  h += sec('Grundmuster', grundHTML());
   h += sec('Steigerung', W([
     ['+1 Wdh.', 'Alle 4 Runden in der Spanne 3–6 mit RIR 2 geschafft: nächstes Mal 1 Wdh. mehr. Glute Bridge und Ab Wheel: 8–12.'],
     ['Nächste Stufe', 'Zweimal in Folge alle Runden am oberen Ende: der Coach stellt eine Stufe schwerer ein, zurück ans untere Ende.'],
