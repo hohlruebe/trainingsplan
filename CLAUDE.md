@@ -75,6 +75,20 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   der Kraftteil bleibt. (B) Schritt „Ausgleich“ (`ausgleichStep`, `ausgleichUe`, 4 Min, 2 Sätze, Kacheln `a0`/`a1`) am Ende der Krafttage
   ab Durchgang 3, nicht in Entlastung, Testwoche, Taper, Kurzversion und bei „wenig Zeit“; leichte Übung (ermüdung ≤ 1, Technik ≤ 2, nicht
   Mobility/Ausdauer/Sprung/Tragen) für den größten Rückstand. Gespeichert als `ausgleich: {ue, reps}` im Kraft-Eintrag, im Verlauf sichtbar.
+- Schmerzen (`painApply` im Getter `DAYS[t].kraft`, `painFor`, `painSub`, `painBody`, `ACT.pain`): grauer Link „Schmerzen“ unter jeder
+  Kraft-Karte, Blatt „<Übung> · Schmerzen“. Stelle = Gelenk (`PAIN_J`, Last aus `gelenke` 0–3) oder Muskel der Übung (höchstens 3, Last
+  Hauptmuskel 2, mitarbeitend 1, `siteLoad`). Stärke nach dem Schmerz-Ampel-Modell (`PAIN_W`): leicht 1–3 = Übung bleibt, leichter (`soft`);
+  mittel 4–6 = Ersatz mit weniger Last (gleiche Familie zuerst, sonst gleicher Bereich ohne Last, sonst wie stark); stark 7–10 = andere
+  Muskelgruppe ohne Last (`other`, bevorzugt `need` aus dem Muskelausgleich und ein Bereich, der heute nicht dran ist); sonst Pause (`skip`).
+  Muskelkater (`k`) ändert nichts und wird nicht gemerkt. Entwurf `_p<i>` = 'j:knie:m' / 'm:quadrizeps:s'. Ersatz ohne Leiter (`k.pain` im
+  Kraft-Eintrag, Leiter, Stillstand und Stufen-Kurve überspringen ihn), Verlauf zeigt „statt … (Knie)“.
+  Gedächtnis `S.koerper` (in `DEF` und `SYNC_KEYS`) je Stelle `{k, id, w, since, last, ask, free, n, s, hist}` (`memRecord` beim Speichern,
+  `memState`: akut / back / gut). Heute fragt `painAskHTML` je akuter Stelle „Wie geht’s deinem Knie?“ (Weg/Leicht/Mittel/Stark, `ACT['pn-ask']`);
+  bis zur Antwort gilt der letzte Stand, und zwar für alle Übungen, die die Stelle belasten (`src: 'mem'`). „Weg“ (oder „Schmerzen weg“ an
+  einer Übung aus dem Gedächtnis) startet die Rückkehr: Woche 1 Last bis 1, Woche 2 bis 2, dann wieder alles (`src: 'back'`, `cap`).
+  Muster (`memAvoid`): dreimal dieselbe Übung an derselben Stelle in 12 Wochen → der Coach nimmt eine Weile eine andere (`src: 'meiden'`).
+  Hinweis zum Abklären (`memDoc`): seit 14 Tagen akut oder dreimal stark. Profil › Werte: Karte „Beschwerden“ (`painCardHTML`, Figur mit
+  Gelenk-Punkten `JOINT_XY` und Muskeln, je Stelle eine Wert-Zeile, gemiedene Übungen), nur wenn es etwas gibt.
 - Tools › 1RM (`renderRM`): Titel „One Rep Max“, alle Übungen mit Einheit kg (`RM_ALL`, nach Nutzen), oben „Deine Werte“, darunter
   die übrigen. Umschalter Aktuell/Bestwert nur in der Liste (`ui.rmBest`, `ACT['rm-view']`), Bestwert mit Jahr (`dateY`).
   Antippen öffnet den Prozent-Rechner (`rmDetailHTML`, `ui.rmLift`): Basis immer der aktuelle Wert, Bestwert golden darunter,

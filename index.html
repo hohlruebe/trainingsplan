@@ -677,6 +677,12 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .pd-n{margin:12px 0 0}
 .adj{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 14px;margin:-6px 0 14px;font-size:13px;color:var(--ink2)}
 .pn-adj{margin:4px 0 -8px}
+.pn-l{margin:12px 0 8px}.pn-body>.pn-l:first-child{margin-top:0}
+.pn-ask-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.pn-ask .tl-x{margin-top:10px}
+.pn-doc{color:var(--red)}
+.bf .pn-dot{stroke:var(--paper);stroke-width:2}.bf .pn-dot.b0{fill:var(--mb0)}.bf .pn-dot.b1{fill:var(--mb1)}
+.pn-lg>span{justify-content:center;gap:18px}.pn-lg>span>span{display:inline-flex;align-items:center;gap:6px}.pn-lg i{width:10px;height:10px;border-radius:50%;display:inline-block}.pn-lg i.b0{background:var(--mb0)}.pn-lg i.b1{background:var(--mb1)}
+.pn-st.akut{background:color-mix(in srgb,var(--mb0) 18%,var(--paper));color:var(--mb0)}.pn-st.back{background:color-mix(in srgb,var(--mb1) 20%,var(--paper));color:var(--mb1)}.pn-st.gut{background:color-mix(in srgb,var(--mb3) 18%,var(--paper));color:var(--mb3)}
 .pn-w .seg-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;min-height:48px}.pn-w .seg-btn small{font-size:11px;font-weight:500;opacity:.7}
 .adj-q{min-height:44px;padding:0 6px;border:0;background:none;color:var(--ink2);font:inherit;font-size:13px;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink2) 40%,transparent);text-underline-offset:3px;cursor:pointer}
 .ad-list{margin:0;padding:2px 14px}
@@ -2073,7 +2079,7 @@ var TEST_BASE = {
 var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
-  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null };
+  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -2193,7 +2199,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -2471,8 +2477,8 @@ function saveDay() {
       hs: !d.hs ? '' : v.hsStage != null || v.hsSec != null ? composeHs(v) : (v.hs || ''),
       kraft: d.kraft.map(function (x, i) {
         var reps = []; for (var r = 0; r < rounds; r++) reps.push(num(v['k' + i + 'r' + r]));
-        var stg = x.pain && !x.pain.soft ? '' : v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n, x.hi), o = { n: x.n, stage: stg, reps: reps }, kid = kgUe(x.n, stg);
-        if (x.pain) { o.pain = x.pain; if (x.pain.skip) { o.reps = reps.map(function () { return null; }); kid = null; } }
+        var stg = x.pain && !x.pain.soft && !x.pain.kater ? '' : v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n, x.hi), o = { n: x.n, stage: stg, reps: reps }, kid = kgUe(x.n, stg);
+        if (x.pain && !x.pain.kater) { o.pain = x.pain; if (x.pain.skip) { o.reps = reps.map(function () { return null; }); kid = null; } }
         if (kid) {
           var K = kgOfEx(x, i, stg, v, rounds), kg = K.kg.map(function (w, r2) { return reps[r2] != null ? w : null; });
           if (kg.some(function (w) { return w != null; })) { o.ue = kid; o.kg = kg; }
@@ -2495,6 +2501,7 @@ function saveDay() {
   }
   if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; }
   if (log) addLog(log);
+  if (log && log.kind === 'kraft') painSave(tag);
   // Schwerster Satz im Kraftteil zählt fürs 1RM, wenn er über dem aktuellen Wert liegt (bis 10 Wdh., Epley).
   if (log && log.kraft) log.kraft.forEach(function (k) {
     if (!k.ue) return;
@@ -3474,7 +3481,7 @@ function werteHTML(stats) {
     var d = a.val && prev.areas[i].val ? a.val - prev.areas[i].val : 0;
     return '<button type="button" class="a-row" data-act="parea" data-v="' + a.id + '"><b>' + esc(a.name) + '</b>' + sparkSVG(hist.map(function (x) { return x.areas[i].val; })) +
       '<span class="a-v">' + (a.val || '–') + '</span><span class="a-d' + (d < 0 ? ' neg' : '') + '">' + (d ? (d > 0 ? '+' : '') + d : '') + '</span><span class="a-ch">›</span></button>';
-  }).join('') + '</section>' + musCardHTML();
+  }).join('') + '</section>' + musCardHTML() + painCardHTML();
   return h + '<p class="small muted" style="text-align:center">Werte entstehen aus deiner Stufe in jeder Leiter und den Wiederholungen darauf. Sie können auch wieder sinken.</p>';
 }
 function areaDetailHTML(stats, id) {
@@ -4346,6 +4353,7 @@ function renderHeute() {
       '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
       '<button type="button" class="btn small" data-act="back-today">Zurück</button></span></div>';
   }
+  if (cur && !c.isTest && !c.isMurph) h += painAskHTML(tag);
   // Hinweise kommen gesammelt als ruhige Tipps-Karte nach dem Ablauf.
   var tips = [], tipBtn = '', notes = {}, miss = [];
   if (S.durchgang === 0 && cur && p > 7) tips.push('<b>Willkommen zurück.</b> Dein letztes Training ist ' + p + ' Tage her.');
@@ -4480,7 +4488,7 @@ function kraftStepHTML(tag, D, rounds) {
   var h = '<p class="small muted">Stufe so wählen, dass die Zielspanne mit RIR 2 klappt. Schwerste Übung zuerst.</p>';
   if (test) h += '<p class="flag">' + (d.maxout === 'all' ? 'Test-Durchgang: der erste Satz jeder Übung ist ein Maxout – so viele saubere Wdh. wie möglich, danach normal weiter.' : 'Test-Durchgang: Runde 1 von ' + esc(d.kraft[d.maxout] ? d.kraft[d.maxout].n : '') + ' ist ein Maxout – so viele saubere Wdh. wie möglich, danach normal weiter.') + '</p>';
   d.kraft.forEach(function (x, i) {
-    var sub = x.pain && !x.pain.soft, g = GL[x.n], lad = sub ? null : ladFor(x.n), last = lastFor(x.n), base = sub ? null : S.base[x.n], sf = 'k' + i + 'stage';
+    var sub = x.pain && !x.pain.soft && !x.pain.kater, g = GL[x.n], lad = sub ? null : ladFor(x.n), last = lastFor(x.n), base = sub ? null : S.base[x.n], sf = 'k' + i + 'stage';
     var cs = lad ? coachStage(g.key, x.hi) : null, bn = brakeNote(x.n, cs), cmax = cs ? cs.idx : null;
     var stage = sub ? '' : D[sf] != null ? D[sf] : stageDef(x.n, x.hi), hint = '';
     var K = kgOfEx(x, i, stage, D, rounds), kid = K ? K.id : null, rec = K ? K.rec : null;
@@ -6589,102 +6597,242 @@ function planFill() {
   return out;
 }
 
-/* ---------- Schmerzen an einer Übung (nur heute, nur diese Übung) ---------- */
-// Entwurf `_p<i>` = 'gelenk:stärke'. Stärke nach dem Schmerz-Ampel-Modell (0–10): l = leicht 1–3 (Übung bleibt, leichter),
-// m = mittel 4–6 (Ersatz mit weniger Last auf dem Gelenk, `gelenke` 0–3), s = stark 7–10 (Gelenk schonen: andere Muskelgruppe ohne Last).
+/* ---------- Schmerzen: an der Übung melden, Gedächtnis je Stelle ---------- */
+// Stelle = Gelenk (`gelenke` 0–3) oder Muskel (Hauptmuskel 2, mitarbeitend 1). Stärke nach dem Schmerz-Ampel-Modell (0–10):
+// l = leicht 1–3 (Übung bleibt, leichter), m = mittel 4–6 (Ersatz mit weniger Last), s = stark 7–10 (Stelle schonen, andere Muskelgruppe).
+// Muskelkater (k) ändert nichts und wird nicht gemerkt. Entwurf `_p<i>` = 'j:knie:m' bzw. 'm:quadrizeps:s'.
+// Gedächtnis `S.koerper` (synchronisiert) je Stelle: {k, id, w, since, last, ask, free, n, s, hist: [{d, w, ue}]}.
 var PAIN_J = [['schulter', 'Schulter'], ['ellbogen', 'Ellbogen'], ['handgelenk', 'Handgelenk'], ['ruecken', 'Rücken'], ['huefte', 'Hüfte'], ['knie', 'Knie'], ['fuss', 'Fuß']];
 var PAIN_JN = {}; PAIN_J.forEach(function (x) { PAIN_JN[x[0]] = x[1]; });
 // Mit Artikel: „auf der Schulter“ (Dativ), „belastet die Schulter“ (Akkusativ).
 var PAIN_DAT = { schulter: 'der Schulter', ellbogen: 'dem Ellbogen', handgelenk: 'dem Handgelenk', ruecken: 'dem Rücken', huefte: 'der Hüfte', knie: 'dem Knie', fuss: 'dem Fuß' };
 var PAIN_AKK = { schulter: 'die Schulter', ellbogen: 'den Ellbogen', handgelenk: 'das Handgelenk', ruecken: 'den Rücken', huefte: 'die Hüfte', knie: 'das Knie', fuss: 'den Fuß' };
-var PAIN_W = [['l', 'Leicht', '1–3', 'Spürbar, die Bewegung klappt.'], ['m', 'Mittel', '4–6', 'Stört die Bewegung.'], ['s', 'Stark', '7–10', 'Tut weh, das Gelenk braucht Ruhe.']];
-var PAIN_WN = { l: 'leicht', m: 'mittel', s: 'stark' };
-function painOf(tag, i) { var p = String(dr(tag)['_p' + i] || '').split(':'); return PAIN_JN[p[0]] ? { j: p[0], w: PAIN_WN[p[1]] ? p[1] : 'm' } : null; }
+var PAIN_W = [['l', 'Leicht', '1–3', 'Spürbar, die Bewegung klappt.'], ['m', 'Mittel', '4–6', 'Stört die Bewegung.'], ['s', 'Stark', '7–10', 'Tut weh, die Stelle braucht Ruhe.']];
+var PAIN_WN = { l: 'leicht', m: 'mittel', s: 'stark', k: 'Muskelkater' };
+var PAIN_OHNE = { mobilitaet: 1, ausdauer: 1, sprung: 1, tragen: 1, handstand_skill: 1 };
+function siteKey(t) { return t.k + ':' + t.id; }
+function siteName(t) { return t.k === 'm' ? MUS_NAME[t.id] || t.id : PAIN_JN[t.id] || t.id; }
+function siteDat(t) { return t.k === 'm' ? 'dem Muskel ' + siteName(t) : PAIN_DAT[t.id]; }
+function siteAkk(t) { return t.k === 'm' ? 'den Muskel ' + siteName(t) : PAIN_AKK[t.id]; }
+function cap1(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+// Last einer Übung auf der Stelle.
+function siteLoad(u, t) {
+  if (!u) return 0;
+  if (t.k === 'j') return u.gelenke ? u.gelenke[t.id] || 0 : 0;
+  var m = u.muskeln || {}; return (m.primaer || []).indexOf(t.id) >= 0 ? 2 : (m.sekundaer || []).indexOf(t.id) >= 0 ? 1 : 0;
+}
+function painOf(tag, i) {
+  var p = String(dr(tag)['_p' + i] || '').split(':');
+  if (p.length === 2) p.unshift('j'); // früheres Format 'knie:m'
+  if (!(p[0] === 'j' ? PAIN_JN[p[1]] : MUS_NAME[p[1]])) return null;
+  return { t: { k: p[0], id: p[1] }, w: PAIN_WN[p[2]] ? p[2] : 'm' };
+}
+function dSince(iso) { return iso ? daysBetween(parseISO(iso), new Date()) : 999; }
+// Stand einer Stelle: akut (Schmerz da), zurück (Rückkehr in Stufen: Woche 1 Last bis 1, Woche 2 bis 2), gut.
+function memState(e) {
+  if (!e) return null;
+  if (e.free) { var d = dSince(e.free); return d >= 14 ? { st: 'gut' } : { st: 'back', cap: d < 7 ? 1 : 2, wk: d < 7 ? 1 : 2 }; }
+  return e.w ? { st: 'akut', w: e.w } : { st: 'gut' };
+}
+function koerper() { if (!S.koerper || typeof S.koerper !== 'object') S.koerper = {}; return S.koerper; }
+function memList(st) { var K = koerper(); return Object.keys(K).map(function (k) { return K[k]; }).filter(function (e) { var m = memState(e); return !st || (m && st.indexOf(m.st) >= 0); }); }
+// Neue Meldung (an der Übung oder bei der Nachfrage). Kommt Schmerz in der Rückkehr zurück, ist die Stelle wieder akut.
+function memRecord(t, w, ue) {
+  var K = koerper(), k = siteKey(t), e = K[k], today = isoToday();
+  if (!e || memState(e).st === 'gut') e = K[k] = { k: t.k, id: t.id, since: today, n: 0, s: 0, hist: e ? e.hist || [] : [] };
+  e.w = w; e.free = null; e.last = today; e.ask = today; e.n = (e.n || 0) + 1; if (w === 's') e.s = (e.s || 0) + 1;
+  e.hist = (e.hist || []).concat([{ d: today, w: w, ue: ue || null }]).slice(-30);
+}
+function memFree(k) { var e = koerper()[k]; if (e) { e.free = isoToday(); e.ask = isoToday(); } }
+// Muster: dreimal an derselben Stelle bei derselben Übung in 12 Wochen → der Coach lässt sie eine Weile weg.
+function memAvoid(ue) {
+  var out = null;
+  memList().forEach(function (e) { var n = (e.hist || []).filter(function (h) { return h.ue === ue && dSince(h.d) <= 84; }).length; if (n >= 3 && !out) out = { t: { k: e.k, id: e.id }, n: n }; });
+  return out;
+}
+// Hinweis zum Abklären: seit 14 Tagen akut oder dreimal stark.
+function memDoc(e) { return memState(e).st === 'akut' && (dSince(e.since) >= 14 || (e.s || 0) >= 3); }
 // Übung, die heute im Platz steht (Stufe aus dem Entwurf oder vom Coach).
 function painCur(tag, x, i) { return ueOfEntry(x.n, dr(tag)['k' + i + 'stage'] != null ? dr(tag)['k' + i + 'stage'] : stageDef(x.n, x.hi)); }
-function painSub(tag, x, i, p) {
-  var cur = painCur(tag, x, i), u = UE[cur]; if (!u || !u.gelenke) return null;
-  var load = u.gelenke[p.j] || 0;
-  if (p.w === 'l' || (!load && p.w === 'm')) return { soft: true, from: cur, load: load };
+// Ersatz. p = {t, w} oder mit cap (Rückkehr: höchstens diese Last) oder avoid (Muster: andere Übung derselben Bewegung).
+function painSub(tag, x, i, p, taken) {
+  var cur = painCur(tag, x, i), u = UE[cur]; if (!u) return null;
+  var t = p.t, load = siteLoad(u, t);
+  if (p.w === 'k') return { kater: true, from: cur, load: load };
+  if (p.cap != null && load <= p.cap) return null;
+  if (!p.avoid && p.cap == null && (p.w === 'l' || (!load && p.w === 'm'))) return { soft: true, from: cur, load: load };
   var have = haveEq(trainOrt()), st = ladderStates(LOGS), fam = FAM_OF[cur], today = {}, tb = {}, need = musBalance().need;
   planFill().kraft[tag].forEach(function (k, j) { if (j !== i) { var id = ueOfEntry(k.n); if (id) { today[id] = 1; tb[UE[id].bereich] = 1; } } });
+  Object.keys(taken || {}).forEach(function (id) { today[id] = 1; if (UE[id]) tb[UE[id].bereich] = 1; });
   var find = function (ok, inMu, other) {
     return Object.keys(UE).filter(function (id) {
       var v = UE[id];
-      return id !== cur && !today[id] && v.gelenke && ok(v.gelenke[p.j] || 0, v) && inMu(v) && !TEMPO_KEYS[id] && !PAIN_OHNE[v.muster] &&
+      return id !== cur && !today[id] && ok(siteLoad(v, t), v) && inMu(v) && !TEMPO_KEYS[id] && !PAIN_OHNE[v.muster] && !memAvoid(id) &&
         (v.einheit === 'wdh' || v.einheit === 'kg') && eqOk(v.equipment, have) && reqOk(v.voraussetzung, st);
     }).sort(function (a, b) {
       var A = UE[a], B = UE[b];
-      // Andere Muskelgruppe: am liebsten, was im Ausgleich zu kurz kommt.
+      // Andere Muskelgruppe: am liebsten, was im Ausgleich zu kurz kommt, und ein Bereich, der heute noch nicht dran ist.
       if (other) return musHit(b, need) - musHit(a, need) || !tb[B.bereich] - !tb[A.bereich] || (B.muster !== 'isolation') - (A.muster !== 'isolation') || B.nutzen - A.nutzen;
-      return (FAM_OF[b] === fam) - (FAM_OF[a] === fam) || (A.gelenke[p.j] || 0) - (B.gelenke[p.j] || 0) || (B.muster === u.muster) - (A.muster === u.muster) ||
+      return (FAM_OF[b] === fam) - (FAM_OF[a] === fam) || siteLoad(A, t) - siteLoad(B, t) || (B.muster === u.muster) - (A.muster === u.muster) ||
         Math.abs(A.level - u.level) - Math.abs(B.level - u.level) || B.nutzen - A.nutzen;
     })[0];
   };
-  var near = [u.muster].concat(MUSTER_NEAR[u.muster] || []), id;
+  var near = [u.muster].concat(MUSTER_NEAR[u.muster] || []), id, res = function (id, o) { return Object.assign({ id: id, from: cur, fam: FAM_OF[id] === fam, same: near.indexOf(UE[id].muster) >= 0, load: load }, o || {}); };
+  if (p.cap != null || p.avoid) {
+    var lim = p.cap != null ? p.cap : load;
+    id = find(function (l) { return l <= lim; }, function (v) { return near.indexOf(v.muster) >= 0; }) || find(function (l) { return l <= lim; }, function (v) { return v.bereich === u.bereich && v.muster !== 'isolation'; });
+    return id ? res(id) : p.avoid ? null : { soft: true, from: cur, load: load };
+  }
   if (p.w === 'm') {
     // Mittel: weniger Last (oder gleich viel auf einer leichteren Stufe), sonst im selben Bereich ganz ohne Last.
     id = find(function (l, v) { return l < load || (l === load && v.level < u.level); }, function (v) { return near.indexOf(v.muster) >= 0; }) ||
       find(function (l) { return l === 0; }, function (v) { return v.bereich === u.bereich && v.muster !== 'isolation'; });
-    if (id) return { id: id, from: cur, fam: FAM_OF[id] === fam, same: near.indexOf(UE[id].muster) >= 0, load: load };
+    if (id) return res(id);
   }
-  // Stark (oder mittel ohne passenden Ersatz): keine Übung in derselben Bewegung. Das Gelenk hat Pause, eine andere Muskelgruppe arbeitet.
+  // Stark (oder mittel ohne passenden Ersatz): keine Übung in derselben Bewegung. Die Stelle hat Pause, eine andere Muskelgruppe arbeitet.
   id = find(function (l) { return l === 0; }, function (v) { return v.bereich !== u.bereich && ['zug', 'druck', 'beine', 'rumpf'].indexOf(v.bereich) >= 0; }, true);
-  return id ? { id: id, from: cur, other: true, load: load } : { skip: true, from: cur, load: load };
+  return id ? res(id, { other: true }) : { skip: true, from: cur, load: load };
 }
-// Nicht als Ersatz: Mobility, Ausdauer, Sprünge, Tragen, Handstand-Skills.
-var PAIN_OHNE = { mobilitaet: 1, ausdauer: 1, sprung: 1, tragen: 1, handstand_skill: 1 };
+// Was gilt heute für die Übung? Eigene Meldung vor Gedächtnis (akut, dann Rückkehr), zuletzt das Muster.
+function painFor(tag, x, i) {
+  var p = painOf(tag, i); if (p) return Object.assign(p, { src: 'hand' });
+  var u = UE[painCur(tag, x, i)]; if (!u) return null;
+  var best = null, R = { l: 1, m: 2, s: 3 };
+  memList(['akut']).forEach(function (e) { var t = { k: e.k, id: e.id }; if (siteLoad(u, t) && (!best || R[e.w] > R[best.w])) best = { t: t, w: e.w, src: 'mem', e: e }; });
+  if (best) return best;
+  memList(['back']).forEach(function (e) { var t = { k: e.k, id: e.id }, m = memState(e); if (!best && siteLoad(u, t) > m.cap) best = { t: t, w: 'm', cap: m.cap, wk: m.wk, src: 'back', e: e }; });
+  if (best) return best;
+  var a = memAvoid(u.id); return a ? { t: a.t, w: 'm', avoid: true, n: a.n, src: 'meiden' } : null;
+}
 // Kraftteil von heute mit Schmerzen: Ersatz statt der Übung, ohne Leiter (zählt nicht in Stufe, Gewicht und Stillstand).
 var PAIN_C = { k: null };
 function painApply(tag, list) {
-  if (+tag !== S.tag || !DRAFTS[draftKey(tag)]) return list;
-  var D = dr(tag), ks = Object.keys(D).filter(function (f) { return /^_p\d+$/.test(f); });
-  if (!ks.length) return list;
-  var key = [tag, FILL.k, trainOrt().id].concat(ks.map(function (f) { var i = f.slice(2); return f + '=' + D[f] + '/' + (D['k' + i + 'stage'] || ''); })).join('|');
+  if (+tag !== S.tag) return list;
+  var D = dr(tag), ks = Object.keys(D).filter(function (f) { return /^_p\d+$/.test(f) || /^k\d+stage$/.test(f); });
+  var key = [tag, FILL.k, trainOrt().id, isoToday(), JSON.stringify(S.koerper || {})].concat(ks.map(function (f) { return f + '=' + D[f]; })).join('|');
   if (PAIN_C.k === key) return PAIN_C.v;
+  var taken = {};
   PAIN_C = { k: key, v: list.map(function (x, i) {
-    var p = painOf(tag, i); if (!p) return x;
-    var s = painSub(tag, x, i, p); if (!s) return x;
-    var pain = { j: p.j, w: p.w, from: x.n, skip: !!s.skip, soft: !!s.soft, other: !!s.other };
-    return s.skip || s.soft ? Object.assign({}, x, { pain: pain }) : { n: UE[s.id].name, target: '6–10' + (UE[s.id].seitig ? ' je Seite' : ''), hi: 10, lib: true, pain: pain };
+    var p = painFor(tag, x, i); if (!p) return x;
+    var s = painSub(tag, x, i, p, taken); if (!s) return x;
+    if (s.id) taken[s.id] = 1;
+    var pain = { k: p.t.k, j: p.t.id, w: p.w, src: p.src, from: x.n, skip: !!s.skip, soft: !!s.soft, other: !!s.other, kater: !!s.kater, wk: p.wk || null, n: p.n || null };
+    return s.skip || s.soft || s.kater ? Object.assign({}, x, { pain: pain }) : { n: UE[s.id].name, target: '6–10' + (UE[s.id].seitig ? ' je Seite' : ''), hi: 10, lib: true, pain: pain };
   }) };
   return PAIN_C.v;
 }
 function painText(x) {
-  var P = x.pain, a = PAIN_JN[P.j] + ' ' + (PAIN_WN[P.w] || 'mittel');
+  var P = x.pain, t = { k: P.k || 'j', id: P.j }, nm = siteName(t), e = koerper()[siteKey(t)];
+  var a = nm + ' ' + (PAIN_WN[P.w] || 'mittel') + (P.src === 'mem' && e ? ' (seit ' + (dSince(e.since) ? dSince(e.since) + (dSince(e.since) === 1 ? ' Tag' : ' Tagen') : 'heute') + ')' : '');
+  if (P.kater) return nm + ': Muskelkater. Normal trainieren, er wird beim Aufwärmen meist besser.';
+  if (P.src === 'back') return nm + ' kommt zurück, Woche ' + P.wk + ': heute ' + (P.soft ? P.from + ' langsam und 2 Wdh. weniger.' : x.n + ' statt ' + P.from + ', noch nicht volle Last.');
+  if (P.src === 'meiden') return P.from + ' hat ' + siteAkk(t) + ' ' + P.n + '-mal gereizt. Eine Weile ' + x.n + ' stattdessen.';
   return P.skip ? a + ': ' + P.from + ' fällt heute weg. In dieser Minute Pause.' : P.soft ? a + ': heute leichter, 2 Wdh. weniger und langsam. Wird es stärker, hör auf.'
-    : P.other ? a + ': ' + PAIN_AKK[P.j].replace(/^./, function (c) { return c.toUpperCase(); }) + ' heute schonen. ' + x.n + ' statt ' + P.from + '. Hält es an, lass es ärztlich abklären.'
+    : P.other ? a + ': ' + cap1(siteAkk(t)) + ' heute schonen. ' + x.n + ' statt ' + P.from + '. Hält es an, lass es ärztlich abklären.'
     : a + ': heute ' + x.n + ' statt ' + P.from + '.';
 }
 function painLinkHTML(x, i) {
-  return (x.pain ? '<p class="tl-x">' + esc(painText(x)) + '</p>' : '') + '<div class="adj pn-adj"><button type="button" class="adj-q" data-act="' + (x.pain ? 'pain-off' : 'pain') + '" data-i="' + i + '">' + (x.pain ? 'Schmerzen weg' : 'Schmerzen') + '</button></div>';
+  var P = x.pain, weg = P && (P.src === 'hand' || P.src === 'mem');
+  return (P ? '<p class="tl-x">' + esc(painText(x)) + '</p>' : '') + '<div class="adj pn-adj"><button type="button" class="adj-q" data-act="' + (weg ? 'pain-off' : 'pain') + '" data-i="' + i + '">' + (weg ? 'Schmerzen weg' : 'Schmerzen') + '</button></div>';
 }
 function painBody(tag, i) {
-  var x = planFill().kraft[tag][i], p = painOf(tag, i), wv = p ? p.w : ui.painW || 'm', seg = function (l) {
-    return '<div class="seg" role="group">' + l.map(function (o) { var on = p && p.j === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-j" data-i="' + i + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
+  var x = planFill().kraft[tag][i], p = painOf(tag, i), u = UE[painCur(tag, x, i)], wv = p ? p.w : ui.painW || 'm', mus = [];
+  if (u && u.muskeln) (u.muskeln.primaer || []).concat(u.muskeln.sekundaer || []).forEach(function (m) { if (MUS_NAME[m] && mus.indexOf(m) < 0 && mus.length < 3) mus.push(m); });
+  var seg = function (k, l) {
+    return '<div class="seg" role="group">' + l.map(function (o) { var on = p && p.t.k === k && p.t.id === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-j" data-i="' + i + '" data-k="' + k + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
   };
-  var h = '<p class="small muted" style="margin:0 0 8px">Wo? Oberkörper</p>' + seg(PAIN_J.slice(0, 4)) + '<p class="small muted" style="margin:12px 0 8px">Unterkörper</p>' + seg(PAIN_J.slice(4)) +
-    '<p class="small muted" style="margin:12px 0 8px">Wie stark? (0–10)</p><div class="seg pn-w" role="group">' + PAIN_W.map(function (o) {
-      var on = wv === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-w" data-i="' + i + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '<small>' + o[2] + '</small></button>';
-    }).join('') + '</div><p class="small muted" style="margin:6px 0 0;text-align:center">' + esc(PAIN_W.filter(function (o) { return o[0] === wv; })[0][3]) + '</p>';
-  if (!p) return h + '<p class="small muted" style="margin:14px 0 0">Tipp an, wo es zwickt. Der Coach passt nur diese Übung an, nur für heute.</p>';
-  var s = painSub(tag, x, i, p), jn = PAIN_DAT[p.j];
+  var wseg = function (l) { return l.map(function (o) { var on = wv === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-w" data-i="' + i + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + (o[2] ? '<small>' + o[2] + '</small>' : '') + '</button>'; }).join(''); };
+  var h = '<p class="small muted pn-l">Wo? Oberkörper</p>' + seg('j', PAIN_J.slice(0, 4)) + '<p class="small muted pn-l">Unterkörper</p>' + seg('j', PAIN_J.slice(4)) +
+    (mus.length ? '<p class="small muted pn-l">Muskel</p>' + seg('m', mus.map(function (m) { return [m, MUS_NAME[m].replace(/^(Vordere|Hintere|Seitliche|Oberer|Gerader|Schräge) /, '')]; })) : '');
+  if (p && p.t.k === 'm') {
+    var kat = wv === 'k';
+    h += '<p class="small muted pn-l">Wie fühlt es sich an?</p><div class="seg" role="group">' + [['k', 'Muskelkater'], ['m', 'Plötzlich, stechend']].map(function (o) {
+      var on = kat === (o[0] === 'k'); return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pain-w" data-i="' + i + '" data-v="' + (o[0] === 'k' ? 'k' : kat ? 'm' : wv) + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+    }).join('') + '</div>' + (kat ? '' : '<p class="small muted pn-l">Wie stark? (0–10)</p><div class="seg pn-w" role="group">' + wseg(PAIN_W) + '</div>');
+  } else h += '<p class="small muted pn-l">Wie stark? (0–10)</p><div class="seg pn-w" role="group">' + wseg(PAIN_W) + '</div>';
+  if (p && p.w !== 'k') h += '<p class="small muted" style="margin:6px 0 0;text-align:center">' + esc(PAIN_W.filter(function (o) { return o[0] === wv; })[0][3]) + '</p>';
+  if (!p) return h + '<p class="small muted" style="margin:14px 0 0">Tipp an, wo es zwickt. Muskelkater ist kein Grund zum Tauschen, er geht beim Aufwärmen meist weg.</p>';
+  var s = painSub(tag, x, i, p), jn = siteDat(p.t);
   if (!s) return h;
-  var why = s.skip ? 'Keine passende Übung ohne Last auf ' + jn + '. In dieser Minute Pause.'
-    : s.soft ? (p.w === 'l' ? 'Leichter Schmerz ist okay, solange er nicht zunimmt. ' : x.n + ' belastet ' + PAIN_AKK[p.j] + ' kaum. ') + '2 Wdh. weniger, langsam ablassen. Wird es stärker, hör auf.'
-    : s.other ? (p.w === 's' ? 'Bei starkem Schmerz kein Ersatz in derselben Bewegung: ' : 'Keine leichtere Übung in derselben Bewegung: ') + PAIN_AKK[p.j].replace(/^./, function (c) { return c.toUpperCase(); }) + ' hat Pause, ' + (musHit(s.id, musBalance().need) ? 'dafür kommt dran, was zuletzt zu kurz kam.' : 'eine andere Muskelgruppe arbeitet.') + ' Hält der Schmerz an, lass es ärztlich abklären.'
+  var why = s.kater ? 'Muskelkater ist kein Grund zum Tauschen. Normal trainieren, er wird beim Aufwärmen meist besser. Ist er stark, nimm 1–2 Wdh. weniger.'
+    : s.skip ? 'Keine passende Übung ohne Last auf ' + jn + '. In dieser Minute Pause.'
+    : s.soft ? (p.w === 'l' ? 'Leichter Schmerz ist okay, solange er nicht zunimmt. ' : x.n + ' belastet ' + siteAkk(p.t) + ' kaum. ') + '2 Wdh. weniger, langsam ablassen. Wird es stärker, hör auf.'
+    : s.other ? (p.w === 's' ? 'Bei starkem Schmerz kein Ersatz in derselben Bewegung: ' : 'Keine leichtere Übung in derselben Bewegung: ') + cap1(siteAkk(p.t)) + ' hat Pause, ' + (musHit(s.id, musBalance().need) ? 'dafür kommt dran, was zuletzt zu kurz kam.' : 'eine andere Muskelgruppe arbeitet.') + ' Hält der Schmerz an, lass es ärztlich abklären.'
     : (s.fam ? 'Gleiche Familie, ' : s.same ? 'Ähnliche Bewegung, ' : 'Gleicher Bereich, ') + 'weniger Last auf ' + jn + '. Wird es stärker, lass die Übung aus.';
-  return h + '<div class="kg-rec" style="margin-top:14px"><span class="small muted">Heute stattdessen</span><b>' + esc(s.skip ? 'Auslassen' : s.soft ? x.n + ', leichter' : UE[s.id].name) + '</b><span class="small muted">' + esc(why) + '</span></div>';
+  return h + '<div class="kg-rec" style="margin-top:14px"><span class="small muted">Heute</span><b>' + esc(s.kater ? x.n + ', normal' : s.skip ? 'Auslassen' : s.soft ? x.n + ', leichter' : UE[s.id].name) + '</b><span class="small muted">' + esc(why) + '</span></div>' +
+    (s.kater ? '' : '<p class="small muted" style="margin:10px 0 0">Der Coach merkt es sich und fragt beim nächsten Training nach.</p>');
 }
 function painRefresh(i) { var b = document.querySelector('#sheet .pn-body'); if (b) b.innerHTML = painBody(S.tag, i); render(); }
 ACT.pain = function (el) {
   var i = +el.dataset.i, x = planFill().kraft[S.tag][i]; if (!x) return;
-  openForm(x.n + ' · Schmerzen', '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, wo es zwickt. Er passt nur diese Übung an, nur für heute.</p><section class="card pn-body">' + painBody(S.tag, i) + '</section>',
+  openForm(x.n + ' · Schmerzen', '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, wo es zwickt. Er passt diese Übung an und merkt es sich.</p><section class="card pn-body">' + painBody(S.tag, i) + '</section>',
     'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
 };
-ACT['pain-j'] = function (el) { var i = el.dataset.i, p = painOf(S.tag, i), w = p ? p.w : ui.painW || 'm'; setDraft('_p' + i, p && p.j === el.dataset.v ? '' : el.dataset.v + ':' + w); painRefresh(i); };
-ACT['pain-w'] = function (el) { var i = el.dataset.i, p = painOf(S.tag, i); ui.painW = el.dataset.v; if (p) setDraft('_p' + i, p.j + ':' + el.dataset.v); painRefresh(i); };
-ACT['pain-off'] = function (el) { setDraft('_p' + el.dataset.i, ''); render(); toast('Schmerzen weg: wieder die Übung vom Plan.'); };
+ACT['pain-j'] = function (el) {
+  var i = el.dataset.i, p = painOf(S.tag, i), k = el.dataset.k || 'j', w = p ? p.w : ui.painW || 'm';
+  if (k === 'j' && w === 'k') w = 'm';
+  setDraft('_p' + i, p && p.t.k === k && p.t.id === el.dataset.v ? '' : k + ':' + el.dataset.v + ':' + w); painRefresh(i);
+};
+ACT['pain-w'] = function (el) { var i = el.dataset.i, p = painOf(S.tag, i); if (el.dataset.v !== 'k') ui.painW = el.dataset.v; if (p) setDraft('_p' + i, p.t.k + ':' + p.t.id + ':' + el.dataset.v); painRefresh(i); };
+// „Schmerzen weg“: eigene Meldung zurücknehmen; kam es aus dem Gedächtnis, beginnt die Rückkehr in Stufen.
+ACT['pain-off'] = function (el) {
+  var i = +el.dataset.i, x = DAYS[S.tag].kraft[i], P = x && x.pain;
+  if (P && P.src === 'mem') { memFree(P.k + ':' + P.j); saveState(); render(); toast(cap1(siteName({ k: P.k, id: P.j })) + ': Rückkehr in Stufen, 2 Wochen bis zur vollen Last.'); return; }
+  setDraft('_p' + i, ''); render(); toast('Schmerzen weg: wieder die Übung vom Plan.');
+};
+// Beim Speichern: eigene Meldungen ins Gedächtnis (Muskelkater nicht).
+function painSave(tag) {
+  (DAYS[tag].kraft || []).forEach(function (x) { var P = x.pain; if (P && P.src === 'hand' && !P.kater) memRecord({ k: P.k, id: P.j }, P.w, ueOfEntry(P.from)); });
+}
+// Nachfrage auf Heute: je akuter Stelle eine Karte, die heute noch nicht beantwortet ist (oder beantwortet, mit Ergebnis).
+function painAskHTML(tag) {
+  var d = DAYS[tag]; if (!d || d.type !== 'kraft') return '';
+  return memList(['akut', 'back']).filter(function (e) { return memState(e).st === 'akut' || e.ask === isoToday(); }).map(function (e) {
+    var t = { k: e.k, id: e.id }, nm = siteName(t), m = memState(e), today = e.ask === isoToday(), cur = m.st === 'back' ? 'weg' : e.w, ds = dSince(e.last);
+    var segs = [['weg', 'Weg'], ['l', 'Leicht'], ['m', 'Mittel'], ['s', 'Stark']].map(function (o) {
+      var on = today && cur === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pn-ask" data-k="' + siteKey(t) + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
+    }).join('');
+    var res = !today ? 'Letztes Mal ' + PAIN_WN[e.w] + (ds ? ', vor ' + ds + (ds === 1 ? ' Tag' : ' Tagen') : ', heute') + '. Bis du antwortest, schont der Coach ' + siteAkk(t) + ' wie zuletzt.'
+      : m.st === 'back' ? 'Rückkehr in Stufen: Woche 1 nur wenig Last auf ' + siteDat(t) + ', Woche 2 mehr, dann wieder alles.'
+      : 'Heute ' + PAIN_WN[e.w] + ': Der Coach ' + (e.w === 'l' ? 'lässt die Übungen, nur leichter.' : 'schont ' + siteAkk(t) + ' in allen Übungen.');
+    return '<section class="card pn-ask"><div class="pn-ask-h"><b>' + (t.k === 'm' ? esc(nm) + ': Wie geht’s heute?' : 'Wie geht’s ' + esc(siteDat(t).replace(/^der /, 'deiner ').replace(/^dem /, 'deinem ')) + '?') + '</b><span class="chip">seit ' + esc(shortDate(e.since).replace(/\.$/, '')) + '</span></div>' +
+      '<div class="seg" role="group" aria-label="' + esc(nm) + '">' + segs + '</div><p class="tl-x">' + esc(res) + '</p>' +
+      (memDoc(e) ? '<p class="tl-x pn-doc">' + (dSince(e.since) >= 14 ? 'Seit ' + dSince(e.since) + ' Tagen' : (e.s || 0) + '-mal stark') + '. Lass es ärztlich oder physiotherapeutisch abklären.</p>' : '') + '</section>';
+  }).join('');
+}
+ACT['pn-ask'] = function (el) {
+  var K = koerper(), e = K[el.dataset.k], v = el.dataset.v; if (!e) return;
+  if (v === 'weg') { if (memState(e).st === 'akut') memFree(el.dataset.k); else e.ask = isoToday(); }
+  else memRecord({ k: e.k, id: e.id }, v, null);
+  saveState(); render();
+};
+// Übersicht im Profil › Werte: Figur mit Gelenk-Punkten und Muskeln, je Stelle eine Zeile, gemiedene Übungen.
+var JOINT_XY = { schulter: [[52, 94]], ellbogen: [[44, 174]], handgelenk: [[31, 244]], huefte: [[70, 252]], knie: [[76, 340]], fuss: [[74, 420]] };
+function painFigHTML() {
+  var col = {}, dots = { f: '', b: '' };
+  memList().forEach(function (e) {
+    var m = memState(e), c = m.st === 'akut' ? 'b0' : m.st === 'back' ? 'b1' : ''; if (!c) return;
+    if (e.k === 'm') col[e.id] = c;
+    else if (e.id === 'ruecken') dots.b += '<circle class="pn-dot ' + c + '" cx="100" cy="196" r="9"/>';
+    else (JOINT_XY[e.id] || []).forEach(function (q) { var dd = '<circle class="pn-dot ' + c + '" cx="' + q[0] + '" cy="' + q[1] + '" r="8"/><circle class="pn-dot ' + c + '" cx="' + (200 - q[0]) + '" cy="' + q[1] + '" r="8"/>'; dots.f += dd; });
+  });
+  var fig = function (parts, extra) { return bodySVG(parts, function (m) { return col[m] || ''; }).replace('</svg>', extra + '</svg>'); };
+  return '<div class="bf"><figure>' + fig(BODY_F, dots.f) + '<figcaption>Vorn</figcaption></figure><figure>' + fig(BODY_B, dots.b) + '<figcaption>Hinten</figcaption></figure></div>';
+}
+function painCardHTML() {
+  var L = memList().filter(function (e) { var m = memState(e); return m.st !== 'gut' || dSince(e.free || e.last) <= 28; });
+  var avoid = {}; memList().forEach(function (e) { (e.hist || []).forEach(function (h) { if (h.ue && UE[h.ue] && memAvoid(h.ue)) avoid[h.ue] = { t: { k: e.k, id: e.id }, n: memAvoid(h.ue).n }; }); });
+  if (!L.length && !Object.keys(avoid).length) return '';
+  var rows = L.map(function (e) {
+    var t = { k: e.k, id: e.id }, m = memState(e), sub = m.st === 'akut' ? 'Seit ' + shortDate(e.since).replace(/\.$/, '') + ' · zuletzt ' + PAIN_WN[e.w] + ' · ' + e.n + '× gemeldet'
+      : m.st === 'back' ? 'Schmerzfrei seit ' + shortDate(e.free).replace(/\.$/, '') + ' · Woche ' + m.wk + ' von 2' : 'Wieder voll belastbar';
+    return valRow(siteName(t), '<span class="chip pn-st ' + m.st + '">' + (m.st === 'akut' ? 'Schonen' : m.st === 'back' ? 'Rückkehr' : 'Gut') + '</span>', null, { sub: sub });
+  });
+  Object.keys(avoid).forEach(function (id) { rows.push(valRow(UE[id].name, '<span class="chip pn-st akut">Pause</span>', null, { sub: 'Hat ' + siteAkk(avoid[id].t) + ' ' + avoid[id].n + '-mal gereizt, der Coach lässt sie eine Weile weg' })); });
+  var doc = L.filter(memDoc).map(function (e) { return siteName({ k: e.k, id: e.id }); });
+  return '<section class="card pn-card"><p class="sec-k">Beschwerden</p>' + painFigHTML() + '<div class="mb-lgs pn-lg"><span><span><i class="b0"></i>Schonen</span><span><i class="b1"></i>Rückkehr</span></span></div>' + valRows(rows) +
+    (doc.length ? '<p class="tl-x pn-doc">' + esc(doc.join(', ')) + ': lass es ärztlich oder physiotherapeutisch abklären.</p>' : '') + '</section>';
+}
 
 /* ---------- Muskeln: Körperfigur, Ausgleich ---------- */
 // Figur wie eine anatomische Tafel: graue Silhouette, Muskeln einzeln abgegrenzt. Gezeichnet ist die linke Hälfte, rechts gespiegelt.
