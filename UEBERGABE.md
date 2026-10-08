@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 8. Oktober 2026 (Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
+Stand: 8. Oktober 2026 (Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,14 @@ Stand: 8. Oktober 2026 (Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Ru
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Geschlecht im Profil (8. Oktober)
+- PR #67 (Aufwärmen im Vollbild) gemergt.
+- Dennis (Anlass: Bild mit Muskelfiguren je Bewegungsmuster): Geschlecht im Profil wählen, alles passt sich an („alles anpassen“).
+  Einstellungen › Profil: Geschlecht –/Männlich/Weiblich/Divers. Normen, Rx, Kardio-Wert, Maximalpuls, Figur. Divers = Mitte.
+- Figur: Dennis fand die erste weibliche Version „nicht weiblich genug“ → stärkere Taille/Hüfte, schlankere Arme, Brust, lange Haare.
+  Danach auch beim Mann eine Frisur (Kurzhaarschnitt). Canvas „Paket 33 · Geschlecht“ (Board P89).
+- Offen: Seite „Grundmuster“ (Squat, Hinge, Push, Pull, Carry) unter Plan › Wissen angeboten, noch keine Antwort.
 
 ## Grafiken Runde 3 und Testtage (8. Oktober)
 - PR #65 (Schmerzen) gemergt.
