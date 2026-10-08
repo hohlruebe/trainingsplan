@@ -1,0 +1,579 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "zug_horizontal",
+  "quelle": "Overcoming Gravity (Front/Back Lever, Skin the Cat), NSCA Essentials (Rudervarianten), Fenwick et al. 2009. eq_kabelzug wurde in neu_zug_vertikal eingeführt.",
+  "uebungen": [
+    {
+      "id": "g_seated_cable_row",
+      "name": "Seated Cable Row",
+      "muster": "zug_horizontal",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug"
+        ]
+      ],
+      "nutzen": 74,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps",
+      "schritte": [
+        "Setz dich an den unteren Kabelzug, Füße gegen die Stütze, Knie leicht gebeugt.",
+        "Greif den Griff mit gestreckten Armen, Oberkörper aufrecht.",
+        "Zieh den Griff zum Bauch und die Schulterblätter zusammen.",
+        "Lass ihn kontrolliert zurück, ohne den Rücken rund zu machen."
+      ],
+      "sauber": "Der Oberkörper bleibt fast still und die Bewegung kommt aus den Armen und Schulterblättern.",
+      "fehler": "Ein Schwingen mit dem Oberkörper macht aus dem Rudern eine Hüftbewegung.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder hinten 1 Sekunde halten.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten",
+          "unterarm",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kabelrudern",
+        "Rudern am Kabelzug",
+        "Sitzendes Rudern"
+      ]
+    },
+    {
+      "id": "g_chest_supported_row",
+      "name": "Chest-Supported Dumbbell Row",
+      "muster": "zug_horizontal",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell"
+        ],
+        [
+          "eq_bank"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Oberer Rücken, Latissimus, Bizeps",
+      "schritte": [
+        "Stell die Bank schräg und leg dich bäuchlings darauf, je eine Hantel in der Hand.",
+        "Lass die Arme gerade nach unten hängen.",
+        "Zieh die Hanteln zur Hüfte und die Schulterblätter zusammen.",
+        "Senk sie kontrolliert ab."
+      ],
+      "sauber": "Die Brust bleibt auf der Bank und der Rücken muss nichts halten.",
+      "fehler": "Ein Abheben der Brust bringt Schwung in die Bewegung.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder oben 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Brustgestütztes Rudern",
+        "Rudern auf der Schrägbank",
+        "Bauchlage-Rudern"
+      ]
+    },
+    {
+      "id": "g_ytw_raise",
+      "name": "Prone Y-T-W Raise",
+      "muster": "zug_horizontal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 50,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Unterer Trapez, hintere Schulter",
+      "schritte": [
+        "Leg dich bäuchlings auf den Boden, Stirn auf einem Handtuch.",
+        "Heb die gestreckten Arme als Y über den Kopf, Daumen nach oben.",
+        "Dann als T zur Seite und als W mit gebeugten Ellbogen.",
+        "Halte jede Position kurz und senk die Arme ab."
+      ],
+      "sauber": "Die Schulterblätter ziehen nach hinten unten, nicht zu den Ohren.",
+      "fehler": "Ein Hochziehen des Nackens lässt den oberen Trapez arbeiten statt des unteren.",
+      "skalierung": "Leichter: Nur Y und T. Schwerer: Kleine Gewichte in den Händen.",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "schulter_hinten"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "YTW",
+        "Y-T-W-Heben",
+        "Bauchlage-Armheben"
+      ]
+    },
+    {
+      "id": "g_front_lever_raise",
+      "name": "Front Lever Raise",
+      "muster": "zug_horizontal",
+      "bereich": "skill",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 80,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_front_lever",
+          "stufe": "Tuck"
+        }
+      ],
+      "trainiert": "Latissimus, Bauch, Front-Lever-Kraft",
+      "schritte": [
+        "Häng dich mit gestreckten Armen an und zieh den Körper in den umgekehrten Hang.",
+        "Senk den Körper mit gestreckten Armen langsam bis in die Front-Lever-Position.",
+        "Zieh dich mit gestreckten Armen zurück in den umgekehrten Hang."
+      ],
+      "sauber": "Die Arme bleiben gestreckt und der Körper bleibt in der gewählten Form.",
+      "fehler": "Ein Beugen der Arme nimmt dem Latissimus den Hebel ab.",
+      "skalierung": "Leichter: Gehockt oder nur das Absenken. Schwerer: Gestreckter Körper oder Weste.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bizeps",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Front-Lever-Heben",
+        "Front Lever Raises"
+      ]
+    },
+    {
+      "id": "g_straddle_front_lever",
+      "name": "Straddle Front Lever",
+      "muster": "zug_horizontal",
+      "bereich": "skill",
+      "einheit": "sek",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 88,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_front_lever",
+          "stufe": "Einbeinig"
+        }
+      ],
+      "trainiert": "Latissimus, Bauch, Rumpfspannung",
+      "schritte": [
+        "Häng dich mit gestreckten Armen an.",
+        "Heb den Körper waagerecht nach oben, die Beine gestreckt und gegrätscht.",
+        "Halte Hüfte und Schultern auf einer Höhe."
+      ],
+      "sauber": "Der Körper bildet eine waagerechte Linie und die Arme bleiben gestreckt.",
+      "fehler": "Eine abknickende Hüfte macht die Position deutlich leichter.",
+      "skalierung": "Leichter: One-Leg Front Lever. Schwerer: Beine enger zusammen bis zum vollen Front Lever.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gegrätschte Hangwaage vorlings",
+        "Straddle FL"
+      ]
+    },
+    {
+      "id": "g_straddle_back_lever",
+      "name": "Straddle Back Lever",
+      "muster": "zug_horizontal",
+      "bereich": "skill",
+      "einheit": "sek",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 80,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_back_lever",
+          "stufe": "Advanced Tuck"
+        }
+      ],
+      "trainiert": "Latissimus, Brust, Bizeps, Rumpf",
+      "schritte": [
+        "Geh über den German Hang in den Back Lever.",
+        "Streck die Beine gegrätscht nach hinten, Körper waagerecht, Bauch zum Boden.",
+        "Halte die Arme gestreckt und den Körper in einer Linie."
+      ],
+      "sauber": "Hüfte und Schultern sind auf einer Höhe und die Arme bleiben gestreckt.",
+      "fehler": "Ein Hohlkreuz verlagert die Last in den unteren Rücken.",
+      "skalierung": "Leichter: Advanced Tuck Back Lever. Schwerer: Beine enger bis zum vollen Back Lever.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "brust",
+          "schulter_hinten",
+          "rueckenstrecker",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gegrätschte Hangwaage rücklings",
+        "Straddle BL"
+      ]
+    },
+    {
+      "id": "g_skin_the_cat",
+      "name": "Skin the Cat",
+      "muster": "zug_horizontal",
+      "bereich": "skill",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 2,
+      "voraussetzung": [
+        {
+          "leiter": "g_back_lever",
+          "stufe": "German Hang"
+        }
+      ],
+      "trainiert": "Schulterbeweglichkeit, Bauch, Latissimus",
+      "schritte": [
+        "Häng dich mit gestreckten Armen an.",
+        "Zieh die Knie zur Brust und roll den Körper rückwärts durch die Arme.",
+        "Senk dich kontrolliert bis in den German Hang.",
+        "Roll auf demselben Weg zurück in den Hang."
+      ],
+      "sauber": "Die Bewegung bleibt langsam und kontrolliert bis in den German Hang.",
+      "fehler": "Ein schnelles Durchfallen in den German Hang überlastet die Schulter.",
+      "skalierung": "Leichter: Nur bis zum umgekehrten Hang. Schwerer: Mit gestreckten Beinen.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "hueftbeuger",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hautabziehen",
+        "Durchrollen an den Ringen"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_bent_over_row",
+      "varianten": [
+        {
+          "uebung": "g_seated_cable_row",
+          "art": "variante",
+          "effekt": 74,
+          "grund": "Rudern mit kg-Last ohne Belastung für den vorgebeugten Rücken."
+        },
+        {
+          "uebung": "g_chest_supported_row",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Die Bank trägt den Oberkörper, Ausweichübung bei Rückenschmerzen."
+        }
+      ]
+    },
+    {
+      "familie": "f_face_pull",
+      "varianten": [
+        {
+          "uebung": "g_ytw_raise",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 50,
+          "ziel": "3 Runden Y-T-W mit je 10 Wiederholungen, sauber ohne Hochziehen der Schultern.",
+          "grund": "Erste Stufe ohne Gerät für den unteren Trapez, die Familie hatte bisher keine Stufen."
+        }
+      ]
+    },
+    {
+      "familie": "f_front_lever",
+      "varianten": [
+        {
+          "uebung": "g_straddle_front_lever",
+          "art": "stufe",
+          "nach": "g_front_lever_one_leg",
+          "effekt": 88,
+          "ziel": "10 Sekunden sauber gehalten.",
+          "grund": "Übliche Zwischenstufe zwischen einbeinigem und vollem Front Lever."
+        },
+        {
+          "uebung": "g_front_lever_raise",
+          "art": "variante",
+          "effekt": 80,
+          "grund": "Dynamische Kraft über den ganzen Weg statt nur Halten."
+        }
+      ]
+    },
+    {
+      "familie": "f_back_lever",
+      "varianten": [
+        {
+          "uebung": "g_straddle_back_lever",
+          "art": "stufe",
+          "nach": "g_back_lever_adv",
+          "effekt": 80,
+          "ziel": "10 Sekunden sauber gehalten.",
+          "grund": "Übliche Zwischenstufe zwischen Advanced Tuck und vollem Back Lever."
+        },
+        {
+          "uebung": "g_skin_the_cat",
+          "art": "variante",
+          "effekt": 60,
+          "grund": "Dynamischer Weg in den German Hang, Schulterbeweglichkeit und Kontrolle."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 zug_horizontal",
+      "entscheidung": "7 neue Übungen: Seated Cable Row, Chest-Supported Dumbbell Row, Prone Y-T-W Raise, Front Lever Raise, Straddle Front Lever, Straddle Back Lever, Skin the Cat.",
+      "folge": "Alle in bestehenden Familien, keine neuen Geräte."
+    },
+    {
+      "frage": "f_face_pull hatte keine Stufen. Darf der Y-T-W Raise dort Stufe 1 werden?",
+      "entscheidung": "Ja, als stufe mit nach: null.",
+      "folge": "Es wird nur ergänzt, bestehende Übungen bleiben Varianten."
+    },
+    {
+      "frage": "eq_landmine für den T-Bar Row?",
+      "entscheidung": "Nicht in diesem Paket.",
+      "folge": "Der T-Bar Row wäre eine Dublette zum Barbell Row, die Landmine kommt erst in druck_vertikal mit dem Landmine Press."
+    },
+    {
+      "frage": "Abgelehnt: Pendlay Row, T-Bar Row, Meadows Row, Kroc Row, Gorilla Row",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Barbell Row bzw. Dumbbell Row ohne eigenen belegten Effekt."
+    },
+    {
+      "frage": "Abgelehnt: Seal Row, Bent-Over Two-Arm Dumbbell Row, Single-Arm Cable Row, Band Seated Row",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Chest-Supported Row, Barbell Row, Dumbbell Row bzw. Band Row."
+    },
+    {
+      "frage": "Abgelehnt: Reverse Fly, Cable Face Pull",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Gleiche Bewegung wie Band Pull-Apart bzw. Band Face Pull."
+    },
+    {
+      "frage": "Abgelehnt: Feet-Elevated Ring Row",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Ist schon Stufe „Füße erhöht“ der Leiter g_row."
+    },
+    {
+      "frage": "Australian Chin-up aus zug_vertikal",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Untergriff am Australian Pull-up ändert den Reiz kaum, gleiche Begründung wie beim Neutral Grip Pull-up."
+    },
+    {
+      "frage": "sehne der neuen Übungen",
+      "entscheidung": "Hebel-Stufen und Front Lever Raise 2, Skin the Cat 1, sonst 0.",
+      "folge": "Gleiche Logik wie bei den bestehenden Hebel-Stufen und dem German Hang."
+    }
+  ]
+}

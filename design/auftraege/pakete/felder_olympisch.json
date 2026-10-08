@@ -1,0 +1,671 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "olympisch",
+  "quelle": "USA Weightlifting und CrossFit Training Guide (Technik), Garhammer (Biomechanik der Gewichtheber-Hebungen), CrossFit Benchmark-Workouts (Elizabeth, Grace, Isabel) und Movement Standards für rx.",
+  "uebungen": [
+    {
+      "id": "g_clean_and_jerk",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "rueckenstrecker",
+          "schulter_vorn",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 5,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Umsetzen und Stoßen",
+        "Stoßen",
+        "C&J"
+      ]
+    },
+    {
+      "id": "g_squat_clean",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "rueckenstrecker",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 61,
+        "w": 43
+      },
+      "alias": [
+        "Umsetzen in die Hocke",
+        "Squat Clean",
+        "Hocke-Umsetzen"
+      ]
+    },
+    {
+      "id": "g_squat_snatch",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "beinbeuger",
+          "rueckenstrecker",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 5,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Reißen",
+        "Reißen in die Hocke",
+        "Snatch"
+      ]
+    },
+    {
+      "id": "g_power_clean",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "rueckenstrecker",
+          "unterarm",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 61,
+        "w": 43
+      },
+      "alias": [
+        "Umsetzen",
+        "Power-Umsetzen",
+        "Standumsetzen"
+      ]
+    },
+    {
+      "id": "g_power_snatch",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "beinbeuger",
+          "rueckenstrecker",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 43,
+        "w": 29
+      },
+      "alias": [
+        "Standreißen",
+        "Power-Reißen"
+      ]
+    },
+    {
+      "id": "g_hang_power_clean",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "rueckenstrecker",
+          "unterarm",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 61,
+        "w": 43
+      },
+      "alias": [
+        "Umsetzen aus dem Hang",
+        "Hang-Umsetzen"
+      ]
+    },
+    {
+      "id": "g_hang_power_snatch",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "beinbeuger",
+          "rueckenstrecker",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 43,
+        "w": 29
+      },
+      "alias": [
+        "Reißen aus dem Hang",
+        "Hang-Reißen"
+      ]
+    },
+    {
+      "id": "g_db_snatch",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "schulter_vorn",
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "oberer_ruecken",
+          "trizeps",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 22.5,
+        "w": 15
+      },
+      "alias": [
+        "Kurzhantel-Reißen",
+        "DB Snatch",
+        "Einarmiges Reißen mit Kurzhantel"
+      ]
+    },
+    {
+      "id": "g_kb_snatch",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "schulter_vorn",
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "oberer_ruecken",
+          "trizeps",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Kettlebell-Reißen",
+        "KB Snatch"
+      ]
+    },
+    {
+      "id": "g_db_clean_jerk",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "schulter_vorn",
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "trizeps",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 22.5,
+        "w": 15
+      },
+      "alias": [
+        "Kurzhantel-Umsetzen und Stoßen",
+        "DB Clean and Jerk"
+      ]
+    },
+    {
+      "id": "g_devil_press",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "schulter_vorn",
+          "brust"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "beinbeuger",
+          "trizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 22.5,
+        "w": 15
+      },
+      "alias": [
+        "Devil Press",
+        "Teufelsdrücken"
+      ]
+    },
+    {
+      "id": "g_kb_clean",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bizeps",
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Kettlebell-Umsetzen",
+        "KB Clean"
+      ]
+    },
+    {
+      "id": "g_med_ball_clean",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "oberer_ruecken",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Medizinball-Umsetzen",
+        "Med Ball Clean"
+      ]
+    },
+    {
+      "id": "g_burgener",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "quadrizeps",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Burgener-Aufwärmen",
+        "Burgener Drill"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_clean_and_jerk, g_squat_snatch und g_db_snatch haben 0 laut Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen, auch alle übrigen Übungen bekommen 0."
+    },
+    {
+      "frage": "Schulter 3 bei welchen Übungen?",
+      "entscheidung": "Bei allen Langhantel-Snatch-Varianten.",
+      "folge": "Anker Snatch aus dem Auftrag."
+    },
+    {
+      "frage": "Handgelenk 3 bei welchen Übungen?",
+      "entscheidung": "Bei Clean and Jerk und den Langhantel-Cleans.",
+      "folge": "Anker Front Rack mit schwerem Gewicht."
+    },
+    {
+      "frage": "bewegt: handgelenk bei olympischen Hebungen?",
+      "entscheidung": "Ja bei Langhantel-Cleans, Snatches und Burgener, nein bei Kurzhantel- und Kettlebell-Varianten.",
+      "folge": "Beim Umgreifen in Front Rack bzw. Überkopf klappt das Handgelenk deutlich um."
+    },
+    {
+      "frage": "laut",
+      "entscheidung": "true bei allen Langhantel-Hebungen, Kurzhantel-Snatch, DB Clean and Jerk und Devil Press.",
+      "folge": "Die Last wird abgelegt oder fallen gelassen, die Füße landen hart."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Squat Clean, Power Clean, Hang Power Clean 61/43 kg (Elizabeth/Grace). Power Snatch und Hang Power Snatch 43/29 kg. DB-Varianten und Devil Press 22,5/15 kg. Kettlebell Snatch und Clean 24/16 kg.",
+      "folge": "Übliche CrossFit-Metcon-Gewichte. Für Snatches bewusst die leichtere Metcon-Stufe, Isabel mit 61/43 kg ist ein Spezial-Benchmark."
+    },
+    {
+      "frage": "ermuedung",
+      "entscheidung": "3 für alle Langhantel-Hebungen außer den Hang-Varianten und für den Devil Press.",
+      "folge": "Ganzkörperhebungen mit hoher Last, der Devil Press kombiniert Burpee und Snatch."
+    }
+  ]
+}

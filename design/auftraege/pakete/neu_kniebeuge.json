@@ -1,0 +1,266 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "kniebeuge",
+  "quelle": "Schoenfeld 2010 (Kniebeuge), Escamilla 2001, Rio et al. 2015 (isometrische Belastung der Patellasehne). Gerätepreis deutsche Händler, Stand 2026.",
+  "uebungen": [
+    {
+      "id": "g_leg_press",
+      "name": "Leg Press",
+      "muster": "kniebeuge",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_beinpresse"
+        ]
+      ],
+      "nutzen": 76,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Oberschenkel, Gesäß",
+      "schritte": [
+        "Setz dich in die Beinpresse, Rücken und Becken fest an der Lehne.",
+        "Stell die Füße hüftbreit mittig auf die Platte.",
+        "Senk die Platte, bis die Knie etwa 90 Grad gebeugt sind.",
+        "Drück sie zurück, ohne die Knie ganz durchzustrecken."
+      ],
+      "sauber": "Das Becken bleibt an der Lehne und die Knie zeigen in Richtung der Fußspitzen.",
+      "fehler": "Ein zu tiefes Absenken rollt das Becken ein und belastet den unteren Rücken.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder einbeinig.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "adduktoren",
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinpresse",
+        "Beinpressen"
+      ]
+    },
+    {
+      "id": "g_sissy_squat",
+      "name": "Sissy Squat",
+      "muster": "kniebeuge",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_zuhause",
+          "eq_sprossenwand"
+        ]
+      ],
+      "nutzen": 68,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_air",
+          "stufe": "Air Squat"
+        }
+      ],
+      "trainiert": "Vorderer Oberschenkel",
+      "schritte": [
+        "Halt dich mit einer Hand an einem Türrahmen oder einer Sprossenwand fest.",
+        "Geh auf die Fußballen und schieb die Knie nach vorn.",
+        "Lehn den Oberkörper zurück, Hüfte gestreckt, bis die Knie weit gebeugt sind.",
+        "Drück dich zurück in den Stand."
+      ],
+      "sauber": "Knie, Hüfte und Schultern bilden eine gerade Linie.",
+      "fehler": "Ein Abknicken in der Hüfte macht daraus eine normale Kniebeuge.",
+      "skalierung": "Leichter: Kürzerer Weg. Schwerer: Tiefer oder ohne Festhalten.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 3,
+        "fuss": 1
+      },
+      "bewegt": [
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Sissy-Kniebeuge"
+      ]
+    },
+    {
+      "id": "g_spanish_squat",
+      "name": "Spanish Squat",
+      "muster": "kniebeuge",
+      "bereich": "beine",
+      "einheit": "sek",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ],
+        [
+          "eq_rack",
+          "eq_sprossenwand",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 55,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Vorderer Oberschenkel",
+      "schritte": [
+        "Befestig ein starkes Band auf Kniehöhe an einem festen Pfosten und leg es hinter beide Knie.",
+        "Geh rückwärts, bis das Band straff ist.",
+        "Setz dich nach hinten in eine Hocke mit senkrechten Schienbeinen und halte die Position."
+      ],
+      "sauber": "Die Schienbeine bleiben senkrecht und das Band trägt dich.",
+      "fehler": "Ein Vorschieben der Knie nimmt dem Band die Arbeit ab.",
+      "skalierung": "Leichter: Weniger tief. Schwerer: Tiefer oder länger halten.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Spanische Kniebeuge"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_squat",
+      "varianten": [
+        {
+          "uebung": "g_leg_press",
+          "art": "variante",
+          "effekt": 76,
+          "grund": "Kniebeugen-Muster mit kg-Last ohne Last auf der Wirbelsäule."
+        },
+        {
+          "uebung": "g_sissy_squat",
+          "art": "variante",
+          "effekt": 68,
+          "grund": "Belastet fast nur den vorderen Oberschenkel, ohne Gewicht."
+        },
+        {
+          "uebung": "g_spanish_squat",
+          "art": "variante",
+          "effekt": 55,
+          "grund": "Isometrische Kniebeuge mit senkrechten Schienbeinen, geringe Rückenlast."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [
+    {
+      "id": "eq_beinpresse",
+      "name": "Beinpresse (45 Grad)",
+      "preis": "ca. 600–2.500 €",
+      "platz": "ca. 2,2 × 1,4 m",
+      "warum": "Typisches Gym-Gerät für schwere Beinarbeit ohne Last auf der Wirbelsäule."
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 kniebeuge",
+      "entscheidung": "3 neue Übungen: Leg Press, Sissy Squat, Spanish Squat.",
+      "folge": "Alle in f_squat."
+    },
+    {
+      "frage": "Neues Gerät eq_beinpresse?",
+      "entscheidung": "Aufgenommen.",
+      "folge": "Eigener Reiz ohne Rückenlast, typisches Gym-Gerät."
+    },
+    {
+      "frage": "Sissy Squat: Knie 3 und sehne 1?",
+      "entscheidung": "Knie 3, sehne 1.",
+      "folge": "Anker Sissy Squat, hohe Last auf der Patellasehne."
+    },
+    {
+      "frage": "Abgelehnt: Hack Squat, Smith Machine Squat, Belt Squat",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zur Leg Press bzw. brauchen ein weiteres Gerät für denselben Reiz."
+    },
+    {
+      "frage": "Abgelehnt: Zercher Squat, Landmine Squat, Sumo Squat, Heel-Elevated Goblet Squat, Double Kettlebell Front Squat",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Front Squat bzw. Goblet Squat ohne eigenen belegten Effekt."
+    },
+    {
+      "frage": "Abgelehnt: Pause Squat, Tempo Squat",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Ausführungsvorgaben ohne eigenen Trainingseffekt."
+    },
+    {
+      "frage": "Abgelehnt: Dumbbell Thruster, Single-Leg Press",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "g_thruster erlaubt schon Kurzhanteln, die einbeinige Beinpresse ist eine Dublette zur Leg Press."
+    }
+  ]
+}

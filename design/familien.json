@@ -69,7 +69,7 @@
       "leiter": "g_ring_muscle_up",
       "voraussetzt": [
         { "familie": "f_pullup", "ab_rang": 7 },
-        { "familie": "f_dip", "ab_rang": 5 },
+        { "familie": "f_dip", "ab_rang": 6 },
         { "familie": "f_chinup", "ab_rang": 1 }
       ],
       "fuehrt_zu": [],
@@ -92,7 +92,7 @@
       "leiter": "g_bar_muscle_up",
       "voraussetzt": [
         { "familie": "f_pullup", "ab_rang": 7 },
-        { "familie": "f_dip", "ab_rang": 5 }
+        { "familie": "f_dip", "ab_rang": 6 }
       ],
       "fuehrt_zu": [],
       "varianten": [
@@ -154,7 +154,9 @@
       "varianten": [
         { "uebung": "g_db_row", "art": "stufe", "rang": 1, "effekt": 68, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einarmig mit Kurzhantel oder Kettlebell, technisch einfacher Einstieg." },
         { "uebung": "g_barbell_row", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Beidarmig mit Langhantel, höhere Last und mehr Rumpfstabilität." },
-        { "uebung": "g_renegade_row", "art": "variante", "rang": null, "effekt": 64, "grund": "Rudern aus dem Stütz, mehr Rumpf- und Metcon-Reiz bei weniger Last." }
+        { "uebung": "g_renegade_row", "art": "variante", "rang": null, "effekt": 64, "grund": "Rudern aus dem Stütz, mehr Rumpf- und Metcon-Reiz bei weniger Last." },
+        { "uebung": "g_seated_cable_row", "art": "variante", "rang": null, "effekt": 74, "grund": "Rudern mit kg-Last ohne Belastung für den vorgebeugten Rücken." },
+        { "uebung": "g_chest_supported_row", "art": "variante", "rang": null, "effekt": 70, "grund": "Die Bank trägt den Oberkörper, Ausweichübung bei Rückenschmerzen." }
       ]
     },
     {
@@ -174,7 +176,9 @@
         { "uebung": "g_front_lever_tuck", "art": "stufe", "rang": 1, "effekt": 80, "ziel": "3 × 15 s sauber gehalten.", "grund": "Kürzester Hebel, Einstieg in die Position." },
         { "uebung": "g_front_lever_adv", "art": "stufe", "rang": 2, "effekt": 84, "ziel": "3 × 10 s sauber gehalten.", "grund": "Flacher Rücken, längerer Hebel als im Tuck." },
         { "uebung": "g_front_lever_one_leg", "art": "stufe", "rang": 3, "effekt": 86, "ziel": "3 × 8 s je Bein sauber gehalten.", "grund": "Ein Bein gestreckt, Zwischenstufe zum vollen Lever." },
-        { "uebung": "g_front_lever", "art": "stufe", "rang": 4, "effekt": 90, "ziel": "Erhalten: einmal pro Woche 3 × 5 s sauber gehalten.", "grund": "Voller Hebel mit gestrecktem Körper." }
+        { "uebung": "g_straddle_front_lever", "art": "stufe", "rang": 4, "effekt": 88, "ziel": "10 Sekunden sauber gehalten.", "grund": "Übliche Zwischenstufe zwischen einbeinigem und vollem Front Lever." },
+        { "uebung": "g_front_lever", "art": "stufe", "rang": 5, "effekt": 90, "ziel": "Erhalten: einmal pro Woche 3 × 5 s sauber gehalten.", "grund": "Voller Hebel mit gestrecktem Körper." },
+        { "uebung": "g_front_lever_raise", "art": "variante", "rang": null, "effekt": 80, "grund": "Dynamische Kraft über den ganzen Weg statt nur Halten." }
       ]
     },
     {
@@ -187,14 +191,16 @@
       "leiter": "g_back_lever",
       "voraussetzt": [
         { "familie": "f_pullup", "ab_rang": 7 },
-        { "familie": "f_dip", "ab_rang": 4 }
+        { "familie": "f_dip", "ab_rang": 5 }
       ],
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_german_hang", "art": "stufe", "rang": 1, "effekt": 58, "ziel": "3 × 20 s entspannt gehalten.", "grund": "Gewöhnt die Schultern an die Streckung, Basis für den Back Lever." },
         { "uebung": "g_back_lever_tuck", "art": "stufe", "rang": 2, "effekt": 72, "ziel": "3 × 15 s sauber gehalten.", "grund": "Kürzester Hebel in der Back-Lever-Position." },
         { "uebung": "g_back_lever_adv", "art": "stufe", "rang": 3, "effekt": 76, "ziel": "3 × 10 s sauber gehalten.", "grund": "Flacher Rücken, längerer Hebel als im Tuck." },
-        { "uebung": "g_back_lever", "art": "stufe", "rang": 4, "effekt": 82, "ziel": "Erhalten: einmal pro Woche 3 × 5 s sauber gehalten.", "grund": "Voller Hebel mit gestrecktem Körper." }
+        { "uebung": "g_straddle_back_lever", "art": "stufe", "rang": 4, "effekt": 80, "ziel": "10 Sekunden sauber gehalten.", "grund": "Übliche Zwischenstufe zwischen Advanced Tuck und vollem Back Lever." },
+        { "uebung": "g_back_lever", "art": "stufe", "rang": 5, "effekt": 82, "ziel": "Erhalten: einmal pro Woche 3 × 5 s sauber gehalten.", "grund": "Voller Hebel mit gestrecktem Körper." },
+        { "uebung": "g_skin_the_cat", "art": "variante", "rang": null, "effekt": 60, "grund": "Dynamischer Weg in den German Hang, Schulterbeweglichkeit und Kontrolle." }
       ]
     },
     {
@@ -208,6 +214,7 @@
       "voraussetzt": [],
       "fuehrt_zu": [],
       "varianten": [
+        { "uebung": "g_ytw_raise", "art": "stufe", "rang": 1, "effekt": 50, "ziel": "3 Runden Y-T-W mit je 10 Wiederholungen, sauber ohne Hochziehen der Schultern.", "grund": "Erste Stufe ohne Gerät für den unteren Trapez, die Familie hatte bisher keine Stufen." },
         { "uebung": "g_face_pull", "art": "variante", "rang": null, "effekt": 52, "grund": "Zug zum Gesicht mit Außenrotation, gut für die Schultergesundheit." },
         { "uebung": "g_pullapart", "art": "variante", "rang": null, "effekt": 50, "grund": "Auseinanderziehen vor der Brust, vor allem zum Aufwärmen." }
       ]
@@ -223,21 +230,25 @@
       "voraussetzt": [],
       "fuehrt_zu": ["f_dip", "f_handstand", "f_hspu", "f_planche"],
       "varianten": [
-        { "uebung": "g_push_incline", "art": "stufe", "rang": 1, "effekt": 58, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Hände erhöht, leichteste Form nach Convict Conditioning." },
-        { "uebung": "g_push_knee", "art": "stufe", "rang": 2, "effekt": 60, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Auf den Knien, erste Stufe der Push-up-Leiter." },
-        { "uebung": "g_push_negative", "art": "stufe", "rang": 3, "effekt": 60, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Exzentrisches Absenken baut die Kraft für den vollen Push-up auf." },
-        { "uebung": "g_push", "art": "stufe", "rang": 4, "effekt": 90, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie." },
-        { "uebung": "g_push_parallettes", "art": "stufe", "rang": 5, "effekt": 80, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mehr Bewegungstiefe durch Parallettes." },
-        { "uebung": "g_push_decline", "art": "stufe", "rang": 6, "effekt": 80, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Füße erhöht, mehr Gewicht auf den Armen." },
-        { "uebung": "g_push_band", "art": "stufe", "rang": 7, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Das Band erhöht den Widerstand im oberen Teil der Bewegung." },
-        { "uebung": "g_push_weighted", "art": "stufe", "rang": 8, "effekt": 82, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Zusatzlast mit Weste, letzte Stufe der Push-up-Leiter." },
-        { "uebung": "g_archer_push", "art": "stufe", "rang": 9, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Verlagert die Last auf einen Arm, erste Stufe der One-Arm-Leiter." },
-        { "uebung": "g_one_arm_push_incline", "art": "stufe", "rang": 10, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einarmig mit erhöhten Händen, Zwischenstufe." },
-        { "uebung": "g_one_arm_push", "art": "stufe", "rang": 11, "effekt": 86, "ziel": "Erhalten: einmal pro Woche 3 × 3 je Arm sauber.", "grund": "Höchste Stufe: voller Liegestütz mit einem Arm." },
+        { "uebung": "g_wall_push", "art": "stufe", "rang": 1, "effekt": 40, "ziel": "3 Sätze mit 15 sauberen Wiederholungen.", "grund": "Leichteste Druckstufe, noch vor dem Incline Push-up." },
+        { "uebung": "g_push_incline", "art": "stufe", "rang": 2, "effekt": 58, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Hände erhöht, leichteste Form nach Convict Conditioning." },
+        { "uebung": "g_push_knee", "art": "stufe", "rang": 3, "effekt": 60, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Auf den Knien, erste Stufe der Push-up-Leiter." },
+        { "uebung": "g_push_negative", "art": "stufe", "rang": 4, "effekt": 60, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Exzentrisches Absenken baut die Kraft für den vollen Push-up auf." },
+        { "uebung": "g_push", "art": "stufe", "rang": 5, "effekt": 90, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie." },
+        { "uebung": "g_push_parallettes", "art": "stufe", "rang": 6, "effekt": 80, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mehr Bewegungstiefe durch Parallettes." },
+        { "uebung": "g_push_decline", "art": "stufe", "rang": 7, "effekt": 80, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Füße erhöht, mehr Gewicht auf den Armen." },
+        { "uebung": "g_push_band", "art": "stufe", "rang": 8, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Das Band erhöht den Widerstand im oberen Teil der Bewegung." },
+        { "uebung": "g_push_weighted", "art": "stufe", "rang": 9, "effekt": 82, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Zusatzlast mit Weste, letzte Stufe der Push-up-Leiter." },
+        { "uebung": "g_archer_push", "art": "stufe", "rang": 10, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Verlagert die Last auf einen Arm, erste Stufe der One-Arm-Leiter." },
+        { "uebung": "g_typewriter_push", "art": "stufe", "rang": 11, "effekt": 80, "ziel": "3 Sätze mit 4 sauberen Wiederholungen, die Brust bleibt unten.", "grund": "Mehr einseitige Last als der Archer, aber noch beide Hände am Boden." },
+        { "uebung": "g_one_arm_push_incline", "art": "stufe", "rang": 12, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einarmig mit erhöhten Händen, Zwischenstufe." },
+        { "uebung": "g_one_arm_push", "art": "stufe", "rang": 13, "effekt": 86, "ziel": "Erhalten: einmal pro Woche 3 × 3 je Arm sauber.", "grund": "Höchste Stufe: voller Liegestütz mit einem Arm." },
         { "uebung": "g_ring_push", "art": "variante", "rang": null, "effekt": 84, "grund": "Gleiche Bewegung an instabilen Ringen, mehr Stabilisierung." },
         { "uebung": "g_diamond_push", "art": "variante", "rang": null, "effekt": 76, "grund": "Enger Griff, mehr Trizeps." },
         { "uebung": "g_hand_release_push", "art": "variante", "rang": null, "effekt": 70, "grund": "Hände am Boden lösen erzwingt volle Tiefe nach CrossFit-Standard." },
-        { "uebung": "g_plyo_push", "art": "variante", "rang": null, "effekt": 72, "grund": "Explosive Ausführung für Schnellkraft." }
+        { "uebung": "g_plyo_push", "art": "variante", "rang": null, "effekt": 72, "grund": "Explosive Ausführung für Schnellkraft." },
+        { "uebung": "g_ring_fly", "art": "variante", "rang": null, "effekt": 78, "grund": "Brust mit gestreckten Armen ohne Ellbogenbeugung, Vorbereitung auf schwere Ringelemente." },
+        { "uebung": "g_med_ball_chest_pass", "art": "variante", "rang": null, "effekt": 62, "grund": "Explosiver Druck ohne Landung auf den Händen, schont damit das Handgelenk." }
       ]
     },
     {
@@ -249,8 +260,8 @@
       "kurz": "Statisches Drücken mit gestreckten Armen, vom Lean bis zur Full Planche.",
       "leiter": "g_planche",
       "voraussetzt": [
-        { "familie": "f_pushup", "ab_rang": 6 },
-        { "familie": "f_dip", "ab_rang": 4 }
+        { "familie": "f_pushup", "ab_rang": 7 },
+        { "familie": "f_dip", "ab_rang": 5 }
       ],
       "fuehrt_zu": [],
       "varianten": [
@@ -259,7 +270,8 @@
         { "uebung": "g_tuck_planche", "art": "stufe", "rang": 3, "effekt": 82, "ziel": "3 × 10 s sauber gehalten.", "grund": "Knie angezogen, kürzester Hebel." },
         { "uebung": "g_adv_tuck_planche", "art": "stufe", "rang": 4, "effekt": 86, "ziel": "3 × 8 s sauber gehalten.", "grund": "Flacher Rücken, längerer Hebel als im Tuck." },
         { "uebung": "g_straddle_planche", "art": "stufe", "rang": 5, "effekt": 90, "ziel": "3 × 5 s sauber gehalten.", "grund": "Beine gegrätscht, fast voller Hebel." },
-        { "uebung": "g_planche", "art": "stufe", "rang": 6, "effekt": 94, "ziel": "Erhalten: einmal pro Woche 3 × 3 s sauber gehalten.", "grund": "Voller Hebel mit geschlossenen Beinen." }
+        { "uebung": "g_planche", "art": "stufe", "rang": 6, "effekt": 94, "ziel": "Erhalten: einmal pro Woche 3 × 3 s sauber gehalten.", "grund": "Voller Hebel mit geschlossenen Beinen." },
+        { "uebung": "g_tuck_planche_push", "art": "variante", "rang": null, "effekt": 84, "grund": "Dynamische Kraft in der Planche-Position statt nur Halten." }
       ]
     },
     {
@@ -274,7 +286,12 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_floor_press", "art": "stufe", "rang": 1, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Kurze Bewegung am Boden mit Kurzhanteln, Einstieg." },
-        { "uebung": "g_bench_press", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Volle Bewegung mit Langhantel und höchster Last." }
+        { "uebung": "g_db_bench_press", "art": "stufe", "rang": 2, "effekt": 72, "ziel": "5 saubere Wiederholungen mit je 30 % des Körpergewichts pro Hand.", "grund": "Voller Bewegungsweg auf der Bank, bevor die Langhantel kommt." },
+        { "uebung": "g_bench_press", "art": "stufe", "rang": 3, "effekt": 70, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Volle Bewegung mit Langhantel und höchster Last." },
+        { "uebung": "g_incline_db_press", "art": "variante", "rang": null, "effekt": 72, "grund": "Mehr obere Brust und vordere Schulter als auf der Flachbank." },
+        { "uebung": "g_close_grip_bench", "art": "variante", "rang": null, "effekt": 70, "grund": "Verlagert die Arbeit deutlich auf den Trizeps." },
+        { "uebung": "g_single_arm_db_bench", "art": "variante", "rang": null, "effekt": 66, "grund": "Einseitige Last trainiert zusätzlich den Rumpf gegen Verdrehen." },
+        { "uebung": "g_cable_fly", "art": "variante", "rang": null, "effekt": 60, "grund": "Brust ohne Ellbogenbeugung, Ausweichübung bei Ellbogen- oder Handgelenkschmerzen." }
       ]
     },
     {
@@ -286,15 +303,16 @@
       "kurz": "Drücken im Stütz für Brust, Trizeps und Schultern.",
       "leiter": "g_dip",
       "voraussetzt": [
-        { "familie": "f_pushup", "ab_rang": 4 }
+        { "familie": "f_pushup", "ab_rang": 5 }
       ],
       "fuehrt_zu": ["f_back_lever", "f_bar_muscle_up", "f_human_flag", "f_lsit", "f_planche", "f_ring_muscle_up"],
       "varianten": [
         { "uebung": "g_bench_dip", "art": "stufe", "rang": 1, "effekt": 45, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Füße am Boden, leichteste Form und Start der Bar-Dip-Leiter." },
         { "uebung": "g_support_hold", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "3 × 30 s ruhiger Stütz an den Ringen.", "grund": "Ruhiger Stütz an den Ringen, erste Stufe der Ring-Dip-Leiter." },
         { "uebung": "g_rto_support", "art": "stufe", "rang": 3, "effekt": 72, "ziel": "3 × 20 s Stütz mit ausgedrehten Ringen.", "grund": "Stütz mit ausgedrehten Ringen, mehr Schulterstabilität vor dem Dip." },
-        { "uebung": "g_dip", "art": "stufe", "rang": 4, "effekt": 92, "ziel": "Leiterstufe „Weste“ geschafft: alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie an den Ringen." },
-        { "uebung": "g_weighted_dip", "art": "stufe", "rang": 5, "effekt": 90, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Zusatzlast, höchste Stufe für Maximalkraft." },
+        { "uebung": "g_dip_negative", "art": "stufe", "rang": 4, "effekt": 66, "ziel": "3 Sätze mit 5 Wiederholungen bei 5 Sekunden Absenken.", "grund": "Brücke zwischen Stütz und dem ersten vollen Ring Dip." },
+        { "uebung": "g_dip", "art": "stufe", "rang": 5, "effekt": 92, "ziel": "Leiterstufe „Weste“ geschafft: alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung der Familie an den Ringen." },
+        { "uebung": "g_weighted_dip", "art": "stufe", "rang": 6, "effekt": 90, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Zusatzlast, höchste Stufe für Maximalkraft." },
         { "uebung": "g_bar_dip", "art": "variante", "rang": null, "effekt": 88, "grund": "Gleiche Bewegung am stabilen Barren statt an Ringen." },
         { "uebung": "g_straight_bar_dip", "art": "variante", "rang": null, "effekt": 74, "grund": "Dip über der geraden Stange, der Stützteil des Bar Muscle-up.", "auch_in": ["f_bar_muscle_up"] }
       ]
@@ -308,8 +326,8 @@
       "kurz": "Vertikales Drücken über Kopf am Körpergewicht.",
       "leiter": "g_hspu",
       "voraussetzt": [
-        { "familie": "f_handstand", "ab_rang": 2 },
-        { "familie": "f_pushup", "ab_rang": 4 }
+        { "familie": "f_handstand", "ab_rang": 3 },
+        { "familie": "f_pushup", "ab_rang": 5 }
       ],
       "fuehrt_zu": [],
       "varianten": [
@@ -319,6 +337,7 @@
         { "uebung": "g_hspu", "art": "stufe", "rang": 4, "effekt": 90, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung an der Wand." },
         { "uebung": "g_deficit_hspu", "art": "stufe", "rang": 5, "effekt": 86, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Größere Bewegungstiefe auf Parallettes." },
         { "uebung": "g_freestanding_hspu", "art": "stufe", "rang": 6, "effekt": 88, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Ohne Wand, höchste Anforderung an Kraft und Balance." },
+        { "uebung": "g_wall_facing_hspu", "art": "variante", "rang": null, "effekt": 90, "grund": "Erzwingt die gerade Linie, heute Standard in CrossFit-Wettkämpfen." },
         { "uebung": "g_kipping_hspu", "art": "tempo", "rang": null, "effekt": 72, "grund": "Hüftschwung ersetzt einen Teil der Druckkraft, für Wiederholungen im Metcon.", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz." }
       ]
     },
@@ -338,7 +357,10 @@
         { "uebung": "g_strict_press", "art": "stufe", "rang": 3, "effekt": 78, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung mit Langhantel, ohne Hilfe der Beine." },
         { "uebung": "g_push_press", "art": "variante", "rang": null, "effekt": 76, "grund": "Beinschwung erlaubt mehr Last; ersetzt den Strict Press nicht automatisch." },
         { "uebung": "g_push_jerk", "art": "variante", "rang": null, "effekt": 78, "grund": "Stoß mit Unterhocken, trainiert eher Schnellkraft als Schulterkraft." },
-        { "uebung": "g_split_jerk", "art": "variante", "rang": null, "effekt": 76, "grund": "Stoß in den Ausfallschritt, olympische Technik statt schwererer Press." }
+        { "uebung": "g_split_jerk", "art": "variante", "rang": null, "effekt": 76, "grund": "Stoß in den Ausfallschritt, olympische Technik statt schwererer Press." },
+        { "uebung": "g_landmine_press", "art": "variante", "rang": null, "effekt": 70, "grund": "Schräges Drücken mit wenig Schulterbelastung, Ausweichübung bei Schulterschmerzen." },
+        { "uebung": "g_single_arm_db_press", "art": "variante", "rang": null, "effekt": 66, "grund": "Einseitiges Drücken trainiert den seitlichen Rumpf mit." },
+        { "uebung": "g_z_press", "art": "variante", "rang": null, "effekt": 72, "grund": "Ohne Hilfe aus Beinen und Hohlkreuz, verlangt freie Überkopf-Beweglichkeit." }
       ]
     },
     {
@@ -358,7 +380,10 @@
         { "uebung": "g_front_squat", "art": "stufe", "rang": 4, "effekt": 86, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Langhantel vorn, aufrechter Oberkörper." },
         { "uebung": "g_back_squat", "art": "stufe", "rang": 5, "effekt": 88, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Höchste Last, Kernübung für Beinkraft." },
         { "uebung": "g_overhead_squat", "art": "stufe", "rang": 6, "effekt": 80, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Last über Kopf, höchste Anforderung an Mobilität und Stabilität.", "auch_in": ["f_snatch"] },
-        { "uebung": "g_wall_sit", "art": "variante", "rang": null, "effekt": 45, "grund": "Statisches Halten an der Wand, Ausdauerreiz ohne Bewegung." }
+        { "uebung": "g_wall_sit", "art": "variante", "rang": null, "effekt": 45, "grund": "Statisches Halten an der Wand, Ausdauerreiz ohne Bewegung." },
+        { "uebung": "g_leg_press", "art": "variante", "rang": null, "effekt": 76, "grund": "Kniebeugen-Muster mit kg-Last ohne Last auf der Wirbelsäule." },
+        { "uebung": "g_sissy_squat", "art": "variante", "rang": null, "effekt": 68, "grund": "Belastet fast nur den vorderen Oberschenkel, ohne Gewicht." },
+        { "uebung": "g_spanish_squat", "art": "variante", "rang": null, "effekt": 55, "grund": "Isometrische Kniebeuge mit senkrechten Schienbeinen, geringe Rückenlast." }
       ]
     },
     {
@@ -392,11 +417,13 @@
       ],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_pistol_box", "art": "stufe", "rang": 1, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Absitzen auf einen Stuhl begrenzt die Tiefe, leichtester Einstieg." },
-        { "uebung": "g_pistol_assisted", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Halt an Ringen oder Türrahmen in voller Tiefe." },
-        { "uebung": "g_pistol", "art": "stufe", "rang": 3, "effekt": 86, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Freie einbeinige Kniebeuge." },
+        { "uebung": "g_lateral_step_down", "art": "stufe", "rang": 1, "effekt": 55, "ziel": "3 Sätze mit 10 kontrollierten Wiederholungen je Seite.", "grund": "Lernt die einbeinige Kniekontrolle vor dem Box Pistol Squat." },
+        { "uebung": "g_pistol_box", "art": "stufe", "rang": 2, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Absitzen auf einen Stuhl begrenzt die Tiefe, leichtester Einstieg." },
+        { "uebung": "g_pistol_assisted", "art": "stufe", "rang": 3, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Halt an Ringen oder Türrahmen in voller Tiefe." },
+        { "uebung": "g_pistol", "art": "stufe", "rang": 4, "effekt": 86, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Freie einbeinige Kniebeuge." },
         { "uebung": "g_shrimp", "art": "variante", "rang": null, "effekt": 82, "grund": "Freie Einbeinkniebeuge mit Bein hinten, mehr Quadrizeps; auch Ziel der BSS-Leiter.", "auch_in": ["f_split_squat"] },
-        { "uebung": "g_cossack", "art": "variante", "rang": null, "effekt": 66, "grund": "Seitliche Kniebeuge, mehr Adduktoren und Mobilität." }
+        { "uebung": "g_cossack", "art": "variante", "rang": null, "effekt": 66, "grund": "Seitliche Kniebeuge, mehr Adduktoren und Mobilität." },
+        { "uebung": "g_skater_squat", "art": "variante", "rang": null, "effekt": 82, "grund": "Einbeinige Kniebeuge ohne freies Bein vorn, braucht weniger Hüftbeugung und Sprunggelenk-Beweglichkeit als die Pistol." }
       ]
     },
     {
@@ -416,7 +443,9 @@
         { "uebung": "g_lunge", "art": "stufe", "rang": 2, "effekt": 72, "ziel": "Leiterstufe „Weste“ geschafft: alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Schritt nach hinten, mehr Balance nötig." },
         { "uebung": "g_bss", "art": "stufe", "rang": 3, "effekt": 84, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Hinterer Fuß erhöht, mehr Last auf dem vorderen Bein." },
         { "uebung": "g_walking_lunge", "art": "variante", "rang": null, "effekt": 72, "grund": "Fortlaufende Ausfallschritte, mehr Metcon-Charakter." },
-        { "uebung": "g_step_up", "art": "variante", "rang": null, "effekt": 66, "grund": "Aufsteigen auf eine Box, zugleich Einstieg der Box-Jump-Leiter.", "auch_in": ["f_box_jump"] }
+        { "uebung": "g_step_up", "art": "variante", "rang": null, "effekt": 66, "grund": "Aufsteigen auf eine Box, zugleich Einstieg der Box-Jump-Leiter.", "auch_in": ["f_box_jump"] },
+        { "uebung": "g_sandbag_lunge", "art": "variante", "rang": null, "effekt": 74, "grund": "Feste Hyrox-Station mit Last auf den Schultern." },
+        { "uebung": "g_overhead_lunge", "art": "variante", "rang": null, "effekt": 70, "grund": "Ausfallschritt mit Überkopf-Stabilität, im CrossFit üblich." }
       ]
     },
     {
@@ -430,12 +459,17 @@
       "voraussetzt": [],
       "fuehrt_zu": ["f_clean", "f_kettlebell_swing"],
       "varianten": [
-        { "uebung": "g_kb_deadlift", "art": "stufe", "rang": 1, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Leichte Last, lehrt das saubere Hüftbeugen.", "auch_in": ["f_kettlebell_swing"] },
-        { "uebung": "g_rdl", "art": "stufe", "rang": 2, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Fast gestreckte Beine, Fokus auf die Beinbeuger." },
-        { "uebung": "g_deadlift", "art": "stufe", "rang": 3, "effekt": 92, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung mit der höchsten Last." },
+        { "uebung": "g_pvc_hip_hinge", "art": "stufe", "rang": 1, "effekt": 35, "ziel": "10 saubere Wiederholungen ohne Kontaktverlust am Stab.", "grund": "Lernt das Hüftbeugen, bevor Gewicht dazukommt." },
+        { "uebung": "g_kb_deadlift", "art": "stufe", "rang": 2, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Leichte Last, lehrt das saubere Hüftbeugen.", "auch_in": ["f_kettlebell_swing"] },
+        { "uebung": "g_rdl", "art": "stufe", "rang": 3, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Fast gestreckte Beine, Fokus auf die Beinbeuger." },
+        { "uebung": "g_deadlift", "art": "stufe", "rang": 4, "effekt": 92, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung mit der höchsten Last." },
         { "uebung": "g_single_leg_rdl", "art": "variante", "rang": null, "effekt": 70, "grund": "Einbeinig, mehr Balance und Hüftstabilität." },
         { "uebung": "g_band_good_morning", "art": "variante", "rang": null, "effekt": 52, "grund": "Hüftbeugen mit Band, Ersatz ohne Hanteln." },
-        { "uebung": "g_sdhp", "art": "variante", "rang": null, "effekt": 70, "grund": "Zug bis zum Kinn als Metcon-Bewegung, kein schwererer Deadlift." }
+        { "uebung": "g_sdhp", "art": "variante", "rang": null, "effekt": 70, "grund": "Zug bis zum Kinn als Metcon-Bewegung, kein schwererer Deadlift." },
+        { "uebung": "g_sumo_deadlift", "art": "variante", "rang": null, "effekt": 86, "grund": "Breiter Stand mit mehr Adduktoren und weniger Vorneigung des Rückens." },
+        { "uebung": "g_trap_bar_deadlift", "art": "variante", "rang": null, "effekt": 88, "grund": "Last im Körperschwerpunkt, weniger Rückenbelastung, Ausweichübung bei Rückenschmerzen." },
+        { "uebung": "g_good_morning", "art": "variante", "rang": null, "effekt": 72, "grund": "Hüftbeugung mit der Last auf dem Rücken statt in den Händen, ohne Griffgrenze." },
+        { "uebung": "g_weighted_single_leg_rdl", "art": "variante", "rang": null, "effekt": 74, "grund": "Einbeiniges Hüftbeugen mit kg-Last für Seitenausgleich." }
       ]
     },
     {
@@ -447,7 +481,7 @@
       "kurz": "Explosive Hüftstreckung mit der Kettlebell.",
       "leiter": "g_kb_swing",
       "voraussetzt": [
-        { "familie": "f_deadlift", "ab_rang": 1 }
+        { "familie": "f_deadlift", "ab_rang": 2 }
       ],
       "fuehrt_zu": ["f_db_snatch"],
       "varianten": [
@@ -470,7 +504,8 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_bridge", "art": "stufe", "rang": 1, "effekt": 70, "ziel": "Leiterstufe „Weste auf Hüfte“ geschafft: alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Am Boden mit kleinerer Bewegung, Einstieg." },
-        { "uebung": "g_hip_thrust", "art": "stufe", "rang": 2, "effekt": 76, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Schultern erhöht, größere Bewegung und mehr Last möglich." }
+        { "uebung": "g_hip_thrust", "art": "stufe", "rang": 2, "effekt": 76, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Schultern erhöht, größere Bewegung und mehr Last möglich." },
+        { "uebung": "g_barbell_hip_thrust", "art": "stufe", "rang": 3, "effekt": 80, "ziel": "8 saubere Wiederholungen mit dem eigenen Körpergewicht auf der Stange.", "grund": "Macht den Hip Thrust in kg steigerbar." }
       ]
     },
     {
@@ -485,7 +520,8 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_superman", "art": "stufe", "rang": 1, "effekt": 48, "ziel": "3 × 30 s gehalten.", "grund": "Am Boden, leichteste Form." },
-        { "uebung": "g_ghd_hip_ext", "art": "stufe", "rang": 2, "effekt": 60, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Am GHD mit voller Bewegung." }
+        { "uebung": "g_back_extension_45", "art": "stufe", "rang": 2, "effekt": 66, "ziel": "3 Sätze mit 15 sauberen Wiederholungen.", "grund": "Liegt zwischen Superman am Boden und GHD Hip Extension." },
+        { "uebung": "g_ghd_hip_ext", "art": "stufe", "rang": 3, "effekt": 60, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Am GHD mit voller Bewegung." }
       ]
     },
     {
@@ -502,7 +538,10 @@
         { "uebung": "g_slider_curl", "art": "stufe", "rang": 1, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Beidbeinig, Einstieg." },
         { "uebung": "g_single_slider_curl", "art": "stufe", "rang": 2, "effekt": 76, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einbeinig, doppelte Last pro Bein." },
         { "uebung": "g_ring_leg_curl", "art": "stufe", "rang": 3, "effekt": 74, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "An Ringen mit mehr Instabilität, Ende der Slider-Leiter." },
-        { "uebung": "g_nordic", "art": "stufe", "rang": 4, "effekt": 86, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Exzentrische Last des ganzen Körpers, stärkster Reiz der Familie." }
+        { "uebung": "g_glute_ham_raise", "art": "stufe", "rang": 4, "effekt": 82, "ziel": "5 saubere Wiederholungen ohne Hilfe der Hände.", "grund": "Liegt im Schwierigkeitsgrad zwischen Ring Leg Curl und Nordic Curl." },
+        { "uebung": "g_nordic", "art": "stufe", "rang": 5, "effekt": 86, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Exzentrische Last des ganzen Körpers, stärkster Reiz der Familie." },
+        { "uebung": "g_leg_curl_machine", "art": "variante", "rang": null, "effekt": 66, "grund": "Beinbeuger mit kg-Last, messbar steigerbar." },
+        { "uebung": "g_band_leg_curl", "art": "variante", "rang": null, "effekt": 50, "grund": "Leichte, einseitige Variante für zu Hause und zum Aufwärmen." }
       ]
     },
     {
@@ -521,7 +560,8 @@
         { "uebung": "g_ring_fallout", "art": "stufe", "rang": 3, "effekt": 76, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Rollout an Ringen, Länge über die Ringhöhe einstellbar." },
         { "uebung": "g_abwheel", "art": "stufe", "rang": 4, "effekt": 82, "ziel": "Leiterstufe „Weste“ geschafft: alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Rollout am Boden mit dem Ab Wheel." },
         { "uebung": "g_abwheel_standing", "art": "stufe", "rang": 5, "effekt": 86, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Aus dem Stand, längster Hebel." },
-        { "uebung": "g_bear_crawl", "art": "variante", "rang": null, "effekt": 62, "grund": "Rumpfspannung in der Fortbewegung, eher Metcon." }
+        { "uebung": "g_bear_crawl", "art": "variante", "rang": null, "effekt": 62, "grund": "Rumpfspannung in der Fortbewegung, eher Metcon." },
+        { "uebung": "g_rkc_plank", "art": "variante", "rang": null, "effekt": 66, "grund": "Deutlich höhere Rumpfspannung als die normale Plank in kurzer Zeit." }
       ]
     },
     {
@@ -537,7 +577,8 @@
       "varianten": [
         { "uebung": "g_dead_bug", "art": "stufe", "rang": 1, "effekt": 60, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Kontrollierte Gegenbewegung von Arm und Bein, Einstieg." },
         { "uebung": "g_hollow", "art": "stufe", "rang": 2, "effekt": 78, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Statische Grundposition; die Hollow-Leiter steigert über den Hebel." },
-        { "uebung": "g_hollow_rock", "art": "variante", "rang": null, "effekt": 70, "grund": "Dynamisches Wippen in der Hollow-Position." }
+        { "uebung": "g_hollow_rock", "art": "variante", "rang": null, "effekt": 70, "grund": "Dynamisches Wippen in der Hollow-Position." },
+        { "uebung": "g_bird_dog", "art": "variante", "rang": null, "effekt": 50, "grund": "Rumpfstabilität im Vierfüßlerstand mit sehr geringer Rückenlast, Teil der Big Three nach McGill." }
       ]
     },
     {
@@ -555,8 +596,9 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_dragon_flag_tuck", "art": "stufe", "rang": 1, "effekt": 74, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Beine angezogen, kürzester Hebel." },
-        { "uebung": "g_dragon_flag_raise", "art": "stufe", "rang": 2, "effekt": 80, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Hochheben ohne kontrolliertes Absenken." },
-        { "uebung": "g_dragon_flag", "art": "stufe", "rang": 3, "effekt": 84, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Voller Hebel mit kontrolliertem Absenken." }
+        { "uebung": "g_dragon_flag_negative", "art": "stufe", "rang": 2, "effekt": 76, "ziel": "5 saubere Negative mit je 5 Sekunden Absenken.", "grund": "Zwischenstufe zwischen gehockter Variante und dem Dragon Flag Raise." },
+        { "uebung": "g_dragon_flag_raise", "art": "stufe", "rang": 3, "effekt": 80, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Hochheben ohne kontrolliertes Absenken." },
+        { "uebung": "g_dragon_flag", "art": "stufe", "rang": 4, "effekt": 84, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Voller Hebel mit kontrolliertem Absenken." }
       ]
     },
     {
@@ -577,7 +619,8 @@
         { "uebung": "g_tuck_lsit", "art": "stufe", "rang": 2, "effekt": 68, "ziel": "3 × 20 s sauber gehalten.", "grund": "Stütz mit angezogenen Beinen." },
         { "uebung": "g_lsit", "art": "stufe", "rang": 3, "effekt": 84, "ziel": "3 × 15 s mit gestreckten Beinen.", "grund": "Grundübung mit gestreckten Beinen." },
         { "uebung": "g_ring_lsit", "art": "stufe", "rang": 4, "effekt": 82, "ziel": "3 × 15 s an den Ringen.", "grund": "An Ringen, mehr Stabilisierung." },
-        { "uebung": "g_v_sit", "art": "stufe", "rang": 5, "effekt": 80, "ziel": "Erhalten: einmal pro Woche 3 × 5 s sauber gehalten.", "grund": "Beine höher als die Hüfte, höchste Stufe." }
+        { "uebung": "g_v_sit", "art": "stufe", "rang": 5, "effekt": 80, "ziel": "Erhalten: einmal pro Woche 3 × 5 s sauber gehalten.", "grund": "Beine höher als die Hüfte, höchste Stufe." },
+        { "uebung": "g_hanging_lsit", "art": "variante", "rang": null, "effekt": 72, "grund": "L-Sit ohne Stütz auf den Händen, Ausweichübung bei Handgelenkschmerzen." }
       ]
     },
     {
@@ -594,9 +637,10 @@
       ],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_kneeraise", "art": "stufe", "rang": 1, "effekt": 72, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Knie zur Brust, Einstieg." },
-        { "uebung": "g_leg_raise", "art": "stufe", "rang": 2, "effekt": 76, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Gestreckte Beine, längerer Hebel." },
-        { "uebung": "g_toes_to_bar", "art": "stufe", "rang": 3, "effekt": 80, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Füße bis zur Stange, volle Bewegung." },
+        { "uebung": "g_reverse_crunch", "art": "stufe", "rang": 1, "effekt": 58, "ziel": "3 Sätze mit 15 Wiederholungen, das Becken rollt jedes Mal ein.", "grund": "Lernt das Einrollen des Beckens am Boden, bevor im Hang gearbeitet wird." },
+        { "uebung": "g_kneeraise", "art": "stufe", "rang": 2, "effekt": 72, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Knie zur Brust, Einstieg." },
+        { "uebung": "g_leg_raise", "art": "stufe", "rang": 3, "effekt": 76, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Gestreckte Beine, längerer Hebel." },
+        { "uebung": "g_toes_to_bar", "art": "stufe", "rang": 4, "effekt": 80, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Füße bis zur Stange, volle Bewegung." },
         { "uebung": "g_kipping_t2b", "art": "tempo", "rang": null, "effekt": 66, "grund": "Schwung für schnelle Wiederholungen im Metcon.", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz." },
         { "uebung": "g_knees_to_elbows", "art": "tempo", "rang": null, "effekt": 64, "grund": "Mit Schwung Knie zu den Ellbogen, Vorstufe für Kipping Toes to Bar.", "vermerk": "Auf Tempo ausgelegt (wie im CrossFit), nicht auf saubere Range of Motion oder Effizienz." }
       ]
@@ -629,10 +673,12 @@
       "voraussetzt": [],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_sit_up", "art": "stufe", "rang": 1, "effekt": 50, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit AbMat, leichteste Form." },
-        { "uebung": "g_tuck_up", "art": "stufe", "rang": 2, "effekt": 54, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Knie und Oberkörper gleichzeitig, Start der V-up-Leiter." },
-        { "uebung": "g_v_up", "art": "stufe", "rang": 3, "effekt": 62, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Gestreckte Beine, längerer Hebel." },
-        { "uebung": "g_ghd_sit_up", "art": "stufe", "rang": 4, "effekt": 58, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Am GHD mit voller Bewegung über die Waagerechte hinaus." }
+        { "uebung": "g_crunch", "art": "stufe", "rang": 1, "effekt": 45, "ziel": "3 Sätze mit 20 sauberen Wiederholungen.", "grund": "Leichteste Form der Rumpfbeugung ohne Hüftbeuger, noch vor dem AbMat Sit-up." },
+        { "uebung": "g_sit_up", "art": "stufe", "rang": 2, "effekt": 50, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit AbMat, leichteste Form." },
+        { "uebung": "g_tuck_up", "art": "stufe", "rang": 3, "effekt": 54, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Knie und Oberkörper gleichzeitig, Start der V-up-Leiter." },
+        { "uebung": "g_v_up", "art": "stufe", "rang": 4, "effekt": 62, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Gestreckte Beine, längerer Hebel." },
+        { "uebung": "g_ghd_sit_up", "art": "stufe", "rang": 5, "effekt": 58, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Am GHD mit voller Bewegung über die Waagerechte hinaus." },
+        { "uebung": "g_cable_crunch", "art": "variante", "rang": null, "effekt": 62, "grund": "Rumpfbeugung mit kg-Last, damit messbar steigerbar." }
       ]
     },
     {
@@ -645,13 +691,14 @@
       "leiter": "g_human_flag",
       "voraussetzt": [
         { "familie": "f_pullup", "ab_rang": 7 },
-        { "familie": "f_dip", "ab_rang": 4 }
+        { "familie": "f_dip", "ab_rang": 5 }
       ],
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_side_plank", "art": "stufe", "rang": 1, "effekt": 60, "ziel": "3 × 45 s je Seite.", "grund": "Seitliche Rumpfspannung am Boden, Basis.", "auch_in": ["f_turkish_getup"] },
         { "uebung": "g_flag_tuck", "art": "stufe", "rang": 2, "effekt": 72, "ziel": "3 × 10 s je Seite.", "grund": "Beine angezogen, kurzer Hebel." },
-        { "uebung": "g_human_flag", "art": "stufe", "rang": 3, "effekt": 80, "ziel": "Erhalten: einmal pro Woche 3 × 5 s je Seite.", "grund": "Voller seitlicher Hebel." }
+        { "uebung": "g_human_flag", "art": "stufe", "rang": 3, "effekt": 80, "ziel": "Erhalten: einmal pro Woche 3 × 5 s je Seite.", "grund": "Voller seitlicher Hebel." },
+        { "uebung": "g_copenhagen_plank", "art": "variante", "rang": null, "effekt": 66, "grund": "Seitstütz mit hoher Last für die Adduktoren, gut belegt zur Vorbeugung von Leistenproblemen." }
       ]
     },
     {
@@ -666,7 +713,9 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_pallof", "art": "stufe", "rang": 1, "effekt": 62, "ziel": "3 × 30 s je Seite ohne Verdrehen.", "grund": "Anti-Rotation mit Band, Einstieg." },
-        { "uebung": "g_turkish_getup", "art": "stufe", "rang": 2, "effekt": 78, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Komplette Bewegung mit Kettlebell oder Kurzhantel." }
+        { "uebung": "g_kb_windmill", "art": "stufe", "rang": 2, "effekt": 64, "ziel": "5 saubere Wiederholungen je Seite mit 12 kg.", "grund": "Trainiert Teile des Turkish Get-up (Überkopf-Stabilität und seitliche Hüftbeugung) einzeln." },
+        { "uebung": "g_turkish_getup", "art": "stufe", "rang": 3, "effekt": 78, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Komplette Bewegung mit Kettlebell oder Kurzhantel." },
+        { "uebung": "g_plank_shoulder_tap", "art": "variante", "rang": null, "effekt": 52, "grund": "Anti-Rotation im Stütz ohne Gerät." }
       ]
     },
     {
@@ -680,7 +729,12 @@
       "voraussetzt": [],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_russian_twist", "art": "stufe", "rang": 1, "effekt": 50, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einzige Übung der Familie, vor allem für Metcons." }
+        { "uebung": "g_russian_twist", "art": "stufe", "rang": 1, "effekt": 50, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einzige Übung der Familie, vor allem für Metcons." },
+        { "uebung": "g_cable_woodchop", "art": "variante", "rang": null, "effekt": 62, "grund": "Rotation im Stehen mit Last, geht mit Kabelzug oder Band." },
+        { "uebung": "g_landmine_rotation", "art": "variante", "rang": null, "effekt": 66, "grund": "Rotation mit kg-Last aus der Hüfte." },
+        { "uebung": "g_windshield_wiper", "art": "variante", "rang": null, "effekt": 78, "grund": "Schwerste Rotationsform im Hang." },
+        { "uebung": "g_med_ball_rotational_throw", "art": "variante", "rang": null, "effekt": 64, "grund": "Explosive Rotation für Schnellkraft." },
+        { "uebung": "g_bicycle_crunch", "art": "variante", "rang": null, "effekt": 52, "grund": "Rotation in Rückenlage ohne Gerät, hohe Aktivität der schrägen Bauchmuskeln." }
       ]
     },
     {
@@ -692,15 +746,19 @@
       "kurz": "Balance und Stütz im Handstand, von der Crow bis zum Handstand Walk.",
       "leiter": "g_handstand",
       "voraussetzt": [
-        { "familie": "f_pushup", "ab_rang": 4 }
+        { "familie": "f_pushup", "ab_rang": 5 }
       ],
       "fuehrt_zu": ["f_hspu"],
       "varianten": [
         { "uebung": "g_crow", "art": "stufe", "rang": 1, "effekt": 52, "ziel": "3 × 20 s gehalten.", "grund": "Armbalance mit Knien auf den Armen, erstes Gewicht auf den Händen." },
-        { "uebung": "g_handstand", "art": "stufe", "rang": 2, "effekt": 85, "ziel": "Leiterstufe „Fuß-Taps“ geschafft: 3 × 30 s an der Wand mit Fuß-Taps.", "grund": "An der Wand, Grundübung." },
-        { "uebung": "g_kick_up", "art": "stufe", "rang": 3, "effekt": 72, "ziel": "5 von 5 Kick-ups landen kontrolliert im Handstand.", "grund": "Hochschwingen in den freien Handstand." },
-        { "uebung": "g_free_handstand", "art": "stufe", "rang": 4, "effekt": 88, "ziel": "3 × 20 s frei gehalten.", "grund": "Freier Handstand ohne Wand." },
-        { "uebung": "g_handstand_walk", "art": "stufe", "rang": 5, "effekt": 76, "ziel": "Erhalten: einmal pro Woche 3 × 10 m am Stück.", "grund": "Gehen im Handstand, höchste Stufe." }
+        { "uebung": "g_box_pike_hold", "art": "stufe", "rang": 2, "effekt": 60, "ziel": "30 Sekunden mit Hüfte über den Schultern.", "grund": "Erste Überkopf-Stützposition vor dem Handstand an der Wand." },
+        { "uebung": "g_handstand", "art": "stufe", "rang": 3, "effekt": 85, "ziel": "Leiterstufe „Fuß-Taps“ geschafft: 3 × 30 s an der Wand mit Fuß-Taps.", "grund": "An der Wand, Grundübung." },
+        { "uebung": "g_kick_up", "art": "stufe", "rang": 4, "effekt": 72, "ziel": "5 von 5 Kick-ups landen kontrolliert im Handstand.", "grund": "Hochschwingen in den freien Handstand." },
+        { "uebung": "g_free_handstand", "art": "stufe", "rang": 5, "effekt": 88, "ziel": "3 × 20 s frei gehalten.", "grund": "Freier Handstand ohne Wand." },
+        { "uebung": "g_handstand_walk", "art": "stufe", "rang": 6, "effekt": 76, "ziel": "Erhalten: einmal pro Woche 3 × 10 m am Stück.", "grund": "Gehen im Handstand, höchste Stufe." },
+        { "uebung": "g_parallette_handstand", "art": "variante", "rang": null, "effekt": 84, "grund": "Handstand mit neutralem Handgelenk, Ausweichübung bei Handgelenkschmerzen." },
+        { "uebung": "g_handstand_shoulder_tap", "art": "variante", "rang": null, "effekt": 72, "grund": "Einarmige Stabilität im Handstand, im CrossFit üblich." },
+        { "uebung": "g_press_to_handstand", "art": "variante", "rang": null, "effekt": 86, "grund": "Kraftweg in den Handstand ohne Schwung." }
       ]
     },
     {
@@ -716,6 +774,7 @@
       "varianten": [
         { "uebung": "g_single_under", "art": "stufe", "rang": 1, "effekt": 64, "ziel": "3 × 60 s ohne Fehler.", "grund": "Einfacher Durchschlag, Einstieg." },
         { "uebung": "g_double_under", "art": "stufe", "rang": 2, "effekt": 74, "ziel": "Erhalten: einmal pro Woche 3 × 30 Double-Unders ohne Fehler.", "grund": "Doppelter Durchschlag, CrossFit-Standard." },
+        { "uebung": "g_triple_under", "art": "stufe", "rang": 3, "effekt": 70, "ziel": "10 Triple-Under am Stück.", "grund": "Nächste Stufe nach dem Double-Under." },
         { "uebung": "g_pogo", "art": "variante", "rang": null, "effekt": 50, "grund": "Sprungrhythmus ohne Seil." },
         { "uebung": "g_jumping_jack", "art": "variante", "rang": null, "effekt": 40, "grund": "Einfaches Springen ohne Seil, vor allem zum Aufwärmen." }
       ]
@@ -729,12 +788,13 @@
       "kurz": "Sprung auf die Box.",
       "leiter": "g_box_jump",
       "voraussetzt": [
-        { "familie": "f_jump", "ab_rang": 1 }
+        { "familie": "f_jump", "ab_rang": 2 }
       ],
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_box_jump", "art": "stufe", "rang": 1, "effekt": 72, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung." },
-        { "uebung": "g_box_jump_over", "art": "stufe", "rang": 2, "effekt": 68, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Über die Box hinweg, längerer Weg." }
+        { "uebung": "g_box_jump_over", "art": "stufe", "rang": 2, "effekt": 68, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Über die Box hinweg, längerer Weg." },
+        { "uebung": "g_depth_jump", "art": "variante", "rang": null, "effekt": 72, "grund": "Reaktivsprung mit kurzem Bodenkontakt, ein anderer Reiz als der Sprung auf die Box." }
       ]
     },
     {
@@ -748,11 +808,14 @@
       "voraussetzt": [],
       "fuehrt_zu": ["f_box_jump"],
       "varianten": [
-        { "uebung": "g_squatjump", "art": "stufe", "rang": 1, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Senkrecht aus der Hocke, Einstieg." },
-        { "uebung": "g_broad_jump", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Weitsprung, mehr Kraft nach vorn." },
-        { "uebung": "g_tuck_jump", "art": "stufe", "rang": 3, "effekt": 62, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Knie zur Brust, höchste Sprunghöhe." },
+        { "uebung": "g_snap_down", "art": "stufe", "rang": 1, "effekt": 45, "ziel": "10 leise Landungen mit stabilen Knien.", "grund": "Lernt das sichere Landen vor dem ersten Squat Jump." },
+        { "uebung": "g_squatjump", "art": "stufe", "rang": 2, "effekt": 66, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Senkrecht aus der Hocke, Einstieg." },
+        { "uebung": "g_broad_jump", "art": "stufe", "rang": 3, "effekt": 70, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Weitsprung, mehr Kraft nach vorn." },
+        { "uebung": "g_tuck_jump", "art": "stufe", "rang": 4, "effekt": 62, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Knie zur Brust, höchste Sprunghöhe." },
         { "uebung": "g_skater", "art": "variante", "rang": null, "effekt": 64, "grund": "Seitlich und einbeinig." },
-        { "uebung": "g_jumping_lunge", "art": "variante", "rang": null, "effekt": 64, "grund": "Wechselsprung im Ausfallschritt." }
+        { "uebung": "g_jumping_lunge", "art": "variante", "rang": null, "effekt": 64, "grund": "Wechselsprung im Ausfallschritt." },
+        { "uebung": "g_single_leg_hop", "art": "variante", "rang": null, "effekt": 70, "grund": "Einbeiniger Sprung für Seitenvergleich und Laufsport." },
+        { "uebung": "g_bounding", "art": "variante", "rang": null, "effekt": 66, "grund": "Sprung im Wechsel nach vorn, direkt übertragbar auf Laufen und Hindernislauf." }
       ]
     },
     {
@@ -764,7 +827,7 @@
       "kurz": "Umsetzen der Last vom Boden auf die Schultern, bis zum Clean and Jerk.",
       "leiter": "g_clean_and_jerk",
       "voraussetzt": [
-        { "familie": "f_deadlift", "ab_rang": 3 },
+        { "familie": "f_deadlift", "ab_rang": 4 },
         { "familie": "f_squat", "ab_rang": 4 }
       ],
       "fuehrt_zu": ["f_snatch"],
@@ -774,7 +837,9 @@
         { "uebung": "g_power_clean", "art": "stufe", "rang": 3, "effekt": 86, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Vom Boden, Fang über der Parallele." },
         { "uebung": "g_squat_clean", "art": "stufe", "rang": 4, "effekt": 88, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Fang in tiefer Kniebeuge, höchste Last." },
         { "uebung": "g_clean_and_jerk", "art": "stufe", "rang": 5, "effekt": 90, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Stoß über Kopf, die komplette Disziplin." },
-        { "uebung": "g_kb_clean", "art": "variante", "rang": null, "effekt": 70, "grund": "Mit Kettlebell, für Metcons." }
+        { "uebung": "g_kb_clean", "art": "variante", "rang": null, "effekt": 70, "grund": "Mit Kettlebell, für Metcons." },
+        { "uebung": "g_clean_pull", "art": "variante", "rang": null, "effekt": 74, "grund": "Zug mit mehr Gewicht als beim Umsetzen, ohne Fangen in der Front-Rack-Position." },
+        { "uebung": "g_sandbag_clean", "art": "variante", "rang": null, "effekt": 72, "grund": "Umsetzen mit einem unruhigen Gewicht, typisch für Hyrox und Strongman." }
       ]
     },
     {
@@ -792,9 +857,11 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_burgener", "art": "stufe", "rang": 1, "effekt": 56, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Technikdrill mit Stab oder leerer Stange." },
-        { "uebung": "g_hang_power_snatch", "art": "stufe", "rang": 2, "effekt": 82, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Aus dem Hang, kürzerer Weg." },
-        { "uebung": "g_power_snatch", "art": "stufe", "rang": 3, "effekt": 86, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Vom Boden, Fang über der Parallele." },
-        { "uebung": "g_squat_snatch", "art": "stufe", "rang": 4, "effekt": 88, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Fang in tiefer Überkopfkniebeuge, höchste Stufe." }
+        { "uebung": "g_muscle_snatch", "art": "stufe", "rang": 2, "effekt": 60, "ziel": "5 saubere Wiederholungen mit leerer Stange.", "grund": "Lernt den Zugweg vor dem ersten Hang Power Snatch." },
+        { "uebung": "g_hang_power_snatch", "art": "stufe", "rang": 3, "effekt": 82, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Aus dem Hang, kürzerer Weg." },
+        { "uebung": "g_power_snatch", "art": "stufe", "rang": 4, "effekt": 86, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Vom Boden, Fang über der Parallele." },
+        { "uebung": "g_squat_snatch", "art": "stufe", "rang": 5, "effekt": 88, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Fang in tiefer Überkopfkniebeuge, höchste Stufe." },
+        { "uebung": "g_snatch_balance", "art": "variante", "rang": null, "effekt": 72, "grund": "Trainiert gezielt das schnelle Untergehen und Fangen beim Reißen." }
       ]
     },
     {
@@ -830,7 +897,8 @@
         { "uebung": "g_backpack_carry", "art": "stufe", "rang": 1, "effekt": 52, "ziel": "4 × 40 m ohne Absetzen.", "grund": "Last am Rücken, Einstieg." },
         { "uebung": "g_farmers_carry", "art": "stufe", "rang": 2, "effekt": 76, "ziel": "4 × 40 m ohne Absetzen.", "grund": "Grundübung mit zwei Gewichten." },
         { "uebung": "g_suitcase_carry", "art": "stufe", "rang": 3, "effekt": 74, "ziel": "4 × 30 m je Seite ohne Absetzen.", "grund": "Einseitig, mehr Rumpfarbeit gegen Seitneigung." },
-        { "uebung": "g_overhead_carry", "art": "stufe", "rang": 4, "effekt": 72, "ziel": "Erhalten: einmal pro Woche 4 × 30 m ohne Absetzen.", "grund": "Über Kopf, höchste Schulterstabilität." }
+        { "uebung": "g_overhead_carry", "art": "stufe", "rang": 4, "effekt": 72, "ziel": "Erhalten: einmal pro Woche 4 × 30 m ohne Absetzen.", "grund": "Über Kopf, höchste Schulterstabilität." },
+        { "uebung": "g_front_rack_carry", "art": "variante", "rang": null, "effekt": 70, "grund": "Last vor dem Körper fordert Rumpf und Haltung anders als seitliches Tragen." }
       ]
     },
     {
@@ -846,7 +914,9 @@
       "varianten": [
         { "uebung": "g_sandbag_carry", "art": "stufe", "rang": 1, "effekt": 72, "ziel": "4 × 40 m ohne Absetzen.", "grund": "Vor dem Körper umklammert, Einstieg." },
         { "uebung": "g_sandbag_shoulder_carry", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Erhalten: einmal pro Woche 4 × 30 m je Schulter ohne Absetzen.", "grund": "Auf der Schulter, einseitig mehr Rumpfarbeit." },
-        { "uebung": "g_sled_push", "art": "variante", "rang": null, "effekt": 64, "grund": "Schieben statt Tragen, eine andere Bewegung." }
+        { "uebung": "g_sled_push", "art": "variante", "rang": null, "effekt": 64, "grund": "Schieben statt Tragen, eine andere Bewegung." },
+        { "uebung": "g_sled_pull", "art": "variante", "rang": null, "effekt": 72, "grund": "Feste Hyrox-Station, zieht statt zu schieben." },
+        { "uebung": "g_backward_sled_drag", "art": "variante", "rang": null, "effekt": 66, "grund": "Belastet den vorderen Oberschenkel ohne Stoß, schont das Knie." }
       ]
     },
     {
@@ -862,7 +932,8 @@
       "varianten": [
         { "uebung": "g_run", "art": "stufe", "rang": 1, "effekt": 82, "ziel": "Erhalten: einmal pro Woche 45 Min am Stück oder eine Intervalleinheit.", "grund": "Grundübung; die Run-Leiter steigert vom Gehen bis zu Intervallen." },
         { "uebung": "g_shuttle_run", "art": "variante", "rang": null, "effekt": 60, "grund": "Pendellauf mit Richtungswechseln." },
-        { "uebung": "g_stair_climb", "art": "variante", "rang": null, "effekt": 56, "grund": "Treppensteigen als Ersatz ohne Laufstrecke." }
+        { "uebung": "g_stair_climb", "art": "variante", "rang": null, "effekt": 56, "grund": "Treppensteigen als Ersatz ohne Laufstrecke." },
+        { "uebung": "g_incline_walk", "art": "variante", "rang": null, "effekt": 60, "grund": "Lockere Ausdauer ohne Laufbelastung, gut für Kardio-locker-Tage." }
       ]
     },
     {
@@ -878,7 +949,9 @@
       "varianten": [
         { "uebung": "g_row_erg", "art": "variante", "rang": null, "effekt": 80, "grund": "Ganzkörper mit Zug, CrossFit-Standard." },
         { "uebung": "g_bike_erg", "art": "variante", "rang": null, "effekt": 76, "grund": "Beinbetont und gelenkschonend." },
-        { "uebung": "g_ski_erg", "art": "variante", "rang": null, "effekt": 72, "grund": "Oberkörperbetont mit Zug von oben." }
+        { "uebung": "g_ski_erg", "art": "variante", "rang": null, "effekt": 72, "grund": "Oberkörperbetont mit Zug von oben." },
+        { "uebung": "g_air_bike", "art": "variante", "rang": null, "effekt": 78, "grund": "Ergometer mit Armeinsatz und Luftwiderstand, Standard in CrossFit-Boxen." },
+        { "uebung": "g_elliptical", "art": "variante", "rang": null, "effekt": 66, "grund": "Ausdauer im Stehen ohne Aufprall, schont Knie und Fuß." }
       ]
     },
     {
@@ -896,7 +969,8 @@
         { "uebung": "g_burpee", "art": "stufe", "rang": 2, "effekt": 74, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Grundübung." },
         { "uebung": "g_burpee_pullup", "art": "stufe", "rang": 3, "effekt": 72, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Klimmzug, höchste Stufe der Burpee-Leiter.", "auch_in": ["f_pullup"] },
         { "uebung": "g_burpee_box_jump_over", "art": "variante", "rang": null, "effekt": 68, "grund": "Mit Sprung über die Box statt Klimmzug.", "auch_in": ["f_box_jump"] },
-        { "uebung": "g_mountain_climber", "art": "variante", "rang": null, "effekt": 52, "grund": "Schnelle Kniezüge im Stütz, ohne Sprung." }
+        { "uebung": "g_mountain_climber", "art": "variante", "rang": null, "effekt": 52, "grund": "Schnelle Kniezüge im Stütz, ohne Sprung." },
+        { "uebung": "g_burpee_broad_jump", "art": "variante", "rang": null, "effekt": 72, "grund": "Feste Hyrox-Station mit Vorwärtssprung statt Strecksprung." }
       ]
     },
     {
@@ -910,7 +984,188 @@
       "voraussetzt": [],
       "fuehrt_zu": [],
       "varianten": [
-        { "uebung": "g_ball_slam", "art": "stufe", "rang": 1, "effekt": 60, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einzige Übung der Familie." }
+        { "uebung": "g_ball_slam", "art": "stufe", "rang": 1, "effekt": 60, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einzige Übung der Familie." },
+        { "uebung": "g_battle_rope_waves", "art": "variante", "rang": null, "effekt": 64, "grund": "Oberkörper-Ausdauer mit hohem Puls, ohne Belastung der Beine." }
+      ]
+    },
+    {
+      "id": "f_neck_mobility",
+      "name": "Neck Mobility",
+      "muster": "mobilitaet",
+      "bereich": "rumpf",
+      "ebene": 1,
+      "kurz": "Hält die Halswirbelsäule beweglich.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_neck_cars", "art": "stufe", "rang": 1, "effekt": 55, "ziel": "5 langsame Kreise je Richtung ohne Ziehen.", "grund": "Grundform der Nackenmobilisation." }
+      ]
+    },
+    {
+      "id": "f_foot_mobility",
+      "name": "Foot Mobility",
+      "muster": "mobilitaet",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Hält Zehen und Fußsohle beweglich.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_kneeling_toe_stretch", "art": "stufe", "rang": 1, "effekt": 55, "ziel": "60 Sekunden im Kniesitz auf aufgestellten Zehen.", "grund": "Grundform der Fußmobilisation." }
+      ]
+    },
+    {
+      "id": "f_biceps_curl",
+      "name": "Biceps Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert den Bizeps gezielt über die Beugung im Ellbogen.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_band_curl", "art": "stufe", "rang": 1, "effekt": 45, "ziel": "3 Sätze mit 15 sauberen Wiederholungen mit mittlerem Band.", "grund": "Einstieg ohne Gewichte, auch zu Hause." },
+        { "uebung": "g_biceps_curl", "art": "stufe", "rang": 2, "effekt": 58, "ziel": "10 saubere Wiederholungen mit je 15 % des Körpergewichts pro Hand.", "grund": "Messbar steigerbar in kg." },
+        { "uebung": "g_hammer_curl", "art": "variante", "rang": null, "effekt": 56, "grund": "Neutralgriff trainiert zusätzlich den Oberarmspeichenmuskel und den Griff." },
+        { "uebung": "g_ring_curl", "art": "variante", "rang": null, "effekt": 60, "grund": "Curl mit dem eigenen Körpergewicht an den Ringen, ohne Hanteln." }
+      ]
+    },
+    {
+      "id": "f_triceps_extension",
+      "name": "Triceps Extension",
+      "muster": "isolation",
+      "bereich": "druck",
+      "ebene": 1,
+      "kurz": "Trainiert den Trizeps gezielt über die Streckung im Ellbogen.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_triceps_pushdown", "art": "stufe", "rang": 1, "effekt": 50, "ziel": "3 Sätze mit 15 sauberen Wiederholungen.", "grund": "Leichteste Form mit festen Oberarmen." },
+        { "uebung": "g_overhead_triceps_extension", "art": "stufe", "rang": 2, "effekt": 56, "ziel": "10 saubere Wiederholungen mit 15 % des Körpergewichts.", "grund": "Dehnt den langen Trizepskopf über Kopf." },
+        { "uebung": "g_skull_crusher", "art": "stufe", "rang": 3, "effekt": 60, "ziel": "10 saubere Wiederholungen mit 25 % des Körpergewichts.", "grund": "Höchste Last für den Trizeps im Liegen." },
+        { "uebung": "g_ring_triceps_extension", "art": "variante", "rang": null, "effekt": 66, "grund": "Trizeps mit dem eigenen Körpergewicht, ohne Hanteln." }
+      ]
+    },
+    {
+      "id": "f_lateral_raise",
+      "name": "Lateral Raise",
+      "muster": "isolation",
+      "bereich": "druck",
+      "ebene": 1,
+      "kurz": "Trainiert die seitliche Schulter, die bei Druckübungen wenig gefordert wird.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_band_lateral_raise", "art": "stufe", "rang": 1, "effekt": 42, "ziel": "3 Sätze mit 15 sauberen Wiederholungen.", "grund": "Einstieg ohne Gewichte." },
+        { "uebung": "g_lateral_raise", "art": "stufe", "rang": 2, "effekt": 56, "ziel": "12 saubere Wiederholungen mit je 5 % des Körpergewichts pro Hand.", "grund": "Messbar steigerbar in kg." }
+      ]
+    },
+    {
+      "id": "f_calf_raise",
+      "name": "Calf Raise",
+      "muster": "isolation",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Trainiert Waden und Achillessehne über die Streckung im Sprunggelenk.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_calf_raise", "art": "stufe", "rang": 1, "effekt": 45, "ziel": "3 Sätze mit 20 Wiederholungen über den vollen Weg.", "grund": "Grundform mit beiden Beinen." },
+        { "uebung": "g_single_leg_calf_raise", "art": "stufe", "rang": 2, "effekt": 58, "ziel": "3 Sätze mit 15 Wiederholungen je Bein.", "grund": "Doppelte Last je Bein ohne Gewicht." },
+        { "uebung": "g_seated_calf_raise", "art": "variante", "rang": null, "effekt": 50, "grund": "Mit gebeugtem Knie arbeitet vor allem die tiefe Wadenmuskulatur." }
+      ]
+    },
+    {
+      "id": "f_wrist_curl",
+      "name": "Wrist Curl",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert die Unterarmmuskeln für Griff und Handgelenk.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_wrist_curl", "art": "stufe", "rang": 1, "effekt": 40, "ziel": "3 Sätze mit 15 Wiederholungen über den vollen Weg.", "grund": "Grundform für die Unterarmbeuger." },
+        { "uebung": "g_reverse_wrist_curl", "art": "variante", "rang": null, "effekt": 38, "grund": "Trainiert die Gegenseite, die Unterarmstrecker." }
+      ]
+    },
+    {
+      "id": "f_shrug",
+      "name": "Shrug",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert den oberen Trapez.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_shrug", "art": "stufe", "rang": 1, "effekt": 50, "ziel": "12 saubere Wiederholungen mit je 25 % des Körpergewichts pro Hand.", "grund": "Einzige Grundform." }
+      ]
+    },
+    {
+      "id": "f_leg_extension",
+      "name": "Leg Extension",
+      "muster": "isolation",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Trainiert den vorderen Oberschenkel gezielt über die Streckung im Knie.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_leg_extension", "art": "stufe", "rang": 1, "effekt": 60, "ziel": "12 saubere Wiederholungen mit 40 % des Körpergewichts.", "grund": "Grundform an der Maschine." },
+        { "uebung": "g_reverse_nordic", "art": "variante", "rang": null, "effekt": 66, "grund": "Gleicher Reiz ohne Gerät mit dem eigenen Körpergewicht." }
+      ]
+    },
+    {
+      "id": "f_hip_abduction",
+      "name": "Hip Abduction",
+      "muster": "isolation",
+      "bereich": "beine",
+      "ebene": 1,
+      "kurz": "Trainiert das seitliche Gesäß für stabile Hüfte und Knie.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_clamshell", "art": "stufe", "rang": 1, "effekt": 40, "ziel": "3 Sätze mit 20 Wiederholungen je Seite.", "grund": "Einstieg in Seitenlage." },
+        { "uebung": "g_lateral_band_walk", "art": "stufe", "rang": 2, "effekt": 45, "ziel": "3 Runden mit 15 Schritten je Richtung, Band um die Fußgelenke.", "grund": "Hüftstabilität im Stand." }
+      ]
+    },
+    {
+      "id": "f_shoulder_rotation",
+      "name": "Shoulder External Rotation",
+      "muster": "isolation",
+      "bereich": "zug",
+      "ebene": 1,
+      "kurz": "Trainiert die Außenrotatoren der Schulter.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_band_external_rotation", "art": "stufe", "rang": 1, "effekt": 45, "ziel": "3 Sätze mit 15 Wiederholungen je Seite.", "grund": "Grundform mit Band." }
+      ]
+    },
+    {
+      "id": "f_swim",
+      "name": "Swim",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "ebene": 1,
+      "kurz": "Ausdauer im Wasser ohne Aufprall für den ganzen Körper.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        { "uebung": "g_freestyle_swim", "art": "stufe", "rang": 1, "effekt": 78, "ziel": "400 Meter Kraulen am Stück.", "grund": "Grundform des Ausdauerschwimmens." }
       ]
     }
   ],

@@ -1,0 +1,168 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "beinbeuger",
+  "quelle": "van der Horst et al. 2015 und Petersen et al. 2011 (Nordic Hamstring Programm), Bourne et al. 2017 (EMG Beinbeuger-Übungen), Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_nordic",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Nordic Hamstring Curl",
+        "Nordischer Beinbeuger",
+        "Nordic Curls"
+      ]
+    },
+    {
+      "id": "g_single_slider_curl",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einbeiniger Slider-Beinbeuger",
+        "Einbeiniges Beinbeugen mit Slider"
+      ]
+    },
+    {
+      "id": "g_ring_leg_curl",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinbeugen an Ringen",
+        "Ring-Beinbeuger"
+      ]
+    },
+    {
+      "id": "g_slider_curl",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Slider-Beinbeuger",
+        "Beinbeugen mit Slidern",
+        "Hamstring Slider Curl"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_nordic 2, g_slider_curl 0 aus der Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen, Single-Leg Slider Curl und Ring Leg Curl 0."
+    },
+    {
+      "frage": "bewegt",
+      "entscheidung": "Nur knie bei allen vier Übungen.",
+      "folge": "Die Hüfte bleibt in der Brücke bzw. gestreckt, die Übungen gelten als isoliert und bleiben trotzdem in beinbeuger."
+    },
+    {
+      "frage": "Nordic Curl: Knie 2 oder 3?",
+      "entscheidung": "2.",
+      "folge": "Die hohe Last liegt auf den Beinbeugern und ihren Sehnen (sehne 2), nicht auf dem Kniegelenk wie bei Pistol oder Sissy Squat."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Überall null.",
+      "folge": "Keine kg-Übung im Paket."
+    }
+  ]
+}

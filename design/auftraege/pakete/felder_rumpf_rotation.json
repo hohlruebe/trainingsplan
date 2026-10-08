@@ -1,0 +1,250 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "rumpf_rotation",
+  "quelle": "McGill (Anti-Rotation, Seitstütz), Overcoming Gravity (Human Flag), Escamilla et al. 2006 (EMG Rumpfübungen), Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_human_flag",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "latissimus",
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "trizeps",
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Menschliche Fahne",
+        "Human Flag",
+        "Fahne an der Stange"
+      ]
+    },
+    {
+      "id": "g_turkish_getup",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "schulter_vorn",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "quadrizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Türkisches Aufstehen",
+        "TGU",
+        "Get-up"
+      ]
+    },
+    {
+      "id": "g_flag_tuck",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "latissimus",
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "trizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gehockte Fahne",
+        "Tuck Flag"
+      ]
+    },
+    {
+      "id": "g_pallof",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Pallof-Drücken",
+        "Anti-Rotations-Drücken"
+      ]
+    },
+    {
+      "id": "g_side_plank",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg"
+        ],
+        "sekundaer": [
+          "abduktoren",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitstütz",
+        "Seitliche Planke"
+      ]
+    },
+    {
+      "id": "g_russian_twist",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Russischer Twist",
+        "Russian Twists",
+        "Sitzende Rumpfdrehung"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_human_flag 2, g_turkish_getup 0 aus der Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "sehne bei Tuck Human Flag",
+      "entscheidung": "2.",
+      "folge": "Gleiche Belastung von Schulter und gestreckten Armen wie die Human Flag."
+    },
+    {
+      "frage": "Russian Twist: Rücken 2 und bewegt?",
+      "entscheidung": "Rücken 2, bewegt nur ruecken.",
+      "folge": "Die Wirbelsäule dreht gewollt unter Beugung, die Übung gilt damit als isoliert."
+    },
+    {
+      "frage": "seitig",
+      "entscheidung": "Turkish Get-up, Pallof Press und Side Plank true.",
+      "folge": "Werden je Seite gemacht."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Überall null.",
+      "folge": "Keine kg-Übung im Paket."
+    }
+  ]
+}

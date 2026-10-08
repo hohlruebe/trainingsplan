@@ -1,0 +1,606 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "rumpf_rotation",
+  "quelle": "Harøy et al. 2019 (Copenhagen Adduction), McGill (Anti-Rotation), Escamilla et al. 2006 (EMG Bauchübungen), Overcoming Gravity (Human Flag).",
+  "uebungen": [
+    {
+      "id": "g_cable_woodchop",
+      "name": "Cable Woodchop",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug",
+          "eq_band"
+        ]
+      ],
+      "nutzen": 62,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Schräge Bauchmuskeln, Hüftrotation",
+      "schritte": [
+        "Stell dich seitlich zum hohen Kabelzug oder Band, greif den Griff mit beiden Händen.",
+        "Zieh den Griff diagonal von oben zur gegenüberliegenden Hüfte.",
+        "Dreh dabei Hüfte und Schultern gemeinsam, Arme fast gestreckt.",
+        "Lass den Griff kontrolliert zurück und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Hüfte und Schultern drehen gemeinsam, die Arme bleiben lang.",
+      "fehler": "Ein Ziehen nur mit den Armen nimmt dem Rumpf die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht oder leichteres Band. Schwerer: Mehr Gewicht oder im Halbkniestand.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "gesaess",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Holzhacker",
+        "Woodchopper",
+        "Kabel-Holzhacker"
+      ]
+    },
+    {
+      "id": "g_landmine_rotation",
+      "name": "Landmine Rotation",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_landmine"
+        ],
+        [
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Schräge Bauchmuskeln, Schulter, Hüfte",
+      "schritte": [
+        "Halt das Stangenende der Landmine mit beiden Händen und gestreckten Armen vor der Brust.",
+        "Führ die Stange in einem Bogen zu einer Hüfte, die Hüfte dreht mit.",
+        "Bring die Stange über die Mitte zur anderen Seite."
+      ],
+      "sauber": "Die Arme bleiben gestreckt und der Rumpf bleibt fest, die Drehung kommt aus der Hüfte.",
+      "fehler": "Ein Verdrehen nur im unteren Rücken überlastet die Lendenwirbelsäule.",
+      "skalierung": "Leichter: Weniger Gewicht oder kleinerer Bogen. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "bauch_gerade",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Landmine-Rotation",
+        "Regenbogen an der Landmine",
+        "Landmine Rainbow"
+      ]
+    },
+    {
+      "id": "g_plank_shoulder_tap",
+      "name": "Plank Shoulder Tap",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon",
+        "aufwaermen"
+      ],
+      "equipment": [],
+      "nutzen": 52,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Bauch, Anti-Rotation, Schulter",
+      "schritte": [
+        "Geh in den hohen Liegestütz, Füße etwas breiter als hüftbreit.",
+        "Heb eine Hand und tipp die gegenüberliegende Schulter an.",
+        "Setz die Hand ab und wechsel die Seite, die Hüfte bleibt ruhig."
+      ],
+      "sauber": "Die Hüfte schaukelt nicht von Seite zu Seite.",
+      "fehler": "Ein Verdrehen der Hüfte zeigt, dass der Rumpf nicht gegen die Drehung arbeitet.",
+      "skalierung": "Leichter: Füße weiter auseinander oder auf Knien. Schwerer: Füße enger zusammen.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schultertippen im Liegestütz",
+        "Shoulder Taps"
+      ]
+    },
+    {
+      "id": "g_copenhagen_plank",
+      "name": "Copenhagen Plank",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "sek",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_bank",
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 2,
+      "voraussetzung": [
+        {
+          "leiter": "g_human_flag",
+          "stufe": "Side Plank"
+        }
+      ],
+      "trainiert": "Adduktoren, seitlicher Rumpf",
+      "schritte": [
+        "Leg dich in den Seitstütz neben eine Bank, den Unterarm am Boden.",
+        "Leg den oberen Fuß oder das Knie auf die Bank, das untere Bein frei.",
+        "Heb die Hüfte, bis der Körper eine Linie bildet, und halte."
+      ],
+      "sauber": "Der Körper bildet eine Linie und die Hüfte sinkt nicht ab.",
+      "fehler": "Ein Abknicken der Hüfte nimmt den Adduktoren die Arbeit ab.",
+      "skalierung": "Leichter: Knie statt Fuß auf der Bank. Schwerer: Fuß auf der Bank und unteres Bein angehoben.",
+      "muskeln": {
+        "primaer": [
+          "adduktoren",
+          "bauch_schraeg"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "abduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kopenhagen-Planke",
+        "Copenhagen Adduction",
+        "Adduktoren-Seitstütz"
+      ]
+    },
+    {
+      "id": "g_windshield_wiper",
+      "name": "Hanging Windshield Wiper",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 78,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_kneeraise",
+          "stufe": "Toes to Rings"
+        }
+      ],
+      "trainiert": "Schräge Bauchmuskeln, Hüftbeuger",
+      "schritte": [
+        "Häng dich an und heb die gestreckten Beine bis zur Stange.",
+        "Kipp die Beine kontrolliert zu einer Seite ab.",
+        "Führ sie über die Mitte zur anderen Seite, ohne den Körper schwingen zu lassen."
+      ],
+      "sauber": "Die Beine bleiben oben und der Oberkörper dreht kaum mit.",
+      "fehler": "Ein Schwingen des ganzen Körpers nimmt dem Rumpf die Kontrolle ab.",
+      "skalierung": "Leichter: Beine angehockt oder auf dem Rücken am Boden. Schwerer: Größerer Bogen oder langsamer.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "latissimus",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Scheibenwischer",
+        "Hängender Scheibenwischer"
+      ]
+    },
+    {
+      "id": "g_med_ball_rotational_throw",
+      "name": "Medicine Ball Rotational Throw",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_wallball",
+          "eq_slamball"
+        ]
+      ],
+      "nutzen": 64,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Schräge Bauchmuskeln, Rotationskraft",
+      "schritte": [
+        "Stell dich seitlich etwa einen Meter vor eine stabile Wand, den Ball auf Hüfthöhe.",
+        "Hol mit Hüfte und Schultern weg von der Wand aus.",
+        "Dreh explosiv aus der Hüfte und wirf den Ball seitlich an die Wand.",
+        "Fang ihn und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Die Drehung startet in der Hüfte, der hintere Fuß dreht mit.",
+      "fehler": "Ein Wurf nur aus den Armen nimmt dem Rumpf die Arbeit ab.",
+      "skalierung": "Leichter: Leichterer Ball. Schwerer: Schwererer Ball oder schneller.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "gesaess",
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Rotationswurf",
+        "Medizinball-Rotationswurf"
+      ]
+    },
+    {
+      "id": "g_bicycle_crunch",
+      "name": "Bicycle Crunch",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [],
+      "nutzen": 52,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Schräge Bauchmuskeln, gerader Bauch",
+      "schritte": [
+        "Leg dich auf den Rücken, Hände an den Schläfen, Beine angehoben.",
+        "Führ einen Ellbogen zum gegenüberliegenden Knie, das andere Bein streckt sich.",
+        "Wechsel die Seiten gleichmäßig wie beim Radfahren."
+      ],
+      "sauber": "Die Schulter dreht zum Knie, nicht nur der Ellbogen.",
+      "fehler": "Ein Ziehen am Kopf belastet den Nacken.",
+      "skalierung": "Leichter: Füße am Boden. Schwerer: Langsamer und mit Halten am Ende.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Fahrrad-Crunch",
+        "Bicycle Crunches"
+      ]
+    },
+    {
+      "id": "g_kb_windmill",
+      "name": "Kettlebell Windmill",
+      "muster": "rumpf_rotation",
+      "bereich": "rumpf",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell",
+          "eq_kurzhanteln"
+        ]
+      ],
+      "nutzen": 64,
+      "level": 3,
+      "voraussetzung": [],
+      "trainiert": "Seitlicher Rumpf, Schulterstabilität, Beinbeuger",
+      "schritte": [
+        "Drück eine Kettlebell über den Kopf, Füße etwas breiter als hüftbreit, beide leicht zur anderen Seite gedreht.",
+        "Schieb die Hüfte zur Seite der Kettlebell und beug dich seitlich nach unten.",
+        "Führ die freie Hand am Bein entlang zum Fuß, der Blick bleibt bei der Kettlebell.",
+        "Richte dich auf und wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Der Arm mit der Kettlebell bleibt senkrecht und gestreckt.",
+      "fehler": "Ein Abknicken des Arms überlastet die Schulter.",
+      "skalierung": "Leichter: Ohne Gewicht oder kleinerer Weg. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "gesaess",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Windmühle",
+        "Kettlebell-Windmühle"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_russian_twist",
+      "varianten": [
+        {
+          "uebung": "g_cable_woodchop",
+          "art": "variante",
+          "effekt": 62,
+          "grund": "Rotation im Stehen mit Last, geht mit Kabelzug oder Band."
+        },
+        {
+          "uebung": "g_landmine_rotation",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Rotation mit kg-Last aus der Hüfte."
+        },
+        {
+          "uebung": "g_windshield_wiper",
+          "art": "variante",
+          "effekt": 78,
+          "grund": "Schwerste Rotationsform im Hang."
+        },
+        {
+          "uebung": "g_med_ball_rotational_throw",
+          "art": "variante",
+          "effekt": 64,
+          "grund": "Explosive Rotation für Schnellkraft."
+        },
+        {
+          "uebung": "g_bicycle_crunch",
+          "art": "variante",
+          "effekt": 52,
+          "grund": "Rotation in Rückenlage ohne Gerät, hohe Aktivität der schrägen Bauchmuskeln."
+        }
+      ]
+    },
+    {
+      "familie": "f_turkish_getup",
+      "varianten": [
+        {
+          "uebung": "g_kb_windmill",
+          "art": "stufe",
+          "nach": "g_pallof",
+          "effekt": 64,
+          "ziel": "5 saubere Wiederholungen je Seite mit 12 kg.",
+          "grund": "Trainiert Teile des Turkish Get-up (Überkopf-Stabilität und seitliche Hüftbeugung) einzeln."
+        },
+        {
+          "uebung": "g_plank_shoulder_tap",
+          "art": "variante",
+          "effekt": 52,
+          "grund": "Anti-Rotation im Stütz ohne Gerät."
+        }
+      ]
+    },
+    {
+      "familie": "f_human_flag",
+      "varianten": [
+        {
+          "uebung": "g_copenhagen_plank",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Seitstütz mit hoher Last für die Adduktoren, gut belegt zur Vorbeugung von Leistenproblemen."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 rumpf_rotation",
+      "entscheidung": "8 neue Übungen: Cable Woodchop, Landmine Rotation, Plank Shoulder Tap, Copenhagen Plank, Hanging Windshield Wiper, Medicine Ball Rotational Throw, Bicycle Crunch, Kettlebell Windmill.",
+      "folge": "Das Paket hatte erst 6 Übungen und deutliche Lücken bei Rotation mit Last."
+    },
+    {
+      "frage": "Kettlebell Windmill: Stufe oder Variante?",
+      "entscheidung": "Stufe nach g_pallof in f_turkish_getup.",
+      "folge": "Liegt im Schwierigkeitsgrad zwischen Pallof Press und Turkish Get-up."
+    },
+    {
+      "frage": "Copenhagen Plank: sehne 1?",
+      "entscheidung": "1.",
+      "folge": "Hohe Last auf den Adduktorensehnen, braucht langsame Steigerung."
+    },
+    {
+      "frage": "Abgelehnt: Side Plank Hip Dip, Star Side Plank",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zum Seitstütz."
+    },
+    {
+      "frage": "Abgelehnt: Half-Kneeling Chop, Band Rotation",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zum Cable Woodchop, der Bänder schon erlaubt."
+    }
+  ]
+}

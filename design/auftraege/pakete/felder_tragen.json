@@ -1,0 +1,307 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "tragen",
+  "quelle": "McGill et al. 2009 (Rumpfaktivität bei Strongman-Tragen), Winwood et al. 2014 (Strongman-Training), Hyrox Rulebook (Sled Push, Farmers Carry).",
+  "uebungen": [
+    {
+      "id": "g_farmers_carry",
+      "muskeln": {
+        "primaer": [
+          "unterarm",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "gesaess",
+          "quadrizeps",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bauernlauf",
+        "Farmer's Walk",
+        "Koffer tragen beidseitig"
+      ]
+    },
+    {
+      "id": "g_suitcase_carry",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "unterarm"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "gesaess",
+          "abduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiges Tragen",
+        "Koffertragen",
+        "Suitcase Walk"
+      ]
+    },
+    {
+      "id": "g_overhead_carry",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Tragen über Kopf",
+        "Overhead Walk"
+      ]
+    },
+    {
+      "id": "g_sandbag_carry",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "bizeps",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "gesaess",
+          "quadrizeps",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Sandsack tragen vor der Brust",
+        "Bear Hug Carry"
+      ]
+    },
+    {
+      "id": "g_sandbag_shoulder_carry",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "bauch_schraeg"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Sandsack auf der Schulter tragen",
+        "Shoulder Carry"
+      ]
+    },
+    {
+      "id": "g_sled_push",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "schulter_vorn",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schlitten schieben",
+        "Prowler Push",
+        "Sled Push"
+      ]
+    },
+    {
+      "id": "g_backpack_carry",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rucksack tragen",
+        "Rucking",
+        "Gehen mit Rucksack"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_farmers_carry und g_sandbag_carry haben 0 laut Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen, alle übrigen ebenfalls 0."
+    },
+    {
+      "frage": "bewegt bei Tragen",
+      "entscheidung": "huefte, knie, fuss.",
+      "folge": "Beim Gehen bewegen sich die Beine deutlich, die Arme halten nur."
+    },
+    {
+      "frage": "Rücken bei Sandsack-Tragen",
+      "entscheidung": "2.",
+      "folge": "Die Last liegt vor oder seitlich am Körper und zieht den Rumpf stärker aus der Linie als beim Farmer's Carry."
+    },
+    {
+      "frage": "seitig",
+      "entscheidung": "Nur Suitcase Carry.",
+      "folge": "Die übrigen tragen beidseitig oder wechseln die Schulter nach Bedarf."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Überall null.",
+      "folge": "Alle Übungen haben die Einheit meter."
+    }
+  ]
+}

@@ -1,0 +1,811 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "druck_vertikal",
+  "quelle": "Schulterbelastung: Kolber et al. 2010 (Schulterverletzungen im Krafttraining, u. a. Dips). Overcoming Gravity (Ringstütz, Dips, HSPU) und die Sehnen-Tabelle der App. CrossFit Movement Standards und Benchmark-Workouts (DT) für rx.",
+  "uebungen": [
+    {
+      "id": "g_dip",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ringdips",
+        "Dips an Ringen",
+        "Ring-Dips"
+      ]
+    },
+    {
+      "id": "g_weighted_dip",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Dips mit Gewicht",
+        "Gewichtete Dips",
+        "Dips mit Dip-Gürtel"
+      ]
+    },
+    {
+      "id": "g_hspu",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handstand-Liegestütz",
+        "HSPU",
+        "Strikter Handstand-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_bar_dip",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Barrendips",
+        "Dips am Barren",
+        "Dips"
+      ]
+    },
+    {
+      "id": "g_freestanding_hspu",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Freier Handstand-Liegestütz",
+        "Freistehender HSPU"
+      ]
+    },
+    {
+      "id": "g_deficit_hspu",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Defizit-Handstand-Liegestütz",
+        "Deficit HSPU"
+      ]
+    },
+    {
+      "id": "g_pike",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "brust",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Pike-Liegestütz",
+        "Hecht-Liegestütz",
+        "Pike Push-up"
+      ]
+    },
+    {
+      "id": "g_hspu_negative",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Negativer Handstand-Liegestütz",
+        "HSPU-Negative"
+      ]
+    },
+    {
+      "id": "g_strict_press",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schulterdrücken",
+        "Military Press",
+        "Überkopfdrücken stehend",
+        "Langhantel-Schulterdrücken"
+      ]
+    },
+    {
+      "id": "g_push_jerk",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_seite",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": {
+        "m": 70,
+        "w": 47
+      },
+      "alias": [
+        "Stoß",
+        "Push Jerk",
+        "Schwungstoßen"
+      ]
+    },
+    {
+      "id": "g_push_press",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_seite",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 61,
+        "w": 43
+      },
+      "alias": [
+        "Schwungdrücken",
+        "Push Press"
+      ]
+    },
+    {
+      "id": "g_split_jerk",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_seite",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Ausfallschritt-Stoß",
+        "Split Jerk",
+        "Umsetzen und Stoßen mit Ausfallschritt"
+      ]
+    },
+    {
+      "id": "g_straight_bar_dip",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Dips an der Stange",
+        "Stangen-Dips"
+      ]
+    },
+    {
+      "id": "g_rto_support",
+      "muskeln": {
+        "primaer": [
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "bizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ringstütz mit ausgedrehten Ringen",
+        "RTO-Stütz"
+      ]
+    },
+    {
+      "id": "g_wall_walk",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Wandlauf",
+        "Wall Walk",
+        "An der Wand hochlaufen"
+      ]
+    },
+    {
+      "id": "g_kipping_hspu",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "gesaess",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kipping-Handstand-Liegestütz",
+        "Kipping HSPU"
+      ]
+    },
+    {
+      "id": "g_support_hold",
+      "muskeln": {
+        "primaer": [
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ringstütz",
+        "Stütz an Ringen",
+        "Support Hold"
+      ]
+    },
+    {
+      "id": "g_db_press",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kurzhantel-Schulterdrücken",
+        "KH-Schulterdrücken",
+        "Schulterdrücken mit Kurzhanteln"
+      ]
+    },
+    {
+      "id": "g_band_press",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schulterdrücken mit Band",
+        "Band-Überkopfdrücken"
+      ]
+    },
+    {
+      "id": "g_bench_dip",
+      "muskeln": {
+        "primaer": [
+          "trizeps"
+        ],
+        "sekundaer": [
+          "brust",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bankdips",
+        "Dips an der Bank",
+        "Stuhl-Dips",
+        "Trizeps-Dips"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_dip 2, g_hspu 2, g_pike 1, g_bar_dip 1, g_strict_press 0 aus der Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "sehne der HSPU-Varianten ohne Leiter",
+      "entscheidung": "2 für Freestanding, Deficit, Negative und Kipping HSPU.",
+      "folge": "Gleiche Belastung von Schulter, Handgelenk und Ellbogen wie beim Strict HSPU (2)."
+    },
+    {
+      "frage": "sehne bei Weighted Dip",
+      "entscheidung": "0.",
+      "folge": "Passend zu Weighted Pull-up und Weighted Chin-up, die Last steuert die kg-Progression."
+    },
+    {
+      "frage": "sehne bei Straight Bar Dip, Ring Support, RTO Support und Wall Walk",
+      "entscheidung": "1.",
+      "folge": "Ringe und Stütz mit gestreckten Armen bzw. Handstand-Nähe nach Konvention, passend zu g_bar_dip und g_handstand (1)."
+    },
+    {
+      "frage": "g_bench_dip: Schulter 3 oder 2?",
+      "entscheidung": "3.",
+      "folge": "Die Schulter steht am Ende der Streckung unter Last, wie beim Anker Dips tief. Bei Schulterschmerzen soll der Coach Bench Dips sicher meiden."
+    },
+    {
+      "frage": "Handstand-Push-ups: Handgelenk 3?",
+      "entscheidung": "3 bei allen außer Deficit HSPU (2).",
+      "folge": "Anker Handstand. Beim Deficit HSPU auf Parallettes steht das Handgelenk neutral."
+    },
+    {
+      "frage": "laut bei Stoß-Übungen",
+      "entscheidung": "Push Jerk, Split Jerk und Kipping HSPU true, Push Press und Strict Press false.",
+      "folge": "Beim Stoß landen die Füße hart, beim Kipping HSPU schlagen Füße und Kopf an Wand und Matte."
+    },
+    {
+      "frage": "rx Push Jerk und Push Press",
+      "entscheidung": "Push Jerk 70/47 kg (DT), Push Press 61/43 kg.",
+      "folge": "Übliche CrossFit-Gewichte für Metcons (155/105 bzw. 135/95 lb)."
+    },
+    {
+      "frage": "bewegt bei Stützübungen",
+      "entscheidung": "Ring Support Hold und RTO Support Hold [].",
+      "folge": "Halteübungen."
+    }
+  ]
+}

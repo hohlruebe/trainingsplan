@@ -1,0 +1,914 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "druck_horizontal",
+  "quelle": "EMG: Cogley et al. 2005, Kim et al. 2016 (Griffbreite), Calatayud et al. 2014 und 2015 (Ringe, Bankdrücken vs. Liegestütz), Marcolin et al. 2015. Last: Ebben et al. 2011 (Anteil Körpergewicht beim Liegestütz). Sehnen und Planche: Overcoming Gravity (Steven Low) und die Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_planche",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bizeps",
+          "bauch_gerade",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Planche",
+        "Stützwaage",
+        "Volle Planche",
+        "Full Planche"
+      ]
+    },
+    {
+      "id": "g_push",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Liegestütz",
+        "Liegestütze",
+        "Push-up",
+        "Pushup",
+        "Liegestütz am Boden"
+      ]
+    },
+    {
+      "id": "g_straddle_planche",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bizeps",
+          "bauch_gerade",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 5,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gegrätschte Stützwaage",
+        "Grätsch-Planche",
+        "Straddle Planche"
+      ]
+    },
+    {
+      "id": "g_one_arm_push",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiger Liegestütz",
+        "Einarm-Liegestütz",
+        "OAPU"
+      ]
+    },
+    {
+      "id": "g_adv_tuck_planche",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Erweiterte gehockte Stützwaage",
+        "Advanced Tuck Planche"
+      ]
+    },
+    {
+      "id": "g_ring_push",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Liegestütz an Ringen",
+        "Ring-Liegestütz",
+        "Ring Push-up"
+      ]
+    },
+    {
+      "id": "g_push_weighted",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Liegestütz mit Gewicht",
+        "Liegestütz mit Weste",
+        "Liegestütz mit Gewichtsweste"
+      ]
+    },
+    {
+      "id": "g_pseudo_planche_push",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "bizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Pseudo-Planche-Liegestütz",
+        "PPPU",
+        "Planche-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_tuck_planche",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gehockte Stützwaage",
+        "Hock-Planche",
+        "Tuck Planche"
+      ]
+    },
+    {
+      "id": "g_push_parallettes",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Liegestütz an Parallettes",
+        "Parallettes-Liegestütz",
+        "Tiefer Liegestütz"
+      ]
+    },
+    {
+      "id": "g_push_decline",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Liegestütz mit erhöhten Füßen",
+        "Decline-Liegestütz",
+        "Füße-hoch-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_push_band",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Liegestütz mit Band",
+        "Liegestütz mit Widerstandsband"
+      ]
+    },
+    {
+      "id": "g_archer_push",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Archer-Liegestütz",
+        "Bogenschützen-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_diamond_push",
+      "muskeln": {
+        "primaer": [
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Diamant-Liegestütz",
+        "Enge Liegestütze",
+        "Trizeps-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_planche_lean",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "brust",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Planche Lean",
+        "Stützwaage-Vorlehnen",
+        "Vorlehnen im Liegestütz"
+      ]
+    },
+    {
+      "id": "g_plyo_push",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Explosiver Liegestütz",
+        "Klatschliegestütz",
+        "Plyo-Liegestütz",
+        "Sprung-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_hand_release_push",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hand-Release-Liegestütz",
+        "Liegestütz mit Abheben der Hände",
+        "HRPU"
+      ]
+    },
+    {
+      "id": "g_one_arm_push_incline",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Erhöhter einarmiger Liegestütz",
+        "Einarm-Liegestütz erhöht"
+      ]
+    },
+    {
+      "id": "g_bench_press",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bankdrücken",
+        "Langhantel-Bankdrücken",
+        "Flachbankdrücken"
+      ]
+    },
+    {
+      "id": "g_floor_press",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bodendrücken",
+        "Kurzhantel-Bodendrücken",
+        "Floor Press"
+      ]
+    },
+    {
+      "id": "g_push_knee",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Knieliegestütz",
+        "Liegestütz auf Knien"
+      ]
+    },
+    {
+      "id": "g_push_negative",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Negativer Liegestütz",
+        "Exzentrischer Liegestütz",
+        "Negativ-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_push_incline",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Erhöhter Liegestütz",
+        "Schräger Liegestütz",
+        "Liegestütz an der Bank",
+        "Incline-Liegestütz"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "P1: g_tuck_planche sehne 2 oder 1?",
+      "entscheidung": "2.",
+      "folge": "Die Sehnenbelastung kommt von den gestreckten Armen, nicht von der Hebellänge."
+    },
+    {
+      "frage": "P2: Planche-Familie, Ellbogen 3 bei welchen Stufen?",
+      "entscheidung": "3 bei Full und Straddle Planche, 2 bei Tuck und Advanced Tuck.",
+      "folge": "Bei Ellbogenschmerzen bleibt eine leichtere Stufe in der Familie."
+    },
+    {
+      "frage": "P3: g_tuck_planche Schulter 3 oder 2?",
+      "entscheidung": "2, Advanced Tuck 3.",
+      "folge": "Die Stufenfolge bildet die Schulterbelastung ab."
+    },
+    {
+      "frage": "P4: Planche Lean und Pseudo Planche Push-up, Handgelenk 3 oder 2?",
+      "entscheidung": "3 für beide.",
+      "folge": "Bei Handgelenkschmerzen filtert der Coach beide sicher aus."
+    },
+    {
+      "frage": "P5: g_push Handgelenk 2 oder 1?",
+      "entscheidung": "2.",
+      "folge": "Parallettes und Ringe mit Handgelenk 1 sind die Ausweichübungen bei Handgelenkschmerzen."
+    },
+    {
+      "frage": "P6: g_plyo_push Handgelenk 3 und laut true?",
+      "entscheidung": "Handgelenk 3, laut true.",
+      "folge": "Der Plyo Push-up gilt nie als gleich belastend wie der normale Liegestütz."
+    },
+    {
+      "frage": "P7: g_push_knee Knie 1?",
+      "entscheidung": "1.",
+      "folge": "Bei Knieschmerzen schlägt der Coach nicht den Knieliegestütz vor."
+    },
+    {
+      "frage": "P8: sehne bei Nicht-Leitern?",
+      "entscheidung": "Ring Push-up 1, Plyo Push-up 1, Incline One-Arm Push-up 1, Archer Push-up 0.",
+      "folge": "Ringe und Sprünge nach Konvention, der Archer passt zum Archer Pull-up."
+    },
+    {
+      "frage": "P9: ermuedung im Paket?",
+      "entscheidung": "1 für die Grundformen, 2 für Weighted, Archer, One-Arm, Plyo, Bench Press und die Planche-Halteübungen.",
+      "folge": "Den Wiederholungsumfang steuert das Workout, nicht die Übung."
+    },
+    {
+      "frage": "P10: Bench Press Schulter 2 oder 3?",
+      "entscheidung": "2.",
+      "folge": "Der Floor Press mit Schulter 1 ist die Ausweichübung bei Schulterschmerzen."
+    },
+    {
+      "frage": "Woher kommen die sehne-Werte der Leitern?",
+      "entscheidung": "Aus der Sehnen-Tabelle der App: g_push 0, g_one_arm_push 2, g_planche 2.",
+      "folge": "Die Tabelle gilt nur für Leitern, die übrigen Übungen sind nach der Konvention bewertet."
+    },
+    {
+      "frage": "bewegt bei Planche-Halteübungen und Planche Lean?",
+      "entscheidung": "[], weil sie gehalten werden.",
+      "folge": "Alle Liegestütz- und Druckvarianten haben schulter und ellbogen."
+    }
+  ]
+}

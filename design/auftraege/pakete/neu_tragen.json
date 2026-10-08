@@ -1,0 +1,264 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "tragen",
+  "quelle": "Hyrox Rulebook (Sled Pull), McGill et al. 2009 (Strongman-Tragen), Winwood et al. 2014.",
+  "uebungen": [
+    {
+      "id": "g_sled_pull",
+      "name": "Sled Pull",
+      "muster": "tragen",
+      "bereich": "ausdauer",
+      "einheit": "meter",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_schlitten"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps, Griff, Beine",
+      "schritte": [
+        "Stell dich mit dem Seil in der Hand vor den Schlitten, das Seil gespannt.",
+        "Lehn dich leicht zurück und zieh das Seil Hand über Hand zu dir.",
+        "Halt die Füße an Ort und Stelle, bis der Schlitten bei dir ist."
+      ],
+      "sauber": "Die Beine stemmen sich gegen den Zug und die Arme ziehen gleichmäßig.",
+      "fehler": "Ein runder Rücken beim Ziehen überlastet den unteren Rücken.",
+      "skalierung": "Leichter: Weniger Gewicht auf dem Schlitten. Schwerer: Mehr Gewicht oder längere Strecke.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "rueckenstrecker",
+          "gesaess",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schlitten ziehen",
+        "Hyrox Sled Pull",
+        "Seilzug am Schlitten"
+      ]
+    },
+    {
+      "id": "g_backward_sled_drag",
+      "name": "Backward Sled Drag",
+      "muster": "tragen",
+      "bereich": "beine",
+      "einheit": "meter",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_schlitten"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Vorderer Oberschenkel, Waden",
+      "schritte": [
+        "Greif die Gurte oder Griffe des Schlittens und geh mit dem Gesicht zum Schlitten.",
+        "Geh mit kleinen Schritten rückwärts, Knie leicht gebeugt.",
+        "Drück dich bei jedem Schritt über den Vorfuß ab."
+      ],
+      "sauber": "Die Knie bleiben gebeugt und die Schritte sind kurz und gleichmäßig.",
+      "fehler": "Ein Zurücklehnen mit gestreckten Beinen nimmt dem Oberschenkel die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder längere Strecke.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "waden",
+          "gesaess",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schlitten rückwärts ziehen",
+        "Rückwärts-Schlittenziehen"
+      ]
+    },
+    {
+      "id": "g_front_rack_carry",
+      "name": "Front Rack Carry",
+      "muster": "tragen",
+      "bereich": "rumpf",
+      "einheit": "meter",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell",
+          "eq_kurzhanteln"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 2,
+      "voraussetzung": [
+        {
+          "leiter": "g_farmers_carry",
+          "stufe": "Farmer's Carry"
+        }
+      ],
+      "trainiert": "Rumpf, oberer Rücken, Haltung",
+      "schritte": [
+        "Nimm zwei Kettlebells oder Kurzhanteln in die Front-Rack-Position vor die Schultern.",
+        "Ellbogen nah am Körper, Brust aufrecht.",
+        "Geh mit kurzen, ruhigen Schritten die Strecke."
+      ],
+      "sauber": "Der Oberkörper bleibt aufrecht und die Ellbogen sinken nicht ab.",
+      "fehler": "Ein Zurücklehnen zum Ausgleich drückt den unteren Rücken ins Hohlkreuz.",
+      "skalierung": "Leichter: Leichtere Gewichte oder nur eine Seite. Schwerer: Schwerere Gewichte oder längere Strecke.",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "bizeps",
+          "gesaess",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Tragen in Front-Rack-Position",
+        "Rack Carry"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_sandbag_carry",
+      "varianten": [
+        {
+          "uebung": "g_sled_pull",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Feste Hyrox-Station, zieht statt zu schieben."
+        },
+        {
+          "uebung": "g_backward_sled_drag",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Belastet den vorderen Oberschenkel ohne Stoß, schont das Knie."
+        }
+      ]
+    },
+    {
+      "familie": "f_farmers_carry",
+      "varianten": [
+        {
+          "uebung": "g_front_rack_carry",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Last vor dem Körper fordert Rumpf und Haltung anders als seitliches Tragen."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 tragen",
+      "entscheidung": "3 neue Übungen: Sled Pull, Backward Sled Drag, Front Rack Carry.",
+      "folge": "Alle in bestehenden Familien, keine neuen Geräte."
+    },
+    {
+      "frage": "Sled Pull: Gerät?",
+      "entscheidung": "eq_schlitten.",
+      "folge": "Der Schlitten wird mit Seil bzw. Gurten genutzt, ein eigenes Gerät ist nicht nötig."
+    },
+    {
+      "frage": "Abgelehnt: Yoke Carry",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Braucht ein großes Spezialgerät."
+    },
+    {
+      "frage": "Abgelehnt: Waiter Walk, Zercher Carry, Trap Bar Carry, Prowler Push",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Overhead Carry, Sandbag Carry, Farmer's Carry bzw. Sled Push."
+    },
+    {
+      "frage": "Abgelehnt: Bottoms-up Carry, Plate Pinch Carry, Sandbag over Shoulder",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Nischen für Griff bzw. Dublette zum Sandbag Clean."
+    }
+  ]
+}

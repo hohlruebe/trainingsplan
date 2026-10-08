@@ -1,0 +1,614 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "rumpf_beugung",
+  "quelle": "Rumpflast: McGill (Low Back Disorders, Wirbelsäulenbeugung beim Sit-up), Escamilla et al. 2006 (Bauchübungen EMG), Overcoming Gravity (L-Sit, V-Sit) und die Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_lsit",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Winkelstütz",
+        "L-Sitz",
+        "L-Sit am Boden"
+      ]
+    },
+    {
+      "id": "g_ring_lsit",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "quadrizeps",
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Winkelstütz an Ringen",
+        "L-Sitz an Ringen"
+      ]
+    },
+    {
+      "id": "g_toes_to_bar",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "unterarm",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Füße zur Stange",
+        "T2B",
+        "Strikte Toes to Bar"
+      ]
+    },
+    {
+      "id": "g_v_sit",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "quadrizeps",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "V-Sitz",
+        "Spitzwinkelstütz"
+      ]
+    },
+    {
+      "id": "g_leg_raise",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinheben im Hang",
+        "Hängendes Beinheben"
+      ]
+    },
+    {
+      "id": "g_kneeraise",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Knieheben im Hang",
+        "Hängendes Knieheben"
+      ]
+    },
+    {
+      "id": "g_slider_pike",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 0,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hechtziehen mit Slidern",
+        "Slider-Hecht"
+      ]
+    },
+    {
+      "id": "g_tuck_lsit",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gehockter Winkelstütz",
+        "Tuck L-Sitz"
+      ]
+    },
+    {
+      "id": "g_kipping_t2b",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 3,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kipping-T2B",
+        "Toes to Bar mit Schwung"
+      ]
+    },
+    {
+      "id": "g_knees_to_elbows",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Knie zu Ellbogen",
+        "K2E"
+      ]
+    },
+    {
+      "id": "g_compression",
+      "muskeln": {
+        "primaer": [
+          "hueftbeuger",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kompressions-Beinheben",
+        "Compression Lift"
+      ]
+    },
+    {
+      "id": "g_tuck",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Knie-Anziehen mit Slidern",
+        "Slider Tuck"
+      ]
+    },
+    {
+      "id": "g_v_up",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Klappmesser",
+        "V-Ups",
+        "Jackknife"
+      ]
+    },
+    {
+      "id": "g_ghd_sit_up",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "GHD-Sit-up",
+        "Sit-up am GHD"
+      ]
+    },
+    {
+      "id": "g_tuck_up",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Tuck-ups",
+        "Hock-Klappmesser"
+      ]
+    },
+    {
+      "id": "g_sit_up",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Sit-up",
+        "Situp mit AbMat",
+        "Aufrichten"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_lsit 1, g_kneeraise 1, g_kipping_t2b 1, g_v_up 0, g_tuck 0 aus der Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "sehne bei Ring L-Sit und V-Sit",
+      "entscheidung": "1.",
+      "folge": "Gleiche Stützbelastung wie beim L-Sit (1), Tuck L-Sit bleibt bei 0."
+    },
+    {
+      "frage": "ruecken in bewegt: wann?",
+      "entscheidung": "Nur bei gewollter Rumpfbeugung: Toes to Bar, Kipping T2B, Knees to Elbows, V-up, Tuck-up, Sit-up, GHD Sit-up.",
+      "folge": "Knee Raise und Leg Raise beugen vor allem die Hüfte und bekommen nur huefte."
+    },
+    {
+      "frage": "Kipping T2B: Rücken 3?",
+      "entscheidung": "3.",
+      "folge": "Anker aus dem Auftrag."
+    },
+    {
+      "frage": "Knees to Elbows: laut und Rücken?",
+      "entscheidung": "laut true, Rücken 2.",
+      "folge": "In Metcons wird gekippt, der Weg ist kürzer als bei Toes to Bar."
+    },
+    {
+      "frage": "GHD Sit-up: Rücken und Hüfte 2 oder 3?",
+      "entscheidung": "Je 2, Knie 1.",
+      "folge": "Hohe Last für Hüftbeuger und Lendenwirbelsäule bei voller Streckung, aber ohne Zusatzgewicht. Die Anker für Rücken 3 sind schwere Lasten."
+    },
+    {
+      "frage": "Compression Leg Lift mit Einheit sek",
+      "entscheidung": "bewegt [].",
+      "folge": "Mit Einheit sek wird die Position gehalten."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Überall null.",
+      "folge": "Keine kg-Übung im Paket."
+    }
+  ]
+}

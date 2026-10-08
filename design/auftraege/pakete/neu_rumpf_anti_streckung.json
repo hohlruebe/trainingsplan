@@ -1,0 +1,263 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "rumpf_anti_streckung",
+  "quelle": "McGill (Big Three, Rumpfstabilität), Schoenfeld et al. 2014 (EMG Plank-Varianten), Overcoming Gravity (Dragon Flag).",
+  "uebungen": [
+    {
+      "id": "g_rkc_plank",
+      "name": "RKC Plank",
+      "muster": "rumpf_anti_streckung",
+      "bereich": "rumpf",
+      "einheit": "sek",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 66,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Gerader Bauch, Gesäß, Ganzkörperspannung",
+      "schritte": [
+        "Geh in den Unterarmstütz, Ellbogen etwas vor den Schultern.",
+        "Spann Gesäß, Oberschenkel und Bauch maximal an.",
+        "Zieh die Ellbogen gedanklich zu den Zehen, ohne sie zu bewegen.",
+        "Halte die Spannung 10 bis 20 Sekunden."
+      ],
+      "sauber": "Der Körper zittert vor Spannung und das Becken bleibt leicht eingerollt.",
+      "fehler": "Ein Durchhängen der Hüfte macht daraus eine normale Plank ohne Mehrwert.",
+      "skalierung": "Leichter: Normale Plank. Schwerer: Ellbogen weiter nach vorn setzen.",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "quadrizeps",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hardstyle-Plank",
+        "Maximal-Plank"
+      ]
+    },
+    {
+      "id": "g_bird_dog",
+      "name": "Bird Dog",
+      "muster": "rumpf_anti_streckung",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 50,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rückenstrecker, Bauch, Gesäß",
+      "schritte": [
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Knie unter der Hüfte.",
+        "Streck einen Arm nach vorn und das Bein der Gegenseite nach hinten.",
+        "Halte kurz, ohne dass Becken oder Rücken kippen.",
+        "Zieh beides zurück und mach alle Wiederholungen einer Seite, dann die andere."
+      ],
+      "sauber": "Rücken und Becken bleiben ruhig wie ein Tisch.",
+      "fehler": "Ein zu hohes Anheben des Beins drückt den Rücken ins Hohlkreuz.",
+      "skalierung": "Leichter: Nur Arm oder nur Bein heben. Schwerer: Am Ende 5 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "rueckenstrecker",
+          "bauch_gerade",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Vierfüßlerstand diagonal",
+        "Bird Dogs"
+      ]
+    },
+    {
+      "id": "g_dragon_flag_negative",
+      "name": "Dragon Flag Negative",
+      "muster": "rumpf_anti_streckung",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_zuhause",
+          "eq_sprossenwand",
+          "eq_bank"
+        ]
+      ],
+      "nutzen": 76,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_dragon_flag",
+          "stufe": "Tuck Dragon Flag"
+        }
+      ],
+      "trainiert": "Gerader Bauch, Latissimus",
+      "schritte": [
+        "Leg dich auf eine Bank und halt dich hinter dem Kopf fest.",
+        "Schwing den gestreckten Körper bis auf die Schultern nach oben.",
+        "Senk ihn in 3 bis 5 Sekunden gestreckt ab, bis er knapp über der Bank ist."
+      ],
+      "sauber": "Der Körper bleibt beim Absenken von Schulter bis Fuß gestreckt.",
+      "fehler": "Ein Abknicken in der Hüfte nimmt dem Bauch den Hebel.",
+      "skalierung": "Leichter: Tuck Dragon Flag. Schwerer: Langsamer absenken oder Dragon Flag Raise.",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "latissimus",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Negative Drachenfahne",
+        "Exzentrische Dragon Flag"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_ab_rollout",
+      "varianten": [
+        {
+          "uebung": "g_rkc_plank",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Deutlich höhere Rumpfspannung als die normale Plank in kurzer Zeit."
+        }
+      ]
+    },
+    {
+      "familie": "f_hollow_body",
+      "varianten": [
+        {
+          "uebung": "g_bird_dog",
+          "art": "variante",
+          "effekt": 50,
+          "grund": "Rumpfstabilität im Vierfüßlerstand mit sehr geringer Rückenlast, Teil der Big Three nach McGill."
+        }
+      ]
+    },
+    {
+      "familie": "f_dragon_flag",
+      "varianten": [
+        {
+          "uebung": "g_dragon_flag_negative",
+          "art": "stufe",
+          "nach": "g_dragon_flag_tuck",
+          "effekt": 76,
+          "ziel": "5 saubere Negative mit je 5 Sekunden Absenken.",
+          "grund": "Zwischenstufe zwischen gehockter Variante und dem Dragon Flag Raise."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 rumpf_anti_streckung",
+      "entscheidung": "3 neue Übungen: RKC Plank, Bird Dog, Dragon Flag Negative.",
+      "folge": "Das Paket deckt die meisten Formen schon ab."
+    },
+    {
+      "frage": "Bird Dog: Familie f_hollow_body?",
+      "entscheidung": "Variante in f_hollow_body.",
+      "folge": "Gleicher Zweck wie der Dead Bug, so kann der Coach bei Rückenschmerzen innerhalb der Familie tauschen."
+    },
+    {
+      "frage": "Plank Shoulder Tap und Copenhagen Plank",
+      "entscheidung": "Nicht hier, sondern in rumpf_rotation.",
+      "folge": "Beide trainieren Anti-Rotation bzw. seitliche Stabilität."
+    },
+    {
+      "frage": "Abgelehnt: High Plank, Barbell Rollout, Ring Rollout, Banded Dead Bug",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Plank, Ab Wheel Rollout, Ring Fallout bzw. Dead Bug."
+    },
+    {
+      "frage": "Abgelehnt: Stir the Pot",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Braucht einen Gymnastikball für einen Reiz, den Body Saw und Ring Fallout abdecken."
+    },
+    {
+      "frage": "Abgelehnt: Plank to Push-up, Plank Walkout",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Mischformen bzw. Dublette zum Inchworm."
+    },
+    {
+      "frage": "sehne der neuen Übungen",
+      "entscheidung": "Dragon Flag Negative 1, sonst 0.",
+      "folge": "Passend zur Leiter g_dragon_flag."
+    }
+  ]
+}

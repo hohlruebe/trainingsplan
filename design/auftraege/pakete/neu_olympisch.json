@@ -1,0 +1,365 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "olympisch",
+  "quelle": "USA Weightlifting Coaching, CrossFit Training Guide, Everett (Olympic Weightlifting: A Complete Guide).",
+  "uebungen": [
+    {
+      "id": "g_clean_pull",
+      "name": "Clean Pull",
+      "muster": "olympisch",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel"
+        ]
+      ],
+      "nutzen": 74,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_clean_and_jerk",
+          "stufe": "Hang Power Clean"
+        }
+      ],
+      "trainiert": "Gesäß, Beinbeuger, oberer Rücken, Zugkraft",
+      "schritte": [
+        "Stell dich wie beim Power Clean hinter die Stange und greif schulterbreit.",
+        "Heb die Stange mit geradem Rücken bis über die Knie.",
+        "Streck Hüfte, Knie und Sprunggelenke explosiv und zieh die Schultern hoch.",
+        "Senk die Stange kontrolliert ab."
+      ],
+      "sauber": "Die Arme bleiben bis zur vollen Streckung lang und die Stange bleibt nah am Körper.",
+      "fehler": "Ein frühes Beugen der Arme nimmt der Hüfte die Kraft.",
+      "skalierung": "Leichter: Weniger Gewicht oder aus dem Hang. Schwerer: Mehr Gewicht als beim Power Clean.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "oberer_ruecken",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "rueckenstrecker",
+          "unterarm",
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Umsetz-Zug",
+        "Zug für das Umsetzen"
+      ]
+    },
+    {
+      "id": "g_snatch_balance",
+      "name": "Snatch Balance",
+      "muster": "olympisch",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel"
+        ],
+        [
+          "eq_rack"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_squat_snatch",
+          "stufe": "Overhead Squat"
+        }
+      ],
+      "trainiert": "Oberschenkel, Schulter, Überkopf-Stabilität",
+      "schritte": [
+        "Nimm die Langhantel im Reißgriff auf den oberen Rücken.",
+        "Mach einen kurzen Dip und drück dich schnell unter die Stange.",
+        "Fang die Stange mit gestreckten Armen in der tiefen Hocke.",
+        "Steh mit der Stange über dem Kopf auf."
+      ],
+      "sauber": "Die Arme sind gestreckt, wenn du unten in der Hocke ankommst.",
+      "fehler": "Ein Nachdrücken der Arme zeigt, dass du zu langsam unter die Stange gehst.",
+      "skalierung": "Leichter: Overhead Squat oder nur PVC-Stab. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "schulter_vorn",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Reißbalance",
+        "Snatch-Balance"
+      ]
+    },
+    {
+      "id": "g_muscle_snatch",
+      "name": "Muscle Snatch",
+      "muster": "olympisch",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel",
+          "eq_pvc"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 2,
+      "voraussetzung": [
+        {
+          "leiter": "g_squat_snatch",
+          "stufe": "Burgener Warm-up"
+        }
+      ],
+      "trainiert": "Oberer Rücken, Schulter, Zugweg beim Reißen",
+      "schritte": [
+        "Steh mit der Stange im Reißgriff vor der Hüfte.",
+        "Streck die Beine und zieh die Stange mit hohen Ellbogen nah am Körper hoch.",
+        "Dreh die Arme unter der Stange durch und drück sie über den Kopf, ohne die Knie neu zu beugen."
+      ],
+      "sauber": "Die Stange bleibt nah am Körper und die Füße bleiben flach.",
+      "fehler": "Ein Ausholen der Stange nach vorn zieht dich aus dem Gleichgewicht.",
+      "skalierung": "Leichter: Nur PVC-Stab. Schwerer: Mehr Gewicht oder vom Boden.",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "schulter_vorn",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "handgelenk",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Muskelreißen",
+        "Reißen ohne Umsetzen in die Hocke"
+      ]
+    },
+    {
+      "id": "g_sandbag_clean",
+      "name": "Sandbag Clean",
+      "muster": "olympisch",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_sandsack"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Gesäß, Beinbeuger, oberer Rücken, Griff",
+      "schritte": [
+        "Stell dich über den Sandsack und greif ihn unten mit beiden Armen.",
+        "Heb ihn mit gebeugten Knien bis zu den Oberschenkeln.",
+        "Streck die Hüfte explosiv und roll den Sack auf die Schulter oder in die Arme vor der Brust.",
+        "Setz ihn kontrolliert ab."
+      ],
+      "sauber": "Die Hüfte streckt explosiv, die Arme ziehen den Sack nicht allein hoch.",
+      "fehler": "Reines Hochziehen mit den Armen überlastet Bizeps und Rücken.",
+      "skalierung": "Leichter: Leichterer Sack. Schwerer: Schwererer Sack oder auf die Schulter.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "bizeps",
+          "quadrizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Sandsack-Umsetzen",
+        "Sandbag to Shoulder"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_clean",
+      "varianten": [
+        {
+          "uebung": "g_clean_pull",
+          "art": "variante",
+          "effekt": 74,
+          "grund": "Zug mit mehr Gewicht als beim Umsetzen, ohne Fangen in der Front-Rack-Position."
+        },
+        {
+          "uebung": "g_sandbag_clean",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Umsetzen mit einem unruhigen Gewicht, typisch für Hyrox und Strongman."
+        }
+      ]
+    },
+    {
+      "familie": "f_snatch",
+      "varianten": [
+        {
+          "uebung": "g_muscle_snatch",
+          "art": "stufe",
+          "nach": "g_burgener",
+          "effekt": 60,
+          "ziel": "5 saubere Wiederholungen mit leerer Stange.",
+          "grund": "Lernt den Zugweg vor dem ersten Hang Power Snatch."
+        },
+        {
+          "uebung": "g_snatch_balance",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Trainiert gezielt das schnelle Untergehen und Fangen beim Reißen."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 olympisch",
+      "entscheidung": "4 neue Übungen: Clean Pull, Snatch Balance, Muscle Snatch, Sandbag Clean.",
+      "folge": "Alle in bestehenden Familien, keine neuen Geräte."
+    },
+    {
+      "frage": "Abgelehnt: Hang Squat Clean, Hang Squat Snatch, Squat Clean Thruster",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Kombinationen aus vorhandenen Positionen ohne eigenen Trainingseffekt."
+    },
+    {
+      "frage": "Abgelehnt: Power Jerk",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Gehört zu druck_vertikal und ist dort eine Dublette zum Push Jerk."
+    },
+    {
+      "frage": "Abgelehnt: Dumbbell Hang Clean, Dumbbell Hang Snatch, Single-Arm Dumbbell Clean",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Dumbbell Clean and Jerk bzw. Dumbbell Snatch."
+    },
+    {
+      "frage": "Abgelehnt: Tall Clean, Kettlebell Long Cycle, Snatch Pull",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Nischen-Drills bzw. Dublette zum Clean Pull, für eine Coach-App ohne Trainer wenig Mehrwert."
+    },
+    {
+      "frage": "rx der neuen Übungen",
+      "entscheidung": "Überall null.",
+      "folge": "Der Sandbag Clean hat die Einheit wdh, die übrigen keine Rolle metcon."
+    }
+  ]
+}

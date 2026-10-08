@@ -1,0 +1,783 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "druck_horizontal",
+  "quelle": "Overcoming Gravity (Ring Fly, Planche-Push-ups), NSCA Essentials (Bankdrück-Varianten), EMG: Kim et al. 2016, Calatayud et al. 2015. Kabelzug eq_kabelzug wurde in neu_zug_vertikal eingeführt.",
+  "uebungen": [
+    {
+      "id": "g_wall_push",
+      "name": "Wall Push-up",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 40,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Brust, Trizeps, Schulter",
+      "schritte": [
+        "Stell dich eine Armlänge vor eine Wand und leg die Hände auf Brusthöhe an.",
+        "Beug die Arme, bis die Brust fast die Wand berührt.",
+        "Drück dich zurück, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Der Körper bleibt von Kopf bis Ferse in einer Linie.",
+      "fehler": "Ein Hohlkreuz verlagert die Arbeit in den unteren Rücken.",
+      "skalierung": "Leichter: Näher an die Wand stellen. Schwerer: Weiter weg stellen oder Incline Push-up.",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Liegestütz an der Wand",
+        "Wand-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_typewriter_push",
+      "name": "Typewriter Push-up",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 80,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_one_arm_push",
+          "stufe": "Archer Push-up"
+        }
+      ],
+      "trainiert": "Brust, Trizeps, einseitige Kraft",
+      "schritte": [
+        "Geh in einen breiten Liegestütz.",
+        "Senk dich ab, bis die Brust knapp über dem Boden ist.",
+        "Schieb den Körper unten zu einer Hand und dann zur anderen, der freie Arm wird gestreckt.",
+        "Kehr zur Mitte zurück und drück dich hoch."
+      ],
+      "sauber": "Die Brust bleibt beim Seitwechsel knapp über dem Boden.",
+      "fehler": "Ein Absinken der Hüfte beim Schieben nimmt der Brust die Arbeit ab.",
+      "skalierung": "Leichter: Archer Push-up. Schwerer: Unten an jeder Seite 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Typewriter-Liegestütz",
+        "Schreibmaschinen-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_ring_fly",
+      "name": "Ring Fly",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe"
+        ]
+      ],
+      "nutzen": 78,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_dip",
+          "stufe": "Support Hold, 20 s"
+        },
+        {
+          "leiter": "g_push",
+          "stufe": "Weste"
+        }
+      ],
+      "trainiert": "Brust, Schulter, Bizepssehne",
+      "schritte": [
+        "Häng die Ringe auf Hüfthöhe und geh in einen Liegestütz an den Ringen.",
+        "Öffne die fast gestreckten Arme langsam zur Seite, bis die Brust auf Höhe der Hände ist.",
+        "Zieh die Arme mit Brustkraft wieder zusammen."
+      ],
+      "sauber": "Die Ellbogen bleiben während der ganzen Bewegung gleich wenig gebeugt.",
+      "fehler": "Zu tiefes Öffnen überlastet Schulter und Bizepssehne.",
+      "skalierung": "Leichter: Ringe höher hängen oder auf Knien. Schwerer: Ringe tiefer hängen oder weiter öffnen.",
+      "muskeln": {
+        "primaer": [
+          "brust"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "bizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ring-Flys",
+        "Fliegende an Ringen",
+        "Ring Flye"
+      ]
+    },
+    {
+      "id": "g_med_ball_chest_pass",
+      "name": "Medicine Ball Chest Pass",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_wallball"
+        ]
+      ],
+      "nutzen": 62,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Brust, Trizeps, Schnellkraft",
+      "schritte": [
+        "Stell dich etwa 2 Meter vor eine stabile Wand und halt den Ball vor der Brust.",
+        "Stoß den Ball explosiv mit beiden Händen gerade an die Wand.",
+        "Fang ihn mit nachgebenden Armen und stoß sofort wieder."
+      ],
+      "sauber": "Der Ball fliegt gerade auf Brusthöhe und die Arme strecken sich ganz.",
+      "fehler": "Ein Ausholen aus dem Rücken nimmt Brust und Trizeps die Arbeit ab.",
+      "skalierung": "Leichter: Leichterer Ball oder näher an der Wand. Schwerer: Schwererer Ball oder aus der Schrittstellung.",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Brustpass",
+        "Medizinball-Brustpass",
+        "Chest Pass"
+      ]
+    },
+    {
+      "id": "g_tuck_planche_push",
+      "name": "Tuck Planche Push-up",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [],
+      "nutzen": 84,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_planche",
+          "stufe": "Tuck"
+        }
+      ],
+      "trainiert": "Schulter vorn, Brust, Trizeps",
+      "schritte": [
+        "Geh in die Tuck Planche, Knie an der Brust, Füße in der Luft.",
+        "Beug die Arme und senk den Oberkörper ab, die Füße bleiben oben.",
+        "Drück dich zurück in die Tuck Planche."
+      ],
+      "sauber": "Die Füße berühren den Boden nicht und die Hüfte bleibt auf Schulterhöhe.",
+      "fehler": "Ein Absinken der Hüfte macht daraus einen Liegestütz mit angezogenen Beinen.",
+      "skalierung": "Leichter: Pseudo Planche Push-up. Schwerer: Advanced Tuck Planche Push-up.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 3,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Tuck-Planche-Liegestütz",
+        "Gehockter Stützwaage-Liegestütz"
+      ]
+    },
+    {
+      "id": "g_db_bench_press",
+      "name": "Dumbbell Bench Press",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln"
+        ],
+        [
+          "eq_bank"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Brust, Trizeps, Schulter",
+      "schritte": [
+        "Leg dich mit je einer Kurzhantel in der Hand auf die Bank, Füße am Boden.",
+        "Senk die Hanteln kontrolliert seitlich neben die Brust.",
+        "Drück sie nach oben, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Die Hanteln bewegen sich ruhig und die Schulterblätter bleiben auf der Bank zusammen.",
+      "fehler": "Zu weit abstehende Ellbogen belasten die Schulter stark.",
+      "skalierung": "Leichter: Floor Press oder weniger Gewicht. Schwerer: Mehr Gewicht oder Bench Press.",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kurzhantel-Bankdrücken",
+        "KH-Bankdrücken",
+        "Bankdrücken mit Kurzhanteln"
+      ]
+    },
+    {
+      "id": "g_incline_db_press",
+      "name": "Incline Dumbbell Press",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln"
+        ],
+        [
+          "eq_bank"
+        ]
+      ],
+      "nutzen": 72,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Obere Brust, Schulter, Trizeps",
+      "schritte": [
+        "Stell die Bank auf etwa 30 Grad und leg dich mit den Kurzhanteln darauf.",
+        "Senk die Hanteln kontrolliert neben die obere Brust.",
+        "Drück sie schräg nach oben, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Der Rücken bleibt an der Lehne und die Hanteln kommen über den Schultern zusammen.",
+      "fehler": "Eine zu steile Bank macht daraus ein Schulterdrücken.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust",
+          "trizeps"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schrägbankdrücken mit Kurzhanteln",
+        "Schrägbank Kurzhantel",
+        "Incline-Kurzhanteldrücken"
+      ]
+    },
+    {
+      "id": "g_close_grip_bench",
+      "name": "Close-Grip Bench Press",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_langhantel"
+        ],
+        [
+          "eq_bank"
+        ],
+        [
+          "eq_rack"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 3,
+      "voraussetzung": [],
+      "trainiert": "Trizeps, Brust",
+      "schritte": [
+        "Leg dich unter die Stange und greif etwa schulterbreit.",
+        "Senk die Stange mit eng am Körper geführten Ellbogen zur unteren Brust.",
+        "Drück sie zurück nach oben, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Die Ellbogen bleiben nah am Körper und die Handgelenke stehen gerade über den Ellbogen.",
+      "fehler": "Ein zu enger Griff knickt die Handgelenke ab.",
+      "skalierung": "Leichter: Diamond Push-up oder weniger Gewicht. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Enges Bankdrücken",
+        "Bankdrücken eng"
+      ]
+    },
+    {
+      "id": "g_single_arm_db_bench",
+      "name": "Single-Arm Dumbbell Bench Press",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kurzhanteln",
+          "eq_kettlebell"
+        ],
+        [
+          "eq_bank"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Brust, Trizeps, Rumpfstabilität",
+      "schritte": [
+        "Leg dich mit einer Hantel in einer Hand auf die Bank.",
+        "Spann den Rumpf an, damit du nicht zur Hantelseite kippst.",
+        "Senk die Hantel neben die Brust und drück sie wieder hoch.",
+        "Wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Becken und Schultern bleiben flach auf der Bank.",
+      "fehler": "Ein Wegdrehen zur Hantelseite nimmt dem Rumpf die Arbeit.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder nur der obere Rücken auf der Bank.",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiges Kurzhantel-Bankdrücken",
+        "Einarmiges Bankdrücken"
+      ]
+    },
+    {
+      "id": "g_cable_fly",
+      "name": "Cable Fly",
+      "muster": "druck_horizontal",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug",
+          "eq_band"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Brust",
+      "schritte": [
+        "Stell dich mittig zwischen zwei Kabelrollen oder Bänder auf Schulterhöhe, Griffe in der Hand.",
+        "Mach einen kleinen Schritt nach vorn, Arme leicht gebeugt zur Seite.",
+        "Führ die Hände in einem Bogen vor der Brust zusammen und lass sie kontrolliert zurück."
+      ],
+      "sauber": "Die Ellbogen bleiben gleich wenig gebeugt, die Bewegung kommt nur aus der Schulter.",
+      "fehler": "Das Beugen der Ellbogen macht daraus ein Drücken.",
+      "skalierung": "Leichter: Weniger Gewicht oder leichteres Band. Schwerer: Mehr Gewicht oder vorn 1 Sekunde halten.",
+      "muskeln": {
+        "primaer": [
+          "brust"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kabel-Flys",
+        "Fliegende am Kabel",
+        "Cable Crossover",
+        "Kabelzug-Fliegende"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_pushup",
+      "varianten": [
+        {
+          "uebung": "g_wall_push",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 40,
+          "ziel": "3 Sätze mit 15 sauberen Wiederholungen.",
+          "grund": "Leichteste Druckstufe, noch vor dem Incline Push-up."
+        },
+        {
+          "uebung": "g_typewriter_push",
+          "art": "stufe",
+          "nach": "g_archer_push",
+          "effekt": 80,
+          "ziel": "3 Sätze mit 4 sauberen Wiederholungen, die Brust bleibt unten.",
+          "grund": "Mehr einseitige Last als der Archer, aber noch beide Hände am Boden."
+        },
+        {
+          "uebung": "g_ring_fly",
+          "art": "variante",
+          "effekt": 78,
+          "grund": "Brust mit gestreckten Armen ohne Ellbogenbeugung, Vorbereitung auf schwere Ringelemente."
+        },
+        {
+          "uebung": "g_med_ball_chest_pass",
+          "art": "variante",
+          "effekt": 62,
+          "grund": "Explosiver Druck ohne Landung auf den Händen, schont damit das Handgelenk."
+        }
+      ]
+    },
+    {
+      "familie": "f_planche",
+      "varianten": [
+        {
+          "uebung": "g_tuck_planche_push",
+          "art": "variante",
+          "effekt": 84,
+          "grund": "Dynamische Kraft in der Planche-Position statt nur Halten."
+        }
+      ]
+    },
+    {
+      "familie": "f_bench_press",
+      "varianten": [
+        {
+          "uebung": "g_db_bench_press",
+          "art": "stufe",
+          "nach": "g_floor_press",
+          "effekt": 72,
+          "ziel": "5 saubere Wiederholungen mit je 30 % des Körpergewichts pro Hand.",
+          "grund": "Voller Bewegungsweg auf der Bank, bevor die Langhantel kommt."
+        },
+        {
+          "uebung": "g_incline_db_press",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Mehr obere Brust und vordere Schulter als auf der Flachbank."
+        },
+        {
+          "uebung": "g_close_grip_bench",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Verlagert die Arbeit deutlich auf den Trizeps."
+        },
+        {
+          "uebung": "g_single_arm_db_bench",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Einseitige Last trainiert zusätzlich den Rumpf gegen Verdrehen."
+        },
+        {
+          "uebung": "g_cable_fly",
+          "art": "variante",
+          "effekt": 60,
+          "grund": "Brust ohne Ellbogenbeugung, Ausweichübung bei Ellbogen- oder Handgelenkschmerzen."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 druck_horizontal",
+      "entscheidung": "10 neue Übungen: Wall Push-up, Typewriter Push-up, Ring Fly, Medicine Ball Chest Pass, Tuck Planche Push-up, Dumbbell Bench Press, Incline Dumbbell Press, Close-Grip Bench Press, Single-Arm Dumbbell Bench Press, Cable Fly.",
+      "folge": "Alle in bestehenden Familien, keine neue Familie nötig."
+    },
+    {
+      "frage": "Cable Fly in druck_horizontal oder im Paket isolation?",
+      "entscheidung": "druck_horizontal, Familie f_bench_press.",
+      "folge": "Der Fly gehört klar zum horizontalen Drücken, und der Coach kann bei Ellbogenschmerzen innerhalb der Familie tauschen."
+    },
+    {
+      "frage": "Gerät für die Schrägbank?",
+      "entscheidung": "eq_bank, verstanden als verstellbare Hantelbank.",
+      "folge": "Kein neues Gerät. Falls deine Bank nicht verstellbar ist, fällt nur der Incline Dumbbell Press weg."
+    },
+    {
+      "frage": "eq_multipresse und eq_brustpresse aufnehmen?",
+      "entscheidung": "Nein.",
+      "folge": "Smith-Bankdrücken und Brustpresse sind im Effekt Dubletten zum Bankdrücken, ein neues Gerät wäre nur Masse ohne neuen Reiz."
+    },
+    {
+      "frage": "Abgelehnt: Incline Barbell Press, Decline Bench Press",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Incline Dumbbell Press bzw. Bench Press ohne eigenen belegten Effekt."
+    },
+    {
+      "frage": "Abgelehnt: Dumbbell Fly, Pec Deck",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Gleicher Reiz wie Cable Fly, der mit Band auch zu Hause geht."
+    },
+    {
+      "frage": "Abgelehnt: Deficit Push-up, Clap Push-up, Wide Push-up, Kettlebell Floor Press",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Parallette Push-up, Plyo Push-up, Push-up (Kim et al. 2016: kaum Unterschied) bzw. Floor Press."
+    },
+    {
+      "frage": "Abgelehnt: Paused Bench Press, Tempo-Liegestütze",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Pausen und Tempo sind Ausführungsvorgaben ohne eigenen Trainingseffekt."
+    },
+    {
+      "frage": "Abgelehnt: Hindu Push-up, Spiderman Push-up, Svend Press",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Mischformen mit Mobilitätsanteil bzw. geringer Trainingswert, kein eigener Druckreiz."
+    },
+    {
+      "frage": "sehne der neuen Übungen",
+      "entscheidung": "Ring Fly 2, Tuck Planche Push-up 2, Typewriter Push-up 1, sonst 0.",
+      "folge": "Gestreckte Arme an Ringen und Planche-Position belasten die Bizepssehne hoch, der Typewriter liegt zwischen Archer (0) und Incline One-Arm (1)."
+    },
+    {
+      "frage": "rx der neuen Übungen",
+      "entscheidung": "Überall null.",
+      "folge": "Keine neue kg-Übung hat die Rolle metcon."
+    }
+  ]
+}

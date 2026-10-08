@@ -1,0 +1,1844 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "mobilitaet",
+  "quelle": "Overcoming Gravity (Beweglichkeit), Kinstretch/FRC (CARs), Becoming a Supple Leopard (Starrett), Behm et al. 2016 (Dehnen und Leistung).",
+  "uebungen": [
+    {
+      "id": "g_overhead_squat_hold",
+      "muskeln": {
+        "primaer": [
+          "waden",
+          "adduktoren",
+          "latissimus"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Überkopf-Hocke halten",
+        "Tiefe Hocke mit Armen über Kopf"
+      ]
+    },
+    {
+      "id": "g_wall_flexion_liftoff",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hände von der Wand abheben",
+        "Wall Lift-off"
+      ]
+    },
+    {
+      "id": "g_shoulder_cars",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "schulter_seite",
+          "schulter_hinten"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schulterkreisen kontrolliert",
+        "Shoulder CARs"
+      ]
+    },
+    {
+      "id": "g_wrist_extension_stretch",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handgelenk-Streckdehnung",
+        "Unterarmbeuger dehnen"
+      ]
+    },
+    {
+      "id": "g_knee_to_wall",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 1
+      },
+      "bewegt": [
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Knie zur Wand",
+        "Sprunggelenk-Mobilisation"
+      ]
+    },
+    {
+      "id": "g_full_bridge",
+      "muskeln": {
+        "primaer": [
+          "hueftbeuger",
+          "brust",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "gesaess",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Brücke",
+        "Rad",
+        "Volle Brücke"
+      ]
+    },
+    {
+      "id": "g_wall_flexion_hold",
+      "muskeln": {
+        "primaer": [
+          "latissimus"
+        ],
+        "sekundaer": [
+          "brust",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Arme an der Wand über Kopf halten",
+        "Wandflexion"
+      ]
+    },
+    {
+      "id": "g_puppy_pose",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "brust"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Welpenhaltung",
+        "Puppy Stretch"
+      ]
+    },
+    {
+      "id": "g_prayer_stretch",
+      "muskeln": {
+        "primaer": [
+          "latissimus"
+        ],
+        "sekundaer": [
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gebetsdehnung",
+        "Latissimus-Dehnung an der Bank"
+      ]
+    },
+    {
+      "id": "g_open_book",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "brust"
+        ],
+        "sekundaer": [
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Offenes Buch",
+        "Brustwirbelsäule öffnen"
+      ]
+    },
+    {
+      "id": "g_ninety_ninety",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "adduktoren"
+        ],
+        "sekundaer": [
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "90/90-Wechsel",
+        "90-90 Hüftrotation"
+      ]
+    },
+    {
+      "id": "g_pigeon",
+      "muskeln": {
+        "primaer": [
+          "gesaess"
+        ],
+        "sekundaer": [
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Taube",
+        "Taubenhaltung"
+      ]
+    },
+    {
+      "id": "g_hip_cars",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "hueftbeuger",
+          "adduktoren"
+        ],
+        "sekundaer": [
+          "abduktoren",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hüftkreisen kontrolliert",
+        "Hip CARs"
+      ]
+    },
+    {
+      "id": "g_half_split",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Halber Spagat",
+        "Halbspagat"
+      ]
+    },
+    {
+      "id": "g_wall_slide",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "schulter_hinten",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Wandgleiten",
+        "Wall Slides"
+      ]
+    },
+    {
+      "id": "g_doorway_pec",
+      "muskeln": {
+        "primaer": [
+          "brust"
+        ],
+        "sekundaer": [
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Brustdehnung im Türrahmen",
+        "Türrahmen-Dehnung"
+      ]
+    },
+    {
+      "id": "g_thread_needle",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "schulter_hinten",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Faden einfädeln",
+        "Thread the Needle"
+      ]
+    },
+    {
+      "id": "g_wrist_rocks",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "handgelenk"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handgelenkwippen",
+        "Wrist Rocks"
+      ]
+    },
+    {
+      "id": "g_frog",
+      "muskeln": {
+        "primaer": [
+          "adduktoren"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Froschdehnung",
+        "Frosch"
+      ]
+    },
+    {
+      "id": "g_hip_flexor_stretch",
+      "muskeln": {
+        "primaer": [
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hüftbeugerdehnung im Halbkniestand",
+        "Hüftbeuger dehnen"
+      ]
+    },
+    {
+      "id": "g_lizard",
+      "muskeln": {
+        "primaer": [
+          "hueftbeuger",
+          "adduktoren"
+        ],
+        "sekundaer": [
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Eidechse",
+        "Lizard Pose"
+      ]
+    },
+    {
+      "id": "g_assisted_squat",
+      "muskeln": {
+        "primaer": [
+          "waden",
+          "adduktoren",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Tiefe Hocke mit Halt",
+        "Assisted Squat"
+      ]
+    },
+    {
+      "id": "g_ragdoll",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "rueckenstrecker"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hängende Vorbeuge",
+        "Stoffpuppe"
+      ]
+    },
+    {
+      "id": "g_front_split",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Spagat",
+        "Frontspagat"
+      ]
+    },
+    {
+      "id": "g_supine_hamstring",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinrückseite dehnen in Rückenlage",
+        "Hamstring-Dehnung liegend"
+      ]
+    },
+    {
+      "id": "g_calf_wall_stretch",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Wadendehnung an der Wand",
+        "Waden dehnen"
+      ]
+    },
+    {
+      "id": "g_elevated_bridge",
+      "muskeln": {
+        "primaer": [
+          "hueftbeuger",
+          "brust",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Erhöhte Brücke",
+        "Brücke mit Händen auf dem Sofa"
+      ]
+    },
+    {
+      "id": "g_sleeper_stretch",
+      "muskeln": {
+        "primaer": [
+          "schulter_hinten"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schläferdehnung",
+        "Sleeper Stretch"
+      ]
+    },
+    {
+      "id": "g_wrist_flexion_stretch",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handgelenk-Beugedehnung",
+        "Unterarmstrecker dehnen"
+      ]
+    },
+    {
+      "id": "g_leg_swings",
+      "muskeln": {
+        "primaer": [
+          "hueftbeuger",
+          "beinbeuger",
+          "adduktoren"
+        ],
+        "sekundaer": [
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beinschwingen",
+        "Leg Swings"
+      ]
+    },
+    {
+      "id": "g_wgs",
+      "muskeln": {
+        "primaer": [
+          "hueftbeuger",
+          "beinbeuger",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "adduktoren",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Weltbeste Dehnung",
+        "World's Greatest Stretch"
+      ]
+    },
+    {
+      "id": "g_stack",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Stapelatmung",
+        "Zwerchfellatmung",
+        "Rippen-Becken-Atmung"
+      ]
+    },
+    {
+      "id": "g_wall_biceps_stretch",
+      "muskeln": {
+        "primaer": [
+          "bizeps"
+        ],
+        "sekundaer": [
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bizepsdehnung an der Wand"
+      ]
+    },
+    {
+      "id": "g_triceps_stretch",
+      "muskeln": {
+        "primaer": [
+          "trizeps"
+        ],
+        "sekundaer": [
+          "latissimus"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Trizepsdehnung über Kopf"
+      ]
+    },
+    {
+      "id": "g_towel_stretch",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "schulter_hinten"
+        ],
+        "sekundaer": [
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handtuch-Schulterdehnung",
+        "Schulterdehnung mit Handtuch"
+      ]
+    },
+    {
+      "id": "g_butterfly",
+      "muskeln": {
+        "primaer": [
+          "adduktoren"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schmetterlingsdehnung",
+        "Schmetterling"
+      ]
+    },
+    {
+      "id": "g_ankle_cars",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Fußkreisen kontrolliert",
+        "Ankle CARs"
+      ]
+    },
+    {
+      "id": "g_cobra",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kobra",
+        "Kobra-Dehnung"
+      ]
+    },
+    {
+      "id": "g_supine_twist",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rückendrehung im Liegen",
+        "Liegende Drehung"
+      ]
+    },
+    {
+      "id": "g_roll_down",
+      "muskeln": {
+        "primaer": [
+          "rueckenstrecker",
+          "beinbeuger"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Abrollen im Stand",
+        "Wirbel für Wirbel abrollen"
+      ]
+    },
+    {
+      "id": "g_glute_bridge_hold",
+      "muskeln": {
+        "primaer": [
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beckenheben halten",
+        "Brücke halten"
+      ]
+    },
+    {
+      "id": "g_deep_squat",
+      "muskeln": {
+        "primaer": [
+          "adduktoren",
+          "waden",
+          "gesaess"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Tiefe Hocke",
+        "Asiatische Hocke"
+      ]
+    },
+    {
+      "id": "g_jefferson_curl",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "rueckenstrecker"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Jefferson Curl",
+        "Wirbelsäulen-Abrollen mit Gewicht"
+      ]
+    },
+    {
+      "id": "g_passthrough",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "brust"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schulterdurchschwung",
+        "Dislocates",
+        "Durchschwingen mit Band"
+      ]
+    },
+    {
+      "id": "g_couch_stretch",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "hueftbeuger"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Sofadehnung",
+        "Couch Stretch"
+      ]
+    },
+    {
+      "id": "g_pancake",
+      "muskeln": {
+        "primaer": [
+          "adduktoren",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Pfannkuchen-Dehnung",
+        "Grätschvorbeuge"
+      ]
+    },
+    {
+      "id": "g_legs_up_wall",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beine an die Wand",
+        "Beine hoch an der Wand"
+      ]
+    },
+    {
+      "id": "g_kneeling_shin",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schienbeindehnung kniend",
+        "Fersensitz"
+      ]
+    },
+    {
+      "id": "g_childs_pose",
+      "muskeln": {
+        "primaer": [
+          "rueckenstrecker",
+          "latissimus"
+        ],
+        "sekundaer": [
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kindhaltung",
+        "Stellung des Kindes"
+      ]
+    },
+    {
+      "id": "g_scap",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Schulterblatt-Liegestütz",
+        "Scapula Push-up"
+      ]
+    },
+    {
+      "id": "g_wrist_prep",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handgelenk-Vorbereitung",
+        "Handgelenke aufwärmen"
+      ]
+    },
+    {
+      "id": "g_pike_stretch",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "waden",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hechtdehnung",
+        "Vorbeuge im Sitzen"
+      ]
+    },
+    {
+      "id": "g_inchworm",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "bauch_gerade",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "waden"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Raupe",
+        "Inchworm"
+      ]
+    },
+    {
+      "id": "g_thoracic_rotation",
+      "muskeln": {
+        "primaer": [
+          "oberer_ruecken",
+          "bauch_schraeg"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Brustwirbelsäulen-Rotation",
+        "BWS-Rotation"
+      ]
+    },
+    {
+      "id": "g_side_bend",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "latissimus"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitneigung im Stand",
+        "Seitbeuge"
+      ]
+    },
+    {
+      "id": "g_cat_cow",
+      "muskeln": {
+        "primaer": [
+          "rueckenstrecker",
+          "bauch_gerade"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Katze-Kuh",
+        "Katzenbuckel"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_passthrough und g_pancake haben 0 laut Sehnen-Tabelle.",
+      "folge": "Alle Mobility-Übungen bekommen 0."
+    },
+    {
+      "frage": "Gelenkbelastung",
+      "entscheidung": "Meist 0 bis 1, die gedehnte Stelle zählt nicht. Ausnahme: Full Bridge mit Handgelenk 2.",
+      "folge": "Vorgabe aus dem Auftrag. Bei der Full Bridge trägt das gestreckte Handgelenk das Körpergewicht."
+    },
+    {
+      "frage": "muskeln bei Mobility",
+      "entscheidung": "Die gedehnten bzw. mobilisierten Muskeln stehen als primär, mitarbeitende als sekundär.",
+      "folge": "So kann der Coach Dehnungen passend zu den trainierten Muskeln wählen."
+    },
+    {
+      "frage": "bewegt",
+      "entscheidung": "[] bei allen Dehnungen mit Einheit sek oder atemzuege, die bewegten Gelenke bei dynamischen Übungen.",
+      "folge": "Halteübungen bekommen []."
+    },
+    {
+      "frage": "Stack Breathing",
+      "entscheidung": "bewegt [], Rumpfmuskeln als primär.",
+      "folge": "Atemübung ohne Gelenkbewegung."
+    },
+    {
+      "frage": "Jefferson Curl: Rücken?",
+      "entscheidung": "1 und ruecken in bewegt.",
+      "folge": "Gewollte Beugung der Wirbelsäule, hier ohne Zusatzgewicht."
+    },
+    {
+      "frage": "ermuedung, laut, rx",
+      "entscheidung": "Überall 1, false, null.",
+      "folge": "Mobility ermüdet kaum, ist leise und hat keine kg-Einheit."
+    }
+  ]
+}

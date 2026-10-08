@@ -1,0 +1,450 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "sprung",
+  "quelle": "Plyometrie: Chmielewski et al. 2006, Jensen & Ebben 2007 (Kniebelastung bei Sprüngen), NSCA Essentials (Plyometrie-Intensitäten), Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_double_under",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "quadrizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 3
+      },
+      "bewegt": [
+        "handgelenk",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Doppelsprung",
+        "Double Unders",
+        "DU"
+      ]
+    },
+    {
+      "id": "g_box_jump",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kastensprung",
+        "Box-Sprung",
+        "Sprung auf die Box"
+      ]
+    },
+    {
+      "id": "g_broad_jump",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Weitsprung aus dem Stand",
+        "Standweitsprung"
+      ]
+    },
+    {
+      "id": "g_box_jump_over",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Sprung über die Box",
+        "Box Jump Over"
+      ]
+    },
+    {
+      "id": "g_squatjump",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Hocksprung",
+        "Strecksprung aus der Hocke",
+        "Jump Squat"
+      ]
+    },
+    {
+      "id": "g_skater",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "quadrizeps",
+          "abduktoren"
+        ],
+        "sekundaer": [
+          "waden",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Eisschnellläufer-Sprung",
+        "Skater Hops"
+      ]
+    },
+    {
+      "id": "g_jumping_lunge",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "waden",
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 3,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Ausfallschritt-Sprung",
+        "Sprung-Ausfallschritt",
+        "Split Jump"
+      ]
+    },
+    {
+      "id": "g_single_under",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 2
+      },
+      "bewegt": [
+        "handgelenk",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Seilspringen",
+        "Einfachsprung",
+        "Single Unders"
+      ]
+    },
+    {
+      "id": "g_tuck_jump",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "waden"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Hocksprung mit Knieanziehen",
+        "Tuck Jumps"
+      ]
+    },
+    {
+      "id": "g_pogo",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 1,
+        "fuss": 2
+      },
+      "bewegt": [
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Pogo-Sprünge",
+        "Fußgelenksprünge"
+      ]
+    },
+    {
+      "id": "g_jumping_jack",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "abduktoren",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Hampelmann",
+        "Jumping Jacks"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_double_under, g_box_jump und g_broad_jump haben 1 laut Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "sehne der übrigen Sprünge",
+      "entscheidung": "1 für Squat Jump, Skater, Jumping Lunge, Tuck Jump, Box Jump Over und Pogo. 0 für Single-Under und Jumping Jack.",
+      "folge": "Konvention: Sprünge 1. Single-Under und Hampelmann sind sehr niedrige Sprünge."
+    },
+    {
+      "frage": "Knie 3 bei welchen Sprüngen?",
+      "entscheidung": "Nur Jumping Lunge.",
+      "folge": "Anker aus dem Auftrag. Box Jump hoch ist der Anker, normale Box Jumps bekommen 2."
+    },
+    {
+      "frage": "Double-Under: Fuß 3?",
+      "entscheidung": "3.",
+      "folge": "Anker Seilspringen lange."
+    },
+    {
+      "frage": "laut",
+      "entscheidung": "true bei allen Sprüngen.",
+      "folge": "Definition im Auftrag."
+    },
+    {
+      "frage": "bewegt bei Pogo Hop",
+      "entscheidung": "Nur fuss.",
+      "folge": "Die Knie bleiben fast gestreckt, die Übung gilt damit als isoliert."
+    }
+  ]
+}

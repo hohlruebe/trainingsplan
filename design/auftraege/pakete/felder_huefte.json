@@ -1,0 +1,604 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "huefte",
+  "quelle": "McGill (Wirbelsäulenlast beim Heben und Swing), McGill & Marshall 2012 (Kettlebell Swing), NSCA Essentials (Kreuzheben), CrossFit Benchmark-Workouts (Fight Gone Bad) für rx.",
+  "uebungen": [
+    {
+      "id": "g_deadlift",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger",
+          "rueckenstrecker"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "oberer_ruecken",
+          "unterarm",
+          "latissimus"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 3,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kreuzheben",
+        "Kreuzheben mit Langhantel",
+        "Deadlift klassisch"
+      ]
+    },
+    {
+      "id": "g_kb_swing",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kettlebell-Schwung",
+        "KB Swing",
+        "Russian Swing"
+      ]
+    },
+    {
+      "id": "g_rdl",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rumänisches Kreuzheben",
+        "RDL",
+        "Kreuzheben mit gestreckten Beinen"
+      ]
+    },
+    {
+      "id": "g_hip_thrust",
+      "muskeln": {
+        "primaer": [
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hüftstoßen",
+        "Hip Thrust am Sofa"
+      ]
+    },
+    {
+      "id": "g_american_swing",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "schulter_vorn",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Amerikanischer Kettlebell-Schwung",
+        "American Swing",
+        "Swing über Kopf"
+      ]
+    },
+    {
+      "id": "g_single_arm_swing",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "bauch_schraeg",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiger Kettlebell-Schwung",
+        "Einarmiger Swing"
+      ]
+    },
+    {
+      "id": "g_single_leg_rdl",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "abduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einbeiniges rumänisches Kreuzheben",
+        "Standwaage",
+        "Single Leg RDL"
+      ]
+    },
+    {
+      "id": "g_bridge",
+      "muskeln": {
+        "primaer": [
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Beckenheben",
+        "Glute Bridge",
+        "Hüftheben am Boden"
+      ]
+    },
+    {
+      "id": "g_sdhp",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "oberer_ruecken",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "schulter_seite",
+          "rueckenstrecker",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 34,
+        "w": 25
+      },
+      "alias": [
+        "Sumo-Kreuzheben mit Hochziehen",
+        "SDHP"
+      ]
+    },
+    {
+      "id": "g_kb_deadlift",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "rueckenstrecker",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 32,
+        "w": 24
+      },
+      "alias": [
+        "Kettlebell-Kreuzheben",
+        "KB-Kreuzheben"
+      ]
+    },
+    {
+      "id": "g_db_swing",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kurzhantel-Schwung",
+        "DB Swing"
+      ]
+    },
+    {
+      "id": "g_ghd_hip_ext",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hüftstreckung am GHD",
+        "GHD Hip Extension"
+      ]
+    },
+    {
+      "id": "g_band_pull_through",
+      "muskeln": {
+        "primaer": [
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Pull-Through mit Band",
+        "Band-Durchzug"
+      ]
+    },
+    {
+      "id": "g_band_good_morning",
+      "muskeln": {
+        "primaer": [
+          "beinbeuger",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Good Morning mit Band",
+        "Diener mit Band"
+      ]
+    },
+    {
+      "id": "g_superman",
+      "muskeln": {
+        "primaer": [
+          "rueckenstrecker",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Superman",
+        "Superman-Halten",
+        "Rückenstrecken in Bauchlage"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_deadlift, g_kb_swing, g_hip_thrust und g_bridge haben 0 laut Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "Deadlift: Rücken 3 und laut?",
+      "entscheidung": "Rücken 3, laut true.",
+      "folge": "Anker aus dem Auftrag. Beim Absetzen schwerer Gewichte entsteht Lärm."
+    },
+    {
+      "frage": "Band Good Morning: Rücken 3 wie der Anker?",
+      "entscheidung": "Nein, 1.",
+      "folge": "Der Anker gilt für Good Mornings mit Langhantel, das Band erzeugt nur geringe Last."
+    },
+    {
+      "frage": "bewegt bei RDL, Hip Thrust, Glute Bridge, Single-Leg RDL, GHD Hip Extension, Band Pull-Through und Band Good Morning",
+      "entscheidung": "Nur huefte.",
+      "folge": "Die Knie bleiben in fester Beugung, die Übungen gelten damit als isoliert."
+    },
+    {
+      "frage": "bewegt beim Kettlebell Swing",
+      "entscheidung": "schulter, huefte, knie.",
+      "folge": "Die Arme schwingen deutlich mit, die Knie beugen sich im Hip Hinge sichtbar."
+    },
+    {
+      "frage": "ermuedung",
+      "entscheidung": "3 für Deadlift und SDHP, 2 für Swings und RDL, sonst 1.",
+      "folge": "Deadlift und SDHP bewegen viel Muskelmasse unter hoher Last."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "SDHP 34/25 kg (Fight Gone Bad), Kettlebell Deadlift 32/24 kg.",
+      "folge": "Nur kg-Übungen mit Rolle metcon, Werte nach üblichen CrossFit-Standards."
+    },
+    {
+      "frage": "Superman Hold",
+      "entscheidung": "bewegt [], Rücken 2.",
+      "folge": "Halteübung in Rückenstreckung."
+    }
+  ]
+}

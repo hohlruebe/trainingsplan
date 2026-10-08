@@ -1,0 +1,820 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "zug_horizontal",
+  "quelle": "Rudern und Rumpflast: Fenwick, Brown & McGill 2009 (Vergleich von Rudervarianten). Hebel und Sehnen: Overcoming Gravity (Steven Low) und die Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_front_lever",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hangwaage vorlings",
+        "Vorhang-Waage",
+        "Front Lever voll"
+      ]
+    },
+    {
+      "id": "g_front_lever_one_leg",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einbeinige Hangwaage",
+        "One Leg Front Lever",
+        "Front Lever einbeinig"
+      ]
+    },
+    {
+      "id": "g_front_lever_adv",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Erweiterte gehockte Hangwaage",
+        "Advanced Tuck FL"
+      ]
+    },
+    {
+      "id": "g_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten",
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rudern an Ringen",
+        "Ringrudern",
+        "Inverted Row an Ringen"
+      ]
+    },
+    {
+      "id": "g_back_lever",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "brust",
+          "schulter_hinten",
+          "rueckenstrecker",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 3,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hangwaage rücklings",
+        "Back Lever voll"
+      ]
+    },
+    {
+      "id": "g_front_lever_tuck",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gehockte Hangwaage vorlings",
+        "Tuck FL"
+      ]
+    },
+    {
+      "id": "g_one_arm_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "unterarm",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiges Ringrudern",
+        "Einarmiges Rudern an Ringen"
+      ]
+    },
+    {
+      "id": "g_tuck_fl_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Front-Lever-Rudern gehockt",
+        "Tuck Front Lever Pull"
+      ]
+    },
+    {
+      "id": "g_australian_pullup",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Australischer Klimmzug",
+        "Rudern an der Stange",
+        "Inverted Row"
+      ]
+    },
+    {
+      "id": "g_back_lever_adv",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "brust",
+          "schulter_hinten",
+          "rueckenstrecker",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Erweiterte gehockte Hangwaage rücklings",
+        "Advanced Tuck BL"
+      ]
+    },
+    {
+      "id": "g_archer_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Archer-Rudern",
+        "Bogenschützen-Rudern"
+      ]
+    },
+    {
+      "id": "g_back_lever_tuck",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "brust",
+          "schulter_hinten",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gehockte Hangwaage rücklings",
+        "Tuck BL"
+      ]
+    },
+    {
+      "id": "g_barbell_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "beinbeuger",
+          "schulter_hinten",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Langhantelrudern",
+        "Vorgebeugtes Rudern",
+        "Rudern mit der Langhantel"
+      ]
+    },
+    {
+      "id": "g_db_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten",
+          "unterarm",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kurzhantelrudern",
+        "Einarmiges Kurzhantelrudern",
+        "KH-Rudern"
+      ]
+    },
+    {
+      "id": "g_renegade_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "bizeps",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Renegade-Rudern",
+        "Rudern im Liegestütz"
+      ]
+    },
+    {
+      "id": "g_table_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Tischrudern",
+        "Rudern unter dem Tisch"
+      ]
+    },
+    {
+      "id": "g_german_hang",
+      "muskeln": {
+        "primaer": [
+          "bizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "brust",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Deutscher Hang",
+        "Rückhang"
+      ]
+    },
+    {
+      "id": "g_band_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rudern mit Band",
+        "Band-Rudern"
+      ]
+    },
+    {
+      "id": "g_face_pull",
+      "muskeln": {
+        "primaer": [
+          "schulter_hinten",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "bizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Face Pull mit Band",
+        "Gesichtszug"
+      ]
+    },
+    {
+      "id": "g_towel_door_row",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rudern an der Tür",
+        "Handtuch-Rudern an der Tür"
+      ]
+    },
+    {
+      "id": "g_pullapart",
+      "muskeln": {
+        "primaer": [
+          "schulter_hinten",
+          "oberer_ruecken"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Band auseinanderziehen",
+        "Band Pull Apart"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Front und Back Lever: Ellbogen 3 bei welchen Stufen?",
+      "entscheidung": "3 bei voller und einbeiniger Stufe, 2 bei Advanced Tuck und Tuck.",
+      "folge": "Wie bei der Planche bleibt bei Ellbogenschmerzen eine leichtere Stufe in der Familie."
+    },
+    {
+      "frage": "Front und Back Lever: Schulter 3 bei welchen Stufen?",
+      "entscheidung": "3 bei voller, einbeiniger und Advanced-Tuck-Stufe, 2 bei Tuck.",
+      "folge": "Gleiche Logik wie bei der Tuck Planche."
+    },
+    {
+      "frage": "sehne der Hebel-Stufen ohne eigene Leiter",
+      "entscheidung": "2 für alle Front- und Back-Lever-Stufen und den Tuck Front Lever Row.",
+      "folge": "Die Konvention nennt den Front Lever als Beispiel für 2, die gestreckten Arme belasten die Bizepssehne schon in der Tuck-Stufe."
+    },
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_front_lever 2, g_back_lever 2, g_one_arm_row 1, g_row 0 aus der Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "g_german_hang: Schulter und sehne?",
+      "entscheidung": "Schulter 3, sehne 1.",
+      "folge": "Die starke Schulterstreckung belastet Kapsel und Bizepssehne, der Hang ist aber kurz und ohne Hebel."
+    },
+    {
+      "frage": "g_barbell_row: Rücken 2 oder 3?",
+      "entscheidung": "2.",
+      "folge": "Der vorgebeugte Rücken hält statisch, der Anker für 3 ist schweres Kreuzheben."
+    },
+    {
+      "frage": "g_db_row: einseitig?",
+      "entscheidung": "Ja.",
+      "folge": "Das Kurzhantelrudern wird üblich einarmig mit Abstützen ausgeführt."
+    },
+    {
+      "frage": "Archer Row und Renegade Row: einseitig?",
+      "entscheidung": "Archer Row ja, Renegade Row nein.",
+      "folge": "Archer passt zu den anderen Archer-Übungen, der Renegade Row wechselt die Seiten in jeder Wiederholung."
+    },
+    {
+      "frage": "bewegt bei Hebeln und German Hang",
+      "entscheidung": "[], weil gehalten wird.",
+      "folge": "Band Pull-Apart hat nur schulter und gilt damit als isoliert."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Überall null.",
+      "folge": "Keine kg-Übung im Paket hat die Rolle metcon."
+    }
+  ]
+}

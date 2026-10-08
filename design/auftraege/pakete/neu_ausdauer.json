@@ -1,0 +1,556 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "ausdauer",
+  "quelle": "ACSM Guidelines (Ausdauer), Hyrox Rulebook (Burpee Broad Jump), CrossFit Movement Standards. Gerätepreise deutsche Händler, Stand 2026.",
+  "uebungen": [
+    {
+      "id": "g_air_bike",
+      "name": "Air Bike",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "einheit": "kalorien",
+      "rolle": [
+        "metcon",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_airbike"
+        ]
+      ],
+      "nutzen": 78,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Ganzkörper-Ausdauer, Beine, Arme",
+      "schritte": [
+        "Stell den Sitz so ein, dass das Knie unten leicht gebeugt bleibt.",
+        "Greif die Griffe und tritt gleichzeitig in die Pedale.",
+        "Drück und zieh die Griffe im Wechsel mit den Beinen."
+      ],
+      "sauber": "Arme und Beine arbeiten gleichmäßig mit und der Oberkörper bleibt ruhig.",
+      "fehler": "Nur mit den Beinen zu treten verschenkt die Hälfte der Leistung.",
+      "skalierung": "Leichter: Langsameres Tempo. Schwerer: Höheres Tempo oder Sprintintervalle.",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Assault Bike",
+        "Echo Bike",
+        "Luftwiderstands-Rad"
+      ]
+    },
+    {
+      "id": "g_burpee_broad_jump",
+      "name": "Burpee Broad Jump",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [],
+      "nutzen": 72,
+      "level": 2,
+      "voraussetzung": [
+        {
+          "leiter": "g_burpee",
+          "stufe": "Burpee"
+        }
+      ],
+      "trainiert": "Ganzkörper-Ausdauer, Sprungkraft",
+      "schritte": [
+        "Mach einen Burpee mit Brust am Boden.",
+        "Spring aus der Hocke beidbeinig so weit wie möglich nach vorn.",
+        "Lande weich und geh direkt in den nächsten Burpee."
+      ],
+      "sauber": "Du landest beidbeinig in der Hocke und die Knie zeigen nach vorn.",
+      "fehler": "Eine harte Landung mit gestreckten Beinen belastet Knie und Sprunggelenk.",
+      "skalierung": "Leichter: Step-back Burpee mit kurzem Sprung. Schwerer: Weiter springen oder schneller.",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "gesaess",
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Burpee-Weitsprung",
+        "Burpee mit Weitsprung"
+      ]
+    },
+    {
+      "id": "g_incline_walk",
+      "name": "Incline Walk",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "einheit": "meter",
+      "rolle": [
+        "metcon",
+        "aufwaermen",
+        "ruhetag"
+      ],
+      "equipment": [
+        [
+          "eq_laufband",
+          "eq_laufstrecke"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Grundlagenausdauer, Gesäß, Waden",
+      "schritte": [
+        "Stell das Laufband auf 8 bis 15 Prozent Steigung oder such dir einen Anstieg.",
+        "Geh zügig, ohne dich an den Griffen festzuhalten.",
+        "Halt ein Tempo, bei dem du dich noch unterhalten kannst."
+      ],
+      "sauber": "Du gehst aufrecht mit vollem Fußaufsatz und hältst dich nicht fest.",
+      "fehler": "Festhalten an den Griffen nimmt den Beinen bis zur Hälfte der Arbeit ab.",
+      "skalierung": "Leichter: Weniger Steigung oder langsamer. Schwerer: Mehr Steigung oder Rucksack.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "waden",
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bergaufgehen",
+        "Gehen mit Steigung",
+        "Laufband-Walking"
+      ]
+    },
+    {
+      "id": "g_freestyle_swim",
+      "name": "Freestyle Swim",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "einheit": "meter",
+      "rolle": [
+        "metcon",
+        "ruhetag"
+      ],
+      "equipment": [
+        [
+          "eq_schwimmbad"
+        ]
+      ],
+      "nutzen": 78,
+      "level": 2,
+      "voraussetzung": [],
+      "trainiert": "Ganzkörper-Ausdauer, Schulter, Rücken",
+      "schritte": [
+        "Leg dich gestreckt ins Wasser, Gesicht nach unten.",
+        "Zieh die Arme im Wechsel unter dem Körper nach hinten und schlag locker mit den Beinen.",
+        "Dreh zum Einatmen den Kopf zur Seite, ohne ihn zu heben."
+      ],
+      "sauber": "Der Körper liegt flach im Wasser und die Atmung ist ruhig.",
+      "fehler": "Ein Hochheben des Kopfes lässt die Beine absinken und bremst stark.",
+      "skalierung": "Leichter: Mit Pausen am Beckenrand oder Pull-Buoy. Schwerer: Längere Strecken oder Intervalle.",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "schulter_vorn",
+          "trizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kraulen",
+        "Kraulschwimmen",
+        "Freistil"
+      ]
+    },
+    {
+      "id": "g_elliptical",
+      "name": "Elliptical Trainer",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "einheit": "kalorien",
+      "rolle": [
+        "metcon",
+        "aufwaermen",
+        "ruhetag"
+      ],
+      "equipment": [
+        [
+          "eq_crosstrainer"
+        ]
+      ],
+      "nutzen": 66,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Ausdauer, Beine, Arme",
+      "schritte": [
+        "Stell dich auf die Pedale und greif die beweglichen Griffe.",
+        "Tritt in einer runden Bewegung und schieb und zieh die Griffe mit.",
+        "Halt den Oberkörper aufrecht."
+      ],
+      "sauber": "Die Füße bleiben flach auf den Pedalen und die Arme arbeiten mit.",
+      "fehler": "Ein Abstützen auf den festen Griffen nimmt den Beinen die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Widerstand. Schwerer: Mehr Widerstand oder Intervalle.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "latissimus"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Crosstrainer",
+        "Ellipsentrainer"
+      ]
+    },
+    {
+      "id": "g_battle_rope_waves",
+      "name": "Battle Rope Waves",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "einheit": "sek",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_battlerope"
+        ]
+      ],
+      "nutzen": 64,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Schulter, Arme, Rumpf, Ausdauer",
+      "schritte": [
+        "Greif je ein Seilende und geh in eine halbe Hocke.",
+        "Schlag die Arme im Wechsel schnell auf und ab.",
+        "Halt die Wellen gleichmäßig bis zum Anker."
+      ],
+      "sauber": "Die Wellen laufen bis zum Ankerpunkt durch und der Rücken bleibt gerade.",
+      "fehler": "Ein Aufrichten in den Stand verlagert die Arbeit in den unteren Rücken.",
+      "skalierung": "Leichter: Langsamere Wellen. Schwerer: Beidarmige Slams oder längere Intervalle.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "unterarm",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bizeps",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kampfseil",
+        "Battle Ropes",
+        "Seilwellen"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_erg",
+      "varianten": [
+        {
+          "uebung": "g_air_bike",
+          "art": "variante",
+          "effekt": 78,
+          "grund": "Ergometer mit Armeinsatz und Luftwiderstand, Standard in CrossFit-Boxen."
+        },
+        {
+          "uebung": "g_elliptical",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Ausdauer im Stehen ohne Aufprall, schont Knie und Fuß."
+        }
+      ]
+    },
+    {
+      "familie": "f_burpee",
+      "varianten": [
+        {
+          "uebung": "g_burpee_broad_jump",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Feste Hyrox-Station mit Vorwärtssprung statt Strecksprung."
+        }
+      ]
+    },
+    {
+      "familie": "f_run",
+      "varianten": [
+        {
+          "uebung": "g_incline_walk",
+          "art": "variante",
+          "effekt": 60,
+          "grund": "Lockere Ausdauer ohne Laufbelastung, gut für Kardio-locker-Tage."
+        }
+      ]
+    },
+    {
+      "familie": "f_ball_slam",
+      "varianten": [
+        {
+          "uebung": "g_battle_rope_waves",
+          "art": "variante",
+          "effekt": 64,
+          "grund": "Oberkörper-Ausdauer mit hohem Puls, ohne Belastung der Beine."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [
+    {
+      "id": "f_swim",
+      "name": "Swim",
+      "muster": "ausdauer",
+      "bereich": "ausdauer",
+      "ebene": 1,
+      "kurz": "Ausdauer im Wasser ohne Aufprall für den ganzen Körper.",
+      "leiter": null,
+      "voraussetzt": [],
+      "fuehrt_zu": [],
+      "varianten": [
+        {
+          "uebung": "g_freestyle_swim",
+          "art": "stufe",
+          "rang": 1,
+          "effekt": 78,
+          "ziel": "400 Meter Kraulen am Stück.",
+          "grund": "Grundform des Ausdauerschwimmens."
+        }
+      ]
+    }
+  ],
+  "geraete_neu": [
+    {
+      "id": "eq_airbike",
+      "name": "Air Bike (Assault Bike, Echo Bike)",
+      "preis": "ca. 700–1.500 €",
+      "platz": "ca. 1,3 × 0,7 m",
+      "warum": "Ganzkörper-Ergometer für Metcons, in CrossFit-Boxen Standard."
+    },
+    {
+      "id": "eq_laufband",
+      "name": "Laufband mit Steigung",
+      "preis": "ca. 500–3.000 €",
+      "platz": "ca. 2,0 × 0,9 m, mindestens 2,3 m Deckenhöhe",
+      "warum": "Häufigstes Kardiogerät im Gym, ermöglicht Gehen mit Steigung unabhängig vom Wetter."
+    },
+    {
+      "id": "eq_schwimmbad",
+      "name": "Schwimmbad",
+      "preis": "Eintritt ca. 4–8 € pro Besuch",
+      "platz": "Ort, kein Platz zu Hause nötig",
+      "warum": "Für Schwimmen als gelenkschonende Ganzkörper-Ausdauer."
+    },
+    {
+      "id": "eq_crosstrainer",
+      "name": "Crosstrainer (Ellipsentrainer)",
+      "preis": "ca. 300–2.000 €",
+      "platz": "ca. 1,8 × 0,7 m",
+      "warum": "Ausdauer im Stehen ohne Aufprall, typisches Gym-Gerät."
+    },
+    {
+      "id": "eq_battlerope",
+      "name": "Battle Rope",
+      "preis": "ca. 50–150 €",
+      "platz": "Seil 9–15 m, Ankerpunkt, etwa 8 × 1 m freie Fläche",
+      "warum": "Oberkörper-Ausdauer für Metcons, auch im Freien nutzbar."
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Auswahl Teil 2 ausdauer",
+      "entscheidung": "6 neue Übungen: Air Bike, Burpee Broad Jump, Incline Walk, Freestyle Swim, Elliptical Trainer, Battle Rope Waves.",
+      "folge": "Echte Kardio-Formen, die bisher fehlen, mit Blick auf Hyrox und Kardio-locker-Tage."
+    },
+    {
+      "frage": "Neue Geräte",
+      "entscheidung": "eq_airbike, eq_laufband, eq_schwimmbad, eq_crosstrainer und eq_battlerope.",
+      "folge": "Jedes Gerät bringt eine eigene Ausdauerform, die mit vorhandenen Geräten nicht geht."
+    },
+    {
+      "frage": "Neue Familie f_swim?",
+      "entscheidung": "Ja.",
+      "folge": "Schwimmen passt in keine bestehende Familie. Die Familie hat keine Voraussetzungen und führt zu keiner bestehenden Familie."
+    },
+    {
+      "frage": "Laufband auch für g_run?",
+      "entscheidung": "Nicht geändert.",
+      "folge": "Das wäre eine Änderung an einer bestehenden Übung. Wenn du willst, kannst du eq_laufband bei g_run als Alternative zu eq_laufstrecke selbst nachtragen."
+    },
+    {
+      "frage": "Abgelehnt: Treadmill Run, Outdoor Cycling, Stair Climber, Sprint Intervals",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Dubletten zu Run, Bike Erg, Stair Climb bzw. der Stufe „Intervalle“ der Leiter g_run."
+    },
+    {
+      "frage": "Abgelehnt: Bar-Facing Burpee, Lateral Burpee, Sprawl",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Kaum anderer Reiz als Burpee bzw. Burpee Box Jump Over."
+    },
+    {
+      "frage": "Abgelehnt: Shadow Boxing",
+      "entscheidung": "Nicht aufgenommen.",
+      "folge": "Ohne Trainer kaum messbar oder steigerbar."
+    },
+    {
+      "frage": "Sled Pull",
+      "entscheidung": "Nicht hier, sondern in tragen.",
+      "folge": "Gehört zur Familie mit dem Sled Push."
+    },
+    {
+      "frage": "Battle Rope Waves mit Einheit sek",
+      "entscheidung": "bewegt schulter und ellbogen.",
+      "folge": "Zeitintervall, aber keine Halteübung."
+    },
+    {
+      "frage": "laut bei Air Bike",
+      "entscheidung": "false.",
+      "folge": "Kein Springen oder Fallenlassen, nur Lüftergeräusch."
+    }
+  ]
+}
