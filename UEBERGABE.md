@@ -25,6 +25,10 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Erledigte Tage zeigen ihr Ergebnis (8. Oktober)
+- Dennis: Beim Zurückblättern auf Heute die Ergebnisse des absolvierten Trainings sehen, nicht wieder starten können.
+  Umgesetzt mit `dayLog` (Eintrag mit gleichem Tag und Durchgang): Karte „Ergebnis“ wie im Verlauf, nur „Zurück“.
+
 ## Grafiken Runde 3 in der App (8. Oktober)
 - Dennis: „ja alles passt jetzt“ (auch der neue World's Greatest Stretch). `design/maskottchen/maskottchen.js` in `index.html` kopiert
   (74 Grafiken, `pruefen.js`: Kontakte halten). Nächste Runden nach `design/maskottchen/REIHENFOLGE.md`.
