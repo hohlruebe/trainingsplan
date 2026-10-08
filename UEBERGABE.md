@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 8. Oktober 2026 (Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
+Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,13 @@ Stand: 8. Oktober 2026 (Geschlecht im Profil, Aufwärmen im Vollbild, Testtage m
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Testtag-Rückmeldung (8. Oktober)
+- Dennis: „Bei jeder Übung sollte dabei stehen wie genau diese durchzuführen ist“ (Testtag), Metcon als Liste trotzdem erste Übung
+  aufgeklappt (am Mac), Rundenzähler doppelt (mitgedrückt, am Ende trotzdem Runden eingeben).
+- Umgesetzt: „So geht’s“ (Schritte) an jeder Übung im Ablauf und an jedem Testschritt (Stufe passend), Aufwärmen-Hinweise für
+  Ergometer und Handgelenke. Metcon/Murph als Liste: alles zu, je Zeile der kurze Hinweis, Antippen klappt auf. Zähler und Abhaken
+  füllen Runden/Extra-Wdh. direkt, am Ende nur noch bestätigen.
 
 ## Aufwärmen-Timer (8. Oktober)
 - Dennis am zweiten Testtag: beim Aufwärmen lief ein 8-Minuten-Timer. Dennis: „immer wenn eine Zeit bei einer Übung steht ein Timer, sonst zum Abhaken“ (Ergometer 5 Min, Handgelenke 30 s; auch an Krafttagen).
