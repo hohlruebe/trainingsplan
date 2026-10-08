@@ -25,6 +25,10 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Grafiken Runde 3 in der App (8. Oktober)
+- Dennis: „ja alles passt jetzt“ (auch der neue World's Greatest Stretch). `design/maskottchen/maskottchen.js` in `index.html` kopiert
+  (74 Grafiken, `pruefen.js`: Kontakte halten). Nächste Runden nach `design/maskottchen/REIHENFOLGE.md`.
+
 ## Testtag-Rückmeldung (8. Oktober)
 - Dennis: „Bei jeder Übung sollte dabei stehen wie genau diese durchzuführen ist“ (Testtag), Metcon als Liste trotzdem erste Übung
   aufgeklappt (am Mac), Rundenzähler doppelt (mitgedrückt, am Ende trotzdem Runden eingeben).
@@ -37,7 +41,7 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
 - PR #70 gemergt, aber GitHub Pages hat nicht veröffentlicht (Build-Job blieb in der Warteschlange, Neustart hing ebenfalls).
 - Grafiken Runde 3 (nur `design/`): drei Rückmelderunden. Brustkorb und Becken drehen sich bei gedrehten/liegenden Figuren mit (dort keine
   V-Verschiebung), Kamera von oben (`tilt`, `mat`), Kopf-Blickrichtung `J._hf`. Dennis: „bis auf den World's Greatest Stretch ist alles gut“;
-  WGS neu animiert (Arm im Bogen, Oberkörper dreht, Blick zur Hand). Nach Freigabe: `maskottchen.js` in `index.html` kopieren.
+  WGS neu animiert (Arm im Bogen, Oberkörper dreht, Blick zur Hand). Freigegeben und eingebaut.
 
 ## Geschlecht im Profil (8. Oktober)
 - PR #67 (Aufwärmen im Vollbild) gemergt.
