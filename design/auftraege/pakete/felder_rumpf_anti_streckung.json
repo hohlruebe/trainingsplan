@@ -1,0 +1,466 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "rumpf_anti_streckung",
+  "quelle": "McGill (Rumpfstabilität, Big Three), Escamilla et al. 2006 und Schoenfeld et al. 2014 (EMG bei Rollouts und Planks), Overcoming Gravity (Hollow Body, Dragon Flag) und die Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_abwheel_standing",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "schulter_vorn",
+          "hueftbeuger",
+          "trizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 3,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ab Wheel aus dem Stand",
+        "Stehendes Rollout",
+        "Bauchrad im Stehen"
+      ]
+    },
+    {
+      "id": "g_dragon_flag",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "latissimus",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Drachenfahne",
+        "Dragon Flag halten"
+      ]
+    },
+    {
+      "id": "g_abwheel",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "schulter_vorn",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bauchrad",
+        "Ab Wheel kniend",
+        "Rollout auf Knien"
+      ]
+    },
+    {
+      "id": "g_dragon_flag_raise",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "latissimus",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Dragon-Flag-Heben",
+        "Drachenfahne heben"
+      ]
+    },
+    {
+      "id": "g_hollow",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hohlkörper",
+        "Hohlkörperhalten",
+        "Hollow Hold"
+      ]
+    },
+    {
+      "id": "g_ring_fallout",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "schulter_vorn",
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ring-Rollout",
+        "Fallout an Ringen"
+      ]
+    },
+    {
+      "id": "g_dragon_flag_tuck",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "latissimus"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Gehockte Drachenfahne",
+        "Tuck Dragon Flag"
+      ]
+    },
+    {
+      "id": "g_hollow_rock",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hohlkörper-Schaukeln",
+        "Hollow Rocks"
+      ]
+    },
+    {
+      "id": "g_body_saw",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "latissimus"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Körpersäge",
+        "Body Saw mit Slidern"
+      ]
+    },
+    {
+      "id": "g_bear_crawl",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "schulter_vorn",
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bärengang",
+        "Bear Crawl",
+        "Vierfüßlergang"
+      ]
+    },
+    {
+      "id": "g_dead_bug",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Toter Käfer",
+        "Dead Bugs"
+      ]
+    },
+    {
+      "id": "g_plank",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "schulter_vorn",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Unterarmstütz",
+        "Planke",
+        "Brett"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_dragon_flag 1, g_abwheel 1, g_hollow 0, g_ring_fallout 0 aus der Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "sehne bei Standing Ab Wheel und Dragon Flag Raise",
+      "entscheidung": "1.",
+      "folge": "Gleiche Belastungsart wie in den Leitern g_abwheel und g_dragon_flag. Tuck Dragon Flag, Body Saw und Hollow Rock bleiben 0."
+    },
+    {
+      "frage": "Standing Ab Wheel Rollout: Schulter und Rücken 3?",
+      "entscheidung": "Beide 3.",
+      "folge": "Der lange Hebel aus dem Stand erzeugt die höchste Rumpf- und Schulterlast im Paket."
+    },
+    {
+      "frage": "Dead Bug: Rücken 0?",
+      "entscheidung": "0.",
+      "folge": "Sehr geringe Last, der Coach soll den Dead Bug bei Rückenschmerzen weiter anbieten können."
+    },
+    {
+      "frage": "bewegt bei Dragon Flag Raise und Tuck Dragon Flag",
+      "entscheidung": "Nur schulter.",
+      "folge": "Der Körper dreht als Ganzes um die Schulter, Hüfte und Knie bleiben fest."
+    },
+    {
+      "frage": "bewegt bei Hollow Rock",
+      "entscheidung": "[].",
+      "folge": "Der Körper schaukelt als Ganzes, kein Gelenk bewegt sich deutlich."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Überall null.",
+      "folge": "Keine kg-Übung im Paket."
+    }
+  ]
+}

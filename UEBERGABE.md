@@ -26,7 +26,12 @@ Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
 ## Übungsbibliothek mit Cowork (7. Oktober)
-- `druck_horizontal` Teil 1 eingebaut (23 Übungen mit Feldern, ohne Fehler). Teil 2 (neue Übungen) folgt im selben PR.
+- Cowork hat alle Pakete am Stück gemacht (Grenzfälle selbst entschieden, alles in `entscheidungen`). Teil 1 aller Muster eingebaut,
+  ohne Fehler: alle 281 Übungen haben jetzt muskeln, gelenke, bewegt, sehne usw. Prüf- und Einbau-Programm kennen Geräte, Familien und
+  Übungen über alle Dateien eines Aufrufs; `felder_isolation` darf leer sein.
+- Mit Dennis: Kipping-Leiter Stufe „Chest-to-Bar“ → `g_kipping_c2b` (erledigt). `eq_laufband` als Alternative zu `eq_laufstrecke` bei `g_run`
+  (kommt mit `neu_ausdauer`). Kein Nackentraining (keine neue Muskel-/Gelenk-ID).
+- Offen: die `neu_`-Dateien aller Muster (115 Übungen, 13 Geräte, 12 Familien), danach PR.
 - 8. Oktober: `zug_vertikal` eingebaut (Teil 1 und 2, beide Pakete ohne Fehler). 24 Übungen mit neuen Feldern, 16 neue Übungen
   (265 → 281), Geräte `eq_kabelzug` und `eq_pegboard`. Neues Einbau-Programm `design/auftraege/einbauen_bibliothek.js`.
   f_pullup hat jetzt 11 Stufen; die Voraussetzung „f_pullup ab Rang 5“ (Weighted Pull-up) der sechs Folgefamilien steht jetzt auf Rang 7.

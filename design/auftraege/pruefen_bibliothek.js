@@ -105,7 +105,8 @@ function pruefeDatei(datei) {
   if (d.v !== 1) err.push('v muss 1 sein');
   if (!MUSTER.has(d.muster)) err.push('unbekanntes muster „' + d.muster + '“');
   if (!text(d.quelle)) err.push('quelle fehlt');
-  if (!Array.isArray(d.uebungen) || !d.uebungen.length) return err.concat(['uebungen fehlt oder ist leer']);
+  const leerOk = d.teil === 'felder' && !LIB.uebungen.some((u) => u.muster === d.muster);
+  if (!Array.isArray(d.uebungen) || (!d.uebungen.length && !leerOk)) return err.concat(['uebungen fehlt oder ist leer']);
   const ids = new Set();
   d.uebungen.forEach((u) => { if (ids.has(u.id)) err.push(u.id + ': doppelt im Paket'); ids.add(u.id); });
 

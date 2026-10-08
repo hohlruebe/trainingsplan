@@ -1,0 +1,510 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "ausdauer",
+  "quelle": "ACSM Guidelines (Ausdauertraining), Hreljac 2004 (Belastung beim Laufen), Concept2-Technikleitfaden, CrossFit Movement Standards (Burpee-Varianten).",
+  "uebungen": [
+    {
+      "id": "g_run",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "waden",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Laufen",
+        "Joggen",
+        "Dauerlauf"
+      ]
+    },
+    {
+      "id": "g_row_erg",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "quadrizeps",
+          "gesaess",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Rudergerät",
+        "Rudern am Ergometer",
+        "Concept2-Rudern",
+        "Indoor Rowing"
+      ]
+    },
+    {
+      "id": "g_bike_erg",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "waden",
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ergometer",
+        "Fahrrad-Ergometer",
+        "Radfahren drinnen"
+      ]
+    },
+    {
+      "id": "g_burpee",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "brust",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Burpees",
+        "Hockstrecksprung",
+        "Liegestütz-Strecksprung"
+      ]
+    },
+    {
+      "id": "g_ski_erg",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "trizeps",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Ski-Ergometer",
+        "SkiErg",
+        "Langlauf-Ergometer"
+      ]
+    },
+    {
+      "id": "g_burpee_pullup",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "bizeps",
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Burpee mit Klimmzug",
+        "Burpee-Klimmzug"
+      ]
+    },
+    {
+      "id": "g_burpee_box_jump_over",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "gesaess",
+          "brust"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Burpee mit Box-Sprung",
+        "BBJO"
+      ]
+    },
+    {
+      "id": "g_shuttle_run",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "waden",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 3
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Pendellauf",
+        "Shuttle-Lauf",
+        "Sprint mit Richtungswechsel"
+      ]
+    },
+    {
+      "id": "g_ball_slam",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "trizeps",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "ruecken",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Slam Ball Wurf",
+        "Medizinball-Slam",
+        "Ball-Slams"
+      ]
+    },
+    {
+      "id": "g_burpee_stepback",
+      "muskeln": {
+        "primaer": [
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "brust",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Burpee ohne Sprung",
+        "Schritt-Burpee",
+        "Leiser Burpee"
+      ]
+    },
+    {
+      "id": "g_stair_climb",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "waden",
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Treppensteigen",
+        "Treppenlaufen"
+      ]
+    },
+    {
+      "id": "g_mountain_climber",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Bergsteiger",
+        "Mountain Climbers"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_run und g_burpee haben 0 laut Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen, alle übrigen Übungen ebenfalls 0."
+    },
+    {
+      "frage": "ganzkoerper als Primärmuskel",
+      "entscheidung": "Nur bei Rudern, Burpee und den Burpee-Varianten.",
+      "folge": "Laut Auftrag nur bei Kardio-Übungen, die wirklich den ganzen Körper nutzen. Laufen, Rad und Treppe bekommen die Beinmuskeln, Ski Erg die Zugmuskeln."
+    },
+    {
+      "frage": "Shuttle Run: Fuß 3 und laut?",
+      "entscheidung": "Fuß 3, laut true.",
+      "folge": "Sprints mit Abbremsen entsprechen dem Anker Sprints, das Abbremsen ist hörbar."
+    },
+    {
+      "frage": "Ball Slam: ruecken in bewegt?",
+      "entscheidung": "Ja.",
+      "folge": "Beim Slam beugt sich die Wirbelsäule gewollt mit."
+    },
+    {
+      "frage": "laut",
+      "entscheidung": "true bei Burpee mit Sprung, Burpee-Varianten, Shuttle Run und Ball Slam. Step-back Burpee false.",
+      "folge": "Sprünge, Aufprall des Balls bzw. Abbremsen. Der Step-back Burpee ist die leise Alternative für die Wohnung."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Überall null.",
+      "folge": "Keine kg-Übung im Paket."
+    }
+  ]
+}

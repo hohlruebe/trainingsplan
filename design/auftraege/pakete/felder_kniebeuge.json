@@ -1,0 +1,393 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "kniebeuge",
+  "quelle": "Schoenfeld 2010 (Biomechanik der Kniebeuge), Escamilla 2001 (Kniebelastung), Gullett et al. 2009 (Front vs. Back Squat), CrossFit Benchmark Fran für rx.",
+  "uebungen": [
+    {
+      "id": "g_back_squat",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "adduktoren",
+          "rueckenstrecker",
+          "beinbeuger",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kniebeuge",
+        "Langhantel-Kniebeuge",
+        "Back Squat"
+      ]
+    },
+    {
+      "id": "g_front_squat",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bauch_gerade",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Frontkniebeuge",
+        "Front Squat"
+      ]
+    },
+    {
+      "id": "g_thruster",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bauch_gerade",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 43,
+        "w": 29
+      },
+      "alias": [
+        "Thruster",
+        "Kniebeuge mit Drücken"
+      ]
+    },
+    {
+      "id": "g_goblet_squat",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "adduktoren",
+          "bauch_gerade",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Goblet-Kniebeuge",
+        "Kelch-Kniebeuge"
+      ]
+    },
+    {
+      "id": "g_overhead_squat",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "trizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Überkopf-Kniebeuge",
+        "OHS"
+      ]
+    },
+    {
+      "id": "g_wall_ball",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 2
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 3,
+      "technik": 2,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Wandball",
+        "Wall Balls",
+        "Medizinball an die Wand"
+      ]
+    },
+    {
+      "id": "g_air",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "adduktoren",
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kniebeuge ohne Gewicht",
+        "Air Squats",
+        "Bodyweight Squat"
+      ]
+    },
+    {
+      "id": "g_box_squat",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kniebeuge auf die Box",
+        "Hinsetzen und Aufstehen"
+      ]
+    },
+    {
+      "id": "g_wall_sit",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps"
+        ],
+        "sekundaer": [
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 2,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Wandsitzen",
+        "Stuhl an der Wand"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_air, g_back_squat und g_thruster haben 0 laut Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen, alle übrigen ebenfalls 0."
+    },
+    {
+      "frage": "Front Squat: Handgelenk 3?",
+      "entscheidung": "3.",
+      "folge": "Anker Front Rack mit schwerem Gewicht. Beim Thruster mit Metcon-Gewicht 2."
+    },
+    {
+      "frage": "Overhead Squat: Schulter 3?",
+      "entscheidung": "3.",
+      "folge": "Gleiche Überkopfposition wie beim Snatch (Anker)."
+    },
+    {
+      "frage": "fuss bei tiefen Kniebeugen",
+      "entscheidung": "2 bei Back, Front, Overhead, Goblet, Thruster und Wall Ball.",
+      "folge": "Tiefe Hocke verlangt viel Beugung im Sprunggelenk."
+    },
+    {
+      "frage": "rx",
+      "entscheidung": "Thruster 43/29 kg (Fran), Goblet Squat 24/16 kg.",
+      "folge": "Übliche CrossFit-Metcon-Gewichte."
+    },
+    {
+      "frage": "Wall Ball: laut?",
+      "entscheidung": "true.",
+      "folge": "Der Ball schlägt gegen die Wand."
+    },
+    {
+      "frage": "Wall Sit",
+      "entscheidung": "bewegt [].",
+      "folge": "Halteübung."
+    }
+  ]
+}

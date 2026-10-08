@@ -1,0 +1,19 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "isolation",
+  "quelle": "Keine bestehenden Übungen.",
+  "uebungen": [],
+  "entscheidungen": [
+    {
+      "frage": "Bestehende Übungen im Muster isolation?",
+      "entscheidung": "Keine.",
+      "folge": "Das Paket ist neu, Teil 1 ist leer. Alle Übungen kommen über Teil 2."
+    },
+    {
+      "frage": "Muster isolation in Anhang A",
+      "entscheidung": "Wird als neuer Wert verwendet.",
+      "folge": "Bitte isolation im Prüfprogramm als gültiges muster ergänzen."
+    }
+  ]
+}

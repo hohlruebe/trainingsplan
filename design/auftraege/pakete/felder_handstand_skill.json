@@ -1,0 +1,217 @@
+{
+  "v": 1,
+  "teil": "felder",
+  "muster": "handstand_skill",
+  "quelle": "Overcoming Gravity (Handstand-Progression, Handgelenksbelastung), Gymnastics Bodies, Sehnen-Tabelle der App.",
+  "uebungen": [
+    {
+      "id": "g_free_handstand",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Freier Handstand",
+        "Handstand frei"
+      ]
+    },
+    {
+      "id": "g_handstand",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handstand an der Wand",
+        "Handstand"
+      ]
+    },
+    {
+      "id": "g_handstand_walk",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "oberer_ruecken",
+          "bauch_gerade",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "handgelenk"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handstandlaufen",
+        "Auf den Händen gehen"
+      ]
+    },
+    {
+      "id": "g_kick_up",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "gesaess",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 3,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Handstand-Aufschwung",
+        "Aufschwingen in den Handstand"
+      ]
+    },
+    {
+      "id": "g_crow",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "brust",
+          "unterarm",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Krähe",
+        "Krähenstellung",
+        "Crow"
+      ]
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "Leitern",
+      "entscheidung": "g_handstand 1, g_handstand_walk 1 aus der Sehnen-Tabelle.",
+      "folge": "Unverändert übernommen."
+    },
+    {
+      "frage": "sehne bei Freestanding Handstand und Kick-up",
+      "entscheidung": "1.",
+      "folge": "Gleiche Belastung von Handgelenk und Schulter wie im Handstand. Crow Pose 0."
+    },
+    {
+      "frage": "Handgelenk 3?",
+      "entscheidung": "3 bei allen Handstand-Übungen, 2 bei Crow Pose.",
+      "folge": "Anker Handstand. Bei der Krähe ist der Winkel im Handgelenk kleiner."
+    },
+    {
+      "frage": "Kick-up: laut?",
+      "entscheidung": "true.",
+      "folge": "Beim Üben fällt man oft zurück auf die Füße."
+    },
+    {
+      "frage": "bewegt bei Handstand Walk",
+      "entscheidung": "schulter und handgelenk.",
+      "folge": "Die Last wechselt von Hand zu Hand, die Ellbogen bleiben gestreckt."
+    }
+  ]
+}
