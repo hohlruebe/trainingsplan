@@ -96,8 +96,10 @@
     var K = {}, k;
     for (k in J) if (k.charAt(0) !== '_') K[k] = J[k].slice();
     var props = J._props || [];
+    // entlang der Schulterlinie, damit gedrehte oder liegende Figuren ihre Schultern behalten
+    var SL = norm(sub3(J.shb, J.sha));
     [['a', -1], ['b', 1]].forEach(function (q) {
-      for (var j in st.shoulder) K[j + q[0]][0] += q[1] * st.shoulder[j];
+      for (var j in st.shoulder) K[j + q[0]] = add(K[j + q[0]], mul(SL, q[1] * st.shoulder[j]));
     });
     var P = {}, Z = {}, ext = [];
     for (k in K) { var v = K[k]; P[k] = prj(v); Z[k] = -v[0] * s + v[2] * c; ext.push(P[k]); }
@@ -167,11 +169,19 @@
     var sp = sub3(K.nb, K.pc), L3 = Math.hypot(sp[0], sp[1], sp[2]) || 1;
     var dx = P.nb[0] - P.pc[0], dy = P.nb[1] - P.pc[1], th = Math.atan2(dx, -dy) / R, ratio = Math.max(.55, Math.hypot(dx, dy) / L3);
     var RX = Math.hypot(st.ribW * c, st.ribD * s), RY = st.ribH * ratio, PX = Math.hypot(st.pelW * c, st.pelD * s);
+    // Brustkorb mindestens so breit, wie die Schultern quer zur Wirbelsäule im Bild auseinander liegen (gedrehter Oberkörper, Kamera von oben)
+    var sl = Math.hypot(dx, dy) || 1, perp = function (q) { return Math.abs((q[0] - P.nb[0]) * dy - (q[1] - P.nb[1]) * dx) / sl; };
+    RX = Math.max(RX, Math.max(perp(P.sha), perp(P.shb)) - 8);
+    if (opt.tilt) PX = Math.max(PX, dist(P.hia, P.hib) / 2 + 2);
     var nb = P.nb, rc = loc(nb, th, [0, RY]), pc = P.pc;
     var hth = Math.atan2(P.hc[0] - P.nb[0], -(P.hc[1] - P.nb[1])) / R;
     var hb = loc(P.hc, hth, [0, 18]);
     var a1 = loc(hb, hth, [-6, 0]), a2 = loc(nb, th, [-7, 4]), b1 = loc(hb, hth, [6, 0]), b2 = loc(nb, th, [7, 4]);
     g += S('<path d="M' + n1(a1[0]) + ' ' + n1(a1[1]) + ' L' + n1(a2[0]) + ' ' + n1(a2[1]) + ' M' + n1(b1[0]) + ' ' + n1(b1[1]) + ' L' + n1(b2[0]) + ' ' + n1(b2[1]) + '"/>', INK);
+    // Schulter über dem Hals (stark gedrehter Oberkörper): Schlüsselbein zum Hals zeichnen, damit der Arm am Körper bleibt
+    ['sha', 'shb'].forEach(function (q) {
+      if (Math.abs(J._tw || 0) > 30 && ((P[q][0] - P.nb[0]) * dx + (P[q][1] - P.nb[1]) * dy) / sl > 4) g += S('<path d="M' + n1(P.nb[0]) + ' ' + n1(P.nb[1]) + ' L' + n1(P[q][0]) + ' ' + n1(P[q][1]) + '"/>', INK);
+    });
     var wl = [loc(rc, th, [-RX * .8, RY * .55]), loc(rc, th, [-RX * st.waist, RY * 1.15]), loc(pc, th, [-PX * .85, -8])];
     var wr = [loc(rc, th, [RX * .8, RY * .55]), loc(rc, th, [RX * st.waist, RY * 1.15]), loc(pc, th, [PX * .85, -8])];
     function q3(w) { return 'M' + n1(w[0][0]) + ' ' + n1(w[0][1]) + ' Q' + n1(w[1][0]) + ' ' + n1(w[1][1]) + ' ' + n1(w[2][0]) + ' ' + n1(w[2][1]); }
@@ -863,7 +873,7 @@
   }
   var UPPER = ['nb', 'hc', 'sha', 'shb', 'ela', 'elb', 'wra', 'wrb', 'haa', 'hab'];
   // Oberkörper um die Wirbelsäule drehen (Rotation aus dem oberen Rücken). Positive Gradzahl: Schulter b geht nach unten bzw. hinten.
-  function twist(J, deg) { var k = norm(sub3(J.nb, J.pc)); UPPER.forEach(function (q) { J[q] = rotAround(J[q], J.pc, k, deg); }); return J; }
+  function twist(J, deg) { var k = norm(sub3(J.nb, J.pc)); UPPER.forEach(function (q) { J[q] = rotAround(J[q], J.pc, k, deg); }); J._tw = (J._tw || 0) + deg; return J; }
   // Arm neu an ein Ziel legen (nach dem Drehen), Hand bleibt am Kontaktpunkt.
   function reArm(J, sd, to, pole, dir) {
     var ar = ik3(J['sh' + sd], to, LEN.upper, LEN.fore, pole);
@@ -877,7 +887,7 @@
     for (q in J) if (q.charAt(0) !== '_') { O[q] = rotAround(J[q], c, k, deg); lo = Math.max(lo, O[q][1]); }
     var dy = lowY == null ? 0 : lowY - lo;
     for (q in O) O[q] = add(O[q], [0, dy, 0]);
-    O._props = J._props || [];
+    O._props = J._props || []; O._tw = J._tw;
     if (J._to) { O._to = {}; for (q in J._to) O._to[q] = add(rotAround(J._to[q], c, k, deg), [0, dy, 0]); }
     return O;
   }
@@ -908,9 +918,11 @@
       legs: { a: { to: FA, pole: [0, -.3, 1] }, b: { to: RB, pole: DOWN, dir: [0, .88, .48] } } });
     twist(J, 84 * k.tw);
     reArm(J, 'b', HB, [.6, -.2, -1], [0, .12, 1]);
-    var floorA = [-2, 395, 108], elbowDown = [-10, 395, 58], up = add(J.sha, mul(norm(sub3(J.sha, J.shb)), 116));
-    var to = k.tw > 0 ? lerp(floorA, up, k.tw) : lerp(floorA, elbowDown, k.d);
-    return reArm(J, 'a', to, k.tw > 0 ? [0, 0, 1] : [0, .5, 1], k.tw > .5 ? norm(sub3(J.sha, J.shb)) : [0, .12, 1]);
+    // Ellbogen zum Fuß: der Ellbogen sinkt innen neben den vorderen Fuß, der Unterarm liegt nach vorn auf dem Boden
+    var floorA = [-2, 395, 108], EL = [-10, 376, 92], elbowDown = [-10, 395, 142], up = add(J.sha, mul(norm(sub3(J.sha, J.shb)), 116));
+    if (k.tw > 0) return reArm(J, 'a', lerp(floorA, up, k.tw), [0, 0, 1], k.tw > .5 ? norm(sub3(J.sha, J.shb)) : [0, .12, 1]);
+    var to = lerp(floorA, elbowDown, k.d);
+    return reArm(J, 'a', to, lerp([-.3, -.2, -1], sub3(EL, mid(J.sha, to)), k.d), [0, .12, 1]);
   }
 
   function pullApart(p) { // Band Pull-Apart: gestreckte Arme vor der Brust, Band bis zur Brust auseinanderziehen
@@ -946,12 +958,14 @@
       legs: both(function (x) { return kneelLeg(pc, a, x, 391); }) });
   }
 
-  function pigeon(p) { // Pigeon Stretch: vorderes Schienbein schräg am Boden, hinteres Bein lang, Oberkörper sinkt nach vorn
-    var t = rep(p, .4, .2), pc = [0, 356, 4];
-    return build({ pc: pc, a: lerp(38, 76, t), nod: lerp(0, 12, t),
-      arms: both(function (x) { return { to: [x * 34, 386, lerp(88, 140, t)], pole: [x, -.2, -.5], dir: [0, .1, 1] }; }),
-      legs: { a: { to: [-16, 390, -160], pole: DOWN, dir: [0, .2, -1] }, b: { to: [-26, 384, 76], pole: [1, .3, .7], dir: [-1, .2, .2] } } });
+  function pigeon(p) { // Pigeon Stretch: vorderes Schienbein liegt quer vor der Hüfte am Boden, hinteres Bein lang nach hinten (Fußrücken am Boden).
+    // Aufgerichtet mit den Fingerspitzen vorn am Boden, dann mit den Händen nach vorn wandern, Oberkörper sinkt über das vordere Bein.
+    var t = rep(p, .4, .2), pc = [0, 350, 0], a = lerp(50, 84, t), sh = add(pc, mul(trunkU(a), 112));
+    return build({ pc: pc, a: a, nod: lerp(-4, 10, t),
+      arms: both(function (x) { return { to: [x * 34, 393, sh[2] + Math.sqrt(Math.max(0, 112 * 112 - Math.pow(393 - sh[1], 2)))], pole: [x * .4, -.2, -1], dir: [0, .12, 1] }; }),
+      legs: { a: { to: [-20, 395, -160], pole: DOWN, dir: [0, .06, -1] }, b: legVia(pc, a, 1, [34, 391, 70], [-.86, .02, -.5], [-.86, .1, -.45]) } });
   }
+
   function supineHam(p) { // Supine Hamstring Stretch: ein Bein gestreckt nach oben, Handtuch um den Fuß
     var t = rep(p, .4, .2), f = lerp(72, 86, t) * R, hb = [18, 380, 6], an = add(hb, [0, -169 * Math.sin(f), 169 * Math.cos(f)]);
     var J = supine({ nod: -4,
@@ -974,20 +988,21 @@
       arms: o.arms || both(function (x) { return { to: [x * 30, 386, 0], pole: [x * .3, -.2, -1], dir: [0, .1, 1] }; }),
       legs: both(function (x) { return { to: [x * 12, 388, -196], pole: DOWN, dir: [0, .05, -1] }; }) });
   }
-  function threadNeedle(p) { // Thread the Needle: Vierfüßler. Rechter Arm fädelt unter dem Körper durch (Handrücken am Boden), Schulter und Kopf sinken ab;
-    // dann den Arm weit nach oben aufdrehen, Blick folgt. Hüfte bleibt über den Knien, die Stützhand bleibt stehen.
-    var k = keys(p, [[0, { tw: 0, r: 0 }], [.3, { tw: 68, r: 1 }], [.44, { tw: 68, r: 1 }], [.72, { tw: -62, r: 2 }], [.86, { tw: -62, r: 2 }], [1, { tw: 0, r: 0 }]]);
-    var pc = [0, 312, -108], HA = [-30, 393, 2];
-    function mk(a) { var J0 = build({ pc: pc, a: a, nod: -10, arms: both(function (x) { return { to: [x * 30, 393, 2], pole: FWD }; }), legs: both(function (x) { return kneelLeg(pc, a, x, 391); }) }); return twist(J0, k.tw); }
-    var best = 90, err = 1e9;
-    for (var a0 = 80; a0 <= 125; a0 += .5) { var e = Math.abs(len(sub3(mk(a0).sha, HA)) - 112); if (e < err) { err = e; best = a0; } }
-    var J = mk(best);
-    J.hc = add(J.hc, [0, 0, 0]);
-    reArm(J, 'a', HA, [-.3, -.2, -1], [0, .12, 1]);
-    var floorB = [30, 393, 2], under = [-96, 393, 6], dU = norm(sub3(under, J.shb)), dUp = norm(sub3(J.shb, J.sha));
-    var to = k.r <= 1 ? lerp(floorB, under, k.r) : add(J.shb, mul(norm(lerp(dU, dUp, k.r - 1)), 116)); // im Bogen nach oben, Arm bleibt lang
-    return reArm(J, 'b', to, k.r <= 1 ? [0, -1, .3] : [0, 0, 1], k.r <= 1 ? lerp([0, .12, 1], [-1, .1, .1], k.r) : norm(sub3(J.shb, J.sha)));
+  function threadNeedle(p) { // Thread the Needle: Vierfüßler. Der rechte Arm fädelt zwischen Stützarm und Knien unter dem Körper durch (Handrücken am Boden),
+    // Schulter und Kopf sinken ab, der Stützarm beugt sich. Dann den Arm im Bogen nach oben aufdrehen, Blick folgt, und zurück auf den Boden.
+    var k = keys(p, [[0, { tw: 0, r: 0, lo: 0 }], [.28, { tw: 58, r: 1, lo: 1 }], [.42, { tw: 58, r: 1, lo: 1 }], [.66, { tw: -60, r: 2, lo: 0 }], [.8, { tw: -60, r: 2, lo: 0 }], [1, { tw: 0, r: 3, lo: 0 }]]);
+    var pc = [0, 312, -108], HA = [-30, 393, 2], a = 88 + 14 * k.lo;
+    var J = build({ pc: pc, a: a, nod: -10 + 8 * k.lo, arms: both(function (x) { return { to: [x * 30, 393, 2], pole: FWD }; }), legs: both(function (x) { return legVia(pc, a, x, [x * 18, 391, -104], [0, .05, -1], [0, .06, -1]); }) }); // Knie bleiben stehen
+    twist(J, k.tw);
+    reArm(J, 'a', HA, [-1, -.3, -.2], [0, .12, 1]); // Stützhand bleibt, der Ellbogen gibt nach
+    var floorB = [30, 393, 2], under = [-92, 393, -44], dUp = norm(sub3(J.shb, J.sha)), up = add(J.shb, mul(dUp, 116));
+    var to, pole, dir;
+    if (k.r <= 1) { to = lerp(floorB, under, k.r); pole = [0, -1, .3]; dir = lerp([0, .12, 1], [-1, .1, -.1], k.r); }
+    else if (k.r <= 2) { var dU = norm(sub3(under, J.shb)); to = add(J.shb, mul(norm(lerp(dU, dUp, k.r - 1)), 116)); pole = [0, 0, 1]; dir = norm(lerp(dU, dUp, k.r - 1)); }
+    else { var q = k.r - 2, d1 = norm(sub3(floorB, J.shb)); to = add(J.shb, mul(norm(lerp(dUp, d1, q)), lerp(116, len(sub3(floorB, J.shb)), q))); pole = [.3, 0, 1]; dir = norm(lerp(dUp, [0, .12, 1], q)); } // im Bogen zurück auf den Boden
+    return reArm(J, 'b', to, pole, dir);
   }
+
 
   function openBook(p) { // Open Book: Seitenlage, Knie 90°, oberer Arm öffnet im Bogen, der Blick folgt
     var t = rep(p, .42, .16), psi = lerp(0, 165, t);
@@ -1024,18 +1039,20 @@
     return [{ type: 'line', a: [-92, c[1], c[2]], b: [92, c[1], c[2]], w: 2, layer: 'front', keep: true },
       { type: 'circle', c: [-74, c[1], c[2]], r: w, hub: true, layer: 'back', keep: true }, { type: 'circle', c: [74, c[1], c[2]], r: w, hub: true, layer: 'front', keep: true }];
   }
-  function deadlift(p) { // Deadlift: Stange über der Fußmitte und an den Schienbeinen, Rücken gerade, Arme senkrecht, Schultern knapp vor der Stange.
-    // Erst drücken die Beine (Rückenwinkel bleibt), über dem Knie streckt die Hüfte. Die Stange läuft senkrecht.
-    var t = 1 - rep(p, .4, .12), u = 1 - t; // u: 0 unten, 1 oben
-    var k = keys(u, [[0, { y: 350, py: 305, pz: -71, a: 55 }], [.5, { y: 298, py: 258, pz: -66, a: 52 }], [1, { y: 216, py: 222, pz: -2, a: -2 }]]);
-    var pc = [0, k.py, k.pz], sh = add(pc, mul(trunkU(k.a), 112)), dz = 10 - sh[2];
-    var bar = [0, sh[1] + Math.sqrt(Math.max(0, 113 * 113 - dz * dz)), 10]; // Arme bleiben gestreckt, die Stange läuft senkrecht über der Fußmitte
-    var J = build({ pc: pc, a: k.a, nod: lerp(-14, 0, u),
+  function deadlift(p) { // Deadlift: Start vom Boden, Hüfte über den Knien (keine Kniebeuge). Stange über der Fußmitte und am Schienbein, Rücken gerade,
+    // Arme gestreckt, Schultern knapp vor der Stange. Erst drücken die Beine, über dem Knie streckt die Hüfte; die Stange läuft senkrecht. Fließend, ohne Halt am Knie.
+    var u = rep(p, .36, .14);
+    var K = [[0, 294, -74, 60], [.45, 254, -64, 54], [1, 222, -2, -2]], i = u < K[1][0] ? 0 : 1, q = (u - K[i][0]) / (K[i + 1][0] - K[i][0]);
+    var pc = [0, lerp(K[i][1], K[i + 1][1], q), lerp(K[i][2], K[i + 1][2], q)], a = lerp(K[i][3], K[i + 1][3], q);
+    var sh = add(pc, mul(trunkU(a), 112)), dz = 10 - sh[2];
+    var bar = [0, sh[1] + Math.sqrt(Math.max(0, 113 * 113 - dz * dz)), 10];
+    var J = build({ pc: pc, a: a, nod: lerp(-14, 0, u),
       arms: both(function (x) { return { to: [x * 33, bar[1], bar[2]], pole: [x * .3, 0, -1], dir: DOWN }; }),
       legs: both(function (x) { return { to: [x * 20, 390, 0], pole: [x * .15, 0, 1] }; }) });
     J._props = barbell(bar, 50);
     return J;
   }
+
 
   function backSquat(p) { // Back Squat: Stange auf dem oberen Rücken, unten below parallel
     var t = rep(p, .42, .08), pc = lerp([0, 222, -6], [0, 328, -40], t), a = lerp(2, 40, t);
@@ -1055,10 +1072,10 @@
     return J;
   }
 
-  function prayer(p) { // Prayer Stretch: vor dem Sofa knien, Ellbogen auf der Kante, Hände zusammen. Hüfte nach hinten, Brust sinkt unter die Kante, Kopf zwischen die Arme
-    var t = rep(p, .4, .2), E = [0, 303, 98], pc = lerp([0, 321, -36], [0, 345, -58], t), a = lerp(60, 88, t);
+  function prayer(p) { // Prayer Stretch: vor dem Sofa knien, Ellbogen auf der Kante, Hände zusammen. Hüfte nach hinten zu den Fersen, Brust sinkt bis knapp unter die Kante, Kopf zwischen den Armen
+    var t = rep(p, .4, .2), E = [0, 303, 98], pc = lerp([0, 321, -36], [0, 348, -58], t), a = lerp(60, 64, t); // Kopf bleibt über der Sitzfläche
     var fd = norm(lerp([0, -1, -.1], [0, -.6, -.8], t));
-    var J = build({ pc: pc, a: a, nod: lerp(8, 34, t),
+    var J = build({ pc: pc, a: a, nod: lerp(8, 0, t),
       arms: both(function (x) { return { to: [x * 6, 250, 98], pole: FWD }; }),
       legs: both(function (x) { return legVia(pc, a, x, [x * 19, 391, 6], [0, .05, -1], [0, .06, -1]); }) });
     [['a', -1], ['b', 1]].forEach(function (q) { // Ellbogen liegen fest auf der Kante, Unterarme zusammen nach oben
@@ -1191,12 +1208,12 @@
       g_passthrough: { name: 'Band Pass-Through', pose: passThrough, yaw: 74, dur: 3.2 },
       g_supine_twist: { name: 'Supine Spinal Twist', pose: supineTwist, yaw: -100, tilt: 40, mat: [-150, 150, -200, 200], dur: 7 },
       g_childs_pose: { name: "Child's Pose", pose: childsPose, yaw: 62, dur: 5 },
-      g_pigeon: { name: 'Pigeon Stretch', pose: pigeon, yaw: 50, dur: 5 },
+      g_pigeon: { name: 'Pigeon Stretch', pose: pigeon, yaw: 44, tilt: 22, mat: [-120, 130, -200, 230], dur: 5 },
       g_supine_hamstring: { name: 'Supine Hamstring Stretch', pose: supineHam, yaw: 66, dur: 4 },
       g_kneeling_shin: { name: 'Kneeling Shin Stretch', pose: kneelShin, yaw: 64, dur: 4 },
       g_thread_needle: { name: 'Thread the Needle', pose: threadNeedle, yaw: 58, tilt: 24, mat: [-130, 120, -250, 70], dur: 7 },
       g_open_book: { name: 'Open Book', pose: openBook, yaw: 28, tilt: 38, mat: [-175, 195, -205, 140], dur: 5 },
-      g_frog: { name: 'Frog Stretch', pose: frog, yaw: 205, tilt: 34, mat: [-150, 150, -230, 120], dur: 5 },
+      g_frog: { name: 'Frog Stretch', pose: frog, yaw: 24, tilt: 36, mat: [-150, 150, -230, 130], dur: 5 },
       g_legs_up_wall: { name: 'Legs-Up-the-Wall', pose: legsUpWall, yaw: 66, dur: 5 },
       g_puppy_pose: { name: 'Puppy Pose', pose: puppy, yaw: 62, dur: 5 },
       g_deadlift: { name: 'Deadlift', pose: deadlift, yaw: 64, dur: 3.2 },
