@@ -350,7 +350,14 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
   Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
   Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende
   (Kardio: Rampentest oder 5 km am Tag 5).
-- Erster Tag 1 im Monat (frühestens 4 Wochen nach Start) = Murph.
+- Kein Murph mehr im Plan (mit Dennis, `FOKUS.allround.murph: false`); alte Murph-Einträge bleiben im Verlauf, Murph-Challenge bleibt.
+- Ein Trainingstag pro Kalendertag: `advance()` merkt `S.tagSince` und `S.advBy` ('user' = heute gespeichert/abgehakt, 'auto'). `doneToday0()` →
+  Heute zeigt „Heute erledigt“ mit dem Ergebnis von heute, der nächste Tag ist nur Vorschau. Tage vorziehen gibt es nicht mehr: der Coach entscheidet die Reihenfolge (Dennis). `dayCheck()` (in `render()`):
+  Ruhetag zählt von selbst, sobald sein Kalendertag vorbei ist (nach Training am Vortag ist er der nächste Tag).
+  Wiedereinstieg `S.comeback {from, n, dl}`: 8–14 Tage Pause = 2 Einheiten kürzer, ab 15 Tagen 5, ab 29 Tagen ist der Durchgang Entlastung
+  („Wiedereinstieg“ in `curPhase`) und eine fällige Testwoche rutscht nach hinten (`S.blockStart` + 1).
+  Gewicht steigt höchstens alle 7 Tage (`kgUpHere`). Kardio-Grenze 1,3× gilt für Laufen und Ergometer. Verpasster Kardio-Test →
+  nächster intensiver Tag wird Test (`cardioTestDue`). Sync: Tag/Durchgang laufen nie zurück, außer von Hand gesetzt (`S.posSet`).
 - Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
 ## Übergabe zwischen Sitzungen

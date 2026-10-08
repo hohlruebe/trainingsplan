@@ -2433,7 +2433,7 @@ var TEST_BASE = {
   T3_ROWS: { 0: 'Ring Chin-up', 1: 'Bulgarian Split Squat', 2: 'Ab Wheel Rollout' }
 };
 
-var DEF = { v: 1, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
+var DEF = { v: 1, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null };
@@ -2509,7 +2509,7 @@ function toast(msg) { var t = document.getElementById('toast'); t.textContent = 
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
 function isKurz(tag) { return zeitLv(tag) >= 2 || isKurz0(tag); }
-function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 }
+function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return S.durchgang === 1 || S.durchgang === 2 || pauseDays() > 7 || !!(S.comeback && S.comeback.n > 0) }
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
   var d = DAYS[tag];
@@ -2556,7 +2556,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'ivStage', 'ivReps', 'ivBumpD', 'base', 'orte', 'picks', 'pickSkip', 'bandCol', 'cooldown', 'weight', 'rmLifts', 'fokus', 'blockStart', 'lauf', 'ziele', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -2618,8 +2618,14 @@ function mergeRemote(r) {
   // Stand Feld für Feld: das neuere gewinnt. Ältere Dateien ohne feldTs zählen mit der Zeit des ganzen Stands.
   if (r.stand) {
     var rt = r.feldTs && typeof r.feldTs === 'object' ? r.feldTs : null, took = false;
+    // Tag und Durchgang laufen nie zurück: der weitere Stand gewinnt, außer der Stand wurde von Hand gesetzt (posSet).
+    var POS = ['durchgang', 'tag', 'tagSince', 'advBy', 'posSet'], rs = r.stand, rp = (+rs.durchgang || 0) * 10 + (+rs.tag || 0), lp = S.durchgang * 10 + S.tag;
+    if (rs.durchgang != null && rs.tag != null) {
+      var rSet = +rs.posSet || 0, lSet = +S.posSet || 0, take = rSet !== lSet ? rSet > lSet : rp > lp || (rp === lp && (rs.tagSince || '') > (S.tagSince || ''));
+      if (take) { POS.forEach(function (k) { if (k in rs) { S[k] = rs[k]; S.feldTs[k] = Math.max(S.feldTs[k] || 0, rt ? (rt[k] || 0) : (r.standTs || 0)); } }); took = true; }
+    }
     SYNC_KEYS.forEach(function (k) {
-      if (!Object.prototype.hasOwnProperty.call(r.stand, k)) return;
+      if (POS.indexOf(k) >= 0 || !Object.prototype.hasOwnProperty.call(r.stand, k)) return;
       var t = rt ? (rt[k] || 0) : (r.standTs || 0);
       if (t > (S.feldTs[k] || 0)) { S[k] = r.stand[k]; S.feldTs[k] = t; took = true; }
     });
@@ -2685,6 +2691,7 @@ function render() {
   pendingRender = false;
   if (FOKUS_IDS.indexOf(S.fokus) < 0) { S.fokus = 'allround'; DAYS_K = null; } // ausgeblendete Schwerpunkte: weiter mit Allround
   if (S.review && FOKUS_IDS.indexOf(S.review.fokus) < 0) S.review.fokus = 'allround';
+  dayCheck();
   syncDays();
   var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
@@ -2776,11 +2783,36 @@ function collectInputs() {
   $view.querySelectorAll('[data-draft]').forEach(function (el) { v[el.dataset.draft] = el.type === 'checkbox' ? el.checked : el.value; });
   return v;
 }
-function advance() {
+function advance(by) {
   var t = S.tag;
+  // Ein Trainingstag pro Kalendertag: wann der neue Tag dran ist und ob heute schon etwas erledigt wurde.
+  if (by !== 'auto') { S.tagSince = isoToday(); S.advBy = 'user'; if (S.comeback && S.comeback.n > 0 && DAYS[t] && DAYS[t].type !== 'rest') S.comeback.n--; }
   if (t === 1) { S.lastTag1Month = monthKey(new Date()); S.cycleStart = isoToday(); S.cycleDurchgang = S.durchgang; }
   if (t === 7) { S.tag = 1; S.durchgang += 1; blockCheck(); } else S.tag = t + 1;
   ui.viewTag = null;
+}
+function doneToday0() { return S.advBy === 'user' && S.tagSince === isoToday(); }
+function isoAdd(iso, n) { var d = parseISO(iso); d.setDate(d.getDate() + n); return isoDate(d); }
+// Beim Öffnen: Ruhetage zählen von selbst, sobald ihr Kalendertag vorbei ist. Nach einer Pause der Wiedereinstieg.
+function dayCheck() {
+  if (!S.started || S.review) return;
+  var t = isoToday(), ch = false;
+  if (!S.tagSince) { var lt = lastTrainingDate(); S.tagSince = t; S.advBy = lt === t ? 'user' : 'auto'; ch = true; }
+  for (var g = 0; g < 3; g++) {
+    syncDays(); var d = DAYS[S.tag]; if (!d || d.type !== 'rest') break;
+    var on = S.advBy === 'user' ? isoAdd(S.tagSince, 1) : S.tagSince; // nach einem Training ist der Ruhetag der nächste Kalendertag
+    if (t <= on) break;
+    advance('auto'); S.tagSince = isoAdd(on, 1); S.advBy = 'auto'; ch = true;
+    if (S.tagSince > t) S.tagSince = t;
+  }
+  // Wiedereinstieg: 8–14 Tage Pause = 2 Einheiten kürzer, ab 15 Tagen 5, ab 29 Tagen Entlastung und keine Testwoche direkt danach.
+  var p = pauseDays(), lt2 = lastTrainingDate();
+  if (S.durchgang > 0 && p > 7 && lt2 && !(S.comeback && S.comeback.from === lt2)) {
+    S.comeback = { from: lt2, n: p > 14 ? 5 : 2, dl: p > 28 ? S.durchgang : null };
+    if (p > 28 && curPhase().test) S.blockStart = (S.blockStart || 1) + 1;
+    DAYS_K = null; ch = true;
+  }
+  if (ch) saveState();
 }
 // Nach dem letzten Trainingsschritt fragt die App nach dem Cool-down (nur an Krafttagen, einmal pro Einheit).
 function saveAsk() {
@@ -2872,7 +2904,7 @@ function saveDay() {
   delete ui.kurz[key]; ui.skipMurph = false;
   advance(); saveState();
   window.scrollTo(0, 0); render();
-  toast((log ? 'Gespeichert. ' : 'Abgehakt. ') + 'Weiter mit Tag ' + S.tag + '.' + extra);
+  toast((log ? 'Gespeichert. ' : 'Abgehakt. ') + 'Morgen ist Tag ' + S.tag + ' dran.' + extra);
   if (log) { MOMENTS = medalEvents(ladBefore, areaStates(LOGS), AREA_KEYS); showMoment(); }
 }
 
@@ -3355,7 +3387,7 @@ function grundHTML() {
   return h;
 }
 var PLAN_SUB = { 'Regeln': 'Tag für Tag, Ruhetage, Kurzversion', 'Methode': 'Calisthenics, CrossFit, RIR und Atmung', 'Grundmuster': 'Squat, Hinge, Push, Pull, Carry', 'Steigerung': 'Wann es mehr Wdh. oder die nächste Stufe gibt',
-  'Bänder': 'Welche Farbe wie viel hilft', 'Pause? Einfach weiter': 'Was nach Krankheit oder Urlaub gilt', 'Murph und Test-Durchgang': 'Wann und wie getestet wird',
+  'Bänder': 'Welche Farbe wie viel hilft', 'Pause? Einfach weiter': 'Was nach Krankheit oder Urlaub gilt', 'Test-Durchgang': 'Wann und wie getestet wird',
   'Einstiegstest': 'Deine Startstufen', 'Skill-Ziele': 'Ab wann welcher Skill dran ist' };
 function renderPlan() {
   var K = [], sec = function (title, body) { K.push({ t: title, b: body }); return ''; };
@@ -3399,17 +3431,17 @@ function renderPlan() {
     ['Widerstand', 'Push-up und Glute Bridge: Band über Rücken bzw. Hüfte, die Enden unter den Händen.']
   ], '', ['Für die Beine dehnen sich die Bänder zu wenig, dort bleiben Rucksack und Weste.', 'Die Farbe jedes Bands stellst du unter Tools › Übungen › Bänder ein.'], bandLegend()));
   h += sec('Pause? Einfach weiter', W([
-    ['Weitermachen', 'Mit dem Tag nach dem letzten weitermachen. Die App merkt sich das.'],
+    ['Weitermachen', 'Mit dem Tag nach dem letzten weitermachen. Die App merkt sich das. Pro Kalendertag ein Trainingstag, Ruhetage zählen von selbst.'],
     ['Bis 1 Woche', 'Normal weiter.'],
-    ['1–2 Wochen', 'Die ersten 2 Krafteinheiten als Kurzversion mit RIR 3–4.'],
-    ['Mehr als 2 Wochen', 'Ein ganzer Durchgang Kurzversion, danach wieder auf die alten Zahlen zielen.']
+    ['1–2 Wochen', 'Die nächsten 2 Einheiten als Kurzversion mit RIR 3–4.'],
+    ['Mehr als 2 Wochen', 'Die nächsten 5 Einheiten Kurzversion, danach wieder auf die alten Zahlen zielen.'],
+    ['Mehr als 4 Wochen', 'Der Durchgang wird zur Entlastung. Die Testwoche rutscht nach hinten, sie kommt nie direkt nach der Pause.']
   ]));
-  h += sec('Murph und Test-Durchgang', W([
-    ['Murph', 'Der erste Tag 1 im Monat, frühestens 4 Wochen nach dem Start (Allround, Calisthenics, CrossFit). Eine Runde: 5 Pull-ups, 10 Push-ups, 15 Air Squats.'],
+  h += sec('Test-Durchgang', W([
     ['Testwoche', 'Letzter Durchgang des Blocks: Maxout mit RIR 0 in der ersten Runde der Hauptübung, dazu der Beweglichkeits-Check.'],
+    ['Kardio-Test', 'Am intensiven Kardio-Tag: 5 km oder Rampentest. Verpasst? Dann wird der nächste intensive Kardio-Tag zum Test.'],
     ['Rückblick', 'Danach zeigt die App, was der Block gebracht hat: weiter so, nächste Stufe oder wechseln.']
-  ], '<p class="sec-k" style="margin-top:14px">Murph-Stufen</p>' + tbl(['Stufe', 'Laufen', 'Runden', 'Pull-ups'], [1, 2, 3, 4].map(function (st) { var m = MURPH[st]; return ['<b>' + st + '</b>' + (m.name ? ' <span class="small muted">' + m.name + '</span>' : ''), '<span style="white-space:nowrap">2 × ' + m.run + '</span>', m.rounds, esc(m.pull)]; })),
-    ['Nicht nach einer Nachtschicht, und genug trinken.', 'Colafarbener Urin oder stark geschwollene, schmerzende Muskeln danach: sofort zum Arzt.', 'Nach der Testwoche platt? Ein Durchgang Kurzversion.']));
+  ], '', ['Nach der Testwoche platt? Ein Durchgang Kurzversion.']));
   var lastTest = LOGS.filter(function (l) { return l.kind === 'test'; });
   h += sec('Einstiegstest', W([
     ['Drei Testtage', 'Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Die Lauftage laufen normal.'],
@@ -3598,7 +3630,7 @@ function kgStallN(H, hi) { var t = H.slice(-3); return t.length === 3 && t.every
 // Schon einmal 10 % leichter neu aufgebaut (in den letzten 8 Einheiten)?
 function kgDeloaded(H) { var t = H.slice(-8); for (var i = 1; i < t.length; i++) if (t[i].kg <= t[i - 1].kg * 0.92) return true; return false; }
 // In diesem Durchgang schon gesteigert? Höchstens eine Steigerung pro Durchgang (Sehnen).
-function kgUpHere(H) { for (var i = 1; i < H.length; i++) if (H[i].dg === S.durchgang && H[i].kg > H[i - 1].kg) return true; return false; }
+function kgUpHere(H) { var from = isoDaysAgo(6); for (var i = 1; i < H.length; i++) if (H[i].date >= from && H[i].kg > H[i - 1].kg) return true; return false; }
 function kgPlus(v) { return '+' + String(v).replace('.', ',') + ' kg'; }
 // Empfehlung Kraftteil: doppelte Progression mit Sehnen-Bremse. Alle Sätze am oberen Ende → mehr Gewicht,
 // aber höchstens einmal pro Durchgang und nicht in der Entlastung. Nach Pause oder Stillstand 10 % leichter.
@@ -4144,9 +4176,8 @@ var ACT = {
     var g = el.dataset.group;
     if (g && g === groupOf(ui.tab) && !HIDDEN[ui.tab] && GROUPS[g].length > 1 && !ui.subOpen) { ui.subOpen = true; render(); return; }
     ui.subOpen = false; ui.tab = g ? ui.last[g] : el.dataset.tab; if (ui.tab === 'plan') ui.planSec = null; ui.exportText = null; window.scrollTo(0, 0); render(); },
-  viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag ? null : t; render(); },
+  viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag && !doneToday0() ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
-  'do-this-day': function (el) { S.tag = +el.dataset.tag; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
   gloss: function (el) {
     var name = el.dataset.name, e = GL[name], from = ui.tab; ui.tab = 'uebungen'; ui.glossOpen = name; ui.glossQuery = ''; if (from !== 'fam') ui.famBack = 'uebungen';
     // Die Übung steckt in ihrer Familie: deren Seite öffnen, die Übung aufgeklappt.
@@ -4157,7 +4188,7 @@ var ACT = {
   save: saveAsk,
   'skip-murph': function () { ui.skipMurph = true; render(); },
   'murph-stage': function (el) { S.murphStage = +el.dataset.s; saveState(); render(); },
-  'start-test': function () { Object.assign(S, { started: true, startDate: isoToday(), durchgang: 0, tag: 1, blockStart: 1 }); saveState(); render(); },
+  'start-test': function () { Object.assign(S, { started: true, startDate: isoToday(), durchgang: 0, tag: 1, blockStart: 1, posSet: Date.now(), tagSince: isoToday(), advBy: 'auto' }); saveState(); render(); },
   'start-at': function () { var o = ui.ob || { d: 1, t: 1 }; Object.assign(S, { started: true, startDate: isoToday(), durchgang: o.d, tag: o.t, blockStart: Math.max(1, o.d) }); ui.ob = null; saveState(); render(); },
   't-mode': function (el) { if (TM.running) { toast('Halte erst den Timer an.'); return; } tmr().mode = el.dataset.m; saveState(); toolSetup(); render(); },
   't-toggle': timerToggleTools,
@@ -4182,10 +4213,10 @@ var ACT = {
   },
   'sync-now': function () { if (!SY) return; SY.dirty = true; runSync().then(function () { if (syncState.status === 'ok') toast('Abgeglichen.'); render(); }); },
   'sync-off': function (el) { twoStep(el, function () { SY = null; clearTimeout(syncT); try { localStorage.removeItem('tp.sync'); } catch (e) { /* ignore */ } syncState = { status: 'off', msg: '' }; render(); toast('Sync getrennt. Deine Daten bleiben auf diesem Gerät.'); }); },
-  'set-stand': function () { var o = ui.stand || { d: S.durchgang, t: S.tag }; ui.stand = null; S.durchgang = o.d; S.tag = o.t; S.started = true; ui.viewTag = null; saveState(); toast('Stand gespeichert: ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang) + ', Tag ' + S.tag + '.'); render(); },
+  'set-stand': function () { var o = ui.stand || { d: S.durchgang, t: S.tag }; ui.stand = null; S.durchgang = o.d; S.tag = o.t; S.started = true; S.posSet = Date.now(); S.tagSince = isoToday(); S.advBy = 'auto'; ui.viewTag = null; saveState(); toast('Stand gespeichert: ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang) + ', Tag ' + S.tag + '.'); render(); },
   'export': function () { exportData(); },
   'reset-all': function (el) { twoStep(el, function () { var keepLogs = LOGS.slice(); S = Object.assign({}, DEF); ensureOrte(); saveState(); keepLogs.forEach(function (l) { removeLog(l.id); }); DRAFTS = {}; LS.set('tp.drafts', DRAFTS); ui.tab = 'heute'; render(); toast('Alles zurückgesetzt.'); }); },
-  'restart-test': function (el) { twoStep(el, function () { S.durchgang = 0; S.tag = 1; ui.viewTag = null; ui.tab = 'heute'; saveState(); render(); toast('Einstiegstest startet mit Testtag 1.'); }); },
+  'restart-test': function (el) { twoStep(el, function () { S.durchgang = 0; S.tag = 1; S.posSet = Date.now(); S.tagSince = isoToday(); S.advBy = 'auto'; ui.viewTag = null; ui.tab = 'heute'; saveState(); render(); toast('Einstiegstest startet mit Testtag 1.'); }); },
   'del-log': function (el) { twoStep(el, function () { removeLog(el.dataset.id); render(); toast('Einheit gelöscht.'); }); },
   'more-logs': function () { ui.logLimit += 30; render(); }
 };
@@ -4479,7 +4510,7 @@ function routineListHTML(r) {
   return '<ul class="rlist">' + r.bloecke.map(function (b, i) { return '<li data-bi="' + i + '"><span>' + esc(ueName(b.uebung)) + '</span><span class="muted">' + esc(blockText(b)) + '</span></li>'; }).join('') + '</ul>';
 }
 /* ---------- Ablauf im Training: Einzeln (eine Übung pro Bildschirm) oder Liste (Glas-Kapsel, aktuelle Übung offen) ---------- */
-var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['murph', 'Murph'], ['cool', 'Cool-down']];
+var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['cool', 'Cool-down']];
 var TRAIN_STD = { warm: 'list', kraft: 'list', metcon: 'list', murph: 'list', cool: 'single' };
 function modeOf(t) { var m = S.trainCustom && S.trainModes ? S.trainModes[t] : null; return m === 'single' || m === 'list' ? m : TRAIN_STD[t]; }
 function flowItem(n, qty, x, key, note) {
@@ -4768,7 +4799,11 @@ function renderHeute() {
   if (!S.started) return onboardingHTML();
   if (S.review) return reviewHTML();
   if (raceDue() && !ui.viewTag) return raceHTML();
-  var tag = viewTag(), c = dayCtx(tag), cur = c.cur, d = c.d, next = tag % 7 + 1, D = dr(tag), st = stepsOf(c), ph = curPhase();
+  var lock = doneToday0(), tag = viewTag(), c = dayCtx(tag);
+  // Heute schon trainiert (oder Ruhetag abgehakt): der nächste Tag ist erst morgen dran, nur Vorschau.
+  if (lock && c.cur) c = Object.assign({}, c, { cur: false, isMurph: false });
+  var cur = c.cur, d = c.d, next = tag % 7 + 1, D = dr(tag), st = stepsOf(c), ph = curPhase();
+  var todayView = lock && !ui.viewTag;
   if (cur && st.length && D._step != null && st[+D._step]) { ui.noSub = true; ui.focus = true; return stepPageHTML(c, st, +D._step, D); }
   var mins = st.reduce(function (a, s) { return a + (s.opt ? 0 : s.dur || 0); }, 0);
   var kick = 'Tag ' + tag + ' · ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + ph.bd + ' von ' + ph.n);
@@ -4777,10 +4812,11 @@ function renderHeute() {
   else if (mins) kick += ' · ca. ' + (mins + 2) + ' Min';
   else if (d.type === 'easy' || d.type === 'interval') kick += ' · ca. ' + Math.round(planRunSec(runSpec(d)) / 60) + ' Min';
   var title = c.isMurph ? 'Murph' : c.isTest ? TESTDAYS[tag].title : dayLabel(tag);
+  if (todayView) { kick = 'Heute'; title = 'Heute erledigt'; }
   var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + '<button type="button" class="rbtn" data-act="tab" data-tab="plan" aria-label="Plan und Regeln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg></button></span></div><section class="hero"><h1>' + esc(title) + '</h1></section>';
   h += '<nav class="pills" aria-label="Tage">';
   for (var t = 1; t <= 7; t++) {
-    var cls = 'pill' + (DAYS[t].type === 'rest' ? ' rest' : '') + (t === S.tag ? ' cur' : '') + (t === tag && !cur ? ' view' : '');
+    var cls = 'pill' + (DAYS[t].type === 'rest' ? ' rest' : '') + (t === S.tag ? ' cur' : '') + (t === tag && !cur && !todayView ? ' view' : '');
     h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + ': ' + esc(dayLabel(t)) + (t === S.tag ? ', dran' : '') + '" aria-pressed="' + (t === tag) + '">' + t + '</button>';
   }
   h += '</nav>';
@@ -4788,15 +4824,27 @@ function renderHeute() {
   var desk = deskOn() && cur, side = '', cut = h.length;
   // Hinweise stehen dort, wo sie hingehören: Phase in der Block-Karte, Geräte beim Ort, Übungs-Hinweise im Ablauf.
   var p = pauseDays(), pn = '';
-  if (cur && p > 7) pn = 'Willkommen zurück: ' + p + ' Tage Pause, ' + (p > 14 ? 'dieser Durchgang kürzer.' : 'die nächsten 2 Einheiten kürzer.');
+  var cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0;
+  if (cur && p > 7) pn = 'Willkommen zurück: ' + p + ' Tage Pause, ' + (p > 28 ? 'dieser Durchgang ist Entlastung, ' : '') + 'die nächsten ' + (p > 14 ? 5 : 2) + ' Einheiten kürzer.';
+  else if (cur && cb) pn = 'Wiedereinstieg: noch ' + (cb === 1 ? '1 Einheit' : cb + ' Einheiten') + ' kürzer.';
   else if (S.durchgang === 1 || S.durchgang === 2) pn = 'Einstieg: kürzer, je 1 Wdh. unter deinem Startwert.';
   else if (ph.deload) pn = 'Weniger Sätze, damit du frisch bleibst.';
   else if (ph.taper) pn = 'Weniger Umfang, Tempo bleibt. Frisch an den Start.';
   else if (ph.test) pn = 'Maxout in Runde 1, gut schlafen.';
   if (S.durchgang > 0) { if (desk) side += blockCardHTML(pn); else h += blockCardHTML(pn); }
   // Schon erledigter Tag dieses Durchgangs: Ergebnis zeigen, kein zweites Training.
+  var dran = lock ? 'Morgen dran: Tag ' + S.tag : 'Dran ist Tag ' + S.tag;
+  // Heute erledigt: Ergebnis von heute, morgen geht es weiter.
+  if (todayView) {
+    var TL = LOGS.filter(function (l) { return l.date === isoToday() && l.kind !== 'mobility' && l.kind !== 'rm'; });
+    h += TL.length ? TL.map(function (l) { return '<section class="card"><div class="row between wrap"><h2>' + esc(logTitle(l)) + '</h2><span class="chip">' + TICK + 'Erledigt</span></div>' + logLines(l) + '</section>'; }).join('')
+      : '<section class="card"><div class="row between wrap"><h2>Abgehakt</h2><span class="chip">' + TICK + 'Erledigt</span></div><p class="small muted">Erholung gehört zum Plan.</p></section>';
+    h += '<p class="small muted">Ein Trainingstag pro Kalendertag. Morgen ist Tag ' + S.tag + ' dran: ' + esc(dayLabel(S.tag)) + '.</p>';
+    if (!desk) return h;
+    return h.slice(0, cut) + '<div class="dk2"><div class="dk-main">' + h.slice(cut) + '</div><aside class="dk-side">' + side + weekCardHTML(tag) + '</aside></div>';
+  }
   if (dl) {
-    h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><button type="button" class="btn small" data-act="back-today">Zurück</button></div>' +
+    h += '<div class="viewbar"><span class="small muted">' + dran + '</span><button type="button" class="btn small" data-act="back-today">Zurück</button></div>' +
       '<section class="card"><div class="row between wrap"><h2>Ergebnis</h2><span class="chip">' + TICK + 'Erledigt</span></div>' +
       '<p class="small muted">' + esc(fmtDate(dl.date)) + '</p>' + logLines(dl) + '</section>';
     var ft = '<p class="ov-foot">Danach: Tag ' + next + ' – ' + esc(dayLabel(next)) + '</p>';
@@ -4804,8 +4852,7 @@ function renderHeute() {
     return h.slice(0, cut) + '<div class="dk2"><div class="dk-main">' + h.slice(cut) + '</div><aside class="dk-side">' + side + weekCardHTML(tag) + ft + '</aside></div>';
   }
   if (!cur) {
-    h += '<div class="viewbar"><span class="small muted">Dran ist Tag ' + S.tag + '</span><span class="row">' +
-      '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>' +
+    h += '<div class="viewbar"><span class="small muted">' + dran + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="back-today">Zurück</button></span></div>';
   }
   if (cur && !c.isTest && !c.isMurph) h += painAskHTML(tag);
@@ -4847,7 +4894,7 @@ function renderHeute() {
     if (!c.isTest && !c.isMurph) {
     }
     if (!cur) {
-      h += '<p class="small muted">Starten kannst du, sobald dieser Tag dran ist.</p>';
+      h += '<p class="small muted">' + (lock ? 'Heute ist schon trainiert. Starten kannst du morgen.' : 'Starten kannst du, sobald dieser Tag dran ist.') + '</p>';
     }
   } else if (d.type === 'easy' || d.type === 'interval') {
     h += runHTML(c, D, todayRunSpec(tag));
@@ -4855,7 +4902,7 @@ function renderHeute() {
     if (cur) {
       h += '<button type="button" class="btn block go save" data-act="save">' + TICK + 'Lauf speichern</button>';
       if (d.opt) h += '<button type="button" class="btn block" data-act="skip-day">Heute auslassen</button>';
-    } else h += '<p class="small muted">Speichern kannst du, sobald dieser Tag dran ist.</p>';
+    } else h += '<p class="small muted">' + (lock ? 'Heute ist schon trainiert. Speichern kannst du morgen.' : 'Speichern kannst du, sobald dieser Tag dran ist.') + '</p>';
     // Cool-down kommt als Frage nach dem Speichern (saveAsk), nicht als Karte.
     if (d.opt) tips.push('Dieser Lauf ist optional. Bist du müde, lass ihn aus: Erholung zählt mehr als Umfang.');
     h += tipsHTML(tips);
@@ -5265,6 +5312,11 @@ var KF = {
 };
 var HYROX_ST = ['Wall Balls', 'Burpee Broad Jumps', 'Walking Lunges', 'Farmer’s Carry', 'Sled Push oder Bear Crawl', 'Rudern oder Ski Erg'];
 // Was heute am Kardio-Tag dran ist. Ohne Challenge: Rotation über den Block (4er-Takt), mit Challenge: deren Rotation.
+// Kardio-Test aus der letzten Testwoche verpasst: der nächste intensive Tag wird zum Test.
+function cardioTestDue() {
+  var t = (S.blockStart || 1) - 1; if (S.durchgang < 1 || t < 1 || chal()) return false;
+  return !LOGS.some(function (l) { return l.durchgang >= t && ((l.kind === 'interval' && l.interval && (l.interval.kf === 'k5' || l.interval.kf === 'ramp')) || l.kind === 'race'); });
+}
 function kardioSpec(d, o) {
   o = o || {};
   var t = d.t, D = (t && DRAFTS[draftKey(t)]) || {}, ergo = runMode(D) === 'ergo', p = curPhase(), bd = p.bd;
@@ -5276,7 +5328,7 @@ function kardioSpec(d, o) {
     if (kf === 'strides' && ergo) kf = 'kadenz'; else if (kf === 'kadenz' && !ergo) kf = 'strides';
     if (taper && kf === 'lang') kf = 'locker';
   } else {
-    if (!C && p.test) kf = ergo ? 'ramp' : 'k5';
+    if (!C && (p.test || cardioTestDue())) kf = ergo ? 'ramp' : 'k5';
     else kf = C ? C.ints[ci % C.ints.length] : ['vo2', '3030', 'thr', 'pyr'][(bd - 1) % 4];
     if (!C && kf === '3030' && k === 1 && !ergo) kf = 'hill';
     if (kf === 'pyr' && ergo) kf = 'ou';
@@ -5295,7 +5347,7 @@ function kardioSpec(d, o) {
     if (kf === 'lang') m = C && C.lang ? C.lang[0] + (C.lang[1] - C.lang[0]) * Math.min(1, chalProg()) : m * 1.5;
     if (taper) m *= .6; else if (p.deload) m *= .7;
     m = Math.max(15, Math.round(m / 5) * 5);
-    if (!ergo) { var cap = runCap(d, { min: m }); if (cap.capped) { spec.capped = m; m = cap.min; } }
+    var cap = runCap(d, { min: m }); if (cap.capped) { spec.capped = m; m = cap.min; } // Laufen und Ergometer zusammen
     spec.min = m;
     if (kf === 'lang') { seg('Lange Einheit', m * 60, .62, 1.3, 'work', 'Ruhig und gleichmäßig'); L.push('<b>' + m + ' Min lang und ruhig</b> · ' + V(.62, 1.3)); }
     else if (kf === 'strides') {
@@ -6122,7 +6174,7 @@ function paintMini(L) {
 }
 
 /* ---------- Timer im Vollbild: hochkant oder quer, je Trainingsart Leiste oder Vollbild ---------- */
-var TIMER_TYPES = [['tools', 'Tools › Timer'], ['warm', 'Aufwärmen'], ['hs', 'Handstand'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['murph', 'Murph'], ['cool', 'Cool-down'], ['ergo', 'Ergometer']];
+var TIMER_TYPES = [['tools', 'Tools › Timer'], ['warm', 'Aufwärmen'], ['hs', 'Handstand'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['cool', 'Cool-down'], ['ergo', 'Ergometer']];
 var TIMER_STD = { tools: 'full', warm: 'bar', hs: 'bar', kraft: 'bar', metcon: 'bar', murph: 'bar', cool: 'bar', ergo: 'bar' };
 function timerTypeOf(step) { if (!step) return 'tools'; var id = String(step).split(':').pop(); return id === 'skill' ? 'hs' : id === 'run' || id === 'ewarm' ? 'ergo' : TIMER_STD[id] ? id : 'kraft'; }
 function timerModeOf(t) { var m = S.timerCustom && S.timerModes ? S.timerModes[t] : null; return m === 'bar' || m === 'full' ? m : TIMER_STD[t]; }
@@ -6934,7 +6986,7 @@ var PART_NAME = { zug: 'Zug', druck: 'Druck', beine: 'Beine', rumpf: 'Rumpf' };
 function kday(o) { return Object.assign({ type: 'kraft', warm: true, hs: 0, mmin: 0, kslots: [], mslots: [] }, o); }
 function rday(flow, o) { return Object.assign({ type: 'rest', name: 'Ruhetag', what: 'frei', flow: flow }, o || {}); }
 var FOKUS = {
-  allround: { name: 'Allround', kurz: 'Kraft und Ausdauer zugleich, ein Leben lang.', chips: ['12 Durchgänge', '5 Tage', 'EMOM'], len: 12, murph: true,
+  allround: { name: 'Allround', kurz: 'Kraft und Ausdauer zugleich, ein Leben lang.', chips: ['12 Durchgänge', '5 Tage', 'EMOM'], len: 12, murph: false, // Murph ist mit Dennis raus: der Plan misst Fortschritt selbst
     ic: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
     info: 'Krafttage: 8 Min Aufwärmen, 5 Min Handstand, Kraft als EMOM 12 (3–6 Wdh., RIR 2), Metcon als AMRAP 8. Dazu zwei Kardio-Tage, Laufen oder Ergometer: locker und intensiv, im Wechsel.',
     phase: function (p) {
@@ -6964,11 +7016,15 @@ function blockN() { return fokus().len; }
 // Durchgang im Block: 1 bis Länge. Der Einstiegstest (Durchgang 0) gehört noch zu keinem Block.
 function blockD() { return Math.max(1, Math.min(blockN(), S.durchgang - (S.blockStart || 1) + 1)); }
 function phaseAt(bd) { var p = { bd: bd, n: blockN(), deload: false, test: false, check: false, lab: '' }; fokus().phase(p); return p; }
-function curPhase() { return phaseAt(blockD()); }
+function curPhase() {
+  var p = phaseAt(blockD());
+  if (S.comeback && S.comeback.dl === S.durchgang && !p.test) { p.deload = true; p.lab = 'Wiedereinstieg'; }
+  return p;
+}
 var DAYS = {}, DAYS_K = null;
 // Woche des aktiven Schwerpunkts. Kraft und Metcon der Krafttage füllt planFill() nach Ort.
 function syncDays() {
-  var p = curPhase(), k = [S.fokus, p.bd, lvl(), S.durchgang, JSON.stringify(S.challenge), !!p.taper].join('|');
+  var p = curPhase(), k = [S.fokus, p.bd, lvl(), S.durchgang, JSON.stringify(S.challenge), !!p.taper, !!p.deload].join('|');
   if (DAYS_K === k) return;
   DAYS_K = k; var W = fokus().days(p);
   DAYS = {};
@@ -7781,7 +7837,7 @@ ACT['rv-go'] = function () {
 };
 ACT['skip-day'] = function () {
   delete DRAFTS[draftKey(S.tag)]; LS.set('tp.drafts', DRAFTS);
-  advance(); saveState(); window.scrollTo(0, 0); render(); toast('Ausgelassen. Weiter mit Tag ' + S.tag + '.');
+  advance(); saveState(); window.scrollTo(0, 0); render(); toast('Ausgelassen. Morgen ist Tag ' + S.tag + ' dran.');
 };
 
 /* ---------- Seiten: Schwerpunkt wählen, Laufziel, Skill-Ziele ---------- */
