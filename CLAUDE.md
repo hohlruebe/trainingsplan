@@ -352,7 +352,7 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
   (Kardio: Rampentest oder 5 km am Tag 5).
 - Kein Murph mehr im Plan (mit Dennis, `FOKUS.allround.murph: false`); alte Murph-Einträge bleiben im Verlauf, Murph-Challenge bleibt.
 - Ein Trainingstag pro Kalendertag: `advance()` merkt `S.tagSince` und `S.advBy` ('user' = heute gespeichert/abgehakt, 'auto'). `doneToday0()` →
-  Heute zeigt „Heute erledigt“ mit dem Ergebnis von heute, der nächste Tag ist nur Vorschau. Tage vorziehen gibt es nicht mehr: der Coach entscheidet die Reihenfolge (Dennis). `dayCheck()` (in `render()`):
+  Heute zeigt „Heute erledigt“ mit dem Ergebnis von heute, der nächste Tag ist nur Vorschau. In der Tage-Kapsel bleibt bis Mitternacht der erledigte Tag gefüllt (`doneTag`). Tage vorziehen gibt es nicht mehr: der Coach entscheidet die Reihenfolge (Dennis). `dayCheck()` (in `render()`):
   Ruhetag zählt von selbst, sobald sein Kalendertag vorbei ist (nach Training am Vortag ist er der nächste Tag).
   Wiedereinstieg `S.comeback {from, n, dl}`: 8–14 Tage Pause = 2 Einheiten kürzer, ab 15 Tagen 5, ab 29 Tagen ist der Durchgang Entlastung
   („Wiedereinstieg“ in `curPhase`) und eine fällige Testwoche rutscht nach hinten (`S.blockStart` + 1).

@@ -33,6 +33,7 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
   verpasster Kardio-Test wird nachgeholt, Sync ohne Rücksprung.
 - Dennis: „sollte ich so etwas selbst entscheiden? ich will doch ein automatisiertes Programm bauen.“ → „Tag X machen“ ganz entfernt,
   die Reihenfolge entscheidet der Coach. Grundsatz: keine Entscheidungen an Dennis abgeben, die der Coach aus den Daten treffen kann.
+- Dennis (Screenshot): nach dem Speichern war Tag 4 schon gefüllt. Jetzt bleibt bis Mitternacht der erledigte Tag gefüllt (`doneTag`).
 - RIR-Frage verworfen: Aufstieg nur bei 2 Einheiten in Folge mit allen Runden oben ist schon das Signal, keine Extra-Eingabe.
 
 ## Erledigte Tage zeigen ihr Ergebnis (8. Oktober)

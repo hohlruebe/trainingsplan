@@ -2792,6 +2792,8 @@ function advance(by) {
   ui.viewTag = null;
 }
 function doneToday0() { return S.advBy === 'user' && S.tagSince === isoToday(); }
+// Der Tag, der heute erledigt wurde: bis Mitternacht ist er in der Tage-Kapsel noch „dran“, der nächste kommt erst morgen.
+function doneTag() { return S.tag === 1 ? 7 : S.tag - 1; }
 function isoAdd(iso, n) { var d = parseISO(iso); d.setDate(d.getDate() + n); return isoDate(d); }
 // Beim Öffnen: Ruhetage zählen von selbst, sobald ihr Kalendertag vorbei ist. Nach einer Pause der Wiedereinstieg.
 function dayCheck() {
@@ -4176,7 +4178,7 @@ var ACT = {
     var g = el.dataset.group;
     if (g && g === groupOf(ui.tab) && !HIDDEN[ui.tab] && GROUPS[g].length > 1 && !ui.subOpen) { ui.subOpen = true; render(); return; }
     ui.subOpen = false; ui.tab = g ? ui.last[g] : el.dataset.tab; if (ui.tab === 'plan') ui.planSec = null; ui.exportText = null; window.scrollTo(0, 0); render(); },
-  viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag && !doneToday0() ? null : t; render(); },
+  viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === (doneToday0() ? doneTag() : S.tag) ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
   gloss: function (el) {
     var name = el.dataset.name, e = GL[name], from = ui.tab; ui.tab = 'uebungen'; ui.glossOpen = name; ui.glossQuery = ''; if (from !== 'fam') ui.famBack = 'uebungen';
@@ -4792,7 +4794,7 @@ function sideHTML() {
 // Woche am Desktop: die 7 Tage mit Inhalt, heute blau.
 function weekCardHTML(tag) {
   var h = '<section class="card dk-week"><p class="sec-k">Diese Woche</p>';
-  for (var t = 1; t <= 7; t++) h += '<button type="button" class="dk-day' + (t === S.tag ? ' cur' : '') + (t === tag ? ' view' : '') + (DAYS[t].type === 'rest' ? ' rest' : '') + '" data-act="viewtag" data-tag="' + t + '"><span class="dk-n">' + t + '</span><span>' + esc(dayLabel(t)) + '</span></button>';
+  for (var t = 1; t <= 7; t++) h += '<button type="button" class="dk-day' + (t === (doneToday0() ? doneTag() : S.tag) ? ' cur' : '') + (t === tag && !(doneToday0() && !ui.viewTag) ? ' view' : '') + (DAYS[t].type === 'rest' ? ' rest' : '') + '" data-act="viewtag" data-tag="' + t + '"><span class="dk-n">' + t + '</span><span>' + esc(dayLabel(t)) + '</span></button>';
   return h + '</section>';
 }
 function renderHeute() {
@@ -4816,8 +4818,9 @@ function renderHeute() {
   var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + '<button type="button" class="rbtn" data-act="tab" data-tab="plan" aria-label="Plan und Regeln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg></button></span></div><section class="hero"><h1>' + esc(title) + '</h1></section>';
   h += '<nav class="pills" aria-label="Tage">';
   for (var t = 1; t <= 7; t++) {
-    var cls = 'pill' + (DAYS[t].type === 'rest' ? ' rest' : '') + (t === S.tag ? ' cur' : '') + (t === tag && !cur && !todayView ? ' view' : '');
-    h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + ': ' + esc(dayLabel(t)) + (t === S.tag ? ', dran' : '') + '" aria-pressed="' + (t === tag) + '">' + t + '</button>';
+    var curT = lock ? doneTag() : S.tag;
+    var cls = 'pill' + (DAYS[t].type === 'rest' ? ' rest' : '') + (t === curT ? ' cur' : '') + (t === tag && !cur && !todayView ? ' view' : '');
+    h += '<button type="button" class="' + cls + '" data-act="viewtag" data-tag="' + t + '" aria-label="Tag ' + t + ': ' + esc(dayLabel(t)) + (t === curT ? (lock ? ', heute erledigt' : ', dran') : '') + '" aria-pressed="' + (todayView ? t === curT : t === tag) + '">' + t + '</button>';
   }
   h += '</nav>';
   // Desktop: rechts eine Seitenspalte mit Block, Fortschritt und Woche.
