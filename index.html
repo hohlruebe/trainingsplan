@@ -841,6 +841,12 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-row.on{min-height:56px;background:var(--paper);box-shadow:0 2px 8px rgba(17,18,20,.1);font-weight:600}
 .fs-row.done{opacity:.45}
 .fs-row .btn{margin-left:auto}
+.fs-wu .fs-kg{font-size:30px}
+.fs-side>.bgrp{flex:none;margin-top:0}
+.fs-side>.chip{white-space:normal;flex:none}
+#fs:not([data-view="port"]) .fs-wu .fs-fig{width:84px}
+#fs:not([data-view="port"]) .fs-wu .fs-fig .fig{height:104px}
+#fs:not([data-view="port"]) .fs-wu .fs-exn{font-size:18px}
 body.fs-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.fs-num.hot{animation:none}}
 .sheet-bg{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(17,18,20,0);transition:background-color .25s}
@@ -5742,6 +5748,19 @@ function fsFlowHTML(F) {
   }).join('') + '</div>';
   return h;
 }
+// Aufwärmen im Vollbild: aktuelle Übung mit Figur, Erledigt und was danach kommt.
+function fsWarmHTML(F) {
+  var s = flowState(F), single = modeOf(F.id) === 'single', n = F.items.length, c = s.c, nx = -1, it = F.items[c];
+  if (!it) return '<p class="fs-lbl">Aufwärmen</p><div class="fs-big">Fertig</div>';
+  for (var a = 1; a < n; a++) { var x = single ? c + a : (c + a) % n; if (x < n && (single || s.done.indexOf(x) < 0)) { nx = x; break; } if (single) break; }
+  var dn = single ? c : s.done.length, f = ' data-flow="' + F.id + '"';
+  return '<div class="fs-ex fs-wu"><div class="fs-fig">' + figHTML(figOf(it.key) ? it.key : '_wave') + '</div><div><p class="fs-lbl">Jetzt</p>' +
+    '<p class="fs-kg">' + esc(it.qty) + '</p><p class="fs-exn">' + esc(it.n) + '</p>' + (it.x ? '<p class="fs-hint">' + esc(it.x) + '</p>' : '') +
+    '<p class="fs-hint">Übung ' + (dn + 1) + ' von ' + n + '</p></div></div>' +
+    '<div class="bgrp"><button type="button" data-act="fl-back"' + f + (single && c > 0 ? '' : ' disabled') + '>‹ Zurück</button>' +
+    '<button type="button" data-act="fl-done"' + f + (single ? '' : ' data-i="' + c + '"') + '>Erledigt ›</button></div>' +
+    (nx >= 0 ? '<span class="chip">Als Nächstes: ' + esc(F.items[nx].qty + ' ' + F.items[nx].n) + '</span>' : '<span class="chip">Letzte Übung</span>');
+}
 // Kraftteil im Vollbild: Gewicht des Satzes groß, damit man zwischen den Sätzen umbauen kann.
 function fsKg(ex, r) {
   var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
@@ -5754,6 +5773,10 @@ function fsSide(L) {
   if (c.step && ((t === 'metcon' && TM.mode === 'amrap') || t === 'murph')) {
     var F = flowById(t), s = flowState(F);
     return { k: 'fl' + roundMode() + s.c + '|' + s.r + '|' + s.done.join(','), h: fsFlowHTML(F) };
+  }
+  if (c.step && t === 'warm' && TM.mode === 'block') {
+    var W = flowById(t), ws = W && flowState(W);
+    if (W) return { k: 'wu' + modeOf(t) + ws.c + '|' + ws.done.join(','), h: fsWarmHTML(W) };
   }
   if (TM.mode === 'emom' && c.stations) {
     var nm = c.stations[mi % c.stations.length], g = GL[nm], nn = mi + 1 < c.minutes ? c.stations[(mi + 1) % c.stations.length] : '';

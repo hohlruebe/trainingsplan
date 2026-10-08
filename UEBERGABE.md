@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 8. Oktober 2026 (Testtage mit Metcon, Grafiken Runde 3)
+Stand: 8. Oktober 2026 (Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -33,6 +33,8 @@ Stand: 8. Oktober 2026 (Testtage mit Metcon, Grafiken Runde 3)
   Neue Hilfen in der Vorlage: `twist`, `reArm`, `turnAll`, `supine`, `quad`, `barbell`, `breathe`. Schwer lesbar: Supine Twist, Frog, Doorway Pec.
 - Dennis: Testtage waren nach 10 Minuten vorbei. Jetzt mit Aufwärmen am Anfang und Metcon AMRAP 8 am Ende (Bewegungen, die heute
   nicht getestet wurden; erster Metcon-Wert).
+- PR #66 gemergt. Dennis: Im Vollbild sah man beim Aufwärmen nicht, welche Übung dran ist (galt an allen Tagen). Jetzt zeigt
+  das Vollbild die aktuelle Übung mit Figur, Menge, „‹ Zurück | Erledigt ›“ und „Als Nächstes“ (`fsWarmHTML`), hochkant und quer.
 
 ## Schmerzen mit Gedächtnis (8. Oktober)
 - PR #64 (Muskelausgleich) gemergt.

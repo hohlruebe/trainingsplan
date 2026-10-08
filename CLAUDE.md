@@ -248,7 +248,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   je Anlass an/aus (`S.cdWhen`, `CD_WHEN`: Start nach dem Vorlauf, jede neue Runde, Intervall Arbeit/Pause, Ende; aus = Piepen).
   Stimme über die Sprachausgabe des Handys (`say`, `cdVoice`, `cdEvent` in `tick`/`finish`); ohne passende Stimme piept es. Nur auf dem Gerät.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`): große Zeit in Geist, rechts (quer) bzw. unten (hochkant) eine Karte:
-  Runden (Tools AMRAP/For Time, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), laufende EMOM-Übung mit
+  Runden (Tools AMRAP/For Time, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), Aufwärmen mit aktueller Übung, Figur, „‹ Zurück | Erledigt ›“ und „Als Nächstes“ (`fsWarmHTML`), laufende EMOM-Übung mit
   Figur und „Als Nächstes“, Intervall „Als Nächstes“. Oben Drehen (`fs-rot`, hält die Ansicht, lange drücken = automatisch), Minimieren
   (`fs-min`, Timer läuft weiter), Pause, ✕ nur in Tools (mit Nachfrage). Vorlauf und Intervall-Pause grün, letzte 3 s pulsieren.
   Öffnen: Pfeil-Knopf in der Timer-Leiste (mit Pause in einer Kapsel `.tb-grp`), Tippen auf die Zeit, Pfeil-Knopf auf der Timer-Seite,
