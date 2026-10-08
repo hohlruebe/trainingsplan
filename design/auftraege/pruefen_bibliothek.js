@@ -85,6 +85,19 @@ function pruefeVoraussetzung(list, err, wo) {
   });
 }
 
+// Was andere Dateien im selben Aufruf neu einführen (Geräte, Familien, Übungen), gilt für alle Dateien.
+const ALLE = { eq: new Set(), fam: new Map(), ue: new Map(), name: new Map() };
+function sammle(datei) {
+  let d; try { d = JSON.parse(fs.readFileSync(datei, 'utf8')); } catch (e) { return; }
+  if (d.teil !== 'neu') return;
+  (d.geraete_neu || []).forEach((e) => ALLE.eq.add(e.id));
+  (d.familien_neu || []).forEach((f) => ALLE.fam.set(f.id, f));
+  (d.uebungen || []).forEach((u) => {
+    ALLE.ue.set(u.id, (ALLE.ue.get(u.id) || []).concat(path.basename(datei)));
+    if (u.name) { const k = u.name.toLowerCase(); ALLE.name.set(k, (ALLE.name.get(k) || []).concat(u.id)); }
+  });
+}
+
 function pruefeDatei(datei) {
   const err = [];
   let d;
@@ -105,7 +118,7 @@ function pruefeDatei(datei) {
       pruefeFelder(u, err, u.id, new Set());
     });
   } else if (d.teil === 'neu') {
-    const neueEq = new Set((d.geraete_neu || []).map((e) => e.id));
+    const neueEq = ALLE.eq;
     (d.geraete_neu || []).forEach((e) => {
       if (!/^eq_[a-z0-9_]+$/.test(e.id)) err.push('Gerät ' + e.id + ': id muss mit eq_ beginnen');
       if (EQ.has(e.id)) err.push('Gerät ' + e.id + ': gibt es schon');
@@ -116,6 +129,8 @@ function pruefeDatei(datei) {
       const wo = u.id || '(ohne id)';
       if (!/^g_[a-z0-9_]+$/.test(u.id || '')) err.push(wo + ': id muss g_ + Kleinbuchstaben, Ziffern, _ sein');
       if (UE[u.id]) err.push(wo + ': diese ID gibt es schon');
+      if ((ALLE.ue.get(u.id) || []).length > 1) err.push(wo + ': ID steht in mehreren Dateien (' + ALLE.ue.get(u.id).join(', ') + ')');
+      if (u.name && (ALLE.name.get(u.name.toLowerCase()) || []).length > 1) err.push(wo + ': Name „' + u.name + '“ gibt es in diesen Paketen mehrfach (' + ALLE.name.get(u.name.toLowerCase()).join(', ') + ')');
       if (u.name && NAMEN.has(u.name.toLowerCase())) err.push(wo + ': Name „' + u.name + '“ gibt es schon (' + NAMEN.get(u.name.toLowerCase()) + ')');
       if (!text(u.name)) err.push(wo + ': name fehlt');
       if (u.muster !== d.muster) err.push(wo + ': muster passt nicht zum Paket');
@@ -134,7 +149,7 @@ function pruefeDatei(datei) {
     const platz = {};
     const zaehle = (id, wo) => { platz[id] = (platz[id] || 0) + 1; if (!ids.has(id)) err.push(wo + ': Übung ' + id + ' ist nicht im Paket'); };
     (d.familien_ergaenzt || []).forEach((fe) => {
-      const f = FAMS[fe.familie];
+      const f = FAMS[fe.familie] || ALLE.fam.get(fe.familie);
       if (!f) { err.push('familien_ergaenzt: Familie ' + fe.familie + ' gibt es nicht'); return; }
       (fe.varianten || []).forEach((v) => {
         const wo = fe.familie + '/' + v.uebung;
@@ -158,7 +173,7 @@ function pruefeDatei(datei) {
       if (!FAM_BEREICH.has(f.bereich)) err.push(wo + ': unbekannter bereich');
       if (!int(f.ebene, 1, 6)) err.push(wo + ': ebene muss 1–6 sein');
       if (f.leiter !== null) err.push(wo + ': leiter muss null sein');
-      (f.voraussetzt || []).forEach((v) => { if (!FAMS[v.familie] && !neueFam.has(v.familie)) err.push(wo + ': voraussetzt ' + v.familie + ' gibt es nicht'); });
+      (f.voraussetzt || []).forEach((v) => { if (!FAMS[v.familie] && !ALLE.fam.has(v.familie)) err.push(wo + ': voraussetzt ' + v.familie + ' gibt es nicht'); });
       const st = (f.varianten || []).filter((v) => v.art === 'stufe').map((v) => v.rang).sort((a, b) => a - b);
       st.forEach((r, i) => { if (r !== i + 1) err.push(wo + ': Ränge der Stufen müssen 1, 2, 3 … ohne Lücke sein'); });
       (f.varianten || []).forEach((v) => {
@@ -176,6 +191,7 @@ function pruefeDatei(datei) {
 
 const dateien = process.argv.slice(2);
 if (!dateien.length) { console.log('Aufruf: node design/auftraege/pruefen_bibliothek.js <datei.json> …'); process.exit(2); }
+dateien.forEach(sammle);
 let fehler = 0;
 dateien.forEach((f) => {
   const err = pruefeDatei(f);

@@ -55,20 +55,20 @@ function geraeteNeuWerten() {
 // Ränge aller Stufen einer Familie als Liste von Übungs-IDs
 const stufen = (f) => f.varianten.filter((v) => v.art === 'stufe').sort((a, b) => a.rang - b.rang);
 
-function neu(d) {
+// Phase 1 (alle Dateien): neue Übungen, Geräte und Familien anlegen
+function neuAnlegen(d) {
   d.uebungen.forEach((u) => { const x = pick(u, UE_KEYS); LIB.uebungen.push(x); UE[x.id] = x; });
   (d.geraete_neu || []).forEach((g) => {
     LIB.equipment.push({ id: g.id, name: g.name, kosten: kostenAus(g.preis), nutzen: 1, score: 0, preis: g.preis, platz: g.platz, warum: g.warum, ersetzt: [], auto: true });
   });
-  // Stand vorher: welche Übung steht hinter jedem ab_rang
-  const vorher = {};
-  FAM.familien.forEach((f) => { vorher[f.id] = stufen(f).map((v) => v.uebung); });
-  (d.familien_neu || []).forEach((f) => {
-    FAM.familien.push(f); FAMS[f.id] = f; vorher[f.id] = stufen(f).map((v) => v.uebung);
-    (f.voraussetzt || []).forEach((p) => {
-      const z = FAMS[p.familie]; if (z && !z.fuehrt_zu.includes(f.id)) { z.fuehrt_zu.push(f.id); z.fuehrt_zu.sort(); }
-    });
-  });
+  (d.familien_neu || []).forEach((f) => { FAM.familien.push(f); FAMS[f.id] = f; });
+  console.log('  ' + d.uebungen.length + ' neue Übungen, ' + (d.geraete_neu || []).length + ' neue Geräte, ' + (d.familien_neu || []).length + ' neue Familien');
+}
+// Phase 2 (alle Dateien): Rückverweise der neuen Familien, Varianten in bestehende Familien einreihen
+function neuEinreihen(d) {
+  (d.familien_neu || []).forEach((f) => (f.voraussetzt || []).forEach((p) => {
+    const z = FAMS[p.familie]; if (z && !z.fuehrt_zu.includes(f.id)) { z.fuehrt_zu.push(f.id); z.fuehrt_zu.sort(); }
+  }));
   (d.familien_ergaenzt || []).forEach((e) => {
     const f = FAMS[e.familie];
     e.varianten.forEach((v) => {
@@ -90,23 +90,25 @@ function neu(d) {
       }
     });
   });
-  // ab_rang mitziehen: gleiche Übung bleibt vorausgesetzt
+}
+// ab_rang mitziehen: gleiche Übung bleibt vorausgesetzt
+function rangeNachziehen(vorher) {
   FAM.familien.forEach((f) => (f.voraussetzt || []).forEach((p) => {
     const alt = vorher[p.familie] && vorher[p.familie][p.ab_rang - 1];
     if (!alt) return;
     const nr = stufen(FAMS[p.familie]).findIndex((s) => s.uebung === alt) + 1;
     if (nr && nr !== p.ab_rang) { console.log('  ' + f.id + ': ' + p.familie + ' ab Rang ' + p.ab_rang + ' → ' + nr + ' (' + alt + ')'); p.ab_rang = nr; }
   }));
-  console.log('  ' + d.uebungen.length + ' neue Übungen, ' + (d.geraete_neu || []).length + ' neue Geräte, ' + (d.familien_neu || []).length + ' neue Familien');
 }
 
 if (!fs.existsSync(ABLAGE)) fs.mkdirSync(ABLAGE);
-dateien.forEach((datei) => {
-  const d = JSON.parse(fs.readFileSync(datei, 'utf8'));
-  console.log(d.teil + '_' + d.muster + ':');
-  if (d.teil === 'felder') felder(d); else neu(d);
-  fs.writeFileSync(path.join(ABLAGE, d.teil + '_' + d.muster + '.json'), JSON.stringify(d, null, 2) + '\n');
-});
+const pakete = dateien.map((datei) => JSON.parse(fs.readFileSync(datei, 'utf8')));
+const vorher = {};
+FAM.familien.forEach((f) => { vorher[f.id] = stufen(f).map((v) => v.uebung); });
+pakete.forEach((d) => { console.log(d.teil + '_' + d.muster + ':'); if (d.teil === 'felder') felder(d); else neuAnlegen(d); });
+pakete.filter((d) => d.teil === 'neu').forEach(neuEinreihen);
+rangeNachziehen(vorher);
+pakete.forEach((d) => fs.writeFileSync(path.join(ABLAGE, d.teil + '_' + d.muster + '.json'), JSON.stringify(d, null, 2) + '\n'));
 geraeteNeuWerten();
 
 html = html.replace(re('lib-data'), (m, a, b, c) => a + JSON.stringify(LIB) + c).replace(re('fam-data'), (m, a, b, c) => a + JSON.stringify(FAM) + c);
