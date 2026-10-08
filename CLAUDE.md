@@ -194,8 +194,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Übungs-Hinweise grau unter dem Schritt (`notes`, `.tl-x`). Ringhöhe nur bei Ring-Übungen, in Bezug auf den Körper (`ringNotes`, `RING_H`).
   Tipps-Karte nur noch an Testtagen, beim Murph und bei optionalen Läufen.
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
-  Danach Schritt für Schritt (`stepsOf`, `stepPageHTML`): Krafttag Aufwärmen, Handstand, Kraft, Metcon; Testtag eine Übung
-  pro Schritt; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
+  Danach Schritt für Schritt (`stepsOf`, `stepPageHTML`): Krafttag Aufwärmen, Handstand, Kraft, Metcon; Testtag (Einstiegstest, `isTestDay`)
+  Aufwärmen, eine Übung pro Schritt, an Tag 1 der Beweglichkeits-Check, zum Schluss Metcon AMRAP 8 (`testMetcon`, `testMetconStep`,
+  `testMetconHTML`): je Muster aus `TEST_MC_ORDER`, das heute nicht getestet wurde, die Metcon-Übung mit der kleinsten Überschneidung der
+  Hauptmuskeln mit den getesteten (Ganzkörper zählt als 2, ab 2 fällt der Platz weg), gespeichert als `metcon` im Test-Eintrag; Murph ein Schritt. Der aktuelle Schritt steht im Entwurf (`_step`, `_at` in `tp.drafts`).
   Im Training (Schritt-Seiten) ist die Reiterleiste ausgeblendet (`body.focus`); oben rechts ein kleines X (`ACT.quit`)
   fragt nach: Zwischenspeichern (weiter beim Schritt), Training abbrechen (Entwurf weg) oder Weiter trainieren.
   Lauftage haben keine Schritte, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.

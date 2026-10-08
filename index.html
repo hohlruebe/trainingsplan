@@ -2472,6 +2472,7 @@ function saveDay() {
       } else if (ex && stage) { S.base[ex] = { stage: stage, start: null }; }
       return { name: r.name, note: r.note, stage: stage, max: mx, start: start };
     }) });
+    if (num(v.mr) != null || num(v.mw) != null) log.metcon = { rounds: num(v.mr), reps: num(v.mw), min: 8, items: testMetcon(tag).map(function (m) { return m.n; }) };
   } else if (tag === 1 && murphDue() && !ui.skipMurph) {
     log = Object.assign(base, { kind: 'murph', murph: { stage: S.murphStage, time: v.murphTime || '' } });
   } else if (d.kardio) {
@@ -2781,6 +2782,7 @@ function logLines(l) {
     out.push('Stufe ' + l.murph.stage + ': ' + (l.murph.time ? esc(l.murph.time) : 'ohne Zeit'));
   } else if (l.kind === 'test') {
     l.tests.forEach(function (t) { out.push('<b>' + esc(t.name) + '</b> <span class="muted">' + esc(t.note) + '</span>: ' + (t.stage ? esc(stageText(t.stage)) + ', ' : '') + (t.max != null ? 'Max ' + t.max : '–') + (t.start != null ? ', Start ' + t.start : '')); });
+    if (l.metcon && l.metcon.rounds != null) out.push('<b>Metcon · AMRAP ' + (l.metcon.min || 8) + '</b>: ' + l.metcon.rounds + ' Runden + ' + (l.metcon.reps || 0) + ' <span class="muted">(' + esc((l.metcon.items || []).join(', ')) + ')</span>');
   }
   if (l.kw) out.push('<span class="muted">Kernwert: ' + Math.round(l.kw.ftp) + ' W · ' + fmtPace(l.kw.thr) + ' /km' + (l.kw.d ? ' (' + (l.kw.d > 0 ? '+' : '−') + String(Math.abs(l.kw.d)).replace('.', ',') + ' %)' : '') + '</span>');
   if (l.mob) out.push('<b>Beweglichkeit</b>: ' + l.mob.map(function (m) { return esc((LAD[m.lad] ? LAD[m.lad].name : m.lad) + ' – ' + m.stage); }).join(', '));
@@ -3983,13 +3985,16 @@ function dayCtx(tag) {
 function stepsOf(c) {
   var tag = c.tag, d = c.d, D0 = c.cur ? (DRAFTS[draftKey(tag)] || {}) : {}, zl = c.cur ? zeitLv(tag) : 0, wm = zl >= 4 ? 4 : 8;
   if (c.isTest) {
-    return PLAN.tests[TESTDAYS[tag].rows].map(function (r, i) {
+    var warmT = { id: 'warm', title: 'Aufwärmen', sub: '8 Min', dur: 8, desc: 'Ergometer, Mobilität',
+      timer: { mode: 'block', cfg: { minutes: 8, label: 'Aufwärmen', tag: tag }, label: '8 Min starten', info: 'Aufwärmen' },
+      body: function (D) { return warmStepHTML(tag, D); } };
+    return [warmT].concat(PLAN.tests[TESTDAYS[tag].rows].map(function (r, i) {
       // Pause zwischen zwei Versuchen: so lange, wie im Test steht, sonst 3 Min (2 Min bei Halteübungen).
       var pm = /(\d+)\s*Min Pause/.exec(r.find + ' ' + r.clean), lad = ladFor(r.name), pmin = pm ? +pm[1] : isSecs(lad) ? 2 : 3;
       return { id: 't' + i, title: r.name, sub: r.note, desc: r.note,
         timer: { mode: 'block', cfg: { minutes: pmin, label: 'Pause', tag: tag, again: 1 }, label: pmin + ' Min Pause starten', info: 'Zwischen zwei Versuchen, dann voll erholt testen' },
         body: function (D) { return testStepHTML(tag, r, i, D); } };
-    }).concat(mobCheckStep(tag));
+    })).concat(mobCheckStep(tag)).concat(testMetconStep(tag));
   }
   if (c.isMurph) {
     var m = MURPH[S.murphStage];
@@ -4070,11 +4075,11 @@ function warmFlow0(tag) {
   return { id: 'warm', items: it };
 }
 function metconFlow(tag) {
-  var d = DAYS[tag];
-  return { id: 'metcon', items: d.metcon.map(function (m) {
-    var g = GL[m.n], k = mKg(tag, m, d.metcon.indexOf(m), dr(tag));
+  var d = DAYS[tag], L = isTestDay(tag) ? testMetcon(tag) : d.metcon;
+  return { id: 'metcon', items: L.map(function (m) {
+    var g = GL[m.n], k = L === d.metcon ? mKg(tag, m, d.metcon.indexOf(m), dr(tag)) : null;
     return flowItem(m.n, m.r + (k && k.kg != null ? ' · ' + fmtKg(k.kg, k.id) : ''), m.pain ? painShort(m) : m.note, null, m.pain ? painText(m) : [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
-  }), loop: { from: 0, to: d.metcon.length - 1, times: 0 } };
+  }), loop: { from: 0, to: L.length - 1, times: 0 } };
 }
 function murphFlow() { return painFlow(S.tag, murphFlow0(), 'u'); }
 function murphFlow0() {
@@ -4378,7 +4383,7 @@ function renderHeute() {
     if (c.isTest) {
       var td = TESTDAYS[tag];
       tips.push.apply(tips, ringNotes(PLAN.tests[td.rows].map(function (r) { return r.name; })));
-      tips.push('Statt Tag ' + tag + '. Normal aufwärmen, schwerste Übung zuerst.',
+      tips.push('Statt Tag ' + tag + '. Erst aufwärmen, dann die schwerste Übung zuerst. Zum Schluss ein kurzer Metcon, zügig, aber ohne Maxout.',
         'Pro Übung erst leichtere Stufen zum Einwärmen, dann ein Satz mit so vielen sauberen Wdh. wie möglich.',
         '3 Min Pause zwischen Testsätzen, 3–5 Min zwischen Übungen. Film dich dabei.',
         '<b>Formel:</b> Such die Stufe mit 5–8 sauberen Wdh. Start = Max – 2, beim Chin-up Max – 3. Glute Bridge und Ab Wheel: Ziel 10–14.');
@@ -4436,7 +4441,7 @@ function stepPageHTML(c, st, i, D) {
   h += '<section class="hero"><h1>' + esc(s.title) + '</h1><p class="st-sub muted">' + esc(s.sub || '') + '</p></section>';
   var top = h.length, desk = deskOn();
   h += s.body(D);
-  if (PAIN_STEPS[s.id] && s.id !== 'kraft') h += painStepLinkHTML(s.id);
+  if (PAIN_STEPS[s.id] && s.id !== 'kraft' && !c.isTest) h += painStepLinkHTML(s.id);
   if (last) {
     var label = c.isTest ? 'Testtag speichern' : c.isMurph ? 'Murph speichern' : 'Training speichern';
     h += notesBlock(D) + '<button type="button" class="btn block go save" data-act="save">' + TICK + label + '</button>';
@@ -4546,6 +4551,44 @@ function mKg(tag, m, i, D) {
   if (!id) return null;
   var v = num(D['m' + i + 'kg']), rec = kgRecM(id, parseInt(m.r, 10) || 10);
   return { id: id, kg: v != null ? v : rec ? rec.kg : null, rec: rec, set: v != null };
+}
+// Testtage (Einstiegstest): nach den Tests ein kurzer Metcon, AMRAP 8, mit Bewegungen, die heute nicht getestet wurden.
+function isTestDay(tag) { return S.durchgang === 0 && !!TESTDAYS[tag]; }
+var TEST_MC_ORDER = ['ausdauer', 'kniebeuge', 'huefte', 'zug_horizontal', 'druck_vertikal', 'sprung', 'rumpf_beugung', 'rumpf_rotation'];
+var TMC = { k: null };
+function testMetcon(tag) {
+  if (!TESTDAYS[tag]) return [];
+  var O = trainOrt(), k = tag + '|' + O.id + '|' + JSON.stringify(O.eq); if (TMC.k === k) return TMC.v;
+  var have = haveEq(O), st = ladderStates(LOGS), tested = {}, tm = {};
+  PLAN.tests[TESTDAYS[tag].rows].forEach(function (r) { var g = GL[r.name], u = g && UE[g.key]; if (u) { tested[u.muster] = 1; ((u.muskeln || {}).primaer || []).forEach(function (m) { tm[m] = 1; }); } });
+  // Je Platz die Übung, deren Hauptmuskeln sich am wenigsten mit den getesteten überschneiden, dann nach Nutzen.
+  var over = function (id) { var P = (UE[id].muskeln || {}).primaer || []; return P.indexOf('ganzkoerper') >= 0 ? 2 : P.filter(function (m) { return tm[m]; }).length; }; // Ganzkörper (Burpee) zählt immer als Überschneidung
+  var out = [];
+  TEST_MC_ORDER.forEach(function (mu) {
+    if (out.length >= 3 || tested[mu]) return;
+    var m = LIB.metcon.filter(function (e) { var u = UE[e.uebung]; return u && u.muster === mu && !TEMPO_KEYS[e.uebung] && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st); })
+      .sort(function (a, b) { return over(a.uebung) - over(b.uebung) || UE[b.uebung].nutzen - UE[a.uebung].nutzen; })[0];
+    if (m && over(m.uebung) >= 2) return; // trifft fast nur Getestetes: Platz lieber weglassen
+    if (m) out.push({ r: fmtMenge(m), n: UE[m.uebung].name, scale: m.skalierung || '', lib: true });
+  });
+  TMC = { k: k, v: out };
+  return out;
+}
+function testMetconStep(tag) {
+  var L = testMetcon(tag); if (!L.length) return [];
+  return [{ id: 'metcon', title: 'Metcon · AMRAP 8', sub: '8 Min · zügig, etwa 7 von 10', dur: 8, desc: L.map(function (m) { return m.n; }).join(' · '),
+    timer: { mode: 'amrap', cfg: { minutes: 8, tag: tag }, label: 'AMRAP 8 starten', info: L.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
+    body: function (D) { return testMetconHTML(tag, D); } }];
+}
+function testMetconHTML(tag, D) {
+  var single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon');
+  var h = single ? flowHTML(metconFlow(tag), D) + '<section class="card">' : '<section class="card">' + flowHTML(metconFlow(tag), D);
+  h += '<p class="small muted">Nach den Tests: Bewegungen, die heute nicht getestet wurden. Zügig, aber kein Maxout. Das ist dein erster Metcon-Wert.</p>';
+  if (single && run && roundMode() === 'ex') return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
+  return h + '<div class="pick-grid">' +
+    tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: 4, title: 'AMRAP 8' }), D.mr ? 'set' : '') +
+    tile('Extra-Wdh.', '<b>' + (D.mw ? esc(D.mw) : '–') + '</b>', pickAttrs({ f: 'mw', min: 0, max: 60, unit: 'Wdh.', def: 0, title: 'AMRAP 8' }), D.mw ? 'set' : '') +
+    '</div></section>';
 }
 function metconStepHTML(tag, D, am) {
   var d = DAYS[tag], single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon');
