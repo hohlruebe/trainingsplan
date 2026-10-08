@@ -1,0 +1,1299 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "zug_vertikal",
+  "quelle": "Convict Conditioning (Jackknife), Overcoming Gravity (Einarm-Vorbereitung, Typewriter), CrossFit Movement Standards (Jumping Pull-up, Chest-to-Bar, Peg Board, Rope Climb). EMG: Dickie et al. 2017, Lusk et al. 2010, Snarr et al. 2017 und 2018, Walker et al. 2023. Gerätepreise von deutschen Händlern, Stand 2026.",
+  "uebungen": [
+    {
+      "id": "g_jackknife_pullup",
+      "name": "Jackknife Pull-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ],
+        [
+          "eq_zuhause",
+          "eq_box"
+        ]
+      ],
+      "nutzen": 62,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps, Griff",
+      "schritte": [
+        "Stell einen Stuhl oder eine Box vor die Stange und leg die Fersen darauf.",
+        "Häng dich mit gestreckten Armen an, Hüfte gebeugt, Beine fast gestreckt.",
+        "Zieh die Brust zur Stange und drück dabei nur so viel mit den Beinen wie nötig.",
+        "Senk dich kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Das Kinn kommt über die Stange und die Arme strecken sich unten ganz.",
+      "fehler": "Zu viel Druck aus den Beinen nimmt dem Rücken die Arbeit ab.",
+      "skalierung": "Leichter: Füße näher an die Stange stellen. Schwerer: Beine weniger einsetzen oder nur die Fersen auflegen.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "unterarm",
+          "quadrizeps"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Jackknife-Klimmzug",
+        "Klimmzug mit Fußstütze",
+        "Klimmzug mit Beinunterstützung"
+      ]
+    },
+    {
+      "id": "g_flexed_arm_hang",
+      "name": "Flexed-Arm Hang",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "sek",
+      "rolle": [
+        "kraft",
+        "test"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ],
+        [
+          "eq_zuhause",
+          "eq_box"
+        ]
+      ],
+      "nutzen": 64,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps, Griff",
+      "schritte": [
+        "Stell dich auf einen Stuhl, sodass das Kinn über der Stange ist.",
+        "Greif schulterbreit und nimm die Füße weg.",
+        "Halte das Kinn über der Stange, Schultern unten, Körper ruhig."
+      ],
+      "sauber": "Das Kinn bleibt über der Stange und die Schultern ziehen nicht zu den Ohren.",
+      "fehler": "Das Kinn wird über die Stange gereckt statt gehalten, so arbeitet der Nacken statt des Rückens.",
+      "skalierung": "Leichter: Halten mit dem Kinn auf Stangenhöhe. Schwerer: Halten auf halber Höhe mit 90 Grad im Ellbogen.",
+      "muskeln": {
+        "primaer": [
+          "bizeps",
+          "latissimus"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Klimmzug-Halten",
+        "Haltender Klimmzug",
+        "Isometrischer Klimmzug",
+        "Chin-over-Bar Hold"
+      ]
+    },
+    {
+      "id": "g_typewriter_pullup",
+      "name": "Typewriter Pull-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 80,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_one_arm_pullup",
+          "stufe": "Archer Pull-up"
+        }
+      ],
+      "trainiert": "Rücken, Bizeps, einseitige Kraft",
+      "schritte": [
+        "Greif deutlich breiter als schulterbreit.",
+        "Zieh dich hoch, bis das Kinn über der Stange ist.",
+        "Schieb den Körper oben zu einer Hand und dann zur anderen, der freie Arm wird dabei gestreckt.",
+        "Kehr zur Mitte zurück und senk dich kontrolliert ab."
+      ],
+      "sauber": "Das Kinn bleibt bei der Seitwärtsbewegung über der Stange.",
+      "fehler": "Der Körper sinkt beim Seitwechsel ab, so geht die einseitige Belastung verloren.",
+      "skalierung": "Leichter: Nur eine kurze Strecke zur Seite schieben. Schwerer: Oben an jeder Seite 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "unterarm",
+          "schulter_hinten",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Typewriter-Klimmzug",
+        "Schreibmaschinen-Klimmzug"
+      ]
+    },
+    {
+      "id": "g_lsit_pullup",
+      "name": "L-Sit Pull-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 82,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_pullup",
+          "stufe": "Frei"
+        },
+        {
+          "leiter": "g_lsit",
+          "stufe": "L-Sit"
+        }
+      ],
+      "trainiert": "Rücken, Bizeps, Bauch, Hüftbeuger",
+      "schritte": [
+        "Häng dich an und heb die gestreckten Beine waagerecht an.",
+        "Zieh dich hoch, bis das Kinn über der Stange ist.",
+        "Senk dich kontrolliert ab, die Beine bleiben waagerecht."
+      ],
+      "sauber": "Die Beine bleiben während der ganzen Wiederholung waagerecht und gestreckt.",
+      "fehler": "Die Beine sinken beim Hochziehen ab, so fehlt die Rumpfarbeit.",
+      "skalierung": "Leichter: Knie angezogen (Tuck). Schwerer: Weste oder Beine höher als waagerecht.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "hueftbeuger",
+          "bauch_gerade",
+          "oberer_ruecken",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "L-Sit-Klimmzug",
+        "Klimmzug im L-Sitz",
+        "L-Klimmzug"
+      ]
+    },
+    {
+      "id": "g_towel_pullup",
+      "name": "Towel Pull-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_klimmzugstange"
+        ],
+        [
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 76,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_pullup",
+          "stufe": "Frei"
+        }
+      ],
+      "trainiert": "Griff, Unterarme, Rücken, Bizeps",
+      "schritte": [
+        "Leg zwei Handtücher schulterbreit über die Stange.",
+        "Greif je ein Handtuch mit einer Hand fest.",
+        "Zieh dich hoch, bis die Hände auf Kinnhöhe sind, und senk dich kontrolliert ab."
+      ],
+      "sauber": "Die Hände rutschen nicht am Handtuch und die Arme strecken sich unten ganz.",
+      "fehler": "Die Handtücher sind zu weit unten gegriffen, so wird der Weg zu kurz.",
+      "skalierung": "Leichter: Eine Hand am Handtuch, eine an der Stange. Schwerer: Ein einziges Handtuch für beide Hände.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "unterarm",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Handtuch-Klimmzug",
+        "Klimmzug am Handtuch",
+        "Towel Grip Pull-up"
+      ]
+    },
+    {
+      "id": "g_one_arm_hang",
+      "name": "One-Arm Dead Hang",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "sek",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 60,
+      "level": 3,
+      "voraussetzung": [],
+      "trainiert": "Griff, Schulterstabilität",
+      "schritte": [
+        "Häng dich mit einer Hand an die Stange.",
+        "Zieh die Schulter leicht aktiv nach unten und halte den Körper ruhig.",
+        "Wechsel nach der Zeit die Seite."
+      ],
+      "sauber": "Die Schulter bleibt aktiv und der Körper dreht sich kaum.",
+      "fehler": "Ein passiv durchhängender Arm belastet die Schulterbänder statt die Muskeln.",
+      "skalierung": "Leichter: Zwei Finger der anderen Hand an der Stange. Schwerer: Längere Zeit oder Weste.",
+      "muskeln": {
+        "primaer": [
+          "unterarm"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "oberer_ruecken",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiges Hängen",
+        "Einarm-Hang",
+        "One-Arm Hang"
+      ]
+    },
+    {
+      "id": "g_kipping_c2b",
+      "name": "Kipping Chest-to-Bar",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_kipping_pullup",
+          "stufe": "Kipping Pull-up"
+        }
+      ],
+      "trainiert": "Rücken, Bizeps, Rumpf",
+      "schritte": [
+        "Starte mit Kip Swings zwischen Hohlkörper und Hohlkreuz.",
+        "Nutz den Hüftimpuls und zieh die Brust unterhalb der Schlüsselbeine an die Stange.",
+        "Drück dich von der Stange weg in den Hohlkörper und schwing direkt in die nächste Wiederholung."
+      ],
+      "sauber": "Die Brust berührt die Stange bei jeder Wiederholung sichtbar.",
+      "fehler": "Ein zu kurzer Kip lässt nur das Kinn an die Stange kommen, so zählt die Wiederholung nicht.",
+      "skalierung": "Leichter: Kipping Pull-up. Schwerer: Butterfly Chest-to-Bar oder Weste.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bauch_gerade",
+          "hueftbeuger",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Kipping C2B",
+        "Brust-zur-Stange mit Schwung",
+        "Chest to Bar Kipping"
+      ]
+    },
+    {
+      "id": "g_jumping_pullup",
+      "name": "Jumping Pull-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_klimmzugstange"
+        ],
+        [
+          "eq_zuhause",
+          "eq_box"
+        ]
+      ],
+      "nutzen": 50,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps, Beine",
+      "schritte": [
+        "Stell dich unter eine Stange, die du mit leicht gebeugten Armen greifst.",
+        "Spring ab und zieh dich mit dem Schwung, bis das Kinn über der Stange ist.",
+        "Senk dich kontrolliert ab und lande weich."
+      ],
+      "sauber": "Das Kinn kommt über die Stange und die Landung ist leise.",
+      "fehler": "Nur aus den Beinen springen lässt die Arme fast nichts tun.",
+      "skalierung": "Leichter: Mehr Sprung, weniger Zug. Schwerer: Langsam absenken oder Kipping Pull-up.",
+      "muskeln": {
+        "primaer": [
+          "latissimus"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "quadrizeps",
+          "gesaess",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Klimmzug mit Sprung",
+        "Sprung-Klimmzug",
+        "Jumping Pullup"
+      ]
+    },
+    {
+      "id": "g_lat_pulldown",
+      "name": "Lat Pulldown",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug"
+        ]
+      ],
+      "nutzen": 80,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps",
+      "schritte": [
+        "Setz dich an den Latzug und klemm die Oberschenkel unter das Polster.",
+        "Greif die Stange etwas breiter als schulterbreit.",
+        "Zieh die Stange zur oberen Brust, Ellbogen nach unten.",
+        "Lass die Stange kontrolliert zurück, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Der Oberkörper bleibt fast aufrecht und die Stange kommt zur oberen Brust.",
+      "fehler": "Weit nach hinten lehnen macht aus dem Latzug ein Rudern und nimmt dem Latissimus Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht oder 3 Sekunden absenken.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Latzug",
+        "Latziehen",
+        "Latzug Maschine",
+        "Lat-Ziehen"
+      ]
+    },
+    {
+      "id": "g_single_arm_pulldown",
+      "name": "Single-Arm Lat Pulldown",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug",
+          "eq_band"
+        ]
+      ],
+      "nutzen": 70,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps, Seitenvergleich",
+      "schritte": [
+        "Knie dich vor den Kabelzug oder ein hoch befestigtes Band.",
+        "Greif den Griff mit einer Hand, Arm gestreckt über dem Kopf.",
+        "Zieh den Ellbogen zur Hüfte und lass ihn kontrolliert zurück.",
+        "Wechsel nach dem Satz die Seite."
+      ],
+      "sauber": "Der Oberkörper bleibt ruhig und dreht nicht mit.",
+      "fehler": "Ein Mitdrehen des Rumpfes nimmt dem Latissimus die Arbeit ab.",
+      "skalierung": "Leichter: Weniger Gewicht oder leichteres Band. Schwerer: Mehr Gewicht oder unten 1 Sekunde halten.",
+      "muskeln": {
+        "primaer": [
+          "latissimus"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "oberer_ruecken",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiger Latzug",
+        "Einarmiges Latziehen",
+        "Latzug einarmig"
+      ]
+    },
+    {
+      "id": "g_straight_arm_pulldown",
+      "name": "Straight-Arm Pulldown",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_kabelzug",
+          "eq_band"
+        ]
+      ],
+      "nutzen": 62,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Latissimus isoliert",
+      "schritte": [
+        "Stell dich vor den Kabelzug oder ein hoch befestigtes Band und greif Stange oder Band.",
+        "Beug dich leicht vor, Arme fast gestreckt auf Kopfhöhe.",
+        "Zieh die gestreckten Arme in einem Bogen bis zu den Oberschenkeln.",
+        "Lass die Arme kontrolliert zurück."
+      ],
+      "sauber": "Die Ellbogen bleiben während der ganzen Bewegung gleich wenig gebeugt.",
+      "fehler": "Das Beugen der Ellbogen macht daraus ein Trizepsdrücken.",
+      "skalierung": "Leichter: Weniger Gewicht oder leichteres Band. Schwerer: Mehr Gewicht oder unten 2 Sekunden halten.",
+      "muskeln": {
+        "primaer": [
+          "latissimus"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "schulter_hinten",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Überzüge am Kabel",
+        "Latzug mit gestreckten Armen",
+        "Kabel-Pullover",
+        "Straight Arm Pulldown"
+      ]
+    },
+    {
+      "id": "g_weighted_chinup",
+      "name": "Weighted Chin-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "kg",
+      "rolle": [
+        "kraft",
+        "test"
+      ],
+      "equipment": [
+        [
+          "eq_ringe",
+          "eq_klimmzugstange"
+        ],
+        [
+          "eq_weste",
+          "eq_dipguertel"
+        ]
+      ],
+      "nutzen": 90,
+      "level": 4,
+      "voraussetzung": [
+        {
+          "leiter": "g_chinup",
+          "stufe": "Frei"
+        }
+      ],
+      "trainiert": "Rücken, Bizeps, Griff",
+      "schritte": [
+        "Leg Weste oder Dip-Gürtel mit Gewicht an.",
+        "Greif im Untergriff schulterbreit.",
+        "Zieh dich hoch, bis das Kinn über der Stange ist.",
+        "Senk dich kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "sauber": "Das Gewicht pendelt nicht und die Arme strecken sich unten ganz.",
+      "fehler": "Zu viel Gewicht verkürzt die Bewegung, so fehlt der untere Teil.",
+      "skalierung": "Leichter: Weniger Gewicht. Schwerer: Mehr Gewicht.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "brust",
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Klimmzug Untergriff mit Gewicht",
+        "Chin-up mit Gewicht",
+        "Gewichteter Chin-up",
+        "Untergriff-Klimmzug mit Zusatzgewicht"
+      ]
+    },
+    {
+      "id": "g_low_bar_mu",
+      "name": "Low Bar Muscle-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 64,
+      "level": 3,
+      "voraussetzung": [
+        {
+          "leiter": "g_pullup",
+          "stufe": "Frei"
+        }
+      ],
+      "trainiert": "Brust, Trizeps, Muscle-up-Übergang",
+      "schritte": [
+        "Nutz eine Stange etwa in Hüfthöhe, zum Beispiel an einem Rig oder Spielplatz.",
+        "Setz die Füße vor der Stange auf den Boden und greif sie.",
+        "Zieh dich hoch, kipp die Brust über die Stange und drück dich in den Stütz.",
+        "Die Beine helfen nur so viel wie nötig."
+      ],
+      "sauber": "Die Brust kommt über die Stange, bevor du in den Stütz drückst.",
+      "fehler": "Die Ellbogen bleiben zu lange hinter dem Körper, so klappt der Übergang nicht.",
+      "skalierung": "Leichter: Mehr mit den Beinen helfen. Schwerer: Stange höher oder Beine weniger einsetzen.",
+      "muskeln": {
+        "primaer": [
+          "brust",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "latissimus",
+          "schulter_vorn",
+          "bizeps",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Muscle-up an tiefer Stange",
+        "Muscle-up-Übergang an der Stange",
+        "Bar Muscle-up Transition"
+      ]
+    },
+    {
+      "id": "g_strict_bar_mu",
+      "name": "Strict Bar Muscle-up",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_klimmzugstange"
+        ]
+      ],
+      "nutzen": 88,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_bar_muscle_up",
+          "stufe": "Bar Muscle-up"
+        }
+      ],
+      "trainiert": "Rücken, Brust, Trizeps, Schulter",
+      "schritte": [
+        "Häng dich mit falschem oder normalem Griff an, Körper ruhig.",
+        "Zieh dich ohne Schwung explosiv hoch bis zur unteren Brust.",
+        "Kipp die Schultern über die Stange und drück dich in den Stütz.",
+        "Senk dich kontrolliert zurück in den Hang."
+      ],
+      "sauber": "Die Beine bleiben ruhig und es gibt keinen Hüftimpuls.",
+      "fehler": "Ein Mitschwingen der Beine macht daraus den gekippten Bar Muscle-up.",
+      "skalierung": "Leichter: Bar Muscle-up mit Kip oder Band. Schwerer: Weste oder langsamer Übergang.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "trizeps",
+          "brust"
+        ],
+        "sekundaer": [
+          "bizeps",
+          "unterarm",
+          "schulter_vorn",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 3,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 2,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Strikter Muscle-up an der Stange",
+        "Muscle-up ohne Schwung",
+        "Strict BMU"
+      ]
+    },
+    {
+      "id": "g_rope_pull_to_stand",
+      "name": "Rope Pull-to-Stand",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kletterseil"
+        ]
+      ],
+      "nutzen": 58,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Rücken, Bizeps, Griff",
+      "schritte": [
+        "Leg dich unter das Seil auf den Rücken und greif so hoch wie möglich.",
+        "Zieh dich Hand über Hand nach oben, bis du stehst.",
+        "Geh Hand unter Hand kontrolliert zurück in die Rückenlage."
+      ],
+      "sauber": "Die Beine bleiben gestreckt und arbeiten nur als Drehpunkt mit.",
+      "fehler": "Ein Abstoßen mit den Beinen nimmt den Armen die Arbeit ab.",
+      "skalierung": "Leichter: Knie gebeugt, Füße nah am Seil. Schwerer: Im Sitzen starten oder Rope Climb.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "unterarm"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seilziehen aus dem Liegen",
+        "Seil-Aufziehen",
+        "Lying Rope Pull"
+      ]
+    },
+    {
+      "id": "g_peg_board",
+      "name": "Peg Board Climb",
+      "muster": "zug_vertikal",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_pegboard"
+        ]
+      ],
+      "nutzen": 76,
+      "level": 5,
+      "voraussetzung": [
+        {
+          "leiter": "g_rope_climb",
+          "stufe": "Legless"
+        }
+      ],
+      "trainiert": "Rücken, Bizeps, Griff, einseitige Zugkraft",
+      "schritte": [
+        "Häng dich mit beiden Pflöcken in die unteren Löcher.",
+        "Zieh dich hoch, halte mit einem Arm und setz den anderen Pflock ein Loch höher.",
+        "Wechsel so Hand für Hand bis nach oben.",
+        "Steig auf dieselbe Weise kontrolliert wieder ab."
+      ],
+      "sauber": "Du hältst dich beim Umstecken ruhig mit einem Arm, ohne zu schwingen.",
+      "fehler": "Hektisches Umstecken ohne Halten lässt den Pflock aus dem Loch rutschen.",
+      "skalierung": "Leichter: Legless Rope Climb oder nur bis zur Hälfte. Schwerer: Weste oder mehrere Runden ohne Pause.",
+      "muskeln": {
+        "primaer": [
+          "latissimus",
+          "bizeps",
+          "unterarm"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "schulter_hinten",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 2,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 4,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Pegboard",
+        "Peg Board",
+        "Steckbrett-Klettern",
+        "Pflockbrett"
+      ]
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_pullup",
+      "varianten": [
+        {
+          "uebung": "g_jackknife_pullup",
+          "art": "stufe",
+          "nach": "g_scap_pull",
+          "effekt": 62,
+          "ziel": "3 Sätze mit 8 sauberen Wiederholungen, die Beine nur zur Unterstützung.",
+          "grund": "Erste Stufe mit voller Zugbewegung, die Beine nehmen einen Teil des Gewichts ab."
+        },
+        {
+          "uebung": "g_flexed_arm_hang",
+          "art": "stufe",
+          "nach": "g_jackknife_pullup",
+          "effekt": 64,
+          "ziel": "30 Sekunden mit dem Kinn über der Stange halten.",
+          "grund": "Volles Körpergewicht in der Endposition, bevor das Absenken im Negativ-Klimmzug kommt."
+        },
+        {
+          "uebung": "g_typewriter_pullup",
+          "art": "stufe",
+          "nach": "g_archer_pullup",
+          "effekt": 80,
+          "ziel": "3 Sätze mit 4 sauberen Wiederholungen, das Kinn bleibt immer über der Stange.",
+          "grund": "Mehr einseitige Last als der Archer, aber noch beide Hände an der Stange."
+        },
+        {
+          "uebung": "g_lsit_pullup",
+          "art": "variante",
+          "effekt": 82,
+          "grund": "Gleicher Zug mit zusätzlicher Arbeit für Bauch und Hüftbeuger."
+        },
+        {
+          "uebung": "g_towel_pullup",
+          "art": "variante",
+          "effekt": 76,
+          "grund": "Gleicher Zug mit deutlich höherer Griffanforderung."
+        },
+        {
+          "uebung": "g_one_arm_hang",
+          "art": "variante",
+          "effekt": 60,
+          "grund": "Bereitet Griff und Schulter einseitig auf den einarmigen Klimmzug vor."
+        },
+        {
+          "uebung": "g_kipping_c2b",
+          "art": "tempo",
+          "effekt": 70,
+          "grund": "Metcon-Version der strikt bewerteten Chest-to-Bar.",
+          "vermerk": "Für Tempo und Wiederholungen im Metcon, ersetzt nie den strikten Chest-to-Bar."
+        },
+        {
+          "uebung": "g_jumping_pullup",
+          "art": "tempo",
+          "effekt": 50,
+          "grund": "Offizielle CrossFit-Skalierung, wenn Klimmzüge im Metcon noch nicht sauber gehen.",
+          "vermerk": "Nur als Metcon-Skalierung, ersetzt nie eine Kraftstufe wie den Negativ-Klimmzug."
+        },
+        {
+          "uebung": "g_lat_pulldown",
+          "art": "variante",
+          "effekt": 80,
+          "grund": "Gleicher Zug mit frei wählbarer Last in kg, unabhängig vom Körpergewicht."
+        },
+        {
+          "uebung": "g_single_arm_pulldown",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Einseitiger Zug zum Vergleichen und Ausgleichen beider Seiten."
+        },
+        {
+          "uebung": "g_straight_arm_pulldown",
+          "art": "variante",
+          "effekt": 62,
+          "grund": "Trainiert den Latissimus ohne Ellbogenbeugung und eignet sich so als Ausweichübung bei Ellbogenschmerzen."
+        }
+      ]
+    },
+    {
+      "familie": "f_chinup",
+      "varianten": [
+        {
+          "uebung": "g_weighted_chinup",
+          "art": "stufe",
+          "nach": "g_chinup",
+          "effekt": 90,
+          "ziel": "5 saubere Wiederholungen mit 20 % des Körpergewichts als Zusatzlast.",
+          "grund": "Gegenstück zum Weighted Pull-up für den Untergriff."
+        }
+      ]
+    },
+    {
+      "familie": "f_bar_muscle_up",
+      "varianten": [
+        {
+          "uebung": "g_low_bar_mu",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 64,
+          "ziel": "3 Sätze mit 5 sauberen Übergängen mit wenig Beinhilfe.",
+          "grund": "Lernt den Übergang über die Stange, bevor das volle Körpergewicht hängt."
+        },
+        {
+          "uebung": "g_strict_bar_mu",
+          "art": "stufe",
+          "nach": "g_bar_muscle_up",
+          "effekt": 88,
+          "ziel": "3 saubere Wiederholungen ohne Hüftimpuls.",
+          "grund": "Deutlich schwerer als der gekippte Bar Muscle-up, weil der Schwung fehlt."
+        }
+      ]
+    },
+    {
+      "familie": "f_rope_climb",
+      "varianten": [
+        {
+          "uebung": "g_rope_pull_to_stand",
+          "art": "stufe",
+          "nach": null,
+          "effekt": 58,
+          "ziel": "3 Sätze mit 5 Wiederholungen ohne Abstoßen mit den Beinen.",
+          "grund": "CrossFit-Skalierung unterhalb des Rope Climb, der Boden trägt einen Teil des Gewichts."
+        },
+        {
+          "uebung": "g_peg_board",
+          "art": "variante",
+          "effekt": 76,
+          "grund": "Kletterzug mit einseitigem Halten beim Umstecken, ein anderer Reiz als am Seil."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [
+    {
+      "id": "eq_kabelzug",
+      "name": "Kabelzug mit Latzug",
+      "preis": "ca. 190–1.100 €",
+      "platz": "ca. 1–1,5 m² Stellfläche, mindestens 2,10 m Deckenhöhe",
+      "warum": "Ermöglicht Latzug, einarmigen Latzug und Straight-Arm Pulldown mit Last in kg, später auch Kabelrudern und Face Pull."
+    },
+    {
+      "id": "eq_pegboard",
+      "name": "Peg Board",
+      "preis": "ca. 100 € (Heimversion), Wettkampfbretter deutlich teurer",
+      "platz": "Wandfläche ca. 30 × 102 cm, Montage an tragender Wand, Unterkante etwa auf Kopfhöhe",
+      "warum": "Für den Peg Board Climb, im Wettkampf-CrossFit etabliert und mit keinem anderen Gerät der Liste möglich."
+    }
+  ],
+  "entscheidungen": [
+    {
+      "frage": "T1: Kabelzug-Übungen als Varianten in f_pullup oder als neue Familie?",
+      "entscheidung": "Varianten in f_pullup.",
+      "folge": "Der Coach kann bei Schmerzen am Klimmzug innerhalb der Familie auf Latzug oder Straight-Arm Pulldown tauschen."
+    },
+    {
+      "frage": "T2: Wo stehen Jackknife Pull-up und Flexed-Arm Hang?",
+      "entscheidung": "Jackknife nach g_scap_pull, Flexed-Arm Hang nach g_jackknife_pullup.",
+      "folge": "Die neue Reihenfolge ist Dead Hang, Scapular Pull-up, Jackknife, Flexed-Arm Hang, Negative Pull-up."
+    },
+    {
+      "frage": "T3: Jumping Pull-up und Kipping Chest-to-Bar als tempo oder variante?",
+      "entscheidung": "Beide als tempo.",
+      "folge": "Der Coach setzt sie nur im Metcon ein, nie als Kraftstufe."
+    },
+    {
+      "frage": "T4: Ist Weighted Chin-up eine Dublette zur Stufe Weste?",
+      "entscheidung": "Aufnehmen.",
+      "folge": "Gleiches Muster wie Weighted Pull-up neben der Stufe Weste."
+    },
+    {
+      "frage": "T5: Assisted Pull-up Machine aufnehmen?",
+      "entscheidung": "Nein, und damit auch kein eq_klimmzugmaschine.",
+      "folge": "Die App steigert kg-Übungen nach oben und berechnet ein 1RM, bei Unterstützung in kg liefe beides falsch herum."
+    },
+    {
+      "frage": "T6: Welches Gerät für den Low Bar Muscle-up?",
+      "entscheidung": "eq_klimmzugstange.",
+      "folge": "Der Hinweis auf eine Stange in Hüfthöhe steht in den Schritten."
+    },
+    {
+      "frage": "T7: Peg Board mit neuem Gerät aufnehmen?",
+      "entscheidung": "Ja, mit eq_pegboard.",
+      "folge": "Ohne Peg Board am Ort filtert der Coach die Übung aus."
+    },
+    {
+      "frage": "T8: Single-Arm Lat Pulldown aufnehmen?",
+      "entscheidung": "Ja.",
+      "folge": "Einzige einseitige Zugübung im Paket, die keine Skill-Stufe ist."
+    },
+    {
+      "frage": "Gilt die Sehnen-Tabelle auch für Nicht-Leiter?",
+      "entscheidung": "Nein, die Tabelle gilt nur für Leitern.",
+      "folge": "g_kipping_ring_mu 2, g_ring_mu_band 1 und g_ring_mu_transition 1 bleiben, neue Übungen werden nach der Konvention bewertet."
+    },
+    {
+      "frage": "Welche Kandidaten wurden abgelehnt?",
+      "entscheidung": "Wide Grip, Mixed Grip, Neutral Grip, Close-Grip Pulldown, Rope Pull-up, One-Arm Chin-up, Band-assisted Pull-up, Commando, Sternum, Behind-the-Neck, Australian Chin-up und Assisted Pull-up Machine.",
+      "folge": "Dubletten oder falsches Paket, der Australian Chin-up kommt bei zug_horizontal."
+    },
+    {
+      "frage": "Neues Feld bewegt: welche Gelenke bewegen sich sichtbar?",
+      "entscheidung": "Liste mit den IDs aus gelenke, reine Halteübungen bekommen [], ruecken nur bei gewollter Beugung, Streckung oder Drehung der Wirbelsäule.",
+      "folge": "Die App leitet daraus isoliert ab, wenn genau ein Gelenk in der Liste steht."
+    }
+  ]
+}
