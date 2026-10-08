@@ -31,8 +31,9 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
 - Umgesetzt: Murph raus, ein Trainingstag pro Kalendertag („Heute erledigt“), Ruhetage zählen von selbst, Wiedereinstieg wie im Text
   (2 bzw. 5 Einheiten kürzer, ab 4 Wochen Entlastung, Testwoche rutscht), Gewicht höchstens alle 7 Tage, Ergometer unter der Kardio-Grenze,
   verpasster Kardio-Test wird nachgeholt, Sync ohne Rücksprung.
-- Offen: Frage „Wie viele hättest du noch geschafft?“ (RIR 0/1/2/3+) nach jeder Kraftübung. Erst als Entwurf im Canvas zeigen.
-- Offene Frage an Dennis: Soll man an einem freien Tag einen Trainingstag vorziehen können? Jetzt: „Tag X machen“ nur, solange heute nichts erledigt ist.
+- Dennis: „sollte ich so etwas selbst entscheiden? ich will doch ein automatisiertes Programm bauen.“ → „Tag X machen“ ganz entfernt,
+  die Reihenfolge entscheidet der Coach. Grundsatz: keine Entscheidungen an Dennis abgeben, die der Coach aus den Daten treffen kann.
+- RIR-Frage verworfen: Aufstieg nur bei 2 Einheiten in Folge mit allen Runden oben ist schon das Signal, keine Extra-Eingabe.
 
 ## Erledigte Tage zeigen ihr Ergebnis (8. Oktober)
 - Dennis: Beim Zurückblättern auf Heute die Ergebnisse des absolvierten Trainings sehen, nicht wieder starten können.

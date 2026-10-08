@@ -4178,7 +4178,6 @@ var ACT = {
     ui.subOpen = false; ui.tab = g ? ui.last[g] : el.dataset.tab; if (ui.tab === 'plan') ui.planSec = null; ui.exportText = null; window.scrollTo(0, 0); render(); },
   viewtag: function (el) { var t = +el.dataset.tag; ui.viewTag = t === S.tag && !doneToday0() ? null : t; render(); },
   'back-today': function () { ui.viewTag = null; render(); },
-  'do-this-day': function (el) { if (doneToday0()) return; S.tag = +el.dataset.tag; S.posSet = Date.now(); S.tagSince = isoToday(); S.advBy = 'auto'; ui.viewTag = null; saveState(); render(); toast('Tag ' + S.tag + ' ist jetzt dran.'); },
   gloss: function (el) {
     var name = el.dataset.name, e = GL[name], from = ui.tab; ui.tab = 'uebungen'; ui.glossOpen = name; ui.glossQuery = ''; if (from !== 'fam') ui.famBack = 'uebungen';
     // Die Übung steckt in ihrer Familie: deren Seite öffnen, die Übung aufgeklappt.
@@ -4854,7 +4853,6 @@ function renderHeute() {
   }
   if (!cur) {
     h += '<div class="viewbar"><span class="small muted">' + dran + '</span><span class="row">' +
-      (lock || tag === S.tag ? '' : '<button type="button" class="btn small" data-act="do-this-day" data-tag="' + tag + '">Tag ' + tag + ' machen</button>') +
       '<button type="button" class="btn small" data-act="back-today">Zurück</button></span></div>';
   }
   if (cur && !c.isTest && !c.isMurph) h += painAskHTML(tag);
