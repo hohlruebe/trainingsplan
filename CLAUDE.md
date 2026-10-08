@@ -311,7 +311,7 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar un
   einbauen (prüft selbst noch einmal, schreibt lib-data, fam-data und `design/familien.json` im alten Format über `familien_format.js`,
   reiht Stufen nach `nach` ein, zählt Ränge neu und zieht `ab_rang` anderer Familien mit, legt die Pakete in `design/auftraege/pakete/` ab).
   Neue Geräte aus Paketen tragen `auto: true`: Kosten aus dem Preis, Nutzen aus der Zahl der Übungen, Score wird bei jedem Einbau neu gerechnet.
-  Erledigt: `zug_vertikal`. Die Suche in Tools › Übungen findet auch `alias` (deutsche Namen).
+  Erledigt: `zug_vertikal`, `druck_horizontal` Teil 1. Die Suche in Tools › Übungen findet auch `alias` (deutsche Namen).
   Neue Felder je Übung: `muskeln`, `gelenke` (Belastung), `bewegt` (bewegte Gelenke: eins = isoliert, keins = statisch), `sehne`,
   `ermuedung`, `technik`, `seitig`, `laut`, `rx`, `alias`. Muster `isolation` kommt neu dazu (nur Zusatz, nie Hauptübung).
 - Übungsgrafiken: immer die Maskottchen-Vorlage `design/maskottchen/maskottchen.js` benutzen, Regeln in `design/maskottchen/VORLAGE.md`.

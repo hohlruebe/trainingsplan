@@ -26,6 +26,7 @@ Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
 ## Übungsbibliothek mit Cowork (7. Oktober)
+- `druck_horizontal` Teil 1 eingebaut (23 Übungen mit Feldern, ohne Fehler). Teil 2 (neue Übungen) folgt im selben PR.
 - 8. Oktober: `zug_vertikal` eingebaut (Teil 1 und 2, beide Pakete ohne Fehler). 24 Übungen mit neuen Feldern, 16 neue Übungen
   (265 → 281), Geräte `eq_kabelzug` und `eq_pegboard`. Neues Einbau-Programm `design/auftraege/einbauen_bibliothek.js`.
   f_pullup hat jetzt 11 Stufen; die Voraussetzung „f_pullup ab Rang 5“ (Weighted Pull-up) der sechs Folgefamilien steht jetzt auf Rang 7.
