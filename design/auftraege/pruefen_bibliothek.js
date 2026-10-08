@@ -15,7 +15,7 @@ const UE = {}; LIB.uebungen.forEach((u) => { UE[u.id] = u; });
 const EQ = new Set(LIB.equipment.map((e) => e.id));
 const LAD = {}; LIB.leitern.forEach((l) => { LAD[l.id] = l.stufen.map((s) => s.name); });
 const FAMS = {}; FAM.familien.forEach((f) => { FAMS[f.id] = f; });
-const MUSTER = new Set(LIB.uebungen.map((u) => u.muster));
+const MUSTER = new Set(LIB.uebungen.map((u) => u.muster).concat(['isolation']));
 const BEREICH = new Set(LIB.uebungen.map((u) => u.bereich));
 const EINHEIT = new Set(['wdh', 'sek', 'kg', 'meter', 'kalorien', 'atemzuege']);
 const ROLLE = new Set(['kraft', 'metcon', 'aufwaermen', 'cooldown', 'ruhetag', 'morgen', 'test']);
@@ -24,6 +24,8 @@ const MUSKELN = new Set(['brust', 'schulter_vorn', 'schulter_seite', 'schulter_h
   'adduktoren', 'abduktoren', 'waden', 'ganzkoerper']);
 const GELENKE = ['schulter', 'ellbogen', 'handgelenk', 'ruecken', 'huefte', 'knie', 'fuss'];
 const FAM_BEREICH = new Set(['zug', 'druck', 'beine', 'rumpf', 'skill', 'ausdauer', 'gewichtheben']);
+// Sehnen-Tabelle der App (Leitern): Werte müssen gleich bleiben, Abweichung nur nach Entscheidung mit Dennis
+const SEHNE = Function('return ' + /var SEHNE = (\{[\s\S]*?\});/.exec(html)[1])();
 const NAMEN = new Map(); LIB.uebungen.forEach((u) => NAMEN.set(u.name.toLowerCase(), u.id));
 
 function int(v, lo, hi) { return Number.isInteger(v) && v >= lo && v <= hi; }
@@ -45,7 +47,15 @@ function pruefeFelder(u, err, wo, neueEq) {
     GELENKE.forEach((k) => { if (!int(g[k], 0, 3)) err.push(wo + ': gelenke.' + k + ' muss 0–3 sein'); });
     Object.keys(g).forEach((k) => { if (!GELENKE.includes(k)) err.push(wo + ': unbekanntes Gelenk „' + k + '“'); });
   }
+  const b = u.bewegt;
+  if (!Array.isArray(b)) err.push(wo + ': bewegt fehlt (Liste der bewegten Gelenke, [] bei Halteübungen)');
+  else {
+    b.forEach((k) => { if (!GELENKE.includes(k)) err.push(wo + ': unbekanntes Gelenk in bewegt „' + k + '“'); });
+    if (new Set(b).size !== b.length) err.push(wo + ': bewegt enthält ein Gelenk doppelt');
+    if ((UE[u.id] || u).muster === 'isolation' && b.length !== 1) err.push(wo + ': im Paket isolation genau ein Gelenk in bewegt');
+  }
   if (!int(u.sehne, 0, 2)) err.push(wo + ': sehne muss 0, 1 oder 2 sein');
+  else if (u.id in SEHNE && u.sehne !== SEHNE[u.id]) err.push(wo + ': sehne ' + u.sehne + ' weicht von der App ab (dort ' + SEHNE[u.id] + '). Nur nach Entscheidung, dann wird die App angepasst');
   if (!int(u.ermuedung, 1, 3)) err.push(wo + ': ermuedung muss 1–3 sein');
   if (!int(u.technik, 1, 5)) err.push(wo + ': technik muss 1–5 sein');
   if (typeof u.seitig !== 'boolean') err.push(wo + ': seitig muss true oder false sein');

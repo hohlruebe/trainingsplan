@@ -26,6 +26,16 @@ Stand: 7. Oktober 2026 (Cowork-Auftrag Bibliothek, Prüfprogramm)
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
 ## Übungsbibliothek mit Cowork (7. Oktober)
+- PR #60 gemergt. `zug_vertikal` Teil 1 fertig (24 Übungen, 17 Entscheidungen), Teil 2 entschieden: alle Vorschläge außer
+  Assisted Pull-up Machine (Unterstützung in kg liefe in der kg-Steigerung und im 1RM falsch herum). Neue Geräte `eq_kabelzug`,
+  `eq_pegboard`. Weighted Chin-up: Zusatzgewicht beim Einbau im 1RM zählen wie beim Weighted Pull-up.
+  Kipping Ring Muscle-up, Banded Muscle-up und Transition haben eigene `sehne`-Werte (keine Leitern, nicht in `SEHNE`).
+- Mit Dennis: neues Feld `bewegt` (bewegte Gelenke, gleiche 7 IDs wie `gelenke`). Ein Gelenk = isoliert, mehrere = mehrgelenkig,
+  keins = statisch; kein eigenes Feld `isoliert`. Neues Paket `isolation` (Curls, Seitheben, Waden …) vor `mobilitaet`, nur Teil 2;
+  der Coach nimmt sie nur als Zusatz oder Ausweichübung. Idee für später: Sehnen-Anpassung je Gelenk aus `gelenke` und Verlauf
+  statt je Leiter (Wechsel Pull-up → Chin-up fängt dann nicht von vorn an).
+- `sehne` der Leitern steht jetzt im Auftrag (Werte aus `SEHNE`), das Prüfprogramm meldet Abweichungen. Weicht eine Entscheidung
+  mit Dennis ab, `SEHNE` in `index.html` anpassen.
 - PR #59 gemergt (Aufräumen, Wert-Zeilen, Geburtsjahr, Cowork-Auftrag).
 - Rückfragen von Cowork beantwortet und in `design/auftraege/bibliothek.md` eingebaut:
   - Startpaket `zug_vertikal` als Testlauf, `mobilitaet` zuletzt.

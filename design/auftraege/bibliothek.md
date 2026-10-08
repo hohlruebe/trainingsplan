@@ -21,6 +21,7 @@ Du hilfst mir, die Übungsbibliothek meiner Trainings-App auszubauen. Die App pr
 1. **Jede Übung bekommt neue Felder,** damit der Coach besser planen kann:
    - Muskeln ausgleichen
    - Gelenke schonen, wenn mir etwas wehtut
+   - isolierte, mehrgelenkige und statische Übungen unterscheiden
    - Ermüdung und Technik einschätzen
    - leise Übungen für die Wohnung finden
 2. **Die Bibliothek wird die größte, die es in einer Fitness-App gibt.**
@@ -61,6 +62,7 @@ Der Coach tauscht dann für heute diese Übung gegen eine Variante derselben Fam
 |------|-------|-----------|
 | `muskeln` | `{ "primaer": [...], "sekundaer": [...] }` | nur IDs aus der Muskelliste unten, primär 1–3, sekundär 0–4 |
 | `gelenke` | `{ "schulter": 0–3, "ellbogen": 0–3, "handgelenk": 0–3, "ruecken": 0–3, "huefte": 0–3, "knie": 0–3, "fuss": 0–3 }` | Belastung bei sauberer Ausführung: 0 kaum, 1 leicht, 2 deutlich, 3 hoch. Immer alle sieben Schlüssel |
+| `bewegt` | Liste aus denselben sieben Gelenken, z. B. `["schulter", "ellbogen"]` | Gelenke, die sich in der Übung sichtbar bewegen. Halteübungen `[]`. Daraus leitet die App ab: genau ein Gelenk = isoliert, mehrere = mehrgelenkig, keins = statisch |
 | `sehne` | 0, 1 oder 2 | wie lange Sehnen und Bänder zum Anpassen brauchen: 0 normal (2 Wochen je Stufe), 1 erhöht (4 Wochen, z. B. Ringe, Sprünge), 2 hoch (6 Wochen, z. B. Planche, Front Lever, Nordic Curl) |
 | `ermuedung` | 1, 2 oder 3 | wie sehr die Übung den ganzen Körper ermüdet (1 kaum, 3 stark, z. B. Thruster, Burpee, Deadlift schwer) |
 | `technik` | 1–5 | wie viel Technik nötig ist, unabhängig von der Kraft (Snatch 5, Push-up 1) |
@@ -80,11 +82,21 @@ Der Coach tauscht dann für heute diese Übung gegen eine Variante derselben Fam
 - `fuss` (Sprunggelenk, Achillessehne) 3: Sprints, Seilspringen lange, Bergsprints
 - Mobility-Übungen: Belastung meist 0–1. Die gedehnte Stelle zählt nicht als Belastung.
 
+**Bewegte Gelenke (`bewegt`), Hilfe zur Einschätzung:**
+- Nur deutliche, gewollte Bewegungen, keine kleinen Ausgleichsbewegungen.
+- `ruecken` nur, wenn sich die Wirbelsäule gewollt beugt, streckt oder dreht (Crunch, Russian Twist, Jefferson Curl), nicht bei neutralem Rücken (Deadlift, Kniebeuge).
+- `bewegt` sagt, was sich bewegt; `gelenke` sagt, was belastet wird. Ein Gelenk kann belastet sein, ohne sich zu bewegen (Ellbogen im Front Lever).
+- Beispiele: Bizeps-Curl `["ellbogen"]`, Wadenheben `["fuss"]`, Nordic Curl `["knie"]`, Pull-up `["schulter", "ellbogen"]`, Kniebeuge `["huefte", "knie", "fuss"]`, Plank `[]`, Dead Hang `[]`.
+
+**Sehne, Werte aus der App:** Für Leitern gibt es schon eine Tabelle. Übernimm diese Werte unverändert, Abweichungen nur als Grenzfall. Alle anderen Übungen bewertest du selbst nach der Konvention oben.
+- 1: `g_pullup`, `g_chinup`, `g_pike`, `g_pistol`, `g_dragon_flag`, `g_lsit`, `g_box_jump`, `g_broad_jump`, `g_double_under`, `g_kneeraise`, `g_abwheel`, `g_kipping_pullup`, `g_kipping_t2b`, `g_handstand`, `g_handstand_walk`, `g_rope_climb`, `g_bar_dip`, `g_one_arm_row`
+- 2: `g_dip`, `g_ring_muscle_up`, `g_bar_muscle_up`, `g_front_lever`, `g_back_lever`, `g_planche`, `g_hspu`, `g_nordic`, `g_one_arm_pullup`, `g_one_arm_push`, `g_human_flag`
+
 ## Deine Aufgabe
 
 ### Ablauf je Paket
 - **Ein Paket = ein Bewegungsmuster.** Erst Teil 1 (Felder), dann Teil 2 (neue Übungen) für dasselbe Muster, dann das nächste Muster.
-- **Startpaket:** `zug_vertikal` (24 Übungen) als Testlauf. Danach die Reihenfolge aus Anhang D, `mobilitaet` zuletzt.
+- **Startpaket:** `zug_vertikal` (24 Übungen) als Testlauf. Danach die Reihenfolge aus Anhang D, dann `isolation` (nur Teil 2, siehe Regeln), `mobilitaet` zuletzt.
 - **Schritte:**
   1. Recherche: Quellen zu Muskelaktivität und Gelenkbelastung für das Paket.
   2. Grenzfälle hier im Chat vorlegen und auf meine Entscheidung warten.
@@ -112,6 +124,7 @@ Für jedes Paket:
       "id": "g_pullup",
       "muskeln": { "primaer": ["latissimus", "bizeps"], "sekundaer": ["oberer_ruecken", "unterarm", "bauch_gerade"] },
       "gelenke": { "schulter": 2, "ellbogen": 2, "handgelenk": 1, "ruecken": 0, "huefte": 0, "knie": 0, "fuss": 0 },
+      "bewegt": ["schulter", "ellbogen"],
       "sehne": 1, "ermuedung": 2, "technik": 2, "seitig": false, "laut": false, "rx": null,
       "alias": ["Klimmzug", "Klimmzüge"]
     }
@@ -141,6 +154,7 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
       "trainiert": "Rücken, Bizeps, einseitige Kraft", "schritte": ["…", "…"], "sauber": "…", "fehler": "…", "skalierung": "Leichter: … Schwerer: …",
       "muskeln": { "primaer": ["latissimus"], "sekundaer": ["bizeps", "oberer_ruecken"] },
       "gelenke": { "schulter": 2, "ellbogen": 2, "handgelenk": 1, "ruecken": 0, "huefte": 0, "knie": 0, "fuss": 0 },
+      "bewegt": ["schulter", "ellbogen"],
       "sehne": 1, "ermuedung": 2, "technik": 3, "seitig": false, "laut": false, "rx": null, "alias": [] }
   ],
   "familien_ergaenzt": [
@@ -167,6 +181,7 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
   - Prüfe Name und Alias gegen Anhang D.
   - Eine andere Griffbreite, ein anderes Tempo oder eine Pause ist nur dann eine eigene Übung, wenn sie im Training wirklich etwas anderes bewirkt.
 - **Jede neue Übung steht in genau einer Familie.**
+- **Paket `isolation`:** eingelenkige Übungen ohne passendes Muster, z. B. Curls, Trizepsdrücken, Seitheben, Reverse Fly, Wadenheben, Unterarm, Nacken. Jede hat in `bewegt` genau ein Gelenk. Es gibt keine bestehenden Übungen, also nur Teil 2 mit neuen Familien. Der Coach nutzt sie nur als Zusatz oder Ausweichübung, nie als Hauptübung im Kraftteil. Isolationsübungen, die klar zu einem bestehenden Muster gehören (z. B. Nordic Curl in `beinbeuger`), bleiben dort.
 - **Equipment:** nur IDs aus Anhang B (oder aus `geraete_neu`). Lieber Alternativen in einer Gruppe als zu viele Pflichtgeräte.
 - **Sprache:** `name` englisch, alle anderen Texte deutsch, kurze klare Sätze.
 - **Nutzen und Effekt:** an den bestehenden Werten orientieren (Anhang D). Ähnliche Übungen bekommen ähnliche Werte.
@@ -181,6 +196,8 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
 - [ ] Jede ID kommt genau einmal vor, keine bestehende ID ist geändert.
 - [ ] `muskeln` nur mit IDs aus der Liste, primär 1–3, sekundär 0–4, keine Überschneidung.
 - [ ] `gelenke` hat immer alle sieben Schlüssel mit 0–3.
+- [ ] `bewegt` ist eine Liste aus diesen sieben Gelenken ohne Doppelte, `[]` bei Halteübungen, im Paket `isolation` genau eines.
+- [ ] `sehne` bei Leitern wie in der Tabelle aus der App.
 - [ ] `sehne` 0–2, `ermuedung` 1–3, `technik` 1–5, `seitig` und `laut` als `true`/`false`.
 - [ ] `rx` nur bei Einheit `kg` und Rolle `metcon`, sonst `null`.
 - [ ] Neue Übungen: alle Felder aus beiden Tabellen, `equipment` nur mit vorhandenen IDs.
@@ -189,7 +206,7 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
 - [ ] Alle Grenzfälle sind mir vorgelegt, meine Entscheidungen stehen in `entscheidungen`.
 
 ## Anhang A: Werte für `muster` und `bereich`
-- `muster`: `mobilitaet`, `zug_vertikal`, `druck_horizontal`, `zug_horizontal`, `druck_vertikal`, `rumpf_beugung`, `huefte`, `olympisch`, `rumpf_anti_streckung`, `ausdauer`, `sprung`, `einbein`, `kniebeuge`, `tragen`, `rumpf_rotation`, `handstand_skill`, `beinbeuger`
+- `muster`: `mobilitaet`, `zug_vertikal`, `druck_horizontal`, `zug_horizontal`, `druck_vertikal`, `rumpf_beugung`, `huefte`, `olympisch`, `rumpf_anti_streckung`, `ausdauer`, `sprung`, `einbein`, `kniebeuge`, `tragen`, `rumpf_rotation`, `handstand_skill`, `beinbeuger`, `isolation` (neu, nur für neue Übungen)
 - `bereich`: `ausdauer`, `beine`, `beweglichkeit`, `druck`, `rumpf`, `skill`, `zug`
 - `einheit`: `wdh`, `sek`, `kg`, `meter`, `kalorien`, `atemzuege`
 
