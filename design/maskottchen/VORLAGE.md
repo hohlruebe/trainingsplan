@@ -61,6 +61,9 @@ Vorhanden: g_air, g_pullup, g_push, g_pistol, g_nordic, g_hollow, g_handstand, g
 Runde 1 (im Canvas zur Prüfung): g_row, g_pike, g_lunge, g_kneeraise, g_burpee, g_squatjump, g_skater, g_tuck, g_ring_push, g_hspu,
 g_lsit, g_mountain_climber, g_plank, g_hollow_rock, g_v_up, g_slider_curl, g_hip_thrust, g_scap, g_diamond_push, g_split_squat.
 Hilfen dafür: `keys` (Schlüsselbilder mit weichem Übergang), `limbs`, `line` (gerader Körper), `meet` (Becken zwischen Füßen und Schultern), `rotYZ`.
+Runde 3 (Oktober 2026, Reihenfolge in `REIHENFOLGE.md`): die 20 häufigsten Übungen ohne Grafik (Aufwärmen, Cool-down, Ruhetag, Deadlift, Back Squat).
+Neue Hilfen: `twist` (Oberkörper um die Wirbelsäule drehen), `reArm` (Arm nach dem Drehen neu ans Ziel legen, Kontakt bleibt),
+`turnAll` (ganze Figur auf die Seite legen, z. B. Open Book), `supine` (Rückenlage), `quad` (Vierfüßler), `barbell` (Langhantel), `breathe`.
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).

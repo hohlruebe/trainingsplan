@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 8. Oktober 2026 (Schmerzen mit Gedächtnis)
+Stand: 8. Oktober 2026 (Testtage mit Metcon, Grafiken Runde 3)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,15 @@ Stand: 8. Oktober 2026 (Schmerzen mit Gedächtnis)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Grafiken Runde 3 und Testtage (8. Oktober)
+- PR #65 (Schmerzen) gemergt.
+- Grafiken: Reihenfolge aus einer Plan-Simulation (`design/maskottchen/REIHENFOLGE.md`, 83 Übungen im Plan ohne Grafik, Runden zu 20).
+  Runde 3 (20 Figuren, vor allem Aufwärmen, Cool-down, Ruhetag, dazu Deadlift und Back Squat) liegt im Canvas („Paket 32“, zwei Boards),
+  nur in `design/maskottchen/maskottchen.js`, noch nicht in `index.html`. Dennis schaut sie am Mac an, dann Freigabe und Übernahme.
+  Neue Hilfen in der Vorlage: `twist`, `reArm`, `turnAll`, `supine`, `quad`, `barbell`, `breathe`. Schwer lesbar: Supine Twist, Frog, Doorway Pec.
+- Dennis: Testtage waren nach 10 Minuten vorbei. Jetzt mit Aufwärmen am Anfang und Metcon AMRAP 8 am Ende (Bewegungen, die heute
+  nicht getestet wurden; erster Metcon-Wert).
 
 ## Schmerzen mit Gedächtnis (8. Oktober)
 - PR #64 (Muskelausgleich) gemergt.
