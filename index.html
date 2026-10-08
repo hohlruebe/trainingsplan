@@ -557,6 +557,9 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .fl-h{display:flex;align-items:baseline;gap:10px;width:100%;min-height:44px;padding:8px 12px;border:0;border-radius:20px;background:transparent;color:inherit;font-family:var(--text);font-size:15px;text-align:left;cursor:pointer}
 .fl-h .qty{min-width:84px;white-space:nowrap}
 .fl-n{flex:1 1 0;min-width:0}
+.fl-x{display:block;margin-top:2px;font-size:13px;font-weight:400;color:var(--ink2)}
+.how{margin:0 0 8px;padding-left:20px;color:var(--ink2)}
+.how li{margin:2px 0}
 .fl-row.done{color:var(--ink2)}
 .fl-row.done .qty{color:var(--green)}
 .fl-row.open{background:var(--pill);box-shadow:0 2px 8px rgba(17,18,20,.1)}
@@ -2041,11 +2044,11 @@ var FONTS = [
 ];
 
 var WARMUP = [
-  { t: '5 Min', n: 'Ergometer locker' },
+  { t: '5 Min', n: 'Ergometer locker', h: 'Locker treten, du kannst dabei reden. Etwa 3–4 von 10.' },
   { t: '3×', n: 'Stack Breathing', g: true },
   { t: '10', n: 'Scapular Push-up', g: true },
   { t: '5 je Seite', n: "World's Greatest Stretch", g: true },
-  { t: '30 s', n: 'Handgelenke kreisen und dehnen' },
+  { t: '30 s', n: 'Handgelenke kreisen und dehnen', h: 'Hände falten und kreisen, beide Richtungen. Dann im Vierfüßlerstand die Finger nach vorn und nach hinten zeigen lassen und sanft verlagern.' },
   { t: '10', n: 'Band Pull-Apart', g: true, x: 'sehr leichtes Band' },
   { t: '10', n: 'Band Pass-Through', g: true, x: 'sehr leichtes Band' }
 ];
@@ -4142,13 +4145,15 @@ var TRAIN_STD = { warm: 'list', kraft: 'list', metcon: 'list', murph: 'list', co
 function modeOf(t) { var m = S.trainCustom && S.trainModes ? S.trainModes[t] : null; return m === 'single' || m === 'list' ? m : TRAIN_STD[t]; }
 function flowItem(n, qty, x, key, note) {
   var g = GL[n];
-  return { n: n, qty: String(qty), x: x || '', key: key || (g ? g.key : ''), note: note != null ? note : shortCue(g && g.cue) };
+  return { n: n, qty: String(qty), x: x || '', key: key || (g ? g.key : ''), note: note != null ? note : shortCue(g && g.cue), how: g && g.steps ? g.steps : [] };
 }
+// So geht's: die Schritte der Übung, damit jede Übung im Training erklärt ist.
+function howHTML(steps) { return steps && steps.length ? '<ol class="how small">' + steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : ''; }
 // Im Training reichen die ersten zwei Sätze des Hinweises.
 function shortCue(t) { return ((t || '').match(/[^.!?]+[.!?]*/g) || []).slice(0, 2).join('').trim(); }
 function warmFlow(tag) { return painFlow(tag, warmFlow0(tag), 'w'); }
 function warmFlow0(tag) {
-  var d = DAYS[tag], it = WARMUP.map(function (w) { return flowItem(w.n, w.t, w.x); });
+  var d = DAYS[tag], it = WARMUP.map(function (w) { return flowItem(w.n, w.t, w.x, null, w.h); });
   if (d.jumps) it.push(flowItem(d.jumps.n, d.jumps.t, 'ohne Weste'));
   return { id: 'warm', items: it };
 }
@@ -4177,7 +4182,10 @@ function flowState(F, D) {
   return { c: Math.max(0, Math.min(F.items.length, +(D['_c_' + F.id] || 0))), r: Math.max(1, +(D['_r_' + F.id] || 1)),
     done: String(D['_d_' + F.id] || '').split(',').filter(Boolean).map(Number) };
 }
-function flowSave(F, s) { setDraft('_c_' + F.id, s.c); setDraft('_r_' + F.id, s.r > 1 ? s.r : ''); setDraft('_d_' + F.id, s.done.join(',')); }
+function flowSave(F, s) {
+  setDraft('_c_' + F.id, s.c); setDraft('_r_' + F.id, s.r > 1 ? s.r : ''); setDraft('_d_' + F.id, s.done.join(','));
+  if (F.id === 'metcon') { var x = amrapCount(S.tag); setDraft('mr', x.r); setDraft('mw', x.w); } // Zähler = Ergebnis, nichts doppelt eintragen
+}
 function nextStepOf(stepId) {
   var st = stepsOf(dayCtx(S.tag));
   for (var i = 0; i < st.length; i++) if (st[i].id === stepId) return i + 1 < st.length ? { to: i + 1, title: st[i + 1].title } : null;
@@ -4196,7 +4204,7 @@ function miniFig(key) {
 // Runden zählen „Nur Runden“ oder „Aus“: das Workout steht nur da, ohne Abhaken.
 function flowStaticHTML(F, s) {
   var h = '<ul class="flow static" data-flow="' + F.id + '">' + F.items.map(function (it) {
-    return '<li class="fl-row"><div class="fl-h"><span class="qty">' + esc(it.qty) + '</span><span class="fl-n">' + esc(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + '</span></div></li>';
+    return '<li class="fl-row"><div class="fl-h"><span class="qty">' + esc(it.qty) + '</span><span class="fl-n">' + esc(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + (it.note ? '<span class="fl-x">' + esc(it.note) + '</span>' : '') + '</span></div></li>';
   }).join('') + '</ul>';
   if (roundMode() === 'rd') h += '<div class="fl-count" data-swipe="count" data-flow="' + F.id + '"><span><b>Runden</b><br><span class="small muted">nach jeder Runde tippen</span></span>' +
     '<div class="stepper"><button type="button" data-act="fl-count" data-flow="' + F.id + '" data-d="-1" aria-label="Eine Runde weniger">–</button><b>' + (s.r - 1) + '</b><button type="button" class="primary" data-act="fl-count" data-flow="' + F.id + '" data-d="1" aria-label="Eine Runde mehr">+</button></div></div>';
@@ -4216,17 +4224,17 @@ function flowHTML(F, D) {
     if (s.c === n - 1 && !more) { var nx = nextStepOf(F.id); if (nx) chips.push('Danach: ' + nx.title); }
     h = '<section class="card flow-one" data-flow="' + F.id + '" data-swipe="card"><div class="chips">' + chips.map(function (c) { return '<span class="chip">' + esc(c) + '</span>'; }).join('') + '</div>' +
       figBox(it.key) + '<div class="fo-h"><span class="qty">' + esc(it.qty) + '</span><h3>' + gl(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + '</h3></div>' +
-      (it.note ? '<p class="small muted">' + esc(it.note) + '</p>' : '') +
+      howHTML(it.how) + (it.note ? '<p class="small muted">' + esc(it.note) + '</p>' : '') +
       '<div class="bgrp"><button type="button" data-act="fl-back" data-flow="' + F.id + '"' + (s.c === 0 && s.r === 1 ? ' disabled' : '') + '>‹ Zurück</button><button type="button" data-act="fl-done" data-flow="' + F.id + '">Erledigt ›</button></div></section>';
     return h;
   }
-  var open = s.c < n ? s.c : -1, chip = L && (F.id !== 'metcon' || S.roundCounter === false) ? 'Runde ' + s.r + (L.times ? ' von ' + L.times : '') : '';
+  var o = (D || dr(S.tag))['_o_' + F.id], open = L ? (o != null && o !== '' ? +o : -1) : s.c < n ? s.c : -1, chip = L && (F.id !== 'metcon' || S.roundCounter === false) ? 'Runde ' + s.r + (L.times ? ' von ' + L.times : '') : '';
   h = '<ul class="flow" data-flow="' + F.id + '">' + F.items.map(function (it, i) {
     var dn = s.done.indexOf(i) >= 0, op = i === open;
     return '<li class="fl-row' + (dn ? ' done' : '') + (op ? ' open' : '') + '" data-swipe="row" data-flow="' + F.id + '" data-i="' + i + '">' +
-      '<button type="button" class="fl-h" data-act="fl-pick" data-flow="' + F.id + '" data-i="' + i + '" aria-expanded="' + op + '"><span class="qty">' + (dn ? '✓ ' : '') + esc(it.qty) + '</span><span class="fl-n">' + esc(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + '</span></button>' +
+      '<button type="button" class="fl-h" data-act="fl-pick" data-flow="' + F.id + '" data-i="' + i + '" aria-expanded="' + op + '"><span class="qty">' + (dn ? '✓ ' : '') + esc(it.qty) + '</span><span class="fl-n">' + esc(it.n) + (it.x ? ' <span class="muted small">(' + esc(it.x) + ')</span>' : '') + (L && !op && !dn && it.note ? '<span class="fl-x">' + esc(it.note) + '</span>' : '') + '</span></button>' +
       (op ? '<div class="fl-body">' + (chip && i >= L.from && i <= L.to ? '<div class="chips"><span class="chip">' + esc(chip) + '</span></div>' : '') + figBox(it.key) +
-        (it.note ? '<p class="small muted">' + esc(it.note) + '</p>' : '') + '<button type="button" class="btn small" data-act="fl-done" data-flow="' + F.id + '" data-i="' + i + '">Erledigt</button></div>' : '') + '</li>';
+        howHTML(it.how) + (it.note ? '<p class="small muted">' + esc(it.note) + '</p>' : '') + '<button type="button" class="btn small" data-act="fl-done" data-flow="' + F.id + '" data-i="' + i + '">Erledigt</button></div>' : '') + '</li>';
   }).join('') + '</ul>';
   if (F.id === 'metcon' && S.roundCounter !== false) {
     h += '<div class="fl-count" data-swipe="count" data-flow="metcon"><span><b>Runden</b><br><span class="small muted">zählt beim Abhaken mit</span></span>' +
@@ -4261,6 +4269,7 @@ function flowRow(id, i, on) {
     for (var j = L.from; j <= L.to; j++) if (s.done.indexOf(j) < 0) all = false;
     if (all && (!L.times || s.r < L.times)) { s.r++; again = true; s.done = s.done.filter(function (j) { return j < L.from || j > L.to; }); toast('Runde ' + (s.r - 1) + ' geschafft.'); }
   }
+  if (L) setDraft('_o_' + id, '');
   if (again) s.c = L.from;
   else if (on) {
     s.c = n;
@@ -4276,6 +4285,7 @@ ACT['fl-back'] = function (el) { flowStep(el.dataset.flow, false); };
 ACT['fl-pick'] = function (el) {
   var F = flowById(el.dataset.flow), s = flowState(F), i = +el.dataset.i;
   if (s.done.indexOf(i) >= 0) { flowRow(F.id, i, false); return; }
+  if (F.loop && modeOf(F.id) === 'list') { var o = dr(S.tag)['_o_' + F.id]; setDraft('_o_' + F.id, o != null && +o === i ? '' : i); render(); return; } // Metcon, Murph: Antippen klappt auf und zu
   s.c = i; flowSave(F, s); render();
 };
 ACT['fl-count'] = function (el) { flowCount(+el.dataset.d, el.dataset.flow); };
@@ -4666,12 +4676,17 @@ function testMetconStep(tag) {
     timer: { mode: 'amrap', cfg: { minutes: 8, tag: tag }, label: 'AMRAP 8 starten', info: L.map(function (m) { return m.r + ' ' + m.n; }).join(' · ') },
     body: function (D) { return testMetconHTML(tag, D); } }];
 }
+// Zählt die App mit (Abhaken oder Rundenzähler), stehen Runden und Wdh. schon im Ergebnis.
+function mcCountHint() {
+  var on = roundMode() === 'rd' || (roundMode() === 'ex' && (modeOf('metcon') === 'single' || S.roundCounter !== false));
+  return on ? '<p class="small muted">Ergebnis kommt aus dem Zähler. Antippen nur zum Korrigieren.</p>' : '';
+}
 function testMetconHTML(tag, D) {
   var single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon');
   var h = single ? flowHTML(metconFlow(tag), D) + '<section class="card">' : '<section class="card">' + flowHTML(metconFlow(tag), D);
   h += '<p class="small muted">Nach den Tests: Bewegungen, die heute nicht getestet wurden. Zügig, aber kein Maxout. Das ist dein erster Metcon-Wert.</p>';
   if (single && run && roundMode() === 'ex') return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
-  return h + '<div class="pick-grid">' +
+  return h + mcCountHint() + '<div class="pick-grid">' +
     tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: 4, title: 'AMRAP 8' }), D.mr ? 'set' : '') +
     tile('Extra-Wdh.', '<b>' + (D.mw ? esc(D.mw) : '–') + '</b>', pickAttrs({ f: 'mw', min: 0, max: 60, unit: 'Wdh.', def: 0, title: 'AMRAP 8' }), D.mw ? 'set' : '') +
     '</div></section>';
@@ -4699,7 +4714,7 @@ function metconStepHTML(tag, D, am) {
   }
   if (lm) h += '<p class="small hint">Letztes Mal mit diesen Übungen: ' + lm.rounds + ' Runden + ' + (lm.reps || 0) + ' Wdh. Ziel heute: mindestens 1 Wdh. mehr.</p>';
   if (single && run && roundMode() === 'ex') return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
-  h += '<div class="pick-grid">' +
+  h += mcCountHint() + '<div class="pick-grid">' +
     tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: lm ? lm.rounds : 4, title: 'AMRAP ' + am }), D.mr ? 'set' : '') +
     tile('Extra-Wdh.', '<b>' + (D.mw ? esc(D.mw) : '–') + '</b>', pickAttrs({ f: 'mw', min: 0, max: 60, unit: 'Wdh.', def: 0, title: 'AMRAP ' + am }), D.mw ? 'set' : '') +
     '</div></section>';
@@ -4710,7 +4725,8 @@ function testStepHTML(tag, r, i, D) {
   var stage = D[sf] || '', mx = num(D[f]), u = secs ? 's' : 'Wdh.';
   var gk = GL[r.name] ? GL[r.name].key : '', sv = lad && lad.lib && stage ? lad.lib.stufen.filter(function (x) { return x.name === stage; })[0] : null;
   if (sv && figOf(sv.uebung)) gk = sv.uebung; // Figur der gewählten Stufe, z. B. Knee Push-up bei „Auf Knien“
-  var h = '<section class="card">' + figBox(gk) + '<p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
+  var hw = sv && UE[sv.uebung] && UE[sv.uebung].schritte ? UE[sv.uebung].schritte : GL[r.name] ? GL[r.name].steps : [];
+  var h = '<section class="card">' + figBox(gk) + (hw && hw.length ? '<p class="small"><b>So geht’s' + (sv ? ' (' + esc(stageText(stage)) + ')' : '') + ':</b></p>' + howHTML(hw) : '') + '<p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
   // Stufe über das Rad, Wiederholungen (bzw. Sekunden) mit dem Zähler: schnell zwischen zwei Testsätzen.
   h += '<section class="card"><div class="pick-grid one">' +
     tile('Stufe', '<b class="txt">' + (stage ? stageHTML(stage) : 'wählen') + '</b>', lad ? pickAttrs({ only: 'stage', sf: sf, lad: GL[r.name].key, title: r.name }) : 'disabled') +

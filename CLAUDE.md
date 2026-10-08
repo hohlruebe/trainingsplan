@@ -232,6 +232,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   zum nächsten Schritt, Chip „Danach: …“). Einstellung unter Einstellungen › Training: `S.trainCustom`, `S.trainModes` (Standard
   `TRAIN_STD`: Liste, Cool-down einzeln, `modeOf`), `S.roundCounter`, `S.swipe`, `S.swipeRev`, nur auf dem Gerät.
   Stand im Entwurf: `_c_<id>` aktuelle Übung, `_d_<id>` abgehakt (Liste), `_r_<id>` Runde. Metcon und Murph laufen in Runden (`loop`).
+  Liste mit Runden (Metcon, Murph): keine Zeile automatisch offen, je Zeile der kurze Hinweis (`.fl-x`); Antippen klappt auf und zu (`_o_<id>`).
+  Jede Übung erklärt sich: aufgeklappt bzw. einzeln „So geht’s“ aus `schritte` (`flowItem.how`, `howHTML`), Aufwärmen ohne Bibliothek mit `h` in `WARMUP`;
+  Testschritte zeigen „So geht’s“ der gewählten Stufe. Metcon: jeder Zähler-Schritt schreibt `mr`/`mw` mit (`flowSave`, `amrapCount`),
+  die Kacheln Runden/Extra-Wdh. sind dann schon gefüllt und nur zum Korrigieren (`mcCountHint`).
   Wischen (`data-swipe`, `swipeDo`): links = erledigt / weiter / +, rechts = zurück / rückgängig / –, umkehrbar.
   Metcon: Rundenzähler (`.stepper`) nur in der Liste; Einzeln ohne Kacheln und Hauptaktion, solange der AMRAP läuft.
   Am Ende des AMRAP fragt `amrapCheck` „Stimmt dein Ergebnis?“ mit gezählten Runden und Wdh. (`amrapCount`).
