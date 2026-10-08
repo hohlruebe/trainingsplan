@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 8. Oktober 2026 (Muskelausgleich)
+Stand: 8. Oktober 2026 (Schmerzen mit Gedächtnis)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,17 @@ Stand: 8. Oktober 2026 (Muskelausgleich)
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Schmerzen mit Gedächtnis (8. Oktober)
+- PR #64 (Muskelausgleich) gemergt.
+- Mit Dennis: Schmerz-Skala in drei Stufen (Schmerz-Ampel-Modell: leicht 1–3, mittel 4–6, stark 7–10), feiner bringt keine andere Handlung.
+  Bei „stark“ kein Ersatz in derselben Bewegung, sondern eine andere Muskelgruppe ohne Last auf der Stelle.
+- Mit Dennis: auch Muskeln (nur die der Übung), Muskelkater ist kein Grund zum Tauschen. Gedächtnis 1–4 (nachfragen, ganze Stelle
+  schonen, stufenweise zurück, Hinweis zum Abklären), dazu 5 (Muster: 3× dieselbe Übung → Pause) und 6 (Übersicht im Profil).
+  Canvas „Paket 31 · Schmerzen mit Gedächtnis“.
+- Dennis: „Training ist Training“: Ersatz zählt normal (eigene Leiter, Gewicht, Familie); nur „leichter“ ist kein Stillstand.
+  Schmerzen überall melden (Aufwärmen, Handstand, Kraft, Metcon, Ausgleich, Cool-down, Murph), das Gedächtnis gilt in allen Schritten.
+- Dennis: Übersicht für die Physio als Text mit eingebaut (Teilen bzw. Kopieren aus der Karte „Beschwerden“).
 
 ## Muskelausgleich (8. Oktober)
 - Mit Dennis entworfen (Canvas „Paket 29 · Muskelausgleich“): eine Karte mit anatomischer Figur (grau, Muskeln einzeln, Umrisse auch im

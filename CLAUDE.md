@@ -75,6 +75,29 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   der Kraftteil bleibt. (B) Schritt „Ausgleich“ (`ausgleichStep`, `ausgleichUe`, 4 Min, 2 Sätze, Kacheln `a0`/`a1`) am Ende der Krafttage
   ab Durchgang 3, nicht in Entlastung, Testwoche, Taper, Kurzversion und bei „wenig Zeit“; leichte Übung (ermüdung ≤ 1, Technik ≤ 2, nicht
   Mobility/Ausdauer/Sprung/Tragen) für den größten Rückstand. Gespeichert als `ausgleich: {ue, reps}` im Kraft-Eintrag, im Verlauf sichtbar.
+- Schmerzen (`painApply` im Getter `DAYS[t].kraft`, `painApplyM` im Getter `DAYS[t].metcon`, `painFlow` in `warmFlow`/`coolFlow`/`murphFlow`,
+  `painForUe`, `painSubUe`, `painBody`): grauer Link „Schmerzen“ unter jeder Kraft-Karte (`ACT.pain`) und unter jedem anderen Schritt
+  (`painStepLinkHTML`, `ACT['pain-s']`, `PAIN_STEPS`: Aufwärmen, Handstand, Metcon, Ausgleich, Cool-down, Murph), Blatt „<Übung bzw. Schritt> · Schmerzen“,
+  bei mehreren Übungen zuerst „Bei welcher Übung?“ (`painItems`, `ui.painSlot`). Dann „Wo zwickt es?“ Gelenk | Muskel (`ui.painK`, `ACT['pain-k']`),
+  darunter nur die Gelenke bzw. Muskeln, die diese Übung belastet (Link „Andere Gelenke“ = alle, `ui.painAll`), dann erst die Stärke. Metcon: Ersatz aus dem Metcon-Pool mit dessen Menge;
+  Aufwärmen, Cool-down, Murph: betroffene Übung „heute auslassen“ bzw. „leichter“; Handstand: ab mittel heute keiner; Ausgleich: andere Übung
+  ohne Last auf der Stelle (`painBlocks`), sonst Schritt mit Hinweis ohne Speichern (`A.skip`). Stelle = Gelenk (`PAIN_J`, Last aus `gelenke` 0–3) oder Muskel der Übung (höchstens 3, Last
+  Hauptmuskel 2, mitarbeitend 1, `siteLoad`). Stärke nach dem Schmerz-Ampel-Modell (`PAIN_W`): leicht 1–3 = Übung bleibt, leichter (`soft`);
+  mittel 4–6 = Ersatz mit weniger Last (gleiche Familie zuerst, sonst gleicher Bereich ohne Last, sonst wie stark); stark 7–10 = andere
+  Muskelgruppe ohne Last (`other`, bevorzugt `need` aus dem Muskelausgleich und ein Bereich, der heute nicht dran ist); sonst Pause (`skip`).
+  Muskelkater (`k`) ändert nichts und wird nicht gemerkt. Entwurf je Platz `_p<slot>` = 'j:knie:m' / 'm:quadrizeps:s' (Plätze `k<i>` Kraft,
+  `m<i>` Metcon, `a` Ausgleich, `h` Handstand, `w<i>`/`c<i>` Auf-/Abwärmen, `u<i>` Murph); Muskel-Kurznamen `MUS_SHORT`. Training ist Training:
+  Der Ersatz zählt unter seinem eigenen Namen (Leiter, Gewicht, 1RM, Familie, Muskeln); nur ein Tag „leichter“ (`k.pain.soft`) zählt nicht als
+  Stillstand (`stallOf`). Kraft-Einträge tragen `pain`, der Verlauf zeigt „statt … (Knie)“.
+  Gedächtnis `S.koerper` (in `DEF` und `SYNC_KEYS`) je Stelle `{k, id, w, since, last, ask, free, n, s, hist}` (`memRecord` beim Speichern,
+  `memState`: akut / back / gut). Heute fragt `painAskHTML` je akuter Stelle „Wie geht’s deinem Knie?“ (Weg/Leicht/Mittel/Stark, `ACT['pn-ask']`);
+  bis zur Antwort gilt der letzte Stand, und zwar für alle Übungen, die die Stelle belasten (`src: 'mem'`). „Weg“ (oder „Schmerzen weg“ an
+  einer Übung aus dem Gedächtnis) startet die Rückkehr: Woche 1 Last bis 1, Woche 2 bis 2, dann wieder alles (`src: 'back'`, `cap`).
+  Muster (`memAvoid`): dreimal dieselbe Übung an derselben Stelle in 12 Wochen → der Coach nimmt eine Weile eine andere (`src: 'meiden'`).
+  Hinweis zum Abklären (`memDoc`): seit 14 Tagen akut oder dreimal stark. Profil › Werte: Karte „Beschwerden“ (`painCardHTML`, Figur mit
+  Gelenk-Punkten `JOINT_XY` und Muskeln, je Stelle eine Wert-Zeile, gemiedene Übungen), nur wenn es etwas gibt.
+  Knopf „Für die Physio“ (`ACT['pn-physio']`, `physioData`): Blatt mit Skala-Legende und je Stelle einer Karte (Status-Chip, Wert-Zeilen seit/zuletzt, Verlauf als Farbpunkte, Chips „Aufgetreten bei“, Liste „Im Training angepasst“, `physioHTML`); geteilt wird derselbe Inhalt als Text mit Aufzählung (`physioText`) über
+  `navigator.share`, sonst Kopieren. Wird nur auf dem Gerät erstellt.
 - Tools › 1RM (`renderRM`): Titel „One Rep Max“, alle Übungen mit Einheit kg (`RM_ALL`, nach Nutzen), oben „Deine Werte“, darunter
   die übrigen. Umschalter Aktuell/Bestwert nur in der Liste (`ui.rmBest`, `ACT['rm-view']`), Bestwert mit Jahr (`dateY`).
   Antippen öffnet den Prozent-Rechner (`rmDetailHTML`, `ui.rmLift`): Basis immer der aktuelle Wert, Bestwert golden darunter,
