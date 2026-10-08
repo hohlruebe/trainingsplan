@@ -64,6 +64,10 @@ Hilfen dafür: `keys` (Schlüsselbilder mit weichem Übergang), `limbs`, `line` 
 Runde 3 (Oktober 2026, Reihenfolge in `REIHENFOLGE.md`): die 20 häufigsten Übungen ohne Grafik (Aufwärmen, Cool-down, Ruhetag, Deadlift, Back Squat).
 Neue Hilfen: `twist` (Oberkörper um die Wirbelsäule drehen), `reArm` (Arm nach dem Drehen neu ans Ziel legen, Kontakt bleibt),
 `turnAll` (ganze Figur auf die Seite legen, z. B. Open Book), `supine` (Rückenlage), `quad` (Vierfüßler), `barbell` (Langhantel), `breathe`.
+Nach Dennis' Rückmeldung zur Runde 3: **Kamera von schräg oben** `tilt` (Grad) in `EXERCISES`, dazu `mat: [x0, x1, z0, z1]` (Matte statt Bodenlinie).
+Für Liegen und Bodenübungen, bei denen die Seitenansicht nichts zeigt (Supine Twist, Frog, Open Book, Thread the Needle, Doorway Pec).
+Ohne `tilt` bleibt jede Figur wie bisher. Neue Hilfen: `kneelLeg` (Knie am Boden, Fuß flach), `legVia` (Bein über ein gewünschtes Knie),
+`rollLeg` (Bein samt Hüfte kippen), `sofa`, `doorFrame`. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
