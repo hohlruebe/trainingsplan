@@ -25,6 +25,14 @@ Stand: 9. Oktober 2026 (Fünf Grundsätze, Zähler überall, Übungen erklärt, 
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Neue Übungen: der Coach stuft ein (9. Oktober)
+- Dennis fragte, wie neue Übungen eingestuft werden und wie der Coach merkt, dass eine Stufe nicht geschafft wurde. Konzept im Canvas
+  (Board „Neue Übungen · Coach stuft ein“), Dennis: „Baue das so um“. Variante B (nur der Coach, kein „Zu leicht | Zu schwer“).
+- Umgesetzt: Start-Schätzung (Familie, Teil-Wert, sonst Stufe 1), Einstufung in den ersten 2 Einheiten, eine Stufe leichter bei 2 Runden unter
+  der Spanne, Gewicht ohne 1RM aus verwandten 1RM bzw. Einsteiger-Norm, automatisch übernommene Vorschläge grau bis bestätigt,
+  Chips „3–6 Wdh.“ und „✓ Stufe N …“ in einer Reihe. Alte Übungstexte mit Tag-Nummern (Chin-up, Pull-up, Push-up) entfernt.
+- Offen: Rückmeldung von Dennis, ob die Schätzungen passen (z. B. Ring Chin-up aus Zug-Wert 74 → „Leichtes Band“).
+
 ## Fünf Grundsätze und Angleichung (9. Oktober)
 - Dennis fragte, ob die UI/UX-Grundsätze im Designkonzept stehen. Jetzt in `DESIGN.md` als „Fünf Grundsätze“ (Konsistenz, Feedback,
   Einfachheit, Barrierefreiheit, Kontrolle); Abschnitt „Eingaben“ korrigiert: Zahlen im Training = Zähler, Werte von der Uhr = Rad.
