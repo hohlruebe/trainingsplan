@@ -412,9 +412,9 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .rp{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
 .rp h2{margin:2px 0;font-size:22px}
 .rp .kicker{margin:0}
-.rp-side span{display:inline-block;padding:4px 12px;border-radius:999px;background:color-mix(in srgb,var(--acc) 13%,var(--paper));color:var(--acc);font-size:14px;font-weight:600}
+.rp-sd{width:min(240px,100%);margin:4px 0 2px}.rp-how{align-self:stretch;text-align:left;margin:6px 0 0}.rp-how:empty{display:none}
 .rp-ring{position:relative;width:190px;height:190px;margin:4px 0}
-.rp-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.rp-ring>svg{width:100%;height:100%;transform:rotate(-90deg)}
 .rr-bg{fill:none;stroke:var(--fill);stroke-width:10}
 .rr-fg{fill:none;stroke:var(--acc);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .25s linear}
 .rp-ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:52px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
@@ -518,7 +518,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .sq-row.done{opacity:.45}
 .abc-l{margin:8px 0 0;padding:0 0 0 22px;display:flex;flex-direction:column;gap:6px}
 .abc-l li{line-height:1.3}
-.abc-l li b{font-weight:600;margin-right:6px}
+.abc-l li b{font-weight:600;margin-right:6px}.abc-x{display:block;margin-top:2px}
 .mc-sw{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding:6px 6px 6px 16px;border-radius:999px;background:var(--board)}
 .mc-sw .mc-t{font-family:var(--head);font-weight:800;font-size:28px;letter-spacing:-.02em;min-width:72px;font-variant-numeric:tabular-nums}
 .mc-sw .chip,.mc-sw .small{flex:none;margin-right:auto}
@@ -2417,16 +2417,23 @@ function ueName(id) { return UE[id] ? UE[id].name : id; }
 // Zeit je Block: Sekunden direkt, Atemzüge etwa 6 s, Wiederholungen etwa 4 s.
 function blockSec(b) { var n = +b.menge || 0; return b.einheit === 'sek' ? n : b.einheit === 'atemzuege' ? n * 6 : n * 4; }
 function blockText(b) { return (b.einheit === 'sek' ? fmtT(+b.menge) : b.menge + (b.einheit === 'atemzuege' ? ' Atemzüge' : ' Wdh.')) + (b.je_seite ? ' je Seite' : ''); }
+// Zwischen zwei Übungen und beim Seitenwechsel 5 s, um in die neue Position zu kommen (Dennis). Sie zählen zur Dauer.
+var R_SW = 5;
 function routinePhases(r) {
   var P = [], n = r.bloecke.length;
   r.bloecke.forEach(function (b, i) {
-    (b.je_seite ? ['Links', 'Rechts'] : ['']).forEach(function (side) {
-      P.push({ label: ueName(b.uebung), sub: 'Übung ' + (i + 1) + ' von ' + n, side: side, hint: b.hinweis || '', dur: Math.max(5, blockSec(b)), kind: 'easy', bi: i, key: b.uebung });
+    var how = UE[b.uebung] && UE[b.uebung].schritte || [];
+    (b.je_seite ? ['Links', 'Rechts'] : ['']).forEach(function (side, si) {
+      var o = { label: ueName(b.uebung), side: side, je: !!b.je_seite, bi: i, key: b.uebung, how: how, hint: b.hinweis || '' };
+      if (P.length) P.push(Object.assign({}, o, { kind: 'sw', dur: R_SW, sub: si ? 'Seite wechseln' : 'Wechsel · Übung ' + (i + 1) + ' von ' + n }));
+      P.push(Object.assign(o, { kind: 'easy', dur: Math.max(5, blockSec(b)), sub: 'Übung ' + (i + 1) + ' von ' + n }));
     });
   });
-  P.forEach(function (x, i) { x.next = P[i + 1] ? P[i + 1].label + (P[i + 1].side ? ' · ' + P[i + 1].side : '') : 'Fertig'; });
+  P.forEach(function (x, i) { var j = i + 1; while (P[j] && P[j].kind === 'sw') j++; x.next = P[j] ? P[j].label + (P[j].side ? ' · ' + P[j].side : '') : 'Fertig'; });
   return P;
 }
+// Ganze Dauer einer Routine mit den Wechseln, aufgerundet auf Minuten.
+function routineMin(r) { return Math.ceil(routinePhases(r).reduce(function (a, p) { return a + p.dur; }, 0) / 60); }
 
 var BANDS = [
   { name: 'Sehr stark', kg: '35–60 kg', c: '#2B2B2B' },
@@ -3095,7 +3102,7 @@ function saveAsk() {
   var tag = S.tag, c = dayCtx(tag), D = DRAFTS[draftKey(tag)] || {}, r = coolOf(tag);
   // Lauftag (Laufen oder Ergometer): erst speichern, bei Ja startet danach das Cool-down im Player.
   if (r && !c.isTest && !c.isMurph && (c.d.type === 'easy' || c.d.type === 'interval') && !doneToday(r.id)) {
-    openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + r.dauer_min + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
+    openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + routineMin(r) + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
       if (!v) return;
       saveDay();
       if (v === 'ja') ACT['r-open']({ dataset: { v: r.id } });
@@ -3103,7 +3110,7 @@ function saveAsk() {
     return;
   }
   if (!r || D._step == null || D._cd != null || D._cool || c.isTest || c.isMurph || c.d.type !== 'kraft') { saveDay(); return; }
-  openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + r.dauer_min + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
+  openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + routineMin(r) + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
     if (v === 'nein') { setDraft('_cd', '0'); saveDay(); return; }
     if (v !== 'ja') return;
     setDraft('_cd', '1');
@@ -3628,11 +3635,11 @@ function planDayHTML(dg, t) {
     else if (d.type === 'easy' || d.type === 'interval') {
       var rs = runSpec(d), rc = coolOf(t);
       st.push({ title: rs.name + (rs.ergo ? ' · Ergometer' : ''), dur: Math.round(planRunSec(rs) / 60), desc: kardioText(rs) });
-      if (rc) st.push({ title: rc.name, dur: rc.dauer_min, desc: rc.ziel, opt: true });
+      if (rc) st.push({ title: rc.name, dur: routineMin(rc), desc: rc.ziel, opt: true });
     }
     var h = '<p class="kicker muted pd-k">Tag ' + t + ' · ' + esc(dayLabel(t)) + '</p>';
     if (st.length) h += tlHTML(st);
-    else h += '<p>Frei.' + (d.flow && ROUT[d.flow] ? ' Wenn du magst: ' + esc(ROUT[d.flow].name) + ', ' + ROUT[d.flow].dauer_min + ' Min.' : '') + '</p>';
+    else h += '<p>Frei.' + (d.flow && ROUT[d.flow] ? ' Wenn du magst: ' + esc(ROUT[d.flow].name) + ', ' + routineMin(ROUT[d.flow]) + ' Min.' : '') + '</p>';
     if (dg > S.durchgang || (dg === S.durchgang && t > S.tag)) h += '<p class="small muted pd-n">Vorschau: Übungen und Stufen können sich noch ändern, wenn du Neues freischaltest.</p>';
     return h;
   });
@@ -5054,8 +5061,8 @@ function coolOf(tag) { var d = DAYS[tag]; return d && d.cool && ROUT[d.cool] ? R
 function coolStep(tag) {
   var r = coolOf(tag);
   if (!r) return [];
-  return [{ id: 'cool', title: r.name, sub: r.dauer_min + ' Min · passend zum Tag', dur: r.dauer_min, desc: r.ziel, opt: true,
-    timer: { mode: 'routine', cfg: { rid: r.id, tag: tag }, label: r.dauer_min + ' Min starten', info: r.name },
+  return [{ id: 'cool', title: r.name, sub: routineMin(r) + ' Min · passend zum Tag', dur: routineMin(r), desc: r.ziel, opt: true,
+    timer: { mode: 'routine', cfg: { rid: r.id, tag: tag }, label: routineMin(r) + ' Min starten', info: r.name },
     body: function (D) {
       var F = coolFlow(tag);
       var dec = mobDecline(), dh = dec.length ? '<p class="tl-x">' + esc(dec.join(' und ')) + ' ' + (dec.length > 1 ? 'sind' : 'ist') + ' im Kurz-Check zuletzt schlechter geworden: häng am Ende 1 Min Dehnen dafür an.</p>' : '';
@@ -5076,6 +5083,9 @@ function flowItem(n, qty, x, key, note) {
   return { n: n, qty: String(qty), x: x || '', key: key || (g ? g.key : ''), note: note != null ? note : shortCue(g && g.cue), how: g && g.steps ? g.steps : [] };
 }
 // So geht's: die Schritte der Übung, damit jede Übung im Training erklärt ist.
+// So geht's einer Übung: Schritte der Stufe (Bibliothek), sonst die der Übung mit dem Namen.
+function kHow(e) { var su = e.lad && e.si >= 0 && e.lad.lib && e.lad.lib.stufen && e.lad.lib.stufen[e.si]; return ueHow(su ? su.uebung : e.fk, e.x.n); }
+function ueHow(id, name) { return (UE[id] && UE[id].schritte && UE[id].schritte.length ? UE[id].schritte : null) || (GL[name] && GL[name].steps) || []; }
 function howHTML(steps) { return steps && steps.length ? '<ol class="how small">' + steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : ''; }
 // Im Training reichen die ersten zwei Sätze des Hinweises.
 function shortCue(t) { return ((t || '').match(/[^.!?]+[.!?]*/g) || []).slice(0, 2).join('').trim(); }
@@ -5757,7 +5767,7 @@ function kraftStepHTML(tag, D, rounds) {
     for (var r = 0; r < rounds; r++) cells += '<button type="button" class="k-r' + (r === cr ? ' on' : '') + (D['k' + e.i + 'r' + r] != null ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + (r * n + e.i) + '"><small>Min ' + (r * n + e.i + 1) + '</small><b>' + val(e, r) + '</b></button>';
     h += '<section class="card ex-card k-one" data-ex="' + e.i + '"><div class="card-head"><h3>' + gl(e.x.n) + '</h3>' + kFlag(e) + '</div>' +
       '<div class="chips"><span class="chip">' + esc(e.x.target) + (/^\d+\s*[–-]\s*\d+$/.test(e.x.target || '') ? ' Wdh.' : '') + '</span>' + kStageChip(e) + '</div>' + (e.est ? '<p class="small muted k-est">' + e.est + '</p>' : '') +
-      (e.skip ? '' : figBox(e.fk) + (GRIP[e.fk] ? '<p class="grip">' + esc(GRIP[e.fk]) + '</p>' : '')) + (e.x.pain ? '<p class="tl-x">' + esc(painText(e.x, true)) + '</p>' : '') + cue(e) +
+      (e.skip ? '' : figBox(e.fk) + (GRIP[e.fk] ? '<p class="grip">' + esc(GRIP[e.fk]) + '</p>' : '') + howHTML(kHow(e))) + (e.x.pain ? '<p class="tl-x">' + esc(painText(e.x, true)) + '</p>' : '') + cue(e) +
       (/je Seite/.test(e.x.target || '') ? '<p class="small muted">Schwache Seite zuerst, sie zählt.</p>' : '') + (e.hint ? '<p class="small hint">' + e.hint + '</p>' : '') +
       (e.skip ? '' : '<div class="k-rs" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div>' + kCounter(tag, D, e, cr)) + '</section>';
   } else {
@@ -5766,7 +5776,7 @@ function kraftStepHTML(tag, D, rounds) {
       var x = E[m % n], r2 = Math.floor(m / n), v = D['k' + x.i + 'r' + r2];
       if (m === now.m) {
         rows += '<div class="k-min on"><div class="card-head"><span><small class="k-now">Minute ' + (m + 1) + (now.run ? ' · jetzt' : '') + '</small><b class="k-n">' + esc(x.x.n) + '</b></span>' + kFlag(x) + '</div>' +
-          '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(x.fk) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' +
+          '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(x.fk) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' + (x.skip ? '' : howHTML(kHow(x))) +
           (x.x.pain ? '<p class="tl-x">' + esc(painText(x.x, true)) + '</p>' : '') + kCounter(tag, D, x, r2) + '</div>';
       } else {
         var au = v != null && D['_ak' + x.i + 'r' + r2];
@@ -6389,12 +6399,14 @@ ACT['race-save'] = function () {
   MOMENTS = medalEvents(before, areaStates(LOGS), AREA_KEYS); showMoment();
 };
 // Lauf-ABC: immer gleich, damit man es auswendig kann (Fuß – Knie – Ferse – Hopser – Seit – Steigern).
-var LAUF_ABC = [['5 Min sehr locker einlaufen', ''], ['Fußgelenksarbeit', '2 × 20 m'], ['Skippings', 'Knie hoch · 2 × 20 m'], ['Anfersen', '2 × 20 m'],
-  ['Hopserlauf', '2 × 20 m'], ['Seitgalopp', '20 m je Seite'], ['Steigerungsläufe', '3 × 80 m, locker bis zügig']];
+var LAUF_ABC = [['5 Min sehr locker einlaufen', '', 'So locker, dass du dich unterhalten kannst.'], ['Fußgelenksarbeit', '2 × 20 m', 'Kleine Schritte nur über das Fußgelenk: abrollen bis auf die Zehen, Knie fast gestreckt.'],
+  ['Skippings', 'Knie hoch · 2 × 20 m', 'Auf dem Vorfuß, Knie schnell bis Hüfthöhe, aufrecht bleiben, die Arme schwingen mit.'], ['Anfersen', '2 × 20 m', 'Fersen schnell zum Po, die Knie zeigen nach unten, auf dem Vorfuß.'],
+  ['Hopserlauf', '2 × 20 m', 'Abdruck mit einem Bein, das andere Knie geht hoch, Gegenarm schwingt mit.'], ['Seitgalopp', '20 m je Seite', 'Seitlich springen, die Füße schließen in der Luft, Schultern bleiben quer.'],
+  ['Steigerungsläufe', '3 × 80 m, locker bis zügig', 'Locker anlaufen, bis etwa 90 % steigern, die letzten Meter austrudeln.']];
 function laufAbcHTML() {
   return '<section class="card abc"><div class="card-head"><h3>Lauf-ABC</h3><span class="small muted">10 Min · immer gleich</span></div>' +
     '<p class="small muted">Fuß – Knie – Ferse – Hopser – Seit – Steigern. Zurück jeweils gehen. Die Pulsuhr startest du erst danach, mit dem Lauf.</p>' +
-    '<ol class="abc-l">' + LAUF_ABC.map(function (x) { return '<li><b>' + esc(x[0]) + '</b>' + (x[1] ? '<span class="small muted">' + esc(x[1]) + '</span>' : '') + '</li>'; }).join('') + '</ol></section>';
+    '<ol class="abc-l">' + LAUF_ABC.map(function (x) { return '<li><b>' + esc(x[0]) + '</b>' + (x[1] ? '<span class="small muted">' + esc(x[1]) + '</span>' : '') + (x[2] ? '<span class="abc-x small muted">' + esc(x[2]) + '</span>' : '') + '</li>'; }).join('') + '</ol></section>';
 }
 function runSegHTML(mode) {
   return '<div class="seg" role="group" aria-label="Laufen oder Ergometer">' + [['lauf', 'Laufen'], ['ergo', 'Ergometer']].map(function (m) {
@@ -6748,7 +6760,7 @@ function doneToday(rid) { var t = isoToday(); return LOGS.some(function (l) { re
 function routineCardHTML(r, main, label) {
   var more = r.bloecke.length - 3, done = doneToday(r.id);
   return '<section class="card r-card"><div class="row between"><h2>' + esc(r.name) + '</h2>' + (done ? '<span class="chip blue">Heute gemacht</span>' : '') + '</div>' +
-    '<p class="small muted">' + r.dauer_min + ' Min · ' + r.bloecke.length + ' Übungen · ' + esc(r.ziel) + '</p>' +
+    '<p class="small muted">' + routineMin(r) + ' Min · ' + r.bloecke.length + ' Übungen · ' + esc(r.ziel) + '</p>' +
     '<ul class="rlist">' + r.bloecke.slice(0, 3).map(function (b) { return '<li><span>' + esc(ueName(b.uebung)) + '</span><span class="muted">' + esc(blockText(b)) + '</span></li>'; }).join('') +
     (more > 0 ? '<li class="muted">+ ' + more + ' weitere</li>' : '') + '</ul>' +
     '<button type="button" class="btn ' + (main ? 'primary' : '') + ' block" data-act="r-open" data-v="' + r.id + '">' + PLAY + (label || (main ? 'Flow starten' : 'Cool-down starten')) + '</button></section>';
@@ -6760,7 +6772,7 @@ function renderRoutinen() {
     var list = MOB.routinen.filter(function (r) { return r.wann === g[0]; });
     if (!list.length) return;
     h += '<p class="kicker muted gl-group">' + g[1] + '</p><section class="card r-list">' + list.map(function (r) {
-      return '<button type="button" class="r-row" data-act="r-open" data-v="' + r.id + '"><span class="r-t"><b>' + esc(r.name) + '</b><small>' + r.dauer_min + ' Min · ' + esc(r.ziel) + '</small></span>' +
+      return '<button type="button" class="r-row" data-act="r-open" data-v="' + r.id + '"><span class="r-t"><b>' + esc(r.name) + '</b><small>' + routineMin(r) + ' Min · ' + esc(r.ziel) + '</small></span>' +
         (doneToday(r.id) ? '<span class="chip blue">Heute</span>' : '<span class="r-play">' + PLAY + '</span>') + '</button>';
     }).join('') + '</section><p class="small muted">' + g[2] + '</p>';
   });
@@ -6776,11 +6788,11 @@ function renderRoutine() {
   var r = ROUT[ui.rid]; if (!r) { ui.tab = 'routinen'; return renderRoutinen(); }
   ui.focus = true; ui.noSub = true;
   if (!(TM.mode === 'routine' && TM.cfg && TM.cfg.rid === r.id && TM.cfg.player)) { timerStop(); TM.mode = 'routine'; TM.cfg = { rid: r.id, player: true }; timerReset(); }
-  var h = '<div class="st-top"><button type="button" class="rbtn" data-act="r-close" aria-label="Schließen">' + BACK + '</button><span class="small muted">' + r.dauer_min + ' Min · ' + r.bloecke.length + ' Übungen</span></div>';
+  var h = '<div class="st-top"><button type="button" class="rbtn" data-act="r-close" aria-label="Schließen">' + BACK + '</button><span class="small muted">' + routineMin(r) + ' Min · ' + r.bloecke.length + ' Übungen</span></div>';
   h += '<section class="hero"><h1>' + esc(r.name) + '</h1><p class="st-sub muted">' + esc(r.ziel) + '</p></section>';
-  h += '<section class="card rp"><p class="kicker muted" id="rp-k"></p><h2 id="rp-n"></h2><p class="rp-side"><span id="rp-s"></span></p><div id="rp-fig" class="rp-fig"></div>' +
+  h += '<section class="card rp"><p class="kicker muted" id="rp-k"></p><h2 id="rp-n"></h2><div class="seg rp-sd" id="rp-sd" role="group" aria-label="Seite" hidden>' + ['Links', 'Rechts'].map(function (x) { return '<button type="button" class="seg-btn" data-act="r-side" data-v="' + x + '">' + x + '</button>'; }).join('') + '</div><div id="rp-fig" class="rp-fig"></div>' +
     '<div class="rp-ring"><svg viewBox="0 0 190 190" aria-hidden="true"><circle class="rr-bg" cx="95" cy="95" r="84"/><circle class="rr-fg" id="rp-arc" cx="95" cy="95" r="84" stroke-dasharray="' + RRING.toFixed(1) + '"/></svg><b id="rp-t"></b></div>' +
-    '<p class="small muted" id="rp-h"></p><p class="small muted" id="rp-x"></p>' +
+    '<p class="small muted" id="rp-h"></p><ol class="how small rp-how" id="rp-how"></ol><p class="small muted" id="rp-x"></p>' +
     '<div class="rp-ctl"><button type="button" class="rbtn" data-act="r-jump" data-d="-1" aria-label="Zurück">' + BACK + '</button>' +
     '<button type="button" class="rbtn rp-tg" id="rp-tg" data-act="r-toggle" aria-label="Start"></button>' +
     '<button type="button" class="rbtn" data-act="r-jump" data-d="1" aria-label="Weiter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>' +
@@ -6804,22 +6816,25 @@ function paintRoutine(L) {
   }
   if (!$('rp-n')) return;
   if (TM.finished) {
-    $('rp-k').textContent = 'Geschafft'; $('rp-n').textContent = 'Stark gemacht.'; $('rp-s').textContent = ''; $('rp-s').hidden = true;
+    $('rp-k').textContent = 'Geschafft'; $('rp-n').textContent = 'Stark gemacht.'; $('rp-sd').hidden = true; $('rp-how').innerHTML = ''; var f0 = $('rp-fig'); if (f0) { f0.querySelectorAll('.fig').forEach(stopFig); f0.innerHTML = ''; f0.dataset.k = ''; } $('rp-how').dataset.k = '';
     $('rp-t').innerHTML = TICK; $('rp-arc').style.strokeDashoffset = 0; $('rp-h').textContent = 'Gespeichert unter Profil › Verlauf › Mobility.'; $('rp-x').textContent = '';
     $('rp-tg').hidden = true; $('rp-done').hidden = false; return;
   }
   if (!p) return;
   var fb = $('rp-fig'); if (fb && fb.dataset.k !== String(p.key || '')) { fb.querySelectorAll('.fig').forEach(stopFig); fb.dataset.k = p.key || ''; fb.innerHTML = figBox(p.key || ''); fb.querySelectorAll('.fig').forEach(startFig); }
   $('rp-tg').hidden = false; $('rp-done').hidden = true;
-  var pre = p.kind === 'pre';
+  var pre = p.kind === 'pre', sw = p.kind === 'sw', q = pre ? TM.phases[1] : p;
   $('rp-k').textContent = pre ? 'Gleich geht’s los' : p.sub;
-  $('rp-n').textContent = pre ? TM.phases[1].label : p.label;
-  $('rp-s').textContent = pre ? (TM.phases[1].side || '') : (p.side || ''); $('rp-s').hidden = !$('rp-s').textContent;
+  $('rp-n').textContent = q.label;
+  // Je Seite: Kapsel Links | Rechts, die laufende Seite als weiße Pille. Antippen springt zur Seite.
+  var sd = $('rp-sd'); sd.hidden = !q.je;
+  sd.querySelectorAll('.seg-btn').forEach(function (b) { var on = b.dataset.v === q.side; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  var hk = (q.key || '') + '|' + q.bi; if ($('rp-how').dataset.k !== hk) { $('rp-how').dataset.k = hk; $('rp-how').innerHTML = (q.how || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join(''); }
   var rem = idle ? p.dur : L.rem, frac = idle ? 0 : L.inPhase / L.p.dur;
   $('rp-t').textContent = fmtT(Math.ceil(rem));
   $('rp-arc').style.strokeDashoffset = (RRING * frac).toFixed(1);
-  $('rp-h').textContent = pre ? 'In Position kommen.' : p.hint;
-  $('rp-x').textContent = !pre && p.next ? 'Danach: ' + p.next : '';
+  $('rp-h').textContent = pre || sw ? 'In Position kommen.' + (q.hint ? ' ' + q.hint + '.' : '') : p.hint;
+  $('rp-x').textContent = !pre && !sw && p.next ? 'Danach: ' + p.next : '';
   var tg = $('rp-tg'), want = TM.running ? 'p' : 'r';
   if (tg.dataset.i !== want) { tg.dataset.i = want; tg.innerHTML = TM.running ? PAUSE : PLAY; tg.setAttribute('aria-label', TM.running ? 'Pause' : 'Start'); }
 }
@@ -6827,6 +6842,7 @@ function tmJump(d) {
   if (TM.finished) return;
   var L = locate(elapsed()); if (!L) return;
   var t = Math.max(1, Math.min(TM.phases.length - 1, L.i + d)), acc = 0;
+  while (TM.mode === 'routine' && TM.phases[t] && TM.phases[t].kind === 'sw' && t + d > 0 && t + d < TM.phases.length) t += d;
   for (var i = 0; i < t; i++) acc += TM.phases[i].dur;
   TM.finished = false; TM.acc = acc + 0.01; TM.idx = t; TM.lastSec = null; if (TM.running) TM.t0 = Date.now();
   paintRoutine(); paintMini();
@@ -6840,6 +6856,12 @@ function routineDone() {
 }
 ACT['r-toggle'] = function () { timerToggle(); paintRoutine(); };
 ACT['r-jump'] = function (el) { tmJump(+el.dataset.d); };
+ACT['r-side'] = function (el) {
+  var L = locate(elapsed()); if (!L || TM.finished) return;
+  var bi = L.p.kind === 'pre' ? 0 : L.p.bi, t = -1;
+  TM.phases.forEach(function (p, i) { if (p.kind === 'easy' && p.bi === bi && p.side === el.dataset.v) t = i; });
+  if (t > 0) tmJump(t - L.i);
+};
 ACT['r-close'] = function () { timerReset(); ui.tab = ui.rFrom && ui.rFrom !== 'routine' ? ui.rFrom : 'routinen'; window.scrollTo(0, 0); render(); };
 ACT.vtab = function (el) { ui.vtab = el.dataset.v; render(); };
 
@@ -6932,7 +6954,7 @@ function paintMini(L) {
     syncFig(mi % n); emomNext(card, mi, L);
   } else if (TM.mode === 'amrap') { title = 'AMRAP ' + c.minutes; sub = 'Runden zählst du selbst'; }
   else if (TM.mode === 'zeit') { title = 'Murph läuft'; sub = 'Tippe auf ■, wenn du fertig bist'; }
-  else if (TM.mode === 'routine') { title = L.p.label + (L.p.side ? ' · ' + L.p.side : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }
+  else if (TM.mode === 'routine') { title = (L.p.kind === 'sw' ? 'Gleich: ' : '') + L.p.label + (L.p.side ? ' · ' + L.p.side : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }
   else if (TM.mode === 'seq') { title = L.p.label + (L.p.watt ? ' · ' + L.p.watt + ' W' : ''); sub = L.p.next ? 'Danach: ' + L.p.next : ''; }
   else if (c.again) { title = c.label; sub = 'Danach: nächster Versuch'; }
   else { title = c.label; sub = b.dataset.nextl ? 'Danach: ' + b.dataset.nextl : ''; }
@@ -7072,7 +7094,7 @@ function fsSide(L) {
     return { k: 'sq' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(sq.label) + '</p>' + (sq.watt ? '<p class="fs-kg">' + sq.watt + ' W</p>' : '') +
       '<p class="fs-hint">' + esc(sq.sub || '') + '</p>' + (sq.next && p.kind !== 'pre' ? '<span class="chip">Danach: ' + esc(sq.next) + '</span>' : '') };
   }
-  if (TM.mode === 'routine' && p) return { k: 'ro' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><div class="fs-exn">' + esc(p.kind === 'pre' && TM.phases[1] ? TM.phases[1].label : p.label) + (p.side ? ' · ' + esc(p.side) : '') + '</div>' + (p.next ? '<p class="fs-hint">Danach: ' + esc(p.next) + '</p>' : '') };
+  if (TM.mode === 'routine' && p) return { k: 'ro' + (L ? L.i : 0), h: '<p class="fs-lbl">' + (p.kind === 'pre' ? 'Zuerst' : p.kind === 'sw' ? 'Gleich' : 'Jetzt') + '</p><div class="fs-exn">' + esc(p.kind === 'pre' && TM.phases[1] ? TM.phases[1].label : p.label) + (p.side ? ' · ' + esc(p.side) : '') + '</div>' + (p.next ? '<p class="fs-hint">Danach: ' + esc(p.next) + '</p>' : '') };
   var b = document.getElementById('tbar');
   return { k: 'bl', h: '<p class="fs-lbl">' + esc(c.label || 'Timer') + '</p>' + (c.again ? '<p class="fs-hint">Danach: nächster Versuch</p>' : b && b.dataset.nextl ? '<p class="fs-hint">Danach: ' + esc(b.dataset.nextl) + '</p>' : '') };
 }
@@ -7083,7 +7105,7 @@ function fsPaint(L, force) {
   if (L === undefined) L = TM.phases.length ? locate(elapsed()) : null;
   var $ = function (id) { return document.getElementById(id); }, c = TM.cfg || {}, idle = !TM.running && TM.acc === 0 && !TM.finished, first = TM.phases[1] || {}, p = L ? L.p : first;
   var num = TM.finished ? (TM.mode === 'zeit' ? fmt(Math.max(0, TM.finalElapsed - 10)) : '00:00') : idle || !L ? (first.up || !isFinite(first.dur) ? '00:00' : fmt(first.dur)) : L.rem == null || p.up ? fmt(L.inPhase) : fmt(Math.ceil(L.rem));
-  var green = !TM.finished && !idle && (p.kind === 'pre' || (TM.mode === 'hiit' && p.kind === 'easy'));
+  var green = !TM.finished && !idle && (p.kind === 'pre' || p.kind === 'sw' || (TM.mode === 'hiit' && p.kind === 'easy'));
   var hot = TM.running && L && L.rem != null && Math.ceil(L.rem) <= 3;
   var st = TM.finished ? 'Fertig' : idle ? 'Bereit' : !TM.running ? 'Angehalten' : p.kind === 'pre' ? 'Vorlauf' : TM.mode === 'hiit' && p.kind === 'easy' ? 'Pause' : 'Läuft';
   $('fs-num').textContent = num; $('fs-num').className = 'fs-num' + (green ? ' grn' : '') + (hot ? ' hot' : '');
@@ -8542,7 +8564,7 @@ function ausgleichStep(tag) {
 function ausgleichStepHTML(A, D) {
   if (A.skip) return '<section class="card">' + figBox(A.id) + '<p class="tl-x">' + esc(siteName(A.pain.t) + ' ' + PAIN_WN[A.pain.w] + ': heute kein Ausgleich, keine passende Übung ohne Last auf ' + siteDat(A.pain.t) + '. Du kannst direkt speichern.') + '</p></section>';
   var u = UE[A.id], h = '<section class="card">' + figBox(A.id) + '<h3 class="ag-h">' + esc(u.name) + '<span class="chip">' + esc(A.menge) + '</span></h3>' +
-    '<p class="small">' + esc(u.sauber || '') + '</p><div>';
+    howHTML(u.schritte) + '<p class="small">' + esc(u.sauber || '') + '</p><div>';
   for (var r = 0; r < 2; r++) {
     var f = 'a' + r;
     h += cntRow('Satz ' + (r + 1), A.sek ? 'Sekunden' : 'Wiederholungen', f, D, A.sek ? 30 : 12, A.sek ? 5 : 1, A.sek ? ' s' : '');
