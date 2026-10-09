@@ -295,6 +295,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Stand im Entwurf: `_c_<id>` aktuelle Übung, `_d_<id>` abgehakt (Liste), `_r_<id>` Runde. Metcon und Murph laufen in Runden (`loop`).
   Liste mit Runden (Metcon, Murph): keine Zeile automatisch offen, je Zeile der kurze Hinweis (`.fl-x`); Antippen klappt auf und zu (`_o_<id>`).
   Jede Übung erklärt sich: aufgeklappt bzw. einzeln „So geht’s“ aus `schritte` (`flowItem.how`, `howHTML`), Aufwärmen ohne Bibliothek mit `h` in `WARMUP`;
+  Regel (Dennis): bei jeder Übung steht, wie sie geht, außer in zugeklappten Listen. Kraftschritt (Übung und offene Minute, Schritte der aktuellen Stufe,
+  `kHow`/`ueHow`), Ausgleich, Mobility-Player, Lauf-ABC (dritter Eintrag je Zeile in `LAUF_ABC`, `.abc-x`), Skill-Block, Testtage, Beweglichkeits-Check.
   Testschritte zeigen „So geht’s“ der gewählten Stufe. Metcon: jeder Zähler-Schritt schreibt `mr`/`mw` mit (`flowSave`, `amrapCount`),
   die Kacheln Runden/Extra-Wdh. sind dann schon gefüllt und nur zum Korrigieren (`mcCountHint`).
   Wischen (`data-swipe`, `swipeDo`): links = erledigt / weiter / +, rechts = zurück / rückgängig / –, umkehrbar.

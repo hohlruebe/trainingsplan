@@ -518,7 +518,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .sq-row.done{opacity:.45}
 .abc-l{margin:8px 0 0;padding:0 0 0 22px;display:flex;flex-direction:column;gap:6px}
 .abc-l li{line-height:1.3}
-.abc-l li b{font-weight:600;margin-right:6px}
+.abc-l li b{font-weight:600;margin-right:6px}.abc-x{display:block;margin-top:2px}
 .mc-sw{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding:6px 6px 6px 16px;border-radius:999px;background:var(--board)}
 .mc-sw .mc-t{font-family:var(--head);font-weight:800;font-size:28px;letter-spacing:-.02em;min-width:72px;font-variant-numeric:tabular-nums}
 .mc-sw .chip,.mc-sw .small{flex:none;margin-right:auto}
@@ -5083,6 +5083,9 @@ function flowItem(n, qty, x, key, note) {
   return { n: n, qty: String(qty), x: x || '', key: key || (g ? g.key : ''), note: note != null ? note : shortCue(g && g.cue), how: g && g.steps ? g.steps : [] };
 }
 // So geht's: die Schritte der Übung, damit jede Übung im Training erklärt ist.
+// So geht's einer Übung: Schritte der Stufe (Bibliothek), sonst die der Übung mit dem Namen.
+function kHow(e) { var su = e.lad && e.si >= 0 && e.lad.lib && e.lad.lib.stufen && e.lad.lib.stufen[e.si]; return ueHow(su ? su.uebung : e.fk, e.x.n); }
+function ueHow(id, name) { return (UE[id] && UE[id].schritte && UE[id].schritte.length ? UE[id].schritte : null) || (GL[name] && GL[name].steps) || []; }
 function howHTML(steps) { return steps && steps.length ? '<ol class="how small">' + steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : ''; }
 // Im Training reichen die ersten zwei Sätze des Hinweises.
 function shortCue(t) { return ((t || '').match(/[^.!?]+[.!?]*/g) || []).slice(0, 2).join('').trim(); }
@@ -5764,7 +5767,7 @@ function kraftStepHTML(tag, D, rounds) {
     for (var r = 0; r < rounds; r++) cells += '<button type="button" class="k-r' + (r === cr ? ' on' : '') + (D['k' + e.i + 'r' + r] != null ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + (r * n + e.i) + '"><small>Min ' + (r * n + e.i + 1) + '</small><b>' + val(e, r) + '</b></button>';
     h += '<section class="card ex-card k-one" data-ex="' + e.i + '"><div class="card-head"><h3>' + gl(e.x.n) + '</h3>' + kFlag(e) + '</div>' +
       '<div class="chips"><span class="chip">' + esc(e.x.target) + (/^\d+\s*[–-]\s*\d+$/.test(e.x.target || '') ? ' Wdh.' : '') + '</span>' + kStageChip(e) + '</div>' + (e.est ? '<p class="small muted k-est">' + e.est + '</p>' : '') +
-      (e.skip ? '' : figBox(e.fk) + (GRIP[e.fk] ? '<p class="grip">' + esc(GRIP[e.fk]) + '</p>' : '')) + (e.x.pain ? '<p class="tl-x">' + esc(painText(e.x, true)) + '</p>' : '') + cue(e) +
+      (e.skip ? '' : figBox(e.fk) + (GRIP[e.fk] ? '<p class="grip">' + esc(GRIP[e.fk]) + '</p>' : '') + howHTML(kHow(e))) + (e.x.pain ? '<p class="tl-x">' + esc(painText(e.x, true)) + '</p>' : '') + cue(e) +
       (/je Seite/.test(e.x.target || '') ? '<p class="small muted">Schwache Seite zuerst, sie zählt.</p>' : '') + (e.hint ? '<p class="small hint">' + e.hint + '</p>' : '') +
       (e.skip ? '' : '<div class="k-rs" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div>' + kCounter(tag, D, e, cr)) + '</section>';
   } else {
@@ -5773,7 +5776,7 @@ function kraftStepHTML(tag, D, rounds) {
       var x = E[m % n], r2 = Math.floor(m / n), v = D['k' + x.i + 'r' + r2];
       if (m === now.m) {
         rows += '<div class="k-min on"><div class="card-head"><span><small class="k-now">Minute ' + (m + 1) + (now.run ? ' · jetzt' : '') + '</small><b class="k-n">' + esc(x.x.n) + '</b></span>' + kFlag(x) + '</div>' +
-          '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(x.fk) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' +
+          '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(x.fk) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' + (x.skip ? '' : howHTML(kHow(x))) +
           (x.x.pain ? '<p class="tl-x">' + esc(painText(x.x, true)) + '</p>' : '') + kCounter(tag, D, x, r2) + '</div>';
       } else {
         var au = v != null && D['_ak' + x.i + 'r' + r2];
@@ -6396,12 +6399,14 @@ ACT['race-save'] = function () {
   MOMENTS = medalEvents(before, areaStates(LOGS), AREA_KEYS); showMoment();
 };
 // Lauf-ABC: immer gleich, damit man es auswendig kann (Fuß – Knie – Ferse – Hopser – Seit – Steigern).
-var LAUF_ABC = [['5 Min sehr locker einlaufen', ''], ['Fußgelenksarbeit', '2 × 20 m'], ['Skippings', 'Knie hoch · 2 × 20 m'], ['Anfersen', '2 × 20 m'],
-  ['Hopserlauf', '2 × 20 m'], ['Seitgalopp', '20 m je Seite'], ['Steigerungsläufe', '3 × 80 m, locker bis zügig']];
+var LAUF_ABC = [['5 Min sehr locker einlaufen', '', 'So locker, dass du dich unterhalten kannst.'], ['Fußgelenksarbeit', '2 × 20 m', 'Kleine Schritte nur über das Fußgelenk: abrollen bis auf die Zehen, Knie fast gestreckt.'],
+  ['Skippings', 'Knie hoch · 2 × 20 m', 'Auf dem Vorfuß, Knie schnell bis Hüfthöhe, aufrecht bleiben, die Arme schwingen mit.'], ['Anfersen', '2 × 20 m', 'Fersen schnell zum Po, die Knie zeigen nach unten, auf dem Vorfuß.'],
+  ['Hopserlauf', '2 × 20 m', 'Abdruck mit einem Bein, das andere Knie geht hoch, Gegenarm schwingt mit.'], ['Seitgalopp', '20 m je Seite', 'Seitlich springen, die Füße schließen in der Luft, Schultern bleiben quer.'],
+  ['Steigerungsläufe', '3 × 80 m, locker bis zügig', 'Locker anlaufen, bis etwa 90 % steigern, die letzten Meter austrudeln.']];
 function laufAbcHTML() {
   return '<section class="card abc"><div class="card-head"><h3>Lauf-ABC</h3><span class="small muted">10 Min · immer gleich</span></div>' +
     '<p class="small muted">Fuß – Knie – Ferse – Hopser – Seit – Steigern. Zurück jeweils gehen. Die Pulsuhr startest du erst danach, mit dem Lauf.</p>' +
-    '<ol class="abc-l">' + LAUF_ABC.map(function (x) { return '<li><b>' + esc(x[0]) + '</b>' + (x[1] ? '<span class="small muted">' + esc(x[1]) + '</span>' : '') + '</li>'; }).join('') + '</ol></section>';
+    '<ol class="abc-l">' + LAUF_ABC.map(function (x) { return '<li><b>' + esc(x[0]) + '</b>' + (x[1] ? '<span class="small muted">' + esc(x[1]) + '</span>' : '') + (x[2] ? '<span class="abc-x small muted">' + esc(x[2]) + '</span>' : '') + '</li>'; }).join('') + '</ol></section>';
 }
 function runSegHTML(mode) {
   return '<div class="seg" role="group" aria-label="Laufen oder Ergometer">' + [['lauf', 'Laufen'], ['ergo', 'Ergometer']].map(function (m) {
@@ -8559,7 +8564,7 @@ function ausgleichStep(tag) {
 function ausgleichStepHTML(A, D) {
   if (A.skip) return '<section class="card">' + figBox(A.id) + '<p class="tl-x">' + esc(siteName(A.pain.t) + ' ' + PAIN_WN[A.pain.w] + ': heute kein Ausgleich, keine passende Übung ohne Last auf ' + siteDat(A.pain.t) + '. Du kannst direkt speichern.') + '</p></section>';
   var u = UE[A.id], h = '<section class="card">' + figBox(A.id) + '<h3 class="ag-h">' + esc(u.name) + '<span class="chip">' + esc(A.menge) + '</span></h3>' +
-    '<p class="small">' + esc(u.sauber || '') + '</p><div>';
+    howHTML(u.schritte) + '<p class="small">' + esc(u.sauber || '') + '</p><div>';
   for (var r = 0; r < 2; r++) {
     var f = 'a' + r;
     h += cntRow('Satz ' + (r + 1), A.sek ? 'Sekunden' : 'Wiederholungen', f, D, A.sek ? 30 : 12, A.sek ? 5 : 1, A.sek ? ' s' : '');
