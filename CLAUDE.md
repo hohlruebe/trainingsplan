@@ -178,6 +178,15 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`SEHNE` Klasse 0/1/2 je Leiter, `SEHNE_TAGE` 14/28/42). Höchstens eine Stufe pro Durchgang, keine in der Entlastung, keine ohne Gerät
   für die nächste Stufe. Nach einer Pause über `SEHNE_PAUSE` (14, hoch 10 Tage) eine Stufe leichter. Wartet die Sehne, steht der Hinweis
   am Kraft-Schritt (3 s absenken, 1 s Pause) und mit Datum in der Coach-Karte. Volle Wdh. beim Warten sind kein Stillstand.
+  Neue Leiter ohne Verlauf und Test: der Coach schätzt den Start (`stageEst`, `EST_C`, `cs.est`, `estWhy`), kein „Erstes Mal · Stufe wählen“ mehr:
+  gleiche Familie (eine Stufe der Leiter schon im Metcon/als Ersatz gemacht) → deren Stufe − 1; sonst Teil-Wert des Musters (`partScores`,
+  Zug/Druck/Beine/Rumpf) rückwärts: Stufe = ⌊(Wert − 40) / 59 × Stufen⌋ + 1, dann − 1; sonst Stufe 1 (Gewichtsleitern immer 1). Hinweis grau unter
+  den Chips (`.k-est`) und in der Coach-Karte. Einstufung (`cs.cal`): in den ersten 2 Einheiten ohne Test alle Runden oben → sofort eine Stufe
+  höher, ohne Sehnen-Wartezeit, nie zurück auf eine Stufe, die schon zu schwer war. Zu schwer (`cs.hard`): in der letzten Einheit mindestens
+  2 Runden unter dem unteren Ende der Spanne → nächstes Mal eine Stufe leichter (nicht an Tagen „leichter“ wegen Schmerzen, `ladHist().soft`,
+  nicht bei Gewichtsleitern). Metcon und Handstand ohne Verlauf nehmen dieselbe Schätzung (`lastMetconStage`, `lastHsStage`).
+  Gewicht ohne eigenes 1RM (`rmEst` in `kgRec`): gleicher Anteil zwischen den Normen (`rmStd`) wie die 1RM im selben Muster, sonst
+  Einsteiger-Norm × Körpergewicht, jeweils 10 % weniger.
   Laufen (`runCap`): lockerer Lauf heute höchstens so lang, dass die Woche 1,3 × Schnitt der letzten 4 Wochen nicht übersteigt (ab 3 Wochen Laufdaten).
 - Kardio (Allround Tag 2 „Kardio locker“, Tag 5 „Kardio intensiv“, `kardio: true`): Laufen oder Ergometer, ein Kernwert `S.cardio`
   (`ftp`, `thr` in s/km, `ftpT`/`thrT` = Datum des Tests, synchronisiert; ohne Wert schätzt `cardioKw`). Ziele in Prozent (`kW`, `kP`,
@@ -254,9 +263,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Kraftschritt (`kraftStepHTML`) mit Umschalter „Übung | Minuten“ oben (`S.kraftView` 'ex'/'min', nur auf dem Gerät, `ACT['k-view']`; Kraft steht nicht mehr
   in `TRAIN_TYPES`): „Übung“ = nur die laufende Übung als Karte (Punkte `.k-dot` wechseln, Runden `.k-r`, Zähler `kCounter`), „Minuten“ = jede
   EMOM-Minute eine Zeile (`.k-min`), die laufende offen mit Mini-Figur und Zähler. Dran ist die Minute der Uhr, sonst die gewählte (`ui.kSel`,
-  `ACT['k-sel']`) oder die erste ohne Eintrag (`kraftNow`). Die Stufe setzt der Coach (grüner Chip `kStageChip`, nicht wählbar); nur ohne Verlauf
-  einmal „Erstes Mal · Stufe“ wählen (`E.first`). Zähler `ACT['k-rep']` (Vorschlag `defRep`, Tippen auf die Zahl übernimmt), Gewicht `ACT['k-kg']`
-  in `kgStep`-Schritten. Wechselt die Minute, bekommt die fertige Minute ohne Eintrag den Vorschlag (`kraftAutoFill` in `paintMini`, zeichnet neu).
+  `ACT['k-sel']`) oder die erste ohne Eintrag (`kraftNow`). Die Stufe setzt der Coach (grüner Chip `kStageChip`, nicht wählbar); ohne Verlauf
+  schätzt er den Start (`stageEst`, „Erstes Mal“ nur noch als Rückfall `E.first`). Zähler `ACT['k-rep']` (Vorschlag `defRep`, Tippen auf die Zahl übernimmt), Gewicht `ACT['k-kg']`
+  in `kgStep`-Schritten. Wechselt die Minute, bekommt die fertige Minute ohne Eintrag den Vorschlag (`kraftAutoFill` in `paintMini`, zeichnet neu), markiert mit
+  `_a<feld>` im Entwurf: grau „Vorschlag übernommen, tippen zum Bestätigen“, in „Minuten“ ohne Haken; Tippen oder Ändern bestätigt. Chips „3–6 Wdh.“ und „✓ Stufe N <Stufe>“.
   „Schmerzen“ als roter Fahnen-Knopf in der Karte (`kFlag`, `.pn-flag`).
   EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,
@@ -363,9 +373,9 @@ Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Inf
 Zahlen im Training sind Zähler (`cntRow`/`kCounter`, `.k-cnt`, `ACT['k-rep']`: Metcon Extra-Wdh. und Runden (Runden nur, wenn die Liste
 sie nicht schon zählt, `mcResultHTML`), Handstand-Zeit, Ausgleich-Sätze, Testtag-Wdh./Bestzeit, Intervalle geschafft). Werte von der Uhr
 (Dauer, Puls, Strecke, Watt) und die Stufe im Beweglichkeits-Check bleiben Kacheln (`.tile`) mit Rad-Blatt. Stufen setzt der Coach auch in Metcon und
-Handstand (grüner Chip `coachStageHTML`, ohne Verlauf einmal „Erstes Mal · …“); am Testtag ist die Stufe eine Wert-Zeile. Fünf Grundsätze in `DESIGN.md`. Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
+Handstand (grüner Chip `coachStageHTML`, ohne Verlauf geschätzt wie bei neuen Leitern); am Testtag ist die Stufe eine Wert-Zeile. Fünf Grundsätze in `DESIGN.md`. Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
 (`valRows`/`valRow`, `.vrows`, Name links, Wert rechts, Pfeil). Keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
-Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
+Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt in em, mittig auf Höhe der Großbuchstaben, davor und danach .32em; in Chips `.chip:has(> .bst)` mit `gap`; nie `bdot` + Name von Hand zusammensetzen); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,

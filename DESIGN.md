@@ -49,11 +49,12 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 ## Eingaben
 - Zahlen im Training (Wiederholungen, Gewicht, Runden, Extra-Wdh., Haltezeit, Sätze im Ausgleich, Intervalle geschafft) sind **Zähler**
   (`cntRow` bzw. `kCounter`, `.k-cnt` mit `.stepper`): Name links, darunter grau der Zusatz, rechts – Wert +. Ohne Eintrag steht grau
-  der Vorschlag, Tippen auf die Zahl übernimmt ihn. Ein Wert, den schon etwas anderes zählt (Runden über das Abhaken), steht nicht noch einmal da.
+  der Vorschlag, Tippen auf die Zahl übernimmt ihn. Hat die App einen Vorschlag selbst eingesetzt (EMOM-Minute vorbei), bleibt er grau mit
+  „Vorschlag übernommen“, bis er bestätigt oder geändert ist; so sieht der Coach nie eine Zahl als geschafft, die keiner bestätigt hat. Ein Wert, den schon etwas anderes zählt (Runden über das Abhaken), steht nicht noch einmal da.
 - Ausnahme: Werte von der Uhr oder vom Gerät (Dauer, Puls, Strecke, Watt) bleiben Kacheln (`.tile` in `.pick-grid`) mit Rad-Blatt,
   weil man sie abliest und auf einmal einträgt. Ebenso die Stufe im Beweglichkeits-Check.
-- Stufen setzt der Coach: grüner Chip (`kStageChip`, `coachStageHTML`), nicht wählbar. Nur ohne Verlauf einmal „Erstes Mal · Stufe“
-  als Wert-Zeile. Testtage wählen die Stufe als Wert-Zeile, denn dort wird sie gemessen.
+- Stufen setzt der Coach: grüner Chip (`kStageChip`, `coachStageHTML`), nicht wählbar, neben der Spanne in einer Reihe („3–6 Wdh.“,
+  „✓ Stufe 4 ● Leichtes Band“). Bei neuen Übungen schätzt er den Start und sagt grau darunter, woraus. Testtage wählen die Stufe als Wert-Zeile, denn dort wird sie gemessen.
 - Einstellungswerte, die man selten ändert (Profil, Stand, Startdatum, Challenge-Datum und -Ziel), sind **Wert-Zeilen**
   (`valRows([valRow(…)])`, `.vrows`/`.vrow`): eine Glas-Fläche in `--board`, je Zeile Name links (darunter grau ein Zusatz),
   Wert rechts in `--acc` (geschätzt grau), dann der Pfeil. Feine Trenner, Zeilen mindestens 56 px. Tippen öffnet das Rad-Blatt.
@@ -74,6 +75,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 
 ## Bänder
 - Stufen mit Band werden ausgeschrieben („Normales Band“) mit Farbpunkt davor (`stageHTML`, `bdot`); gespeichert bleibt der kurze Name.
+  Der Punkt sitzt mittig auf Höhe der Großbuchstaben und hat davor und danach denselben Abstand, auch in Chips. Immer `stageHTML` benutzen.
 - Bandfarben: Standard in `BANDS`, je Band aus 10 Farben (`BAND_PAL`) wählbar, passend zu den echten Bändern (`bandColor()`).
 
 ## Leitern
