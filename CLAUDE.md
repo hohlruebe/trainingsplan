@@ -266,7 +266,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Lauftage haben keine Schritte, nur „Ergebnis von der Uhr“: Dauer, Puls Ø, Strecke (km, 3 Nachkommastellen), Tempo errechnet.
   Laufen: vor jedem Lauf das Lauf-ABC (`laufAbcHTML`, `LAUF_ABC`, immer gleich, keine Ansagen; es beginnt mit 5 Min Einlaufen, darum startet die
   Laufliste `kardioRunListHTML` direkt mit dem Hauptteil, Dennis). Pulsuhr: Start direkt nach dem Lauf-ABC, Stopp nach dem Auslaufen
-  (erste und letzte Zeile der Laufliste, Satz im Lauf-ABC und unter „Ergebnis von der Uhr“); `kardioSec` = Hauptteil + 5 Min Auslaufen, abschaltbar unter Einstellungen ›
+  (erste und letzte Zeile der Laufliste, Satz im Lauf-ABC und unter „Ergebnis von der Uhr“); `kardioSec` = Hauptteil + 5 Min Auslaufen. Ergometer: Pulsuhr und Anzeige am Ergometer erst mit Schritt 2 (Hauptteil) starten,
+  Stopp nach dem Ausfahren (Satz in Schritt 1 und 2 und unter „Ergebnis vom Ergometer“); vorgeschlagene Dauer `clockSec` = ohne Einfahren, abschaltbar unter Einstellungen ›
   Training › Laufen (`S.laufAbc`, nur auf dem Gerät). Ergometer am Lauftag = Schritt-Tag wie ein Krafttag (`stepsOf`): Übersicht mit
   Umschalter (`runSegHTML`), Ziel-Watt und „Training starten“, Schritt 1 `ewarm` Einfahren (Stufen 50/70/85 % bzw. 3 Min 60 %, vor
   Intervallen 3 × 10 s schnell), Schritt 2 `ergo` Hauptteil (Intervalle/Pause bzw. Ziel-Watt, ausfahren) mit Ergebnis und Speichern.
