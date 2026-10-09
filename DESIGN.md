@@ -91,6 +91,8 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Fehlt eine Animation: Platzhalter mit winkendem Maskottchen (`_wave`), daneben „Grafik folgt“ und ein kurzer Satz (`figBox`).
 
 ## Ablauf im Training
+- Jede Übung erklärt sich („So geht’s“). Halteübungen und Skills sagen zusätzlich, wie man hineinkommt und wieder heraus
+  („So kommst du rein“, „Raus: …“), immer sichtbar, nicht aufklappbar.
 - Zwei Modi je Trainingsart (Einstellungen › Training): **Liste** und **Einzeln**. Standard: Liste, nur Cool-down einzeln.
 - Liste: alle Übungen in einer Glas-Kapsel wie die Leiter. Die aktuelle Übung ist die offene weiße Pille mit Figur, Hinweis und `.btn.small` „Erledigt“.
   Erledigt = grüner Haken an der Menge, Text grau. Keine Abhak-Kreise.
