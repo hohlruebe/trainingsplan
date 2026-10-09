@@ -201,6 +201,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (< 45 / < 30 / < 15 Min, `_zeit`; `zeitLv` kürzt in Stufen: ohne Handstand/Skill, Kraft und Metcon kürzer, ohne Metcon, Aufwärmen 4 Min),
   „Ich trainiere woanders“ (`_ort`, `trainOrt()`, nur diese Einheit; `S.ort` bleibt), am Bergsprint-Tag „Ich habe keine Steigung“
   (`_flat`, flache Sprints). Kein Ort-Feld mehr auf Heute.
+- UX-Check Pakete 3, 4, 5: Heute zeigt den Ablauf in einer Karte mit „ca. X Min · N Schritte“ und „Training starten“ darin (`.tl-card`), darunter
+  „Dein Coach hat heute angepasst“ (`coachCardHTML`: getauschte Leiter `planFill().neu`, Ersatz `why`, Stufe `brakeNote`, Metcon-Tausch `mwhy`, fehlendes
+  Gerät, automatisch gezählter Ruhetag `S.autoRest`, Wiedereinstieg, nachgeholter Kardio-Test; Zeichen `coachItem`/`CI`), dann „Session anpassen“,
+  Block-Karte und Fortschritt. Am Schritt bleiben nur Übungs-Hinweise (Ringhöhe). „Heute erledigt“ beginnt mit „Was dein Coach daraus macht“
+  (`outlookHTML`: nächste Stufe, Sehne wartet, Gewicht, Stillstand, gleiche Stufe). Lesbarkeit: keine Großbuchstaben-Zeilen, kleine Schriften im
+  Design-Block mindestens 14 px, Muskelausgleich-Balken mit Zeichen ✓ ! ×.
 - Hinweise auf Heute stehen dort, wo sie hingehören: Phase (Einstieg, Entlastung, Testwoche, Willkommen zurück) in der Block-Karte,
   Übungs-Hinweise grau unter dem Schritt (`notes`, `.tl-x`). Ringhöhe nur bei Ring-Übungen, in Bezug auf den Körper (`ringNotes`, `RING_H`).
   Tipps-Karte nur noch an Testtagen, beim Murph und bei optionalen Läufen.
@@ -255,7 +261,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,
   Bibliothek (Familien-Seite, jede Übung), Mobility-Player (`#rp-fig`). Neue Grafik = nur in `Maskottchen.EXERCISES` eintragen.
-- Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
+- Einstellungen „Mittel“ (Dennis): Karte „Über dich“ (Name, Geschlecht, Gewicht, Geburtsjahr, Foto), Karte „Aussehen“ (Hell/System/Dunkel und
+  Textgröße A/A/A, `S.textSize` 's'/'m'/'l' nur auf dem Gerät, `html[data-text]` mit `zoom` auf `body`, `lookHTML`), dann „Sync über GitHub“, „Mehr“
+  (`moreHTML`: Hintergrund, Markerfarbe, Zahlen-Schrift, Countdown, Haptik, Gesten, Maximal-/Ruhepuls, Ansicht, Vollbild) und „Daten“ (Startdatum,
+  Export/Import, Zurücksetzen; `settingsHTML`). Trainings-Entscheidungen trifft der Coach: `modeOf` = `TRAIN_STD`, `roundMode()` = 'ex',
+  `timerModeOf` = `TIMER_STD`, Vollbild dreht immer mit, Lauf-ABC immer; „Stand setzen“ ist weg. Alte Werte bleiben in `S`, werden nicht mehr benutzt.
   Aussehen › Hintergrund (nur Hellmodus, `S.paper`, `PAPERS`): Weiß, Kreide, Leinen, Nebel. `applyTheme` setzt `data-paper` nur im Hellen.
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
 - Ist ein Blatt offen, scrollt der Hintergrund nicht (`html:has(.sheet-bg.open)`), Listen im Blatt haben `overscroll-behavior: contain`.
