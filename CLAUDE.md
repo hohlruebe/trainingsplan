@@ -131,7 +131,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Mobility (`MOB`, `ROUT`): Cool-down passend zum Tag an Krafttagen: nicht im Ablauf, nach dem letzten Schritt fragt `saveAsk`
   „Möchtest du noch ein Cool-down?“ (Ja = Schritt `coolStep` kommt dazu, Entwurf `_cd` '1'/'0'; `S.cooldown` wird nicht mehr genutzt, `log.cool`), auf Lauftagen (Laufen und Ergometer) ebenfalls als Frage beim Speichern (`saveAsk`): Ja speichert den Lauf und öffnet das Cool-down im Player, keine Karte mehr in der Übersicht. Ruhetag-Flow A (erster Ruhetag) und B (zweiter) auf dem Ruhetag. Tools › Mobility (früher Routinen, Seite `routinen`) startet
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
-  Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
+  Übung, „je Seite“ erst links, dann rechts (Kapsel Links | Rechts `#rp-sd`, Antippen springt zur Seite, `ACT['r-side']`). Unter dem Ring „So geht’s“ aus
+  `schritte` (`#rp-how`). Vor jeder Übung und jedem Seitenwechsel 5 s Wechsel (`R_SW`, Phase `kind: 'sw'`, „In Position kommen“, ‹ › überspringt sie);
+  die Dauer überall aus `routineMin` (mit Wechseln, statt `dauer_min`). Haken am Ende nicht mitdrehen (`.rp-ring>svg`). Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
   Einträge im Verlauf (und auf „Heute erledigt“ bzw. einem erledigten Tag): „Korrigieren“ immer (`fixable`, versteckte Seite `fix`, `renderFix`,
   Zähler je Wert `fixStep`, Pfad wie `kraft.0.reps.2`; gespeichert als neuer Eintrag mit neuer ID und `fixed`, alter als Löschvermerk, damit der Sync

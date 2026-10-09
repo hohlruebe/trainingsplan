@@ -25,6 +25,11 @@ Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testt
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Mobility-Player (9. Oktober)
+- Dennis (Ruhetag-Flow am Mac): keine Anleitung je Übung, keine Zeit zum Wechseln, Links/Rechts nur als Kapsel, Haken am Ende verdreht.
+  Umgesetzt: „So geht’s“ unter dem Ring, 5 s Wechsel vor jeder Übung und jedem Seitenwechsel (in der Dauer mitgerechnet, Ruhetag Flow A jetzt
+  14 statt 12 Min), Kapsel Links | Rechts, Haken gerade. Gilt auch fürs Handy und fürs Cool-down im Training (gleicher Timer).
+
 ## Lauf-ABC und Einlaufen (9. Oktober)
 - Dennis: Im Lauf-ABC steht zuerst „5 Min einlaufen“, im Lauf darunter „Nach dem Lauf-ABC 5 Min locker einlaufen“, also falsch herum und doppelt.
   Behoben: Eingelaufen wird nur im Lauf-ABC, die Laufliste beginnt direkt mit dem Hauptteil, endet mit 5 Min Auslaufen.
