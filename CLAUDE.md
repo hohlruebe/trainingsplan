@@ -201,13 +201,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (< 45 / < 30 / < 15 Min, `_zeit`; `zeitLv` kürzt in Stufen: ohne Handstand/Skill, Kraft und Metcon kürzer, ohne Metcon, Aufwärmen 4 Min),
   „Ich trainiere woanders“ (`_ort`, `trainOrt()`, nur diese Einheit; `S.ort` bleibt), am Bergsprint-Tag „Ich habe keine Steigung“
   (`_flat`, flache Sprints). Kein Ort-Feld mehr auf Heute.
-- UX-Check Pakete 3, 4, 5, 6: Heute zeigt den Ablauf in einer Karte mit „ca. X Min · N Schritte“ und „Training starten“ darin (`.tl-card`), darunter
+- UX-Check Pakete 3, 4, 5: Heute zeigt den Ablauf in einer Karte mit „ca. X Min · N Schritte“ und „Training starten“ darin (`.tl-card`), darunter
   „Dein Coach hat heute angepasst“ (`coachCardHTML`: getauschte Leiter `planFill().neu`, Ersatz `why`, Stufe `brakeNote`, Metcon-Tausch `mwhy`, fehlendes
   Gerät, automatisch gezählter Ruhetag `S.autoRest`, Wiedereinstieg, nachgeholter Kardio-Test; Zeichen `coachItem`/`CI`), dann „Session anpassen“,
   Block-Karte und Fortschritt. Am Schritt bleiben nur Übungs-Hinweise (Ringhöhe). „Heute erledigt“ beginnt mit „Was dein Coach daraus macht“
   (`outlookHTML`: nächste Stufe, Sehne wartet, Gewicht, Stillstand, gleiche Stufe). Lesbarkeit: keine Großbuchstaben-Zeilen, kleine Schriften im
-  Design-Block mindestens 14 px, Muskelausgleich-Balken mit Zeichen ✓ ! ×. Phasen statt Animation (`phaseHTML`, `phaseTimes`: Start, Mitte, weitester
-  Punkt, nummeriert, `PH_C`): in der Kraftkarte „Übung“ statt der Animation, in Tools › Übungen unter der Animation.
+  Design-Block mindestens 14 px, Muskelausgleich-Balken mit Zeichen ✓ ! ×.
 - Hinweise auf Heute stehen dort, wo sie hingehören: Phase (Einstieg, Entlastung, Testwoche, Willkommen zurück) in der Block-Karte,
   Übungs-Hinweise grau unter dem Schritt (`notes`, `.tl-x`). Ringhöhe nur bei Ring-Übungen, in Bezug auf den Körper (`ringNotes`, `RING_H`).
   Tipps-Karte nur noch an Testtagen, beim Murph und bei optionalen Läufen.
