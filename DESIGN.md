@@ -75,6 +75,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 
 ## Bänder
 - Stufen mit Band werden ausgeschrieben („Normales Band“) mit Farbpunkt davor (`stageHTML`, `bdot`); gespeichert bleibt der kurze Name.
+  Der Punkt sitzt mittig auf Höhe der Großbuchstaben und hat davor und danach denselben Abstand, auch in Chips. Immer `stageHTML` benutzen.
 - Bandfarben: Standard in `BANDS`, je Band aus 10 Farben (`BAND_PAL`) wählbar, passend zu den echten Bändern (`bandColor()`).
 
 ## Leitern

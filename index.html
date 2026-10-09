@@ -163,7 +163,9 @@ details.card>summary::after{content:'';flex:0 0 auto;margin-left:auto;margin-rig
 details.card[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
 details.card[open]>summary{margin-bottom:6px}
 .cue{border-top:1px solid var(--line);padding-top:8px;margin-top:10px}
-.bdot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:1px;flex:none;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--paper) 70%,transparent)}
+/* Bandfarbe: Punkt in em, damit er bei jeder Schriftgröße mittig auf Höhe der Großbuchstaben sitzt; Abstand davor und danach gleich (.32em). */
+.bst{white-space:nowrap}.chip:has(> .bst){gap:.32em}
+.bdot{display:inline-block;width:.62em;height:.62em;border-radius:50%;margin-right:.32em;vertical-align:.02em;flex:none;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--paper) 70%,transparent)}
 .band-list li{justify-content:space-between}
 .search{display:block;margin:12px 0}
 .search input{width:100%}
@@ -569,7 +571,7 @@ html .kicker,html .t-label,html th,html .p-week-h span,html .mo-kicker,html .tip
 .mb-top::after{order:1;flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;color:#fff}
 .mb-row.b0 .mb-top::after{content:'×';background:var(--mb0)}.mb-row.b1 .mb-top::after{content:'!';background:var(--mb1)}.mb-row.b2 .mb-top::after{content:'!';background:var(--mb2)}.mb-row.b3 .mb-top::after{content:'✓';background:var(--mb3)}
 html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
-.k-view{margin-bottom:10px}.k-sth{margin-left:3px}.k-est{margin:2px 0 10px}
+.k-view{margin-bottom:10px}.k-est{margin:2px 0 10px}
 .st-flag{width:40px;height:40px;margin-right:6px}.st-flag svg{width:18px;height:18px}.adj-btn{margin-top:4px}
 .k-one.now .card-head::after{content:none}
 .chip.ok{background:#E8F7EE;color:#1F6F42}
@@ -2396,7 +2398,7 @@ var BAND_LABEL = { 'Sehr stark': 'Sehr starkes Band', 'Stark': 'Starkes Band', '
 var STAGE_LABEL = { 'Am Türrahmen': 'Mit Halt (Ringe oder Türrahmen)' };
 function stageText(x) { return BAND_LABEL[x] || STAGE_LABEL[x] || x; }
 function bdot(c) { return '<i class="bdot" style="background:' + c + '" aria-hidden="true"></i>'; }
-function stageHTML(x) { return BANDC[x] ? bdot(bandColor(x)) + esc(BAND_LABEL[x]) : esc(stageText(x)); }
+function stageHTML(x) { return BANDC[x] ? '<span class="bst">' + bdot(bandColor(x)) + esc(BAND_LABEL[x]) + '</span>' : esc(stageText(x)); }
 var COLORS = [
   { id: 'blau', label: 'Blau', light: '#1E5BD8', dark: '#8DB8FF' },
   { id: 'rot', label: 'Rot', light: '#C62F2A', dark: '#FF8B7B' },
@@ -3352,7 +3354,7 @@ function syncFig(idx) {
   });
 }
 function bandLegend() {
-  return '<ul class="list band-list">' + BANDS.map(function (b) { return '<li><span>' + bdot(bandColor(b.name)) + esc(BAND_LABEL[b.name]) + '</span><span class="muted">' + b.kg + '</span></li>'; }).join('') + '</ul>';
+  return '<ul class="list band-list">' + BANDS.map(function (b) { return '<li><span>' + stageHTML(b.name) + '</span><span class="muted">' + b.kg + '</span></li>'; }).join('') + '</ul>';
 }
 /* ---------- Plan ---------- */
 function sec(title, body, open) { var o = Object.prototype.hasOwnProperty.call(ui.openSec, title) ? ui.openSec[title] : open; return '<details class="card" data-sec="' + esc(title) + '"' + (o ? ' open' : '') + '><summary><h2>' + title + '</h2></summary>' + body + '</details>'; }
@@ -5191,7 +5193,7 @@ function kStageChip(E) {
   if (!E.lad) return '';
   // Noch nie gemacht: der Coach kennt die Stufe nicht, einmal selbst wählen (die Stufe mit 3–6 sauberen Wdh.).
   if (!E.stage || E.first) return '</div>' + stageRow('Erstes Mal · Stufe', E.stage, { sf: 'k' + E.i + 'stage', sdef: E.stage, lad: E.g.key, title: E.x.n }) + '<p class="small muted">Die Stufe, bei der 3–6 saubere Wdh. gehen. Ab dann setzt sie dein Coach.</p><div class="chips">';
-  return '<span class="chip ok">✓ Stufe ' + (E.si + 1) + ' <span class="k-sth">' + stageHTML(E.stage) + '</span></span>';
+  return '<span class="chip ok">✓ Stufe ' + (E.si + 1) + ' ' + stageHTML(E.stage) + '</span>';
 }
 function kFlag(E) {
   var P = E.x.pain, weg = P && (P.src === 'hand' || P.src === 'mem');
@@ -8177,7 +8179,7 @@ ACT['lib-ort'] = function (el) {
 function libCount() { var have = haveEq(); return Object.keys(GL).filter(function (n) { return GL[n].lib && eqOk(GL[n].lib.equipment, have); }).length; }
 function libBandsHTML() {
   return '<section class="card"><h3>Bänder</h3>' + BANDS.map(function (b) {
-    return '<button type="button" class="bc-row" data-act="band-col" data-v="' + esc(b.name) + '"><span>' + bdot(bandColor(b.name)) + esc(BAND_LABEL[b.name]) + '</span><span class="muted small">' + b.kg + ' ›</span></button>';
+    return '<button type="button" class="bc-row" data-act="band-col" data-v="' + esc(b.name) + '"><span>' + stageHTML(b.name) + '</span><span class="muted small">' + b.kg + ' ›</span></button>';
   }).join('') + '<p class="small muted">Tippe ein Band an und wähl die Farbe, die es wirklich hat. Hilfe bei Pull-up, Chin-up und Dip, Widerstand bei Push-up und Glute Bridge.</p></section>';
 }
 function exportData() {

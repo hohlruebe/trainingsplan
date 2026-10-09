@@ -31,6 +31,8 @@ Stand: 9. Oktober 2026 (Fünf Grundsätze, Zähler überall, Übungen erklärt, 
 - Umgesetzt: Start-Schätzung (Familie, Teil-Wert, sonst Stufe 1), Einstufung in den ersten 2 Einheiten, eine Stufe leichter bei 2 Runden unter
   der Spanne, Gewicht ohne 1RM aus verwandten 1RM bzw. Einsteiger-Norm, automatisch übernommene Vorschläge grau bis bestätigt,
   Chips „3–6 Wdh.“ und „✓ Stufe N …“ in einer Reihe. Alte Übungstexte mit Tag-Nummern (Chin-up, Pull-up, Push-up) entfernt.
+- Dennis: Band-Farbpunkt oft nicht mittig und ungleicher Abstand. Behoben: Punkt in em (passt zu jeder Schriftgröße), Wort und Punkt
+  in einer Einheit `.bst`, in Chips gleicher Abstand über `gap`.
 - Offen: Rückmeldung von Dennis, ob die Schätzungen passen (z. B. Ring Chin-up aus Zug-Wert 74 → „Leichtes Band“).
 
 ## Fünf Grundsätze und Angleichung (9. Oktober)
