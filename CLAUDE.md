@@ -235,6 +235,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Hinweise auf Heute stehen dort, wo sie hingehören: Phase (Einstieg, Entlastung, Testwoche, Willkommen zurück) in der Block-Karte,
   Übungs-Hinweise grau unter dem Schritt (`notes`, `.tl-x`). Ringhöhe nur bei Ring-Übungen, in Bezug auf den Körper (`ringNotes`, `RING_H`).
   Tipps-Karte nur noch an Testtagen, beim Murph und bei optionalen Läufen.
+- Start (Fragebogen statt Testtage, Dennis): ohne `S.started` zeigt Heute den Fragebogen (`onboardingHTML` → `fbPage`, ohne Reiterleiste).
+  Begrüßung „Hallo, ich bin dein Coach“ mit „Los geht’s“, darunter „Lieber messen“ (alte Testtage, `start-test`) | „Schon mittendrin“ (Seite `mitten`,
+  Durchgang/Tag, `start-at`). Fragen `FB_PAGES`: Über dich (Geschlecht, Jahrgang, Gewicht direkt in `S`), Orte (Kacheln, Gym bekommt einmalig `FB_GYM`),
+  Erfahrung, Zug, Druck, Beine, Rumpf, Skill (`FB_Q`: Leiter-Kapsel, ein Tippen = weiter), Bestwerte (`FB_RM`, „+ Übung“ aus `RM_ALL`), 5 km bzw.
+  20-Min-Watt, Schmerzen (Figur mit Gelenk-Punkten, Rücken als Knopf). Antworten in `S.fb {p, a}` (in `DEF`, nicht in `SYNC_KEYS`). „Dein Start“
+  (`fbStartHTML`) zeigt Stufen, Arbeitsgewichte, lockeres Tempo und „Ich achte auf“. „Training starten“ (`ACT['fb-start']`): `S.base` mit
+  `src: 'fb'` (`fbBase`: Stufe der Antwort minus `FB_OFF` je Erfahrung, ohne Angabe 1), 1RM-Einträge `src: 'fb'`, `S.cardio.thr`/`ftp` ohne
+  Testdatum, Beschwerde über `memRecord`, dann Durchgang 1, Tag 1 (Kurzversion wie nach dem Test). Startstufen aus dem Fragebogen sind
+  eine Angabe: `baseOf` meldet `fb`, `coachStage` stuft in den ersten 2 Einheiten nach (`cs.cal`), Hinweis „aus deinem Fragebogen“
+  (`brakeNote`, `skillNote`); `skillStage` nimmt die Startstufe aus `S.base`. Zusätze hinter „·“ brechen nur als Ganzes um (`dotSub`, `.nobr`).
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
   Ein Tag vor dem aktuellen, der in diesem Durchgang schon gespeichert ist (`dayLog`), zeigt nur die Karte „Ergebnis“ (`logLines` wie im
   Verlauf) und „Zurück“, kein „Tag machen“ und kein Start.
@@ -410,7 +420,7 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
   („Wiedereinstieg“ in `curPhase`) und eine fällige Testwoche rutscht nach hinten (`S.blockStart` + 1).
   Gewicht steigt höchstens alle 7 Tage (`kgUpHere`). Kardio-Grenze 1,3× gilt für Laufen und Ergometer. Verpasster Kardio-Test →
   nächster intensiver Tag wird Test (`cardioTestDue`). Sync: Tag/Durchgang laufen nie zurück, außer von Hand gesetzt (`S.posSet`).
-- Durchgang 1 und 2 nach dem Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
+- Durchgang 1 und 2 nach dem Fragebogen bzw. Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
 ## Übergabe zwischen Sitzungen
 - Zu Beginn jeder Sitzung `UEBERGABE.md` lesen (Stand, offene Aufgaben, Rückmeldungen von Dennis).
