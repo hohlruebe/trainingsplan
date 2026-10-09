@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 9. Oktober 2026 (Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
+Stand: 9. Oktober 2026 (Fragebogen statt Testtage, Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,15 @@ Stand: 9. Oktober 2026 (Fünf Grundsätze, Zähler überall, Übungen erklärt, 
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Fragebogen statt Testtage (9. Oktober)
+- Dennis: „Statt Testtage einen Fragebogen zum aktuellen Fitnessstand, bestehende 1RMs eintragen und alles was dazugehört, für leichteres
+  Onboarding?“ Entwurf 1 im Canvas gefiel noch nicht, Entwurf 2 (Board „Fragebogen statt Testtage · Entwurf 2“) ja. Dazu: „alles was hinter
+  dem · steht, wenn es nicht passt, komplett mit Punkt in die Zeile darunter“ → Regel in `DESIGN.md` (Grundlagen), `dotSub()`. „Starte den PR.“
+- Umgesetzt (siehe CLAUDE.md, „Start“): Begrüßung, 11 Fragen, „Dein Start“, „Training starten“ geht direkt in Durchgang 1. Testtage bleiben
+  über „Lieber messen“, „Schon mittendrin“ wie bisher. Startstufen aus dem Fragebogen stuft der Coach in den ersten 2 Einheiten nach.
+- Offen: Rückmeldung von Dennis, ob die Zuordnung der Antworten zu Stufen passt (`FB_Q`, `FB_OFF`). Die Grafik „Rücken zur Wand“ fehlt noch
+  (dort steht ein Symbol).
 
 ## Handstand: Rücken zur Wand als erste Stufe (9. Oktober)
 - Dennis: Ist es mit dem Rücken zur Wand nicht einfacher (hochkicken, die Wand fängt ab)? Vereinbart: beides. Neue erste Stufe „Rücken zur Wand“

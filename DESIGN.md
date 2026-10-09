@@ -27,6 +27,8 @@ Jede neue Oberfläche wird an diesen fünf Punkten gemessen. Passt etwas nicht, 
   Dunkelmodus über `data-theme`. Neue Farben immer für Hell und Dunkel festlegen.
 - Oben und unten keine harten Kanten: Hintergrund läuft durch, Inhalte blenden weich aus.
 - Tippflächen mindestens 44 px.
+- Zeilenumbruch (Dennis): Ein Zusatz hinter dem Punkt („Zug · Ring Pull-up“, „3 Wdh. · 1RM 132 kg“) bleibt zusammen. Passt er nicht mehr
+  in die Zeile, rutscht er mit dem Punkt komplett in die nächste (`dotSub()`, Klasse `.nobr`). Nie mitten im Zusatz trennen.
 
 ## Schaltflächen: Kapsel-Konzept
 Keine eckigen grauen Knöpfe. Jede Schaltfläche ist genau einer dieser Bausteine:
@@ -112,6 +114,9 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Fortschritt über einen Block: flache Balken je Durchgang in einer Zeile. Geschafft = `--acc`, aktuell mit leichtem Ring,
   leichtere Wochen (Entlastung, Test) heller.
 - Puls-Zonen als Liste: farbiger Strich, Zone, Name, Bereich rechtsbündig in bpm.
+- Fragen (Fragebogen beim Start): oben Zurück, Fortschritt als Striche, „Überspringen“; Kopfzeile in `--acc`, große Frage, ein Satz.
+  Antworten als Leiter-Kapsel (`.ob-cap`, Zeilen mit Figur, schwerste oben, „↑ Schwerer“/„Leichter“): ein Tippen wählt und geht weiter.
+  Mehrfachwahl als Kacheln (`.ob-tile`), Zahlen als große Kacheln mit Rad. Haupt- bzw. Nebenaktion immer unten an derselben Stelle (`.ob-foot`).
 
 ## Fenster und Blätter
 - Blätter von unten (`openSheet`, `openForm`, `openChoice`), Kopf mit „Abbrechen“ und Aktion.

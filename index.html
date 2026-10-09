@@ -1068,6 +1068,50 @@ html.desk .gl-row:hover,html.desk .st-row:hover,html.desk .tile:hover{filter:bri
 html.desk .btn:hover{filter:brightness(1.05)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+/* Fragebogen beim Start (statt Testtage) */
+.nobr{display:inline-block;white-space:nowrap}
+.ob{display:flex;flex-direction:column;min-height:calc(100dvh - 60px)}
+html.desk .ob{max-width:520px;margin:0 auto}
+.ob-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.ob-top .st-prog{flex:1;margin:0}
+.ob-skip{border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;min-height:44px;padding:0 4px;cursor:pointer}
+.ob-k{font-size:14px;font-weight:600;color:var(--acc);margin:0 0 6px}
+.ob-q{font-size:30px;line-height:1.12;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+.ob-big-t{font-size:40px}
+.ob-s{color:var(--ink2);font-size:15px;line-height:1.45;margin:0 0 18px}
+.ob-cap{padding:4px;border-radius:26px;background:var(--tray);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);display:flex;flex-direction:column;gap:2px}
+.ob-row{width:100%;min-height:60px;display:flex;align-items:center;gap:12px;padding:6px 14px 6px 8px;border:0;border-radius:22px;background:none;color:var(--ink);font:inherit;font-size:16px;text-align:left;cursor:pointer;transition:background .2s,box-shadow .2s}
+.ob-row .ob-f{width:46px;height:46px;border-radius:14px;background:var(--paper);flex:none;display:flex;align-items:center;justify-content:center;color:var(--ink2);overflow:hidden}
+.ob-row .ob-f svg{width:24px;height:24px}.ob-row .ob-f svg.mini-fig{width:46px;height:46px;margin:0;border-radius:0;background:none}.ob-row .ob-f:has(.mini-fig){background:var(--fig)}
+.ob-row .ob-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}.ob-row .ob-t b{font-weight:600}.ob-row .ob-t small{font-size:14px;color:var(--ink2)}
+.ob-row.on{background:var(--pill);box-shadow:0 2px 10px rgba(17,18,20,.12)}.ob-row.on .ob-t b{color:var(--acc)}
+.ob-row .ob-c{width:24px;height:24px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1.5px var(--line2)}
+.ob-row.on .ob-c{background:var(--acc);box-shadow:none;display:flex;align-items:center;justify-content:center}
+.ob-row.on .ob-c::after{content:'';width:9px;height:5px;border:2.4px solid var(--on-acc);border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg)}
+.ob-lab{font-size:14px;color:var(--ink2);margin:6px 6px}
+.ob-foot{margin-top:auto;position:sticky;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-top:18px;display:flex;flex-direction:column;gap:8px}
+.ob-alt{display:flex;justify-content:center;align-items:center;gap:4px}.ob-alt button{border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;min-height:44px;padding:0 10px;cursor:pointer}
+.ob-nums{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.ob-num{border:0;background:var(--paper);border-radius:22px;box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.ob-num small,.ob-num i{font-size:14px;color:var(--ink2);font-style:normal}.ob-num b{font-family:var(--hand);font-weight:var(--hand-w);font-size:34px;line-height:1.1;color:var(--acc)}.ob-num b span{font-size:16px;color:var(--ink2)}
+.ob-tap{text-align:center;font-size:14px;color:var(--ink2);margin:12px 0 0}
+.ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ob-tile{position:relative;border:0;border-radius:22px;background:var(--paper);box-shadow:var(--shadow);padding:16px;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:10px;outline:2px solid transparent;outline-offset:-2px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.ob-tile .ob-i{width:44px;height:44px;border-radius:14px;background:var(--board);display:flex;align-items:center;justify-content:center;color:var(--ink2)}.ob-tile .ob-i svg{width:24px;height:24px}
+.ob-tile b{font-size:16px}.ob-tile small{font-size:14px;color:var(--ink2);line-height:1.3}
+.ob-tile.on{outline-color:var(--acc)}.ob-tile.on .ob-i{background:var(--acc);color:var(--on-acc)}
+.ob-tile.on::after{content:'';position:absolute;right:14px;top:14px;width:22px;height:22px;border-radius:50%;background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+.ob-big{display:block;width:100%;border:0;background:none;text-align:center;padding:22px 0 8px;color:var(--ink);font:inherit;cursor:pointer}.ob-big b{display:block;font-family:var(--hand);font-weight:var(--hand-w);font-size:64px;line-height:1;color:var(--acc)}.ob-big b span{font-size:22px;color:var(--ink2)}.ob-big small{font-size:15px;color:var(--ink2)}
+.ob-hero{text-align:center;padding-top:6px}.ob-hero .fig{height:220px;margin:0 auto 6px;background:transparent;border:0;box-shadow:none}
+.ob-hero h1{font-size:38px;line-height:1.08;letter-spacing:-.02em;margin:8px 0 10px}.ob-hero p{color:var(--ink2);font-size:16px;line-height:1.45;margin:0 12px}
+.ob-steps{display:flex;gap:8px;margin:22px 0}.ob-steps div{flex:1;background:var(--paper);border-radius:18px;padding:12px;box-shadow:var(--shadow)}
+.ob-steps b{display:block;font-family:var(--hand);color:var(--acc);font-size:22px}.ob-steps span{font-size:14px;color:var(--ink2);line-height:1.3;display:block;margin-top:2px}
+.ob-body{display:flex;justify-content:center;margin:4px 0 10px}.ob-body .bf{margin:0}.ob-body svg{max-height:46vh}
+.ob-dot{cursor:pointer}.ob-dc{fill:var(--paper);stroke:var(--line2);stroke-width:2.5}.ob-dot.on .ob-dc{fill:var(--mb0);stroke:var(--paper);stroke-width:3}
+.ob-pick{display:flex;justify-content:center;margin:2px 0 14px}.ob-pick .btn.on{color:var(--ink);background:color-mix(in srgb,var(--mb0) 16%,var(--paper))}.ob-pick .chip{background:color-mix(in srgb,var(--mb0) 16%,var(--paper));color:var(--ink)}
+.ob-bar{display:grid;grid-template-columns:1fr auto;column-gap:10px;row-gap:6px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}.ob-bar:last-child{border:0}
+.ob-bar .ob-n{font-weight:600;font-size:16px}.ob-sub{font-weight:400;font-size:14px;color:var(--ink2)}.ob-bar .ob-v{font-size:15px;color:var(--acc);font-weight:600;white-space:nowrap}
+.ob-seg{grid-column:1 / -1;display:flex;gap:3px}.ob-seg i{flex:1;height:6px;border-radius:3px;background:var(--fill)}.ob-seg i.on{background:var(--acc)}.ob-seg i.now{background:var(--acc);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 30%,transparent)}
 </style>
 </head>
 <body>
@@ -2472,7 +2516,7 @@ var TEST_BASE = {
 var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
-  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null };
+  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -2795,16 +2839,158 @@ function notesBlock(d) {
   return '<section class="card"><label class="field"><span>Notizen</span><textarea data-draft="notes" placeholder="Wie lief es? Technik, Schlaf, Schicht …">' + val(d, 'notes') + '</textarea></label></section>';
 }
 
-function onboardingHTML() {
-  return '<section class="hero"><h1>Los geht\u2019s</h1><p class="hero-title">Dein Plan: Calisthenics trifft CrossFit</p></section>' +
-    '<section class="card"><h2>Neu dabei?</h2><p>Dann startest du mit dem Einstiegstest. An drei Testtagen findest du heraus, mit welcher Stufe und wie vielen Wiederholungen du einsteigst.</p>' +
-    '<button type="button" class="btn primary block" data-act="start-test">Mit dem Einstiegstest starten</button></section>' +
-    '<section class="card"><h2>Schon mittendrin?</h2><p>Dann stell deinen aktuellen Stand ein.</p>' +
-    standTilesHTML('ob', ui.ob || (ui.ob = { d: 1, t: 1 })) +
-    '<button type="button" class="btn block" data-act="start-at">Hier weitermachen</button></section>' +
-    '<section class="card"><h2>Dein Schwerpunkt</h2><p><b>' + esc(fokusLabel()) + '</b>. ' + esc(fokus().kurz) + '</p><button type="button" class="btn block" data-act="fk-open" data-from="heute">Plan &amp; Challenges</button></section>';
+/* ---------- Fragebogen statt Testtage (Dennis): ein paar Fragen, der Coach stellt den Start ein ---------- */
+// Antworten in S.fb (nur auf dem Gerät), Profilwerte (Geschlecht, Jahrgang, Gewicht, Orte) gehen direkt in S.
+// „Training starten“ schreibt Startstufen in S.base (src: 'fb', die ersten 2 Einheiten stuft der Coach nach), 1RM-Einträge, Kardio-Kernwert und Beschwerden.
+var FB_PAGES = ['dich', 'orte', 'erf', 'zug', 'druck', 'beine', 'rumpf', 'hs', 'rm', 'kardio', 'schmerz'];
+var FB_IC = { three: 'M4 18h16M6 16V8M11 16V5M16 16v-6', two: 'M4 18h16M5 15l4-6 4 3 6-8', one: 'M4 18h16M6 14l4-4 3 3 5-6', seed: 'M12 21V11M12 11c0-4 3-7 7-7 0 4-3 7-7 7zM12 13c0-3-2-5-5-5 0 3 2 5 5 5', wall: 'M4 3v18M9 20l3-8 3 8M12 12V6M9 8l3-2 3 2' };
+// Erfahrung: so viele Stufen unter den Angaben startet der Coach.
+var FB_OFF = { lang: 0, mittel: 1, kurz: 1, neu: 2 };
+// Je Frage: Antworten (Schlüssel, Text, Zusatz, Figur oder Symbol) und die Stufe, bei der 3–6 Wdh. (bzw. die Spanne) passen.
+var FB_Q = {
+  erf: { k: 'Erfahrung', q: 'Wie lange trainierst du schon?', s: 'Regelmäßig, mindestens zweimal pro Woche.',
+    o: [['lang', 'Länger als 3 Jahre', 'Start direkt nach deinen Angaben', '', FB_IC.three], ['mittel', '1 bis 3 Jahre', 'Eine Stufe unter deinen Angaben', '', FB_IC.two],
+      ['kurz', 'Unter 1 Jahr', 'Eine Stufe darunter, schnelle Einstufung', '', FB_IC.one], ['neu', 'Neu dabei', 'Zwei Stufen darunter', '', FB_IC.seed]] },
+  zug: { k: 'Zug · 1 von 5', q: 'Wie viele Klimmzüge schaffst du?', s: 'Am Stück, sauber, ohne Schwung.', lad: true,
+    o: [['w', 'Mit Zusatzgewicht', 'Weste oder Gürtel', 'g_chinup'], ['9', '9 oder mehr', '', 'g_pullup'], ['4', '4 bis 8', '', 'g_pullup'], ['1', '1 bis 3', '', 'g_pullup'], ['0', 'Noch keinen', 'Ring Row geht', 'g_row']],
+    set: { 'Ring Pull-up': { w: 7, 9: 7, 4: 6, 1: 4, 0: 2 }, 'Ring Chin-up': { w: 7, 9: 7, 4: 6, 1: 4, 0: 2 } } },
+  druck: { k: 'Druck · 2 von 5', q: 'Wie viele Liegestütze schaffst du?', s: 'Am Boden, am Stück, die Brust bis knapp über den Boden.', lad: true,
+    o: [['30', 'Über 30', '', 'g_push_decline'], ['15', '15 bis 30', '', 'g_push_parallettes'], ['5', '5 bis 14', '', 'g_push'], ['0', 'Unter 5', 'Auf Knien geht', 'g_push_knee']],
+    set: { 'Push-up': { 30: 4, 15: 3, 5: 2, 0: 1 }, 'Ring Dip': { 30: 4, 15: 3, 5: 2, 0: 1 } } },
+  beine: { k: 'Beine · 3 von 5', q: 'Wie klappt der Pistol Squat?', s: 'Kniebeuge auf einem Bein, volle Tiefe, die Ferse bleibt unten.', lad: true,
+    o: [['w', 'Frei mit Zusatzgewicht', 'Weste oder Kettlebell', 'g_pistol'], ['frei', 'Frei, sauber', '', 'g_pistol'], ['halt', 'Mit Halt', 'Ringe oder Türrahmen', 'g_pistol_assisted'], ['0', 'Noch nicht', 'Auf einen Stuhl absitzen geht', 'g_pistol_box']],
+    set: { 'Pistol Squat': { w: 4, frei: 3, halt: 2, 0: 1 }, 'Bulgarian Split Squat': { w: 3, frei: 2, halt: 1, 0: 1 } } },
+  rumpf: { k: 'Rumpf · 4 von 5', q: 'Was schaffst du für den Bauch?', s: 'Der untere Rücken bleibt am Boden.', lad: true,
+    o: [['ab', 'Ab Wheel, voller Weg', 'Aus den Knien, sauber', 'g_abwheel'], ['arme', 'Hollow Body, Arme über Kopf', '30 s halten', 'g_hollow'], ['beine', 'Hollow Body, Beine gestreckt', '30 s halten', 'g_hollow'], ['0', 'Knie angezogen', 'oder kürzer', 'g_hollow']],
+    set: { 'Hollow Body Hold': { ab: 4, arme: 3, beine: 2, 0: 1 }, 'Ab Wheel Rollout': { ab: 2, arme: 1 } } },
+  hs: { k: 'Skill · 5 von 5', q: 'Wie steht es mit dem Handstand?', s: 'Kein Problem, wenn noch gar nicht: wir fangen an der Wand an.', lad: true,
+    o: [['frei', 'Frei, ein paar Sekunden', '', 'g_free_handstand'], ['bauch', 'Bauch zur Wand', '30 s halten', 'g_handstand'], ['ruecken', 'Rücken zur Wand', 'Hochkicken klappt', '', FB_IC.wall], ['0', 'Noch nie', '', '', FB_IC.seed]],
+    set: { 'Handstand': { frei: 5, bauch: 3, ruecken: 2, 0: 1 } } }
+};
+var FB_RM = ['g_back_squat', 'g_deadlift', 'g_bench_press', 'g_strict_press', 'g_weighted_pullup'];
+// Fertige Startrunde für ein Fünf-Kilometer-Laufen: Schwelle etwa 5 % langsamer (wie der 5-km-Test), Ergometer-FTP 95 % der 20-Minuten-Watt.
+function fb() { if (!S.fb || typeof S.fb !== 'object') S.fb = { p: 'hallo', a: {} }; if (!S.fb.a) S.fb.a = {}; return S.fb; }
+function fbGo(p) { fb().p = p; saveState(); window.scrollTo(0, 0); render(); }
+function fbNext() { var F = fb(), i = FB_PAGES.indexOf(F.p); fbGo(i >= 0 && i < FB_PAGES.length - 1 ? FB_PAGES[i + 1] : 'start'); }
+function fbTop(p) {
+  var i = FB_PAGES.indexOf(p), h = '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-back" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><div class="st-prog" aria-label="Frage ' + (i + 1) + ' von ' + FB_PAGES.length + '">';
+  for (var j = 0; j < FB_PAGES.length; j++) h += '<span' + (j <= i ? ' class="on"' : '') + '></span>';
+  return h + '</div><button type="button" class="ob-skip" data-act="fb-skip">Überspringen</button></div>';
 }
-
+// „· Zusatz“ bleibt zusammen: passt er nicht mehr in die Zeile, rutscht er mit dem Punkt komplett in die nächste (Dennis).
+function dotSub(t) { return t ? ' <span class="nobr">· ' + t + '</span>' : ''; }
+function fbQ(k, q, s) { return '<p class="ob-k">' + k + '</p><h1 class="ob-q">' + q + '</h1>' + (s ? '<p class="ob-s">' + s + '</p>' : ''); }
+function fbKick(k) { var m = /^(.*?) · (.*)$/.exec(k); return m ? esc(m[1]) + dotSub(esc(m[2])) : esc(k); }
+function fbChoice(id) {
+  var Q = FB_Q[id], a = fb().a[id];
+  var rows = Q.o.map(function (o) {
+    var on = a === o[0], f = o[3] ? miniFig(o[3]) : fkIcon(o[4] || FB_IC.seed);
+    return '<button type="button" class="ob-row' + (on ? ' on' : '') + '" data-act="fb-a" data-q="' + id + '" data-v="' + o[0] + '" aria-pressed="' + on + '"><span class="ob-f">' + f + '</span><span class="ob-t"><b>' + esc(o[1]) + '</b>' + (o[2] ? '<small>' + esc(o[2]) + '</small>' : '') + '</span><span class="ob-c"></span></button>';
+  }).join('');
+  return fbTop(id) + fbQ(fbKick(Q.k), esc(Q.q), esc(Q.s)) + (Q.lad ? '<p class="ob-lab">↑ Schwerer</p>' : '') + '<div class="ob-cap" role="group">' + rows + '</div>' + (Q.lad ? '<p class="ob-lab">Leichter</p>' : '') +
+    '<div class="ob-foot"><button type="button" class="btn block" data-act="fb-skip">Weiß ich nicht</button></div>';
+}
+function fbRmVal(r) { return r ? esc(fmtKg(r.kg, null)) : '–'; }
+function fbPage() {
+  var F = fb(), p = F.p, a = F.a;
+  if (p === 'hallo') return '<div class="ob-hero">' + figHTML('_wave') + '<h1>Hallo, ich bin<br>dein Coach.</h1><p>In drei Minuten weiß ich, wo du stehst. Danach plane ich jeden Tag für dich.</p></div>' +
+    '<div class="ob-steps"><div><b>1</b><span>Ein paar Fragen, jede überspringbar</span></div><div><b>2</b><span>Ich stelle deinen Start ein</span></div><div><b>3</b><span>Training ab heute</span></div></div>' +
+    '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-go" data-p="dich">Los geht’s</button><div class="ob-alt"><button type="button" data-act="start-test">Lieber messen</button><span class="muted" aria-hidden="true">|</span><button type="button" data-act="fb-go" data-p="mitten">Schon mittendrin</button></div></div>';
+  if (p === 'mitten') return '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-go" data-p="hallo" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>' +
+    fbQ('Schon mittendrin', 'Wo stehst du im Plan?', 'Stell Durchgang und Tag ein, dann geht es dort weiter.') + '<section class="card">' + standTilesHTML('ob', ui.ob || (ui.ob = { d: 1, t: 1 })) + '</section>' +
+    '<div class="ob-foot"><button type="button" class="btn primary block" data-act="start-at">Hier weitermachen</button></div>';
+  if (FB_Q[p]) return fbChoice(p);
+  if (p === 'dich') {
+    return fbTop(p) + fbQ('Über dich', 'Wer trainiert hier?', 'Damit Puls, Normen und Startgewichte zu dir passen.') +
+      '<div class="seg" role="group" aria-label="Geschlecht">' + [['m', 'Männlich'], ['w', 'Weiblich'], ['d', 'Divers']].map(function (o) { var on = S.sex === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="fb-sex" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="ob-nums"><button type="button" class="ob-num" data-act="choose" data-k="birth"><small>Jahrgang</small><b>' + (S.birthYear || '–') + '</b><i>für den Maximalpuls</i></button>' +
+      '<button type="button" class="ob-num" data-act="choose" data-k="weight"><small>Körpergewicht</small><b>' + (S.weight ? String(S.weight).replace('.', ',') + ' <span>kg</span>' : '–') + '</b><i>für Kraftwerte</i></button></div><p class="ob-tap">Zahl antippen zum Ändern</p>' +
+      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button></div>';
+  }
+  if (p === 'orte') {
+    var on = S.orte.filter(function (o) { return o.on; }).length;
+    return fbTop(p) + fbQ('Training', 'Wo trainierst du?', 'Mehrere möglich. Die Geräte je Ort prüfst du später in Tools › Übungen.') +
+      '<div class="ob-grid">' + S.orte.map(function (o) {
+        var f = ORT_K[o.k]; return '<button type="button" class="ob-tile' + (o.on ? ' on' : '') + '" data-act="fb-ort" data-v="' + o.id + '" aria-pressed="' + !!o.on + '"><span class="ob-i">' + fkIcon(ortIc(o)) + '</span><span><b>' + esc(ortName(o)) + '</b><br><small>' + esc(FB_ORT_SUB[o.k] || '') + '</small></span></button>';
+      }).join('') + '</div>' +
+      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter mit ' + on + (on === 1 ? ' Ort' : ' Orten') + '</button></div>';
+  }
+  if (p === 'rm') {
+    var R = a.rm || {}, ids = FB_RM.concat(Object.keys(R).filter(function (id) { return FB_RM.indexOf(id) < 0; }));
+    return fbTop(p) + fbQ('Gewichte', 'Kennst du deine Bestwerte?', 'Ein schwerer Satz bis 10 Wdh. reicht, das 1RM rechne ich aus.') +
+      '<section class="card">' + valRows(ids.map(function (id) {
+        var r = R[id], sub = r ? r.reps + ' Wdh.' + (r.reps > 1 ? dotSub('1RM ' + esc(fmtKg(e1rm(r.kg, r.reps), id))) : '') : '';
+        return '<button type="button" class="vrow" data-act="fb-rm" data-v="' + id + '"><span class="gl-t"><b>' + esc(UE[id].name) + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</span><span class="vr-v' + (r ? '' : ' est') + '">' + (r ? esc(fmtKg(r.kg, id)) : '–') + '</span>' + CHEV_R + '</button>';
+      })) + '<button type="button" class="btn small" data-act="fb-rm-add" style="margin-top:12px">+ Übung</button></section>' +
+      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button>' + (Object.keys(R).length ? '' : '<button type="button" class="btn block" data-act="fb-skip">Keine Werte</button>') + '</div>';
+  }
+  if (p === 'kardio') {
+    var erg = a.kart === 'ergo';
+    return fbTop(p) + fbQ('Ausdauer', erg ? 'Deine Watt über 20 Minuten?' : 'Deine Zeit über 5 km?', 'Ungefähr reicht. Den ersten Test macht der Coach später selbst.') +
+      '<div class="seg" role="group" aria-label="Art">' + [['lauf', 'Laufen'], ['ergo', 'Ergometer']].map(function (o) { var on = (a.kart || 'lauf') === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="fb-kart" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+      '<button type="button" class="ob-big" data-act="fb-k"><b>' + (erg ? (a.w20 ? a.w20 + ' <span>W</span>' : '–') : (a.k5 ? fmtDur(a.k5) : '–')) + '</b><small>' + (erg ? 'Watt im Schnitt, 20 Minuten' : 'Minuten für 5 km') + '</small></button>' +
+      '<p class="ob-tap">' + (erg ? 'Watt' : 'Zeit') + ' antippen zum Ändern</p>' +
+      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button>' + ((erg ? a.w20 : a.k5) ? '' : '<button type="button" class="btn block" data-act="fb-skip">' + (erg ? 'Fahre nicht' : 'Laufe nicht') + '</button>') + '</div>';
+  }
+  if (p === 'schmerz') {
+    var pn = a.pain || null, sel = pn && pn.id, dots = '';
+    Object.keys(JOINT_XY).forEach(function (k) { (JOINT_XY[k] || []).forEach(function (q) { q = bodyPt(q[0], q[1], sexT()); [q[0], 200 - q[0]].forEach(function (x) { dots += fbDot(k, x, q[1], k === sel); }); }); });
+    var nm = {}; PAIN_J.forEach(function (j) { nm[j[0]] = j[1]; });
+    return fbTop(p) + fbQ('Zum Schluss', 'Zwickt gerade etwas?', 'Tipp die Stelle an. Ich plane dann drumherum.') +
+      '<div class="ob-body"><div class="bf"><figure>' + bodySVG(BODY_F, function () { return ''; }).replace('</svg>', dots + '</svg>') + '</figure></div></div>' +
+      '<p class="ob-pick"><button type="button" class="btn small' + (sel === 'ruecken' ? ' on' : '') + '" data-act="fb-pain" data-v="ruecken" aria-pressed="' + (sel === 'ruecken') + '">Rücken</button></p>' +
+      (sel ? '<p class="ob-pick"><span class="chip pn">' + esc(nm[sel]) + '</span></p><div class="seg" role="group" aria-label="Wie stark?">' + PAIN_W.map(function (w) { var on = pn.w === w[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="fb-pw" data-v="' + w[0] + '" aria-pressed="' + on + '">' + w[1] + '</button>'; }).join('') + '</div>' : '') +
+      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">' + (sel ? 'Weiter' : 'Nichts, alles gut') + '</button></div>';
+  }
+  if (p === 'start') return fbStartHTML();
+  F.p = 'hallo'; return fbPage();
+}
+function fbDot(k, x, y, on) {
+  return '<g class="ob-dot' + (on ? ' on' : '') + '" data-act="fb-pain" data-v="' + k + '" role="button" aria-label="' + esc((PAIN_J.filter(function (j) { return j[0] === k; })[0] || [k, k])[1]) + '"><circle cx="' + x + '" cy="' + y + '" r="22" fill="transparent"/><circle cx="' + x + '" cy="' + y + '" r="' + (on ? 11 : 9) + '" class="ob-dc"/></g>';
+}
+var FB_ORT_SUB = { zuhause: 'Wohnung, Türrahmen', gym: 'Hanteln, Stange, Box', park: 'Stange, Barren, Laufen', garage: 'eigenes Gym', arbeit: 'Pause, Firmen-Gym', reise: 'Hotel, unterwegs' };
+var FB_GYM = ['eq_klimmzugstange', 'eq_langhantel', 'eq_rack', 'eq_bank', 'eq_kurzhanteln', 'eq_kettlebell', 'eq_box', 'eq_rudergeraet', 'eq_kabelzug', 'eq_band', 'eq_laufband', 'eq_wallball', 'eq_springseil'];
+// Startstufen aus den Antworten: Stufe der Antwort, abzüglich Erfahrung (ohne Angabe eine), nie unter 1.
+function fbBase() {
+  var a = fb().a, off = FB_OFF[a.erf] != null ? FB_OFF[a.erf] : 1, out = {};
+  Object.keys(FB_Q).forEach(function (q) {
+    var Q = FB_Q[q]; if (!Q.set || a[q] == null) return;
+    Object.keys(Q.set).forEach(function (n) {
+      var g = GL[n], lad = g && LAD[g.key], i = Q.set[n][a[q]]; if (!lad || !i) return;
+      out[n] = { stage: lad.steps[Math.max(1, Math.min(lad.steps.length, i - off)) - 1], start: null, src: 'fb' };
+    });
+  });
+  return out;
+}
+// Arbeitsgewicht aus dem 1RM: 5 Wdh. mit 2 in Reserve (Epley rückwärts), auf 2,5 kg.
+function fbWork(e1) { return Math.max(2.5, Math.round(e1 / (1 + 7 / 30) / 2.5) * 2.5); }
+function fbBar(name, sub, val, lad, stage) {
+  var seg = '';
+  if (lad) { var n = lad.steps.length, cur = stageIndex(lad, stage) || 1; seg = '<span class="ob-seg">'; for (var i = 1; i <= n; i++) seg += '<i class="' + (i < cur ? 'on' : i === cur ? 'now' : '') + '"></i>'; seg += '</span>'; }
+  return '<div class="ob-bar"><span class="ob-n">' + esc(name) + '<span class="ob-sub">' + dotSub(esc(sub)) + '</span></span><span class="ob-v">' + val + '</span>' + seg + '</div>';
+}
+function fbStartHTML() {
+  var a = fb().a, B = fbBase(), off = FB_OFF[a.erf] != null ? FB_OFF[a.erf] : 1;
+  var rows = [['Zug', 'Ring Pull-up'], ['Druck', 'Push-up'], ['Beine', 'Pistol Squat'], ['Rumpf', 'Hollow Body Hold'], ['Skill', 'Handstand']].map(function (x) {
+    var g = GL[x[1]], lad = g && LAD[g.key], b = B[x[1]];
+    return fbBar(x[0], x[1], b ? stageHTML(b.stage) : '<span class="muted">Einstufung</span>', b ? lad : null, b && b.stage);
+  }).join('');
+  var R = a.rm || {}, more = Object.keys(R).map(function (id) { var e1 = e1rm(R[id].kg, R[id].reps); return fbBar(UE[id].name, 'aus 1RM ' + fmtKg(e1, id), esc(fmtKg(fbWork(e1), id)) + ' × 5', null); });
+  if (a.kart === 'ergo' && a.w20) more.push(fbBar('Ergometer locker', 'aus ' + a.w20 + ' W über 20 Min', Math.round(a.w20 * .95 * .65 / 5) * 5 + ' W', null));
+  else if (a.kart !== 'ergo' && a.k5) more.push(fbBar('Laufen locker', 'aus 5 km in ' + fmtDur(a.k5), fmtPace(a.k5 / 5 * 1.05 * 1.25) + ' /km', null));
+  var nm = {}; PAIN_J.forEach(function (j) { nm[j[0]] = j[1]; });
+  var W = {}; PAIN_W.forEach(function (w) { W[w[0]] = w[1].toLowerCase(); });
+  var notes = (a.pain && a.pain.id ? coachItem('i', '<b>' + esc(nm[a.pain.id]) + '</b> ' + esc(W[a.pain.w || 'l']) + ': Übungen, die die Stelle belasten, erst einmal ' + (a.pain.w === 's' ? 'weglassen' : 'leichter') + '. Ich frage regelmäßig nach.') : '') +
+    coachItem('plus', 'Die ersten zwei Wochen sind kürzer.') +
+    coachItem('up', off ? 'Ich starte ' + (off === 2 ? 'zwei Stufen' : 'eine Stufe') + ' unter deinen Angaben. Sind alle Runden oben, geht es sofort eine Stufe hoch.' : 'Ich starte bei deinen Angaben. Sind alle Runden oben, geht es sofort eine Stufe hoch.') +
+    (Object.keys(FB_Q).some(function (q) { return FB_Q[q].set && a[q] == null; }) ? coachItem('i', 'Was du übersprungen hast, schätze ich aus deinen anderen Werten.') : '');
+  return '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-back" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>' +
+    '<p class="ob-k">Fertig</p><h1 class="ob-q ob-big-t">Dein Start</h1><p class="ob-s">' + (off ? (off === 2 ? 'Zwei Stufen' : 'Eine Stufe') + ' unter deinen Angaben. ' : '') + 'In den ersten zwei Einheiten stelle ich nach.</p>' +
+    '<section class="card">' + rows + '</section>' + (more.length ? '<section class="card">' + more.join('') + '</section>' : '') +
+    '<section class="card co-card"><h3>Ich achte auf</h3>' + notes + '</section>' +
+    '<button type="button" class="btn primary block" data-act="fb-start">Training starten</button><div class="ob-alt"><button type="button" data-act="fb-go" data-p="dich">Antworten ändern</button></div>';
+}
+function onboardingHTML() { ui.focus = true; ui.noSub = true; return '<div class="ob">' + fbPage() + '</div>'; }
 function restHTML(tag) {
   var next = tag % 7 + 1;
   return '<section class="card"><p class="hand rest-word" aria-hidden="true">frei</p><h2>Heute kein Training</h2>' +
@@ -3508,11 +3694,10 @@ function renderPlan() {
   ], '', ['Nach der Testwoche platt? Ein Durchgang Kurzversion.']));
   var lastTest = LOGS.filter(function (l) { return l.kind === 'test'; });
   h += sec('Einstiegstest', W([
-    ['Drei Testtage', 'Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Die Lauftage laufen normal.'],
-    ['Stufe suchen', 'Die Stufe, bei der 5–8 saubere Wdh. gehen.'],
-    ['Startwert', 'Max – 2, beim Chin-up Max – 3.'],
+    ['Fragebogen', 'Zum Start ein paar Fragen: Klimmzüge, Liegestütze, Pistol, Bauch, Handstand, Bestwerte, 5 km. Der Coach startet je nach Erfahrung bis zu zwei Stufen darunter und stuft in den ersten 2 Einheiten nach.'],
+    ['Lieber messen', 'Statt Fragebogen drei Testtage: Test 1 statt Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6. Die Stufe, bei der 5–8 saubere Wdh. gehen; Startwert Max – 2, beim Chin-up Max – 3.'],
     ['Sanft einsteigen', 'Danach 2 Durchgänge Kurzversion mit RIR 3–4.']
-  ], (lastTest.length ? '<p class="sec-k" style="margin-top:14px">Deine Startwerte</p>' + tbl(['Übung', 'Stufe', 'Start'], Object.keys(S.base).map(function (n) { var b = S.base[n]; return [esc(n), esc(b.stage || '–'), b.start != null ? b.start : '–']; })) : '') +
+  ], (lastTest.length || (S.fb && S.fb.date) ? '<p class="sec-k" style="margin-top:14px">Deine Startwerte</p>' + tbl(['Übung', 'Stufe', 'Start'], Object.keys(S.base).map(function (n) { var b = S.base[n]; return [esc(n), esc(b.stage || '–'), b.start != null ? b.start : '–']; })) : '') +
     '<button type="button" class="btn block" style="margin-top:14px" data-act="restart-test">Einstiegstest neu starten</button>'));
   var skc = famCtx(), skRows = ['g_handstand', 'g_handstand_walk'].concat(SKILL_KEYS).map(function (k) {
     var lad = LAD[k], f = skillFam(k), cs = skillStage(k), on = k === 'g_handstand' ? !hsDone() : k === 'g_handstand_walk' ? hsDone() : skillOk(k);
@@ -4310,6 +4495,62 @@ var ACT = {
   'del-log': function (el) { twoStep(el, function () { removeLog(el.dataset.id); render(); toast('Einheit gelöscht.'); }); },
   'more-logs': function () { ui.logLimit += 30; render(); }
 };
+// Fragebogen beim Start
+ACT['fb-go'] = function (el) { fbGo(el.dataset.p); };
+ACT['fb-next'] = function () { fbNext(); };
+ACT['fb-skip'] = function () { var F = fb(); if (FB_Q[F.p]) delete F.a[F.p]; if (F.p === 'rm') delete F.a.rm; if (F.p === 'kardio') { delete F.a.k5; delete F.a.w20; } if (F.p === 'schmerz') delete F.a.pain; fbNext(); };
+ACT['fb-back'] = function () { var F = fb(), i = FB_PAGES.indexOf(F.p); fbGo(F.p === 'start' ? FB_PAGES[FB_PAGES.length - 1] : i > 0 ? FB_PAGES[i - 1] : 'hallo'); };
+// Eine Frage = ein Tippen, dann geht es weiter (kurz die Wahl zeigen).
+ACT['fb-a'] = function (el) { var F = fb(); F.a[el.dataset.q] = el.dataset.v; saveState(); render(); setTimeout(fbNext, 260); };
+ACT['fb-sex'] = function (el) { S.sex = el.dataset.v; saveState(); render(); };
+ACT['fb-ort'] = function (el) {
+  var o = S.orte.filter(function (x) { return x.id === el.dataset.v; })[0]; if (!o) return;
+  if (o.on && S.orte.filter(function (x) { return x.on; }).length === 1) { toast('Mindestens ein Ort bleibt an.'); return; }
+  o.on = o.on ? 0 : 1;
+  // Gym zum ersten Mal: die üblichen Geräte ankreuzen (in Tools › Übungen änderbar).
+  if (o.on && o.k === 'gym' && !o.eq.some(function (e) { return e !== 'eq_zuhause' && e !== 'eq_laufstrecke'; })) FB_GYM.forEach(function (e) { if (o.eq.indexOf(e) < 0) o.eq.push(e); });
+  if (!S.orte.some(function (x) { return x.on && x.id === S.ort; })) S.ort = S.orte.filter(function (x) { return x.on; })[0].id;
+  saveState(); render();
+};
+ACT['fb-rm'] = function (el) {
+  var id = el.dataset.v, F = fb(), R = F.a.rm || (F.a.rm = {}), r = R[id], kg = r ? r.kg : rmAdd(id) ? 10 : 60, max = rmAdd(id) ? 120 : 350;
+  openSheet(UE[id].name, [
+    { head: rmAdd(id) ? 'Zusatz kg' : 'kg', items: [{ v: '', t: '–' }].concat(numItems(1, max)), val: String(Math.floor(kg)) },
+    { head: '', items: [{ v: '0', t: ',0' }, { v: '5', t: ',5' }], val: kg % 1 ? '5' : '0' },
+    { head: 'Wdh.', items: numItems(1, 10), val: String(r ? r.reps : 1) }
+  ], function (v) {
+    if (!v[0]) delete R[id]; else R[id] = { kg: +v[0] + (v[1] === '5' ? 0.5 : 0), reps: +v[2] };
+    saveState(); render();
+  }, { live: function (v) { if (!v[0]) return 'Kein Wert'; var w = +v[0] + (v[1] === '5' ? 0.5 : 0), reps = +v[2]; return reps > 1 ? 'Geschätztes 1RM: <b>' + esc(fmtKg(e1rm(w, reps), id)) + '</b>' : 'Echtes 1RM: <b>' + esc(fmtKg(w, id)) + '</b>'; } });
+};
+ACT['fb-rm-add'] = function () {
+  var R = fb().a.rm || {}, items = RM_ALL.filter(function (id) { return FB_RM.indexOf(id) < 0 && !R[id]; }).map(function (id) { return { v: id, t: UE[id].name }; });
+  openSheet('Übung', [{ wide: true, items: items, val: items[0].v }], function (v) { ACT['fb-rm']({ dataset: { v: v[0] } }); });
+};
+ACT['fb-kart'] = function (el) { fb().a.kart = el.dataset.v; saveState(); render(); };
+ACT['fb-k'] = function () {
+  var a = fb().a;
+  if (a.kart === 'ergo') {
+    var ws = []; for (var w = 50; w <= 450; w += 5) ws.push({ v: String(w), t: String(w) });
+    openSheet('Watt über 20 Minuten', [{ head: 'Watt', items: ws, val: String(a.w20 || Math.round((S.weight || 75) * 2.4 / 5) * 5) }], function (v) { a.w20 = +v[0]; saveState(); render(); });
+  } else openTimeSheet('Zeit für 5 km', a.k5 || 1680, function (s) { a.k5 = s >= 720 ? s : null; if (s && s < 720) toast('Unter 12 Minuten? Bitte die Zeit prüfen.'); saveState(); render(); });
+};
+ACT['fb-pain'] = function (el) { var a = fb().a, k = el.dataset.v; a.pain = a.pain && a.pain.id === k ? null : { id: k, w: (a.pain && a.pain.w) || 'l' }; saveState(); render(); };
+ACT['fb-pw'] = function (el) { var a = fb().a; if (a.pain) a.pain.w = el.dataset.v; saveState(); render(); };
+ACT['fb-start'] = function () {
+  var a = fb().a, today = isoToday();
+  S.base = Object.assign({}, S.base || {}, fbBase());
+  Object.keys(a.rm || {}).forEach(function (id) { var r = a.rm[id]; addLog({ id: newId(), ts: Date.now(), date: today, durchgang: 1, tag: 1, kind: 'rm', lift: id, kg: r.kg, reps: r.reps, e1: e1rm(r.kg, r.reps), bw: S.weight || null, src: 'fb', notes: '' }); });
+  var C = Object.assign({}, S.cardio || {});
+  if (a.kart === 'ergo' && a.w20) C.ftp = Math.round(a.w20 * .95 * 10) / 10;
+  if (a.kart !== 'ergo' && a.k5) C.thr = Math.round(a.k5 / 5 * 1.05 * 10) / 10;
+  if (C.ftp || C.thr) S.cardio = C;
+  if (a.pain && a.pain.id) memRecord({ k: 'j', id: a.pain.id }, a.pain.w || 'l', null);
+  S.fb = { p: 'done', date: today, a: a };
+  Object.assign(S, { started: true, startDate: today, durchgang: 1, tag: 1, blockStart: 1, posSet: Date.now(), tagSince: today, advBy: 'auto' });
+  DAYS_K = null; saveState(); window.scrollTo(0, 0); render(); toast('Dein Start ist eingestellt. Viel Spaß!');
+};
+
 ACT.pmenu = function () { ui.pmenu = !ui.pmenu; render(); };
 ACT.pview = function (el) { ui.pview = el.dataset.v; ui.pmenu = false; render(); };
 ACT.parea = function (el) { ui.parea = el.dataset.v || el.closest('[data-v]').dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); };
@@ -4482,12 +4723,18 @@ function stageEst(key) {
   }
   return (EST_C.v[key] = out);
 }
+// Startstufe aus S.base (Testtag oder Fragebogen). Der Fragebogen ist eine Angabe, keine Messung: die ersten 2 Einheiten stuft der Coach nach.
+function baseOf(key) {
+  var lad = LAD[key], out = { idx: 0, fb: false };
+  Object.keys(S.base || {}).forEach(function (n) { var g = GL[n], b = S.base[n]; if (g && g.key === key) { var i = stageIndex(lad, b.stage); if (i) { out.idx = i; out.fb = b.src === 'fb'; } } });
+  return out;
+}
 function coachStage(key, hi) {
   var lad = LAD[key]; if (!lad || !lad.steps || !lad.steps.length) return null;
   var kl = sehneKl(key), h = ladHist(key), rg = rangeOf(lad), top = hi || (rg ? rg.hi : 6), lo = rg ? rg.lo : 3;
-  var bi = 0; Object.keys(S.base || {}).forEach(function (n) { var g = GL[n]; if (g && g.key === key) bi = stageIndex(lad, S.base[n].stage) || bi; });
+  var bs = baseOf(key), bi = bs.idx, bFb = bs.fb;
   if (!h.length) {
-    if (bi) return { idx: bi, kl: kl };
+    if (bi) return { idx: bi, kl: kl, fb: bFb };
     var e = stageEst(key); return { idx: e.idx, kl: kl, est: e };
   }
   var last = h[h.length - 1], cur = last.idx, out = { idx: cur, kl: kl }, gap = partPause(lad.muster, last.date);
@@ -4505,7 +4752,7 @@ function coachStage(key, hi) {
   if (!isKg && !last.soft && cur > 1 && lr.length >= 2 && lr.filter(function (v) { return v < lo; }).length >= 2) { out.idx = cur - 1; out.hard = { lo: lo }; return out; }
   // Einstufung: die ersten 2 Einheiten einer geschätzten Leiter. Alle Runden oben → sofort eine Stufe höher, ohne Sehnen-Wartezeit
   // (der Start war vorsichtig). Nie zurück auf eine Stufe, die schon zu schwer war.
-  if (!bi && !isKg && h.length <= 2 && cur < lad.steps.length && lr.length >= 2 && Math.min.apply(null, lr) >= top && !h.some(function (x) { return x.idx > cur; })) {
+  if ((!bi || bFb) && !isKg && h.length <= 2 && cur < lad.steps.length && lr.length >= 2 && Math.min.apply(null, lr) >= top && !h.some(function (x) { return x.idx > cur; })) {
     var nx0 = lad.lib && lad.lib.stufen && lad.lib.stufen[cur];
     if (!nx0 || eqOk(nx0.equipment, haveEq(trainOrt()))) { out.idx = cur + 1; out.up = true; out.cal = true; return out; }
   }
@@ -4534,6 +4781,7 @@ function coachStage(key, hi) {
 function brakeNote(name, cs) {
   if (!cs) return '';
   var lad = ladFor(name), st = lad ? stageText(lad.steps[cs.idx - 1]) : '';
+  if (cs.fb) return '<b>' + esc(name) + '</b>' + ': Start mit „' + esc(st) + '“ aus deinem Fragebogen. Die ersten 2 Einheiten stuft dein Coach nach.';
   if (cs.est) return '<b>' + esc(name) + '</b>' + ' ist neu. Start mit „' + esc(st) + '“, ' + estWhy(cs.est) + '. Die ersten 2 Einheiten stuft dein Coach nach.';
   if (cs.cal) return '<b>' + esc(name) + '</b>' + ': Einstufung, letztes Mal alle Runden oben. Heute „' + esc(st) + '“.';
   if (cs.hard) return '<b>' + esc(name) + '</b>' + ': ' + (cs.hard.mx != null ? 'im Maxout ' + cs.hard.mx + ' Wdh.' : 'letztes Mal mehrmals unter ' + cs.hard.lo + ' Wdh.') + ' Heute eine Stufe leichter, „' + esc(st) + '“.';
@@ -4602,7 +4850,7 @@ function skillHist(key) {
 // nicht in der Entlastung), zweimal unter der Hälfte des unteren Endes → eine Stufe leichter. Pause = Tage ohne Krafttraining.
 function skillStage(key) {
   var lad = LAD[key], n = lad.steps.length, kl = sehneKl(key), rg = rangeOf(lad) || { lo: 20, hi: 30 }, h = skillHist(key);
-  if (!h.length) return { idx: 1, kl: kl, neu: true };
+  if (!h.length) { var bs = baseOf(key); return bs.idx ? { idx: bs.idx, kl: kl, fb: bs.fb } : { idx: 1, kl: kl, neu: true }; }
   var last = h[h.length - 1], cur = last.idx, out = { idx: cur, kl: kl, last: last.val };
   var lk = null; for (var q = LOGS.length - 1; q >= 0; q--) if (LOGS[q].kind === 'kraft') { lk = LOGS[q].date; break; }
   var gap = daysBetween(parseISO(lk && lk > last.date ? lk : last.date), new Date());
@@ -5211,6 +5459,7 @@ function coachItem(k, t) { return '<div class="co-it"><span class="co-ic ' + CI[
 function skillNote(key, after) {
   var lad = LAD[key], cs = skillStage(key), nm = '<b>' + esc(lad.name) + '</b>', st = function (i) { return '„' + esc(stageText(lad.steps[i - 1])) + '“'; }, u = skillUnit(lad);
   if (cs.neu) return coachItem('plus', 'Neu im Skill-Block: ' + nm + ', Start mit ' + st(1) + '.');
+  if (cs.fb) return coachItem('plus', 'Skill-Block: ' + nm + ', Start mit ' + st(cs.idx) + ' aus deinem Fragebogen.');
   if (cs.up) return coachItem('up', nm + ': zweimal ' + cs.top + ' ' + u + ' geschafft. ' + (after ? 'Nächstes Mal ' : 'Heute ') + st(cs.idx) + '.');
   if (cs.hard) return coachItem('i', nm + ': zweimal unter ' + cs.hard.lo + ' ' + u + '. ' + (after ? 'Nächstes Mal' : 'Heute') + ' eine Stufe leichter, ' + st(cs.idx) + '.');
   if (cs.down) return coachItem('i', nm + ': nach ' + cs.down + ' Tagen Pause eine Stufe leichter, ' + st(cs.idx) + '.');
