@@ -3,12 +3,25 @@
 Gilt für jede Seite und alles Neue. Ruhig, an iOS angelehnt, Handy zuerst (390 px).
 Kurzfassung der Regeln steht auch in `CLAUDE.md`.
 
+## Fünf Grundsätze
+Jede neue Oberfläche wird an diesen fünf Punkten gemessen. Passt etwas nicht, wird es angeglichen, nicht als Ausnahme gelassen.
+1. **Konsistenz**: Gleiches sieht gleich aus und funktioniert gleich. Eine Zahl im Training ist immer ein Zähler,
+   „Schmerzen“ immer der rote Fahnen-Knopf, eine Stufe immer der grüne Chip vom Coach. Bausteine nur aus dem Kapsel-Konzept.
+2. **Feedback**: Jede Aktion antwortet sofort: Haptik, gleitende Pille, Zähler springt, „Rückgängig“ nach dem Speichern,
+   „Was dein Coach daraus macht“ nach der Einheit. Nichts passiert still.
+3. **Einfachheit**: Eine Hauptaktion pro Seite. Der Coach entscheidet, was er aus den Daten entscheiden kann (Stufe, Gewicht,
+   Übung, Ablauf); Dennis trägt nur ein, was nur er weiß. Jede Meldung steht genau einmal (keine Wiederholung zwischen Karten).
+4. **Barrierefreiheit**: Tippflächen mindestens 44 px, Schrift mindestens 14 px, keine Zeilen in Großbuchstaben,
+   Farbe nie allein (Zeichen ✓ ! × dazu), Textgröße wählbar, „Bewegung reduzieren“ wird beachtet, `aria-label` an Symbol-Knöpfen.
+5. **Kontrolle**: Nichts geht verloren. Zwischenspeichern und Abbrechen im Training, „Rückgängig“ nach dem Speichern,
+   „Korrigieren“ für jeden Eintrag, Gefährliches nur mit Nachfrage, „Heute anpassen“ gilt nur für heute.
+
 ## Grundlagen
 - Hellmodus wählbar in Weiß oder Off-White (Kreide `#FAF9F5`, Leinen `#F8F5EF`, Nebel `#F7F8F6` für Karten), Hintergrund je eine Stufe dunkler.
 - Dunkelmodus in Graphit, passend zum App-Symbol: Hintergrund `#1E1F23`, Karten `#2A2B30`, Kapseln `#24252A`, Pille `#41424A`,
   Grafik-Fläche `#33343A`, Linien `#36373D`. Jede Ebene eine Stufe heller als die darunter.
 - Schrift: Geist für alles. Die Schrift-Einstellung (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengen (`--hand`).
-- Titel: groß und fett mit Marker-Strich darunter. Darüber eine Kopfzeile in Großbuchstaben (`.kicker`), z. B. „TAG 1 · DURCHGANG 4 · CA. 35 MIN“.
+- Titel: groß und fett mit Marker-Strich darunter. Darüber eine Kopfzeile in normaler Schreibung (`.kicker`), z. B. „Tag 1 · Durchgang 4 · ca. 35 Min“.
 - Karten: weiß (`--paper`), runde Ecken (22 px), weicher Schatten. Nichts Verspieltes.
 - Farben nur über Variablen: `--acc` (Akzent, vom Nutzer wählbar), `--ink`, `--ink2`, `--board`, `--paper`, `--fill`, `--line`, `--red`, `--green`, `--on`, `--off`, `--pill`.
   Dunkelmodus über `data-theme`. Neue Farben immer für Hell und Dunkel festlegen.
@@ -34,8 +47,13 @@ Die Tage 1–7 auf „Heute“ sind eine Kapsel (`.pills`): fälliger Tag gefül
 Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“ / „Fertig“).
 
 ## Eingaben
-- Eingaben im Training (Runden, Zeit, Puls, Strecke, Stufe) sind Kacheln (`.tile` in `.pick-grid`), Tippen öffnet ein Blatt von unten.
-  Sie sind groß zum schnellen Tippen und zeigen Vergleichsbalken.
+- Zahlen im Training (Wiederholungen, Gewicht, Runden, Extra-Wdh., Haltezeit, Sätze im Ausgleich, Intervalle geschafft) sind **Zähler**
+  (`cntRow` bzw. `kCounter`, `.k-cnt` mit `.stepper`): Name links, darunter grau der Zusatz, rechts – Wert +. Ohne Eintrag steht grau
+  der Vorschlag, Tippen auf die Zahl übernimmt ihn. Ein Wert, den schon etwas anderes zählt (Runden über das Abhaken), steht nicht noch einmal da.
+- Ausnahme: Werte von der Uhr oder vom Gerät (Dauer, Puls, Strecke, Watt) bleiben Kacheln (`.tile` in `.pick-grid`) mit Rad-Blatt,
+  weil man sie abliest und auf einmal einträgt. Ebenso die Stufe im Beweglichkeits-Check.
+- Stufen setzt der Coach: grüner Chip (`kStageChip`, `coachStageHTML`), nicht wählbar. Nur ohne Verlauf einmal „Erstes Mal · Stufe“
+  als Wert-Zeile. Testtage wählen die Stufe als Wert-Zeile, denn dort wird sie gemessen.
 - Einstellungswerte, die man selten ändert (Profil, Stand, Startdatum, Challenge-Datum und -Ziel), sind **Wert-Zeilen**
   (`valRows([valRow(…)])`, `.vrows`/`.vrow`): eine Glas-Fläche in `--board`, je Zeile Name links (darunter grau ein Zusatz),
   Wert rechts in `--acc` (geschätzt grau), dann der Pfeil. Feine Trenner, Zeilen mindestens 56 px. Tippen öffnet das Rad-Blatt.
@@ -49,7 +67,8 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 ## Hinweise
 - Erst der Ablauf, dann die Aktion. Hinweise stehen dort, wo sie hingehören: grau unter dem Schritt (`.tl-x`), Phase in der Block-Karte.
   Eine Tipps-Karte (`tipsHTML`) nur für echte Anleitungen (Testtag, Murph).
-- Anpassungen für heute: grauer Link „Session anpassen“, Blatt mit Liste der Anliegen, Aktives grau hinterlegt, gilt sofort, nur „Fertig“.
+- Anpassungen für heute: kleiner Knopf „Heute anpassen“ (`.btn.small`), Blatt mit Liste der Anliegen, Aktives grau hinterlegt, gilt sofort, nur „Fertig“.
+- Schmerzen: überall der rote Fahnen-Knopf (`.pn-flag`), in der Kraft-Karte und oben im Schritt-Kopf neben dem X (`.st-flag`), nie ein Textlink.
 - Farbige Hinweise (gelb `.flag`) nur für echte Warnungen im Moment des Handelns.
 - Reine Infos sind Chips (`.chip`), nicht tippbar. Zustände nur zeigen, wenn etwas nicht stimmt (z. B. „Sync-Fehler“).
 

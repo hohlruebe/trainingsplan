@@ -69,8 +69,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Stand je Familie (`famLevel`, `famStatus`): höchste Stufe, die trainiert wurde (Leiterstand oder Eintrag mit dem Namen).
 - Skill-Baum (versteckte Seite `skill`, Zugang über Profil › Werte, `renderSkill`, `drawTree`): je Bereich Zug, Druck, Beine, Rumpf,
   Mehr; Zeilen nach `ebene`, Linien aus `voraussetzt`; Knoten geschafft, aktuell (weiße Pille), als Nächstes, gesperrt. Antippen öffnet
-  die Familie. Heute zeigt unter „Training starten“ den Block Fortschritt (`progressHTML`): „Neu freigeschaltet“ / „Neuer Reiz“
-  (`planFill().neu`, bis die neue Übung einmal trainiert ist) und „Als Nächstes freischalten“ (`nextUnlockHTML`).
+  die Familie. Heute zeigt unter „Training starten“ den Block Fortschritt (`progressHTML`): nur „Als Nächstes freischalten“
+  (`nextUnlockHTML`). Neu freigeschaltet / Neuer Reiz (`planFill().neu`) und Sehnen-Pause stehen nur in der Coach-Karte (`coachCardHTML`).
 - Muskeln (`MUS_NAME`, Figur `bodySVG`/`musFigHTML` aus `BODY_SIL`, `BODY_F`, `BODY_B`: graue anatomische Figur vorn/hinten, Umrisse in
   Kartenfarbe; Teile mit „_“ zählen nicht). Bibliothek: aufgeklappte Übung zeigt `musOfHTML` (Hauptmuskeln `--acc`, mitarbeitend hellblau,
   aus `muskeln.primaer/sekundaer`). Muskelausgleich (`musVol`, `musBalance`, gemerkt in `MB_C`): Sätze je Muskel der letzten 4 Wochen
@@ -83,8 +83,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   ab Durchgang 3, nicht in Entlastung, Testwoche, Taper, Kurzversion und bei „wenig Zeit“; leichte Übung (ermüdung ≤ 1, Technik ≤ 2, nicht
   Mobility/Ausdauer/Sprung/Tragen) für den größten Rückstand. Gespeichert als `ausgleich: {ue, reps}` im Kraft-Eintrag, im Verlauf sichtbar.
 - Schmerzen (`painApply` im Getter `DAYS[t].kraft`, `painApplyM` im Getter `DAYS[t].metcon`, `painFlow` in `warmFlow`/`coolFlow`/`murphFlow`,
-  `painForUe`, `painSubUe`, `painBody`): grauer Link „Schmerzen“ unter jeder Kraft-Karte (`ACT.pain`) und unter jedem anderen Schritt
-  (`painStepLinkHTML`, `ACT['pain-s']`, `PAIN_STEPS`: Aufwärmen, Handstand, Metcon, Ausgleich, Cool-down, Murph), Blatt „<Übung bzw. Schritt> · Schmerzen“,
+  `painForUe`, `painSubUe`, `painBody`): roter Fahnen-Knopf „Schmerzen“ in jeder Kraft-Karte (`kFlag`, `ACT.pain`) und bei jedem anderen Schritt oben im Kopf neben dem X
+  (`.st-flag`, `ACT['pain-s']`; `painStepLinkHTML` wird nicht mehr benutzt, `PAIN_STEPS`: Aufwärmen, Handstand, Metcon, Ausgleich, Cool-down, Murph), Blatt „<Übung bzw. Schritt> · Schmerzen“,
   bei mehreren Übungen zuerst „Bei welcher Übung?“ (`painItems`, `ui.painSlot`). Dann „Wo zwickt es?“ Gelenk | Muskel (`ui.painK`, `ACT['pain-k']`),
   darunter nur die Gelenke bzw. Muskeln, die diese Übung belastet (Link „Andere Gelenke“ = alle, `ui.painAll`), dann erst die Stärke. Metcon: Ersatz aus dem Metcon-Pool mit dessen Menge;
   Aufwärmen, Cool-down, Murph: betroffene Übung „heute auslassen“ bzw. „leichter“; Handstand: ab mittel heute keiner; Ausgleich: andere Übung
@@ -177,7 +177,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Aufstieg nur, wenn 2 Einheiten in Folge alle Runden am oberen Ende der Spanne liegen UND die Mindestzeit auf der Stufe um ist
   (`SEHNE` Klasse 0/1/2 je Leiter, `SEHNE_TAGE` 14/28/42). Höchstens eine Stufe pro Durchgang, keine in der Entlastung, keine ohne Gerät
   für die nächste Stufe. Nach einer Pause über `SEHNE_PAUSE` (14, hoch 10 Tage) eine Stufe leichter. Wartet die Sehne, steht der Hinweis
-  am Kraft-Schritt (3 s absenken, 1 s Pause) und „Bald freigeschaltet“ mit Datum im Fortschritt-Block. Volle Wdh. beim Warten sind kein Stillstand.
+  am Kraft-Schritt (3 s absenken, 1 s Pause) und mit Datum in der Coach-Karte. Volle Wdh. beim Warten sind kein Stillstand.
   Laufen (`runCap`): lockerer Lauf heute höchstens so lang, dass die Woche 1,3 × Schnitt der letzten 4 Wochen nicht übersteigt (ab 3 Wochen Laufdaten).
 - Kardio (Allround Tag 2 „Kardio locker“, Tag 5 „Kardio intensiv“, `kardio: true`): Laufen oder Ergometer, ein Kernwert `S.cardio`
   (`ftp`, `thr` in s/km, `ftpT`/`thrT` = Datum des Tests, synchronisiert; ohne Wert schätzt `cardioKw`). Ziele in Prozent (`kW`, `kP`,
@@ -195,7 +195,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Formate `tempo`, `hyrox`, `brick`; Metcon an Tag 1 aus `mc` (`cmc`, `chalMetcon`); letzte 14 Tage Taper (`p.taper`: Kraft 3 Runden,
   Metcon kürzer, Kardio −40 %). Am Datum zeigt Heute `raceHTML` (Ergebnis, Log `kind: 'race'`, setzt den Kernwert), danach Allround.
   Block-Karte zeigt `chalLabel()`. Standard-Modus der Kardio-Tage kommt aus der Challenge (`runMode`).
-- Session anpassen (`adaptLineHTML`, `ACT.adapt`): grauer Link unter dem Ablauf (Krafttag) bzw. dem Lauf (Intervall). Blatt von unten
+- Heute anpassen (`adaptLineHTML`, `ACT.adapt`): kleiner Knopf `.btn.small` „Heute anpassen“ unter dem Ablauf (Krafttag) bzw. dem Lauf (Intervall). Blatt von unten
   „Sag deinem Coach, worauf er heute achten soll.“, nur „Fertig“, gilt nur für heute und sofort, Aktives grau hinterlegt (`.ad-it.sel/.open`):
   „Mir geht’s heute nicht gut“ (Antippen = Kurzversion bzw. lockerer Lauf statt Intervalle, Entwurf `_kurz`), „Ich habe wenig Zeit“
   (< 45 / < 30 / < 15 Min, `_zeit`; `zeitLv` kürzt in Stufen: ohne Handstand/Skill, Kraft und Metcon kürzer, ohne Metcon, Aufwärmen 4 Min),
@@ -203,7 +203,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`_flat`, flache Sprints). Kein Ort-Feld mehr auf Heute.
 - UX-Check Pakete 3, 4, 5: Heute zeigt den Ablauf in einer Karte mit „ca. X Min · N Schritte“ und „Training starten“ darin (`.tl-card`), darunter
   „Dein Coach hat heute angepasst“ (`coachCardHTML`: getauschte Leiter `planFill().neu`, Ersatz `why`, Stufe `brakeNote`, Metcon-Tausch `mwhy`, fehlendes
-  Gerät, automatisch gezählter Ruhetag `S.autoRest`, Wiedereinstieg, nachgeholter Kardio-Test; Zeichen `coachItem`/`CI`), dann „Session anpassen“,
+  Gerät, automatisch gezählter Ruhetag `S.autoRest`, Wiedereinstieg, nachgeholter Kardio-Test; Zeichen `coachItem`/`CI`), dann „Heute anpassen“,
   Block-Karte und Fortschritt. Am Schritt bleiben nur Übungs-Hinweise (Ringhöhe). „Heute erledigt“ beginnt mit „Was dein Coach daraus macht“
   (`outlookHTML`: nächste Stufe, Sehne wartet, Gewicht, Stillstand, gleiche Stufe). Lesbarkeit: keine Großbuchstaben-Zeilen, kleine Schriften im
   Design-Block mindestens 14 px, Muskelausgleich-Balken mit Zeichen ✓ ! ×.
@@ -360,7 +360,10 @@ Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen g
 7. Zähler: `.stepper` mit runden – / + und dem Wert in der Mitte.
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
 Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
-Eingaben im Training sind Kacheln (`.tile`) mit Rad-Blatt, Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
+Zahlen im Training sind Zähler (`cntRow`/`kCounter`, `.k-cnt`, `ACT['k-rep']`: Metcon Extra-Wdh. und Runden (Runden nur, wenn die Liste
+sie nicht schon zählt, `mcResultHTML`), Handstand-Zeit, Ausgleich-Sätze, Testtag-Wdh./Bestzeit, Intervalle geschafft). Werte von der Uhr
+(Dauer, Puls, Strecke, Watt) und die Stufe im Beweglichkeits-Check bleiben Kacheln (`.tile`) mit Rad-Blatt. Stufen setzt der Coach auch in Metcon und
+Handstand (grüner Chip `coachStageHTML`, ohne Verlauf einmal „Erstes Mal · …“); am Testtag ist die Stufe eine Wert-Zeile. Fünf Grundsätze in `DESIGN.md`. Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
 (`valRows`/`valRow`, `.vrows`, Name links, Wert rechts, Pfeil). Keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
 Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML`); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 

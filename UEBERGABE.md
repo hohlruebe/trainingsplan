@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
+Stand: 9. Oktober 2026 (Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,14 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Fünf Grundsätze und Angleichung (9. Oktober)
+- Dennis fragte, ob die UI/UX-Grundsätze im Designkonzept stehen. Jetzt in `DESIGN.md` als „Fünf Grundsätze“ (Konsistenz, Feedback,
+  Einfachheit, Barrierefreiheit, Kontrolle); Abschnitt „Eingaben“ korrigiert: Zahlen im Training = Zähler, Werte von der Uhr = Rad.
+- App angeglichen: Zähler statt Kachel/Rad in Metcon (Extra-Wdh., Runden nur ohne Listen-Zähler), Handstand, Ausgleich, Testtag, Intervalle;
+  „Schmerzen“ überall als roter Fahnen-Knopf (im Schritt-Kopf neben dem X); „Heute anpassen“ als kleiner Knopf; Stufe in Metcon und
+  Handstand setzt der Coach (Chip); Fortschritt-Block wiederholt die Coach-Karte nicht mehr; letzte Schriften unter 14 px angehoben.
+- Offen: Rückmeldung von Dennis auf dem Handy.
 
 ## UX-Check, Paket 1: Rückgängig und Korrigieren (9. Oktober)
 - Dennis zeigte die „UI/UX Design Principles 2026“. Bewertung im Canvas (Board „UX-Check“): Feedback gut, Konsistenz größtenteils,
