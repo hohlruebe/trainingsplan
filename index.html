@@ -6173,11 +6173,12 @@ function kardioSpec(d, o) {
 function kardioSec(spec) {
   if (spec.ergo) return ergoSeq(spec).reduce(function (a, q) { return a + q.dur; }, 0);
   var m = spec.main.reduce(function (a, q) { return a + q.dur; }, 0);
-  return spec.type === 'easy' ? m : m + 10 * 60;
+  return spec.type === 'easy' ? m : m + 5 * 60; // mit Auslaufen, ohne Lauf-ABC (die Uhr startet danach)
 }
 function kardioRunListHTML(spec) {
   // Eingelaufen wird im Lauf-ABC (Dennis: erst einlaufen, dann ABC), danach geht es direkt in den Hauptteil.
-  var L = spec.type === 'easy' ? spec.list : spec.list.concat(['<b>5 Min locker auslaufen</b>']);
+  // Die Uhr läuft ab dem Ende des Lauf-ABC bis zum Ende des Laufs (Dennis): so sind Dauer, Puls und Tempo jedes Mal vergleichbar.
+  var L = ['<b>Pulsuhr starten</b>, direkt nach dem Lauf-ABC'].concat(spec.list).concat([spec.type === 'easy' ? '<b>Pulsuhr stoppen</b>' : '<b>5 Min locker auslaufen</b>, dann Pulsuhr stoppen']);
   return '<ol class="steps">' + L.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol>';
 }
 function kardioText(spec) { return spec.list.map(function (x) { return x.replace(/<[^>]+>/g, ''); }).join(' · '); }
@@ -6390,7 +6391,7 @@ var LAUF_ABC = [['5 Min sehr locker einlaufen', ''], ['Fußgelenksarbeit', '2 ×
   ['Hopserlauf', '2 × 20 m'], ['Seitgalopp', '20 m je Seite'], ['Steigerungsläufe', '3 × 80 m, locker bis zügig']];
 function laufAbcHTML() {
   return '<section class="card abc"><div class="card-head"><h3>Lauf-ABC</h3><span class="small muted">10 Min · immer gleich</span></div>' +
-    '<p class="small muted">Fuß – Knie – Ferse – Hopser – Seit – Steigern. Zurück jeweils gehen, danach startet der Lauf.</p>' +
+    '<p class="small muted">Fuß – Knie – Ferse – Hopser – Seit – Steigern. Zurück jeweils gehen. Die Pulsuhr startest du erst danach, mit dem Lauf.</p>' +
     '<ol class="abc-l">' + LAUF_ABC.map(function (x) { return '<li><b>' + esc(x[0]) + '</b>' + (x[1] ? '<span class="small muted">' + esc(x[1]) + '</span>' : '') + '</li>'; }).join('') + '</ol></section>';
 }
 function runSegHTML(mode) {
@@ -6411,7 +6412,7 @@ function runHTML(c, D, spec, inStep) {
   var v = runVerdict(kind, ergo, sec, km, hr, watt, art), pace = km ? sec / km : null, ref = runRef(kind, ergo, art);
   function bar(dir, at) { return at == null ? '' : '<span class="bar ' + dir + '"><i style="left:' + at + '%"></i></span>'; }
   var kmTile = '<label class="tile' + (km ? ' set' : '') + '"><small>Strecke' + (ergo ? ' · optional' : '') + '</small><span class="km"><input type="text" inputmode="decimal" autocomplete="off" data-draft="runKm" value="' + val(D, 'runKm') + '" placeholder="0,000" aria-label="Strecke in km"><span class="unit">km</span></span></label>';
-  h += '<section class="card"><h2>' + (ergo ? 'Ergebnis vom Ergometer' : 'Ergebnis von der Uhr') + '</h2><div class="pick-grid">' +
+  h += '<section class="card"><h2>' + (ergo ? 'Ergebnis vom Ergometer' : 'Ergebnis von der Uhr') + '</h2>' + (ergo ? '' : '<p class="small muted">Gemessen ab dem Ende des Lauf-ABC bis zum Ende des Laufs.</p>') + '<div class="pick-grid">' +
     tile('Dauer', '<b>' + fmtDur(sec) + ' <span class="unit">' + (sec >= 3600 ? 'h' : 'Min') + '</span></b>', pickAttrs({ dur: 1, f: 'runSec', def: sec, title: 'Dauer' }), 'set') +
     tile('Puls Ø', '<b>' + (hr ? hr + ' <span class="unit">bpm</span>' : '–') + '</b>' + (v ? bar('down', v.hPos) : ''), pickAttrs({ f: 'runHr', min: 60, max: 220, unit: 'bpm', def: (ref.filter(function (r) { return r.hr; }).slice(-1)[0] || { hr: 140 }).hr, title: 'Puls Ø' }), hr ? 'set ' + toneOf(v && v.p) : '');
   if (ergo) {

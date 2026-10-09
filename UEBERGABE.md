@@ -28,6 +28,8 @@ Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testt
 ## Lauf-ABC und Einlaufen (9. Oktober)
 - Dennis: Im Lauf-ABC steht zuerst „5 Min einlaufen“, im Lauf darunter „Nach dem Lauf-ABC 5 Min locker einlaufen“, also falsch herum und doppelt.
   Behoben: Eingelaufen wird nur im Lauf-ABC, die Laufliste beginnt direkt mit dem Hauptteil, endet mit 5 Min Auslaufen.
+- Dennis: „Schreib dazu, ab wann man die Pulsuhr starten soll.“ Laufliste: „Pulsuhr starten, direkt nach dem Lauf-ABC“ und am Ende
+  „Pulsuhr stoppen“; dazu ein Satz im Lauf-ABC und unter „Ergebnis von der Uhr“. Die vorgeschlagene Dauer zählt ab dann (ohne Lauf-ABC).
 
 ## Wiedereinstieg: Welchen Stand siehst du bei dir? (9. Oktober)
 - Dennis fragte, ob man den Fragebogen manuell starten kann, und schlug vor, ihn nach langer Pause als Ergänzung zu nehmen („Welchen Stand siehst
