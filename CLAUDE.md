@@ -133,7 +133,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
-  Im Verlauf lassen sich Einheiten nicht löschen (Dennis), nur 1RM-Einträge in Tools › 1RM.
+  Einträge im Verlauf (und auf „Heute erledigt“ bzw. einem erledigten Tag): „Korrigieren“ immer (`fixable`, versteckte Seite `fix`, `renderFix`,
+  Zähler je Wert `fixStep`, Pfad wie `kraft.0.reps.2`; gespeichert als neuer Eintrag mit neuer ID und `fixed`, alter als Löschvermerk, damit der Sync
+  es mitnimmt; Testtage rechnen `S.base` neu), „Löschen“ nur am Tag selbst (`logBtns`). Nach dem Speichern 10 s „Rückgängig“ (`showUndo`, `#undo`,
+  `UNDO` mit Stand, Entwurf und neuen IDs; setzt `S.posSet`). 1RM-Einträge in Tools › 1RM bleiben jederzeit löschbar.
   Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in der Testwoche am Blockende (`mobCheckStep`).
   Je Test eine Karte mit Figur der gewählten Stufe (`mobCheckHTML`; ohne Grafik die nächste Stufe mit Grafik). Auch die Testtage
   zeigen die Figur der gewählten Stufe (`testStepHTML`, z. B. Knee Push-up bei „Auf Knien“); Stufe wechseln = Figur wechselt.
@@ -242,7 +245,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Wischen (`data-swipe`, `swipeDo`): links = erledigt / weiter / +, rechts = zurück / rückgängig / –, umkehrbar.
   Metcon: Rundenzähler (`.stepper`) nur in der Liste; Einzeln ohne Kacheln und Hauptaktion, solange der AMRAP läuft.
   Am Ende des AMRAP fragt `amrapCheck` „Stimmt dein Ergebnis?“ mit gezählten Runden und Wdh. (`amrapCount`).
-  Kraft einzeln zeigt nur die laufende Karte. EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
+  Kraftschritt (`kraftStepHTML`) mit Umschalter „Übung | Minuten“ oben (`S.kraftView` 'ex'/'min', nur auf dem Gerät, `ACT['k-view']`; Kraft steht nicht mehr
+  in `TRAIN_TYPES`): „Übung“ = nur die laufende Übung als Karte (Punkte `.k-dot` wechseln, Runden `.k-r`, Zähler `kCounter`), „Minuten“ = jede
+  EMOM-Minute eine Zeile (`.k-min`), die laufende offen mit Mini-Figur und Zähler. Dran ist die Minute der Uhr, sonst die gewählte (`ui.kSel`,
+  `ACT['k-sel']`) oder die erste ohne Eintrag (`kraftNow`). Die Stufe setzt der Coach (grüner Chip `kStageChip`, nicht wählbar); nur ohne Verlauf
+  einmal „Erstes Mal · Stufe“ wählen (`E.first`). Zähler `ACT['k-rep']` (Vorschlag `defRep`, Tippen auf die Zahl übernimmt), Gewicht `ACT['k-kg']`
+  in `kgStep`-Schritten. Wechselt die Minute, bekommt die fertige Minute ohne Eintrag den Vorschlag (`kraftAutoFill` in `paintMini`, zeichnet neu).
+  „Schmerzen“ als roter Fahnen-Knopf in der Karte (`kFlag`, `.pn-flag`).
+  EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,
   Bibliothek (Familien-Seite, jede Übung), Mobility-Player (`#rp-fig`). Neue Grafik = nur in `Maskottchen.EXERCISES` eintragen.
 - Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
