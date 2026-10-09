@@ -1157,108 +1157,6 @@
       { type: 'poly', pts: [[w, FLOOR_Y, z0], [w, y, z0], [w, y, z1], [w, y - back, z1], [w, y - back, zb], [w, FLOOR_Y, zb]], open: true, col: STYLE.far }];
   }
 
-  // ---- Skill-Runde (Oktober 2026, Entwurf): Stufen von Front Lever, Back Lever, Planche, Human Flag, Handstand Walk, Sprünge ----
-  // Körper-Rahmen: u = Becken→Hals, fw = Blickrichtung der Brust. Knie und Knöchel für Tuck und Advanced Tuck darin gesetzt.
-  function bodyFrame(a) { return { u: trunkU(a), fw: [0, Math.sin(a * R), Math.cos(a * R)] }; }
-  function pcFromShoulder(S, a) { var F = bodyFrame(a); return add(sub3(S, mul(F.u, 112)), mul(F.fw, 2)); }
-  function leverLegs(pc, a, kind, x, one) {
-    var F = bodyFrame(a), u = F.u, fw = F.fw, k = one ? (x > 0 ? 'full' : 'adv') : kind;
-    if (k === 'tuck') return { to: add(add(add(pc, mul(fw, 28)), mul(u, 4)), [x * 12, 0, 0]), pole: add(mul(fw, .7), u), dir: mul(u, -1) }; // Knie zur Brust, Fersen am Po
-    if (k === 'adv') return { to: add(add(add(pc, mul(fw, 82)), mul(u, -84)), [x * 12, 0, 0]), pole: add(fw, mul(u, .3)), dir: mul(u, -1) };
-    if (k === 'straddle') return { to: add(add(pc, mul(u, -158)), [x * 74, 0, 0]), pole: mul(fw, -1), dir: mul(u, -1) };
-    return { to: add(add(pc, mul(u, -172)), [x * 9, 0, 0]), pole: mul(fw, -1), dir: mul(u, -1) }; // gestreckt, 4 px über die Länge
-  }
-  function frontLever(p, kind) { // Gesicht nach oben, Körper waagerecht unter den Ringen, Arme gestreckt
-    var a = -90 + sway(p, 1.4), S = [0, 153 + sway(p, 1.5), -52], pc = pcFromShoulder(S, a), rz = S[2] + 20;
-    return build({ pc: pc, a: a, nod: -6,
-      arms: both(function (x) { return { to: [x * 30, 42, rz], pole: [x, 0, 0], dir: UP }; }),
-      legs: both(function (x) { return leverLegs(pc, a, kind, x, kind === 'one'); }), props: rings(30, 22, rz, -200) });
-  }
-  function backLever(p, kind) { // Gesicht nach unten, Arme hinter dem Körper gestreckt
-    var a = 90 + sway(p, 1.4), S = [0, 153 + sway(p, 1.5), 52], pc = pcFromShoulder(S, a), rz = S[2] - 22;
-    return build({ pc: pc, a: a, nod: 4,
-      arms: both(function (x) { return { to: [x * 30, 42, rz], pole: [x, 0, 0], dir: UP }; }),
-      legs: both(function (x) { return leverLegs(pc, a, kind, x, false); }), props: rings(30, 22, rz, -200) });
-  }
-  function germanHang(p) { // Arme hinter dem Körper, Schultern gedehnt, Körper hängt nach vorn geneigt
-    var a = 26 + sway(p, 1.5), S = [0, 142 + sway(p, 2), 8], pc = pcFromShoulder(S, a);
-    return build({ pc: pc, a: a, nod: -6,
-      arms: both(function (x) { return { to: [x * 30, 42, -48], pole: [x, 0, 0], dir: UP }; }),
-      legs: both(function (x) { return { to: add(pc, [x * 10, 158, 34]), pole: FWD, dir: [0, .7, .6] }; }), props: rings(30, 22, -48, -200) });
-  }
-  function planche(p, kind) { // Hände am Boden, Schultern weit vor den Händen, Körper waagerecht (Tuck leicht rund)
-    var a = (kind === 'tuck' ? 78 : 90) + sway(p, 1.2), lean = kind === 'tuck' ? 36 : 44, S = [0, 386 - Math.sqrt(113 * 113 - lean * lean), lean], pc = pcFromShoulder(S, a);
-    return build({ pc: pc, a: a, nod: -10,
-      arms: both(function (x) { return { to: [x * 32, 386, 0], pole: [x * .45, -.2, -1], dir: [x * .7, .1, -.3] }; }),
-      legs: both(function (x) { return leverLegs(pc, a, kind, x, false); }) });
-  }
-  function pseudoPlanche(p) { // Liegestütz, Hände neben der Hüfte, Schultern weit vor: Push-up in der Vorlage
-    var t = rep(p, .42, .1), W = [0, 386, 0], top = [0, 386 - 113 * Math.cos(30 * R), 113 * Math.sin(30 * R)], low = [0, 344, 74];
-    var S = lerp(top, low, t), Az = top[2] - Math.sqrt(286 * 286 - Math.pow(384 - top[1], 2)), A = [0, 384, Az], L = line(A, S);
-    return build({ pc: L.pc, a: L.a, nod: -8,
-      arms: both(function (x) { return { to: [x * 32, 386, 0], pole: [x * .25, -.4, -1], dir: [x * .7, .1, -.3] }; }),
-      legs: both(function (x) { return { to: [x * 11, 384, Az], pole: DOWN, dir: [0, .55, .85] }; }) });
-  }
-  // Seitlich (von vorn gesehen): stehend bauen, dann um die Blickachse kippen.
-  function sidePlank(p) { // Seitstütz auf der gestreckten Hand, oberer Arm zur Decke
-    var pc = [0, 222, 0], J = build({ pc: pc, a: 0, nod: 0,
-      arms: { a: { to: add(pc, [-31 - 114, -112, 0]), pole: UP, dir: [-1, 0, 0] }, b: { to: add(pc, [31 + 114, -112 + sway(p, 2), 0]), pole: UP, dir: [1, 0, .1] } },
-      legs: both(function (x) { return { to: add(pc, [x * 6, 172, 0]), pole: FWD, dir: [0, .4, .9] }; }) });
-    return turnAll(J, pc, [0, 0, 1], 68.4 + sway(p, 1.2), 390);
-  }
-  function flag(p, tuck) { // Human Flag: oberer Arm zieht, unterer drückt, Körper waagerecht von der Stange weg
-    var pc = [0, 222, 0], shY = 110, poleY = shY - 110; // oberer Arm gestreckt
-    var J = build({ pc: pc, a: 0, nod: 0,
-      arms: { a: { to: [-51, poleY, 0], pole: [-1, 0, 0], dir: [0, -1, 0] }, b: { to: [71, poleY, 0], pole: [1, 0, 0], dir: [0, -1, 0] } },
-      legs: tuck ? both(function (x) { return { to: add(pc, [x * 14, 40, 30]), pole: [0, -.8, 1], dir: [0, 1, 0] }; })
-        : both(function (x) { return { to: add(pc, [x * 9, 172, 0]), pole: FWD, dir: [0, 1, 0] }; }) });
-    var O = turnAll(J, pc, [0, 0, 1], 90 + sway(p, 1.5), 286), px = (O.wra[0] + O.wrb[0]) / 2, top = Math.min(O.wra[1], O.wrb[1]) - 70;
-    O._props = [{ type: 'line', a: [px + 8, FLOOR_Y, -6], b: [px + 8, top, -6], w: 3, keep: true }];
-    return O;
-  }
-  function kickUp(p) { // Arme hoch, Schritt nach vorn, als Ganzes nach vorn kippen (Arme, Rumpf, hinteres Bein in einer Linie), Hände auf den Boden,
-    // hinteres Bein schwingt hoch, das vordere folgt, oben halten, ein Bein zurück auf den Boden
-    function armsAlong(pc, a) { var u = trunkU(a), S = add(pc, mul(u, 112)); return { ta: add(add(S, [-31, 0, 0]), mul(u, 114)), tb: add(add(S, [31, 0, 0]), mul(u, 114)) }; }
-    var FF = [-14, 390, -96], hand = function (x) { return [x * 30, 386, 0]; };
-    var pc0 = [0, 226, -150], A0 = armsAlong(pc0, 0);
-    var st0 = { pc: pc0, a: 0, nod: 0, ta: A0.ta, tb: A0.tb, pa: [-.3, 0, -1], pb: [.3, 0, -1], la: FF, lb: [14, 390, -212], qa: FWD, qb: FWD, ea: [0, .28, 1], eb: [0, .5, .9] };
-    var pc1 = [0, 246, -124], u1 = trunkU(58), A1 = armsAlong(pc1, 58);
-    var st1 = { pc: pc1, a: 58, nod: -6, ta: A1.ta, tb: A1.tb, pa: [-1, 0, .2], pb: [1, 0, .2], la: FF, lb: add(add(pc1, [14, 0, 0]), mul(u1, -172)), qa: [0, -.3, 1], qb: [0, 0, -1], ea: [0, .28, 1], eb: mul(u1, -1) };
-    var a2 = 118, u2 = trunkU(a2), pc2 = pcFromShoulder([0, 274, -8], a2);
-    var st2 = { pc: pc2, a: a2, nod: -16, ta: hand(-1), tb: hand(1), pa: [-1, 0, .3], pb: [1, 0, .3], la: FF, lb: add(add(pc2, [14, 0, 0]), mul(u2, -172)), qa: [0, -.4, 1], qb: [0, 0, -1], ea: [0, .28, 1], eb: mul(u2, -1) };
-    var u3 = trunkU(180), pc3 = pcFromShoulder([0, 273, 0], 180);
-    var st3 = { pc: pc3, a: 180, nod: -14, ta: hand(-1), tb: hand(1), pa: [-1, 0, .3], pb: [1, 0, .3],
-      la: add(add(pc3, [-14, 0, 0]), mul(u3, -175)), lb: add(add(pc3, [14, 0, 0]), mul(u3, -175)), qa: [0, 0, -1], qb: [0, 0, -1], ea: [0, -1, .2], eb: [0, -1, .2] };
-    var st3b = JSON.parse(JSON.stringify(st3)); st3b.a = 178;
-    var o = keys(p, [[0, st0], [.12, st0], [.26, st1], [.38, st2], [.52, st3], [.66, st3b], [.8, st2], [.9, st1], [1, st0]]);
-    if (p > .34 && p < .84) { o.ta = hand(-1); o.tb = hand(1); } // Hände bleiben am Boden, sobald sie aufgesetzt sind
-    return limbs(o);
-  }
-  function hsWalk(p) { // freier Handstand, kleine Schritte mit den Händen nach vorn, der Körper wandert mit
-    var z = 80 * p, u = trunkU(176 + sway(p * 2, 1.5)), S = [0, 273, z + 6], pc = sub3(S, mul(u, 112));
-    function hz(x) { var ph = (p * 2 + (x > 0 ? .5 : 0)) % 1, st = Math.floor(p * 2 + (x > 0 ? .5 : 0)); return { z: (st + Math.min(1, ph / .4)) * 40 - (x > 0 ? 20 : 0), lift: ph < .4 ? Math.sin(ph / .4 * Math.PI) * 14 : 0 }; }
-    var o = build({ pc: pc, a: 176 + sway(p * 2, 1.5), nod: -14,
-      arms: both(function (x) { var h = hz(x); return { to: [x * 30, 386 - h.lift, h.z], pole: [x, 0, .3], dir: [0, .1, -1] }; }),
-      legs: both(function (x) { return { to: add(add(pc, [x * 14, 0, 6]), mul(u, -175)), pole: [0, 0, -1], dir: [0, -1, .3] }; }) });
-    return o;
-  }
-  function jumpPose(y, lift, arms, z, tuck) { // Hilfe für Sprünge (wie Squat Jump), mit Vorwärtsweg z und angezogenen Knien
-    var k = (y - 222) / 102, pc = [0, y - lift, lerp(-4, -52, k) + z], a = k * 42;
-    var A = arms === 'up' ? [30, -230, 20] : arms === 'back' ? [34, 30, -70] : arms === 'fwd' ? [32, -150, 120] : [40, 12, 8];
-    var o = { pc: pc, a: a, nod: -4, ta: add(pc, [-A[0], A[1], A[2]]), tb: add(pc, [A[0], A[1], A[2]]), pa: [-.3, 0, -1], pb: [.3, 0, -1],
-      la: [-20, 390 - lift, z], lb: [20, 390 - lift, z], qa: [-.2, 0, 1], qb: [.2, 0, 1], ea: [0, .28 + lift / 40, 1], eb: [0, .28 + lift / 40, 1] };
-    if (tuck) { o.la = add(pc, [-16, 58, 66]); o.lb = add(pc, [16, 58, 66]); o.qa = o.qb = [0, -.6, 1]; o.ea = o.eb = [0, .7, .6]; }
-    return o;
-  }
-  function broadJump(p) { // tief laden, Arme schwingen, weit nach vorn springen, tief landen
-    var D = 230, deep = jumpPose(324, 0, 'back', 0), land = jumpPose(316, 0, 'fwd', D);
-    var fly = jumpPose(236, 96, 'fwd', D * .5); fly.la = add(fly.pc, [-18, 132, 40]); fly.lb = add(fly.pc, [18, 132, 40]); fly.qa = fly.qb = [0, -.2, 1];
-    return limbs(keys(p, [[0, jumpPose(222, 0, 'down', 0)], [.14, deep], [.26, jumpPose(226, 18, 'fwd', 30)], [.38, fly], [.5, land], [.64, land], [.8, jumpPose(222, 0, 'down', D)], [1, jumpPose(222, 0, 'down', D)]]));
-  }
-  function tuckJump(p) { // kurz laden, hochspringen, Knie zur Brust, weich landen
-    var deep = jumpPose(300, 0, 'back', 0);
-    return limbs(keys(p, [[0, jumpPose(222, 0, 'down', 0)], [.14, deep], [.26, jumpPose(222, 30, 'up', 0)], [.38, jumpPose(222, 110, 'fwd', 0, true)], [.5, jumpPose(222, 30, 'up', 0)], [.62, deep], [.8, jumpPose(222, 0, 'down', 0)], [1, jumpPose(222, 0, 'down', 0)]]));
-  }
 
 
   var api = {
@@ -1340,28 +1238,7 @@
       g_doorway_pec: { name: 'Doorway Pec Stretch', pose: doorPec, yaw: 50, tilt: 10, mat: [-130, 130, -120, 90], dur: 5 },
       g_prayer_stretch: { name: 'Prayer Stretch', pose: prayer, yaw: 62, dur: 4 },
       g_couch_stretch: { name: 'Couch Stretch', pose: couch, yaw: 64, dur: 4 },
-      g_calf_wall_stretch: { name: 'Wall Calf Stretch', pose: calfWall, yaw: 60, dur: 4 },
-      // Skill-Runde (Entwurf)
-      g_kick_up: { name: 'Kick-up', pose: kickUp, yaw: 66, dur: 4.4 },
-      g_handstand_walk: { name: 'Handstand Walk', pose: hsWalk, yaw: 66, dur: 3.2 },
-      g_front_lever_tuck: { name: 'Tuck Front Lever', pose: function (p) { return frontLever(p, 'tuck'); }, yaw: 70, dur: 4, floor: false },
-      g_front_lever_adv: { name: 'Advanced Tuck Front Lever', pose: function (p) { return frontLever(p, 'adv'); }, yaw: 70, dur: 4, floor: false },
-      g_front_lever_one_leg: { name: 'One-Leg Front Lever', pose: function (p) { return frontLever(p, 'one'); }, yaw: 62, dur: 4, floor: false },
-      g_front_lever: { name: 'Front Lever', pose: function (p) { return frontLever(p, 'full'); }, yaw: 70, dur: 4, floor: false },
-      g_german_hang: { name: 'German Hang', pose: germanHang, yaw: 70, dur: 4, floor: false },
-      g_back_lever_tuck: { name: 'Tuck Back Lever', pose: function (p) { return backLever(p, 'tuck'); }, yaw: 70, dur: 4, floor: false },
-      g_back_lever_adv: { name: 'Advanced Tuck Back Lever', pose: function (p) { return backLever(p, 'adv'); }, yaw: 70, dur: 4, floor: false },
-      g_back_lever: { name: 'Back Lever', pose: function (p) { return backLever(p, 'full'); }, yaw: 70, dur: 4, floor: false },
-      g_pseudo_planche_push: { name: 'Pseudo Planche Push-up', pose: pseudoPlanche, yaw: 62, dur: 2.8 },
-      g_tuck_planche: { name: 'Tuck Planche', pose: function (p) { return planche(p, 'tuck'); }, yaw: 66, dur: 4 },
-      g_adv_tuck_planche: { name: 'Advanced Tuck Planche', pose: function (p) { return planche(p, 'adv'); }, yaw: 66, dur: 4 },
-      g_straddle_planche: { name: 'Straddle Planche', pose: function (p) { return planche(p, 'straddle'); }, yaw: 50, dur: 4 },
-      g_planche: { name: 'Full Planche', pose: function (p) { return planche(p, 'full'); }, yaw: 66, dur: 4 },
-      g_side_plank: { name: 'Side Plank', pose: sidePlank, yaw: 8, dur: 4 },
-      g_flag_tuck: { name: 'Tuck Human Flag', pose: function (p) { return flag(p, true); }, yaw: 28, dur: 4 },
-      g_human_flag: { name: 'Human Flag', pose: function (p) { return flag(p, false); }, yaw: 8, dur: 4 },
-      g_broad_jump: { name: 'Broad Jump', pose: broadJump, yaw: 70, dur: 3 },
-      g_tuck_jump: { name: 'Tuck Jump', pose: tuckJump, yaw: 50, dur: 2.4 }
+      g_calf_wall_stretch: { name: 'Wall Calf Stretch', pose: calfWall, yaw: 60, dur: 4 }
     }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Maskottchen = api;
