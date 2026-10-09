@@ -13,7 +13,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
   - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 380 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
-    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahme mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; dann plan-data, lib-data und fam-data gleich halten).
+    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahmen mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; Handstand neue erste Stufe „Rücken zur Wand“ (`g_wall_handstand_back`, in der Familie als Variante) vor Face-to-Wall; dann plan-data, lib-data und fam-data gleich halten. Gespeichert werden Stufennamen, nicht Nummern, darum bleiben alte Einträge gültig).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 60 Familien (auch Isolation und zwei Mobility-Familien),
     jede Übung (ohne Mobility) genau einmal; je Variante `art` (`stufe` mit `rang` und `ziel`, `variante`, `tempo` mit `vermerk`),
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
@@ -209,7 +209,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Formate `tempo`, `hyrox`, `brick`; Metcon an Tag 1 aus `mc` (`cmc`, `chalMetcon`); letzte 14 Tage Taper (`p.taper`: Kraft 3 Runden,
   Metcon kürzer, Kardio −40 %). Am Datum zeigt Heute `raceHTML` (Ergebnis, Log `kind: 'race'`, setzt den Kernwert), danach Allround.
   Block-Karte zeigt `chalLabel()`. Standard-Modus der Kardio-Tage kommt aus der Challenge (`runMode`).
-- Skill-Block (Schritt `hs`, `skillKey`, `skillStage`, `skillHist`, `hsStepHTML`, `SKILL_IN`, `SKILL_KEYS`): Handstand bis „Frei“ 2× am oberen
+- Skill-Block (Schritt `hs`, `skillKey`, `skillStage`, `skillHist`, `hsStepHTML`, `SKILL_IN`, `SKILL_KEYS`): Handstand (Rücken zur Wand → Face-to-Wall → 1 Fußlänge → Fuß-Taps → Frei) bis „Frei“ 2× am oberen
   Ende (`hsDone`), dann Handstand Walk. Freigeschaltete Skills (Familie `voraussetzt` erfüllt, Gerät da, nicht im Kraftteil, `skillOk`: Front Lever,
   Back Lever, Planche, Human Flag) im Wechsel: ungerade Durchgänge Handstand, gerade reihum ein Skill. Steigerung über die Haltezeit (Walk: Meter):
   2× obere Spanne → nächste Stufe (Sehnen-Bremse, eine pro Durchgang, nicht in Entlastung), 2× unter der halben unteren Spanne → leichter; Pause

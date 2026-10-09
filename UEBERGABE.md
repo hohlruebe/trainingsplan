@@ -25,6 +25,13 @@ Stand: 9. Oktober 2026 (Fünf Grundsätze, Zähler überall, Übungen erklärt, 
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Handstand: Rücken zur Wand als erste Stufe (9. Oktober)
+- Dennis: Ist es mit dem Rücken zur Wand nicht einfacher (hochkicken, die Wand fängt ab)? Vereinbart: beides. Neue erste Stufe „Rücken zur Wand“
+  (eigene Übung `g_wall_handstand_back`, Grafik folgt), danach Bauch zur Wand wie bisher. „So kommst du rein“ und „Raus“ für die Stufe,
+  Wissen › Skill-Ziele erklärt die Reihenfolge und den Ausstieg (Hand versetzen, seitlich herausdrehen). Bestehende Stände bleiben auf ihrer Stufe.
+- Entwürfe der 20 Skill-Grafiken liegen im Canvas (Paket 41) und in der Historie von PR 82 (Commit „Entwurf: 20 Skill-Grafiken“), auf Dennis'
+  Wunsch noch nicht in der App und wieder aus dem Pull Request genommen.
+
 ## Progression ohne Bremsen, Skill-Block, Export (9. Oktober)
 - Dennis fragte nach Regeln, die Progression hemmen, und Dingen ohne Mehrwert. Alle neun Punkte freigegeben („Alles umsetzen“), dazu:
   „Beim Handstand ist unklar, wie man in die Position kommt, schreib das immer dazu.“
