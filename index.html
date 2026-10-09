@@ -564,12 +564,13 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 [data-theme=dark] .chip.ok{background:#22382B;color:#8FD9AE}[data-theme=dark] .co-ic.up,[data-theme=dark] .co-ic.ok{background:#22382B;color:#8FD9AE}[data-theme=dark] .co-ic.in{background:#22304A;color:#8DB8FF}[data-theme=dark] .co-ic.wt{background:#3A3022;color:#F0C27A}[data-theme=dark] .co-ic.wn{background:#3E2523;color:#FF8B7B}@media (prefers-color-scheme:dark){html:not([data-theme=light]) .chip.ok{background:#22382B;color:#8FD9AE}html:not([data-theme=light]) .co-ic.up,html:not([data-theme=light]) .co-ic.ok{background:#22382B;color:#8FD9AE}html:not([data-theme=light]) .co-ic.in{background:#22304A;color:#8DB8FF}html:not([data-theme=light]) .co-ic.wt{background:#3A3022;color:#F0C27A}html:not([data-theme=light]) .co-ic.wn{background:#3E2523;color:#FF8B7B}}
 /* Lesbarkeit (UX-Check): keine Zeilen in Großbuchstaben, Zustand im Muskelausgleich auch als Zeichen */
 html .kicker,html .t-label,html th,html .p-week-h span,html .mo-kicker,html .tips-h,html .lad-k,html .figph b,html .sec-k,html .unl-t small,html .fs-st,html .fs-lbl,html .side-k{text-transform:none;letter-spacing:0}
-.kicker,.sec-k,.tips-h,.mo-kicker{font-size:14px}.lad-k,.unl-t small,th{font-size:13.5px}
+.kicker,.sec-k,.tips-h,.mo-kicker{font-size:14px}.lad-k,.unl-t small,th{font-size:14px}
 .mb-top{display:flex;justify-content:space-between;align-items:center}.mb-top>span:last-child{order:2}
 .mb-top::after{order:1;flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;color:#fff}
 .mb-row.b0 .mb-top::after{content:'×';background:var(--mb0)}.mb-row.b1 .mb-top::after{content:'!';background:var(--mb1)}.mb-row.b2 .mb-top::after{content:'!';background:var(--mb2)}.mb-row.b3 .mb-top::after{content:'✓';background:var(--mb3)}
 html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .k-view{margin-bottom:10px}
+.st-flag{width:40px;height:40px;margin-right:6px}.st-flag svg{width:18px;height:18px}.adj-btn{margin-top:4px}
 .k-one.now .card-head::after{content:none}
 .chip.ok{background:#E8F7EE;color:#1F6F42}
 .rbtn.pn-flag{width:44px;height:44px;flex:none;color:var(--red);background:color-mix(in srgb,var(--red) 12%,var(--paper))}.pn-flag svg{width:20px;height:20px}
@@ -578,7 +579,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .k-dot span{display:block;width:8px;height:8px;border-radius:8px;background:var(--line2);transition:width .2s}.k-dot.on span{width:24px;background:var(--acc)}
 .k-rs{display:grid;gap:6px;margin:10px 0}.k-r{border:0;border-radius:14px;background:var(--board);padding:6px 0;min-height:48px;color:var(--ink);font-family:var(--text);cursor:pointer}
 .k-r small{display:block;font-size:14px;color:var(--ink2)}.k-r b{font-family:var(--hand);font-size:19px}.k-r.set b{color:var(--ink)}.k-r.on{box-shadow:0 0 0 2px var(--acc);background:var(--paper)}
-.k-cnt{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--board);border-radius:18px;padding:8px 8px 8px 14px;margin-top:8px}.k-cnt .stepper{background:transparent}.k-cnt .stepper b{min-width:70px}
+.k-cnt{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--board);border-radius:18px;padding:8px 8px 8px 14px;margin-top:8px}.k-cnt .stepper,.fl-count .stepper{background:transparent;border:0;box-shadow:none}.k-cnt .stepper b{min-width:70px}
 .k-list{padding:6px 12px}.k-min{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:6px 2px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:600 16px var(--text);text-align:left;cursor:pointer}
 .k-min .k-n{flex:1}.k-min b{font-family:var(--hand);font-size:19px}.k-min.set{color:var(--ink2)}
 .k-no{flex:none;width:30px;height:30px;border-radius:50%;background:var(--board);display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--ink2)}.k-min.set .k-no{background:#E8F7EE;color:#1F8A4C}
@@ -610,7 +611,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .fo-h h3{margin:0}
 .flow-one > p{margin:6px 0 0}
 .bgrp button:disabled{opacity:.35;cursor:default}
-.fl-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 4px;touch-action:pan-y;transition:transform .2s}
+.fl-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 4px;background:var(--board);border-radius:18px;padding:8px 8px 8px 14px;touch-action:pan-y;transition:transform .2s}
 .figph{display:flex;align-items:center;height:200px;margin:6px 0 10px;border-radius:18px;background:var(--fig);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 6%,transparent);overflow:hidden}
 .figph .fig{flex:0 0 44%;height:100%;margin:0;border-radius:0;box-shadow:none;background:transparent}
 .figph p{margin:0;padding:0 16px 0 0;display:flex;flex-direction:column;gap:4px}
@@ -676,7 +677,7 @@ button.chip{cursor:pointer;border:0}
 .tree{position:relative;padding:6px 0 4px}
 .tree svg.ln{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .t-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0 0 30px;position:relative;z-index:1}
-.t-node{display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:6px 14px;border:0;border-radius:999px;font-family:var(--text);font-size:13.5px;font-weight:600;background:var(--tray);color:var(--ink2);box-shadow:inset 0 0 0 1px var(--tray-line);white-space:nowrap;cursor:pointer}
+.t-node{display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:6px 14px;border:0;border-radius:999px;font-family:var(--text);font-size:14px;font-weight:600;background:var(--tray);color:var(--ink2);box-shadow:inset 0 0 0 1px var(--tray-line);white-space:nowrap;cursor:pointer}
 .t-node.done{background:color-mix(in srgb,var(--acc) 14%,var(--paper));color:var(--acc);box-shadow:none}
 .t-node.cur{background:var(--pill);color:var(--acc);box-shadow:0 0 0 2px var(--acc),0 2px 8px rgba(17,18,20,.1)}
 .t-node.next{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line2)}
@@ -5014,12 +5015,12 @@ function outlookHTML(l) {
 function stepPageHTML(c, st, i, D) {
   var s = st[i], n = st.length, last = i === n - 1, key = draftKey(c.tag);
   var h = '<div class="st-top"><button type="button" class="rbtn" data-act="step" data-to="' + (i - 1) + '" aria-label="' + (i ? 'Zurück' : 'Zur Übersicht') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><span class="st-r"><span class="small muted">' + (i + 1) + ' von ' + n + '</span>' +
+    (PAIN_STEPS[s.id] && s.id !== 'kraft' && !c.isTest ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + s.id + '" aria-label="Schmerzen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></button>' : '') +
     '<button type="button" class="st-x" data-act="quit" aria-label="Training verlassen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></div>';
   h += '<div class="st-prog" aria-hidden="true">' + st.map(function (x, j) { return '<span' + (j <= i ? ' class="on"' : '') + '></span>'; }).join('') + '</div>';
   h += '<section class="hero"><h1>' + esc(s.title) + '</h1><p class="st-sub muted">' + esc(s.sub || '') + '</p></section>';
   var top = h.length, desk = deskOn();
   h += s.body(D);
-  if (PAIN_STEPS[s.id] && s.id !== 'kraft' && !c.isTest) h += painStepLinkHTML(s.id);
   if (last) {
     var label = c.isTest ? 'Testtag speichern' : c.isMurph ? 'Murph speichern' : 'Training speichern';
     h += notesBlock(D) + '<button type="button" class="btn block go save" data-act="save">' + TICK + label + '</button>';
@@ -5072,10 +5073,8 @@ function hsStepHTML(D) {
   }
   var hn = hp && hp.w === 'l' ? '<p class="tl-x">' + esc(siteName(hp.t)) + ' leicht: kürzere Sätze (10–20 s), aufhören, wenn es zieht.</p>' : '';
   var stage = D.hsStage != null ? D.hsStage : (D.hs && D.hsSec == null ? D.hs : lastHsStage()), sec = D.hsSec;
-  return '<section class="card">' + figBox('g_handstand') + '<p>' + gl('Handstand') + ' an der Wand: Sätze à 20–30 s mit 2 s Reserve, Pause nach Gefühl.</p>' + hn + '<div class="pick-grid">' +
-    tile('Stufe', '<b class="txt">' + (stage ? stageHTML(stage) : 'wählen') + '</b>', pickAttrs({ only: 'stage', sf: 'hsStage', sdef: stage, lad: 'g_handstand', title: 'Handstand' })) +
-    tile('Beste Zeit', '<b>' + (sec ? esc(sec) + ' <span class="unit">s</span>' : '–') + '</b>', pickAttrs({ f: 'hsSec', sf: 'hsStage', sdef: stage, lad: 'g_handstand', min: 0, max: 120, unit: 'Sek.', def: 20, title: 'Handstand' }), sec ? 'set' : '') +
-    '</div></section>';
+  return '<section class="card">' + figBox('g_handstand') + '<p>' + gl('Handstand') + ' an der Wand: Sätze à 20–30 s mit 2 s Reserve, Pause nach Gefühl.</p>' + hn +
+    coachStageHTML('Handstand', stage, { sf: 'hsStage', sdef: stage, lad: 'g_handstand', title: 'Handstand' }) + cntRow('Beste Zeit', 'Sekunden am Stück', 'hsSec', D, 20, 5, ' s') + '</section>';
 }
 function defRep(D, name, i, r) {
   for (var k = r - 1; k >= 0; k--) if (D['k' + i + 'r' + k]) return D['k' + i + 'r' + k];
@@ -5145,6 +5144,18 @@ function kCounter(tag, D, E, r) {
       '<button type="button" class="primary" data-act="k-kg" data-f="k' + E.i + 'kg' + r + '" data-d="' + st + '" data-def="' + (w != null ? w : 20) + '" aria-label="Schwerer">+</button></div></div>';
   }
   return h;
+}
+// Einheitlicher Zähler im Training (Design: Zahlen im Training immer mit dem Zähler). Grauer Vorschlag, Tippen auf die Zahl übernimmt.
+function cntRow(label, sub, f, D, def, step, unit) {
+  var v = num(D[f]), st = step || 1, u = unit || '';
+  return '<div class="k-cnt"><span><b>' + label + '</b>' + (sub ? '<br><span class="small muted">' + sub + '</span>' : '') + '</span>' +
+    '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-' + st + '" data-def="' + def + '" aria-label="Weniger">–</button><b' + (v == null ? ' class="muted" data-act="k-rep" data-f="' + f + '" data-d="0" data-def="' + def + '"' : '') + '>' + (v == null ? def : v) + u + '</b>' +
+    '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="' + st + '" data-def="' + def + '" aria-label="Mehr">+</button></div></div>';
+}
+// Stufe: setzt der Coach (Chip); nur ohne Verlauf einmal selbst wählen.
+function coachStageHTML(name, stage, o) {
+  if (stage) return '<div class="chips"><span class="chip ok">✓ ' + esc(name) + ' · ' + stageHTML(stage) + '</span></div>';
+  return stageRow('Erstes Mal · ' + name, '', o) + '<p class="small muted">Die Stufe, die sauber klappt. Ab dann setzt sie dein Coach.</p>';
 }
 function kraftStepHTML(tag, D, rounds) {
   var d = DAYS[tag], n = d.kraft.length, view = kraftView(), now = kraftNow(tag, D, n, rounds), ci = now.m % n, cr = Math.floor(now.m / n), k = draftKey(tag);
@@ -5225,19 +5236,17 @@ function testMetconStep(tag) {
     body: function (D) { return testMetconHTML(tag, D); } }];
 }
 // Zählt die App mit (Abhaken oder Rundenzähler), stehen Runden und Wdh. schon im Ergebnis.
-function mcCountHint() {
-  var on = roundMode() === 'rd' || (roundMode() === 'ex' && (modeOf('metcon') === 'single' || S.roundCounter !== false));
-  return on ? '<p class="small muted">Ergebnis kommt aus dem Zähler. Antippen nur zum Korrigieren.</p>' : '';
+// AMRAP-Ergebnis als Zähler. Zählt die Liste die Runden schon (fl-count), steht hier nur noch die Extra-Wdh., sonst wäre „Runden“ doppelt.
+function mcResultHTML(D, defR) {
+  var fl = modeOf('metcon') !== 'single' && S.roundCounter !== false;
+  return (fl ? '' : cntRow('Runden', 'ganze Runden', 'mr', D, defR)) + cntRow('Extra-Wdh.', 'in der angefangenen Runde', 'mw', D, 0);
 }
 function testMetconHTML(tag, D) {
   var single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon');
   var h = single ? flowHTML(metconFlow(tag), D) + '<section class="card">' : '<section class="card">' + flowHTML(metconFlow(tag), D);
   h += '<p class="small muted">Nach den Tests: Bewegungen, die heute nicht getestet wurden. Zügig, aber kein Maxout. Das ist dein erster Metcon-Wert.</p>';
   if (single && run && roundMode() === 'ex') return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
-  return h + mcCountHint() + '<div class="pick-grid">' +
-    tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: 4, title: 'AMRAP 8' }), D.mr ? 'set' : '') +
-    tile('Extra-Wdh.', '<b>' + (D.mw ? esc(D.mw) : '–') + '</b>', pickAttrs({ f: 'mw', min: 0, max: 60, unit: 'Wdh.', def: 0, title: 'AMRAP 8' }), D.mw ? 'set' : '') +
-    '</div></section>';
+  return h + mcResultHTML(D, 4) + '</section>';
 }
 function metconStepHTML(tag, D, am) {
   var d = DAYS[tag], single = modeOf('metcon') === 'single', run = stepRun(draftKey(tag) + ':metcon');
@@ -5247,7 +5256,7 @@ function metconStepHTML(tag, D, am) {
   d.metcon.forEach(function (m, i) {
     var lad = metconLad(m.n); if (!lad) return;
     var sf = 'm' + i + 'stage', stage = D[sf] != null ? D[sf] : lastMetconStage(m.n);
-    h += stageRow(m.n, stage, { sf: sf, sdef: stage, lad: GL[m.n].key, title: m.n });
+    h += coachStageHTML(m.n, stage, { sf: sf, sdef: stage, lad: GL[m.n].key, title: m.n });
   });
   // Gewicht je Metcon-Übung: Empfehlung vorbelegt, Tippen öffnet das Rad.
   d.metcon.forEach(function (m, i) {
@@ -5262,10 +5271,7 @@ function metconStepHTML(tag, D, am) {
   }
   if (lm) h += '<p class="small hint">Letztes Mal mit diesen Übungen: ' + lm.rounds + ' Runden + ' + (lm.reps || 0) + ' Wdh. Ziel heute: mindestens 1 Wdh. mehr.</p>';
   if (single && run && roundMode() === 'ex') return h + '<p class="small muted">Die App zählt Übung für Übung mit. Am Ende prüfst du dein Ergebnis.</p></section>';
-  h += mcCountHint() + '<div class="pick-grid">' +
-    tile('Runden', '<b>' + (D.mr ? esc(D.mr) : '–') + '</b>', pickAttrs({ f: 'mr', min: 0, max: 30, unit: 'Runden', def: lm ? lm.rounds : 4, title: 'AMRAP ' + am }), D.mr ? 'set' : '') +
-    tile('Extra-Wdh.', '<b>' + (D.mw ? esc(D.mw) : '–') + '</b>', pickAttrs({ f: 'mw', min: 0, max: 60, unit: 'Wdh.', def: 0, title: 'AMRAP ' + am }), D.mw ? 'set' : '') +
-    '</div></section>';
+  h += mcResultHTML(D, lm ? lm.rounds : 4) + '</section>';
   return h;
 }
 function testStepHTML(tag, r, i, D) {
@@ -5276,11 +5282,8 @@ function testStepHTML(tag, r, i, D) {
   var hw = sv && UE[sv.uebung] && UE[sv.uebung].schritte ? UE[sv.uebung].schritte : GL[r.name] ? GL[r.name].steps : [];
   var h = '<section class="card">' + figBox(gk) + (hw && hw.length ? '<p class="small"><b>So geht’s' + (sv ? ' (' + esc(stageText(stage)) + ')' : '') + ':</b></p>' + howHTML(hw) : '') + '<p><b>So findest du die Stufe:</b> ' + esc(r.find) + '</p><p class="small muted"><b>Sauber heißt:</b> ' + esc(r.clean) + '</p></section>';
   // Stufe über das Rad, Wiederholungen (bzw. Sekunden) mit dem Zähler: schnell zwischen zwei Testsätzen.
-  h += '<section class="card"><div class="pick-grid one">' +
-    tile('Stufe', '<b class="txt">' + (stage ? stageHTML(stage) : 'wählen') + '</b>', lad ? pickAttrs({ only: 'stage', sf: sf, lad: GL[r.name].key, title: r.name }) : 'disabled') +
-    '</div><div class="row between t-rep"><span><b>' + (secs ? 'Bestzeit' : 'Wiederholungen') + '</b><br><span class="small muted">' + (secs ? 'in Sekunden, am Stück' : 'saubere Wdh. am Stück') + '</span></span>' +
-    '<div class="stepper"><button type="button" data-act="t-rep" data-f="' + f + '" data-d="-' + (secs ? 5 : 1) + '" data-def="' + (secs ? 20 : 5) + '" aria-label="Weniger">–</button><b>' + (mx != null ? mx : '–') + '</b>' +
-    '<button type="button" class="primary" data-act="t-rep" data-f="' + f + '" data-d="' + (secs ? 5 : 1) + '" data-def="' + (secs ? 20 : 5) + '" aria-label="Mehr">+</button></div></div>';
+  h += '<section class="card">' + (lad ? stageRow('Stufe', stage, { sf: sf, lad: GL[r.name].key, title: r.name }) : '') +
+    cntRow(secs ? 'Bestzeit' : 'Wiederholungen', secs ? 'in Sekunden, am Stück' : 'saubere Wdh. am Stück', f, D, secs ? 20 : 5, secs ? 5 : 1, secs ? ' s' : '');
   if (mx != null) {
     var v = null;
     if (ex && !secs) {
@@ -5841,7 +5844,7 @@ function runHTML(c, D, spec, inStep) {
       '<div class="tile calc' + (rw ? ' set' : '') + '"><small>FTP · errechnet</small><b>' + (rw ? Math.round(rw * .75) + ' <span class="unit">W</span>' : '–') + '</b></div></div>';
   } else if (!easy && spec.iv) {
     var ivMax = spec.iv.reps, ivN = spec.iv.reps;
-    h += '<div class="pick-grid">' + tile('Intervalle geschafft', '<b>' + (D.ivDone ? esc(D.ivDone) : '–') + ' <span class="unit">von ' + ivN + '</span></b>', pickAttrs({ f: 'ivDone', min: 0, max: ivMax, unit: 'geschafft', def: ivN, title: 'Intervalle' }), D.ivDone ? 'set' : '') + '</div>';
+    h += cntRow('Intervalle geschafft', 'von ' + ivN, 'ivDone', D, ivN);
   }
   h += '</section>';
   return inStep ? h : h + notesBlock(D);
@@ -6552,7 +6555,7 @@ if (MQ_LAND) { if (MQ_LAND.addEventListener) MQ_LAND.addEventListener('change', 
 window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 
 // Plan-Seite: Durchgang blättern, Tag wählen, Wissen öffnen.
-// Session anpassen: unter der Einheit ein grauer Link, das Blatt von unten bietet die Anpassungen für heute.
+// Heute anpassen: unter der Einheit ein Knopf, das Blatt von unten bietet die Anpassungen für heute.
 // Wenig Zeit (_zeit = 45/30/15 Min im Entwurf): der Coach kürzt in Stufen, bis es passt.
 // 1 = ohne Handstand und Skill, 2 = Kraft und Metcon kürzer, 3 = ohne Metcon, 4 = Aufwärmen 4 Min.
 var ZF = null;
@@ -6603,9 +6606,9 @@ function adaptChanges(tag, run) {
 }
 function adaptLineHTML(tag, run) {
   var ch = adaptChanges(tag, run);
-  return '<div class="adj">' + (ch.length ? '<span>Angepasst: ' + esc(ch.join(', ')) + '</span>' : '') + '<button type="button" class="adj-q" data-act="adapt" data-run="' + (run ? 1 : '') + '">Session anpassen</button></div>';
+  return '<div class="adj">' + (ch.length ? '<span>Angepasst: ' + esc(ch.join(', ')) + '</span>' : '') + '<button type="button" class="btn small adj-btn" data-act="adapt" data-run="' + (run ? 1 : '') + '">Heute anpassen</button></div>';
 }
-// Blatt „Session anpassen“: Liste der Anliegen. Alles gilt nur für heute und sofort, Gewähltes ist grau hinterlegt.
+// Blatt „Heute anpassen“: Liste der Anliegen. Alles gilt nur für heute und sofort, Gewähltes ist grau hinterlegt.
 ACT.adapt = function (el) {
   var tag = S.tag, run = !!el.dataset.run, D = DRAFTS[draftKey(tag)] || {}, z0 = +D._zeit || 0;
   var CH = '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
@@ -6622,7 +6625,7 @@ ACT.adapt = function (el) {
     (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Nur heute, die Übungen passen sich an',
       capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'adapt-ort', trainOrt().id, 'Ort', 'in-card'), D._ort && D._ort !== S.ort) : '') +
     '</section>';
-  openForm('Session anpassen', body, 'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
+  openForm('Heute anpassen', body, 'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
 };
 ACT['adapt-sub'] = function (el) {
   var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
@@ -6778,7 +6781,7 @@ function capHTML(items, act, sel, label, cls) {
   }).join('') + '</nav>';
 }
 function curOrt() { ensureOrte(); return S.orte.filter(function (o) { return o.id === S.ort; })[0]; }
-// Ort fürs Training: „Session anpassen › Ich trainiere woanders“ gilt nur für die heutige Einheit (_ort im Entwurf).
+// Ort fürs Training: „Heute anpassen › Ich trainiere woanders“ gilt nur für die heutige Einheit (_ort im Entwurf).
 function trainOrt() {
   var D = DRAFTS[draftKey(S.tag)], o = D && D._ort ? S.orte.filter(function (x) { return x.id === D._ort && x.on; })[0] : null;
   return o || curOrt();
@@ -7951,10 +7954,10 @@ function ausgleichStep(tag) {
 function ausgleichStepHTML(A, D) {
   if (A.skip) return '<section class="card">' + figBox(A.id) + '<p class="tl-x">' + esc(siteName(A.pain.t) + ' ' + PAIN_WN[A.pain.w] + ': heute kein Ausgleich, keine passende Übung ohne Last auf ' + siteDat(A.pain.t) + '. Du kannst direkt speichern.') + '</p></section>';
   var u = UE[A.id], h = '<section class="card">' + figBox(A.id) + '<h3 class="ag-h">' + esc(u.name) + '<span class="chip">' + esc(A.menge) + '</span></h3>' +
-    '<p class="small">' + esc(u.sauber || '') + '</p><div class="pick-grid">';
+    '<p class="small">' + esc(u.sauber || '') + '</p><div>';
   for (var r = 0; r < 2; r++) {
     var f = 'a' + r;
-    h += tile('Satz ' + (r + 1), '<b>' + (D[f] ? esc(D[f]) + (A.sek ? ' s' : '') : '–') + '</b>', pickAttrs(A.sek ? { f: f, min: 0, max: 120, step: 5, unit: 's', def: 30, title: u.name } : { f: f, min: 0, max: 40, unit: 'Wdh.', def: 12, title: u.name }), D[f] ? 'set' : '');
+    h += cntRow('Satz ' + (r + 1), A.sek ? 'Sekunden' : 'Wiederholungen', f, D, A.sek ? 30 : 12, A.sek ? 5 : 1, A.sek ? ' s' : '');
   }
   var pn = A.pain ? '<p class="tl-x">' + esc(siteName(A.pain.t) + ' ' + PAIN_WN[A.pain.w] + ': heute ' + u.name + ' statt ' + UE[A.pain.from].name + '.') + '</p>' : '';
   return h + '</div>' + pn + '<p class="tl-x">Für ' + esc(MUS_NAME[A.m] || 'deinen Ausgleich') + ': ' + (A.m ? 'kam in den letzten 4 Wochen zu kurz.' : 'kommt gerade zu kurz.') + ' 60 s Pause zwischen den Sätzen.</p></section>';
@@ -8064,17 +8067,8 @@ function hrRows() {
 // Heute: das eine Ziel, das am nächsten liegt (aus den Kraftübungen des Tages).
 // Fortschritt unter dem Start: neu im Plan (bis die Übung einmal trainiert ist) und was als Nächstes freigeschaltet wird.
 function progressHTML(tag) {
-  var neu = DAYS[tag] && DAYS[tag].type === 'kraft' ? planFill().neu[tag] || [] : [], nx = nextUnlockHTML(tag, true), h = '';
-  neu.forEach(function (n) {
-    var a = LAD[n.from], b = LAD[n.to];
-    h += '<div class="pg-neu"><span class="chip pg-chip">' + (n.why === 'neu' ? 'Neu freigeschaltet' : 'Neuer Reiz') + '</span><b>' + esc(b.name) + '</b><span>' +
-      (n.why === 'neu' ? 'statt ' + esc(a.name) + ', mehr Nutzen für ' + esc(BEREICH[b.bereich] || 'dich') + '.' : 'statt ' + esc(a.name) + ', das kam 3-mal nicht weiter.') + '</span></div>';
-  });
-  // Sehnen-Pause: Wdh. reichen schon, die Stufe kommt später.
-  (DAYS[tag] && DAYS[tag].type === 'kraft' ? DAYS[tag].kraft : []).forEach(function (k) {
-    var g = GL[k.n], cs = g && LAD[g.key] ? coachStage(g.key, k.hi) : null;
-    if (cs && cs.wait && cs.wait.why === 'sehne') h += '<div class="pg-neu"><span class="chip pg-chip pg-wait">Bald freigeschaltet</span><b>' + esc(k.n) + ', „' + esc(stageText(LAD[g.key].steps[cs.idx])) + '“</b><span>ab ' + shortDate(cs.wait.date).replace(/\.$/, '') + '. Die Wdh. reichen schon, die Sehnen bekommen noch Zeit.</span></div>';
-  });
+  // Tausch und Sehnen-Pause stehen in der Coach-Karte, hier nur noch, was als Nächstes freigeschaltet wird.
+  var nx = nextUnlockHTML(tag, true), h = '';
   if (!h && !nx) return '';
   return '<section class="card pg">' + h + nx + '</section>';
 }
