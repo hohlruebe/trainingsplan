@@ -6173,10 +6173,11 @@ function kardioSpec(d, o) {
 function kardioSec(spec) {
   if (spec.ergo) return ergoSeq(spec).reduce(function (a, q) { return a + q.dur; }, 0);
   var m = spec.main.reduce(function (a, q) { return a + q.dur; }, 0);
-  return spec.type === 'easy' ? m : m + 15 * 60;
+  return spec.type === 'easy' ? m : m + 10 * 60;
 }
 function kardioRunListHTML(spec) {
-  var L = spec.type === 'easy' ? spec.list : ['Nach dem Lauf-ABC <b>5 Min locker einlaufen</b>'].concat(spec.list).concat(['<b>5 Min locker auslaufen</b>']);
+  // Eingelaufen wird im Lauf-ABC (Dennis: erst einlaufen, dann ABC), danach geht es direkt in den Hauptteil.
+  var L = spec.type === 'easy' ? spec.list : spec.list.concat(['<b>5 Min locker auslaufen</b>']);
   return '<ol class="steps">' + L.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol>';
 }
 function kardioText(spec) { return spec.list.map(function (x) { return x.replace(/<[^>]+>/g, ''); }).join(' · '); }
