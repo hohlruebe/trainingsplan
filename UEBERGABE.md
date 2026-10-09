@@ -25,6 +25,14 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## UX-Check, Paket 1: Rückgängig und Korrigieren (9. Oktober)
+- Dennis zeigte die „UI/UX Design Principles 2026“. Bewertung im Canvas (Board „UX-Check“): Feedback gut, Konsistenz größtenteils,
+  Einfachheit schwach, Barrierefreiheit und Kontrolle teils. Plan in sechs Paketen: 1 Rückgängig/Korrigieren, 2 Kraftschritt (eine Übung,
+  Coach setzt Stufe), 3 Coach erklärt sich, 4 Heute aufräumen, 5 Einstellungen und Lesbarkeit, 6 Whiteboard-Grafiken.
+- Dennis: „Korrigieren immer. Löschen aber nur am gleichen Tag.“ Umgesetzt (siehe CLAUDE.md), dazu 10 s „Rückgängig“ nach dem Speichern.
+- Offen: Paket 2 als Konzept zeigen (nur laufende Übung vs. andere klein darunter). Paket 5: Dennis ist unsicher, welche Einstellungen der
+  Coach übernehmen soll; Empfehlung im Canvas.
+
 ## Verlauf ohne Löschen (8. Oktober)
 - Dennis: „Ich möchte nicht die Möglichkeit, einzelne Trainings zu löschen.“ Löschen-Knopf in Profil › Verlauf (Training und Mobility) entfernt.
   1RM-Einträge in Tools › 1RM lassen sich weiter löschen (Tippfehler beim Wert).

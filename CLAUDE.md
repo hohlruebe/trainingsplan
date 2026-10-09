@@ -133,7 +133,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   alle Routinen frei, auch „Guten Morgen“. Der Player (versteckte Seite `routine`, Timer-Art `routine`, `paintRoutine`) führt Übung für
   Übung, „je Seite“ erst links, dann rechts. Fertige Routinen außerhalb des Trainings sind Einträge `kind: 'mobility'` und stehen unter
   Profil › Verlauf › Mobility; sie zählen nicht als Training (Pause, „Diese Woche“).
-  Im Verlauf lassen sich Einheiten nicht löschen (Dennis), nur 1RM-Einträge in Tools › 1RM.
+  Einträge im Verlauf (und auf „Heute erledigt“ bzw. einem erledigten Tag): „Korrigieren“ immer (`fixable`, versteckte Seite `fix`, `renderFix`,
+  Zähler je Wert `fixStep`, Pfad wie `kraft.0.reps.2`; gespeichert als neuer Eintrag mit neuer ID und `fixed`, alter als Löschvermerk, damit der Sync
+  es mitnimmt; Testtage rechnen `S.base` neu), „Löschen“ nur am Tag selbst (`logBtns`). Nach dem Speichern 10 s „Rückgängig“ (`showUndo`, `#undo`,
+  `UNDO` mit Stand, Entwurf und neuen IDs; setzt `S.posSet`). 1RM-Einträge in Tools › 1RM bleiben jederzeit löschbar.
   Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in der Testwoche am Blockende (`mobCheckStep`).
   Je Test eine Karte mit Figur der gewählten Stufe (`mobCheckHTML`; ohne Grafik die nächste Stufe mit Grafik). Auch die Testtage
   zeigen die Figur der gewählten Stufe (`testStepHTML`, z. B. Knee Push-up bei „Auf Knien“); Stufe wechseln = Figur wechselt.
