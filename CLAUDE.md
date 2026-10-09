@@ -245,6 +245,15 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Testdatum, Beschwerde über `memRecord`, dann Durchgang 1, Tag 1 (Kurzversion wie nach dem Test). Startstufen aus dem Fragebogen sind
   eine Angabe: `baseOf` meldet `fb`, `coachStage` stuft in den ersten 2 Einheiten nach (`cs.cal`), Hinweis „aus deinem Fragebogen“
   (`brakeNote`, `skillNote`); `skillStage` nimmt die Startstufe aus `S.base`. Zusätze hinter „·“ brechen nur als Ganzes um (`dotSub`, `.nobr`).
+- Wiedereinstieg (Dennis): ab 15 Tagen Pause (`S.comeback.ask`, `days`) zeigt Heute am Krafttag vor dem ersten Training die Karte „Willkommen zurück“
+  (`wbDue`, `wbCardHTML`, „Kurz einschätzen“, `ACT['wb-go']`); „Training starten“ wird dann „Ohne Einschätzung starten“. Sechs Seiten `WB_PAGES`
+  (Zug, Druck, Beine, Rumpf, Skill, Schmerzen) aus dem Fragebogen, Stand in `S.wb {on, p, a, pre, prev}` (in `DEF`, nicht synchronisiert; `fb()` und
+  `fbList()` schalten um). Stand vor der Pause je Leiter aus `ladHist`/`skillHist` (`wbPre`), markiert „Vor der Pause“, unten „Wie vor der Pause“.
+  „Dein Wiedereinstieg“ (`wbStartHTML`, hellblau bis zum Stand vor der Pause). `ACT['wb-start']`: `S.base` mit `src: 'wb'`, `date`, `pre`
+  (`wbStage`: Einschätzung, höchstens der Stand vor der Pause; nur beantwortete Fragen), Beschwerde über `memRecord`, `S.comeback.done`.
+  `baseOf` liefert `date`/`pre`/`wb`, `sinceBase` blendet den Verlauf vor dem Datum aus (`coachStage`, `skillStage`); in den ersten 2 Einheiten alle
+  Runden oben → sofort eine Stufe hoch bis zum Stand vor der Pause (`cs.cal`). Übersprungen = Pausen-Regel (eine Stufe leichter). Kurzversion,
+  Entlastung ab 29 Tagen und Gewichte −10 % bleiben.
 - Coach › Heute: zuerst eine kurze Übersicht (`renderHeute`, Ablauf als nummerierte Schritte) mit „Training starten“.
   Ein Tag vor dem aktuellen, der in diesem Durchgang schon gespeichert ist (`dayLog`), zeigt nur die Karte „Ergebnis“ (`logLines` wie im
   Verlauf) und „Zurück“, kein „Tag machen“ und kein Start.

@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 9. Oktober 2026 (Fragebogen statt Testtage, Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
+Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testtage, Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
@@ -24,6 +24,13 @@ Stand: 9. Oktober 2026 (Fragebogen statt Testtage, Fünf Grundsätze, Zähler ü
   zum Körpergewicht, Erfolge = eine Medaille je Bereich plus 1RM-Archiv, Momente bei Aufstieg und 1RM-Bestwert).
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
+
+## Wiedereinstieg: Welchen Stand siehst du bei dir? (9. Oktober)
+- Dennis fragte, ob man den Fragebogen manuell starten kann, und schlug vor, ihn nach langer Pause als Ergänzung zu nehmen („Welchen Stand siehst
+  du bei dir aktuell?“). Konzept im Canvas (Board „Wiedereinstieg“), Dennis: „PR erstellen“.
+- Umgesetzt (siehe CLAUDE.md, „Wiedereinstieg“): ab 15 Tagen Pause Karte auf Heute, sechs Fragen, „Dein Wiedereinstieg“, höchstens der Stand
+  vor der Pause, schneller zurück in den ersten 2 Einheiten.
+- Offen: Rückmeldung von Dennis zur Schwelle (15 Tage) und ob auch Bestwerte/5 km abgefragt werden sollen. Kein manueller Start des Fragebogens.
 
 ## Fragebogen statt Testtage (9. Oktober)
 - Dennis: „Statt Testtage einen Fragebogen zum aktuellen Fitnessstand, bestehende 1RMs eintragen und alles was dazugehört, für leichteres

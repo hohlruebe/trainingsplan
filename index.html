@@ -1072,6 +1072,9 @@ html.desk .btn:hover{filter:brightness(1.05)}
 .nobr{display:inline-block;white-space:nowrap}
 .ob{display:flex;flex-direction:column;min-height:calc(100dvh - 60px)}
 html.desk .ob{max-width:520px;margin:0 auto}
+.wb-card .wb-k{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.wb-card h2{margin:0}.wb-card p{color:var(--ink2);margin:6px 0 14px}
+.ob-was{display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;color:var(--acc)}.ob-was::before{content:'';width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--acc)}
+.ob-seg i.was{background:color-mix(in srgb,var(--acc) 28%,var(--fill))}.ob-pre{grid-column:1 / -1;font-size:14px;color:var(--ink2)}.ob-pre b{font-weight:600;color:var(--ink)}
 .ob-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .ob-top .st-prog{flex:1;margin:0}
 .ob-skip{border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;min-height:44px;padding:0 4px;cursor:pointer}
@@ -2516,7 +2519,7 @@ var TEST_BASE = {
 var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
-  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null };
+  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null };
 
 var LS = {
   get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -2869,12 +2872,14 @@ var FB_Q = {
 };
 var FB_RM = ['g_back_squat', 'g_deadlift', 'g_bench_press', 'g_strict_press', 'g_weighted_pullup'];
 // Fertige Startrunde für ein Fünf-Kilometer-Laufen: Schwelle etwa 5 % langsamer (wie der 5-km-Test), Ergometer-FTP 95 % der 20-Minuten-Watt.
-function fb() { if (!S.fb || typeof S.fb !== 'object') S.fb = { p: 'hallo', a: {} }; if (!S.fb.a) S.fb.a = {}; return S.fb; }
+function wbOn() { return !!(S.wb && S.wb.on); }
+function fbList() { return wbOn() ? WB_PAGES : FB_PAGES; }
+function fb() { if (wbOn()) return S.wb; if (!S.fb || typeof S.fb !== 'object') S.fb = { p: 'hallo', a: {} }; if (!S.fb.a) S.fb.a = {}; return S.fb; }
 function fbGo(p) { fb().p = p; saveState(); window.scrollTo(0, 0); render(); }
-function fbNext() { var F = fb(), i = FB_PAGES.indexOf(F.p); fbGo(i >= 0 && i < FB_PAGES.length - 1 ? FB_PAGES[i + 1] : 'start'); }
+function fbNext() { var F = fb(), L = fbList(), i = L.indexOf(F.p); fbGo(i >= 0 && i < L.length - 1 ? L[i + 1] : 'start'); }
 function fbTop(p) {
-  var i = FB_PAGES.indexOf(p), h = '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-back" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><div class="st-prog" aria-label="Frage ' + (i + 1) + ' von ' + FB_PAGES.length + '">';
-  for (var j = 0; j < FB_PAGES.length; j++) h += '<span' + (j <= i ? ' class="on"' : '') + '></span>';
+  var L = fbList(), i = L.indexOf(p), h = '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-back" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><div class="st-prog" aria-label="Frage ' + (i + 1) + ' von ' + L.length + '">';
+  for (var j = 0; j < L.length; j++) h += '<span' + (j <= i ? ' class="on"' : '') + '></span>';
   return h + '</div><button type="button" class="ob-skip" data-act="fb-skip">Überspringen</button></div>';
 }
 // „· Zusatz“ bleibt zusammen: passt er nicht mehr in die Zeile, rutscht er mit dem Punkt komplett in die nächste (Dennis).
@@ -2882,13 +2887,14 @@ function dotSub(t) { return t ? ' <span class="nobr">· ' + t + '</span>' : ''; 
 function fbQ(k, q, s) { return '<p class="ob-k">' + k + '</p><h1 class="ob-q">' + q + '</h1>' + (s ? '<p class="ob-s">' + s + '</p>' : ''); }
 function fbKick(k) { var m = /^(.*?) · (.*)$/.exec(k); return m ? esc(m[1]) + dotSub(esc(m[2])) : esc(k); }
 function fbChoice(id) {
-  var Q = FB_Q[id], a = fb().a[id];
+  var Q = FB_Q[id], a = fb().a[id], wb = wbOn(), was = wb && S.wb.prev ? S.wb.prev[id] : null;
   var rows = Q.o.map(function (o) {
     var on = a === o[0], f = o[3] ? miniFig(o[3]) : fkIcon(o[4] || FB_IC.seed);
-    return '<button type="button" class="ob-row' + (on ? ' on' : '') + '" data-act="fb-a" data-q="' + id + '" data-v="' + o[0] + '" aria-pressed="' + on + '"><span class="ob-f">' + f + '</span><span class="ob-t"><b>' + esc(o[1]) + '</b>' + (o[2] ? '<small>' + esc(o[2]) + '</small>' : '') + '</span><span class="ob-c"></span></button>';
+    return '<button type="button" class="ob-row' + (on ? ' on' : '') + '" data-act="fb-a" data-q="' + id + '" data-v="' + o[0] + '" aria-pressed="' + on + '"><span class="ob-f">' + f + '</span><span class="ob-t"><b>' + esc(o[1]) + '</b>' + (o[2] ? '<small>' + esc(o[2]) + '</small>' : '') + (was === o[0] ? '<span class="ob-was">Vor der Pause</span>' : '') + '</span><span class="ob-c"></span></button>';
   }).join('');
-  return fbTop(id) + fbQ(fbKick(Q.k), esc(Q.q), esc(Q.s)) + (Q.lad ? '<p class="ob-lab">↑ Schwerer</p>' : '') + '<div class="ob-cap" role="group">' + rows + '</div>' + (Q.lad ? '<p class="ob-lab">Leichter</p>' : '') +
-    '<div class="ob-foot"><button type="button" class="btn block" data-act="fb-skip">Weiß ich nicht</button></div>';
+  var kick = wb ? 'Wiedereinstieg' + dotSub((WB_PAGES.indexOf(id) + 1) + ' von ' + WB_PAGES.length) : fbKick(Q.k);
+  return fbTop(id) + fbQ(kick, esc(Q.q), esc(Q.s)) + (Q.lad ? '<p class="ob-lab">↑ Schwerer</p>' : '') + '<div class="ob-cap" role="group">' + rows + '</div>' + (Q.lad ? '<p class="ob-lab">Leichter</p>' : '') +
+    '<div class="ob-foot">' + (was ? '<button type="button" class="btn block" data-act="fb-a" data-q="' + id + '" data-v="' + was + '">Wie vor der Pause</button>' : '<button type="button" class="btn block" data-act="fb-skip">Weiß ich nicht</button>') + '</div>';
 }
 function fbRmVal(r) { return r ? esc(fmtKg(r.kg, null)) : '–'; }
 function fbPage() {
@@ -2936,13 +2942,13 @@ function fbPage() {
     var pn = a.pain || null, sel = pn && pn.id, dots = '';
     Object.keys(JOINT_XY).forEach(function (k) { (JOINT_XY[k] || []).forEach(function (q) { q = bodyPt(q[0], q[1], sexT()); [q[0], 200 - q[0]].forEach(function (x) { dots += fbDot(k, x, q[1], k === sel); }); }); });
     var nm = {}; PAIN_J.forEach(function (j) { nm[j[0]] = j[1]; });
-    return fbTop(p) + fbQ('Zum Schluss', 'Zwickt gerade etwas?', 'Tipp die Stelle an. Ich plane dann drumherum.') +
+    return fbTop(p) + fbQ(wbOn() ? 'Zum Schluss' + dotSub(WB_PAGES.length + ' von ' + WB_PAGES.length) : 'Zum Schluss', 'Zwickt gerade etwas?', 'Tipp die Stelle an. Ich plane dann drumherum.') +
       '<div class="ob-body"><div class="bf"><figure>' + bodySVG(BODY_F, function () { return ''; }).replace('</svg>', dots + '</svg>') + '</figure></div></div>' +
       '<p class="ob-pick"><button type="button" class="btn small' + (sel === 'ruecken' ? ' on' : '') + '" data-act="fb-pain" data-v="ruecken" aria-pressed="' + (sel === 'ruecken') + '">Rücken</button></p>' +
       (sel ? '<p class="ob-pick"><span class="chip pn">' + esc(nm[sel]) + '</span></p><div class="seg" role="group" aria-label="Wie stark?">' + PAIN_W.map(function (w) { var on = pn.w === w[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="fb-pw" data-v="' + w[0] + '" aria-pressed="' + on + '">' + w[1] + '</button>'; }).join('') + '</div>' : '') +
       '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">' + (sel ? 'Weiter' : 'Nichts, alles gut') + '</button></div>';
   }
-  if (p === 'start') return fbStartHTML();
+  if (p === 'start') return wbOn() ? wbStartHTML() : fbStartHTML();
   F.p = 'hallo'; return fbPage();
 }
 function fbDot(k, x, y, on) {
@@ -2990,6 +2996,52 @@ function fbStartHTML() {
     '<section class="card co-card"><h3>Ich achte auf</h3>' + notes + '</section>' +
     '<button type="button" class="btn primary block" data-act="fb-start">Training starten</button><div class="ob-alt"><button type="button" data-act="fb-go" data-p="dich">Antworten ändern</button></div>';
 }
+/* ---------- Wiedereinstieg (Dennis): nach langer Pause kurz den eigenen Stand einschätzen ---------- */
+// Ab 15 Tagen Pause fragt Heute vor dem ersten Training „Welchen Stand siehst du bei dir aktuell?“. Gleiche Seiten wie der Fragebogen,
+// der Stand vor der Pause ist markiert. Startstufe = Einschätzung, höchstens der Stand vor der Pause (S.base mit src 'wb', date, pre).
+var WB_PAGES = ['zug', 'druck', 'beine', 'rumpf', 'hs', 'schmerz'];
+function wbDue(d) { var C = S.comeback; return !!(C && C.ask && !C.done && d && d.type === 'kraft' && lastTrainingDate() === C.from && !doneToday0()); }
+function wbDays() { return (S.comeback && S.comeback.days) || pauseDays(); }
+function wbCardHTML() {
+  return '<section class="card wb-card"><div class="wb-k"><h2>Willkommen zurück</h2><span class="chip">' + wbDays() + ' Tage Pause</span></div>' +
+    '<p>Welchen Stand siehst du bei dir aktuell? Sechs kurze Fragen, dann stelle ich deinen Wiedereinstieg ein.</p><button type="button" class="btn primary block" data-act="wb-go">Kurz einschätzen</button></section>';
+}
+// Stand vor der Pause je Leiter und die passende Antwort je Frage (die Leiter, die zuletzt trainiert wurde).
+function wbPre() {
+  var pre = {}, prev = {};
+  Object.keys(FB_Q).forEach(function (q) {
+    var Q = FB_Q[q], best = null; if (!Q.set) return;
+    Object.keys(Q.set).forEach(function (n) {
+      var g = GL[n]; if (!g || !LAD[g.key]) return;
+      var h = q === 'hs' ? skillHist(g.key) : ladHist(g.key), e = h[h.length - 1]; if (!e) return;
+      pre[n] = e.idx; if (!best || e.date > best.date) best = { n: n, date: e.date };
+    });
+    if (best) { var o = Q.o.filter(function (x) { var v = Q.set[best.n][x[0]]; return v && v <= pre[best.n]; })[0]; if (o) prev[q] = o[0]; }
+  });
+  return { pre: pre, prev: prev };
+}
+function wbMain(q) { var Q = FB_Q[q], ns = Object.keys(Q.set), pre = S.wb.pre; return ns.filter(function (n) { return pre[n]; })[0] || ns[0]; }
+// Stufe nach dem Wiedereinstieg: Einschätzung, höchstens der Stand vor der Pause. Übersprungen = wie bisher eine Stufe leichter.
+function wbStage(q, n) { var a = S.wb.a[q], p = S.wb.pre[n], v = a != null ? FB_Q[q].set[n][a] : null; return v ? (p ? Math.min(v, p) : v) : p ? Math.max(1, p - 1) : 0; }
+function wbStartHTML() {
+  var rows = [['zug', 'Zug'], ['druck', 'Druck'], ['beine', 'Beine'], ['rumpf', 'Rumpf'], ['hs', 'Skill']].map(function (x) {
+    var n = wbMain(x[0]), lad = LAD[GL[n].key], p = S.wb.pre[n], i = wbStage(x[0], n), skip = S.wb.a[x[0]] == null; if (!i) return '';
+    var seg = '<span class="ob-seg">'; for (var k = 1; k <= lad.steps.length; k++) seg += '<i class="' + (k < i ? 'on' : k === i ? 'now' : k <= p ? 'was' : '') + '"></i>'; seg += '</span>';
+    var pl = !p ? 'Neu, nach deiner Einschätzung' : i === p ? 'Wie vor der Pause' : 'Vor der Pause: <b>' + esc(stageText(lad.steps[p - 1])) + '</b>' + (skip ? dotSub('übersprungen, eine Stufe leichter') : '');
+    return '<div class="ob-bar"><span class="ob-n">' + x[1] + '<span class="ob-sub">' + dotSub(esc(n)) + '</span></span><span class="ob-v">' + stageHTML(lad.steps[i - 1]) + '</span>' + seg + '<span class="ob-pre">' + pl + '</span></div>';
+  }).join('');
+  var a = S.wb.a, nm = {}; PAIN_J.forEach(function (j) { nm[j[0]] = j[1]; });
+  var W = {}; PAIN_W.forEach(function (w) { W[w[0]] = w[1].toLowerCase(); });
+  var C = S.comeback || {};
+  var notes = coachItem('up', 'Sind in den ersten 2 Einheiten alle Runden oben, geht es sofort eine Stufe hoch, bis zu deinem Stand vor der Pause ohne Wartezeit.') +
+    (a.pain && a.pain.id ? coachItem('i', '<b>' + esc(nm[a.pain.id]) + '</b> ' + esc(W[a.pain.w || 'l']) + ': Übungen, die die Stelle belasten, erst einmal ' + (a.pain.w === 's' ? 'weglassen' : 'leichter') + '.') : '') +
+    (C.n ? coachItem('plus', 'Die nächsten ' + C.n + ' Einheiten sind kürzer.' + (C.dl === S.durchgang ? ' Dieser Durchgang ist Entlastung.' : '')) : '') +
+    coachItem('i', 'Gewichte: 10 % leichter, dann steigt es wieder wie gewohnt.');
+  return '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-back" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>' +
+    '<p class="ob-k">Fertig</p><h1 class="ob-q ob-big-t">Dein Wieder­einstieg</h1><p class="ob-s">' + wbDays() + ' Tage Pause. Ich starte bei deiner Einschätzung, höchstens auf deinem Stand vor der Pause.</p>' +
+    (rows ? '<section class="card">' + rows + '</section>' : '') + '<section class="card co-card"><h3>Ich achte auf</h3>' + notes + '</section>' +
+    '<button type="button" class="btn primary block" data-act="wb-start">Training starten</button><div class="ob-alt"><button type="button" data-act="fb-go" data-p="zug">Antworten ändern</button></div>';
+}
 function onboardingHTML() { ui.focus = true; ui.noSub = true; return '<div class="ob">' + fbPage() + '</div>'; }
 function restHTML(tag) {
   var next = tag % 7 + 1;
@@ -3032,7 +3084,7 @@ function dayCheck() {
   // Wiedereinstieg: 8–14 Tage Pause = 2 Einheiten kürzer, ab 15 Tagen 5, ab 29 Tagen Entlastung und keine Testwoche direkt danach.
   var p = pauseDays(), lt2 = lastTrainingDate();
   if (S.durchgang > 0 && p > 7 && lt2 && !(S.comeback && S.comeback.from === lt2)) {
-    S.comeback = { from: lt2, n: p > 14 ? 5 : 2, dl: p > 28 ? S.durchgang : null };
+    S.comeback = { from: lt2, n: p > 14 ? 5 : 2, dl: p > 28 ? S.durchgang : null, ask: p > 14, days: p };
     if (p > 28 && curPhase().test) S.blockStart = (S.blockStart || 1) + 1;
     DAYS_K = null; ch = true;
   }
@@ -4496,10 +4548,24 @@ var ACT = {
   'more-logs': function () { ui.logLimit += 30; render(); }
 };
 // Fragebogen beim Start
+ACT['wb-go'] = function () { var P = wbPre(); S.wb = { on: 1, p: 'zug', a: {}, pre: P.pre, prev: P.prev }; saveState(); window.scrollTo(0, 0); render(); };
+ACT['wb-start'] = function () {
+  var W = S.wb, a = W.a, today = isoToday(); S.base = Object.assign({}, S.base || {});
+  Object.keys(FB_Q).forEach(function (q) {
+    var Q = FB_Q[q]; if (!Q.set || a[q] == null) return;
+    Object.keys(Q.set).forEach(function (n) {
+      var g = GL[n], lad = g && LAD[g.key], i = wbStage(q, n), p = W.pre[n]; if (!lad || !i) return;
+      S.base[n] = { stage: lad.steps[i - 1], start: null, src: 'wb', date: today, pre: p ? lad.steps[p - 1] : null };
+    });
+  });
+  if (a.pain && a.pain.id) memRecord({ k: 'j', id: a.pain.id }, a.pain.w || 'l', null);
+  if (S.comeback) S.comeback.done = today;
+  S.wb = null; DAYS_K = null; EST_C.k = null; saveState(); window.scrollTo(0, 0); render(); toast('Dein Wiedereinstieg ist eingestellt.');
+};
 ACT['fb-go'] = function (el) { fbGo(el.dataset.p); };
 ACT['fb-next'] = function () { fbNext(); };
 ACT['fb-skip'] = function () { var F = fb(); if (FB_Q[F.p]) delete F.a[F.p]; if (F.p === 'rm') delete F.a.rm; if (F.p === 'kardio') { delete F.a.k5; delete F.a.w20; } if (F.p === 'schmerz') delete F.a.pain; fbNext(); };
-ACT['fb-back'] = function () { var F = fb(), i = FB_PAGES.indexOf(F.p); fbGo(F.p === 'start' ? FB_PAGES[FB_PAGES.length - 1] : i > 0 ? FB_PAGES[i - 1] : 'hallo'); };
+ACT['fb-back'] = function () { var F = fb(), L = fbList(), i = L.indexOf(F.p); if (wbOn() && i === 0) { S.wb = null; saveState(); window.scrollTo(0, 0); render(); return; } fbGo(F.p === 'start' ? L[L.length - 1] : i > 0 ? L[i - 1] : 'hallo'); };
 // Eine Frage = ein Tippen, dann geht es weiter (kurz die Wahl zeigen).
 ACT['fb-a'] = function (el) { var F = fb(); F.a[el.dataset.q] = el.dataset.v; saveState(); render(); setTimeout(fbNext, 260); };
 ACT['fb-sex'] = function (el) { S.sex = el.dataset.v; saveState(); render(); };
@@ -4726,15 +4792,19 @@ function stageEst(key) {
 // Startstufe aus S.base (Testtag oder Fragebogen). Der Fragebogen ist eine Angabe, keine Messung: die ersten 2 Einheiten stuft der Coach nach.
 function baseOf(key) {
   var lad = LAD[key], out = { idx: 0, fb: false };
-  Object.keys(S.base || {}).forEach(function (n) { var g = GL[n], b = S.base[n]; if (g && g.key === key) { var i = stageIndex(lad, b.stage); if (i) { out.idx = i; out.fb = b.src === 'fb'; } } });
+  Object.keys(S.base || {}).forEach(function (n) { var g = GL[n], b = S.base[n]; if (g && g.key === key) { var i = stageIndex(lad, b.stage); if (i) { out.idx = i; out.fb = b.src === 'fb'; out.wb = b.src === 'wb'; out.date = b.date || null; out.pre = b.pre ? stageIndex(lad, b.pre) : 0; } } });
   return out;
+}
+// Wiedereinstieg: die Einschätzung gilt ab ihrem Datum, der Verlauf davor zählt für die Stufe nicht mehr.
+function sinceBase(h, bs) { return bs.date ? h.filter(function (e) { return e.date >= bs.date; }) : h;
 }
 function coachStage(key, hi) {
   var lad = LAD[key]; if (!lad || !lad.steps || !lad.steps.length) return null;
   var kl = sehneKl(key), h = ladHist(key), rg = rangeOf(lad), top = hi || (rg ? rg.hi : 6), lo = rg ? rg.lo : 3;
   var bs = baseOf(key), bi = bs.idx, bFb = bs.fb;
+  h = sinceBase(h, bs);
   if (!h.length) {
-    if (bi) return { idx: bi, kl: kl, fb: bFb };
+    if (bi) return { idx: bi, kl: kl, fb: bFb, wb: bs.wb ? { pre: bs.pre } : null };
     var e = stageEst(key); return { idx: e.idx, kl: kl, est: e };
   }
   var last = h[h.length - 1], cur = last.idx, out = { idx: cur, kl: kl }, gap = partPause(lad.muster, last.date);
@@ -4752,7 +4822,7 @@ function coachStage(key, hi) {
   if (!isKg && !last.soft && cur > 1 && lr.length >= 2 && lr.filter(function (v) { return v < lo; }).length >= 2) { out.idx = cur - 1; out.hard = { lo: lo }; return out; }
   // Einstufung: die ersten 2 Einheiten einer geschätzten Leiter. Alle Runden oben → sofort eine Stufe höher, ohne Sehnen-Wartezeit
   // (der Start war vorsichtig). Nie zurück auf eine Stufe, die schon zu schwer war.
-  if ((!bi || bFb) && !isKg && h.length <= 2 && cur < lad.steps.length && lr.length >= 2 && Math.min.apply(null, lr) >= top && !h.some(function (x) { return x.idx > cur; })) {
+  if ((!bi || bFb || bs.wb && (!bs.pre || cur < bs.pre)) && !isKg && h.length <= 2 && cur < lad.steps.length && lr.length >= 2 && Math.min.apply(null, lr) >= top && !h.some(function (x) { return x.idx > cur; })) {
     var nx0 = lad.lib && lad.lib.stufen && lad.lib.stufen[cur];
     if (!nx0 || eqOk(nx0.equipment, haveEq(trainOrt()))) { out.idx = cur + 1; out.up = true; out.cal = true; return out; }
   }
@@ -4781,6 +4851,7 @@ function coachStage(key, hi) {
 function brakeNote(name, cs) {
   if (!cs) return '';
   var lad = ladFor(name), st = lad ? stageText(lad.steps[cs.idx - 1]) : '';
+  if (cs.wb) return '<b>' + esc(name) + '</b>' + ': Wiedereinstieg mit „' + esc(st) + '“, deine Einschätzung.' + (cs.wb.pre > cs.idx ? ' Sind alle Runden oben, geht es ohne Wartezeit eine Stufe hoch, bis „' + esc(stageText(ladFor(name).steps[cs.wb.pre - 1])) + '“.' : '');
   if (cs.fb) return '<b>' + esc(name) + '</b>' + ': Start mit „' + esc(st) + '“ aus deinem Fragebogen. Die ersten 2 Einheiten stuft dein Coach nach.';
   if (cs.est) return '<b>' + esc(name) + '</b>' + ' ist neu. Start mit „' + esc(st) + '“, ' + estWhy(cs.est) + '. Die ersten 2 Einheiten stuft dein Coach nach.';
   if (cs.cal) return '<b>' + esc(name) + '</b>' + ': Einstufung, letztes Mal alle Runden oben. Heute „' + esc(st) + '“.';
@@ -4849,8 +4920,8 @@ function skillHist(key) {
 // Steigerung über die Haltezeit (Strecke beim Walk): zweimal das obere Ende der Spanne → nächste Stufe (Sehnen-Bremse, eine pro Durchgang,
 // nicht in der Entlastung), zweimal unter der Hälfte des unteren Endes → eine Stufe leichter. Pause = Tage ohne Krafttraining.
 function skillStage(key) {
-  var lad = LAD[key], n = lad.steps.length, kl = sehneKl(key), rg = rangeOf(lad) || { lo: 20, hi: 30 }, h = skillHist(key);
-  if (!h.length) { var bs = baseOf(key); return bs.idx ? { idx: bs.idx, kl: kl, fb: bs.fb } : { idx: 1, kl: kl, neu: true }; }
+  var lad = LAD[key], n = lad.steps.length, kl = sehneKl(key), rg = rangeOf(lad) || { lo: 20, hi: 30 }, bs = baseOf(key), h = sinceBase(skillHist(key), bs);
+  if (!h.length) return bs.idx ? { idx: bs.idx, kl: kl, fb: bs.fb, wb: bs.wb ? { pre: bs.pre } : null } : { idx: 1, kl: kl, neu: true };
   var last = h[h.length - 1], cur = last.idx, out = { idx: cur, kl: kl, last: last.val };
   var lk = null; for (var q = LOGS.length - 1; q >= 0; q--) if (LOGS[q].kind === 'kraft') { lk = LOGS[q].date; break; }
   var gap = daysBetween(parseISO(lk && lk > last.date ? lk : last.date), new Date());
@@ -4859,6 +4930,8 @@ function skillStage(key) {
   var vals = h.slice(i).filter(function (e) { return e.val != null; }).slice(-2).map(function (e) { return e.val; });
   if (vals.length === 2 && cur > 1 && vals.every(function (v) { return v < rg.lo / 2; })) { out.idx = cur - 1; out.hard = { lo: rg.lo / 2 }; return out; }
   out.top = rg.hi; out.atTop = vals.filter(function (v) { return v >= rg.hi; }).length;
+  // Wiedereinstieg: bis zum Stand vor der Pause reicht einmal das obere Ende, ohne Sehnen-Wartezeit.
+  if (bs.wb && (!bs.pre || cur < bs.pre) && h.length <= 2 && last.val != null && last.val >= rg.hi) { out.idx = cur + 1; out.up = true; out.cal = true; return out; }
   if (!(vals.length === 2 && out.atTop === 2) || cur >= n) return out;
   var nx = lad.lib && lad.lib.stufen && lad.lib.stufen[cur];
   if (nx && !eqOk(nx.equipment, haveEq(trainOrt()))) { out.wait = { why: 'geraet', miss: eqMissing(nx.equipment, haveEq(trainOrt())) }; return out; }
@@ -5316,7 +5389,7 @@ function weekCardHTML(tag) {
   return h + '</section>';
 }
 function renderHeute() {
-  if (!S.started) return onboardingHTML();
+  if (!S.started || wbOn()) return onboardingHTML();
   if (S.review) return reviewHTML();
   if (raceDue() && !ui.viewTag) return raceHTML();
   var lock = doneToday0(), tag = viewTag(), c = dayCtx(tag);
@@ -5402,10 +5475,11 @@ function renderHeute() {
       notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; }));
     }
     if (d.type !== 'kraft' && !c.isTest && !c.isMurph) h += runSegHTML(runMode(D)) + '<section class="card">' + ergoTargetHTML(todayRunSpec(tag)) + '</section>';
-    var at = +(D._at || 0);
+    var at = +(D._at || 0), wbAsk = cur && !at && wbDue(d);
+    if (wbAsk) h += wbCardHTML();
     h += '<section class="card tl-card">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
       return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
-    }).join('') + '</ol>' + (cur ? '<button type="button" class="btn primary block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : 'Training starten') + '</button>' : '') + '</section>';
+    }).join('') + '</ol>' + (cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '') + '</section>';
     if (cur && !c.isTest && !c.isMurph) h += coachCardHTML(tag, miss);
     if (cur && !c.isTest && !c.isMurph && d.type === 'kraft' && (d.kraft.length || d.mmin)) h += adaptLineHTML(tag, false);
     else if (cur && d.type === 'interval') h += adaptLineHTML(tag, true);
@@ -5459,6 +5533,7 @@ function coachItem(k, t) { return '<div class="co-it"><span class="co-ic ' + CI[
 function skillNote(key, after) {
   var lad = LAD[key], cs = skillStage(key), nm = '<b>' + esc(lad.name) + '</b>', st = function (i) { return '„' + esc(stageText(lad.steps[i - 1])) + '“'; }, u = skillUnit(lad);
   if (cs.neu) return coachItem('plus', 'Neu im Skill-Block: ' + nm + ', Start mit ' + st(1) + '.');
+  if (cs.wb) return coachItem('plus', 'Skill-Block: ' + nm + ', Wiedereinstieg mit ' + st(cs.idx) + ', deine Einschätzung.');
   if (cs.fb) return coachItem('plus', 'Skill-Block: ' + nm + ', Start mit ' + st(cs.idx) + ' aus deinem Fragebogen.');
   if (cs.up) return coachItem('up', nm + ': zweimal ' + cs.top + ' ' + u + ' geschafft. ' + (after ? 'Nächstes Mal ' : 'Heute ') + st(cs.idx) + '.');
   if (cs.hard) return coachItem('i', nm + ': zweimal unter ' + cs.hard.lo + ' ' + u + '. ' + (after ? 'Nächstes Mal' : 'Heute') + ' eine Stufe leichter, ' + st(cs.idx) + '.');
