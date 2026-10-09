@@ -30,6 +30,8 @@ Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testt
   Behoben: Eingelaufen wird nur im Lauf-ABC, die Laufliste beginnt direkt mit dem Hauptteil, endet mit 5 Min Auslaufen.
 - Dennis: „Schreib dazu, ab wann man die Pulsuhr starten soll.“ Laufliste: „Pulsuhr starten, direkt nach dem Lauf-ABC“ und am Ende
   „Pulsuhr stoppen“; dazu ein Satz im Lauf-ABC und unter „Ergebnis von der Uhr“. Die vorgeschlagene Dauer zählt ab dann (ohne Lauf-ABC).
+- Dennis: „Hast du das auch beim Ergometer eingebaut?“ Jetzt ja: Pulsuhr und Anzeige am Ergometer starten mit dem Hauptteil (Schritt 2),
+  Stopp nach dem Ausfahren; die vorgeschlagene Dauer zählt ohne Einfahren (`clockSec`).
 
 ## Wiedereinstieg: Welchen Stand siehst du bei dir? (9. Oktober)
 - Dennis fragte, ob man den Fragebogen manuell starten kann, und schlug vor, ihn nach langer Pause als Ergänzung zu nehmen („Welchen Stand siehst

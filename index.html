@@ -5013,9 +5013,9 @@ function stepsOf(c) {
   if ((d.type === 'easy' || d.type === 'interval') && c.cur && runMode(D0) === 'ergo') {
     var es = todayRunSpec(tag), EW = ergoPart(es, 'warm'), EM = ergoPart(es, 'main'), eT = es.name;
     return [{ id: 'ewarm', title: 'Einfahren', sub: seqMin(EW) + ' Min · in Stufen', dur: seqMin(EW), desc: EW.map(function (q) { return q.watt; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' → ') + ' W',
-        timer: ergoTimer(es, 'warm'), body: function () { return '<p class="small muted">Bei jedem Wechsel die neue Wattzahl am Ergometer einstellen.</p><section class="card">' + seqRowsHTML(EW) + '</section>'; } },
+        timer: ergoTimer(es, 'warm'), body: function () { return '<p class="small muted">Bei jedem Wechsel die neue Wattzahl am Ergometer einstellen. Die Pulsuhr startest du erst mit dem Hauptteil.</p><section class="card">' + seqRowsHTML(EW) + '</section>'; } },
       { id: 'ergo', title: eT, sub: seqMin(EM) + ' Min · Ergometer', dur: seqMin(EM), desc: EM.filter(function (q) { return q.kind === 'work'; })[0] ? EM.filter(function (q) { return q.kind === 'work'; })[0].watt + ' W' : '',
-        timer: ergoTimer(es, 'main'), body: function (D) { return runHTML(c, D, es, true); } }];
+        timer: ergoTimer(es, 'main'), body: function (D) { return '<p class="small muted">Jetzt die Pulsuhr starten und die Anzeige am Ergometer auf null setzen. Stoppen nach dem Ausfahren.</p>' + runHTML(c, D, es, true); } }];
   }
   if (d.type !== 'kraft') return [];
   var out = [], rounds = kraftRounds(tag), names = d.kraft.map(function (k) { return k.pain && k.pain.skip ? 'Pause' : k.n; });
@@ -5908,11 +5908,13 @@ function runCap(d, spec) {
   return cap < spec.min ? Object.assign({}, spec, { min: cap, capped: spec.min }) : spec;
 }
 function planRunSec(spec) { return kardioSec(spec); }
+// Was die Uhr misst (Dennis): Laufen ab dem Ende des Lauf-ABC, Ergometer ab dem Hauptteil, jeweils bis zum Ende (mit Auslaufen bzw. Ausfahren).
+function clockSec(spec) { return spec.ergo ? ergoSeq(spec).filter(function (q) { return !q.warm; }).reduce(function (a, q) { return a + q.dur; }, 0) : kardioSec(spec); }
 function runFrom(v, spec) {
-  var sec = num(v.runSec) || (num(v.runMin) != null ? num(v.runMin) * 60 : planRunSec(spec)), ergo = runMode(v) === 'ergo', km = parseKm(v.runKm), hr = num(v.runHr);
+  var sec = num(v.runSec) || (num(v.runMin) != null ? num(v.runMin) * 60 : clockSec(spec)), ergo = runMode(v) === 'ergo', km = parseKm(v.runKm), hr = num(v.runHr);
   var o = { kf: spec.kf, art: spec.kf, ergo: ergo, sec: sec, km: km, hr: hr, watt: ergo ? num(v.runW) : null };
   if (spec.type === 'interval') Object.assign(o, { stage: null, reps: spec.iv ? spec.iv.reps : null, work: spec.iv ? spec.iv.work : null, zone: spec.zone || null, done: num(v.ivDone), watt: ergo ? (v.runW || '') : '' });
-  else { o.min = Math.round(sec / 60); o.target = Math.round(planRunSec(spec) / 60); if (spec.kf === 'locker') delete o.art; }
+  else { o.min = Math.round(sec / 60); o.target = Math.round(clockSec(spec) / 60); if (spec.kf === 'locker') delete o.art; }
   return o;
 }
 function runMode(D) { return D.mode ? D.mode : D.ergo ? 'ergo' : chal() ? chal().mode : 'lauf'; }
@@ -6408,11 +6410,11 @@ function runHTML(c, D, spec, inStep) {
   h += '<section class="card"><p class="hand big-quote">' + esc(spec.quote) + '</p><p>' + esc(spec.desc) + '</p>' + (ergo ? ergoListHTML(spec, inStep) : kardioRunListHTML(spec)) +
     (spec.zone ? '<div class="chips"><span class="chip">' + esc(zoneText(spec.zone)) + '</span>' + (spec.lite ? '<span class="chip">' + (chal() && chalLeft() <= 14 ? 'Taper' : 'Entlastung') + '</span>' : '') + '</div>' : '') +
     (spec.capped ? '<p class="tl-x">Heute ' + spec.min + ' statt ' + spec.capped + ' Min: diese Woche höchstens 1,3-mal so viel wie dein Schnitt der letzten 4 Wochen. Sehnen und Knochen brauchen Zeit.</p>' : '') + kardioTargetHTML(spec) + '</section>';
-  var sec = num(D.runSec) || (D.runMin ? num(D.runMin) * 60 : planRunSec(spec)), hr = num(D.runHr), km = parseKm(D.runKm), watt = num(D.runW);
+  var sec = num(D.runSec) || (D.runMin ? num(D.runMin) * 60 : clockSec(spec)), hr = num(D.runHr), km = parseKm(D.runKm), watt = num(D.runW);
   var v = runVerdict(kind, ergo, sec, km, hr, watt, art), pace = km ? sec / km : null, ref = runRef(kind, ergo, art);
   function bar(dir, at) { return at == null ? '' : '<span class="bar ' + dir + '"><i style="left:' + at + '%"></i></span>'; }
   var kmTile = '<label class="tile' + (km ? ' set' : '') + '"><small>Strecke' + (ergo ? ' · optional' : '') + '</small><span class="km"><input type="text" inputmode="decimal" autocomplete="off" data-draft="runKm" value="' + val(D, 'runKm') + '" placeholder="0,000" aria-label="Strecke in km"><span class="unit">km</span></span></label>';
-  h += '<section class="card"><h2>' + (ergo ? 'Ergebnis vom Ergometer' : 'Ergebnis von der Uhr') + '</h2>' + (ergo ? '' : '<p class="small muted">Gemessen ab dem Ende des Lauf-ABC bis zum Ende des Laufs.</p>') + '<div class="pick-grid">' +
+  h += '<section class="card"><h2>' + (ergo ? 'Ergebnis vom Ergometer' : 'Ergebnis von der Uhr') + '</h2>' + '<p class="small muted">' + (ergo ? 'Gemessen ab dem Hauptteil bis zum Ende des Ausfahrens.' : 'Gemessen ab dem Ende des Lauf-ABC bis zum Ende des Laufs.') + '</p>' + '<div class="pick-grid">' +
     tile('Dauer', '<b>' + fmtDur(sec) + ' <span class="unit">' + (sec >= 3600 ? 'h' : 'Min') + '</span></b>', pickAttrs({ dur: 1, f: 'runSec', def: sec, title: 'Dauer' }), 'set') +
     tile('Puls Ø', '<b>' + (hr ? hr + ' <span class="unit">bpm</span>' : '–') + '</b>' + (v ? bar('down', v.hPos) : ''), pickAttrs({ f: 'runHr', min: 60, max: 220, unit: 'bpm', def: (ref.filter(function (r) { return r.hr; }).slice(-1)[0] || { hr: 140 }).hr, title: 'Puls Ø' }), hr ? 'set ' + toneOf(v && v.p) : '');
   if (ergo) {
