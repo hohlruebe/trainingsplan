@@ -557,6 +557,22 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .fl-h{display:flex;align-items:baseline;gap:10px;width:100%;min-height:44px;padding:8px 12px;border:0;border-radius:20px;background:transparent;color:inherit;font-family:var(--text);font-size:15px;text-align:left;cursor:pointer}
 .fl-h .qty{min-width:84px;white-space:nowrap}
 .fl-n{flex:1 1 0;min-width:0}
+.k-view{margin-bottom:10px}
+.k-one.now .card-head::after{content:none}
+.chip.ok{background:#E8F7EE;color:#1F6F42}[data-theme=dark] .chip.ok{background:#22382B;color:#8FD9AE}
+.rbtn.pn-flag{width:44px;height:44px;flex:none;color:var(--red);background:color-mix(in srgb,var(--red) 12%,var(--paper))}.pn-flag svg{width:20px;height:20px}
+.k-one .card-head,.k-min .card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.k-dots{display:flex;justify-content:center;gap:4px;margin:0 0 8px}.k-dot{width:44px;height:28px;border:0;background:transparent;padding:0;cursor:pointer;display:grid;place-items:center}
+.k-dot span{display:block;width:8px;height:8px;border-radius:8px;background:var(--line2);transition:width .2s}.k-dot.on span{width:24px;background:var(--acc)}
+.k-rs{display:grid;gap:6px;margin:10px 0}.k-r{border:0;border-radius:14px;background:var(--board);padding:6px 0;min-height:48px;color:var(--ink);font-family:var(--text);cursor:pointer}
+.k-r small{display:block;font-size:12.5px;color:var(--ink2)}.k-r b{font-family:var(--hand);font-size:19px}.k-r.set b{color:var(--ink)}.k-r.on{box-shadow:0 0 0 2px var(--acc);background:var(--paper)}
+.k-cnt{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--board);border-radius:18px;padding:8px 8px 8px 14px;margin-top:8px}.k-cnt .stepper{background:transparent}.k-cnt .stepper b{min-width:70px}
+.k-list{padding:6px 12px}.k-min{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:6px 2px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:600 16px var(--text);text-align:left;cursor:pointer}
+.k-min .k-n{flex:1}.k-min b{font-family:var(--hand);font-size:19px}.k-min.set{color:var(--ink2)}
+.k-no{flex:none;width:30px;height:30px;border-radius:50%;background:var(--board);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink2)}.k-min.set .k-no{background:#E8F7EE;color:#1F8A4C}
+.k-min.on{display:block;border:2px solid var(--acc);border-radius:18px;padding:10px 12px;margin:6px -4px;cursor:default}.k-min.on .k-n{display:block;font-size:19px}
+.k-now{display:block;font-size:13px;font-weight:700;color:var(--acc)}.k-mrow{display:flex;gap:10px;align-items:center;margin:6px 0}.k-mfig .mini-fig{width:44px;height:58px;background:var(--fig);border-radius:12px}
+.k-mrow p{margin:2px 0}
 .undo{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,20px);width:min(420px,calc(100% - 32px));box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 18px;border-radius:18px;background:#1D1D22;color:#fff;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
 .undo.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .undo button{flex:none;min-height:44px;padding:0 14px;border:0;border-radius:14px;background:transparent;color:#8DB8FF;font:600 16px var(--text);cursor:pointer}
@@ -2438,7 +2454,7 @@ var TEST_BASE = {
   T3_ROWS: { 0: 'Ring Chin-up', 1: 'Bulgarian Split Squat', 2: 'Ab Wheel Rollout' }
 };
 
-var DEF = { v: 1, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
+var DEF = { v: 1, kraftView: null, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null };
@@ -4561,7 +4577,7 @@ function routineListHTML(r) {
   return '<ul class="rlist">' + r.bloecke.map(function (b, i) { return '<li data-bi="' + i + '"><span>' + esc(ueName(b.uebung)) + '</span><span class="muted">' + esc(blockText(b)) + '</span></li>'; }).join('') + '</ul>';
 }
 /* ---------- Ablauf im Training: Einzeln (eine Übung pro Bildschirm) oder Liste (Glas-Kapsel, aktuelle Übung offen) ---------- */
-var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['cool', 'Cool-down']];
+var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['metcon', 'Metcon · WOD'], ['cool', 'Cool-down']];
 var TRAIN_STD = { warm: 'list', kraft: 'list', metcon: 'list', murph: 'list', cool: 'single' };
 function modeOf(t) { var m = S.trainCustom && S.trainModes ? S.trainModes[t] : null; return m === 'single' || m === 'list' ? m : TRAIN_STD[t]; }
 function flowItem(n, qty, x, key, note) {
@@ -5052,43 +5068,101 @@ function kgOfEx(x, i, stage, D, rounds) {
   for (var r = 0; r < rounds; r++) { var v = num(D['k' + i + 'kg' + r]); if (v != null) prev = v; kg.push(prev); }
   return { id: id, rec: rec, rir: rir, kg: kg };
 }
-function kraftStepHTML(tag, D, rounds) {
-  var d = DAYS[tag], test = isTestCycle(tag), n = d.kraft.length;
-  var h = '<p class="small muted">Stufe so wählen, dass die Zielspanne mit RIR 2 klappt. Schwerste Übung zuerst.</p>';
-  if (test) h += '<p class="flag">' + (d.maxout === 'all' ? 'Test-Durchgang: der erste Satz jeder Übung ist ein Maxout – so viele saubere Wdh. wie möglich, danach normal weiter.' : 'Test-Durchgang: Runde 1 von ' + esc(d.kraft[d.maxout] ? d.kraft[d.maxout].n : '') + ' ist ein Maxout – so viele saubere Wdh. wie möglich, danach normal weiter.') + '</p>';
-  d.kraft.forEach(function (x, i) {
-    var sub = x.pain && !x.pain.soft && !x.pain.kater, g = GL[x.n], lad = sub ? null : ladFor(x.n), last = lastFor(x.n), base = sub ? null : S.base[x.n], sf = 'k' + i + 'stage';
-    var cs = lad ? coachStage(g.key, x.hi) : null, bn = brakeNote(x.n, cs), cmax = cs ? cs.idx : null;
-    var stage = sub ? '' : D[sf] != null ? D[sf] : stageDef(x.n, x.hi), hint = '';
-    var K = kgOfEx(x, i, stage, D, rounds), kid = K ? K.id : null, rec = K ? K.rec : null;
-    // Mit Gewicht steht das Letzte Mal als „Wdh. × kg“; die Steigerung sagt die Empfehlung.
-    if (last) {
-      var lk = kid && last.kg ? last.kg.filter(function (w, r) { return w != null && last.reps[r] != null; }) : [], same = lk.length && lk.every(function (w) { return w === lk[0]; });
-      hint = 'Letztes Mal: ' + (last.stage ? esc(stageText(last.stage)) + ', ' : '') + last.reps.map(function (v, r) { return v == null ? null : v + (lk.length && !same && last.kg[r] ? ' × ' + esc(fmtKg(last.kg[r], kid)) : ''); }).filter(function (v) { return v != null; }).join(' / ') +
-        (same ? ' × ' + esc(fmtKg(lk[0], kid)) : '') + (bn || kid ? '' : esc(suggest(x, last)));
-    }
-    if (bn) hint += (hint ? '<br>' : '') + bn;
-    else if (base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
-    // Übung mit Gewicht: Empfehlung oben, je Satz Gewicht und Wdh. im selben Rad.
-    var cells = '';
-    for (var r = 0; r < rounds; r++) {
-      var f = 'k' + i + 'r' + r, v = D[f], minute = r * n + i + 1, mx = test && r === 0 && (d.maxout === 'all' || d.maxout === i), lab = 'Min ' + minute;
-      var kw = K ? K.kg[r] : null;
-      cells += '<button type="button" class="cell' + (v ? ' set' : '') + (kid ? ' kgc' : '') + '" data-cell="' + i + '-' + r + '" ' +
-        pickAttrs({ f: f, sf: lad ? sf : null, sdef: stage, lad: lad ? g.key : null, cmax: cmax, min: 0, max: 60, unit: 'Wdh.', def: defRep(D, x.n, i, r), title: x.n + ' · ' + lab, kg: kid ? 'k' + i + 'kg' + r : null, kgdef: kid ? (kw != null ? kw : rmAdd(kid) ? 0 : 20) : null, kgid: kid }) +
-        '><small>' + (mx ? 'Max · ' : '') + lab + '</small><b>' + (v ? esc(v) : '–') + '</b>' + (kid ? '<small class="kgv">' + (kw != null ? esc(fmtKg(kw, kid)) : '– kg') + '</small>' : '') + '</button>';
-    }
-    if (x.pain && x.pain.skip) { cells = ''; hint = ''; K = null; kid = null; }
-    var kgLine = kid ? '<div class="kg-rec"><span class="small muted">Empfohlen</span><b>' + (rec ? esc(fmtKg(rec.kg, kid)) : 'herantasten') + '</b><span class="small muted">' + esc(rec ? rec.why : 'Noch kein Wert: leicht starten und steigern, bis ' + (x.target || '') + ' Wdh. mit RIR ' + K.rir + ' klappen.') + '</span></div>' : '';
-    var fk = g ? g.key : '';
-    h += '<section class="card ex-card" data-ex="' + i + '"><div class="card-head"><h3>' + gl(x.n) + '</h3><span class="small muted">' + esc(x.target) + '</span></div>' +
-      '<div class="ex-fig" hidden>' + figBox(fk) + (GRIP[fk] ? '<p class="grip">' + esc(GRIP[fk]) + '</p>' : '') + '</div>' +
-      (x.note ? '<p class="small muted">' + esc(x.note) + '</p>' : '') +
-      (/je Seite/.test(x.target || '') ? '<p class="small muted">Schwache Seite zuerst, sie zählt. Die starke Seite macht gleich viele.</p>' : '') + (hint ? '<p class="small hint">' + hint + '</p>' : '') +
-      (lad ? stageRow('Stufe', stage, { sf: sf, sdef: stage, lad: g.key, cmax: cmax, title: x.n }) : '') + kgLine +
-      (cells ? '<div class="cells" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div>' : '') + painLinkHTML(x, i) + '</section>';
-  });
+// Kraft: zwei Ansichten mit Umschalter (Dennis): „Übung“ = nur die laufende Übung groß, „Minuten“ = jede EMOM-Minute eine Zeile.
+// Die Stufe setzt der Coach (Chip, nicht wählbar), eingetragen wird mit dem Zähler. Wechselt die Minute, steht in der fertigen Minute der Vorschlag.
+function kraftView() { return S.kraftView === 'min' ? 'min' : 'ex'; }
+function kraftEx(tag, D, rounds, x, i) {
+  var d = DAYS[tag], sub = x.pain && !x.pain.soft && !x.pain.kater, g = GL[x.n], lad = sub ? null : ladFor(x.n), last = lastFor(x.n), base = sub ? null : S.base[x.n];
+  var cs = lad ? coachStage(g.key, x.hi) : null, bn = brakeNote(x.n, cs);
+  var stage = sub ? '' : D['k' + i + 'stage'] != null ? D['k' + i + 'stage'] : stageDef(x.n, x.hi), hint = '';
+  var K = kgOfEx(x, i, stage, D, rounds), kid = K ? K.id : null;
+  if (last) {
+    var lk = kid && last.kg ? last.kg.filter(function (w, r) { return w != null && last.reps[r] != null; }) : [], same = lk.length && lk.every(function (w) { return w === lk[0]; });
+    hint = 'Letztes Mal: ' + (last.stage ? esc(stageText(last.stage)) + ', ' : '') + last.reps.map(function (v, r) { return v == null ? null : v + (lk.length && !same && last.kg[r] ? ' × ' + esc(fmtKg(last.kg[r], kid)) : ''); }).filter(function (v) { return v != null; }).join(' / ') +
+      (same ? ' × ' + esc(fmtKg(lk[0], kid)) : '');
+  }
+  if (bn) hint += (hint ? '<br>' : '') + bn;
+  else if (!last && base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
+  var si = lad && stage ? lad.steps.indexOf(stage) : -1, skip = !!(x.pain && x.pain.skip);
+  var first = !!lad && !cs && !last && !base; // noch kein Verlauf: Stufe einmal selbst wählen
+  return { x: x, i: i, g: g, fk: g ? g.key : '', lad: lad, stage: stage, si: si, K: skip ? null : K, kid: skip ? null : kid, hint: skip ? '' : hint, skip: skip,
+    test: isTestCycle(tag) && (d.maxout === 'all' || d.maxout === i), first: first };
+}
+// Welche Minute ist dran: beim laufenden EMOM die Uhr, sonst die gewählte oder die erste ohne Eintrag.
+function kraftNow(tag, D, n, rounds) {
+  var key = draftKey(tag) + ':kraft', tot = n * rounds;
+  if (ui.kSel && ui.kSel.k === draftKey(tag) && ui.kSel.m < tot) return { m: ui.kSel.m, run: false };
+  if (TM.cfg && TM.cfg.step === key && TM.mode === 'emom' && !TM.finished && (TM.running || TM.acc > 0)) { var L = locate(elapsed()); if (L && L.p.kind !== 'pre') return { m: Math.min(tot - 1, L.i - 1), run: true }; }
+  for (var m = 0; m < tot; m++) if (D['k' + (m % n) + 'r' + Math.floor(m / n)] == null) return { m: m, run: false };
+  return { m: tot - 1, run: false };
+}
+function kStageChip(E) {
+  if (E.skip) return '<span class="chip">Heute ausgelassen</span>';
+  if (!E.lad) return '';
+  // Noch nie gemacht: der Coach kennt die Stufe nicht, einmal selbst wählen (die Stufe mit 3–6 sauberen Wdh.).
+  if (!E.stage || E.first) return '</div>' + stageRow('Erstes Mal · Stufe', E.stage, { sf: 'k' + E.i + 'stage', sdef: E.stage, lad: E.g.key, title: E.x.n }) + '<p class="small muted">Die Stufe, bei der 3–6 saubere Wdh. gehen. Ab dann setzt sie dein Coach.</p><div class="chips">';
+  return '<span class="chip ok">✓ Stufe ' + (E.si + 1) + ' · ' + stageHTML(E.stage) + '</span>';
+}
+function kFlag(E) {
+  var P = E.x.pain, weg = P && (P.src === 'hand' || P.src === 'mem');
+  return '<button type="button" class="rbtn pn-flag" data-act="' + (weg ? 'pain-off' : 'pain') + '" data-i="' + E.i + '" aria-label="' + (weg ? 'Schmerzen weg' : 'Schmerzen') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></button>';
+}
+function kCounter(tag, D, E, r) {
+  if (E.skip) return '';
+  var f = 'k' + E.i + 'r' + r, v = num(D[f]), def = defRep(D, E.x.n, E.i, r), h = '';
+  h += '<div class="k-cnt"><span><b>Runde ' + (r + 1) + '</b>' + (E.test && r === 0 ? ' · Maxout' : '') + '<br><span class="small muted">' + (v == null ? 'Vorschlag' : 'Wiederholungen') + '</span></span>' +
+    '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-1" data-def="' + def + '" aria-label="Weniger">–</button><b' + (v == null ? ' class="muted" data-act="k-rep" data-f="' + f + '" data-d="0" data-def="' + def + '"' : '') + '>' + (v == null ? def : v) + '</b>' +
+    '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="1" data-def="' + def + '" aria-label="Mehr">+</button></div></div>';
+  if (E.kid) {
+    var w = E.K.kg[r], st = kgStep(E.kid);
+    h += '<div class="k-cnt"><span><b>Gewicht</b><br><span class="small muted">' + (E.K.rec ? 'Empfohlen ' + esc(fmtKg(E.K.rec.kg, E.kid)) : 'leicht starten') + '</span></span>' +
+      '<div class="stepper"><button type="button" data-act="k-kg" data-f="k' + E.i + 'kg' + r + '" data-d="-' + st + '" data-def="' + (w != null ? w : 20) + '" aria-label="Leichter">–</button><b>' + (w != null ? esc(fmtKg(w, E.kid)) : '–') + '</b>' +
+      '<button type="button" class="primary" data-act="k-kg" data-f="k' + E.i + 'kg' + r + '" data-d="' + st + '" data-def="' + (w != null ? w : 20) + '" aria-label="Schwerer">+</button></div></div>';
+  }
   return h;
+}
+function kraftStepHTML(tag, D, rounds) {
+  var d = DAYS[tag], n = d.kraft.length, view = kraftView(), now = kraftNow(tag, D, n, rounds), ci = now.m % n, cr = Math.floor(now.m / n), k = draftKey(tag);
+  var E = d.kraft.map(function (x, i) { return kraftEx(tag, D, rounds, x, i); });
+  var h = '<div class="seg k-view" role="group" aria-label="Ansicht">' + [['ex', 'Übung'], ['min', 'Minuten']].map(function (o) {
+    return '<button type="button" class="seg-btn' + (view === o[0] ? ' on' : '') + '" data-act="k-view" data-v="' + o[0] + '" aria-pressed="' + (view === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>';
+  h += '<p class="small muted">Die Stufe setzt dein Coach. Du zählst nur deine Wiederholungen.</p>';
+  if (isTestCycle(tag)) h += '<p class="flag">Test-Durchgang: Runde 1 von ' + esc(d.maxout === 'all' ? 'jeder Übung' : d.kraft[d.maxout] ? d.kraft[d.maxout].n : '') + ' ist ein Maxout, danach normal weiter.</p>';
+  var cue = function (e) { var g = e.g, t = g ? shortCue(g.cue) : ''; return t ? '<p class="small">' + esc(t) + '</p>' : ''; };
+  var val = function (e, r) { var v = D['k' + e.i + 'r' + r]; return v != null ? esc(v) : '–'; };
+  if (view === 'ex') {
+    var e = E[ci];
+    h += '<div class="k-dots" role="group" aria-label="Übungen">' + E.map(function (x, i) {
+      var m0 = 0; for (var r = 0; r < rounds; r++) if (D['k' + i + 'r' + r] == null) { m0 = r * n + i; break; } else m0 = r * n + i;
+      return '<button type="button" class="k-dot' + (i === ci ? ' on' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + m0 + '" aria-label="' + esc(x.x.n) + '"><span></span></button>'; }).join('') + '</div>';
+    var cells = '';
+    for (var r = 0; r < rounds; r++) cells += '<button type="button" class="k-r' + (r === cr ? ' on' : '') + (D['k' + e.i + 'r' + r] != null ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + (r * n + e.i) + '"><small>Min ' + (r * n + e.i + 1) + '</small><b>' + val(e, r) + '</b></button>';
+    h += '<section class="card ex-card k-one" data-ex="' + e.i + '"><div class="card-head"><h3>' + gl(e.x.n) + '</h3>' + kFlag(e) + '</div>' +
+      '<div class="chips"><span class="chip">' + esc(e.x.target) + '</span>' + kStageChip(e) + '</div>' +
+      (e.skip ? '' : figBox(e.fk) + (GRIP[e.fk] ? '<p class="grip">' + esc(GRIP[e.fk]) + '</p>' : '')) + (e.x.pain ? '<p class="tl-x">' + esc(painText(e.x, true)) + '</p>' : '') + cue(e) +
+      (/je Seite/.test(e.x.target || '') ? '<p class="small muted">Schwache Seite zuerst, sie zählt.</p>' : '') + (e.hint ? '<p class="small hint">' + e.hint + '</p>' : '') +
+      (e.skip ? '' : '<div class="k-rs" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div>' + kCounter(tag, D, e, cr)) + '</section>';
+  } else {
+    var rows = '';
+    for (var m = 0; m < n * rounds; m++) {
+      var x = E[m % n], r2 = Math.floor(m / n), v = D['k' + x.i + 'r' + r2];
+      if (m === now.m) {
+        rows += '<div class="k-min on"><div class="card-head"><span><small class="k-now">Minute ' + (m + 1) + (now.run ? ' · jetzt' : '') + '</small><b class="k-n">' + esc(x.x.n) + '</b></span>' + kFlag(x) + '</div>' +
+          '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(x.fk) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' +
+          (x.x.pain ? '<p class="tl-x">' + esc(painText(x.x, true)) + '</p>' : '') + kCounter(tag, D, x, r2) + '</div>';
+      } else {
+        rows += '<button type="button" class="k-min' + (v != null ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + m + '"><span class="k-no">' + (v != null ? '✓' : m + 1) + '</span><span class="k-n">' + esc(x.x.n) + '</span><b>' + (x.skip ? '<span class="small muted">aus</span>' : v != null ? esc(v) : '–') + '</b></button>';
+      }
+    }
+    h += '<section class="card k-list">' + rows + '</section>';
+  }
+  return h;
+}
+// Minute vorbei: in der fertigen Minute steht der Vorschlag, korrigieren geht mit dem Zähler.
+function kraftAutoFill(tag, m) {
+  var d = DAYS[tag], n = d.kraft.length, i = m % n, r = Math.floor(m / n), x = d.kraft[i], f = 'k' + i + 'r' + r, D = dr(tag);
+  if (!x || (x.pain && x.pain.skip) || D[f] != null) return;
+  setDraft(f, defRep(D, x.n, i, r));
 }
 // Metcon-Übung mit Gewicht: gewählter Wert oder Empfehlung.
 function mKg(tag, m, i, D) {
@@ -5917,6 +5991,10 @@ ACT['fix-save'] = function () {
   LOGS[i] = L; LS.set('tp.logs', LOGS); DELETED[old] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
   ui.fix = null; ui.tab = ui.fixBack || 'profil'; render(); toast('Korrigiert. Der Coach rechnet mit den neuen Werten.');
 };
+ACT['k-view'] = function (el) { S.kraftView = el.dataset.v; saveState(); render(); };
+ACT['k-sel'] = function (el) { ui.kSel = { k: el.dataset.k, m: +el.dataset.m }; render(); };
+ACT['k-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]), d = +el.dataset.d; v = v == null ? Math.max(0, (+el.dataset.def || 0) + d) : Math.max(0, v + d); setDraft(el.dataset.f, v); render(); };
+ACT['k-kg'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = (v == null ? +el.dataset.def : v) + (+el.dataset.d); setDraft(el.dataset.f, Math.max(0, Math.round(v * 10) / 10)); render(); };
 ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = v == null ? (+el.dataset.def || 0) : Math.max(0, v + (+el.dataset.d)); setDraft(el.dataset.f, v); render(); };
 ACT.layout = function (el) { S.layout = el.dataset.v; saveState(); render(); if (S.layout === 'desk' && !deskOn()) toast('Zu schmal für Desktop: ab 900 px Breite, z. B. am Mac.'); };
 ACT.step = function (el) {
@@ -6231,6 +6309,8 @@ function paintMini(L) {
   else if (TM.mode === 'emom') {
     var mi = L.i - 1, n = c.stations.length;
     title = 'Minute ' + (mi + 1) + ' von ' + c.minutes; sub = L.p.label + (L.p.next && L.p.next !== 'Fertig' ? ' · danach ' + L.p.next : '');
+    var sk = c.step && c.step.split(':').pop() === 'kraft';
+    if (sk && paintMini.kMi !== mi) { var pv = paintMini.kMi; paintMini.kMi = mi; ui.kSel = null; if (pv != null && pv >= 0 && pv < mi) kraftAutoFill(S.tag, pv); if (ui.tab === 'heute') { render(); return; } }
     var card = document.querySelector('.ex-card[data-ex="' + (mi % n) + '"]'), cell = document.querySelector('.cell[data-cell="' + (mi % n) + '-' + Math.floor(mi / n) + '"]');
     if (card) card.classList.add('now'); if (cell) cell.classList.add('now');
     syncFig(mi % n); emomNext(card, mi, L);
