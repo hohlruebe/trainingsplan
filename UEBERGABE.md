@@ -30,6 +30,8 @@ Stand: 8. Oktober 2026 (Übungen erklärt, Metcon-Liste und Zähler, Geschlecht 
   Einfachheit schwach, Barrierefreiheit und Kontrolle teils. Plan in sechs Paketen: 1 Rückgängig/Korrigieren, 2 Kraftschritt (eine Übung,
   Coach setzt Stufe), 3 Coach erklärt sich, 4 Heute aufräumen, 5 Einstellungen und Lesbarkeit, 6 Whiteboard-Grafiken.
 - Dennis: „Korrigieren immer. Löschen aber nur am gleichen Tag.“ Umgesetzt (siehe CLAUDE.md), dazu 10 s „Rückgängig“ nach dem Speichern.
+- Paket 5 (Einstellungen): Dennis wählte „Mittel“. Umgesetzt (siehe CLAUDE.md), dazu Textgröße in drei Stufen. Offen aus Paket 5: Mindestschrift
+  14 px, keine Großbuchstaben-Zeilen, Zustände mit Symbol. Offen: Paket 3 (Coach erklärt sich), 4 (Heute aufräumen), 6 (Whiteboard-Grafiken).
 - Paket 2: Board „Kraftschritt A/B/C“. Dennis: „A und C sind beide gut, genau so wollte ich die Möglichkeit zu wechseln.“ Umgesetzt als
   Umschalter „Übung | Minuten“ im Kraftschritt (siehe CLAUDE.md). Fertige Minuten bekommen den Vorschlag automatisch, korrigieren mit dem Zähler. Paket 5: Dennis ist unsicher, welche Einstellungen der
   Coach übernehmen soll; Empfehlung im Canvas.

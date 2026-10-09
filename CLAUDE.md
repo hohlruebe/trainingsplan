@@ -255,7 +255,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,
   Bibliothek (Familien-Seite, jede Übung), Mobility-Player (`#rp-fig`). Neue Grafik = nur in `Maskottchen.EXERCISES` eintragen.
-- Einstellungen in Abschnitten: Profil, Sync, Aussehen, Training, Gerät, Daten (`settingsHTML`, `trainingHTML`).
+- Einstellungen „Mittel“ (Dennis): Karte „Über dich“ (Name, Geschlecht, Gewicht, Geburtsjahr, Foto), Karte „Aussehen“ (Hell/System/Dunkel und
+  Textgröße A/A/A, `S.textSize` 's'/'m'/'l' nur auf dem Gerät, `html[data-text]` mit `zoom` auf `body`, `lookHTML`), dann „Sync über GitHub“, „Mehr“
+  (`moreHTML`: Hintergrund, Markerfarbe, Zahlen-Schrift, Countdown, Haptik, Gesten, Maximal-/Ruhepuls, Ansicht, Vollbild) und „Daten“ (Startdatum,
+  Export/Import, Zurücksetzen; `settingsHTML`). Trainings-Entscheidungen trifft der Coach: `modeOf` = `TRAIN_STD`, `roundMode()` = 'ex',
+  `timerModeOf` = `TIMER_STD`, Vollbild dreht immer mit, Lauf-ABC immer; „Stand setzen“ ist weg. Alte Werte bleiben in `S`, werden nicht mehr benutzt.
   Aussehen › Hintergrund (nur Hellmodus, `S.paper`, `PAPERS`): Weiß, Kreide, Leinen, Nebel. `applyTheme` setzt `data-paper` nur im Hellen.
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
 - Ist ein Blatt offen, scrollt der Hintergrund nicht (`html:has(.sheet-bg.open)`), Listen im Blatt haben `overscroll-behavior: contain`.

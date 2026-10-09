@@ -557,6 +557,7 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .fl-h{display:flex;align-items:baseline;gap:10px;width:100%;min-height:44px;padding:8px 12px;border:0;border-radius:20px;background:transparent;color:inherit;font-family:var(--text);font-size:15px;text-align:left;cursor:pointer}
 .fl-h .qty{min-width:84px;white-space:nowrap}
 .fl-n{flex:1 1 0;min-width:0}
+html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .k-view{margin-bottom:10px}
 .k-one.now .card-head::after{content:none}
 .chip.ok{background:#E8F7EE;color:#1F6F42}[data-theme=dark] .chip.ok{background:#22382B;color:#8FD9AE}
@@ -2454,7 +2455,7 @@ var TEST_BASE = {
   T3_ROWS: { 0: 'Ring Chin-up', 1: 'Bulgarian Split Squat', 2: 'Ab Wheel Rollout' }
 };
 
-var DEF = { v: 1, kraftView: null, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
+var DEF = { v: 1, textSize: 'm', kraftView: null, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null };
@@ -3510,15 +3511,17 @@ function renderPlan() {
   }).join('') + '</section>';
   return h;
 }
-function settingsHTML() {
-  var dark = isDark();
-  var h = '<h3 style="margin-top:0">Hell oder dunkel</h3><div class="seg" role="group" aria-label="Hell oder dunkel">' + [['light', 'Hell'], ['dark', 'Dunkel'], ['auto', 'System']].map(function (o) {
-    return '<button type="button" class="seg-btn' + (S.theme === o[0] ? ' on' : '') + '" data-act="theme" data-v="' + o[0] + '" aria-pressed="' + (S.theme === o[0]) + '">' + o[1] + '</button>';
-  }).join('') + '</div><p class="small muted">„System“ richtet sich nach dem Dunkelmodus deines Handys.</p>';
-  h += '<h3 style="margin-top:16px">Hintergrund</h3><div class="seg" role="group" aria-label="Hintergrund">' + PAPERS.map(function (o) {
-    var on = (S.paper || 'weiss') === o[0];
-    return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="paper" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
-  }).join('') + '</div><p class="small muted">Weiß ist am hellsten, Kreide, Leinen und Nebel sind gedämpft. Gilt nur im Hellmodus.</p>';
+// Einstellungen „Mittel“ (Dennis): sichtbar bleibt, was nur du weißt, und Hell/Dunkel mit Textgröße. Geschmack liegt unter „Mehr“.
+// Trainings-Entscheidungen (Ablauf, Runden zählen, Timer, Lauf-ABC, Stand) trifft der Coach.
+function segRow(label, opts, cur, act) {
+  return '<div class="seg" role="group" aria-label="' + esc(label) + '">' + opts.map(function (o) { var on = cur === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="' + act + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
+}
+function lookHTML() {
+  return '<section class="card"><h2>Aussehen</h2>' + segRow('Hell oder dunkel', [['light', 'Hell'], ['auto', 'System'], ['dark', 'Dunkel']], S.theme || 'auto', 'theme') +
+    '<h3 style="margin-top:16px">Textgröße</h3>' + segRow('Textgröße', [['s', '<span style="font-size:14px">A</span>'], ['m', '<span style="font-size:18px">A</span>'], ['l', '<span style="font-size:23px">A</span>']], S.textSize || 'm', 'text-size') + '</section>';
+}
+function moreHTML() {
+  var dark = isDark(), h = '<h3 style="margin-top:0">Hintergrund</h3>' + segRow('Hintergrund', PAPERS, S.paper || 'weiss', 'paper') + '<p class="small muted">Gilt nur im Hellmodus.</p>';
   h += '<h3 style="margin-top:16px">Markerfarbe</h3><div class="swatches" role="group" aria-label="Markerfarbe">' + COLORS.map(function (c) {
     var on = S.color === c.id;
     return '<button type="button" class="sw" data-act="color" data-v="' + c.id + '" aria-pressed="' + on + '" style="--c:' + (dark ? c.dark : c.light) + '"><i aria-hidden="true"></i>' + esc(dark && c.darkLabel ? c.darkLabel : c.label) + '</button>';
@@ -3527,22 +3530,22 @@ function settingsHTML() {
     var on = S.font === f.id;
     return '<button type="button" class="fopt" data-act="font" data-v="' + f.id + '" aria-pressed="' + on + '"><b style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">Tag 1</b><span>' + esc(f.label) + '</span></button>';
   }).join('') + '</div>';
-  var out = sec('Aussehen', h) + sec('Training', trainingHTML(), true);
-  h = '<h3 style="margin-top:0">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
-  h += '<h3 style="margin-top:16px">Ansicht</h3><div class="seg" role="group" aria-label="Ansicht">' + [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']].map(function (o) {
-    var on = (S.layout || 'auto') === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="layout" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
-  }).join('') + '</div><p class="small muted" style="margin:6px 0 0">' + (S.layout === 'desk' && !deskOn() ? 'Desktop braucht ein Fenster ab 900 px Breite, z. B. am Mac oder am Tablet quer. Auf diesem Bildschirm bleibt die Handy-Ansicht.' : 'Automatisch: breites Fenster mit Maus oder Trackpad = Desktop. Gilt nur auf diesem Gerät.') + '</p>';
-  h += '<h3 style="margin-top:16px">Vollbild</h3><label class="check"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Beim ersten Tippen Vollbild (installierte App)</label>';
-  out += sec('Gerät', h);
-  var sd = ui.stand || { d: S.durchgang, t: S.tag };
-  h = '<h3 style="margin-top:0">Stand</h3>' + standTilesHTML('set', sd) + '<button type="button" class="btn small" style="margin-top:10px" data-act="set-stand">Übernehmen</button>';
-  h += valRows([valRow('Startdatum', '<span class="txt">' + (S.startDate ? esc(fmtDateLong(S.startDate)) : 'wählen') + '</span>', 'data-act="choose" data-k="start"')]);
-  var where = SY ? 'Deine Daten liegen auf diesem Handy und werden über GitHub mit deinen anderen Geräten abgeglichen. „Exportieren“ erstellt zusätzlich eine Sicherungsdatei.'
-    : 'Deine Daten liegen nur auf diesem Handy. Sichere sie ab und zu mit „Exportieren“, zum Beispiel in Google Drive. Mit „Importieren“ holst du eine Sicherung zurück.';
-  h += '<h3 style="margin-top:16px">Daten</h3><p class="small">' + where + '</p>';
+  h += countdownHTML();
+  h += '<h3 style="margin-top:16px">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
+  h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
+    '<label class="check"><input type="checkbox" data-change="swipeRev"' + (S.swipeRev ? ' checked' : '') + '> Wischen umkehren</label>';
+  h += '<h3 style="margin-top:16px">Puls</h3><p class="small muted">Nur eintragen, wenn gemessen. Sonst rechnet der Coach mit dem Alter.</p>' + valRows(hrRows().slice(1));
+  h += '<h3 style="margin-top:16px">Ansicht</h3>' + segRow('Ansicht', [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']], S.layout || 'auto', 'layout') +
+    (S.layout === 'desk' && !deskOn() ? '<p class="small muted">Desktop braucht ein Fenster ab 900 px Breite.</p>' : '');
+  h += '<label class="check" style="margin-top:12px"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Beim ersten Tippen Vollbild (installierte App)</label>';
+  return h;
+}
+function settingsHTML() {
+  var h = valRows([valRow('Startdatum', '<span class="txt">' + (S.startDate ? esc(fmtDateLong(S.startDate)) : 'wählen') + '</span>', 'data-act="choose" data-k="start"')]);
+  h += '<p class="small" style="margin-top:12px">' + (SY ? 'Deine Daten liegen auf diesem Gerät und werden über GitHub abgeglichen. „Exportieren“ erstellt zusätzlich eine Sicherungsdatei.' : 'Deine Daten liegen nur auf diesem Gerät. Sichere sie ab und zu mit „Exportieren“.') + '</p>';
   h += '<div class="bgrp"><button type="button" data-act="export">Exportieren</button><button type="button" data-act="import">Importieren</button></div><button type="button" class="btn small red" style="margin-top:10px" data-act="reset-all">Alles zurücksetzen</button>';
   if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
-  return out + sec('Daten', h);
+  return lookHTML() + sec('Sync über GitHub', syncHTML()) + sec('Mehr', moreHTML()) + sec('Daten', h);
 }
 // Countdown: Piepen oder Stimme, Sprache, je Anlass an/aus. Bleibt auf dem Gerät.
 function countdownHTML() {
@@ -3560,37 +3563,6 @@ function countdownHTML() {
   return h;
 }
 // Training: Ablauf je Trainingsart, Rundenzähler, Gesten. Bleibt auf dem Gerät.
-function trainingHTML() {
-  var c = !!S.trainCustom, rev = !!S.swipeRev;
-  function seg(label, opts, cur, attrs) {
-    return '<div class="seg" role="group" aria-label="' + esc(label) + '">' + opts.map(function (o) {
-      return '<button type="button" class="seg-btn' + (cur === o[0] ? ' on' : '') + '" ' + attrs + ' data-v="' + o[0] + '" aria-pressed="' + (cur === o[0]) + '">' + o[1] + '</button>';
-    }).join('') + '</div>';
-  }
-  var h = '<h3 style="margin-top:0">Ablauf im Training</h3>' + seg('Ablauf im Training', [['std', 'Standard'], ['custom', 'Benutzerdefiniert']], c ? 'custom' : 'std', 'data-act="tr-custom"');
-  if (c) h += '<div class="tr-modes">' + TRAIN_TYPES.map(function (t) {
-    return '<div class="tr-row"><span>' + t[1] + '</span>' + seg(t[1], [['single', 'Einzeln'], ['list', 'Liste']], modeOf(t[0]), 'data-act="tr-mode" data-t="' + t[0] + '"') + '</div>';
-  }).join('') + '</div>';
-  else h += '<p class="small muted">Liste beim Aufwärmen, bei Kraft, Metcon und Murph: die aktuelle Übung klappt mit Figur auf und läuft mit. Cool-down einzeln.</p>';
-  h += '<h3 style="margin-top:16px">Runden zählen</h3>' + seg('Runden zählen', [['ex', 'Übung für Übung'], ['rd', 'Nur Runden'], ['off', 'Aus']], roundMode(), 'data-act="tr-round"') +
-    '<p class="small muted">' + { ex: 'Metcon und Murph: Übung für Übung abhaken, der Zähler zählt die Runden mit, – und + korrigieren. Am Ende prüfst du das Ergebnis.',
-      rd: 'Metcon und Murph: das Workout steht nur da. Nach jeder Runde einmal + tippen.', off: 'Metcon und Murph: nur das Workout und die Zeit. Am Ende trägst du das Ergebnis ein, wenn du willst.' }[roundMode()] + '</p>';
-  h += '<h3 style="margin-top:16px">Timer</h3>' + seg('Timer', [['std', 'Standard'], ['custom', 'Benutzerdefiniert']], S.timerCustom ? 'custom' : 'std', 'data-act="tm-custom"');
-  if (S.timerCustom) h += '<div class="tr-modes">' + TIMER_TYPES.map(function (t) {
-    return '<div class="tr-row"><span>' + t[1] + '</span>' + seg(t[1], [['bar', 'Leiste'], ['full', 'Vollbild']], timerModeOf(t[0]), 'data-act="tm-mode" data-t="' + t[0] + '"') + '</div>';
-  }).join('') + '</div>';
-  else h += '<p class="small muted">Tools › Timer startet im Vollbild, im Training läuft der Timer unten als Leiste. Vollbild jederzeit über den Pfeil-Knopf, Handy quer drehen öffnet es auch.</p>';
-  h += '<p class="small" style="margin:12px 0 0"><b>Vollbild-Ansicht</b></p>' + seg('Vollbild-Ansicht', [['auto', 'Automatisch'], ['port', 'Hochkant'], ['land', 'Quer']], S.timerView === 'port' || S.timerView === 'land' ? S.timerView : 'auto', 'data-act="tm-view"') +
-    '<p class="small muted">Automatisch dreht mit dem Handy. Im Vollbild hält der Dreh-Knopf die Ansicht fest, lange drücken = wieder automatisch.</p>';
-  h += countdownHTML();
-  h += '<h3 style="margin-top:16px">Laufen</h3><label class="check"><input type="checkbox" data-change="laufAbc"' + (S.laufAbc !== false ? ' checked' : '') + '> Lauf-ABC vor jedem Lauf zeigen</label>' +
-    '<p class="small muted">Immer gleich, damit du es auswendig kannst. Auf dem Ergometer gibt es statt dessen das Einfahren im Timer.</p>';
-  h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
-    '<label class="check"><input type="checkbox" data-change="swipeRev"' + (rev ? ' checked' : '') + '> Wischen umkehren</label>' +
-    '<p class="small muted">Nach ' + (rev ? 'rechts' : 'links') + ' wischen: erledigt, weiter. Nach ' + (rev ? 'links' : 'rechts') + ': zurück. Immer gleich, ob einzeln, in der Liste oder am Rundenzähler.</p>';
-  return h;
-}
-
 /* ---------- Profil: Werte, Erfolge, Medaillen ---------- */
 // Sechs Bereiche, alphabetisch. Jeder Wert (0–99) entsteht aus den Leitern des Bereichs:
 // 40 Punkte für die erste Stufe, dann bis 99 je nach Stufe und Wiederholungen in der Zielspanne.
@@ -4083,11 +4055,9 @@ function renderFix() {
 function renderEinst() {
   var foto = LS.get('tp.foto', null);
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="profil" aria-label="Zurück zum Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><section class="hero"><h1>Einstellungen</h1></section>';
-  h += '<section class="card"><h2>Profil</h2><div class="setting col"><label class="field"><span>Name</span><input type="text" data-change="name" value="' + esc(S.name || '') + '" placeholder="Dein Name"></label></div>' +
-    valRows([sexRow(), weightRow()].concat(hrRows())) + '<p class="small muted">Puls-Zonen nach Karvonen für die Kardio-Tage. Ohne eigenen Maximalpuls rechnet die App ihn aus dem Geburtsjahr (' + (S.sex === 'w' ? '206 − 0,88 × Alter' : S.sex === 'd' ? 'Mittel aus 208 − 0,7 × Alter und 206 − 0,88 × Alter' : '208 − 0,7 × Alter') + '). Beim Maximalpuls „–“ wählen = wieder aus dem Alter.</p>' +
-    '<div class="bgrp"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div>' +
-    '<p class="small muted" style="margin-top:8px">' + (SY ? 'Name und Foto kommen über den Sync auf deine anderen Geräte.' : 'Name und Foto bleiben auf diesem Gerät, bis du den Sync einrichtest.') + '</p></section>';
-  h += sec('Sync über GitHub', syncHTML());
+  h += '<section class="card"><h2>Über dich</h2><p class="small muted" style="margin:-4px 0 10px">Damit dein Coach richtig plant.</p><div class="setting col"><label class="field"><span>Name</span><input type="text" data-change="name" value="' + esc(S.name || '') + '" placeholder="Dein Name"></label></div>' +
+    valRows([sexRow(), weightRow(), hrRows()[0]]) +
+    '<div class="bgrp" style="margin-top:10px"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div></section>';
   h += settingsHTML();
   return h;
 }
@@ -4218,6 +4188,7 @@ function isDark() { return S.theme === 'dark' || (S.theme !== 'light' && !!windo
 function colorOf(id) { for (var i = 0; i < COLORS.length; i++) if (COLORS[i].id === id) return COLORS[i]; return COLORS[0]; }
 var PAPERS = [['weiss', 'Weiß', '#F5F5F2'], ['kreide', 'Kreide', '#F1F0EB'], ['leinen', 'Leinen', '#EFEBE3'], ['nebel', 'Nebel', '#EEEFEE']];
 function applyTheme() {
+  document.documentElement.dataset.text = S.textSize === 's' || S.textSize === 'l' ? S.textSize : 'm';
   var r = document.documentElement, dark = isDark(), c = colorOf(S.color);
   if (S.theme === 'light' || S.theme === 'dark') r.dataset.theme = S.theme; else delete r.dataset.theme;
   r.dataset.font = FONTS.some(function (f) { return f.id === S.font; }) ? S.font : 'klar';
@@ -4579,7 +4550,8 @@ function routineListHTML(r) {
 /* ---------- Ablauf im Training: Einzeln (eine Übung pro Bildschirm) oder Liste (Glas-Kapsel, aktuelle Übung offen) ---------- */
 var TRAIN_TYPES = [['warm', 'Aufwärmen'], ['metcon', 'Metcon · WOD'], ['cool', 'Cool-down']];
 var TRAIN_STD = { warm: 'list', kraft: 'list', metcon: 'list', murph: 'list', cool: 'single' };
-function modeOf(t) { var m = S.trainCustom && S.trainModes ? S.trainModes[t] : null; return m === 'single' || m === 'list' ? m : TRAIN_STD[t]; }
+// Der Coach entscheidet (Einstellungen „Mittel“): Ablauf, Runden zählen, Timer und Vollbild-Ansicht laufen immer im Standard. Alte Wahl bleibt gespeichert.
+function modeOf(t) { return TRAIN_STD[t]; }
 function flowItem(n, qty, x, key, note) {
   var g = GL[n];
   return { n: n, qty: String(qty), x: x || '', key: key || (g ? g.key : ''), note: note != null ? note : shortCue(g && g.cue), how: g && g.steps ? g.steps : [] };
@@ -5791,7 +5763,7 @@ function runHTML(c, D, spec, inStep) {
   spec = spec || runSpec(c.d);
   var easy = spec.type === 'easy', kind = spec.type, art = spec.art || 'locker', mode = runMode(D), ergo = mode === 'ergo', h = '';
   h += runSegHTML(mode);
-  if (!ergo && S.laufAbc !== false) h += laufAbcHTML();
+  if (!ergo) h += laufAbcHTML();
   h += '<section class="card"><p class="hand big-quote">' + esc(spec.quote) + '</p><p>' + esc(spec.desc) + '</p>' + (ergo ? ergoListHTML(spec, inStep) : kardioRunListHTML(spec)) +
     (spec.zone ? '<div class="chips"><span class="chip">' + esc(zoneText(spec.zone)) + '</span>' + (spec.lite ? '<span class="chip">' + (chal() && chalLeft() <= 14 ? 'Taper' : 'Entlastung') + '</span>' : '') + '</div>' : '') +
     (spec.capped ? '<p class="tl-x">Heute ' + spec.min + ' statt ' + spec.capped + ' Min: diese Woche höchstens 1,3-mal so viel wie dein Schnitt der letzten 4 Wochen. Sehnen und Knochen brauchen Zeit.</p>' : '') + kardioTargetHTML(spec) + '</section>';
@@ -5991,6 +5963,7 @@ ACT['fix-save'] = function () {
   LOGS[i] = L; LS.set('tp.logs', LOGS); DELETED[old] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
   ui.fix = null; ui.tab = ui.fixBack || 'profil'; render(); toast('Korrigiert. Der Coach rechnet mit den neuen Werten.');
 };
+ACT['text-size'] = function (el) { S.textSize = el.dataset.v; saveState(); applyTheme(); render(); };
 ACT['k-view'] = function (el) { S.kraftView = el.dataset.v; saveState(); render(); };
 ACT['k-sel'] = function (el) { ui.kSel = { k: el.dataset.k, m: +el.dataset.m }; render(); };
 ACT['k-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]), d = +el.dataset.d; v = v == null ? Math.max(0, (+el.dataset.def || 0) + d) : Math.max(0, v + d); setDraft(el.dataset.f, v); render(); };
@@ -6331,8 +6304,8 @@ function paintMini(L) {
 var TIMER_TYPES = [['tools', 'Tools › Timer'], ['warm', 'Aufwärmen'], ['hs', 'Handstand'], ['kraft', 'Kraft'], ['metcon', 'Metcon · WOD'], ['cool', 'Cool-down'], ['ergo', 'Ergometer']];
 var TIMER_STD = { tools: 'full', warm: 'bar', hs: 'bar', kraft: 'bar', metcon: 'bar', murph: 'bar', cool: 'bar', ergo: 'bar' };
 function timerTypeOf(step) { if (!step) return 'tools'; var id = String(step).split(':').pop(); return id === 'skill' ? 'hs' : id === 'run' || id === 'ewarm' ? 'ergo' : TIMER_STD[id] ? id : 'kraft'; }
-function timerModeOf(t) { var m = S.timerCustom && S.timerModes ? S.timerModes[t] : null; return m === 'bar' || m === 'full' ? m : TIMER_STD[t]; }
-function roundMode() { return S.roundMode === 'rd' || S.roundMode === 'off' ? S.roundMode : 'ex'; }
+function timerModeOf(t) { return TIMER_STD[t]; }
+function roundMode() { return 'ex'; }
 var ICO = function (p, w) { return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 2) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
 var I_ROT = ICO('<rect x="7.5" y="3" width="9" height="18" rx="2.5"/><path d="M3 9.5A9 9 0 0 1 6 4.5M21 14.5a9 9 0 0 1-3 5M3 4.5v5h5M21 19.5v-5h-5"/>', 1.8),
   I_MIN = ICO('<path d="M4 10h6V4M20 14h-6v6M10 10L3.5 3.5M14 14l6.5 6.5"/>', 2.2),
@@ -6341,7 +6314,7 @@ var I_ROT = ICO('<rect x="7.5" y="3" width="9" height="18" rx="2.5"/><path d="M3
 var FS = { on: false, why: '', lock: null, key: '', lp: false }, MQ_LAND = window.matchMedia ? window.matchMedia('(orientation: landscape)') : null;
 function fsEl() { var f = document.getElementById('fs'); if (!f) { f = document.createElement('div'); f.id = 'fs'; f.hidden = true; f.setAttribute('role', 'dialog'); f.setAttribute('aria-label', 'Timer im Vollbild'); document.body.appendChild(f); } return f; }
 function fsWant() {
-  var act = MQ_LAND && MQ_LAND.matches ? 'land' : 'port', v = S.timerView === 'port' || S.timerView === 'land' ? S.timerView : null;
+  var act = MQ_LAND && MQ_LAND.matches ? 'land' : 'port', v = null;
   return { act: act, want: FS.lock || v || act };
 }
 function fsOrient() {
@@ -6517,7 +6490,7 @@ ACT['fs-rot'] = function () { if (FS.lp) { FS.lp = false; return; } FS.lock = fs
 })();
 // Handy drehen: läuft ein Timer, öffnet quer das Vollbild; zurück hochkant schließt es wieder, wenn es so geöffnet wurde.
 function fsTurn() {
-  var land = MQ_LAND && MQ_LAND.matches, auto = S.timerView !== 'port' && S.timerView !== 'land';
+  var land = MQ_LAND && MQ_LAND.matches, auto = true;
   if (FS.on) { if (!land && FS.why === 'rot' && !FS.lock && auto) fsClose(); else fsOrient(); return; }
   var step = TM.cfg && TM.cfg.step;
   if (land && auto && TM.running && (step ? ui.tab === 'heute' && document.getElementById('tbar') : ui.tab === 'timer')) fsOpen('rot');
