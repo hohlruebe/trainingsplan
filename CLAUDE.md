@@ -11,9 +11,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 380 Übungen, Leitern, Metcon-Pool, Aufwärmen, Plätze) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 380 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
-    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahme mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; dann plan-data, lib-data und fam-data gleich halten).
+    Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahmen mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; Handstand neue erste Stufe „Rücken zur Wand“ (`g_wall_handstand_back`, in der Familie als Variante) vor Face-to-Wall; dann plan-data, lib-data und fam-data gleich halten. Gespeichert werden Stufennamen, nicht Nummern, darum bleiben alte Einträge gültig).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 60 Familien (auch Isolation und zwei Mobility-Familien),
     jede Übung (ohne Mobility) genau einmal; je Variante `art` (`stufe` mit `rang` und `ziel`, `variante`, `tempo` mit `vermerk`),
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
@@ -185,6 +185,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   höher, ohne Sehnen-Wartezeit, nie zurück auf eine Stufe, die schon zu schwer war. Zu schwer (`cs.hard`): in der letzten Einheit mindestens
   2 Runden unter dem unteren Ende der Spanne → nächstes Mal eine Stufe leichter (nicht an Tagen „leichter“ wegen Schmerzen, `ladHist().soft`,
   nicht bei Gewichtsleitern). Metcon und Handstand ohne Verlauf nehmen dieselbe Schätzung (`lastMetconStage`, `lastHsStage`).
+  Pause (`partPause`, `partLastDate`): zählt je Teil (Zug, Druck, Beine, Rumpf), nicht je Übung: eine Leiter, die nur woanders oder eine Woche
+  nicht dran war, verliert keine Stufe. Gewicht: 10 % leichter nach 14 Tagen ohne den Teil oder 21 Tagen ohne genau diese Übung.
+  Maxout (Testwoche, `k.max`, alte Einträge: `l.test` und erste Übung): Runde 1 ≥ obere Spanne + 3 zählt wie zwei Einheiten oben (`cs.mx`),
+  unter der Spanne eine Stufe leichter (`cs.hard.mx`). Metcon-Stufe (`lastMetconStage`) folgt dem Kraftstand: Kraft-Stufe − 1 (Gewichtsleitern
+  gleich), ohne Kraftverlauf die Schätzung `stageEst`; Metcon-Stände sind keine Quelle mehr für `stageEst`.
   Gewicht ohne eigenes 1RM (`rmEst` in `kgRec`): gleicher Anteil zwischen den Normen (`rmStd`) wie die 1RM im selben Muster, sonst
   Einsteiger-Norm × Körpergewicht, jeweils 10 % weniger.
   Laufen (`runCap`): lockerer Lauf heute höchstens so lang, dass die Woche 1,3 × Schnitt der letzten 4 Wochen nicht übersteigt (ab 3 Wochen Laufdaten).
@@ -196,7 +201,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `iv.reps` für „Intervalle geschafft“. `ergoSeq` baut daraus den Ergometer-Timer, `kardioRunListHTML` die Laufliste mit Tempo,
   `kardioTargetHTML` den Ziel-Kasten. `kardioUpdate` nach dem Speichern (Snapshot `log.kw`), Pseudo-Leiter `cardio` in Ausdauer
   (`cardioScore`: W/kg 1,5–4,5 und Schwelle 8:00–3:30), Kurve `kardioDevHTML`. `S.ivStage`/`ivReps`/`ivBumpD`, `S.lauf`, `S.ziele` bleiben
-  nur für alte Daten in `DEF` und `SYNC_KEYS`.
+  nur für alte Daten in `DEF`, nicht mehr in `SYNC_KEYS` (ebenso `pickSkip`, `cooldown`, `rmLifts`).
 - Challenges (`CHAL`, `CHAL_GRP`, `S.challenge {id, date, start, dg, goal}`, synchronisiert): versteckte Seite `fokus` heißt jetzt
   „Plan & Challenges“ (oben „Worauf trainierst du?“: „Einfach trainieren“ = kein Wettkampf, Allround läuft ohne Datum, `ACT['ch-none']`;
   mit Challenge fragt es, ob sie enden soll), je Challenge die Seite `challenge` (`renderChallenge`, Datum als Räder Tag/Monat/Jahr `ch-date`, FTP-Ziel W/kg).
@@ -204,6 +209,17 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Formate `tempo`, `hyrox`, `brick`; Metcon an Tag 1 aus `mc` (`cmc`, `chalMetcon`); letzte 14 Tage Taper (`p.taper`: Kraft 3 Runden,
   Metcon kürzer, Kardio −40 %). Am Datum zeigt Heute `raceHTML` (Ergebnis, Log `kind: 'race'`, setzt den Kernwert), danach Allround.
   Block-Karte zeigt `chalLabel()`. Standard-Modus der Kardio-Tage kommt aus der Challenge (`runMode`).
+- Skill-Block (Schritt `hs`, `skillKey`, `skillStage`, `skillHist`, `hsStepHTML`, `SKILL_IN`, `SKILL_KEYS`): Handstand (Rücken zur Wand → Face-to-Wall → 1 Fußlänge → Fuß-Taps → Frei) bis „Frei“ 2× am oberen
+  Ende (`hsDone`), dann Handstand Walk. Freigeschaltete Skills (Familie `voraussetzt` erfüllt, Gerät da, nicht im Kraftteil, `skillOk`: Front Lever,
+  Back Lever, Planche, Human Flag) im Wechsel: ungerade Durchgänge Handstand, gerade reihum ein Skill. Steigerung über die Haltezeit (Walk: Meter):
+  2× obere Spanne → nächste Stufe (Sehnen-Bremse, eine pro Durchgang, nicht in Entlastung), 2× unter der halben unteren Spanne → leichter; Pause
+  = Tage ohne Krafttraining. Karte: Figur der Stufe, Ziel, grüner Chip, „So kommst du rein“ (Handstand und Walk je Stufe aus `SKILL_IN` mit „Raus“,
+  sonst `schritte` der Übung), Zähler „Beste Zeit“/„Beste Strecke“ (`hsSec`). Gespeichert als `sb: {lad, stage, sec}` (Name `skill` ist bei alten
+  Einträgen eine Liste!), Handstand zusätzlich weiter als `hs`-Text. Coach-Karte und Ausblick über `skillNote`. Wissen › Skill-Ziele zeigt den Stand je Skill.
+- Sprünge (`jumps.lad`, Tag 3: `g_broad_jump` Squat Jump → Broad Jump → Tuck Jump; Tag 1 bleibt Skater Jump): im Aufwärmen die Stufe vom Coach
+  (`jumpN`, `jumpStage`, `jumpHist`), abgehakt = sauber (`jump: {lad, stage, ok}`), 2× sauber + Sehnen-Zeit → nächste Stufe. Zählt in Schnellkraft.
+- Kurz-Check am Ruhetag (`restCheckIdx`, `mobCheckHTML(D, i)`): reihum ein Test aus dem Beweglichkeits-Check, zwei pro Woche (nicht in der Check-Woche);
+  „Ruhetag abhaken“ speichert ihn als `kind: 'mobility'`, `check: true`, `mob`. Cool-down zeigt einen Hinweis, wenn ein Test unter dem Bestwert liegt (`mobDecline`).
 - Heute anpassen (`adaptLineHTML`, `ACT.adapt`): kleiner Knopf `.btn.small` „Heute anpassen“ unter dem Ablauf (Krafttag) bzw. dem Lauf (Intervall). Blatt von unten
   „Sag deinem Coach, worauf er heute achten soll.“, nur „Fertig“, gilt nur für heute und sofort, Aktives grau hinterlegt (`.ad-it.sel/.open`):
   „Mir geht’s heute nicht gut“ (Antippen = Kurzversion bzw. lockerer Lauf statt Intervalle, Entwurf `_kurz`), „Ich habe wenig Zeit“
@@ -313,7 +329,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Laufstrecke (`eq_laufstrecke`) ist ein Gerät je Ort: nur damit kommt „Run“ (200/400 m) in den Metcon. Einmalig angekreuzt bei Gym,
   Park und Unterwegs (Kennung `lf` je Ort).
   Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
-  Der Plan füllt die Plätze (`LIB.plaetze`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
+  Der Plan füllt die Plätze (`kslots`/`mslots` in `FOKUS.allround`) für den gewählten Ort (`planFill`): Kraft bleibt bei der gewählten Leiter (`S.picks`),
   eine Leiter mit mehr Nutzen übernimmt der Coach selbst (`S.pickSkip` wird nicht mehr genutzt).
   Metcon wechselt pro Durchgang aus den 4 nützlichsten passenden Einträgen. Lauftage: Laufen oder Ergometer (Watt), getrennt verglichen.
 - Listen nach Nutzen sortieren (höchster zuerst), Equipment nach Score. Nur wo es keinen Nutzen gibt (Profil-Menü, Bereiche), alphabetisch.
@@ -340,7 +356,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `CACHE` in `sw.js` hochzählen und neue Dateien in `ASSETS` eintragen.
 - Gespeicherte Daten nie brechen. localStorage-Schlüssel: `tp.state`, `tp.logs`,
   `tp.drafts`, `tp.deleted`, `tp.sync`, `tp.foto` (Profilfoto, mit `tp.fotoTs`, wird abgeglichen). Neue Felder mit Standardwert in `DEF` ergänzen.
-- Export-Format `{exportiert, stand, einheiten}` muss importierbar bleiben.
+- Export-Format `{exportiert, stand, einheiten}` muss importierbar bleiben (dazu `foto: {ts, data}`, `exportData`, Import übernimmt es).
+  „Als Tabelle“ (`exportCSV`, Semikolon, BOM) ein Satz pro Zeile; `shareFile` teilt oder lädt herunter. Ohne Sync auf Heute einmal im Monat
+  „Daten sichern“ (`backupHTML`, `S.exportTs`, `S.backupAsk`, nur auf dem Gerät).
 - Sync: Datei `trainingsplan.json` im privaten Daten-Repository des Nutzers,
   Format `{app, v, standTs, stand, einheiten, geloescht}` kompatibel halten, dazu `feldTs` (Zeit je Feld in `SYNC_KEYS`, `S.feldTs`)
   und `foto` (`{ts, data}`). Einheiten nach ID zusammenführen, Löschvermerke gewinnen, Stand Feld für Feld (neuere Zeit gewinnt,
@@ -380,7 +398,7 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
 ## Trainingslogik (Kurzfassung)
 - Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,
   Tag 6 Druck, Tag 7 Ruhetag (3 Training, 1 frei, 2 Training, 1 frei; Dennis). Der Tagesname zeigt den Inhalt. Die gelöschten Schwerpunkte stehen noch in `design/schwerpunkte.md`.
-- Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Handstand, EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8, Ausgleich 4 Min (wenn etwas zu kurz kommt).
+- Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Skill-Block (Handstand, später im Wechsel mit freigeschalteten Skills), EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8, Ausgleich 4 Min (wenn etwas zu kurz kommt).
   Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
   Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende
   (Kardio: Rampentest oder 5 km am Tag 5).
