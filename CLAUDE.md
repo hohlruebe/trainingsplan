@@ -151,6 +151,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   am Ort bekommt die Ringhöhe (`ringNotes`).
   Jede Testseite hat einen Pausen-Timer (Timer-Art `block`, `cfg.again`): Pause aus dem Test-Text („3 Min Pause“), sonst 3 Min, Halteübungen
   2 Min; ohne Vorlauf, „Danach: nächster Versuch“, nach Ablauf „Pause vorbei“ (Tippen setzt zurück), kein Sprung zur nächsten Übung.
+  Rekorde (Dennis, `prList`, `PR_C`, `prEvents`, `prCardHTML`): bester Satz je Übung und Stufe (Wdh. bzw. s, ohne Gewichtsübungen, die zählen im 1RM),
+  beste Haltezeit im Skill-Block, bestes Metcon mit denselben Übungen und Minuten, 5 km Tempo (Läufe ab 4,95 km), längster Lauf, Ergometer-Watt ab 20 Min.
+  Je Rekord `h` (Verlauf: erster Wert, dann jede Verbesserung, `pv` für die Kurve), `prev` (Rekord davor), `k` (Schlüssel); Gewinn `prGain` („+1 Wdh. · +17 %“).
+  Nach dem Speichern Moment „Neuer Rekord“ (Typ `pr` in `showMoment`, Karte `.mo-prc`, Design M3 mit Dennis): Chip, Übung, Zahl groß, Kurve der Rekorde
+  (`prChartSVG`, neuer als goldener Stern), grüner Gewinn-Chip, „Dein N. Rekord auf dieser Stufe. Seit dem ersten Mal …“; nur Verbesserungen, höchstens 3.
+  Profil › Erfolge unter den Medaillen (Design C hell, `prCardHTML`): Karte „Neuester Rekord“ (`.pr-hero`, weiß mit goldenem Schimmer, Gewinn-Chip,
+  Balken `prBars`, letzter golden), darunter Karte „Rekorde“ mit Umschalter Kraft | Halten | Metcon | Ausdauer (`ui.prG`, `ACT['pr-g']`, nur Bereiche mit Daten),
+  je Zeile Mini-Balken und „★ neu“ (7 Tage).
+  „Fast geschafft“ auf Heute unter dem Ablauf (`fastHTML`, Krafttag vor dem Start): höchstens 3 Zeilen mit Balken, nächste Stufe (Sehne bereit, letzte Einheit alle
+  bzw. mindestens die Hälfte der Runden oben), Medaille bis 3 Punkte davor (gold), Rekord der ersten Kraftübung auf ihrer Stufe.
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`, gemerkt in `AS_C`: beim Speichern wird nur ab dem letzten Tag neu gerechnet): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
   Glühen (Aufstieg), Anlaufen mit aufmunterndem Spruch (Abstieg), und einen neuen 1RM-Bestwert, mit Vibrationsmuster (`buzz`).
@@ -335,6 +345,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Deutsch/Englisch (`S.cdLang`, `CD_WORDS`: „Drei, zwei, eins, los!“ / „Three, two, one, Go!“, Pause „Pause!/Rest!“, Ende „Zeit!/Time!“),
   je Anlass an/aus (`S.cdWhen`, `CD_WHEN`: Start nach dem Vorlauf, jede neue Runde, Intervall Arbeit/Pause, Ende; aus = Piepen).
   Stimme über die Sprachausgabe des Handys (`say`, `cdVoice`, `cdEvent` in `tick`/`finish`); ohne passende Stimme piept es. Nur auf dem Gerät.
+  Ansagen in der Phase (Dennis, Anlass `calls`, Standard an, nur mit Stimme, `callsOn`): „Halfway there!/Halbzeit!“ ab 20 s, „30 seconds left!/Noch 30 Sekunden!“
+  bei Phasen über 60 s (nicht in Intervall-Pausen, `callWork`), am Ende 5, 4, 3, 2, 1 (ab 10 s, sonst 3, 2, 1) und „Done!/Fertig!“ (EMOM und nach der Pause „Go!“).
+  Vorlauf und 5-s-Wechsel im Mobility-Player bekommen keine Halbzeit (`callPhase`).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`): große Zeit in Geist, rechts (quer) bzw. unten (hochkant) eine Karte:
   Runden (Tools AMRAP/For Time, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), Aufwärmen mit aktueller Übung, Figur, „‹ Zurück | Erledigt ›“ und „Als Nächstes“ (`fsWarmHTML`), laufende EMOM-Übung mit
   Figur und „Als Nächstes“, Intervall „Als Nächstes“. Oben Drehen (`fs-rot`, hält die Ansicht, lange drücken = automatisch), Minimieren

@@ -1072,6 +1072,28 @@ html.desk .btn:hover{filter:brightness(1.05)}
 .nobr{display:inline-block;white-space:nowrap}
 .ob{display:flex;flex-direction:column;min-height:calc(100dvh - 60px)}
 html.desk .ob{max-width:520px;margin:0 auto}
+.fast h3{margin:0 0 2px}.fast-r{padding:12px 0;border-bottom:1px solid var(--line)}.fast-r:last-child{border:0;padding-bottom:0}.fast-t{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.fast-t b{font-weight:600}
+.fast-r small{font-size:14px;color:var(--ink2)}.fast-b{height:8px;border-radius:4px;background:var(--fill);margin:8px 0 6px;overflow:hidden}.fast-b i{display:block;height:100%;border-radius:4px;background:var(--acc)}.fast-b.gold i{background:linear-gradient(90deg,#D9A21B,#F2C94C)}
+.moment.mo-pr .mo-btns{animation-delay:.8s}.mo-prc .pr-top.wide{flex-direction:column}.mo-prc .pr-top.wide .pr-num{margin-top:6px}
+.pr-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.pr-row:last-child{border:0}.pr-row>span:first-child{display:flex;flex-direction:column;min-width:0}.pr-row small{font-size:14px;color:var(--ink2)}
+.pr-v{display:flex;align-items:center;gap:8px;flex:none;align-self:flex-start;margin-top:2px}.pr-v b{font-family:var(--hand);font-weight:var(--hand-w);font-size:20px;color:var(--acc);white-space:nowrap}
+.pr-k{align-self:flex-start;display:inline-flex;gap:6px;font-size:14px;font-weight:700;color:#A8780F;background:color-mix(in srgb,#D9A21B 16%,var(--paper));border-radius:999px;padding:4px 10px}
+.pr-gain{align-self:flex-start;white-space:nowrap;font-size:14px;font-weight:700;color:#2E8A50;background:color-mix(in srgb,#4DBF79 18%,var(--paper));border-radius:999px;padding:4px 10px}
+.pr-hero{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:2px}.pr-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,color-mix(in srgb,#D9A21B 22%,transparent) 0%,transparent 60%);pointer-events:none}
+.pr-hero>*{position:relative}.pr-hero h3{margin:10px 0 0;font-size:22px}.pr-hero small{font-size:14px;color:var(--ink2)}
+.pr-bigrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:8px}.pr-bigrow .pr-gain{align-self:auto;margin-bottom:8px}
+.pr-big{font-family:var(--hand);font-weight:var(--hand-w);font-size:52px;line-height:1;color:var(--acc);white-space:nowrap}
+.pr-spark{display:flex;align-items:flex-end;gap:6px;height:40px;margin-top:14px}.pr-spark i{flex:1;max-width:28px;border-radius:4px;background:var(--fill)}.pr-spark i.on{background:linear-gradient(180deg,#F2C94C,#D9A21B)}
+.pr-seg{margin:8px 0 4px}.pr-mini{display:flex;gap:3px;align-items:flex-end;height:16px;margin-top:6px}.pr-mini i{width:10px;border-radius:2px;background:var(--fill)}.pr-mini i.on{background:var(--acc)}
+.mo-prc{align-items:stretch;gap:4px}.mo-prc .pr-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.mo-prc h2{font-size:24px;margin:8px 0 0}.mo-prc small{font-size:14px;color:var(--ink2)}
+.mo-prc .pr-num{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);white-space:nowrap;margin-top:34px;animation:prPop .7s cubic-bezier(.3,1.5,.5,1) .2s both}
+.pr-ch{width:100%;height:auto;margin-top:12px;overflow:visible}.pr-glow{transform-box:fill-box;transform-origin:center;animation:prPop .7s cubic-bezier(.3,1.5,.5,1) .4s both}
+.pr-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);margin:2px 0 10px}
+.pr-foot{margin:8px 0 0;font-size:15px;line-height:1.45}
+.pr-new{font-size:14px;font-weight:700;color:#A8780F;white-space:nowrap}
+[data-theme=dark] .pr-gain{background:#22382B;color:#8FD9AE}[data-theme=dark] .pr-k,[data-theme=dark] .pr-new{color:#F0C27A}[data-theme=dark] .pr-k{background:#3A3022}@media (prefers-color-scheme:dark){html:not([data-theme=light]) .pr-gain{background:#22382B;color:#8FD9AE}html:not([data-theme=light]) .pr-k,html:not([data-theme=light]) .pr-new{color:#F0C27A}html:not([data-theme=light]) .pr-k{background:#3A3022}}
+@keyframes prPop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.mo-prc .pr-num,.pr-glow{animation:none}}
 .wb-card .wb-k{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.wb-card h2{margin:0}.wb-card p{color:var(--ink2);margin:6px 0 14px}
 .ob-was{display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;color:var(--acc)}.ob-was::before{content:'';width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--acc)}
 .ob-seg i.was{background:color-mix(in srgb,var(--acc) 28%,var(--fill))}.ob-pre{grid-column:1 / -1;font-size:14px;color:var(--ink2)}.ob-pre b{font-weight:600;color:var(--ink)}
@@ -3128,7 +3150,7 @@ function showUndo(msg, u) {
 function saveDay() {
   syncDays();
   var undo = { S: JSON.stringify(S), key: draftKey(S.tag), draft: DRAFTS[draftKey(S.tag)] ? JSON.stringify(DRAFTS[draftKey(S.tag)]) : null, n: LOGS.length };
-  var ladBefore = areaStates(LOGS);
+  var ladBefore = areaStates(LOGS), prBefore = Object.assign({}, prList(LOGS));
   var tag = S.tag, d = DAYS[tag], key = draftKey(tag), v = collectInputs(), extra = '';
   var base = { id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, name: dayLabel(tag), fokus: S.fokus, notes: v.notes || '' };
   var log = null;
@@ -3207,7 +3229,7 @@ function saveDay() {
   window.scrollTo(0, 0); render();
   undo.ids = LOGS.slice(undo.n).map(function (l) { return l.id; });
   showUndo((log ? 'Gespeichert. ' : 'Abgehakt. ') + 'Morgen ist Tag ' + S.tag + ' dran.' + extra, undo);
-  if (log) { MOMENTS = medalEvents(ladBefore, areaStates(LOGS), AREA_KEYS); showMoment(); }
+  if (log) { MOMENTS = prEvents(prBefore, prList(LOGS)).concat(medalEvents(ladBefore, areaStates(LOGS), AREA_KEYS)); showMoment(); }
 }
 
 /* ---------- timer ---------- */
@@ -3225,9 +3247,15 @@ function beep(freq, ms) {
 }
 function cue(long) { if (long) beep(660, 450); else beep(880, 110); hapTimer(long); }
 // Countdown mit Stimme (Sprachausgabe des Handys, offline mit installierter Stimme). Je Anlass an/aus, sonst Piepen.
-var CD_WHEN = [['start', 'Start nach dem Vorlauf'], ['round', 'Jede neue Runde (EMOM)'], ['interval', 'Intervall: Arbeit und Pause'], ['end', 'Ende des Workouts']];
-var CD_WORDS = { en: { n: ['One', 'Two', 'Three'], go: 'Go!', rest: 'Rest!', end: 'Time!' }, de: { n: ['Eins', 'Zwei', 'Drei'], go: 'Los!', rest: 'Pause!', end: 'Zeit!' } };
-function cdWhen() { return Object.assign({ start: true, round: false, interval: false, end: false }, S.cdWhen || {}); }
+var CD_WHEN = [['start', 'Start nach dem Vorlauf'], ['round', 'Jede neue Runde (EMOM)'], ['interval', 'Intervall: Arbeit und Pause'], ['end', 'Ende des Workouts'], ['calls', 'Halbzeit, noch 30 Sekunden, 5 bis 1']];
+var CD_WORDS = { en: { n: ['One', 'Two', 'Three', 'Four', 'Five'], go: 'Go!', rest: 'Rest!', end: 'Done!', done: 'Done!', half: 'Halfway there!', s30: '30 seconds left!' },
+  de: { n: ['Eins', 'Zwei', 'Drei', 'Vier', 'Fünf'], go: 'Los!', rest: 'Pause!', end: 'Fertig!', done: 'Fertig!', half: 'Halbzeit!', s30: 'Noch 30 Sekunden!' } };
+function cdWhen() { return Object.assign({ start: true, round: false, interval: false, end: false, calls: true }, S.cdWhen || {}); }
+// Ansagen in der Phase (Dennis): Halbzeit (ab 20 s), noch 30 Sekunden (über 60 s), am Ende 5, 4, 3, 2, 1, Done!
+function callsOn() { return !!(S.cdVoice && cdWhen().calls && cdVoice()); }
+function callPhase(p) { return p && p.kind !== 'pre' && p.kind !== 'sw' && isFinite(p.dur) && !p.up; }
+// Halbzeit und 30 Sekunden nur in Arbeitsphasen, nicht in der Pause eines Intervalls.
+function callWork(p) { return callPhase(p) && !((TM.mode === 'hiit' || TM.mode === 'seq') && p.kind === 'easy'); }
 function cdLang() { return S.cdLang === 'de' ? 'de' : 'en'; }
 function cdVoice() {
   try {
@@ -3307,11 +3335,17 @@ function locate(e) {
 function tick() {
   var e = elapsed(), L = locate(e);
   if (!L) { finish(); return; }
+  var W = CD_WORDS[cdLang()];
   if (L.i !== TM.idx) {
-    if (TM.idx >= 0) { var ev = cdEvent({ i: TM.idx, p: TM.phases[TM.idx] }); if (cdOn(ev) && say(CD_WORDS[cdLang()][ev.w])) hapTimer(true); else cue(true); }
-    TM.idx = L.i; TM.lastSec = null;
+    if (TM.idx >= 0) { var pp = TM.phases[TM.idx], ev = cdEvent({ i: TM.idx, p: pp }); if (cdOn(ev) && say(W[ev.w])) hapTimer(true); else if (callsOn() && callPhase(pp) && say(ev && ev.w === 'go' ? W.go : W.done)) hapTimer(true); else cue(true); }
+    TM.idx = L.i; TM.lastSec = null; TM.said = {};
   }
-  if (L.rem != null) { var s = Math.ceil(L.rem); if (s <= 3 && s >= 1 && s !== TM.lastSec) { TM.lastSec = s; if (cdOn(cdEvent(L)) && say(CD_WORDS[cdLang()].n[s - 1])) hapTimer(false); else cue(false); } }
+  if (L.rem != null) {
+    var s = Math.ceil(L.rem), calls = callsOn() && (callPhase(L.p) || L.p.kind === 'pre'), top = calls && L.p.dur >= 10 ? 5 : 3, sd = TM.said || (TM.said = {});
+    if (calls && callWork(L.p) && L.p.dur >= 20 && !sd.half && L.inPhase >= L.p.dur / 2 && L.rem > top + 1) { sd.half = 1; if (say(W.half)) hapTimer(false); }
+    if (calls && callWork(L.p) && L.p.dur > 60 && !sd.s30 && L.rem <= 30 && L.rem > 28) { sd.s30 = 1; if (say(W.s30)) hapTimer(false); }
+    if (s <= top && s >= 1 && s !== TM.lastSec) { TM.lastSec = s; if ((calls || cdOn(cdEvent(L))) && say(W.n[s - 1])) hapTimer(false); else if (s <= 3) cue(false); }
+  }
   paint(L); paintMini(L); paintRoutine(L); fsPaint(L);
 }
 function paint(L) {
@@ -3359,7 +3393,7 @@ function timerToggleTools() {
 }
 function finish() {
   var endL = TM.phases.length ? { i: TM.phases.length - 1, p: TM.phases[TM.phases.length - 1] } : null, endEv = endL && endL.p.kind !== 'pre' && isFinite(endL.p.dur) ? cdEvent(endL) : null;
-  TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; if (cdOn(endEv) && say(CD_WORDS[cdLang()].end)) hapTimer(true); else cue(true); showFinished(); setToggle();
+  TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; if ((cdOn(endEv) || callsOn()) && say(CD_WORDS[cdLang()].end)) hapTimer(true); else cue(true); showFinished(); setToggle();
   if (FS.on) { if (TM.cfg && TM.cfg.step) fsClose(); else fsPaint(); }
   if (TM.mode === 'routine') routineDone();
   if (TM.cfg && TM.cfg.warmItem != null && TM.cfg.step) { // Übung mit Zeit fertig: abhaken, die nächste ist dran (eigener Timer nur, wenn sie eine Zeit hat)
@@ -3428,7 +3462,7 @@ function timerFootHTML() {
   var h = '<p class="small muted" style="margin:10px 0 4px">Start mit 10 Sekunden Vorlauf, damit du in Position kommst.</p>';
   h += '<label class="check"><input type="checkbox" data-change="sound"' + (S.sound ? ' checked' : '') + '> Signaltöne</label>' +
     (S.sound ? '<div class="seg" role="group" aria-label="Countdown">' + [['0', 'Piepen'], ['1', 'Stimme']].map(function (o) { var on = (o[0] === '1') === !!S.cdVoice; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="cd-voice" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
-      (S.cdVoice ? '<p class="small muted">„' + (cdLang() === 'de' ? 'Drei, zwei, eins, los!' : 'Three, two, one, Go!') + '“ · Sprache und Anlässe unter Einstellungen › Training.</p>' : '') : '') +
+      (S.cdVoice ? '<p class="small muted">„' + (cdLang() === 'de' ? 'Drei, zwei, eins, los!' : 'Three, two, one, Go!') + '“, dazu „' + (cdLang() === 'de' ? 'Halbzeit, noch 30 Sekunden, fünf … eins, fertig!' : 'Halfway there, 30 seconds left, five … one, Done!') + '“ · Sprache und Anlässe unter Einstellungen › Training.</p>' : '') : '') +
     '<p class="small muted">Lass die Seite beim Training offen. Wo das Handy es erlaubt, bleibt der Bildschirm an, solange der Timer läuft.</p>';
   return h;
 }
@@ -4297,6 +4331,7 @@ function erfolgeHTML(stats) {
     return '<button type="button" class="m-cell" data-act="parea-go" data-v="' + a.id + '">' + medalHTML(k, s2, first && s2.cur ? ' shine' : '') + '<b>' + esc(a.name) + '</b><span class="' + (lost ? 'm-best' : 'muted') + '">' +
       esc(s2.cur ? AREA_LAD[k].steps[s2.cur - 1] + ' · ' + s2.val : 'noch offen') + (lost ? ' · Bestwert ' + AREA_LAD[k].steps[s2.best - 1] : '') + '</span></button>';
   }).join('') + '</div><p class="small muted">Bronze ab Start · Silber ab 65 · Gold ab 75 · Platin ab 85</p></section>';
+  h += prCardHTML();
   var arch = RM_ALL.map(function (id) { return { id: id, r: rmOf(id) }; }).filter(function (x) { return x.r; });
   h += '<section class="card a-lads"><div class="card-head"><h2>1RM-Archiv</h2><span class="chip">Bestwerte</span></div>' + (arch.length ? arch.map(function (x) {
     return '<button type="button" class="rm-row" data-act="rm-go" data-v="' + x.id + '"><span><b>' + esc(UE[x.id].name) + '</b><small>' + esc(fmtDate(x.r.best.date)) + '</small></span><span class="rm-kg">' + esc(fmtKg(x.r.best.e1, x.id)) + '</span></button>';
@@ -4396,9 +4431,138 @@ function medalEvents(before, after, keys) {
   return ev.sort(function (x, y) { return rank[x.type] - rank[y.type]; });
 }
 var MOMENTS = [];
+/* ---------- Rekorde (Dennis): der Coach erkennt sie selbst ---------- */
+// Bester Satz je Übung und Stufe (Wdh. bzw. Sekunden), beste Haltezeit im Skill-Block, bestes Metcon mit denselben Übungen,
+// schnellstes Tempo über 5 km, längster Lauf, beste Watt über 20 Minuten. Gewichte zählen im 1RM (eigene Momente).
+var PR_GRP = [['kraft', 'Kraft'], ['halten', 'Halten'], ['metcon', 'Metcon'], ['ausdauer', 'Ausdauer']];
+var PR_C = { k: null, v: null };
+function prList(logs) {
+  var ck = logs.length + '|' + (logs.length ? logs[logs.length - 1].id : '');
+  if (logs === LOGS && PR_C.k === ck) return PR_C.v;
+  var R = {};
+  // h = Verlauf der Rekorde (erster Wert, dann jede Verbesserung), prev = Rekord davor, pv = Wert für die Kurve.
+  function put(k, o) { var c = R[k]; if (!c || o.v > c.v) { o.k = k; if (o.pv == null) o.pv = o.v; o.h = (c ? c.h : []).concat([{ v: o.v, pv: o.pv, d: o.date }]); if (c) { o.up = 1; o.prev = { v: c.v, disp: c.disp, date: c.date }; } R[k] = o; } }
+  logs.forEach(function (l) {
+    if (l.kraft) l.kraft.forEach(function (k) {
+      if (k.kg && k.kg.some(function (w) { return w; })) return;
+      var reps = (k.reps || []).filter(function (v) { return typeof v === 'number'; }); if (!reps.length || !k.stage) return;
+      var lad = ladFor(k.n), sec = isSecs(lad), v = Math.max.apply(null, reps);
+      put('k:' + k.n + '|' + k.stage, { g: sec ? 'halten' : 'kraft', t: k.n, st: k.stage, v: v, disp: v + (sec ? ' s' : ' Wdh.'), date: l.date, id: l.id });
+    });
+    if (l.sb && l.sb.sec && LAD[l.sb.lad]) { var u = skillUnit(LAD[l.sb.lad]);
+      put('s:' + l.sb.lad + '|' + l.sb.stage, { g: 'halten', t: LAD[l.sb.lad].name, st: l.sb.stage, v: l.sb.sec, disp: l.sb.sec + ' ' + u, date: l.date, id: l.id }); }
+    if (l.metcon && l.metcon.rounds != null && l.metcon.items && l.metcon.items.length) {
+      var m = l.metcon; put('m:' + m.items.join('|') + '|' + m.min, { g: 'metcon', t: m.items.join(' · '), st: 'AMRAP ' + m.min, v: m.rounds * 1000 + (m.reps || 0), pv: m.rounds + (m.reps || 0) / 20, disp: m.rounds + ' Runden' + (m.reps ? ' + ' + m.reps : ''), date: l.date, id: l.id });
+    }
+    var r = l.run || l.interval;
+    if (r && r.sec) {
+      if (!r.ergo && r.km >= 4.95) put('r:5k', { g: 'ausdauer', t: '5 km', st: 'Tempo', v: -r.sec / r.km, disp: fmtPace(r.sec / r.km) + ' /km', date: l.date, id: l.id });
+      if (!r.ergo && r.km) put('r:far', { g: 'ausdauer', t: 'Längster Lauf', st: '', v: r.km, disp: fmtKm(r.km) + ' km', date: l.date, id: l.id });
+      if (r.ergo && num(r.watt) && r.sec >= 1200) put('e:20', { g: 'ausdauer', t: 'Ergometer ab 20 Min', st: 'Watt im Schnitt', v: num(r.watt), disp: num(r.watt) + ' W', date: l.date, id: l.id });
+    }
+  });
+  if (logs === LOGS) PR_C = { k: ck, v: R };
+  return R;
+}
+function prTitle(p) { return p.t + (p.st ? ' · ' + stageText(p.st) : ''); }
+// Neue Rekorde: nur Verbesserungen eines bestehenden Werts (das erste Mal ist noch kein Rekord).
+function prEvents(before, after) {
+  var out = [];
+  Object.keys(after).forEach(function (k) { var a = after[k], b = before[k]; if (b && a.v > b.v && a.id !== b.id) out.push({ type: 'pr', pr: a, prev: b }); });
+  return out.slice(0, 3);
+}
+// Gewinn zu einem früheren Wert, z. B. „+1 Wdh. · +17 %“, „+2 Runden“, „−12 s /km“.
+function prGain(p, ref) {
+  if (!ref || !(p.v > ref.v)) return '';
+  var t = p.k.charAt(0), d = p.v - ref.v, pct = ref.v > 0 ? ' · +' + Math.round(d / ref.v * 100) + ' %' : '';
+  if (t === 'm') { var r = Math.floor(p.v / 1000) - Math.floor(ref.v / 1000); return r > 0 ? '+' + r + (r === 1 ? ' Runde' : ' Runden') : '+' + (p.v % 1000 - ref.v % 1000) + ' Wdh.'; }
+  if (p.k === 'r:5k') return '−' + Math.round(d) + ' s /km';
+  if (p.k === 'r:far') return '+' + fmtKm(Math.round(d * 100) / 100) + ' km';
+  if (p.k === 'e:20') return '+' + d + ' W' + pct;
+  return '+' + d + ' ' + p.disp.replace(/^[\d,.]+\s*/, '') + pct;
+}
+function prSub(p, today) { return [p.st ? stageText(p.st) : '', today && p.date === isoToday() ? 'heute' : shortDate(p.date).replace(/\.$/, '')].filter(Boolean).join(' · '); }
+// Balken je Rekord im Verlauf, der letzte hervorgehoben.
+function prBars(h, cls) {
+  h = h.slice(-6); var lo = Math.min.apply(null, h.map(function (x) { return x.pv; })), hi = Math.max.apply(null, h.map(function (x) { return x.pv; }));
+  return '<span class="' + cls + '" aria-hidden="true">' + h.map(function (x, i) { var f = hi > lo ? 0.3 + 0.7 * (x.pv - lo) / (hi - lo) : 1; return '<i' + (i === h.length - 1 ? ' class="on"' : '') + ' style="height:' + Math.round(f * 100) + '%"></i>'; }).join('') + '</span>';
+}
+function prCardHTML() {
+  var R = prList(LOGS), all = Object.keys(R).map(function (k) { return R[k]; }), wk = isoAdd(isoToday(), -7);
+  if (!all.length) return '';
+  var byDate = function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; };
+  var top = all.filter(function (p) { return p.up; }).sort(byDate)[0], h = '';
+  if (top) {
+    var g = prGain(top, top.prev);
+    h += '<section class="card pr-hero"><span class="pr-k">★ Neuester Rekord</span><h3>' + esc(top.t) + '</h3><small>' + esc(prSub(top, 1)) + '</small>' +
+      '<div class="pr-bigrow"><b class="pr-big">' + esc(top.disp) + '</b>' + (g ? '<span class="pr-gain">' + esc(g) + '</span>' : '') + '</div>' + prBars(top.h, 'pr-spark') + '</section>';
+  }
+  var G = PR_GRP.filter(function (x) { return all.some(function (p) { return p.g === x[0]; }); });
+  var cur = G.some(function (x) { return x[0] === ui.prG; }) ? ui.prG : top ? top.g : G[0][0];
+  h += '<section class="card"><div class="card-head"><h2>Rekorde</h2><span class="chip">Bestwerte</span></div>' +
+    (G.length > 1 ? '<div class="seg pr-seg" role="group" aria-label="Bereich">' + G.map(function (x) { var on = x[0] === cur; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pr-g" data-v="' + x[0] + '" aria-pressed="' + on + '">' + x[1] + '</button>'; }).join('') + '</div>' : '') +
+    all.filter(function (p) { return p.g === cur; }).sort(byDate).slice(0, 10).map(function (p) {
+      return '<div class="pr-row"><span><b>' + esc(p.t) + '</b><small>' + esc(prSub(p, 1)) + '</small>' + (p.h.length > 1 ? prBars(p.h, 'pr-mini') : '') + '</span><span class="pr-v">' + (p.up && p.date >= wk ? '<span class="pr-new">★ neu</span>' : '') + '<b>' + esc(p.disp) + '</b></span></div>';
+    }).join('') + '</section>';
+  return h;
+}
+// Kurve der Rekorde im Moment nach dem Speichern, der neue als goldener Stern.
+function prChartSVG(h) {
+  h = h.slice(-6); var W = 330, H = 120, n = h.length, lo = Math.min.apply(null, h.map(function (x) { return x.pv; })), hi = Math.max.apply(null, h.map(function (x) { return x.pv; }));
+  var P = h.map(function (x, i) { return [14 + i * (W - 28) / Math.max(1, n - 1), H - 12 - (hi > lo ? (x.pv - lo) / (hi - lo) : 1) * (H - 34)]; });
+  var line = P.map(function (q, i) { return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' '), L = P[n - 1];
+  return '<svg class="pr-ch" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><path d="' + line + ' L' + L[0].toFixed(1) + ' ' + H + ' L' + P[0][0].toFixed(1) + ' ' + H + ' Z" fill="var(--acc)" opacity=".1"/>' +
+    '<path d="' + line + '" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
+    P.slice(0, -1).map(function (q) { return '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="4.5" fill="var(--paper)" stroke="var(--acc)" stroke-width="2.5"/>'; }).join('') +
+    '<circle class="pr-glow" cx="' + L[0].toFixed(1) + '" cy="' + L[1].toFixed(1) + '" r="15" fill="#D9A21B" opacity=".22"/><circle cx="' + L[0].toFixed(1) + '" cy="' + L[1].toFixed(1) + '" r="9" fill="#D9A21B"/>' +
+    '<text x="' + L[0].toFixed(1) + '" y="' + (L[1] + 4.5).toFixed(1) + '" text-anchor="middle" font-size="12" fill="#fff">★</text></svg>' +
+    '<div class="pr-lbl">' + h.map(function (x) { return '<span>' + esc(x.d === isoToday() ? 'heute' : shortDate(x.d).replace(/\.$/, '')) + '</span>'; }).join('') + '</div>';
+}
+/* ---------- Fast geschafft (Dennis): was heute nah ist, auf Heute ---------- */
+// Höchstens 3 Zeilen, nur was heute erreichbar ist: nächste Stufe (Wdh. oben, Sehne bereit), nächste Medaille (bis 3 Punkte), Rekord der Stufe.
+function fastHTML(tag) {
+  var d = DAYS[tag], it = [], ph = curPhase(); if (!d || d.type !== 'kraft' || !d.kraft) return '';
+  d.kraft.forEach(function (x) {
+    if (it.length >= 2 || (x.pain && !x.pain.soft && !x.pain.kater)) return;
+    var g = GL[x.n], lad = g && LAD[g.key]; if (!lad) return;
+    var cs = coachStage(g.key, x.hi); if (!cs || cs.up || cs.wait || cs.kgGate || ph.deload) return;
+    var h = sinceBase(ladHist(g.key), baseOf(g.key)), last = h[h.length - 1]; if (!last || last.idx !== cs.idx || cs.idx >= lad.steps.length) return;
+    var cu = lad.lib && lad.lib.stufen && lad.lib.stufen[cs.idx - 1]; if (cu && UE[cu.uebung] && UE[cu.uebung].einheit === 'kg') return;
+    var rg = rangeOf(lad), top = x.hi || (rg ? rg.hi : 6), reps = last.reps.filter(function (v) { return typeof v === 'number'; }); if (reps.length < 2) return;
+    var n = reps.filter(function (v) { return v >= top; }).length, i = h.length - 1; while (i > 0 && h[i - 1].idx === cs.idx) i--;
+    if (isoDate(new Date(parseISO(h[i].date).getTime() + SEHNE_TAGE[sehneKl(g.key)] * 864e5)) > isoToday()) return;
+    var nm = esc(x.n) + ' · ' + esc(stageText(lad.steps[cs.idx - 1])), nx = '„' + esc(stageText(lad.steps[cs.idx])) + '“';
+    if (n === reps.length) it.push({ k: x.n, t: nm, r: 'noch 1 Einheit', p: 75, s: 'Alle Runden ' + top + ' Wdh., dann kommt ' + nx + '.' });
+    else if (n * 2 >= reps.length) it.push({ k: x.n, t: nm, r: n + ' von ' + reps.length + ' Runden', p: Math.round(n / reps.length * 70), s: 'Letztes Mal ' + n + ' Runden auf ' + top + ' Wdh. Alle Runden oben bringen dich zu ' + nx + '.' });
+  });
+  var A = areaStates(LOGS), names = {}; AREAS.forEach(function (a) { names[a.id] = a.name; });
+  AREAS.forEach(function (a) {
+    var s2 = A['area_' + a.id], v = s2 && s2.val, t = !v ? 0 : v < 65 ? 65 : v < 75 ? 75 : v < 85 ? 85 : 0; if (!t || t - v > 3 || it.length >= 3) return;
+    var med = METAL[['', 'bronze', 'silber', 'gold', 'platin'][tierIdx(t)]].name;
+    it.push({ t: med + ' in ' + esc(a.name), r: v + ' von ' + t, p: Math.round(v / t * 100), gold: 1, s: 'Noch ' + (t - v) + (t - v === 1 ? ' Punkt.' : ' Punkte.') });
+  });
+  var R = prList(LOGS), x0 = d.kraft[0];
+  if (it.length < 3 && x0 && !(x0.pain && !x0.pain.soft)) {
+    var st0 = stageDef(x0.n, x0.hi), rec = R['k:' + x0.n + '|' + st0];
+    if (rec && !it.some(function (o) { return o.k === x0.n; })) it.push({ t: 'Rekord ' + esc(x0.n), r: esc(rec.disp), p: 85, s: 'Dein Bestwert auf „' + esc(stageText(st0)) + '“. ' + (rec.v + 1) + (rec.g === 'halten' ? ' s' : '') + ' wären neu.' });
+  }
+  if (!it.length) return '';
+  return '<section class="card fast"><h3>Fast geschafft</h3>' + it.slice(0, 3).map(function (o) {
+    return '<div class="fast-r"><div class="fast-t"><b>' + o.t + '</b><small>' + o.r + '</small></div><div class="fast-b' + (o.gold ? ' gold' : '') + '"><i style="width:' + o.p + '%"></i></div><small>' + o.s + '</small></div>';
+  }).join('') + '</section>';
+}
 function showMoment() {
   var old = document.getElementById('moment'); if (old) old.remove();
   var e = MOMENTS.shift(); if (!e) return;
+  if (e.type === 'pr') {
+    var pb = document.createElement('div'); pb.id = 'moment'; pb.className = 'moment mo-pr';
+    var P = e.pr, nR = P.h.length - 1, gn = prGain(P, e.prev), g0 = nR > 1 ? prGain(P, P.h[0]) : '', stg = /^[ks]:/.test(P.k);
+    pb.innerHTML = '<div class="mo-card mo-prc" role="dialog" aria-modal="true" aria-labelledby="mo-t"><div class="pr-top' + (P.disp.length > 7 ? ' wide' : '') + '"><div><span class="pr-k">★ Neuer Rekord</span><h2 id="mo-t">' + esc(P.t) + '</h2>' + (P.st ? '<small>' + esc(stageText(P.st)) + '</small>' : '') + '</div><b class="pr-num">' + esc(P.disp) + '</b></div>' +
+      prChartSVG(P.h) + (gn ? '<span class="pr-gain">' + esc(gn) + '</span>' : '') +
+      '<p class="pr-foot">' + (nR > 1 ? 'Dein ' + nR + '. Rekord' + (stg ? ' auf dieser Stufe' : '') + '. Seit dem ersten Mal <b>' + esc(g0) + '</b>.' : 'Vorher ' + esc(e.prev.disp) + ' am ' + esc(shortDate(e.prev.date).replace(/\.$/, '')) + '.') + '</p>' +
+      '<div class="mo-btns"><button type="button" class="btn" data-act="mo-next">' + (MOMENTS.length ? 'Nächste' : 'Weiter') + '</button><button type="button" class="btn primary" data-act="mo-view">Alle Rekorde</button></div></div>';
+    document.body.appendChild(pb); buzz([80, 120, 80, 120, 260]); return;
+  }
   var lad = ladOf(e.key), n = lad.steps.length, st = { cur: e.to, best: e.best }, prev = { cur: e.from, best: e.best };
   var tTo = e.to ? METAL[tierOf(e.to, n)].name : '', tFrom = e.from ? METAL[tierOf(e.from, n)].name : '';
   var head = e.type === 'gift' ? 'Erste Medaille freigeschaltet' : e.type === 'down' ? 'Abgestiegen' + (tFrom !== tTo ? ': ' + tFrom + ' → ' + tTo : '') :
@@ -5490,6 +5654,7 @@ function renderHeute() {
     h += '<section class="card tl-card">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
       return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
     }).join('') + '</ol>' + (cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '') + '</section>';
+    if (cur && !lock && !at && !c.isTest && !c.isMurph && d.type === 'kraft') h += fastHTML(tag);
     if (cur && !c.isTest && !c.isMurph) h += coachCardHTML(tag, miss);
     if (cur && !c.isTest && !c.isMurph && d.type === 'kraft' && (d.kraft.length || d.mmin)) h += adaptLineHTML(tag, false);
     else if (cur && d.type === 'interval') h += adaptLineHTML(tag, true);
@@ -6697,6 +6862,7 @@ function renderRM() {
   h += '<p class="small muted">Antippen öffnet den Prozent-Rechner mit den üblichen Trainingswerten.</p>';
   return h;
 }
+ACT['pr-g'] = function (el) { ui.prG = el.dataset.v; render(); };
 ACT['rm-view'] = function (el) { ui.rmBest = !!el.dataset.v; render(); };
 // Datum mit Jahr, z. B. „27. Aug. 2026“ (für Bestwerte).
 function dateY(iso) { return parseISO(iso).toLocaleDateString('de-DE', { day: 'numeric', month: 'short', year: 'numeric' }); }
