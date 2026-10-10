@@ -1074,13 +1074,26 @@ html.desk .btn:hover{filter:brightness(1.05)}
 html.desk .ob{max-width:520px;margin:0 auto}
 .fast h3{margin:0 0 2px}.fast-r{padding:12px 0;border-bottom:1px solid var(--line)}.fast-r:last-child{border:0;padding-bottom:0}.fast-t{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.fast-t b{font-weight:600}
 .fast-r small{font-size:14px;color:var(--ink2)}.fast-b{height:8px;border-radius:4px;background:var(--fill);margin:8px 0 6px;overflow:hidden}.fast-b i{display:block;height:100%;border-radius:4px;background:var(--acc)}.fast-b.gold i{background:linear-gradient(90deg,#D9A21B,#F2C94C)}
-.pr-star{width:110px;height:110px;margin:10px auto 6px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,120,.8) 0%,rgba(255,160,60,.2) 55%,transparent 70%);display:flex;align-items:center;justify-content:center;font-size:58px;color:#D9A21B;animation:prPop .7s cubic-bezier(.3,1.5,.5,1) both}
-.moment.mo-pr .mo-text{animation-delay:.5s;min-height:0}.moment.mo-pr .mo-btns{animation-delay:.8s}
+.moment.mo-pr .mo-btns{animation-delay:.8s}.mo-prc .pr-top.wide{flex-direction:column}.mo-prc .pr-top.wide .pr-num{margin-top:6px}
 .pr-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.pr-row:last-child{border:0}.pr-row>span:first-child{display:flex;flex-direction:column;min-width:0}.pr-row small{font-size:14px;color:var(--ink2)}
-.pr-v{display:flex;align-items:center;gap:8px;flex:none}.pr-v b{font-family:var(--hand);font-weight:var(--hand-w);font-size:20px;color:var(--acc);white-space:nowrap}
-.pr-num{font-family:var(--hand);font-weight:var(--hand-w);font-size:52px;line-height:1.05;color:var(--acc);margin:4px 0}.mo-pr .mo-head{color:#B8860B}.pr-new{margin-right:6px}
+.pr-v{display:flex;align-items:center;gap:8px;flex:none;align-self:flex-start;margin-top:2px}.pr-v b{font-family:var(--hand);font-weight:var(--hand-w);font-size:20px;color:var(--acc);white-space:nowrap}
+.pr-k{align-self:flex-start;display:inline-flex;gap:6px;font-size:14px;font-weight:700;color:#A8780F;background:color-mix(in srgb,#D9A21B 16%,var(--paper));border-radius:999px;padding:4px 10px}
+.pr-gain{align-self:flex-start;white-space:nowrap;font-size:14px;font-weight:700;color:#2E8A50;background:color-mix(in srgb,#4DBF79 18%,var(--paper));border-radius:999px;padding:4px 10px}
+.pr-hero{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:2px}.pr-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,color-mix(in srgb,#D9A21B 22%,transparent) 0%,transparent 60%);pointer-events:none}
+.pr-hero>*{position:relative}.pr-hero h3{margin:10px 0 0;font-size:22px}.pr-hero small{font-size:14px;color:var(--ink2)}
+.pr-bigrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:8px}.pr-bigrow .pr-gain{align-self:auto;margin-bottom:8px}
+.pr-big{font-family:var(--hand);font-weight:var(--hand-w);font-size:52px;line-height:1;color:var(--acc);white-space:nowrap}
+.pr-spark{display:flex;align-items:flex-end;gap:6px;height:40px;margin-top:14px}.pr-spark i{flex:1;max-width:28px;border-radius:4px;background:var(--fill)}.pr-spark i.on{background:linear-gradient(180deg,#F2C94C,#D9A21B)}
+.pr-seg{margin:8px 0 4px}.pr-mini{display:flex;gap:3px;align-items:flex-end;height:16px;margin-top:6px}.pr-mini i{width:10px;border-radius:2px;background:var(--fill)}.pr-mini i.on{background:var(--acc)}
+.mo-prc{align-items:stretch;gap:4px}.mo-prc .pr-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.mo-prc h2{font-size:24px;margin:8px 0 0}.mo-prc small{font-size:14px;color:var(--ink2)}
+.mo-prc .pr-num{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);white-space:nowrap;margin-top:34px;animation:prPop .7s cubic-bezier(.3,1.5,.5,1) .2s both}
+.pr-ch{width:100%;height:auto;margin-top:12px;overflow:visible}.pr-glow{transform-box:fill-box;transform-origin:center;animation:prPop .7s cubic-bezier(.3,1.5,.5,1) .4s both}
+.pr-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);margin:2px 0 10px}
+.pr-foot{margin:8px 0 0;font-size:15px;line-height:1.45}
+.pr-new{font-size:14px;font-weight:700;color:#A8780F;white-space:nowrap}
+[data-theme=dark] .pr-gain{background:#22382B;color:#8FD9AE}[data-theme=dark] .pr-k,[data-theme=dark] .pr-new{color:#F0C27A}[data-theme=dark] .pr-k{background:#3A3022}@media (prefers-color-scheme:dark){html:not([data-theme=light]) .pr-gain{background:#22382B;color:#8FD9AE}html:not([data-theme=light]) .pr-k,html:not([data-theme=light]) .pr-new{color:#F0C27A}html:not([data-theme=light]) .pr-k{background:#3A3022}}
 @keyframes prPop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
-@media (prefers-reduced-motion:reduce){.pr-star{animation:none}}
+@media (prefers-reduced-motion:reduce){.mo-prc .pr-num,.pr-glow{animation:none}}
 .wb-card .wb-k{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.wb-card h2{margin:0}.wb-card p{color:var(--ink2);margin:6px 0 14px}
 .ob-was{display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;color:var(--acc)}.ob-was::before{content:'';width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--acc)}
 .ob-seg i.was{background:color-mix(in srgb,var(--acc) 28%,var(--fill))}.ob-pre{grid-column:1 / -1;font-size:14px;color:var(--ink2)}.ob-pre b{font-weight:600;color:var(--ink)}
@@ -4427,7 +4440,8 @@ function prList(logs) {
   var ck = logs.length + '|' + (logs.length ? logs[logs.length - 1].id : '');
   if (logs === LOGS && PR_C.k === ck) return PR_C.v;
   var R = {};
-  function put(k, o) { var c = R[k]; if (!c || o.v > c.v) { if (c) o.up = 1; R[k] = o; } }
+  // h = Verlauf der Rekorde (erster Wert, dann jede Verbesserung), prev = Rekord davor, pv = Wert für die Kurve.
+  function put(k, o) { var c = R[k]; if (!c || o.v > c.v) { o.k = k; if (o.pv == null) o.pv = o.v; o.h = (c ? c.h : []).concat([{ v: o.v, pv: o.pv, d: o.date }]); if (c) { o.up = 1; o.prev = { v: c.v, disp: c.disp, date: c.date }; } R[k] = o; } }
   logs.forEach(function (l) {
     if (l.kraft) l.kraft.forEach(function (k) {
       if (k.kg && k.kg.some(function (w) { return w; })) return;
@@ -4438,7 +4452,7 @@ function prList(logs) {
     if (l.sb && l.sb.sec && LAD[l.sb.lad]) { var u = skillUnit(LAD[l.sb.lad]);
       put('s:' + l.sb.lad + '|' + l.sb.stage, { g: 'halten', t: LAD[l.sb.lad].name, st: l.sb.stage, v: l.sb.sec, disp: l.sb.sec + ' ' + u, date: l.date, id: l.id }); }
     if (l.metcon && l.metcon.rounds != null && l.metcon.items && l.metcon.items.length) {
-      var m = l.metcon; put('m:' + m.items.join('|') + '|' + m.min, { g: 'metcon', t: m.items.join(' · '), st: 'AMRAP ' + m.min, v: m.rounds * 1000 + (m.reps || 0), disp: m.rounds + ' Runden' + (m.reps ? ' + ' + m.reps : ''), date: l.date, id: l.id });
+      var m = l.metcon; put('m:' + m.items.join('|') + '|' + m.min, { g: 'metcon', t: m.items.join(' · '), st: 'AMRAP ' + m.min, v: m.rounds * 1000 + (m.reps || 0), pv: m.rounds + (m.reps || 0) / 20, disp: m.rounds + ' Runden' + (m.reps ? ' + ' + m.reps : ''), date: l.date, id: l.id });
     }
     var r = l.run || l.interval;
     if (r && r.sec) {
@@ -4457,15 +4471,52 @@ function prEvents(before, after) {
   Object.keys(after).forEach(function (k) { var a = after[k], b = before[k]; if (b && a.v > b.v && a.id !== b.id) out.push({ type: 'pr', pr: a, prev: b }); });
   return out.slice(0, 3);
 }
+// Gewinn zu einem früheren Wert, z. B. „+1 Wdh. · +17 %“, „+2 Runden“, „−12 s /km“.
+function prGain(p, ref) {
+  if (!ref || !(p.v > ref.v)) return '';
+  var t = p.k.charAt(0), d = p.v - ref.v, pct = ref.v > 0 ? ' · +' + Math.round(d / ref.v * 100) + ' %' : '';
+  if (t === 'm') { var r = Math.floor(p.v / 1000) - Math.floor(ref.v / 1000); return r > 0 ? '+' + r + (r === 1 ? ' Runde' : ' Runden') : '+' + (p.v % 1000 - ref.v % 1000) + ' Wdh.'; }
+  if (p.k === 'r:5k') return '−' + Math.round(d) + ' s /km';
+  if (p.k === 'r:far') return '+' + fmtKm(Math.round(d * 100) / 100) + ' km';
+  if (p.k === 'e:20') return '+' + d + ' W' + pct;
+  return '+' + d + ' ' + p.disp.replace(/^[\d,.]+\s*/, '') + pct;
+}
+function prSub(p, today) { return [p.st ? stageText(p.st) : '', today && p.date === isoToday() ? 'heute' : shortDate(p.date).replace(/\.$/, '')].filter(Boolean).join(' · '); }
+// Balken je Rekord im Verlauf, der letzte hervorgehoben.
+function prBars(h, cls) {
+  h = h.slice(-6); var lo = Math.min.apply(null, h.map(function (x) { return x.pv; })), hi = Math.max.apply(null, h.map(function (x) { return x.pv; }));
+  return '<span class="' + cls + '" aria-hidden="true">' + h.map(function (x, i) { var f = hi > lo ? 0.3 + 0.7 * (x.pv - lo) / (hi - lo) : 1; return '<i' + (i === h.length - 1 ? ' class="on"' : '') + ' style="height:' + Math.round(f * 100) + '%"></i>'; }).join('') + '</span>';
+}
 function prCardHTML() {
   var R = prList(LOGS), all = Object.keys(R).map(function (k) { return R[k]; }), wk = isoAdd(isoToday(), -7);
   if (!all.length) return '';
-  return '<section class="card"><div class="card-head"><h2>Rekorde</h2><span class="chip">Bestwerte</span></div>' + PR_GRP.map(function (g) {
-    var L = all.filter(function (p) { return p.g === g[0]; }).sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }).slice(0, 6);
-    return L.length ? '<p class="sec-k" style="margin-top:12px">' + g[1] + '</p>' + L.map(function (p) {
-      return '<div class="pr-row"><span><b>' + esc(p.t) + '</b><small>' + esc([p.st ? stageText(p.st) : '', shortDate(p.date).replace(/\.$/, '')].filter(Boolean).join(' · ')) + '</small></span><span class="pr-v">' + (p.up && p.date >= wk ? '<span class="chip blue">neu</span>' : '') + '<b>' + esc(p.disp) + '</b></span></div>';
-    }).join('') : '';
-  }).join('') + '</section>';
+  var byDate = function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; };
+  var top = all.filter(function (p) { return p.up; }).sort(byDate)[0], h = '';
+  if (top) {
+    var g = prGain(top, top.prev);
+    h += '<section class="card pr-hero"><span class="pr-k">★ Neuester Rekord</span><h3>' + esc(top.t) + '</h3><small>' + esc(prSub(top, 1)) + '</small>' +
+      '<div class="pr-bigrow"><b class="pr-big">' + esc(top.disp) + '</b>' + (g ? '<span class="pr-gain">' + esc(g) + '</span>' : '') + '</div>' + prBars(top.h, 'pr-spark') + '</section>';
+  }
+  var G = PR_GRP.filter(function (x) { return all.some(function (p) { return p.g === x[0]; }); });
+  var cur = G.some(function (x) { return x[0] === ui.prG; }) ? ui.prG : top ? top.g : G[0][0];
+  h += '<section class="card"><div class="card-head"><h2>Rekorde</h2><span class="chip">Bestwerte</span></div>' +
+    (G.length > 1 ? '<div class="seg pr-seg" role="group" aria-label="Bereich">' + G.map(function (x) { var on = x[0] === cur; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pr-g" data-v="' + x[0] + '" aria-pressed="' + on + '">' + x[1] + '</button>'; }).join('') + '</div>' : '') +
+    all.filter(function (p) { return p.g === cur; }).sort(byDate).slice(0, 10).map(function (p) {
+      return '<div class="pr-row"><span><b>' + esc(p.t) + '</b><small>' + esc(prSub(p, 1)) + '</small>' + (p.h.length > 1 ? prBars(p.h, 'pr-mini') : '') + '</span><span class="pr-v">' + (p.up && p.date >= wk ? '<span class="pr-new">★ neu</span>' : '') + '<b>' + esc(p.disp) + '</b></span></div>';
+    }).join('') + '</section>';
+  return h;
+}
+// Kurve der Rekorde im Moment nach dem Speichern, der neue als goldener Stern.
+function prChartSVG(h) {
+  h = h.slice(-6); var W = 330, H = 120, n = h.length, lo = Math.min.apply(null, h.map(function (x) { return x.pv; })), hi = Math.max.apply(null, h.map(function (x) { return x.pv; }));
+  var P = h.map(function (x, i) { return [14 + i * (W - 28) / Math.max(1, n - 1), H - 12 - (hi > lo ? (x.pv - lo) / (hi - lo) : 1) * (H - 34)]; });
+  var line = P.map(function (q, i) { return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' '), L = P[n - 1];
+  return '<svg class="pr-ch" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><path d="' + line + ' L' + L[0].toFixed(1) + ' ' + H + ' L' + P[0][0].toFixed(1) + ' ' + H + ' Z" fill="var(--acc)" opacity=".1"/>' +
+    '<path d="' + line + '" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
+    P.slice(0, -1).map(function (q) { return '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="4.5" fill="var(--paper)" stroke="var(--acc)" stroke-width="2.5"/>'; }).join('') +
+    '<circle class="pr-glow" cx="' + L[0].toFixed(1) + '" cy="' + L[1].toFixed(1) + '" r="15" fill="#D9A21B" opacity=".22"/><circle cx="' + L[0].toFixed(1) + '" cy="' + L[1].toFixed(1) + '" r="9" fill="#D9A21B"/>' +
+    '<text x="' + L[0].toFixed(1) + '" y="' + (L[1] + 4.5).toFixed(1) + '" text-anchor="middle" font-size="12" fill="#fff">★</text></svg>' +
+    '<div class="pr-lbl">' + h.map(function (x) { return '<span>' + esc(x.d === isoToday() ? 'heute' : shortDate(x.d).replace(/\.$/, '')) + '</span>'; }).join('') + '</div>';
 }
 /* ---------- Fast geschafft (Dennis): was heute nah ist, auf Heute ---------- */
 // Höchstens 3 Zeilen, nur was heute erreichbar ist: nächste Stufe (Wdh. oben, Sehne bereit), nächste Medaille (bis 3 Punkte), Rekord der Stufe.
@@ -4505,8 +4556,10 @@ function showMoment() {
   var e = MOMENTS.shift(); if (!e) return;
   if (e.type === 'pr') {
     var pb = document.createElement('div'); pb.id = 'moment'; pb.className = 'moment mo-pr';
-    pb.innerHTML = '<div class="mo-card" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">Training gespeichert</p><div class="pr-star" aria-hidden="true">★</div>' +
-      '<div class="mo-text"><p class="mo-head">Neuer Rekord</p><h2 id="mo-t">' + esc(prTitle(e.pr)) + '</h2><p class="pr-num">' + esc(e.pr.disp) + '</p><p class="mo-body">Vorher ' + esc(e.prev.disp) + ' am ' + esc(shortDate(e.prev.date).replace(/\.$/, '')) + '.</p></div>' +
+    var P = e.pr, nR = P.h.length - 1, gn = prGain(P, e.prev), g0 = nR > 1 ? prGain(P, P.h[0]) : '', stg = /^[ks]:/.test(P.k);
+    pb.innerHTML = '<div class="mo-card mo-prc" role="dialog" aria-modal="true" aria-labelledby="mo-t"><div class="pr-top' + (P.disp.length > 7 ? ' wide' : '') + '"><div><span class="pr-k">★ Neuer Rekord</span><h2 id="mo-t">' + esc(P.t) + '</h2>' + (P.st ? '<small>' + esc(stageText(P.st)) + '</small>' : '') + '</div><b class="pr-num">' + esc(P.disp) + '</b></div>' +
+      prChartSVG(P.h) + (gn ? '<span class="pr-gain">' + esc(gn) + '</span>' : '') +
+      '<p class="pr-foot">' + (nR > 1 ? 'Dein ' + nR + '. Rekord' + (stg ? ' auf dieser Stufe' : '') + '. Seit dem ersten Mal <b>' + esc(g0) + '</b>.' : 'Vorher ' + esc(e.prev.disp) + ' am ' + esc(shortDate(e.prev.date).replace(/\.$/, '')) + '.') + '</p>' +
       '<div class="mo-btns"><button type="button" class="btn" data-act="mo-next">' + (MOMENTS.length ? 'Nächste' : 'Weiter') + '</button><button type="button" class="btn primary" data-act="mo-view">Alle Rekorde</button></div></div>';
     document.body.appendChild(pb); buzz([80, 120, 80, 120, 260]); return;
   }
@@ -6809,6 +6862,7 @@ function renderRM() {
   h += '<p class="small muted">Antippen öffnet den Prozent-Rechner mit den üblichen Trainingswerten.</p>';
   return h;
 }
+ACT['pr-g'] = function (el) { ui.prG = el.dataset.v; render(); };
 ACT['rm-view'] = function (el) { ui.rmBest = !!el.dataset.v; render(); };
 // Datum mit Jahr, z. B. „27. Aug. 2026“ (für Bestwerte).
 function dateY(iso) { return parseISO(iso).toLocaleDateString('de-DE', { day: 'numeric', month: 'short', year: 'numeric' }); }

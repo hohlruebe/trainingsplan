@@ -30,6 +30,9 @@ Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testt
   motivierendsten Methode: spürbarer Fortschritt plus festes Einplanen. Dennis: „ok baue das ein“ (Rekorde und Fast geschafft), dazu Timer-Ansagen
   „Halfway there“, „30 seconds left“ und „5, 4, 3, 2, 1, Done!“.
 - Umgesetzt (siehe CLAUDE.md): Rekorde mit Moment und Liste in Profil › Erfolge, Karte „Fast geschafft“ auf Heute, Ansagen im Timer (Stimme muss an sein).
+- Rekorde-Design: drei Varianten (A Kacheln, B Liste vorher → jetzt, C Highlight + Filter) im Canvas. Dennis wählte C, aber die dunkle Karte im Hellmodus
+  war schlecht, und die Karte nach dem Speichern gefiel nicht. Jetzt: C hell (weiße Karte mit goldenem Schimmer) und Moment M3 (Kurve der Rekorde
+  mit goldenem Stern, Gewinn-Chip). Board „Rekorde · C und der Moment“.
 - Offen aus den Konzepten: D Nächstes Training festhalten (Erinnerungen erst sinnvoll mit nativer App), A Wochen-Kette mit E 10-Minuten-Rettung,
   F Monatsrückblick, G Block beginnt, H Teilen. Idee Android-App mit Capacitor (Erinnerungen, Health Connect) besprochen, noch nicht begonnen.
 - Canvas: das Design-Format nimmt keine eingebetteten Bilder (data-URIs) mehr; Bilder als Assets hochladen und mit `/_blob/<id>` einbinden,

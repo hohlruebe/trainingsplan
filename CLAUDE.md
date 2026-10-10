@@ -153,8 +153,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   2 Min; ohne Vorlauf, „Danach: nächster Versuch“, nach Ablauf „Pause vorbei“ (Tippen setzt zurück), kein Sprung zur nächsten Übung.
   Rekorde (Dennis, `prList`, `PR_C`, `prEvents`, `prCardHTML`): bester Satz je Übung und Stufe (Wdh. bzw. s, ohne Gewichtsübungen, die zählen im 1RM),
   beste Haltezeit im Skill-Block, bestes Metcon mit denselben Übungen und Minuten, 5 km Tempo (Läufe ab 4,95 km), längster Lauf, Ergometer-Watt ab 20 Min.
-  Nach dem Speichern Moment „Neuer Rekord“ (Typ `pr` in `showMoment`, Stern, Zahl groß, „Vorher … am …“), nur Verbesserungen, höchstens 3.
-  Liste „Rekorde“ in Profil › Erfolge unter den Medaillen (je Gruppe Kraft, Halten, Metcon, Ausdauer, neueste zuerst, Chip „neu“ 7 Tage).
+  Je Rekord `h` (Verlauf: erster Wert, dann jede Verbesserung, `pv` für die Kurve), `prev` (Rekord davor), `k` (Schlüssel); Gewinn `prGain` („+1 Wdh. · +17 %“).
+  Nach dem Speichern Moment „Neuer Rekord“ (Typ `pr` in `showMoment`, Karte `.mo-prc`, Design M3 mit Dennis): Chip, Übung, Zahl groß, Kurve der Rekorde
+  (`prChartSVG`, neuer als goldener Stern), grüner Gewinn-Chip, „Dein N. Rekord auf dieser Stufe. Seit dem ersten Mal …“; nur Verbesserungen, höchstens 3.
+  Profil › Erfolge unter den Medaillen (Design C hell, `prCardHTML`): Karte „Neuester Rekord“ (`.pr-hero`, weiß mit goldenem Schimmer, Gewinn-Chip,
+  Balken `prBars`, letzter golden), darunter Karte „Rekorde“ mit Umschalter Kraft | Halten | Metcon | Ausdauer (`ui.prG`, `ACT['pr-g']`, nur Bereiche mit Daten),
+  je Zeile Mini-Balken und „★ neu“ (7 Tage).
   „Fast geschafft“ auf Heute unter dem Ablauf (`fastHTML`, Krafttag vor dem Start): höchstens 3 Zeilen mit Balken, nächste Stufe (Sehne bereit, letzte Einheit alle
   bzw. mindestens die Hälfte der Runden oben), Medaille bis 3 Punkte davor (gold), Rekord der ersten Kraftübung auf ihrer Stufe.
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`, gemerkt in `AS_C`: beim Speichern wird nur ab dem letzten Tag neu gerechnet): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
