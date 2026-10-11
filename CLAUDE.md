@@ -6,6 +6,17 @@ Offline-Web-App (PWA) für Dennis' Trainingsplan „Calisthenics × CrossFit“
 Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installierte App.
 
 ## Dateien
+- Stabilisierung (11. Oktober 2026): `LS.set` meldet Schreibfehler und hält offene Änderungen in `LS.pending` im Arbeitsspeicher.
+  Nach einem Fehler werden weitere Schreibvorgänge zurückgehalten. Wiederholen schreibt Einheiten vor Stand und Entwürfen;
+  Erfolgsmomente und „Gespeichert“ erscheinen erst danach. Fehlerkarte mit „Erneut speichern“ und direktem JSON-Download,
+  Warnung beim Verlassen; bei Speicherfehler die App offen lassen oder Sicherung herunterladen. Kein Schutz vor Betriebssystem-Abbruch.
+  Sync wartet auf erfolgreiches lokales Speichern. `invalidateDerived` verwirft Berechnungen nach Änderungen an Stand/Einheiten,
+  auch bei Korrekturen ohne Änderung der Anzahl. Sync übernimmt Kalenderwoche, Tag/Durchgang und Zyklus gemeinsam;
+  neuere Kalenderwoche gewinnt vor höherem Tag, manuelles Zurücksetzen (`posSet`) bleibt vorrangig.
+  GitHub-Metadaten bestätigen `private: true` vor dem Lesen der Datendatei und nochmals vor dem Upload (auch bestehende Verbindungen).
+  Trennen während des Abgleichs verhindert weitere Anfragen. Export-/Sync-Format und bestehende IDs bleiben erhalten.
+  Regressionen: `node tests/stabilisierung.cjs` (Speicherfehler/Wiederholen, Wochenwechsel/Altformat, Cache-Invalidierung,
+  Privatheit/Berechtigungen/Verbindungswechsel; ohne Browser oder Netzwerk).
 - `index.html`: die komplette App (HTML, CSS, JavaScript in einer Datei, kein Build-Schritt)
   - erster `<style>`-Block: nur Schriften als Base64 – nicht bearbeiten
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten

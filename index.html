@@ -65,6 +65,9 @@ b{font-weight:700}
 [hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .card{margin:16px 0;background:var(--paper);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+#storage-error{max-width:528px;margin:16px auto;border:2px solid var(--red);width:calc(100% - 32px);scroll-margin-top:calc(env(safe-area-inset-top,0px) + 12px)}
+html.desk #storage-error{width:calc(100% - 80px);max-width:800px;margin:24px auto 0}
+html.desk body:has(main[data-tab=heute]) #storage-error,html.desk body:has(main[data-tab=uebungen]) #storage-error,html.desk body:has(main[data-tab=fam]) #storage-error{max-width:1120px}
 .card>h2,.card-head{margin-bottom:10px}
 .card-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:4px 10px}
 .card-head h2{white-space:nowrap}
@@ -2564,9 +2567,45 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null };
 
 var LS = {
-  get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-  set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignore */ } }
+  pending: {}, after: [], notice: null,
+  get: function (k, d) { try { var v = Object.prototype.hasOwnProperty.call(LS.pending, k) ? LS.pending[k] : localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set: function (k, v) {
+    if (k === 'tp.logs' || k === 'tp.state') invalidateDerived();
+    LS.pending[k] = JSON.stringify(v);
+    // Nach dem ersten Fehler bleiben auch spätere Änderungen offen. Keine Folgeschritte auf der Platte ohne die Einheiten.
+    if (LS.notice) { storageNotice(); return false; }
+    return LS.retry();
+  },
+  retry: function () {
+    var keys = Object.keys(LS.pending);
+    // Einheiten vor Stand, Entwürfe erst zuletzt entfernen.
+    keys.sort(function (a, b) { var rank = function (k) { return k === 'tp.logs' ? 0 : k === 'tp.state' ? 1 : k === 'tp.drafts' ? 3 : 2; }; return rank(a) - rank(b); });
+    try { keys.forEach(function (k) { localStorage.setItem(k, LS.pending[k]); delete LS.pending[k]; }); }
+    catch (e) { LS.notice = 'Nicht auf diesem Gerät gespeichert. Deine Änderungen sind noch in dieser geöffneten App. Lass sie offen und versuche es erneut oder lade eine Sicherung herunter.'; storageNotice(); return false; }
+    LS.notice = null; storageNotice();
+    var after = LS.after.splice(0); after.forEach(function (fn) { fn(); });
+    return true;
+  }
 };
+// Auch Korrekturen mit unveränderter Anzahl der Einträge müssen neu gerechnet werden.
+function invalidateDerived() {
+  [FILL, EST_C, PR_C, MB_C, PAIN_C, WKP_C].forEach(function (c) { if (c) c.k = null; });
+  AS_C = null; PD_C = {};
+}
+function storageNotice() {
+  if (storageNotice.t) return;
+  storageNotice.t = setTimeout(function () {
+    storageNotice.t = null;
+    var box = document.getElementById('storage-error');
+    if (box) { var wasHidden = box.hidden; box.hidden = !LS.notice; if (LS.notice && wasHidden) box.scrollIntoView({ block: 'start' }); return; }
+    if (!LS.notice) return;
+    box = document.createElement('section'); box.id = 'storage-error'; box.className = 'card'; box.setAttribute('role', 'alert');
+    box.innerHTML = '<h2>! Speichern fehlgeschlagen</h2><p>' + esc(LS.notice) + '</p><div class="bgrp"><button type="button" data-act="storage-retry">Erneut speichern</button><button type="button" data-act="storage-backup">Sicherung herunterladen</button></div>';
+    var view = document.getElementById('view'); if (view) { view.before(box); box.scrollIntoView({ block: 'start' }); }
+  }, 0);
+}
+function whenStored(fn) { if (LS.notice || Object.keys(LS.pending).length) LS.after.push(fn); else fn(); }
+window.addEventListener('beforeunload', function (e) { if (Object.keys(LS.pending).length) { e.preventDefault(); e.returnValue = ''; } });
 // Sechs feste Orte mit Symbol. Angezeigt werden nur die eingeschalteten (on).
 var ORTE_FIX = [
   { k: 'zuhause', name: 'Zuhause', d: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', re: /zuhause|home|daheim|wohnung|haus/ },
@@ -2630,7 +2669,7 @@ function gl(name, label) {
   if (!GL[name]) return esc(label);
   return '<button type="button" class="link" data-act="gloss" data-name="' + esc(name) + '">' + esc(label) + '</button>';
 }
-function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600); }
+function toast(msg) { if (LS.notice) { storageNotice(); return; } var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600); }
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
 function isKurz(tag) { return zeitLv(tag) >= 2 || isKurz0(tag); }
@@ -2701,26 +2740,35 @@ function syncSoon(ms) { if (!SY) return; clearTimeout(syncT); syncT = setTimeout
 function setSync(status, msg) { syncState = { status: status, msg: msg || '' }; if (ui.tab === 'profil' || ui.tab === 'einst' || ui.tab === 'heute') scheduleRender(); }
 function b64enc(str) { var by = new TextEncoder().encode(str), bin = ''; for (var i = 0; i < by.length; i += 0x8000) bin += String.fromCharCode.apply(null, by.subarray(i, i + 0x8000)); return btoa(bin); }
 function b64dec(b64) { var bin = atob(String(b64).replace(/\s/g, '')), by = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) by[i] = bin.charCodeAt(i); return new TextDecoder().decode(by); }
-function ghUrl() { return API + '/repos/' + encodeURIComponent(SY.owner) + '/' + encodeURIComponent(SY.repo) + '/contents/' + encodeURIComponent(SY.path || 'trainingsplan.json'); }
-function ghHeaders(accept) { return { 'Authorization': 'Bearer ' + SY.token, 'Accept': accept || 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }; }
+function ghRepoUrl(sy) { return API + '/repos/' + encodeURIComponent(sy.owner) + '/' + encodeURIComponent(sy.repo); }
+function ghUrl(sy) { sy = sy || SY; return ghRepoUrl(sy) + '/contents/' + encodeURIComponent(sy.path || 'trainingsplan.json'); }
+function ghHeaders(accept, sy) { sy = sy || SY; return { 'Authorization': 'Bearer ' + sy.token, 'Accept': accept || 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }; }
 function ghErr(res) { var e = new Error('HTTP ' + res.status); e.status = res.status; return e; }
-function ghGet() {
-  return fetch(ghUrl(), { headers: ghHeaders(), cache: 'no-store' }).then(function (res) {
+function ghPrivate(sy) {
+  return fetch(ghRepoUrl(sy), { headers: ghHeaders(null, sy), cache: 'no-store' }).then(function (res) {
+    if (!res.ok) throw ghErr(res);
+    return res.json();
+  }).then(function (repo) {
+    if (repo.private !== true) { var e = new Error('private-required'); e.privateRequired = true; throw e; }
+  });
+}
+function ghGet(sy) {
+  return fetch(ghUrl(sy), { headers: ghHeaders(null, sy), cache: 'no-store' }).then(function (res) {
     if (res.status === 404) return { sha: null, doc: null };
     if (!res.ok) throw ghErr(res);
     return res.json().then(function (j) {
       if (j.encoding === 'base64' && j.content) return { sha: j.sha, doc: JSON.parse(b64dec(j.content)) };
-      return fetch(ghUrl(), { headers: ghHeaders('application/vnd.github.raw+json'), cache: 'no-store' }).then(function (r2) {
+      return fetch(ghUrl(sy), { headers: ghHeaders('application/vnd.github.raw+json', sy), cache: 'no-store' }).then(function (r2) {
         if (!r2.ok) throw ghErr(r2);
         return r2.text().then(function (t) { return { sha: j.sha, doc: JSON.parse(t) }; });
       });
     });
   });
 }
-function ghPut(doc, sha) {
+function ghPut(doc, sha, sy) {
   var body = { message: 'Sync ' + isoToday() + ' ' + new Date().toTimeString().slice(0, 5), content: b64enc(JSON.stringify(doc, null, 1)) };
   if (sha) body.sha = sha;
-  return fetch(ghUrl(), { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders()), body: JSON.stringify(body) }).then(function (res) {
+  return fetch(ghUrl(sy), { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders(null, sy)), body: JSON.stringify(body) }).then(function (res) {
     if (!res.ok) throw ghErr(res);
     return res.json();
   });
@@ -2743,10 +2791,14 @@ function mergeRemote(r) {
   // Stand Feld für Feld: das neuere gewinnt. Ältere Dateien ohne feldTs zählen mit der Zeit des ganzen Stands.
   if (r.stand) {
     var rt = r.feldTs && typeof r.feldTs === 'object' ? r.feldTs : null, took = false;
-    // Tag und Durchgang laufen nie zurück: der weitere Stand gewinnt, außer der Stand wurde von Hand gesetzt (posSet).
-    var POS = ['durchgang', 'tag', 'tagSince', 'advBy', 'posSet'], rs = r.stand, rp = (+rs.durchgang || 0) * 10 + (+rs.tag || 0), lp = S.durchgang * 10 + S.tag;
+    // Wochenwechsel darf Tag 1 im selben Durchgang setzen. Woche und Position bilden einen gemeinsamen Stand.
+    var POS = ['durchgang', 'tag', 'tagSince', 'advBy', 'posSet', 'planWk', 'cycleStart', 'cycleDurchgang'], rs = r.stand, rp = (+rs.durchgang || 0) * 10 + (+rs.tag || 0), lp = S.durchgang * 10 + S.tag;
     if (rs.durchgang != null && rs.tag != null) {
-      var rSet = +rs.posSet || 0, lSet = +S.posSet || 0, take = rSet !== lSet ? rSet > lSet : rp > lp || (rp === lp && (rs.tagSince || '') > (S.tagSince || ''));
+      var rSet = +rs.posSet || 0, lSet = +S.posSet || 0, rw = rs.planWk, lw = S.planWk;
+      // Sicherungen älterer Clients ohne planWk anhand ihres Positionsdatums einordnen.
+      if (lw && !rw && /^\d{4}-\d{2}-\d{2}$/.test(rs.tagSince || '')) rw = wkMon(rs.tagSince);
+      if (rw && !lw && /^\d{4}-\d{2}-\d{2}$/.test(S.tagSince || '')) lw = wkMon(S.tagSince);
+      var take = rSet !== lSet ? rSet > lSet : rw && lw && rw !== lw ? rw > lw : rp > lp || (rp === lp && (rs.tagSince || '') > (S.tagSince || ''));
       if (take) { POS.forEach(function (k) { if (k in rs) { S[k] = rs[k]; S.feldTs[k] = Math.max(S.feldTs[k] || 0, rt ? (rt[k] || 0) : (r.standTs || 0)); } }); took = true; }
     }
     SYNC_KEYS.forEach(function (k) {
@@ -2761,24 +2813,32 @@ function mergeRemote(r) {
 }
 function runSync() {
   if (!SY) return Promise.resolve();
+  if (LS.notice) { setSync('wait', 'Erst die offenen Änderungen auf diesem Gerät speichern.'); return Promise.resolve(); }
   if (syncBusy) { syncAgain = true; return Promise.resolve(); }
   if (navigator.onLine === false) { setSync('wait', 'Kein Internet. Der Abgleich wird nachgeholt.'); return Promise.resolve(); }
   syncBusy = true; setSync('busy', '');
+  var connection = SY;
+  function current() { if (SY !== connection) { var e = new Error('connection-changed'); e.cancelled = true; throw e; } }
   var attempt = function (n) {
-    return ghGet().then(function (got) {
+    return ghPrivate(connection).then(function () { current(); return ghGet(connection); }).then(function (got) {
+      current();
       if (mergeRemote(got.doc)) { LS.set('tp.logs', LOGS); LS.set('tp.state', S); LS.set('tp.deleted', DELETED); ui.viewTag = null; applyTheme(); }
+      if (LS.notice) throw new Error('local-storage');
       var mine = localDoc();
       if (got.doc && JSON.stringify(got.doc) === JSON.stringify(mine)) return null;
-      return ghPut(mine, got.sha).catch(function (e) { if ((e.status === 409 || e.status === 422) && n < 2) return attempt(n + 1); throw e; });
+      return ghPrivate(connection).then(function () { current(); if (LS.notice) throw new Error('local-storage'); return ghPut(mine, got.sha, connection); }).catch(function (e) { if ((e.status === 409 || e.status === 422) && n < 2) return attempt(n + 1); throw e; });
     });
   };
   return attempt(0).then(function () {
-    if (!SY) return;
+    if (SY !== connection) return;
     SY.dirty = false; SY.last = Date.now(); LS.set('tp.sync', SY); setSync('ok', '');
   }, function (e) {
+    if (SY !== connection || (e && e.cancelled)) return;
     var s = e && e.status;
-    setSync(s ? 'error' : 'wait',
-      s === 401 ? 'Der Token ist ungültig oder abgelaufen. Trenne die Verbindung und trag einen neuen Token ein.'
+    setSync(s || (e && e.privateRequired) ? 'error' : 'wait',
+      e && e.privateRequired ? 'Dieses Repository ist öffentlich oder seine Privatheit ist nicht bestätigt. Es werden keine Trainingsdaten übertragen. Wähle ein privates Repository.'
+      : LS.notice ? 'Erst die offenen Änderungen auf diesem Gerät speichern.'
+      : s === 401 ? 'Der Token ist ungültig oder abgelaufen. Trenne die Verbindung und trag einen neuen Token ein.'
       : s === 403 ? 'Der Token darf dieses Repository nicht ändern. Er braucht die Berechtigung „Contents: Read and write“.'
       : s === 404 ? 'Repository nicht gefunden. Prüf Benutzername und Repository-Namen und ob der Token Zugriff darauf hat.'
       : s ? 'GitHub hat den Abgleich abgelehnt (Fehler ' + s + '). Die App versucht es später noch mal.'
@@ -3169,6 +3229,7 @@ function saveAsk() {
 // Nach dem Speichern 10 Sekunden „Rückgängig“: Einträge weg, Stand und Entwurf wie vorher.
 var UNDO = null;
 function showUndo(msg, u) {
+  if (LS.notice) { whenStored(function () { if (u.ids && LOGS.length === u.n + u.ids.length && u.ids.every(function (id) { return LOGS.some(function (l) { return l.id === id; }); })) showUndo(msg, u); }); return; }
   var el = document.getElementById('undo'); UNDO = u; el.firstChild.textContent = msg; el.classList.add('show');
   clearTimeout(showUndo._t); showUndo._t = setTimeout(function () { el.classList.remove('show'); UNDO = null; }, 10000);
 }
@@ -3248,9 +3309,10 @@ function saveDay() {
     addLog({ id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, kind: 'rm', lift: k.ue, kg: b.kg, reps: b.reps, e1: b.e1, bw: S.weight || null, src: 'training', notes: '' });
   });
   if (TM.cfg && TM.cfg.step && TM.cfg.step.indexOf(key + ':') === 0) { timerReset(); TM.cfg.step = null; }
-  delete DRAFTS[key]; LS.set('tp.drafts', DRAFTS);
+  delete DRAFTS[key];
   delete ui.kurz[key]; ui.skipMurph = false;
   advance(); saveState();
+  LS.set('tp.drafts', DRAFTS);
   window.scrollTo(0, 0); render();
   undo.ids = LOGS.slice(undo.n).map(function (l) { return l.id; });
   showUndo((log ? 'Gespeichert. ' : 'Abgehakt. ') + 'Morgen ist Tag ' + S.tag + ' dran.' + extra, undo);
@@ -4855,6 +4917,7 @@ function fastHTML(tag) {
   }).join('') + '</section>';
 }
 function showMoment() {
+  if (LS.notice) { whenStored(showMoment); return; }
   var old = document.getElementById('moment'); if (old) old.remove();
   var e = MOMENTS.shift(); if (!e) return;
   if (e.type === 'pr') {
@@ -5007,11 +5070,10 @@ var ACT = {
     if (m) { o = m[1]; r = m[2].replace(/\.git$/, ''); }
     if (!o || !r || !t) { toast('Bitte Benutzername, Repository und Token eintragen.'); return; }
     SY = { owner: o, repo: r, path: 'trainingsplan.json', token: t, dirty: true, last: null };
-    LS.set('tp.sync', SY);
     runSync().then(function () { if (syncState.status === 'ok') toast('Verbunden. Dein Stand ist jetzt abgeglichen.'); render(); });
   },
   'sync-now': function () { if (!SY) return; SY.dirty = true; runSync().then(function () { if (syncState.status === 'ok') toast('Abgeglichen.'); render(); }); },
-  'sync-off': function (el) { twoStep(el, function () { SY = null; clearTimeout(syncT); try { localStorage.removeItem('tp.sync'); } catch (e) { /* ignore */ } syncState = { status: 'off', msg: '' }; render(); toast('Sync getrennt. Deine Daten bleiben auf diesem Gerät.'); }); },
+  'sync-off': function (el) { twoStep(el, function () { SY = null; clearTimeout(syncT); delete LS.pending['tp.sync']; try { localStorage.removeItem('tp.sync'); } catch (e) { /* ignore */ } syncState = { status: 'off', msg: '' }; render(); toast('Sync getrennt. Deine Daten bleiben auf diesem Gerät.'); }); },
   'set-stand': function () { var o = ui.stand || { d: S.durchgang, t: S.tag }; ui.stand = null; S.durchgang = o.d; S.tag = o.t; S.started = true; S.posSet = Date.now(); S.tagSince = isoToday(); S.advBy = 'auto'; ui.viewTag = null; saveState(); toast('Stand gespeichert: ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang) + ', Tag ' + S.tag + '.'); render(); },
   'export': function () { exportData(); },
   'export-csv': function () { exportCSV(); },
@@ -7094,6 +7156,14 @@ ACT['fix-save'] = function () {
   LOGS[i] = L; LS.set('tp.logs', LOGS); DELETED[old] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
   ui.fix = null; ui.tab = ui.fixBack || 'profil'; render(); toast('Korrigiert. Der Coach rechnet mit den neuen Werten.');
 };
+ACT['storage-retry'] = function () { if (LS.retry()) { render(); toast('Deine Änderungen sind jetzt auf diesem Gerät gespeichert.'); if (SY) syncSoon(300); } };
+ACT['storage-backup'] = function () {
+  var doc = { exportiert: new Date().toISOString(), stand: S, einheiten: LOGS }, ft = LS.get('tp.foto', null);
+  if (ft) doc.foto = { ts: LS.get('tp.fotoTs', 0) || 0, data: ft };
+  // Direkter Download: die Sicherung braucht weder Browserspeicher noch Internet.
+  var url = URL.createObjectURL(new Blob([JSON.stringify(doc, null, 2)], { type: 'application/json' })), a = document.createElement('a');
+  a.href = url; a.download = 'trainingsplan-' + isoToday() + '.json'; a.click(); setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+};
 ACT['text-size'] = function (el) { S.textSize = el.dataset.v; saveState(); applyTheme(); render(); };
 ACT['k-view'] = function (el) { S.kraftView = el.dataset.v; saveState(); render(); };
 ACT['k-sel'] = function (el) { ui.kSel = { k: el.dataset.k, m: +el.dataset.m }; render(); };
@@ -7359,7 +7429,7 @@ function paintRoutine(L) {
   if (!$('rp-n')) return;
   if (TM.finished) {
     $('rp-k').textContent = 'Geschafft'; $('rp-n').textContent = 'Stark gemacht.'; $('rp-sd').hidden = true; $('rp-how').innerHTML = ''; var f0 = $('rp-fig'); if (f0) { f0.querySelectorAll('.fig').forEach(stopFig); f0.innerHTML = ''; f0.dataset.k = ''; } $('rp-how').dataset.k = '';
-    $('rp-t').innerHTML = TICK; $('rp-arc').style.strokeDashoffset = 0; $('rp-h').textContent = 'Gespeichert unter Profil › Verlauf › Mobility.'; $('rp-x').textContent = '';
+    $('rp-t').innerHTML = TICK; $('rp-arc').style.strokeDashoffset = 0; $('rp-h').textContent = LS.notice ? 'Noch nicht gespeichert. Bitte erneut speichern oder eine Sicherung herunterladen.' : 'Gespeichert unter Profil › Verlauf › Mobility.'; $('rp-x').textContent = '';
     $('rp-tg').hidden = true; $('rp-done').hidden = false; return;
   }
   if (!p) return;
