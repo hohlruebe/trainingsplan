@@ -25,6 +25,10 @@ Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testt
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## AGENTS.md für ChatGPT/Codex (11. Oktober)
+- Dennis möchte auch ChatGPT (Codex) am Projekt arbeiten lassen. `AGENTS.md` fasst die Regeln zusammen und verweist auf `CLAUDE.md`,
+  `UEBERGABE.md` und `DESIGN.md`. Wichtig: immer nur ein offener Pull Request, sonst Konflikte in `index.html`.
+
 ## Deine Woche: Schichten, Uhrzeiten, Kalender (11. Oktober)
 - Dennis ist Schichtarbeiter (Früh 6–14, Spät 14–22, Nacht 22–6, am Wochenende 12 h 6–18 / 18–6), bekommt den Plan jede Woche neu und
   wünscht sich einen festen Rhythmus. Wichtig (Dennis): der Nutzer entscheidet nicht, er gibt nur Antworten; Zeiten frei wählbar, nicht nur Blöcke.

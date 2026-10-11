@@ -469,6 +469,7 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
 - Durchgang 1 und 2 nach dem Fragebogen bzw. Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
 
 ## Übergabe zwischen Sitzungen
+- `AGENTS.md`: Kurzfassung der Regeln für andere KI-Werkzeuge (Codex, ChatGPT), verweist auf diese Datei. Bei neuen Grundregeln mitpflegen.
 - Zu Beginn jeder Sitzung `UEBERGABE.md` lesen (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 - Am Ende jeder Aufgabe `UEBERGABE.md` im selben Pull Request aktualisieren.
 - `design/` enthält nur Entwürfe und Rohdaten (Maskottchen, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
