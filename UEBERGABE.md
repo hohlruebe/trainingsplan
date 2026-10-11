@@ -6,6 +6,23 @@ Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md
 
 Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testtage, Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
+## Stabilisierung mit Codex (11. Oktober 2026, lokal für Pull Request vorbereitet)
+- Dennis hat nach der App-Prüfung das erste Stabilisierungspaket freigegeben („leg los“).
+- Speicherfehler werden sichtbar; offene Änderungen bleiben im Arbeitsspeicher, Wiederholen und JSON-Sicherung sind möglich.
+  Erfolgsmeldungen beim Speichern warten auf die erfolgreiche Speicherung; der Sync wartet ebenfalls.
+- Wochenwechsel und Sync: neuere Kalenderwoche vor höherem Tag; Woche und Trainingsposition werden zusammen übernommen.
+  Manuelle Rücksetzungen bleiben vorrangig, ältere Dateien ohne Wochenfeld werden anhand des Positionsdatums eingeordnet.
+- Nach Korrekturen werden Coach, Rekorde, Muskelbalance und Planung neu berechnet, auch bei unveränderter Eintragsanzahl.
+- Privatheit des Daten-Repositories wird vor dem Lesen und vor dem Upload geprüft; öffentliche/unbekannte Repositories sind blockiert.
+- Tests: `node tests/stabilisierung.cjs`, Syntax aller Skript-/JSON-Blöcke und gezielte Regressionen bestanden.
+- Browserzugriff auf die veröffentlichte App war nicht freigegeben. Vollständiger Handy-/Browsercheck der Reiter und Unterseiten
+  sowie visuelle Prüfung der Fehlerkarte sind vor dem Merge noch offen; Pull Request als Entwurf vorgesehen.
+- Hochladen blockiert: GitHub-Connector antwortet bei Schreibzugriff mit HTTP 403 „Resource not accessible by integration“.
+  Kein authentifizierter Git-Push verfügbar. Änderungen liegen auf `codex/stabilisierung-speichern-sync`, Patch und ZIP als Ausgabe.
+  Noch kein Pull Request erstellt und nichts in `main` oder auf GitHub Pages veröffentlicht.
+- Kein Navigationsumbau: Heute/Navigation und Fortschrittsdarstellung sind der nächste Konzeptschritt und noch nicht umgesetzt.
+- Bei vollem/gesperrtem Browserspeicher schützt der Arbeitsspeicher nur die laufende Sitzung; App offen lassen oder Sicherung herunterladen.
+
 ## Arbeitsweise mit Dennis
 - Neue Oberflächen erst als Entwurf im Canvas zeigen, Rückfragen stellen, erst nach Zustimmung einbauen.
 - Canvas (Design-Entwürfe): https://claude.ai/artifact/ASD8ADh36QGDQ4FpuWTJvC
