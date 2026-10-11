@@ -442,6 +442,23 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
   Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende
   (Kardio: Rampentest oder 5 km am Tag 5).
 - Kein Murph mehr im Plan (mit Dennis, `FOKUS.allround.murph: false`); alte Murph-Einträge bleiben im Verlauf, Murph-Challenge bleibt.
+- Deine Woche (Dennis, Schichtarbeit): der Nutzer antwortet nur, der Coach entscheidet Tage und Uhrzeiten. `S.alltag {on, bed, wake, schicht, weg, std}`
+  (Schlaf in Stunden, z. B. 22.5; `std` = feste Woche ohne Schichten), `S.arbeit {<Montag-ISO>: [7 × {k, a, b} | null]}` (k = `SHIFT`: f/s/n/t/tn
+  oder c = eigene Zeit; ohne Eintrag gilt die letzte Woche bzw. `std`), `S.planWk` (Montag der laufenden Woche), `S.planOv {<Datum>: {t} | {off}}`
+  („Andere Zeit“, „Heute nicht“), alle in `DEF` und `SYNC_KEYS`; `S.planAsk` nur auf dem Gerät. Fragebogen-Seite `alltag` (Schlaf, Schicht, Weg),
+  Seite `woche` (`renderWoche`: Diese/Nächste Woche, Arbeitszeiten je Tag über `openChoice` mit Abkürzungen oder eigener Zeit `openHourSheet`,
+  „So plant dein Coach“, Dein Alltag, Planung ausschalten). Rechnung (`wkTimeline`, `dayCls`, `daySlot`, `wkPlan`, gemerkt in `WKP_C`): Arbeit und
+  Schlaf als Blöcke (früher Dienst = früher aufstehen, später Dienst = später ins Bett, nach Nachtarbeit Tagschlaf Ende + 1 bis + 8 h);
+  Tag none (12-h-Schicht, zwischen zwei Nächten), light (vor der ersten bzw. nach der letzten Nacht, nur Kardio locker), ok. Uhrzeit: 1,5 h nach
+  Aufstehen und Arbeit, 1,5 h vor der Arbeit, 3 h (locker 2 h) vor dem Schlafen, Weg hin und zurück, Kraft am liebsten 15–19 Uhr; Gründe als
+  Haken (`slotWhy`). Verteilung: Reihenfolge der Tage bleibt, möglichst viele Einheiten, bei gleicher Zahl die wichtigeren (`planDropOrder`:
+  Kardio locker, Kardio intensiv, der stärkere von Zug/Druck, der andere, Ganzkörper), nie zwei harte Tage hintereinander außer Zug + Druck.
+  `planOn()` (an, gestartet, ab Durchgang 1): `dayCheck` ruft `planRoll` (Montag: Durchgang + 1 nur bei mindestens 2 Krafttagen in der Woche davor,
+  sonst gleicher Durchgang, Tag 1) und `planSyncTag` (heute dran = Einheit des Plans), Ruhetage zählen nicht von selbst; `advance` geht zur nächsten
+  Einheit (`planNextTag`, 7 = Woche fertig). Heute: `planTodayHTML` (Uhrzeit, Leiste, Gründe, Kalender | Andere Zeit | Heute nicht), ohne Einheit
+  „Heute frei“ (`planFreeHTML`), Wochenkarte `wkCardHTML` (24-Stunden-Leisten `tlBarHTML`), `planAskHTML` (Einstieg, „Später“ 14 Tage),
+  `planNextAskHTML` (Arbeitszeiten fehlen bzw. ab Samstag nächste Woche bei Schicht). Kalender offline als .ics (`icsText`, Erinnerung 30 Min,
+  `shareFile`), ein Termin auch als Google-Kalender-Link (`gcalLink`, braucht Netz).
 - Ein Trainingstag pro Kalendertag: `advance()` merkt `S.tagSince` und `S.advBy` ('user' = heute gespeichert/abgehakt, 'auto'). `doneToday0()` →
   Heute zeigt „Heute erledigt“ mit dem Ergebnis von heute, der nächste Tag ist nur Vorschau. In der Tage-Kapsel bleibt bis Mitternacht der erledigte Tag gefüllt (`doneTag`). Tage vorziehen gibt es nicht mehr: der Coach entscheidet die Reihenfolge (Dennis). `dayCheck()` (in `render()`):
   Ruhetag zählt von selbst, sobald sein Kalendertag vorbei ist (nach Training am Vortag ist er der nächste Tag).

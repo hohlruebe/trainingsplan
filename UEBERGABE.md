@@ -25,6 +25,14 @@ Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testt
 - PR #25: dieses Übergabe-Protokoll, `design/` mit Maskottchen-Skripten und `mobility2.json`.
 - PR #28: Trainingsmodi Einzeln/Liste, Wischen, Ergebnis prüfen, Figur in allen Schritten, Einstellungen in Abschnitten.
 
+## Deine Woche: Schichten, Uhrzeiten, Kalender (11. Oktober)
+- Dennis ist Schichtarbeiter (Früh 6–14, Spät 14–22, Nacht 22–6, am Wochenende 12 h 6–18 / 18–6), bekommt den Plan jede Woche neu und
+  wünscht sich einen festen Rhythmus. Wichtig (Dennis): der Nutzer entscheidet nicht, er gibt nur Antworten; Zeiten frei wählbar, nicht nur Blöcke.
+- Umgesetzt (siehe CLAUDE.md „Deine Woche“): Montag = Tag 1 einer Woche, Arbeitszeiten je Woche, Coach plant Tage und Uhrzeiten in 24 Stunden,
+  Gründe am Training, „Andere Zeit“ / „Heute nicht“ planen neu, Kalender als .ics oder Google-Link. Ohne Einrichtung läuft alles wie bisher.
+- Konzept-Board „Deine Woche · 24 Stunden“ im Canvas. Offen: Rückmeldung von Dennis aus dem Alltag (Zeitfenster, Regeln nach Nachtschichten),
+  Erinnerung ohne Kalender erst mit nativer App.
+
 ## Motivation: Rekorde, Fast geschafft, Ansagen (10. Oktober)
 - Dennis fragte nach Gamification und Nudging. Konzepte im Canvas (Board „Motivation · Konzepte“, 8 Bausteine A–H). Auf die Frage nach der
   motivierendsten Methode: spürbarer Fortschritt plus festes Einplanen. Dennis: „ok baue das ein“ (Rekorde und Fast geschafft), dazu Timer-Ansagen
