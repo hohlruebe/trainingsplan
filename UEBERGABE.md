@@ -6,20 +6,23 @@ Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md
 
 Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testtage, Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
-## Stabilisierung mit Codex (11. Oktober 2026, lokal für Pull Request vorbereitet)
-- Dennis hat nach der App-Prüfung das erste Stabilisierungspaket freigegeben („leg los“).
+## Stabilisierung mit Codex (11. Oktober 2026, Draft-PR, von Claude geprüft)
+- Dennis hat nach der App-Prüfung das erste Stabilisierungspaket freigegeben („leg los“). Codex hat es vorbereitet, Claude hat den Patch
+  auf den aktuellen `main` (mit „Deine Woche“ und AGENTS.md) übernommen: ohne Konflikte, Branch `codex/stabilisierung-speichern-sync`.
 - Speicherfehler werden sichtbar; offene Änderungen bleiben im Arbeitsspeicher, Wiederholen und JSON-Sicherung sind möglich.
   Erfolgsmeldungen beim Speichern warten auf die erfolgreiche Speicherung; der Sync wartet ebenfalls.
 - Wochenwechsel und Sync: neuere Kalenderwoche vor höherem Tag; Woche und Trainingsposition werden zusammen übernommen.
   Manuelle Rücksetzungen bleiben vorrangig, ältere Dateien ohne Wochenfeld werden anhand des Positionsdatums eingeordnet.
 - Nach Korrekturen werden Coach, Rekorde, Muskelbalance und Planung neu berechnet, auch bei unveränderter Eintragsanzahl.
 - Privatheit des Daten-Repositories wird vor dem Lesen und vor dem Upload geprüft; öffentliche/unbekannte Repositories sind blockiert.
-- Tests: `node tests/stabilisierung.cjs`, Syntax aller Skript-/JSON-Blöcke und gezielte Regressionen bestanden.
-- Browserzugriff auf die veröffentlichte App war nicht freigegeben. Vollständiger Handy-/Browsercheck der Reiter und Unterseiten
-  sowie visuelle Prüfung der Fehlerkarte sind vor dem Merge noch offen; Pull Request als Entwurf vorgesehen.
-- Hochladen blockiert: GitHub-Connector antwortet bei Schreibzugriff mit HTTP 403 „Resource not accessible by integration“.
-  Kein authentifizierter Git-Push verfügbar. Änderungen liegen auf `codex/stabilisierung-speichern-sync`, Patch und ZIP als Ausgabe.
-  Noch kein Pull Request erstellt und nichts in `main` oder auf GitHub Pages veröffentlicht.
+- Geprüft (Claude): `node tests/stabilisierung.cjs` (4 × PASS), alle bisherigen Playwright-Tests ohne Fehler, Browser auf Handy (390 px) und
+  Desktop (1366 px): alle drei Reiter mit Unterseiten (Heute, Plan, Deine Woche, Plan & Challenges, Timer, Übungen, Mobility, 1RM, Profil
+  Erfolge/Verlauf/Werte, Einstellungen, Haptik, Skill-Baum) ohne JavaScript-Fehler; Fehlerkarte mit simuliertem vollem Speicher: Karte
+  erscheint, „Sicherung herunterladen“ lädt die JSON-Datei, „Erneut speichern“ bleibt bei weiterem Fehler stehen und speichert danach.
+  Korrektur mit gleicher Eintragsanzahl ändert den Rekord sofort.
+- Von Claude behoben: Fehlerkarte stand auf dem Desktop versetzt (Abstand der Seitenleiste doppelt), jetzt bündig mit dem Inhalt;
+  auf dem Handy klebte sie am oberen Rand (`scroll-margin-top`).
+- Nicht Teil dieses Pakets, aufgefallen: Im Netzdiagramm (Profil › Werte, Desktop) wird „Beweglichkeit“ abgeschnitten.
 - Kein Navigationsumbau: Heute/Navigation und Fortschrittsdarstellung sind der nächste Konzeptschritt und noch nicht umgesetzt.
 - Bei vollem/gesperrtem Browserspeicher schützt der Arbeitsspeicher nur die laufende Sitzung; App offen lassen oder Sicherung herunterladen.
 

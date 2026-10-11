@@ -65,8 +65,9 @@ b{font-weight:700}
 [hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .card{margin:16px 0;background:var(--paper);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
-#storage-error{max-width:528px;margin:16px auto;border:2px solid var(--red);width:calc(100% - 32px)}
-html.desk #storage-error{margin-left:calc(240px + 24px);max-width:760px}
+#storage-error{max-width:528px;margin:16px auto;border:2px solid var(--red);width:calc(100% - 32px);scroll-margin-top:calc(env(safe-area-inset-top,0px) + 12px)}
+html.desk #storage-error{width:calc(100% - 80px);max-width:800px;margin:24px auto 0}
+html.desk body:has(main[data-tab=heute]) #storage-error,html.desk body:has(main[data-tab=uebungen]) #storage-error,html.desk body:has(main[data-tab=fam]) #storage-error{max-width:1120px}
 .card>h2,.card-head{margin-bottom:10px}
 .card-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:4px 10px}
 .card-head h2{white-space:nowrap}
