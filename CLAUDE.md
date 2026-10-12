@@ -6,6 +6,21 @@ Offline-Web-App (PWA) für Dennis' Trainingsplan „Calisthenics × CrossFit“
 Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installierte App.
 
 ## Dateien
+- Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
+  Erst ab dem ersten Öffnen dieser Version, keine rückwirkende Annahme über alte Termine. Vergangene Snapshots bleiben unverändert.
+  `missPending` fragt auf Heute nach fehlenden Abschlüssen der letzten 14 Tage; Ruhetage, gespeicherte Trainings, Mobility/1RM und
+  bereits über „Heute nicht“ beantwortete Termine werden unterschieden. Gründe: Zeit, müde, verkatert, krank, Beschwerden, nur Eintrag fehlt.
+  `planMiss` speichert Antworten je Datum, `planCare` die aktuelle Rückfrage zur Erholung, `planStart` den Beginn/Modus der Erkennung.
+  Alle neuen Felder sind in `DEF` und `SYNC_KEYS`. Snapshots und Antworten werden beim Sync je Datum nach `ts` zusammengeführt.
+  Erschöpft/verkatert/keine Zeit = heute frei, Befinden am Folgetag erneut; krank/Beschwerden pausiert die Planung bis zur ausdrücklichen
+  Antwort „Erholt, beschwerdefrei und Zeit“. Das ist keine medizinische Freigabe. Leichteres Training bleibt im vorhandenen „Heute anpassen“.
+  Mit Wochenplanung: bekannte Termine bevorzugen, letzte tatsächliche Einheit auch über Sonntag/Montag prüfen; ausgefallene Typen der letzten
+  7 Tage zuerst berücksichtigen, höchstens einmal je Typ in der Woche (kein zusätzliches Nachholvolumen). Schichten, Schlaf und vorhandene
+  Belastungsabstände bleiben maßgebend. Ohne Wochenplanung bleibt die Reihenfolge erhalten; „Heute nicht“ ist dort ebenfalls erreichbar.
+  „Trainiert, aber nicht eingetragen“ öffnet `renderFix` als Nachtrag: tatsächliches Datum, leere Leistungswerte, Stufe ausdrücklich angeben.
+  Ein Nachtrag zählt nicht als heutiger Abschluss und wird chronologisch einsortiert. Ohne Leistungswerte nur `kind: 'attendance'`, ohne
+  erfundene Rekorde/Stufen. Übungen werden aus dem Plan rekonstruiert; keine automatische FTP-/1RM-Neuberechnung aus dem Nachtrag.
+  Tests: `node tests/ausfaelle.cjs`, optional mit Playwright `node tests/ausfaelle-browser.cjs` (`TP_CHROMIUM` für lokalen Browser).
 - Stabilisierung (11. Oktober 2026): `LS.set` meldet Schreibfehler und hält offene Änderungen in `LS.pending` im Arbeitsspeicher.
   Nach einem Fehler werden weitere Schreibvorgänge zurückgehalten. Wiederholen schreibt Einheiten vor Stand und Entwürfen;
   Erfolgsmomente und „Gespeichert“ erscheinen erst danach. Fehlerkarte mit „Erneut speichern“ und direktem JSON-Download,

@@ -6,6 +6,24 @@ Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md
 
 Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testtage, Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
 
+## Ausfälle und Nachfragen (12. Oktober 2026, Codex)
+- Dennis hat den Navigations-/Heute-Umbau verworfen: Bestehende Navigation beibehalten. Stattdessen automatische Planung bei ausgefallenen
+  Einheiten besprochen, antippbaren Entwurf gezeigt und ausdrücklich zum Einbau freigegeben. Ergänzungswunsch: eigener Grund „Verkatert“.
+- Branch `codex/ausgefallene-trainings`: ursprüngliche Planungstage speichern, fehlende Abschlüsse auf Heute abfragen, danach Befinden und
+  Verfügbarkeit. Erholt = Coach verteilt offene Einheiten unter den bestehenden Regeln; erschöpft/verkatert/keine Zeit = heute frei;
+  krank/Beschwerden = Pause bis zur Antwort auf die erneute Rückfrage. „Heute nicht“ speichert den Grund direkt, keine doppelte Frage.
+- Wochenplanung berücksichtigt die letzte tatsächliche Einheit über die Wochengrenze; Ausfälle der letzten 7 Tage werden bevorzugt, ohne
+  zusätzliche doppelte Einheiten. Vorhandene Termine werden bei der Verteilung bevorzugt. Ohne Wochenplanung bleibt die Reihenfolge bestehen.
+- Nachtrag für tatsächlich absolviertes Training über das Ergebnisformular: Datum der Einheit, keine vorausgefüllten Leistungswerte,
+  Stufe selbst angeben. Ohne Werte nur Teilnahmebestätigung; zählt nicht als heutiges Training und erzeugt keine erfundenen Rekorde.
+- Wichtig: Erkennung beginnt mit gespeicherten Planungstagen ab dem ersten Öffnen der neuen Version. Vergangene Ausfälle vor dem Update
+  werden nicht geraten. Beschwerden führen hier konservativ zur Pause; die differenzierte Anpassung einzelner Übungen bleibt im bestehenden
+  Schmerz-Dialog. Leichteres Training bleibt separat unter „Heute anpassen“; „Heute nicht“ bedeutet kompletter Ausfall.
+- Speicherung, Export und Sync umfassen die neuen Felder, Antworten/Snapshots mit Zusammenführung je Datum. Details in `CLAUDE.md`.
+- Geprüft: bestehende Stabilisierungstests, neue Node-Regressionen (Wochenwechsel, Snapshot-Erhalt, kein Doppeltraining, Krankheit, Schichten,
+  Verkatert, Rückfragen, Sync), Playwright mit echten App-Seiten in 390/1366 px (alle drei Reiter/Unterseiten, Rückfrage, Nachtrag, Neuladen).
+- Dennis möchte erklärt bekommen, wie er den Pull Request erstellt; Branch bereitstellen und den Vergleich gegen `main` verlinken.
+
 ## Stabilisierung mit Codex (11. Oktober 2026, Draft-PR, von Claude geprüft)
 - Dennis hat nach der App-Prüfung das erste Stabilisierungspaket freigegeben („leg los“). Codex hat es vorbereitet, Claude hat den Patch
   auf den aktuellen `main` (mit „Deine Woche“ und AGENTS.md) übernommen: ohne Konflikte, Branch `codex/stabilisierung-speichern-sync`.
