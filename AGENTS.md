@@ -15,6 +15,8 @@ Dieses Projekt wird mit mehreren KI-Werkzeugen bearbeitet. Damit alle nach dense
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze. Handy zuerst (390 px), Tippflächen mindestens 44 px.
 - Der Coach entscheidet, der Nutzer gibt nur Antworten.
 - Den Sync-Token nie in Code, Export oder Logs schreiben.
+- Plan 2 (drei Einheiten A, B, C) ist der Standard: intern Tag 1, 3, 6. Neue Einträge tragen `pv: 2` und `unit`, alte behalten ihre Tag-Bedeutung.
+  Nie einen alten `tag` neu deuten (Tag 2 bleibt ein Kardio-Eintrag). Offene Pakete des Umbaus stehen in `UEBERGABE.md`.
 
 ## Zusammenarbeit
 - Immer nur ein offener Pull Request zur Zeit. `index.html` ist sehr groß, parallele Änderungen führen fast sicher zu Konflikten.

@@ -2,10 +2,40 @@
 
 ## Was das ist
 Offline-Web-App (PWA) für Dennis' Trainingsplan „Calisthenics × CrossFit“
-(Tag 1–7, dann von vorn). Gehostet über GitHub Pages aus dem Branch `main`,
+(drei Einheiten A, B, C pro Kalenderwoche; bis Oktober 2026 Tag 1–7, dann von vorn). Gehostet über GitHub Pages aus dem Branch `main`,
 Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installierte App.
 
 ## Dateien
+- Plan 2, drei Einheiten (13. Oktober 2026, Konzept Dennis mit ChatGPT, Kernumbau Claude): `S.planV` 2 (in `DEF` und `SYNC_KEYS`, ebenso
+  `planVFrom`, `umfang`, `zeitMax`). A, B, C liegen intern auf Tag 1, 3, 6 (`UNIT`, wie Testtage und `DAYS0`), Tage 2, 4, 5, 7 sind Ruhetage
+  (`daysV2`). A: Zug vertikal, Druck horizontal, Kniebeuge (Sprünge Skater Jump, Beweglichkeits-Check in der Testwoche); B: Zug horizontal,
+  Druck vertikal, Hüfte/Beinbeuger (Sprung-Leiter); C: Einbein, schwächerer Teil von Zug/Druck (`schwach`), Rumpf. Ablauf: Aufwärmen,
+  Skill, Kraft (EMOM), Ausgleich, Abschluss, ggf. Beweglichkeits-Check, Cool-down weiter nur auf Nachfrage. Abschluss (`finOf`, `finStep`,
+  `finSeq`, Timer `seq`): locker im Einstieg (ohne `grundOk`: Umfangsstufe ≥ 2 und 6 Krafteinheiten in 8 Wochen), in Entlastung, Testwoche,
+  Kurzversion und Taper; sonst A locker, B im Wechsel Metcon (ungerade Durchgänge oder ohne Kardiogerät, `d.mmin`) und Intervalle 30/30,
+  C länger gleichmäßig. Gerät aus dem Ort (`finDev`, `FIN_DEV`: Ergometer, Rudergerät, Air Bike, Crosstrainer, Ski-Ergometer, Laufen, sonst
+  zügig gehen), nichts, was eine akute Stelle stark belastet. Gespeichert als `fin: {k, dev, min, n, done}` im Kraft-Eintrag, dazu `pv: 2`
+  und `unit` ('A'–'C'); alte Einträge behalten ihre Tag-Bedeutung (`dayLog`, `snapName`, `planPreview(dg, fn, pv)`).
+  Umfang (`UMF`, Produktvorgaben): Stufe 0 = Einstieg 25 Min (Aufwärmen 4, Skill 2, EMOM 9, Abschluss 8 mit 2 Min Ausklingen, 2 Min
+  Vorlauf/Wechsel), Stufe 4 = bisheriger Krafttag, Stufe 6 = „Nächste Stufe“ (EMOM 15). `umfIdx` deckelt mit dem Zeitlimit (`S.zeitMax`,
+  Deine Woche › Zeit pro Training, höchstens 90 Min, 8 Min Reserve für Ausgleich und C); `zeitLv` kürzt mit dem Zeitlimit zusätzlich.
+  Kürzeres Aufwärmen (6/4 Min) = weniger Ergometer und Übungen (`warmMin`, `WARMUP` mit `k4`/`t6`). `umfGrow` beim Wochenwechsel:
+  frühestens 14 Tage nach der letzten Änderung, 6 vollständige Einheiten in 2 Wochen (keine Kurzversion, 80 % der Runden mit Eintrag),
+  keine akute Beschwerde, nicht vor Entlastung, Testwoche, Taper, Wiedereinstieg; eine Stufe, Hinweis „Mehr Umfang“ in der Coach-Karte.
+  Start (`umfStart`): wer in 8 Wochen 6 Krafteinheiten hatte, Stufe 4 (mit „Nächster Stufe“ 6), sonst nach Erfahrung im Fragebogen.
+  Durchgang 1 und 2 sind in Plan 2 keine Kurzversion mehr (der Einstieg steckt in der Umfangsstufe).
+  Wochenplaner immer an (`planOn` ohne `alltag.on`, ohne Arbeitszeiten ist jeder Tag frei, `planAskHTML` fragt danach): höchstens 2 Einheiten
+  in Folge (`hardOn`, auch über die Wochengrenze), ein freier Tag davor +3, Übergangstag (vor der ersten, nach der letzten Nacht) −8,
+  C fällt zuerst weg, dann B (`planDropOrder`), jede Einheit einmal pro Woche. Umstellung (`planVCheck`, `planVSwitch`): neue Nutzer sofort
+  (`v2Start` in Fragebogen, Testtagen, „Schon mittendrin“), bestehende ab `planVFrom` (nächster Montag) oder „Schon jetzt starten“
+  (`planVHintHTML`), nie während ein Training läuft (`trainingOpen`); in der Woche der Umstellung zählen frühere Krafttage als A, B, C
+  der Reihe nach (`wkDoneV2`); `picksMigrate` übernimmt gewählte Leitern nach Muster am selben Ort.
+  Wochenleiste (`wkStripHTML`, `wkCells`, `ui.wkSel`/`ui.wkMon`, Plan: `ui.pwSel`/`ui.pwMon`): Mo–So mit Datum und A/B/C, „Frei“ oder
+  ✓ (mit Einheit), heute gefüllt in `--acc` mit `aria-current`, gewählter Tag weiße Pille, ‹ › blättert (zurück bis zum ersten Eintrag,
+  vor bis +2 Wochen). Anderer Tag = `wkDayHTML` (Ergebnis mit Korrigieren, Vorschau der Einheit mit Dauer und Uhrzeit, frei mit nächstem
+  Termin), „Zurück zu heute“. Plan › Deine Woche (`planWeekV2HTML`): „x von 3 erledigt“, Durchgang und Phase als Chip, Leiste, gewählte
+  Einheit mit Ablauf. Freie Tage bieten die Ruhetag-Routine an. Wissen-Texte (Regeln, Methode, Pause, Test-Durchgang) haben eine Plan-2-Fassung.
+  Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, ohne Browser), `node tests/dreitage-browser.cjs` (Playwright).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
   Erst ab dem ersten Öffnen dieser Version, keine rückwirkende Annahme über alte Termine. Vergangene Snapshots bleiben unverändert.
   `missPending` fragt auf Heute nach fehlenden Abschlüssen der letzten 14 Tage; Ruhetage, gespeicherte Trainings, Mobility/1RM und
@@ -342,9 +372,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   in `TRAIN_TYPES`): „Übung“ = nur die laufende Übung als Karte (Punkte `.k-dot` wechseln, Runden `.k-r`, Zähler `kCounter`), „Minuten“ = jede
   EMOM-Minute eine Zeile (`.k-min`), die laufende offen mit Mini-Figur und Zähler. Dran ist die Minute der Uhr, sonst die gewählte (`ui.kSel`,
   `ACT['k-sel']`) oder die erste ohne Eintrag (`kraftNow`). Die Stufe setzt der Coach (grüner Chip `kStageChip`, nicht wählbar); ohne Verlauf
-  schätzt er den Start (`stageEst`, „Erstes Mal“ nur noch als Rückfall `E.first`). Zähler `ACT['k-rep']` (Vorschlag `defRep`, Tippen auf die Zahl übernimmt), Gewicht `ACT['k-kg']`
-  in `kgStep`-Schritten. Wechselt die Minute, bekommt die fertige Minute ohne Eintrag den Vorschlag (`kraftAutoFill` in `paintMini`, zeichnet neu), markiert mit
-  `_a<feld>` im Entwurf: grau „Vorschlag übernommen, tippen zum Bestätigen“, in „Minuten“ ohne Haken; Tippen oder Ändern bestätigt. Chips „3–6 Wdh.“ und „✓ Stufe N <Stufe>“.
+  schätzt er den Start (`stageEst`, „Erstes Mal“ nur noch als Rückfall `E.first`). Die Wdh. gibt der Coach vor (Dennis, `repGoal`, `E.goal`, gespeichert als `goal`
+  im Kraft-Eintrag): gleiche Stufe wie zuletzt und alle Runden geschafft → 1 Wdh. mehr bis zum oberen Ende der Spanne, sonst gleich; neue Stufe oder
+  schwereres Gewicht → unteres Ende; ohne Verlauf der Startwert; Entlastung 1 weniger. Die Vorgabe zählt als geschafft, gemeldet wird nur, was nicht
+  klappt: Zähler `ACT['k-rep']` (– zieht von der Vorgabe ab), Runden ohne Eintrag speichert `saveDay` mit der Vorgabe. Gewicht `ACT['k-kg']` in `kgStep`-Schritten.
+  In „Minuten“ bekommen vorbeigelaufene Minuten einen Haken. Chips „3–6 Wdh.“ und „✓ Stufe N <Stufe>“. (Früher: grauer Vorschlag `kraftAutoFill`, gelöscht.)
   „Schmerzen“ als roter Fahnen-Knopf in der Karte (`kFlag`, `.pn-flag`).
   EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,
@@ -445,7 +477,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine:
 1. Umschalter (eine Wahl aus wenigen): Glas-Kapsel `.seg` mit `.seg-btn`, Wahl als weiße Pille (`--pill`, Text `--acc`).
 2. Kapsel mit Symbolen (viele Ziele, wenig Platz): `capHTML()` / `.cap` mit `.cap-btn`, nur die Wahl zeigt ihren Namen
-   (Reiterleiste, Profil-Ansichten, Orte). Tage 1–7 auf Heute: Kapsel `.pills`, dran = gefüllt in `--acc`, angeschaut = weiße Pille.
+   (Reiterleiste, Profil-Ansichten, Orte). Tage auf Heute: Kapsel `.pills`, dran = gefüllt in `--acc`, angeschaut = weiße Pille
+   (Plan 2: Wochenleiste `.pills.wkst` mit Mo–So, Datum und Einheit).
 3. Hauptaktion: `.btn.primary` (volle Kapsel in `--acc`), eine pro Seite, meist `.block` über die ganze Breite. Speichern: `.btn.save` (grün).
 4. Nebenaktion: `.btn` (Glas-Kapsel, dunkle Schrift), klein `.btn.small`.
 5. Gruppe zusammengehöriger Nebenaktionen: `.bgrp` mit Knöpfen darin, feine Trenner (z. B. Exportieren | Importieren).
@@ -461,13 +494,15 @@ Handstand (grüner Chip `coachStageHTML`, ohne Verlauf geschätzt wie bei neuen 
 Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt in em, mittig auf Höhe der Großbuchstaben, davor und danach .32em; in Chips `.chip:has(> .bst)` mit `gap`; nie `bdot` + Name von Hand zusammensetzen); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
-- Allround (Standard): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,
+- Allround bis Plan 2 (alte Stände): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,
   Tag 6 Druck, Tag 7 Ruhetag (3 Training, 1 frei, 2 Training, 1 frei; Dennis). Der Tagesname zeigt den Inhalt. Die gelöschten Schwerpunkte stehen noch in `design/schwerpunkte.md`.
 - Allround-Krafteinheit: 8 Min Aufwärmen, 5 Min Skill-Block (Handstand, später im Wechsel mit freigeschalteten Skills), EMOM 12 (4 Runden, 3–6 Wdh., RIR 2), Metcon AMRAP 8, Ausgleich 4 Min (wenn etwas zu kurz kommt).
   Durchgang 4 und 8 im Block: Entlastung (Kurzversion, kein Maxout). Letzter Durchgang (12) = Testwoche: Maxout in Runde 1 der
   Hauptübung, Beweglichkeits-Check an Tag 1, danach der Rückblick. Getestet wird immer am Blockende
   (Kardio: Rampentest oder 5 km am Tag 5).
 - Kein Murph mehr im Plan (mit Dennis, `FOKUS.allround.murph: false`); alte Murph-Einträge bleiben im Verlauf, Murph-Challenge bleibt.
+- Plan 2 (ab 13. Oktober 2026, Details oben unter „Plan 2“): drei Einheiten A, B, C pro Kalenderwoche, je Aufwärmen, Skill, Kraft (EMOM),
+  Ausgleich und Kardio-Abschluss, Umfang in Stufen bis höchstens 90 Min. Die Woche 1–7 (erster Punkt) gilt nur noch für Stände vor der Umstellung.
 - Deine Woche (Dennis, Schichtarbeit): der Nutzer antwortet nur, der Coach entscheidet Tage und Uhrzeiten. `S.alltag {on, bed, wake, schicht, weg, std}`
   (Schlaf in Stunden, z. B. 22.5; `std` = feste Woche ohne Schichten), `S.arbeit {<Montag-ISO>: [7 × {k, a, b} | null]}` (k = `SHIFT`: f/s/n/t/tn
   oder c = eigene Zeit; ohne Eintrag gilt die letzte Woche bzw. `std`), `S.planWk` (Montag der laufenden Woche), `S.planOv {<Datum>: {t} | {off}}`

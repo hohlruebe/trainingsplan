@@ -4,7 +4,38 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 9. Oktober 2026 (Wiedereinstieg mit Einschätzung, Fragebogen statt Testtage, Fünf Grundsätze, Zähler überall, Übungen erklärt, Metcon-Liste und Zähler, Geschlecht im Profil, Aufwärmen im Vollbild, Testtage mit Metcon, Grafiken Runde 3)
+Stand: 13. Oktober 2026 (Kernumbau: drei Einheiten A, B, C mit Kardio-Abschluss, Wochenleiste Mo–So, Umfang und Zeitlimit)
+
+## Drei Einheiten A, B, C (13. Oktober 2026, Kernumbau, Claude)
+- Grundlage: Konzept von Dennis mit ChatGPT (`CLAUDE-AUFTRAG.md`, Bilder Einstieg, Woche, Zusatztraining, Arbeitszeiten). Claude hat Bedenken
+  genannt, Dennis hat entschieden: umbauen, mit dem Kern anfangen. Antworten von Dennis: Metcon bleibt als Abschluss im Wechsel (bei B),
+  Kardio-Test wird ein freiwilliger Zusatztag, höchstens 2 Einheiten in Folge. Die Frage „2 von 3 oder 3 von 3 für den nächsten Durchgang“
+  war unklar und ist erklärt; eingebaut ist 2 von 3 (wie bisher ab 2 Krafttagen). Dennis kann das noch ändern.
+- Umgesetzt (Details in `CLAUDE.md`, Abschnitt „Plan 2“): A, B, C auf den internen Tagen 1, 3, 6, Kardio-Abschluss statt Metcon,
+  Umfangsstufen `UMF` (Einstieg 25 Min, Stufe 4 = bisheriger Krafttag), Zeitlimit pro Training (`S.zeitMax`, höchstens 90 Min),
+  Umfang wächst frühestens alle 14 Tage nach 6 vollständigen Einheiten (`umfGrow`), Wochenplaner immer an (ohne Arbeitszeiten ist jeder
+  Tag frei), höchstens 2 Einheiten in Folge, Pause dazwischen bevorzugt, Übergangstage vor und nach Nachtschichten nur, wenn es nicht
+  anders geht, C fällt zuerst weg. Wochenleiste Mo–So auf Heute und im Plan, Tage antippen zeigt Ergebnis bzw. Vorschau.
+- Umstellung: neue Nutzer sofort, bestehende am nächsten Montag (`S.planVFrom`) oder vorher über „Schon jetzt starten“, nie während ein
+  Training läuft. Alte Einträge bleiben, neue tragen `pv: 2` und `unit`. Gewählte Leitern werden nach Muster übernommen (`picksMigrate`).
+  Wer in den letzten 8 Wochen mindestens 6 Krafteinheiten hatte, startet mit Umfangsstufe 4 (wie bisher, mit „Nächster Stufe“ 6).
+- Nebenbei behoben: Profil › Werte war bei 320 px 10 px zu breit (`.a-row`).
+- Geprüft: `node tests/dreitage.cjs` (5 × PASS, Planer, Umfang, Umstellung), `node tests/dreitage-browser.cjs` (5 × PASS: Umstellung mit
+  Hinweis, Wochenleiste, Training mit Neuladen und Speichern, Plan und Arbeitszeiten, alle Reiter bei 320/390/1366 px ohne Fehler),
+  `node tests/stabilisierung.cjs`, `node tests/ausfaelle.cjs` (um die neuen Hilfsfunktionen ergänzt), `tests/ausfaelle-browser.cjs` und alle
+  bisherigen Playwright-Skripte ohne Fehler. Hell und dunkel angesehen.
+- Offen (nächste Pakete aus dem Konzept, Reihenfolge mit Dennis):
+  1. Arbeitszeiten unter Einstellungen: Wahl „Geregelte Zeiten“ / „Schichtarbeit“, Sperrzeiten (Familie, Termine), Tagschlaf korrigierbar,
+     zweiter Schlafblock. Heute steckt das Arbeitsmodell nur in `S.alltag.schicht`.
+  2. Freiwilliger Zusatztag (Vorschlag mit Grund, Zeitwahl, „Zusatz“ in der Wochenleiste) mit dem Kardio-Test in der Testwoche.
+     Bis dahin gibt es keinen Kardio-Test, der Kardio-Wert bleibt, wie er ist.
+  3. Befinden nach Nachtschichten („Erholt / Müde / Sehr müde“), zusammengelegt mit der Ausfälle-Rückfrage und „Heute anpassen“;
+     Tag zwischen zwei Nächten dann als Kandidat nach Rückmeldung. Angenommene Zwei-Einheiten-Woche („Angepasst: 2 Einheiten“).
+  4. Training verschieben auf einen anderen Tag (heute nur „Andere Zeit“ und „Heute nicht“, der Coach plant neu).
+  5. Freie Tage zeigen die Ruhetag-Routine, aber noch keinen Kurz-Check (Beweglichkeit) wie früher an den Ruhetagen 4 und 7.
+- Entschieden mit Dennis: „Training abbrechen“ bleibt wie es ist (Zwischenspeichern oder Abbrechen wählt er selbst). Im EMOM gibt der Coach
+  die Wdh. vor (`repGoal`), die Vorgabe zählt als geschafft, Dennis meldet nur, was nicht klappt (statt grauem Vorschlag zum Bestätigen).
+  Steigerung: alle Runden geschafft → nächstes Mal 1 Wdh. mehr bis zum oberen Ende, dann die nächste Stufe über die Sehnen-Bremse.
 
 ## Ausfälle und Nachfragen (12. Oktober 2026, Codex)
 - Dennis hat den Navigations-/Heute-Umbau verworfen: Bestehende Navigation beibehalten. Stattdessen automatische Planung bei ausgefallenen

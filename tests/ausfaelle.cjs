@@ -24,11 +24,11 @@ function setup() {
     dayLabel: t => 'Tag ' + t, fmtDate: s => s, esc: String,
     DELETED: {}, LS: { get: () => 0, set() {} }, ensureOrte() {}, feldSnap: () => ({}),
     SYNC_KEYS: JSON.parse(html.match(/var SYNC_KEYS = (\[[^\n]+\]);/)[1].replace(/'/g, '"')),
-    SHIFT: { f: ['Früh', 6, 14], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18] }
+    SHIFT: { f: ['Früh', 6, 14], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18] }, UNIT: { 1: 'A', 3: 'B', 6: 'C' }
   });
   for (const name of ['isoAdd','wkMon','alltag','planOn','wkEntry','arbeitOf','wkTimeline','dayCls','daySlot','slotWhy','planHard','planPairOk','planDropOrder',
     'trainingLog','missDone','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
-    'wkPlan','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote']) vm.runInContext(source(name), c);
+    'wkPlan','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow']) vm.runInContext(source(name), c);
   return c;
 }
 function planned(c, date, tag, extras={}) {
