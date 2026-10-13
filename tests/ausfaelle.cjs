@@ -28,7 +28,7 @@ function setup() {
   });
   for (const name of ['isoAdd','wkMon','alltag','planOn','wkEntry','arbeitOf','wkTimeline','dayCls','daySlot','slotWhy','planHard','planPairOk','planDropOrder',
     'trainingLog','missDone','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
-    'wkPlan','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow']) vm.runInContext(source(name), c);
+    'wkPlan','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow','befCls','befOf','longShift']) vm.runInContext(source(name), c);
   return c;
 }
 function planned(c, date, tag, extras={}) {

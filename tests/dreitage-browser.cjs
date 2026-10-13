@@ -88,9 +88,55 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.getByRole('button', { name: 'Planung ausschalten' }).count(), 0);
     console.log('PASS: Plan mit Wochenziel, Arbeitszeiten mit Zeitlimit');
 
+    // Arbeitszeiten: Wahl steuert die Eingabe, Einstellungen führen hin.
+    const v2s = () => Object.assign(old(), { planV: 2, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-10-13', week: '2026-10-12', tag: 1, mode: 'week' } });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
+    await page.evaluate(() => window.tpTest.navigate('einst'));
+    await page.getByRole('button', { name: /Arbeitszeiten/ }).first().click();
+    await page.getByRole('button', { name: 'Geregelte Zeiten', exact: true }).click();
+    assert.ok(await page.getByRole('heading', { name: 'Deine Arbeitswoche' }).isVisible());
+    await page.getByRole('button', { name: 'Schichtarbeit', exact: true }).click();
+    assert.ok(await page.getByRole('heading', { name: 'Dein Schichtplan' }).isVisible());
+    assert.ok(await page.getByRole('button', { name: /Tagschlaf/ }).isVisible() && await page.getByRole('button', { name: /Gesperrte Zeiten/ }).isVisible());
+    console.log('PASS: Arbeitszeiten mit Geregelte Zeiten / Schichtarbeit, Tagschlaf und Sperrzeiten');
+
+    // Befinden nach der Nacht (Montag Nachtdienst, danach nur 12-h-Dienste, A heute nach der Nacht): Müde = kürzer, Sehr müde = heute frei.
+    const T12 = { k: 't', a: 6, b: 18 };
+    const night = Object.assign(v2s(), { alltag: { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 }, arbeit: { '2026-10-12': [{ k: 'n', a: 22, b: 6 }, null, T12, T12, T12, T12, T12] } });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [night, logs()]);
+    const k0 = await page.locator('.kicker').first().innerText();
+    assert.ok(await page.getByRole('button', { name: 'Müde', exact: true }).isVisible(), 'Frage nach dem Nachtdienst');
+    await page.getByRole('button', { name: 'Müde', exact: true }).click();
+    assert.notEqual(await page.locator('.kicker').first().innerText(), k0, 'müde: kürzere Einheit');
+    await page.getByRole('button', { name: 'Sehr müde', exact: true }).click();
+    assert.ok(await page.getByRole('heading', { name: 'Heute frei', level: 1 }).isVisible());
+    console.log('PASS: Befinden nach dem Nachtdienst');
+
+    // Verschieben: Heute anpassen › Training verschieben › Vorschlag des Coachs.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
+    await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
+    await page.locator('.ad-it[data-k="move"] .gl-row').click();
+    const opt = page.locator('[data-act="mv-go"]').first(), to = await opt.getAttribute('data-d');
+    await opt.click();
+    assert.ok(await page.getByRole('heading', { name: 'Heute frei', level: 1 }).isVisible());
+    assert.equal(await page.evaluate(d => window.tpTest.plan().days.filter(x => x.date === d)[0].tag, to), 1, 'A liegt am neuen Tag');
+    console.log('PASS: Training verschieben auf einen Vorschlag des Coachs');
+
+    // Zusatztag: Vorschlag mit Grund, Dauer, planen, Z in der Wochenleiste, zählt nicht ins Wochenziel.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
+    await page.evaluate(() => window.tpTest.navigate('plan'));
+    await page.getByRole('button', { name: 'Vorschlag ansehen', exact: true }).click();
+    await page.getByRole('button', { name: '45 Min', exact: true }).click();
+    await page.getByRole('button', { name: 'Einheit planen', exact: true }).click();
+    const z = await page.evaluate(() => window.tpTest.state().zusatz);
+    assert.equal(z.min, 45); assert.ok(z.date);
+    assert.ok((await page.locator('.wkst .wd.z').count()) === 1 || z.date === '2026-10-13');
+    assert.ok(await page.getByRole('heading', { name: '0 von 3 erledigt' }).isVisible());
+    console.log('PASS: Zusatztag vorgeschlagen, geplant und in der Wochenleiste');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
-      for (const tab of ['heute', 'plan', 'woche', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
+      for (const tab of ['heute', 'plan', 'woche', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
         await page.evaluate(t => window.tpTest.navigate(t), tab);
         assert.ok(await page.locator('#view').innerText(), tab);
         if (width < 1000) { const wide = await page.evaluate(() => [].filter.call(document.querySelectorAll('body *'), e => e.getBoundingClientRect().right > innerWidth + .5).map(e => e.tagName + ' ' + (e.textContent || '').slice(0, 30))); assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'kein Überlauf ' + tab + ' ' + width + ' ' + wide.join(' | ')); }
