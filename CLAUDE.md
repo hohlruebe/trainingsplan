@@ -35,7 +35,32 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   vor bis +2 Wochen). Anderer Tag = `wkDayHTML` (Ergebnis mit Korrigieren, Vorschau der Einheit mit Dauer und Uhrzeit, frei mit nächstem
   Termin), „Zurück zu heute“. Plan › Deine Woche (`planWeekV2HTML`): „x von 3 erledigt“, Durchgang und Phase als Chip, Leiste, gewählte
   Einheit mit Ablauf. Freie Tage bieten die Ruhetag-Routine an. Wissen-Texte (Regeln, Methode, Pause, Test-Durchgang) haben eine Plan-2-Fassung.
-  Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, ohne Browser), `node tests/dreitage-browser.cjs` (Playwright).
+  Arbeitszeiten (Seite `woche`, `renderWoche`, Titel „Arbeitszeiten“, auch über Einstellungen › Alltag, `ACT['wk-open']` mit `ui.wocheBack`):
+  „Wie arbeitest du?“ Geregelte Zeiten | Schichtarbeit (`S.alltag.schicht` false/true, null = noch nicht gewählt). Geregelt: feste Woche
+  `std` (Arbeitstage `wk-days` mit Vorlagen, Beginn/Ende für alle `wk-beg`/`wk-end`, „Tage einzeln“), Ausnahmen je Datum `alltag.ex`
+  (`wk-ex`, frei oder andere Zeit; `arbeitOf` nimmt dann nur `std` + `ex`, Schichtwochen bleiben gespeichert). Schicht: Wochenplan wie bisher
+  (`S.arbeit`, Diese/Nächste Woche). Beide: Arbeitsweg je Strecke `alltag.wegA` (verlängert die Arbeit in `daySlot`, Aufstehen/Ins Bett in
+  `wkTimeline`), Schlaf, Tagschlaf nach Nachtdienst `alltag.ts {a, b}` (sonst Ende + 1 bis + 8 h), zweiter Schlaf vor dem Nachtdienst
+  `alltag.nap`, gesperrte Zeiten `alltag.sperr [{n, d, a, b}]` (Familie, Termin, Betreuung, Sonstiges; `T.block`, in der Leiste schraffiert
+  `.pb`, Grund „Nach „Familie““), Weg zum Training, Zeit pro Training. Fester Nachtdienst bei geregelten Zeiten bekommt denselben Tagschlaf.
+  Befinden (`befDue`, `befAskHTML`, `ACT.bef`, `S.befinden {Datum: {v, ts}}`, in `DEF`/`SYNC_KEYS`, je Datum zusammengeführt): nur nach einem
+  Nachtdienst oder an Übergangstagen und wenn heute eine Einheit geplant ist (bzw. zwischen zwei Nächten eine fehlt), nicht am selben Tag wie
+  die Ausfälle-Rückfrage. Erholt | Müde | Sehr müde: Müde = Kurzversion der heutigen Einheit (`_kurz`) und Hinweis in der Coach-Karte, Sehr müde =
+  heute frei (`planOv` `{off, reason: 'sehrmuede'}`), Erholt macht einen Tag zwischen zwei Nächten zum möglichen Tag (`befCls`, nie bei 12 h).
+  Keine Antwort = unbekannt, nichts ändert sich. Müdigkeit in 2 Wochen hält den Umfang (`umfGrow`) und verhindert den Zusatz-Vorschlag.
+  Training verschieben (Heute anpassen › „Training verschieben“, `moveOptions`, `ACT['mv-go']`): der Coach rechnet jeden späteren Tag dieser
+  Woche durch (heute `off` mit `reason: 'moved'`, Ziel `planOv.pin`) und bietet bis zu 3 Termine an; Wegfall einer anderen Einheit steht dabei.
+  Der Entwurf bleibt (gleicher Schlüssel). Nur innerhalb der Woche.
+  Zusatztag (`zusatzDay` auf Tag 2, `zusatzWhy`, `zusatzPlace`, `zusatzNow`, `zusatzCardHTML`, Seite `zusatz` `renderZusatz`, `S.zusatz`):
+  Vorschlag nur mit Grund (Testwoche oder fehlender Kardio-Test → Kardio-Test 5 km bzw. Rampe, `d.ktest`; Challenge; weniger als 45 Min
+  Ausdauer in der Woche, `wkCardioMin`) und nur wenn A, B, C Platz haben, ohne akute Beschwerde, Müdigkeit oder Wiedereinstieg, nicht im Einstieg.
+  Zeitwahl 20/30/45/60 Min (Gesamtzeit), „Einheit planen“ legt ihn auf den besten freien Tag (rückt weiter, wenn dort eine Kerneinheit landet),
+  „Nicht diese Woche“ bzw. „Aus der Planung nehmen“. Wochenleiste „Z“ (gestrichelt), Heute am Tag „Zusatz heute“ mit „Jetzt starten“
+  (`zs-start`: `S.tag` = 2, zurück über `S.zusatz.back`), Lauf/Ergometer wie die früheren Kardio-Tage, gespeichert mit `unit: 'Z'`;
+  zählt nicht ins Wochenziel, setzt A, B, C nicht weiter (`advance`, `planNextTag`, `wkPlan` ohne `zusatz`), auch im .ics als „Zusatz“.
+  Kurz-Check an freien Tagen (`rcIdx`, `rcHTML`, `ACT['rc-save']`): zwei pro Woche reihum, nicht in der Check-Woche, als Mobility-Eintrag.
+  Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden; ohne Browser),
+  `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, alle Reiter).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
   Erst ab dem ersten Öffnen dieser Version, keine rückwirkende Annahme über alte Termine. Vergangene Snapshots bleiben unverändert.
   `missPending` fragt auf Heute nach fehlenden Abschlüssen der letzten 14 Tage; Ruhetage, gespeicherte Trainings, Mobility/1RM und

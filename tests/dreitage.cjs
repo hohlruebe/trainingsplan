@@ -26,7 +26,7 @@ function setup(extra) {
   }, extra || {}));
   vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + ';', c);
   for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
-    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal']) vm.runInContext(source(name), c);
+    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal', 'befCls', 'befOf', 'longShift']) vm.runInContext(source(name), c);
   return c;
 }
 const units = P => P.days.map(d => d.tag ? ({ 1: 'A', 3: 'B', 6: 'C' })[d.tag] : '-').join('');
@@ -122,3 +122,42 @@ assert.equal(c.repGoal(X, 'Mittel'), 3, 'neue Stufe: unteres Ende');
 log([5, 5, 4, 4]); assert.equal(c.repGoal(X, 'Stark'), 5, 'alte Einträge ohne Vorgabe: die schwächste Runde gilt als Vorgabe');
 phase = { deload: true }; assert.equal(c.repGoal(X, 'Stark'), 4, 'Entlastung 1 Wdh. weniger'); phase = {};
 console.log('PASS: Vorgabe im EMOM steigt nur nach geschafften Runden');
+
+// Arbeitsmodell: geregelte Zeiten = feste Woche mit Ausnahmen, Schichtarbeit = Wochenplan. Beide bleiben gespeichert.
+now = '2026-10-12'; c = setup();
+const D8 = { k: 'c', a: 8, b: 16 };
+c.S.alltag = { on: true, bed: 23, wake: 7, schicht: false, weg: 0, std: [D8, D8, D8, D8, D8, null, null], ex: { '2026-10-14': { k: 'x' }, '2026-10-16': { k: 'c', a: 12, b: 20 } } };
+c.S.arbeit = { '2026-10-12': [{ k: 'n', a: 22, b: 6 }, null, null, null, null, null, null] };
+let W = c.arbeitOf('2026-10-12');
+assert.equal(W[0].a, 8, 'geregelt: der Wochenplan der Schicht gilt nicht'); assert.equal(W[2], null, 'Ausnahme frei'); assert.equal(W[4].a, 12, 'Ausnahme andere Zeit');
+assert.equal(c.arbeitOf('2026-10-19')[2].a, 8, 'Ausnahmen gelten nur an ihrem Datum');
+c.S.alltag.schicht = true; assert.equal(c.arbeitOf('2026-10-12')[0].k, 'n', 'Schichtarbeit: der eingetragene Wochenplan, die feste Woche bleibt gespeichert');
+console.log('PASS: geregelte Zeiten mit Ausnahmen und Schichtplan getrennt, nichts geht beim Wechsel verloren');
+
+// Arbeitsweg, gesperrte Zeiten, Tagschlaf und zweiter Schlaf fließen in die Uhrzeit ein.
+c = setup(); c.S.alltag = { on: true, bed: 23, wake: 7, schicht: false, weg: 0, wegA: 30, std: [D8, D8, D8, D8, D8, null, null] };
+let T = c.wkTimeline('2026-10-12'), sl = c.daySlot(T, 0, .7, true);
+assert.ok(sl.t >= 16 + .5 + 1.5 - 1e-9, 'Training frühestens 1,5 h nach dem Heimweg');
+c.S.alltag.sperr = [{ n: 'Familie', d: [0, 1, 2, 3, 4], a: 17, b: 19 }];
+T = c.wkTimeline('2026-10-12'); sl = c.daySlot(T, 0, .7, true);
+assert.ok(sl.t >= 19 || sl.end <= 17, 'nie in einer gesperrten Zeit'); assert.ok(sl.why.some(w => /Familie/.test(w)), 'Grund nennt die Sperrzeit ohne Details');
+c = setup(); c.S.alltag = { on: true, bed: 22.5, wake: 6.5, schicht: false, weg: 0, std: [null, { k: 'c', a: 22, b: 6 }, null, null, null, null, null], ts: { a: 8, b: 15 }, nap: { a: 14, b: 16 } };
+T = c.wkTimeline('2026-10-12');
+assert.ok(T.sleep.some(x => x[0] === 24 * 2 + 8 && x[1] === 24 * 2 + 15), 'fester Nachtdienst auch bei geregelten Zeiten: Tagschlaf wie eingetragen');
+assert.ok(T.sleep.some(x => x[0] === 24 + 14 && x[1] === 24 + 16), 'zweiter Schlaf vor dem Nachtdienst');
+sl = c.daySlot(T, 2, .7, true); assert.ok(sl.t >= 15, 'nach dem Tagschlaf');
+console.log('PASS: Arbeitsweg, gesperrte Zeiten, Tagschlaf und zweiter Schlaf');
+
+// Befinden: Tag zwischen zwei Nächten bleibt frei, „Erholt“ macht ihn zum möglichen Tag, nie bei 12-h-Dienst, unbekannt heißt nicht erholt.
+c = setup(); c.S.alltag = { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 };
+const N = { k: 'n', a: 22, b: 6 };
+c.S.arbeit = { '2026-10-12': [T12, N, N, N, T12, T12, T12] };
+assert.equal(units(c.wkPlan()), '-A-----', 'ohne Antwort nur der Übergangstag vor der ersten Nacht, nichts zwischen den Nächten');
+c.S.befinden = { '2026-10-14': { v: 'tired' } }; assert.equal(units(c.wkPlan()), '-A-----', 'müde: weiter frei');
+c.S.befinden = { '2026-10-14': { v: 'fit' } }; P = c.wkPlan();
+assert.ok(P.days[2].tag, 'erholt: Training zwischen den Nächten möglich'); assert.equal(units(P).replace(/-/g, '').length, 2); assert.equal(P.days[0].tag, null, 'nie am 12-h-Tag');
+c.S.befinden = { '2026-10-12': { v: 'fit' } }; assert.equal(c.wkPlan().days[0].tag, null, 'Erholt öffnet keinen 12-h-Dienst');
+c = setup(); now = '2026-10-19';
+for (let i = 0; i < 6; i++) c.LOGS.push(kraft(c.isoAdd(now, -13 + i * 2), 1));
+c.S.befinden = { '2026-10-15': { v: 'tired' } }; assert.equal(c.umfGrow(), null, 'Müdigkeit in den letzten 2 Wochen: kein Umfang-Plus');
+console.log('PASS: Befinden nach Nachtschichten');

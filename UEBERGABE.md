@@ -4,7 +4,26 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 13. Oktober 2026 (Kernumbau: drei Einheiten A, B, C mit Kardio-Abschluss, Wochenleiste Mo–So, Umfang und Zeitlimit)
+Stand: 14. Oktober 2026 (Drei Einheiten: Arbeitszeiten, Befinden, Verschieben, Zusatztag, Kurz-Check; davor Kernumbau)
+
+## Drei Einheiten: die restlichen Pakete (14. Oktober 2026, Claude)
+- Dennis wollte alle restlichen Pakete in einem Pull Request. Umgesetzt (Details in `CLAUDE.md` unter „Plan 2“):
+  1. Arbeitszeiten nach den ChatGPT-Bildern: Wahl Geregelte Zeiten / Schichtarbeit, feste Woche mit Ausnahmen, Schichtplan wie bisher,
+     Arbeitsweg getrennt vom Weg zum Training, Tagschlaf und zweiter Schlaf vor dem Nachtdienst, gesperrte Zeiten (Familie, Termin,
+     Betreuung). Zugang auch über Einstellungen › Alltag. Beim Wechsel bleiben feste Woche und Schichtwochen gespeichert.
+  2. Befinden nach Nachtschichten: Erholt / Müde / Sehr müde, nur wenn es heute etwas zu entscheiden gibt. Müde = kürzer, Sehr müde = heute frei,
+     Erholt öffnet einen Tag zwischen zwei Nächten. Unbekannt bleibt unbekannt. Müdigkeit hält den Umfang.
+  3. Training verschieben (Heute anpassen): der Coach schlägt Termine dieser Woche vor, man wählt einen. Zwischenstand bleibt.
+     Bewusst nur innerhalb der Woche (sonst gäbe es über Montag doppelte oder verlorene Einheiten).
+  4. Freiwilliger Zusatztag mit Grund und Zeitwahl, „Z“ in der Wochenleiste, zählt nicht ins Wochenziel. In der Testwoche (oder wenn er fehlt)
+     ist er der Kardio-Test (5 km bzw. Rampe), der den Kardio-Wert neu setzt.
+  5. Kurz-Check (Beweglichkeit) an freien Tagen, zwei pro Woche.
+- Nicht umgesetzt aus dem Konzept, mit Grund: angenommene Zwei-Einheiten-Woche zum Bestätigen (der Coach entscheidet selbst und zeigt
+  „C passt diese Woche nicht rein“), Verschieben über die Wochengrenze, eigener Tages-Check-in jeden Tag (nur nach Nachtdienst und an Übergangstagen).
+- Geprüft: `node tests/dreitage.cjs` (9 × PASS), `node tests/dreitage-browser.cjs` (9 × PASS, alle Reiter bei 320/390/1366 px ohne Fehler),
+  `tests/stabilisierung.cjs`, `tests/ausfaelle.cjs` (um `befCls`, `befOf`, `longShift` ergänzt), `tests/ausfaelle-browser.cjs` und alle
+  bisherigen Playwright-Skripte ohne Fehler.
+- Offen: Zusatz in der 24-Stunden-Wochenkarte noch ohne eigenen Balken; Grafik für das Ergometer im Kardio-Abschluss („Grafik folgt“).
 
 ## Drei Einheiten A, B, C (13. Oktober 2026, Kernumbau, Claude)
 - Grundlage: Konzept von Dennis mit ChatGPT (`CLAUDE-AUFTRAG.md`, Bilder Einstieg, Woche, Zusatztraining, Arbeitszeiten). Claude hat Bedenken
@@ -24,7 +43,7 @@ Stand: 13. Oktober 2026 (Kernumbau: drei Einheiten A, B, C mit Kardio-Abschluss,
   Hinweis, Wochenleiste, Training mit Neuladen und Speichern, Plan und Arbeitszeiten, alle Reiter bei 320/390/1366 px ohne Fehler),
   `node tests/stabilisierung.cjs`, `node tests/ausfaelle.cjs` (um die neuen Hilfsfunktionen ergänzt), `tests/ausfaelle-browser.cjs` und alle
   bisherigen Playwright-Skripte ohne Fehler. Hell und dunkel angesehen.
-- Offen (nächste Pakete aus dem Konzept, Reihenfolge mit Dennis):
+- Offen (nächste Pakete aus dem Konzept; inzwischen umgesetzt, siehe oben):
   1. Arbeitszeiten unter Einstellungen: Wahl „Geregelte Zeiten“ / „Schichtarbeit“, Sperrzeiten (Familie, Termine), Tagschlaf korrigierbar,
      zweiter Schlafblock. Heute steckt das Arbeitsmodell nur in `S.alltag.schicht`.
   2. Freiwilliger Zusatztag (Vorschlag mit Grund, Zeitwahl, „Zusatz“ in der Wochenleiste) mit dem Kardio-Test in der Testwoche.
