@@ -75,9 +75,10 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click(); // Cool-down bleibt eine Frage, kein stiller Zusatz
     const l = await page.evaluate(() => window.tpTest.logs().slice(-1)[0]);
     assert.equal(l.pv, 2); assert.equal(l.unit, 'A'); assert.equal(l.fin.k, 'easy');
+    assert.ok(l.kraft.every(k => (k.pain && k.pain.skip) || (k.goal >= 3 && k.reps.every(r => r === k.goal))), 'ohne Meldung zählt die Vorgabe');
     await page.locator('#moment').evaluate(e => e.remove()).catch(() => {});
     assert.ok((await page.locator('.wkst [aria-current="date"]').innerText()).includes('✓A'));
-    console.log('PASS: Ablauf mit Gesamtzeit, Zwischenstand nach Neuladen, gespeichert mit Planversion und Einheit');
+    console.log('PASS: Ablauf mit Gesamtzeit, Zwischenstand nach Neuladen, Vorgabe im EMOM, gespeichert mit Planversion und Einheit');
 
     // Plan › Deine Woche und Arbeitszeiten: Wochenziel, Zeitlimit, kein Ausschalten.
     await page.evaluate(() => window.tpTest.navigate('plan'));

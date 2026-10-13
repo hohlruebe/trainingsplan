@@ -33,8 +33,9 @@ Stand: 13. Oktober 2026 (Kernumbau: drei Einheiten A, B, C mit Kardio-Abschluss,
      Tag zwischen zwei Nächten dann als Kandidat nach Rückmeldung. Angenommene Zwei-Einheiten-Woche („Angepasst: 2 Einheiten“).
   4. Training verschieben auf einen anderen Tag (heute nur „Andere Zeit“ und „Heute nicht“, der Coach plant neu).
   5. Freie Tage zeigen die Ruhetag-Routine, aber noch keinen Kurz-Check (Beweglichkeit) wie früher an den Ruhetagen 4 und 7.
-- Bewusst nicht geändert (aus dem Konzept, braucht eine Entscheidung von Dennis): „Training abbrechen“ löscht weiter den Entwurf, und
-  der graue Vorschlag im EMOM zählt beim Speichern weiter mit.
+- Entschieden mit Dennis: „Training abbrechen“ bleibt wie es ist (Zwischenspeichern oder Abbrechen wählt er selbst). Im EMOM gibt der Coach
+  die Wdh. vor (`repGoal`), die Vorgabe zählt als geschafft, Dennis meldet nur, was nicht klappt (statt grauem Vorschlag zum Bestätigen).
+  Steigerung: alle Runden geschafft → nächstes Mal 1 Wdh. mehr bis zum oberen Ende, dann die nächste Stufe über die Sehnen-Bremse.
 
 ## Ausfälle und Nachfragen (12. Oktober 2026, Codex)
 - Dennis hat den Navigations-/Heute-Umbau verworfen: Bestehende Navigation beibehalten. Stattdessen automatische Planung bei ausgefallenen

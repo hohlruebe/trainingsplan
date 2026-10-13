@@ -372,9 +372,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   in `TRAIN_TYPES`): „Übung“ = nur die laufende Übung als Karte (Punkte `.k-dot` wechseln, Runden `.k-r`, Zähler `kCounter`), „Minuten“ = jede
   EMOM-Minute eine Zeile (`.k-min`), die laufende offen mit Mini-Figur und Zähler. Dran ist die Minute der Uhr, sonst die gewählte (`ui.kSel`,
   `ACT['k-sel']`) oder die erste ohne Eintrag (`kraftNow`). Die Stufe setzt der Coach (grüner Chip `kStageChip`, nicht wählbar); ohne Verlauf
-  schätzt er den Start (`stageEst`, „Erstes Mal“ nur noch als Rückfall `E.first`). Zähler `ACT['k-rep']` (Vorschlag `defRep`, Tippen auf die Zahl übernimmt), Gewicht `ACT['k-kg']`
-  in `kgStep`-Schritten. Wechselt die Minute, bekommt die fertige Minute ohne Eintrag den Vorschlag (`kraftAutoFill` in `paintMini`, zeichnet neu), markiert mit
-  `_a<feld>` im Entwurf: grau „Vorschlag übernommen, tippen zum Bestätigen“, in „Minuten“ ohne Haken; Tippen oder Ändern bestätigt. Chips „3–6 Wdh.“ und „✓ Stufe N <Stufe>“.
+  schätzt er den Start (`stageEst`, „Erstes Mal“ nur noch als Rückfall `E.first`). Die Wdh. gibt der Coach vor (Dennis, `repGoal`, `E.goal`, gespeichert als `goal`
+  im Kraft-Eintrag): gleiche Stufe wie zuletzt und alle Runden geschafft → 1 Wdh. mehr bis zum oberen Ende der Spanne, sonst gleich; neue Stufe oder
+  schwereres Gewicht → unteres Ende; ohne Verlauf der Startwert; Entlastung 1 weniger. Die Vorgabe zählt als geschafft, gemeldet wird nur, was nicht
+  klappt: Zähler `ACT['k-rep']` (– zieht von der Vorgabe ab), Runden ohne Eintrag speichert `saveDay` mit der Vorgabe. Gewicht `ACT['k-kg']` in `kgStep`-Schritten.
+  In „Minuten“ bekommen vorbeigelaufene Minuten einen Haken. Chips „3–6 Wdh.“ und „✓ Stufe N <Stufe>“. (Früher: grauer Vorschlag `kraftAutoFill`, gelöscht.)
   „Schmerzen“ als roter Fahnen-Knopf in der Karte (`kFlag`, `.pn-flag`).
   EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,

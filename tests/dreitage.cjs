@@ -26,7 +26,7 @@ function setup(extra) {
   }, extra || {}));
   vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + ';', c);
   for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
-    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName']) vm.runInContext(source(name), c);
+    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal']) vm.runInContext(source(name), c);
   return c;
 }
 const units = P => P.days.map(d => d.tag ? ({ 1: 'A', 3: 'B', 6: 'C' })[d.tag] : '-').join('');
@@ -94,8 +94,8 @@ c = setup(); now = '2026-10-19';
 for (let i = 0; i < 6; i++) c.LOGS.push(kraft(c.isoAdd(now, -13 + i * 2), 1, i === 0 ? { kurz: true } : {}));
 assert.equal(c.umfGrow(), null, 'Kurzversion zählt nicht als vollständig');
 c = setup(); now = '2026-10-19';
-for (let i = 0; i < 6; i++) c.LOGS.push(kraft(c.isoAdd(now, -13 + i * 2), 1, { kraft: [{ n: 'Push-up', reps: [5, null, null, null] }] }));
-assert.equal(c.umfGrow(), null, 'Runden ohne Eintrag (nur Vorschlag gesehen) zählen nicht');
+for (let i = 0; i < 6; i++) c.LOGS.push(kraft(c.isoAdd(now, -13 + i * 2), 1, { kraft: [{ n: 'Push-up', goal: 5, reps: [5, 3, 3, 3] }] }));
+assert.equal(c.umfGrow(), null, 'gemeldete Runden unter der Vorgabe halten den Umfang');
 c = setup(); now = '2026-10-19';
 for (let i = 0; i < 6; i++) c.LOGS.push(kraft(c.isoAdd(now, -13 + i * 2), 1));
 c.KOERPER.push({ k: 'j', id: 'knie' }); assert.equal(c.umfGrow(), null, 'akute Beschwerde hält den Umfang');
@@ -110,3 +110,15 @@ assert.equal(c.snapName({ tag: 3, pv: 1 }), 'Ein Training', 'alter Tag 3 heißt 
 assert.equal(c.snapName({ tag: 3, pv: 2 }), 'Ganzkörper B');
 assert.equal(c.snapName({ tag: 3, pv: 1, n: 'Zug' }), 'Zug');
 console.log('PASS: Termine aus dem alten Plan behalten ihre Bedeutung');
+
+// Vorgabe im EMOM: der Coach gibt die Wdh. vor, gemeldet wird nur, was nicht geklappt hat.
+c = setup({ S: { base: { 'Ring Dip': { stage: 'Stark', start: 4 } } } });
+const X = { n: 'Ring Dip', target: '3–6', hi: 6 }, log = (reps, extra) => c.LOGS.push({ id: 'g' + c.LOGS.length, kind: 'kraft', date: '2026-10-01', kraft: [Object.assign({ n: 'Ring Dip', stage: 'Stark', reps }, extra || {})] });
+assert.equal(c.repGoal(X, 'Stark'), 4, 'ohne Verlauf der Startwert');
+log([4, 4, 5, 4], { goal: 4 }); assert.equal(c.repGoal(X, 'Stark'), 5, 'alles geschafft: 1 Wdh. mehr');
+log([5, 4, 5, 5], { goal: 5 }); assert.equal(c.repGoal(X, 'Stark'), 5, 'eine Runde verfehlt: gleich bleiben');
+log([6, 6, 6, 6], { goal: 6 }); assert.equal(c.repGoal(X, 'Stark'), 6, 'nie über das obere Ende, dann kommt die nächste Stufe');
+assert.equal(c.repGoal(X, 'Mittel'), 3, 'neue Stufe: unteres Ende');
+log([5, 5, 4, 4]); assert.equal(c.repGoal(X, 'Stark'), 5, 'alte Einträge ohne Vorgabe: die schwächste Runde gilt als Vorgabe');
+phase = { deload: true }; assert.equal(c.repGoal(X, 'Stark'), 4, 'Entlastung 1 Wdh. weniger'); phase = {};
+console.log('PASS: Vorgabe im EMOM steigt nur nach geschafften Runden');
