@@ -4,7 +4,23 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 14. Oktober 2026 (Drei Einheiten: Arbeitszeiten, Befinden, Verschieben, Zusatztag, Kurz-Check; davor Kernumbau)
+Stand: 14. Oktober 2026 (Coach-Tab ohne Ballast; davor Drei Einheiten: Arbeitszeiten, Befinden, Verschieben, Zusatztag, Kurz-Check)
+
+## Coach-Tab ohne Ballast (14. Oktober 2026, Claude)
+- Dennis: „der Coach-Tab ist sehr voll geworden, viele Dinge können doch im Hintergrund laufen.“ Konzept als Board „Paket 50 · Coach-Tab
+  ohne Ballast“ im Canvas (Vorher/Nachher mit denselben Testdaten, Tabelle „Was wohin wandert“).
+- Regel für Heute in Plan 2 (`lean` in `renderHeute`): was heute dran ist (Titel, ein Satz darunter `heuteSub`, Wochenleiste ohne Blättern),
+  höchstens eine Frage (`heuteAskHTML`: Befinden, Schmerzen, „Dein Plan ist angepasst“, Arbeitszeiten, Daten sichern), der Ablauf mit Start
+  und „Heute anpassen“. Trainingstag vorher 7 Karten, jetzt 1–2; freier Tag vorher 8, jetzt 1–3.
+- Wohin: Uhrzeit in die Kopfzeile, Gründe der Uhrzeit in Plan › Deine Woche; Andere Uhrzeit und Heute nicht in „Heute anpassen“; Coach-Karte
+  an den Schritt (`coachItems`, `stepCoachHTML`, auch die Ringhöhe); Fast geschafft nach Profil › Erfolge; Als Nächstes freischalten nach
+  Profil › Werte; Block-Karte und 24-h-Woche nur noch im Plan bzw. in den Arbeitszeiten; freier Tag eine Karte „Für deinen freien Tag“
+  (`freeDayHTML`, Flow und aufklappbarer Kurz-Check); Zusatz-Vorschlag im Plan, auf Heute nur heute geplant oder als fälliger Kardio-Test.
+- Ein beantwortetes Befinden tritt zur Seite (die Folge steht unter dem Titel), nur „Sehr müde“ bleibt am freien Tag änderbar.
+- Nichts wird anders berechnet. Alte Stände vor der Umstellung (Plan 1) sehen Heute wie bisher. Desktop: eine Spalte (880 px).
+- Geprüft: `tests/dreitage-browser.cjs` angepasst (Wochen blättern im Plan, keine Ballast-Karten, Andere Uhrzeit/Heute nicht im Blatt, eine Frage
+  auf einmal, „Sehr müde“ zurücknehmen, Karte am freien Tag), dazu `dreitage`, `ausfaelle`, `ausfaelle-browser`, `stabilisierung`.
+- Offen: Dennis schaut das Board an; was er doch auf Heute haben will (z. B. Fast geschafft), kommt im selben Pull Request zurück.
 
 ## Drei Einheiten: die restlichen Pakete (14. Oktober 2026, Claude)
 - Dennis wollte alle restlichen Pakete in einem Pull Request. Umgesetzt (Details in `CLAUDE.md` unter „Plan 2“):
