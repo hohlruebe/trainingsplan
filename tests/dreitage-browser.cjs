@@ -8,7 +8,7 @@ const { chromium } = require(require.resolve('playwright', { paths: [process.env
 let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
-window.tpTest = { state: () => S, logs: () => LOGS, plan: wkPlanC, steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
+window.tpTest = { state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
   set: (s, logs) => { S = Object.assign({}, DEF, s); LOGS = logs || []; DRAFTS = {}; ui.tab = 'heute'; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; ensureOrte(); DAYS_K = null; invalidateDerived(); LS.set('tp.state', S); LS.set('tp.logs', LOGS); LS.set('tp.drafts', DRAFTS); render(); }
@@ -220,6 +220,31 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: 'Kalender verbinden', exact: true }).waitFor();
     assert.equal(await page.evaluate(() => localStorage.getItem('tp.kal')), null, 'Trennen löscht Link und Daten');
     console.log('PASS: Google Kalender verbinden, Dienste als Schichtplan, Kalender einzeln an und aus, Trainings eintragen, Link nur auf dem Gerät, Fehler und Trennen');
+
+    // Fußanker (Nordic Curls) nur, wo er angehakt ist: bisher galt das Sofa (Alltagsgegenstände) an jedem Ort.
+    const anker = Object.assign(v2s(), { ort: 'o_gym', picks: { 'o1:3:3': 'g_nordic', 'o_gym:3:3': 'g_nordic' }, swapped: {},
+      orte: [{ id: 'o1', k: 'zuhause', on: 1, zh: 1, lf: 1, eq: ['eq_zuhause', 'eq_band'] }, { id: 'o_gym', k: 'gym', on: 1, zh: 1, lf: 1, eq: ['eq_zuhause', 'eq_kettlebell', 'eq_laufstrecke'] }] });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [anker, logs()]);
+    let so = await page.evaluate(() => window.tpTest.state().orte);
+    assert.ok(so[0].eq.includes('eq_fussanker') && so[0].fa, 'Zuhause einmalig mit Fußanker (Sofa)');
+    assert.ok(!so[1].eq.includes('eq_fussanker') && so[1].fa, 'im Gym nicht von selbst');
+    let pf = await page.evaluate(() => window.tpTest.fill());
+    assert.equal(pf.kraft[3][2].n, 'Deadlift', 'ohne Fußanker nimmt der Coach die nützlichste Übung, die hier geht');
+    const fsw = await page.evaluate(() => window.tpTest.state().swapped['o_gym:3:3']);
+    assert.equal(fsw.from, 'g_nordic'); assert.equal(fsw.why, 'eq'); assert.equal(fsw.eq, 'eq_fussanker');
+    assert.match(await page.evaluate(() => window.tpTest.coach(3)), /Deadlift statt Nordic Curl, weil hier ein Gerät fehlt \(Fußanker\)\./);
+    await page.evaluate(() => { window.tpTest.state().ort = 'o1'; });
+    assert.equal((await page.evaluate(() => window.tpTest.fill())).kraft[3][2].n, 'Nordic Curl', 'zu Hause bleibt der Nordic Curl');
+    await page.evaluate(() => { window.tpTest.state().ort = 'o_gym'; window.tpTest.navigate('uebungen'); });
+    await page.locator('[data-act="eq-sheet"]').first().click();
+    const fa = page.locator('#eq-sheet .eq-row', { has: page.locator('input[data-id="eq_fussanker"]') });
+    assert.match(await fa.innerText(), /Fußanker[\s\S]*Sofa, Bett, Sprossenwand, Partner · 1 Übung/);
+    await fa.locator('label.check').click(); await page.waitForTimeout(500);
+    await page.getByRole('button', { name: 'Fertig', exact: true }).click();
+    assert.equal((await page.evaluate(() => window.tpTest.fill())).kraft[3][2].n, 'Nordic Curl', 'mit Fußanker kommt die alte Wahl zurück, auch wenn Deadlift mehr Nutzen hat');
+    assert.match(await page.evaluate(() => window.tpTest.coach(3)), /Nordic Curl statt Deadlift: das Gerät dafür ist jetzt da\./);
+    assert.equal((await page.evaluate(() => window.tpTest.fill())).kraft[3][2].n, 'Nordic Curl', 'kein Hin und Her zum Ersatz');
+    console.log('PASS: Fußanker je Ort, Ersatz mit Grund, Rückkehr zum Nordic Curl');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });

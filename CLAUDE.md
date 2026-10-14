@@ -91,7 +91,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden, Kalender und die Brücke
   selbst mit nachgestellten Google-Diensten; ohne Browser),
   `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, Google Kalender mit
-  nachgestellter Brücke, alle Reiter).
+  nachgestellter Brücke, Fußanker je Ort, alle Reiter).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
   Erst ab dem ersten Öffnen dieser Version, keine rückwirkende Annahme über alte Termine. Vergangene Snapshots bleiben unverändert.
   `missPending` fragt auf Heute nach fehlenden Abschlüssen der letzten 14 Tage; Ruhetage, gespeicherte Trainings, Mobility/1RM und
@@ -297,6 +297,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (erst Leiter aus nahem Muster `MUSTER_NEAR`, sonst Einzelübung mit Rolle `kraft`, z. B. Table Row / Towel Door Row mit `eq_zuhause`);
   gibt es keinen, fällt der Platz weg (Hinweis am Schritt). Neu nur auf höheren Nutzen wechseln, nie auf eine Leiter, die ein anderer
   Platz am Ort hält oder die wegen Stillstand verlassen wurde (sonst springt die Wahl hin und her).
+  Geht die gewählte Leiter am Ort nicht mehr (Gerät fehlt, z. B. Fußanker), nimmt der Coach die nützlichste, die dort geht
+  (`S.swapped` mit `why: 'eq'` und `eq`, Hinweis „X statt Y, weil hier ein Gerät fehlt (…)“ am Kraft-Schritt, bis der Ersatz trainiert ist).
+  Ist das Gerät wieder da, nimmt er die alte Wahl zurück (`why: 'zurueck'`, „das Gerät dafür ist jetzt da“), danach nicht wieder zum Ersatz.
 - Sehnen-Bremse (`coachStage`, `ladHist`, `brakeNote`): die Stufe setzt der Coach (`stageDef`), das Rad zeigt nur Stufen bis dahin (`cmax`).
   Aufstieg nur, wenn 2 Einheiten in Folge alle Runden am oberen Ende der Spanne liegen UND die Mindestzeit auf der Stufe um ist
   (`SEHNE` Klasse 0/1/2 je Leiter, `SEHNE_TAGE` 14/28/42). Höchstens eine Stufe pro Durchgang, keine in der Entlastung, keine ohne Gerät
@@ -479,6 +482,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   In `S.orte` je `{id, k, on, eq, zh}`; angezeigt werden nur eingeschaltete (`on`), mindestens einer bleibt an.
   Einschalten, Umbenennen und Symbol über Tools › Übungen › Stift › „Orte wählen“ (`ACT.orte`). Früher frei benannte Orte
   ordnet `ensureOrte()` einem festen Ort zu (IDs, Geräte und `S.picks` bleiben). Auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
+  Fußanker (`eq_fussanker`, Dennis, 14. Oktober: Sofa, Bett, Sprossenwand, Partner, im Gym das Latzug-Polster) ist ein eigenes Gerät: Nordic Curl
+  (`g_nordic`) braucht Fußanker, GHD oder Sprossenwand (vorher nur Alltagsgegenstände, die überall angehakt sind). Einmalig nur Zuhause angekreuzt
+  (Kennung `fa` je Ort), sonst hakt man ihn selbst an.
   Laufstrecke (`eq_laufstrecke`) ist ein Gerät je Ort: nur damit kommt „Run“ (200/400 m) in den Metcon. Einmalig angekreuzt bei Gym,
   Park und Unterwegs (Kennung `lf` je Ort).
   Blätter mit Textfeld passen sich an die Tastatur an (`fitKeyboard`, `interactive-widget=resizes-content`).
