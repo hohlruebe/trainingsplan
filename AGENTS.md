@@ -17,6 +17,8 @@ Dieses Projekt wird mit mehreren KI-Werkzeugen bearbeitet. Damit alle nach dense
 - Den Sync-Token nie in Code, Export oder Logs schreiben.
 - Plan 2 (drei Einheiten A, B, C) ist der Standard: intern Tag 1, 3, 6. Neue Einträge tragen `pv: 2` und `unit`, alte behalten ihre Tag-Bedeutung.
   Nie einen alten `tag` neu deuten (Tag 2 bleibt ein Kardio-Eintrag). Offene Pakete des Umbaus stehen in `UEBERGABE.md`.
+- Coach › Heute bleibt schlank (Dennis): nur was heute dran ist, höchstens eine Frage, der Ablauf mit Start. Neue Hinweise und Übersichten
+  nicht als weitere Karte auf Heute, sondern am Schritt, im Plan oder im Profil (`heuteSub`, `heuteAskHTML`, `stepCoachHTML`).
 
 ## Zusammenarbeit
 - Immer nur ein offener Pull Request zur Zeit. `index.html` ist sehr groß, parallele Änderungen führen fast sicher zu Konflikten.

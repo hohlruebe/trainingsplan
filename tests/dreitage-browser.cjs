@@ -53,17 +53,26 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('.kicker').first().innerText(), /Vorschau/);
     assert.equal(await page.getByRole('button', { name: /Training starten/ }).count(), 0, 'Auswählen startet nichts');
     await page.getByRole('button', { name: 'Zurück zu heute', exact: true }).click();
-    // Vergangene Woche zeigt die Einträge, nächste Woche die Planung.
+    // Heute schlank: kein Blättern, keine Karten für Uhrzeit, Coach, Block und Woche; die Uhrzeit steht oben.
+    assert.equal(await page.getByRole('button', { name: 'Woche davor', exact: true }).count(), 0, 'Wochen blättern nur im Plan');
+    for (const h of ['Training heute', 'Dein Coach hat heute angepasst', 'Deine Woche', 'Allround']) assert.equal(await page.getByRole('heading', { name: h, exact: true }).count(), 0, h + ' läuft im Hintergrund');
+    assert.match(await page.locator('.kicker').first().innerText(), /^Heute · \d\d:\d\d Uhr$/);
+    // Andere Uhrzeit und Heute nicht stehen in „Heute anpassen“.
+    await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
+    assert.ok(await page.locator('.ad-it[data-k="time"]').isVisible() && await page.locator('.ad-it[data-k="off"]').isVisible());
+    await page.getByRole('button', { name: 'Fertig', exact: true }).click();
+    // Vergangene Woche im Plan: zeigt die Einträge.
+    await page.evaluate(() => window.tpTest.navigate('plan'));
     await page.getByRole('button', { name: 'Woche davor', exact: true }).click();
     assert.ok((await page.locator('.wkst').innerText()).includes('✓'));
-    await page.getByRole('button', { name: 'Zurück zu heute', exact: true }).click();
-    console.log('PASS: Wochenleiste mit Heute, Auswahl, Vorschau und Wochenwechsel');
+    await page.evaluate(() => window.tpTest.navigate('heute'));
+    console.log('PASS: Wochenleiste mit Heute, Auswahl, Vorschau, Heute ohne Ballast, Wochenwechsel im Plan');
 
     // Training: die Dauer in der Übersicht ist die Summe der Schritte plus 2 Min, Abschluss ist Kardio.
     const steps = await page.evaluate(() => window.tpTest.steps().map(s => [s.id, s.dur]));
     const total = steps.reduce((a, s) => a + (s[1] || 0), 0) + 2;
     assert.ok(steps.some(s => s[0] === 'fin') && !steps.some(s => s[0] === 'metcon'), 'A endet mit Kardio');
-    assert.ok((await page.locator('.kicker').first().innerText()).includes('ca. ' + total + ' Min'));
+    assert.ok((await page.locator('.tl-top').first().innerText()).includes('ca. ' + total + ' Min'));
     assert.ok(total <= 90);
     await page.getByRole('button', { name: /Training starten/ }).click();
     await page.getByRole('button', { name: /Weiter zu/ }).first().click();
@@ -104,13 +113,19 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const T12 = { k: 't', a: 6, b: 18 };
     const night = Object.assign(v2s(), { alltag: { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 }, arbeit: { '2026-10-12': [{ k: 'n', a: 22, b: 6 }, null, T12, T12, T12, T12, T12] } });
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [night, logs()]);
-    const k0 = await page.locator('.kicker').first().innerText();
+    const m0 = await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0));
     assert.ok(await page.getByRole('button', { name: 'Müde', exact: true }).isVisible(), 'Frage nach dem Nachtdienst');
+    assert.equal(await page.locator('.pn-ask').count(), 1, 'höchstens eine Frage');
     await page.getByRole('button', { name: 'Müde', exact: true }).click();
-    assert.notEqual(await page.locator('.kicker').first().innerText(), k0, 'müde: kürzere Einheit');
+    assert.ok(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)) < m0, 'müde: kürzere Einheit');
+    assert.ok(await page.getByText('Heute kürzer, weil du müde bist.').isVisible(), 'die Folge steht unter dem Titel');
+    assert.equal(await page.getByRole('button', { name: 'Sehr müde', exact: true }).count(), 0, 'beantwortet: die Frage tritt zur Seite');
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [night, logs()]);
     await page.getByRole('button', { name: 'Sehr müde', exact: true }).click();
     assert.ok(await page.getByRole('heading', { name: 'Heute frei', level: 1 }).isVisible());
-    console.log('PASS: Befinden nach dem Nachtdienst');
+    await page.getByRole('button', { name: 'Erholt', exact: true }).click(); // „Sehr müde“ bleibt änderbar
+    assert.ok(await page.getByRole('heading', { name: 'Ganzkörper A', level: 1 }).isVisible());
+    console.log('PASS: Befinden nach dem Nachtdienst, eine Frage auf einmal');
 
     // Verschieben: Heute anpassen › Training verschieben › Vorschlag des Coachs.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
@@ -120,7 +135,12 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await opt.click();
     assert.ok(await page.getByRole('heading', { name: 'Heute frei', level: 1 }).isVisible());
     assert.equal(await page.evaluate(d => window.tpTest.plan().days.filter(x => x.date === d)[0].tag, to), 1, 'A liegt am neuen Tag');
-    console.log('PASS: Training verschieben auf einen Vorschlag des Coachs');
+    assert.ok(await page.getByText('Dein Training ist verschoben, heute ist frei.').isVisible());
+    // Freier Tag: eine Karte mit Flow und Kurz-Check, der Kurz-Check klappt auf.
+    assert.ok(await page.getByRole('heading', { name: 'Für deinen freien Tag' }).isVisible());
+    await page.locator('[data-act="rc-open"]').click();
+    assert.ok(await page.getByRole('button', { name: 'Kurz-Check speichern' }).isVisible());
+    console.log('PASS: Training verschieben auf einen Vorschlag des Coachs, freier Tag mit einer Karte');
 
     // Zusatztag: Vorschlag mit Grund, Dauer, planen, Z in der Wochenleiste, zählt nicht ins Wochenziel.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);

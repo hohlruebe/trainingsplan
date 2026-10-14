@@ -1032,6 +1032,7 @@ html.desk .side{display:block;position:fixed;left:0;top:0;bottom:0;width:248px;z
 .side-keys{margin:28px 12px 0;line-height:1.5}
 html.desk main{max-width:880px;padding:36px 40px 64px}
 html.desk main[data-tab=heute],html.desk main[data-tab=uebungen],html.desk main[data-tab=fam]{max-width:1200px}
+html.desk main[data-tab=heute]:not(:has(.dk2,.dk-step)){max-width:880px}
 html.desk body.focus{padding-left:0}
 html.desk body.focus .side{display:none}
 html.desk body.focus main{max-width:1320px}
@@ -1122,6 +1123,8 @@ html.desk .ob{max-width:520px;margin:0 auto}
 .pl-time{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin:6px 0 2px}
 .pl-why{display:flex;flex-direction:column;gap:4px;margin:12px 0 0;font-size:15px;line-height:1.4}.pl-why span::before{content:'✓ ';color:#2E8A50;font-weight:700}
 .pl-next{margin:12px 0 0;font-size:15px;line-height:1.45}
+.hero .h-sub{margin:10px 0 4px;font-size:16px;line-height:1.4;color:var(--ink2)}.hero .h-sub b{color:var(--ink);font-weight:600}.hero .h-sub+.h-sub{margin-top:2px}
+.co-step{padding-top:14px;padding-bottom:6px}
 [data-theme=dark] .pr-gain{background:#22382B;color:#8FD9AE}[data-theme=dark] .pr-k,[data-theme=dark] .pr-new{color:#F0C27A}[data-theme=dark] .pr-k{background:#3A3022}@media (prefers-color-scheme:dark){html:not([data-theme=light]) .pr-gain{background:#22382B;color:#8FD9AE}html:not([data-theme=light]) .pr-k,html:not([data-theme=light]) .pr-new{color:#F0C27A}html:not([data-theme=light]) .pr-k{background:#3A3022}}
 @keyframes prPop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.mo-prc .pr-num,.pr-glow{animation:none}}
@@ -4371,8 +4374,9 @@ function renderProfil() {
     var on = p[0] === view;
     return '<button type="button" class="cap-btn' + (on ? ' on' : '') + '" data-act="pview" data-v="' + p[0] + '" aria-pressed="' + on + '" aria-label="' + p[1] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + p[3] + '"/></svg><span>' + p[1] + '</span></button>';
   }).join('') + '</nav>';
-  if (view === 'werte') h += '<button type="button" class="st-row skill-go" data-act="tab" data-tab="skill"><span><b>Skill-Baum</b><br><span class="small muted">Was du kannst und was als Nächstes kommt</span></span><span class="muted">›</span></button>' + werteHTML(stats);
-  else if (view === 'erfolge') h += erfolgeHTML(stats);
+  var kt = v2() && DAYS[S.tag] && DAYS[S.tag].type === 'kraft' ? S.tag : 0;
+  if (view === 'werte') h += (kt ? progressHTML(kt) : '') + '<button type="button" class="st-row skill-go" data-act="tab" data-tab="skill"><span><b>Skill-Baum</b><br><span class="small muted">Was du kannst und was als Nächstes kommt</span></span><span class="muted">›</span></button>' + werteHTML(stats);
+  else if (view === 'erfolge') h += (kt ? fastHTML(kt) : '') + erfolgeHTML(stats);
   else h += verlaufHTML();
   return h;
 }
@@ -5133,9 +5137,12 @@ function befAskHTML(P) {
     '<p class="tl-x">' + esc(res) + '</p></section>';
 }
 // Heute kein Training laut Plan: warum, und wann es weitergeht.
+function planFreeWhy(P) {
+  var d = P.days[P.today];
+  return d.off ? ((S.planOv || {})[d.date] && S.planOv[d.date].reason === 'sehrmuede' ? 'Du bist sehr müde, heute ist Erholung. Ich habe die Woche umgeplant.' : (S.planOv || {})[d.date] && S.planOv[d.date].reason === 'moved' ? 'Dein Training ist verschoben, heute ist frei.' : 'Du hast heute keine Zeit, ich habe die Woche umgeplant.') : d.cls === 'none' ? (longShift(d.work) ? '12-h-Schicht: heute kein Training, du erholst dich.' : 'Zwischen zwei Nächten: heute erholst du dich.') : 'Ruhetag. Erholung gehört zum Plan, dein Körper baut jetzt auf.';
+}
 function planFreeHTML(P) {
-  var d = P.days[P.today], nx = P.days.filter(function (x) { return x.i > P.today && x.tag && !x.done; })[0];
-  var why = d.off ? ((S.planOv || {})[d.date] && S.planOv[d.date].reason === 'sehrmuede' ? 'Du bist sehr müde, heute ist Erholung. Ich habe die Woche umgeplant.' : 'Du hast heute keine Zeit, ich habe die Woche umgeplant.') : d.cls === 'none' ? (longShift(d.work) ? '12-h-Schicht: heute kein Training, du erholst dich.' : 'Zwischen zwei Nächten: heute erholst du dich.') : 'Ruhetag. Erholung gehört zum Plan, dein Körper baut jetzt auf.';
+  var nx = P.days.filter(function (x) { return x.i > P.today && x.tag && !x.done; })[0], why = planFreeWhy(P);
   return '<section class="card"><div class="card-head"><h2>Heute frei</h2></div><p style="margin:4px 0 0;line-height:1.45">' + esc(why) + '</p>' +
     (nx ? '<p class="pl-next">Nächstes Training: <b>' + WTAG[nx.i] + ', ' + hm(nx.t - 24 * nx.i) + '</b> · ' + esc(dayLabel(nx.tag)) + '</p>' : '<p class="pl-next">Diese Woche ist geschafft. Montag geht es weiter.</p>') + '</section>';
 }
@@ -6235,7 +6242,7 @@ function mobCheckHTML(D, only) {
       if (alt) cur = alt;
     }
     return '<section class="card mc-card"><div class="card-head"><h3>' + (only != null ? 'Kurz-Check · ' : '') + esc(lad.name) + '</h3><span class="small muted">' + (only != null ? '1 Min' : 'Test ' + (i + 1) + ' von ' + MOB.check.leitern.length) + '</span></div>' +
-      (only != null ? '<p class="small muted">Ein Test aus dem Beweglichkeits-Check, locker aufgewärmt. Trag die höchste saubere Stufe ein und hak den Ruhetag ab.</p>' : '') +
+      (only != null ? '<p class="small muted">Ein Test aus dem Beweglichkeits-Check, locker aufgewärmt. Trag die höchste saubere Stufe ein.' + (v2() ? '' : ' Dann hak den Ruhetag ab.') + '</p>' : '') +
       figBox(cur.uebung || '') + (cur.name ? '<p class="small muted">Gezeigt: ' + esc(cur.name) + '</p>' : '') +
       '<div class="pick-grid one">' + tile('Höchste saubere Stufe', '<b class="txt">' + esc(stg || 'wählen') + '</b>', pickAttrs({ only: 'stage', sf: 'mc' + i, lad: k, title: lad.name }), stg ? 'set' : '') + '</div>' +
       (steps.some(function (x) { return mcGoal(x.name); }) ? mcSwHTML(i, mcGoal(stg || (s0 || steps[0] || {}).name)) : '') +
@@ -6353,12 +6360,12 @@ function zusatzNow() { var Z = zsOf(); if (!Z || Z.off || !Z.min) return null; i
 function zusatzCardHTML(where) {
   var Z = zsOf(), N = zusatzNow(), W = !Z ? zusatzWhy() : null;
   if (N && !N.done) {
-    var today = N.date === isoToday();
+    var today = N.date === isoToday(); if (where === 'heute' && !today) return '';
     return '<section class="card"><div class="card-head"><h2>' + (today ? 'Zusatz heute' : 'Zusätzlich · geplant') + '</h2><span class="chip">optional</span></div><p style="margin:4px 0 0;line-height:1.45">' + esc((N.k === 'test' ? 'Kardio-Test' : 'Lockere Ausdauer') + ' · ' + N.min + ' Min') + '</p>' +
       '<p class="pl-next">' + (today ? 'Heute' : WTAG[N.i]) + ', <b>' + hm(N.t - 24 * N.i) + '</b> · zählt nicht ins Wochenziel</p>' +
       '<div class="bgrp" style="margin-top:12px">' + (today && where === 'heute' ? '<button type="button" data-act="zs-start">Jetzt starten</button>' : '') + '<button type="button" data-act="zs-open" data-from="' + where + '">Ändern</button></div></section>';
   }
-  if (!W) return '';
+  if (!W || (where === 'heute' && W.k !== 'test')) return '';
   return '<section class="card"><div class="card-head"><h2>Zusätzlich · optional</h2></div><p style="margin:4px 0 12px;line-height:1.45">' + esc(W.t) + ' Dein Wochenziel bleibt bei 3 Einheiten.</p>' +
     '<button type="button" class="btn" data-act="zs-open" data-from="' + where + '">Vorschlag ansehen</button></section>';
 }
@@ -6400,10 +6407,11 @@ function wkRangeLong(mon) {
   var a = parseISO(mon), b = parseISO(isoAdd(mon, 6)), y = new Date().getFullYear();
   return a.getDate() + '.' + (a.getMonth() !== b.getMonth() ? ' ' + MONATE[a.getMonth()] + (a.getFullYear() !== b.getFullYear() ? ' ' + a.getFullYear() : '') + ' ' : '') + '–' + b.getDate() + '. ' + MONATE[b.getMonth()] + (b.getFullYear() !== y || a.getFullYear() !== b.getFullYear() ? ' ' + b.getFullYear() : '');
 }
-function wkStripHTML(W, sel, act) {
+function wkStripHTML(W, sel, act, noHead) {
   var cm = wkMon(), h = '<div class="pw-h wk-h"><button type="button" class="rbtn" data-act="' + act + '-nav" data-d="-1" aria-label="Woche davor"' + (W.mon <= wkFirst() ? ' disabled' : '') + '>' + BACK + '</button>' +
     '<div class="pw-t"><b>' + esc(wkRangeLong(W.mon)) + '</b><span class="small muted">' + esc(wkWeekLabel(W.mon)) + '</span></div>' +
     '<button type="button" class="rbtn" data-act="' + act + '-nav" data-d="1" aria-label="Nächste Woche"' + (W.mon >= isoAdd(cm, 14) ? ' disabled' : '') + '>' + FWD + '</button></div><nav class="pills wkst" aria-label="Woche">';
+  if (noHead) h = '<nav class="pills wkst" aria-label="Woche">';
   W.cells.forEach(function (c) {
     var L = wkCellLab(c), d = parseISO(c.date), on = c.date === sel;
     h += '<button type="button" class="pill wd' + (c.today ? ' cur' : '') + (on && !c.today ? ' view' : '') + (c.logs.length ? ' ok' : c.tag ? ' u' : c.zs ? ' u z' : ' fr') + (c.past ? ' past' : '') + '" data-act="' + act + '-sel" data-d="' + c.date + '"' +
@@ -6427,7 +6435,7 @@ function wkDayHTML(dt) {
   var mon = wkMon(dt), W = wkCells(mon), c = W.cells.filter(function (x) { return x.date === dt; })[0], d = parseISO(dt);
   var snap = (S.planDays || {})[dt], title = c.logs.length ? logTitle(c.logs[c.logs.length - 1]) : c.tag ? dayLabel(c.tag) : c.past ? 'Kein Training' : 'Frei';
   var h = '<div class="row between h-top"><p class="kicker muted">' + esc(WTAG[c.i] + ', ' + d.getDate() + '. ' + MONATE[d.getMonth()]) + (c.tag && !c.logs.length ? ' · Vorschau' : '') + '</p><span class="row">' + storageChip() + PLAN_BTN + '</span></div>' +
-    '<section class="hero"><h1>' + esc(title) + '</h1></section>' + wkStripHTML(W, dt, 'wk') +
+    '<section class="hero"><h1>' + esc(title) + '</h1></section>' + wkStripHTML(W, dt, 'wk', v2()) +
     '<div class="viewbar"><span class="small muted">' + esc(c.past ? 'Vergangener Tag' : c.tag ? 'Geplant' : 'Frei') + '</span><button type="button" class="btn small" data-act="back-today">Zurück zu heute</button></div>';
   if (c.logs.length) return h + c.logs.map(function (l) { return '<section class="card"><div class="row between wrap"><h2>' + esc(logTitle(l)) + '</h2><span class="chip">' + TICK + 'Erledigt</span></div>' + logLines(l) + logBtns(l, fixable(l)) + '</section>'; }).join('');
   if (c.zs) return h.replace('<h1>' + esc(title) + '</h1>', '<h1>Zusatz</h1>') + '<section class="card"><p style="margin:0 0 6px"><b>' + esc((c.zs.k === 'test' ? 'Kardio-Test' : 'Lockere Ausdauer') + ' · ' + c.zs.min + ' Min') + '</b></p>' +
@@ -6450,7 +6458,8 @@ function planWeekV2HTML() {
   if (c.logs.length) h += c.logs.map(function (l) { return '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(logTitle(l)) + '</b><small>' + esc(fmtDate(l.date)) + ' · erledigt</small></span><span class="vr-v">' + TICK + '</span></div></div>' + logLines(l); }).join('');
   else if (c.tag) {
     var U = wkUnitPreview(c, mon), F = planPreview(wkDg(mon), function () { return finOf(c.tag, 0); });
-    h += '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(dayLabel(c.tag)) + '</b><small>' + esc(WTAG[c.i] + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) : '') + (F && F.k !== 'none' ? ' · ' + (F.k === 'metcon' ? 'Metcon' : FIN_N[F.k]) : '')) + '</small></span><span class="vr-v">' + U.min + ' Min</span></div></div>' + tlHTML(U.st);
+    h += '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(dayLabel(c.tag)) + '</b><small>' + esc(WTAG[c.i] + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) : '') + (F && F.k !== 'none' ? ' · ' + (F.k === 'metcon' ? 'Metcon' : FIN_N[F.k]) : '')) + '</small></span><span class="vr-v">' + U.min + ' Min</span></div></div>' +
+      (c.pd && c.pd.why && c.pd.why.length ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') + tlHTML(U.st);
   } else h += '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
   h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';
@@ -6478,6 +6487,8 @@ function renderHeute() {
   var mins = st.reduce(function (a, s) { return a + (s.opt ? 0 : s.dur || 0); }, 0);
   // Deine Woche: der Coach hat Tage und Uhrzeiten geplant; ohne Einheit heute zeigt Heute den freien Tag.
   var PL = planOn() ? wkPlanC() : null, plFree = !!(PL && PL.today >= 0 && cur && !lock && !ui.viewTag && !PL.days[PL.today].tag && !(DAYS[S.tag] && DAYS[S.tag].zusatz));
+  // Plan 2 schlank (Dennis): Heute zeigt nur, was heute dran ist, höchstens eine Frage und den Ablauf. Der Rest läuft im Hintergrund.
+  var lean = !!(v2() && PL && !c.isTest && !c.isMurph), P0 = PL && PL.today >= 0 ? PL.days[PL.today] : null;
   var kick = 'Tag ' + tag + ' · ' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + ph.bd + ' von ' + ph.n);
   var dl = !cur ? dayLog(tag) : null;
   if (dl) kick += ' · erledigt';
@@ -6486,10 +6497,13 @@ function renderHeute() {
   var title = c.isMurph ? 'Murph' : c.isTest ? TESTDAYS[tag].title : dayLabel(tag);
   // Plan 2: der Kopf nennt nur Heute und die Dauer, Durchgang und Phase stehen in der Block-Karte und im Plan.
   if (v2() && PL) kick = 'Heute' + (mins && cur ? ' · ca. ' + (mins + 2) + ' Min' : '');
+  if (lean) kick = 'Heute' + (cur && !lock && P0 && P0.tag && P0.t != null ? ' · ' + hm(P0.t - 24 * P0.i) + ' Uhr' : '');
   if (todayView) { kick = 'Heute'; title = 'Heute erledigt'; }
   if (plFree) { kick = v2() ? 'Heute' : 'Heute · Durchgang ' + ph.bd + ' von ' + ph.n; title = 'Heute frei'; }
-  var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + PLAN_BTN + '</span></div><section class="hero"><h1>' + esc(title) + '</h1></section>';
-  if (v2() && PL) h += wkStripHTML(wkCells(ui.wkMon || wkMon()), ui.wkSel || isoToday(), 'wk');
+  var sub = lean ? heuteSub(plFree ? 'free' : todayView ? 'done' : 'train', PL, tag) : [];
+  var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + PLAN_BTN + '</span></div><section class="hero"><h1>' + esc(title) + '</h1>' +
+    sub.map(function (x) { return '<p class="h-sub">' + x + '</p>'; }).join('') + '</section>';
+  if (v2() && PL) h += wkStripHTML(wkCells(ui.wkMon || wkMon()), ui.wkSel || isoToday(), 'wk', lean);
   else {
   h += planVHintHTML() + '<nav class="pills" aria-label="Tage">';
   for (var t = 1; t <= 7; t++) {
@@ -6499,9 +6513,9 @@ function renderHeute() {
   }
   h += '</nav>';
   }
-  if (!ui.viewTag) h += missNoticeHTML();
-  // Desktop: rechts eine Seitenspalte mit Block, Fortschritt und Woche.
-  var desk = deskOn() && cur, side = '', cut = h.length;
+  if (!ui.viewTag && !lean) h += missNoticeHTML();
+  // Desktop: rechts eine Seitenspalte mit Block, Fortschritt und Woche (Plan 2 schlank: eine Spalte).
+  var desk = deskOn() && cur && !lean, side = '', cut = h.length;
   // Hinweise stehen dort, wo sie hingehören: Phase in der Block-Karte, Geräte beim Ort, Übungs-Hinweise im Ablauf.
   var p = pauseDays(), pn = '';
   var cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0;
@@ -6511,20 +6525,22 @@ function renderHeute() {
   else if (ph.deload) pn = 'Weniger Sätze, damit du frisch bleibst.';
   else if (ph.taper) pn = 'Weniger Umfang, Tempo bleibt. Frisch an den Start.';
   else if (ph.test) pn = 'Maxout in Runde 1, gut schlafen.';
-  var blk = S.durchgang > 0 ? blockCardHTML(pn) : '';
+  var blk = S.durchgang > 0 && !lean ? blockCardHTML(pn) : '';
   if (desk) { side += blk; blk = ''; }
   // Plan 2: am freien Tag die Ruhetag-Routine als Angebot (A nach einem Trainingstag, sonst B), sie zählt nicht als Training.
   var rrt = v2() ? ROUT[LOGS.some(function (l) { return trainingLog(l) && l.date === isoAdd(isoToday(), -1); }) ? 'r_ruhetag_a' : 'r_ruhetag_b'] : null;
+  if (plFree && lean) return h + heuteAskHTML(PL, 0) + zusatzCardHTML('heute') + freeDayHTML(rrt);
   if (plFree) return h + befAskHTML(PL) + planFreeHTML(PL) + (v2() ? zusatzCardHTML('heute') + rcHTML() : '') + (rrt ? routineCardHTML(rrt, false, 'Routine starten') : '') + planNextAskHTML() + wkCardHTML(PL) + blk + side;
   // Schon erledigter Tag dieses Durchgangs: Ergebnis zeigen, kein zweites Training.
   var dran = lock ? 'Morgen dran: Tag ' + S.tag : 'Dran ist Tag ' + S.tag;
   // Heute erledigt: Ergebnis von heute, morgen geht es weiter.
   if (todayView) {
     var TL = LOGS.filter(function (l) { return l.date === isoToday() && l.kind !== 'mobility' && l.kind !== 'rm'; });
+    if (lean) h += heuteAskHTML(PL, 0);
     h += TL.map(outlookHTML).join('');
     h += TL.length ? TL.map(function (l) { return '<section class="card"><div class="row between wrap"><h2>' + esc(logTitle(l)) + '</h2><span class="chip">' + TICK + 'Erledigt</span></div>' + logLines(l) + logBtns(l, fixable(l)) + '</section>'; }).join('')
       : '<section class="card"><div class="row between wrap"><h2>Abgehakt</h2><span class="chip">' + TICK + 'Erledigt</span></div><p class="small muted">Erholung gehört zum Plan.</p></section>';
-    h += (PL ? planNextAskHTML() + wkCardHTML(PL) : '<p class="small muted">Ein Trainingstag pro Kalendertag. Morgen ist Tag ' + S.tag + ' dran: ' + esc(dayLabel(S.tag)) + '.</p>') + blk;
+    h += lean ? '' : (PL ? planNextAskHTML() + wkCardHTML(PL) : '<p class="small muted">Ein Trainingstag pro Kalendertag. Morgen ist Tag ' + S.tag + ' dran: ' + esc(dayLabel(S.tag)) + '.</p>') + blk;
     if (!desk) return h;
     return h.slice(0, cut) + '<div class="dk2"><div class="dk-main">' + h.slice(cut) + '</div><aside class="dk-side">' + side + weekCardHTML(tag) + '</aside></div>';
   }
@@ -6540,8 +6556,9 @@ function renderHeute() {
     h += '<div class="viewbar"><span class="small muted">' + dran + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="back-today">Zurück</button></span></div>';
   }
-  if (cur && !c.isTest && !c.isMurph) h += painAskHTML(tag);
-  if (PL && cur && !lock) h += befAskHTML(PL) + planNextAskHTML() + planTodayHTML(PL); else if (cur && !lock && !c.isTest) {
+  if (lean) { if (cur && !lock && !(+(D._at || 0) === 0 && wbDue(d))) h += heuteAskHTML(PL, tag); }
+  else if (cur && !c.isTest && !c.isMurph) h += painAskHTML(tag);
+  if (lean) {} else if (PL && cur && !lock) h += befAskHTML(PL) + planNextAskHTML() + planTodayHTML(PL); else if (cur && !lock && !c.isTest) {
     h += planAskHTML();
     if (d.type !== 'rest') h += '<button type="button" class="btn small" data-act="pl-off">Heute nicht</button>';
   }
@@ -6564,8 +6581,8 @@ function renderHeute() {
       tipBtn = '<button type="button" class="btn small block" data-act="skip-murph">Heute doch normales Training</button>';
     } else if (d.type === 'kraft') {
       // Übungs-Hinweise (Ringhöhe) bleiben am Schritt, Entscheidungen des Coachs stehen in der eigenen Karte (coachCardHTML).
-      notes.kraft = ringNotes(d.kraft.map(function (k) { return k.n; }));
-      notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; }));
+      // Plan 2 schlank: die Ringhöhe steht beim Schritt selbst (stepCoachHTML), die Übersicht bleibt frei.
+      if (!lean) { notes.kraft = ringNotes(d.kraft.map(function (k) { return k.n; })); notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; })); }
     }
     if (d.type !== 'kraft' && !c.isTest && !c.isMurph) h += runSegHTML(runMode(D)) + '<section class="card">' + ergoTargetHTML(todayRunSpec(tag)) + '</section>';
     var at = +(D._at || 0), wbAsk = cur && !at && wbDue(d);
@@ -6573,13 +6590,13 @@ function renderHeute() {
     h += '<section class="card tl-card">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
       return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
     }).join('') + '</ol>' + (cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '') + '</section>';
-    if (cur && !lock && !at && !c.isTest && !c.isMurph && d.type === 'kraft') h += fastHTML(tag);
-    if (cur && !c.isTest && !c.isMurph) h += coachCardHTML(tag, miss);
+    if (cur && !lock && !at && !c.isTest && !c.isMurph && d.type === 'kraft' && !lean) h += fastHTML(tag);
+    if (cur && !c.isTest && !c.isMurph && !lean) h += coachCardHTML(tag, miss);
     if (cur && !c.isTest && !c.isMurph && d.type === 'kraft' && (d.kraft.length || d.mmin)) h += adaptLineHTML(tag, false);
     else if (cur && d.type === 'interval') h += adaptLineHTML(tag, true);
     h += blk; blk = '';
     if (cur) {
-      if (!c.isTest && !c.isMurph && d.type === 'kraft') { if (desk) side += progressHTML(tag); else h += progressHTML(tag); }
+      if (!c.isTest && !c.isMurph && d.type === 'kraft' && !lean) { if (desk) side += progressHTML(tag); else h += progressHTML(tag); }
     }
     h += tipsHTML(tips, tipBtn);
     if (!c.isTest && !c.isMurph) {
@@ -6606,14 +6623,49 @@ function renderHeute() {
     if (cur) h += '<button type="button" class="btn ' + (rr ? '' : 'primary ') + 'block" data-act="save">Ruhetag abhaken</button>';
     h += tipsHTML(tips);
   }
-  if (PL && cur && !lock) h += wkCardHTML(PL);
-  if (cur || doneToday0()) h += backupHTML();
+  if (PL && cur && !lock && !lean) h += wkCardHTML(PL);
+  if ((cur || doneToday0()) && !lean) h += backupHTML();
   var foot = '<p class="ov-foot">Danach: Tag ' + next + ' – ' + esc(dayLabel(next)) + '</p>';
-  if (PL && cur) { var nx = PL.days.filter(function (x) { return x.i > PL.today && x.tag && !x.done; })[0]; foot = nx ? '<p class="ov-foot">Danach: ' + WTAG[nx.i] + ', ' + hm(nx.t - 24 * nx.i) + ' – ' + esc(dayLabel(nx.tag)) + '</p>' : ''; }
+  if (PL && cur) { var nx = PL.days.filter(function (x) { return x.i > PL.today && x.tag && !x.done; })[0]; foot = nx && !lean ? '<p class="ov-foot">Danach: ' + WTAG[nx.i] + ', ' + hm(nx.t - 24 * nx.i) + ' – ' + esc(dayLabel(nx.tag)) + '</p>' : ''; }
   if (!desk) return h + blk + foot;
   return h.slice(0, cut) + '<div class="dk2"><div class="dk-main">' + h.slice(cut) + '</div><aside class="dk-side">' + side + weekCardHTML(tag) + foot + '</aside></div>';
 }
 
+// Plan 2 schlank (Dennis: „viele Dinge können im Hintergrund laufen“): statt eigener Karten ein bis zwei ruhige Zeilen unter dem Titel.
+// Training: der wichtigste Hinweis für heute (müde, Wiedereinstieg, Phase, mehr Umfang); frei und erledigt: warum und wann es weitergeht.
+function heuteSub(kind, PL, tag) {
+  var nx = PL.days.filter(function (x) { return x.i > PL.today && x.tag && !x.done; })[0];
+  var next = nx ? 'Nächstes Training: <b>' + WTAG[nx.i] + (nx.t != null ? ', ' + hm(nx.t - 24 * nx.i) : '') + '</b> · ' + esc(dayLabel(nx.tag)) : 'Diese Woche ist geschafft. Montag geht es weiter.';
+  if (kind === 'free') return [esc(planFreeWhy(PL)), next];
+  if (kind === 'done') return [next];
+  var d = DAYS[tag] || {}, ph = curPhase(), p = pauseDays(), cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0, U = S.umfang;
+  var t = befOf(isoToday()) === 'tired' && d.type === 'kraft' ? 'Heute kürzer, weil du müde bist.'
+    : p > 7 ? 'Willkommen zurück nach ' + p + ' Tagen Pause: ' + (p > 28 ? 'dieser Durchgang ist Entlastung, ' : '') + 'die nächsten ' + (p > 14 ? 5 : 2) + ' Einheiten sind kürzer.'
+    : cb ? 'Wiedereinstieg: noch ' + (cb === 1 ? '1 Einheit' : cb + ' Einheiten') + ' kürzer.'
+    : ph.test ? 'Testwoche: Maxout in Runde 1, gut schlafen.'
+    : ph.deload ? 'Entlastung: weniger Sätze, damit du frisch bleibst.'
+    : ph.taper ? 'Weniger Umfang, Tempo bleibt. Frisch an den Start.'
+    : S.durchgang === 1 || S.durchgang === 2 ? 'Einstieg: je 1 Wdh. unter deinem Startwert, dein Coach steigert langsam.'
+    : U && U.why === 'auf' && Date.now() - U.ts < 7 * 864e5 && U.from != null ? 'Mehr Umfang: ' + esc(umfDiff(U.from, U.u)) + '. Die letzten zwei Wochen hast du alles gut geschafft.'
+    : d.kardio && cardioTestDue() ? 'Der Kardio-Test fehlt noch, heute wird er nachgeholt.' : '';
+  return t ? [t] : [];
+}
+// Höchstens eine Frage auf Heute, die dringendste zuerst; die nächste kommt, sobald diese beantwortet ist. Ein beantwortetes Befinden
+// tritt zur Seite (die Folge steht unter dem Titel), nur „Sehr müde“ bleibt sichtbar, damit man es am freien Tag ändern kann.
+function heuteAskHTML(PL, tag) {
+  var B = befDue(PL);
+  var Q = [function () { return B && (!B.ans || B.ans === 'very') ? befAskHTML(PL) : ''; }, function () { return tag ? painAskHTML(tag) : ''; }, missNoticeHTML, planNextAskHTML, backupHTML];
+  for (var i = 0; i < Q.length; i++) { var x = Q[i](); if (x) return x; }
+  return '';
+}
+// Freier Tag (Plan 2): Ruhetag-Routine und Kurz-Check als zwei Zeilen in einer Karte, beides freiwillig. Der Kurz-Check klappt darunter auf.
+function freeDayHTML(rrt) {
+  var i = rcIdx(), k = i >= 0 ? MOB.check.leitern[i] : null, rows = [];
+  if (rrt) rows.push(valRow(rrt.name, doneToday(rrt.id) ? TICK + 'gemacht' : routineMin(rrt) + ' Min', 'data-act="r-open" data-v="' + rrt.id + '"', { sub: 'Mobility · ' + rrt.bloecke.length + ' Übungen' }));
+  if (k) rows.push(valRow('Kurz-Check', '1 Min', 'data-act="rc-open" aria-expanded="' + !!ui.rcOpen + '"', { sub: LAD[k] ? LAD[k].name : 'Beweglichkeit' }));
+  if (!rows.length) return '';
+  return '<section class="card fd-card"><div class="card-head"><h2>Für deinen freien Tag</h2><span class="chip">freiwillig</span></div>' + valRows(rows) + '</section>' + (k && ui.rcOpen ? rcHTML() : '');
+}
 // Ohne Sync einmal im Monat ein kleiner Hinweis „Daten sichern“ (Dennis): die Daten liegen sonst nur auf diesem Gerät.
 function backupHTML() {
   if (SY || trainLogs().length < 3) return '';
@@ -6640,23 +6692,36 @@ function skillNote(key, after) {
   if (cs.atTop === 1 && cs.idx < lad.steps.length) return coachItem('plus', nm + ': ' + cs.last + ' ' + u + '. Noch einmal so, dann kommt ' + st(cs.idx + 1) + '.');
   return coachItem('eq', nm + ': gleiche Stufe. Ziel: ' + cs.top + ' ' + u + ' am Stück.');
 }
-function coachCardHTML(tag, miss) {
-  var d = DAYS[tag], it = [], pf = planFill();
-  if (S.autoRest === isoToday()) it.push(coachItem('ok', 'Der Ruhetag ist vorbei, der Coach hat ihn gezählt.'));
-  if (befOf(isoToday()) === 'tired' && d.type === 'kraft' && tag === S.tag && !doneToday0()) it.push(coachItem('i', 'Heute kürzer, weil du Müdigkeit gemeldet hast.'));
-  if (v2() && S.umfang && S.umfang.why === 'auf' && Date.now() - S.umfang.ts < 7 * 864e5 && S.umfang.from != null) it.push(coachItem('up', '<b>Mehr Umfang</b>: ' + esc(umfDiff(S.umfang.from, S.umfang.u)) + '. Du hast die letzten zwei Wochen alles gut geschafft.'));
-  if (S.comeback && S.comeback.n > 0) it.push(coachItem('i', 'Wiedereinstieg nach der Pause: noch ' + (S.comeback.n === 1 ? '1 Einheit' : S.comeback.n + ' Einheiten') + ' kürzer.'));
+// Jeder Hinweis trägt seinen Ort: 'top' (die Einheit), 'warm', 'hs', 'kraft', 'kx' (steht schon an der Kraft-Karte), 'metcon'.
+function coachItems(tag, miss) {
+  var d = DAYS[tag], it = [], pf = planFill(), add = function (s, x) { if (x) it.push({ s: s, h: x }); };
+  if (S.autoRest === isoToday()) add('top', coachItem('ok', 'Der Ruhetag ist vorbei, der Coach hat ihn gezählt.'));
+  if (befOf(isoToday()) === 'tired' && d.type === 'kraft' && tag === S.tag && !doneToday0()) add('top', coachItem('i', 'Heute kürzer, weil du Müdigkeit gemeldet hast.'));
+  if (v2() && S.umfang && S.umfang.why === 'auf' && Date.now() - S.umfang.ts < 7 * 864e5 && S.umfang.from != null) add('top', coachItem('up', '<b>Mehr Umfang</b>: ' + esc(umfDiff(S.umfang.from, S.umfang.u)) + '. Du hast die letzten zwei Wochen alles gut geschafft.'));
+  if (S.comeback && S.comeback.n > 0) add('top', coachItem('i', 'Wiedereinstieg nach der Pause: noch ' + (S.comeback.n === 1 ? '1 Einheit' : S.comeback.n + ' Einheiten') + ' kürzer.'));
   if (d.type === 'kraft') {
-    (pf.neu[tag] || []).forEach(function (n) { var a = LAD[n.from], b = LAD[n.to]; it.push(coachItem(n.why === 'neu' ? 'up' : 'i', '<b>' + esc(b.name) + '</b> statt ' + esc(a.name) + (n.why === 'neu' ? ': neu freigeschaltet, mehr Nutzen.' : ': ' + esc(a.name) + ' kam 3-mal nicht weiter.'))); });
-    (pf.why[tag] || []).forEach(function (w) { it.push(coachItem('i', esc(w))); });
-    if (d.hs && zeitLv(tag) < 1) { var skn = skillNote(skillKey(tag), false); if (skn) it.push(skn); }
-    if (d.jumps && d.jumps.lad && LAD[d.jumps.lad]) { var js = jumpStage(d.jumps.lad); if (js.up) it.push(coachItem('up', '<b>Sprünge</b>: zweimal sauber. Heute „' + esc(jumpN(d)) + '“.')); else if (js.down) it.push(coachItem('i', '<b>Sprünge</b>: nach der Pause eine Stufe leichter, „' + esc(jumpN(d)) + '“.')); }
-    d.kraft.forEach(function (k) { var g = GL[k.n]; if (!g || !LAD[g.key]) return; var cs = coachStage(g.key, k.hi), bn = brakeNote(k.n, cs); if (bn) it.push(coachItem(cs.est ? 'plus' : cs.up ? 'up' : cs.down || cs.hard ? 'i' : 'wait', bn)); });
-    if (pf.mwhy[tag]) it.push(coachItem('i', 'Metcon: ' + esc(pf.mwhy[tag])));
-    if (miss && miss.length) it.push(coachItem('warn', 'Für ' + esc(miss.join(', ')) + ' fehlt hier ein Gerät, das fällt heute weg.'));
+    (pf.neu[tag] || []).forEach(function (n) { var a = LAD[n.from], b = LAD[n.to]; add('kraft', coachItem(n.why === 'neu' ? 'up' : 'i', '<b>' + esc(b.name) + '</b> statt ' + esc(a.name) + (n.why === 'neu' ? ': neu freigeschaltet, mehr Nutzen.' : ': ' + esc(a.name) + ' kam 3-mal nicht weiter.'))); });
+    (pf.why[tag] || []).forEach(function (w) { add('kraft', coachItem('i', esc(w))); });
+    if (d.hs && zeitLv(tag) < 1) add('hs', skillNote(skillKey(tag), false));
+    if (d.jumps && d.jumps.lad && LAD[d.jumps.lad]) { var js = jumpStage(d.jumps.lad); if (js.up) add('warm', coachItem('up', '<b>Sprünge</b>: zweimal sauber. Heute „' + esc(jumpN(d)) + '“.')); else if (js.down) add('warm', coachItem('i', '<b>Sprünge</b>: nach der Pause eine Stufe leichter, „' + esc(jumpN(d)) + '“.')); }
+    d.kraft.forEach(function (k) { var g = GL[k.n]; if (!g || !LAD[g.key]) return; var cs = coachStage(g.key, k.hi), bn = brakeNote(k.n, cs); if (bn) add('kx', coachItem(cs.est ? 'plus' : cs.up ? 'up' : cs.down || cs.hard ? 'i' : 'wait', bn)); });
+    if (pf.mwhy[tag]) add('metcon', coachItem('i', 'Metcon: ' + esc(pf.mwhy[tag])));
+    if (miss && miss.length) add('kraft', coachItem('warn', 'Für ' + esc(miss.join(', ')) + ' fehlt hier ein Gerät, das fällt heute weg.'));
   }
-  if (d.kardio && cardioTestDue()) it.push(coachItem('i', 'Der Kardio-Test aus der Testwoche fehlt noch, heute wird er nachgeholt.'));
-  return it.length ? '<section class="card co-card"><h3>Dein Coach hat heute angepasst</h3>' + it.join('') + '</section>' : '';
+  if (d.kardio && cardioTestDue()) add('top', coachItem('i', 'Der Kardio-Test aus der Testwoche fehlt noch, heute wird er nachgeholt.'));
+  return it;
+}
+function coachCardHTML(tag, miss) {
+  var it = coachItems(tag, miss);
+  return it.length ? '<section class="card co-card"><h3>Dein Coach hat heute angepasst</h3>' + it.map(function (x) { return x.h; }).join('') + '</section>' : '';
+}
+// Plan 2: was der Coach an einem Schritt geändert hat, steht beim Schritt statt in einer Karte auf Heute.
+// Die Ringhöhe (Übungs-Hinweis) steht darunter, wo man die Ringe einstellt.
+function stepCoachHTML(tag, id) {
+  var d = DAYS[tag]; if (!d || d.type !== 'kraft') return '';
+  var it = coachItems(tag, id === 'kraft' ? planFill().missing[tag] || [] : []).filter(function (x) { return x.s === id; });
+  var rn = id === 'kraft' ? ringNotes(d.kraft.map(function (k) { return k.n; })) : id === 'metcon' ? ringNotes((d.metcon || []).map(function (m) { return m.n; })) : [];
+  return (it.length ? '<section class="card co-card co-step">' + it.map(function (x) { return x.h; }).join('') + '</section>' : '') + rn.map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('');
 }
 // Nach dem Speichern: was der Coach aus der Einheit macht (nächste Stufe, Gewicht, gleich bleiben).
 function outlookHTML(l) {
@@ -6695,7 +6760,7 @@ function stepPageHTML(c, st, i, D) {
   h += '<div class="st-prog" aria-hidden="true">' + st.map(function (x, j) { return '<span' + (j <= i ? ' class="on"' : '') + '></span>'; }).join('') + '</div>';
   h += '<section class="hero"><h1>' + esc(s.title) + '</h1><p class="st-sub muted">' + esc(s.sub || '') + '</p></section>';
   var top = h.length, desk = deskOn();
-  h += s.body(D);
+  h += (v2() && c.cur ? stepCoachHTML(c.tag, s.id) : '') + s.body(D);
   if (last) {
     var label = c.isTest ? 'Testtag speichern' : c.isMurph ? 'Murph speichern' : 'Training speichern';
     h += notesBlock(D) + '<button type="button" class="btn block go save" data-act="save">' + TICK + label + '</button>';
@@ -8552,11 +8617,15 @@ ACT.adapt = function (el) {
         return '<button type="button" class="btn block" style="margin-top:6px" data-act="mv-go" data-d="' + o.date + '">' + WTAG[o.i] + ', ' + hm(o.t) + (o.lost.length ? ' · ' + esc(o.lost.map(dayLabel).join(', ')) + ' fällt weg' : '') + '</button>';
       }).join('') + '<p class="small muted" style="margin:8px 0 0">Dein Zwischenstand bleibt erhalten.</p>' : '<p class="small muted" style="margin:0">Diese Woche passt kein anderer Termin, ohne dass die Erholung zu kurz kommt. Mit „Heute nicht“ plant dein Coach die Woche neu.</p>';
     })(), false) : '') +
+    (!run && v2() && planOn() && wkPlanC().today >= 0 && wkPlanC().days[wkPlanC().today].tag === tag ? '<div class="gl-item ad-it" data-k="time">' + row('time', 'Andere Uhrzeit', 'Heute zu einer anderen Zeit', CH, 'adapt-time') + '</div>' +
+      '<div class="gl-item ad-it" data-k="off">' + row('off', 'Heute nicht', 'Dein Coach plant die Woche neu', CH, 'adapt-off') + '</div>' : '') +
     (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Nur heute, die Übungen passen sich an',
       capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'adapt-ort', trainOrt().id, 'Ort', 'in-card'), D._ort && D._ort !== S.ort) : '') +
     '</section>';
   openForm('Heute anpassen', body, 'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
 };
+ACT['adapt-time'] = function () { closeSheet(); ACT['pl-time'](); };
+ACT['adapt-off'] = function () { closeSheet(); ACT['pl-off'](); };
 ACT['adapt-sub'] = function (el) {
   var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
   document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); var q = x.querySelector('.ad-p'); if (q) q.hidden = true; });
@@ -8626,11 +8695,12 @@ ACT['zs-start'] = function () {
   if (!zusatzNow()) return;
   S.zusatz = Object.assign({}, S.zusatz, { back: S.tag, run: isoToday(), date: isoToday() }); S.tag = 2; DAYS_K = null; syncDays(); ui.wkSel = null; ui.wkMon = null; saveState(); window.scrollTo(0, 0); render();
 };
+ACT['rc-open'] = function () { ui.rcOpen = !ui.rcOpen; render(); };
 ACT['rc-save'] = function (el) {
   var i = +el.dataset.i, k = MOB.check.leitern[i], D = DRAFTS[draftKey(S.tag)] || {}, st = D['mc' + i];
   if (!st) { toast('Erst die Stufe wählen, die sauber geklappt hat.'); return; }
   addLog({ id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: S.tag, pv: 2, kind: 'mobility', name: 'Kurz-Check', wann: 'check', check: true, sec: 0, mob: [{ lad: k, stage: st }] });
-  setDraft('mc' + i, ''); saveState(); render(); toast('Kurz-Check gespeichert.');
+  setDraft('mc' + i, ''); ui.rcOpen = false; saveState(); render(); toast('Kurz-Check gespeichert.');
 };
 ACT['pv-now'] = function () { if (trainingOpen()) { toast('Erst das laufende Training beenden.'); return; } S.planVFrom = isoToday(); planVSwitch(); saveState(); render(); };
 ACT['plan-sec'] = function (el) { ui.planSec = el.dataset.k || null; window.scrollTo(0, 0); render(); };

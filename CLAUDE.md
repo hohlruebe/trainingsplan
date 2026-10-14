@@ -59,6 +59,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`zs-start`: `S.tag` = 2, zurück über `S.zusatz.back`), Lauf/Ergometer wie die früheren Kardio-Tage, gespeichert mit `unit: 'Z'`;
   zählt nicht ins Wochenziel, setzt A, B, C nicht weiter (`advance`, `planNextTag`, `wkPlan` ohne `zusatz`), auch im .ics als „Zusatz“.
   Kurz-Check an freien Tagen (`rcIdx`, `rcHTML`, `ACT['rc-save']`): zwei pro Woche reihum, nicht in der Check-Woche, als Mobility-Eintrag.
+  Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Kopfzeile „Heute · 17:05 Uhr“,
+  Titel, ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
+  Blättern `wkStripHTML(…, noHead)`), höchstens eine Frage (`heuteAskHTML`: Befinden unbeantwortet oder „Sehr müde“, Schmerzen, `missNoticeHTML`,
+  `planNextAskHTML`, `backupHTML`) und den Ablauf mit „Training starten“ und „Heute anpassen“ (dort auch Andere Uhrzeit `adapt-time` und Heute nicht
+  `adapt-off`). Coach-Hinweise stehen am Schritt (`coachItems` mit Ort, `stepCoachHTML` in `stepPageHTML`, dazu die Ringhöhe). Freier Tag: eine Karte
+  „Für deinen freien Tag“ (`freeDayHTML`: Ruhetag-Flow, Kurz-Check klappt auf `ui.rcOpen`); Zusatz-Vorschlag auf Heute nur als Kardio-Test oder
+  heute geplant. Gründe der Uhrzeit in Plan › Deine Woche, Wochen blättern nur dort; Fast geschafft in Profil › Erfolge, Als Nächstes freischalten
+  in Profil › Werte; Block-Karte und 24-h-Woche nicht mehr auf Heute. Desktop: eine Spalte.
   Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden; ohne Browser),
   `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, alle Reiter).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
@@ -240,7 +248,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Profil › Erfolge unter den Medaillen (Design C hell, `prCardHTML`): Karte „Neuester Rekord“ (`.pr-hero`, weiß mit goldenem Schimmer, Gewinn-Chip,
   Balken `prBars`, letzter golden), darunter Karte „Rekorde“ mit Umschalter Kraft | Halten | Metcon | Ausdauer (`ui.prG`, `ACT['pr-g']`, nur Bereiche mit Daten),
   je Zeile Mini-Balken und „★ neu“ (7 Tage).
-  „Fast geschafft“ auf Heute unter dem Ablauf (`fastHTML`, Krafttag vor dem Start): höchstens 3 Zeilen mit Balken, nächste Stufe (Sehne bereit, letzte Einheit alle
+  „Fast geschafft“ auf Heute unter dem Ablauf (`fastHTML`, Krafttag vor dem Start; Plan 2: Profil › Erfolge oben): höchstens 3 Zeilen mit Balken, nächste Stufe (Sehne bereit, letzte Einheit alle
   bzw. mindestens die Hälfte der Runden oben), Medaille bis 3 Punkte davor (gold), Rekord der ersten Kraftübung auf ihrer Stufe.
   Erfolge: eine Metall-Medaille je Bereich (`AREA_LAD`, `areaStates`, gemerkt in `AS_C`: beim Speichern wird nur ab dem letzten Tag neu gerechnet): Bronze ab Start, Silber ab 65, Gold ab 75, Platin ab 85;
   darunter das 1RM-Archiv mit den Bestwerten. Nach dem Speichern zeigt `showMoment()` Aufstiege eines Bereichs: Geschenk (erste Medaille),
