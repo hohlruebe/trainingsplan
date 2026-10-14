@@ -866,51 +866,61 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-kick{margin:0;min-width:0;font-size:15px;font-weight:500;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fs-tools{display:flex;gap:10px;flex:none}
 .fs-tools .rbtn[hidden]{display:none}
-.fs-main{flex:1;min-height:0;display:flex;align-items:center;gap:24px}
-#fs[data-view="port"] .fs-main{flex-direction:column;align-items:stretch;justify-content:space-around;gap:20px}
-.fs-dig{flex:1;min-width:0}
-#fs[data-view="port"] .fs-dig{flex:none;text-align:center}
-.fs-st{margin:0 0 2px 4px;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.fs-main{flex:1;min-height:0;display:flex;align-items:center;gap:calc(26px*var(--fsu,1))}
+#fs[data-view="port"] .fs-main{flex-direction:column;align-items:stretch;justify-content:flex-start;gap:calc(14px*var(--fsu,1))}
+/* Zeit im Ring (Dennis, Variante A2): der Ring füllt sich mit der Phase (EMOM: Minute), beim AMRAP mit der ganzen Zeit */
+.fs-dig{flex:none;display:flex;justify-content:center}
+.fs-ring{position:relative;width:var(--ring,300px);height:var(--ring,300px)}
+.fs-ring svg{width:100%;height:100%;transform:rotate(-90deg);display:block}
+.fs-ring circle{fill:none;stroke-width:6}
+.fs-rt{stroke:var(--fill)}
+.fs-rf{stroke:var(--acc);stroke-linecap:round;transition:stroke-dashoffset .3s linear}
+.fs-ring.grn .fs-rf{stroke:var(--green)}
+.fs-rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:calc(4px*var(--fsu,1))}
+.fs-st{margin:0;font-size:calc(14px*var(--fsu,1));font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
 .fs-num{font-weight:800;font-size:120px;line-height:.92;letter-spacing:-.05em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .fs-num.grn,.fs-st.grn{color:var(--green)}
 .fs-num.hot{animation:fshot 1s ease-in-out infinite}
 @keyframes fshot{50%{opacity:.5}}
-.fs-prog{display:flex;align-items:center;gap:14px;margin-top:16px}
-.fs-trk{flex:1;height:10px;border-radius:5px;background:var(--fill);overflow:hidden}
-.fs-trk i{display:block;height:100%;width:0;border-radius:5px;background:var(--acc);transition:width .2s linear}
-.fs-prog span{font-size:15px;color:var(--ink2);white-space:nowrap}
-.fs-side{flex:none;width:300px;max-height:100%;overflow:auto;overscroll-behavior:contain;box-sizing:border-box;padding:16px;border-radius:24px;background:var(--paper);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;gap:12px}
-#fs[data-view="port"] .fs-side{width:auto;flex:1;max-height:none;align-items:center;text-align:center}
+#fs-pl{max-width:70%;font-size:calc(15px*var(--fsu,1));color:var(--ink2)}
+.fs-side{flex:1;min-width:0;max-height:100%;overflow:auto;overscroll-behavior:contain;box-sizing:border-box;padding:calc(22px*var(--fsu,1)) calc(26px*var(--fsu,1));border-radius:28px;background:var(--paper);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;gap:calc(12px*var(--fsu,1))}
+#fs[data-view="port"] .fs-side{flex:1;max-height:none;align-items:center;text-align:center}
 .fs-rows,.fs-rh{align-self:stretch;text-align:left}
 .fs-side.tap{cursor:pointer;align-items:center;text-align:center}
 .fs-side:empty{display:none}
-.fs-lbl{margin:0;white-space:nowrap;font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
-.fs-big{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1}
-.fs-big small{font-size:20px;font-weight:600;letter-spacing:0;color:var(--ink2)}
-.fs-sub{font-size:28px;font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums}
-.fs-hint{margin:0;font-size:14px;color:var(--ink2)}
-.fs-exn{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
-.fs-kg{margin:2px 0 4px;font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:var(--acc)}
-.fs-reps{margin:2px 0 6px;font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05}
-.fs-cnt{margin-top:14px;padding-top:12px;border-top:1px solid var(--line,rgba(0,0,0,.08))}
-.fs-ex{display:flex;align-items:center;gap:12px}
+.fs-lbl{margin:0;white-space:nowrap;font-size:calc(15px*var(--fsu,1));font-weight:600;color:var(--ink2)}
+.fs-big{font-size:calc(64px*var(--fsu,1));font-weight:800;letter-spacing:-.04em;line-height:1}
+.fs-big small{font-size:calc(24px*var(--fsu,1));font-weight:600;letter-spacing:0;color:var(--ink2)}
+.fs-sub{font-size:calc(30px*var(--fsu,1));font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums}
+.fs-hint{margin:0;font-size:calc(16px*var(--fsu,1));color:var(--ink2)}
+.fs-exn{margin:0;font-size:calc(44px*var(--fsu,1));font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.fs-kg{margin:2px 0;font-size:calc(40px*var(--fsu,1));font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.fs-reps,.fs-wu .fs-kg{margin:2px 0;font-size:calc(92px*var(--fsu,1));font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--acc)}
+.fs-cnt{padding-top:calc(14px*var(--fsu,1));border-top:1px solid var(--line)}
+.fs-cnt .fs-lbl{font-size:calc(22px*var(--fsu,1));font-weight:700;color:var(--ink)}
+#fs .stepper button{width:calc(60px*var(--fsu,1));height:calc(60px*var(--fsu,1));font-size:calc(28px*var(--fsu,1))}
+#fs .stepper b{font-size:calc(40px*var(--fsu,1));min-width:calc(70px*var(--fsu,1))}
+.fs-ex{display:flex;align-items:center;gap:calc(22px*var(--fsu,1))}
+#fs[data-view="port"] .fs-ex{flex-direction:column;gap:calc(8px*var(--fsu,1))}
 .fs-ex>div:last-child{min-width:0}
-.fs-ex .chip{margin-top:6px;white-space:normal;display:inline-block}
-.fs-fig{flex:none;width:120px}
-.fs-fig .fig{height:150px;margin:0}
-.fs-rh{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.fs-rows{border-radius:20px;background:var(--fill);padding:4px}
-.fs-row{display:flex;align-items:center;gap:12px;min-height:42px;padding:0 12px;border-radius:16px;font-size:16px}
-.fs-row b{min-width:44px;color:var(--acc)}
-.fs-row.on{min-height:56px;background:var(--paper);box-shadow:0 2px 8px rgba(17,18,20,.1);font-weight:600}
-.fs-row.done{opacity:.45}
-.fs-row .btn{margin-left:auto}
-.fs-wu .fs-kg{font-size:30px}
-.fs-side>.bgrp{flex:none;margin-top:0}
-.fs-side>.chip{white-space:normal;flex:none}
-#fs:not([data-view="port"]) .fs-wu .fs-fig{width:84px}
-#fs:not([data-view="port"]) .fs-wu .fs-fig .fig{height:104px}
-#fs:not([data-view="port"]) .fs-wu .fs-exn{font-size:18px}
+.fs-ex .chip,.fs-side>.chip{margin-top:6px;white-space:normal;display:inline-block;font-size:calc(18px*var(--fsu,1));padding:calc(8px*var(--fsu,1)) calc(14px*var(--fsu,1))}
+.fs-fig{flex:none;width:calc(190px*var(--fsu,1));border-radius:20px;background:var(--board);padding:6px}
+.fs-fig .fig{height:calc(200px*var(--fsu,1));margin:0}
+.fs-rh{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#fs[data-view="port"] .fs-fig{width:calc(130px*var(--fsu,1))}
+#fs[data-view="port"] .fs-fig .fig{height:calc(140px*var(--fsu,1))}
+#fs[data-view="port"] .fs-reps,#fs[data-view="port"] .fs-wu .fs-kg{font-size:calc(72px*var(--fsu,1))}
+#fs[data-view="port"] .fs-exn{font-size:calc(36px*var(--fsu,1))}
+#fs[data-view="port"] .fs-row b{min-width:calc(84px*var(--fsu,1))}
+.fs-rows{display:flex;flex-direction:column;gap:calc(6px*var(--fsu,1))}
+.fs-row{display:flex;align-items:center;gap:calc(18px*var(--fsu,1));min-height:calc(64px*var(--fsu,1));padding:0 calc(18px*var(--fsu,1));border:3px solid transparent;border-radius:20px;font-size:calc(30px*var(--fsu,1));font-weight:700}
+.fs-row b{min-width:calc(120px*var(--fsu,1));font-size:calc(44px*var(--fsu,1));font-weight:800;color:var(--acc)}
+.fs-row.on{min-height:calc(92px*var(--fsu,1));border-color:var(--acc);background:color-mix(in srgb,var(--acc) 7%,var(--paper));font-size:calc(40px*var(--fsu,1))}
+.fs-row.on b{font-size:calc(64px*var(--fsu,1))}
+.fs-row.done{opacity:.4}
+.fs-row .btn{margin-left:auto;font-size:calc(20px*var(--fsu,1));min-height:calc(52px*var(--fsu,1));padding:0 calc(22px*var(--fsu,1))}
+.fs-side>.bgrp{flex:none;margin-top:0;font-size:calc(20px*var(--fsu,1))}
+.fs-side>.bgrp button{min-height:calc(56px*var(--fsu,1))}
 body.fs-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.fs-num.hot{animation:none}}
 .sheet-bg{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(17,18,20,0);transition:background-color .25s}
@@ -8586,8 +8596,11 @@ function fsOrient() {
   if (turn) { var t = W; W = H; H = t; }
   f.dataset.view = o.want; f.classList.toggle('turn', turn);
   f.style.width = W + 'px'; f.style.height = H + 'px';
+  // Größen wachsen mit dem Bildschirm (--fsu), die Zeit steht im Ring (--ring), die Übung rechts bzw. unten bekommt den Rest.
+  var land = o.want === 'land', u = land ? Math.min(W / 1100, H / 640) : Math.min(W / 430, H / 900), ring = Math.round(land ? Math.min(H * 0.72, W * 0.36) : Math.min(W * 0.6, H * 0.3));
+  f.style.setProperty('--fsu', Math.max(0.6, Math.min(1.7, u)).toFixed(3)); f.style.setProperty('--ring', ring + 'px');
   var n = document.getElementById('fs-num');
-  if (n) n.style.fontSize = Math.round(o.want === 'land' ? Math.min(H * 0.4, (W - 400) / 2.7) : Math.min((W - 48) / 2.8, H * 0.15)) + 'px';
+  if (n) n.style.fontSize = Math.round(ring * 0.27) + 'px';
   if (turn) { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock(o.want === 'land' ? 'landscape' : 'portrait').catch(function () {}); } catch (e) { /* nicht möglich */ } }
 }
 function fsOpen(why) {
@@ -8618,8 +8631,9 @@ function fsRender() {
     '<button type="button" class="rbtn" data-act="fs-min" aria-label="Minimieren">' + I_MIN + '</button>' +
     '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button>' +
     (tools ? '<button type="button" class="rbtn" data-act="fs-x" aria-label="Timer beenden">' + I_X + '</button>' : '') + '</div></div>' +
-    '<div class="fs-main"><div class="fs-dig"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div>' +
-    '<div class="fs-prog"><div class="fs-trk"><i id="fs-fill"></i></div><span id="fs-pl"></span></div></div><div class="fs-side" id="fs-side"></div></div></div>';
+    '<div class="fs-main"><div class="fs-dig"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
+    '<circle class="fs-rf" id="fs-arc" cx="50" cy="50" r="45" stroke-dasharray="282.7" stroke-dashoffset="282.7"/></svg>' +
+    '<div class="fs-rc"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div><span id="fs-pl"></span></div></div></div><div class="fs-side" id="fs-side"></div></div></div>';
   FS.key = '';
 }
 function fsStepper(val, act, flow) {
@@ -8634,7 +8648,7 @@ function fsFlowHTML(F) {
   h += '<div class="fs-rows">' + F.items.map(function (it, i) {
     var on = i === cur, dn = rm === 'ex' && (single ? i < s.c : s.done.indexOf(i) >= 0);
     return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + '"><b>' + esc(it.qty) + '</b><span>' + esc(it.n) + '</span>' +
-      (on ? '<button type="button" class="btn small" data-act="fl-done" data-flow="' + F.id + '"' + (single ? '' : ' data-i="' + i + '"') + '>Erledigt</button>' : '') + '</div>';
+      (on ? '<button type="button" class="btn primary small" data-act="fl-done" data-flow="' + F.id + '"' + (single ? '' : ' data-i="' + i + '"') + '>Erledigt</button>' : '') + '</div>';
   }).join('') + '</div>';
   return h;
 }
@@ -8719,7 +8733,10 @@ function fsPaint(L, force) {
   $('fs-num').textContent = num; $('fs-num').className = 'fs-num' + (green ? ' grn' : '') + (hot ? ' hot' : '');
   $('fs-st').textContent = st; $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
   var total = 0; TM.phases.forEach(function (x) { if (isFinite(x.dur)) total += x.dur; });
-  $('fs-fill').style.width = (TM.finished ? (TM.mode === 'zeit' ? 0 : 100) : TM.mode === 'zeit' && !c.cap ? 0 : Math.min(100, elapsed() / (total || 1) * 100)) + '%';
+  // Ring: beim AMRAP und For Time die ganze Zeit, sonst die laufende Phase (EMOM: die Minute, Intervall: Arbeit bzw. Pause).
+  var whole = TM.mode === 'amrap' || TM.mode === 'zeit', pr = TM.finished ? (TM.mode === 'zeit' && !c.cap ? 0 : 1) : idle || !L ? 0
+    : whole ? (TM.mode === 'zeit' && !c.cap ? 0 : elapsed() / (total || 1)) : L.rem != null && isFinite(p.dur) && p.dur > 0 ? 1 - L.rem / p.dur : 0;
+  $('fs-arc').style.strokeDashoffset = (282.7 * (1 - Math.max(0, Math.min(1, pr)))).toFixed(1); $('fs-ring').classList.toggle('grn', green);
   var pl = '';
   if (TM.finished) pl = TM.mode === 'zeit' ? 'Deine Zeit' : 'Geschafft';
   else if (idle) pl = 'Start mit 10 Sekunden Vorlauf';

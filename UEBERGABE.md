@@ -11,6 +11,8 @@ Stand: 15. Oktober 2026 (Aufwärmen und Vollbild am Laptop; davor Nordic Curls n
   und konnte im EMOM nicht eintragen, was er geschafft hat; „30 s Handgelenke“ ist keine Übung.
 - Umgesetzt: Sprünge im Aufwärmen ein Satz (`jumpQty`), Wrist Rocks statt Handgelenke, EMOM im Vollbild mit Vorgabe groß und Zähler
   „Geschafft“ (`fsReps`, schreibt denselben Entwurf `k<i>r<r>` wie der Kraftschritt). Board „Paket 53“ im Canvas.
+- Danach: Vollbild-Timer neu (Dennis: Übung bzw. Liste zu klein). Konzept Paket 54, Dennis wählte A, dann A2 „Zeit im Ring“: Zeit im Ring,
+  Übung groß daneben (hochkant darunter), Größen wachsen mit dem Bildschirm.
 - GitHub Pages läuft wieder (Workflow „Pages entsperren“ hat geholfen; Läufe 101/102 hängen weiter ohne Wirkung).
 - Offen: Dennis prüft, ob die Brücke Version 3 meldet (Arbeitszeiten › Google Kalender › „Deine Trainings“).
 

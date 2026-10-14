@@ -466,7 +466,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Ansagen in der Phase (Dennis, Anlass `calls`, Standard an, nur mit Stimme, `callsOn`): „Halfway there!/Halbzeit!“ ab 20 s, „30 seconds left!/Noch 30 Sekunden!“
   bei Phasen über 60 s (nicht in Intervall-Pausen, `callWork`), am Ende 5, 4, 3, 2, 1 (ab 10 s, sonst 3, 2, 1) und „Done!/Fertig!“ (EMOM und nach der Pause „Go!“).
   Vorlauf und 5-s-Wechsel im Mobility-Player bekommen keine Halbzeit (`callPhase`).
-- Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`): große Zeit in Geist, rechts (quer) bzw. unten (hochkant) eine Karte:
+- Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
+  füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
+  Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
   Runden (Tools AMRAP/For Time, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), Aufwärmen mit aktueller Übung, Figur, „‹ Zurück | Erledigt ›“ und „Als Nächstes“ (`fsWarmHTML`), laufende EMOM-Übung mit
   Figur und „Als Nächstes“ (im Kraftteil dazu die Vorgabe der Minute groß und Zähler „Geschafft“, `fsReps`, Dennis), Intervall „Als Nächstes“. Oben Drehen (`fs-rot`, hält die Ansicht, lange drücken = automatisch), Minimieren
   (`fs-min`, Timer läuft weiter), Pause, ✕ nur in Tools (mit Nachfrage). Vorlauf und Intervall-Pause grün, letzte 3 s pulsieren.
