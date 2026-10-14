@@ -15,7 +15,7 @@ function setup() {
   const c = vm.createContext({
     S: { started: true, durchgang: 3, tag: 1, planWk: '2026-10-05', alltag: { on: true, bed: 22.5, wake: 6.5, weg: 0 },
       planStart: { date: '2026-10-05', week: '2026-10-05', tag: 1 }, feldTs: {} },
-    LOGS: [], ui: {}, WKP_C: { k: null }, DAYS_K: null,
+    LOGS: [], ui: {}, WKP_C: { k: null }, DAYS_K: null, KAL: null,
     DAYS: { 1: { type: 'kraft' }, 2: { type: 'easy' }, 3: { type: 'kraft' }, 4: { type: 'rest' }, 5: { type: 'interval' }, 6: { type: 'kraft' }, 7: { type: 'rest' } },
     isoToday: () => now, parseISO: s => new Date(s + 'T12:00:00'), isoDate: d => d.toISOString().slice(0, 10),
     daysBetween: (a, b) => Math.round((b - a) / 86400000), pad: n => String(n).padStart(2, '0'),
@@ -28,7 +28,7 @@ function setup() {
   });
   for (const name of ['isoAdd','wkMon','alltag','planOn','wkEntry','arbeitOf','wkTimeline','dayCls','daySlot','slotWhy','planHard','planPairOk','planDropOrder',
     'trainingLog','missDone','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
-    'wkPlan','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow','befCls','befOf','longShift']) vm.runInContext(source(name), c);
+    'wkPlan','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow','befCls','befOf','longShift','arbeitOf0','kalOn','kalHas','kalShift','kalDays','kalDay','kalBlocks']) vm.runInContext(source(name), c);
   return c;
 }
 function planned(c, date, tag, extras={}) {

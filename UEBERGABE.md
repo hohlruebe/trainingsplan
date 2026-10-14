@@ -4,7 +4,23 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 14. Oktober 2026 (Coach-Tab ohne Ballast; davor Drei Einheiten: Arbeitszeiten, Befinden, Verschieben, Zusatztag, Kurz-Check)
+Stand: 14. Oktober 2026 (Google Kalender verbinden; davor Coach-Tab ohne Ballast)
+
+## Google Kalender verbinden (14. Oktober 2026, Claude)
+- Dennis: „Könnten wir die App mit dem Kalender verbinden, damit sie automatisch sieht, wann noch freie Spots sind?“ Antworten: Google Kalender,
+  Dienste heißen „DD früh“, „DD Spät“, „DD Nacht“, Einrichtung mit Anleitung ist okay. Board „Paket 51 · Google Kalender verbinden“ im Canvas.
+- Weg: Kalender-Brücke als Google-Apps-Script im eigenen Konto (Code in der App, `KAL_GS`), bereitgestellt als Web-App. Kein Server, keine
+  Google-Cloud-Anmeldung, die nach 1 h bzw. 7 Tagen abläuft. Die Brücke gibt nur Dienste mit Uhrzeit und „belegt von–bis“ ohne Titel weiter.
+- Einrichten (Arbeitszeiten › Kalender verbinden): script.new öffnen, Code einfügen, Bereitstellen › Neue Bereitstellung › Web-App
+  (Ausführen als: Ich, Zugriff: Jeder), Zugriff erlauben („App nicht überprüft“ › Erweitert › Weiter), Web-App-URL in der App einfügen.
+  Ändert sich der Code später, braucht es in Apps Script eine neue Version der Bereitstellung (Bereitstellungen verwalten › Bearbeiten › Neue Version).
+- Planung: Dienste der abgeglichenen Tage ersetzen den Schichtplan (frei, wenn kein Dienst), Termine sind gesperrte Zeiten „Termin“. Nachtdienste
+  bekommen wie bisher Tagschlaf und Befinden-Frage. Außerhalb des Zeitraums (über 3 Wochen) gilt der Schichtplan der App.
+- Sicherheit: Link und Daten nur in `tp.kal` auf dem Gerät, nicht in Stand, Export, Sync oder Meldungen. Auf einem zweiten Gerät neu einfügen.
+- Geprüft: `tests/dreitage.cjs` (Kalender-Dienste, 12-h-Erkennung, Termine, Zeitraum, ohne Kalender wie bisher), `tests/dreitage-browser.cjs`
+  (verbinden mit nachgestellter Brücke, falscher Link, Antwort passt nicht, letzter Stand bleibt, Trennen, Link nicht im Stand), dazu `ausfaelle`,
+  `ausfaelle-browser`, `stabilisierung`. Das Skript selbst konnte hier nicht gegen Google laufen; das erste echte Verbinden zeigt, ob alles passt.
+- Offen: Rückmeldung von Dennis nach dem ersten echten Verbinden (erkannte Dienste und Termine stimmen?).
 
 ## Coach-Tab ohne Ballast (14. Oktober 2026, Claude)
 - Dennis: „der Coach-Tab ist sehr voll geworden, viele Dinge können doch im Hintergrund laufen.“ Konzept als Board „Paket 50 · Coach-Tab

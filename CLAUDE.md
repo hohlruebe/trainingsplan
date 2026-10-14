@@ -67,8 +67,19 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   „Für deinen freien Tag“ (`freeDayHTML`: Ruhetag-Flow, Kurz-Check klappt auf `ui.rcOpen`); Zusatz-Vorschlag auf Heute nur als Kardio-Test oder
   heute geplant. Gründe der Uhrzeit in Plan › Deine Woche, Wochen blättern nur dort; Fast geschafft in Profil › Erfolge, Als Nächstes freischalten
   in Profil › Werte; Block-Karte und 24-h-Woche nicht mehr auf Heute. Desktop: eine Spalte.
+  Google Kalender (Dennis, 14. Oktober): Brücke = Google-Apps-Script im eigenen Konto (`KAL_GS`, als Web-App „Ausführen als: Ich“, „Zugriff: Jeder“),
+  gibt `{app: 'trainingsplan-kalender', v, ts, von, bis, w: [{k, a, b}], b: [{a, b}]}` (ms) für 8 Tage zurück bis 21 Tage voraus: Dienste = Titel beginnt
+  mit „DD“ (`k` f/s/n aus Früh/Spät/Nacht) aus allen sichtbaren Kalendern, sonst belegt ohne Titel nur aus eigenen Kalendern; ohne ganztägige,
+  abgelehnte und Feiertags-/Geburtstagskalender. App: Seite `kalender` (`renderKalender`, Anleitung in 4 Schritten, „Code kopieren/ansehen“, Feld
+  `#kal-url`, `ACT['kal-connect']` prüft `KAL_RE` und die Antwort `kalFetch`), Karte in den Arbeitszeiten (`kalCardHTML`, Jetzt abgleichen `kal-sync`,
+  Trennen `kal-off`). `KAL` in localStorage `tp.kal` {url, ts, err, von, bis, w, b}, nur auf dem Gerät: nicht in `S`, Export, Sync oder Meldungen.
+  Abgleich `kalSync` beim Start, beim Zurückkehren und bei Netz, höchstens alle 30 Min, ohne Netz gilt der letzte Stand. `arbeitOf` = `arbeitOf0`
+  plus Kalender: abgeglichene Tage (`kalHas`) nehmen den ersten Dienst des Tages (`kalDay`/`kalShift`, ab 11 h 12-h-Schicht), sonst frei; `kalBlocks`
+  legt Termine und weitere Dienste als gesperrte Blöcke „Termin“ in `wkTimeline`. Dienste aus dem Kalender sind in den Arbeitszeiten nicht änderbar
+  („Deine Dienste“, „aus dem Kalender“); „Wie arbeitest du?“ entfällt. Seit 3 Tagen kein Abgleich: `kalAskHTML` als Frage auf Heute.
   Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden; ohne Browser),
-  `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, alle Reiter).
+  `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, Google Kalender mit
+  nachgestellter Brücke, alle Reiter).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
   Erst ab dem ersten Öffnen dieser Version, keine rückwirkende Annahme über alte Termine. Vergangene Snapshots bleiben unverändert.
   `missPending` fragt auf Heute nach fehlenden Abschlüssen der letzten 14 Tage; Ruhetage, gespeicherte Trainings, Mobility/1RM und
@@ -485,7 +496,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Ändert sich außer `index.html` eine Datei oder kommt eine neue dazu:
   `CACHE` in `sw.js` hochzählen und neue Dateien in `ASSETS` eintragen.
 - Gespeicherte Daten nie brechen. localStorage-Schlüssel: `tp.state`, `tp.logs`,
-  `tp.drafts`, `tp.deleted`, `tp.sync`, `tp.foto` (Profilfoto, mit `tp.fotoTs`, wird abgeglichen). Neue Felder mit Standardwert in `DEF` ergänzen.
+  `tp.drafts`, `tp.deleted`, `tp.sync`, `tp.foto` (Profilfoto, mit `tp.fotoTs`, wird abgeglichen), `tp.kal` (Google Kalender, nur auf dem Gerät). Neue Felder mit Standardwert in `DEF` ergänzen.
 - Export-Format `{exportiert, stand, einheiten}` muss importierbar bleiben (dazu `foto: {ts, data}`, `exportData`, Import übernimmt es).
   „Als Tabelle“ (`exportCSV`, Semikolon, BOM) ein Satz pro Zeile; `shareFile` teilt oder lädt herunter. Ohne Sync auf Heute einmal im Monat
   „Daten sichern“ (`backupHTML`, `S.exportTs`, `S.backupAsk`, nur auf dem Gerät).
@@ -493,7 +504,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Format `{app, v, standTs, stand, einheiten, geloescht}` kompatibel halten, dazu `feldTs` (Zeit je Feld in `SYNC_KEYS`, `S.feldTs`)
   und `foto` (`{ts, data}`). Einheiten nach ID zusammenführen, Löschvermerke gewinnen, Stand Feld für Feld (neuere Zeit gewinnt,
   ohne `feldTs` gilt `standTs` für alle Felder). Name (`S.name`) wird mit abgeglichen; der gewählte Ort `S.ort` bleibt pro Gerät.
-  Den Token nie in Code, Export oder Logs schreiben.
+  Den Token nie in Code, Export oder Logs schreiben. Dasselbe gilt für den Link der Kalender-Brücke (`tp.kal`).
 - Aussehen (Farbe, Schrift, Hell/Dunkel) bleibt pro Gerät und wird nicht synchronisiert.
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze.
 - Handy zuerst (390 px Breite), Tippflächen mindestens 44 px.

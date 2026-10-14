@@ -16,7 +16,7 @@ const V2 = { 1: { type: 'kraft' }, 2: { type: 'rest' }, 3: { type: 'kraft' }, 4:
 function setup(extra) {
   const c = vm.createContext(Object.assign({
     S: { started: true, durchgang: 5, tag: 1, planWk: '2026-10-12', planV: 2, umfang: { u: 4, ts: 0 }, feldTs: {} },
-    LOGS: [], ui: {}, WKP_C: { k: null }, DAYS_K: null, DAYS: V2, KOERPER: [],
+    LOGS: [], ui: {}, WKP_C: { k: null }, DAYS_K: null, DAYS: V2, KOERPER: [], KAL: null,
     isoToday: () => now, parseISO: s => new Date(s + 'T12:00:00'), isoDate: d => d.toISOString().slice(0, 10),
     daysBetween: (a, b) => Math.round((b - a) / 86400000), pad: n => String(n).padStart(2, '0'),
     saveState() {}, render() {}, blockCheck() {}, planDur: () => .7, missBlocked: () => false, missCarry: () => [],
@@ -26,7 +26,8 @@ function setup(extra) {
   }, extra || {}));
   vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + ';', c);
   for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
-    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal', 'befCls', 'befOf', 'longShift']) vm.runInContext(source(name), c);
+    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal', 'befCls', 'befOf', 'longShift',
+    'arbeitOf0', 'kalOn', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
   return c;
 }
 const units = P => P.days.map(d => d.tag ? ({ 1: 'A', 3: 'B', 6: 'C' })[d.tag] : '-').join('');
@@ -161,3 +162,29 @@ c = setup(); now = '2026-10-19';
 for (let i = 0; i < 6; i++) c.LOGS.push(kraft(c.isoAdd(now, -13 + i * 2), 1));
 c.S.befinden = { '2026-10-15': { v: 'tired' } }; assert.equal(c.umfGrow(), null, 'Müdigkeit in den letzten 2 Wochen: kein Umfang-Plus');
 console.log('PASS: Befinden nach Nachtschichten');
+
+// Google Kalender: Dienste „DD …“ werden der Schichtplan der abgeglichenen Tage, andere Termine nur belegt, Tage außerhalb wie eingetragen.
+const isoDateL = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const parseISOL = s => { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
+c = setup({ isoDate: isoDateL, parseISO: parseISOL }); now = '2026-10-12';
+const at = (d, h, m) => new Date(d + 'T' + String(h).padStart(2, '0') + ':' + String(m || 0).padStart(2, '0') + ':00').getTime();
+c.S.alltag = { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 };
+c.S.arbeit = { '2026-10-12': [{ k: 'f', a: 6, b: 14 }, null, null, null, null, null, null] };
+c.KAL = { url: 'https://script.google.com/macros/s/x/exec', ts: 1, von: parseISOL('2026-10-04').getTime(), bis: parseISOL('2026-11-02').getTime(),
+  w: [{ k: 'n', a: at('2026-10-13', 22), b: at('2026-10-14', 6) }, { k: 'n', a: at('2026-10-14', 22), b: at('2026-10-15', 6) }, { k: 'f', a: at('2026-10-17', 6), b: at('2026-10-17', 18) }],
+  b: [{ a: at('2026-10-16', 16), b: at('2026-10-16', 19, 30) }] };
+let W2 = c.arbeitOf('2026-10-12');
+assert.equal(W2[0], null, 'abgeglichener Tag ohne Dienst ist frei, auch wenn von Hand Früh eingetragen war');
+assert.deepEqual(JSON.parse(JSON.stringify(W2[1])), { k: 'n', a: 22, b: 6, cal: 1 }, 'DD Nacht mit Uhrzeit aus dem Termin');
+assert.equal(W2[5].k, 't', 'DD Früh über 11 h zählt als 12-h-Schicht');
+P = c.wkPlan();
+assert.equal(P.days[2].tag, null, 'zwischen zwei Nächten aus dem Kalender kein Training');
+assert.equal(P.days[5].tag, null, 'nie am 12-h-Tag aus dem Kalender');
+T = c.wkTimeline('2026-10-12');
+assert.ok(T.block.some(b => b[0] === 24 * 4 + 16 && b[1] === 24 * 4 + 19.5 && b[2].n === 'Termin'), 'Termin als belegte Zeit ohne Titel');
+const fr = P.days[4];
+if (fr.tag) assert.ok(fr.end <= 24 * 4 + 16 + 1e-9 || fr.t >= 24 * 4 + 19.5 - 1e-9, 'kein Training im Termin');
+c.KAL.bis = parseISOL('2026-10-15').getTime();
+assert.equal(c.arbeitOf('2026-10-12')[0], null); assert.equal(c.arbeitOf('2026-10-19')[0].k, 'f', 'außerhalb des Zeitraums gilt der Schichtplan aus der App');
+c.KAL = null; assert.equal(c.arbeitOf('2026-10-12')[0].k, 'f', 'ohne Kalender wie bisher');
+console.log('PASS: Google Kalender: Dienste, 12-h-Erkennung, belegte Zeiten, Zeitraum, ohne Kalender wie bisher');
