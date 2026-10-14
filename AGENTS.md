@@ -14,7 +14,7 @@ Dieses Projekt wird mit mehreren KI-Werkzeugen bearbeitet. Damit alle nach dense
 - Ändert sich außer `index.html` eine Datei der App oder kommt eine dazu: `CACHE` in `sw.js` hochzählen und neue Dateien in `ASSETS` eintragen.
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze. Handy zuerst (390 px), Tippflächen mindestens 44 px.
 - Der Coach entscheidet, der Nutzer gibt nur Antworten.
-- Den Sync-Token nie in Code, Export oder Logs schreiben.
+- Den Sync-Token und den Link der Kalender-Brücke (`tp.kal`) nie in Code, Export, Sync oder Logs schreiben.
 - Plan 2 (drei Einheiten A, B, C) ist der Standard: intern Tag 1, 3, 6. Neue Einträge tragen `pv: 2` und `unit`, alte behalten ihre Tag-Bedeutung.
   Nie einen alten `tag` neu deuten (Tag 2 bleibt ein Kardio-Eintrag). Offene Pakete des Umbaus stehen in `UEBERGABE.md`.
 - Coach › Heute bleibt schlank (Dennis): nur was heute dran ist, höchstens eine Frage, der Ablauf mit Start. Neue Hinweise und Übersichten

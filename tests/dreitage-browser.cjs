@@ -154,9 +154,52 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.getByRole('heading', { name: '0 von 3 erledigt' }).isVisible());
     console.log('PASS: Zusatztag vorgeschlagen, geplant und in der Wochenleiste');
 
+    // Google Kalender: Link einfügen, Brücke antwortet (nachgestellt), Dienste werden der Schichtplan, Link bleibt nur auf dem Gerät.
+    const BR = 'https://script.google.com/macros/s/AKfycbTestTestTestTestTest123/exec';
+    const t = (d, h) => new Date(d + 'T' + String(h).padStart(2, '0') + ':00:00+02:00').getTime();
+    let bridge = { app: 'trainingsplan-kalender', v: 2, ts: Date.now(), von: t('2026-10-05', 0), bis: t('2026-11-03', 0),
+      k: [{ id: 'haupt0000001', n: 'Dennis', f: '#4986E7', e: true, s: true, p: true }, { id: 'familie00001', n: 'Familie', f: '#F691B2', e: false, s: true }],
+      w: [{ c: 0, k: 'n', a: t('2026-10-13', 22), b: t('2026-10-14', 6) }, { c: 0, k: 'n', a: t('2026-10-14', 22), b: t('2026-10-15', 6) }, { c: 0, k: 'f', a: t('2026-10-16', 6), b: t('2026-10-16', 14) }],
+      b: [{ c: 0, a: t('2026-10-17', 10), b: t('2026-10-17', 13) }, { c: 1, a: t('2026-10-18', 9), b: t('2026-10-18', 21) }] };
+    await page.route('https://script.google.com/**', r => r.fulfill({ status: 200, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify(bridge) }));
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
+    await page.evaluate(() => window.tpTest.navigate('woche'));
+    await page.getByRole('button', { name: 'Kalender verbinden', exact: true }).click();
+    assert.ok(await page.getByRole('heading', { name: 'Google Kalender', level: 1 }).isVisible());
+    await page.locator('#kal-url').fill('https://example.com/nicht');
+    await page.getByRole('button', { name: 'Verbinden', exact: true }).click();
+    assert.ok(await page.getByText('Das ist kein Web-App-Link.', { exact: false }).isVisible(), 'falscher Link wird erklärt');
+    await page.locator('#kal-url').fill(BR + '?x=1');
+    await page.getByRole('button', { name: 'Verbinden', exact: true }).click();
+    await page.getByRole('heading', { name: 'Deine Dienste' }).waitFor();
+    assert.ok(await page.getByText('aus dem Kalender').isVisible());
+    const st2 = await page.evaluate(() => [JSON.stringify(window.tpTest.state()), localStorage.getItem('tp.state'), JSON.parse(localStorage.getItem('tp.kal'))]);
+    assert.ok(!st2[0].includes('script.google') && !st2[1].includes('script.google'), 'Link nicht im Stand (nicht in Export und Sync)');
+    assert.equal(st2[2].url, BR, 'Link ohne Zusätze nur auf dem Gerät');
+    assert.equal(await page.evaluate(() => window.tpTest.plan().days[2].tag), null, 'zwischen zwei Nächten aus dem Kalender kein Training');
+    // Kalender einzeln: Hauptkalender an, geteilter Familien-Kalender zuerst aus; anschalten sperrt den Sonntag 9–21 Uhr.
+    const sw = n => page.locator('.kal-list label', { hasText: n }).locator('input');
+    assert.equal(await sw('Dennis').isChecked(), true); assert.equal(await sw('Familie').isChecked(), false);
+    const sun = () => page.evaluate(() => window.tpTest.plan().days[6]);
+    await sw('Familie').click({ force: true }); await page.waitForTimeout(400);
+    assert.equal(await sw('Familie').isChecked(), true, 'Wahl bleibt nach dem Neuzeichnen');
+    const s1 = await sun(); assert.ok(!s1.tag || s1.t >= 24 * 6 + 21 || s1.end <= 24 * 6 + 9, 'angeschalteter Kalender sperrt seine Termine');
+    assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('tp.kal')).sel.familie00001), true, 'Wahl nur auf dem Gerät gemerkt');
+    // Abgleich ohne Brücke: letzter Stand bleibt, Fehler wird erklärt.
+    bridge = { nein: 1 };
+    await page.getByRole('button', { name: 'Jetzt abgleichen', exact: true }).click();
+    await page.getByText('Die Antwort passt nicht.', { exact: false }).waitFor();
+    assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('tp.kal')).w.length), 3, 'letzter Stand bleibt');
+    assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('tp.kal')).sel.familie00001), true, 'Wahl bleibt beim Abgleich');
+    await page.getByRole('button', { name: 'Trennen', exact: true }).click();
+    await page.getByRole('button', { name: 'Sicher? Nochmal tippen', exact: true }).click();
+    await page.getByRole('button', { name: 'Kalender verbinden', exact: true }).waitFor();
+    assert.equal(await page.evaluate(() => localStorage.getItem('tp.kal')), null, 'Trennen löscht Link und Daten');
+    console.log('PASS: Google Kalender verbinden, Dienste als Schichtplan, Kalender einzeln an und aus, Link nur auf dem Gerät, Fehler und Trennen');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
-      for (const tab of ['heute', 'plan', 'woche', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
+      for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
         await page.evaluate(t => window.tpTest.navigate(t), tab);
         assert.ok(await page.locator('#view').innerText(), tab);
         if (width < 1000) { const wide = await page.evaluate(() => [].filter.call(document.querySelectorAll('body *'), e => e.getBoundingClientRect().right > innerWidth + .5).map(e => e.tagName + ' ' + (e.textContent || '').slice(0, 30))); assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'kein Überlauf ' + tab + ' ' + width + ' ' + wide.join(' | ')); }

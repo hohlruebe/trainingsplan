@@ -16,7 +16,7 @@ const V2 = { 1: { type: 'kraft' }, 2: { type: 'rest' }, 3: { type: 'kraft' }, 4:
 function setup(extra) {
   const c = vm.createContext(Object.assign({
     S: { started: true, durchgang: 5, tag: 1, planWk: '2026-10-12', planV: 2, umfang: { u: 4, ts: 0 }, feldTs: {} },
-    LOGS: [], ui: {}, WKP_C: { k: null }, DAYS_K: null, DAYS: V2, KOERPER: [],
+    LOGS: [], ui: {}, WKP_C: { k: null }, DAYS_K: null, DAYS: V2, KOERPER: [], KAL: null,
     isoToday: () => now, parseISO: s => new Date(s + 'T12:00:00'), isoDate: d => d.toISOString().slice(0, 10),
     daysBetween: (a, b) => Math.round((b - a) / 86400000), pad: n => String(n).padStart(2, '0'),
     saveState() {}, render() {}, blockCheck() {}, planDur: () => .7, missBlocked: () => false, missCarry: () => [],
@@ -26,7 +26,8 @@ function setup(extra) {
   }, extra || {}));
   vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + ';', c);
   for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
-    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal', 'befCls', 'befOf', 'longShift']) vm.runInContext(source(name), c);
+    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal', 'befCls', 'befOf', 'longShift',
+    'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
   return c;
 }
 const units = P => P.days.map(d => d.tag ? ({ 1: 'A', 3: 'B', 6: 'C' })[d.tag] : '-').join('');
@@ -161,3 +162,73 @@ c = setup(); now = '2026-10-19';
 for (let i = 0; i < 6; i++) c.LOGS.push(kraft(c.isoAdd(now, -13 + i * 2), 1));
 c.S.befinden = { '2026-10-15': { v: 'tired' } }; assert.equal(c.umfGrow(), null, 'Müdigkeit in den letzten 2 Wochen: kein Umfang-Plus');
 console.log('PASS: Befinden nach Nachtschichten');
+
+// Google Kalender: Dienste „DD …“ werden der Schichtplan der abgeglichenen Tage, andere Termine nur belegt, Tage außerhalb wie eingetragen.
+const isoDateL = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const parseISOL = s => { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
+c = setup({ isoDate: isoDateL, parseISO: parseISOL }); now = '2026-10-12';
+const at = (d, h, m) => new Date(d + 'T' + String(h).padStart(2, '0') + ':' + String(m || 0).padStart(2, '0') + ':00').getTime();
+c.S.alltag = { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 };
+c.S.arbeit = { '2026-10-12': [{ k: 'f', a: 6, b: 14 }, null, null, null, null, null, null] };
+c.KAL = { url: 'https://script.google.com/macros/s/x/exec', ts: 1, von: parseISOL('2026-10-04').getTime(), bis: parseISOL('2026-11-02').getTime(),
+  w: [{ k: 'n', a: at('2026-10-13', 22), b: at('2026-10-14', 6) }, { k: 'n', a: at('2026-10-14', 22), b: at('2026-10-15', 6) }, { k: 'f', a: at('2026-10-17', 6), b: at('2026-10-17', 18) }],
+  b: [{ a: at('2026-10-16', 16), b: at('2026-10-16', 19, 30) }] };
+let W2 = c.arbeitOf('2026-10-12');
+assert.equal(W2[0], null, 'abgeglichener Tag ohne Dienst ist frei, auch wenn von Hand Früh eingetragen war');
+assert.deepEqual(JSON.parse(JSON.stringify(W2[1])), { k: 'n', a: 22, b: 6, cal: 1 }, 'DD Nacht mit Uhrzeit aus dem Termin');
+assert.equal(W2[5].k, 't', 'DD Früh über 11 h zählt als 12-h-Schicht');
+P = c.wkPlan();
+assert.equal(P.days[2].tag, null, 'zwischen zwei Nächten aus dem Kalender kein Training');
+assert.equal(P.days[5].tag, null, 'nie am 12-h-Tag aus dem Kalender');
+T = c.wkTimeline('2026-10-12');
+assert.ok(T.block.some(b => b[0] === 24 * 4 + 16 && b[1] === 24 * 4 + 19.5 && b[2].n === 'Termin'), 'Termin als belegte Zeit ohne Titel');
+const fr = P.days[4];
+if (fr.tag) assert.ok(fr.end <= 24 * 4 + 16 + 1e-9 || fr.t >= 24 * 4 + 19.5 - 1e-9, 'kein Training im Termin');
+c.KAL.bis = parseISOL('2026-10-15').getTime();
+assert.equal(c.arbeitOf('2026-10-12')[0], null); assert.equal(c.arbeitOf('2026-10-19')[0].k, 'f', 'außerhalb des Zeitraums gilt der Schichtplan aus der App');
+// Kalender einzeln: eigener sichtbarer Kalender und Kalender mit Diensten zählen von selbst, geteilte nicht; die eigene Wahl gewinnt.
+c.KAL.bis = parseISOL('2026-11-02').getTime();
+c.KAL.k = [{ id: 'haupt', e: true, s: true }, { id: 'dienst', e: false, s: true }, { id: 'partner', e: false, s: true }];
+c.KAL.w.forEach(x => { x.c = 'dienst'; }); c.KAL.b = [{ c: 'haupt', a: at('2026-10-16', 16), b: at('2026-10-16', 19, 30) }, { c: 'partner', a: at('2026-10-16', 8), b: at('2026-10-16', 12) }];
+T = c.wkTimeline('2026-10-12');
+assert.ok(T.block.some(b => b[0] === 24 * 4 + 16), 'eigener Kalender zählt'); assert.ok(!T.block.some(b => b[0] === 24 * 4 + 8), 'geteilter Kalender zählt erst, wenn man ihn anschaltet');
+assert.equal(c.arbeitOf('2026-10-12')[1].k, 'n', 'Kalender mit Diensten zählt von selbst');
+c.KAL.sel = { partner: true, dienst: false };
+assert.ok(c.wkTimeline('2026-10-12').block.some(b => b[0] === 24 * 4 + 8), 'angeschaltet: zählt');
+assert.equal(c.arbeitOf('2026-10-12')[1], null, 'Dienst-Kalender aus: keine Dienste mehr aus dem Kalender');
+c.KAL = null; assert.equal(c.arbeitOf('2026-10-12')[0].k, 'f', 'ohne Kalender wie bisher');
+console.log('PASS: Google Kalender: Dienste, 12-h-Erkennung, belegte Zeiten, Zeitraum, Kalender einzeln an und aus, ohne Kalender wie bisher');
+
+// Die Kalender-Brücke selbst (Apps Script) mit nachgestellten Google-Diensten: Dienste nach Titel, private Termine ohne Titel als belegt,
+// ganztägige, abgelehnte, eigene Trainings, ausgeblendete und Feiertagskalender zählen nicht.
+const GS = JSON.parse(html.match(/var KAL_GS = (".*?");\n/s)[1]);
+const ev = (t, a, b, o) => Object.assign({ getTitle: () => t, isAllDayEvent: () => false, getMyStatus: () => 'OWNER', getStartTime: () => new Date(a), getEndTime: () => new Date(b) }, o || {});
+const cal = (id, name, evs, o) => Object.assign({ getId: () => id, getName: () => name, getColor: () => '#4986E7', isHidden: () => false, isSelected: () => true, isOwnedByMe: () => true,
+  isMyPrimaryCalendar: () => false, getEvents: () => evs }, o || {});
+const H = (d, h) => new Date(2026, 9, d, h).getTime();
+const gsCtx = vm.createContext({ Date, JSON,
+  CalendarApp: { GuestStatus: { NO: 'NO' }, getAllCalendars: () => [
+    cal('dennis@example.com', 'Dennis', [ev('DD früh', H(12, 6), H(12, 14)), ev('DD Spät', H(13, 14), H(13, 22)), ev('DD Nacht', H(14, 22), H(15, 6)),
+      ev('DD Tag 12', H(16, 6), H(16, 18)), ev('DD Nacht 12', H(17, 18), H(18, 6)), ev('Zahnarzt', H(19, 9), H(19, 10)), ev('Essen bei Mama', H(19, 18), H(19, 21)),
+      ev('Urlaub', H(20, 0), H(21, 0), { isAllDayEvent: () => true }), ev('Abgesagt', H(20, 10), H(20, 11), { getMyStatus: () => 'NO' }),
+      ev('Training: Ganzkörper B', H(21, 17), H(21, 18)), ev('Zusatz: Kardio-Test', H(22, 17), H(22, 18))], { isMyPrimaryCalendar: () => true }),
+    cal('de.german#holiday@group.v.calendar.google.com', 'Feiertage', [ev('Reformationstag', H(31, 10), H(31, 11))]),
+    cal('versteckt@example.com', 'Versteckt', [ev('Geheim', H(19, 12), H(19, 13))], { isHidden: () => true }),
+    cal('verein@example.com', 'Verein', [ev('Spiel', H(18, 10), H(18, 12))], { isOwnedByMe: () => false })] },
+  Utilities: { DigestAlgorithm: { MD5: 'MD5' }, computeDigest: (a, s) => Array.from(s).map(ch => ch.charCodeAt(0) % 256), base64EncodeWebSafe: b => Buffer.from(b).toString('base64').replace(/\+/g, '-').replace(/\//g, '_') },
+  ContentService: { MimeType: { JSON: 'json' }, createTextOutput: t => ({ setMimeType: () => ({ text: t }) }) } });
+vm.runInContext(GS, gsCtx);
+const out = JSON.parse(vm.runInContext('doGet()', gsCtx).text);
+assert.equal(out.app, 'trainingsplan-kalender'); assert.equal(out.v, 2);
+assert.deepEqual(out.k.map(x => x.n), ['Dennis', 'Verein'], 'ohne Feiertags- und ausgeblendete Kalender');
+assert.equal(out.k[0].p, true); assert.equal(out.k[1].e, false);
+assert.deepEqual(out.w.map(x => x.k), ['f', 's', 'n', '', 'n'], 'DD früh/Spät/Nacht nach Titel, DD Tag 12 ohne Art');
+assert.equal(JSON.stringify(out).includes('Zahnarzt') || JSON.stringify(out).includes('Mama'), false, 'keine Titel privater Termine');
+assert.equal(out.b.filter(x => x.c === 0).length, 2, 'private Termine mit beliebigem Namen zählen als belegt; ganztägig, abgelehnt und eigene Trainings nicht');
+assert.equal(out.b.filter(x => x.c === 1).length, 1, 'geteilter Kalender liefert seine Termine, die App entscheidet über den Schalter');
+// In der App: DD Tag 12 und DD Nacht 12 werden 12-h-Schichten.
+c = setup({ isoDate: isoDateL, parseISO: parseISOL });
+c.KAL = { url: 'x', von: parseISOL('2026-10-04').getTime(), bis: parseISOL('2026-11-02').getTime(), k: [{ id: out.k[0].id, e: true, s: true }], w: out.w.map(x => Object.assign({}, x, { c: out.k[0].id })), b: [] };
+const W3 = c.arbeitOf('2026-10-12');
+assert.equal(JSON.stringify(W3.map(e => e && e.k)), JSON.stringify(['f', 's', 'n', null, 't', 'tn', null]), 'DD Tag 12 = 12 h Tag, DD Nacht 12 = 12 h Nacht');
+console.log('PASS: Kalender-Brücke: Dienste nach Titel, private Termine ohne Titel, ohne eigene Trainings, 12-h-Dienste');

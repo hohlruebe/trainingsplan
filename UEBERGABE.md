@@ -4,7 +4,29 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 14. Oktober 2026 (Coach-Tab ohne Ballast; davor Drei Einheiten: Arbeitszeiten, Befinden, Verschieben, Zusatztag, Kurz-Check)
+Stand: 14. Oktober 2026 (Google Kalender verbinden; davor Coach-Tab ohne Ballast)
+
+## Google Kalender verbinden (14. Oktober 2026, Claude)
+- Dennis: „Könnten wir die App mit dem Kalender verbinden, damit sie automatisch sieht, wann noch freie Spots sind?“ Antworten: Google Kalender,
+  Dienste heißen „DD früh“, „DD Spät“, „DD Nacht“, Einrichtung mit Anleitung ist okay. Board „Paket 51 · Google Kalender verbinden“ im Canvas.
+- Weg: Kalender-Brücke als Google-Apps-Script im eigenen Konto (Code in der App, `KAL_GS`), bereitgestellt als Web-App. Kein Server, keine
+  Google-Cloud-Anmeldung, die nach 1 h bzw. 7 Tagen abläuft. Die Brücke gibt nur Dienste mit Uhrzeit und „belegt von–bis“ ohne Titel weiter.
+- Einrichten (Arbeitszeiten › Kalender verbinden): script.new öffnen, Code einfügen, Bereitstellen › Neue Bereitstellung › Web-App
+  (Ausführen als: Ich, Zugriff: Jeder), Zugriff erlauben („App nicht überprüft“ › Erweitert › Weiter), Web-App-URL in der App einfügen.
+  Ändert sich der Code später, braucht es in Apps Script eine neue Version der Bereitstellung (Bereitstellungen verwalten › Bearbeiten › Neue Version).
+- Planung: Dienste der abgeglichenen Tage ersetzen den Schichtplan (frei, wenn kein Dienst), Termine sind gesperrte Zeiten „Termin“. Nachtdienste
+  bekommen wie bisher Tagschlaf und Befinden-Frage. Außerhalb des Zeitraums (über 3 Wochen) gilt der Schichtplan der App.
+- Dennis fragte nach mehreren Kalendern: jeder Kalender steht einzeln in Arbeitszeiten › Google Kalender (Farbe, Name, was drinsteht) mit Schalter.
+  Von selbst an: eigene sichtbare Kalender und alle mit Diensten; geteilte ohne Dienste sind zuerst aus. Die Wahl bleibt nur auf dem Gerät.
+- Dennis' Dienste stehen mit Uhrzeit im Kalender, dazu „DD Tag 12“ und „DD Nacht 12“ (werden über die Länge 12-h-Schichten). Private Termine
+  ohne festen Namen zählen als belegt (ohne Titel). Die eigenen Trainings der App im Kalender („Training:“, „Zusatz:“) zählen nicht.
+  Die Brücke selbst ist jetzt mit nachgestellten Google-Diensten getestet (`tests/dreitage.cjs`).
+- Sicherheit: Link, Wahl und Daten nur in `tp.kal` auf dem Gerät, nicht in Stand, Export, Sync oder Meldungen. Auf einem zweiten Gerät neu einfügen
+  (Dennis gefragt: Einrichten am PC gilt für Google, den Link fügt man auf dem Handy einmal ein; Sync des Links nur, wenn er das möchte).
+- Geprüft: `tests/dreitage.cjs` (Kalender-Dienste, 12-h-Erkennung, Termine, Zeitraum, ohne Kalender wie bisher), `tests/dreitage-browser.cjs`
+  (verbinden mit nachgestellter Brücke, falscher Link, Antwort passt nicht, letzter Stand bleibt, Trennen, Link nicht im Stand), dazu `ausfaelle`,
+  `ausfaelle-browser`, `stabilisierung`. Das Skript selbst konnte hier nicht gegen Google laufen; das erste echte Verbinden zeigt, ob alles passt.
+- Offen: Rückmeldung von Dennis nach dem ersten echten Verbinden (erkannte Dienste und Termine stimmen?).
 
 ## Coach-Tab ohne Ballast (14. Oktober 2026, Claude)
 - Dennis: „der Coach-Tab ist sehr voll geworden, viele Dinge können doch im Hintergrund laufen.“ Konzept als Board „Paket 50 · Coach-Tab
