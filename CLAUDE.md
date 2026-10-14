@@ -80,6 +80,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   plus Kalender: abgeglichene Tage (`kalHas`) nehmen den ersten Dienst des Tages (`kalDay`/`kalShift`, ab 11 h 12-h-Schicht), sonst frei; `kalBlocks`
   legt Termine und weitere Dienste als gesperrte Blöcke „Termin“ in `wkTimeline`. Dienste aus dem Kalender sind in den Arbeitszeiten nicht änderbar
   („Deine Dienste“, „aus dem Kalender“); „Wie arbeitest du?“ entfällt. Seit 3 Tagen kein Abgleich: `kalAskHTML` als Frage auf Heute.
+  Trainings in den Google Kalender (Brücke ab `v: 3`, Dennis: .ics öffnet die Google-Kalender-App auf Android nicht): `doPost` der Brücke hält einen
+  eigenen Kalender „Trainingsplan“ (`eigenerKalender`, `einrichten` für die Erlaubnis) ab jetzt genau auf dem Plan: fehlende anlegen (Tag `tp` = uid,
+  30 Min Erinnerung), verschobene/abgesagte löschen, Vergangenes bleibt, andere Kalender nie; nur Titel „Training:“/„Zusatz:“, höchstens 30, bis 22 Tage.
+  `doGet` lässt den eigenen Kalender aus. App: `kalPushOn` (Schalter `CHG['kal-push']`, `KAL.push`, von selbst an), `kalPlanEvents` (aus `icsEvents`
+  dieser und nächster Woche, nur Künftiges), `kalPush` schickt per POST (text/plain) nur bei Änderung (`KAL.pushKey`) oder nach 6 h, entprellt über
+  `kalPushSoon` aus `render` und nach jedem Abgleich; Aus und Trennen schicken einmal eine leere Liste. Ältere Brücke (`v` < 3): Hinweis und Seite
+  „Brücke aktualisieren“ (`ui.kalUpd`, `ACT['kal-upd']`: Code ersetzen, „einrichten“ ausführen, neue Version bereitstellen, Link bleibt). .ics-Knöpfe
+  („Kalender“, „Alle in den Kalender“) fehlen, solange der Coach selbst einträgt.
   Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden, Kalender und die Brücke
   selbst mit nachgestellten Google-Diensten; ohne Browser),
   `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, Google Kalender mit
