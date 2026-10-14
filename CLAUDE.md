@@ -68,9 +68,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   heute geplant. Gründe der Uhrzeit in Plan › Deine Woche, Wochen blättern nur dort; Fast geschafft in Profil › Erfolge, Als Nächstes freischalten
   in Profil › Werte; Block-Karte und 24-h-Woche nicht mehr auf Heute. Desktop: eine Spalte.
   Google Kalender (Dennis, 14. Oktober): Brücke = Google-Apps-Script im eigenen Konto (`KAL_GS`, als Web-App „Ausführen als: Ich“, „Zugriff: Jeder“),
-  gibt `{app: 'trainingsplan-kalender', v, ts, von, bis, w: [{k, a, b}], b: [{a, b}]}` (ms) für 8 Tage zurück bis 21 Tage voraus: Dienste = Titel beginnt
-  mit „DD“ (`k` f/s/n aus Früh/Spät/Nacht) aus allen sichtbaren Kalendern, sonst belegt ohne Titel nur aus eigenen Kalendern; ohne ganztägige,
-  abgelehnte und Feiertags-/Geburtstagskalender. App: Seite `kalender` (`renderKalender`, Anleitung in 4 Schritten, „Code kopieren/ansehen“, Feld
+  gibt `{app: 'trainingsplan-kalender', v: 2, ts, von, bis, k: [{id, n, f, e, s, p}], w: [{c, k, a, b}], b: [{c, a, b}]}` (ms) für 8 Tage zurück bis
+  21 Tage voraus: Kalender `k` (id = kurzer MD5 der Kalender-ID, Name, Farbe, eigen, sichtbar, Hauptkalender), je Termin der Kalender `c`; Dienste =
+  Titel beginnt mit „DD“ (`k` f/s/n aus Früh/Spät/Nacht), sonst belegt ohne Titel; ohne ganztägige, abgelehnte, ausgeblendete und
+  Feiertags-/Geburtstagskalender. Kalender einzeln an/aus (Arbeitszeiten › Google Kalender, Schalter `CHG['kal-cal']`, Wahl `KAL.sel` nur auf dem
+  Gerät, bleibt beim Abgleich); ohne Wahl zählen eigene sichtbare Kalender und alle mit Diensten (`kalCalOn`, `kalW`, `kalB`). App: Seite `kalender` (`renderKalender`, Anleitung in 4 Schritten, „Code kopieren/ansehen“, Feld
   `#kal-url`, `ACT['kal-connect']` prüft `KAL_RE` und die Antwort `kalFetch`), Karte in den Arbeitszeiten (`kalCardHTML`, Jetzt abgleichen `kal-sync`,
   Trennen `kal-off`). `KAL` in localStorage `tp.kal` {url, ts, err, von, bis, w, b}, nur auf dem Gerät: nicht in `S`, Export, Sync oder Meldungen.
   Abgleich `kalSync` beim Start, beim Zurückkehren und bei Netz, höchstens alle 30 Min, ohne Netz gilt der letzte Stand. `arbeitOf` = `arbeitOf0`

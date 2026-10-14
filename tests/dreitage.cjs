@@ -27,7 +27,7 @@ function setup(extra) {
   vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + ';', c);
   for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
     'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal', 'befCls', 'befOf', 'longShift',
-    'arbeitOf0', 'kalOn', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
+    'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
   return c;
 }
 const units = P => P.days.map(d => d.tag ? ({ 1: 'A', 3: 'B', 6: 'C' })[d.tag] : '-').join('');
@@ -186,5 +186,15 @@ const fr = P.days[4];
 if (fr.tag) assert.ok(fr.end <= 24 * 4 + 16 + 1e-9 || fr.t >= 24 * 4 + 19.5 - 1e-9, 'kein Training im Termin');
 c.KAL.bis = parseISOL('2026-10-15').getTime();
 assert.equal(c.arbeitOf('2026-10-12')[0], null); assert.equal(c.arbeitOf('2026-10-19')[0].k, 'f', 'außerhalb des Zeitraums gilt der Schichtplan aus der App');
+// Kalender einzeln: eigener sichtbarer Kalender und Kalender mit Diensten zählen von selbst, geteilte nicht; die eigene Wahl gewinnt.
+c.KAL.bis = parseISOL('2026-11-02').getTime();
+c.KAL.k = [{ id: 'haupt', e: true, s: true }, { id: 'dienst', e: false, s: true }, { id: 'partner', e: false, s: true }];
+c.KAL.w.forEach(x => { x.c = 'dienst'; }); c.KAL.b = [{ c: 'haupt', a: at('2026-10-16', 16), b: at('2026-10-16', 19, 30) }, { c: 'partner', a: at('2026-10-16', 8), b: at('2026-10-16', 12) }];
+T = c.wkTimeline('2026-10-12');
+assert.ok(T.block.some(b => b[0] === 24 * 4 + 16), 'eigener Kalender zählt'); assert.ok(!T.block.some(b => b[0] === 24 * 4 + 8), 'geteilter Kalender zählt erst, wenn man ihn anschaltet');
+assert.equal(c.arbeitOf('2026-10-12')[1].k, 'n', 'Kalender mit Diensten zählt von selbst');
+c.KAL.sel = { partner: true, dienst: false };
+assert.ok(c.wkTimeline('2026-10-12').block.some(b => b[0] === 24 * 4 + 8), 'angeschaltet: zählt');
+assert.equal(c.arbeitOf('2026-10-12')[1], null, 'Dienst-Kalender aus: keine Dienste mehr aus dem Kalender');
 c.KAL = null; assert.equal(c.arbeitOf('2026-10-12')[0].k, 'f', 'ohne Kalender wie bisher');
-console.log('PASS: Google Kalender: Dienste, 12-h-Erkennung, belegte Zeiten, Zeitraum, ohne Kalender wie bisher');
+console.log('PASS: Google Kalender: Dienste, 12-h-Erkennung, belegte Zeiten, Zeitraum, Kalender einzeln an und aus, ohne Kalender wie bisher');

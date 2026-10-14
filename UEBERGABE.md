@@ -16,7 +16,10 @@ Stand: 14. Oktober 2026 (Google Kalender verbinden; davor Coach-Tab ohne Ballast
   Ändert sich der Code später, braucht es in Apps Script eine neue Version der Bereitstellung (Bereitstellungen verwalten › Bearbeiten › Neue Version).
 - Planung: Dienste der abgeglichenen Tage ersetzen den Schichtplan (frei, wenn kein Dienst), Termine sind gesperrte Zeiten „Termin“. Nachtdienste
   bekommen wie bisher Tagschlaf und Befinden-Frage. Außerhalb des Zeitraums (über 3 Wochen) gilt der Schichtplan der App.
-- Sicherheit: Link und Daten nur in `tp.kal` auf dem Gerät, nicht in Stand, Export, Sync oder Meldungen. Auf einem zweiten Gerät neu einfügen.
+- Dennis fragte nach mehreren Kalendern: jeder Kalender steht einzeln in Arbeitszeiten › Google Kalender (Farbe, Name, was drinsteht) mit Schalter.
+  Von selbst an: eigene sichtbare Kalender und alle mit Diensten; geteilte ohne Dienste sind zuerst aus. Die Wahl bleibt nur auf dem Gerät.
+- Sicherheit: Link, Wahl und Daten nur in `tp.kal` auf dem Gerät, nicht in Stand, Export, Sync oder Meldungen. Auf einem zweiten Gerät neu einfügen
+  (Dennis gefragt: Einrichten am PC gilt für Google, den Link fügt man auf dem Handy einmal ein; Sync des Links nur, wenn er das möchte).
 - Geprüft: `tests/dreitage.cjs` (Kalender-Dienste, 12-h-Erkennung, Termine, Zeitraum, ohne Kalender wie bisher), `tests/dreitage-browser.cjs`
   (verbinden mit nachgestellter Brücke, falscher Link, Antwort passt nicht, letzter Stand bleibt, Trennen, Link nicht im Stand), dazu `ausfaelle`,
   `ausfaelle-browser`, `stabilisierung`. Das Skript selbst konnte hier nicht gegen Google laufen; das erste echte Verbinden zeigt, ob alles passt.
