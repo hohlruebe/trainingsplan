@@ -198,3 +198,37 @@ assert.ok(c.wkTimeline('2026-10-12').block.some(b => b[0] === 24 * 4 + 8), 'ange
 assert.equal(c.arbeitOf('2026-10-12')[1], null, 'Dienst-Kalender aus: keine Dienste mehr aus dem Kalender');
 c.KAL = null; assert.equal(c.arbeitOf('2026-10-12')[0].k, 'f', 'ohne Kalender wie bisher');
 console.log('PASS: Google Kalender: Dienste, 12-h-Erkennung, belegte Zeiten, Zeitraum, Kalender einzeln an und aus, ohne Kalender wie bisher');
+
+// Die Kalender-Brücke selbst (Apps Script) mit nachgestellten Google-Diensten: Dienste nach Titel, private Termine ohne Titel als belegt,
+// ganztägige, abgelehnte, eigene Trainings, ausgeblendete und Feiertagskalender zählen nicht.
+const GS = JSON.parse(html.match(/var KAL_GS = (".*?");\n/s)[1]);
+const ev = (t, a, b, o) => Object.assign({ getTitle: () => t, isAllDayEvent: () => false, getMyStatus: () => 'OWNER', getStartTime: () => new Date(a), getEndTime: () => new Date(b) }, o || {});
+const cal = (id, name, evs, o) => Object.assign({ getId: () => id, getName: () => name, getColor: () => '#4986E7', isHidden: () => false, isSelected: () => true, isOwnedByMe: () => true,
+  isMyPrimaryCalendar: () => false, getEvents: () => evs }, o || {});
+const H = (d, h) => new Date(2026, 9, d, h).getTime();
+const gsCtx = vm.createContext({ Date, JSON,
+  CalendarApp: { GuestStatus: { NO: 'NO' }, getAllCalendars: () => [
+    cal('dennis@example.com', 'Dennis', [ev('DD früh', H(12, 6), H(12, 14)), ev('DD Spät', H(13, 14), H(13, 22)), ev('DD Nacht', H(14, 22), H(15, 6)),
+      ev('DD Tag 12', H(16, 6), H(16, 18)), ev('DD Nacht 12', H(17, 18), H(18, 6)), ev('Zahnarzt', H(19, 9), H(19, 10)), ev('Essen bei Mama', H(19, 18), H(19, 21)),
+      ev('Urlaub', H(20, 0), H(21, 0), { isAllDayEvent: () => true }), ev('Abgesagt', H(20, 10), H(20, 11), { getMyStatus: () => 'NO' }),
+      ev('Training: Ganzkörper B', H(21, 17), H(21, 18)), ev('Zusatz: Kardio-Test', H(22, 17), H(22, 18))], { isMyPrimaryCalendar: () => true }),
+    cal('de.german#holiday@group.v.calendar.google.com', 'Feiertage', [ev('Reformationstag', H(31, 10), H(31, 11))]),
+    cal('versteckt@example.com', 'Versteckt', [ev('Geheim', H(19, 12), H(19, 13))], { isHidden: () => true }),
+    cal('verein@example.com', 'Verein', [ev('Spiel', H(18, 10), H(18, 12))], { isOwnedByMe: () => false })] },
+  Utilities: { DigestAlgorithm: { MD5: 'MD5' }, computeDigest: (a, s) => Array.from(s).map(ch => ch.charCodeAt(0) % 256), base64EncodeWebSafe: b => Buffer.from(b).toString('base64').replace(/\+/g, '-').replace(/\//g, '_') },
+  ContentService: { MimeType: { JSON: 'json' }, createTextOutput: t => ({ setMimeType: () => ({ text: t }) }) } });
+vm.runInContext(GS, gsCtx);
+const out = JSON.parse(vm.runInContext('doGet()', gsCtx).text);
+assert.equal(out.app, 'trainingsplan-kalender'); assert.equal(out.v, 2);
+assert.deepEqual(out.k.map(x => x.n), ['Dennis', 'Verein'], 'ohne Feiertags- und ausgeblendete Kalender');
+assert.equal(out.k[0].p, true); assert.equal(out.k[1].e, false);
+assert.deepEqual(out.w.map(x => x.k), ['f', 's', 'n', '', 'n'], 'DD früh/Spät/Nacht nach Titel, DD Tag 12 ohne Art');
+assert.equal(JSON.stringify(out).includes('Zahnarzt') || JSON.stringify(out).includes('Mama'), false, 'keine Titel privater Termine');
+assert.equal(out.b.filter(x => x.c === 0).length, 2, 'private Termine mit beliebigem Namen zählen als belegt; ganztägig, abgelehnt und eigene Trainings nicht');
+assert.equal(out.b.filter(x => x.c === 1).length, 1, 'geteilter Kalender liefert seine Termine, die App entscheidet über den Schalter');
+// In der App: DD Tag 12 und DD Nacht 12 werden 12-h-Schichten.
+c = setup({ isoDate: isoDateL, parseISO: parseISOL });
+c.KAL = { url: 'x', von: parseISOL('2026-10-04').getTime(), bis: parseISOL('2026-11-02').getTime(), k: [{ id: out.k[0].id, e: true, s: true }], w: out.w.map(x => Object.assign({}, x, { c: out.k[0].id })), b: [] };
+const W3 = c.arbeitOf('2026-10-12');
+assert.equal(JSON.stringify(W3.map(e => e && e.k)), JSON.stringify(['f', 's', 'n', null, 't', 'tn', null]), 'DD Tag 12 = 12 h Tag, DD Nacht 12 = 12 h Nacht');
+console.log('PASS: Kalender-Brücke: Dienste nach Titel, private Termine ohne Titel, ohne eigene Trainings, 12-h-Dienste');

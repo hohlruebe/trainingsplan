@@ -70,8 +70,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Google Kalender (Dennis, 14. Oktober): Brücke = Google-Apps-Script im eigenen Konto (`KAL_GS`, als Web-App „Ausführen als: Ich“, „Zugriff: Jeder“),
   gibt `{app: 'trainingsplan-kalender', v: 2, ts, von, bis, k: [{id, n, f, e, s, p}], w: [{c, k, a, b}], b: [{c, a, b}]}` (ms) für 8 Tage zurück bis
   21 Tage voraus: Kalender `k` (id = kurzer MD5 der Kalender-ID, Name, Farbe, eigen, sichtbar, Hauptkalender), je Termin der Kalender `c`; Dienste =
-  Titel beginnt mit „DD“ (`k` f/s/n aus Früh/Spät/Nacht), sonst belegt ohne Titel; ohne ganztägige, abgelehnte, ausgeblendete und
-  Feiertags-/Geburtstagskalender. Kalender einzeln an/aus (Arbeitszeiten › Google Kalender, Schalter `CHG['kal-cal']`, Wahl `KAL.sel` nur auf dem
+  Titel beginnt mit „DD“ (`k` f/s/n aus Früh/Spät/Nacht; „DD Tag 12“/„DD Nacht 12“ über die Länge als 12-h-Schicht), alle anderen Termine mit
+  Uhrzeit, egal wie sie heißen, belegt ohne Titel; ohne ganztägige, abgelehnte, ausgeblendete und Feiertags-/Geburtstagskalender und ohne die
+  eigenen Trainings der App („Training:“/„Zusatz:“ aus dem .ics, sonst würde der Coach seinen eigenen Termin blockieren). Kalender einzeln an/aus (Arbeitszeiten › Google Kalender, Schalter `CHG['kal-cal']`, Wahl `KAL.sel` nur auf dem
   Gerät, bleibt beim Abgleich); ohne Wahl zählen eigene sichtbare Kalender und alle mit Diensten (`kalCalOn`, `kalW`, `kalB`). App: Seite `kalender` (`renderKalender`, Anleitung in 4 Schritten, „Code kopieren/ansehen“, Feld
   `#kal-url`, `ACT['kal-connect']` prüft `KAL_RE` und die Antwort `kalFetch`), Karte in den Arbeitszeiten (`kalCardHTML`, Jetzt abgleichen `kal-sync`,
   Trennen `kal-off`). `KAL` in localStorage `tp.kal` {url, ts, err, von, bis, w, b}, nur auf dem Gerät: nicht in `S`, Export, Sync oder Meldungen.
@@ -79,7 +80,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   plus Kalender: abgeglichene Tage (`kalHas`) nehmen den ersten Dienst des Tages (`kalDay`/`kalShift`, ab 11 h 12-h-Schicht), sonst frei; `kalBlocks`
   legt Termine und weitere Dienste als gesperrte Blöcke „Termin“ in `wkTimeline`. Dienste aus dem Kalender sind in den Arbeitszeiten nicht änderbar
   („Deine Dienste“, „aus dem Kalender“); „Wie arbeitest du?“ entfällt. Seit 3 Tagen kein Abgleich: `kalAskHTML` als Frage auf Heute.
-  Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden; ohne Browser),
+  Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden, Kalender und die Brücke
+  selbst mit nachgestellten Google-Diensten; ohne Browser),
   `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, Google Kalender mit
   nachgestellter Brücke, alle Reiter).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).

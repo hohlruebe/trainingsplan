@@ -18,6 +18,9 @@ Stand: 14. Oktober 2026 (Google Kalender verbinden; davor Coach-Tab ohne Ballast
   bekommen wie bisher Tagschlaf und Befinden-Frage. Außerhalb des Zeitraums (über 3 Wochen) gilt der Schichtplan der App.
 - Dennis fragte nach mehreren Kalendern: jeder Kalender steht einzeln in Arbeitszeiten › Google Kalender (Farbe, Name, was drinsteht) mit Schalter.
   Von selbst an: eigene sichtbare Kalender und alle mit Diensten; geteilte ohne Dienste sind zuerst aus. Die Wahl bleibt nur auf dem Gerät.
+- Dennis' Dienste stehen mit Uhrzeit im Kalender, dazu „DD Tag 12“ und „DD Nacht 12“ (werden über die Länge 12-h-Schichten). Private Termine
+  ohne festen Namen zählen als belegt (ohne Titel). Die eigenen Trainings der App im Kalender („Training:“, „Zusatz:“) zählen nicht.
+  Die Brücke selbst ist jetzt mit nachgestellten Google-Diensten getestet (`tests/dreitage.cjs`).
 - Sicherheit: Link, Wahl und Daten nur in `tp.kal` auf dem Gerät, nicht in Stand, Export, Sync oder Meldungen. Auf einem zweiten Gerät neu einfügen
   (Dennis gefragt: Einrichten am PC gilt für Google, den Link fügt man auf dem Handy einmal ein; Sync des Links nur, wenn er das möchte).
 - Geprüft: `tests/dreitage.cjs` (Kalender-Dienste, 12-h-Erkennung, Termine, Zeitraum, ohne Kalender wie bisher), `tests/dreitage-browser.cjs`
