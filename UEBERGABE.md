@@ -4,7 +4,20 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 14. Oktober 2026 (Google Kalender verbinden; davor Coach-Tab ohne Ballast)
+Stand: 14. Oktober 2026 (Trainings im Google Kalender; davor Google Kalender verbinden, Coach-Tab ohne Ballast)
+
+## Trainings im Google Kalender (14. Oktober 2026, Claude)
+- Dennis hat die Brücke eingerichtet (Test-URL lieferte die Daten). Rückmeldung: „Wenn ich die Termine hinzufügen möchte, tauchen sie nicht in meinem
+  Google Kalender auf.“ Grund: Die Google-Kalender-App auf Android importiert keine .ics-Dateien (Knöpfe „Kalender“/„Alle in den Kalender“).
+- Außerdem: Die Veröffentlichung von PR #95 auf GitHub Pages ist auf GitHubs Seite nach 10 Min abgebrochen (Timeout „updating_pages“), die App lief
+  noch mit dem Stand von #94. Lauf neu gestartet; der nächste Merge veröffentlicht ohnehin neu.
+- Umgesetzt: Brücke Version 3 mit `doPost`, eigener Kalender „Trainingsplan“, die App trägt diese und nächste Woche selbst ein (Details in `CLAUDE.md`).
+  Dennis muss die Brücke einmal aktualisieren: Code ersetzen, „einrichten“ ausführen (Erlaubnis, legt den Kalender an), Bereitstellen ›
+  Bereitstellungen verwalten › Stift › Neue Version. Die App zeigt dazu die Seite „Brücke aktualisieren“.
+- Geprüft: `tests/dreitage.cjs` (Brücke `doPost` mit nachgestellten Google-Diensten: neu, gleich, verschoben, abgesagt, Vergangenes bleibt, fremde
+  Anfragen und falsche Titel ändern nichts, eigener Kalender zählt nie als belegt), `tests/dreitage-browser.cjs` (alte Brücke = Hinweis, neue = POST mit
+  Trainings, Aus und Trennen = leere Liste, keine .ics-Knöpfe), dazu `ausfaelle`, `ausfaelle-browser`, `stabilisierung`.
+- Offen: echte Rückmeldung von Dennis, ob die Trainings im Kalender „Trainingsplan“ erscheinen (in der Google-Kalender-App ggf. links anhaken).
 
 ## Google Kalender verbinden (14. Oktober 2026, Claude)
 - Dennis: „Könnten wir die App mit dem Kalender verbinden, damit sie automatisch sieht, wann noch freie Spots sind?“ Antworten: Google Kalender,

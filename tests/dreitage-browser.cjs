@@ -161,7 +161,11 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       k: [{ id: 'haupt0000001', n: 'Dennis', f: '#4986E7', e: true, s: true, p: true }, { id: 'familie00001', n: 'Familie', f: '#F691B2', e: false, s: true }],
       w: [{ c: 0, k: 'n', a: t('2026-10-13', 22), b: t('2026-10-14', 6) }, { c: 0, k: 'n', a: t('2026-10-14', 22), b: t('2026-10-15', 6) }, { c: 0, k: 'f', a: t('2026-10-16', 6), b: t('2026-10-16', 14) }],
       b: [{ c: 0, a: t('2026-10-17', 10), b: t('2026-10-17', 13) }, { c: 1, a: t('2026-10-18', 9), b: t('2026-10-18', 21) }] };
-    await page.route('https://script.google.com/**', r => r.fulfill({ status: 200, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify(bridge) }));
+    const posts = [];
+    await page.route('https://script.google.com/**', r => {
+      if (r.request().method() === 'POST') { posts.push(JSON.parse(r.request().postData())); return r.fulfill({ status: 200, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ app: 'trainingsplan-kalender', ok: true, neu: 1, weg: 0 }) }); }
+      return r.fulfill({ status: 200, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify(bridge) });
+    });
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
     await page.evaluate(() => window.tpTest.navigate('woche'));
     await page.getByRole('button', { name: 'Kalender verbinden', exact: true }).click();
@@ -185,6 +189,24 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await sw('Familie').isChecked(), true, 'Wahl bleibt nach dem Neuzeichnen');
     const s1 = await sun(); assert.ok(!s1.tag || s1.t >= 24 * 6 + 21 || s1.end <= 24 * 6 + 9, 'angeschalteter Kalender sperrt seine Termine');
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('tp.kal')).sel.familie00001), true, 'Wahl nur auf dem Gerät gemerkt');
+    // Alte Brücke (v2): Hinweis zum Aktualisieren, nichts wird geschickt. Neue Brücke (v3): der Coach trägt die Trainings ein, Aus nimmt sie wieder heraus.
+    assert.ok(await page.getByRole('button', { name: 'So aktualisierst du die Brücke' }).isVisible()); assert.equal(posts.length, 0);
+    await page.getByRole('button', { name: 'So aktualisierst du die Brücke' }).click();
+    assert.ok(await page.getByRole('heading', { name: 'Brücke aktualisieren', level: 1 }).isVisible());
+    bridge.v = 3;
+    await page.getByRole('button', { name: 'Jetzt abgleichen', exact: true }).click();
+    await page.getByRole('heading', { name: 'Deine Dienste' }).waitFor();
+    await page.waitForFunction(n => window.tpTest && document.querySelector('[data-change="kal-push"]'), null);
+    await page.waitForTimeout(500);
+    assert.ok(posts.length >= 1, 'nach dem Abgleich trägt der Coach ein');
+    const last = posts[posts.length - 1];
+    assert.equal(last.app, 'trainingsplan'); assert.ok(last.t.length >= 1 && last.t.every(x => /^(Training|Zusatz): /.test(x.n) && x.b > x.a && x.a > Date.now() - 864e5 * 400), 'nur Trainings mit Zeit');
+    assert.equal(await page.getByRole('button', { name: 'Alle in den Kalender' }).count(), 0, 'kein .ics-Knopf, wenn der Coach selbst einträgt');
+    const n0 = posts.length;
+    await page.locator('[data-change="kal-push"]').click({ force: true }); await page.waitForTimeout(500);
+    assert.equal(posts.length, n0 + 1); assert.equal(posts[posts.length - 1].t.length, 0, 'Aus nimmt die Trainings aus dem Kalender');
+    await page.locator('[data-change="kal-push"]').click({ force: true }); await page.waitForTimeout(500);
+    assert.ok(posts[posts.length - 1].t.length >= 1, 'wieder an: Trainings wieder eingetragen');
     // Abgleich ohne Brücke: letzter Stand bleibt, Fehler wird erklärt.
     bridge = { nein: 1 };
     await page.getByRole('button', { name: 'Jetzt abgleichen', exact: true }).click();
@@ -192,10 +214,12 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('tp.kal')).w.length), 3, 'letzter Stand bleibt');
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('tp.kal')).sel.familie00001), true, 'Wahl bleibt beim Abgleich');
     await page.getByRole('button', { name: 'Trennen', exact: true }).click();
+    const n1 = posts.length;
     await page.getByRole('button', { name: 'Sicher? Nochmal tippen', exact: true }).click();
+    await page.waitForTimeout(300); assert.equal(posts.length, n1 + 1); assert.equal(posts[posts.length - 1].t.length, 0, 'Trennen nimmt die Trainings aus dem Kalender');
     await page.getByRole('button', { name: 'Kalender verbinden', exact: true }).waitFor();
     assert.equal(await page.evaluate(() => localStorage.getItem('tp.kal')), null, 'Trennen löscht Link und Daten');
-    console.log('PASS: Google Kalender verbinden, Dienste als Schichtplan, Kalender einzeln an und aus, Link nur auf dem Gerät, Fehler und Trennen');
+    console.log('PASS: Google Kalender verbinden, Dienste als Schichtplan, Kalender einzeln an und aus, Trainings eintragen, Link nur auf dem Gerät, Fehler und Trennen');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });

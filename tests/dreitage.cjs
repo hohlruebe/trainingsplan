@@ -214,12 +214,13 @@ const gsCtx = vm.createContext({ Date, JSON,
       ev('Training: Ganzkörper B', H(21, 17), H(21, 18)), ev('Zusatz: Kardio-Test', H(22, 17), H(22, 18))], { isMyPrimaryCalendar: () => true }),
     cal('de.german#holiday@group.v.calendar.google.com', 'Feiertage', [ev('Reformationstag', H(31, 10), H(31, 11))]),
     cal('versteckt@example.com', 'Versteckt', [ev('Geheim', H(19, 12), H(19, 13))], { isHidden: () => true }),
-    cal('verein@example.com', 'Verein', [ev('Spiel', H(18, 10), H(18, 12))], { isOwnedByMe: () => false })] },
+    cal('verein@example.com', 'Verein', [ev('Spiel', H(18, 10), H(18, 12))], { isOwnedByMe: () => false }),
+    cal('tp@group.calendar.google.com', 'Trainingsplan', [ev('Nachgetragen', H(19, 15), H(19, 16))])], getOwnedCalendarsByName: () => [] },
   Utilities: { DigestAlgorithm: { MD5: 'MD5' }, computeDigest: (a, s) => Array.from(s).map(ch => ch.charCodeAt(0) % 256), base64EncodeWebSafe: b => Buffer.from(b).toString('base64').replace(/\+/g, '-').replace(/\//g, '_') },
   ContentService: { MimeType: { JSON: 'json' }, createTextOutput: t => ({ setMimeType: () => ({ text: t }) }) } });
 vm.runInContext(GS, gsCtx);
 const out = JSON.parse(vm.runInContext('doGet()', gsCtx).text);
-assert.equal(out.app, 'trainingsplan-kalender'); assert.equal(out.v, 2);
+assert.equal(out.app, 'trainingsplan-kalender'); assert.equal(out.v, 3);
 assert.deepEqual(out.k.map(x => x.n), ['Dennis', 'Verein'], 'ohne Feiertags- und ausgeblendete Kalender');
 assert.equal(out.k[0].p, true); assert.equal(out.k[1].e, false);
 assert.deepEqual(out.w.map(x => x.k), ['f', 's', 'n', '', 'n'], 'DD früh/Spät/Nacht nach Titel, DD Tag 12 ohne Art');
@@ -232,3 +233,27 @@ c.KAL = { url: 'x', von: parseISOL('2026-10-04').getTime(), bis: parseISOL('2026
 const W3 = c.arbeitOf('2026-10-12');
 assert.equal(JSON.stringify(W3.map(e => e && e.k)), JSON.stringify(['f', 's', 'n', null, 't', 'tn', null]), 'DD Tag 12 = 12 h Tag, DD Nacht 12 = 12 h Nacht');
 console.log('PASS: Kalender-Brücke: Dienste nach Titel, private Termine ohne Titel, ohne eigene Trainings, 12-h-Dienste');
+
+// Trainings eintragen (doPost): nur der eigene Kalender „Trainingsplan“, fehlende anlegen, gleiche lassen, verschobene/abgesagte löschen.
+const now2 = Date.now(), F = (d, h) => now2 + d * 864e5 + h * 36e5;
+const mk = (t, a, b, tag) => { const e = { t, a, b, tags: { tp: tag }, deleted: false, getTitle: () => t, getStartTime: () => new Date(a), getEndTime: () => new Date(b),
+  getTag: k => e.tags[k], setTag: (k, v) => { e.tags[k] = v; }, addPopupReminder: m => { e.rem = m; }, deleteEvent: () => { e.deleted = true; } }; return e; };
+let own = null; const evs = [mk('Training: Ganzkörper A', F(1, 2), F(1, 3), 'tp-a'), mk('Training: Ganzkörper B', F(2, 2), F(2, 3), 'tp-b'), mk('Training: Alt', F(-1, 0), F(-1, 1), 'tp-alt')];
+const made = [];
+gsCtx.CalendarApp.getOwnedCalendarsByName = n => own ? [own] : [];
+gsCtx.CalendarApp.Color = { BLUE: '#2952A3' };
+gsCtx.CalendarApp.createCalendar = n => (own = { name: n, setColor() {}, getEvents: (a, b) => evs.filter(e => !e.deleted && e.b > a.getTime() && e.a < b.getTime()),
+  createEvent: (t, a, b, o) => { const e = mk(t, a.getTime(), b.getTime()); made.push(e); evs.push(e); return e; } });
+const post = body => JSON.parse(vm.runInContext('doPost(' + JSON.stringify({ postData: { contents: JSON.stringify(body) } }) + ')', gsCtx).text);
+assert.equal(post({ app: 'x', t: [] }).ok, false, 'fremde Anfragen ändern nichts');
+assert.equal(post({ app: 'trainingsplan', bis: F(21, 0), t: [] }).neu, 0); assert.equal(own, null, 'ohne Trainings wird kein Kalender angelegt');
+let r2 = post({ app: 'trainingsplan', bis: F(21, 0), t: [{ id: 'tp-a', n: 'Training: Ganzkörper A', a: F(1, 2), b: F(1, 3) }, { id: 'tp-c', n: 'Training: Ganzkörper C', a: F(3, 2), b: F(3, 3), d: 'Nach der Arbeit' },
+  { id: 'tp-x', n: 'Party', a: F(4, 2), b: F(4, 3) }, { id: 'tp-v', n: 'Training: Vorbei', a: F(-2, 0), b: F(-2, 1) }] });
+assert.equal(own.name, 'Trainingsplan', 'eigener Kalender wird angelegt');
+assert.deepEqual([r2.neu, r2.weg], [1, 1], 'C neu, B (nicht mehr geplant) gelöscht, A bleibt');
+assert.equal(evs[0].deleted, false); assert.equal(evs[1].deleted, true); assert.equal(evs[2].deleted, false, 'Vergangenes bleibt');
+assert.equal(made.length, 1); assert.equal(made[0].tags.tp, 'tp-c'); assert.equal(made[0].rem, 30, 'Erinnerung 30 Min vorher');
+r2 = post({ app: 'trainingsplan', bis: F(21, 0), t: [{ id: 'tp-a', n: 'Training: Ganzkörper A', a: F(1, 4), b: F(1, 5) }] });
+assert.deepEqual([r2.neu, r2.weg], [1, 2], 'verschoben: alt weg, neu angelegt; C abgesagt');
+assert.ok(!JSON.parse(vm.runInContext('doGet()', gsCtx).text).k.some(x => x.n === 'Trainingsplan'), 'der eigene Kalender zählt nie als belegt');
+console.log('PASS: Kalender-Brücke trägt Trainings ein: eigener Kalender, neu, gleich, verschoben, abgesagt, Vergangenes bleibt');
