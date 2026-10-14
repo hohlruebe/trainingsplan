@@ -505,6 +505,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Speichern nur auf dem Gerät (localStorage) plus Sync über GitHub. Der frühere Weg über `window.claude` (App als Claude-Artifact,
   `initDb`, `TP_BUILD`) ist gelöscht.
 - `sw.js`: Service Worker für den Offline-Betrieb
+- `.github/workflows/pages-entsperren.yml`: nur von Hand (Actions › Pages entsperren › Run workflow), wenn eine GitHub-Pages-Veröffentlichung
+  hängt („in progress deployment … cancel … first“): bricht hängende Läufe von „pages build and deployment“ (`force-cancel`) und nicht fertige
+  Veröffentlichungen (`pages/deployments/<sha>/cancel`, nie `success`/`inactive`) ab und stößt `pages/builds` neu an. Kein Teil der App, nicht in `sw.js`.
 - `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `icon-mono-512.png`.
   App-Symbol „D3“: Turnringe frei hängend in Kreide (#E4E3F7) auf Graphit, darunter links der Marker-Strich in Hellblau (#8DB8FF).
   `icon-mono-512.png` (weiß auf transparent, `purpose: monochrome`) für die Designsymbole von Android. Vorlagen: `design/symbol/`.
