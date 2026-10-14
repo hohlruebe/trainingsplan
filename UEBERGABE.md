@@ -4,7 +4,21 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 14. Oktober 2026 (Trainings im Google Kalender; davor Google Kalender verbinden, Coach-Tab ohne Ballast)
+Stand: 14. Oktober 2026 (Nordic Curls nur mit Fußanker; davor Trainings im Google Kalender, Google Kalender verbinden, Coach-Tab ohne Ballast)
+
+## Nordic Curls nur mit Fußanker (14. Oktober 2026, Claude)
+- Dennis: „Warum sind Nordic Curls einfach im Plan? Dafür brauche ich doch Equipment.“ Grund: `g_nordic` brauchte nur „Alltagsgegenstände“
+  (`eq_zuhause`, Sofa als Fußanker), und die sind an jedem Ort angehakt. Rückfrage: Einen Fußanker gibt es nur an manchen Orten.
+- Umgesetzt: neues Gerät „Fußanker“ (`eq_fussanker`), Nordic Curl braucht Fußanker, GHD oder Sprossenwand. Einmalig nur Zuhause angehakt.
+  Fehlt er am Ort, nimmt der Coach die nützlichste Übung, die dort geht, und sagt es einmal am Kraft-Schritt; angehakt = alte Wahl zurück.
+  Board „Paket 52 · Nordic Curls nur mit Fußanker“ im Canvas.
+- Geprüft: `tests/dreitage-browser.cjs` (Zuhause mit, Gym ohne Fußanker, Ersatz mit Grund, Anhaken im Equipment-Blatt, Rückkehr ohne Hin und Her),
+  dazu `dreitage`, `ausfaelle`, `ausfaelle-browser`, `stabilisierung`.
+- Offen: Dennis prüft unter Tools › Übungen › Stift, wo er einen Fußanker hat (Zuhause ist angehakt, Gym/Park/Arbeit nicht).
+- GitHub Pages hängt seit dem Merge von #95: Veröffentlichung c9ffe83 gilt bei GitHub als „in progress“, darum scheitert jede neue
+  („Please cancel c9ffe839… first“); die Läufe 101 und 102 (und ein alter Lauf 72 vom 8. Oktober) stehen ohne Job auf „queued“ und lassen sich
+  über die normale API nicht abbrechen. Neu: Workflow „Pages entsperren“ (`.github/workflows/pages-entsperren.yml`, nur von Hand). Nach dem Merge
+  einmal starten: Actions › Pages entsperren › Run workflow. Danach prüfen, ob „pages build and deployment“ grün wird und die App den neuen Stand zeigt.
 
 ## Trainings im Google Kalender (14. Oktober 2026, Claude)
 - Dennis hat die Brücke eingerichtet (Test-URL lieferte die Daten). Rückmeldung: „Wenn ich die Termine hinzufügen möchte, tauchen sie nicht in meinem

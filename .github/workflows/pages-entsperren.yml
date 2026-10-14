@@ -1,0 +1,42 @@
+# Von Hand starten (Actions › Pages entsperren › Run workflow), wenn eine GitHub-Pages-Veröffentlichung hängt,
+# z. B. „Deployment request failed … due to in progress deployment. Please cancel … first“.
+# Bricht hängende Läufe von „pages build and deployment“ und nicht fertige Veröffentlichungen ab
+# und stößt dann eine neue Veröffentlichung von main an. Die laufende Seite bleibt dabei online.
+name: Pages entsperren
+on:
+  workflow_dispatch:
+permissions:
+  actions: write
+  pages: write
+  deployments: read
+  contents: read
+jobs:
+  entsperren:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Hängende Läufe abbrechen
+        run: |
+          ids=$(gh api "repos/$REPO/actions/runs?per_page=50" --jq '.workflow_runs[] | select(.name == "pages build and deployment" and .status != "completed") | .id')
+          for id in $ids; do
+            echo "Lauf $id abbrechen"
+            gh api -X POST "repos/$REPO/actions/runs/$id/force-cancel" || echo "Lauf $id: nicht abgebrochen"
+          done
+          [ -n "$ids" ] || echo "Keine hängenden Läufe."
+      - name: Nicht fertige Veröffentlichungen abbrechen
+        run: |
+          for d in $(gh api "repos/$REPO/deployments?environment=github-pages&per_page=10" --jq '.[] | "\(.id):\(.sha)"'); do
+            id=${d%%:*}; sha=${d#*:}
+            state=$(gh api "repos/$REPO/deployments/$id/statuses?per_page=1" --jq '.[0].state // "none"')
+            # Die laufende Seite (success) und ältere (inactive) bleiben unberührt.
+            if [ "$state" != "success" ] && [ "$state" != "inactive" ]; then
+              echo "Veröffentlichung $sha ($state) abbrechen"
+              gh api -X POST "repos/$REPO/pages/deployments/$sha/cancel" || echo "Veröffentlichung $sha: nicht abgebrochen"
+            fi
+          done
+      - name: Neu veröffentlichen
+        run: |
+          sleep 20
+          gh api -X POST "repos/$REPO/pages/builds" --jq '"Neue Veröffentlichung angestoßen: " + .status'
