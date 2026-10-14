@@ -891,6 +891,8 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-hint{margin:0;font-size:14px;color:var(--ink2)}
 .fs-exn{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
 .fs-kg{margin:2px 0 4px;font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:var(--acc)}
+.fs-reps{margin:2px 0 6px;font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.fs-cnt{margin-top:14px;padding-top:12px;border-top:1px solid var(--line,rgba(0,0,0,.08))}
 .fs-ex{display:flex;align-items:center;gap:12px}
 .fs-ex>div:last-child{min-width:0}
 .fs-ex .chip{margin-top:6px;white-space:normal;display:inline-block}
@@ -2530,7 +2532,7 @@ var WARMUP = [
   { t: '3×', n: 'Stack Breathing', g: true, k4: 1 },
   { t: '10', n: 'Scapular Push-up', g: true },
   { t: '5 je Seite', t6: '3 je Seite', n: "World's Greatest Stretch", g: true },
-  { t: '30 s', n: 'Handgelenke kreisen und dehnen', h: 'Hände falten und kreisen, beide Richtungen. Dann im Vierfüßlerstand die Finger nach vorn und nach hinten zeigen lassen und sanft verlagern.' },
+  { t: '10', n: 'Wrist Rocks', g: true },
   { t: '10', n: 'Band Pull-Apart', g: true, x: 'sehr leichtes Band' },
   { t: '10', n: 'Band Pass-Through', g: true, x: 'sehr leichtes Band', k4: 1 }
 ];
@@ -6171,7 +6173,8 @@ function warmFlow0(tag) {
     var t = /Ergometer/.test(w.n) && wm < 8 ? (wm >= 6 ? '3 Min' : '2 Min') : wm < 8 && w.t6 ? w.t6 : w.t;
     return flowItem(w.n, t, w.x, null, w.h);
   });
-  if (d.jumps) it.push(flowItem(jumpN(d), d.jumps.t, 'ohne Weste'));
+  // Aufwärmen = eine Übung nach der anderen: von den Sprüngen ein sauberer Satz („3 × 5“ → „5“).
+  if (d.jumps) it.push(flowItem(jumpN(d), jumpQty(d), 'ohne Weste, sauber landen'));
   return { id: 'warm', items: it };
 }
 function metconFlow(tag) {
@@ -6219,6 +6222,7 @@ function jumpStage(key) {
   else { out.idx = cur + 1; out.up = true; }
   return out;
 }
+function jumpQty(d) { return String(d.jumps.t || '').replace(/^\s*\d+\s*[×x]\s*/, ''); }
 function jumpN(d) { if (!d.jumps.lad || !LAD[d.jumps.lad]) return d.jumps.n; var u = UE[skillUe(d.jumps.lad, jumpStage(d.jumps.lad).idx)]; return u ? u.name : d.jumps.n; }
 function flowState(F, D) {
   D = D || dr(S.tag);
@@ -8653,6 +8657,15 @@ function fsKg(ex, r) {
   var D = dr(S.tag), stage = D['k' + ex + 'stage'] != null ? D['k' + ex + 'stage'] : stageDef(x.n, x.hi), K = kgOfEx(x, ex, stage, D, kraftRounds(S.tag));
   return { n: x.n, kg: K && K.kg[r] != null ? fmtKg(K.kg[r], K.id) : '' };
 }
+// EMOM im Vollbild: Vorgabe der Minute groß und Zähler „Geschafft“ (wie im Kraftschritt, die Vorgabe zählt als geschafft).
+function fsReps(ex, r) {
+  var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
+  var D = dr(S.tag), E = kraftEx(S.tag, D, kraftRounds(S.tag), x, ex); if (E.skip) return null;
+  var f = 'k' + ex + 'r' + r, v = num(D[f]), def = E.goal, val = v == null ? def : v, mx = E.test && r === 0;
+  return { k: '|' + f + ':' + val, h: '<p class="fs-reps">' + (mx ? 'Maxout' : def + ' Wdh.') + '</p>', c: '<div class="fs-rh fs-cnt"><p class="fs-lbl">Geschafft</p>' +
+    '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-1" data-def="' + def + '" aria-label="Weniger">–</button><b>' + val + '</b>' +
+    '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="1" data-def="' + def + '" aria-label="Mehr">+</button></div></div>' };
+}
 function fsSide(L) {
   var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx, k0, k1;
   if (TM.finished && !c.step) return { k: 'fin' + TM.rounds, h: '<p class="fs-lbl">Fertig</p><div class="fs-big">' + (TM.mode === 'amrap' || TM.mode === 'zeit' ? TM.rounds + '<small> Runden</small>' : 'Stark') + '</div><button type="button" class="btn primary block" data-act="fs-min">Fertig</button>' };
@@ -8666,9 +8679,10 @@ function fsSide(L) {
   }
   if (TM.mode === 'emom' && c.stations) {
     var nm = c.stations[mi % c.stations.length], g = GL[nm], nn = mi + 1 < c.minutes ? c.stations[(mi + 1) % c.stations.length] : '';
-    return { k: 'em' + mi + (L && L.p.kind === 'pre' ? 'p' : ''), h: '<div class="fs-ex">' + '<div class="fs-fig">' + figHTML(g && figOf(g.key) ? g.key : '_wave') + '</div>' + '<div><p class="fs-lbl">' + (L && L.p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(nm) + '</p>' +
+    var rc = t === 'kraft' ? fsReps(mi % c.stations.length, Math.floor(mi / c.stations.length)) : null;
+    return { k: 'em' + mi + (L && L.p.kind === 'pre' ? 'p' : '') + (rc ? rc.k : ''), h: '<div class="fs-ex">' + '<div class="fs-fig">' + figHTML(g && figOf(g.key) ? g.key : '_wave') + '</div>' + '<div><p class="fs-lbl">' + (L && L.p.kind === 'pre' ? 'Zuerst' : 'Jetzt') + '</p><p class="fs-exn">' + esc(nm) + '</p>' +
       (t === 'kraft' && (k0 = fsKg(mi % c.stations.length, Math.floor(mi / c.stations.length))) && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
-      '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + (t === 'kraft' && (k1 = fsKg((mi + 1) % c.stations.length, Math.floor((mi + 1) / c.stations.length))) && k1.kg ? ', ' + esc(k1.kg) : '') + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' };
+      (rc ? rc.h : '') + '<p class="fs-hint">Minute ' + (mi + 1) + ' von ' + c.minutes + '</p>' + (nn ? '<span class="chip">Als Nächstes: ' + esc(nn) + (t === 'kraft' && (k1 = fsKg((mi + 1) % c.stations.length, Math.floor((mi + 1) / c.stations.length))) && k1.kg ? ', ' + esc(k1.kg) : '') + ' · <b id="fs-nxt"></b></span>' : '<span class="chip">Letzte Minute</span>') + '</div></div>' + (rc ? rc.c : '') };
   }
   if (TM.mode === 'hiit' && t === 'kraft' && c.rounds) {
     // Sätze: alle Sätze einer Übung, dann die nächste. In der Pause steht schon der nächste Satz da.

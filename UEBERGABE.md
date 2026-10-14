@@ -4,7 +4,15 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 14. Oktober 2026 (Nordic Curls nur mit Fußanker; davor Trainings im Google Kalender, Google Kalender verbinden, Coach-Tab ohne Ballast)
+Stand: 15. Oktober 2026 (Aufwärmen und Vollbild am Laptop; davor Nordic Curls nur mit Fußanker; davor Trainings im Google Kalender, Google Kalender verbinden, Coach-Tab ohne Ballast)
+
+## Aufwärmen und Vollbild am Laptop (Claude, nach Dennis' Training)
+- Dennis: 3 × 5 Squat Jumps passen nicht ins Aufwärmen (eine Übung nach der anderen); im Vollbild sah er nicht, wie viele Wdh. dran sind,
+  und konnte im EMOM nicht eintragen, was er geschafft hat; „30 s Handgelenke“ ist keine Übung.
+- Umgesetzt: Sprünge im Aufwärmen ein Satz (`jumpQty`), Wrist Rocks statt Handgelenke, EMOM im Vollbild mit Vorgabe groß und Zähler
+  „Geschafft“ (`fsReps`, schreibt denselben Entwurf `k<i>r<r>` wie der Kraftschritt). Board „Paket 53“ im Canvas.
+- GitHub Pages läuft wieder (Workflow „Pages entsperren“ hat geholfen; Läufe 101/102 hängen weiter ohne Wirkung).
+- Offen: Dennis prüft, ob die Brücke Version 3 meldet (Arbeitszeiten › Google Kalender › „Deine Trainings“).
 
 ## Nordic Curls nur mit Fußanker (14. Oktober 2026, Claude)
 - Dennis: „Warum sind Nordic Curls einfach im Plan? Dafür brauche ich doch Equipment.“ Grund: `g_nordic` brauchte nur „Alltagsgegenstände“

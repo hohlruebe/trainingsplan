@@ -343,6 +343,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   = Tage ohne Krafttraining. Karte: Figur der Stufe, Ziel, grüner Chip, „So kommst du rein“ (Handstand und Walk je Stufe aus `SKILL_IN` mit „Raus“,
   sonst `schritte` der Übung), Zähler „Beste Zeit“/„Beste Strecke“ (`hsSec`). Gespeichert als `sb: {lad, stage, sec}` (Name `skill` ist bei alten
   Einträgen eine Liste!), Handstand zusätzlich weiter als `hs`-Text. Coach-Karte und Ausblick über `skillNote`. Wissen › Skill-Ziele zeigt den Stand je Skill.
+- Sprünge im Aufwärmen nur ein sauberer Satz (`jumpQty`: „3 × 5“ → „5“, Aufwärmen = eine Übung nach der anderen, Dennis); statt „30 s Handgelenke“ die Übung Wrist Rocks (10) in `WARMUP`.
 - Sprünge (`jumps.lad`, Tag 3: `g_broad_jump` Squat Jump → Broad Jump → Tuck Jump; Tag 1 bleibt Skater Jump): im Aufwärmen die Stufe vom Coach
   (`jumpN`, `jumpStage`, `jumpHist`), abgehakt = sauber (`jump: {lad, stage, ok}`), 2× sauber + Sehnen-Zeit → nächste Stufe. Zählt in Schnellkraft.
 - Kurz-Check am Ruhetag (`restCheckIdx`, `mobCheckHTML(D, i)`): reihum ein Test aus dem Beweglichkeits-Check, zwei pro Woche (nicht in der Check-Woche);
@@ -467,7 +468,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Vorlauf und 5-s-Wechsel im Mobility-Player bekommen keine Halbzeit (`callPhase`).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`): große Zeit in Geist, rechts (quer) bzw. unten (hochkant) eine Karte:
   Runden (Tools AMRAP/For Time, Tippen = +1), Übungen der Runde (Metcon/Murph im Training, `fsFlowHTML`), Aufwärmen mit aktueller Übung, Figur, „‹ Zurück | Erledigt ›“ und „Als Nächstes“ (`fsWarmHTML`), laufende EMOM-Übung mit
-  Figur und „Als Nächstes“, Intervall „Als Nächstes“. Oben Drehen (`fs-rot`, hält die Ansicht, lange drücken = automatisch), Minimieren
+  Figur und „Als Nächstes“ (im Kraftteil dazu die Vorgabe der Minute groß und Zähler „Geschafft“, `fsReps`, Dennis), Intervall „Als Nächstes“. Oben Drehen (`fs-rot`, hält die Ansicht, lange drücken = automatisch), Minimieren
   (`fs-min`, Timer läuft weiter), Pause, ✕ nur in Tools (mit Nachfrage). Vorlauf und Intervall-Pause grün, letzte 3 s pulsieren.
   Öffnen: Pfeil-Knopf in der Timer-Leiste (mit Pause in einer Kapsel `.tb-grp`), Tippen auf die Zeit, Pfeil-Knopf auf der Timer-Seite,
   Handy quer drehen, während ein Timer läuft (`fsTurn`; zurück hochkant schließt wieder). Ansicht weicht vom Handy ab = CSS-Drehung
