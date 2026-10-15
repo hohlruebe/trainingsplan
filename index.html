@@ -1005,11 +1005,12 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 .gl-item.locked>summary{opacity:.5}
 .gl-body{padding:0 0 14px}
 .gl-zweck{margin:4px 0 8px;font-size:15px;line-height:1.45}
-.gl-more{margin:10px 0 6px;border-top:1px solid var(--line)}
-.gl-more>summary{font-weight:600;cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px;color:var(--acc)}
-.gl-more>summary::-webkit-details-marker{display:none}
-.gl-more>summary::after{content:'';width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:-4px 0 0 2px;transition:transform .3s cubic-bezier(.3,.9,.4,1)}
-.gl-more[open]>summary::after{transform:rotate(225deg);margin-top:4px}
+.gl-how{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 2px}
+.gl-how>b{font-size:17px}
+.gl-i{width:44px;height:44px}
+.ue-info{max-height:calc(100dvh - 150px);overflow-y:auto;overscroll-behavior:contain;margin:0 -16px;padding:0 16px 8px}
+.ue-info .gl-zweck{margin-top:0}
+.ue-info .gl-mh:first-of-type{margin-top:6px}
 .gl-mh{font-weight:600;margin:10px 0 2px;font-size:15px}
 .gl-ml{margin:2px 0 6px;padding-left:20px;font-size:15px;line-height:1.45}
 .gl-ml li{margin:3px 0}
@@ -5812,6 +5813,7 @@ ACT.choose = function (el) {
   }
 };
 /* ---------- Coach: Übersicht, Schritte, Rad ---------- */
+var I_INFO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg>';
 var PLAN_BTN = '<button type="button" class="rbtn" data-act="tab" data-tab="plan" aria-label="Plan und Regeln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg></button>';
 var BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
 var CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>';
@@ -9306,27 +9308,33 @@ function glItemHTML(e, st, have, cls) {
   var u = e.lib, lad = LAD[e.key], s = st[e.key], miss = eqMissing(u.equipment, have), req = reqText(u.voraussetzung, st);
   var sub = lad && s && s.cur ? 'Leiter · aktuell: ' + stageText(lad.steps[s.cur - 1]) : miss ? 'Gesperrt: braucht ' + miss : req ? req : lad ? 'Leiter · ' + lad.steps.length + ' Stufen' : u.trainiert;
   return '<details class="gl-item' + (cls ? ' ' + cls : '') + (miss ? ' locked' : '') + '" id="g-' + esc(e.key) + '"' + (ui.glossOpen === e.name ? ' open' : '') + '><summary><span class="gl-t"><b>' + esc(e.name) + '</b><small>' + esc(sub) + '</small></span></summary>' +
-    '<div class="gl-body">' + figBox(e.key) + (u.zweck ? '<p class="gl-zweck">' + esc(u.zweck) + '</p>' : '') + musOfHTML(u, true) +
-    (u.vorbereitung ? '<p class="small"><b>Vorbereitung:</b> ' + esc(u.vorbereitung) + '</p>' : '') +
+    '<div class="gl-body">' + figBox(e.key) +
+    '<div class="gl-how"><b>So geht’s</b><button type="button" class="rbtn gl-i" data-act="ue-info" data-id="' + esc(u.id) + '" aria-label="Genau erklärt: ' + esc(e.name) + '">' + I_INFO + '</button></div>' +
     '<ol class="steps">' + u.schritte.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
-    (u.ausstieg ? '<p class="small"><b>Raus:</b> ' + esc(u.ausstieg) + '</p>' : '') +
     ladderHTML(lad, s) + (lad && lad.pre ? '<p class="small muted">' + esc(lad.pre) + '</p>' : '') +
-    '<p class="cue"><b>Sauber:</b> ' + esc(u.sauber) + '</p>' + ueMoreHTML(u) +
     '<p class="small muted">Equipment: ' + esc(u.equipment.length ? u.equipment.map(function (g) { return g.map(function (x) { return EQ[x] ? EQ[x].name : x; }).join(' oder '); }).join(' + ') : 'keins') + ' · Level ' + u.level + '</p></div></details>';
 }
-// Aufklappbar unter jeder Übung: Technik, Atmung, Fehler mit Korrektur, leichter/schwerer, wann aufhören.
-// fehler ist bei überarbeiteten Übungen eine Liste {f, k}, bei alten Paketen noch ein Satz.
-function ueMoreHTML(u) {
+// (i) in Tools › Übungen (Dennis, 15. Oktober 2026): sichtbar nur Figur, Schritte und Leiter; der ganze Text steht im Blatt.
+function ueInfoHTML(u) {
   var fl = Array.isArray(u.fehler) ? u.fehler : u.fehler ? [{ f: u.fehler }] : [], sk = ueScale(u.skalierung), h = '';
-  if (u.details && u.details.length) h += '<p class="gl-mh">Technik</p><ul class="gl-ml">' + u.details.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
-  if (u.atmung) h += '<p class="gl-mh">Atmung</p><p class="small">' + esc(u.atmung) + '</p>';
-  if (fl.length) h += '<p class="gl-mh">Häufige Fehler</p><ul class="gl-ml gl-fk">' + fl.map(function (x) { return '<li><b>' + esc(x.f) + '</b>' + (x.k ? '<span>' + esc(x.k) + '</span>' : '') + '</li>'; }).join('') + '</ul>';
-  if (sk.length) h += '<p class="gl-mh">Leichter und schwerer</p><ul class="gl-ml">' + sk.map(function (x) { return '<li>' + (x[0] ? '<b>' + esc(x[0]) + ':</b> ' : '') + esc(x[1]) + '</li>'; }).join('') + '</ul>';
-  if (u.grenzen) h += '<p class="gl-mh">Wann aufhören</p><p class="small">' + esc(u.grenzen) + '</p>';
-  if (!h) return '';
-  var k = 'glm-' + u.id;
-  return '<details class="gl-more" data-sec="' + esc(k) + '"' + (ui.openSec[k] ? ' open' : '') + '><summary>Fehler, Varianten und Technik</summary>' + h + '</details>';
+  var sec = function (t, x) { return x ? '<p class="gl-mh">' + t + '</p>' + x : ''; }, p = function (x) { return x ? '<p class="small">' + esc(x) + '</p>' : ''; };
+  var li = function (a) { return a && a.length ? '<ul class="gl-ml">' + a.join('') + '</ul>' : ''; };
+  h += u.zweck ? '<p class="gl-zweck">' + esc(u.zweck) + '</p>' : '';
+  h += musOfHTML(u, true);
+  h += sec('Vorbereitung', p(u.vorbereitung));
+  h += sec('Raus', p(u.ausstieg));
+  h += sec('Sauber, wenn …', p(u.sauber));
+  h += sec('Technik', li((u.details || []).map(function (x) { return '<li>' + esc(x) + '</li>'; })));
+  h += sec('Atmung', p(u.atmung));
+  h += sec('Häufige Fehler', fl.length ? '<ul class="gl-ml gl-fk">' + fl.map(function (x) { return '<li><b>' + esc(x.f) + '</b>' + (x.k ? '<span>' + esc(x.k) + '</span>' : '') + '</li>'; }).join('') + '</ul>' : '');
+  h += sec('Leichter und schwerer', li(sk.map(function (x) { return '<li>' + (x[0] ? '<b>' + esc(x[0]) + ':</b> ' : '') + esc(x[1]) + '</li>'; })));
+  h += sec('Wann aufhören', p(u.grenzen));
+  return '<div class="ue-info">' + h + '</div>';
 }
+ACT['ue-info'] = function (el) {
+  var u = UE[el.dataset.id]; if (!u) return;
+  openForm(u.name, ueInfoHTML(u), 'Fertig', function () {}, { noCancel: true, noFocus: true });
+};
 // „Leichter: … Schwerer: …“ in Zeilen
 function ueScale(t) {
   if (!t) return [];

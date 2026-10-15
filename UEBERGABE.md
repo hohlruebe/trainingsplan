@@ -17,7 +17,9 @@ Stand: 15. Oktober 2026 (Übungs-Anleitungen neu; davor Aufwärmen und Vollbild 
 - Geprüft: neuer Test `tests/uebungen-anleitungen.cjs` (mit `TP_BROWSER=1` 390 und 1366 px), dazu alle bisherigen Tests.
 - Quellen gelöscht (Dennis: eigene Bibliothek, Recherche im Netz plus eigene Erfahrung): `quelle` aus lib-data, mobility, fam-data und
   `design/familien.json`, Prüfer verlangt es nicht mehr, `bibliothek.md` angepasst.
-- Offen: Dennis prüft den Entwurf der Ansicht (Screenshots im Chat) vor dem Merge.
+- Dennis gefiel der lange Text nicht: jetzt nur Figur, Schritte, Leiter sichtbar, der Rest hinter einem (i) als Blatt (Entwurf, Screenshots im Chat).
+- Offen: Dennis prüft den Entwurf vor dem Merge. Idee von Dennis: Bibliothek mit freien Datenbanken erweitern (free-exercise-db, Unlicense;
+  wger nur mit Namensnennung), Bodybuilding-Übungen dazu, Dopplungen über Namen/Alias und Muster vermeiden.
 
 ## Aufwärmen und Vollbild am Laptop (Claude, nach Dennis' Training)
 - Dennis: 3 × 5 Squat Jumps passen nicht ins Aufwärmen (eine Übung nach der anderen); im Vollbild sah er nicht, wie viele Wdh. dran sind,

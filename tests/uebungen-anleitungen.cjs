@@ -46,7 +46,7 @@ for (const l of lib.leitern || []) for (const s of l.stufen || []) if (s.ue) ass
 
 // 4) Die App nimmt die neuen Schritte (Glossar aus plan-data wird überschrieben).
 assert.match(html, /g\.steps = ueSteps\(u\)/);
-assert.match(html, /function ueMoreHTML\(u\)/);
+assert.match(html, /function ueInfoHTML\(u\)/);
 console.log('Übungs-Anleitungen: ' + ue.length + ' Übungen, ' + files.length + ' Pakete OK');
 
 if (!process.env.TP_BROWSER) return;
@@ -69,16 +69,25 @@ const server = http.createServer((q, r) => { r.setHeader('Content-Type', 'text/h
       const p = await ctx.newPage(), errs = [];
       p.on('pageerror', e => errs.push(e.message));
       await p.goto('http://127.0.0.1:' + server.address().port + '/');
-      for (const n of ['Pull-up', 'Deadlift', 'Wall Handstand']) {
-        const u = ue.find(x => x.name === n); if (!u) continue;
+      for (const n of ['Ring Pull-up', 'Deadlift', 'Handstand', 'Pigeon Stretch']) {
+        const u = ue.find(x => x.name === n); assert.ok(u, 'Übung ' + n);
         await p.evaluate(a => window.tpX.go(a[0], a[1]), [n, true]);
         const item = p.locator('details.gl-item[open]').first();
         await item.waitFor();
         const txt = await item.innerText();
-        assert.ok(txt.includes(u.zweck.slice(0, 30)), 'Zweck sichtbar: ' + n);
+        // Sichtbar nur Figur, Schritte und Leiter; der Rest steht hinter dem (i).
         assert.ok(txt.includes(u.schritte[0].slice(0, 30)), 'Schritt 1 sichtbar: ' + n);
-        assert.ok(txt.includes('Fehler, Varianten und Technik'), 'aufklappbarer Teil: ' + n);
-        assert.ok(txt.includes(u.fehler[0].f.slice(0, 20)), 'Fehler aufgeklappt: ' + n);
+        assert.ok(!txt.includes(u.fehler[0].f.slice(0, 20)), 'Fehler nicht in der Liste: ' + n);
+        await item.locator('.gl-i').click();
+        const sheet = p.locator('#sheet .ue-info');
+        await sheet.waitFor(); await p.waitForTimeout(450);
+        const info = await sheet.innerText();
+        assert.ok(info.includes(u.zweck.slice(0, 30)), 'Zweck im Blatt: ' + n);
+        assert.ok(info.includes(u.fehler[0].f.slice(0, 20)), 'Fehler im Blatt: ' + n);
+        const sh = await sheet.evaluate(e => e.getBoundingClientRect().bottom <= innerHeight + 1);
+        assert.ok(sh, 'Blatt passt in den Bildschirm (scrollt innen) bei ' + width + ' px');
+        await p.locator('#sheet [data-sh="ok"]').click();
+        await p.waitForTimeout(350);
         const over = await p.evaluate(() => document.documentElement.scrollWidth - innerWidth);
         assert.ok(over <= 1, 'kein seitliches Scrollen bei ' + width + ' px');
       }
