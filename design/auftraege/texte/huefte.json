@@ -1,0 +1,761 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "huefte",
+  "entscheidungen": [
+    "„Rücken gerade“ wird überall in Handlung übersetzt: Brust heraus, Abstand Brustbein–Bauchnabel bleibt gleich. „Neutral“ allein steht nicht mehr da."
+  ],
+  "uebungen": [
+    {
+      "id": "g_single_leg_rdl",
+      "zweck": "Standwaage mit Hüftbeuge auf einem Bein: kräftigt Beinrückseite und Gesäß und trainiert das Gleichgewicht.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich auf ein Bein, das Knie leicht gebeugt.",
+        "Kipp den Oberkörper aus der Hüfte nach vorn, das freie Bein geht gestreckt nach hinten. Oberkörper und freies Bein bilden eine Linie.",
+        "Geh so weit, bis du eine Dehnung in der Rückseite des Standbeins spürst oder der Oberkörper fast waagerecht ist.",
+        "Richte dich auf, indem du die Hüfte nach vorn schiebst. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Hüfte bleibt waagerecht, der Rücken bleibt flach, das Knie des Standbeins nur leicht gebeugt.",
+      "details": [
+        "Die Zehen des freien Fußes zeigen zum Boden, das hält die Hüfte gerade.",
+        "Die Arme können nach vorn zeigen oder locker hängen."
+      ],
+      "atmung": "Beim Vorkippen einatmen, beim Aufrichten ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte dreht auf, das freie Bein zeigt zur Seite.",
+          "k": "Zehen des freien Fußes zum Boden, Becken parallel."
+        },
+        {
+          "f": "Der Rücken wird rund.",
+          "k": "Brust heraus, weniger tief."
+        }
+      ],
+      "skalierung": "Leichter: Fußspitze des freien Beins hinten leicht am Boden lassen oder an der Wand abstützen. Schwerer: mit Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Tiefe und Hüftstellung fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bridge",
+      "zweck": "Beckenheben in Rückenlage: kräftigt das Gesäß und die Beinrückseite ohne Last für den Rücken.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Knie gebeugt, Füße hüftbreit flach am Boden, Arme neben dem Körper.",
+        "Die Füße stehen so weit vom Gesäß weg, dass die Schienbeine oben senkrecht stehen.",
+        "Spann das Gesäß an und drück die Hüfte über die Fersen hoch, bis Schultern, Hüfte und Knie eine Linie bilden.",
+        "Halte oben kurz und spann das Gesäß fest an.",
+        "Senk die Hüfte langsam ab, bis das Gesäß fast den Boden berührt."
+      ],
+      "ausstieg": "",
+      "sauber": "Oben ist das Gesäß fest angespannt, ohne Hohlkreuz.",
+      "details": [
+        "Einbeinig: ein Bein gestreckt in der Luft halten, erst alle Wiederholungen auf einer Seite, dann die andere.",
+        "Mit Band: Band um die Oberschenkel knapp über den Knien, Knie gegen das Band nach außen drücken."
+      ],
+      "atmung": "Beim Hochdrücken ausatmen, beim Absenken einatmen.",
+      "fehler": [
+        {
+          "f": "Mit dem Rücken drücken statt mit dem Gesäß, oben entsteht ein Hohlkreuz.",
+          "k": "Rippen unten lassen, nur bis zur Linie hochgehen."
+        },
+        {
+          "f": "Über die Zehen drücken.",
+          "k": "Gewicht auf die Fersen."
+        }
+      ],
+      "skalierung": "Leichter: kleinerer Weg. Schwerer: einbeinig, oben 2 Sekunden halten, Band oder Weste auf der Hüfte.",
+      "grenzen": "Krampft die Beinrückseite, Füße näher ans Gesäß.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Fußabstand und Varianten der Leiter nur im Glossar.",
+        "korrektur": "Ein gemeinsamer Text mit Leiterstufen.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hip_thrust",
+      "zweck": "Beckenheben mit dem oberen Rücken auf einer Kante: größerer Weg als die Glute Bridge, mehr Arbeit fürs Gesäß.",
+      "vorbereitung": "Sofa oder Bank, die nicht wegrutscht. Die Kante etwa auf Höhe der Knie.",
+      "schritte": [
+        "Setz dich vor die Kante und leg den oberen Rücken, knapp unter den Schulterblättern, darauf.",
+        "Stell die Füße hüftbreit auf, Knie gebeugt.",
+        "Drück die Hüfte über die Fersen hoch, bis Knie, Hüfte und Schultern eine Linie bilden. Die Schienbeine stehen dann senkrecht.",
+        "Halte oben 1 Sekunde, Kinn leicht zur Brust.",
+        "Senk die Hüfte langsam ab."
+      ],
+      "ausstieg": "Gesäß auf den Boden setzen.",
+      "sauber": "Oben stehen die Schienbeine senkrecht, das Kinn bleibt leicht zur Brust, kein Hohlkreuz.",
+      "details": [
+        "Der Blick folgt dem Oberkörper: oben nach vorn, nicht zur Decke."
+      ],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Im Rücken überstrecken.",
+          "k": "Rippen unten, Kinn zur Brust, nur bis zur Linie."
+        }
+      ],
+      "skalierung": "Leichter: Glute Bridge. Schwerer: einbeinig oder mit Weste.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Position auf der Kante und Fußstellung fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_deadlift",
+      "zweck": "Kreuzheben mit Kettlebell: lehrt, aus der Hüfte zu heben, und kräftigt Gesäß, Beinrückseite und Rücken.",
+      "vorbereitung": "Kettlebell oder Kurzhantel zwischen den Füßen.",
+      "schritte": [
+        "Stell dich hüftbreit über die Kettlebell, sie steht zwischen den Fußgewölben.",
+        "Schieb die Hüfte nach hinten, beug die Knie und greif den Griff mit beiden Händen. Brust heraus, Rücken flach.",
+        "Spann den Bauch an und steh auf, indem du die Füße in den Boden drückst und die Hüfte nach vorn schiebst.",
+        "Oben stehst du gerade, das Gesäß ist angespannt.",
+        "Stell die Kettlebell auf demselben Weg wieder ab."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Rücken bleibt flach, die Kettlebell bewegt sich senkrecht nah am Körper.",
+      "details": [
+        "Arme bleiben gestreckt und hängen wie Seile, sie ziehen nicht."
+      ],
+      "atmung": "Unten einatmen und Bauch fest, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Rundrücken.",
+          "k": "Brust hoch, Hüfte weiter zurück, leichteres Gewicht."
+        },
+        {
+          "f": "Oben nach hinten lehnen.",
+          "k": "Gerade stehen, Gesäß anspannen."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Gewicht. Schwerer: einbeinig oder schwerer.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Stand und Bahn der Kettlebell fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_swing",
+      "zweck": "Kettlebell kraftvoll durch die Beine schwingen: Gesäß und Beinrückseite arbeiten explosiv, gut für Kraft und Ausdauer.",
+      "vorbereitung": "Kettlebell etwa einen Fuß vor dir auf dem Boden, vorn und hinten Platz.",
+      "schritte": [
+        "Stell dich etwas breiter als hüftbreit, greif die Kettlebell mit beiden Händen und kipp sie zu dir.",
+        "Schwing sie wie einen Football-Pass zwischen den Beinen nach hinten, Hüfte zurück, Rücken flach.",
+        "Streck die Hüfte kräftig nach vorn, die Kettlebell schwingt durch den Schwung nach vorn.",
+        "Sie steigt bis etwa Brusthöhe, oben stehst du gerade mit angespanntem Gesäß.",
+        "Lass sie zurückfallen und geh erst kurz vor den Oberschenkeln wieder in die Hüftbeuge."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung nach hinten schwingen lassen und die Kettlebell vor dir abstellen.",
+      "sauber": "Die Kraft kommt aus der Hüfte, die Arme bleiben locker und gestreckt.",
+      "details": [
+        "Die Knie beugen sich nur leicht. Es ist eine Hüftbewegung, keine Kniebeuge.",
+        "Unten zwischen den Beinen bleibt der Unterarm nah an den Oberschenkeln."
+      ],
+      "atmung": "Beim Zurückschwingen einatmen, beim Hüftstoß kräftig ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit den Armen heben.",
+          "k": "Arme locker lassen, die Hüfte macht die Arbeit."
+        },
+        {
+          "f": "Kniebeuge statt Hüftbeuge.",
+          "k": "Hüfte nach hinten schieben, Schienbeine fast senkrecht."
+        },
+        {
+          "f": "Oben nach hinten lehnen.",
+          "k": "Oben gerade stehen, Gesäß und Bauch fest."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Kettlebell oder Kettlebell Deadlift. Schwerer: schwerere Kettlebell oder American Swing.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken oder wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Start, Ende und Rolle der Knie fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_american_swing",
+      "zweck": "Kettlebell Swing bis über den Kopf: längerer Weg, mehr Arbeit für Schultern und Atmung im Metcon.",
+      "vorbereitung": "Kettlebell vor dir, über dir genug Platz.",
+      "schritte": [
+        "Stell dich etwas breiter als hüftbreit, greif die Kettlebell und schwing sie zwischen den Beinen nach hinten.",
+        "Streck die Hüfte kräftig nach vorn.",
+        "Führ die Kettlebell mit gestreckten Armen weiter bis über den Kopf, der Boden der Kettlebell zeigt nach oben.",
+        "Lass sie kontrolliert zurück zwischen die Beine schwingen."
+      ],
+      "ausstieg": "Nach hinten schwingen lassen und vor dir abstellen.",
+      "sauber": "Oben ist die Kettlebell über dem Kopf, die Arme gestreckt, ohne Hohlkreuz.",
+      "details": [],
+      "atmung": "Beim Hüftstoß ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz oben.",
+          "k": "Rippen unten halten, Gesäß fest."
+        }
+      ],
+      "skalierung": "Leichter: Kettlebell Swing bis Brusthöhe. Schwerer: schwerere Kettlebell.",
+      "grenzen": "Aufhören bei Schulterschmerz oder wenn die Kettlebell oben unkontrolliert kippt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startete mit „Wie der Kettlebell Swing“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_single_arm_swing",
+      "zweck": "Kettlebell Swing mit einer Hand: Der Rumpf muss gegen das Verdrehen halten.",
+      "vorbereitung": "Kettlebell vor dir, vorn und hinten Platz.",
+      "schritte": [
+        "Greif die Kettlebell mit einer Hand, die andere Hand bleibt locker neben dem Körper.",
+        "Schwing sie zwischen den Beinen nach hinten, Hüfte zurück, Rücken flach.",
+        "Streck die Hüfte kräftig, die Kettlebell schwingt bis Brusthöhe.",
+        "Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Nach hinten schwingen lassen und abstellen.",
+      "sauber": "Die Schultern bleiben gerade, der Oberkörper dreht nicht mit.",
+      "details": [],
+      "atmung": "Beim Hüftstoß ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Oberkörper dreht mit.",
+          "k": "Bauch fest, leichtere Kettlebell."
+        }
+      ],
+      "skalierung": "Leichter: beidarmig. Schwerer: schwerere Kettlebell.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Swing wie beidarmig“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_db_swing",
+      "zweck": "Swing mit einer Kurzhantel: wie der Kettlebell Swing, wenn keine Kettlebell da ist.",
+      "vorbereitung": "Eine Kurzhantel, vorn und hinten Platz.",
+      "schritte": [
+        "Fass die Kurzhantel mit beiden Händen an einem Ende, sie hängt senkrecht.",
+        "Schwing sie zwischen den Beinen nach hinten, Hüfte zurück, Rücken flach.",
+        "Streck die Hüfte kräftig, die Hantel schwingt bis Brust- oder Kopfhöhe.",
+        "Lass sie zurückschwingen."
+      ],
+      "ausstieg": "Nach hinten schwingen lassen und abstellen.",
+      "sauber": "Die Kraft kommt aus der Hüfte.",
+      "details": [],
+      "atmung": "Beim Hüftstoß ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Arme ziehen.",
+          "k": "Arme locker, die Hüfte arbeitet."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Hantel. Schwerer: schwerere Hantel.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Verweis auf Kettlebell Swing.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_rdl",
+      "zweck": "Rumänisches Kreuzheben: die Hüfte geht nach hinten, die Beine bleiben fast gestreckt. Kräftigt vor allem die Beinrückseite.",
+      "vorbereitung": "Langhantel im Hantelständer (Rack) auf Oberschenkelhöhe, oder Kurzhanteln bzw. Kettlebell.",
+      "schritte": [
+        "Steh aufrecht, Füße hüftbreit, die Last vor den Oberschenkeln, Knie leicht gebeugt.",
+        "Schieb die Hüfte nach hinten, der Oberkörper kippt nach vorn. Die Last gleitet nah an den Beinen nach unten.",
+        "Geh so weit, bis du eine deutliche Dehnung in der Beinrückseite spürst, meist bis knapp unter die Knie.",
+        "Richte dich auf, indem du die Hüfte nach vorn schiebst."
+      ],
+      "ausstieg": "Stange zurück ins Rack oder Hanteln mit gebeugten Knien abstellen.",
+      "sauber": "Der Rücken bleibt flach, die Last bleibt nah an den Beinen, die Knie bleiben gleich leicht gebeugt.",
+      "details": [
+        "Die Tiefe bestimmt deine Beweglichkeit, nicht der Boden."
+      ],
+      "atmung": "Oben einatmen, beim Aufrichten ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu tief mit rundem Rücken.",
+          "k": "Nur so tief, wie der Rücken flach bleibt."
+        },
+        {
+          "f": "Die Knie beugen sich immer mehr.",
+          "k": "Knie fest im leichten Winkel, die Hüfte macht die Bewegung."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder einbeinig.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken. Dehnungsgefühl in der Beinrückseite ist normal.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Tiefe und Knie unklar.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_deadlift",
+      "zweck": "Kreuzheben mit der Langhantel vom Boden: hebt viel Gewicht mit Gesäß, Beinrückseite und Rücken.",
+      "vorbereitung": "Langhantel mit Scheiben auf dem Boden, Verschlüsse drauf. Fester Boden, flache Schuhe oder barfuß.",
+      "schritte": [
+        "Stell dich hüftbreit hin, die Stange liegt über der Fußmitte.",
+        "Beug dich vor und greif die Stange knapp außerhalb der Beine.",
+        "Beug die Knie, bis die Schienbeine die Stange berühren. Brust heraus, Rücken flach.",
+        "Spann den Bauch an und drück die Füße in den Boden. Steh auf, die Stange gleitet an den Beinen hoch.",
+        "Oben gerade stehen, dann auf demselben Weg ablegen: erst Hüfte zurück, dann Knie beugen."
+      ],
+      "ausstieg": "Stange nach der letzten Wiederholung kontrolliert auf den Boden setzen, nicht fallen lassen.",
+      "sauber": "Die Stange bleibt am Bein, der Rücken bleibt flach, Hüfte und Schultern steigen gleichzeitig.",
+      "details": [
+        "Arme gestreckt und locker, sie ziehen nicht.",
+        "Bei schwerem Gewicht hilft der Wechselgriff (eine Hand Obergriff, eine Untergriff)."
+      ],
+      "atmung": "Unten tief einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Rundrücken.",
+          "k": "Weniger Gewicht, Brust heraus."
+        },
+        {
+          "f": "Die Hüfte schießt zuerst hoch.",
+          "k": "Mit den Beinen drücken, Brust und Hüfte gemeinsam."
+        },
+        {
+          "f": "Die Stange entfernt sich vom Körper.",
+          "k": "Stange über der Fußmitte halten, an den Beinen entlang."
+        }
+      ],
+      "skalierung": "Leichter: Kettlebell Deadlift oder Trap Bar Deadlift. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden, wenn der Rücken rund wird. Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff, Spannung, Atmung, Ablegen fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sdhp",
+      "zweck": "Sumo-Kreuzheben mit anschließendem Hochziehen bis unters Kinn: Hüfte und Schultern explosiv, für Metcons.",
+      "vorbereitung": "Langhantel oder Kettlebell.",
+      "schritte": [
+        "Stell dich breit hin, Fußspitzen nach außen, die Last zwischen den Füßen.",
+        "Greif eng, die Hände innerhalb der Beine, Rücken flach.",
+        "Steh explosiv auf.",
+        "Nutz den Schwung und zieh die Last bis unters Kinn, die Ellbogen gehen hoch und nach außen.",
+        "Senk die Last mit gestreckten Armen und geh in die nächste Wiederholung."
+      ],
+      "ausstieg": "Last mit flachem Rücken auf den Boden stellen.",
+      "sauber": "Erst die Hüfte, dann die Arme.",
+      "details": [
+        "Die Ellbogen sind oben höher als die Hände."
+      ],
+      "atmung": "Beim Hochziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu früh mit den Armen ziehen.",
+          "k": "Hüfte ganz strecken, dann ziehen."
+        }
+      ],
+      "skalierung": "Leichter: Kettlebell Deadlift. Schwerer: schwerer.",
+      "grenzen": "Aufhören bei Schulterschmerz beim Hochziehen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ablauf zu knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_band_good_morning",
+      "zweck": "Hüftbeuge gegen ein Band: lernt die Bewegung aus der Hüfte mit leichtem Widerstand.",
+      "vorbereitung": "Ein Band mit Schlaufe.",
+      "schritte": [
+        "Stell dich hüftbreit auf das Band und führ die Schlaufe hinter den Nacken auf den oberen Rücken.",
+        "Knie leicht gebeugt, Rücken flach.",
+        "Schieb die Hüfte nach hinten und beug den Oberkörper vor, bis er fast waagerecht ist.",
+        "Richte dich auf, indem du die Hüfte nach vorn schiebst."
+      ],
+      "ausstieg": "Band vom Nacken nehmen und heruntersteigen.",
+      "sauber": "Der Rücken bleibt flach, die Knie fast gestreckt.",
+      "details": [],
+      "atmung": "Beim Aufrichten ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Knie beugen sich stark.",
+          "k": "Knie fast gestreckt lassen."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_band_pull_through",
+      "zweck": "Band zwischen den Beinen nach vorn ziehen: übt den Hüftstoß wie beim Swing.",
+      "vorbereitung": "Band tief hinter dir an einem festen Punkt befestigen, zum Beispiel am Hantelständer (Rack) oder Pfosten.",
+      "schritte": [
+        "Stell dich mit dem Rücken zum Anker, etwas breiter als hüftbreit, das Band läuft zwischen den Beinen durch.",
+        "Greif das Band mit beiden Händen und geh nach vorn, bis es gespannt ist.",
+        "Schieb die Hüfte nach hinten, die Hände gehen zwischen die Beine.",
+        "Streck die Hüfte kräftig nach vorn, bis du gerade stehst."
+      ],
+      "ausstieg": "Einen Schritt zum Anker, bis das Band locker ist.",
+      "sauber": "Die Bewegung kommt aus der Hüfte, die Arme bleiben locker.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit den Armen ziehen.",
+          "k": "Arme locker, nur die Hüfte arbeitet."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band.",
+      "grenzen": "Band vorher prüfen.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Abstand fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_superman",
+      "zweck": "In Bauchlage Arme und Beine anheben und halten: kräftigt unteren Rücken und Gesäß.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Bauch, Arme lang nach vorn.",
+        "Heb Arme, Brust und Beine ein paar Zentimeter vom Boden.",
+        "Blick bleibt zum Boden, das Gesäß ist angespannt.",
+        "Halte die Zeit."
+      ],
+      "ausstieg": "Arme und Beine langsam ablegen.",
+      "sauber": "Der Körper ist gestreckt, der Nacken bleibt lang.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Zu hoch reißen.",
+          "k": "Nur leicht abheben."
+        },
+        {
+          "f": "Kopf in den Nacken.",
+          "k": "Blick zum Boden."
+        }
+      ],
+      "skalierung": "Leichter: nur Arme oder nur Beine. Schwerer: länger halten.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Fehler ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ghd_hip_ext",
+      "zweck": "Hüftstreckung am GHD: Gesäß und Beinrückseite strecken die Hüfte gegen das Körpergewicht.",
+      "vorbereitung": "GHD so einstellen, dass die Hüfte auf dem Polster liegt und der Oberkörper frei nach vorn kippen kann. Füße fest unter den Rollen.",
+      "schritte": [
+        "Leg dich bäuchlings auf das Polster, die Hüftknochen knapp davor bzw. darauf.",
+        "Arme vor der Brust kreuzen.",
+        "Kipp den Oberkörper mit flachem Rücken aus der Hüfte nach unten.",
+        "Streck die Hüfte, bis der Körper eine Linie bildet."
+      ],
+      "ausstieg": "Oben die Hände an die Griffe, Füße aus den Rollen nehmen und absteigen.",
+      "sauber": "Der Rücken bleibt flach, die Bewegung kommt aus der Hüfte.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        {
+          "f": "Oben überstrecken.",
+          "k": "Nur bis zur geraden Linie."
+        }
+      ],
+      "skalierung": "Leichter: kürzerer Weg. Schwerer: mit Gewicht vor der Brust.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Einstellung des Geräts fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_barbell_hip_thrust",
+      "zweck": "Hip Thrust mit Langhantel über der Hüfte: viel Last fürs Gesäß.",
+      "vorbereitung": "Bank gegen die Wand oder so, dass sie nicht rutscht. Polster oder gefaltete Matte um die Stange.",
+      "schritte": [
+        "Setz dich mit den Schulterblättern an die Bank, die Stange gepolstert über der Hüfte.",
+        "Stell die Füße hüftbreit auf, so dass die Schienbeine oben senkrecht stehen.",
+        "Halt die Stange mit beiden Händen fest und drück die Hüfte hoch, bis Oberkörper und Oberschenkel eine Linie bilden.",
+        "Senk die Hüfte kontrolliert ab."
+      ],
+      "ausstieg": "Hüfte ablegen und die Stange über die Oberschenkel nach vorn rollen.",
+      "sauber": "Oben bilden Knie, Hüfte und Schultern eine Linie, das Kinn bleibt zur Brust.",
+      "details": [],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz oben.",
+          "k": "Rippen unten, Kinn zur Brust."
+        }
+      ],
+      "skalierung": "Leichter: Hip Thrust ohne Gewicht. Schwerer: mehr Gewicht oder oben 2 Sekunden halten.",
+      "grenzen": "Aufhören bei Druckschmerz an der Hüfte, Polster dicker machen.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sumo_deadlift",
+      "zweck": "Kreuzheben im breiten Stand: aufrechterer Oberkörper, mehr Arbeit für Gesäß und Innenseite der Oberschenkel.",
+      "vorbereitung": "Langhantel mit Scheiben auf dem Boden, Verschlüsse drauf.",
+      "schritte": [
+        "Stell dich breit hin, Fußspitzen nach außen, die Stange über der Fußmitte.",
+        "Greif die Stange schulterbreit innerhalb der Knie.",
+        "Drück die Knie nach außen, Brust heraus, Rücken flach.",
+        "Steh auf, die Stange gleitet senkrecht nah am Körper hoch.",
+        "Senk sie kontrolliert ab."
+      ],
+      "ausstieg": "Stange kontrolliert auf den Boden setzen.",
+      "sauber": "Die Knie zeigen in Richtung der Fußspitzen, der Rücken bleibt flach.",
+      "details": [
+        "Wie breit, hängt von deiner Hüfte ab. Die Schienbeine stehen unten etwa senkrecht."
+      ],
+      "atmung": "Unten einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Knie knicken nach innen.",
+          "k": "Knie aktiv nach außen drücken, Stand etwas schmaler."
+        }
+      ],
+      "skalierung": "Leichter: Kettlebell Deadlift im Sumo-Stand. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz in der Leiste oder im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„neutral“ unerklärt, feste Aussage zur Knieinnenseite.",
+        "korrektur": "In Handlung übersetzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_trap_bar_deadlift",
+      "zweck": "Kreuzheben mit der Sechskantstange: Du stehst in der Stange, das ist für viele leichter zu lernen und schont den Rücken.",
+      "vorbereitung": "Trap Bar mit Scheiben auf dem Boden, Verschlüsse drauf.",
+      "schritte": [
+        "Stell dich in die Mitte der Trap Bar, Füße hüftbreit.",
+        "Beug Hüfte und Knie und greif die Griffe seitlich in der Mitte.",
+        "Brust heraus, Rücken flach.",
+        "Steh auf, bis Hüfte und Knie gestreckt sind.",
+        "Senk die Stange kontrolliert ab."
+      ],
+      "ausstieg": "Stange auf den Boden setzen und aus der Mitte heraussteigen.",
+      "sauber": "Der Rücken bleibt flach, die Stange bewegt sich senkrecht.",
+      "details": [],
+      "atmung": "Unten einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Runder Rücken beim Anheben.",
+          "k": "Brust heraus, Hüfte etwas tiefer."
+        }
+      ],
+      "skalierung": "Leichter: hohe Griffe oder weniger Gewicht. Schwerer: tiefe Griffe oder mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„verschiebt die Last in die Wirbelsäule“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_back_extension_45",
+      "zweck": "Rückenstrecken an der 45-Grad-Bank: kräftigt Rückenstrecker, Gesäß und Beinrückseite.",
+      "vorbereitung": "Polster so einstellen, dass es knapp unter den Hüftknochen liegt und du frei in der Hüfte beugen kannst.",
+      "schritte": [
+        "Stell dich in die Bank, Füße fest unter den Rollen.",
+        "Verschränk die Arme vor der Brust.",
+        "Beug dich mit flachem Rücken aus der Hüfte nach vorn.",
+        "Streck die Hüfte, bis der Körper eine Linie bildet."
+      ],
+      "ausstieg": "Hände an die Griffe, Füße aus den Rollen nehmen.",
+      "sauber": "Die Bewegung kommt aus der Hüfte, der Rücken bleibt flach.",
+      "details": [],
+      "atmung": "Beim Aufrichten ausatmen.",
+      "fehler": [
+        {
+          "f": "Oben überstrecken.",
+          "k": "Nur bis zur Linie."
+        }
+      ],
+      "skalierung": "Leichter: kleinerer Weg. Schwerer: Hantelscheibe vor der Brust.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_good_morning",
+      "zweck": "Hüftbeuge mit der Langhantel auf dem Rücken: kräftigt Beinrückseite, Gesäß und Rückenstrecker.",
+      "vorbereitung": "Stange im Hantelständer (Rack) auf Achselhöhe, leichtes Gewicht, Sicherungsablagen auf Hüfthöhe.",
+      "schritte": [
+        "Nimm die Stange auf den oberen Rücken wie bei der Kniebeuge und tritt zurück.",
+        "Beug die Knie leicht.",
+        "Schieb die Hüfte nach hinten und senk den Oberkörper mit flachem Rücken, bis er fast waagerecht ist oder die Beinrückseite deutlich spannt.",
+        "Streck die Hüfte zurück in den Stand."
+      ],
+      "ausstieg": "Stange zurück ins Rack.",
+      "sauber": "Der Rücken bleibt flach, die Knie bleiben leicht gebeugt.",
+      "details": [],
+      "atmung": "Oben einatmen und halten, beim Aufrichten ausatmen.",
+      "fehler": [
+        {
+          "f": "Runder Rücken unter der Last.",
+          "k": "Weniger tief, weniger Gewicht."
+        }
+      ],
+      "skalierung": "Leichter: Band Good Morning. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„überlastet die Lendenwirbelsäule“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert, Tiefe an Beweglichkeit gekoppelt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pvc_hip_hinge",
+      "zweck": "Hüftbeuge mit Stab am Rücken: Der Stab zeigt dir, ob der Rücken flach bleibt.",
+      "vorbereitung": "PVC-Stab oder Besenstiel.",
+      "schritte": [
+        "Halt den Stab hinter dem Rücken, eine Hand im Nacken, eine am unteren Rücken.",
+        "Der Stab berührt Hinterkopf, oberen Rücken und Steißbein.",
+        "Beug die Knie leicht und schieb die Hüfte nach hinten.",
+        "Senk den Oberkörper, solange alle drei Punkte am Stab bleiben.",
+        "Richte dich über die Hüfte wieder auf."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Stab berührt die ganze Zeit Kopf, oberen Rücken und Steißbein.",
+      "details": [],
+      "atmung": "Beim Aufrichten ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Stab verliert den Kontakt am Steißbein.",
+          "k": "Weniger tief, Hüfte weiter nach hinten."
+        }
+      ],
+      "skalierung": "Leichter: kleinerer Weg. Schwerer: langsamer oder einbeinig.",
+      "grenzen": "",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Handposition fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_weighted_single_leg_rdl",
+      "zweck": "Einbeiniges rumänisches Kreuzheben mit Gewicht: mehr Last für Beinrückseite und Gesäß einer Seite.",
+      "vorbereitung": "Kurzhantel oder Kettlebell.",
+      "schritte": [
+        "Steh auf einem Bein, die Hantel in der Hand der Gegenseite.",
+        "Kipp den Oberkörper nach vorn und streck das freie Bein nach hinten.",
+        "Senk die Hantel bis etwa Schienbeinmitte, die Hüfte bleibt waagerecht.",
+        "Komm zurück in den Stand. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Freies Bein abstellen, dann die Hantel absetzen.",
+      "sauber": "Die Hüfte bleibt waagerecht und dreht nicht auf.",
+      "details": [
+        "Zehen des freien Fußes zeigen zum Boden."
+      ],
+      "atmung": "Beim Aufrichten ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte dreht auf.",
+          "k": "Zehen des freien Fußes zum Boden, weniger Gewicht."
+        }
+      ],
+      "skalierung": "Leichter: Single-Leg RDL ohne Gewicht. Schwerer: mehr Gewicht oder in jeder Hand eine Hantel.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

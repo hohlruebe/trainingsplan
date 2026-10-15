@@ -98,13 +98,49 @@ function sammle(datei) {
   });
 }
 
+// Anleitungen (teil „texte“): ersetzt die Texte bestehender Übungen. Sichtbar: zweck, vorbereitung, schritte, ausstieg, sauber.
+// Aufklappbar: details, atmung, fehler (Fehler + Korrektur), skalierung, grenzen. pruefung bleibt nur im Paket (Prüfliste).
+const SAETZE = (t) => (String(t).match(/[^.!?]+[.!?]+/g) || []).length;
+const VAGE = [/sauber ausführen/i, /core anspannen/i, /schultern setzen/i, /neutral bleiben/i, /wie oben/i, /wie gewohnt/i, /^wie [A-Z][\w-]+( [A-Z][\w-]+)*\.?$/];
+const PRUEF_ART = new Set(['fehlende_erklaerung', 'missverstaendlich', 'fachlicher_fehler', 'variante', 'ok']);
+function pruefeTexte(u, err, wo) {
+  const kurz = (k, max, leerOk) => {
+    const v = u[k];
+    if (v === '' && leerOk) return;
+    if (!text(v)) err.push(wo + ': ' + k + ' fehlt' + (leerOk ? ' (leer "" erlaubt)' : ''));
+    else if (v.length > max) err.push(wo + ': ' + k + ' ist zu lang (' + v.length + ' > ' + max + ' Zeichen)');
+  };
+  kurz('zweck', 220); kurz('vorbereitung', 260, true); kurz('sauber', 260); kurz('atmung', 200, true);
+  kurz('skalierung', 420); kurz('ausstieg', 240, true); kurz('grenzen', 260, true);
+  if (u.trainiert !== undefined) kurz('trainiert', 80);
+  if (!Array.isArray(u.schritte) || u.schritte.length < 3 || u.schritte.length > 7 || !u.schritte.every(text)) err.push(wo + ': schritte braucht 3–7 Schritte');
+  else u.schritte.forEach((s, i) => { if (s.length > 170) err.push(wo + ': Schritt ' + (i + 1) + ' ist zu lang (' + s.length + ' Zeichen)'); });
+  if (!Array.isArray(u.details) || u.details.length > 5 || !u.details.every(text)) err.push(wo + ': details muss eine Liste mit 0–5 Sätzen sein');
+  else u.details.forEach((s, i) => { if (s.length > 220) err.push(wo + ': Detail ' + (i + 1) + ' ist zu lang'); });
+  if (!Array.isArray(u.fehler) || u.fehler.length < 1 || u.fehler.length > 4) err.push(wo + ': fehler braucht 1–4 Einträge {f, k}');
+  else u.fehler.forEach((x, i) => { if (!x || !text(x.f) || !text(x.k)) err.push(wo + ': fehler ' + (i + 1) + ' braucht f (Fehler) und k (Korrektur)'); });
+  if (text(u.skalierung) && !/Leichter:|Schwerer:/.test(u.skalierung)) err.push(wo + ': skalierung beginnt mit „Leichter:“ und/oder „Schwerer:“');
+  if (SAETZE(u.zweck) > 2) err.push(wo + ': zweck höchstens 2 Sätze');
+  const alle = [u.zweck, u.vorbereitung, u.sauber, u.atmung, u.skalierung, u.ausstieg, u.grenzen].concat(u.schritte || [], u.details || [],
+    (u.fehler || []).map((x) => (x && x.f) + ' ' + (x && x.k)));
+  alle.forEach((t) => VAGE.forEach((r) => { if (t && r.test(t)) err.push(wo + ': vager Hinweis „' + t.slice(0, 50) + '“'); }));
+  const p = u.pruefung;
+  if (!p || !Array.isArray(p.art) || !p.art.length || p.art.some((a) => !PRUEF_ART.has(a))) err.push(wo + ': pruefung.art fehlt (' + Array.from(PRUEF_ART).join(', ') + ')');
+  else {
+    if (!text(p.problem) || !text(p.korrektur)) err.push(wo + ': pruefung braucht problem und korrektur');
+    if (!['geklaert', 'offen'].includes(p.status)) err.push(wo + ': pruefung.status muss geklaert oder offen sein');
+    if (p.status === 'offen' && !text(p.frage)) err.push(wo + ': offene Prüfung braucht eine frage');
+  }
+  Object.keys(u).forEach((k) => { if (!TEXT_KEYS.includes(k)) err.push(wo + ': unbekanntes Feld „' + k + '“ (teil texte ändert nur Texte)'); });
+}
+const TEXT_KEYS = ['id', 'trainiert', 'zweck', 'vorbereitung', 'schritte', 'ausstieg', 'sauber', 'details', 'atmung', 'fehler', 'skalierung', 'grenzen', 'pruefung'];
+
 function pruefeDatei(datei) {
   const err = [];
   let d;
   try { d = JSON.parse(fs.readFileSync(datei, 'utf8')); } catch (e) { return ['Kein gültiges JSON: ' + e.message]; }
   if (d.v !== 1) err.push('v muss 1 sein');
   if (!MUSTER.has(d.muster)) err.push('unbekanntes muster „' + d.muster + '“');
-  if (!text(d.quelle)) err.push('quelle fehlt');
   const leerOk = d.teil === 'felder' && !LIB.uebungen.some((u) => u.muster === d.muster);
   if (!Array.isArray(d.uebungen) || (!d.uebungen.length && !leerOk)) return err.concat(['uebungen fehlt oder ist leer']);
   const ids = new Set();
@@ -185,7 +221,15 @@ function pruefeDatei(datei) {
       });
     });
     ids.forEach((id) => { if (!platz[id]) err.push(id + ': steht in keiner Familie'); else if (platz[id] > 1) err.push(id + ': steht in mehr als einer Familie'); });
-  } else err.push('teil muss „felder“ oder „neu“ sein');
+  } else if (d.teil === 'texte') {
+    // Jede Übung des Musters genau einmal (Ausnahme: Paket mit „teil_von“ deckt nur einen Teil ab, alle Teile zusammen prüfen)
+    if (!d.teil_von) LIB.uebungen.filter((u) => u.muster === d.muster).forEach((u) => { if (!ids.has(u.id)) err.push(u.id + ': fehlt im Paket'); });
+    d.uebungen.forEach((u) => {
+      if (!UE[u.id]) { err.push(u.id + ': diese Übung gibt es nicht'); return; }
+      if (UE[u.id].muster !== d.muster) err.push(u.id + ': gehört zu Muster ' + UE[u.id].muster);
+      pruefeTexte(u, err, u.id);
+    });
+  } else err.push('teil muss „felder“, „neu“ oder „texte“ sein');
   if (!Array.isArray(d.entscheidungen)) err.push('entscheidungen fehlt (leere Liste, wenn keine)');
   return err;
 }
@@ -198,5 +242,15 @@ dateien.forEach((f) => {
   const err = pruefeDatei(f);
   if (err.length) { fehler++; console.log('✗ ' + path.basename(f) + ': ' + err.length + ' Fehler'); err.forEach((e) => console.log('  - ' + e)); }
   else console.log('✓ ' + path.basename(f) + ': OK');
+});
+// Geteilte Anleitungs-Pakete (teil_von): zusammen muss jede Übung des Musters genau einmal vorkommen.
+const teile = {};
+dateien.forEach((f) => { let d; try { d = JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { return; }
+  if (d.teil === 'texte' && d.teil_von) (teile[d.muster] = teile[d.muster] || []).push(...(d.uebungen || []).map((u) => u.id)); });
+Object.keys(teile).forEach((m) => {
+  const da = teile[m], soll = LIB.uebungen.filter((u) => u.muster === m).map((u) => u.id);
+  const fehlt = soll.filter((id) => !da.includes(id)), doppelt = da.filter((id, i) => da.indexOf(id) !== i);
+  if (fehlt.length || doppelt.length) { fehler++; console.log('✗ Teile von ' + m + ': fehlen ' + (fehlt.join(', ') || '–') + ', doppelt ' + (doppelt.join(', ') || '–')); }
+  else console.log('✓ Teile von ' + m + ': vollständig (' + soll.length + ')');
 });
 process.exit(fehler ? 1 : 0);

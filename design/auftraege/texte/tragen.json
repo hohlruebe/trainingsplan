@@ -1,0 +1,262 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "tragen",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_backpack_carry",
+      "zweck": "Gehen mit beschwertem Rucksack: Rumpf, Beine und Ausdauer, überall möglich.",
+      "vorbereitung": "Rucksack mit Büchern, Wasserflaschen oder Sand beschweren, Gurte festziehen.",
+      "schritte": [
+        "Setz den Rucksack auf den Rücken und zieh die Gurte fest, oder halt ihn vor der Brust.",
+        "Steh aufrecht, Schultern unten, Bauch leicht fest.",
+        "Geh zügig mit normalen Schritten die Strecke."
+      ],
+      "ausstieg": "Rucksack mit gebeugten Knien absetzen.",
+      "sauber": "Die Haltung bleibt aufrecht.",
+      "details": [
+        "Vor der Brust ist schwerer für den Rumpf als auf dem Rücken."
+      ],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Nach vorn lehnen.", "k": "Brust hoch, Rucksack enger." }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer oder Treppen.",
+      "grenzen": "Aufhören bei Schmerz im Rücken.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Beschwerung fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_farmers_carry",
+      "zweck": "In jeder Hand eine schwere Last tragen: Griff, Rumpf und Schultern.",
+      "vorbereitung": "Zwei gleich schwere Kettlebells, Kurzhanteln oder Taschen.",
+      "schritte": [
+        "Stell die Lasten neben die Füße.",
+        "Geh mit geradem Rücken in die Hocke und greif beide fest.",
+        "Steh auf wie beim Kreuzheben.",
+        "Geh aufrecht und zügig, die Schultern unten, der Blick nach vorn."
+      ],
+      "ausstieg": "Stehen bleiben, in die Knie gehen und die Lasten abstellen. Nicht fallen lassen.",
+      "sauber": "Keine Seitneigung, die Schultern bleiben unten.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Schultern ziehen hoch.", "k": "Schultern tief, Hals lang." }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer oder länger.",
+      "grenzen": "Absetzen, bevor der Griff aufgeht.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Aufnehmen und Absetzen fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_suitcase_carry",
+      "zweck": "Eine Last nur in einer Hand tragen: Der seitliche Rumpf hält gegen das Kippen.",
+      "vorbereitung": "Eine Kettlebell oder Kurzhantel.",
+      "schritte": [
+        "Nimm die Last mit geradem Rücken in eine Hand.",
+        "Steh aufrecht, ohne zur Last zu kippen.",
+        "Geh die Strecke, dann Seite wechseln."
+      ],
+      "ausstieg": "In die Knie gehen und abstellen.",
+      "sauber": "Der Oberkörper bleibt gerade.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Zur Last kippen.", "k": "Gegenseite anspannen, leichter." }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer.",
+      "grenzen": "Absetzen, bevor der Griff aufgeht.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_overhead_carry",
+      "zweck": "Eine Last über dem Kopf tragen: Schultern und Rumpf halten.",
+      "vorbereitung": "Kettlebell oder Kurzhantel, freie Strecke.",
+      "schritte": [
+        "Drück die Last mit gestreckten Armen über den Kopf.",
+        "Rippen unten, Bauch fest, Arme neben den Ohren.",
+        "Geh die Strecke."
+      ],
+      "ausstieg": "Last kontrolliert auf die Schulter senken, dann abstellen.",
+      "sauber": "Die Arme bleiben gestreckt neben den Ohren.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Hohlkreuz.", "k": "Rippen runter, leichter." }
+      ],
+      "skalierung": "Leichter: einarmig leicht. Schwerer: schwerer.",
+      "grenzen": "Last absenken, wenn die Arme nachgeben.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sandbag_carry",
+      "zweck": "Sandsack vor der Brust umarmen und tragen: Rumpf, oberer Rücken und Beine.",
+      "vorbereitung": "Sandsack.",
+      "schritte": [
+        "Heb den Sandsack mit geradem Rücken vom Boden, zuerst auf die Oberschenkel.",
+        "Umarm ihn fest vor der Brust.",
+        "Steh auf und geh aufrecht die Strecke."
+      ],
+      "ausstieg": "Sack auf die Oberschenkel senken und mit gebeugten Knien abstellen.",
+      "sauber": "Der Sack bleibt nah am Körper.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Rundrücken.", "k": "Brust hoch." }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Aufnehmen fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sandbag_shoulder_carry",
+      "zweck": "Sandsack auf einer Schulter tragen: Der Rumpf hält gegen die Seitneigung.",
+      "vorbereitung": "Sandsack.",
+      "schritte": [
+        "Heb den Sack auf die Brust und dann auf eine Schulter.",
+        "Halt ihn mit beiden Händen fest.",
+        "Geh aufrecht die Strecke, dann Schulter wechseln."
+      ],
+      "ausstieg": "Sack nach vorn auf die Brust holen und mit gebeugten Knien ablegen.",
+      "sauber": "Keine Seitneigung.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Zur Last kippen.", "k": "Gegenseite anspannen." }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer.",
+      "grenzen": "Aufhören bei Schmerz im Rücken.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Aufnehmen fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sled_push",
+      "zweck": "Schlitten schieben: Beine und Ausdauer ohne Belastung durch Landungen.",
+      "vorbereitung": "Schlitten mit Gewicht auf einer freien Bahn.",
+      "schritte": [
+        "Greif die Stangen, Arme gestreckt oder leicht gebeugt.",
+        "Lehn dich tief nach vorn, der Rücken gerade.",
+        "Schieb kräftig und gleichmäßig mit kurzen Schritten über die Fußballen."
+      ],
+      "ausstieg": "Stehen bleiben und aufrichten.",
+      "sauber": "Der Rücken ist gerade, die Arme gestreckt.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Aufrecht stehen.", "k": "Tief lehnen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schwindel oder Übelkeit.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sled_pull",
+      "zweck": "Schlitten am Seil zu sich ziehen: Rücken, Arme, Griff und Beine.",
+      "vorbereitung": "Schlitten mit Seil, freie Bahn.",
+      "schritte": [
+        "Stell dich mit dem Seil in der Hand vor den Schlitten, das Seil gespannt.",
+        "Stell die Füße fest hin, Knie leicht gebeugt, und lehn dich leicht zurück.",
+        "Zieh das Seil Hand über Hand zu dir.",
+        "Halt die Füße an Ort und Stelle, bis der Schlitten bei dir ist."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Beine stemmen sich gegen den Zug, die Arme ziehen gleichmäßig.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Runder Rücken.", "k": "Brust heraus, aus den Beinen stemmen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder längere Strecke.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„überlastet den unteren Rücken“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_backward_sled_drag",
+      "zweck": "Schlitten rückwärts ziehen: kräftigt den vorderen Oberschenkel, schonend für die Knie.",
+      "vorbereitung": "Schlitten mit Gurten oder Griffen, freie Bahn hinter dir.",
+      "schritte": [
+        "Greif die Gurte oder Griffe und schau zum Schlitten.",
+        "Geh mit kleinen Schritten rückwärts, Knie leicht gebeugt.",
+        "Drück dich bei jedem Schritt über den Vorfuß ab."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Knie bleiben gebeugt, die Schritte sind kurz und gleichmäßig.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Mit gestreckten Beinen zurücklehnen.", "k": "Knie gebeugt lassen, tiefer gehen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder längere Strecke.",
+      "grenzen": "Hinter dir muss frei sein.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Sicherheitshinweis ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_front_rack_carry",
+      "zweck": "Zwei Lasten vorn auf den Schultern tragen: Rumpf und aufrechte Haltung.",
+      "vorbereitung": "Zwei Kettlebells oder Kurzhanteln.",
+      "schritte": [
+        "Bring zwei Kettlebells oder Kurzhanteln vor die Schultern (Front-Rack): Hände am Kinn, Ellbogen vor dem Körper.",
+        "Ellbogen nah am Körper, Brust aufrecht.",
+        "Geh mit kurzen, ruhigen Schritten die Strecke."
+      ],
+      "ausstieg": "Lasten vor dem Körper absenken und mit gebeugten Knien abstellen.",
+      "sauber": "Der Oberkörper bleibt aufrecht, die Ellbogen sinken nicht ab.",
+      "details": [],
+      "atmung": "Kurze Atemzüge, ohne die Spannung zu lösen.",
+      "fehler": [
+        { "f": "Zurücklehnen zum Ausgleich.", "k": "Rippen unten, leichter." }
+      ],
+      "skalierung": "Leichter: leichtere Gewichte oder nur eine Seite. Schwerer: schwerere Gewichte oder längere Strecke.",
+      "grenzen": "Absetzen, wenn die Haltung bricht.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Front-Rack unerklärt.",
+        "korrektur": "Erklärt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

@@ -1,0 +1,387 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "rumpf_rotation",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_side_plank",
+      "zweck": "Seitstütz: Die seitlichen Bauchmuskeln halten die Hüfte oben. Erste Stufe zur Human Flag.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf die Seite und stütz dich auf den Unterarm, der Ellbogen unter der Schulter.",
+        "Die Beine liegen gestreckt übereinander.",
+        "Heb die Hüfte, bis der Körper von Kopf bis Fuß eine Linie bildet.",
+        "Halte, dann Seite wechseln."
+      ],
+      "ausstieg": "Hüfte ablegen.",
+      "sauber": "Die Hüfte bleibt oben, der Körper in einer Linie.",
+      "details": [
+        "Die obere Hand kann an der Hüfte liegen oder nach oben zeigen."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte sackt ab.", "k": "Kürzer halten oder auf den Knien." },
+        { "f": "Die Hüfte schiebt nach hinten.", "k": "Gesäß anspannen, Hüfte nach vorn." }
+      ],
+      "skalierung": "Leichter: unteres Knie am Boden. Schwerer: oberes Bein anheben.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pallof",
+      "zweck": "Band vor der Brust wegdrücken, ohne sich zum Anker drehen zu lassen: trainiert den Rumpf gegen Drehung.",
+      "vorbereitung": "Band auf Brusthöhe seitlich neben dir befestigen.",
+      "schritte": [
+        "Stell dich seitlich zum Anker, Füße hüftbreit, Knie leicht gebeugt.",
+        "Halt das Band mit beiden Händen vor der Brust und geh seitlich weg, bis es gespannt ist.",
+        "Drück die Hände gerade nach vorn, bis die Arme gestreckt sind.",
+        "Halte kurz und zieh die Hände ohne Drehen zurück zur Brust.",
+        "Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Zum Anker gehen, bis das Band locker ist.",
+      "sauber": "Der Oberkörper dreht nicht mit, die Hände bleiben vor der Brustmitte.",
+      "details": [],
+      "atmung": "Beim Wegdrücken ausatmen.",
+      "fehler": [
+        { "f": "Zu nah am Anker, es passiert nichts.", "k": "Mehr Abstand für mehr Zug." },
+        { "f": "Der Oberkörper dreht zum Anker.", "k": "Gesäß und Bauch fest, leichteres Band." }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ablauf zu knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_russian_twist",
+      "zweck": "Im Sitzen den Oberkörper nach links und rechts drehen: seitliche Bauchmuskeln.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Setz dich hin, Knie gebeugt, und lehn den Oberkörper leicht zurück, Rücken gerade.",
+        "Halt die Hände vor der Brust zusammen.",
+        "Dreh Schultern und Brust zu einer Seite, dann zur anderen.",
+        "Füße bleiben am Boden oder sind angehoben."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Drehung kommt aus dem Brustkorb, die Schultern drehen mit.",
+      "details": [
+        "Eine Wiederholung ist eine Seite, außer im Plan steht „je Seite“."
+      ],
+      "atmung": "Bei jeder Drehung ausatmen.",
+      "fehler": [
+        { "f": "Nur die Arme bewegen sich.", "k": "Schultern und Brust mitdrehen." },
+        { "f": "Runder Rücken.", "k": "Weniger weit zurücklehnen." }
+      ],
+      "skalierung": "Leichter: Füße am Boden. Schwerer: mit Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Zählweise fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_turkish_getup",
+      "zweck": "Mit einer Last über dem Kopf vom Liegen zum Stehen und zurück: Rumpf, Schulter und Beweglichkeit in einer Übung.",
+      "vorbereitung": "Viel Platz. Erst ohne Gewicht üben, zum Beispiel mit einem Schuh auf der Faust.",
+      "schritte": [
+        "Leg dich auf den Rücken, die Last mit gestrecktem Arm senkrecht über der Schulter. Das Knie dieser Seite ist gebeugt, der Fuß steht.",
+        "Stütz dich auf den freien Ellbogen, dann auf die freie Hand.",
+        "Heb die Hüfte und schieb das gestreckte Bein unter dem Körper durch, bis du auf dem Knie kniest.",
+        "Richte den Oberkörper auf, du bist im Halbkniestand. Steh dann auf.",
+        "Geh denselben Weg Schritt für Schritt zurück."
+      ],
+      "ausstieg": "Unten angekommen die Last mit beiden Händen zur Brust führen und seitlich ablegen.",
+      "sauber": "Der Arm mit der Last bleibt senkrecht, der Blick geht zur Last.",
+      "details": [
+        "Jede Position kurz halten, bevor die nächste kommt."
+      ],
+      "atmung": "In jeder Position einmal ruhig atmen.",
+      "fehler": [
+        { "f": "Zu schnell.", "k": "Jede Position kurz halten." },
+        { "f": "Der Arm kippt.", "k": "Leichter oder ohne Gewicht." }
+      ],
+      "skalierung": "Leichter: ohne Gewicht, Schuh auf der Faust. Schwerer: schwerer.",
+      "grenzen": "Last sofort zur Seite ablegen, wenn der Arm unsicher wird. Nie über den Kopf fallen lassen.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„Schritt für Schritt“ ohne Schritte.",
+        "korrektur": "Phasen beschrieben, sicheres Ablegen ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_flag_tuck",
+      "zweck": "Gehockte Fahne: an einer senkrechten Stange seitlich in der Luft halten, die Knie angezogen.",
+      "vorbereitung": "Senkrechte Stange, Sprossenwand oder Pfosten, an dem du fest greifen kannst.",
+      "schritte": [
+        "Greif die Stange: obere Hand im Obergriff etwas über Kopfhöhe, untere Hand im Untergriff etwa schulterbreit tiefer.",
+        "Obere Hand zieht, untere Hand drückt, beide Arme gestreckt.",
+        "Heb die Füße ab, zieh die Knie an und bring den Körper seitlich nach oben.",
+        "Halte den Körper seitlich etwa waagerecht."
+      ],
+      "ausstieg": "Füße zurück zum Boden führen.",
+      "sauber": "Die Arme sind gestreckt, der Körper seitlich waagerecht.",
+      "details": [
+        "Die untere Schulter drückt kräftig weg. Sie trägt den größten Teil."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die untere Schulter knickt ein.", "k": "Fest wegdrücken, schräg nach oben halten." }
+      ],
+      "skalierung": "Leichter: schräg nach oben halten. Schwerer: Human Flag.",
+      "grenzen": "Aufhören bei Schmerz in der unteren Schulter oder im Handgelenk.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Griff der Hände ungenau.",
+        "korrektur": "Ober- und Untergriff mit Abstand beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_human_flag",
+      "zweck": "Menschliche Fahne: der gestreckte Körper hängt seitlich waagerecht an einer senkrechten Stange.",
+      "vorbereitung": "Senkrechte Stange, Sprossenwand oder fester Pfosten.",
+      "schritte": [
+        "Greif die Stange: obere Hand im Obergriff über Kopfhöhe, untere Hand im Untergriff tiefer.",
+        "Obere Hand zieht, untere Hand drückt, Arme gestreckt.",
+        "Heb den gestreckten Körper seitlich, bis er waagerecht ist.",
+        "Halte, dann kontrolliert absetzen."
+      ],
+      "ausstieg": "Beine senken, Füße abstellen.",
+      "sauber": "Gerade Linie wie eine Fahne.",
+      "details": [],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte hängt.", "k": "Mehr Spannung, kürzer halten." }
+      ],
+      "skalierung": "Leichter: Straddle Flag (Beine gegrätscht). Schwerer: länger halten.",
+      "grenzen": "Aufhören bei Schmerz in Schulter oder Handgelenk.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„Griff wie beim Tuck Human Flag“.",
+        "korrektur": "Eigenständig.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_cable_woodchop",
+      "zweck": "Holzhacker: diagonal von oben nach unten ziehen, Hüfte und Schultern drehen gemeinsam.",
+      "vorbereitung": "Kabelzug oder Band hoch neben dir befestigen.",
+      "schritte": [
+        "Stell dich seitlich zum Anker und greif den Griff mit beiden Händen über der Schulter.",
+        "Zieh den Griff diagonal zur gegenüberliegenden Hüfte.",
+        "Dreh dabei Hüfte und Schultern gemeinsam, die Arme fast gestreckt.",
+        "Lass den Griff kontrolliert zurück. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Griff zurückgehen lassen, bis das Gewicht aufliegt.",
+      "sauber": "Hüfte und Schultern drehen gemeinsam, die Arme bleiben lang.",
+      "details": [
+        "Der hintere Fuß darf mitdrehen."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        { "f": "Nur mit den Armen ziehen.", "k": "Hüfte drehen, Arme lang." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder leichteres Band. Schwerer: mehr Gewicht oder im Halbkniestand.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_landmine_rotation",
+      "zweck": "Das Ende einer Landmine im Bogen von Hüfte zu Hüfte führen: Rumpf und Schultern gegen Drehung und in Drehung.",
+      "vorbereitung": "Langhantel im Landmine-Adapter, am freien Ende Scheiben mit Verschluss.",
+      "schritte": [
+        "Halt das Stangenende mit beiden Händen und gestreckten Armen vor der Brust.",
+        "Füße etwas breiter als hüftbreit.",
+        "Führ die Stange in einem Bogen zu einer Hüfte, Hüfte und hinterer Fuß drehen mit.",
+        "Bring die Stange über die Mitte zur anderen Seite."
+      ],
+      "ausstieg": "Stange in der Mitte vor der Brust anhalten und mit gebeugten Knien ablegen.",
+      "sauber": "Die Arme bleiben gestreckt, die Drehung kommt aus der Hüfte.",
+      "details": [],
+      "atmung": "Bei jeder Seite ausatmen.",
+      "fehler": [
+        { "f": "Nur im unteren Rücken verdrehen.", "k": "Hüfte und Füße mitdrehen, kleinerer Bogen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder kleinerer Bogen. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„überlastet die Lendenwirbelsäule“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_plank_shoulder_tap",
+      "zweck": "Im Liegestütz abwechselnd eine Schulter antippen: Der Rumpf hält gegen das Kippen.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den hohen Liegestütz, Füße etwas breiter als hüftbreit.",
+        "Heb eine Hand und tipp die gegenüberliegende Schulter an.",
+        "Setz die Hand ab und wechsle die Seite, die Hüfte bleibt ruhig."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Die Hüfte schaukelt nicht von Seite zu Seite.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte dreht.", "k": "Füße breiter, langsamer." }
+      ],
+      "skalierung": "Leichter: Füße weiter auseinander oder auf Knien. Schwerer: Füße enger zusammen.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_copenhagen_plank",
+      "zweck": "Seitstütz mit dem oberen Bein auf einer Bank: trainiert die Innenseite der Oberschenkel und den seitlichen Rumpf.",
+      "vorbereitung": "Bank, Stuhl oder Sofa, etwa kniehoch. Weiche Unterlage für den Unterarm.",
+      "schritte": [
+        "Leg dich in den Seitstütz neben die Bank, den Unterarm am Boden unter der Schulter.",
+        "Leg den oberen Fuß oder das obere Knie auf die Bank, das untere Bein hängt frei darunter.",
+        "Heb die Hüfte, bis der Körper eine Linie bildet, und halte.",
+        "Nach der Zeit die Seite wechseln."
+      ],
+      "ausstieg": "Hüfte ablegen, dann das Bein von der Bank nehmen.",
+      "sauber": "Der Körper bildet eine Linie, die Hüfte sinkt nicht ab.",
+      "details": [
+        "Knie auf der Bank ist leichter als der Fuß, weil der Hebel kürzer ist."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte knickt ab.", "k": "Knie statt Fuß auf die Bank." }
+      ],
+      "skalierung": "Leichter: Knie statt Fuß auf der Bank. Schwerer: Fuß auf der Bank und unteres Bein angehoben.",
+      "grenzen": "Aufhören bei Schmerz in der Leiste oder an der Knieinnenseite.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Hebel erklärt, Abbruchsignal ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_windshield_wiper",
+      "zweck": "Im Hang die Beine oben von Seite zu Seite kippen: sehr schwer für die seitlichen Bauchmuskeln.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass du frei hängst.",
+      "schritte": [
+        "Häng dich an und heb die gestreckten Beine bis zur Stange.",
+        "Kipp die Beine kontrolliert zu einer Seite ab.",
+        "Führ sie über die Mitte zur anderen Seite, ohne dass der Körper schwingt."
+      ],
+      "ausstieg": "Beine in der Mitte senken, im ruhigen Hang loslassen.",
+      "sauber": "Die Beine bleiben oben, der Oberkörper dreht kaum mit.",
+      "details": [],
+      "atmung": "Bei jeder Seite ausatmen.",
+      "fehler": [
+        { "f": "Der ganze Körper schwingt.", "k": "Kleinerer Bogen, langsamer." }
+      ],
+      "skalierung": "Leichter: Beine angehockt oder in Rückenlage am Boden. Schwerer: größerer Bogen oder langsamer.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_med_ball_rotational_throw",
+      "zweck": "Medizinball seitlich explosiv an die Wand werfen: Drehkraft aus Hüfte und Rumpf.",
+      "vorbereitung": "Feste Wand ohne Fenster, etwa einen Meter seitlich davor.",
+      "schritte": [
+        "Stell dich seitlich zur Wand, den Ball auf Hüfthöhe.",
+        "Hol mit Hüfte und Schultern weg von der Wand aus.",
+        "Dreh explosiv aus der Hüfte und wirf den Ball seitlich an die Wand.",
+        "Fang ihn. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Drehung startet in der Hüfte, der hintere Fuß dreht mit.",
+      "details": [],
+      "atmung": "Beim Wurf kräftig ausatmen.",
+      "fehler": [
+        { "f": "Nur aus den Armen werfen.", "k": "Hüfte zuerst drehen." }
+      ],
+      "skalierung": "Leichter: leichterer Ball. Schwerer: schwererer Ball oder schneller.",
+      "grenzen": "Aufhören, wenn du den Ball nicht mehr sicher fängst.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bicycle_crunch",
+      "zweck": "Fahrrad-Crunch: Ellbogen zum gegenüberliegenden Knie, gerader und seitlicher Bauch.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Hände locker an den Schläfen, Beine angehoben.",
+        "Führ einen Ellbogen zum gegenüberliegenden Knie, das andere Bein streckt sich.",
+        "Wechsel die Seiten gleichmäßig wie beim Radfahren."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Schulter dreht zum Knie, nicht nur der Ellbogen.",
+      "details": [],
+      "atmung": "Bei jeder Drehung ausatmen.",
+      "fehler": [
+        { "f": "Am Kopf ziehen.", "k": "Hände nur anlegen." }
+      ],
+      "skalierung": "Leichter: Füße am Boden. Schwerer: langsamer und mit Halten am Ende.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_windmill",
+      "zweck": "Windmühle: mit einer Last über dem Kopf seitlich nach unten beugen. Seitlicher Rumpf, Schulter und Beinrückseite.",
+      "vorbereitung": "Erst ohne Gewicht üben.",
+      "schritte": [
+        "Drück eine Kettlebell über den Kopf, Füße etwas breiter als hüftbreit, beide leicht zur anderen Seite gedreht.",
+        "Schieb die Hüfte zur Seite der Kettlebell und beug dich seitlich nach unten.",
+        "Führ die freie Hand am Bein entlang zum Fuß, der Blick bleibt bei der Kettlebell.",
+        "Richte dich auf. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell zur Schulter senken und mit gebeugten Knien abstellen.",
+      "sauber": "Der Arm mit der Kettlebell bleibt senkrecht und gestreckt.",
+      "details": [],
+      "atmung": "Beim Aufrichten ausatmen.",
+      "fehler": [
+        { "f": "Der Arm knickt ab.", "k": "Ohne Gewicht üben, kleinerer Weg." }
+      ],
+      "skalierung": "Leichter: ohne Gewicht oder kleinerer Weg. Schwerer: mehr Gewicht.",
+      "grenzen": "Last sofort zur Schulter nehmen, wenn der Arm unsicher wird.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„überlastet die Schulter“ als Behauptung.",
+        "korrektur": "Als Korrektur und Abbruchsignal formuliert.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

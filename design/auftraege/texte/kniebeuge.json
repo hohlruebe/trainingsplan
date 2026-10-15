@@ -1,0 +1,453 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "kniebeuge",
+  "entscheidungen": [
+    "Knie dürfen bei der Kniebeuge über die Zehen hinausgehen. Die Hinweise sagen deshalb überall: Knie zeigen in Richtung der Fußspitzen, nicht: Knie hinter den Zehen halten."
+  ],
+  "uebungen": [
+    {
+      "id": "g_air",
+      "zweck": "Die Kniebeuge ohne Gewicht: kräftigt Oberschenkel und Gesäß und hält Hüfte und Sprunggelenke beweglich.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell die Füße etwa schulterbreit, die Fußspitzen zeigen leicht nach außen.",
+        "Schieb die Hüfte nach hinten und unten, als würdest du dich auf einen Stuhl setzen. Die Arme gehen zum Ausgleich nach vorn.",
+        "Die Knie schieben dabei nach vorn und zeigen in Richtung der Fußspitzen.",
+        "Geh so tief, dass die Hüftfalte unter der Kniehöhe ist, wenn der Rücken gerade bleibt.",
+        "Drück dich über den ganzen Fuß wieder hoch, bis Hüfte und Knie gestreckt sind."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Fersen bleiben am Boden, die Knie zeigen in Richtung der Fußspitzen, unten ist die Hüfte unter Kniehöhe.",
+      "details": [
+        "Das Gewicht verteilt sich auf Ferse, Großzehenballen und Kleinzehenballen.",
+        "Dass die Knie über die Zehen hinausgehen, ist normal und kein Fehler.",
+        "Wie breit und wie weit gedreht die Füße stehen, ist individuell: Nimm die Stellung, in der du am tiefsten mit geradem Rücken kommst."
+      ],
+      "atmung": "Oben einatmen, beim Absenken halten oder einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Knie fallen nach innen.",
+          "k": "Knie aktiv in Richtung der Fußspitzen schieben."
+        },
+        {
+          "f": "Die Fersen heben ab.",
+          "k": "Füße etwas breiter und weiter ausgedreht, oder Fersen auf eine flache Unterlage."
+        },
+        {
+          "f": "Der Rücken wird unten rund.",
+          "k": "Nur so tief, wie der Rücken gerade bleibt."
+        }
+      ],
+      "skalierung": "Leichter: auf einen Stuhl absitzen (Box Squat) oder an einem Türrahmen festhalten. Schwerer: Weste oder Goblet Squat.",
+      "grenzen": "Weniger tief gehen oder aufhören bei Schmerz im Knie. Ein Brennen im Oberschenkel ist normal.",
+      "pruefung": {
+        "art": [
+          "fachlicher_fehler"
+        ],
+        "problem": "Korrektur „Knie über die Zehen schieben“ unklar und widersprüchlich zum verbreiteten Mythos „Knie nie über die Zehen“; Tiefe in Glossar und Bibliothek verschieden.",
+        "korrektur": "Knie zeigen in Richtung der Fußspitzen, über die Zehen hinaus ist normal; Tiefe mit Bedingung gerader Rücken.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_box_squat",
+      "zweck": "Kniebeuge auf einen Stuhl: Der Stuhl zeigt dir die Tiefe und gibt Sicherheit, gut zum Lernen.",
+      "vorbereitung": "Stabiler Stuhl oder Box, mit der Lehne gegen die Wand gestellt.",
+      "schritte": [
+        "Stell dich mit dem Rücken vor den Stuhl, Füße schulterbreit, etwa eine halbe Fußlänge vor der Kante.",
+        "Schieb die Hüfte nach hinten und setz dich langsam ab, die Arme gehen nach vorn.",
+        "Tipp mit dem Gesäß kurz die Sitzfläche an, ohne dich abzusetzen.",
+        "Drück dich über den ganzen Fuß wieder hoch in den Stand."
+      ],
+      "ausstieg": "",
+      "sauber": "Du tippst leise an, ohne dich fallen zu lassen.",
+      "details": [
+        "Die Knie zeigen in Richtung der Fußspitzen."
+      ],
+      "atmung": "Beim Absetzen einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Auf den Stuhl plumpsen.",
+          "k": "Langsam absitzen, nur antippen."
+        },
+        {
+          "f": "Mit Schwung nach vorn aufstehen.",
+          "k": "Gewicht auf den Füßen lassen und gerade hoch."
+        }
+      ],
+      "skalierung": "Leichter: höherer Sitz. Schwerer: tieferer Sitz, dann Air Squat.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Abstand und Stabilität des Stuhls fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_wall_sit",
+      "zweck": "An der Wand in der Hocke halten: kräftigt die Oberschenkel, ohne Bewegung.",
+      "vorbereitung": "Eine freie, glatte Wand. Socken aus oder rutschfeste Schuhe.",
+      "schritte": [
+        "Lehn dich mit dem Rücken an die Wand, Füße hüftbreit, etwa einen großen Schritt vor der Wand.",
+        "Rutsch an der Wand hinunter, bis die Oberschenkel etwa waagerecht sind.",
+        "Die Knie stehen über den Knöcheln, der ganze Rücken liegt an der Wand.",
+        "Lass die Arme locker hängen und halte die Zeit."
+      ],
+      "ausstieg": "Hände auf die Oberschenkel stützen und an der Wand hochschieben.",
+      "sauber": "Die Knie stehen über den Knöcheln, die Oberschenkel sind waagerecht.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen, nicht pressen.",
+      "fehler": [
+        {
+          "f": "Hände auf die Knie stützen.",
+          "k": "Arme locker hängen lassen."
+        },
+        {
+          "f": "Füße zu nah an der Wand, die Knie schieben vor.",
+          "k": "Füße weiter vor, bis die Knie über den Knöcheln sind."
+        }
+      ],
+      "skalierung": "Leichter: höher sitzen. Schwerer: Weste oder einbeinig.",
+      "grenzen": "Aufhören bei Schmerz in der Kniescheibe.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Fußabstand und Aufstehen fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_goblet_squat",
+      "zweck": "Kniebeuge mit einem Gewicht vor der Brust: Das Gewicht hilft, aufrecht zu bleiben, und macht die Beine stärker.",
+      "vorbereitung": "Kettlebell, Kurzhantel, Medizinball oder Sandsack.",
+      "schritte": [
+        "Halt das Gewicht mit beiden Händen dicht vor der Brust, Ellbogen nach unten.",
+        "Stell die Füße etwa schulterbreit, Fußspitzen leicht nach außen.",
+        "Setz dich tief in die Hocke, die Ellbogen gehen zwischen die Knie.",
+        "Steh über den ganzen Fuß auf, bis Hüfte und Knie gestreckt sind."
+      ],
+      "ausstieg": "Gewicht mit gebeugten Knien und geradem Rücken auf den Boden stellen.",
+      "sauber": "Der Oberkörper bleibt aufrecht, die Fersen am Boden.",
+      "details": [
+        "Kettlebell an den Griffseiten halten (Hörner), Kurzhantel senkrecht an einer Scheibe."
+      ],
+      "atmung": "Oben einatmen und halten, beim Aufstehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Rundrücken unten.",
+          "k": "Brust hoch, nur so tief wie gerade."
+        },
+        {
+          "f": "Das Gewicht rutscht von der Brust weg.",
+          "k": "Ellbogen nach unten, Gewicht an den Körper drücken."
+        }
+      ],
+      "skalierung": "Leichter: Air Squat. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Knie- oder Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff und Fußstellung fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_front_squat",
+      "zweck": "Kniebeuge mit der Langhantel vorn auf den Schultern: aufrechter Oberkörper, viel Arbeit für Oberschenkel und Rumpf.",
+      "vorbereitung": "Stange im Hantelständer (Rack) etwa auf Schulterhöhe, Sicherungsablagen knapp unter der tiefsten Position, Scheiben gesichert.",
+      "schritte": [
+        "Greif die Stange schulterbreit, stell dich darunter und leg sie vorn auf die Schultern, nah am Hals.",
+        "Heb die Ellbogen nach vorn hoch, bis die Oberarme etwa waagerecht sind. Die Finger halten die Stange locker.",
+        "Heb die Stange aus, tritt zurück, Füße etwa schulterbreit.",
+        "Setz dich tief in die Hocke, die Ellbogen bleiben oben.",
+        "Steh auf, bis Hüfte und Knie gestreckt sind."
+      ],
+      "ausstieg": "Zum Rack gehen, bis die Stange über den Ablagen ist, und sie in die Knie gehend ablegen. Fehlversuch: Stange nach vorn fallen lassen und zurücktreten.",
+      "sauber": "Die Ellbogen bleiben hoch, unten ist die Hüfte unter Kniehöhe.",
+      "details": [
+        "Die Stange liegt auf den Schultern, nicht in den Händen. Ein lockerer Fingergriff reicht.",
+        "Ist das zu unbeweglich: Arme vor der Brust kreuzen und die Stange so halten."
+      ],
+      "atmung": "Oben tief einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen fallen.",
+          "k": "Ellbogen und Brust hoch, Gewicht verringern."
+        },
+        {
+          "f": "Die Fersen heben ab.",
+          "k": "Füße etwas breiter oder Schuhe mit fester Ferse."
+        }
+      ],
+      "skalierung": "Leichter: Goblet Squat. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden, wenn die Ellbogen nicht mehr oben bleiben.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ablage der Stange, Rack und Fehlversuch fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_back_squat",
+      "zweck": "Kniebeuge mit der Langhantel auf dem oberen Rücken: die Grundübung für Beinkraft mit viel Gewicht.",
+      "vorbereitung": "Stange im Hantelständer (Rack) etwa auf Höhe der Achseln, Sicherungsablagen knapp unter der tiefsten Position, Scheiben gesichert.",
+      "schritte": [
+        "Greif die Stange etwas breiter als schulterbreit und tauch darunter, sie liegt auf dem oberen Rücken unter dem Nacken.",
+        "Steh mit der Stange auf, tritt zwei, drei Schritte zurück, Füße etwa schulterbreit.",
+        "Atme ein, spann den Bauch an und schieb die Hüfte nach hinten und unten.",
+        "Geh so tief, dass die Hüftfalte unter der Kniehöhe ist, wenn der Rücken gerade bleibt.",
+        "Steh über den ganzen Fuß auf, bis Hüfte und Knie gestreckt sind."
+      ],
+      "ausstieg": "Nach vorn ins Rack gehen und die Stange in die Knie gehend ablegen. Fehlversuch: auf die Sicherungsablagen absetzen.",
+      "sauber": "Die Fersen bleiben am Boden, der Rücken bleibt gerade, die Knie zeigen in Richtung der Fußspitzen.",
+      "details": [
+        "Die Stange liegt auf dem Muskel, nicht auf den Wirbeln des Nackens.",
+        "Ein leichtes Vorneigen des Oberkörpers ist normal und hängt von den Körperproportionen ab."
+      ],
+      "atmung": "Vor jeder Wiederholung tief einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Knie fallen nach innen.",
+          "k": "Knie aktiv in Richtung der Fußspitzen drücken."
+        },
+        {
+          "f": "Der Rücken wird unten rund.",
+          "k": "Weniger tief oder weniger Gewicht."
+        }
+      ],
+      "skalierung": "Leichter: Goblet Squat oder weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden, wenn eine Wiederholung stark langsamer wird. Aufhören bei Knie- oder Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Rack, Sicherung, Atmung und Ablage fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_overhead_squat",
+      "zweck": "Kniebeuge mit der Stange über dem Kopf: verlangt Beweglichkeit in Schultern, Hüfte und Sprunggelenken und Stabilität im Rumpf.",
+      "vorbereitung": "Erst mit PVC-Stab oder Besenstiel üben, dann mit leerer Stange. Platz hinter dir frei.",
+      "schritte": [
+        "Greif Stab oder Stange sehr weit, etwa so, dass die Stange im Stand auf Hüfthöhe liegt.",
+        "Bring sie mit gestreckten Armen über den Kopf, leicht hinter die Ohren.",
+        "Füße etwa schulterbreit, Fußspitzen leicht nach außen.",
+        "Geh tief in die Hocke, die Arme bleiben gestreckt, die Stange über der Fußmitte.",
+        "Steh auf, die Stange bleibt oben."
+      ],
+      "ausstieg": "Stange vor dem Körper auf die Schultern bzw. Oberschenkel absenken und ablegen. Fehlversuch: Stange nach vorn oder hinten fallen lassen und zur Seite treten.",
+      "sauber": "Die Stange bleibt über der Fußmitte, die Arme gestreckt.",
+      "details": [
+        "Die Schultern drücken aktiv nach oben in die Stange, als würdest du sie auseinanderziehen."
+      ],
+      "atmung": "Oben einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Arme fallen nach vorn.",
+          "k": "Griff breiter und Schultern aktiv nach oben drücken."
+        },
+        {
+          "f": "Die Fersen heben ab.",
+          "k": "Weniger tief oder Fersen leicht erhöhen."
+        }
+      ],
+      "skalierung": "Leichter: PVC-Stab. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schulterschmerz oder wenn die Stange unten nach vorn wandert.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griffbreite und sicherer Abwurf fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_thruster",
+      "zweck": "Kniebeuge mit anschließendem Überkopfdrücken in einem Zug: eine anstrengende Ganzkörperübung für Metcons.",
+      "vorbereitung": "Langhantel, Kurzhanteln oder Kettlebell. Platz nach oben frei.",
+      "schritte": [
+        "Nimm die Last vorn auf die Schultern, Füße etwa schulterbreit.",
+        "Setz dich tief in die Hocke wie beim Front Squat, die Ellbogen bleiben vorn oben.",
+        "Steh explosiv auf.",
+        "Nutz den Schwung und drück die Last in derselben Bewegung über den Kopf, bis die Arme gestreckt sind.",
+        "Senk die Last auf die Schultern und geh direkt in die nächste Kniebeuge."
+      ],
+      "ausstieg": "Last auf die Schultern, dann mit gebeugten Knien ablegen bzw. Stange über die Oberschenkel zum Boden führen.",
+      "sauber": "Die Bewegung läuft ohne Pause, oben sind Arme und Beine gestreckt.",
+      "details": [],
+      "atmung": "Unten einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Erst ganz aufstehen, dann drücken.",
+          "k": "Den Schwung der Beine in den Druck mitnehmen."
+        },
+        {
+          "f": "Unten fallen die Ellbogen.",
+          "k": "Ellbogen vorn hoch halten."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Gewicht oder Wall Ball Shot. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören, wenn der Rücken unten rund wird oder du oben die Arme nicht mehr streckst.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Verweis auf Front Squat ohne eigene Erklärung.",
+        "korrektur": "Eigenständig beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_wall_ball",
+      "zweck": "Medizinball aus der Hocke an ein Ziel über dir werfen: Beine und Schultern im Wechsel, Klassiker im Metcon.",
+      "vorbereitung": "Feste Wand ohne Fenster, Ziel etwa 2,7 m (Frauen) bzw. 3 m (Männer) hoch markieren oder niedriger wählen.",
+      "schritte": [
+        "Stell dich etwa eine Armlänge vor die Wand, Ball vor der Brust, Hände unter dem Ball.",
+        "Setz dich tief in die Hocke.",
+        "Steh explosiv auf und wirf den Ball mit beiden Händen an das Ziel.",
+        "Fang den Ball über dem Kopf und geh mit ihm direkt in die nächste Hocke."
+      ],
+      "ausstieg": "Ball fangen, an die Brust nehmen und ablegen.",
+      "sauber": "Unten ist die Hüfte unter Kniehöhe, der Ball trifft das Ziel.",
+      "details": [
+        "Der Ball fliegt fast senkrecht. Zu weit weg von der Wand, und er kommt nicht zurück."
+      ],
+      "atmung": "Beim Wurf ausatmen, beim Fangen einatmen.",
+      "fehler": [
+        {
+          "f": "Zu flache Hocke.",
+          "k": "Ganz runter, die Wiederholung zählt sonst nicht."
+        },
+        {
+          "f": "Nur aus den Armen werfen.",
+          "k": "Wurf aus dem Aufstehen der Beine."
+        }
+      ],
+      "skalierung": "Leichter: leichterer Ball, niedrigeres Ziel. Schwerer: schwererer Ball.",
+      "grenzen": "Aufhören, wenn du den Ball nicht mehr sicher fängst.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Abstand und Zielhöhe fehlten.",
+        "korrektur": "Übliche Zielhöhen als Richtwert ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_leg_press",
+      "zweck": "Beinpresse: viel Gewicht für die Oberschenkel, ohne dass der Rücken die Last tragen muss.",
+      "vorbereitung": "Gewicht auflegen, Rückenlehne so einstellen, dass du unten das Becken an der Lehne halten kannst.",
+      "schritte": [
+        "Setz dich in die Beinpresse, Rücken und Becken fest an der Lehne.",
+        "Stell die Füße hüftbreit mittig auf die Platte.",
+        "Drück die Platte hoch und lös die Sicherungshebel.",
+        "Senk die Platte, bis die Knie etwa rechtwinklig gebeugt sind oder bis das Becken sich zu heben beginnt.",
+        "Drück sie zurück, ohne die Knie ganz durchzustrecken."
+      ],
+      "ausstieg": "Oben die Sicherungshebel einrasten, dann die Füße von der Platte nehmen.",
+      "sauber": "Das Becken bleibt an der Lehne, die Knie zeigen in Richtung der Fußspitzen.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Drücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu tief, das Becken rollt ein.",
+          "k": "Früher stoppen."
+        },
+        {
+          "f": "Knie schlagen oben durch.",
+          "k": "Kurz vor dem Strecken umkehren."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder einbeinig.",
+      "grenzen": "Aufhören bei Knie- oder Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Sicherungshebel fehlten; feste 90 Grad als Regel.",
+        "korrektur": "Sicherung ergänzt, Tiefe an das Becken gekoppelt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sissy_squat",
+      "zweck": "Kniebeuge mit nach hinten gelehntem Körper: trainiert gezielt den vorderen Oberschenkel.",
+      "vorbereitung": "Türrahmen oder Sprossenwand zum Festhalten.",
+      "schritte": [
+        "Halt dich mit einer Hand am Türrahmen oder an der Sprossenwand fest.",
+        "Geh auf die Fußballen, Füße hüftbreit.",
+        "Schieb die Knie nach vorn und lehn den Oberkörper zurück, die Hüfte bleibt gestreckt.",
+        "Geh so weit, bis die Knie weit gebeugt sind.",
+        "Drück dich zurück in den Stand."
+      ],
+      "ausstieg": "",
+      "sauber": "Knie, Hüfte und Schultern bilden eine gerade Linie.",
+      "details": [
+        "Klein anfangen, die Belastung auf das Knie ist hoch."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        {
+          "f": "In der Hüfte abknicken.",
+          "k": "Gesäß anspannen und die Hüfte nach vorn halten."
+        }
+      ],
+      "skalierung": "Leichter: kürzerer Weg. Schwerer: tiefer oder ohne Festhalten.",
+      "grenzen": "Aufhören bei Schmerz an der Kniescheibe oder der Sehne darunter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Abbruchsignal ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_spanish_squat",
+      "zweck": "Halten in der Hocke, während ein Band die Knie nach hinten zieht: belastet den vorderen Oberschenkel, ohne dass die Knie nach vorn gehen.",
+      "vorbereitung": "Starkes Band auf Kniehöhe an einem festen Pfosten, Hantelständer (Rack) oder an der Sprossenwand befestigen.",
+      "schritte": [
+        "Stell dich in die Bandschlaufe, das Band liegt hinter beiden Knien.",
+        "Geh rückwärts, bis das Band straff ist.",
+        "Setz dich nach hinten in eine Hocke, die Schienbeine bleiben senkrecht.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Aufstehen, nach vorn zum Pfosten gehen und aus dem Band steigen.",
+      "sauber": "Die Schienbeine bleiben senkrecht, das Band trägt dich.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Knie schieben nach vorn.",
+          "k": "Weiter rückwärts gehen, bis das Band zieht."
+        }
+      ],
+      "skalierung": "Leichter: weniger tief. Schwerer: tiefer oder länger halten.",
+      "grenzen": "Band vorher prüfen. Aufhören bei stechendem Knieschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

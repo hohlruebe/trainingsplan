@@ -4,7 +4,22 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 15. Oktober 2026 (Aufwärmen und Vollbild am Laptop; davor Nordic Curls nur mit Fußanker; davor Trainings im Google Kalender, Google Kalender verbinden, Coach-Tab ohne Ballast)
+Stand: 15. Oktober 2026 (Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+
+## Übungs-Anleitungen neu (15. Oktober 2026, Claude, Branch `uebungen-anleitungen`)
+- Dennis' Auftrag (zuerst an Gemini, das an der Dateigröße scheiterte): alle Übungen so erklären, dass Anfänger sie verstehen (Vorbereitung, Einstieg,
+  Ausführung, Ausstieg), du-Form, englische Namen bleiben, Prüfliste. Quellen raus, weil es die eigene Bibliothek ist. Auftrag als Dokument zum
+  Kommentieren: https://claude.ai/artifact/Fs7FUcmCThEg1Yrbpq1MCW
+- Umgesetzt: alle 381 Übungen neu geschrieben (19 Pakete in `design/auftraege/texte/`, Prüfer und Einbau können `teil: 'texte'`), Glossar aus plan-data
+  wird nicht mehr angezeigt (Bibliothek ist die einzige Quelle). Tools › Übungen zeigt Zweck, Schritte, Raus, Sauber; Rest aufklappbar.
+  Prüfliste: `design/auftraege/pruefliste_texte.md` (154 fehlende Erklärung, 41 missverständlich, 3 fachliche Fehler: „Knie über die Zehen“ bei
+  Air Squat, Pistol, Squat Jump).
+- Geprüft: neuer Test `tests/uebungen-anleitungen.cjs` (mit `TP_BROWSER=1` 390 und 1366 px), dazu alle bisherigen Tests.
+- Quellen gelöscht (Dennis: eigene Bibliothek, Recherche im Netz plus eigene Erfahrung): `quelle` aus lib-data, mobility, fam-data und
+  `design/familien.json`, Prüfer verlangt es nicht mehr, `bibliothek.md` angepasst.
+- Dennis gefiel der lange Text nicht: jetzt nur Figur, Schritte, Leiter sichtbar, der Rest hinter einem (i) als Blatt (Entwurf, Screenshots im Chat).
+- Offen: Dennis prüft den Entwurf vor dem Merge. Idee von Dennis: Bibliothek mit freien Datenbanken erweitern (free-exercise-db, Unlicense;
+  wger nur mit Namensnennung), Bodybuilding-Übungen dazu, Dopplungen über Namen/Alias und Muster vermeiden.
 
 ## Aufwärmen und Vollbild am Laptop (Claude, nach Dennis' Training)
 - Dennis: 3 × 5 Squat Jumps passen nicht ins Aufwärmen (eine Übung nach der anderen); im Vollbild sah er nicht, wie viele Wdh. dran sind,

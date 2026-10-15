@@ -1,0 +1,612 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "mobilitaet",
+  "teil_von": "mobilitaet_a + mobilitaet_b",
+  "entscheidungen": [
+    "Mobility-Übungen sind meist Halte- oder Lockerungsübungen. Für sie bleibt der Text bewusst kürzer; die Routinen (Cool-down, Ruhetag, Morgen) ergänzen eigene kurze Hinweise je Block."
+  ],
+  "uebungen": [
+    {
+      "id": "g_stack",
+      "zweck": "Stack Breathing: Brustkorb über dem Becken „stapeln“ und mit langer Ausatmung die seitlichen Bauchmuskeln aktivieren. Grundspannung für viele Übungen.",
+      "vorbereitung": "",
+      "schritte": [
+        "Steh oder lieg so, dass der Brustkorb über dem Becken steht: kein Hohlkreuz, kein Rundrücken.",
+        "Atme etwa 5 Sekunden mit offenem Mund aus, als würdest du eine Scheibe anhauchen. Die unteren Rippen gehen zusammen.",
+        "Spür, wie die seitlichen Bauchmuskeln fester werden.",
+        "Atme durch die Nase ein und weite den Brustkorb rundum, nicht nur den Bauch nach vorn.",
+        "Halte diese Spannung im folgenden Satz und bau sie vor jedem Satz neu auf."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Sixpack bleibt weich, die Spannung kommt von der Seite.",
+      "details": [
+        "Hand-Test: Leg die Hände seitlich an die unteren Rippen. Beim Ausatmen sollen sie nach innen-unten gehen."
+      ],
+      "atmung": "Lang aus durch den Mund, ein durch die Nase.",
+      "fehler": [
+        { "f": "Den Bauch einziehen oder hart anspannen.", "k": "Locker bleiben, nur lang ausatmen." }
+      ],
+      "skalierung": "Leichter: im Liegen mit den Füßen auf einem Stuhl. Schwerer: im Stehen und in jeder Übung.",
+      "grenzen": "Bei Schwindel normal weiteratmen.",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "Glossar und Bibliothek verschieden, Selbstkontrolle fehlte.", "korrektur": "Gemeinsamer Text mit Hand-Test.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wgs",
+      "zweck": "World's Greatest Stretch: tiefer Ausfallschritt mit Drehung, macht Hüfte, Beinrückseite und oberen Rücken in einer Bewegung beweglich.",
+      "vorbereitung": "",
+      "schritte": [
+        "Mach einen großen Ausfallschritt mit dem rechten Bein nach vorn.",
+        "Stell beide Hände innen neben dem rechten Fuß auf den Boden.",
+        "Senk den rechten Ellbogen Richtung rechten Fußknöchel.",
+        "Dreh den Oberkörper auf und streck den rechten Arm zur Decke, der Blick folgt der Hand.",
+        "Zurück in den Stand und Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das hintere Bein bleibt gestreckt, jede Position wird kurz gehalten.",
+      "details": [],
+      "atmung": "In jeder Position einmal ruhig atmen.",
+      "fehler": [
+        { "f": "Zu hastig.", "k": "Langsam und ohne Schwung." }
+      ],
+      "skalierung": "Leichter: hinteres Knie am Boden. Schwerer: länger halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Glossar und Bibliothek verschieden.", "korrektur": "Gemeinsamer Text.", "status": "geklaert" }
+    },
+    {
+      "id": "g_scap",
+      "zweck": "Liegestütz nur mit den Schulterblättern: aktiviert den Sägemuskel (Serratus) und die Schulterblätter vor Druck- und Handstand-Übungen.",
+      "vorbereitung": "",
+      "schritte": [
+        "Start im Liegestütz mit gestreckten Armen.",
+        "Lass die Brust zwischen die Schultern sinken, die Schulterblätter gehen zusammen.",
+        "Drück dich weit vom Boden weg, die Schulterblätter gehen auseinander."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Die Arme bleiben die ganze Zeit gestreckt, nur die Schulterblätter bewegen sich.",
+      "details": [],
+      "atmung": "Beim Wegdrücken ausatmen.",
+      "fehler": [
+        { "f": "Die Ellbogen beugen sich.", "k": "Arme fest gestreckt." }
+      ],
+      "skalierung": "Leichter: auf Knien. Schwerer: auf den Ringen.",
+      "grenzen": "",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "Serratus unerklärt, Glossar mit eigenem Text.", "korrektur": "Gemeinsamer Text.", "status": "geklaert" }
+    },
+    {
+      "id": "g_passthrough",
+      "zweck": "Band oder Stab gestreckt über den Kopf nach hinten führen: macht die Schultern beweglich.",
+      "vorbereitung": "Sehr leichtes Band oder Stab.",
+      "schritte": [
+        "Greif das Band weit, die Arme gestreckt vor dem Körper.",
+        "Führ die Arme gestreckt über den Kopf nach hinten, bis das Band am Gesäß ist.",
+        "Auf demselben Weg zurück nach vorn."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Arme bleiben gestreckt, die Rippen unten.",
+      "details": [
+        "Die Leiter: weiter Griff, dann enger Griff, dann German Hang."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Griff zu eng, die Arme beugen sich.", "k": "Weiter greifen." },
+        { "f": "Hohlkreuz.", "k": "Rippen unten, Gesäß leicht fest." }
+      ],
+      "skalierung": "Leichter: weiter greifen. Schwerer: enger greifen.",
+      "grenzen": "Nie in einen Schmerz hineinziehen.",
+      "pruefung": { "art": ["ok"], "problem": "Glossar und Bibliothek verschieden.", "korrektur": "Gemeinsamer Text.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wrist_prep",
+      "zweck": "Handgelenke aufwärmen: bereitet auf Stütz- und Handstandübungen vor.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Kreis die Handgelenke in beide Richtungen.",
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Finger nach vorn, und lehn dich langsam vor und zurück.",
+        "Dreh die Finger zur Seite, dann nach hinten, und lehn dich jeweils sanft.",
+        "Leg die Handrücken auf den Boden und lehn dich sanft zurück."
+      ],
+      "ausstieg": "",
+      "sauber": "Ohne Schmerz, langsam.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Zu viel Druck.", "k": "Sanft steigern." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht auf den Händen. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei stechendem Schmerz.",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "Positionen nur angedeutet.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_cat_cow",
+      "zweck": "Katze-Kuh: den Rücken im Wechsel rund und hohl machen, mobilisiert die ganze Wirbelsäule.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Knie unter der Hüfte.",
+        "Mach den Rücken rund, das Kinn geht zur Brust, und atme aus.",
+        "Mach den Rücken hohl, Brust nach vorn, Blick leicht nach oben, und atme ein."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Bewegung geht Wirbel für Wirbel.",
+      "details": [],
+      "atmung": "Rund ausatmen, hohl einatmen.",
+      "fehler": [
+        { "f": "Nur den Kopf bewegen.", "k": "Vom Becken aus starten." }
+      ],
+      "skalierung": "Leichter: kleinerer Weg. Schwerer: langsamer.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausgangsposition genauer.", "status": "geklaert" }
+    },
+    {
+      "id": "g_thoracic_rotation",
+      "zweck": "In Seitenlage den oberen Arm aufdrehen: mobilisiert die Drehung im oberen Rücken.",
+      "vorbereitung": "Matte, eventuell Kissen unter den Kopf.",
+      "schritte": [
+        "Leg dich auf die Seite, Knie angewinkelt aufeinander, Arme nach vorn gestreckt.",
+        "Dreh den oberen Arm in einem Bogen zur anderen Seite auf.",
+        "Folg der Hand mit dem Blick, komm zurück. Nach dem Satz Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Knie bleiben aufeinander.",
+      "details": [],
+      "atmung": "Beim Aufdrehen ausatmen.",
+      "fehler": [
+        { "f": "Das Becken dreht mit.", "k": "Knie mit der unteren Hand fixieren." }
+      ],
+      "skalierung": "Leichter: kleinerer Weg. Schwerer: länger halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war knapp.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_deep_squat",
+      "zweck": "In der tiefen Hocke halten: macht Hüfte und Sprunggelenke beweglich.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell die Füße etwa schulterbreit, Fußspitzen leicht nach außen.",
+        "Setz dich tief in die Hocke, die Fersen bleiben am Boden.",
+        "Drück die Knie mit den Ellbogen sanft auseinander, der Oberkörper richtet sich auf.",
+        "Halte."
+      ],
+      "ausstieg": "Hände auf die Knie und aufstehen.",
+      "sauber": "Der Oberkörper ist aufrecht, die Fersen am Boden.",
+      "details": [
+        "Die Leiter im Beweglichkeits-Check: mit Halt, frei 30 s, frei aufrecht 60 s, Overhead-Hocke."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Fersen heben ab.", "k": "Füße etwas breiter stellen oder festhalten." }
+      ],
+      "skalierung": "Leichter: an einem Türrahmen festhalten. Schwerer: länger halten.",
+      "grenzen": "Raus bei Schmerz im Knie.",
+      "pruefung": { "art": ["ok"], "problem": "Text war knapp.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_couch_stretch",
+      "zweck": "Sofa-Dehnung: dehnt Hüftbeuger und vorderen Oberschenkel.",
+      "vorbereitung": "Sofa oder Wand, Kissen unter das hintere Knie.",
+      "schritte": [
+        "Knie dich mit dem Rücken vor die Sofakante, ein Knie ganz hinten an der Kante, der Fuß oben am Sofa.",
+        "Stell das andere Bein vorn auf, Knie über dem Fuß.",
+        "Spann das Gesäß an und schieb die Hüfte nach vorn.",
+        "Richte den Oberkörper so weit auf, wie es geht, und halte. Dann Seite wechseln."
+      ],
+      "ausstieg": "Hände auf den Boden stützen und das hintere Bein vom Sofa nehmen.",
+      "sauber": "Das Gesäß ist fest, kein Hohlkreuz.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Hohlkreuz.", "k": "Gesäß anspannen, Rippen nach unten." }
+      ],
+      "skalierung": "Leichter: Oberkörper nach vorn lehnen. Schwerer: Oberkörper aufrecht.",
+      "grenzen": "Raus bei Schmerz im Knie.",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "Einstieg und Ausstieg fehlten.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_pike_stretch",
+      "zweck": "Vorbeuge im Langsitz: dehnt die Beinrückseite und trainiert die Kompression für L-Sit und Handstand.",
+      "vorbereitung": "",
+      "schritte": [
+        "Setz dich mit gestreckten Beinen hin.",
+        "Beug dich mit geradem Rücken aus der Hüfte nach vorn zu den Füßen.",
+        "Halte und atme ruhig."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Rücken bleibt lang, die Bewegung kommt aus der Hüfte.",
+      "details": [],
+      "atmung": "Mit jeder Ausatmung etwas tiefer.",
+      "fehler": [
+        { "f": "Rund ziehen.", "k": "Aus der Hüfte beugen, Knie notfalls leicht beugen." }
+      ],
+      "skalierung": "Leichter: Knie leicht beugen oder auf ein Kissen setzen. Schwerer: länger halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Atmung ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_pancake",
+      "zweck": "Vorbeuge im Grätschsitz: dehnt Innenseite der Oberschenkel und Beinrückseite.",
+      "vorbereitung": "Kissen unter das Gesäß.",
+      "schritte": [
+        "Setz dich mit weit gegrätschten, gestreckten Beinen hin, die Kniescheiben zeigen nach oben.",
+        "Beug dich mit geradem Rücken nach vorn.",
+        "Halte und atme ruhig."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Rücken bleibt lang, die Knie zeigen nach oben.",
+      "details": [],
+      "atmung": "Mit jeder Ausatmung etwas tiefer.",
+      "fehler": [
+        { "f": "Die Knie drehen nach innen.", "k": "Kniescheiben nach oben." }
+      ],
+      "skalierung": "Leichter: auf ein Kissen setzen. Schwerer: tiefer.",
+      "grenzen": "Raus bei Schmerz an der Knieinnenseite.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_jefferson_curl",
+      "zweck": "Wirbel für Wirbel nach unten abrollen und wieder auf: dehnt Beinrückseite und Rücken, mit sehr wenig oder ohne Gewicht.",
+      "vorbereitung": "Stabile Stufe oder Box, zuerst ohne Gewicht.",
+      "schritte": [
+        "Stell dich auf die Stufe, Beine gestreckt.",
+        "Senk das Kinn zur Brust und roll dich Wirbel für Wirbel langsam nach unten ab.",
+        "Unten hängen die Arme locker.",
+        "Roll dich ebenso langsam wieder auf, der Kopf kommt zuletzt."
+      ],
+      "ausstieg": "",
+      "sauber": "Sehr langsames Tempo.",
+      "details": [
+        "Gewicht nur in kleinen Schritten, wenn es ohne leicht geht."
+      ],
+      "atmung": "Beim Abrollen ausatmen, beim Aufrollen einatmen.",
+      "fehler": [
+        { "f": "Zu schnell oder zu schwer.", "k": "Ganz leicht starten." }
+      ],
+      "skalierung": "Leichter: ohne Erhöhung. Schwerer: mit leichtem Gewicht.",
+      "grenzen": "Raus bei Schmerz im Rücken oder Kribbeln in den Beinen.",
+      "pruefung": { "art": ["ok"], "problem": "Abbruchsignal fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_inchworm",
+      "zweck": "Raupe: aus dem Stand in den Liegestütz laufen und zurück. Beinrückseite, Schultern und Rumpf.",
+      "vorbereitung": "",
+      "schritte": [
+        "Beug dich aus dem Stand vor und setz die Hände vor den Füßen auf.",
+        "Lauf mit den Händen nach vorn bis in den Liegestütz.",
+        "Geh mit den Füßen in kleinen Schritten hinterher, bis du wieder vorgebeugt stehst."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Beine sind möglichst gestreckt, im Liegestütz hängt die Hüfte nicht.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte hängt im Stütz.", "k": "Rumpf fest." }
+      ],
+      "skalierung": "Leichter: Knie beugen. Schwerer: Push-up im Stütz.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Leicht angepasst.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wall_slide",
+      "zweck": "Arme an der Wand nach oben schieben: Schulterbeweglichkeit und Kontrolle der Schulterblätter.",
+      "vorbereitung": "Freie Wand.",
+      "schritte": [
+        "Stell dich mit Po, Rücken und Kopf an die Wand.",
+        "Leg Unterarme und Handrücken auf Schulterhöhe an die Wand.",
+        "Schieb die Arme langsam nach oben und wieder zurück."
+      ],
+      "ausstieg": "",
+      "sauber": "Der untere Rücken bleibt an der Wand, die Handrücken behalten Kontakt.",
+      "details": [],
+      "atmung": "Beim Hochschieben ausatmen.",
+      "fehler": [
+        { "f": "Hohlkreuz beim Hochschieben.", "k": "Rippen nach unten ziehen, Bauch leicht anspannen." }
+      ],
+      "skalierung": "Leichter: Füße einen Schritt von der Wand weg. Schwerer: oben 3 Sekunden halten und die Hände kurz von der Wand lösen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wall_flexion_hold",
+      "zweck": "Gestreckte Arme an der Wand über Kopf halten: zeigt und verbessert die Schulterbeweglichkeit über Kopf.",
+      "vorbereitung": "Freie Wand.",
+      "schritte": [
+        "Stell dich mit dem Rücken an die Wand, Füße eine Fußlänge davor, Knie leicht gebeugt.",
+        "Drück den unteren Rücken flach an die Wand.",
+        "Heb die gestreckten Arme, Daumen nach hinten, so weit wie möglich und halte."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Ellbogen sind gestreckt, der untere Rücken bleibt an der Wand.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Der Rücken löst sich von der Wand.", "k": "Lieber weniger Armhöhe als Hohlkreuz." }
+      ],
+      "skalierung": "Leichter: Knie stärker beugen. Schwerer: Füße näher an die Wand.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wall_flexion_liftoff",
+      "zweck": "Hände über Kopf aus eigener Kraft von der Wand abheben: aktive Schulterbeweglichkeit für Handstand und Überkopf.",
+      "vorbereitung": "Freie Wand.",
+      "schritte": [
+        "Stell dich mit dem Rücken an die Wand, unterer Rücken flach, Arme gestreckt über Kopf mit den Händen an der Wand.",
+        "Heb die Hände eine Fingerbreite von der Wand ab.",
+        "Halte die Position aus eigener Kraft."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Rücken bleibt flach, die Arme gestreckt.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Schultern ziehen zu den Ohren, der Kopf geht nach vorn.", "k": "Hals lang lassen." }
+      ],
+      "skalierung": "Leichter: nur einen Arm abheben. Schwerer: länger halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "„Wand-Position“ verwies auf andere Übung.", "korrektur": "Position beschrieben.", "status": "geklaert" }
+    },
+    {
+      "id": "g_puppy_pose",
+      "zweck": "Welpenhaltung: Brust sinkt zum Boden, die Arme sind gestreckt. Dehnt Schultern und oberen Rücken.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand.",
+        "Lauf mit den Händen nach vorn, die Hüfte bleibt über den Knien.",
+        "Senk die Brust Richtung Boden und atme ruhig."
+      ],
+      "ausstieg": "Hände zurücklaufen.",
+      "sauber": "Die Hüfte bleibt über den Knien, die Arme sind gestreckt.",
+      "details": [],
+      "atmung": "Mit jeder Ausatmung die Brust etwas tiefer.",
+      "fehler": [
+        { "f": "Die Hüfte sinkt auf die Fersen.", "k": "Hüfte über den Knien halten, sonst wird es Child's Pose." }
+      ],
+      "skalierung": "Leichter: Hände weiter auseinander. Schwerer: Hände auf eine Erhöhung legen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_doorway_pec",
+      "zweck": "Brustdehnung im Türrahmen nach Druckübungen.",
+      "vorbereitung": "Türrahmen.",
+      "schritte": [
+        "Leg den Unterarm senkrecht an den Türrahmen, Ellbogen auf Schulterhöhe.",
+        "Mach einen kleinen Schritt nach vorn.",
+        "Dreh den Oberkörper leicht weg, bis du die Brust spürst. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Schulter bleibt unten und hinten, die Dehnung spürst du in der Brust, nicht im Gelenk.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Schulter rollt nach vorn.", "k": "Brustbein anheben, Schulterblatt leicht nach hinten." }
+      ],
+      "skalierung": "Leichter: Ellbogen tiefer ansetzen. Schwerer: Ellbogen höher ansetzen.",
+      "grenzen": "Raus bei Kribbeln im Arm.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_shoulder_cars",
+      "zweck": "Kontrolliertes Schulterkreisen (CARs: kontrollierte Gelenkkreise): bewegt die Schulter durch ihren ganzen Bereich.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich aufrecht hin, freie Hand an die Hüfte, Bauch leicht fest.",
+        "Mach mit der Arbeitshand eine Faust.",
+        "Heb den gestreckten Arm langsam nach vorn und über Kopf.",
+        "Führ ihn hinten im größten Kreis wieder nach unten. Dann Richtung und Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Langsam und mit Spannung, der Rumpf bewegt sich nicht mit.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Der Oberkörper dreht mit.", "k": "Freie Hand an die Hüfte, Bauch fest." }
+      ],
+      "skalierung": "Leichter: kleinerer Kreis. Schwerer: langsamer und mit mehr Muskelspannung.",
+      "grenzen": "Kreis kleiner, wenn es zwickt.",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "CARs unerklärt.", "korrektur": "Erklärt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_sleeper_stretch",
+      "zweck": "Schläferdehnung: dehnt die Schulter für die Innendrehung.",
+      "vorbereitung": "Matte, Kissen unter den Kopf.",
+      "schritte": [
+        "Leg dich auf die Seite, der untere Arm liegt im rechten Winkel vor dir, Ellbogen auf Schulterhöhe, Unterarm zeigt nach oben.",
+        "Drück mit der freien Hand den Unterarm sanft Richtung Boden.",
+        "Halte, dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Sanfter Druck, Dehnung hinten in der Schulter.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Zu viel Druck oder Schmerz vorn im Gelenk.", "k": "Druck verringern und den Körper leicht nach hinten drehen." }
+      ],
+      "skalierung": "Leichter: Oberkörper weiter nach hinten drehen. Schwerer: länger halten.",
+      "grenzen": "Raus bei Schmerz vorn in der Schulter.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_prayer_stretch",
+      "zweck": "Gebetsdehnung an Sofa oder Bank: dehnt den breiten Rückenmuskel und verbessert die Überkopf-Position.",
+      "vorbereitung": "Sofa, Stuhl oder Bank, Kissen für die Knie.",
+      "schritte": [
+        "Knie dich vor die Kante.",
+        "Leg die Ellbogen schulterbreit auf die Kante, die Hände zusammen.",
+        "Schieb die Hüfte nach hinten und senk die Brust."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Ellbogen bleiben schulterbreit, die Dehnung spürst du seitlich am Rücken.",
+      "details": [],
+      "atmung": "Mit jeder Ausatmung die Brust etwas tiefer.",
+      "fehler": [
+        { "f": "Die Ellbogen fallen nach außen.", "k": "Ellbogen eng halten." }
+      ],
+      "skalierung": "Leichter: Hüfte weniger weit nach hinten. Schwerer: Hände hinter den Kopf, Ellbogen weiter vorn ablegen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wall_biceps_stretch",
+      "zweck": "Bizepsdehnung an der Wand nach Zugübungen.",
+      "vorbereitung": "Freie Wand.",
+      "schritte": [
+        "Leg die Handfläche auf Schulterhöhe an die Wand, Daumen oben, Arm gestreckt nach hinten.",
+        "Dreh den Körper langsam von der Wand weg.",
+        "Halte, dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Ellbogen bleibt gestreckt, die Dehnung spürst du im Bizeps und vorn in der Schulter.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Schulter rutscht nach vorn.", "k": "Brust aufrecht halten." }
+      ],
+      "skalierung": "Leichter: Hand tiefer ansetzen. Schwerer: Daumen nach unten drehen.",
+      "grenzen": "Raus bei Kribbeln im Arm.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_triceps_stretch",
+      "zweck": "Trizepsdehnung über Kopf nach Druckübungen.",
+      "vorbereitung": "",
+      "schritte": [
+        "Heb einen Arm über Kopf und beug den Ellbogen, die Hand liegt zwischen den Schulterblättern.",
+        "Zieh den Ellbogen mit der anderen Hand sanft nach hinten.",
+        "Halte, dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Kopf bleibt aufrecht, die Rippen unten.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Hohlkreuz.", "k": "Bauch leicht anspannen." }
+      ],
+      "skalierung": "Leichter: Ellbogen weniger weit ziehen. Schwerer: Oberkörper leicht zur Gegenseite neigen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_towel_stretch",
+      "zweck": "Handtuch hinter dem Rücken: dehnt die Schultern in beide Drehrichtungen.",
+      "vorbereitung": "Ein Handtuch.",
+      "schritte": [
+        "Halt das Handtuch mit einer Hand über Kopf hinter dem Rücken.",
+        "Greif das untere Ende mit der anderen Hand hinter dem Rücken.",
+        "Zieh abwechselnd sanft nach oben und unten. Dann Hände tauschen."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Kopf bleibt aufrecht, die Bewegung kommt aus den Schultern.",
+      "details": [
+        "Im Beweglichkeits-Check misst man die Lücke zwischen den Händen ohne Handtuch."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Der Oberkörper beugt sich zur Seite.", "k": "Aufrecht stehen." }
+      ],
+      "skalierung": "Leichter: Hände weiter auseinander greifen. Schwerer: Hände näher zusammen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Zusammenhang mit dem Test fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_open_book",
+      "zweck": "Offenes Buch: in Seitenlage den oberen Arm zur anderen Seite öffnen, mobilisiert den oberen Rücken.",
+      "vorbereitung": "Matte, Kissen unter den Kopf.",
+      "schritte": [
+        "Leg dich auf die Seite, Knie rechtwinklig gebeugt, Arme nach vorn gestreckt.",
+        "Öffne den oberen Arm in einem Bogen zur anderen Seite.",
+        "Folg der Hand mit dem Blick und komm langsam zurück. Nach dem Satz Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Knie bleiben aufeinander, die Drehung kommt aus dem oberen Rücken.",
+      "details": [],
+      "atmung": "Beim Öffnen ausatmen.",
+      "fehler": [
+        { "f": "Die Knie heben ab.", "k": "Mit der unteren Hand die Knie festhalten." }
+      ],
+      "skalierung": "Leichter: kleinerer Bogen. Schwerer: am Ende 2 Atemzüge halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_thread_needle",
+      "zweck": "Faden einfädeln: im Vierfüßlerstand einen Arm unter dem anderen durchschieben. Mobilisiert oberen Rücken und hintere Schulter.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand.",
+        "Schieb einen Arm unter dem anderen durch, bis Schulter und Kopf auf dem Boden liegen.",
+        "Dreh danach den Arm weit nach oben auf. Nach dem Satz Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Hüfte bleibt über den Knien, die Bewegung kommt aus dem oberen Rücken.",
+      "details": [],
+      "atmung": "Langsam, mit der Ausatmung tiefer.",
+      "fehler": [
+        { "f": "Die Hüfte kippt zur Seite.", "k": "Gewicht gleich auf beiden Knien lassen." }
+      ],
+      "skalierung": "Leichter: nur halb durchfädeln. Schwerer: unten 3 Atemzüge halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wrist_extension_stretch",
+      "zweck": "Handgelenke im Stütz nach hinten dehnen: bereitet auf Handstand, Liegestütz und Front Rack vor.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Knie dich hin und leg die Handflächen flach auf den Boden, Finger nach vorn, Arme gestreckt.",
+        "Schieb die Schultern langsam über die Handgelenke.",
+        "Halte."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Handballen bleiben am Boden, die Ellbogen gestreckt.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Handballen heben ab.", "k": "Weniger weit nach vorn lehnen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht auf die Hände. Schwerer: Finger zeigen zu den Knien.",
+      "grenzen": "Raus bei stechendem Schmerz im Handgelenk.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wrist_flexion_stretch",
+      "zweck": "Handrücken auf den Boden und sanft zurücklehnen: dehnt Handgelenk und Unterarmstrecker.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Knie dich hin und leg die Handrücken auf den Boden, Finger zu den Knien.",
+        "Arme gestreckt.",
+        "Lehn dich sanft nach hinten und halte."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Arme bleiben gestreckt, die Dehnung spürst du auf Handrücken und Unterarm.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Sofort zu viel Gewicht.", "k": "Langsam steigern." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht auf die Hände. Schwerer: Hüfte weiter nach hinten.",
+      "grenzen": "Raus bei stechendem Schmerz.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wrist_rocks",
+      "zweck": "Im Vierfüßlerstand über die Hände vor und zurück schaukeln: macht die Handgelenke belastbar für Stütz und Handstand.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Finger gespreizt.",
+        "Drück die Finger aktiv in den Boden.",
+        "Schaukel langsam nach vorn über die Hände.",
+        "Schaukel zurück und wiederhole."
+      ],
+      "ausstieg": "",
+      "sauber": "Die ganze Hand bleibt am Boden, die Bewegung ist fließend.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Finger liegen nur locker.", "k": "Finger aktiv in den Boden drücken." }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: Finger zur Seite oder nach hinten drehen.",
+      "grenzen": "Raus bei stechendem Schmerz.",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "Fehler „Finger krallen sich nicht fest“ war unklar formuliert.", "korrektur": "Klar formuliert.", "status": "geklaert" }
+    }
+  ]
+}

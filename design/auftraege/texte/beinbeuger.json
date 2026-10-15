@@ -1,0 +1,197 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "beinbeuger",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_nordic",
+      "zweck": "Kniend langsam nach vorn kippen und mit der Oberschenkelrückseite bremsen: eine der stärksten Übungen für die Beinbeuger.",
+      "vorbereitung": "Kissen unter die Knie. Fersen unter einem Fußanker verhaken: Sofa, Bett, Sprossenwand, GHD, Latzug-Polster oder ein Partner hält sie fest. Das Möbel darf sich nicht anheben, sonst setzt sich jemand darauf.",
+      "schritte": [
+        "Knie dich auf das Kissen und verhake die Fersen unter dem Anker.",
+        "Richte den Oberkörper auf: Knie, Hüfte und Schultern bilden eine Linie. Hände vor der Brust.",
+        "Kipp ganz langsam nach vorn und brems mit der Oberschenkelrückseite, so lange es geht.",
+        "Geht es nicht mehr, fang dich mit den Händen ab wie bei einem Liegestütz.",
+        "Drück dich mit den Händen zurück nach oben in die aufrechte Position."
+      ],
+      "ausstieg": "Aus der aufrechten Position auf die Fersen setzen und die Füße aus dem Anker lösen.",
+      "sauber": "Die Hüfte bleibt gestreckt, das Absenken ist gleichmäßig langsam.",
+      "details": [
+        "Die Leiter: erst früh abfangen, dann tiefer, dann volle Bewegung bis kurz über den Boden.",
+        "Starker Muskelkater in den ersten Wochen ist normal. Deshalb steigt die Stufe langsam."
+      ],
+      "atmung": "Beim Absenken langsam ausatmen, oben einatmen.",
+      "fehler": [
+        { "f": "In der Hüfte abknicken, das Gesäß geht nach hinten.", "k": "Gesäß anspannen, der Körper bleibt ein Brett." },
+        { "f": "Unten fallen lassen.", "k": "Früher abfangen und nur so weit, wie du bremsen kannst." }
+      ],
+      "skalierung": "Leichter: früher abfangen oder mit Band unter den Armen. Schwerer: tiefer, volle Bewegung oder Weste.",
+      "grenzen": "Aufhören bei stechendem Schmerz in der Beinrückseite. Krampf: Pause, dann weniger tief.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Ankersicherheit und Leiterstufen nur im Glossar.",
+        "korrektur": "Ein gemeinsamer Text mit Anker, Stufen und Muskelkater-Hinweis.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_slider_curl",
+      "zweck": "In Rückenlage mit den Fersen auf einem Handtuch die Beine beugen: Beinrückseite und Gesäß ohne Gerät.",
+      "vorbereitung": "Glatter Boden, Handtuch oder Socken unter den Fersen. Auf Teppich Pappteller.",
+      "schritte": [
+        "Leg dich auf den Rücken, die Beine gestreckt, die Fersen auf dem Handtuch.",
+        "Heb die Hüfte, bis der Körper von Schultern bis Fersen gerade ist.",
+        "Zieh die Fersen zum Gesäß, die Hüfte bleibt oben.",
+        "Schieb die Fersen langsam zurück, bis die Beine fast gestreckt sind."
+      ],
+      "ausstieg": "Hüfte ablegen.",
+      "sauber": "Die Hüfte bleibt oben, die Fersen gleiten ruhig.",
+      "details": [
+        "Das Zurückschieben ist der schwere Teil. Langsam machen."
+      ],
+      "atmung": "Beim Ranziehen ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte sackt ab.", "k": "Gesäß fest." }
+      ],
+      "skalierung": "Leichter: Hüfte unten lassen. Schwerer: Single-Leg Slider Curl.",
+      "grenzen": "Pause bei Krampf in der Beinrückseite.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Unterlage für Teppich fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_single_slider_curl",
+      "zweck": "Slider Leg Curl mit einem Bein: doppelte Last für die Beinrückseite.",
+      "vorbereitung": "Glatter Boden, Handtuch unter einer Ferse.",
+      "schritte": [
+        "Leg dich auf den Rücken, eine Ferse auf dem Handtuch, das andere Bein in der Luft.",
+        "Heb die Hüfte, bis der Körper gerade ist.",
+        "Zieh die Ferse zum Gesäß.",
+        "Schieb sie kontrolliert zurück. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Hüfte ablegen.",
+      "sauber": "Das Becken bleibt gerade und kippt nicht zur Seite.",
+      "details": [],
+      "atmung": "Beim Ranziehen ausatmen.",
+      "fehler": [
+        { "f": "Das Becken kippt.", "k": "Gesäß fest, kleinere Bewegung." }
+      ],
+      "skalierung": "Leichter: beidbeinig. Schwerer: langsamer strecken.",
+      "grenzen": "Pause bei Krampf.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„Wie der Slider Leg Curl“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_leg_curl",
+      "zweck": "Beinbeugen mit den Fersen in den Ringen: wie Slider Curl, aber die Ringe schwingen und verlangen mehr Kontrolle.",
+      "vorbereitung": "Ringe auf Wadenhöhe hängen.",
+      "schritte": [
+        "Leg dich auf den Rücken unter die Ringe und häng die Fersen hinein.",
+        "Heb die Hüfte, bis der Körper gerade ist.",
+        "Zieh die Fersen zum Gesäß.",
+        "Streck die Beine langsam wieder aus."
+      ],
+      "ausstieg": "Hüfte ablegen, dann die Fersen aus den Ringen nehmen.",
+      "sauber": "Die Hüfte bleibt oben, die Ringe bleiben ruhig.",
+      "details": [],
+      "atmung": "Beim Ranziehen ausatmen.",
+      "fehler": [
+        { "f": "Die Ringe pendeln.", "k": "Langsam ziehen und strecken." }
+      ],
+      "skalierung": "Leichter: Hüfte unten. Schwerer: einbeinig.",
+      "grenzen": "Pause bei Krampf.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ein- und Ausstieg fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_glute_ham_raise",
+      "zweck": "Am GHD den Oberkörper absenken und mit den Beinbeugern wieder hochziehen: sehr schwere Beinbeuger-Übung.",
+      "vorbereitung": "GHD so einstellen, dass die Knie knapp hinter dem Polster liegen und die Füße fest unter den Rollen sind.",
+      "schritte": [
+        "Stell dich in den GHD, Knie knapp hinter dem Polster.",
+        "Starte mit aufrechtem Oberkörper und gestreckter Hüfte.",
+        "Senk den Oberkörper nach vorn, bis er waagerecht ist. Die Hüfte bleibt gestreckt.",
+        "Zieh dich mit den Beinbeugern wieder hoch."
+      ],
+      "ausstieg": "Oben an den Griffen festhalten und die Füße lösen.",
+      "sauber": "Die Hüfte bleibt gestreckt, die Bewegung kommt aus dem Knie.",
+      "details": [],
+      "atmung": "Beim Hochziehen ausatmen.",
+      "fehler": [
+        { "f": "In der Hüfte abknicken.", "k": "Gesäß fest, kleinerer Weg." }
+      ],
+      "skalierung": "Leichter: mit Abstoßen der Hände am Boden. Schwerer: langsamer absenken oder Scheibe vor der Brust.",
+      "grenzen": "Aufhören bei stechendem Schmerz in der Beinrückseite.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_leg_curl_machine",
+      "zweck": "Beinbeuger an der Maschine: genau einstellbares Gewicht für die Beinrückseite.",
+      "vorbereitung": "Polster so einstellen, dass es knapp über der Ferse liegt und das Knie auf Höhe der Drehachse ist.",
+      "schritte": [
+        "Leg dich auf die Maschine oder setz dich hinein, je nach Modell.",
+        "Halt dich an den Griffen fest, die Hüfte bleibt am Polster.",
+        "Zieh die Fersen Richtung Gesäß.",
+        "Lass sie kontrolliert zurück."
+      ],
+      "ausstieg": "Gewicht ganz zurückgehen lassen, dann aussteigen.",
+      "sauber": "Die Hüfte hebt sich nicht vom Polster ab.",
+      "details": [],
+      "atmung": "Beim Beugen ausatmen.",
+      "fehler": [
+        { "f": "Schwung aus der Hüfte.", "k": "Gewicht verringern." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder einbeinig.",
+      "grenzen": "Pause bei Krampf.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Drehachse fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_band_leg_curl",
+      "zweck": "Beinbeugen gegen ein Band: einfache Beinbeuger-Übung zum Aufwärmen oder zuhause.",
+      "vorbereitung": "Band knapp über dem Boden an einem festen Punkt befestigen.",
+      "schritte": [
+        "Leg das Band um eine Ferse.",
+        "Leg dich bäuchlings hin oder steh aufrecht, Knie nebeneinander.",
+        "Zieh die Ferse Richtung Gesäß.",
+        "Lass sie langsam zurück. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Band locker werden lassen und von der Ferse nehmen.",
+      "sauber": "Die Oberschenkel bleiben nebeneinander, nur das Knie beugt sich.",
+      "details": [],
+      "atmung": "Beim Beugen ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte zieht mit.", "k": "Hüfte am Boden bzw. gerade halten." }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band oder unten 2 Sekunden halten.",
+      "grenzen": "Band vorher prüfen.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

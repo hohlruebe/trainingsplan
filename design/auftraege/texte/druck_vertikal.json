@@ -1,0 +1,881 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "druck_vertikal",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_dip",
+      "zweck": "Dip an Ringen: Aus dem Stütz absenken und hochdrücken. Kräftigt Brust, Trizeps und vordere Schulter, die Ringe verlangen zusätzlich Stabilität.",
+      "vorbereitung": "Ringe auf Hüfthöhe hängen und die Knie anwinkeln, damit die Füße frei sind. Für Hilfe ein Band zwischen die Ringgurte spannen und die Knie darauf legen.",
+      "schritte": [
+        "Greif die Ringe, die Handflächen zeigen zum Körper.",
+        "Spring oder drück dich hoch in den Stütz: Arme gestreckt, Ringe dicht neben der Hüfte, Knie gebeugt.",
+        "Senk dich langsam ab, der Oberkörper neigt sich leicht nach vorn, die Ellbogen gehen nach hinten.",
+        "Stopp, wenn die Schultern etwa auf Höhe der Ellbogen sind oder vorher, wenn es in der Schulter unangenehm wird.",
+        "Drück dich zurück in den Stütz, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aus dem Stütz die Füße auf den Boden stellen, dann die Ringe loslassen. Nie aus dem tiefen Dip loslassen.",
+      "sauber": "Die Ringe bleiben nah am Körper, oben sind die Arme gestreckt, die Schultern gehen nicht zu den Ohren.",
+      "details": [
+        "Wackelnde Ringe sind am Anfang normal. Ringe fest an den Körper drücken, das beruhigt sie.",
+        "Oben im Stütz dürfen die Daumen leicht nach außen zeigen."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Schultern ziehen zu den Ohren.",
+          "k": "Schultern tief, Brust heraus, nur so tief wie angenehm."
+        },
+        {
+          "f": "Die Ringe wandern nach außen.",
+          "k": "Ringe an die Rippen drücken, langsamer absenken."
+        },
+        {
+          "f": "Zu tief, die Schultern fallen nach vorn.",
+          "k": "Früher stoppen, die Tiefe kommt mit der Zeit."
+        }
+      ],
+      "skalierung": "Leichter: Ring Support Hold, Negative Dip oder mit Band. Schwerer: Weste anziehen, dann Weighted Dip.",
+      "grenzen": "Satz beenden bei Schmerz vorn in der Schulter oder wenn du die Ringe nicht mehr ruhig halten kannst.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ringhöhe, Band und Ausstieg fehlten; Glossar mit eigenem Text und Voraussetzung, die nicht zur Leiter passt.",
+        "korrektur": "Vorbereitung mit Band, Ablauf, Abbruchsignal, sicherer Ausstieg; ein Text für Glossar und Bibliothek.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_support_hold",
+      "zweck": "Halten im Stütz auf den Ringen: baut die Stabilität für Ring Dips und Muscle-ups auf.",
+      "vorbereitung": "Ringe auf Hüfthöhe, Knie anwinkeln, damit die Füße frei sind.",
+      "schritte": [
+        "Greif die Ringe, die Handflächen zeigen zum Körper.",
+        "Spring oder drück dich hoch in den Stütz.",
+        "Arme ganz gestreckt, Ringe eng an der Hüfte, Schultern weg von den Ohren.",
+        "Halte ruhig, solange die Zeit läuft."
+      ],
+      "ausstieg": "Füße auf den Boden stellen, dann die Ringe loslassen.",
+      "sauber": "Die Ringe zittern wenig, die Schultern bleiben tief, die Arme gestreckt.",
+      "details": [
+        "Die Ringe nach innen gegen die Hüfte drücken, das beruhigt sie."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Ringe wandern nach außen.",
+          "k": "Arme an den Körper drücken."
+        },
+        {
+          "f": "Die Schultern sinken zu den Ohren.",
+          "k": "Ringe kräftig nach unten drücken, Hals lang machen."
+        }
+      ],
+      "skalierung": "Leichter: Füße leicht am Boden lassen. Schwerer: länger halten, dann Ringe nach außen drehen (RTO Support Hold).",
+      "grenzen": "Absteigen, wenn die Ringe stark zittern oder die Schultern nach oben rutschen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Abkürzung RTO in der Skalierung nicht erklärt.",
+        "korrektur": "Verweis auf eigene Übung mit Erklärung.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_rto_support",
+      "zweck": "Stütz an Ringen mit nach außen gedrehten Ringen (RTO: Rings Turned Out). Stärkt Schultern und Bizeps für Muscle-ups und Ringturnen.",
+      "vorbereitung": "Ringe auf Hüfthöhe, Knie anwinkeln, damit die Füße frei sind.",
+      "schritte": [
+        "Geh in den Stütz auf den Ringen, Arme gestreckt, Ringe an der Hüfte.",
+        "Dreh die Ringe nach außen, bis die Daumen zur Seite zeigen und die Handflächen schräg nach vorn.",
+        "Drück die Ellbogen dabei ganz durch.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Ringe zurückdrehen, Füße auf den Boden stellen, loslassen.",
+      "sauber": "Die Ringe sind deutlich gedreht, die Arme gestreckt, die Schultern tief.",
+      "details": [
+        "Die Innenseite der Ellbogen zeigt dabei nach vorn."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen beugen sich.",
+          "k": "Fest durchdrücken, weniger weit drehen."
+        }
+      ],
+      "skalierung": "Leichter: nur leicht drehen. Schwerer: länger halten.",
+      "grenzen": "Absteigen bei Ziehen an der Bizepssehne vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "RTO nicht aufgelöst, Drehrichtung unklar.",
+        "korrektur": "Abkürzung erklärt, Daumen- und Ellbogenrichtung ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bench_dip",
+      "zweck": "Dip mit den Händen hinter dir auf einer Kante: Einstieg in die Dip-Bewegung, vor allem für den Trizeps.",
+      "vorbereitung": "Stabiler Stuhl gegen die Wand gestellt oder eine Bank. Prüfen, dass er nicht wegrutscht.",
+      "schritte": [
+        "Setz dich auf die Kante und stütz die Hände neben der Hüfte auf, die Finger zeigen nach vorn.",
+        "Schieb das Gesäß vor die Kante, die Füße stehen vor dir am Boden.",
+        "Beug die Arme und senk die Hüfte ab, die Ellbogen zeigen nach hinten.",
+        "Nur so tief, wie die Schulter es angenehm zulässt, meist bis die Oberarme etwa waagerecht sind.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Gesäß zurück auf die Kante setzen.",
+      "sauber": "Die Schultern bleiben tief und nach hinten, der Rücken bleibt nah an der Kante.",
+      "details": [
+        "Je weiter die Füße weg und je gestreckter die Beine, desto schwerer."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu tief gehen, die Schultern rollen nach vorn.",
+          "k": "Früher stoppen, Brust offen halten."
+        },
+        {
+          "f": "Der Stuhl rutscht.",
+          "k": "Stuhl gegen die Wand stellen."
+        }
+      ],
+      "skalierung": "Leichter: Knie beugen, Füße näher. Schwerer: Beine strecken.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„Schultern schonen“ ohne konkrete Anweisung.",
+        "korrektur": "Richtwert für die Tiefe und klares Abbruchsignal.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bar_dip",
+      "zweck": "Dip am Barren: stabiler als an Ringen, gut zum Steigern von Wiederholungen und Gewicht.",
+      "vorbereitung": "Dip-Barren oder Dipstation, Holme etwa schulterbreit. Für Hilfe ein Band über beide Holme spannen.",
+      "schritte": [
+        "Stell dich zwischen die Holme und greif sie, die Daumen zeigen nach vorn.",
+        "Drück dich in den Stütz, Arme gestreckt, Knie gebeugt oder Beine gestreckt nach unten.",
+        "Senk dich ab, der Oberkörper neigt sich leicht nach vorn, die Ellbogen gehen nach hinten.",
+        "Stopp, wenn die Schultern etwa auf Höhe der Ellbogen sind.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Im Stütz die Füße auf den Boden oder die Trittstufe stellen, dann loslassen.",
+      "sauber": "Oben gestreckte Arme, kein Schwung aus den Beinen.",
+      "details": [
+        "Mehr Vorneigung bringt mehr Brust, aufrechter mehr Trizeps."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu kurze Bewegung.",
+          "k": "Bis etwa Ellbogenhöhe senken, wenn die Schulter es zulässt."
+        },
+        {
+          "f": "Mit den Beinen Schwung holen.",
+          "k": "Beine ruhig, Bauch fest."
+        }
+      ],
+      "skalierung": "Leichter: mit Band oder Negative Dip. Schwerer: Weste oder Dip-Gürtel.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter oder am Brustbein.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff, Band und Ausstieg fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_weighted_dip",
+      "zweck": "Dip mit Zusatzgewicht: steigert die Maximalkraft, wenn Dips mit Weste leicht fallen.",
+      "vorbereitung": "Weste eng anziehen oder Gewicht am Dip-Gürtel einhängen. Barren oder Ringe auf Hüfthöhe mit Trittstufe.",
+      "schritte": [
+        "Steig mit dem Gewicht in den Stütz, Arme gestreckt.",
+        "Warte, bis das Gewicht ruhig hängt.",
+        "Senk dich ab, bis die Schultern etwa auf Ellbogenhöhe sind, die Ellbogen gehen nach hinten.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Im Stütz die Füße abstellen, absteigen, dann das Gewicht abnehmen.",
+      "sauber": "Gleiche Tiefe wie ohne Gewicht, das Gewicht pendelt nicht.",
+      "details": [
+        "In kleinen Schritten steigern, der Coach schlägt das Gewicht vor."
+      ],
+      "atmung": "Oben einatmen und halten, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Tiefe opfern für mehr Gewicht.",
+          "k": "Gewicht nur steigern, wenn die Tiefe bleibt."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden, wenn eine Wiederholung nur noch halb tief geht, oder bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung",
+          "missverstaendlich"
+        ],
+        "problem": "„Dip wie gewohnt“; Voraussetzung „10–12 Dips“ passte nicht zur Leiter (Stufe Weste).",
+        "korrektur": "Eigenständiger Ablauf; Voraussetzung steht über die Leiter in der App.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_straight_bar_dip",
+      "zweck": "Dip auf einer geraden Stange: übt den oberen Teil des Bar Muscle-ups.",
+      "vorbereitung": "Eine feste Stange etwa auf Brusthöhe, oder hoch mit Kasten zum Hochsteigen.",
+      "schritte": [
+        "Spring oder steig in den Stütz auf der Stange, die Stange liegt vor der Hüfte, Arme gestreckt.",
+        "Bring die Beine leicht nach vorn unter die Stange.",
+        "Kipp den Oberkörper nach vorn und senk dich ab, bis die Stange nah an der Brust ist.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aus dem Stütz die Hüfte nach hinten nehmen und kontrolliert vor der Stange auf die Füße herunterlassen.",
+      "sauber": "Die Brust kommt nah an die Stange, oben sind die Arme gestreckt.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte schiebt nach hinten.",
+          "k": "Beine leicht nach vorn halten."
+        }
+      ],
+      "skalierung": "Leichter: mit Band. Schwerer: mehr Wiederholungen.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ein- und Ausstieg fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pike",
+      "zweck": "Liegestütz mit hoher Hüfte: drückt fast senkrecht über den Kopf, kräftigt Schultern und Trizeps für den Handstand-Push-up.",
+      "vorbereitung": "Matte, eventuell ein Kissen für den Kopf.",
+      "schritte": [
+        "Start im Liegestütz, dann die Hüfte hochschieben, bis der Körper ein umgedrehtes V bildet. Beine möglichst gestreckt.",
+        "Geh mit den Füßen etwas näher zu den Händen, bis die Hüfte über den Schultern ist.",
+        "Beug die Arme und senk den Kopf vor den Händen zum Boden. Kopf und Hände bilden ein Dreieck.",
+        "Drück dich zurück in die V-Position."
+      ],
+      "ausstieg": "Knie ablegen und aufrichten.",
+      "sauber": "Der Kopf landet vor den Händen, die Hüfte bleibt hoch.",
+      "details": [
+        "Die Ellbogen zeigen eher nach hinten als zur Seite.",
+        "Je näher die Füße an den Händen, desto senkrechter und schwerer."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte sinkt ab, es wird ein normaler Liegestütz.",
+          "k": "Hüfte über den Schultern halten."
+        },
+        {
+          "f": "Der Kopf landet zwischen den Händen.",
+          "k": "Kopf vor die Hände führen."
+        }
+      ],
+      "skalierung": "Leichter: Hände erhöht oder weniger tief. Schwerer: Füße auf dem Stuhl oder Weste.",
+      "grenzen": "Aufhören bei Schmerz in Schulter oder Nacken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Glossar und Bibliothek mit verschiedenen Texten.",
+        "korrektur": "Gemeinsamer Text mit Einstieg aus dem Liegestütz.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_wall_walk",
+      "zweck": "An der Wand hochlaufen in den Handstand: übt das Halten kopfüber und kräftigt Schultern und Rumpf.",
+      "vorbereitung": "Freie Wand, davor eine Matte. Nichts an der Wand, was herunterfallen kann.",
+      "schritte": [
+        "Leg dich auf den Bauch, die Füße an der Wand, die Hände neben der Brust.",
+        "Drück dich in den Liegestütz und setz die Füße auf die Wand.",
+        "Lauf mit den Füßen die Wand hoch und geh gleichzeitig mit den Händen zur Wand.",
+        "Oben: Hände etwa eine Handbreite vor der Wand, Brust zur Wand, Körper gerade.",
+        "Lauf auf demselben Weg kontrolliert zurück in die Bauchlage."
+      ],
+      "ausstieg": "Hände nach vorn laufen, die Füße die Wand herunter, bis du wieder auf dem Bauch liegst.",
+      "sauber": "Oben ist die Brust nah an der Wand, der Körper gerade.",
+      "details": [
+        "Eine Wiederholung zählt erst, wenn du wieder flach liegst.",
+        "Nicht seitlich wegdrehen, beide Hände wandern gleich."
+      ],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz oben.",
+          "k": "Bauch fest, Rippen nach innen."
+        },
+        {
+          "f": "Zu schnell nach unten.",
+          "k": "Hand für Hand zurücklaufen."
+        }
+      ],
+      "skalierung": "Leichter: nur bis zur Hälfte hoch. Schwerer: oben kurz halten.",
+      "grenzen": "Abbrechen, wenn die Arme zittern oder einknicken. Nicht mit Schwindel oder Druck im Kopf weitermachen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Endposition und Zählregel fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hspu_negative",
+      "zweck": "Nur das Absenken des Handstand-Push-ups: baut Kraft auf, bevor der ganze HSPU gelingt.",
+      "vorbereitung": "Wand und Matte, ein gefaltetes Kissen dort, wo der Kopf landet.",
+      "schritte": [
+        "Geh in den Handstand mit dem Rücken zur Wand: Hände schulterbreit, etwa eine Handbreite vor der Wand.",
+        "Senk dich in 3–5 Sekunden ab, bis der Kopf das Kissen berührt.",
+        "Kopf und Hände bilden dabei ein Dreieck: Der Kopf landet etwas vor den Händen.",
+        "Steig aus und geh für die nächste Wiederholung wieder hinein."
+      ],
+      "ausstieg": "Ein Bein von der Wand nehmen und wie einen Schritt auf den Boden setzen, das andere folgt.",
+      "sauber": "Gleichmäßiges Tempo, der Kopf landet vor den Händen.",
+      "details": [
+        "Die Ellbogen zeigen schräg nach vorn, nicht weit zur Seite."
+      ],
+      "atmung": "Oben einatmen, beim Absenken langsam ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Kopf landet zwischen den Händen.",
+          "k": "Kopf weiter vor die Hände."
+        },
+        {
+          "f": "Unten fallen lassen.",
+          "k": "Kissen dicker machen und das Tempo bis unten halten."
+        }
+      ],
+      "skalierung": "Leichter: dickeres Kissen. Schwerer: langsamer absenken.",
+      "grenzen": "Abbrechen, wenn du unten nicht mehr kontrollierst. Bei Nacken- oder Kopfschmerz aufhören.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Einstieg und Ausstieg fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hspu",
+      "zweck": "Handstand-Liegestütz an der Wand ohne Schwung: der senkrechte Druck mit dem ganzen Körpergewicht.",
+      "vorbereitung": "Wand und Matte, eventuell ein flaches Kissen für den Kopf.",
+      "schritte": [
+        "Schwing dich mit dem Rücken zur Wand in den Handstand: Hände schulterbreit, eine Handbreite vor der Wand.",
+        "Fersen an der Wand, Körper gestreckt, Bauch fest.",
+        "Senk dich kontrolliert ab, bis der Kopf die Matte berührt. Kopf und Hände bilden ein Dreieck.",
+        "Drück dich ohne Beinschwung hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Ein Bein von der Wand nehmen und wie einen Schritt auf den Boden setzen, das andere folgt.",
+      "sauber": "Der Kopf berührt den Boden, oben sind die Arme gestreckt, die Beine bleiben ruhig an der Wand.",
+      "details": [
+        "Die Ellbogen zeigen schräg nach vorn. Welcher Winkel passt, hängt von deinen Schultern ab."
+      ],
+      "atmung": "Oben einatmen, beim Absenken halten oder ausatmen, beim Hochdrücken kräftig ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen fallen weit nach außen.",
+          "k": "Ellbogen schräg nach vorn führen."
+        },
+        {
+          "f": "Mit den Beinen nachhelfen.",
+          "k": "Beine gestreckt an der Wand, sonst Negative üben."
+        }
+      ],
+      "skalierung": "Leichter: Negative oder erhöhter Pike Push-up. Schwerer: Deficit HSPU.",
+      "grenzen": "Satz beenden, wenn du unten nicht mehr sicher hochkommst. Bei Nacken- oder Kopfschmerz aufhören.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung",
+          "missverstaendlich"
+        ],
+        "problem": "„Kick-up“ unerklärt, 45 Grad als feste Regel, kein Ausstieg.",
+        "korrektur": "Einstieg beschrieben, Ellbogenwinkel als Richtung, Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kipping_hspu",
+      "zweck": "Handstand-Push-up mit Beinschwung: für viele Wiederholungen im Metcon, wenn strikte HSPU sitzen.",
+      "vorbereitung": "Wand und Matte, ein flaches Kissen für den Kopf.",
+      "schritte": [
+        "Geh in den Handstand mit dem Rücken zur Wand, Hände schulterbreit eine Handbreite vor der Wand.",
+        "Senk dich ab, bis der Kopf das Kissen berührt.",
+        "Zieh die Knie zur Brust.",
+        "Streck die Beine explosiv nach oben an die Wand und drück dich gleichzeitig hoch."
+      ],
+      "ausstieg": "Ein Bein von der Wand nehmen und auf den Boden setzen, das andere folgt.",
+      "sauber": "Oben sind Arme und Beine gestreckt und die Fersen an der Wand.",
+      "details": [
+        "Der Kopf landet kontrolliert. Nie mit Schwung auf den Kopf fallen lassen."
+      ],
+      "atmung": "Unten einatmen, beim Beinschwung kräftig ausatmen.",
+      "fehler": [
+        {
+          "f": "Ohne strikte Kraft kippen.",
+          "k": "Erst strikte HSPU schaffen."
+        },
+        {
+          "f": "Den Kopf hart aufsetzen.",
+          "k": "Langsam absenken, Kissen unterlegen."
+        }
+      ],
+      "skalierung": "Leichter: Strict HSPU mit Kissen. Schwerer: mehr Wiederholungen.",
+      "grenzen": "Aufhören bei Nackenschmerz oder wenn das Absenken unkontrolliert wird.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Kopfaufsatz und Ausstieg fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_deficit_hspu",
+      "zweck": "Handstand-Push-up auf Parallettes: Der Kopf geht tiefer als die Hände, das verlängert den Weg.",
+      "vorbereitung": "Parallettes schulterbreit, eine Handbreite vor der Wand, Matte zwischen ihnen.",
+      "schritte": [
+        "Greif die Parallettes und schwing dich mit dem Rücken zur Wand in den Handstand.",
+        "Senk dich ab, bis der Kopf unter Griffhöhe ist.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Ein Bein von der Wand nehmen und auf den Boden setzen, das andere folgt.",
+      "sauber": "Der Kopf kommt unter Griffhöhe, oben sind die Arme gestreckt.",
+      "details": [],
+      "atmung": "Oben einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu tief ohne Kontrolle.",
+          "k": "Tiefe langsam steigern."
+        }
+      ],
+      "skalierung": "Leichter: weniger tief. Schwerer: tiefer.",
+      "grenzen": "Aufhören bei Schulter- oder Nackenschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Einstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_freestanding_hspu",
+      "zweck": "Handstand-Push-up ohne Wand: verbindet Druckkraft mit Balance.",
+      "vorbereitung": "Viel freier Platz, Matte. Nur mit sicherem freien Handstand und sicherem Herausdrehen.",
+      "schritte": [
+        "Geh in den freien Handstand.",
+        "Senk dich langsam ab, ohne die Balance zu verlieren. Die Finger korrigieren.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Ein Bein zurück auf den Boden setzen. Kippst du über, eine Hand versetzen und seitlich herausdrehen.",
+      "sauber": "Gerader Körper beim Absenken und Hochdrücken.",
+      "details": [],
+      "atmung": "Oben einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Unten die Balance verlieren.",
+          "k": "Erst sicheren freien Handstand, dann kurze Wege üben."
+        }
+      ],
+      "skalierung": "Leichter: an der Wand. Schwerer: mehr Wiederholungen.",
+      "grenzen": "Abbrechen, wenn du nicht mehr sicher herausdrehen kannst.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Sicheres Fallen fehlte.",
+        "korrektur": "Ausstieg mit Herausdrehen ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_band_press",
+      "zweck": "Überkopfdrücken mit Band: Schultertraining ohne Hanteln.",
+      "vorbereitung": "Ein Band mit Schlaufe.",
+      "schritte": [
+        "Stell dich hüftbreit mit beiden Füßen auf das Band.",
+        "Halt die Enden auf Schulterhöhe, die Handflächen zeigen nach vorn.",
+        "Drück die Hände über den Kopf, bis die Arme gestreckt sind.",
+        "Lass sie langsam zurück auf Schulterhöhe."
+      ],
+      "ausstieg": "Hände langsam senken, bis das Band locker ist, dann vom Band steigen.",
+      "sauber": "Oben sind die Arme gestreckt, die Rippen bleiben unten.",
+      "details": [],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz.",
+          "k": "Bauch und Gesäß fest."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band.",
+      "grenzen": "Band vorher auf Risse prüfen. Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_db_press",
+      "zweck": "Schulterdrücken mit Kurzhanteln: beide Arme drücken unabhängig über den Kopf.",
+      "vorbereitung": "Zwei Kurzhanteln oder Kettlebells.",
+      "schritte": [
+        "Stell dich hüftbreit hin und bring die Hanteln auf Schulterhöhe, Handflächen nach vorn oder zueinander.",
+        "Spann Bauch und Gesäß an.",
+        "Drück die Hanteln über den Kopf, bis die Arme gestreckt sind und die Oberarme neben den Ohren.",
+        "Senk sie kontrolliert zurück auf Schulterhöhe."
+      ],
+      "ausstieg": "Hanteln auf Schulterhöhe, dann mit gebeugten Knien und geradem Rücken ablegen.",
+      "sauber": "Oben sind die Arme neben den Ohren, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz.",
+          "k": "Gesäß und Bauch fest, oder im Sitzen drücken."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Gewicht. Schwerer: einarmig oder schwerer.",
+      "grenzen": "Aufhören bei Schmerz in Schulter oder unterem Rücken.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Griff und Ablegen fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_strict_press",
+      "zweck": "Überkopfdrücken mit der Langhantel ohne Beinhilfe: der Grundtest für Schulterkraft.",
+      "vorbereitung": "Stange im Hantelständer (Rack) etwa auf Höhe des Brustbeins, Scheiben mit Verschlüssen gesichert.",
+      "schritte": [
+        "Greif die Stange etwas breiter als schulterbreit und nimm sie vorn auf die Schultern. Ellbogen leicht vor der Stange.",
+        "Tritt zurück, Füße hüftbreit, Knie gestreckt, Bauch und Gesäß fest.",
+        "Nimm den Kopf kurz zurück und drück die Stange gerade nach oben am Gesicht vorbei.",
+        "Ist die Stange über der Stirn, schieb den Kopf wieder nach vorn unter die Stange, bis die Arme gestreckt sind.",
+        "Senk sie kontrolliert zurück auf die Schultern."
+      ],
+      "ausstieg": "Stange auf den Schultern zurück ins Rack tragen und ablegen.",
+      "sauber": "Oben steht die Stange über der Fußmitte, die Arme sind gestreckt, die Knie bleiben gerade.",
+      "details": [
+        "Die Unterarme stehen in der Startposition senkrecht unter der Stange."
+      ],
+      "atmung": "Vor jeder Wiederholung einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit den Beinen helfen.",
+          "k": "Knie gestreckt lassen, das ist sonst ein Push Press."
+        },
+        {
+          "f": "Stark nach hinten lehnen.",
+          "k": "Gewicht verringern, Gesäß fester."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder Kurzhanteln. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden, wenn du dich nach hinten lehnen musst. Aufhören bei Schmerz im unteren Rücken oder in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startposition, Kopfbewegung und Rack fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_press",
+      "zweck": "Überkopfdrücken mit Beinschwung: Die Beine starten die Stange, die Arme drücken zu Ende. Mehr Gewicht als beim Strict Press.",
+      "vorbereitung": "Stange im Hantelständer (Rack) auf Brustbeinhöhe oder Kurzhanteln.",
+      "schritte": [
+        "Nimm die Last vorn auf die Schultern, Füße hüftbreit.",
+        "Beug kurz die Knie, nur wenige Zentimeter. Der Oberkörper bleibt aufrecht, die Fersen am Boden.",
+        "Streck die Beine explosiv und drück die Last mit dem Schwung über den Kopf.",
+        "Oben sind Arme und Beine gestreckt.",
+        "Senk die Last kontrolliert zurück auf die Schultern, dabei die Knie leicht nachgeben."
+      ],
+      "ausstieg": "Stange zurück ins Rack bzw. Hanteln über die Schultern und mit gebeugten Knien ablegen.",
+      "sauber": "Die Fersen bleiben im Knieknick am Boden, oben sind die Arme gestreckt.",
+      "details": [
+        "Der Knieknick heißt Dip, das Strecken Drive."
+      ],
+      "atmung": "Vor dem Knieknick einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu tief in die Knie.",
+          "k": "Nur kurz und flach einsinken."
+        },
+        {
+          "f": "Oberkörper kippt nach vorn.",
+          "k": "Knie nach vorn schieben, Oberkörper senkrecht."
+        }
+      ],
+      "skalierung": "Leichter: Strict Press mit weniger Gewicht. Schwerer: Push Jerk.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Dip und Drive als Fachbegriffe ohne Erklärung.",
+        "korrektur": "Erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_jerk",
+      "zweck": "Wie Push Press, aber du tauchst unter die Stange und fängst sie mit gestreckten Armen in der halben Hocke. Schneller und schwerer.",
+      "vorbereitung": "Stange im Hantelständer (Rack) auf Brustbeinhöhe, Platz zum Absetzen, Scheiben gesichert.",
+      "schritte": [
+        "Nimm die Stange vorn auf die Schultern, Füße hüftbreit.",
+        "Beug kurz die Knie (Dip) und streck die Beine explosiv (Drive).",
+        "Sobald die Stange von den Schultern abhebt, drück dich unter die Stange: Die Füße springen leicht auseinander, die Knie beugen sich.",
+        "Fang die Stange mit gestreckten Armen in der halben Hocke.",
+        "Steh auf, bis Arme und Beine gestreckt sind."
+      ],
+      "ausstieg": "Stange kontrolliert auf die Schultern zurückholen, dabei die Knie nachgeben, dann ins Rack.",
+      "sauber": "Die Arme sind beim Fangen schon gestreckt.",
+      "details": [
+        "Fehlversuch: Stange nach vorn fallen lassen und zurückspringen, nie nach hinten unter die Stange."
+      ],
+      "atmung": "Vor dem Dip einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Drücken statt tauchen.",
+          "k": "Füße schnell versetzen und unter die Stange gehen."
+        }
+      ],
+      "skalierung": "Leichter: Push Press. Schwerer: Split Jerk.",
+      "grenzen": "Satz beenden, wenn die Arme beim Fangen nicht mehr gestreckt sind.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Verweis „wie beim Push Press“, kein sicherer Fehlversuch.",
+        "korrektur": "Eigenständiger Ablauf und Abwurf nach vorn ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_split_jerk",
+      "zweck": "Stoßen in den Ausfallschritt: Mit dem Schritt kommst du tiefer unter die Stange und stehst stabiler.",
+      "vorbereitung": "Stange im Hantelständer (Rack) auf Brustbeinhöhe, viel Platz vor und hinter dir.",
+      "schritte": [
+        "Nimm die Stange vorn auf die Schultern, Füße hüftbreit.",
+        "Dip und Drive: kurz in die Knie, dann explosiv strecken.",
+        "Spring in einen Ausfallschritt: ein Fuß nach vorn, einer nach hinten. Fang die Stange mit gestreckten Armen.",
+        "Vorderes Schienbein etwa senkrecht, hinteres Knie gebeugt, Ferse hinten oben.",
+        "Erst den vorderen Fuß halb zurück, dann den hinteren nach vorn, bis du gerade stehst."
+      ],
+      "ausstieg": "Stange kontrolliert auf die Schultern holen und ins Rack.",
+      "sauber": "Stabiler Ausfallschritt, die Stange steht über dem Kopf zwischen den Füßen.",
+      "details": [
+        "Welches Bein vorn steht, ist egal. Nimm immer dasselbe.",
+        "Füße bleiben hüftbreit, nicht auf einer Linie."
+      ],
+      "atmung": "Vor dem Dip einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu kurzer Schritt.",
+          "k": "Vorderes Schienbein senkrecht, hinteres Bein weit genug."
+        },
+        {
+          "f": "Füße auf einer Linie, du wackelst seitlich.",
+          "k": "Füße hüftbreit versetzt landen."
+        }
+      ],
+      "skalierung": "Leichter: Push Jerk. Schwerer: mehr Gewicht.",
+      "grenzen": "Fehlversuch: Stange nach vorn fallen lassen und zurücktreten.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Dip und Drive, Fußfolge beim Zurückkommen und Abwurf fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_landmine_press",
+      "zweck": "Schräg nach oben drücken an der Landmine: schont die Schulter, wenn senkrechtes Drücken drückt.",
+      "vorbereitung": "Langhantel in den Landmine-Adapter stecken, am freien Ende Scheiben mit Verschluss.",
+      "schritte": [
+        "Stell dich schräg vor das Stangenende, Füße hüftbreit.",
+        "Halt das Ende mit einer Hand auf Schulterhöhe.",
+        "Drück die Stange schräg nach vorn oben, bis der Arm gestreckt ist.",
+        "Senk sie kontrolliert zur Schulter. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Stange mit beiden Händen nehmen und mit gebeugten Knien auf den Boden legen.",
+      "sauber": "Der Rumpf bleibt aufrecht und dreht nicht mit.",
+      "details": [],
+      "atmung": "Beim Drücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zurücklehnen.",
+          "k": "Oberkörper leicht nach vorn, Gesäß fest."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder beidhändig. Schwerer: mehr Gewicht oder im Halbkniestand.",
+      "grenzen": "Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ablegen fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_single_arm_db_press",
+      "zweck": "Schulterdrücken mit einer Hantel: Der seitliche Rumpf muss gegen das Wegkippen halten.",
+      "vorbereitung": "Eine Kurzhantel oder Kettlebell.",
+      "schritte": [
+        "Stell dich hüftbreit hin und halt die Hantel auf Schulterhöhe.",
+        "Spann Bauch und Gesäß an.",
+        "Drück die Hantel senkrecht nach oben, bis der Arm gestreckt ist.",
+        "Senk sie kontrolliert. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Hantel mit gebeugten Knien auf den Boden stellen.",
+      "sauber": "Der Oberkörper neigt sich nicht zur Seite.",
+      "details": [
+        "Bei der Kettlebell liegt die Glocke außen am Unterarm."
+      ],
+      "atmung": "Beim Drücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Seitlich ausweichen.",
+          "k": "Gewicht verringern, freie Hand zur Faust ballen."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder im Sitzen. Schwerer: mehr Gewicht oder im Halbkniestand.",
+      "grenzen": "Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ablegen ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_z_press",
+      "zweck": "Schulterdrücken im Sitzen am Boden: Ohne Lehne und Beinhilfe musst du den Oberkörper selbst aufrecht halten.",
+      "vorbereitung": "Matte. Langhantel aus dem Hantelständer (Rack) auf Brusthöhe im Sitzen oder Kurzhanteln neben dir.",
+      "schritte": [
+        "Setz dich mit gestreckten Beinen auf den Boden, Rücken aufrecht.",
+        "Halt Langhantel oder Kurzhanteln auf Schulterhöhe.",
+        "Drück das Gewicht senkrecht über den Kopf, ohne nach hinten zu lehnen.",
+        "Senk es kontrolliert zurück zur Schulter."
+      ],
+      "ausstieg": "Hanteln seitlich ablegen bzw. Stange ins Rack.",
+      "sauber": "Der Oberkörper bleibt senkrecht, die Beine flach am Boden.",
+      "details": [
+        "Geht das Sitzen mit geraden Beinen nicht, die Beine leicht grätschen."
+      ],
+      "atmung": "Beim Drücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zurücklehnen.",
+          "k": "Weniger Gewicht oder Beine grätschen."
+        }
+      ],
+      "skalierung": "Leichter: Kurzhanteln oder weniger Gewicht. Schwerer: Langhantel oder mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„zeigt fehlende Beweglichkeit“ als Diagnose.",
+        "korrektur": "Als Korrektur mit Ausweichposition formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_wall_facing_hspu",
+      "zweck": "Handstand-Push-up mit dem Bauch zur Wand: erzwingt eine gerade Körperlinie, die Beine können nicht helfen.",
+      "vorbereitung": "Wand und Matte, ein flaches Kissen für den Kopf.",
+      "schritte": [
+        "Lauf mit dem Bauch zur Wand in den Handstand (Wall Walk), Hände eine Handbreite vor der Wand.",
+        "Senk den Kopf kontrolliert bis auf die Matte. Kopf und Hände bilden ein kleines Dreieck.",
+        "Drück dich in die gerade Linie zurück, Bauch und Brust nah an der Wand."
+      ],
+      "ausstieg": "Hände nach vorn laufen und die Füße die Wand herunter in die Bauchlage.",
+      "sauber": "Der Körper bleibt gerade, die Brust bleibt nah an der Wand.",
+      "details": [
+        "Je näher die Hände an der Wand, desto senkrechter und schwerer."
+      ],
+      "atmung": "Oben einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz, der Bauch geht von der Wand weg.",
+          "k": "Rippen nach innen, Gesäß fest."
+        }
+      ],
+      "skalierung": "Leichter: Strict Handstand Push-up mit dem Rücken zur Wand. Schwerer: Hände näher an die Wand oder Deficit.",
+      "grenzen": "Abbrechen bei Nackenschmerz oder wenn du nicht mehr sicher herauslaufen kannst.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„Kopf senkrecht zwischen den Händen“ widersprach dem Dreieck bei den anderen HSPU-Stufen.",
+        "korrektur": "Kleines Dreieck beschrieben; Hände näher an der Wand als schwerere Variante.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_dip_negative",
+      "zweck": "Nur das Absenken des Dips: baut Kraft auf, bevor ganze Dips gelingen.",
+      "vorbereitung": "Barren, Dipstation oder Ringe auf Hüfthöhe. Stuhl oder Box daneben zum Hochsteigen.",
+      "schritte": [
+        "Steig mit Hilfe des Stuhls in den Stütz, Arme gestreckt.",
+        "Senk dich in 3 bis 5 Sekunden ab, bis die Oberarme etwa waagerecht sind.",
+        "Stell die Füße ab und steig wieder in den Stütz."
+      ],
+      "ausstieg": "Unten die Füße auf den Boden stellen und loslassen.",
+      "sauber": "Das Absenken ist gleichmäßig langsam, die Schultern bleiben unten.",
+      "details": [],
+      "atmung": "Beim Absenken langsam ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu tief absinken, die Schultern rollen nach vorn.",
+          "k": "Bei waagerechten Oberarmen stoppen."
+        }
+      ],
+      "skalierung": "Leichter: kürzerer Weg oder schnelleres Absenken. Schwerer: langsamer absenken oder Ring Dip.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„überlastet die vordere Schulter“ als feste Aussage.",
+        "korrektur": "Als Korrektur und Abbruchsignal formuliert.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

@@ -1,0 +1,415 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "rumpf_anti_streckung",
+  "entscheidungen": [
+    "„Stack“ wird in jeder Übung in eigenen Worten erklärt: Rippen nach unten Richtung Becken ziehen, so dass Brustkorb und Becken übereinander stehen."
+  ],
+  "uebungen": [
+    {
+      "id": "g_hollow",
+      "zweck": "Hohlkörper halten: Der Bauch hält den Körper wie eine flache Schale. Grundposition für Handstand, Hebel und Kipping.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Knie angezogen, Arme neben dem Körper.",
+        "Zieh die Rippen nach unten Richtung Becken und drück den unteren Rücken in den Boden.",
+        "Heb die Schulterblätter leicht vom Boden ab und streck die Beine nach vorn, 5–10 cm über dem Boden.",
+        "Streck die Arme über den Kopf, ohne dass der untere Rücken abhebt.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Knie anziehen und Kopf und Schultern ablegen.",
+      "sauber": "Der untere Rücken bleibt die ganze Zeit am Boden.",
+      "details": [
+        "Prüfen: Eine Hand unter dem unteren Rücken darf nicht durchrutschen.",
+        "Die Leiter: Knie angezogen, Beine gestreckt, Arme über Kopf, 30 s sauber."
+      ],
+      "atmung": "Flach und ruhig in den Bauch weiteratmen, ohne die Spannung zu lösen.",
+      "fehler": [
+        { "f": "Hohlkreuz, der untere Rücken hebt ab.", "k": "Beine höher nehmen oder Knie wieder anziehen." },
+        { "f": "Den Kopf mit den Händen nach vorn ziehen.", "k": "Arme neben dem Körper oder über dem Kopf, der Bauch hält." }
+      ],
+      "skalierung": "Leichter: Knie anziehen, Arme neben dem Körper. Schwerer: Arme über Kopf, länger halten oder Hollow Rock.",
+      "grenzen": "Lieber kürzer und sauber: Satz beenden, sobald der Rücken abhebt.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„Stack aufbauen“ ohne Erklärung, Glossar und Bibliothek verschieden.",
+        "korrektur": "Stack in Handlung übersetzt, Hand-Test als Selbstkontrolle.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hollow_rock",
+      "zweck": "Im Hohlkörper vor und zurück schaukeln: Die Spannung muss auch in Bewegung halten.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Hohlkörper: Rücken am Boden, Rippen nach unten, Schultern und gestreckte Beine knapp über dem Boden, Arme über dem Kopf.",
+        "Schaukel nach hinten auf die Schulterblätter und nach vorn auf das Gesäß.",
+        "Die Form bleibt gleich, nur der Körper rollt."
+      ],
+      "ausstieg": "Knie anziehen und ablegen.",
+      "sauber": "Kein Knick in der Hüfte, Arme und Beine bewegen sich gemeinsam.",
+      "details": [
+        "Eine Wiederholung ist einmal vor und zurück."
+      ],
+      "atmung": "Kurz und gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Der Körper klappt zusammen.", "k": "Spannung halten, kleinere Schaukel." }
+      ],
+      "skalierung": "Leichter: Hollow Body Hold. Schwerer: mehr Wiederholungen.",
+      "grenzen": "Aufhören, wenn die Form bricht.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„In die Hollow-Position“ ohne Erklärung.",
+        "korrektur": "Position im ersten Schritt beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_plank",
+      "zweck": "Unterarmstütz: Der Rumpf hält den Körper gerade gegen das Durchhängen.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Stütz dich auf die Unterarme, die Ellbogen unter den Schultern.",
+        "Streck die Beine nach hinten, Füße hüftbreit auf den Zehen.",
+        "Spann Gesäß und Bauch an und zieh die Rippen Richtung Becken.",
+        "Halte den Körper gerade von Kopf bis Fuß."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Gerade Linie von Kopf bis Fuß.",
+      "details": [
+        "Prüfen: Ein Besenstiel auf dem Rücken berührt Hinterkopf, Schulterblätter und Gesäß."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte hängt durch.", "k": "Gesäß fester anspannen." },
+        { "f": "Die Hüfte ragt hoch.", "k": "Hüfte senken bis zur Linie." }
+      ],
+      "skalierung": "Leichter: auf den Knien. Schwerer: ein Bein anheben, RKC Plank oder Weste.",
+      "grenzen": "Satz beenden, wenn die Hüfte durchhängt oder der untere Rücken zieht.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„Spiegel oder Video nutzen“ als Korrektur ohne Richtung.",
+        "korrektur": "Konkrete Korrektur und Besenstiel-Test.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_dead_bug",
+      "zweck": "In Rückenlage gegengleich Arm und Bein strecken: trainiert die tiefen Bauchmuskeln und die Koordination.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Arme senkrecht nach oben, Knie rechtwinklig über der Hüfte.",
+        "Drück den unteren Rücken in den Boden.",
+        "Streck langsam einen Arm nach hinten und das Bein der Gegenseite nach vorn, knapp über den Boden.",
+        "Zurück in die Mitte und Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Der untere Rücken bleibt am Boden.",
+      "details": [],
+      "atmung": "Beim Strecken langsam ausatmen, in der Mitte einatmen.",
+      "fehler": [
+        { "f": "Zu schnell.", "k": "Langsam, beim Strecken ausatmen." },
+        { "f": "Der Rücken hebt ab.", "k": "Bein weniger weit strecken." }
+      ],
+      "skalierung": "Leichter: nur die Beine bewegen. Schwerer: mit Band oder Gewicht in den Händen.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausgangsposition genauer.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_abwheel",
+      "zweck": "Kniend mit dem Bauchrad nach vorn rollen: der Bauch hält den Körper gegen das Durchhängen, sehr wirksam.",
+      "vorbereitung": "Kissen unter die Knie. Für die Stufe „Bis zur Wand“: Knie so weit vor einer Wand, dass das Rad dort anstößt.",
+      "schritte": [
+        "Knie dich auf das Kissen, stell das Rad mit beiden Händen senkrecht unter den Schultern auf den Boden.",
+        "Spann Bauch und Gesäß an, der Rücken ist leicht rund.",
+        "Roll langsam nach vorn, die Arme bleiben gestreckt. Nur so weit, wie du die Spannung halten kannst.",
+        "Roll mit festem Bauch zurück, bis die Hände wieder unter den Schultern sind."
+      ],
+      "ausstieg": "Gesäß auf die Fersen setzen.",
+      "sauber": "Kein Hohlkreuz, der Rücken bleibt leicht rund.",
+      "details": [
+        "Sackt der untere Rücken durch, warst du zu weit."
+      ],
+      "atmung": "Beim Ausrollen einatmen, beim Zurückrollen ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte fällt durch.", "k": "Kürzer rollen." },
+        { "f": "Mit Schwung zurück.", "k": "Langsam, Bauch zieht." }
+      ],
+      "skalierung": "Leichter: bis zur Wand rollen. Schwerer: weiter rollen, Weste oder aus dem Stand.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Glossar und Bibliothek verschieden, Wand-Stufe nicht erklärt.",
+        "korrektur": "Gemeinsamer Text, Wand-Stufe beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_abwheel_standing",
+      "zweck": "Bauchrad aus dem Stand: der schwerste Rollout, fast der ganze Körper hängt am Bauch.",
+      "vorbereitung": "Weicher Boden. Erst mit Wand vor dir, damit das Rad nicht zu weit rollt.",
+      "schritte": [
+        "Stell dich hüftbreit hin und setz das Rad vor die Füße.",
+        "Roll nach vorn, bis der Körper fast gestreckt ist, Arme gestreckt, Rücken leicht rund.",
+        "Zieh dich mit dem Bauch zurück, bis das Rad wieder vor den Füßen ist."
+      ],
+      "ausstieg": "Knie ablegen, falls du nicht mehr zurückkommst.",
+      "sauber": "Kein Durchhängen im unteren Rücken.",
+      "details": [],
+      "atmung": "Beim Zurückrollen ausatmen.",
+      "fehler": [
+        { "f": "Zu früh versucht.", "k": "Erst kniend mit Weste die volle Stufe schaffen." }
+      ],
+      "skalierung": "Leichter: bis zur Wand. Schwerer: voller Weg.",
+      "grenzen": "Sofort auf die Knie, wenn der Rücken durchhängt.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Sicherer Abbruch fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_fallout",
+      "zweck": "An den Ringen nach vorn fallen lassen und zurückziehen: wie Bauchrad, die Ringhöhe macht es leichter oder schwerer.",
+      "vorbereitung": "Ringe auf Kniehöhe hängen. Höher ist leichter.",
+      "schritte": [
+        "Greif die Ringe kniend oder stehend, Arme gestreckt vor dir.",
+        "Spann Bauch und Gesäß an, Körper gerade.",
+        "Lass die Arme langsam nach vorn über den Kopf gleiten, der Körper senkt sich mit.",
+        "Zieh dich mit dem Bauch zurück in die Ausgangsposition."
+      ],
+      "ausstieg": "Ringe zurück vor den Körper und aufrichten.",
+      "sauber": "Der Körper bleibt ein Brett.",
+      "details": [],
+      "atmung": "Beim Zurückziehen ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte geht zuerst zurück.", "k": "Rumpf fest, der Körper bewegt sich als Ganzes." }
+      ],
+      "skalierung": "Leichter: Ringe höher, kniend. Schwerer: Ringe tiefer, stehend.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken oder in der Schulter.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ringhöhe fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_body_saw",
+      "zweck": "Im Unterarmstütz vor und zurück gleiten: Plank mit Bewegung, der Bauch muss den längeren Hebel halten.",
+      "vorbereitung": "Glatter Boden, Handtuch oder Pappteller unter den Füßen.",
+      "schritte": [
+        "Geh in den Unterarmstütz, die Fußspitzen auf dem Handtuch.",
+        "Schieb den Körper über die Unterarme nach hinten.",
+        "Zieh dich zurück, bis die Ellbogen wieder unter den Schultern sind."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Der Körper bleibt gerade, die Hüfte ruhig.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte sackt.", "k": "Kürzerer Weg." }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: größere Bewegung.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Unterlage ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bear_crawl",
+      "zweck": "Auf Händen und Füßen krabbeln, die Knie knapp über dem Boden: Rumpf, Schultern und Koordination.",
+      "vorbereitung": "Freie Strecke.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Knie unter der Hüfte.",
+        "Heb die Knie ein paar Zentimeter vom Boden.",
+        "Setz gegengleich Hand und Fuß nach vorn: rechte Hand mit linkem Fuß, dann umgekehrt.",
+        "Der Rücken bleibt flach und ruhig."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Die Knie bleiben tief, der Rücken flach.",
+      "details": [
+        "Ein Glas Wasser auf dem Rücken würde nicht umfallen."
+      ],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte geht hoch.", "k": "Knie tief halten, kleinere Schritte." }
+      ],
+      "skalierung": "Leichter: langsamer. Schwerer: rückwärts oder mit Weste.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„gegengleich“ ohne Beispiel.",
+        "korrektur": "Beispiel ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_dragon_flag_tuck",
+      "zweck": "Gehockte Drachenfahne: auf den Schultern liegend die Hüfte hoch halten und langsam senken. Einstieg in die Dragon Flag.",
+      "vorbereitung": "Bank, Sprossenwand oder schweres Möbel zum Festhalten hinter dem Kopf. Es darf sich nicht bewegen.",
+      "schritte": [
+        "Leg dich auf den Rücken und halt dich hinter dem Kopf fest.",
+        "Zieh die Knie an und roll die Hüfte hoch, bis nur noch die Schultern aufliegen.",
+        "Senk die Hüfte mit angezogenen Knien langsam ab.",
+        "Roll vor dem Ablegen wieder hoch für die nächste Wiederholung."
+      ],
+      "ausstieg": "Hüfte ablegen, dann loslassen.",
+      "sauber": "Nur die Schultern liegen oben auf.",
+      "details": [
+        "Nie auf den Nacken rollen. Die Last liegt auf den Schulterblättern."
+      ],
+      "atmung": "Beim Absenken ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte knickt beim Absenken.", "k": "Langsamer, kürzerer Weg." }
+      ],
+      "skalierung": "Leichter: kürzerer Weg. Schwerer: ein Bein strecken.",
+      "grenzen": "Aufhören bei Druck im Nacken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Last auf Nacken vs. Schulter nicht geklärt.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_dragon_flag_raise",
+      "zweck": "Den gestreckten Körper aus der Rückenlage bis auf die Schultern heben und senken.",
+      "vorbereitung": "Bank, Sprossenwand oder schweres Möbel zum Festhalten hinter dem Kopf.",
+      "schritte": [
+        "Leg dich auf den Rücken und halt dich hinter dem Kopf fest.",
+        "Spann Gesäß und Bauch an und heb den gestreckten Körper bis auf die Schultern.",
+        "Senk ihn kontrolliert ab, der Körper bleibt gerade."
+      ],
+      "ausstieg": "Ablegen, dann loslassen.",
+      "sauber": "Der Körper bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Hohlkreuz.", "k": "Gesäß anspannen." }
+      ],
+      "skalierung": "Leichter: ein Bein angewinkelt. Schwerer: langsamer.",
+      "grenzen": "Aufhören bei Druck im Nacken oder Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„Festhalten wie beim Tuck Dragon Flag“.",
+        "korrektur": "Eigenständig.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_dragon_flag",
+      "zweck": "Drachenfahne halten: Nur die Schultern liegen auf, der gestreckte Körper schwebt.",
+      "vorbereitung": "Bank, Sprossenwand oder schweres Möbel zum Festhalten.",
+      "schritte": [
+        "Leg dich auf den Rücken, halt dich hinter dem Kopf fest und heb den gestreckten Körper bis auf die Schultern.",
+        "Senk ihn gestreckt ab, bis er schräg bis fast waagerecht über dem Boden ist.",
+        "Halte dort.",
+        "Leg kontrolliert ab."
+      ],
+      "ausstieg": "Hüfte beugen und ablegen.",
+      "sauber": "Gerade Linie, nur die Schultern liegen auf.",
+      "details": [],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Knick in der Hüfte.", "k": "Kürzer halten." }
+      ],
+      "skalierung": "Leichter: Dragon Flag Raise. Schwerer: länger halten.",
+      "grenzen": "Aufhören bei Druck im Nacken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„Aus dem Raise“ ohne eigene Erklärung.",
+        "korrektur": "Eigenständig.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_rkc_plank",
+      "zweck": "Plank mit maximaler Spannung für kurze Zeit: Der ganze Körper arbeitet, nicht nur der Bauch.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Unterarmstütz, Ellbogen etwas vor den Schultern.",
+        "Spann Gesäß, Oberschenkel und Bauch so fest an, wie du kannst.",
+        "Zieh die Ellbogen gedanklich zu den Zehen, ohne sie zu bewegen.",
+        "Halte die Spannung 10 bis 20 Sekunden."
+      ],
+      "ausstieg": "Spannung lösen und Knie ablegen.",
+      "sauber": "Der Körper zittert vor Spannung, das Becken bleibt leicht eingerollt.",
+      "details": [
+        "Becken einrollen: das Schambein Richtung Bauchnabel ziehen."
+      ],
+      "atmung": "Kurz und gepresst durch die Zähne ausatmen, ohne die Spannung zu lösen.",
+      "fehler": [
+        { "f": "Die Hüfte hängt durch.", "k": "Gesäß fester, Becken einrollen." }
+      ],
+      "skalierung": "Leichter: normale Plank. Schwerer: Ellbogen weiter nach vorn setzen.",
+      "grenzen": "Nicht länger als 20 Sekunden am Stück, dann Pause.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "„eingerollt“ unerklärt.",
+        "korrektur": "Erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bird_dog",
+      "zweck": "Im Vierfüßlerstand Arm und Bein der Gegenseite strecken: trainiert Rücken und Bauch zusammen.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Knie unter der Hüfte.",
+        "Streck einen Arm nach vorn und das Bein der Gegenseite nach hinten, bis beide waagerecht sind.",
+        "Halte kurz, ohne dass Becken oder Rücken kippen.",
+        "Zieh beides zurück. Alle Wiederholungen einer Seite, dann die andere."
+      ],
+      "ausstieg": "",
+      "sauber": "Rücken und Becken bleiben ruhig wie ein Tisch.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        { "f": "Das Bein geht zu hoch, Hohlkreuz.", "k": "Nur bis waagerecht." }
+      ],
+      "skalierung": "Leichter: nur Arm oder nur Bein heben. Schwerer: am Ende 5 Sekunden halten.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Höhe von Arm und Bein fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_dragon_flag_negative",
+      "zweck": "Nur das Absenken der Dragon Flag: baut die Kraft für die volle Drachenfahne auf.",
+      "vorbereitung": "Bank, Sprossenwand oder schweres Möbel zum Festhalten.",
+      "schritte": [
+        "Leg dich auf eine Bank und halt dich hinter dem Kopf fest.",
+        "Schwing den gestreckten Körper bis auf die Schultern nach oben.",
+        "Senk ihn in 3 bis 5 Sekunden gestreckt ab, bis er knapp über der Bank ist."
+      ],
+      "ausstieg": "Ablegen, dann loslassen.",
+      "sauber": "Der Körper bleibt beim Absenken von Schulter bis Fuß gestreckt.",
+      "details": [],
+      "atmung": "Beim Absenken langsam ausatmen.",
+      "fehler": [
+        { "f": "In der Hüfte abknicken.", "k": "Gesäß fest, schneller absenken oder Tuck." }
+      ],
+      "skalierung": "Leichter: Tuck Dragon Flag. Schwerer: langsamer absenken oder Dragon Flag Raise.",
+      "grenzen": "Aufhören bei Druck im Nacken.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

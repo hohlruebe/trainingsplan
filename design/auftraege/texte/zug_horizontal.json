@@ -1,0 +1,1004 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "zug_horizontal",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_row",
+      "zweck": "Rudern an Ringen: zieht den Körper schräg nach vorn und kräftigt oberen Rücken, hintere Schulter und Bizeps. Gegenstück zum Push-up.",
+      "vorbereitung": "Ringe auf Brust- bis Hüfthöhe hängen. Je höher die Ringe, desto steiler stehst du und desto leichter wird es.",
+      "schritte": [
+        "Greif die Ringe, die Handflächen zeigen zueinander (Neutralgriff).",
+        "Geh mit den Füßen nach vorn und lehn dich mit gestreckten Armen zurück. Fersen am Boden, Körper gerade von Kopf bis Fuß.",
+        "Zieh die Schulterblätter zusammen, dann die Ellbogen eng am Körper nach hinten.",
+        "Zieh, bis die Hände neben der Brust sind.",
+        "Lass dich langsam zurück, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung mit den Füßen zurück unter die Ringe gehen, bis du aufrecht stehst, dann loslassen.",
+      "sauber": "Der Körper bleibt gerade wie ein Brett, oben sind die Ringe an der Brust.",
+      "details": [
+        "Die Ringe dürfen sich drehen: unten Handflächen zueinander, oben leicht nach oben.",
+        "Gesäß anspannen und die Rippen Richtung Becken ziehen, dann knickt die Hüfte nicht ein."
+      ],
+      "atmung": "Beim Ziehen ausatmen, beim Ablassen einatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte hängt durch.",
+          "k": "Gesäß und Bauch fest, oder steiler stehen."
+        },
+        {
+          "f": "Nur das Kinn kommt nach vorn.",
+          "k": "Die Brust zu den Ringen führen, Kopf bleibt in Verlängerung des Rückens."
+        }
+      ],
+      "skalierung": "Leichter: steiler stehen (Ringe höher oder Füße weiter zurück). Schwerer: flacher, Füße erhöht oder mit Weste.",
+      "grenzen": "Satz beenden, wenn die Brust die Ringe nicht mehr erreicht oder die Hüfte einknickt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff, Neigung als Stellschraube und Ausstieg fehlten; Glossar mit eigenem Text.",
+        "korrektur": "Neutralgriff, Ringhöhe, Körperspannung und Rückweg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_australian_pullup",
+      "zweck": "Rudern an einer tiefen Stange: wie Ring Row, nur mit festem Griff. Gut, wenn keine Ringe da sind.",
+      "vorbereitung": "Eine feste Stange etwa auf Hüfthöhe, zum Beispiel im Hantelständer (Rack), an einem Barren oder auf dem Spielplatz.",
+      "schritte": [
+        "Leg dich unter die Stange, so dass sie über deiner Brust liegt.",
+        "Greif im Obergriff etwas breiter als schulterbreit, Arme gestreckt.",
+        "Heb die Hüfte an, bis der Körper gerade ist, die Fersen bleiben am Boden.",
+        "Zieh die Brust zur Stange, Ellbogen schräg nach hinten.",
+        "Lass dich kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Gesäß auf den Boden ablegen, dann loslassen.",
+      "sauber": "Die Brust berührt fast die Stange, der Körper bleibt gerade.",
+      "details": [
+        "Obergriff: Handflächen zeigen zu den Füßen. Der Untergriff geht auch und nimmt mehr Bizeps dazu."
+      ],
+      "atmung": "Beim Ziehen ausatmen, beim Ablassen einatmen.",
+      "fehler": [
+        {
+          "f": "Nur das Kinn kommt hoch.",
+          "k": "Brust zuerst zur Stange führen."
+        },
+        {
+          "f": "Die Hüfte sackt ab.",
+          "k": "Gesäß fest, oder Knie beugen."
+        }
+      ],
+      "skalierung": "Leichter: Knie gebeugt, Füße flach am Boden. Schwerer: Füße auf einer Erhöhung.",
+      "grenzen": "Satz beenden, wenn die Brust die Stange nicht mehr annähernd erreicht.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Stangenhöhe und Griff fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_archer_row",
+      "zweck": "Rudern zu einer Seite: Ein Arm zieht, der andere hilft gestreckt. Vorstufe für das einarmige Rudern.",
+      "vorbereitung": "Ringe auf Brust- bis Hüfthöhe, etwas weiter auseinander als schulterbreit.",
+      "schritte": [
+        "Greif beide Ringe und lehn dich mit gestreckten Armen zurück, Körper gerade, Fersen am Boden.",
+        "Zieh zu einem Ring, die Zughand kommt an die Brust.",
+        "Der andere Arm bleibt gestreckt und geht zur Seite.",
+        "Lass dich zurück in die Mitte und zieh zur anderen Seite."
+      ],
+      "ausstieg": "Mit beiden Händen zurück in die Mitte, mit den Füßen unter die Ringe gehen und loslassen.",
+      "sauber": "Die Zughand kommt an die Brust, der Körper bleibt gerade.",
+      "details": [
+        "Eine Wiederholung ist eine Seite. Abwechselnd ziehen."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte dreht mit.",
+          "k": "Becken parallel zum Boden halten, Gesäß fest."
+        },
+        {
+          "f": "Der Streckarm zieht mit.",
+          "k": "Steiler stehen, bis die Zughand allein arbeiten kann."
+        }
+      ],
+      "skalierung": "Leichter: steiler stehen. Schwerer: flacher, dann One-Arm Ring Row.",
+      "grenzen": "Satz beenden, wenn die Zughand nicht mehr an die Brust kommt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startete mit „Wie die Ring Row starten“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_one_arm_row",
+      "zweck": "Rudern mit einem Arm an einem Ring: viel Rückenkraft und der Rumpf muss gegen das Aufdrehen arbeiten.",
+      "vorbereitung": "Einen Ring auf Brust- bis Hüfthöhe hängen. Den anderen Ring hochschlagen oder beiseite hängen.",
+      "schritte": [
+        "Greif einen Ring im Neutralgriff (Handfläche zur Körpermitte).",
+        "Stell die Füße etwa hüftbreit und lehn dich mit gestrecktem Arm zurück, Körper gerade.",
+        "Zieh die Brust zur Hand, ohne den Körper aufzudrehen.",
+        "Lass dich langsam ab. Alle Wiederholungen einer Seite, dann wechseln."
+      ],
+      "ausstieg": "Mit den Füßen unter den Ring gehen, bis du aufrecht stehst, dann loslassen.",
+      "sauber": "Die Schultern bleiben etwa parallel zum Boden, die Zughand kommt an die Brust.",
+      "details": [
+        "Breiter stehende Füße machen das Aufdrehen leichter zu verhindern.",
+        "Die freie Hand kann zur Seite gestreckt oder an die Brust gelegt werden."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Starkes Aufdrehen.",
+          "k": "Steiler stehen und Bauch fester anspannen."
+        },
+        {
+          "f": "Die Hüfte sackt ab.",
+          "k": "Gesäß anspannen."
+        }
+      ],
+      "skalierung": "Leichter: steiler stehen. Schwerer: flacher stehen.",
+      "grenzen": "Satz beenden, wenn du dich nur noch mit Aufdrehen hochziehst.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Fußstellung und Griff fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_band_row",
+      "zweck": "Rudern mit Band: kräftigt oberen Rücken und Bizeps, wo keine Ringe oder Hanteln sind.",
+      "vorbereitung": "Band auf Brusthöhe befestigen, zum Beispiel mit Türanker in einer geschlossenen Tür oder um einen festen Pfosten.",
+      "schritte": [
+        "Greif die Bandenden und geh rückwärts, bis das Band bei gestreckten Armen leicht gespannt ist.",
+        "Stell die Füße hüftbreit, Knie leicht gebeugt, Oberkörper aufrecht.",
+        "Zieh die Schulterblätter zusammen, dann die Ellbogen eng am Körper nach hinten.",
+        "Lass die Arme langsam zurück nach vorn, bis sie gestreckt sind."
+      ],
+      "ausstieg": "Arme nach vorn gehen lassen und einen Schritt zum Anker machen, bis das Band locker ist, dann loslassen.",
+      "sauber": "Die Schulterblätter gehen zusammen, die Schultern bleiben unten.",
+      "details": [
+        "Je weiter weg du stehst, desto stärker zieht das Band."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Schultern ziehen hoch.",
+          "k": "Schultern tief lassen, Ellbogen nach hinten-unten."
+        },
+        {
+          "f": "Oberkörper lehnt sich zurück.",
+          "k": "Aufrecht bleiben, leichteres Band nehmen."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band oder näher an den Anker. Schwerer: stärkeres Band, weiter weg oder einarmig.",
+      "grenzen": "Band vorher auf Risse prüfen. Aufhören bei stechendem Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Abstand und Ausstieg fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pullapart",
+      "zweck": "Band vor der Brust auseinanderziehen: wärmt die hintere Schulter und die Muskeln zwischen den Schulterblättern auf.",
+      "vorbereitung": "Ein sehr leichtes Band.",
+      "schritte": [
+        "Greif das Band schulterbreit, Handflächen nach unten, Arme gestreckt auf Brusthöhe vor dir.",
+        "Zieh die Hände auseinander, bis das Band die Brust berührt. Die Schulterblätter gehen zusammen.",
+        "Lass die Hände langsam zurück, ohne dass das Band ganz locker wird."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Arme bleiben gestreckt, die Schultern unten.",
+      "details": [
+        "Die Bewegung kommt aus der Schulter, die Ellbogen bleiben gerade."
+      ],
+      "atmung": "Beim Auseinanderziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Ins Hohlkreuz ausweichen.",
+          "k": "Rippen unten lassen, Gesäß leicht anspannen."
+        },
+        {
+          "f": "Die Ellbogen beugen sich.",
+          "k": "Hände weiter auseinander greifen oder leichteres Band."
+        }
+      ],
+      "skalierung": "Leichter: Hände weiter auseinander. Schwerer: Hände enger oder stärkeres Band.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Glossar und Bibliothek mit verschiedenen Texten.",
+        "korrektur": "Ein gemeinsamer Text in der Bibliothek.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_face_pull",
+      "zweck": "Zum Gesicht ziehen und die Arme nach außen drehen: kräftigt hintere Schulter und die kleinen Muskeln, die das Schultergelenk zentrieren.",
+      "vorbereitung": "Band auf Kopfhöhe befestigen, zum Beispiel mit Türanker oben in der Tür oder an einer Stange.",
+      "schritte": [
+        "Greif beide Bandenden, Daumen zeigen zu dir, und geh zurück, bis das Band gespannt ist.",
+        "Stell dich aufrecht hin, Arme gestreckt vor dir auf Kopfhöhe.",
+        "Zieh die Hände zum Gesicht, die Ellbogen gehen hoch und zur Seite.",
+        "Dreh am Ende die Hände nach außen, bis sie neben den Ohren sind.",
+        "Lass die Arme langsam zurück."
+      ],
+      "ausstieg": "Arme nach vorn gehen lassen und einen Schritt zum Anker, dann loslassen.",
+      "sauber": "Die Ellbogen sind oben etwa auf Schulterhöhe, die Hände neben den Ohren.",
+      "details": [
+        "Wie ein Doppelbizeps-Posing am Ende der Bewegung."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit dem Oberkörper ziehen.",
+          "k": "Ruhig stehen, leichteres Band."
+        },
+        {
+          "f": "Die Ellbogen sinken nach unten.",
+          "k": "Ellbogen bewusst hoch führen, sonst wird es ein Rudern."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: oben 2 Sekunden halten.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter beim Außendrehen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff und Endposition ungenau.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_db_row",
+      "zweck": "Einarmiges Rudern mit Hantel: kräftigt den breiten Rückenmuskel und lässt sich sehr genau mit Gewicht steigern.",
+      "vorbereitung": "Stabile Bank oder Stuhl, Kurzhantel oder Kettlebell daneben auf dem Boden.",
+      "schritte": [
+        "Stütz die linke Hand und das linke Knie auf die Bank, der rechte Fuß steht seitlich daneben am Boden.",
+        "Greif die Hantel mit der rechten Hand, der Arm hängt gestreckt unter der Schulter.",
+        "Rücken flach, etwa parallel zum Boden, Blick auf den Boden.",
+        "Zieh die Hantel zur Hüfte, der Ellbogen bleibt nah am Körper.",
+        "Senk sie langsam ab, bis der Arm gestreckt ist. Satz fertig, dann Seite wechseln."
+      ],
+      "ausstieg": "Hantel nach der letzten Wiederholung auf den Boden stellen, dann aufrichten.",
+      "sauber": "Der Rücken bleibt flach, der Ellbogen nah am Körper.",
+      "details": [
+        "Statt Knie auf der Bank geht auch: beide Füße am Boden, eine Hand auf der Bank."
+      ],
+      "atmung": "Beim Ziehen ausatmen, beim Absenken einatmen.",
+      "fehler": [
+        {
+          "f": "Der Oberkörper dreht auf.",
+          "k": "Gewicht verringern, beide Schultern zeigen zum Boden."
+        },
+        {
+          "f": "Mit Schwung reißen.",
+          "k": "Langsam ziehen, oben kurz halten."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken, dann Rücken stärker abstützen oder leichter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Stütz- und Fußposition fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_barbell_row",
+      "zweck": "Vorgebeugtes Rudern mit der Langhantel: kräftigt oberen Rücken und Bizeps, Rücken und Beine halten die Position.",
+      "vorbereitung": "Langhantel mit Scheiben auf dem Boden oder im Hantelständer (Rack) auf Kniehöhe.",
+      "schritte": [
+        "Stell dich hüftbreit an die Stange und greif sie im Obergriff etwas breiter als schulterbreit.",
+        "Heb sie mit geradem Rücken an wie beim Kreuzheben.",
+        "Beug dich aus der Hüfte vor, Knie leicht gebeugt, bis der Oberkörper etwa 45 Grad oder flacher steht. Die Arme hängen gestreckt.",
+        "Zieh die Stange zum unteren Brustbein oder Bauchnabel.",
+        "Senk sie kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aufrichten, dann die Stange mit geradem Rücken auf den Boden oder zurück ins Rack setzen.",
+      "sauber": "Der Rücken bleibt gerade, der Oberkörperwinkel ändert sich kaum, kein Schwung.",
+      "details": [
+        "Je flacher der Oberkörper, desto mehr arbeitet der Rücken und desto mehr muss die Rückseite der Beine halten.",
+        "Bauch vor jeder Wiederholung fest machen."
+      ],
+      "atmung": "Vor dem Zug einatmen und Bauch fest, beim Absenken ausatmen.",
+      "fehler": [
+        {
+          "f": "Beim Ziehen aufrichten.",
+          "k": "Gewicht verringern und den Winkel halten."
+        },
+        {
+          "f": "Runder Rücken.",
+          "k": "Brust heraus, Hüfte weiter nach hinten."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder Chest-Supported Dumbbell Row. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden, wenn der Rücken rund wird. Ziehen im unteren Rücken: auf Rudern mit Bruststütze wechseln.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff, Winkel und sicheres Ablegen fehlten.",
+        "korrektur": "Ergänzt; Winkel als Richtwert, nicht als Pflicht.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_renegade_row",
+      "zweck": "Rudern im Liegestütz: Rücken zieht, der Rumpf hält den Körper gegen das Umkippen.",
+      "vorbereitung": "Zwei Kurzhanteln mit flacher Unterseite oder Kettlebells auf rutschfestem Boden, schulterbreit.",
+      "schritte": [
+        "Geh in den Liegestütz mit den Händen auf den Hantelgriffen, Arme gestreckt.",
+        "Stell die Füße etwas breiter als hüftbreit.",
+        "Drück eine Hantel in den Boden und zieh die andere zur Hüfte. Die Hüfte bleibt ruhig.",
+        "Setz die Hantel ab und wechsle die Seite."
+      ],
+      "ausstieg": "Knie auf den Boden ablegen, dann die Hanteln loslassen.",
+      "sauber": "Die Hüfte dreht nicht mit, der Körper bleibt gerade.",
+      "details": [
+        "Eine Wiederholung ist eine Seite, außer im Plan steht „je Seite“."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Füße zu eng.",
+          "k": "Beine breiter stellen."
+        },
+        {
+          "f": "Hantel kippt weg.",
+          "k": "Hanteln mit flacher Seite nehmen und gerade aufsetzen."
+        }
+      ],
+      "skalierung": "Leichter: ohne Rudern nur den Stütz halten oder auf den Knien. Schwerer: einen Push-up zwischen den Ruderzügen.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder wenn die Hüfte durchhängt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Rutschgefahr der Hanteln, Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_tuck_fl_row",
+      "zweck": "Rudern in der gehockten Hangwaage: kombiniert Front-Lever-Haltekraft mit Zug.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst.",
+      "schritte": [
+        "Häng im Obergriff und zieh die Knie zur Brust.",
+        "Drück mit gestreckten Armen den Griff Richtung Hüfte, bis der Rücken waagerecht zum Boden ist (Tuck Front Lever).",
+        "Zieh die Ringe bzw. die Stange zur Hüfte, der Körper bleibt waagerecht.",
+        "Streck die Arme langsam zurück in die gehockte Hangwaage."
+      ],
+      "ausstieg": "Hüfte senken, die Füße nach unten führen bis in den ruhigen Hang, dann loslassen.",
+      "sauber": "Der Rücken bleibt die ganze Zeit waagerecht.",
+      "details": [
+        "Wenige, saubere Wiederholungen. Die Waagerechte ist wichtiger als die Zahl."
+      ],
+      "atmung": "Kurze Atemzüge, beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte sackt ab.",
+          "k": "Weniger Wiederholungen, mehr Spannung, Knie fester an die Brust."
+        }
+      ],
+      "skalierung": "Leichter: kürzerer Zugweg. Schwerer: Advanced Tuck (Rücken flach, Knie weiter weg).",
+      "grenzen": "Aufhören, wenn du die Waagerechte nicht mehr erreichst, oder bei Schmerz im Ellbogen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startposition nur über den Namen erklärt.",
+        "korrektur": "Gehockte Hangwaage beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_german_hang",
+      "zweck": "Hängen mit den Armen hinter dem Körper: dehnt Schultern und Brust und bereitet auf den Back Lever vor.",
+      "vorbereitung": "Ringe auf etwa Hüfthöhe hängen, so dass die Füße am Boden bleiben können. Später höher.",
+      "schritte": [
+        "Greif die Ringe und setz dich darunter, die Füße am Boden.",
+        "Heb die Hüfte, roll den Körper rückwärts und führ die Füße zwischen den Armen nach hinten.",
+        "Lass die Hüfte langsam nach unten sinken, bis die Arme hinter dem Körper sind. Die Füße bleiben zuerst am Boden.",
+        "Halte nur so tief, wie es ohne Schmerz geht, und atme ruhig."
+      ],
+      "ausstieg": "Denselben Weg zurück: Knie zur Brust ziehen, nach vorn durchrollen und die Füße abstellen.",
+      "sauber": "Langsam hinein, die Schulter dehnt sich spürbar, aber schmerzt nicht.",
+      "details": [
+        "Die Arme bleiben gestreckt. Beugen hilft nicht, sondern verlagert die Last in die Ellbogen.",
+        "Erst mit den Füßen am Boden üben, frei hängend erst nach einigen Wochen."
+      ],
+      "atmung": "Ruhig und langsam weiteratmen, mit dem Ausatmen etwas tiefer sinken.",
+      "fehler": [
+        {
+          "f": "Zu schnell zu tief.",
+          "k": "Füße am Boden lassen und in kleinen Schritten tiefer gehen."
+        },
+        {
+          "f": "Im Endbereich fallen lassen.",
+          "k": "Spannung halten und nur so tief wie kontrolliert."
+        }
+      ],
+      "skalierung": "Leichter: Ringe tief, Füße am Boden. Schwerer: frei hängend, länger halten.",
+      "grenzen": "Sofort raus bei stechendem Schmerz vorn in der Schulter oder an der Bizepssehne. Ein Dehngefühl ist in Ordnung.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Einstieg mit Fußhilfe und klarer Abbruchpunkt fehlten.",
+        "korrektur": "Einstieg über Sitzposition, Rückweg, Abbruchsignal ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_back_lever_tuck",
+      "zweck": "Gehockte Waage mit dem Bauch zum Boden: erste Halteposition auf dem Weg zum Back Lever.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst und kopfüber Platz hast.",
+      "schritte": [
+        "Häng mit gestreckten Armen, zieh die Knie zur Brust und roll rückwärts, bis du kopfüber hängst.",
+        "Senk die Hüfte langsam nach hinten-unten weiter.",
+        "Stopp, wenn der Rücken waagerecht ist und das Gesicht zum Boden zeigt. Knie an der Brust, Arme gestreckt.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Knie an der Brust lassen und auf demselben Weg zurück nach oben in den umgekehrten Hang rollen, dann nach vorn durch in den normalen Hang.",
+      "sauber": "Rücken waagerecht, Arme gestreckt, Knie fest an der Brust.",
+      "details": [
+        "Die Hände drücken Ringe bzw. Stange Richtung Hüfte."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Arme beugen sich.",
+          "k": "Ellbogen gestreckt lassen, notfalls etwas höher als waagerecht halten."
+        },
+        {
+          "f": "Zu schnell hineinfallen.",
+          "k": "Langsam aus dem umgekehrten Hang absenken."
+        }
+      ],
+      "skalierung": "Leichter: höher als waagerecht halten. Schwerer: Advanced Tuck Back Lever.",
+      "grenzen": "Raus bei Schmerz an der Vorderseite der Schulter oder am Ellbogen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "German Hang als bekannt vorausgesetzt, Rückweg fehlte.",
+        "korrektur": "Weg über den umgekehrten Hang beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_back_lever_adv",
+      "zweck": "Back Lever mit flachem Rücken und angewinkelten Knien: deutlich schwerer als der Tuck, weil der Körper länger wird.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst und kopfüber Platz hast.",
+      "schritte": [
+        "Roll aus dem Hang rückwärts in den umgekehrten Hang.",
+        "Senk dich langsam ab, bis der Rücken waagerecht ist, Gesicht zum Boden.",
+        "Öffne die Hüfte, bis der Rücken flach ist. Die Knie bleiben gebeugt, etwa rechtwinklig.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Knie zur Brust ziehen und zurück nach oben in den umgekehrten Hang rollen.",
+      "sauber": "Rücken flach, Hüfte auf Schulterhöhe, Knie angewinkelt, Arme gestreckt.",
+      "details": [],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Runder Rücken.",
+          "k": "Hüfte weiter öffnen, Gesäß anspannen."
+        },
+        {
+          "f": "Die Hüfte sinkt unter die Schultern.",
+          "k": "Kürzer halten oder zurück zum Tuck."
+        }
+      ],
+      "skalierung": "Leichter: Tuck Back Lever. Schwerer: Straddle Back Lever.",
+      "grenzen": "Raus bei Schmerz vorn in der Schulter oder am Ellbogen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startete mit „Wie der Tuck Back Lever“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_back_lever",
+      "zweck": "Die volle Hangwaage rücklings: gestreckter Körper waagerecht unter Ringen oder Stange, Bauch zum Boden.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst und kopfüber Platz hast.",
+      "schritte": [
+        "Roll aus dem Hang rückwärts in den umgekehrten Hang.",
+        "Streck die Beine nach oben, Körper gerade.",
+        "Senk den gestreckten Körper langsam nach hinten-unten, bis er waagerecht ist, Bauch zum Boden.",
+        "Halte die Position und geh kontrolliert zurück nach oben."
+      ],
+      "ausstieg": "Knie anziehen und zurück in den umgekehrten Hang, dann nach vorn durch in den Hang.",
+      "sauber": "Gerade Linie von Kopf bis Fuß, waagerecht, Arme gestreckt.",
+      "details": [
+        "Gesäß und Beine fest zusammen, so entsteht kein Hohlkreuz."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz.",
+          "k": "Gesäß fest anspannen und Rippen zum Becken."
+        },
+        {
+          "f": "Ellbogen beugen sich.",
+          "k": "Zurück zur Straddle-Stufe."
+        }
+      ],
+      "skalierung": "Leichter: Straddle Back Lever. Schwerer: längere Haltezeit.",
+      "grenzen": "Raus bei Schmerz vorn in der Schulter oder am Ellbogen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Weg in die Position verkürzt.",
+        "korrektur": "Weg über den umgekehrten Hang und Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_front_lever_tuck",
+      "zweck": "Gehockte Hangwaage mit dem Rücken zum Boden: erste Halteposition auf dem Weg zum Front Lever.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst.",
+      "schritte": [
+        "Häng im Obergriff mit gestreckten Armen.",
+        "Zieh die Knie zur Brust.",
+        "Drück mit gestreckten Armen den Griff Richtung Hüfte, bis der Rücken waagerecht ist und das Gesicht nach oben zeigt.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Hüfte langsam senken, Füße nach unten in den ruhigen Hang, dann loslassen.",
+      "sauber": "Rücken waagerecht, Arme gestreckt, Knie an der Brust.",
+      "details": [
+        "Die Kraft kommt aus dem breiten Rückenmuskel: als würdest du gestreckte Arme an die Hüfte ziehen."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Arme beugen sich.",
+          "k": "Ellbogen fest strecken, notfalls höher als waagerecht halten."
+        },
+        {
+          "f": "Die Hüfte hängt unter den Schultern.",
+          "k": "Knie fester an die Brust und Griff stärker zur Hüfte drücken."
+        }
+      ],
+      "skalierung": "Leichter: höher als waagerecht halten. Schwerer: Advanced Tuck.",
+      "grenzen": "Aufhören bei Schmerz am Ellbogen oder in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_front_lever_adv",
+      "zweck": "Front Lever mit flachem Rücken und angewinkelten Knien: der nächste Schritt nach dem Tuck.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst.",
+      "schritte": [
+        "Häng im Obergriff, zieh die Knie zur Brust und drück den Griff Richtung Hüfte, bis der Rücken waagerecht ist.",
+        "Öffne die Hüfte, bis der Rücken flach ist. Die Knie bleiben etwa rechtwinklig gebeugt.",
+        "Halte Hüfte und Schultern auf einer Höhe."
+      ],
+      "ausstieg": "Knie zur Brust ziehen, Hüfte senken und im ruhigen Hang loslassen.",
+      "sauber": "Flacher Rücken, Hüfte auf Schulterhöhe, Arme gestreckt.",
+      "details": [],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte sackt ab.",
+          "k": "Kürzer halten oder Knie wieder näher an den Körper."
+        }
+      ],
+      "skalierung": "Leichter: Tuck Front Lever. Schwerer: One-Leg Front Lever.",
+      "grenzen": "Aufhören bei Ellbogen- oder Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startete mit „Wie der Tuck Front Lever“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_front_lever_one_leg",
+      "zweck": "Front Lever mit einem gestreckten Bein: verlängert den Hebel Schritt für Schritt Richtung voller Front Lever.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst.",
+      "schritte": [
+        "Geh in den Front Lever mit flachem Rücken und angewinkelten Knien.",
+        "Streck ein Bein nach vorn aus, bis es in Linie mit dem Körper ist.",
+        "Das andere Bein bleibt angewinkelt.",
+        "Halte, dann das Bein wechseln."
+      ],
+      "ausstieg": "Gestrecktes Bein anwinkeln, Knie zur Brust und in den ruhigen Hang absenken.",
+      "sauber": "Die Hüfte bleibt auf Schulterhöhe, auch mit gestrecktem Bein.",
+      "details": [
+        "Beide Seiten gleich lange halten."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Das gestreckte Bein zieht die Hüfte nach unten.",
+          "k": "Bauch und Gesäß fester, kürzer halten."
+        }
+      ],
+      "skalierung": "Leichter: Advanced Tuck. Schwerer: Straddle Front Lever.",
+      "grenzen": "Aufhören bei Ellbogen- oder Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_front_lever",
+      "zweck": "Die volle Hangwaage vorlings: gestreckter Körper waagerecht, Rücken zum Boden, nur die Hände halten.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst und die gestreckten Beine den Boden nicht berühren.",
+      "schritte": [
+        "Häng im Obergriff mit gestreckten Armen, Beine geschlossen.",
+        "Drück mit gestreckten Armen den Griff Richtung Hüfte und heb den gestreckten Körper an.",
+        "Stopp, wenn der Körper waagerecht ist, Rücken zum Boden.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Knie zur Brust ziehen und kontrolliert in den ruhigen Hang absenken.",
+      "sauber": "Gerade Linie von Schultern bis Füßen, Arme gestreckt.",
+      "details": [
+        "Gesäß anspannen und Zehen strecken, dann knickt die Hüfte nicht ein."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte knickt ein.",
+          "k": "Gesäß anspannen oder zurück zur Straddle-Stufe."
+        }
+      ],
+      "skalierung": "Leichter: Straddle Front Lever. Schwerer: längere Haltezeit.",
+      "grenzen": "Aufhören bei Ellbogen- oder Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_table_row",
+      "zweck": "Rudern unter einem Tisch: ersetzt Ring Row zuhause ohne Geräte.",
+      "vorbereitung": "Nur einen schweren, festen Tisch nehmen. Vorher prüfen: Kräftig an der Kante ziehen, er darf nicht kippen oder rutschen.",
+      "schritte": [
+        "Leg dich rücklings unter den Tisch, die Tischkante über der Brust.",
+        "Greif die Kante schulterbreit, Arme gestreckt.",
+        "Heb die Hüfte, bis der Körper gerade ist, Fersen am Boden.",
+        "Zieh die Brust zur Tischkante.",
+        "Lass dich kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Gesäß auf den Boden legen, dann loslassen und unter dem Tisch herausrutschen.",
+      "sauber": "Der Körper bleibt ein Brett, die Brust kommt bis an die Kante.",
+      "details": [],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Tisch kippelt.",
+          "k": "Sofort aufhören und einen schwereren Tisch oder Towel Door Row nehmen."
+        },
+        {
+          "f": "Die Hüfte hängt durch.",
+          "k": "Gesäß anspannen oder Knie anwinkeln."
+        }
+      ],
+      "skalierung": "Leichter: Knie anwinkeln. Schwerer: Beine gestreckt, Füße erhöht oder oben 2 Sekunden halten.",
+      "grenzen": "Sofort abbrechen, wenn sich der Tisch bewegt.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "In du-Form und mit Ausstieg.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_towel_door_row",
+      "zweck": "Rudern an einer Tür mit Handtuch: Rückenübung für zuhause ohne Geräte.",
+      "vorbereitung": "Tür öffnen und ein festes Handtuch um beide Türklinken legen. Die Tür muss sich beim Ziehen zu dir hin schließen wollen, nicht aufgehen. Vorher kräftig testen.",
+      "schritte": [
+        "Fass beide Enden des Handtuchs und stell die Füße nah an die Tür, links und rechts der Türkante.",
+        "Lehn dich zurück, bis die Arme gestreckt sind, Körper gerade.",
+        "Zieh die Brust zur Tür, die Schulterblätter gehen zusammen.",
+        "Lass dich langsam zurück, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aufrichten, bis du aufrecht stehst, dann loslassen.",
+      "sauber": "Die Schulterblätter gehen zusammen, der Körper bleibt gerade.",
+      "details": [
+        "Je näher die Füße an der Tür und je weiter du zurücklehnst, desto schwerer."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Tür rutscht auf.",
+          "k": "Sofort aufrichten. Tür so stellen, dass sie in Zugrichtung schließt."
+        },
+        {
+          "f": "Handtuch rutscht von der Klinke.",
+          "k": "Handtuch eng um beide Klinken legen."
+        }
+      ],
+      "skalierung": "Leichter: aufrechter stehen. Schwerer: Füße näher an die Tür oder einarmig.",
+      "grenzen": "Sofort abbrechen, wenn Tür oder Klinke nachgeben.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Fußstellung zur Tür fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_seated_cable_row",
+      "zweck": "Rudern am Kabelzug im Sitzen: kräftigt den Rücken mit genau einstellbarem Gewicht, der Oberkörper muss wenig halten.",
+      "vorbereitung": "Griff am unteren Kabelzug einhängen, Gewicht mit dem Steckbolzen wählen.",
+      "schritte": [
+        "Setz dich vor den Kabelzug, die Füße gegen die Stütze, Knie leicht gebeugt.",
+        "Greif den Griff mit gestreckten Armen, Oberkörper aufrecht.",
+        "Zieh den Griff zum Bauch und die Schulterblätter zusammen.",
+        "Lass ihn kontrolliert zurück, bis die Arme gestreckt sind, ohne den Rücken rund zu machen."
+      ],
+      "ausstieg": "Arme nach vorn gehen lassen, bis das Gewicht aufliegt, dann loslassen.",
+      "sauber": "Der Oberkörper bleibt fast still, die Bewegung kommt aus Armen und Schulterblättern.",
+      "details": [],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit dem Oberkörper schwingen.",
+          "k": "Gewicht verringern und den Oberkörper aufrecht halten."
+        },
+        {
+          "f": "Beim Zurücklassen rund werden.",
+          "k": "Nur so weit nach vorn, wie der Rücken gerade bleibt."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder hinten 1 Sekunde halten.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_chest_supported_row",
+      "zweck": "Rudern auf der Schrägbank liegend: Der Rücken muss nichts halten, so arbeitet nur der obere Rücken.",
+      "vorbereitung": "Bank auf etwa 30–45 Grad schräg stellen, Hanteln links und rechts am Boden.",
+      "schritte": [
+        "Leg dich bäuchlings auf die Bank, die Brust liegt auf, die Füße stehen am Boden.",
+        "Nimm je eine Hantel, die Arme hängen gerade nach unten.",
+        "Zieh die Hanteln zur Hüfte und die Schulterblätter zusammen.",
+        "Senk sie kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Hanteln auf den Boden stellen, dann von der Bank aufstehen.",
+      "sauber": "Die Brust bleibt auf der Bank.",
+      "details": [],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Brust hebt ab.",
+          "k": "Gewicht verringern."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder oben 2 Sekunden halten.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Bankwinkel fehlte.",
+        "korrektur": "Richtwert ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ytw_raise",
+      "zweck": "Armheben in drei Positionen in Bauchlage: kräftigt die Muskeln, die die Schulterblätter nach unten und hinten ziehen.",
+      "vorbereitung": "Matte, ein gefaltetes Handtuch unter die Stirn.",
+      "schritte": [
+        "Leg dich bäuchlings hin, Stirn auf dem Handtuch, Beine lang.",
+        "Y: Arme schräg über den Kopf, Daumen nach oben, heb die Arme ein paar Zentimeter an.",
+        "T: Arme zur Seite, Daumen nach oben, anheben.",
+        "W: Ellbogen gebeugt neben dem Körper, Hände auf Schulterhöhe, anheben.",
+        "Halte jede Position kurz und senk die Arme ab."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Schulterblätter ziehen nach hinten-unten, nicht zu den Ohren.",
+      "details": [
+        "Die Arme heben sich nur wenig. Kopf bleibt auf dem Handtuch."
+      ],
+      "atmung": "Beim Anheben ausatmen.",
+      "fehler": [
+        {
+          "f": "Den Nacken hochziehen.",
+          "k": "Schultern weg von den Ohren, Stirn bleibt unten."
+        },
+        {
+          "f": "Ins Hohlkreuz gehen.",
+          "k": "Gesäß leicht anspannen, nur die Arme heben."
+        }
+      ],
+      "skalierung": "Leichter: nur Y und T. Schwerer: kleine Gewichte in den Händen.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Positionen klarer getrennt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_front_lever_raise",
+      "zweck": "Den Körper mit gestreckten Armen in den Front Lever heben und senken: baut Front-Lever-Kraft durch den ganzen Weg auf.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst.",
+      "schritte": [
+        "Häng mit gestreckten Armen und zieh die Knie zur Brust.",
+        "Heb die Hüfte, bis du kopfüber hängst (umgekehrter Hang), die Arme bleiben gestreckt.",
+        "Senk den Körper langsam, bis der Rücken waagerecht ist (Front-Lever-Position).",
+        "Heb dich mit gestreckten Armen zurück in den umgekehrten Hang."
+      ],
+      "ausstieg": "Aus dem umgekehrten Hang Knie zur Brust und langsam nach unten in den normalen Hang, dann loslassen.",
+      "sauber": "Die Arme bleiben gestreckt, der Körper behält die gewählte Form.",
+      "details": [
+        "Die Form richtet sich nach deiner Stufe: gehockt, Advanced Tuck oder gestreckt."
+      ],
+      "atmung": "Beim Hochheben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Arme beugen sich.",
+          "k": "Kürzere Form wählen, zum Beispiel gehockt."
+        }
+      ],
+      "skalierung": "Leichter: gehockt oder nur das Absenken. Schwerer: gestreckter Körper oder Weste.",
+      "grenzen": "Aufhören bei Ellbogen- oder Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_straddle_front_lever",
+      "zweck": "Front Lever mit gegrätschten Beinen: der Schritt vor dem vollen Front Lever.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass gestreckte Beine den Boden nicht berühren.",
+      "schritte": [
+        "Häng mit gestreckten Armen im Obergriff.",
+        "Heb den Körper waagerecht nach oben, die Beine gestreckt und weit gegrätscht.",
+        "Halte Hüfte und Schultern auf einer Höhe."
+      ],
+      "ausstieg": "Beine schließen, Knie zur Brust und in den ruhigen Hang absenken.",
+      "sauber": "Der Körper bildet eine waagerechte Linie, die Arme bleiben gestreckt.",
+      "details": [
+        "Je weiter die Beine gegrätscht sind, desto leichter."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte knickt ab.",
+          "k": "Gesäß anspannen, kürzer halten."
+        }
+      ],
+      "skalierung": "Leichter: One-Leg Front Lever. Schwerer: Beine enger bis zum vollen Front Lever.",
+      "grenzen": "Aufhören bei Ellbogen- oder Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_straddle_back_lever",
+      "zweck": "Back Lever mit gegrätschten Beinen: der Schritt vor dem vollen Back Lever.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du frei hängst und kopfüber Platz hast.",
+      "schritte": [
+        "Roll aus dem Hang rückwärts in den umgekehrten Hang.",
+        "Grätsche die gestreckten Beine.",
+        "Senk den Körper langsam nach hinten-unten, bis er waagerecht ist, Bauch zum Boden.",
+        "Halte die Arme gestreckt und den Körper in einer Linie."
+      ],
+      "ausstieg": "Beine schließen, Knie zur Brust und zurück in den umgekehrten Hang rollen.",
+      "sauber": "Hüfte und Schultern auf einer Höhe, die Arme bleiben gestreckt.",
+      "details": [],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz.",
+          "k": "Gesäß fest, Rippen zum Becken."
+        }
+      ],
+      "skalierung": "Leichter: Advanced Tuck Back Lever. Schwerer: Beine enger bis zum vollen Back Lever.",
+      "grenzen": "Raus bei Schmerz vorn in der Schulter oder am Ellbogen.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "German Hang als bekannt vorausgesetzt.",
+        "korrektur": "Weg über den umgekehrten Hang beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_skin_the_cat",
+      "zweck": "Rückwärts durch die Arme rollen bis in den German Hang und zurück: macht die Schultern beweglich und stark für Back Lever und Ringturnen.",
+      "vorbereitung": "Ringe oder Stange so hoch, dass du kopfüber frei hängst. Erst mit sicherem German Hang.",
+      "schritte": [
+        "Häng mit gestreckten Armen.",
+        "Zieh die Knie zur Brust und roll den Körper rückwärts durch die Arme, bis du kopfüber hängst.",
+        "Senk die Hüfte langsam weiter bis in den German Hang (Arme hinter dem Körper).",
+        "Roll auf demselben Weg zurück in den normalen Hang."
+      ],
+      "ausstieg": "Im normalen Hang ruhig werden und loslassen.",
+      "sauber": "Die Bewegung bleibt langsam und kontrolliert bis in den German Hang.",
+      "details": [
+        "Nur so tief in den German Hang wie es ohne Schmerz geht."
+      ],
+      "atmung": "Ruhig weiteratmen, nicht die Luft anhalten.",
+      "fehler": [
+        {
+          "f": "Schnelles Durchfallen in den German Hang.",
+          "k": "Langsamer rollen, nur bis zum umgekehrten Hang."
+        }
+      ],
+      "skalierung": "Leichter: nur bis zum umgekehrten Hang. Schwerer: mit gestreckten Beinen.",
+      "grenzen": "Raus bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„überlastet die Schulter“ als feste Aussage.",
+        "korrektur": "Als Ausführungshinweis mit klarem Abbruchsignal formuliert.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}
