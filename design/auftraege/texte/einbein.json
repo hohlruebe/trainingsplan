@@ -1,0 +1,385 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "einbein",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_pistol",
+      "zweck": "Kniebeuge auf einem Bein bis ganz unten: Kraft, Beweglichkeit und Gleichgewicht in einer Übung.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich auf ein Bein, heb das andere gestreckt nach vorn.",
+        "Streck die Arme zum Ausgleich nach vorn.",
+        "Senk dich auf dem Standbein langsam ab, so tief es geht. Das Knie zeigt in Richtung Fußspitze.",
+        "Drück dich über die ganze Fußsohle wieder hoch.",
+        "Erst alle Wiederholungen auf einer Seite, dann wechseln."
+      ],
+      "ausstieg": "Kippst du nach hinten, das freie Bein abstellen oder dich aufs Gesäß setzen.",
+      "sauber": "Die Ferse bleibt am Boden, das Knie zeigt zur Fußspitze, du stehst ohne Schwung auf.",
+      "details": [
+        "Das freie Bein gestreckt zu halten, braucht Kraft im Hüftbeuger. Am Anfang darf es leicht gebeugt sein.",
+        "Schwache Seite zuerst, sie bestimmt die Wiederholungen."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        { "f": "Das Knie fällt nach innen.", "k": "Knie in Richtung Fußspitze führen, langsamer." },
+        { "f": "Die Ferse hebt ab.", "k": "Weniger tief oder Ferse auf eine flache Unterlage." },
+        { "f": "Mit Schwung hochschnellen.", "k": "Mit Halt üben, bis es ohne Schwung geht." }
+      ],
+      "skalierung": "Leichter: an Ringen oder am Türrahmen festhalten oder auf einen Stuhl absitzen. Schwerer: Weste.",
+      "grenzen": "Aufhören bei Schmerz im Knie oder wenn du unten nicht mehr ohne Schwung hochkommst.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung", "fachlicher_fehler"],
+        "problem": "„Knie über den Zehen“ missverständlich; Glossar und Bibliothek verschieden.",
+        "korrektur": "Kniebahn als Richtung, Gleichgewichtshilfe, sicheres Fallen.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pistol_assisted",
+      "zweck": "Pistol Squat mit Festhalten: Die Hände sichern das Gleichgewicht, das Bein macht die Arbeit.",
+      "vorbereitung": "Türrahmen oder Ringe auf Brusthöhe zum Festhalten.",
+      "schritte": [
+        "Halt dich mit einer oder beiden Händen am Türrahmen oder an den Ringen fest.",
+        "Stell dich auf ein Bein, das andere nach vorn.",
+        "Senk dich einbeinig tief in die Hocke.",
+        "Steh auf und zieh dabei so wenig wie möglich mit den Armen."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Bein macht die Arbeit, die Hände sichern nur.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        { "f": "Mit den Armen hochziehen.", "k": "Hilfe reduzieren, nur noch Finger am Rahmen." }
+      ],
+      "skalierung": "Leichter: Box Pistol Squat (auf Stuhl absitzen). Schwerer: frei, ohne Halt.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ringhöhe fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pistol_box",
+      "zweck": "Einbeinig auf einen Stuhl absitzen und aufstehen: Einstieg in die Pistol mit begrenzter Tiefe.",
+      "vorbereitung": "Stabiler Stuhl, mit der Lehne gegen die Wand.",
+      "schritte": [
+        "Stell dich mit dem Rücken vor den Stuhl auf ein Bein, das andere leicht nach vorn.",
+        "Arme nach vorn, setz dich langsam ab, bis das Gesäß die Sitzfläche berührt.",
+        "Steh einbeinig wieder auf, ohne Schwung zu holen."
+      ],
+      "ausstieg": "",
+      "sauber": "Kein Plumpsen, du setzt leise ab.",
+      "details": [],
+      "atmung": "Beim Absitzen einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        { "f": "Fallen lassen.", "k": "Langsam absitzen, höherer Sitz." }
+      ],
+      "skalierung": "Leichter: höherer Sitz. Schwerer: mit Halt an Ringen oder Türrahmen in voller Tiefe.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Stuhl und Ablauf ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bss",
+      "zweck": "Kniebeuge im Ausfallschritt mit dem hinteren Fuß auf einer Erhöhung: viel Arbeit für das vordere Bein.",
+      "vorbereitung": "Stuhl, Bank oder Sofa hinter dir.",
+      "schritte": [
+        "Stell dich mit dem Rücken vor den Stuhl, etwa einen großen Schritt entfernt.",
+        "Leg den Spann des hinteren Fußes auf die Sitzfläche.",
+        "Senk dich senkrecht ab, bis das hintere Knie fast den Boden berührt.",
+        "Drück dich über den ganzen vorderen Fuß wieder hoch.",
+        "Erst alle Wiederholungen auf einer Seite, dann wechseln."
+      ],
+      "ausstieg": "Hinteren Fuß vom Stuhl nehmen und neben den vorderen stellen.",
+      "sauber": "Das vordere Knie bleibt über dem Fuß und kippt nicht nach innen, der Oberkörper bleibt stabil.",
+      "details": [
+        "Wackelst du stark, den vorderen Fuß etwas zur Seite versetzen.",
+        "Leichte Vorneigung des Oberkörpers ist erlaubt und bringt mehr Gesäß."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        { "f": "Vorderer Fuß zu nah am Stuhl.", "k": "Weiter nach vorn stellen." },
+        { "f": "Das vordere Knie kippt nach innen.", "k": "Knie über dem zweiten Zeh halten." }
+      ],
+      "skalierung": "Leichter: Split Squat ohne Erhöhung oder mit Halt. Schwerer: 3 Sekunden absenken, Shrimp Squat oder Weste.",
+      "grenzen": "Aufhören bei Knieschmerz vorn. Ziehen vorn an der Hüfte des hinteren Beins ist eine normale Dehnung.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Abstand und Seitenfolge nur im Glossar.",
+        "korrektur": "Ein gemeinsamer Text.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_shrimp",
+      "zweck": "Einbeinige Kniebeuge mit dem hinteren Fuß in der Hand: das Knie geht hinten zum Boden.",
+      "vorbereitung": "Weiche Unterlage, zum Beispiel Matte oder gefaltetes Handtuch für das hintere Knie.",
+      "schritte": [
+        "Stell dich auf ein Bein und greif mit der gleichen Hand den hinteren Fuß.",
+        "Streck den freien Arm nach vorn.",
+        "Senk dich ab, bis das hintere Knie leise den Boden berührt.",
+        "Steh auf, ohne Schwung."
+      ],
+      "ausstieg": "Fuß loslassen und abstellen.",
+      "sauber": "Das Knie berührt den Boden leise.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        { "f": "Das Knie prallt auf.", "k": "Langsamer absenken, dickere Unterlage." }
+      ],
+      "skalierung": "Leichter: hinteren Fuß loslassen. Schwerer: mit Weste.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Polster fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_lunge",
+      "zweck": "Ausfallschritt rückwärts: kräftigt Oberschenkel und Gesäß und schont das Knie mehr als der Schritt nach vorn.",
+      "vorbereitung": "",
+      "schritte": [
+        "Steh aufrecht, Füße hüftbreit.",
+        "Mach einen großen Schritt nach hinten.",
+        "Senk dich ab, bis das hintere Knie fast den Boden berührt.",
+        "Drück dich über den vorderen Fuß zurück in den Stand.",
+        "Die Seiten abwechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das vordere Knie bleibt über dem Fuß, der Oberkörper aufrecht.",
+      "details": [
+        "Die Füße bleiben hüftbreit, nicht auf einer Linie."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        { "f": "Zu kleiner Schritt.", "k": "Schritt so lang, dass beide Knie unten etwa rechtwinklig sind." },
+        { "f": "Wackeln.", "k": "Füße weiter auseinander oder mit Halt." }
+      ],
+      "skalierung": "Leichter: an den Ringen oder am Türrahmen festhalten. Schwerer: 3 Sekunden absenken oder Weste.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Schrittlänge ungenau.",
+        "korrektur": "Richtwert über die Kniewinkel.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_split_squat",
+      "zweck": "Kniebeuge in fester Schrittstellung: einfacher als Ausfallschritte, weil die Füße stehen bleiben.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich in eine große Schrittstellung, Füße hüftbreit, die hintere Ferse ist angehoben.",
+        "Senk das hintere Knie senkrecht Richtung Boden.",
+        "Drück dich über den vorderen Fuß hoch.",
+        "Alle Wiederholungen auf einer Seite, dann wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Knie geht senkrecht nach unten, das vordere Bein arbeitet.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        { "f": "Das Gewicht liegt auf dem hinteren Bein.", "k": "Oberkörper leicht nach vorn, vorderes Bein drückt." }
+      ],
+      "skalierung": "Leichter: kürzerer Weg oder mit Halt. Schwerer: Bulgarian Split Squat.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Fußstellung fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_walking_lunge",
+      "zweck": "Ausfallschritte im Gehen: Beine und Ausdauer, gut im Metcon.",
+      "vorbereitung": "Freie Strecke von einigen Metern.",
+      "schritte": [
+        "Mach einen großen Schritt nach vorn.",
+        "Senk das hintere Knie, bis es fast den Boden berührt.",
+        "Drück dich über das vordere Bein hoch und steig mit dem hinteren Bein direkt in den nächsten Schritt nach vorn."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Knie berührt fast den Boden, der Oberkörper bleibt aufrecht.",
+      "details": [
+        "Eine Wiederholung ist ein Schritt."
+      ],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Das Knie knallt auf.", "k": "Kontrolliert absenken." }
+      ],
+      "skalierung": "Leichter: Reverse Lunge. Schwerer: Weste oder Gewicht.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Zählweise fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_step_up",
+      "zweck": "Auf eine Stufe steigen: Das vordere Bein drückt dich hoch, alltagsnah und knieschonend.",
+      "vorbereitung": "Stabile Stufe, Box oder Stuhl gegen die Wand, etwa kniehoch.",
+      "schritte": [
+        "Stell den ganzen Fuß auf die Stufe.",
+        "Drück dich mit diesem Bein hoch, bis du oben stehst.",
+        "Steig kontrolliert mit demselben Bein zuerst wieder hinunter.",
+        "Alle Wiederholungen auf einer Seite, dann wechseln, oder abwechselnd, wie der Plan sagt."
+      ],
+      "ausstieg": "",
+      "sauber": "Das hintere Bein stößt nicht ab.",
+      "details": [],
+      "atmung": "Beim Hochsteigen ausatmen.",
+      "fehler": [
+        { "f": "Vom hinteren Bein abspringen.", "k": "Hinteres Bein entspannen, nur die Zehen tippen." }
+      ],
+      "skalierung": "Leichter: niedrigere Stufe. Schwerer: höher oder mit Gewicht.",
+      "grenzen": "Aufhören, wenn das Knie beim Hochsteigen nach innen kippt.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Abstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_cossack",
+      "zweck": "Seitliche Kniebeuge im breiten Stand: macht die Innenseite der Oberschenkel und die Hüfte beweglich.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich sehr breit hin, die Fußspitzen leicht nach außen.",
+        "Verlager das Gewicht auf ein Bein und beug es tief, das andere Bein bleibt gestreckt.",
+        "Die Zehen des gestreckten Beins dürfen nach oben zeigen.",
+        "Drück dich zurück in die Mitte und geh zur anderen Seite."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Ferse des gebeugten Beins bleibt am Boden, das gestreckte Bein bleibt lang.",
+      "details": [],
+      "atmung": "Beim Absenken ausatmen.",
+      "fehler": [
+        { "f": "Zu schnell zu tief.", "k": "Langsam tiefer arbeiten, mit Festhalten." }
+      ],
+      "skalierung": "Leichter: festhalten. Schwerer: Gewicht vor der Brust.",
+      "grenzen": "Aufhören bei stechendem Schmerz in der Leiste.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_lateral_step_down",
+      "zweck": "Seitlich von einer Stufe absteigen: trainiert die Kontrolle des Knies auf einem Bein.",
+      "vorbereitung": "Stabile Stufe oder Box, niedrig anfangen.",
+      "schritte": [
+        "Stell dich seitlich auf die Stufe, ein Fuß hängt frei daneben.",
+        "Beug das Standbein langsam, bis die Ferse des freien Fußes den Boden antippt.",
+        "Streck das Standbein wieder, ohne dich abzustoßen.",
+        "Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Knie des Standbeins bleibt über dem zweiten Zeh, das Becken bleibt waagerecht.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Strecken ausatmen.",
+      "fehler": [
+        { "f": "Das Knie knickt nach innen.", "k": "Langsamer und niedrigere Stufe." }
+      ],
+      "skalierung": "Leichter: niedrigere Stufe. Schwerer: höhere Stufe oder langsamer absenken.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„belastet die Knieinnenseite“ als feste Aussage.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_skater_squat",
+      "zweck": "Einbeinige Kniebeuge, bei der das hintere Knie zum Boden geht: Kraft und Gleichgewicht.",
+      "vorbereitung": "Kissen oder gefaltetes Handtuch für das hintere Knie.",
+      "schritte": [
+        "Steh auf einem Bein, das andere Knie ist nach hinten gebeugt.",
+        "Neig den Oberkörper leicht vor und streck die Arme nach vorn.",
+        "Senk dich ab, bis das hintere Knie knapp den Boden berührt.",
+        "Steh auf. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das hintere Knie setzt nur leicht auf, du stehst ohne Schwung auf.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Aufstehen ausatmen.",
+      "fehler": [
+        { "f": "Auf das hintere Knie fallen lassen.", "k": "Langsamer, kürzerer Weg." }
+      ],
+      "skalierung": "Leichter: Kissen unter das hintere Knie oder kürzerer Weg. Schwerer: Hanteln in den Händen.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Reihenfolge der Schritte geordnet.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sandbag_lunge",
+      "zweck": "Ausfallschritte mit Sandsack auf den Schultern: Beine, Rumpf und Ausdauer, wie im Hyrox-Wettkampf.",
+      "vorbereitung": "Sandsack und eine freie Strecke.",
+      "schritte": [
+        "Heb den Sandsack auf die Schultern hinter den Nacken und halt ihn mit beiden Händen.",
+        "Mach einen großen Schritt nach vorn und senk das hintere Knie bis knapp über den Boden.",
+        "Steh auf und mach den nächsten Schritt mit dem anderen Bein."
+      ],
+      "ausstieg": "Sack nach vorn über eine Schulter abrollen lassen und mit gebeugten Knien ablegen.",
+      "sauber": "Das hintere Knie berührt fast den Boden, der Oberkörper bleibt aufrecht.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Zu kurze Schritte.", "k": "Schritt so lang, dass beide Knie unten etwa rechtwinklig sind." }
+      ],
+      "skalierung": "Leichter: leichterer Sack oder Walking Lunge ohne Last. Schwerer: schwererer Sack oder längere Strecke.",
+      "grenzen": "Aufhören bei Knie- oder Rückenschmerz.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„belasten das vordere Knie stark“ als feste Aussage, Ablegen fehlte.",
+        "korrektur": "Korrektur mit Richtwert, Ablegen ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_overhead_lunge",
+      "zweck": "Ausfallschritte mit Gewicht über dem Kopf: Beine arbeiten, Schultern und Rumpf halten.",
+      "vorbereitung": "Hantelscheibe, Kurzhantel oder Kettlebell, freie Strecke.",
+      "schritte": [
+        "Bring das Gewicht mit gestreckten Armen über den Kopf.",
+        "Mach einen großen Schritt nach vorn und senk das hintere Knie fast bis zum Boden.",
+        "Steh auf und geh in den nächsten Schritt, das Gewicht bleibt über dem Kopf."
+      ],
+      "ausstieg": "Gewicht vor dem Körper auf die Schultern senken, dann ablegen. Wird es instabil, nach vorn fallen lassen und zur Seite treten.",
+      "sauber": "Die Arme bleiben gestreckt, das Gewicht bleibt senkrecht über den Schultern.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Hohlkreuz zum Ausgleich.", "k": "Rippen nach unten, leichteres Gewicht." }
+      ],
+      "skalierung": "Leichter: leichteres Gewicht oder Walking Lunge. Schwerer: schwereres Gewicht oder einarmig.",
+      "grenzen": "Aufhören, wenn die Arme sich beugen oder die Schulter schmerzt.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ablegen fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

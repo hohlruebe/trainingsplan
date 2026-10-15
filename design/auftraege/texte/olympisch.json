@@ -1,0 +1,583 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "olympisch",
+  "entscheidungen": [
+    "Die olympischen Lifts sind schwer allein aus Text zu lernen. Jede Anleitung nennt deshalb den sicheren Fehlversuch (Stange nach vorn fallen lassen) und empfiehlt den Einstieg mit Stab oder leerer Stange."
+  ],
+  "uebungen": [
+    {
+      "id": "g_burgener",
+      "zweck": "Aufwärmfolge mit Stab für das Reißen: lehrt die Positionen nacheinander, bevor Gewicht dazukommt.",
+      "vorbereitung": "PVC-Stab oder Besenstiel, später leere Stange.",
+      "schritte": [
+        "Greif den Stab im Reißgriff: so breit, dass er im Stand in der Hüftbeuge liegt.",
+        "Down and Up: Knie leicht beugen, dann Hüfte und Beine schnell strecken, die Arme bleiben lang.",
+        "Elbows High: Nach dem Strecken die Ellbogen hoch und nach außen ziehen, der Stab bleibt nah am Körper.",
+        "Muscle Snatch: Weiter hochziehen und die Arme unter den Stab drehen, bis er gestreckt über dem Kopf ist.",
+        "Snatch Land und Hop: Den Stab über dem Kopf in einer halben Hocke fangen, dann mit einem kleinen Hüpfer die Füße in Fangposition setzen."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Stab bleibt nah am Körper, die Positionen sind klar getrennt.",
+      "details": [
+        "Langsam und sauber, jeder Teil 3–5 Mal."
+      ],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        {
+          "f": "Zu schnell, die Positionen verschwimmen.",
+          "k": "Jeden Teil einzeln üben, kurz anhalten."
+        }
+      ],
+      "skalierung": "Leichter: einzelne Teile. Schwerer: mit leerer Stange.",
+      "grenzen": "",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Englische Teilnamen ohne Erklärung.",
+        "korrektur": "Jeder Teil in einem Satz erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hang_power_clean",
+      "zweck": "Umsetzen aus dem Hang: die Stange von den Oberschenkeln explosiv auf die Schultern bringen. Schnellkraft aus Hüfte und Beinen.",
+      "vorbereitung": "Langhantel, erst leer. Platz rundherum, auf einer Plattform oder rutschfestem Boden.",
+      "schritte": [
+        "Heb die Stange im Obergriff knapp schulterbreit wie beim Kreuzheben und steh gerade.",
+        "Schieb die Hüfte nach hinten, bis die Stange knapp über den Knien ist, Rücken flach, Arme lang.",
+        "Streck Hüfte und Beine explosiv, die Stange springt nach oben.",
+        "Zieh dich unter die Stange: Ellbogen schnell nach vorn, die Stange landet vorn auf den Schultern.",
+        "Fang sie in einer halben Hocke und steh auf."
+      ],
+      "ausstieg": "Stange von den Schultern auf die Oberschenkel senken, dann mit flachem Rücken ablegen. Fehlversuch: Stange nach vorn fallen lassen und zurücktreten.",
+      "sauber": "Die Ellbogen kommen schnell nach vorn, die Stange liegt auf den Schultern, nicht in den Händen.",
+      "details": [
+        "Die Arme ziehen erst, wenn die Hüfte gestreckt ist."
+      ],
+      "atmung": "Vor dem Zug einatmen und halten, nach dem Fang ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit den Armen ziehen.",
+          "k": "Hüfte strecken lassen, Arme bleiben lang."
+        },
+        {
+          "f": "Die Stange schwingt vom Körper weg.",
+          "k": "Stange nah an den Oberschenkeln."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder Medicine Ball Clean. Schwerer: Power Clean vom Boden.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff, Startposition und Fehlversuch fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_power_clean",
+      "zweck": "Umsetzen vom Boden: Die Stange kommt in einem Zug vom Boden auf die Schultern, gefangen in der halben Hocke.",
+      "vorbereitung": "Langhantel mit Scheiben auf dem Boden, Platz rundherum.",
+      "schritte": [
+        "Stell dich hüftbreit an die Stange, sie liegt über der Fußmitte. Greif knapp schulterbreit.",
+        "Heb die Stange mit flachem Rücken langsam bis über die Knie.",
+        "Streck dann Hüfte und Beine explosiv.",
+        "Zieh dich unter die Stange, die Ellbogen schnell nach vorn, und fang sie vorn auf den Schultern in der halben Hocke.",
+        "Steh auf."
+      ],
+      "ausstieg": "Stange auf die Oberschenkel senken und mit flachem Rücken ablegen. Fehlversuch: nach vorn fallen lassen.",
+      "sauber": "Die Stange bleibt nah am Körper.",
+      "details": [
+        "Langsam vom Boden, schnell ab der Oberschenkelmitte."
+      ],
+      "atmung": "Unten einatmen und halten, nach dem Fang ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Stange schwingt weg.",
+          "k": "Nah am Körper ziehen."
+        }
+      ],
+      "skalierung": "Leichter: Hang Power Clean. Schwerer: Squat Clean.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„wie beim Kreuzheben“ ohne eigene Erklärung.",
+        "korrektur": "Eigenständig.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_squat_clean",
+      "zweck": "Umsetzen in die tiefe Hocke: Du gehst ganz unter die Stange, das erlaubt das meiste Gewicht.",
+      "vorbereitung": "Langhantel mit Scheiben, Platz rundherum. Sicherer Front Squat.",
+      "schritte": [
+        "Stell dich an die Stange, Griff knapp schulterbreit.",
+        "Heb sie mit flachem Rücken bis über die Knie und streck Hüfte und Beine explosiv.",
+        "Zieh dich unter die Stange und fang sie vorn auf den Schultern in der tiefen Hocke.",
+        "Die Ellbogen sind hoch, steh aus der Hocke auf wie beim Front Squat."
+      ],
+      "ausstieg": "Stange auf die Oberschenkel senken und ablegen. Fehlversuch: nach vorn fallen lassen und zurückspringen.",
+      "sauber": "Die Ellbogen sind im tiefen Fang hoch.",
+      "details": [],
+      "atmung": "Unten einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen fallen.",
+          "k": "Front Squat üben, Ellbogen hoch."
+        }
+      ],
+      "skalierung": "Leichter: Power Clean. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Knie- oder Handgelenkschmerz im tiefen Fang.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Wie Power Clean“.",
+        "korrektur": "Eigenständig.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_clean_and_jerk",
+      "zweck": "Umsetzen und Stoßen: die Stange vom Boden auf die Schultern und dann über den Kopf. Ein Wettkampflift.",
+      "vorbereitung": "Langhantel mit Scheiben, viel Platz, Plattform oder fester Boden.",
+      "schritte": [
+        "Setz die Stange vom Boden auf die Schultern um (Clean), in der halben oder tiefen Hocke.",
+        "Steh auf und stell die Füße stabil hüftbreit.",
+        "Kurz in die Knie (Dip), Beine explosiv strecken (Drive).",
+        "Stoß die Stange über den Kopf und fang sie mit gestreckten Armen, im Ausfallschritt oder in der halben Hocke (Jerk).",
+        "Steh ruhig mit der Stange über dem Kopf."
+      ],
+      "ausstieg": "Stange auf die Schultern holen, auf die Oberschenkel senken, ablegen. Fehlversuch: nach vorn fallen lassen.",
+      "sauber": "Beide Teile werden sicher gefangen.",
+      "details": [],
+      "atmung": "Vor jedem Teil neu einatmen und halten.",
+      "fehler": [
+        {
+          "f": "Zu schnell in den Jerk.",
+          "k": "Nach dem Clean erst stabil stehen."
+        }
+      ],
+      "skalierung": "Leichter: Power Clean und Push Press. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz in Rücken, Schulter oder Handgelenk.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Teile nur benannt.",
+        "korrektur": "Teile kurz beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hang_power_snatch",
+      "zweck": "Reißen aus dem Hang: die Stange mit weitem Griff in einem Zug über den Kopf. Schnellkraft und Schulterstabilität.",
+      "vorbereitung": "Erst PVC-Stab oder leere Stange. Platz rundherum.",
+      "schritte": [
+        "Greif die Stange im Reißgriff: so breit, dass sie im Stand in der Hüftbeuge liegt.",
+        "Schieb die Hüfte zurück, bis die Stange knapp über den Knien ist, Arme lang.",
+        "Streck Hüfte und Beine explosiv.",
+        "Zieh dich unter die Stange und fang sie mit gestreckten Armen über dem Kopf in der halben Hocke.",
+        "Steh auf."
+      ],
+      "ausstieg": "Stange vor dem Körper auf die Oberschenkel senken. Fehlversuch: nach vorn fallen lassen und zurückspringen, oder hinter dir fallen lassen und nach vorn springen.",
+      "sauber": "Die Arme sind im Fang gestreckt.",
+      "details": [],
+      "atmung": "Vor dem Zug einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Stange schwingt weg.",
+          "k": "Nah am Körper ziehen."
+        }
+      ],
+      "skalierung": "Leichter: PVC-Stab. Schwerer: Power Snatch.",
+      "grenzen": "Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Reißgriff und Fehlversuch fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_power_snatch",
+      "zweck": "Reißen vom Boden: die Stange in einem Zug vom Boden über den Kopf, gefangen über der waagerechten Hocke.",
+      "vorbereitung": "Langhantel, Platz rundherum.",
+      "schritte": [
+        "Greif die Stange am Boden im Reißgriff, Rücken flach.",
+        "Heb sie langsam bis über die Knie.",
+        "Streck Hüfte und Beine explosiv.",
+        "Zieh dich unter die Stange und fang sie mit gestreckten Armen in der halben Hocke.",
+        "Steh auf."
+      ],
+      "ausstieg": "Stange vor dem Körper absenken. Fehlversuch: wegspringen und fallen lassen.",
+      "sauber": "Stabiler Fang mit gestreckten Armen.",
+      "details": [],
+      "atmung": "Unten einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu früh mit den Armen ziehen.",
+          "k": "Hüfte zuerst."
+        }
+      ],
+      "skalierung": "Leichter: Hang Power Snatch. Schwerer: Squat Snatch.",
+      "grenzen": "Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Fehlversuch fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_squat_snatch",
+      "zweck": "Reißen in die tiefe Hocke: die anspruchsvollste Langhantelübung, braucht Kraft, Tempo und Beweglichkeit.",
+      "vorbereitung": "Langhantel, Platz rundherum. Sicherer Overhead Squat.",
+      "schritte": [
+        "Greif die Stange am Boden im Reißgriff, Rücken flach.",
+        "Heb sie langsam bis über die Knie, dann explosiv strecken.",
+        "Zieh dich unter die Stange bis in die tiefe Hocke, Arme gestreckt über dem Kopf.",
+        "Steh mit der Stange über dem Kopf auf."
+      ],
+      "ausstieg": "Stange vor dem Körper absenken. Fehlversuch: wegspringen und fallen lassen.",
+      "sauber": "Die Stange steht im tiefen Fang über der Fußmitte.",
+      "details": [],
+      "atmung": "Unten einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Stange fällt nach vorn.",
+          "k": "Overhead Squat üben."
+        }
+      ],
+      "skalierung": "Leichter: Power Snatch. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schulter- oder Knieschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Wie Power Snatch“.",
+        "korrektur": "Eigenständig.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_db_snatch",
+      "zweck": "Reißen mit einer Kurzhantel: vom Boden in einem Zug über den Kopf, Standard im Metcon.",
+      "vorbereitung": "Eine Kurzhantel oder Kettlebell zwischen den Füßen.",
+      "schritte": [
+        "Stell dich hüftbreit über die Hantel, greif sie mit einer Hand, Rücken flach.",
+        "Streck Hüfte und Beine explosiv und zieh die Hantel nah am Körper hoch.",
+        "Dreh den Arm unter die Hantel und fang sie mit gestrecktem Arm über dem Kopf.",
+        "Senk sie kontrolliert zur Schulter und zum Boden. Die Hand wechseln, wie der Plan es sagt."
+      ],
+      "ausstieg": "Hantel mit gebeugten Knien abstellen.",
+      "sauber": "Oben ist der Arm gestreckt, die Hantel über der Schulter.",
+      "details": [],
+      "atmung": "Beim Hochziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Arm drückt nach.",
+          "k": "In einem Zug fangen, schneller unter die Hantel."
+        }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer oder Kettlebell Snatch.",
+      "grenzen": "Aufhören bei Schulter- oder Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ablegen fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_db_clean_jerk",
+      "zweck": "Umsetzen und Stoßen mit Kurzhanteln: vom Boden an die Schultern, dann über den Kopf.",
+      "vorbereitung": "Zwei Kurzhanteln neben den Füßen.",
+      "schritte": [
+        "Greif die Hanteln, Rücken flach.",
+        "Streck Hüfte und Beine explosiv und fang die Hanteln weich auf den Schultern.",
+        "Kurz in die Knie gehen.",
+        "Stoß die Hanteln über den Kopf, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Hanteln auf die Schultern, dann mit gebeugten Knien abstellen.",
+      "sauber": "Der Fang auf den Schultern ist stabil.",
+      "details": [],
+      "atmung": "Bei jedem Teil ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hanteln schlagen auf.",
+          "k": "Weich fangen, Knie nachgeben."
+        }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer.",
+      "grenzen": "Aufhören bei Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_clean",
+      "zweck": "Kettlebell aus dem Schwung an die Schulter bringen: Hüfte, Unterarm und Rumpf.",
+      "vorbereitung": "Eine Kettlebell vor dir.",
+      "schritte": [
+        "Schwing die Kettlebell mit einer Hand zwischen den Beinen nach hinten.",
+        "Streck die Hüfte und führ die Kettlebell nah am Körper nach oben.",
+        "Dreh die Hand um den Griff, so dass die Kettlebell ohne Schlag außen am Unterarm landet.",
+        "Halt sie vor der Schulter (Rack), Ellbogen nah am Körper."
+      ],
+      "ausstieg": "Kettlebell zurück zwischen die Beine fallen lassen und abstellen.",
+      "sauber": "Kein Schlag auf den Unterarm.",
+      "details": [],
+      "atmung": "Beim Hüftstoß ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Kettlebell schwingt weit weg.",
+          "k": "Ellbogen nah, die Kettlebell eng am Körper."
+        }
+      ],
+      "skalierung": "Leichter: leichter. Schwerer: schwerer.",
+      "grenzen": "Aufhören bei Schmerz am Unterarm oder Handgelenk.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Rack-Position unerklärt.",
+        "korrektur": "Erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_snatch",
+      "zweck": "Kettlebell aus dem Schwung in einem Zug über den Kopf: Hüfte, Schultern und Griff.",
+      "vorbereitung": "Eine Kettlebell, Platz nach oben.",
+      "schritte": [
+        "Schwing die Kettlebell mit einer Hand zwischen den Beinen nach hinten.",
+        "Streck die Hüfte und zieh die Kettlebell nah am Körper nach oben.",
+        "Dreh die Hand oben unter die Kettlebell, so dass sie sich sanft auf den Unterarm legt.",
+        "Fang sie mit gestrecktem Arm über dem Kopf."
+      ],
+      "ausstieg": "Kettlebell vor dem Körper zurück zwischen die Beine führen und abstellen.",
+      "sauber": "Die Kettlebell legt sich sanft auf den Unterarm.",
+      "details": [],
+      "atmung": "Beim Hüftstoß ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Kettlebell schlägt auf den Unterarm.",
+          "k": "Hand früher drehen."
+        }
+      ],
+      "skalierung": "Leichter: Kettlebell Clean. Schwerer: schwerer.",
+      "grenzen": "Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_devil_press",
+      "zweck": "Burpee auf zwei Hanteln und dann beide in einem Schwung über den Kopf: sehr anstrengend für den ganzen Körper.",
+      "vorbereitung": "Zwei Kurzhanteln mit flacher Unterseite, schulterbreit.",
+      "schritte": [
+        "Geh mit den Händen auf den Hanteln in den Liegestütz und senk die Brust zum Boden.",
+        "Drück dich hoch und spring mit den Füßen zu den Händen.",
+        "Schwing die Hanteln mit flachem Rücken zwischen den Beinen nach hinten.",
+        "Streck die Hüfte und schwing sie in einem Zug über den Kopf, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Hanteln vor dem Körper absenken und abstellen.",
+      "sauber": "Der Rücken bleibt beim Schwingen flach.",
+      "details": [],
+      "atmung": "Beim Schwung ausatmen.",
+      "fehler": [
+        {
+          "f": "Rundrücken.",
+          "k": "Hüfte zuerst, leichter."
+        }
+      ],
+      "skalierung": "Leichter: leichter oder Burpee und Dumbbell Snatch getrennt. Schwerer: schwerer.",
+      "grenzen": "Aufhören bei Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ablauf zu knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_med_ball_clean",
+      "zweck": "Medizinball umsetzen: lehrt die Clean-Bewegung ohne Langhantel.",
+      "vorbereitung": "Medizinball oder Sandsack zwischen den Füßen.",
+      "schritte": [
+        "Stell dich hüftbreit über den Ball und greif ihn seitlich, Rücken flach.",
+        "Streck Hüfte und Beine explosiv, der Ball steigt.",
+        "Zieh dich unter den Ball und fang ihn in der Hocke vor der Brust, Ellbogen unter dem Ball.",
+        "Steh auf."
+      ],
+      "ausstieg": "Ball mit gebeugten Knien ablegen.",
+      "sauber": "Der Ball bleibt nah am Körper.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit den Armen heben.",
+          "k": "Die Hüfte arbeiten lassen."
+        }
+      ],
+      "skalierung": "Leichter: leichterer Ball. Schwerer: schwerer.",
+      "grenzen": "",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_clean_pull",
+      "zweck": "Nur der Zug des Umsetzens: kräftigt Hüfte und Rücken für schwerere Cleans.",
+      "vorbereitung": "Langhantel mit Scheiben.",
+      "schritte": [
+        "Stell dich wie beim Power Clean an die Stange und greif knapp schulterbreit.",
+        "Heb die Stange mit flachem Rücken bis über die Knie.",
+        "Streck Hüfte, Knie und Sprunggelenke explosiv und zieh die Schultern hoch.",
+        "Senk die Stange kontrolliert ab."
+      ],
+      "ausstieg": "Stange auf den Boden setzen.",
+      "sauber": "Die Arme bleiben bis zur vollen Streckung lang, die Stange nah am Körper.",
+      "details": [],
+      "atmung": "Unten einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Arme beugen sich zu früh.",
+          "k": "Arme lang, erst die Beine."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder aus dem Hang. Schwerer: mehr Gewicht als beim Power Clean.",
+      "grenzen": "Aufhören bei Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_snatch_balance",
+      "zweck": "Von den Schultern unter die Stange tauchen und sie in der tiefen Hocke über dem Kopf fangen: Tempo und Sicherheit im Fang.",
+      "vorbereitung": "Stange im Hantelständer (Rack) auf Achselhöhe, leicht beginnen.",
+      "schritte": [
+        "Nimm die Stange im Reißgriff auf den oberen Rücken und tritt zurück.",
+        "Mach einen kurzen Knieknick.",
+        "Drück dich schnell unter die Stange und fang sie mit gestreckten Armen in der tiefen Hocke.",
+        "Steh mit der Stange über dem Kopf auf."
+      ],
+      "ausstieg": "Stange über den Kopf zurück auf den Rücken senken und ins Rack. Fehlversuch: nach vorn fallen lassen.",
+      "sauber": "Die Arme sind gestreckt, wenn du unten ankommst.",
+      "details": [],
+      "atmung": "Vor dem Knieknick einatmen und halten.",
+      "fehler": [
+        {
+          "f": "Nachdrücken mit den Armen.",
+          "k": "Schneller unter die Stange."
+        }
+      ],
+      "skalierung": "Leichter: Overhead Squat oder nur PVC-Stab. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Fehlversuch fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_muscle_snatch",
+      "zweck": "Reißen ohne Unterhocken: Die Stange wird nur mit Armen und Streckung über den Kopf geführt. Lernt den Zugweg.",
+      "vorbereitung": "PVC-Stab oder leichte Stange.",
+      "schritte": [
+        "Steh mit der Stange im Reißgriff vor der Hüfte.",
+        "Streck die Beine und zieh die Stange mit hohen Ellbogen nah am Körper hoch.",
+        "Dreh die Arme unter der Stange durch und drück sie über den Kopf, ohne die Knie neu zu beugen."
+      ],
+      "ausstieg": "Stange vor dem Körper absenken.",
+      "sauber": "Die Stange bleibt nah am Körper, die Füße bleiben flach.",
+      "details": [],
+      "atmung": "Beim Hochziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Stange holt nach vorn aus.",
+          "k": "Ellbogen hoch und nach außen."
+        }
+      ],
+      "skalierung": "Leichter: nur PVC-Stab. Schwerer: mehr Gewicht oder vom Boden.",
+      "grenzen": "Aufhören bei Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sandbag_clean",
+      "zweck": "Sandsack vom Boden auf die Schulter oder vor die Brust umsetzen: Hüfte, Rücken und Griff.",
+      "vorbereitung": "Sandsack.",
+      "schritte": [
+        "Stell dich über den Sandsack und greif ihn unten mit beiden Armen.",
+        "Heb ihn mit gebeugten Knien bis auf die Oberschenkel.",
+        "Streck die Hüfte explosiv und roll den Sack auf die Schulter oder in die Arme vor der Brust.",
+        "Setz ihn kontrolliert ab."
+      ],
+      "ausstieg": "Mit gebeugten Knien absetzen.",
+      "sauber": "Die Hüfte streckt explosiv, die Arme ziehen den Sack nicht allein hoch.",
+      "details": [],
+      "atmung": "Beim Hüftstoß ausatmen.",
+      "fehler": [
+        {
+          "f": "Nur mit den Armen hochziehen.",
+          "k": "Sack auf die Oberschenkel, dann Hüfte strecken."
+        }
+      ],
+      "skalierung": "Leichter: leichterer Sack. Schwerer: schwererer Sack oder auf die Schulter.",
+      "grenzen": "Aufhören bei Rückenschmerz.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„überlastet Bizeps und Rücken“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

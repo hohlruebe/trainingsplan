@@ -3,6 +3,8 @@
 // Aufruf: node design/auftraege/einbauen_bibliothek.js felder_zug_vertikal.json neu_zug_vertikal.json …
 // Prüft zuerst mit pruefen_bibliothek.js und bricht bei Fehlern ab. Die Pakete werden in design/auftraege/pakete/ abgelegt.
 // - felder: neue Felder an bestehende Übungen (nichts Bestehendes wird überschrieben außer diesen Feldern)
+// - texte: neue Anleitungen für bestehende Übungen (zweck, vorbereitung, schritte, ausstieg, sauber, details, atmung, fehler,
+//   skalierung, grenzen, optional trainiert); pruefung bleibt nur im abgelegten Paket (Prüfliste)
 // - neu: neue Übungen, Geräte und Familien; Stufen werden nach „nach“ eingereiht, alle Ränge neu gezählt und
 //   „ab_rang“ in anderen Familien mitgezogen, damit dieselbe Übung vorausgesetzt bleibt.
 'use strict';
@@ -16,7 +18,7 @@ const FAM_JSON = path.join(ROOT, 'design', 'familien.json');
 const ABLAGE = path.join(__dirname, 'pakete');
 const FELDER = ['muskeln', 'gelenke', 'bewegt', 'sehne', 'ermuedung', 'technik', 'seitig', 'laut', 'rx', 'alias'];
 const UE_KEYS = ['id', 'name', 'muster', 'bereich', 'einheit', 'rolle', 'equipment', 'nutzen', 'level', 'voraussetzung',
-  'trainiert', 'schritte', 'sauber', 'fehler', 'skalierung'].concat(FELDER);
+  'trainiert', 'zweck', 'vorbereitung', 'schritte', 'ausstieg', 'sauber', 'details', 'atmung', 'fehler', 'skalierung', 'grenzen'].concat(FELDER);
 
 const dateien = process.argv.slice(2);
 if (!dateien.length) { console.log('Aufruf: node design/auftraege/einbauen_bibliothek.js <datei.json> …'); process.exit(2); }
@@ -35,6 +37,13 @@ const pick = (o, keys) => { const r = {}; keys.forEach((k) => { if (o[k] !== und
 function felder(d) {
   d.uebungen.forEach((u) => { Object.assign(UE[u.id], pick(u, FELDER)); });
   console.log('  ' + d.uebungen.length + ' Übungen mit neuen Feldern');
+}
+
+// Anleitungen pro Paket teil: texte (ersetzt nur Textfelder, IDs, Namen und alle Planungsfelder bleiben)
+const TEXTE = ['trainiert', 'zweck', 'vorbereitung', 'schritte', 'ausstieg', 'sauber', 'details', 'atmung', 'fehler', 'skalierung', 'grenzen'];
+function texte(d) {
+  d.uebungen.forEach((u) => { Object.assign(UE[u.id], pick(u, TEXTE)); });
+  console.log('  ' + d.uebungen.length + ' Übungen mit neuen Anleitungen');
 }
 
 // Gerät: Kosten aus dem höchsten Preis, Nutzen aus der Zahl der Übungen, die es brauchen (wächst mit jedem Paket).
@@ -105,10 +114,11 @@ if (!fs.existsSync(ABLAGE)) fs.mkdirSync(ABLAGE);
 const pakete = dateien.map((datei) => JSON.parse(fs.readFileSync(datei, 'utf8')));
 const vorher = {};
 FAM.familien.forEach((f) => { vorher[f.id] = stufen(f).map((v) => v.uebung); });
-pakete.forEach((d) => { console.log(d.teil + '_' + d.muster + ':'); if (d.teil === 'felder') felder(d); else neuAnlegen(d); });
+pakete.forEach((d) => { console.log(d.teil + '_' + d.muster + ':'); if (d.teil === 'felder') felder(d); else if (d.teil === 'texte') texte(d); else neuAnlegen(d); });
 pakete.filter((d) => d.teil === 'neu').forEach(neuEinreihen);
 rangeNachziehen(vorher);
-pakete.forEach((d) => fs.writeFileSync(path.join(ABLAGE, d.teil + '_' + d.muster + '.json'), JSON.stringify(d, null, 2) + '\n'));
+// Anleitungen (texte) liegen schon in design/auftraege/texte/ und werden dort gepflegt, nicht noch einmal abgelegt.
+pakete.forEach((d) => { if (d.teil !== 'texte') fs.writeFileSync(path.join(ABLAGE, d.teil + '_' + d.muster + '.json'), JSON.stringify(d, null, 2) + '\n'); });
 geraeteNeuWerten();
 
 html = html.replace(re('lib-data'), (m, a, b, c) => a + JSON.stringify(LIB) + c).replace(re('fam-data'), (m, a, b, c) => a + JSON.stringify(FAM) + c);

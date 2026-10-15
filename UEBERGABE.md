@@ -4,7 +4,19 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 15. Oktober 2026 (Aufwärmen und Vollbild am Laptop; davor Nordic Curls nur mit Fußanker; davor Trainings im Google Kalender, Google Kalender verbinden, Coach-Tab ohne Ballast)
+Stand: 15. Oktober 2026 (Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+
+## Übungs-Anleitungen neu (15. Oktober 2026, Claude, Branch `uebungen-anleitungen`)
+- Dennis' Auftrag (zuerst an Gemini, das an der Dateigröße scheiterte): alle Übungen so erklären, dass Anfänger sie verstehen (Vorbereitung, Einstieg,
+  Ausführung, Ausstieg), du-Form, englische Namen bleiben, Prüfliste. Quellen raus, weil es die eigene Bibliothek ist. Auftrag als Dokument zum
+  Kommentieren: https://claude.ai/artifact/Fs7FUcmCThEg1Yrbpq1MCW
+- Umgesetzt: alle 381 Übungen neu geschrieben (19 Pakete in `design/auftraege/texte/`, Prüfer und Einbau können `teil: 'texte'`), Glossar aus plan-data
+  wird nicht mehr angezeigt (Bibliothek ist die einzige Quelle). Tools › Übungen zeigt Zweck, Schritte, Raus, Sauber; Rest aufklappbar.
+  Prüfliste: `design/auftraege/pruefliste_texte.md` (154 fehlende Erklärung, 41 missverständlich, 3 fachliche Fehler: „Knie über die Zehen“ bei
+  Air Squat, Pistol, Squat Jump).
+- Geprüft: neuer Test `tests/uebungen-anleitungen.cjs` (mit `TP_BROWSER=1` 390 und 1366 px), dazu alle bisherigen Tests.
+- Offen: Dennis liest am Handy gegen; Feld `quelle` im Kopf von lib-data/fam-data (Buchtitel, nirgends angezeigt) löschen oder lassen?
+  Neue Ansicht ohne Canvas-Entwurf gebaut.
 
 ## Aufwärmen und Vollbild am Laptop (Claude, nach Dennis' Training)
 - Dennis: 3 × 5 Squat Jumps passen nicht ins Aufwärmen (eine Übung nach der anderen); im Vollbild sah er nicht, wie viele Wdh. dran sind,

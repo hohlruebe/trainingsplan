@@ -608,6 +608,13 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
   reiht Stufen nach `nach` ein, zählt Ränge neu und zieht `ab_rang` anderer Familien mit, legt die Pakete in `design/auftraege/pakete/` ab).
   Neue Geräte aus Paketen tragen `auto: true`: Kosten aus dem Preis, Nutzen aus der Zahl der Übungen, Score wird bei jedem Einbau neu gerechnet.
   Erledigt: alle Pakete (Teil 1 und 2 aller Muster), 380 Übungen mit allen Feldern, 13 neue Geräte (`auto`). Leiter `g_kipping_pullup`: Stufe „Chest-to-Bar“ zeigt auf `g_kipping_c2b` (Name bleibt). Die Suche in Tools › Übungen findet auch `alias` (deutsche Namen).
+  Anleitungen (Oktober 2026, Claude, Auftrag von Dennis): jede Übung hat `zweck`, `vorbereitung`, `schritte` (3–7, du-Form), `ausstieg`, `sauber`,
+  `details`, `atmung`, `fehler` [{f, k}], `skalierung` („Leichter: … Schwerer: …“), `grenzen`, optional `trainiert` (leer = nichts Eigenes, Zeile fehlt).
+  Quelle: Pakete `teil: 'texte'` in `design/auftraege/texte/` (Prüfnotiz `pruefung` nur dort, `teil_von` für geteilte Muster), Prüfliste
+  `design/auftraege/pruefliste_texte.md`. Bibliothek ist die einzige Quelle: das Glossar aus plan-data wird beim Mischen überschrieben
+  (`g.steps = ueSteps(u)` = Schritte + „Raus: …“, `g.cue = sauber`), `ueSteps` auch in `ueHow`, Mobility-Player, Ausgleich, Skill.
+  Tools › Übungen: sichtbar Zweck, Vorbereitung, Schritte, Raus, Leiter, Sauber; aufklappbar „Fehler, Varianten und Technik“ (`ueMoreHTML`, `.gl-more`,
+  `ui.openSec['glm-'+id]`). Test: `node tests/uebungen-anleitungen.cjs` (mit `TP_BROWSER=1` auch Handy/Desktop im Browser).
   Neue Felder je Übung: `muskeln`, `gelenke` (Belastung), `bewegt` (bewegte Gelenke: eins = isoliert, keins = statisch), `sehne`,
   `ermuedung`, `technik`, `seitig`, `laut`, `rx`, `alias`. Muster `isolation` (`MUSTER.isolation`): steht in keinem Platz, kommt also nie in den Kraftteil; Isolation und Mobility fehlen im Skill-Baum (`SKILL_OHNE`).
   Ersatz-Einzelübung in `planFill` nur mit Einheit wdh oder kg (keine Halte- oder Streckenübung mit „6–10 Wdh.“). `g_run` geht auch mit `eq_laufband`.

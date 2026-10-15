@@ -1,0 +1,1127 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "druck_horizontal",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_push",
+      "zweck": "Der Liegestütz: kräftigt Brust, Trizeps und vordere Schulter, der ganze Körper hält dabei die Spannung.",
+      "vorbereitung": "Freie Fläche, auf rutschigem Boden eine Matte. Kein Gerät nötig.",
+      "schritte": [
+        "Setz die Hände etwas breiter als schulterbreit auf den Boden, die Finger zeigen nach vorn.",
+        "Streck die Beine nach hinten, die Füße stehen hüftbreit auf den Zehen. Der Körper bildet eine Linie von Kopf bis Ferse.",
+        "Senk die Brust ab, bis sie knapp über dem Boden ist. Die Ellbogen zeigen schräg nach hinten, nicht weit zur Seite.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung die Knie auf den Boden ablegen und aufrichten.",
+      "sauber": "Der Körper bleibt ein Brett, die Brust kommt fast an den Boden, oben sind die Arme gestreckt.",
+      "details": [
+        "Die Hände stehen unter oder etwas außerhalb der Schultern. Welcher Winkel der Ellbogen sich gut anfühlt, ist individuell, schräg nach hinten passt für die meisten.",
+        "Spannung: Gesäß anspannen und die Rippen Richtung Becken ziehen, so hängt die Hüfte nicht durch.",
+        "Blick schräg nach vorn auf den Boden, der Kopf bleibt in Verlängerung des Rückens."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte hängt durch.",
+          "k": "Bauch und Gesäß fest. Hilft das nicht, auf Knie oder Hände erhöht."
+        },
+        {
+          "f": "Nur halb tief.",
+          "k": "Eine Faust unter die Brust legen und bis an die Faust absenken."
+        },
+        {
+          "f": "Der Kopf geht voraus.",
+          "k": "Brust zuerst, Kinn leicht zur Brust."
+        }
+      ],
+      "skalierung": "Leichter: auf Knien oder Hände erhöht (Incline Push-up). Schwerer: Parallettes, Füße erhöht, Band oder Weste.",
+      "grenzen": "Satz beenden, wenn die Hüfte durchhängt oder du nicht mehr tief kommst. Stechen im Handgelenk: auf Fäusten oder Parallettes stützen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung",
+          "missverstaendlich"
+        ],
+        "problem": "Fester 45-Grad-Winkel als universelle Regel; Glossar und Bibliothek mit verschiedenen Angaben (schulterbreit vs. etwas breiter).",
+        "korrektur": "Winkel als Richtung beschrieben, eine gemeinsame Angabe zur Handbreite, Spannung und Zählregel ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_knee",
+      "zweck": "Liegestütz auf den Knien: weniger Gewicht auf den Armen, gleicher Bewegungsweg wie beim vollen Push-up.",
+      "vorbereitung": "Matte oder gefaltetes Handtuch unter die Knie.",
+      "schritte": [
+        "Setz die Hände etwas breiter als schulterbreit auf, die Knie liegen hinter dir am Boden.",
+        "Schieb die Hüfte nach vorn, bis Knie, Hüfte und Kopf eine Linie bilden.",
+        "Senk die Brust zum Boden, die Ellbogen schräg nach hinten.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Gesäß zu den Fersen setzen und aufrichten.",
+      "sauber": "Linie von Knie bis Kopf, die Brust kommt fast an den Boden.",
+      "details": [
+        "Je weiter die Knie hinter der Hüfte liegen, desto schwerer."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte knickt ab, das Gesäß ragt nach oben.",
+          "k": "Hüfte strecken, Gesäß anspannen."
+        }
+      ],
+      "skalierung": "Leichter: Hände erhöht (Incline Push-up). Schwerer: Push-up auf den Füßen.",
+      "grenzen": "Satz beenden, wenn du nicht mehr tief kommst.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Polster und Linie unklar.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_incline",
+      "zweck": "Liegestütz mit den Händen auf einer Erhöhung: leichter als am Boden, gut zum Lernen der Körperspannung.",
+      "vorbereitung": "Eine stabile Kante: Tisch, Bank, Treppenstufe oder Stuhl gegen die Wand gestellt.",
+      "schritte": [
+        "Leg die Hände schulterbreit auf die Kante.",
+        "Geh mit den Füßen nach hinten, bis der Körper gerade ist.",
+        "Senk die Brust zur Kante, die Ellbogen schräg nach hinten.",
+        "Drück dich zurück, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Mit den Füßen nach vorn gehen und aufrichten.",
+      "sauber": "Die Brust berührt fast die Kante, der Körper bleibt gerade.",
+      "details": [
+        "Je höher die Kante, desto leichter."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Kopf geht voraus.",
+          "k": "Brust zuerst zur Kante."
+        },
+        {
+          "f": "Der Stuhl rutscht.",
+          "k": "Stuhl gegen eine Wand stellen."
+        }
+      ],
+      "skalierung": "Leichter: höhere Kante. Schwerer: tiefere Kante.",
+      "grenzen": "Satz beenden, wenn die Hüfte durchhängt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Stabilität der Ablage fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_negative",
+      "zweck": "Nur das Absenken des Liegestützes: baut Kraft auf, bevor der ganze Push-up gelingt.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Liegestütz mit gestreckten Armen, Körper gerade.",
+        "Senk dich in 3–5 Sekunden gleichmäßig ab, bis die Brust den Boden berührt.",
+        "Leg die Knie ab und drück dich auf den Knien zurück nach oben.",
+        "Stell die Füße wieder auf und beginn die nächste Wiederholung."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung auf dem Bauch liegen bleiben oder über die Knie aufrichten.",
+      "sauber": "Gleichmäßiges Tempo bis ganz unten.",
+      "details": [
+        "Laut mitzählen hilft, das Tempo zu halten."
+      ],
+      "atmung": "Beim Absenken langsam ausatmen.",
+      "fehler": [
+        {
+          "f": "Zum Schluss fallen lassen.",
+          "k": "Bis zum Boden kontrollieren, notfalls kürzer absenken."
+        }
+      ],
+      "skalierung": "Leichter: kürzer absenken (2 Sekunden). Schwerer: langsamer absenken (bis 8 Sekunden).",
+      "grenzen": "Satz beenden, wenn du nicht mehr mindestens 2 Sekunden kontrolliert absenken kannst.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "In du-Form, Tempo-Hilfe.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_parallettes",
+      "zweck": "Liegestütz an Parallettes: Die Brust kommt tiefer als die Hände, das verlängert den Bewegungsweg.",
+      "vorbereitung": "Parallettes schulterbreit, parallel zueinander, auf rutschfestem Boden.",
+      "schritte": [
+        "Greif die Parallettes, die Daumen zeigen nach vorn.",
+        "Geh in den Liegestütz, Körper gerade.",
+        "Senk dich ab, bis die Brust zwischen den Griffen unter Griffhöhe ist.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Knie ablegen, dann die Griffe loslassen.",
+      "sauber": "Die Schultern kommen unter Griffhöhe, der Körper bleibt gerade.",
+      "details": [
+        "Nur so tief, wie die Schulter ohne Schmerz mitgeht. Die Tiefe kommt mit der Zeit."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Schultern fallen unten nach vorn und runden sich.",
+          "k": "Langsamer absenken und unten die Brust offen halten."
+        },
+        {
+          "f": "Parallettes rutschen.",
+          "k": "Auf rutschfesten Boden stellen."
+        }
+      ],
+      "skalierung": "Leichter: Push-up am Boden. Schwerer: Füße erhöht.",
+      "grenzen": "Weniger tief gehen bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Schulterblätter kontrolliert führen“ unklar.",
+        "korrektur": "Durch konkrete Anweisung ersetzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_decline",
+      "zweck": "Liegestütz mit erhöhten Füßen: mehr Gewicht auf den Armen und mehr Arbeit für obere Brust und Schulter.",
+      "vorbereitung": "Stabile Erhöhung für die Füße: Stuhl gegen die Wand, Bank, Box oder Stufe.",
+      "schritte": [
+        "Setz die Hände etwas breiter als schulterbreit auf den Boden.",
+        "Stell die Füße nacheinander auf die Erhöhung, Körper gerade.",
+        "Senk die Brust zum Boden, die Ellbogen schräg nach hinten.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Erst einen Fuß, dann den anderen auf den Boden setzen, dann aufrichten.",
+      "sauber": "Die Hüfte bleibt in Linie mit Schultern und Füßen.",
+      "details": [
+        "Je höher die Füße, desto schwerer."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte geht nach oben.",
+          "k": "Gesäß anspannen, Hüfte senken bis zur Linie."
+        },
+        {
+          "f": "Die Hüfte hängt durch.",
+          "k": "Bauch fester oder niedrigere Erhöhung."
+        }
+      ],
+      "skalierung": "Leichter: niedrigere Erhöhung. Schwerer: höhere Erhöhung.",
+      "grenzen": "Satz beenden, wenn die Brust den Boden nicht mehr annähernd erreicht.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ein- und Ausstieg fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_band",
+      "zweck": "Liegestütz gegen ein Band über dem Rücken: Oben wird es schwerer, wo der Push-up sonst leicht ist.",
+      "vorbereitung": "Ein Band mit Schlaufe, passend zur Stufe.",
+      "schritte": [
+        "Leg das Band über den oberen Rücken, die Enden laufen unter den Achseln durch.",
+        "Halte je ein Ende mit der Hand am Boden fest, Hände etwas breiter als schulterbreit.",
+        "Geh in den Liegestütz, Körper gerade.",
+        "Senk die Brust bis knapp über den Boden und drück dich gegen das Band hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Knie ablegen, dann die Bandenden loslassen.",
+      "sauber": "Gleiche Bewegung wie ohne Band, oben ganz gestreckte Arme.",
+      "details": [
+        "Das Band muss unter beiden Händen gleich lang sein, sonst zieht es zur Seite."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Das Band rutscht unter den Händen.",
+          "k": "Enden fest umgreifen oder einmal um die Hand wickeln."
+        },
+        {
+          "f": "Oben nicht ganz strecken.",
+          "k": "Leichteres Band."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band.",
+      "grenzen": "Band vorher auf Risse prüfen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Verweis „Push-up ausführen“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_push_weighted",
+      "zweck": "Liegestütz mit Gewichtsweste: mehr Gewicht für die Brust, wenn normale Push-ups leicht fallen.",
+      "vorbereitung": "Gewichtsweste eng anziehen, so dass sie nicht rutscht.",
+      "schritte": [
+        "Setz die Hände etwas breiter als schulterbreit, Füße hüftbreit auf den Zehen.",
+        "Spann Bauch und Gesäß an, Körper gerade.",
+        "Senk die Brust bis knapp über den Boden.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Knie ablegen, aufrichten, dann die Weste ausziehen.",
+      "sauber": "Der Körper bleibt gerade trotz Gewicht.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte sackt ab.",
+          "k": "Weniger Gewicht oder weniger Wiederholungen."
+        }
+      ],
+      "skalierung": "Leichter: ohne Weste. Schwerer: Weste auf Parallettes.",
+      "grenzen": "Satz beenden, wenn die Hüfte nicht mehr in Linie bleibt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Verweis „Push-up wie gewohnt“.",
+        "korrektur": "Eigenständiger Ablauf.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_diamond_push",
+      "zweck": "Liegestütz mit engen Händen: mehr Arbeit für den Trizeps.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg die Hände unter der Brust zusammen: Daumen und Zeigefinger bilden eine Raute.",
+        "Geh in den Liegestütz, Füße etwas breiter, Körper gerade.",
+        "Senk die Brust zu den Händen, die Ellbogen bleiben nah am Körper.",
+        "Drück dich hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Knie ablegen und aufrichten.",
+      "sauber": "Die Ellbogen zeigen nach hinten, die Brust kommt bis an die Hände.",
+      "details": [
+        "Drückt es im Handgelenk, die Hände etwas weiter auseinander nehmen. Das ist eine legitime Variante."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen fallen nach außen.",
+          "k": "Ellbogen eng am Körper führen."
+        }
+      ],
+      "skalierung": "Leichter: auf Knien. Schwerer: Füße erhöht.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder Ellbogen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Lage der Hände ungenau.",
+        "korrektur": "Ergänzt, mit Ausweichvariante.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hand_release_push",
+      "zweck": "Liegestütz mit kurzem Ablegen: jede Wiederholung beginnt ganz unten, das macht das Zählen im Metcon eindeutig.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Liegestütz und senk dich ab, bis Brust und Oberschenkel auf dem Boden liegen.",
+        "Heb unten kurz beide Hände vom Boden.",
+        "Setz die Hände wieder auf und drück dich in einem Stück hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Knie ablegen und aufrichten.",
+      "sauber": "Brust und Hüfte heben gleichzeitig vom Boden ab.",
+      "details": [],
+      "atmung": "Unten einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Erst die Brust, dann die Hüfte hoch.",
+          "k": "Bauch fest und den Körper als Brett hochdrücken."
+        }
+      ],
+      "skalierung": "Leichter: auf Knien. Schwerer: mit Weste.",
+      "grenzen": "Satz beenden, wenn du nur noch mit Welle hochkommst.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Startete mit „Push-up bis ganz auf den Boden“.",
+        "korrektur": "Eigenständig beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_push",
+      "zweck": "Liegestütz an Ringen: Die Ringe wackeln, so müssen Schultern und Rumpf zusätzlich stabilisieren.",
+      "vorbereitung": "Ringe knapp über dem Boden hängen. Höher hängen macht es leichter.",
+      "schritte": [
+        "Greif die Ringe, Handflächen zueinander, und geh in den Liegestütz.",
+        "Die Ringe stehen unter den Schultern, Körper gerade.",
+        "Senk die Brust zwischen die Ringe, die Ellbogen nah am Körper.",
+        "Drück dich hoch und dreh die Ringe oben leicht nach außen."
+      ],
+      "ausstieg": "Knie ablegen, dann die Ringe loslassen.",
+      "sauber": "Die Ringe bleiben ruhig, oben sind die Arme gestreckt.",
+      "details": [
+        "Nach außen drehen heißt: Daumen zeigen leicht nach außen. Das stabilisiert die Ellbogen."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ringe wandern auseinander.",
+          "k": "Eng am Körper führen, Ringe höher hängen."
+        }
+      ],
+      "skalierung": "Leichter: Ringe höher hängen. Schwerer: Füße erhöht oder Weste.",
+      "grenzen": "Aufhören, wenn die Ringe stark zittern oder die Schulter schmerzt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„nach außen drehen“ ohne Erklärung.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_archer_push",
+      "zweck": "Liegestütz zu einer Seite: Ein Arm drückt, der andere hilft gestreckt. Vorstufe für den einarmigen Liegestütz.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Setz die Hände sehr breit auf, etwa doppelt schulterbreit, die Finger der Streckhand zeigen zur Seite.",
+        "Geh in den Liegestütz, Füße etwas breiter als hüftbreit.",
+        "Senk dich zu einer Hand ab, der andere Arm bleibt fast gestreckt.",
+        "Drück dich hoch und wechsle danach zur anderen Seite."
+      ],
+      "ausstieg": "Knie ablegen und aufrichten.",
+      "sauber": "Die Brust ist unten über der Arbeitshand, der Körper bleibt parallel zum Boden.",
+      "details": [
+        "Eine Wiederholung ist eine Seite, außer im Plan steht „je Seite“."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte dreht weg.",
+          "k": "Gesäß fest, Körper parallel zum Boden."
+        }
+      ],
+      "skalierung": "Leichter: Hände erhöht. Schwerer: Typewriter Push-up, dann One-Arm Push-up.",
+      "grenzen": "Aufhören bei Schmerz im Ellbogen des Streckarms.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Handposition des Streckarms fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pseudo_planche_push",
+      "zweck": "Liegestütz mit weit nach vorn verlagerten Schultern: kräftigt vordere Schulter und Brust für die Planche.",
+      "vorbereitung": "Matte. Handgelenke vorher aufwärmen, zum Beispiel mit Wrist Rocks.",
+      "schritte": [
+        "Setz die Hände etwa auf Hüfthöhe neben den Körper, die Finger zeigen zur Seite oder schräg nach hinten.",
+        "Schieb die Schultern weit vor die Hände, die Arme bleiben gestreckt, der Rücken leicht rund.",
+        "Beug die Arme und senk die Brust, ohne die Schultern zurückzunehmen.",
+        "Drück dich hoch in die vorgelehnte Position."
+      ],
+      "ausstieg": "Schultern zurück über die Hände bringen, Knie ablegen.",
+      "sauber": "Die Schultern bleiben während der ganzen Wiederholung vor den Händen.",
+      "details": [
+        "Je weiter die Schultern vor den Händen sind, desto schwerer.",
+        "Ellbogen bleiben nah am Körper und zeigen nach hinten."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Schultern wandern beim Hochdrücken zurück.",
+          "k": "Weniger weit vorlehnen, aber die Position halten."
+        }
+      ],
+      "skalierung": "Leichter: weniger nach vorn lehnen. Schwerer: mehr nach vorn lehnen oder Parallettes.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder an der Bizepssehne vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Lehne halten“ unklar, kein Aufwärmhinweis für die Handgelenke.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_one_arm_push_incline",
+      "zweck": "Einarmiger Liegestütz mit der Hand auf einer Erhöhung: lernt den einarmigen Push-up mit weniger Gewicht.",
+      "vorbereitung": "Eine stabile Kante: Stuhl gegen die Wand, Bank oder Tisch.",
+      "schritte": [
+        "Leg eine Hand mittig vor die Brust auf die Kante, die andere Hand auf den Rücken.",
+        "Stell die Beine breit auseinander, Körper gerade.",
+        "Senk die Brust zur Hand, der Ellbogen bleibt nah am Körper.",
+        "Drück dich hoch, ohne aufzudrehen. Alle Wiederholungen einer Seite, dann wechseln."
+      ],
+      "ausstieg": "Die zweite Hand zur Hilfe nehmen und aufrichten.",
+      "sauber": "Die Schultern bleiben etwa parallel zur Kante.",
+      "details": [
+        "Breitere Beine machen das Aufdrehen leichter zu verhindern."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Starkes Aufdrehen.",
+          "k": "Beine breiter oder höhere Kante."
+        }
+      ],
+      "skalierung": "Leichter: höhere Kante. Schwerer: tiefere Kante.",
+      "grenzen": "Aufhören bei Schmerz im Ellbogen oder Handgelenk.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Handposition ungenau.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_one_arm_push",
+      "zweck": "Liegestütz mit einem Arm: sehr viel Druckkraft, der Rumpf muss gegen das Aufdrehen halten.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Stell die Beine breit, die Hand steht unter der Brust, die freie Hand liegt auf dem Rücken.",
+        "Körper gerade, Gesäß fest.",
+        "Senk die Brust zur Hand, der Ellbogen bleibt nah am Körper.",
+        "Drück dich hoch, ohne aufzudrehen."
+      ],
+      "ausstieg": "Freie Hand zur Hilfe auf den Boden, Knie ablegen.",
+      "sauber": "Die Brust kommt fast an den Boden, der Körper bleibt gerade.",
+      "details": [
+        "Ein leichtes Neigen zur Arbeitsseite ist normal. Die Hüfte bleibt trotzdem in Linie."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte dreht weg.",
+          "k": "Gesäß fest, Beine breiter."
+        }
+      ],
+      "skalierung": "Leichter: Incline One-Arm Push-up. Schwerer: Füße enger.",
+      "grenzen": "Aufhören bei Schmerz in Ellbogen oder Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_plyo_push",
+      "zweck": "Explosiver Liegestütz: so kräftig hochdrücken, dass die Hände abheben. Trainiert Schnellkraft.",
+      "vorbereitung": "Matte, freier Platz vor dem Kopf.",
+      "schritte": [
+        "Geh in den Liegestütz, Hände etwas breiter als schulterbreit.",
+        "Senk die Brust bis knapp über den Boden.",
+        "Drück so kräftig hoch, dass die Hände kurz vom Boden abheben.",
+        "Lande mit leicht gebeugten Armen und geh direkt in die nächste Wiederholung."
+      ],
+      "ausstieg": "Nach der letzten Landung Knie ablegen.",
+      "sauber": "Die Hände heben ab, die Landung ist weich mit gebeugten Ellbogen.",
+      "details": [
+        "Wenige Wiederholungen, zum Beispiel 3–6. Langsamer heißt: Satz vorbei."
+      ],
+      "atmung": "Beim Abdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Harte Landung mit gestreckten Armen.",
+          "k": "Ellbogen beim Landen nachgeben lassen."
+        },
+        {
+          "f": "Die Hüfte hängt durch.",
+          "k": "Bauch fest oder auf Knien üben."
+        }
+      ],
+      "skalierung": "Leichter: auf Knien. Schwerer: mit Klatschen.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Satzlänge fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_floor_press",
+      "zweck": "Drücken mit Kurzhanteln im Liegen am Boden: Der Boden begrenzt den Weg, das schont die Schulter.",
+      "vorbereitung": "Matte, zwei Kurzhanteln neben den Hüften.",
+      "schritte": [
+        "Setz dich mit den Hanteln auf den Oberschenkeln hin und roll dich mit ihnen auf den Rücken.",
+        "Stell die Füße auf, Knie gebeugt. Drück die Hanteln über der Brust nach oben.",
+        "Senk die Hanteln, bis die Oberarme den Boden berühren, die Ellbogen schräg vom Körper.",
+        "Drück die Hanteln wieder hoch, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Hanteln auf die Brust bzw. den Bauch senken, auf die Seite drehen und sie seitlich ablegen.",
+      "sauber": "Die Oberarme liegen kurz ruhig am Boden, kein Abfedern.",
+      "details": [
+        "Handflächen zeigen zu den Füßen oder zueinander. Zueinander ist für viele angenehmer."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Ellbogen zu weit außen.",
+          "k": "Ellbogen schräg, nicht rechtwinklig zum Körper."
+        },
+        {
+          "f": "Auf dem Boden abfedern.",
+          "k": "Kurz ruhig ablegen, dann drücken."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Hanteln. Schwerer: schwerere Hanteln.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Wie man mit Hanteln in die Rückenlage kommt und wieder heraus, fehlte.",
+        "korrektur": "Einrollen und seitliches Ablegen ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bench_press",
+      "zweck": "Bankdrücken mit der Langhantel: drückt viel Gewicht mit Brust, Trizeps und vorderer Schulter.",
+      "vorbereitung": "Stange im Hantelständer (Rack) etwa auf Höhe der ausgestreckten Arme. Sicherungsablagen knapp unter Brusthöhe einstellen oder einen Partner zum Sichern. Scheiben mit Verschlüssen sichern.",
+      "schritte": [
+        "Leg dich auf die Bank, die Augen unter der Stange, die Füße fest am Boden.",
+        "Greif etwas breiter als schulterbreit, Daumen um die Stange. Zieh die Schulterblätter zusammen und nach unten.",
+        "Heb die Stange aus der Ablage und bring sie über die Schultern.",
+        "Senk sie kontrolliert zur unteren Brust, berühr sie kurz.",
+        "Drück sie zurück nach oben, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung die Stange mit gestreckten Armen nach hinten zurück in die Ablage führen. Klappt eine Wiederholung nicht, die Stange auf die Sicherungsablage absenken.",
+      "sauber": "Die Stange berührt die Brust, das Gesäß bleibt auf der Bank.",
+      "details": [
+        "Unten stehen die Unterarme etwa senkrecht unter der Stange.",
+        "Ein leichter Bogen im Rücken ist normal, das Gesäß bleibt trotzdem liegen."
+      ],
+      "atmung": "Vor dem Absenken tief einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Auf der Brust abfedern.",
+          "k": "Kurz kontrolliert aufsetzen."
+        },
+        {
+          "f": "Das Gesäß hebt ab.",
+          "k": "Gewicht verringern, Füße fester in den Boden."
+        },
+        {
+          "f": "Ohne Sicherung schwer drücken.",
+          "k": "Immer Sicherungsablagen oder Partner."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder Dumbbell Bench Press. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden, wenn die Stange langsamer wird und du unsicher bist, ob die nächste klappt. Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Immer mit Sicherung“ ohne Erklärung, Griff, Ausheben und Ablegen fehlten.",
+        "korrektur": "Rackhöhe, Sicherung, Griff, Ablauf und Notausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_planche_lean",
+      "zweck": "Im Liegestütz die Schultern weit vor die Hände schieben: erste Stufe zur Planche, kräftigt vordere Schulter und Handgelenke.",
+      "vorbereitung": "Matte. Handgelenke vorher aufwärmen, zum Beispiel mit Wrist Rocks.",
+      "schritte": [
+        "Geh in den Liegestütz.",
+        "Dreh die Hände leicht nach außen, die Finger zeigen zur Seite oder schräg nach hinten.",
+        "Schieb die Schultern so weit vor die Hände, wie es mit gestreckten Armen geht. Die Füße bleiben auf den Zehenspitzen.",
+        "Drück den Boden weg, der obere Rücken wird leicht rund, und halte."
+      ],
+      "ausstieg": "Schultern zurück über die Hände bringen, dann Knie ablegen.",
+      "sauber": "Die Arme sind gestreckt, der obere Rücken leicht rund, die Schultern deutlich vor den Händen.",
+      "details": [
+        "„Rund“ heißt: Die Schulterblätter gehen auseinander, als würdest du den Boden von dir wegschieben."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen beugen sich.",
+          "k": "Weniger weit vorlehnen und die Arme fest strecken."
+        },
+        {
+          "f": "Die Hüfte hängt durch.",
+          "k": "Gesäß anspannen."
+        }
+      ],
+      "skalierung": "Leichter: weniger weit vorlehnen. Schwerer: weiter vorlehnen.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Rücken leicht rund“ ohne Erklärung.",
+        "korrektur": "In Handlung übersetzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_tuck_planche",
+      "zweck": "Gehockte Stützwaage: Nur die Hände tragen den Körper, Knie an der Brust. Erste echte Planche-Stufe.",
+      "vorbereitung": "Matte oder Parallettes. Handgelenke vorher aufwärmen.",
+      "schritte": [
+        "Hock dich hin und setz die Hände schulterbreit vor die Füße, Finger zur Seite oder nach vorn.",
+        "Lehn dich nach vorn, bis die Schultern vor den Händen sind, Arme gestreckt.",
+        "Zieh die Knie an die Brust und heb die Füße vom Boden.",
+        "Halte mit gestreckten Armen und rundem oberen Rücken."
+      ],
+      "ausstieg": "Füße wieder auf den Boden setzen, dann die Hände entlasten.",
+      "sauber": "Die Arme sind gestreckt, die Füße in der Luft.",
+      "details": [
+        "Auf Parallettes ist es für die Handgelenke angenehmer."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen beugen sich.",
+          "k": "Mehr nach vorn lehnen statt mit den Armen zu halten."
+        }
+      ],
+      "skalierung": "Leichter: Planche Lean. Schwerer: Advanced Tuck Planche.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder Ellbogen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Einstieg aus der Hocke fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_adv_tuck_planche",
+      "zweck": "Stützwaage mit flachem Rücken und angezogenen Knien: deutlich schwerer als die Tuck Planche.",
+      "vorbereitung": "Matte oder Parallettes. Handgelenke vorher aufwärmen.",
+      "schritte": [
+        "Hock dich hin, setz die Hände vor die Füße und lehn dich nach vorn, Arme gestreckt.",
+        "Heb die Füße mit angezogenen Knien vom Boden.",
+        "Streck den Rücken flach und bring die Hüfte auf Schulterhöhe. Die Knie bleiben gebeugt.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Knie zur Brust ziehen, Füße abstellen.",
+      "sauber": "Flacher Rücken, Arme gestreckt, Hüfte auf Schulterhöhe.",
+      "details": [],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte ist zu tief.",
+          "k": "Weiter nach vorn lehnen."
+        }
+      ],
+      "skalierung": "Leichter: Tuck Planche. Schwerer: Straddle Planche.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder Ellbogen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startete aus einer anderen Übung.",
+        "korrektur": "Eigenständiger Einstieg.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_straddle_planche",
+      "zweck": "Stützwaage mit gegrätschten, gestreckten Beinen: der Schritt vor der vollen Planche.",
+      "vorbereitung": "Matte oder Parallettes. Handgelenke vorher aufwärmen.",
+      "schritte": [
+        "Geh in die Stützwaage mit angezogenen Knien und flachem Rücken.",
+        "Streck die Beine gegrätscht nach hinten aus.",
+        "Halte den Körper waagerecht, die Arme gestreckt.",
+        "Setz kontrolliert ab."
+      ],
+      "ausstieg": "Knie zur Brust ziehen, Füße abstellen.",
+      "sauber": "Gerade Linie von Schultern bis Füßen, Beine gestreckt.",
+      "details": [
+        "Je weiter gegrätscht, desto leichter."
+      ],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte knickt.",
+          "k": "Gesäß anspannen."
+        }
+      ],
+      "skalierung": "Leichter: Advanced Tuck Planche. Schwerer: Full Planche.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder Ellbogen.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_planche",
+      "zweck": "Die volle Stützwaage: Der gestreckte Körper schwebt waagerecht, nur die Hände berühren den Boden.",
+      "vorbereitung": "Matte oder Parallettes. Handgelenke vorher aufwärmen.",
+      "schritte": [
+        "Geh in die Straddle Planche: Arme gestreckt, Körper waagerecht, Beine gegrätscht.",
+        "Schließ die Beine.",
+        "Halte den Körper gestreckt und waagerecht."
+      ],
+      "ausstieg": "Beine grätschen, Knie zur Brust, Füße abstellen.",
+      "sauber": "Gerade Linie, Arme gestreckt.",
+      "details": [],
+      "atmung": "Kurz und ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Arme beugen sich.",
+          "k": "Weiter vorlehnen oder zurück zur Straddle Planche."
+        }
+      ],
+      "skalierung": "Leichter: Straddle Planche. Schwerer: längere Haltezeit.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk, Ellbogen oder Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Verweis auf Straddle Planche ohne Beschreibung.",
+        "korrektur": "Position in Schritt 1 beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_wall_push",
+      "zweck": "Liegestütz an der Wand: der leichteste Einstieg in den Push-up.",
+      "vorbereitung": "Eine freie Wand, Socken aus oder rutschfeste Schuhe.",
+      "schritte": [
+        "Stell dich eine Armlänge vor die Wand.",
+        "Leg die Hände auf Brusthöhe etwas breiter als schulterbreit an.",
+        "Beug die Arme, bis die Brust fast die Wand berührt. Der Körper bleibt gerade.",
+        "Drück dich zurück, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Körper bleibt von Kopf bis Ferse in einer Linie.",
+      "details": [],
+      "atmung": "Beim Annähern einatmen, beim Wegdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz.",
+          "k": "Gesäß anspannen, Rippen nach unten."
+        }
+      ],
+      "skalierung": "Leichter: näher an die Wand. Schwerer: weiter weg oder Incline Push-up.",
+      "grenzen": "Aufhören bei Schmerz in Schulter oder Handgelenk.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Fehlerkorrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_typewriter_push",
+      "zweck": "Unten im Liegestütz von einer Hand zur anderen schieben: hohe einseitige Belastung, Vorstufe zum einarmigen Push-up.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in einen breiten Liegestütz, Hände etwa doppelt schulterbreit.",
+        "Senk dich ab, bis die Brust knapp über dem Boden ist.",
+        "Schieb den Körper unten zu einer Hand, der freie Arm wird gestreckt, dann zur anderen.",
+        "Kehr zur Mitte zurück und drück dich hoch."
+      ],
+      "ausstieg": "Knie ablegen und aufrichten.",
+      "sauber": "Die Brust bleibt beim Seitwechsel knapp über dem Boden.",
+      "details": [],
+      "atmung": "Unten weiteratmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte sinkt beim Schieben ab.",
+          "k": "Gesäß anspannen, kürzere Strecke schieben."
+        }
+      ],
+      "skalierung": "Leichter: Archer Push-up. Schwerer: unten an jeder Seite 2 Sekunden halten.",
+      "grenzen": "Aufhören bei Schmerz im Ellbogen.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Fehlerkorrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_fly",
+      "zweck": "Fliegende an Ringen: Die fast gestreckten Arme öffnen zur Seite, das fordert Brust und Schulter sehr stark.",
+      "vorbereitung": "Ringe auf Hüfthöhe hängen. Tiefer macht es schwerer.",
+      "schritte": [
+        "Greif die Ringe und geh in einen Liegestütz an den Ringen, Arme gestreckt, Körper gerade.",
+        "Beug die Ellbogen leicht und lass sie so.",
+        "Öffne die Arme langsam zur Seite, bis die Brust etwa auf Höhe der Hände ist.",
+        "Zieh die Arme mit Brustkraft wieder unter den Körper zusammen."
+      ],
+      "ausstieg": "Ringe unter die Schultern zurückführen und mit den Füßen nach vorn gehen, bis du stehst.",
+      "sauber": "Die Ellbogen bleiben während der ganzen Bewegung gleich wenig gebeugt.",
+      "details": [
+        "Nur so weit öffnen, wie du zurückkommst."
+      ],
+      "atmung": "Beim Öffnen einatmen, beim Zusammenziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu tief öffnen und nicht mehr zurückkommen.",
+          "k": "Ringe höher hängen und kleiner öffnen."
+        },
+        {
+          "f": "Die Ellbogen beugen sich mehr.",
+          "k": "Winkel festhalten, sonst wird es ein Push-up."
+        }
+      ],
+      "skalierung": "Leichter: Ringe höher hängen oder auf Knien. Schwerer: Ringe tiefer oder weiter öffnen.",
+      "grenzen": "Sofort zurück bei Ziehen an der Bizepssehne vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„überlastet Schulter und Bizepssehne“ als feste Aussage.",
+        "korrektur": "Als Abbruchsignal formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_med_ball_chest_pass",
+      "zweck": "Medizinball explosiv gegen die Wand stoßen: trainiert Schnellkraft in Brust und Trizeps.",
+      "vorbereitung": "Eine stabile Wand ohne Fenster oder Bilder, etwa 2 Meter Abstand.",
+      "schritte": [
+        "Stell dich hüftbreit vor die Wand und halt den Ball mit beiden Händen vor der Brust.",
+        "Stoß den Ball explosiv mit beiden Händen gerade an die Wand.",
+        "Streck die Arme ganz durch.",
+        "Fang den Ball mit nachgebenden Armen und stoß sofort wieder."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Ball fliegt gerade auf Brusthöhe, die Arme strecken sich ganz.",
+      "details": [],
+      "atmung": "Beim Stoßen kräftig ausatmen.",
+      "fehler": [
+        {
+          "f": "Aus dem Rücken ausholen.",
+          "k": "Oberkörper ruhig, nur die Arme stoßen."
+        }
+      ],
+      "skalierung": "Leichter: leichterer Ball oder näher an der Wand. Schwerer: schwererer Ball oder aus der Schrittstellung.",
+      "grenzen": "Aufhören, wenn du den Ball nicht mehr sicher fängst.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Schritte getrennt, Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_tuck_planche_push",
+      "zweck": "Liegestütz in der gehockten Stützwaage: die Füße bleiben in der Luft, nur die Arme beugen sich.",
+      "vorbereitung": "Matte oder Parallettes. Handgelenke vorher aufwärmen.",
+      "schritte": [
+        "Geh in die Tuck Planche: Hände vor den Füßen, Schultern vor den Händen, Knie an der Brust, Füße in der Luft.",
+        "Beug die Arme und senk den Oberkörper ab, die Füße bleiben oben.",
+        "Drück dich zurück in die Tuck Planche."
+      ],
+      "ausstieg": "Füße abstellen, dann die Hände entlasten.",
+      "sauber": "Die Füße berühren den Boden nicht, die Hüfte bleibt auf Schulterhöhe.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Hüfte sinkt ab.",
+          "k": "Kürzerer Weg nach unten."
+        }
+      ],
+      "skalierung": "Leichter: Pseudo Planche Push-up. Schwerer: Advanced Tuck Planche Push-up.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder Ellbogen.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Position der Tuck Planche im Schritt erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_db_bench_press",
+      "zweck": "Bankdrücken mit Kurzhanteln: jede Seite drückt für sich, die Hanteln dürfen sich frei bewegen.",
+      "vorbereitung": "Flache Bank, zwei Kurzhanteln am Ende der Bank.",
+      "schritte": [
+        "Setz dich ans Ende der Bank, die Hanteln auf den Oberschenkeln.",
+        "Leg dich zurück und bring die Hanteln dabei mit Schwung der Knie an die Brust.",
+        "Drück sie nach oben, Füße fest am Boden, Schulterblätter zusammen.",
+        "Senk die Hanteln kontrolliert seitlich neben die Brust.",
+        "Drück sie nach oben, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Hanteln auf die Oberschenkel zurückführen, dabei aufsetzen, dann ablegen. Nicht seitlich fallen lassen.",
+      "sauber": "Die Hanteln bewegen sich ruhig, die Schulterblätter bleiben auf der Bank zusammen.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen stehen weit ab.",
+          "k": "Ellbogen schräg zum Körper."
+        }
+      ],
+      "skalierung": "Leichter: Floor Press oder weniger Gewicht. Schwerer: mehr Gewicht oder Bench Press.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Wie man mit schweren Hanteln auf die Bank kommt und wieder hoch, fehlte.",
+        "korrektur": "Einstieg über die Oberschenkel und Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_incline_db_press",
+      "zweck": "Kurzhanteldrücken auf der Schrägbank: mehr obere Brust und vordere Schulter als flach.",
+      "vorbereitung": "Bank auf etwa 30 Grad stellen, Hanteln am Fuß der Bank.",
+      "schritte": [
+        "Setz dich mit den Hanteln auf den Oberschenkeln hin.",
+        "Lehn dich zurück und bring die Hanteln mit Hilfe der Knie neben die obere Brust.",
+        "Drück sie schräg nach oben, bis die Arme gestreckt sind und sich die Hanteln über den Schultern nähern.",
+        "Senk sie kontrolliert neben die obere Brust."
+      ],
+      "ausstieg": "Hanteln auf die Oberschenkel zurückführen und aufsetzen.",
+      "sauber": "Der Rücken bleibt an der Lehne, die Hanteln kommen über den Schultern zusammen.",
+      "details": [
+        "Je steiler die Bank, desto mehr Schulter."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Bank zu steil.",
+          "k": "Auf etwa 30 Grad stellen."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Einstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_close_grip_bench",
+      "zweck": "Bankdrücken mit engerem Griff: mehr Arbeit für den Trizeps.",
+      "vorbereitung": "Wie beim Bankdrücken: Stange im Hantelständer (Rack), Sicherungsablagen knapp unter Brusthöhe oder ein Partner.",
+      "schritte": [
+        "Leg dich unter die Stange und greif etwa schulterbreit.",
+        "Heb die Stange aus der Ablage über die Schultern.",
+        "Senk sie mit eng am Körper geführten Ellbogen zur unteren Brust.",
+        "Drück sie zurück nach oben, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Stange mit gestreckten Armen zurück in die Ablage führen.",
+      "sauber": "Die Ellbogen bleiben nah am Körper, die Handgelenke stehen gerade über den Ellbogen.",
+      "details": [
+        "Schulterbreit reicht. Enger knickt die Handgelenke ab, ohne mehr zu bringen."
+      ],
+      "atmung": "Vor dem Absenken einatmen und halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Griff zu eng.",
+          "k": "Etwa schulterbreit greifen."
+        }
+      ],
+      "skalierung": "Leichter: Diamond Push-up oder weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im Ellbogen oder Handgelenk.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Sicherung und Ablegen fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_single_arm_db_bench",
+      "zweck": "Bankdrücken mit einer Hantel: Der Rumpf muss gegen das Kippen zur Hantelseite halten.",
+      "vorbereitung": "Flache Bank, eine Kurzhantel oder Kettlebell.",
+      "schritte": [
+        "Leg dich mit der Hantel in einer Hand auf die Bank, Füße breit und fest am Boden.",
+        "Spann den Rumpf an, damit du nicht zur Hantelseite kippst. Die freie Hand kann die Bank halten.",
+        "Senk die Hantel neben die Brust und drück sie wieder hoch.",
+        "Wechsel nach dem Satz die Seite."
+      ],
+      "ausstieg": "Hantel auf den Oberschenkel zurückführen, aufsetzen und ablegen.",
+      "sauber": "Becken und Schultern bleiben flach auf der Bank.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Wegdrehen zur Hantelseite.",
+          "k": "Gewicht verringern, Füße breiter."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder nur der obere Rücken auf der Bank.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_cable_fly",
+      "zweck": "Fliegende am Kabelzug oder mit Bändern: trainiert die Brust ohne Trizeps.",
+      "vorbereitung": "Beide Kabelrollen bzw. Bänder auf Schulterhöhe einstellen.",
+      "schritte": [
+        "Stell dich mittig zwischen die Kabel, je einen Griff in der Hand.",
+        "Mach einen kleinen Schritt nach vorn, die Arme leicht gebeugt zur Seite.",
+        "Führ die Hände in einem Bogen vor der Brust zusammen.",
+        "Lass sie kontrolliert zurück, bis die Brust leicht gedehnt ist."
+      ],
+      "ausstieg": "Arme zurückführen, bis das Gewicht aufliegt, dann einen Schritt zurück und loslassen.",
+      "sauber": "Die Ellbogen bleiben gleich wenig gebeugt, die Bewegung kommt nur aus der Schulter.",
+      "details": [],
+      "atmung": "Beim Zusammenführen ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen beugen sich.",
+          "k": "Gewicht verringern."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder leichteres Band. Schwerer: mehr Gewicht oder vorn 1 Sekunde halten.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

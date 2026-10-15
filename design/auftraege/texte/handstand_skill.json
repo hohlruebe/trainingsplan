@@ -1,0 +1,335 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "handstand_skill",
+  "entscheidungen": [
+    "Für den Handstand-Skill-Block bleiben die Ein- und Ausstiege je Stufe in SKILL_IN (index.html) maßgeblich. Die Bibliothekstexte beschreiben dieselben Wege und widersprechen ihnen nicht."
+  ],
+  "uebungen": [
+    {
+      "id": "g_wall_handstand_back",
+      "zweck": "Handstand mit dem Rücken zur Wand: Die Wand fängt dich auf, so gewöhnst du dich ans Kopfüber-Stehen.",
+      "vorbereitung": "Freie Wand, Matte davor, nichts Zerbrechliches in der Nähe. Handgelenke aufwärmen, zum Beispiel mit Wrist Rocks.",
+      "schritte": [
+        "Stell dich mit dem Rücken zur Wand, Arme hoch, ein Bein nach vorn.",
+        "Kipp nach vorn und setz die Hände schulterbreit etwa eine Handbreite vor der Wand auf, Finger gespreizt.",
+        "Das hintere Bein schwingt hoch, das vordere folgt, bis die Fersen an der Wand liegen.",
+        "Drück den Boden weg, Schultern zu den Ohren, Bauch fest. Nur die Fersen berühren die Wand."
+      ],
+      "ausstieg": "Ein Bein von der Wand nehmen und wie einen Schritt auf den Boden setzen, das andere folgt.",
+      "sauber": "Die Arme sind gestreckt, die Schultern bei den Ohren, möglichst wenig Hohlkreuz.",
+      "details": [
+        "Rippen nach innen ziehen und das Gesäß anspannen, dann liegt nicht der ganze Rücken an der Wand.",
+        "Der Blick geht zwischen die Hände."
+      ],
+      "atmung": "Ruhig weiteratmen, nicht die Luft anhalten.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz, der ganze Rücken liegt an der Wand.",
+          "k": "Rippen rein, Gesäß fest, nur die Fersen an die Wand."
+        },
+        {
+          "f": "Zu wenig Schwung, du kommst nicht hoch.",
+          "k": "Hände näher an die Wand, hinteres Bein kräftiger schwingen."
+        }
+      ],
+      "skalierung": "Leichter: kürzer halten. Schwerer: Bauch zur Wand (Face-to-Wall).",
+      "grenzen": "Aussteigen bei Schwindel, Druck im Kopf oder Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Einstieg ohne Arm- und Fußposition, kein Ausstieg im Bibliothekstext (nur in SKILL_IN).",
+        "korrektur": "Ein- und Ausstieg wie in SKILL_IN, Handposition ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_handstand",
+      "zweck": "Handstand mit dem Bauch zur Wand: gerade Körperlinie, Schulterkraft und Gleichgewicht. Grundlage für freien Handstand und HSPU.",
+      "vorbereitung": "Abstand markieren: Ferse an die Wand stellen und am Schuhende einen Streifen Klebeband auf den Boden kleben. Matte. Handgelenke aufwärmen.",
+      "schritte": [
+        "Geh in den Liegestütz, die Füße an der Wand, die Hände etwa eine Körperlänge vor der Wand.",
+        "Lauf mit den Füßen Schritt für Schritt die Wand hoch und geh gleichzeitig mit den Händen zur Wand.",
+        "Stopp, wenn die Hände etwa an der Markierung stehen: Bauch zur Wand, Körper gerade wie ein Brett.",
+        "Drück den Boden aktiv weg, Schultern zu den Ohren, Bauch fest, Blick zwischen die Hände. Halten."
+      ],
+      "ausstieg": "Hände langsam nach vorn von der Wand weglaufen, die Füße kommen die Wand herunter.",
+      "sauber": "Der Körper ist gerade, die Schultern sind bei den Ohren.",
+      "details": [
+        "Die Leiter: Rücken zur Wand, Face-to-Wall, eine Fußlänge Abstand für 30 s, Fuß-Taps (Füße kurz von der Wand lösen), frei.",
+        "Der freie Handstand braucht Monate bis Jahre. Jeder Zwischenschritt zählt."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz.",
+          "k": "Rippen nach innen ziehen, Gesäß fest."
+        },
+        {
+          "f": "Die Schultern sinken, die Arme wirken kurz.",
+          "k": "Boden kräftig wegdrücken, als würdest du größer werden."
+        }
+      ],
+      "skalierung": "Leichter: weiter weg von der Wand. Schwerer: näher an die Wand, Fuß-Taps, frei.",
+      "grenzen": "Aussteigen bei Schwindel, Druck im Kopf oder Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich",
+          "fehlende_erklaerung"
+        ],
+        "problem": "Glossar sagte „Liegestütz mit dem Rücken zur Wand“, gemeint war Bauch zur Wand; „Stack“ unerklärt.",
+        "korrektur": "Eindeutig beschrieben, Stack als Rippen nach innen, Leiterstufen ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_crow",
+      "zweck": "Krähe: in der Hocke auf den Händen balancieren, die Knie auf den Oberarmen. Erste Balance auf den Händen.",
+      "vorbereitung": "Matte, ein Kissen vor den Kopf.",
+      "schritte": [
+        "Geh in die Hocke und setz die Hände schulterbreit vor dir auf, Finger gespreizt.",
+        "Beug die Arme leicht und leg die Knie auf die Rückseite der Oberarme.",
+        "Verlager das Gewicht nach vorn auf die Hände, Blick nach vorn.",
+        "Heb einen Fuß, dann den anderen, und balanciere."
+      ],
+      "ausstieg": "Gewicht zurück und die Füße wieder abstellen.",
+      "sauber": "Die Balance ist ruhig, der Blick geht nach vorn.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Nach vorn kippen.",
+          "k": "Kissen vor den Kopf und weniger weit vorlehnen."
+        }
+      ],
+      "skalierung": "Leichter: ein Fuß bleibt am Boden. Schwerer: länger halten.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Knieposition ungenau.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kick_up",
+      "zweck": "Mit einem Bein kontrolliert in den freien Handstand schwingen: der Einstieg in den freien Handstand.",
+      "vorbereitung": "Viel freier Platz und Matte. Vorher das seitliche Herausdrehen üben.",
+      "schritte": [
+        "Steh aufrecht, Arme über dem Kopf, ein Bein nach vorn.",
+        "Kipp nach vorn und setz die Hände schulterbreit auf den Boden.",
+        "Das hintere Bein schwingt hoch, das vordere folgt.",
+        "Nur so viel Schwung, dass du oben ankommst, nicht darüber hinaus. Halten oder aussteigen."
+      ],
+      "ausstieg": "Ein Bein zurück auf den Boden setzen. Kippst du über, eine Hand versetzen und seitlich herausdrehen.",
+      "sauber": "Du kommst kontrolliert oben an und kippst nicht durch.",
+      "details": [
+        "Seitlich herausdrehen: Eine Hand macht einen Schritt nach vorn, du drehst dich wie bei einem Rad zur Seite und landest auf den Füßen."
+      ],
+      "atmung": "Vor dem Schwung einatmen.",
+      "fehler": [
+        {
+          "f": "Zu viel Schwung.",
+          "k": "Vorher sicheres Herausdrehen üben, dann den Schwung dosieren."
+        }
+      ],
+      "skalierung": "Leichter: an der Wand. Schwerer: frei mit Halten.",
+      "grenzen": "Erst üben, wenn das seitliche Herausdrehen sicher sitzt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„abdrehen“ nicht erklärt.",
+        "korrektur": "Seitliches Herausdrehen beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_free_handstand",
+      "zweck": "Freier Handstand ohne Wand: Gleichgewicht über die Finger, Körperspannung von den Händen bis zu den Zehen.",
+      "vorbereitung": "Viel freier Platz und Matte. Sicheres seitliches Herausdrehen.",
+      "schritte": [
+        "Schwing dich mit einem Bein in den Handstand.",
+        "Schließ oben die Beine, Schultern zu den Ohren, Bauch und Gesäß fest.",
+        "Steuere die Balance mit den Fingern: Kippst du nach vorn, drück die Fingerspitzen in den Boden.",
+        "Halte und steig kontrolliert aus."
+      ],
+      "ausstieg": "Ein Bein zurück auf den Boden. Kippst du über, eine Hand versetzen und seitlich herausdrehen.",
+      "sauber": "Gerader Körper ohne Wand.",
+      "details": [
+        "Kippst du nach hinten (zurück zu den Füßen), Handballen in den Boden drücken."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Bananenform.",
+          "k": "Gesäß und Bauch fest, Rippen nach innen."
+        }
+      ],
+      "skalierung": "Leichter: Fuß-Taps an der Wand. Schwerer: länger halten.",
+      "grenzen": "Aussteigen bei Schwindel oder Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Balance über die Finger und Ausstieg zu knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_handstand_walk",
+      "zweck": "Auf den Händen gehen: Gleichgewicht in Bewegung, im Metcon nach Strecke gemessen.",
+      "vorbereitung": "Viel freier Platz und Matte.",
+      "schritte": [
+        "Schwing dich frei in den Handstand und steh kurz stabil.",
+        "Kipp leicht in die Richtung, in die du gehen willst.",
+        "Geh mit kleinen Schritten der Hände, so dass sie unter dem Körper bleiben."
+      ],
+      "ausstieg": "Ein Bein zurück auf den Boden, oder seitlich herausdrehen.",
+      "sauber": "Kleine, gleichmäßige Schritte.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Zu große Schritte.",
+          "k": "Kurz bleiben, die Hände bleiben unter dem Körper."
+        }
+      ],
+      "skalierung": "Leichter: Wall Walk. Schwerer: längere Strecke.",
+      "grenzen": "Aussteigen bei Schwindel.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Richtung der Gewichtsverlagerung fehlte.",
+        "korrektur": "Ergänzt wie in SKILL_IN.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_box_pike_hold",
+      "zweck": "Halten im Hecht mit den Füßen auf einer Box: übt die Überkopf-Position mit wenig Gewicht auf den Händen.",
+      "vorbereitung": "Stabile Box oder Sofa, Matte.",
+      "schritte": [
+        "Leg die Füße auf die Box und setz die Hände schulterbreit davor auf.",
+        "Lauf mit den Händen zurück, bis die Hüfte über den Schultern steht.",
+        "Drück dich aktiv vom Boden weg und halte."
+      ],
+      "ausstieg": "Hände nach vorn laufen und die Füße abstellen.",
+      "sauber": "Die Hüfte steht über den Schultern, die Arme sind gestreckt neben den Ohren.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Hängende Schultern.",
+          "k": "Boden kräftig wegdrücken."
+        }
+      ],
+      "skalierung": "Leichter: niedrigere Box. Schwerer: höhere Box oder Beine gestreckt.",
+      "grenzen": "Aufhören bei Druck im Kopf.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„verlagern die Last in die Gelenke“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_parallette_handstand",
+      "zweck": "Handstand auf Parallettes: Der Griff schont die Handgelenke und hilft beim Ausbalancieren.",
+      "vorbereitung": "Parallettes schulterbreit, eine Wand in der Nähe, Matte.",
+      "schritte": [
+        "Stell die Parallettes schulterbreit auf und greif die Holme.",
+        "Schwing oder lauf an der Wand in den Handstand.",
+        "Halte, die Balance kommt über den Griff."
+      ],
+      "ausstieg": "Ein Bein zurück auf den Boden setzen.",
+      "sauber": "Der Körper ist gerade, die Handgelenke stehen gerade.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz kippt dich nach vorn.",
+          "k": "Rippen rein, Gesäß fest."
+        }
+      ],
+      "skalierung": "Leichter: mit Füßen an der Wand. Schwerer: frei ohne Wand.",
+      "grenzen": "Aussteigen bei Schwindel.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_handstand_shoulder_tap",
+      "zweck": "Im Handstand an der Wand abwechselnd eine Schulter antippen: Kraft auf einem Arm und Körperspannung.",
+      "vorbereitung": "Wand, Matte.",
+      "schritte": [
+        "Lauf mit dem Bauch zur Wand in den Handstand.",
+        "Verlager das Gewicht auf eine Hand und tipp mit der anderen die Schulter an.",
+        "Setz die Hand ab und wechsle die Seite."
+      ],
+      "ausstieg": "Hände nach vorn laufen, die Füße kommen die Wand herunter.",
+      "sauber": "Der Körper bleibt gerade, die Hüfte schaukelt kaum.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Die Schulter der Standseite sinkt ab.",
+          "k": "Boden auf der Standseite kräftig wegdrücken."
+        }
+      ],
+      "skalierung": "Leichter: nur Gewicht verlagern ohne Abheben. Schwerer: weiter weg von der Wand.",
+      "grenzen": "Aussteigen bei Schmerz in Schulter oder Handgelenk.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„belastet das Gelenk“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_press_to_handstand",
+      "zweck": "Ohne Sprung aus dem Grätschstand in den Handstand drücken: viel Kompression und Schulterkraft.",
+      "vorbereitung": "Matte, freier Platz. Sicherer freier Handstand.",
+      "schritte": [
+        "Steh gegrätscht und setz die Hände vor den Füßen schulterbreit auf.",
+        "Verlager das Gewicht nach vorn auf die Hände, bis die Füße leicht werden.",
+        "Heb die gegrätschten Beine ohne Sprung bis in den Handstand.",
+        "Schließ die Beine und halte kurz."
+      ],
+      "ausstieg": "Beine grätschen und langsam wieder absenken, oder ein Bein abstellen.",
+      "sauber": "Die Füße heben ohne Absprung ab, die Arme bleiben gestreckt.",
+      "details": [],
+      "atmung": "Vor dem Drücken einatmen, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Abspringen.",
+          "k": "Von einer Box starten oder nur das Absenken üben."
+        }
+      ],
+      "skalierung": "Leichter: von einer Box starten oder nur das Absenken. Schwerer: aus dem L-Sit drücken.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

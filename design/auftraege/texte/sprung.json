@@ -1,0 +1,432 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "sprung",
+  "entscheidungen": [
+    "Sprünge im Plan immer ohne Weste: so steht es seit jeher im Glossar und bleibt als Regel des Plans (keine allgemeine Behauptung, dass Sprünge mit Weste schädlich sind)."
+  ],
+  "uebungen": [
+    {
+      "id": "g_squatjump",
+      "zweck": "Aus der halben Hocke so hoch wie möglich springen: Sprungkraft der Beine und weiches Landen.",
+      "vorbereitung": "Rutschfester Boden, Schuhe oder barfuß auf Matte.",
+      "schritte": [
+        "Stell die Füße schulterbreit. Geh zügig in eine halbe Kniebeuge, die Arme schwingen nach hinten.",
+        "Spring explosiv so hoch wie möglich, die Arme schwingen mit nach oben.",
+        "Lande weich auf den Fußballen und federe in die Knie.",
+        "Stell dich kurz neu hin, dann der nächste Sprung."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Landung ist leise, die Knie zeigen nicht nach innen.",
+      "details": [
+        "Jeder Sprung mit voller Kraft, deshalb wenige Wiederholungen. Im Plan immer ohne Weste."
+      ],
+      "atmung": "Beim Absprung ausatmen.",
+      "fehler": [
+        { "f": "Die Knie fallen bei der Landung nach innen.", "k": "Knie in Richtung der Fußspitzen, kleinere Sprünge." },
+        { "f": "Harte Landung.", "k": "Auf den Fußballen landen und in die Knie federn." }
+      ],
+      "skalierung": "Leichter: kleinere Sprünge. Schwerer: höher springen.",
+      "grenzen": "Aufhören, wenn die Sprünge niedriger oder die Landungen laut werden.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung", "fachlicher_fehler"],
+        "problem": "„Knie über die Zehen“ als Korrektur missverständlich; Glossar und Bibliothek verschieden.",
+        "korrektur": "Kniebahn als Richtung, ein gemeinsamer Text.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_skater",
+      "zweck": "Seitlich von einem Bein aufs andere springen: seitliche Sprungkraft und Gleichgewicht.",
+      "vorbereitung": "Etwa 2 Meter freie Fläche zur Seite.",
+      "schritte": [
+        "Steh auf dem rechten Bein, leicht in den Knien.",
+        "Spring kraftvoll seitlich nach links und lande weich auf dem linken Bein. Das rechte Bein schwingt hinter dem linken vorbei.",
+        "Stabilisiere kurz, dann spring zurück nach rechts.",
+        "Jede Landung zählt für die Seite, auf der du landest."
+      ],
+      "ausstieg": "",
+      "sauber": "Stabile, leise Landung auf einem Bein, das Knie zeigt über den Fuß.",
+      "details": [
+        "Qualität vor Tempo. Im Plan immer ohne Weste."
+      ],
+      "atmung": "Bei jedem Absprung ausatmen.",
+      "fehler": [
+        { "f": "Das Knie knickt nach innen.", "k": "Kürzer springen, länger stabilisieren." }
+      ],
+      "skalierung": "Leichter: kleinere Sprünge. Schwerer: weiter springen.",
+      "grenzen": "Aufhören, wenn du bei der Landung wackelst.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Zählweise und Bewegung des freien Beins nur im Glossar.",
+        "korrektur": "Ein gemeinsamer Text.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_broad_jump",
+      "zweck": "Weitsprung aus dem Stand: Sprungkraft aus Hüfte und Beinen nach vorn.",
+      "vorbereitung": "Freie, rutschfeste Strecke von etwa 3 Metern.",
+      "schritte": [
+        "Stell dich hüftbreit hin.",
+        "Schwing die Arme nach hinten und geh in eine halbe Hocke.",
+        "Spring so weit wie möglich nach vorn, die Arme schwingen mit.",
+        "Lande beidbeinig, federe ab und halte die Landung kurz."
+      ],
+      "ausstieg": "",
+      "sauber": "Landung ohne Nachrutschen oder Nachhüpfen.",
+      "details": [],
+      "atmung": "Beim Absprung ausatmen.",
+      "fehler": [
+        { "f": "Harte Landung.", "k": "Weich in die Knie federn." }
+      ],
+      "skalierung": "Leichter: kürzer. Schwerer: weiter oder mehrere hintereinander.",
+      "grenzen": "Aufhören, wenn die Landungen unsicher werden.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_tuck_jump",
+      "zweck": "Hochspringen und die Knie zur Brust ziehen: Sprungkraft und Rumpf.",
+      "vorbereitung": "Rutschfester Boden.",
+      "schritte": [
+        "Steh hüftbreit, leicht in den Knien.",
+        "Spring kräftig hoch.",
+        "Zieh in der Luft die Knie zur Brust.",
+        "Streck die Beine wieder und lande weich."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Knie kommen mindestens bis auf Hüfthöhe, die Landung ist leise.",
+      "details": [],
+      "atmung": "Beim Absprung ausatmen.",
+      "fehler": [
+        { "f": "Harte Landung.", "k": "Leise auf den Fußballen landen." }
+      ],
+      "skalierung": "Leichter: Squat Jump. Schwerer: ohne Pause zwischen den Sprüngen.",
+      "grenzen": "Aufhören, wenn die Landungen laut werden.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_jumping_lunge",
+      "zweck": "Aus dem Ausfallschritt springen und die Beine in der Luft wechseln: Beine und Sprungkraft.",
+      "vorbereitung": "Rutschfester Boden.",
+      "schritte": [
+        "Starte im Ausfallschritt, beide Knie gebeugt.",
+        "Spring hoch und wechsle in der Luft die Beine.",
+        "Lande weich im Ausfallschritt mit dem anderen Bein vorn."
+      ],
+      "ausstieg": "",
+      "sauber": "Das hintere Knie kommt fast an den Boden, ohne aufzuschlagen.",
+      "details": [],
+      "atmung": "Beim Absprung ausatmen.",
+      "fehler": [
+        { "f": "Das Knie knallt auf.", "k": "Kleinerer Sprung, weicher landen." }
+      ],
+      "skalierung": "Leichter: Walking Lunge. Schwerer: mehr Wiederholungen.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_box_jump",
+      "zweck": "Beidbeinig auf eine Box springen: Sprungkraft mit weicher Landung oben.",
+      "vorbereitung": "Stabile Box, nicht kippelnd. Niedrig anfangen. Ein Stuhl nur, wenn er an der Wand steht und sicher ist.",
+      "schritte": [
+        "Stell dich etwa einen halben Schritt vor die Box.",
+        "Schwing die Arme nach hinten und spring beidbeinig hinauf.",
+        "Lande mit dem ganzen Fuß auf der Box und streck oben die Hüfte.",
+        "Steig herunter, einen Fuß nach dem anderen."
+      ],
+      "ausstieg": "",
+      "sauber": "Der ganze Fuß landet auf der Box, oben bist du ganz gestreckt.",
+      "details": [
+        "Heruntersteigen schont die Achillessehne bei vielen Wiederholungen."
+      ],
+      "atmung": "Beim Absprung ausatmen.",
+      "fehler": [
+        { "f": "Herunterspringen bei vielen Wiederholungen.", "k": "Heruntersteigen." },
+        { "f": "Nur die Zehen landen auf der Kante.", "k": "Niedrigere Box oder näher heran." }
+      ],
+      "skalierung": "Leichter: niedrigere Box oder Step-up. Schwerer: höhere Box.",
+      "grenzen": "Aufhören, wenn du die Box nur noch knapp erreichst. Schienbein-Treffer vermeiden.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„belastet die Achillessehne“ als feste Behauptung.",
+        "korrektur": "Als Empfehlung formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_box_jump_over",
+      "zweck": "Auf und über die Box springen: Sprungkraft und Ausdauer im Metcon.",
+      "vorbereitung": "Stabile Box, auf beiden Seiten Platz.",
+      "schritte": [
+        "Spring beidbeinig auf die Box.",
+        "Steig oder spring auf der anderen Seite herunter.",
+        "Dreh dich um und mach weiter."
+      ],
+      "ausstieg": "",
+      "sauber": "Beide Füße berühren die Box.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Zu hastig.", "k": "Sichere Landung zuerst." }
+      ],
+      "skalierung": "Leichter: auf- und darübersteigen. Schwerer: direkt darüberspringen.",
+      "grenzen": "Aufhören, wenn die Landungen unsicher werden.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Leicht umformuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pogo",
+      "zweck": "Kleine, schnelle Sprünge aus den Sprunggelenken: macht Waden und Achillessehne federnd.",
+      "vorbereitung": "",
+      "schritte": [
+        "Steh hüftbreit, die Knie fast gestreckt.",
+        "Spring klein und schnell nur aus den Sprunggelenken.",
+        "Lande auf den Fußballen, die Fersen berühren den Boden kaum."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Bodenkontakt ist kurz und federnd.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Zu tief einsinken.", "k": "Kurz und federnd, Knie fast gestreckt." }
+      ],
+      "skalierung": "Leichter: kleinere Sprünge. Schwerer: einbeinig.",
+      "grenzen": "Aufhören bei Schmerz an der Achillessehne.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Abbruchsignal ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_jumping_jack",
+      "zweck": "Hampelmann: bringt den Kreislauf in Gang.",
+      "vorbereitung": "",
+      "schritte": [
+        "Steh aufrecht, Arme neben dem Körper.",
+        "Spring in die Grätsche und führ die Arme seitlich über den Kopf.",
+        "Spring zurück in den Stand, die Arme gehen nach unten."
+      ],
+      "ausstieg": "",
+      "sauber": "Locker und gleichmäßig.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Harte Landung.", "k": "Auf den Fußballen landen." }
+      ],
+      "skalierung": "Leichter: ohne Sprung, abwechselnd zur Seite treten. Schwerer: schneller.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_single_under",
+      "zweck": "Seilspringen mit einer Seilumdrehung pro Sprung: Ausdauer, Waden und Koordination.",
+      "vorbereitung": "Seil einstellen: mit beiden Füßen auf der Mitte stehen, die Griffe reichen etwa bis unter die Achseln.",
+      "schritte": [
+        "Halt die Griffe neben der Hüfte, das Seil hinter den Füßen.",
+        "Dreh das Seil aus den Handgelenken, die Ellbogen bleiben nah am Körper.",
+        "Spring locker auf den Fußballen, nur so hoch, dass das Seil durchpasst."
+      ],
+      "ausstieg": "",
+      "sauber": "Gleichmäßiger Rhythmus, flache Sprünge.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Zu hoch springen.", "k": "Flach und locker." },
+        { "f": "Aus den Schultern drehen.", "k": "Handgelenke drehen, Ellbogen am Körper." }
+      ],
+      "skalierung": "Leichter: ohne Seil hüpfen. Schwerer: schneller oder Double-Under.",
+      "grenzen": "Aufhören bei Schmerz an Waden oder Achillessehne.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Seillänge fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_double_under",
+      "zweck": "Das Seil dreht sich zweimal pro Sprung: Ausdauer und Koordination, Klassiker im CrossFit.",
+      "vorbereitung": "Schnelles Seil, eingestellt wie für Single-Under oder etwas kürzer.",
+      "schritte": [
+        "Spring etwas höher als beim Single-Under, Körper gerade, Beine fast gestreckt.",
+        "Dreh das Seil mit schnellen Handgelenken zweimal unter den Füßen durch.",
+        "Lande weich auf den Fußballen."
+      ],
+      "ausstieg": "",
+      "sauber": "Zwei Umdrehungen pro Sprung, der Körper bleibt aufrecht.",
+      "details": [
+        "Übungsweg: drei Single-Under, ein Double-Under, wiederholen."
+      ],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Knie anziehen.", "k": "Körper gerade lassen, höher springen." }
+      ],
+      "skalierung": "Leichter: Single-Under. Schwerer: mehr am Stück.",
+      "grenzen": "Aufhören bei Schmerz an Waden oder Achillessehne.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Lernweg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_snap_down",
+      "zweck": "Aus dem Zehenstand schnell in die Landeposition fallen: lehrt sicheres Landen vor Sprüngen.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich auf die Zehenspitzen und streck die Arme über den Kopf.",
+        "Zieh die Arme schnell nach hinten und fall in eine halbe Hocke.",
+        "Lande leise auf dem ganzen Fuß und halte die Position kurz."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Knie zeigen in Richtung der Fußspitzen, die Landung ist leise.",
+      "details": [],
+      "atmung": "Bei der Landung ausatmen.",
+      "fehler": [
+        { "f": "Die Knie knicken bei der Landung nach innen.", "k": "Langsamer in die Hocke, Knie bewusst nach außen." }
+      ],
+      "skalierung": "Leichter: langsamer in die Hocke gehen. Schwerer: aus einem kleinen Hüpfer landen.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„Knie über die Zehen“ und „belastet das Kniegelenk“.",
+        "korrektur": "Kniebahn als Richtung, Korrektur statt Behauptung.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_depth_jump",
+      "zweck": "Von einer Box fallen lassen und sofort hochspringen: trainiert die Reaktivkraft (schnelles Umschalten von Landen auf Abspringen).",
+      "vorbereitung": "Stabile Box, etwa 30 bis 45 cm hoch, davor freie rutschfeste Fläche.",
+      "schritte": [
+        "Stell dich auf die Box.",
+        "Steig mit einem Fuß nach vorn ab und lass dich fallen, du landest beidbeinig.",
+        "Spring sofort nach der Landung so hoch wie möglich ab.",
+        "Lande weich und geh zurück auf die Box."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Bodenkontakt ist kurz, die Knie knicken nicht nach innen.",
+      "details": [
+        "Nicht von der Box springen, nur absteigen. Die Höhe kommt aus dem Fallen.",
+        "Wenige Wiederholungen mit voller Pause dazwischen."
+      ],
+      "atmung": "Beim Absprung ausatmen.",
+      "fehler": [
+        { "f": "Box zu hoch, der Bodenkontakt wird lang.", "k": "Niedrigere Box." }
+      ],
+      "skalierung": "Leichter: niedrigere Box oder nur landen (Depth Drop). Schwerer: höhere Box oder auf eine zweite Box springen.",
+      "grenzen": "Aufhören bei Knie- oder Achillessehnenschmerz oder wenn die Sprünge niedriger werden.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Reaktivkraft unerklärt, Pausen fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_single_leg_hop",
+      "zweck": "Einbeinig weit springen und auf demselben Bein landen: einbeinige Sprungkraft und Kontrolle des Knies.",
+      "vorbereitung": "Freie, rutschfeste Strecke.",
+      "schritte": [
+        "Steh auf einem Bein.",
+        "Spring einbeinig so weit wie möglich nach vorn.",
+        "Lande auf demselben Bein und halte die Landung 2 Sekunden.",
+        "Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Du landest stabil, ohne dass das Knie nach innen knickt.",
+      "details": [],
+      "atmung": "Beim Absprung ausatmen.",
+      "fehler": [
+        { "f": "Nachhüpfen bei der Landung.", "k": "Kürzer springen, Landung halten." }
+      ],
+      "skalierung": "Leichter: kürzere Sprünge. Schwerer: mehrere Sprünge hintereinander.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_triple_under",
+      "zweck": "Das Seil dreht sich dreimal pro Sprung: sehr hohe Koordination und Handgelenkstempo.",
+      "vorbereitung": "Schnelles, kurz eingestelltes Seil.",
+      "schritte": [
+        "Spring höher als beim Double-Under, Körper gerade.",
+        "Dreh das Seil mit sehr schnellen Handgelenken dreimal unter den Füßen durch.",
+        "Lande weich auf den Fußballen."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Körper bleibt in der Luft gerade, die Kraft kommt aus den Handgelenken.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Beine anwinkeln statt höher springen.", "k": "Körper gerade, kräftiger abspringen." }
+      ],
+      "skalierung": "Leichter: Double-Under. Schwerer: mehrere Triple-Under hintereinander.",
+      "grenzen": "Aufhören bei Schmerz an Waden oder Achillessehne.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bounding",
+      "zweck": "Sprunglauf: von einem Bein weit nach vorn aufs andere springen. Kraft fürs Laufen.",
+      "vorbereitung": "Freie Laufstrecke von 20–40 m.",
+      "schritte": [
+        "Lauf locker an.",
+        "Spring im Wechsel von einem Bein weit nach vorn auf das andere.",
+        "Zieh das Knie des Schwungbeins hoch und schwing die Arme gegengleich mit.",
+        "Lande aktiv auf dem Vorfuß und spring direkt weiter."
+      ],
+      "ausstieg": "",
+      "sauber": "Jeder Sprung geht weit nach vorn, die Landung ist aktiv auf dem Vorfuß.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Kurze, hohe Sprünge.", "k": "Weit nach vorn denken, nicht nach oben." }
+      ],
+      "skalierung": "Leichter: kürzere Sprünge oder Hopserlauf. Schwerer: längere Strecke oder bergauf.",
+      "grenzen": "Aufhören bei Schmerz an Knie oder Achillessehne.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Strecke ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

@@ -1,0 +1,435 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "isolation",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_band_curl",
+      "zweck": "Bizepscurl mit Band: trainiert den Bizeps ohne Hanteln.",
+      "vorbereitung": "Ein Band mit Schlaufe.",
+      "schritte": [
+        "Stell dich mit beiden Füßen auf die Mitte des Bandes und greif die Enden im Untergriff (Handflächen nach vorn).",
+        "Die Ellbogen bleiben seitlich am Körper.",
+        "Beug die Arme, bis die Hände auf Schulterhöhe sind.",
+        "Senk sie langsam ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Arme strecken, bis das Band locker ist, dann vom Band steigen.",
+      "sauber": "Die Ellbogen bleiben am Körper, der Oberkörper schwingt nicht.",
+      "details": [],
+      "atmung": "Beim Beugen ausatmen.",
+      "fehler": [
+        { "f": "Schwung aus dem Rücken.", "k": "Leichteres Band, aufrecht bleiben." }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band oder Biceps Curl mit Gewicht.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_biceps_curl",
+      "zweck": "Bizepscurl mit Gewicht: gezielt für den Bizeps.",
+      "vorbereitung": "Kurzhanteln, Kettlebell, Langhantel oder Kabelzug.",
+      "schritte": [
+        "Steh aufrecht, Hanteln oder Stange im Untergriff, Arme gestreckt.",
+        "Beug die Arme, die Ellbogen bleiben seitlich am Körper.",
+        "Senk das Gewicht kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Gewicht mit gebeugten Knien abstellen.",
+      "sauber": "Nur die Unterarme bewegen sich, Oberarme und Oberkörper bleiben still.",
+      "details": [],
+      "atmung": "Beim Beugen ausatmen.",
+      "fehler": [
+        { "f": "Die Ellbogen wandern nach vorn.", "k": "Ellbogen am Körper lassen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder Band Curl. Schwerer: mehr Gewicht oder 3 Sekunden absenken.",
+      "grenzen": "Aufhören bei Schmerz an der Innenseite des Ellbogens.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_hammer_curl",
+      "zweck": "Curl mit Daumen nach oben: Bizeps und Unterarm.",
+      "vorbereitung": "Zwei Kurzhanteln oder Kettlebells.",
+      "schritte": [
+        "Steh aufrecht, je eine Hantel neben dem Körper, die Daumen zeigen nach vorn (Neutralgriff).",
+        "Beug die Arme, die Ellbogen bleiben am Körper.",
+        "Senk die Hanteln kontrolliert ab."
+      ],
+      "ausstieg": "Hanteln mit gebeugten Knien abstellen.",
+      "sauber": "Die Daumen zeigen während der ganzen Bewegung nach oben.",
+      "details": [],
+      "atmung": "Beim Beugen ausatmen.",
+      "fehler": [
+        { "f": "Die Hände drehen ein.", "k": "Daumen oben lassen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Neutralgriff erklärt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_ring_curl",
+      "zweck": "Bizepscurl mit dem eigenen Körper an den Ringen.",
+      "vorbereitung": "Ringe auf Brusthöhe.",
+      "schritte": [
+        "Greif die Ringe im Untergriff und lehn dich mit gestrecktem Körper nach hinten.",
+        "Die Oberarme zeigen nach vorn und bleiben ruhig.",
+        "Beug die Arme, bis die Hände neben der Stirn sind.",
+        "Streck sie langsam zurück."
+      ],
+      "ausstieg": "Mit den Füßen unter die Ringe gehen und loslassen.",
+      "sauber": "Der Körper bleibt gerade, nur die Ellbogen beugen sich.",
+      "details": [],
+      "atmung": "Beim Beugen ausatmen.",
+      "fehler": [
+        { "f": "Mit den Schultern mitziehen.", "k": "Oberarme ruhig, sonst wird es ein Rudern." }
+      ],
+      "skalierung": "Leichter: aufrechter stehen. Schwerer: Füße weiter nach vorn.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Ringhöhe fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_triceps_pushdown",
+      "zweck": "Trizepsdrücken am Kabel oder Band.",
+      "vorbereitung": "Kabelzug oder Band hoch befestigen.",
+      "schritte": [
+        "Stell dich vor den Anker, Ellbogen seitlich am Körper, Unterarme waagerecht.",
+        "Drück den Griff nach unten, bis die Arme gestreckt sind.",
+        "Lass ihn kontrolliert zurück bis waagerecht."
+      ],
+      "ausstieg": "Griff nach oben gehen lassen, bis das Gewicht aufliegt.",
+      "sauber": "Die Ellbogen bleiben fest am Körper.",
+      "details": [],
+      "atmung": "Beim Drücken ausatmen.",
+      "fehler": [
+        { "f": "Mit dem Oberkörper mitdrücken.", "k": "Aufrecht bleiben, weniger Gewicht." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder leichteres Band. Schwerer: mehr Gewicht oder einarmig.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_overhead_triceps_extension",
+      "zweck": "Trizepsstrecken über dem Kopf: trainiert besonders den langen Teil des Trizeps.",
+      "vorbereitung": "Eine Kurzhantel oder Kettlebell.",
+      "schritte": [
+        "Halt die Hantel mit beiden Händen gestreckt über dem Kopf.",
+        "Senk sie hinter den Kopf, die Ellbogen zeigen nach oben.",
+        "Streck die Arme wieder."
+      ],
+      "ausstieg": "Hantel vor dem Körper absenken.",
+      "sauber": "Die Oberarme bleiben neben dem Kopf, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        { "f": "Hohlkreuz.", "k": "Rippen unten, im Sitzen üben." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder im Sitzen. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im Ellbogen oder in der Schulter.",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„verlagert die Last in den unteren Rücken“ als Behauptung.", "korrektur": "Als Korrektur formuliert.", "status": "geklaert" }
+    },
+    {
+      "id": "g_skull_crusher",
+      "zweck": "Liegendes Trizepsdrücken: die Ellbogen beugen und strecken, die Oberarme bleiben senkrecht.",
+      "vorbereitung": "Flache Bank, Stange oder Kurzhanteln.",
+      "schritte": [
+        "Leg dich mit dem Gewicht über der Brust auf die Bank, Arme gestreckt.",
+        "Beug nur die Ellbogen und senk das Gewicht Richtung Stirn.",
+        "Streck die Arme zurück, die Oberarme bleiben senkrecht."
+      ],
+      "ausstieg": "Gewicht auf die Brust senken, aufsetzen und ablegen.",
+      "sauber": "Die Oberarme bewegen sich nicht, die Ellbogen zeigen zur Decke.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        { "f": "Zu schweres Gewicht, die Ellbogen gehen nach außen.", "k": "Weniger Gewicht." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder Kurzhanteln. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Ellbogenschmerz.",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„belastet sie stark“ als Behauptung.", "korrektur": "Als Korrektur formuliert.", "status": "geklaert" }
+    },
+    {
+      "id": "g_ring_triceps_extension",
+      "zweck": "Trizepsstrecken mit dem eigenen Körper an Ringen oder einer tiefen Stange.",
+      "vorbereitung": "Ringe oder Stange etwa auf Hüft- bis Brusthöhe.",
+      "schritte": [
+        "Greif die Ringe und lehn dich mit gestrecktem Körper nach vorn, Arme gestreckt vor dir.",
+        "Beug nur die Ellbogen, bis die Hände über der Stirn sind.",
+        "Streck die Arme und drück dich zurück."
+      ],
+      "ausstieg": "Mit den Füßen nach vorn unter die Ringe gehen.",
+      "sauber": "Der Körper bleibt gerade, die Oberarme bewegen sich kaum.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte sinkt ab.", "k": "Gesäß fest." }
+      ],
+      "skalierung": "Leichter: aufrechter stehen. Schwerer: Füße weiter nach hinten.",
+      "grenzen": "Aufhören bei Ellbogenschmerz.",
+      "pruefung": { "art": ["ok"], "problem": "Höhe fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_band_lateral_raise",
+      "zweck": "Seitheben mit Band: seitliche Schulter.",
+      "vorbereitung": "Ein Band.",
+      "schritte": [
+        "Stell dich auf das Band und greif die Enden seitlich neben den Oberschenkeln.",
+        "Heb die fast gestreckten Arme seitlich bis Schulterhöhe.",
+        "Senk sie langsam ab."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Arme kommen bis Schulterhöhe, die Schultern ziehen nicht zu den Ohren.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Die Schultern ziehen hoch.", "k": "Leichteres Band, Schultern tief." }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band oder Lateral Raise mit Gewicht.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Korrektur ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_lateral_raise",
+      "zweck": "Seitheben mit Kurzhanteln: gezielt für die seitliche Schulter.",
+      "vorbereitung": "Zwei leichte Kurzhanteln oder Kabelzug.",
+      "schritte": [
+        "Steh aufrecht, je eine Hantel neben dem Körper.",
+        "Heb die leicht gebeugten Arme seitlich bis Schulterhöhe, die Ellbogen führen.",
+        "Senk sie langsam ab."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Ellbogen führen und bleiben leicht gebeugt.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Schwung aus dem Oberkörper.", "k": "Weniger Gewicht, ruhig stehen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder oben 1 Sekunde halten.",
+      "grenzen": "Aufhören bei Schmerz oben in der Schulter.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Korrektur ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_calf_raise",
+      "zweck": "Wadenheben: kräftigt die Waden und die Achillessehne.",
+      "vorbereitung": "Eine Stufe und eine Wand zum Festhalten, wenn du von der Stufe aus arbeitest.",
+      "schritte": [
+        "Stell dich hüftbreit hin, gern mit den Fußballen auf einer Stufe.",
+        "Drück dich auf die Zehenspitzen so hoch wie möglich.",
+        "Senk die Fersen langsam ab, auf der Stufe bis unter Stufenhöhe."
+      ],
+      "ausstieg": "",
+      "sauber": "Oben stehst du ganz auf den Fußballen, unten sind die Waden gedehnt.",
+      "details": [],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": [
+        { "f": "Wippen ohne volle Bewegung.", "k": "Langsam, ganz hoch und ganz runter." }
+      ],
+      "skalierung": "Leichter: mit Halt an der Wand. Schwerer: auf einer Stufe oder einbeinig.",
+      "grenzen": "Aufhören bei Schmerz an der Achillessehne.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_single_leg_calf_raise",
+      "zweck": "Wadenheben auf einem Bein: doppelte Last für Wade und Achillessehne.",
+      "vorbereitung": "Stufe und Wand zum Festhalten.",
+      "schritte": [
+        "Stell dich mit dem Fußballen eines Fußes auf die Stufe und halt dich leicht fest.",
+        "Drück dich auf die Zehenspitze so hoch wie möglich.",
+        "Senk die Ferse langsam unter Stufenhöhe ab.",
+        "Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Volle Bewegung von ganz unten bis ganz oben ohne Wippen.",
+      "details": [],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": [
+        { "f": "Der Fuß knickt nach außen.", "k": "Druck auf den Großzehenballen." }
+      ],
+      "skalierung": "Leichter: Calf Raise beidbeinig. Schwerer: Hantel in der Hand.",
+      "grenzen": "Aufhören bei Schmerz an der Achillessehne.",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„belastet das Sprunggelenk“ als Behauptung.", "korrektur": "Als Korrektur formuliert.", "status": "geklaert" }
+    },
+    {
+      "id": "g_seated_calf_raise",
+      "zweck": "Wadenheben im Sitzen: trainiert den tieferen Wadenmuskel.",
+      "vorbereitung": "Bank oder Stuhl, Fußballen auf einer Erhöhung, Gewicht auf den Knien.",
+      "schritte": [
+        "Setz dich, die Fußballen auf der Erhöhung, das Gewicht auf den Knien.",
+        "Heb die Fersen so hoch wie möglich.",
+        "Senk sie langsam ab."
+      ],
+      "ausstieg": "Gewicht von den Knien nehmen.",
+      "sauber": "Die Knie bleiben etwa rechtwinklig gebeugt, die Bewegung ist vollständig.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Mit den Händen abstoßen.", "k": "Hände nur auf das Gewicht legen." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder oben 2 Sekunden halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_wrist_curl",
+      "zweck": "Handgelenk beugen mit Gewicht: kräftigt Unterarmbeuger und Griff.",
+      "vorbereitung": "Kurzhantel oder Langhantel, Sitzplatz.",
+      "schritte": [
+        "Setz dich und leg die Unterarme auf die Oberschenkel, Handflächen nach oben, die Hände über den Knien.",
+        "Lass die Hantel bis in die Finger abrollen.",
+        "Roll sie zurück und beug das Handgelenk so weit wie möglich."
+      ],
+      "ausstieg": "",
+      "sauber": "Nur das Handgelenk bewegt sich, die Unterarme bleiben liegen.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Zu viel Gewicht, nur ein Zucken.", "k": "Weniger Gewicht." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Korrektur ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_reverse_wrist_curl",
+      "zweck": "Handgelenk strecken mit Gewicht: kräftigt die Unterarmstrecker.",
+      "vorbereitung": "Leichte Kurzhantel oder Langhantel, Sitzplatz.",
+      "schritte": [
+        "Setz dich und leg die Unterarme auf die Oberschenkel, Handrücken nach oben.",
+        "Senk die Hantel durch Beugen des Handgelenks ab.",
+        "Heb sie durch Strecken des Handgelenks so weit wie möglich."
+      ],
+      "ausstieg": "",
+      "sauber": "Nur das Handgelenk bewegt sich, die Bewegung ist langsam.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Zu viel Gewicht.", "k": "Leicht beginnen, die Strecker sind schwächer als die Beuger." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Aufhören bei Schmerz außen am Ellbogen.",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„überlastet die Sehnen“ als Behauptung.", "korrektur": "Als Korrektur mit Abbruchsignal formuliert.", "status": "geklaert" }
+    },
+    {
+      "id": "g_shrug",
+      "zweck": "Schulterheben: kräftigt den oberen Trapez.",
+      "vorbereitung": "Hanteln, Kettlebells, Langhantel oder Trap Bar.",
+      "schritte": [
+        "Steh aufrecht mit den Gewichten neben dem Körper oder der Stange vor den Oberschenkeln.",
+        "Zieh die Schultern gerade nach oben zu den Ohren.",
+        "Halte kurz und senk sie langsam ab."
+      ],
+      "ausstieg": "Gewicht mit gebeugten Knien abstellen.",
+      "sauber": "Die Schultern gehen gerade nach oben, die Arme bleiben gestreckt.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Mit den Schultern kreisen.", "k": "Gerade hoch und runter." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder oben 2 Sekunden halten.",
+      "grenzen": "",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„belastet das Gelenk“ als Behauptung.", "korrektur": "Als Korrektur formuliert.", "status": "geklaert" }
+    },
+    {
+      "id": "g_leg_extension",
+      "zweck": "Beinstrecker an der Maschine: gezielt für den vorderen Oberschenkel.",
+      "vorbereitung": "Rückenlehne so einstellen, dass das Knie auf Höhe der Drehachse ist, Polster vor den Sprunggelenken.",
+      "schritte": [
+        "Setz dich in den Beinstrecker, das Polster vor den Sprunggelenken.",
+        "Streck die Beine, bis die Knie fast gerade sind.",
+        "Senk das Gewicht kontrolliert ab."
+      ],
+      "ausstieg": "Gewicht ganz absenken, dann aussteigen.",
+      "sauber": "Das Gesäß bleibt auf dem Sitz, die Bewegung ist gleichmäßig.",
+      "details": [],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        { "f": "Schwung aus der Hüfte.", "k": "Weniger Gewicht, Griffe halten." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder einbeinig.",
+      "grenzen": "Aufhören bei Schmerz an der Kniescheibe.",
+      "pruefung": { "art": ["ok"], "problem": "Drehachse fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_reverse_nordic",
+      "zweck": "Kniend nach hinten lehnen und zurückkommen: kräftigt den vorderen Oberschenkel stark.",
+      "vorbereitung": "Weiche Unterlage für die Knie.",
+      "schritte": [
+        "Knie dich hin, Oberkörper aufrecht, Hüfte gestreckt.",
+        "Lehn dich mit geradem Körper langsam nach hinten.",
+        "Geh so weit, wie du kontrolliert zurückkommst, und richte dich wieder auf."
+      ],
+      "ausstieg": "Auf die Fersen setzen.",
+      "sauber": "Knie, Hüfte und Schultern bilden eine Linie.",
+      "details": [],
+      "atmung": "Beim Zurücklehnen einatmen, beim Aufrichten ausatmen.",
+      "fehler": [
+        { "f": "In der Hüfte abknicken.", "k": "Gesäß fest, kürzerer Weg." }
+      ],
+      "skalierung": "Leichter: kürzerer Weg. Schwerer: weiter nach hinten oder Arme über dem Kopf.",
+      "grenzen": "Aufhören bei Knieschmerz.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_clamshell",
+      "zweck": "Muschel: in Seitenlage das obere Knie öffnen. Kräftigt das seitliche Gesäß.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf die Seite, Knie gebeugt, Füße aufeinander.",
+        "Öffne das obere Knie wie eine Muschel, die Füße bleiben zusammen.",
+        "Schließ es langsam. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Becken bleibt senkrecht und kippt nicht nach hinten.",
+      "details": [],
+      "atmung": "Beim Öffnen ausatmen.",
+      "fehler": [
+        { "f": "Das Becken dreht mit.", "k": "Kleinere Bewegung, Hand auf die Hüfte." }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: Band um die Knie.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Korrektur ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_lateral_band_walk",
+      "zweck": "Seitwärtsgehen gegen ein Band: seitliches Gesäß und Kontrolle der Knie.",
+      "vorbereitung": "Ein Mini-Band.",
+      "schritte": [
+        "Leg das Band oberhalb der Knie oder um die Fußgelenke.",
+        "Geh in eine leichte halbe Hocke.",
+        "Mach kleine Schritte zur Seite, das Band bleibt gespannt.",
+        "Geh dieselbe Zahl Schritte zurück."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Knie zeigen nach vorn, das Band bleibt gespannt.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Knie knicken beim Nachziehen ein.", "k": "Kleinere Schritte, Knie nach außen." }
+      ],
+      "skalierung": "Leichter: Band über den Knien. Schwerer: Band um die Fußgelenke oder stärkeres Band.",
+      "grenzen": "",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„belastet die Knieinnenseite“ als Behauptung.", "korrektur": "Als Korrektur formuliert.", "status": "geklaert" }
+    },
+    {
+      "id": "g_band_external_rotation",
+      "zweck": "Außenrotation mit Band: kräftigt die kleinen Muskeln, die das Schultergelenk zentrieren.",
+      "vorbereitung": "Band auf Ellbogenhöhe befestigen, ein gefaltetes Handtuch zwischen Ellbogen und Körper.",
+      "schritte": [
+        "Stell dich seitlich zum Anker und halt den Griff mit der äußeren Hand.",
+        "Der Ellbogen ist rechtwinklig gebeugt und liegt am Körper.",
+        "Dreh den Unterarm nach außen, ohne den Ellbogen vom Körper zu lösen.",
+        "Lass ihn langsam zurück. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Ellbogen bleibt am Körper, nur der Unterarm dreht.",
+      "details": [
+        "Das Handtuch fällt herunter, sobald der Ellbogen abspreizt."
+      ],
+      "atmung": "Beim Drehen ausatmen.",
+      "fehler": [
+        { "f": "Der Ellbogen spreizt ab.", "k": "Handtuch einklemmen." }
+      ],
+      "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Handtuch als Selbstkontrolle.", "status": "geklaert" }
+    }
+  ]
+}

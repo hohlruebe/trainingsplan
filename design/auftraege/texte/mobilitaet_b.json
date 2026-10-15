@@ -1,0 +1,594 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "mobilitaet",
+  "teil_von": "mobilitaet_a + mobilitaet_b",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_ninety_ninety",
+      "zweck": "90/90-Wechsel: beide Knie rechtwinklig zur Seite legen und wechseln. Hüftdrehung nach innen und außen.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Setz dich auf den Boden, beide Knie rechtwinklig gebeugt zur selben Seite: das vordere Bein liegt quer vor dir, das hintere neben dir.",
+        "Kipp beide Knie langsam zur anderen Seite.",
+        "Halt den Oberkörper dabei aufrecht."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Oberkörper bleibt aufrecht, die Bewegung kommt aus der Hüfte.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Rundrücken.", "k": "Hände hinter dem Körper aufstützen." }
+      ],
+      "skalierung": "Leichter: Hände hinten abstützen. Schwerer: ohne Hände, Arme nach vorn gestreckt.",
+      "grenzen": "Raus bei Schmerz im Knie.",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "Ausgangsposition schwer vorstellbar.", "korrektur": "Beinlage beschrieben.", "status": "geklaert" }
+    },
+    {
+      "id": "g_pigeon",
+      "zweck": "Taube: dehnt Gesäß und die Außendrehung der Hüfte.",
+      "vorbereitung": "Matte, Kissen bereit.",
+      "schritte": [
+        "Leg ein Bein gebeugt vor dir ab, das Schienbein liegt schräg.",
+        "Streck das andere Bein lang nach hinten.",
+        "Senk den Oberkörper nach vorn und atme ruhig. Dann Seite wechseln."
+      ],
+      "ausstieg": "Hände neben die Hüfte, hinteres Bein heranziehen.",
+      "sauber": "Die Hüfte bleibt gerade, die Dehnung spürst du im Gesäß, nicht im Knie.",
+      "details": [],
+      "atmung": "Mit jeder Ausatmung etwas tiefer.",
+      "fehler": [
+        { "f": "Schmerz im vorderen Knie.", "k": "Ferse näher zur Hüfte ziehen." }
+      ],
+      "skalierung": "Leichter: Kissen unter die Hüfte. Schwerer: Schienbein paralleler zur Mattenkante.",
+      "grenzen": "Raus bei Knieschmerz.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_frog",
+      "zweck": "Froschdehnung: Knie weit auseinander, Hüfte nach hinten. Dehnt die Innenseite der Oberschenkel.",
+      "vorbereitung": "Weiche Unterlage für die Knie.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand.",
+        "Schieb die Knie weit auseinander, die Unterschenkel liegen parallel, Knöchel auf Höhe der Knie.",
+        "Schieb die Hüfte langsam nach hinten und halte."
+      ],
+      "ausstieg": "Hüfte nach vorn, Knie zusammenführen.",
+      "sauber": "Knie und Knöchel liegen auf einer Linie, der Rücken bleibt flach.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Schmerz in den Knien.", "k": "Weichere Unterlage, Knie enger." }
+      ],
+      "skalierung": "Leichter: Knie enger. Schwerer: Unterarme ablegen und Knie weiter auseinander.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "„Rücken neutral“ unerklärt.", "korrektur": "Als flach beschrieben.", "status": "geklaert" }
+    },
+    {
+      "id": "g_hip_flexor_stretch",
+      "zweck": "Hüftbeugerdehnung im Halbkniestand: nach dem Laufen und langem Sitzen.",
+      "vorbereitung": "Kissen unter das hintere Knie.",
+      "schritte": [
+        "Geh in den Halbkniestand: ein Knie am Boden, der andere Fuß vorn aufgestellt.",
+        "Spann das Gesäß auf der Seite des hinteren Knies an.",
+        "Schieb die Hüfte leicht nach vorn und halte. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Becken bleibt aufgerichtet, die Dehnung spürst du vorn an der Hüfte.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Hohlkreuz statt Dehnung.", "k": "Gesäß anspannen, Rippen nach unten." }
+      ],
+      "skalierung": "Leichter: kleinerer Ausfallschritt. Schwerer: Arm auf der hinteren Seite über Kopf strecken.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Halbkniestand unerklärt.", "korrektur": "Erklärt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_hip_cars",
+      "zweck": "Kontrolliertes Hüftkreisen (CARs): bewegt die Hüfte durch ihren ganzen Bereich.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand.",
+        "Heb ein Knie seitlich an und führ es in einem großen Kreis nach hinten.",
+        "Komm langsam zurück und kehr die Richtung um. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Rumpf bleibt still, nur die Hüfte bewegt sich.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Der Oberkörper kippt mit.", "k": "Kleineren Kreis wählen." }
+      ],
+      "skalierung": "Leichter: kleinerer Kreis. Schwerer: im Stand an der Wand.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_butterfly",
+      "zweck": "Schmetterling: Fußsohlen zusammen, Knie sinken zur Seite. Dehnt Innenseite der Oberschenkel.",
+      "vorbereitung": "Kissen unter das Gesäß.",
+      "schritte": [
+        "Setz dich hin und leg die Fußsohlen zusammen.",
+        "Lass die Knie zur Seite sinken.",
+        "Kipp den Oberkörper mit geradem Rücken nach vorn und halte."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Rücken bleibt lang, die Bewegung kommt aus der Hüfte.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Rundrücken.", "k": "Auf ein Kissen setzen." }
+      ],
+      "skalierung": "Leichter: Füße weiter weg vom Körper. Schwerer: Füße näher am Körper.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_lizard",
+      "zweck": "Eidechse: tiefer Ausfallschritt mit den Händen innen am Fuß. Dehnt Hüftbeuger und Innenseite der Oberschenkel.",
+      "vorbereitung": "Kissen unter das hintere Knie.",
+      "schritte": [
+        "Geh in einen tiefen Ausfallschritt, das hintere Knie am Boden.",
+        "Setz beide Hände innen neben den vorderen Fuß.",
+        "Senk die Hüfte nach vorn und unten und halte. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das vordere Knie bleibt über dem Fuß, der Rücken lang.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Das vordere Knie fällt nach innen.", "k": "Knie leicht nach außen drücken." }
+      ],
+      "skalierung": "Leichter: Hände auf eine Erhöhung. Schwerer: Unterarme ablegen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_assisted_squat",
+      "zweck": "Tiefe Hocke mit Halt: lernt die tiefe Hocke, wenn sie frei noch nicht geht.",
+      "vorbereitung": "Türrahmen oder fester Pfosten.",
+      "schritte": [
+        "Halt dich mit beiden Händen am Türrahmen fest.",
+        "Senk dich in die tiefste Hocke, die Fersen bleiben unten.",
+        "Lehn dich leicht nach hinten und halte."
+      ],
+      "ausstieg": "Mit Hilfe der Hände aufstehen.",
+      "sauber": "Die Fersen sind am Boden, die Knie zeigen in Richtung der Zehen.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Fersen heben ab.", "k": "Füße etwas weiter auseinander und leicht nach außen." }
+      ],
+      "skalierung": "Leichter: weniger tief. Schwerer: nur noch eine Hand zum Halten.",
+      "grenzen": "Raus bei Knieschmerz.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_overhead_squat_hold",
+      "zweck": "Tiefe Hocke mit Armen über Kopf halten: Beweglichkeit für Overhead Squat und Reißen.",
+      "vorbereitung": "Eventuell ein Besenstiel.",
+      "schritte": [
+        "Streck die Arme über Kopf, die Oberarme neben den Ohren.",
+        "Senk dich in die tiefste Hocke.",
+        "Halte die Arme aus eigener Kraft oben."
+      ],
+      "ausstieg": "Arme senken und aufstehen.",
+      "sauber": "Die Fersen sind am Boden, die Arme neben den Ohren, die Brust aufrecht.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Arme fallen nach vorn.", "k": "Brust höher, Blick geradeaus." }
+      ],
+      "skalierung": "Leichter: Besenstiel weit greifen. Schwerer: Füße parallel und hüftbreit.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_ragdoll",
+      "zweck": "Hängende Vorbeuge: Oberkörper locker hängen lassen, entspannt Rücken und dehnt die Beinrückseite.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich hüftbreit hin, Knie leicht gebeugt.",
+        "Lass den Oberkörper locker nach vorn hängen.",
+        "Greif die Ellbogen und lass den Kopf hängen."
+      ],
+      "ausstieg": "Knie beugen und langsam aufrollen, der Kopf kommt zuletzt.",
+      "sauber": "Der Nacken ist locker, das Gewicht leicht auf den Fußballen.",
+      "details": [],
+      "atmung": "Mit jeder Ausatmung etwas tiefer sinken.",
+      "fehler": [
+        { "f": "Aktiv nach unten ziehen.", "k": "Nur hängen und ausatmen." }
+      ],
+      "skalierung": "Leichter: Knie leicht beugen. Schwerer: Knie strecken.",
+      "grenzen": "Langsam aufrollen, wenn dir schwindlig wird.",
+      "pruefung": { "art": ["ok"], "problem": "Ausstieg fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_half_split",
+      "zweck": "Halber Spagat: dehnt die Beinrückseite, Vorstufe zum Spagat.",
+      "vorbereitung": "Kissen unter das hintere Knie, zwei Blöcke oder Bücher für die Hände.",
+      "schritte": [
+        "Geh in den Halbkniestand.",
+        "Schieb die Hüfte nach hinten über das hintere Knie und streck das vordere Bein.",
+        "Kipp den Oberkörper mit langem Rücken nach vorn und halte. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Hüfte bleibt über dem hinteren Knie, der Rücken lang.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Rundrücken.", "k": "Hände auf eine Erhöhung legen." }
+      ],
+      "skalierung": "Leichter: vorderes Knie leicht gebeugt. Schwerer: Zehen zu dir ziehen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Hilfsmittel ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_front_split",
+      "zweck": "Spagat vorn: dehnt die Beinrückseite vorn und den Hüftbeuger hinten.",
+      "vorbereitung": "Glatter Boden oder Socken, links und rechts je ein Kissen, Stuhl oder Block zum Abstützen.",
+      "schritte": [
+        "Stell dich zwischen die Stützen, ein Fuß vorn, einer hinten.",
+        "Lass das vordere Bein nach vorn und das hintere nach hinten gleiten.",
+        "Stütz dich mit den Händen ab und halte die tiefste Position, die ohne Schmerz geht."
+      ],
+      "ausstieg": "Gewicht auf die Hände, Beine langsam zusammenziehen.",
+      "sauber": "Die Hüfte zeigt gerade nach vorn, beide Knie sind gestreckt.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte dreht auf.", "k": "Hinteres Knie zeigt zum Boden." }
+      ],
+      "skalierung": "Leichter: Kissen unter die Hüfte. Schwerer: ohne Abstützen.",
+      "grenzen": "Raus bei stechendem Schmerz hinten im Oberschenkel.",
+      "pruefung": { "art": ["ok"], "problem": "Ausstieg fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_supine_hamstring",
+      "zweck": "Beinrückseite in Rückenlage mit Handtuch dehnen, ohne Last für den Rücken.",
+      "vorbereitung": "Matte, Handtuch oder Band.",
+      "schritte": [
+        "Leg dich auf den Rücken.",
+        "Leg ein Handtuch um einen Fuß und heb das Bein gestreckt an.",
+        "Zieh das Bein sanft zu dir und halte. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Das andere Bein bleibt am Boden, das Becken bleibt liegen.",
+      "details": [],
+      "atmung": "Ruhig und lang ausatmen.",
+      "fehler": [
+        { "f": "Das Knie wird krumm.", "k": "Lieber weniger hoch und gestreckt." }
+      ],
+      "skalierung": "Leichter: anderes Bein aufstellen. Schwerer: Zehen zu dir ziehen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_leg_swings",
+      "zweck": "Beinschwingen: macht die Hüfte vor dem Laufen und Springen dynamisch beweglich.",
+      "vorbereitung": "Wand zum Festhalten.",
+      "schritte": [
+        "Stell dich auf ein Bein, eine Hand an der Wand.",
+        "Schwing das freie Bein locker vor und zurück.",
+        "Steigere die Höhe langsam. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Oberkörper bleibt aufrecht, der Schwung ist locker.",
+      "details": [],
+      "atmung": "Locker weiteratmen.",
+      "fehler": [
+        { "f": "Der Rücken rundet sich beim Vorschwung.", "k": "Höhe verringern." }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: seitlich schwingen statt vor und zurück.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_legs_up_wall",
+      "zweck": "Beine an die Wand: sanfte Dehnung und Beruhigung nach dem Training.",
+      "vorbereitung": "Matte vor einer Wand.",
+      "schritte": [
+        "Setz dich seitlich an die Wand und leg dich auf den Rücken, das Gesäß nah an der Wand.",
+        "Leg die Beine gestreckt an die Wand.",
+        "Atme ruhig durch die Nase ein und lang aus."
+      ],
+      "ausstieg": "Knie anziehen, auf die Seite rollen und aufsetzen.",
+      "sauber": "Der ganze Körper ist locker, die Ausatmung ist lang.",
+      "details": [],
+      "atmung": "Durch die Nase ein, lang aus, die Ausatmung etwa doppelt so lang.",
+      "fehler": [
+        { "f": "Ziehen im unteren Rücken.", "k": "Gesäß etwas weiter von der Wand weg." }
+      ],
+      "skalierung": "Leichter: Knie leicht beugen. Schwerer: Gesäß ganz an die Wand.",
+      "grenzen": "",
+      "pruefung": { "art": ["fehlende_erklaerung"], "problem": "Einstieg und Ausstieg fehlten.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_knee_to_wall",
+      "zweck": "Knie zur Wand schieben: verbessert die Beweglichkeit im Sprunggelenk für Hocke und Laufen.",
+      "vorbereitung": "Wand, eventuell Maßband.",
+      "schritte": [
+        "Stell einen Fuß vor die Wand, das andere Bein steht hinten.",
+        "Schieb das vordere Knie Richtung Wand, die Ferse bleibt am Boden.",
+        "Komm zurück und wiederhole. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Ferse bleibt am Boden, das Knie geht über die zweite Zehe.",
+      "details": [
+        "Im Beweglichkeits-Check misst man, wie weit der Fuß von der Wand weg sein darf."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Das Knie fällt nach innen.", "k": "Knie bewusst über die zweite Zehe führen." }
+      ],
+      "skalierung": "Leichter: Fuß näher an die Wand. Schwerer: Fuß weiter weg.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Bezug zum Test fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_calf_wall_stretch",
+      "zweck": "Wadendehnung an der Wand nach dem Laufen.",
+      "vorbereitung": "Wand.",
+      "schritte": [
+        "Stell dich vor die Wand und stütz dich mit beiden Händen ab.",
+        "Stell ein Bein gestreckt nach hinten, Ferse am Boden, Fuß zeigt gerade nach vorn.",
+        "Schieb die Hüfte nach vorn und halte. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Die hintere Ferse bleibt unten, der Fuß zeigt gerade nach vorn.",
+      "details": [
+        "Mit leicht gebeugtem hinteren Knie dehnst du den tieferen Wadenmuskel."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Der Fuß dreht nach außen.", "k": "Zehen gerade ausrichten." }
+      ],
+      "skalierung": "Leichter: kleinerer Schritt. Schwerer: danach Knie leicht beugen für die tiefe Wade.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Detail ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_ankle_cars",
+      "zweck": "Kontrolliertes Fußkreisen: bewegt das Sprunggelenk durch seinen ganzen Bereich.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich auf ein Bein oder setz dich hin.",
+        "Heb den anderen Fuß an.",
+        "Mach mit dem Fuß langsam große Kreise, dann in die andere Richtung. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Nur der Fuß bewegt sich, das Knie bleibt still.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Das ganze Bein kreist mit.", "k": "Unterschenkel mit der Hand festhalten." }
+      ],
+      "skalierung": "Leichter: im Sitzen. Schwerer: im Stand ohne Festhalten.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Richtungswechsel ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_kneeling_shin",
+      "zweck": "Fersensitz mit flachem Fußrücken: dehnt Schienbein und Fußrücken nach dem Laufen.",
+      "vorbereitung": "Matte, Kissen bereit.",
+      "schritte": [
+        "Knie dich hin, die Fußrücken flach am Boden.",
+        "Setz dich auf die Fersen.",
+        "Lehn dich mit den Händen hinten leicht zurück und halte."
+      ],
+      "ausstieg": "Nach vorn auf die Hände kommen.",
+      "sauber": "Der Fußrücken liegt flach, die Dehnung spürst du vorn am Schienbein.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Schmerz im Knie.", "k": "Kissen zwischen Gesäß und Fersen." }
+      ],
+      "skalierung": "Leichter: Kissen unter die Knie. Schwerer: Knie leicht vom Boden anheben.",
+      "grenzen": "Raus bei Knieschmerz.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_cobra",
+      "zweck": "Kobra: in Bauchlage den Oberkörper hochdrücken, streckt die Wirbelsäule.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Bauch, Hände neben der Brust.",
+        "Drück den Oberkörper langsam nach oben.",
+        "Die Hüfte bleibt am Boden. Halte."
+      ],
+      "ausstieg": "Langsam ablegen.",
+      "sauber": "Die Schultern bleiben weg von den Ohren, die Streckung verteilt sich über den Rücken.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Druck im unteren Rücken.", "k": "Auf die Unterarme gehen." }
+      ],
+      "skalierung": "Leichter: auf den Unterarmen. Schwerer: Arme ganz strecken.",
+      "grenzen": "Raus bei Schmerz im unteren Rücken.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_childs_pose",
+      "zweck": "Kindhaltung: Gesäß auf die Fersen, Arme nach vorn. Entspannt Rücken und Hüfte.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Knie dich hin, die Knie etwas weiter als hüftbreit.",
+        "Setz das Gesäß auf die Fersen.",
+        "Streck die Arme nach vorn und leg die Stirn ab."
+      ],
+      "ausstieg": "Hände zurücklaufen und aufrichten.",
+      "sauber": "Der ganze Körper ist locker, der Atem geht in den Rücken.",
+      "details": [],
+      "atmung": "Langsam in den Rücken atmen, lang aus.",
+      "fehler": [
+        { "f": "Das Gesäß bleibt weit über den Fersen.", "k": "Kissen auf die Waden legen." }
+      ],
+      "skalierung": "Leichter: Kissen unter die Stirn. Schwerer: Hände zur Seite wandern lassen.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_supine_twist",
+      "zweck": "Liegende Drehung: dreht die Wirbelsäule und dehnt das Gesäß.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Arme zur Seite.",
+        "Zieh ein Knie an und leg es zur Gegenseite ab.",
+        "Schau zur anderen Seite und atme ruhig. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Beide Schultern bleiben am Boden.",
+      "details": [],
+      "atmung": "Mit jeder Ausatmung etwas tiefer.",
+      "fehler": [
+        { "f": "Die Schulter hebt ab.", "k": "Knie weniger weit ablegen." }
+      ],
+      "skalierung": "Leichter: Kissen unter das Knie. Schwerer: unteres Bein strecken.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Keine inhaltliche Änderung.", "status": "geklaert" }
+    },
+    {
+      "id": "g_roll_down",
+      "zweck": "Abrollen im Stand: beugt die Wirbelsäule Wirbel für Wirbel, gut am Morgen.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich hüftbreit hin, Knie leicht gebeugt.",
+        "Roll dich vom Kopf beginnend Wirbel für Wirbel nach unten.",
+        "Roll dich langsam wieder nach oben, der Kopf kommt zuletzt."
+      ],
+      "ausstieg": "",
+      "sauber": "Langsam und gleichmäßig.",
+      "details": [],
+      "atmung": "Beim Abrollen ausatmen, beim Aufrollen einatmen.",
+      "fehler": [
+        { "f": "Zu schnell, besonders direkt nach dem Aufstehen.", "k": "Tempo bewusst halbieren." }
+      ],
+      "skalierung": "Leichter: Knie stärker beugen. Schwerer: unten 2 Atemzüge hängen.",
+      "grenzen": "Langsamer, wenn dir schwindlig wird.",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Atmung ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_side_bend",
+      "zweck": "Seitneigung im Stand: dehnt die Seite des Rumpfs und den breiten Rückenmuskel.",
+      "vorbereitung": "",
+      "schritte": [
+        "Stell dich aufrecht hin und heb einen Arm über Kopf.",
+        "Schieb die Hüfte leicht zur Seite und neig den Oberkörper zur Gegenseite.",
+        "Komm langsam zurück zur Mitte. Dann Seite wechseln."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Oberkörper bleibt in einer Ebene, ohne Vorbeugen.",
+      "details": [],
+      "atmung": "Beim Neigen ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte schiebt nicht mit.", "k": "Hüfte leicht zur anderen Seite schieben." }
+      ],
+      "skalierung": "Leichter: Hand an der Hüfte. Schwerer: beide Arme über Kopf.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Hüfte in Schritte übernommen.", "status": "geklaert" }
+    },
+    {
+      "id": "g_glute_bridge_hold",
+      "zweck": "Beckenheben halten: Einstieg in die Brücke, die Hüfte streckt aus eigener Kraft.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Füße hüftbreit aufgestellt.",
+        "Drück die Hüfte nach oben.",
+        "Halte, wenn Knie, Hüfte und Schultern eine Linie bilden."
+      ],
+      "ausstieg": "Hüfte langsam ablegen.",
+      "sauber": "Die Spannung ist im Gesäß, nicht im unteren Rücken.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Hohlkreuz.", "k": "Becken leicht einrollen, Gesäß fest." }
+      ],
+      "skalierung": "Leichter: Hüfte weniger hoch. Schwerer: ein Bein gestreckt anheben.",
+      "grenzen": "",
+      "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Ausstieg ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_elevated_bridge",
+      "zweck": "Brücke mit den Händen auf einer Erhöhung: leichter als am Boden, für Schultern und Rücken.",
+      "vorbereitung": "Sofa oder stabile Bank.",
+      "schritte": [
+        "Leg dich mit dem Kopf vor das Sofa, die Füße aufgestellt.",
+        "Setz die Hände auf die Kante, Finger zu den Füßen.",
+        "Drück dich nach oben in die Brücke und halte."
+      ],
+      "ausstieg": "Kinn zur Brust und langsam ablegen.",
+      "sauber": "Die Arme schieben aktiv, die Hüfte geht hoch.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Ellbogen fallen nach außen.", "k": "Ellbogen nach innen drehen." }
+      ],
+      "skalierung": "Leichter: höhere Erhöhung. Schwerer: niedrigere Erhöhung.",
+      "grenzen": "Raus bei Schmerz im unteren Rücken oder Druck im Kopf.",
+      "pruefung": { "art": ["ok"], "problem": "Ausstieg fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_full_bridge",
+      "zweck": "Volle Brücke vom Boden: streckt Wirbelsäule, Schultern und Hüfte.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Füße aufgestellt, Hände neben den Ohren, Finger zu den Füßen.",
+        "Drück dich mit Händen und Füßen nach oben.",
+        "Streck die Arme und schieb die Brust Richtung Wand hinter dir."
+      ],
+      "ausstieg": "Kinn zur Brust, Arme beugen und den oberen Rücken langsam ablegen.",
+      "sauber": "Die Arme sind gestreckt, die Schultern über den Handgelenken.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Alles kommt aus dem unteren Rücken.", "k": "Brust aktiv nach vorn schieben." }
+      ],
+      "skalierung": "Leichter: Elevated Bridge. Schwerer: Füße näher an die Hände.",
+      "grenzen": "Raus bei Schmerz im unteren Rücken oder Druck im Kopf.",
+      "pruefung": { "art": ["ok"], "problem": "Ausstieg fehlte.", "korrektur": "Ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_neck_cars",
+      "zweck": "Kontrolliertes Nackenkreisen: hält die Halswirbelsäule beweglich.",
+      "vorbereitung": "",
+      "schritte": [
+        "Steh oder sitz aufrecht, Schultern locker.",
+        "Führ das Kinn langsam zur Brust.",
+        "Kreis den Kopf langsam über eine Schulter, nach hinten nur so weit wie angenehm, und über die andere zurück.",
+        "Mach alle Kreise in eine Richtung, dann in die andere."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Bewegung ist langsam, die Schultern bleiben unten.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Schnelles Kreisen mit Druck nach hinten.", "k": "Langsam, hinten nur ein kleiner Bogen." }
+      ],
+      "skalierung": "Leichter: nur Nicken und Drehen statt Kreisen. Schwerer: langsamer mit leichter Muskelspannung.",
+      "grenzen": "Aufhören bei Schwindel oder Kribbeln in den Armen.",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„staucht die Halswirbelsäule“ als Behauptung.", "korrektur": "Als Korrektur formuliert, Abbruchsignal ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_kneeling_toe_stretch",
+      "zweck": "Kniend auf den aufgestellten Zehen sitzen: dehnt Zehen und Fußsohle.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Knie dich hin und stell die Zehen auf, sie sind nach vorn gebeugt.",
+        "Setz dich langsam mit dem Gesäß Richtung Fersen.",
+        "Halte die Dehnung unter Zehen und Fußsohle."
+      ],
+      "ausstieg": "Nach vorn auf die Hände kommen.",
+      "sauber": "Alle Zehen sind aufgestellt, das Gewicht ist gleichmäßig verteilt.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Zu schnell absetzen.", "k": "Hände vorn abstützen und langsam absetzen." }
+      ],
+      "skalierung": "Leichter: Hände vorn abstützen. Schwerer: länger halten oder aufrecht sitzen.",
+      "grenzen": "",
+      "pruefung": { "art": ["missverstaendlich"], "problem": "„überdehnt die Zehengelenke“ als Behauptung.", "korrektur": "Als Korrektur formuliert.", "status": "geklaert" }
+    }
+  ]
+}

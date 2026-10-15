@@ -1,0 +1,478 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "ausdauer",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_run",
+      "zweck": "Laufen: trainiert Herz, Kreislauf und Beine. Locker für die Grundlage, schnell in Intervallen.",
+      "vorbereitung": "Laufschuhe, Strecke oder Laufband. Pulsuhr nach Plan.",
+      "schritte": [
+        "Lauf aufrecht, der Blick nach vorn, Schultern locker.",
+        "Mach kurze Schritte, die Füße landen etwa unter dem Körper.",
+        "Die Arme schwingen locker vor und zurück, nicht vor dem Körper quer.",
+        "Lauf im Tempo, das der Plan vorgibt."
+      ],
+      "ausstieg": "Nach dem Hauptteil einige Minuten locker auslaufen oder gehen.",
+      "sauber": "Die Atmung ist gleichmäßig. Beim lockeren Lauf kannst du dich unterhalten.",
+      "details": [
+        "Die Leiter: Gehen und Laufen im Wechsel, 20 Minuten am Stück, 45 Minuten am Stück, dann Intervalle."
+      ],
+      "atmung": "Gleichmäßig durch Nase und Mund, beim lockeren Lauf ruhig genug zum Reden.",
+      "fehler": [
+        { "f": "Zu schnell starten.", "k": "Gesprächstempo bei lockeren Läufen." },
+        { "f": "Weit vor dem Körper aufsetzen.", "k": "Kürzere, schnellere Schritte." }
+      ],
+      "skalierung": "Leichter: Gehpausen. Schwerer: längere Strecke oder schneller.",
+      "grenzen": "Abbrechen bei Schwindel, Brustschmerz oder stechendem Gelenkschmerz.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Armhaltung und Leiterstufen fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_shuttle_run",
+      "zweck": "Pendellauf: kurze Sprints mit Richtungswechsel, Schnelligkeit und Abbremsen.",
+      "vorbereitung": "Zwei Markierungen im Abstand von 5–10 m auf rutschfestem Boden.",
+      "schritte": [
+        "Steh an einer Markierung.",
+        "Sprinte zur anderen, brems mit kurzen Schritten und tief gebeugten Knien ab.",
+        "Tipp den Boden an der Markierung an und sprint zurück."
+      ],
+      "ausstieg": "",
+      "sauber": "In der Wende ist der Körperschwerpunkt tief.",
+      "details": [],
+      "atmung": "Frei atmen.",
+      "fehler": [
+        { "f": "Aufrecht wenden.", "k": "Tief abbremsen, Knie beugen." }
+      ],
+      "skalierung": "Leichter: kürzere Strecke. Schwerer: mehr Durchgänge.",
+      "grenzen": "Aufhören bei Schmerz in Knie oder Sprunggelenk.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Abbremsen ungenau.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bike_erg",
+      "zweck": "Radfahren am Ergometer: Ausdauer ohne Stöße für die Gelenke, mit genau messbarer Leistung in Watt.",
+      "vorbereitung": "Sattelhöhe so einstellen, dass das Knie unten im Pedal noch leicht gebeugt ist. Watt nach Plan einstellen.",
+      "schritte": [
+        "Setz dich auf den Sattel, die Füße auf den Pedalen.",
+        "Tritt gleichmäßig rund, der Oberkörper bleibt ruhig.",
+        "Halt die Watt, die der Plan vorgibt."
+      ],
+      "ausstieg": "Am Ende ein paar Minuten locker ausfahren.",
+      "sauber": "Gleichmäßiger Tritt, ruhiger Oberkörper.",
+      "details": [
+        "Bei gleicher Wattzahl sind deine Einheiten vergleichbar."
+      ],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Wattzahl ständig ändern.", "k": "Für Vergleiche fest lassen." },
+        { "f": "Sattel zu tief, die Knie drücken.", "k": "Sattel höher." }
+      ],
+      "skalierung": "Leichter: weniger Watt. Schwerer: mehr Watt oder Sprints.",
+      "grenzen": "Abbrechen bei Schwindel oder Brustschmerz.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„Sattel auf Hüfthöhe“ ungenau.",
+        "korrektur": "Über den Kniewinkel unten beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_row_erg",
+      "zweck": "Rudern am Ergometer: Ausdauer für den ganzen Körper, die Beine machen den größten Teil.",
+      "vorbereitung": "Füße in den Fußplatten festschnallen, der Gurt liegt über dem breitesten Teil des Fußes.",
+      "schritte": [
+        "Sitz vorn: Knie gebeugt, Schienbeine fast senkrecht, Arme gestreckt am Griff.",
+        "Drück zuerst mit den Beinen ab.",
+        "Dann lehnt sich der Oberkörper leicht zurück, dann ziehen die Arme den Griff zum unteren Brustbein.",
+        "Zurück in umgekehrter Reihenfolge: Arme, Oberkörper, Beine."
+      ],
+      "ausstieg": "Griff in die Halterung, Füße losschnallen.",
+      "sauber": "Die Kraft kommt aus den Beinen, der Griff bewegt sich in gerader Linie.",
+      "details": [
+        "Merkregel: Beine, Rücken, Arme hin, Arme, Rücken, Beine zurück."
+      ],
+      "atmung": "Beim Durchziehen ausatmen, beim Vorrollen einatmen.",
+      "fehler": [
+        { "f": "Zuerst mit den Armen ziehen.", "k": "Beine zuerst." },
+        { "f": "Zu schnell nach vorn rollen.", "k": "Ruhiger zurück als durchziehen." }
+      ],
+      "skalierung": "Leichter: langsamer. Schwerer: höhere Schlagzahl.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Fußgurt und Startposition fehlten.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ski_erg",
+      "zweck": "Ski-Ergometer: ziehen wie beim Langlauf, Ausdauer für Oberkörper und Rumpf.",
+      "vorbereitung": "Vor das Gerät stellen, etwa eine Fußlänge Abstand.",
+      "schritte": [
+        "Greif die Griffe hoch über dem Kopf.",
+        "Zieh sie kräftig nach unten, beug dabei Hüfte und Knie leicht mit.",
+        "Die Hände enden neben den Oberschenkeln.",
+        "Richte dich auf und führ die Griffe wieder nach oben."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Hüfte beugt mit, die Arme bleiben fast gestreckt.",
+      "details": [],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        { "f": "Nur mit den Armen.", "k": "Hüfte einsetzen." }
+      ],
+      "skalierung": "Leichter: langsamer. Schwerer: schneller.",
+      "grenzen": "Aufhören bei Rückenschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_burpee_stepback",
+      "zweck": "Burpee ohne Sprung: die Füße gehen einzeln nach hinten und vorn. Leiser und gelenkschonender.",
+      "vorbereitung": "",
+      "schritte": [
+        "Geh in die Hocke und setz die Hände vor dir auf.",
+        "Stell einen Fuß nach dem anderen nach hinten in den Liegestütz.",
+        "Stell die Füße einzeln wieder nach vorn zu den Händen.",
+        "Steh auf."
+      ],
+      "ausstieg": "",
+      "sauber": "Ruhiger Rhythmus, die Hüfte bleibt im Liegestütz gerade.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte hängt.", "k": "Rumpf fest." }
+      ],
+      "skalierung": "Leichter: Hände erhöht. Schwerer: Burpee.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_burpee",
+      "zweck": "Burpee: Brust zum Boden, aufspringen. Ganzer Körper und Ausdauer, Klassiker im Metcon.",
+      "vorbereitung": "",
+      "schritte": [
+        "Geh in die Hocke, setz die Hände auf und spring mit den Füßen nach hinten.",
+        "Senk Brust und Oberschenkel bis auf den Boden.",
+        "Drück dich hoch und spring mit den Füßen zurück zu den Händen.",
+        "Spring auf und klatsch über dem Kopf."
+      ],
+      "ausstieg": "",
+      "sauber": "Brust und Oberschenkel berühren den Boden, oben bist du ganz gestreckt.",
+      "details": [],
+      "atmung": "Unten ein, beim Aufspringen ausatmen.",
+      "fehler": [
+        { "f": "Hohlkreuz beim Hochkommen.", "k": "Erst Brust hoch, dann Füße nach vorn, oder schrittweise." }
+      ],
+      "skalierung": "Leichter: Step-back Burpee. Schwerer: Burpee Pull-up.",
+      "grenzen": "Aufhören bei Schwindel.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Weg nach unten fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_burpee_pullup",
+      "zweck": "Burpee unter einer Stange mit anschließendem Klimmzug.",
+      "vorbereitung": "Stange oder Ringe etwa eine Handbreit über deiner Reichhöhe im Stand.",
+      "schritte": [
+        "Mach einen Burpee unter der Stange: Brust zum Boden, Füße zurück zu den Händen.",
+        "Spring aus der Hocke hoch und greif die Stange.",
+        "Zieh dich hoch, bis das Kinn über der Stange ist.",
+        "Lass dich ab, loslassen und zurück zum Boden."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Kinn kommt über die Stange.",
+      "details": [],
+      "atmung": "Frei atmen.",
+      "fehler": [
+        { "f": "Halbe Pull-ups.", "k": "Ganz hoch, Kinn über die Stange." }
+      ],
+      "skalierung": "Leichter: Burpee mit Jumping Pull-up. Schwerer: Chest-to-Bar.",
+      "grenzen": "Aufhören, wenn der Griff unsicher wird.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Stangenhöhe fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_burpee_box_jump_over",
+      "zweck": "Burpee vor einer Box, dann auf und über die Box: Ausdauer und Sprungkraft.",
+      "vorbereitung": "Stabile Box, auf beiden Seiten Platz.",
+      "schritte": [
+        "Mach einen Burpee vor der Box: Brust zum Boden.",
+        "Steh auf und spring beidbeinig auf die Box.",
+        "Steig oder spring auf der anderen Seite herunter.",
+        "Dreh dich um, nächster Burpee."
+      ],
+      "ausstieg": "",
+      "sauber": "Brust am Boden, beide Füße auf der Box.",
+      "details": [],
+      "atmung": "Frei atmen.",
+      "fehler": [
+        { "f": "Hastige Landung.", "k": "Sicherheit zuerst." }
+      ],
+      "skalierung": "Leichter: Burpee mit Step-up. Schwerer: höhere Box.",
+      "grenzen": "Aufhören, wenn die Landungen unsicher werden.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_mountain_climber",
+      "zweck": "Bergsteiger: im Stütz die Knie schnell zur Brust ziehen. Rumpf und Kreislauf.",
+      "vorbereitung": "",
+      "schritte": [
+        "Geh in den Liegestütz, die Schultern über den Händen.",
+        "Zieh ein Knie zur Brust und setz den Fuß zurück.",
+        "Wechsel die Beine schnell im Laufrhythmus, die Hüfte bleibt tief."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Die Schultern bleiben über den Händen.",
+      "details": [
+        "Eine Wiederholung ist ein Knie, außer im Plan steht „je Seite“."
+      ],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Die Hüfte geht hoch.", "k": "Hüfte tief halten." }
+      ],
+      "skalierung": "Leichter: langsamer. Schwerer: schneller.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Zählweise fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ball_slam",
+      "zweck": "Ball mit dem ganzen Körper auf den Boden schmettern: Kraftausdauer.",
+      "vorbereitung": "Slam Ball oder Sandsack, kein springender Medizinball. Freie Fläche.",
+      "schritte": [
+        "Heb den Ball über den Kopf und streck dich ganz.",
+        "Schmetter ihn mit dem ganzen Körper vor dir auf den Boden, Hüfte und Knie beugen mit.",
+        "Geh in die Hocke und heb ihn mit flachem Rücken wieder auf."
+      ],
+      "ausstieg": "",
+      "sauber": "Oben bist du voll gestreckt.",
+      "details": [],
+      "atmung": "Beim Schmettern kräftig ausatmen.",
+      "fehler": [
+        { "f": "Mit rundem Rücken aufheben.", "k": "In die Hocke gehen." }
+      ],
+      "skalierung": "Leichter: leichterer Ball. Schwerer: schwererer Ball.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Balltyp fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_stair_climb",
+      "zweck": "Treppensteigen: Beine und Kreislauf, fast überall möglich.",
+      "vorbereitung": "Treppe mit Geländer.",
+      "schritte": [
+        "Geh zügig die Treppe hinauf.",
+        "Setz den ganzen Fuß auf die Stufe.",
+        "Geh ruhig wieder hinunter."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Oberkörper bleibt aufrecht.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Am Geländer ziehen.", "k": "Beine arbeiten lassen, Geländer nur zur Sicherheit." }
+      ],
+      "skalierung": "Leichter: langsamer. Schwerer: zwei Stufen auf einmal oder Weste.",
+      "grenzen": "Beim Hinuntergehen am Geländer festhalten, wenn die Beine müde sind.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Sicherheit beim Abstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_air_bike",
+      "zweck": "Air Bike: Arme und Beine treiben gemeinsam an, der Luftwiderstand steigt mit dem Tempo.",
+      "vorbereitung": "Sitz so einstellen, dass das Knie unten leicht gebeugt bleibt.",
+      "schritte": [
+        "Setz dich und greif die Griffe.",
+        "Tritt in die Pedale.",
+        "Drück und zieh die Griffe im Wechsel mit den Beinen.",
+        "Halt das Tempo, das der Plan vorgibt."
+      ],
+      "ausstieg": "Am Ende ein paar Minuten locker ausfahren.",
+      "sauber": "Arme und Beine arbeiten gleichmäßig, der Oberkörper bleibt ruhig.",
+      "details": [],
+      "atmung": "Gleichmäßig, bei Sprints frei.",
+      "fehler": [
+        { "f": "Nur mit den Beinen treten.", "k": "Arme mitarbeiten lassen." }
+      ],
+      "skalierung": "Leichter: langsameres Tempo. Schwerer: höheres Tempo oder Sprintintervalle.",
+      "grenzen": "Abbrechen bei Schwindel oder Brustschmerz.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_burpee_broad_jump",
+      "zweck": "Burpee mit anschließendem Weitsprung: Ausdauer und Sprungkraft.",
+      "vorbereitung": "Freie Strecke nach vorn.",
+      "schritte": [
+        "Mach einen Burpee mit der Brust am Boden.",
+        "Spring aus der Hocke beidbeinig so weit wie möglich nach vorn.",
+        "Lande weich und geh direkt in den nächsten Burpee."
+      ],
+      "ausstieg": "",
+      "sauber": "Du landest beidbeinig in der Hocke, die Knie zeigen nach vorn.",
+      "details": [],
+      "atmung": "Frei atmen.",
+      "fehler": [
+        { "f": "Harte Landung mit gestreckten Beinen.", "k": "Weich in die Knie federn." }
+      ],
+      "skalierung": "Leichter: Step-back Burpee mit kurzem Sprung. Schwerer: weiter springen oder schneller.",
+      "grenzen": "Aufhören, wenn die Landungen unsicher werden.",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„belastet Knie und Sprunggelenk“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_incline_walk",
+      "zweck": "Zügiges Gehen bergauf: Grundlagenausdauer mit wenig Belastung für die Gelenke.",
+      "vorbereitung": "Laufband auf 8 bis 15 Prozent Steigung oder ein Anstieg.",
+      "schritte": [
+        "Geh zügig, ohne dich an den Griffen festzuhalten.",
+        "Setz den ganzen Fuß auf, der Oberkörper bleibt aufrecht.",
+        "Halt ein Tempo, bei dem du dich noch unterhalten kannst."
+      ],
+      "ausstieg": "Band langsamer stellen und Steigung herunterfahren, dann absteigen.",
+      "sauber": "Du gehst aufrecht mit vollem Fußaufsatz und hältst dich nicht fest.",
+      "details": [],
+      "atmung": "Ruhig, Gesprächstempo.",
+      "fehler": [
+        { "f": "An den Griffen festhalten.", "k": "Loslassen, notfalls Steigung oder Tempo verringern." }
+      ],
+      "skalierung": "Leichter: weniger Steigung oder langsamer. Schwerer: mehr Steigung oder Rucksack.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„bis zur Hälfte der Arbeit“ als unbelegte Zahl.",
+        "korrektur": "Zahl gestrichen.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_freestyle_swim",
+      "zweck": "Kraulschwimmen: Ausdauer für den ganzen Körper, sehr gelenkschonend.",
+      "vorbereitung": "Schwimmbad, Schwimmbrille.",
+      "schritte": [
+        "Leg dich gestreckt ins Wasser, das Gesicht nach unten.",
+        "Zieh die Arme im Wechsel unter dem Körper nach hinten.",
+        "Schlag locker mit gestreckten Beinen aus der Hüfte.",
+        "Dreh zum Einatmen den Kopf zur Seite, ohne ihn zu heben."
+      ],
+      "ausstieg": "",
+      "sauber": "Der Körper liegt flach im Wasser, die Atmung ist ruhig.",
+      "details": [],
+      "atmung": "Unter Wasser durch Mund und Nase ausatmen, beim Seitwärtsdrehen einatmen.",
+      "fehler": [
+        { "f": "Den Kopf hochheben.", "k": "Kopf in Verlängerung, nur zur Seite drehen." }
+      ],
+      "skalierung": "Leichter: mit Pausen am Beckenrand oder mit Pull-Buoy (Schwimmhilfe zwischen den Beinen). Schwerer: längere Strecken oder Intervalle.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Pull-Buoy unerklärt.",
+        "korrektur": "Erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_elliptical",
+      "zweck": "Crosstrainer: Ausdauer für Beine und Arme ohne Stöße.",
+      "vorbereitung": "Widerstand nach Plan einstellen.",
+      "schritte": [
+        "Stell dich auf die Pedale und greif die beweglichen Griffe.",
+        "Tritt in einer runden Bewegung.",
+        "Schieb und zieh die Griffe mit, der Oberkörper bleibt aufrecht."
+      ],
+      "ausstieg": "Langsamer werden, bis die Pedale stehen, dann absteigen.",
+      "sauber": "Die Füße bleiben flach auf den Pedalen, die Arme arbeiten mit.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen.",
+      "fehler": [
+        { "f": "Auf den festen Griffen abstützen.", "k": "Bewegliche Griffe nehmen." }
+      ],
+      "skalierung": "Leichter: weniger Widerstand. Schwerer: mehr Widerstand oder Intervalle.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_battle_rope_waves",
+      "zweck": "Wellen im Kampfseil: Schultern, Arme und Rumpf mit hoher Belastung für den Kreislauf.",
+      "vorbereitung": "Seil fest um einen Anker gelegt, beide Enden gleich lang.",
+      "schritte": [
+        "Greif je ein Seilende und geh in eine halbe Hocke, so weit weg, dass das Seil leicht durchhängt.",
+        "Schlag die Arme im Wechsel schnell auf und ab.",
+        "Halt die Wellen gleichmäßig bis zum Anker."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Wellen laufen bis zum Ankerpunkt durch, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Frei atmen.",
+      "fehler": [
+        { "f": "In den Stand aufrichten.", "k": "Halbe Hocke halten." }
+      ],
+      "skalierung": "Leichter: langsamere Wellen. Schwerer: beidarmige Slams oder längere Intervalle.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["missverstaendlich"],
+        "problem": "„verlagert die Arbeit in den unteren Rücken“ als Behauptung.",
+        "korrektur": "Als Korrektur formuliert.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

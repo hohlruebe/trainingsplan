@@ -1,0 +1,535 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "rumpf_beugung",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_kneeraise",
+      "zweck": "Im Hang die Knie zur Brust ziehen: Bauch und Hüftbeuger, Einstieg zu Toes to Bar.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass du mit gestreckten Armen frei hängst.",
+      "schritte": [
+        "Häng dich mit gestreckten Armen ruhig an.",
+        "Zieh die Schultern leicht von den Ohren weg, damit du nicht schlaff hängst.",
+        "Zieh die Knie so weit wie möglich zur Brust, ohne Schwung. Das Becken rollt dabei ein.",
+        "Senk die Beine kontrolliert, ohne ins Pendeln zu kommen."
+      ],
+      "ausstieg": "Im ruhigen Hang loslassen und weich landen.",
+      "sauber": "Kein Pendeln, die Knie kommen mindestens bis auf Hüfthöhe.",
+      "details": [
+        "Anders als im CrossFit wird hier nichts hochgeworfen. Unten kurz still werden."
+      ],
+      "atmung": "Beim Hochziehen ausatmen.",
+      "fehler": [
+        { "f": "Schwung holen.", "k": "Unten kurz Pause." },
+        { "f": "Nur die Oberschenkel heben, das Becken bleibt.", "k": "Becken einrollen, Knie zur Brust." }
+      ],
+      "skalierung": "Leichter: kleinerer Weg oder Hollow Body Hold. Schwerer: Hanging Leg Raise oder Toes to Rings.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Glossar und Bibliothek verschieden, Becken nicht erwähnt.",
+        "korrektur": "Gemeinsamer Text mit Beckeneinrollen.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_leg_raise",
+      "zweck": "Im Hang die gestreckten Beine heben: deutlich schwerer als Knieheben.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass gestreckte Beine den Boden nicht berühren.",
+      "schritte": [
+        "Häng ruhig mit gestreckten Armen, Schultern leicht von den Ohren weg.",
+        "Heb die gestreckten, geschlossenen Beine bis waagerecht oder höher.",
+        "Senk sie langsam ab."
+      ],
+      "ausstieg": "Im ruhigen Hang loslassen.",
+      "sauber": "Die Beine bleiben gestreckt, kein Schwung.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Die Beine beugen sich.", "k": "Nur so hoch, wie es gestreckt geht." }
+      ],
+      "skalierung": "Leichter: Hanging Knee Raise. Schwerer: Toes to Bar.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_toes_to_bar",
+      "zweck": "Im Hang die Zehen bis an Stange oder Ringe bringen, ohne Schwung: viel Bauchkraft und Beweglichkeit.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass du frei hängst.",
+      "schritte": [
+        "Häng ruhig mit gestreckten Armen.",
+        "Drück die Stange leicht Richtung Füße, so rollt das Becken ein.",
+        "Heb die Beine und bring die Zehen ohne Schwung an Stange oder Ringe.",
+        "Senk die Beine kontrolliert."
+      ],
+      "ausstieg": "Im ruhigen Hang loslassen.",
+      "sauber": "Die Zehen berühren Stange oder Ringe.",
+      "details": [
+        "Die Knie dürfen sich dabei leicht beugen."
+      ],
+      "atmung": "Beim Hochbringen ausatmen.",
+      "fehler": [
+        { "f": "Mit Schwung.", "k": "Strikt bleiben, unten kurz still werden." }
+      ],
+      "skalierung": "Leichter: Hanging Leg Raise. Schwerer: mehr Wiederholungen.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Technik des Einrollens fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kipping_t2b",
+      "zweck": "Toes to Bar mit Schwung: für viele Wiederholungen im Metcon.",
+      "vorbereitung": "Stange so hoch, dass du frei schwingen kannst.",
+      "schritte": [
+        "Häng im Obergriff und hol mit dem Kip Swing Schwung: im Bogen Brust vor, im Hohlkörper Beine vor.",
+        "Am vorderen Umkehrpunkt die Hüfte beugen und die Füße zur Stange bringen.",
+        "Drück die Stange dabei Richtung Hüfte, die Arme bleiben gestreckt.",
+        "Lass die Beine nach hinten fallen und geh direkt in den nächsten Swing."
+      ],
+      "ausstieg": "Schwung auslaufen lassen und im ruhigen Hang loslassen.",
+      "sauber": "Die Füße berühren die Stange, der Rhythmus läuft ohne Stopp.",
+      "details": [
+        "Bogen: Brust vor der Stange, Füße hinter dem Körper. Hohlkörper: Bauch fest, Beine vor dem Körper."
+      ],
+      "atmung": "Bei jeder Berührung ausatmen.",
+      "fehler": [
+        { "f": "Die Arme beugen sich.", "k": "Arme lang lassen." }
+      ],
+      "skalierung": "Leichter: Knees to Elbows. Schwerer: mehr Wiederholungen.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt oder die Hände aufreißen.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Kip Swing vorausgesetzt.",
+        "korrektur": "Bogen und Hohlkörper kurz erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_knees_to_elbows",
+      "zweck": "Im Hang die Knie bis an die Ellbogen ziehen: Zwischenstufe zwischen Knieheben und Toes to Bar.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass du frei hängst.",
+      "schritte": [
+        "Häng mit gestreckten Armen.",
+        "Roll das Becken ein und zieh die Knie hoch, bis sie die Ellbogen berühren.",
+        "Senk die Beine kontrolliert ab."
+      ],
+      "ausstieg": "Im ruhigen Hang loslassen.",
+      "sauber": "Die Knie berühren die Ellbogen.",
+      "details": [
+        "Im Metcon darfst du Schwung nutzen wie bei Kipping Toes to Bar."
+      ],
+      "atmung": "Beim Hochziehen ausatmen.",
+      "fehler": [
+        { "f": "Zu wenig Höhe.", "k": "Hüfte mehr einrollen, Stange Richtung Hüfte drücken." }
+      ],
+      "skalierung": "Leichter: Hanging Knee Raise. Schwerer: Kipping Toes to Bar.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war knapp.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_tuck",
+      "zweck": "Im Liegestütz mit den Füßen auf einem Handtuch die Knie zur Brust ziehen: Bauch und Schultern ohne Gerät.",
+      "vorbereitung": "Handtuch auf glatten Boden legen, auf Teppich Pappteller.",
+      "schritte": [
+        "Stell die Fußspitzen auf das Handtuch.",
+        "Geh in den Liegestütz mit gestreckten Armen, Körper gerade.",
+        "Zieh die Knie zur Brust, das Handtuch gleitet mit. Der Rücken wird rund.",
+        "Streck die Beine wieder."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Die Schultern bleiben über den Händen, beim Strecken hängt die Hüfte nicht durch.",
+      "details": [],
+      "atmung": "Beim Anziehen ausatmen.",
+      "fehler": [
+        { "f": "Die Hüfte hängt beim Strecken.", "k": "Rumpf fest, kürzer strecken." }
+      ],
+      "skalierung": "Leichter: kleinerer Weg. Schwerer: Slider Pike oder Weste.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Glossar und Bibliothek verschieden.",
+        "korrektur": "Gemeinsamer Text.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_slider_pike",
+      "zweck": "Im Liegestütz mit gestreckten Beinen die Hüfte hochziehen: viel Bauch und Kompression.",
+      "vorbereitung": "Handtuch auf glatten Boden, auf Teppich Pappteller.",
+      "schritte": [
+        "Stell die Fußspitzen auf das Handtuch und geh in den Liegestütz.",
+        "Zieh mit gestreckten Beinen die Hüfte hoch, die Füße gleiten zu den Händen.",
+        "Geh langsam zurück in den Stütz."
+      ],
+      "ausstieg": "Knie ablegen.",
+      "sauber": "Die Beine bleiben gestreckt, die Schultern über den Händen.",
+      "details": [],
+      "atmung": "Beim Hochziehen ausatmen.",
+      "fehler": [
+        { "f": "Die Knie beugen sich.", "k": "Nur so hoch, wie es gestreckt geht." }
+      ],
+      "skalierung": "Leichter: Slider Knee Tuck. Schwerer: mit Weste.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Unterlage ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_sit_up",
+      "zweck": "Sit-up mit Unterlage im Rücken: im Metcon Standard, die Unterlage gibt dem Rücken Halt.",
+      "vorbereitung": "AbMat oder ein gerolltes Handtuch unter den unteren Rücken.",
+      "schritte": [
+        "Setz dich hin, Fußsohlen zusammen, Knie fallen nach außen.",
+        "Leg dich zurück, bis die Schultern den Boden berühren, die Arme über dem Kopf.",
+        "Richte dich mit Schwung der Arme auf.",
+        "Berühr mit den Händen die Füße."
+      ],
+      "ausstieg": "",
+      "sauber": "Unten berühren die Schultern den Boden, oben die Hände die Füße.",
+      "details": [],
+      "atmung": "Beim Aufrichten ausatmen.",
+      "fehler": [
+        { "f": "Mit Schwung reißen.", "k": "Gleichmäßig aufrollen." }
+      ],
+      "skalierung": "Leichter: Arme vor der Brust. Schwerer: mit Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "AbMat nicht erklärt.",
+        "korrektur": "Ersatz Handtuch ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_v_up",
+      "zweck": "Klappmesser: Oberkörper und gestreckte Beine kommen gleichzeitig hoch.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Arme gestreckt über dem Kopf, Beine gestreckt.",
+        "Heb Oberkörper und Beine gleichzeitig.",
+        "Berühr mit den Händen die Füße.",
+        "Leg dich kontrolliert zurück."
+      ],
+      "ausstieg": "",
+      "sauber": "Beine und Arme bleiben gestreckt.",
+      "details": [],
+      "atmung": "Beim Hochkommen ausatmen.",
+      "fehler": [
+        { "f": "Die Beine fallen schwer zurück.", "k": "Kontrolliert ablegen." }
+      ],
+      "skalierung": "Leichter: Tuck-up. Schwerer: mit Gewicht.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Schritte getrennt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_tuck_up",
+      "zweck": "Knie und Oberkörper gleichzeitig zusammenführen: leichtere Variante des V-ups.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Beine gestreckt, Arme über dem Kopf.",
+        "Zieh die Knie an und richte gleichzeitig den Oberkörper auf.",
+        "Umfass die Knie kurz mit den Armen.",
+        "Streck dich wieder aus."
+      ],
+      "ausstieg": "",
+      "sauber": "Rumpf und Beine kommen gleichzeitig.",
+      "details": [],
+      "atmung": "Beim Zusammenführen ausatmen.",
+      "fehler": [
+        { "f": "Nur die Beine bewegen sich.", "k": "Oberkörper aktiv mitnehmen." }
+      ],
+      "skalierung": "Leichter: kleinerer Weg. Schwerer: V-up.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ausgangsposition fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ghd_sit_up",
+      "zweck": "Sit-up am GHD mit großem Weg: sehr intensiv für Bauch und Hüftbeuger.",
+      "vorbereitung": "GHD so einstellen, dass das Gesäß auf dem Polster liegt und die Füße fest unter den Rollen sind.",
+      "schritte": [
+        "Setz dich auf das Polster, die Füße fest fixiert, Knie leicht gebeugt.",
+        "Lehn dich kontrolliert zurück, bis der Oberkörper waagerecht ist.",
+        "Streck die Knie, das zieht dich hoch, und richte den Oberkörper auf.",
+        "Berühr vorn die Füße oder die Rollen."
+      ],
+      "ausstieg": "Hände an die Griffe und absteigen.",
+      "sauber": "Der ganze Weg ist kontrolliert.",
+      "details": [
+        "Mit wenigen beginnen, zum Beispiel 10. Der Muskelkater kann sehr stark sein."
+      ],
+      "atmung": "Beim Hochkommen ausatmen.",
+      "fehler": [
+        { "f": "Zu viele am Anfang.", "k": "Mit wenigen starten und langsam steigern." }
+      ],
+      "skalierung": "Leichter: nur bis waagerecht. Schwerer: bis zum Boden.",
+      "grenzen": "Aufhören bei Schmerz im unteren Rücken.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Wie die Beine helfen, fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_compression",
+      "zweck": "Im Sitzen die gestreckten Beine vom Boden heben: trainiert die Kraft, die Beine nah am Körper zu halten (Kompression), für L-Sit und Pike.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Setz dich mit gestreckten Beinen hin, Rücken aufrecht.",
+        "Leg die Hände neben die Oberschenkel, etwa auf Kniehöhe.",
+        "Heb die gestreckten Beine aktiv vom Boden, ohne dich nach hinten zu lehnen.",
+        "Halte kurz oder heb und senk sie im Wechsel."
+      ],
+      "ausstieg": "",
+      "sauber": "Die Beine bleiben gestreckt, der Rücken aufrecht.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Nach hinten lehnen.", "k": "Aufrecht bleiben, Hände weiter vorn." }
+      ],
+      "skalierung": "Leichter: ein Bein. Schwerer: länger halten.",
+      "grenzen": "Pause bei Krampf im Hüftbeuger.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Kompression nicht erklärt.",
+        "korrektur": "Erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_tuck_lsit",
+      "zweck": "Gehockter Winkelstütz: im Stütz die Knie anziehen und halten. Erste L-Sit-Stufe.",
+      "vorbereitung": "Boden, Parallettes, Dipbarren oder zwei stabile Stühle nebeneinander.",
+      "schritte": [
+        "Setz dich zwischen die Griffe bzw. stell die Hände neben die Hüfte.",
+        "Drück dich mit gestreckten Armen hoch, bis das Gesäß vom Boden abhebt.",
+        "Zieh die Knie an die Brust.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Gesäß ablegen bzw. Füße abstellen.",
+      "sauber": "Die Arme sind gestreckt, die Schultern tief.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Schultern gehen zu den Ohren.", "k": "Boden bzw. Griffe kräftig wegdrücken." }
+      ],
+      "skalierung": "Leichter: Füße leicht aufsetzen. Schwerer: ein Bein strecken.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_lsit",
+      "zweck": "Winkelstütz: Im Stütz die gestreckten Beine waagerecht halten. Bauch, Hüftbeuger und Trizeps.",
+      "vorbereitung": "Boden, Parallettes, Dipbarren oder zwei stabile Stühle.",
+      "schritte": [
+        "Stell die Hände neben die Hüfte bzw. greif die Griffe.",
+        "Drück dich mit gestreckten Armen hoch, bis das Gesäß frei ist.",
+        "Streck beide Beine gestreckt nach vorn, bis sie waagerecht sind.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Beine senken und Gesäß ablegen.",
+      "sauber": "Die Beine sind waagerecht und gestreckt, die Arme gestreckt.",
+      "details": [
+        "Fußspitzen strecken und Oberschenkel zusammendrücken."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Knie beugen sich.", "k": "Erst ein Bein strecken, dann das andere." }
+      ],
+      "skalierung": "Leichter: einbeinig oder Tuck L-Sit. Schwerer: an den Ringen oder V-Sit.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "„wie beim Tuck L-Sit“.",
+        "korrektur": "Eigenständig.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_lsit",
+      "zweck": "Winkelstütz an den Ringen: Die Ringe wackeln, Schultern und Bauch müssen mehr halten.",
+      "vorbereitung": "Ringe auf Hüfthöhe hängen.",
+      "schritte": [
+        "Drück dich in den Stütz auf den Ringen, Arme gestreckt, Ringe an der Hüfte.",
+        "Heb die gestreckten Beine nach vorn, bis sie waagerecht sind.",
+        "Halte, die Ringe ruhig."
+      ],
+      "ausstieg": "Beine senken, Füße abstellen, Ringe loslassen.",
+      "sauber": "Die Ringe sind eng, die Beine waagerecht.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Ringe wackeln.", "k": "Arme fest an den Körper drücken." }
+      ],
+      "skalierung": "Leichter: L-Sit am Boden. Schwerer: länger halten.",
+      "grenzen": "Aufhören, wenn die Ringe stark zittern.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ringhöhe fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_v_sit",
+      "zweck": "Spitzwinkelstütz: Die Beine gehen über die Waagerechte. Sehr viel Kompression und Schulterkraft.",
+      "vorbereitung": "Parallettes oder zwei stabile Stühle.",
+      "schritte": [
+        "Geh in den L-Sit: Arme gestreckt, Beine gestreckt waagerecht.",
+        "Drück die Hände kräftig nach unten und lehn die Schultern leicht nach hinten.",
+        "Heb die Beine über die Waagerechte.",
+        "Halte die Position."
+      ],
+      "ausstieg": "Beine senken und Gesäß ablegen.",
+      "sauber": "Die Beine sind gestreckt und über der Waagerechten.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Arme beugen sich.", "k": "Fester drücken." }
+      ],
+      "skalierung": "Leichter: L-Sit. Schwerer: höhere Beine.",
+      "grenzen": "Aufhören bei Schmerz im Handgelenk oder in der Schulter.",
+      "pruefung": {
+        "art": ["fehlende_erklaerung"],
+        "problem": "Aus dem L-Sit ohne Beschreibung.",
+        "korrektur": "L-Sit im Schritt beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_crunch",
+      "zweck": "Den Oberkörper einrollen, bis die Schulterblätter abheben: einfache Übung für den geraden Bauch.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Knie gebeugt, Füße am Boden.",
+        "Leg die Hände locker an die Schläfen.",
+        "Roll den Oberkörper ein, bis die Schulterblätter vom Boden abheben.",
+        "Roll kontrolliert zurück."
+      ],
+      "ausstieg": "",
+      "sauber": "Der untere Rücken bleibt am Boden, das Kinn bleibt eine Faust vom Brustbein weg.",
+      "details": [],
+      "atmung": "Beim Einrollen ausatmen.",
+      "fehler": [
+        { "f": "Am Kopf ziehen.", "k": "Hände nur anlegen, nicht ziehen." }
+      ],
+      "skalierung": "Leichter: Arme vor der Brust verschränkt. Schwerer: Arme gestreckt über dem Kopf.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_reverse_crunch",
+      "zweck": "In Rückenlage das Becken einrollen: trainiert den unteren Teil des Bauchs.",
+      "vorbereitung": "Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Hände neben dem Körper, Knie gebeugt über der Hüfte.",
+        "Roll das Becken ein und heb das Gesäß leicht vom Boden.",
+        "Senk das Becken langsam zurück, ohne die Füße abzulegen."
+      ],
+      "ausstieg": "",
+      "sauber": "Das Becken rollt ein, die Beine holen keinen Schwung.",
+      "details": [],
+      "atmung": "Beim Einrollen ausatmen.",
+      "fehler": [
+        { "f": "Die Beine werfen.", "k": "Langsam, nur das Becken bewegt sich." }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: Beine gestreckt oder auf einer Schrägbank.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Korrektur ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_cable_crunch",
+      "zweck": "Crunch am Kabelzug: Der gerade Bauch arbeitet gegen einstellbares Gewicht.",
+      "vorbereitung": "Seilgriff oben am Kabelzug, Matte für die Knie.",
+      "schritte": [
+        "Knie dich vor den Kabelzug und halt das Seil neben dem Kopf.",
+        "Die Hüfte bleibt über den Knien.",
+        "Roll den Oberkörper ein, bis die Ellbogen zu den Oberschenkeln kommen.",
+        "Roll dich kontrolliert zurück auf."
+      ],
+      "ausstieg": "Aufrichten, bis das Gewicht aufliegt, dann loslassen.",
+      "sauber": "Die Bewegung kommt aus dem Einrollen, die Hüfte bleibt still.",
+      "details": [],
+      "atmung": "Beim Einrollen ausatmen.",
+      "fehler": [
+        { "f": "Nach hinten absitzen.", "k": "Gesäß bleibt über den Knien, weniger Gewicht." }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder unten 1 Sekunde halten.",
+      "grenzen": "",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Text war verständlich.",
+        "korrektur": "Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_hanging_lsit",
+      "zweck": "Winkelhang: im Hang die gestreckten Beine waagerecht halten.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass gestreckte Beine den Boden nicht berühren.",
+      "schritte": [
+        "Häng dich mit gestreckten Armen an, Schultern von den Ohren weg.",
+        "Heb die gestreckten Beine bis waagerecht.",
+        "Halte die Position ruhig, ohne zu schwingen."
+      ],
+      "ausstieg": "Beine senken, im ruhigen Hang loslassen.",
+      "sauber": "Die Beine bleiben waagerecht und gestreckt, der Körper schwingt nicht.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        { "f": "Die Beine sinken ab.", "k": "Gehockt üben, bis du waagerecht halten kannst." }
+      ],
+      "skalierung": "Leichter: gehockt im Hang. Schwerer: länger halten oder Beine höher.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt.",
+      "pruefung": {
+        "art": ["ok"],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}

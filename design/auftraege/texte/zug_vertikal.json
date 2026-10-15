@@ -1,0 +1,1526 @@
+{
+  "v": 1,
+  "teil": "texte",
+  "muster": "zug_vertikal",
+  "entscheidungen": [],
+  "uebungen": [
+    {
+      "id": "g_pullup",
+      "zweck": "Der Grundzug von oben nach unten: kräftigt den breiten Rückenmuskel, den oberen Rücken und den Bizeps und ist die Basis für Muscle-up und Front Lever.",
+      "vorbereitung": "Ringe so hoch hängen, dass du mit gestreckten Armen frei hängst. Für Hilfe ein Band oben um Stange oder Gurte schlingen und unten einen Fuß oder ein Knie in die Schlaufe stellen.",
+      "schritte": [
+        "Greif die Ringe bzw. die Stange im Obergriff: Die Handflächen zeigen von dir weg, Daumen um den Griff.",
+        "Häng mit ganz gestreckten Armen, die Beine geschlossen und leicht vor dem Körper.",
+        "Zieh zuerst die Schultern von den Ohren weg nach unten, dann die Ellbogen Richtung Hüfte.",
+        "Zieh weiter, bis das Kinn über dem Griff ist. An Ringen dürfen sich die Hände dabei nach innen drehen.",
+        "Lass dich in etwa 2 Sekunden ab, bis die Arme wieder ganz gestreckt sind. Erst dann zählt die Wiederholung."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung im gestreckten Hang kurz ruhig werden und dann auf beide Füße fallen lassen, mit leicht gebeugten Knien landen.",
+      "sauber": "Unten sind die Ellbogen ganz gestreckt, oben ist das Kinn über dem Griff. Die Beine schwingen nicht und der Körper pendelt kaum.",
+      "details": [
+        "Griffbreite: etwa schulterbreit oder etwas breiter. Ellbogen zeigen beim Ziehen schräg nach vorn-unten.",
+        "Spannung: Gesäß leicht anspannen und die Rippen Richtung Becken ziehen, so schwingen die Beine nicht mit.",
+        "Blick nach vorn, nicht den Kopf in den Nacken legen, um das Kinn über den Griff zu recken."
+      ],
+      "atmung": "Unten einatmen, beim Hochziehen ausatmen oder die Luft kurz halten. Beim Absenken wieder einatmen.",
+      "fehler": [
+        {
+          "f": "Halbe Wiederholungen: unten bleiben die Arme gebeugt.",
+          "k": "Jede Wiederholung im ganz gestreckten Hang beginnen. Lieber ein stärkeres Band nehmen."
+        },
+        {
+          "f": "Schwung aus Beinen und Hüfte.",
+          "k": "Beine schließen, Gesäß anspannen und unten kurz ruhig werden, bevor du ziehst."
+        },
+        {
+          "f": "Kinn wird nach oben gereckt, statt den Körper höher zu ziehen.",
+          "k": "Blick geradeaus halten und die Ellbogen weiter nach unten ziehen."
+        }
+      ],
+      "skalierung": "Leichter: Band in die Schlaufe, je stärker das Band, desto mehr Hilfe. Auch Negative Pull-up oder Jackknife Pull-up. Schwerer: Weste anziehen, dann Weighted Pull-up.",
+      "grenzen": "Satz beenden, wenn das Kinn nicht mehr über den Griff kommt oder du nur noch mit Schwung hochkommst. Stechender Schmerz in Ellbogen oder Schulter: aufhören und leichtere Stufe wählen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung",
+          "missverstaendlich"
+        ],
+        "problem": "Obergriff nicht erklärt, keine Vorbereitung für Ringe und Band, kein Ausstieg; Glossar (Plan) und Bibliothek mit unterschiedlichen Texten.",
+        "korrektur": "Griff, Bandbefestigung, Startposition, Zählregel und Absprung ergänzt; Glossar zeigt jetzt den Bibliothekstext.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_chinup",
+      "zweck": "Klimmzug im Untergriff: arbeitet stärker mit dem Bizeps als der Pull-up und ist für viele etwas leichter. Grundlage für den Muscle-up an Ringen.",
+      "vorbereitung": "Ringe so hoch hängen, dass du mit gestreckten Armen frei hängst. Für Hilfe ein Band oben befestigen und einen Fuß oder ein Knie in die Schlaufe stellen.",
+      "schritte": [
+        "Greif im Untergriff: Die Handflächen zeigen zu dir, etwa schulterbreit.",
+        "Häng mit ganz gestreckten Armen, die Beine geschlossen.",
+        "Zieh die Schultern nach unten, dann die Ellbogen nah am Körper Richtung Rippen.",
+        "Zieh weiter, bis das Kinn über dem Griff ist und die Brust Richtung Griff kommt.",
+        "Lass dich kontrolliert ab, bis die Arme ganz gestreckt sind."
+      ],
+      "ausstieg": "Im gestreckten Hang ruhig werden, dann loslassen und mit leicht gebeugten Knien landen.",
+      "sauber": "Unten ganz gestreckte Arme, oben das Kinn über dem Griff. Die Ellbogen bleiben vor dem Körper, die Beine ruhig.",
+      "details": [
+        "An Ringen dürfen sich die Hände leicht nach außen drehen, das schont die Handgelenke.",
+        "Die Brust zieht Richtung Griff, der Kopf bleibt in Verlängerung der Wirbelsäule."
+      ],
+      "atmung": "Unten einatmen, beim Hochziehen ausatmen oder kurz halten, beim Absenken einatmen.",
+      "fehler": [
+        {
+          "f": "Den Kopf nach vorn strecken statt hochzuziehen.",
+          "k": "Brust zum Griff führen, Blick geradeaus."
+        },
+        {
+          "f": "Unten nicht ganz strecken.",
+          "k": "Jede Wiederholung im gestreckten Hang beginnen, notfalls mit stärkerem Band."
+        }
+      ],
+      "skalierung": "Leichter: Band in die Schlaufe oder Füße auf einem Stuhl und mit den Beinen helfen. Schwerer: Weste anziehen, dann Weighted Chin-up.",
+      "grenzen": "Satz beenden, wenn das Kinn nicht mehr über den Griff kommt. Ziehen oder Stechen an der Innenseite des Ellbogens: aufhören und die Menge verringern.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Untergriff knapp erklärt, keine Vorbereitung, kein Ausstieg, Glossar mit eigenem Text.",
+        "korrektur": "Griff, Ellbogenführung, Band, Absprung ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_dead_hang",
+      "zweck": "Hängen mit gestreckten Armen: kräftigt den Griff, gewöhnt Schultern und Hände ans Hängen und dehnt nach dem Zugtraining.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass du mit gestreckten Armen hängst. Ein Stuhl hilft beim Greifen, wenn sie höher hängen.",
+      "schritte": [
+        "Greif schulterbreit im Obergriff, Daumen um den Griff.",
+        "Lös die Füße vom Boden oder Stuhl, die Arme sind ganz gestreckt.",
+        "Lass den Körper ruhig hängen, Beine locker nach unten.",
+        "Im Cool-down dürfen die Schultern zu den Ohren gehen. Zum Kräftigen die Schultern leicht von den Ohren weg ziehen."
+      ],
+      "ausstieg": "Füße zurück auf Stuhl oder Boden stellen, dann loslassen. Aus großer Höhe mit leicht gebeugten Knien landen.",
+      "sauber": "Der Körper hängt ruhig ohne Schaukeln, die Arme bleiben gestreckt.",
+      "details": [
+        "Beide Varianten sind richtig: passiv hängen (Schultern locker) dehnt, aktiv hängen (Schultern weg von den Ohren) kräftigt die Schultermuskeln."
+      ],
+      "atmung": "Ruhig weiteratmen, nicht die Luft anhalten.",
+      "fehler": [
+        {
+          "f": "Schaukeln oder mit den Beinen strampeln.",
+          "k": "Beine schließen und kurz still werden, bevor die Zeit läuft."
+        },
+        {
+          "f": "Die Luft anhalten.",
+          "k": "Langsam durch die Nase ein- und durch den Mund ausatmen."
+        }
+      ],
+      "skalierung": "Leichter: Füße bleiben leicht am Boden und tragen etwas Gewicht. Schwerer: längere Zeit, dann One-Arm Dead Hang.",
+      "grenzen": "Loslassen, wenn der Griff aufgeht oder die Finger kribbeln oder taub werden.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„Krampfhaft hochgezogene Schultern“ als Fehler widersprach dem Cool-down-Hinweis „Schultern nach oben gehen lassen“.",
+        "korrektur": "Passiver (Cool-down) und aktiver Hang (Kraft) als zwei richtige Varianten erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_scap_pull",
+      "zweck": "Lehrt die Bewegung der Schulterblätter, mit der jeder Klimmzug beginnt, und kräftigt die Muskeln, die die Schultern im Hang schützen.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass du mit gestreckten Armen frei hängst.",
+      "schritte": [
+        "Häng dich im Obergriff schulterbreit an, die Arme ganz gestreckt.",
+        "Lass die Schultern zuerst nach oben zu den Ohren sinken.",
+        "Zieh nur die Schulterblätter nach unten und leicht zusammen. Der Körper hebt sich dabei ein paar Zentimeter.",
+        "Halte kurz und lass dich langsam zurück in den lockeren Hang sinken."
+      ],
+      "ausstieg": "Im lockeren Hang die Füße abstellen oder mit leicht gebeugten Knien landen.",
+      "sauber": "Die Ellbogen bleiben während der ganzen Bewegung gestreckt. Nur der Abstand zwischen Schultern und Ohren ändert sich.",
+      "details": [
+        "Stell dir vor, du schiebst die Schulterblätter in die Gesäßtaschen.",
+        "Die Bewegung ist klein, etwa 3–5 cm. Größer heißt meist, dass die Arme mitziehen."
+      ],
+      "atmung": "Beim Hochziehen der Schultern ausatmen, beim Absinken einatmen.",
+      "fehler": [
+        {
+          "f": "Mit den Armen mitziehen, die Ellbogen beugen sich.",
+          "k": "Arme bewusst lang lassen und nur die Schultern bewegen."
+        },
+        {
+          "f": "Mit Schwung arbeiten.",
+          "k": "Langsam, oben 1 Sekunde halten."
+        }
+      ],
+      "skalierung": "Leichter: Füße auf einem Stuhl, sie tragen einen Teil des Gewichts. Schwerer: oben 2 Sekunden halten.",
+      "grenzen": "Aufhören, wenn du die Schultern nicht mehr ohne Armbeugen nach unten bekommst oder die Schulter sticht.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Startposition (lockerer Hang) und Bewegungsgröße fehlten.",
+        "korrektur": "Ablauf von locker zu aktiv, Größe der Bewegung und Bild für die Richtung ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_pullup_negative",
+      "zweck": "Nur das Absenken des Klimmzugs: baut Kraft auf, bevor ein ganzer Pull-up gelingt.",
+      "vorbereitung": "Stuhl oder Box unter die Stange stellen, so dass du von dort mit dem Kinn über die Stange kommst. Prüf, dass der Stuhl nicht kippt.",
+      "schritte": [
+        "Steig auf den Stuhl und greif die Stange im Obergriff schulterbreit.",
+        "Bring das Kinn über die Stange, die Ellbogen sind eng am Körper gebeugt.",
+        "Nimm die Füße vom Stuhl und halte die obere Position kurz.",
+        "Lass dich in 3–5 Sekunden gleichmäßig ab, bis die Arme ganz gestreckt sind.",
+        "Stell die Füße zurück auf den Stuhl und steig für die nächste Wiederholung wieder hoch."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung aus dem gestreckten Hang die Füße auf den Stuhl stellen, dann loslassen.",
+      "sauber": "Das Tempo bleibt über den ganzen Weg gleich, auch im letzten Drittel kurz vor dem gestreckten Hang.",
+      "details": [
+        "Zähl beim Absenken laut mit, so hältst du das Tempo.",
+        "Stuhl leicht vor die Stange stellen, damit du nach dem Absenken nicht dagegen stößt."
+      ],
+      "atmung": "Oben einatmen, beim Absenken langsam ausatmen.",
+      "fehler": [
+        {
+          "f": "Unten durchfallen, weil die Kraft nachlässt.",
+          "k": "Das Tempo bis zum Schluss halten. Klappt das nicht mehr, ist der Satz vorbei."
+        },
+        {
+          "f": "Vom Stuhl springen statt steigen.",
+          "k": "Hochsteigen und oben erst die Spannung aufbauen, dann die Füße lösen."
+        }
+      ],
+      "skalierung": "Leichter: kürzer absenken (2 Sekunden) oder mit Band. Schwerer: langsamer absenken (bis 8 Sekunden) oder oben, in der Mitte und unten je 2 Sekunden halten.",
+      "grenzen": "Satz beenden, wenn du nicht mehr mindestens 2 Sekunden kontrolliert absenken kannst. Am nächsten Tag ist Muskelkater normal, stechender Ellbogenschmerz nicht.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Wie man oben ankommt und die Füße sicher löst, fehlte.",
+        "korrektur": "Stuhl, Einstieg, Tempo-Hilfe und Rückweg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_band_lat_pulldown",
+      "zweck": "Latzug mit Band: trainiert dieselbe Zugrichtung wie der Klimmzug mit wenig Gewicht, gut für Anfänger und als Ergänzung.",
+      "vorbereitung": "Band oben fest einhängen, zum Beispiel mit Türanker über der Tür (Tür zu, zur Seite hin öffnet sie sich von dir weg) oder um eine Stange.",
+      "schritte": [
+        "Knie dich so vor das Band, dass es mit gestreckten Armen leicht gespannt ist.",
+        "Greif die Bandenden, die Handflächen zeigen nach vorn oder zueinander.",
+        "Richte den Oberkörper auf, Bauch fest, Rippen nach unten.",
+        "Zieh zuerst die Schultern nach unten, dann die Ellbogen zur Hüfte, bis die Hände etwa auf Schulterhöhe sind.",
+        "Lass die Arme kontrolliert zurück nach oben, bis sie gestreckt sind."
+      ],
+      "ausstieg": "Arme langsam nach oben zurückgehen lassen, bis das Band locker ist, dann loslassen. Nie unter Spannung loslassen.",
+      "sauber": "Der Oberkörper bleibt aufrecht. Die Ellbogen kommen bis neben den Körper.",
+      "details": [
+        "Je weiter du vom Anker weg kniest, desto stärker zieht das Band."
+      ],
+      "atmung": "Beim Ziehen ausatmen, beim Zurücklassen einatmen.",
+      "fehler": [
+        {
+          "f": "Mit dem Oberkörper nach hinten kippen.",
+          "k": "Aufrecht bleiben, lieber ein leichteres Band nehmen."
+        },
+        {
+          "f": "Das Band nach oben schnellen lassen.",
+          "k": "Auf dem Rückweg genauso langsam wie beim Ziehen."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band oder näher an den Anker. Schwerer: stärkeres Band, weiter weg oder einarmig.",
+      "grenzen": "Aufhören, wenn das Band reißt oder Risse zeigt, oder bei stechendem Schulterschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Befestigung, Abstand und sicheres Loslassen fehlten.",
+        "korrektur": "Anker, Abstand als Stellschraube und Ausstieg ohne Zurückschnellen ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_weighted_pullup",
+      "zweck": "Klimmzug mit Zusatzgewicht: steigert die Maximalkraft im Zug, wenn freie Pull-ups leicht fallen.",
+      "vorbereitung": "Gewichtsweste eng anziehen oder Hantelscheibe bzw. Kettlebell am Dip-Gürtel einhängen. Das Gewicht hängt zwischen den Oberschenkeln.",
+      "schritte": [
+        "Stell dich unter die Stange, notfalls auf einen Stuhl, und greif im Obergriff schulterbreit.",
+        "Lös die Füße und häng mit ganz gestreckten Armen. Warte, bis das Gewicht nicht mehr pendelt.",
+        "Zieh die Schultern nach unten, dann die Ellbogen zur Hüfte, bis das Kinn über der Stange ist.",
+        "Lass dich in etwa 2 Sekunden ab, bis die Arme ganz gestreckt sind."
+      ],
+      "ausstieg": "Im gestreckten Hang die Füße auf den Stuhl stellen oder mit gebeugten Knien landen. Erst dann das Gewicht abnehmen.",
+      "sauber": "Gleiche Bewegung wie ohne Gewicht: ganz gestreckt unten, Kinn über der Stange oben, das Gewicht pendelt nicht.",
+      "details": [
+        "Beine geschlossen und leicht vor dem Körper halten, so bleibt das Gewicht ruhig.",
+        "In kleinen Schritten steigern, zum Beispiel 1,25–2,5 kg. Der Coach schlägt das Gewicht vor."
+      ],
+      "atmung": "Unten tief einatmen, während des Zugs die Luft halten, oben oder beim Absenken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu schnell zu viel Gewicht, die Wiederholungen werden kürzer.",
+          "k": "Gewicht nur steigern, wenn alle Wiederholungen bis ganz unten gehen."
+        },
+        {
+          "f": "Das Gewicht schwingt und zieht in den Schwung.",
+          "k": "Vor jeder Wiederholung kurz still werden."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder Ring Pull-up mit Weste. Schwerer: mehr Gewicht bei 1–5 Wiederholungen.",
+      "grenzen": "Satz beenden, wenn eine Wiederholung nur noch halb hochkommt. Ellbogen- oder Schulterschmerz: Gewicht verringern.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung",
+          "missverstaendlich"
+        ],
+        "problem": "Schritte verwiesen nur auf „Pull-up wie gewohnt“, Voraussetzung „3 × 10“ passte nicht zur Leiter (Stufe Weste).",
+        "korrektur": "Eigenständige Anleitung, Gewicht anlegen, Absprung erst ohne Abnehmen des Gewichts. Voraussetzung steht in der App über die Leiter.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_chest_to_bar",
+      "zweck": "Höherer Klimmzug bis die Brust die Stange berührt: mehr Zugweg für Rücken und Schultern, Vorstufe für den Bar Muscle-up.",
+      "vorbereitung": "Stange so hoch, dass du mit gestreckten Armen frei hängst.",
+      "schritte": [
+        "Greif im Obergriff etwas breiter als schulterbreit und häng mit gestreckten Armen.",
+        "Zieh die Schultern nach unten, dann die Ellbogen kräftig nach unten und hinten.",
+        "Zieh über die Kinnhöhe hinaus, bis Brust oder Schlüsselbein die Stange berühren.",
+        "Lass dich kontrolliert ab, bis die Arme ganz gestreckt sind."
+      ],
+      "ausstieg": "Im gestreckten Hang ruhig werden, dann loslassen und weich landen.",
+      "sauber": "Brust oder Schlüsselbein berühren die Stange sichtbar, unten sind die Arme ganz gestreckt.",
+      "details": [
+        "Oben lehnt sich der Oberkörper leicht nach hinten, die Brust zeigt zur Stange.",
+        "Strikt heißt ohne Schwung. Im Metcon darfst du Schwung nutzen, das ist dann Kipping Chest-to-Bar."
+      ],
+      "atmung": "Unten einatmen, beim Zug die Luft halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Nur das Kinn kommt hoch.",
+          "k": "Die Ellbogen weiter nach unten und hinten ziehen, als wolltest du sie in die Hosentaschen stecken."
+        },
+        {
+          "f": "Mit dem Gesicht statt der Brust zur Stange.",
+          "k": "Brust heraus, Kopf neutral."
+        }
+      ],
+      "skalierung": "Leichter: normaler Pull-up oder mit Band. Schwerer: mit Weste strikt oder im Metcon mit Kip.",
+      "grenzen": "Satz beenden, wenn die Brust die Stange nicht mehr erreicht.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Pull-up starten“ setzte Kenntnis einer anderen Übung voraus.",
+        "korrektur": "Eigenständiger Ablauf mit Griff, Zugrichtung und Abgrenzung zur Kipping-Variante.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kip_swing",
+      "zweck": "Der Schwung für Kipping Pull-ups und Toes to Bar: lehrt den Wechsel zwischen Hohlkörper und Bogen bei gestreckten Armen.",
+      "vorbereitung": "Stange so hoch, dass die Füße beim Schwingen nicht den Boden berühren. Platz vor und hinter dir frei.",
+      "schritte": [
+        "Häng mit gestreckten Armen im Obergriff, Daumen um die Stange.",
+        "Drück die Stange Richtung Füße und geh in den Hohlkörper: Rücken leicht rund, Bauch fest, Beine geschlossen leicht vor dir.",
+        "Schieb dann Brust und Kopf zwischen den Armen nach vorn, die Beine gehen nach hinten: das ist der Bogen (Arch).",
+        "Wechsel ruhig zwischen Hohlkörper und Bogen. Der Antrieb kommt aus Schultern und Hüfte, die Arme bleiben lang."
+      ],
+      "ausstieg": "Den Schwung kleiner werden lassen, bis du ruhig hängst, dann loslassen. Nie am höchsten Punkt des Schwungs loslassen.",
+      "sauber": "Ruhiger, gleichmäßiger Rhythmus, die Ellbogen bleiben gestreckt, die Beine geschlossen.",
+      "details": [
+        "Hohlkörper (Hollow): Körper vorn leicht rund wie eine Banane mit der Öffnung nach vorn.",
+        "Bogen (Arch): Brust vor der Stange, Füße hinter dem Körper, Gesäß fest.",
+        "Klein anfangen, erst wenn der Rhythmus sitzt, größer werden."
+      ],
+      "atmung": "Gleichmäßig weiteratmen, zum Beispiel im Hohlkörper aus, im Bogen ein.",
+      "fehler": [
+        {
+          "f": "Mit gebeugten Armen schaukeln.",
+          "k": "Arme lang lassen, der Schwung kommt aus Schultern und Hüfte."
+        },
+        {
+          "f": "Nur die Beine vor und zurück treten.",
+          "k": "Beine geschlossen, Brust und Hüfte bewegen sich gemeinsam."
+        }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung oder Hohlkörper und Bogen erst am Boden üben. Schwerer: größere Bewegung, dann Kipping Pull-up.",
+      "grenzen": "Aufhören, wenn der Griff nachlässt (Abrutschgefahr) oder die Schulter beim Bogen schmerzt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Hollow und Arch nicht erklärt.",
+        "korrektur": "Beide Positionen in einfachen Worten beschrieben, sicherer Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kipping_pullup",
+      "zweck": "Klimmzug mit Hüftschwung: schafft viele Wiederholungen im Metcon. Ersetzt keine strikten Pull-ups für die Kraft.",
+      "vorbereitung": "Stange so hoch, dass die Füße beim Schwingen frei sind. Ringe eignen sich nicht, weil sie mitschwingen.",
+      "schritte": [
+        "Häng im Obergriff und hol mit 1–2 Kip Swings Schwung: Hohlkörper, Bogen, Hohlkörper.",
+        "Am hinteren Umkehrpunkt (Bogen) die Hüfte kräftig nach vorn-oben schnellen lassen.",
+        "Nutz diesen Schwung und zieh mit den Armen, bis das Kinn über der Stange ist.",
+        "Drück dich oben von der Stange weg nach hinten und schwing zurück in den Bogen für die nächste Wiederholung."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung aus dem Hohlkörper ein, zwei kleine Schwünge auslaufen lassen und im ruhigen Hang loslassen.",
+      "sauber": "Das Kinn kommt bei jeder Wiederholung über die Stange, der Rhythmus läuft ohne Stopp durch.",
+      "details": [
+        "Der Hüftimpuls macht die Arbeit, die Arme vollenden nur den Zug.",
+        "Erst lernen, wenn mindestens 5 strikte Pull-ups gehen: Die Schultern brauchen diese Kraft, um den Schwung abzufangen."
+      ],
+      "atmung": "Kurz und rhythmisch: oben ausatmen, beim Zurückschwingen einatmen.",
+      "fehler": [
+        {
+          "f": "Zu früh kippen, ohne strikte Kraft.",
+          "k": "Erst 5 strikte Pull-ups schaffen, bis dahin Band-Pull-ups im Metcon."
+        },
+        {
+          "f": "Oben hängen bleiben und dann fallen.",
+          "k": "Oben aktiv von der Stange wegdrücken, so geht es fließend weiter."
+        }
+      ],
+      "skalierung": "Leichter: strikte Pull-ups mit Band oder Jumping Pull-up. Schwerer: Kipping Chest-to-Bar oder Butterfly Pull-up.",
+      "grenzen": "Satz beenden, sobald der Rhythmus bricht oder die Hände aufreißen. Schulterschmerz beim Abfangen: auf strikte Varianten wechseln.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ablauf des Schwungs und Ausstieg unklar.",
+        "korrektur": "Ablauf in Phasen beschrieben, Voraussetzung begründet, sicherer Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_butterfly_pullup",
+      "zweck": "Die schnellste Klimmzug-Variante im Metcon: eine kreisende Bewegung ohne Halt, für sehr viele Wiederholungen.",
+      "vorbereitung": "Stange so hoch, dass die Füße beim Kreisen frei sind. Griffband oder Handschutz helfen gegen Blasen.",
+      "schritte": [
+        "Häng im Obergriff, etwas breiter als schulterbreit.",
+        "Starte mit einem Kip Swing und zieh dich beim Vorschwingen schräg nach vorn-oben.",
+        "Bring das Kinn über die Stange, während die Beine nach hinten-unten gehen.",
+        "Lass dich vorn-unten in einem Bogen ab und nutz den Schwung direkt für den nächsten Kreis."
+      ],
+      "ausstieg": "Den Kreis kleiner werden lassen, in den ruhigen Hang kommen und loslassen.",
+      "sauber": "Die Bewegung läuft als ununterbrochener Kreis, bei jeder Wiederholung ist das Kinn über der Stange.",
+      "details": [
+        "Der Körper beschreibt einen Kreis, der Kopf bleibt dabei ruhig.",
+        "Erst mit sicheren Kipping Pull-ups beginnen, am besten zuerst nur 3–5 Wiederholungen am Stück üben."
+      ],
+      "atmung": "Kurz und rhythmisch, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Schultern ohne Kontrolle fallen lassen.",
+          "k": "Erst sichere Kipping Pull-ups, dann Butterfly in kleinen Serien."
+        },
+        {
+          "f": "Kreis stoppt oben.",
+          "k": "Langsamer starten, den Rhythmus vor dem Tempo lernen."
+        }
+      ],
+      "skalierung": "Leichter: Kipping Pull-up. Schwerer: Butterfly Chest-to-Bar.",
+      "grenzen": "Aufhören, wenn der Kreis unruhig wird, die Hände aufreißen oder die Schulter beim Abfangen schmerzt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Richtung des Kreises unklar.",
+        "korrektur": "Bewegungsrichtung und Kopfhaltung beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_explosive_pullup",
+      "zweck": "Klimmzug mit maximalem Tempo nach oben: baut die Schnellkraft für den Bar Muscle-up auf.",
+      "vorbereitung": "Stange so hoch, dass du mit gestreckten Armen frei hängst.",
+      "schritte": [
+        "Häng im Obergriff schulterbreit, Arme gestreckt, Körper ruhig.",
+        "Spann Bauch und Gesäß an und zieh so schnell du kannst.",
+        "Ziel: Die Brust, später der Bauch, kommt auf Stangenhöhe.",
+        "Lass dich kontrolliert zurück in den gestreckten Hang ab und setz für jede Wiederholung neu an."
+      ],
+      "ausstieg": "Im gestreckten Hang ruhig werden, loslassen und weich landen.",
+      "sauber": "Jede Wiederholung ist so schnell wie möglich, der Körper bleibt gerade und ohne Hüftschwung.",
+      "details": [
+        "Wenige Wiederholungen, zum Beispiel 3–5 je Satz. Wird es langsamer, ist der Satz vorbei."
+      ],
+      "atmung": "Unten tief einatmen, beim Zug kräftig ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu viele Wiederholungen, das Tempo sinkt.",
+          "k": "Wenige, maximal schnelle Wiederholungen mit Pause dazwischen."
+        },
+        {
+          "f": "Mit den Beinen Schwung holen.",
+          "k": "Beine geschlossen und ruhig, nur die Arme ziehen."
+        }
+      ],
+      "skalierung": "Leichter: mit leichtem Band. Schwerer: oben kurz die Hände von der Stange lösen und wieder greifen (Klatsch-Klimmzug, nur mit sicherem Griff).",
+      "grenzen": "Satz beenden, wenn die Höhe sichtbar nachlässt. Bei Ellbogen- oder Schulterschmerz aufhören.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Wiederholungszahl und Sicherheit beim Lösen der Hände fehlten.",
+        "korrektur": "Satzlänge, Spannung und Bedingung für die Klatsch-Variante ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_archer_pullup",
+      "zweck": "Klimmzug zu einer Seite: Ein Arm zieht, der andere hilft gestreckt. Vorstufe für den einarmigen Klimmzug.",
+      "vorbereitung": "Stange so hoch, dass du frei hängst. An Ringen die Ringe weit auseinander hängen.",
+      "schritte": [
+        "Greif deutlich breiter als schulterbreit, etwa doppelt so breit, im Obergriff.",
+        "Häng mit gestreckten Armen und spann Bauch und Gesäß an.",
+        "Zieh dich zu einer Hand: Der Zugarm beugt sich, der andere Arm bleibt fast gestreckt und schiebt mit.",
+        "Oben ist das Kinn über der Zughand.",
+        "Lass dich langsam ab. Mach alle Wiederholungen einer Seite, dann wechsle."
+      ],
+      "ausstieg": "Im gestreckten Hang mit beiden Armen ruhig werden, dann loslassen.",
+      "sauber": "Das Kinn kommt über die Zughand, der Streckarm bleibt fast gerade, die Hüfte dreht sich nicht.",
+      "details": [
+        "Der gestreckte Arm darf leicht gebeugt sein, aber er beugt sich nicht mit."
+      ],
+      "atmung": "Unten einatmen, beim Zug ausatmen oder kurz halten.",
+      "fehler": [
+        {
+          "f": "Körper verdreht sich zur Zugseite.",
+          "k": "Hüfte und Beine ruhig, Bauch fest."
+        },
+        {
+          "f": "Der Streckarm zieht mit.",
+          "k": "Weniger weit zur Seite ziehen, bis der Arm gestreckt bleiben kann."
+        }
+      ],
+      "skalierung": "Leichter: weniger weit zur Seite ziehen. Schwerer: Typewriter Pull-up oder Assisted One-Arm Pull-up.",
+      "grenzen": "Aufhören, wenn das Kinn nicht mehr über die Zughand kommt oder der Ellbogen des Zugarms schmerzt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griffbreite und Seitenwechsel ungenau.",
+        "korrektur": "Breite, Rolle des Streckarms, Seitenfolge ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_false_grip_hang",
+      "zweck": "Hängen im False Grip: gewöhnt Handgelenke und Unterarme an den Griff, den du für den Muscle-up an Ringen brauchst.",
+      "vorbereitung": "Ringe etwa auf Kopfhöhe hängen, so dass die Füße am Boden helfen können.",
+      "schritte": [
+        "Leg die Hand so in den Ring, dass er tief im Handballen unter dem Daumen liegt und das Handgelenk über dem Ring knickt.",
+        "Schließ die Finger um den Ring, die Handflächen zeigen zueinander oder leicht nach unten.",
+        "Beug die Knie und übernimm langsam Gewicht, die Füße bleiben zuerst am Boden.",
+        "Häng so viel Gewicht hinein, wie du ohne Rutschen halten kannst, und halte die Zeit."
+      ],
+      "ausstieg": "Füße wieder voll belasten, dann den Griff lösen.",
+      "sauber": "Das Handgelenk bleibt über dem Ring geknickt, der Griff rutscht nicht in den normalen Griff zurück.",
+      "details": [
+        "False Grip heißt „falscher Griff“: Du hängst nicht an den Fingern, sondern am Handgelenk über dem Ring.",
+        "Ein Kreidegriff oder trockene Hände verhindern das Rutschen."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Der Griff rutscht in den normalen Griff.",
+          "k": "Ringe tiefer hängen und mehr mit den Füßen helfen."
+        },
+        {
+          "f": "Mit einem Ruck ins Gewicht fallen.",
+          "k": "Langsam aus den Beinen Gewicht abgeben."
+        }
+      ],
+      "skalierung": "Leichter: Füße tragen mehr Gewicht. Schwerer: Füße ganz lösen, dann False Grip Chin-up.",
+      "grenzen": "Aufhören bei stechendem Schmerz am Handgelenk oder Kribbeln in den Fingern. Ein Ziehen in den Unterarmen ist normal.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Handposition des False Grip schwer vorstellbar.",
+        "korrektur": "Lage des Rings in der Hand und Gewichtsübernahme beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_false_grip_chinup",
+      "zweck": "Klimmzug im False Grip: trainiert den hohen Zug, aus dem der Muscle-up an Ringen über die Ringe kommt.",
+      "vorbereitung": "Ringe so hoch, dass du frei hängst. Ein Stuhl hilft, den Griff im Stehen einzurichten.",
+      "schritte": [
+        "Leg die Hände in den False Grip: Ring tief im Handballen, Handgelenk über dem Ring.",
+        "Häng dich an, die Arme gestreckt, ohne dass der Griff rutscht.",
+        "Zieh die Ellbogen nah am Körper nach unten, bis die Ringe die untere Brust oder die Rippen berühren.",
+        "Lass dich kontrolliert ab, der Griff bleibt bis unten erhalten."
+      ],
+      "ausstieg": "Im gestreckten Hang die Füße auf den Stuhl stellen, dann den Griff lösen.",
+      "sauber": "Der Griff hält über die ganze Wiederholung, oben berühren die Ringe die Brust.",
+      "details": [
+        "Die Ellbogen zeigen nach hinten-unten und bleiben nah an den Rippen.",
+        "Wenn der Griff unten rutscht, nicht ganz strecken, sondern mit fast gestreckten Armen arbeiten."
+      ],
+      "atmung": "Unten einatmen, beim Zug ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu wenig hoch ziehen.",
+          "k": "Ringe bis an die Rippen bringen, so hoch wie für den Übergang nötig."
+        },
+        {
+          "f": "Der Griff rutscht beim Absenken.",
+          "k": "Langsamer ablassen und Griff vor jeder Wiederholung kontrollieren."
+        }
+      ],
+      "skalierung": "Leichter: mit Band oder Füße am Boden. Schwerer: mit Weste.",
+      "grenzen": "Aufhören bei stechendem Handgelenk- oder Ellbogenschmerz.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "False Grip als bekannt vorausgesetzt.",
+        "korrektur": "Griff in der Übung selbst erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_mu_transition",
+      "zweck": "Übt den schwierigsten Teil des Muscle-ups: den Wechsel vom Zug unter den Ringen in den Stütz über den Ringen.",
+      "vorbereitung": "Ringe etwa auf Brusthöhe hängen, so dass du im Sitzen oder Knien unter ihnen bist und die Füße helfen können.",
+      "schritte": [
+        "Setz dich unter die Ringe, die Füße vor dir am Boden, die Hände im False Grip.",
+        "Zieh die Ringe an die Rippen und lehn dich leicht nach hinten.",
+        "Bring Brust und Schultern nach vorn über die Hände, die Ellbogen gehen eng am Körper nach hinten-oben.",
+        "Du bist jetzt tief im Dip über den Ringen. Drück dich hoch, bis die Arme gestreckt sind.",
+        "Die Füße helfen nur so viel wie nötig."
+      ],
+      "ausstieg": "Aus dem Stütz die Füße abstellen und den Griff lösen, oder kontrolliert rückwärts in den Hang zurückgehen.",
+      "sauber": "Der Wechsel läuft fließend ohne Absetzen, die Ringe bleiben nah an den Rippen.",
+      "details": [
+        "Die Ringe drehen sich im Übergang mit, die Handgelenke bleiben über den Ringen.",
+        "Kopf und Brust gehen nach vorn, nicht nach oben."
+      ],
+      "atmung": "Vor dem Übergang einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Ellbogen gehen weit nach außen.",
+          "k": "Ringe nah an den Rippen führen, Ellbogen zeigen nach hinten."
+        },
+        {
+          "f": "Der Oberkörper bleibt hinter den Händen.",
+          "k": "Brust bewusst nach vorn über die Ringe schieben."
+        }
+      ],
+      "skalierung": "Leichter: Ringe tiefer, mehr Fußhilfe. Schwerer: Ringe höher, weniger Fußhilfe.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter im tiefen Dip.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Ausgangsposition und Richtung des Übergangs fehlten.",
+        "korrektur": "Sitzposition, Richtung von Brust und Ellbogen, Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_mu_band",
+      "zweck": "Muscle-up an Ringen mit Bandhilfe: verbindet Zug, Übergang und Stütz in einer Bewegung, bevor du ihn frei schaffst.",
+      "vorbereitung": "Ringe so hoch, dass du frei hängst. Ein starkes Band zwischen beiden Ringgurten oder an der Stange darüber befestigen, so dass es unter dir eine Schlaufe bildet.",
+      "schritte": [
+        "Steig mit beiden Füßen oder Knien in die Bandschlaufe, Hände im False Grip.",
+        "Häng mit gestreckten Armen, Körper gerade.",
+        "Zieh kräftig, bis die Ringe an den Rippen sind.",
+        "Bring Brust und Schultern schnell nach vorn über die Ringe, die Ellbogen eng nach hinten.",
+        "Drück aus dem tiefen Dip in den Stütz, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aus dem Stütz langsam in den Dip und weiter rückwärts in den Hang absenken, dann die Füße aus dem Band nehmen. Nie aus dem Band springen.",
+      "sauber": "Oben sind die Arme im Stütz gestreckt, beide Arme kommen gleichzeitig über die Ringe.",
+      "details": [
+        "Das Band hilft am meisten unten, wo der Zug am schwersten ist."
+      ],
+      "atmung": "Unten einatmen, im Übergang kurz halten, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Im Übergang hängen bleiben.",
+          "k": "Schneller und höher ziehen und die Brust früh über die Ringe bringen."
+        },
+        {
+          "f": "Fuß rutscht aus dem Band.",
+          "k": "Band vor dem Satz prüfen und mit beiden Füßen oder Knien hineinsteigen."
+        }
+      ],
+      "skalierung": "Leichter: stärkeres Band oder Ring Muscle-up Transition. Schwerer: leichteres Band.",
+      "grenzen": "Aufhören, wenn das Band Risse zeigt oder die Schulter im Übergang schmerzt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Befestigung des Bandes und sicherer Ausstieg fehlten.",
+        "korrektur": "Bandschlaufe, Ablauf und Abstieg aus dem Band ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_ring_muscle_up",
+      "zweck": "Vom Hang an den Ringen in den Stütz über den Ringen: verbindet Zugkraft, Übergang und Drückkraft.",
+      "vorbereitung": "Ringe so hoch, dass du frei hängst. Darunter genug Platz, dass Füße und Knie den Boden nicht berühren.",
+      "schritte": [
+        "Greif im False Grip: Ring tief im Handballen, Handgelenk über dem Ring.",
+        "Häng mit gestreckten Armen, Körper gerade, Beine geschlossen.",
+        "Zieh explosiv, bis die Ringe an den Rippen sind, und lehn dich dabei leicht zurück.",
+        "Bring Brust und Schultern schnell nach vorn über die Ringe, die Ellbogen gehen eng nach hinten-oben.",
+        "Drück aus dem tiefen Dip hoch, bis die Arme im Stütz gestreckt sind."
+      ],
+      "ausstieg": "Aus dem Stütz kontrolliert in den Dip absenken, dann rückwärts unter die Ringe in den Hang zurück und loslassen.",
+      "sauber": "Kein Hüftschwung, beide Arme kommen gleichzeitig über die Ringe, oben sind die Arme gestreckt.",
+      "details": [
+        "Die Ringe bleiben die ganze Zeit nah am Körper.",
+        "Im Stütz die Ringe leicht nach außen drehen, so sind die Arme stabiler."
+      ],
+      "atmung": "Unten einatmen, beim Zug und Übergang halten, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Ellbogen gehen zu früh nach außen.",
+          "k": "Ringe eng an den Rippen führen, bis die Brust über den Händen ist."
+        },
+        {
+          "f": "Ein Arm kommt vor dem anderen über die Ringe.",
+          "k": "Gleichzeitig wechseln, sonst Banded Ring Muscle-up üben."
+        }
+      ],
+      "skalierung": "Leichter: Banded Ring Muscle-up oder Transition. Schwerer: mit Weste oder mehrere am Stück.",
+      "grenzen": "Satz beenden, wenn der Übergang nur noch einseitig gelingt. Schmerz vorn in der Schulter im tiefen Dip: aufhören.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "False Grip und Ausstieg nicht erklärt.",
+        "korrektur": "Griff, Ablauf und kontrollierter Weg zurück in den Hang ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kipping_ring_mu",
+      "zweck": "Muscle-up an Ringen mit Hüftschwung: für mehrere Wiederholungen im Metcon, wenn der Muscle-up mit Band sicher sitzt.",
+      "vorbereitung": "Ringe so hoch, dass die Füße beim Schwingen frei sind. Vorn und hinten Platz.",
+      "schritte": [
+        "Häng im False Grip und hol mit Kip Swings Schwung: Hohlkörper, Bogen.",
+        "Aus dem Bogen die Hüfte kräftig zu den Ringen hochschnellen lassen und gleichzeitig ziehen.",
+        "Kipp den Oberkörper über die Ringe, die Ellbogen eng nach hinten.",
+        "Drück aus dem Dip in den Stütz, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aus dem Stütz in den Dip und kontrolliert zurück in den Hang, Schwung auslaufen lassen, dann loslassen.",
+      "sauber": "Beide Arme kommen gleichzeitig über die Ringe, oben gestreckte Arme, die Landung im Stütz ist ruhig.",
+      "details": [
+        "Der Hüftimpuls bringt dich hoch, die Arme ziehen die Ringe nur noch an die Hüfte."
+      ],
+      "atmung": "Kurz und rhythmisch, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Chicken Wing: Ein Arm kommt zuerst über die Ringe.",
+          "k": "Beide Arme gleichzeitig wechseln, sonst zurück zum Banded Ring Muscle-up."
+        },
+        {
+          "f": "Zu wenig Hüftimpuls.",
+          "k": "Den Bogen größer machen und die Hüfte fast bis zu den Ringen bringen."
+        }
+      ],
+      "skalierung": "Leichter: Banded Ring Muscle-up. Schwerer: mehrere am Stück.",
+      "grenzen": "Aufhören, sobald der Übergang einseitig wird oder die Schulter im Dip schmerzt.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Chicken Wing“ nicht erklärt.",
+        "korrektur": "Begriff erklärt, Ablauf des Hüftimpulses beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_bar_muscle_up",
+      "zweck": "Vom Hang unter der Stange in den Stütz über der Stange: braucht einen sehr hohen, schnellen Zug.",
+      "vorbereitung": "Stange so hoch, dass du frei hängst und darüber genug Platz für Oberkörper und Kopf ist.",
+      "schritte": [
+        "Greif im Obergriff etwa schulterbreit, Daumen um die Stange oder darüber.",
+        "Hol mit einem Kip Swing Schwung: Hohlkörper, Bogen.",
+        "Aus dem Bogen die Hüfte zur Stange schnellen lassen und gleichzeitig explosiv ziehen.",
+        "Kipp Oberkörper und Schultern über die Stange, die Handgelenke drehen sich nach oben.",
+        "Drück dich in den Stütz, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aus dem Stütz die Hüfte leicht nach hinten nehmen und kontrolliert in den Hang zurück absenken, dann loslassen.",
+      "sauber": "Beide Arme kommen gleichzeitig über die Stange, oben sind die Arme gestreckt.",
+      "details": [
+        "Die Stange bleibt nah am Körper, du ziehst sie in Richtung Hüfte.",
+        "Voraussetzung: explosive Pull-ups mit der Brust auf Stangenhöhe."
+      ],
+      "atmung": "Unten einatmen, beim Zug halten, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu wenig Zughöhe.",
+          "k": "Erst explosive Pull-ups bis zum Bauch üben."
+        },
+        {
+          "f": "Ein Arm kommt zuerst über die Stange.",
+          "k": "Gleichzeitig wechseln, sonst Low Bar Muscle-up üben."
+        }
+      ],
+      "skalierung": "Leichter: mit Band, Low Bar Muscle-up oder Absprung von einer Box. Schwerer: Strict Bar Muscle-up oder mit Weste.",
+      "grenzen": "Aufhören, wenn der Übergang einseitig wird oder Handgelenk oder Schulter beim Kippen schmerzen.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Griff, Kip und Ausstieg fehlten.",
+        "korrektur": "Ablauf in Phasen mit Griff und sicherem Abstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_one_arm_pullup_assisted",
+      "zweck": "Einarmiger Klimmzug, bei dem die zweite Hand nur noch etwas hilft: Vorstufe zum freien One-Arm Pull-up.",
+      "vorbereitung": "Ein Band oder Handtuch so an der Stange befestigen, dass es neben der Zughand auf Höhe von Stirn bis Brust herunterhängt.",
+      "schritte": [
+        "Greif mit der Zughand die Stange, meist im Untergriff oder Neutralgriff (Handfläche zur Seite).",
+        "Die andere Hand hält Band oder Handtuch weiter unten, je tiefer, desto weniger Hilfe.",
+        "Zieh vor allem mit der Zughand, bis das Kinn über der Stange ist.",
+        "Lass dich langsam ab. Erst alle Wiederholungen einer Seite, dann wechseln."
+      ],
+      "ausstieg": "Im gestreckten Hang mit beiden Händen an die Stange greifen, dann loslassen.",
+      "sauber": "Der Körper dreht sich kaum, die Hilfshand zieht nur so viel wie nötig.",
+      "details": [
+        "Die Hilfe von Woche zu Woche verringern: tiefer greifen oder nur zwei Finger nehmen.",
+        "Beine geschlossen und gerade, das bremst das Drehen."
+      ],
+      "atmung": "Unten einatmen, beim Zug ausatmen oder kurz halten.",
+      "fehler": [
+        {
+          "f": "Die Hilfshand zieht mehr als die Zughand.",
+          "k": "Hilfshand tiefer setzen."
+        },
+        {
+          "f": "Der Körper dreht sich weg.",
+          "k": "Bauch und Gesäß fest, Beine geschlossen."
+        }
+      ],
+      "skalierung": "Leichter: höher an Band oder Handtuch greifen. Schwerer: tiefer greifen oder nur zwei Finger.",
+      "grenzen": "Aufhören bei Schmerz an Ellbogen oder Schulter der Zugseite. Diese Stufe belastet Sehnen stark, Pausen einhalten.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Wie viel Hilfe und wo sie hängt, war unklar.",
+        "korrektur": "Befestigung, Greifhöhe als Stellschraube und Seitenfolge ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_one_arm_pullup",
+      "zweck": "Klimmzug mit einem Arm: eine der schwersten Zugübungen, verlangt sehr viel Kraft in Rücken, Bizeps und Griff.",
+      "vorbereitung": "Stange so hoch, dass du frei hängst. Die freie Hand bleibt in der Nähe, um sich notfalls festzuhalten.",
+      "schritte": [
+        "Greif mit einer Hand, meist im Untergriff oder Neutralgriff, Arm gestreckt.",
+        "Zieh die Schulter der Zugseite nach unten und spann Bauch und Gesäß an.",
+        "Zieh, ohne dich zu verdrehen, bis das Kinn über der Stange ist.",
+        "Lass dich langsam ab, bis der Arm gestreckt ist."
+      ],
+      "ausstieg": "Im gestreckten Hang die zweite Hand an die Stange nehmen, dann loslassen.",
+      "sauber": "Kinn über der Stange, der Körper dreht sich kaum, kein Schwung aus den Beinen.",
+      "details": [
+        "Der Körper darf sich zur Zugseite leicht neigen. Die freie Hand liegt am Bauch oder ist zur Seite gestreckt."
+      ],
+      "atmung": "Unten einatmen, beim Zug die Luft halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Schwung aus den Beinen.",
+          "k": "Beine geschlossen und still, jede Wiederholung aus dem ruhigen Hang."
+        },
+        {
+          "f": "Mit dem Körper wegdrehen.",
+          "k": "Langsamer ziehen und die Hüfte unter der Hand halten."
+        }
+      ],
+      "skalierung": "Leichter: Assisted One-Arm Pull-up. Schwerer: mehrere Wiederholungen.",
+      "grenzen": "Aufhören bei Schmerz am Ellbogen. Lange Pausen zwischen den Sätzen sind normal.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "„Schulter aktiv“ unerklärt, kein Ausstieg.",
+        "korrektur": "In Handlung übersetzt und sicheren Ausstieg mit zweiter Hand ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_rope_climb",
+      "zweck": "Seil hochklettern mit Fußklemme: trainiert Griff, Rücken und Koordination zwischen Armen und Beinen.",
+      "vorbereitung": "Seil fest an der Decke oder am Rig befestigt, darunter eine Matte. Nur so hoch klettern, wie du sicher wieder herunterkommst.",
+      "schritte": [
+        "Greif das Seil über Kopf, eine Hand über der anderen.",
+        "Zieh die Knie zur Brust und klemm das Seil zwischen den Füßen fest: Es läuft über den Spann des einen Fußes, die Sohle des anderen drückt es darauf.",
+        "Steh in der Fußklemme auf, die Beine strecken sich, die Hände greifen höher nach.",
+        "Lös die Klemme, zieh die Knie wieder an, klemm neu und steh wieder auf.",
+        "Oben die Markierung berühren."
+      ],
+      "ausstieg": "Hand unter Hand hinunter, die Füße klemmen locker und bremsen. Nie rutschen lassen, das verbrennt die Hände.",
+      "sauber": "Die Füße halten dich bei jedem Aufstehen, die Hände greifen nur nach. Abstieg kontrolliert Hand für Hand.",
+      "details": [
+        "Diese Fußklemme heißt S-Wrap. Beim J-Hook läuft das Seil innen am Fuß und wird mit dem anderen Fuß gegen den Spann gedrückt.",
+        "Erst die Fußklemme im Sitzen oder knapp über dem Boden üben."
+      ],
+      "atmung": "Bei jedem Aufstehen ausatmen, beim Nachgreifen einatmen.",
+      "fehler": [
+        {
+          "f": "Nur mit den Armen klettern.",
+          "k": "Fußklemme am Boden üben und bei jedem Zug aus den Beinen aufstehen."
+        },
+        {
+          "f": "Am Seil hinunterrutschen.",
+          "k": "Hand unter Hand absteigen, die Füße bremsen mit."
+        }
+      ],
+      "skalierung": "Leichter: Rope Pull-to-Stand oder nur die halbe Höhe. Schwerer: Legless Rope Climb.",
+      "grenzen": "Abbrechen und kontrolliert absteigen, sobald der Griff nachlässt. Nicht klettern, wenn die Hände schon aufgerissen sind.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "J-Hook und S-Wrap nur als Stichworte, Abstieg unklar.",
+        "korrektur": "Fußklemme beschrieben, beide Namen erklärt, sicherer Abstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_legless_rope_climb",
+      "zweck": "Seilklettern nur mit den Armen: verlangt viel Zugkraft und Griff, die Beine helfen nicht.",
+      "vorbereitung": "Seil fest befestigt, Matte darunter. Erst nur ein Stück hochklettern und wieder herunter.",
+      "schritte": [
+        "Greif das Seil über Kopf und heb die Beine im Sitzen vom Boden. Halte sie gestreckt vor dir (L-Sitz) oder ruhig nach unten hängend.",
+        "Zieh dich hoch und greif mit einer Hand höher.",
+        "Zieh weiter und greif mit der anderen Hand nach, Hand über Hand.",
+        "Oben die Markierung berühren."
+      ],
+      "ausstieg": "Hand unter Hand hinunter. Ab halber Höhe darfst du die Füße zur Klemme nehmen und sicher absteigen.",
+      "sauber": "Die Beine bleiben ruhig und helfen nicht, der Abstieg geht kontrolliert Hand für Hand.",
+      "details": [
+        "L-Sitz: Beine gestreckt, etwa waagerecht vor dem Körper."
+      ],
+      "atmung": "Bei jedem Zug ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu schnelles Abrutschen beim Abstieg.",
+          "k": "Hand für Hand hinunter, notfalls mit Fußklemme."
+        },
+        {
+          "f": "Strampeln mit den Beinen.",
+          "k": "Beine im L-Sitz oder gestreckt nach unten fixieren."
+        }
+      ],
+      "skalierung": "Leichter: mit Beinen klettern (Rope Climb). Schwerer: mit Weste.",
+      "grenzen": "Sofort absteigen, wenn der Griff nachlässt. Die Kraft für den Abstieg muss übrig bleiben.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "L-Sitz nicht erklärt, Abstieg unsicher.",
+        "korrektur": "L-Sitz erklärt, Notabstieg mit Fußklemme ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_jackknife_pullup",
+      "zweck": "Klimmzug mit den Füßen auf einer Erhöhung: Die Beine nehmen Gewicht ab, so lernst du den ganzen Bewegungsweg.",
+      "vorbereitung": "Stuhl oder Box stabil vor die Stange stellen, etwa so hoch wie deine Hüfte im Hang. Ringe tief genug, dass du unter ihnen sitzen kannst.",
+      "schritte": [
+        "Greif die Stange im Obergriff schulterbreit.",
+        "Leg die Fersen auf den Stuhl vor dir, die Hüfte ist gebeugt, die Beine fast gestreckt.",
+        "Häng mit gestreckten Armen.",
+        "Zieh die Brust zur Stange und drück dabei nur so viel mit den Beinen wie nötig.",
+        "Senk dich kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Im gestreckten Hang die Füße vom Stuhl nehmen und auf den Boden stellen, dann loslassen.",
+      "sauber": "Das Kinn kommt über die Stange, die Arme strecken sich unten ganz, die Beine helfen gleichmäßig.",
+      "details": [
+        "Je näher der Stuhl an der Stange steht, desto mehr helfen die Beine."
+      ],
+      "atmung": "Beim Hochziehen ausatmen, beim Absenken einatmen.",
+      "fehler": [
+        {
+          "f": "Zu viel Druck aus den Beinen.",
+          "k": "Stuhl weiter weg stellen oder nur die Fersen auflegen."
+        },
+        {
+          "f": "Stuhl rutscht weg.",
+          "k": "Stuhl gegen eine Wand stellen oder auf eine rutschfeste Unterlage."
+        }
+      ],
+      "skalierung": "Leichter: Stuhl näher an die Stange, Knie beugen. Schwerer: Beine weniger einsetzen oder Negative Pull-up.",
+      "grenzen": "Aufhören, wenn du nur noch mit den Beinen hochkommst.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war schon gut, Sicherheit des Stuhls fehlte.",
+        "korrektur": "Stuhl sichern und Abstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_flexed_arm_hang",
+      "zweck": "Oben im Klimmzug halten: baut Kraft in der Endposition auf, wenn noch kein ganzer Pull-up gelingt.",
+      "vorbereitung": "Stuhl oder Box unter die Stange, so hoch, dass das Kinn im Stehen über der Stange ist.",
+      "schritte": [
+        "Steig auf den Stuhl und greif die Stange schulterbreit, Obergriff oder Untergriff.",
+        "Bring das Kinn über die Stange, die Ellbogen sind gebeugt und nah am Körper.",
+        "Zieh die Schultern von den Ohren weg und nimm die Füße vom Stuhl.",
+        "Halte die Position mit ruhigem Körper, solange die Zeit läuft."
+      ],
+      "ausstieg": "Füße zurück auf den Stuhl stellen. Wenn die Kraft ausgeht, langsam ablassen statt fallen und unten mit den Füßen auffangen.",
+      "sauber": "Das Kinn bleibt über der Stange, die Schultern ziehen nicht zu den Ohren.",
+      "details": [
+        "Wird der Hang zu schwer, langsam bis in den gestreckten Hang absenken. Das zählt als Negative und ist ein guter Abschluss."
+      ],
+      "atmung": "Ruhig weiteratmen, kurze Atemzüge.",
+      "fehler": [
+        {
+          "f": "Das Kinn wird über die Stange gereckt statt gehalten.",
+          "k": "Kopf gerade, die Arme halten dich oben, nicht der Nacken."
+        },
+        {
+          "f": "Schultern ziehen zu den Ohren.",
+          "k": "Schultern bewusst nach unten ziehen, Brust zur Stange."
+        }
+      ],
+      "skalierung": "Leichter: Halten mit dem Kinn auf Stangenhöhe. Schwerer: Halten auf halber Höhe mit etwa rechtwinkligem Ellbogen.",
+      "grenzen": "Aufhören, wenn du nicht mehr kontrolliert absenken kannst.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Abbruch ohne Fallen fehlte.",
+        "korrektur": "Kontrolliertes Absenken als Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_typewriter_pullup",
+      "zweck": "Oben im Klimmzug von einer Hand zur anderen schieben: hohe Belastung für jeweils einen Arm, Vorstufe für einarmige Züge.",
+      "vorbereitung": "Stange lang genug für einen breiten Griff, etwa doppelte Schulterbreite.",
+      "schritte": [
+        "Greif deutlich breiter als schulterbreit im Obergriff.",
+        "Zieh dich hoch, bis das Kinn über der Stange ist.",
+        "Schieb den Körper oben zu einer Hand, der andere Arm wird dabei gestreckt.",
+        "Schieb zurück durch die Mitte zur anderen Hand.",
+        "Kehr zur Mitte zurück und senk dich kontrolliert ab."
+      ],
+      "ausstieg": "Im gestreckten Hang ruhig werden, dann loslassen.",
+      "sauber": "Das Kinn bleibt bei der Seitwärtsbewegung über der Stange.",
+      "details": [
+        "Eine Wiederholung ist einmal links und einmal rechts."
+      ],
+      "atmung": "Oben in der Mitte kurz einatmen, beim Seitwärtsschieben ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Körper sinkt beim Seitwechsel ab.",
+          "k": "Nur so weit zur Seite, wie du die Höhe halten kannst."
+        },
+        {
+          "f": "Die Beine schwingen mit.",
+          "k": "Beine geschlossen, Bauch fest."
+        }
+      ],
+      "skalierung": "Leichter: nur eine kurze Strecke zur Seite schieben oder Archer Pull-up. Schwerer: an jeder Seite 2 Sekunden halten.",
+      "grenzen": "Aufhören, wenn das Kinn unter die Stange sinkt oder ein Ellbogen schmerzt.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Zählweise fehlte.",
+        "korrektur": "Eine Wiederholung definiert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_lsit_pullup",
+      "zweck": "Klimmzug mit waagerecht gehaltenen Beinen: Rücken und Bauch arbeiten gleichzeitig, kein Schwung möglich.",
+      "vorbereitung": "Stange oder Ringe so hoch, dass die Füße auch mit gestreckten Beinen vor dir den Boden nicht berühren.",
+      "schritte": [
+        "Häng im Obergriff mit gestreckten Armen.",
+        "Heb die gestreckten Beine geschlossen nach vorn, bis sie etwa waagerecht sind.",
+        "Zieh dich hoch, bis das Kinn über der Stange ist. Die Beine bleiben waagerecht.",
+        "Senk dich kontrolliert ab, die Beine bleiben oben."
+      ],
+      "ausstieg": "Im gestreckten Hang zuerst die Beine langsam senken, dann loslassen.",
+      "sauber": "Die Beine bleiben während der ganzen Wiederholung waagerecht und gestreckt.",
+      "details": [
+        "Fußspitzen strecken und Oberschenkel zusammendrücken, das hilft, die Beine zu halten."
+      ],
+      "atmung": "Kurz und gleichmäßig: beim Zug ausatmen, beim Absenken einatmen.",
+      "fehler": [
+        {
+          "f": "Die Beine sinken beim Hochziehen ab.",
+          "k": "Knie anwinkeln (Tuck), bis du die Beine halten kannst."
+        },
+        {
+          "f": "Rundrücken und hängende Schultern.",
+          "k": "Schultern unten halten, Brust zur Stange."
+        }
+      ],
+      "skalierung": "Leichter: Knie angezogen (Tuck). Schwerer: Weste oder Beine höher als waagerecht.",
+      "grenzen": "Aufhören, wenn die Beine nicht mehr oben bleiben oder der Hüftbeuger krampft.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Beine erst senken, dann loslassen.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_towel_pullup",
+      "zweck": "Klimmzug an Handtüchern: stärkt den Griff und die Unterarme, wie beim Klettern oder Ringen um Kleidung.",
+      "vorbereitung": "Zwei feste Handtücher schulterbreit über die Stange hängen, beide Enden gleich lang. Die Handtücher dürfen nicht über die Stange rutschen können.",
+      "schritte": [
+        "Greif je ein Handtuch mit einer Hand, beide Enden zusammen in der Faust.",
+        "Häng mit gestreckten Armen.",
+        "Zieh dich hoch, bis die Hände etwa auf Kinnhöhe sind.",
+        "Senk dich kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Im gestreckten Hang die Füße abstellen, dann loslassen.",
+      "sauber": "Die Hände rutschen nicht am Handtuch, die Arme strecken sich unten ganz.",
+      "details": [
+        "Die Handtücher hoch greifen, nah an der Stange. Weit unten wird der Weg zu kurz."
+      ],
+      "atmung": "Beim Zug ausatmen, beim Absenken einatmen.",
+      "fehler": [
+        {
+          "f": "Die Handtücher sind zu weit unten gegriffen.",
+          "k": "Eine Faustbreite unter der Stange greifen."
+        },
+        {
+          "f": "Die Hände rutschen.",
+          "k": "Handtuch fester fassen oder trockene Hände, sonst Satz beenden."
+        }
+      ],
+      "skalierung": "Leichter: eine Hand am Handtuch, eine an der Stange. Schwerer: ein einziges Handtuch für beide Hände.",
+      "grenzen": "Satz beenden, sobald der Griff rutscht.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Befestigung der Handtücher fehlte.",
+        "korrektur": "Befestigung und Greifhöhe ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_one_arm_hang",
+      "zweck": "Hängen an einer Hand: kräftigt den Griff und die Schulter für einarmige Zugübungen.",
+      "vorbereitung": "Stange oder Ring so hoch, dass du frei hängst. Die freie Hand bleibt nah an der Stange.",
+      "schritte": [
+        "Häng dich zuerst mit beiden Händen an.",
+        "Lös eine Hand, die andere hält im Obergriff, der Arm ist gestreckt.",
+        "Zieh die Schulter der Hängeseite leicht von den Ohren weg und halte den Körper ruhig.",
+        "Wechsel nach der Zeit die Seite."
+      ],
+      "ausstieg": "Zweite Hand wieder an die Stange nehmen, dann loslassen oder die Füße abstellen.",
+      "sauber": "Die Schulter bleibt aktiv, der Körper dreht sich kaum.",
+      "details": [
+        "Ein leichtes Drehen des Körpers ist normal, mit fest geschlossenen Beinen wird es weniger."
+      ],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Passiv durchhängender Arm.",
+          "k": "Schulter leicht nach unten ziehen, der Arm bleibt gestreckt."
+        },
+        {
+          "f": "Mit Schwung in den Hang springen.",
+          "k": "Immer mit beiden Händen beginnen und dann eine lösen."
+        }
+      ],
+      "skalierung": "Leichter: zwei Finger der anderen Hand an der Stange. Schwerer: längere Zeit oder Weste.",
+      "grenzen": "Loslassen, wenn der Griff aufgeht oder die Schulter sticht.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "Behauptung „belastet die Schulterbänder statt die Muskeln“ als absolute Aussage nicht gut begründet.",
+        "korrektur": "Als Ausführungshinweis ohne Verletzungsbehauptung formuliert.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kipping_c2b",
+      "zweck": "Chest-to-Bar mit Hüftschwung: für viele Wiederholungen im Metcon, wenn Kipping Pull-ups sicher sitzen.",
+      "vorbereitung": "Stange so hoch, dass die Füße beim Schwingen frei sind.",
+      "schritte": [
+        "Häng im Obergriff und starte mit Kip Swings zwischen Hohlkörper und Bogen.",
+        "Am Ende des Bogens die Hüfte kräftig nach vorn-oben schnellen lassen.",
+        "Zieh dabei die Ellbogen weit nach hinten, bis die Brust unterhalb der Schlüsselbeine die Stange berührt.",
+        "Drück dich von der Stange weg zurück in den Hohlkörper und schwing direkt in die nächste Wiederholung."
+      ],
+      "ausstieg": "Schwung auslaufen lassen, im ruhigen Hang loslassen.",
+      "sauber": "Die Brust berührt die Stange bei jeder Wiederholung sichtbar.",
+      "details": [
+        "Hohlkörper: Bauch fest, Beine leicht vor dir. Bogen: Brust vor der Stange, Füße hinter dir."
+      ],
+      "atmung": "Kurz und rhythmisch, an der Stange ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu kurzer Kip, nur das Kinn kommt an die Stange.",
+          "k": "Hüftimpuls größer und die Ellbogen weiter nach hinten ziehen."
+        },
+        {
+          "f": "Der Rhythmus bricht nach jeder Wiederholung.",
+          "k": "Kleinere Serien mit kurzer Pause statt einer langen."
+        }
+      ],
+      "skalierung": "Leichter: Kipping Pull-up. Schwerer: Butterfly Chest-to-Bar oder Weste.",
+      "grenzen": "Aufhören, wenn die Hände aufreißen oder die Schulter beim Abfangen schmerzt.",
+      "pruefung": {
+        "art": [
+          "missverstaendlich"
+        ],
+        "problem": "„Hohlkreuz“ als Name des Bogens ist für Anfänger missverständlich (klingt nach Fehlhaltung).",
+        "korrektur": "Begriffe Hohlkörper und Bogen erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_jumping_pullup",
+      "zweck": "Klimmzug mit Absprung: Die Beine helfen über den schweren Teil, so gehen viele Wiederholungen im Metcon.",
+      "vorbereitung": "Stange so hoch, dass du sie im Stehen auf den Zehen oder von einem Stuhl mit leicht gebeugten Armen greifst. Der Stuhl steht stabil.",
+      "schritte": [
+        "Stell dich unter die Stange und greif sie im Obergriff schulterbreit.",
+        "Beug die Knie leicht und spring ab.",
+        "Nutz den Schwung und zieh dich hoch, bis das Kinn über der Stange ist.",
+        "Senk dich kontrolliert ab und lande weich auf beiden Füßen."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung landen und loslassen.",
+      "sauber": "Das Kinn kommt über die Stange, die Landung ist leise.",
+      "details": [
+        "Je höher die Stange, desto mehr müssen die Arme ziehen."
+      ],
+      "atmung": "Beim Sprung ausatmen, beim Absenken einatmen.",
+      "fehler": [
+        {
+          "f": "Nur aus den Beinen springen.",
+          "k": "Mit den Armen aktiv mitziehen."
+        },
+        {
+          "f": "Harte Landung mit gestreckten Knien.",
+          "k": "Auf dem Vorfuß landen und die Knie nachgeben lassen."
+        }
+      ],
+      "skalierung": "Leichter: mehr Sprung, weniger Zug. Schwerer: langsam absenken oder Kipping Pull-up.",
+      "grenzen": "Aufhören, wenn die Landung unkontrolliert wird.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Landung und Stangenhöhe ungenau.",
+        "korrektur": "Höhe und weiche Landung ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_lat_pulldown",
+      "zweck": "Latzug an der Maschine: trainiert die Zugrichtung des Klimmzugs mit genau einstellbarem Gewicht.",
+      "vorbereitung": "Knie-Polster so einstellen, dass die Oberschenkel fest darunter klemmen. Gewicht mit dem Steckbolzen wählen.",
+      "schritte": [
+        "Greif die Stange im Stehen etwas breiter als schulterbreit im Obergriff und setz dich, die Oberschenkel unter dem Polster.",
+        "Arme gestreckt, Oberkörper leicht nach hinten geneigt, Brust heraus.",
+        "Zieh zuerst die Schultern nach unten, dann die Ellbogen nach unten, bis die Stange an der oberen Brust ist.",
+        "Lass die Stange kontrolliert zurück, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung die Stange bis nach oben zurückgehen lassen, aufstehen und sie oben einhängen bzw. das Gewicht leise absetzen.",
+      "sauber": "Der Oberkörper bleibt fast aufrecht, die Stange kommt zur oberen Brust.",
+      "details": [
+        "Die Stange vor dem Kopf ziehen, nicht in den Nacken.",
+        "Die Gewichte berühren sich zwischen den Wiederholungen nicht."
+      ],
+      "atmung": "Beim Ziehen ausatmen, beim Zurücklassen einatmen.",
+      "fehler": [
+        {
+          "f": "Weit nach hinten lehnen.",
+          "k": "Gewicht verringern und den Oberkörper ruhig halten."
+        },
+        {
+          "f": "Die Stange nach oben schnellen lassen.",
+          "k": "Mindestens so langsam zurück wie beim Ziehen."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht oder 3 Sekunden absenken.",
+      "grenzen": "Aufhören bei Schmerz im Nacken oder vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "fehlende_erklaerung"
+        ],
+        "problem": "Einstellung des Polsters und sicheres Ablegen fehlten.",
+        "korrektur": "Einstellung, Zugrichtung vor dem Kopf und Ausstieg ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_single_arm_pulldown",
+      "zweck": "Latzug mit einem Arm: zeigt und gleicht Unterschiede zwischen links und rechts aus.",
+      "vorbereitung": "Einzelgriff am Kabelzug oben einhängen oder ein Band hoch befestigen.",
+      "schritte": [
+        "Knie dich vor den Kabelzug oder das Band, der Oberkörper aufrecht.",
+        "Greif den Griff mit einer Hand, der Arm ist über dem Kopf gestreckt.",
+        "Zieh den Ellbogen nach unten zur Hüfte, die Hand endet neben der Schulter.",
+        "Lass den Arm kontrolliert zurück nach oben. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Arm langsam ganz nach oben zurückgehen lassen, dann den Griff lösen.",
+      "sauber": "Der Oberkörper bleibt ruhig und dreht nicht mit.",
+      "details": [
+        "Die freie Hand kann auf dem Oberschenkel liegen."
+      ],
+      "atmung": "Beim Ziehen ausatmen, beim Zurücklassen einatmen.",
+      "fehler": [
+        {
+          "f": "Der Rumpf dreht mit.",
+          "k": "Gewicht verringern, Hüfte und Schultern zeigen nach vorn."
+        },
+        {
+          "f": "Die Schulter zieht zum Ohr.",
+          "k": "Zuerst die Schulter nach unten, dann den Ellbogen."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder leichteres Band. Schwerer: mehr Gewicht oder unten 1 Sekunde halten.",
+      "grenzen": "Aufhören bei Schmerz in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich, Ausstieg fehlte.",
+        "korrektur": "Ausstieg und Hinweis zur Schulter ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_straight_arm_pulldown",
+      "zweck": "Ziehen mit gestreckten Armen: trainiert den breiten Rückenmuskel ohne Bizeps, gut als Aufwärmen und für Front-Lever-Kraft.",
+      "vorbereitung": "Stange oder Seil am Kabelzug oben einhängen oder ein Band hoch befestigen.",
+      "schritte": [
+        "Stell dich einen Schritt vor den Kabelzug und greif Stange oder Band schulterbreit.",
+        "Beug dich aus der Hüfte leicht vor, Rücken gerade, Knie locker. Die Arme sind fast gestreckt auf Kopfhöhe.",
+        "Zieh die gestreckten Arme in einem Bogen nach unten bis zu den Oberschenkeln.",
+        "Lass die Arme kontrolliert zurück bis auf Kopfhöhe."
+      ],
+      "ausstieg": "Arme langsam nach oben zurückgehen lassen, bis das Gewicht aufliegt bzw. das Band locker ist.",
+      "sauber": "Die Ellbogen bleiben während der ganzen Bewegung gleich wenig gebeugt.",
+      "details": [
+        "Die Bewegung kommt nur aus der Schulter."
+      ],
+      "atmung": "Beim Herunterziehen ausatmen, beim Zurückgehen einatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen beugen sich.",
+          "k": "Gewicht verringern und die Arme fest gestreckt lassen."
+        },
+        {
+          "f": "Mit dem Oberkörper wippen.",
+          "k": "Hüfte ruhig halten, nur die Arme bewegen sich."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht oder leichteres Band. Schwerer: mehr Gewicht oder unten 2 Sekunden halten.",
+      "grenzen": "Aufhören bei Schmerz vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Text war verständlich, Rückenhaltung ungenau.",
+        "korrektur": "Hüftbeuge und gerader Rücken ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_weighted_chinup",
+      "zweck": "Chin-up mit Zusatzgewicht: steigert die Kraft im Untergriff, wenn freie Chin-ups leicht fallen.",
+      "vorbereitung": "Weste eng anziehen oder Gewicht am Dip-Gürtel einhängen, es hängt zwischen den Oberschenkeln.",
+      "schritte": [
+        "Greif im Untergriff schulterbreit: Die Handflächen zeigen zu dir.",
+        "Häng mit gestreckten Armen und warte, bis das Gewicht nicht mehr pendelt.",
+        "Zieh die Ellbogen nah am Körper nach unten, bis das Kinn über der Stange ist.",
+        "Senk dich kontrolliert ab, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Im gestreckten Hang Füße auf den Stuhl stellen oder weich landen, dann erst das Gewicht abnehmen.",
+      "sauber": "Das Gewicht pendelt nicht, die Arme strecken sich unten ganz.",
+      "details": [
+        "In kleinen Schritten steigern, der Coach schlägt das Gewicht vor."
+      ],
+      "atmung": "Unten einatmen, beim Zug halten, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Zu viel Gewicht verkürzt die Bewegung.",
+          "k": "Gewicht nur steigern, wenn alle Wiederholungen bis ganz unten gehen."
+        },
+        {
+          "f": "Das Gewicht schwingt.",
+          "k": "Beine geschlossen und vor jeder Wiederholung kurz still werden."
+        }
+      ],
+      "skalierung": "Leichter: weniger Gewicht. Schwerer: mehr Gewicht.",
+      "grenzen": "Satz beenden bei Schmerz an der Innenseite des Ellbogens.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg mit Gewicht fehlte.",
+        "korrektur": "Erst landen, dann Gewicht abnehmen.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_low_bar_mu",
+      "zweck": "Muscle-up an einer tiefen Stange mit Fußhilfe: übt den Übergang über die Stange, ohne frei hängen zu müssen.",
+      "vorbereitung": "Eine feste Stange etwa auf Hüft- bis Brusthöhe, zum Beispiel am Rig oder auf dem Spielplatz.",
+      "schritte": [
+        "Setz die Füße vor der Stange auf den Boden und greif sie im Obergriff schulterbreit, Körper schräg darunter.",
+        "Zieh dich hoch, die Beine helfen nur so viel wie nötig.",
+        "Kipp die Brust über die Stange, die Handgelenke drehen sich nach oben.",
+        "Drück dich in den Stütz, bis die Arme gestreckt sind."
+      ],
+      "ausstieg": "Aus dem Stütz die Füße wieder auf den Boden stellen und rückwärts unter die Stange zurückgehen.",
+      "sauber": "Die Brust kommt über die Stange, bevor du in den Stütz drückst.",
+      "details": [
+        "Die Stange bleibt nah an der Brust, die Ellbogen gehen eng nach hinten."
+      ],
+      "atmung": "Beim Ziehen einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ellbogen bleiben zu lange hinter dem Körper.",
+          "k": "Brust früh nach vorn über die Stange schieben."
+        },
+        {
+          "f": "Nur mit den Beinen hochspringen.",
+          "k": "Füße näher zur Stange, Arme ziehen aktiv."
+        }
+      ],
+      "skalierung": "Leichter: mehr mit den Beinen helfen. Schwerer: Stange höher oder Beine weniger einsetzen.",
+      "grenzen": "Aufhören bei Schmerz in Handgelenk oder vorn in der Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Ausstieg fehlte.",
+        "korrektur": "Rückweg aus dem Stütz ergänzt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_strict_bar_mu",
+      "zweck": "Muscle-up an der Stange ohne Schwung: verlangt sehr viel Zug- und Drückkraft.",
+      "vorbereitung": "Stange so hoch, dass du frei hängst und darüber genug Platz für den Oberkörper ist.",
+      "schritte": [
+        "Häng ruhig im normalen Obergriff oder im falschen Griff (Handgelenk über der Stange).",
+        "Zieh dich ohne Schwung explosiv hoch bis zur unteren Brust.",
+        "Kipp die Schultern über die Stange, die Handgelenke drehen sich nach oben.",
+        "Drück dich in den Stütz, bis die Arme gestreckt sind.",
+        "Senk dich kontrolliert zurück in den Hang."
+      ],
+      "ausstieg": "Aus dem gestreckten Hang loslassen und weich landen.",
+      "sauber": "Die Beine bleiben ruhig, es gibt keinen Hüftimpuls.",
+      "details": [
+        "Der falsche Griff macht den Übergang leichter, ist aber schwerer zu halten."
+      ],
+      "atmung": "Unten einatmen, beim Zug halten, beim Drücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Beine schwingen mit.",
+          "k": "Beine geschlossen und gestreckt, das ist sonst ein Bar Muscle-up mit Kip."
+        },
+        {
+          "f": "Zu wenig Zughöhe.",
+          "k": "Explosive Pull-ups bis zum Bauch üben."
+        }
+      ],
+      "skalierung": "Leichter: Bar Muscle-up mit Kip oder Band. Schwerer: Weste oder langsamer Übergang.",
+      "grenzen": "Aufhören bei Schmerz in Handgelenk, Ellbogen oder Schulter.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Falscher Griff unerklärt.",
+        "korrektur": "Begriff erklärt.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_rope_pull_to_stand",
+      "zweck": "Aus der Rückenlage am Seil hochziehen: übt Griff und Zug fürs Seilklettern, ohne Höhe.",
+      "vorbereitung": "Seil fest befestigt, du liegst darunter so, dass es auf Brusthöhe herunterhängt.",
+      "schritte": [
+        "Leg dich auf den Rücken, das Seil hängt über deiner Brust, die Beine gestreckt.",
+        "Greif so hoch wie möglich.",
+        "Zieh dich Hand über Hand nach oben, bis du stehst. Die Fersen bleiben als Drehpunkt am Boden.",
+        "Geh Hand unter Hand kontrolliert zurück in die Rückenlage."
+      ],
+      "ausstieg": "Unten angekommen ablegen und loslassen.",
+      "sauber": "Die Beine bleiben gestreckt und arbeiten nur als Drehpunkt mit.",
+      "details": [
+        "Der Körper bleibt gerade wie ein Brett, vom Kopf bis zu den Fersen."
+      ],
+      "atmung": "Bei jedem Griff ausatmen.",
+      "fehler": [
+        {
+          "f": "Mit den Beinen abstoßen.",
+          "k": "Beine gestreckt lassen, die Arme ziehen."
+        },
+        {
+          "f": "Unten fallen lassen.",
+          "k": "Hand unter Hand langsam zurück."
+        }
+      ],
+      "skalierung": "Leichter: Knie gebeugt, Füße nah am Seil. Schwerer: im Sitzen starten oder Rope Climb.",
+      "grenzen": "Aufhören, wenn der Griff aufgeht.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Körperhaltung ungenau.",
+        "korrektur": "Gerader Körper beschrieben.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_peg_board",
+      "zweck": "Klettern am Steckbrett: Ein Arm hält, der andere steckt um. Sehr hohe einseitige Zug- und Haltekraft.",
+      "vorbereitung": "Peg Board fest an der Wand, Matte darunter, beide Pflöcke bereit. Nur mit sicherem Legless Rope Climb.",
+      "schritte": [
+        "Steck beide Pflöcke in die unteren Löcher und häng dich mit gestreckten Armen daran.",
+        "Zieh dich hoch, halte dich mit einem Arm und setz den anderen Pflock ein Loch höher.",
+        "Wechsel so Hand für Hand bis nach oben.",
+        "Steig auf dieselbe Weise kontrolliert wieder ab."
+      ],
+      "ausstieg": "Hand für Hand absteigen, bis die Füße den Boden erreichen. Nicht aus der Höhe springen.",
+      "sauber": "Du hältst dich beim Umstecken ruhig mit einem Arm, ohne zu schwingen.",
+      "details": [
+        "Pflöcke ganz in die Löcher drücken, bevor du Gewicht darauf gibst."
+      ],
+      "atmung": "Beim Umstecken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hektisches Umstecken ohne Halten.",
+          "k": "Erst oben ruhig halten, dann den Pflock setzen."
+        },
+        {
+          "f": "Pflock nicht ganz im Loch.",
+          "k": "Vor dem Belasten kurz nachdrücken."
+        }
+      ],
+      "skalierung": "Leichter: Legless Rope Climb oder nur bis zur Hälfte. Schwerer: Weste oder mehrere Runden ohne Pause.",
+      "grenzen": "Sofort absteigen, wenn ein Arm nachlässt. Die Kraft für den Abstieg muss übrig bleiben.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Sicherheit beim Umstecken.",
+        "korrektur": "Pflock prüfen und Abstieg ergänzt.",
+        "status": "geklaert"
+      }
+    }
+  ]
+}
