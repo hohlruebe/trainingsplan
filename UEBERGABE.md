@@ -15,8 +15,9 @@ Stand: 15. Oktober 2026 (Übungs-Anleitungen neu; davor Aufwärmen und Vollbild 
   Prüfliste: `design/auftraege/pruefliste_texte.md` (154 fehlende Erklärung, 41 missverständlich, 3 fachliche Fehler: „Knie über die Zehen“ bei
   Air Squat, Pistol, Squat Jump).
 - Geprüft: neuer Test `tests/uebungen-anleitungen.cjs` (mit `TP_BROWSER=1` 390 und 1366 px), dazu alle bisherigen Tests.
-- Offen: Dennis liest am Handy gegen; Feld `quelle` im Kopf von lib-data/fam-data (Buchtitel, nirgends angezeigt) löschen oder lassen?
-  Neue Ansicht ohne Canvas-Entwurf gebaut.
+- Quellen gelöscht (Dennis: eigene Bibliothek, Recherche im Netz plus eigene Erfahrung): `quelle` aus lib-data, mobility, fam-data und
+  `design/familien.json`, Prüfer verlangt es nicht mehr, `bibliothek.md` angepasst.
+- Offen: Dennis prüft den Entwurf der Ansicht (Screenshots im Chat) vor dem Merge.
 
 ## Aufwärmen und Vollbild am Laptop (Claude, nach Dennis' Training)
 - Dennis: 3 × 5 Squat Jumps passen nicht ins Aufwärmen (eine Übung nach der anderen); im Vollbild sah er nicht, wie viele Wdh. dran sind,

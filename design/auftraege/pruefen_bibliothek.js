@@ -141,7 +141,6 @@ function pruefeDatei(datei) {
   try { d = JSON.parse(fs.readFileSync(datei, 'utf8')); } catch (e) { return ['Kein gültiges JSON: ' + e.message]; }
   if (d.v !== 1) err.push('v muss 1 sein');
   if (!MUSTER.has(d.muster)) err.push('unbekanntes muster „' + d.muster + '“');
-  if (d.teil !== 'texte' && !text(d.quelle)) err.push('quelle fehlt');
   const leerOk = d.teil === 'felder' && !LIB.uebungen.some((u) => u.muster === d.muster);
   if (!Array.isArray(d.uebungen) || (!d.uebungen.length && !leerOk)) return err.concat(['uebungen fehlt oder ist leer']);
   const ids = new Set();

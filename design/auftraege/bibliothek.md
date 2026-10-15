@@ -118,7 +118,6 @@ Für jedes Paket:
   "v": 1,
   "teil": "felder",
   "muster": "zug_vertikal",
-  "quelle": "Kurz, worauf die Einschätzung beruht",
   "uebungen": [
     {
       "id": "g_pullup",
@@ -147,7 +146,6 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
   "v": 1,
   "teil": "neu",
   "muster": "zug_vertikal",
-  "quelle": "…",
   "uebungen": [
     { "id": "g_typewriter_pullup", "name": "Typewriter Pull-up", "muster": "zug_vertikal", "bereich": "zug", "einheit": "wdh",
       "rolle": ["kraft"], "equipment": [["eq_klimmzugstange"]], "nutzen": 80, "level": 4, "voraussetzung": [{ "leiter": "g_pullup", "stufe": "Frei" }],
@@ -185,10 +183,8 @@ Wieder in Paketen je Bewegungsmuster, erst nach Teil 1.
 - **Equipment:** nur IDs aus Anhang B (oder aus `geraete_neu`). Lieber Alternativen in einer Gruppe als zu viele Pflichtgeräte.
 - **Sprache:** `name` englisch, alle anderen Texte deutsch, kurze klare Sätze.
 - **Nutzen und Effekt:** an den bestehenden Werten orientieren (Anhang D). Ähnliche Übungen bekommen ähnliche Werte.
-- **Quellen:** anerkannt, z. B.
-  - Overcoming Gravity, Convict Conditioning, CrossFit Movement Standards
-  - NSCA-Grundlagen, Studien zu Muskelaktivität und Gelenkbelastung
-  - Kurz nennen in `quelle`.
+- **Recherche:** breit im Netz recherchieren und mit eigener Erfahrung ergänzen. Keine Quellen in den Paketen oder der App
+  (Dennis, 15. Oktober 2026: eigene Bibliothek); ein Feld `quelle` ist nicht mehr nötig.
 - **Mobility** (Muster `mobilitaet`): in Teil 1 mit Feldern versehen. Neue Mobility-Übungen in Teil 2 nur, wenn eine Region fehlt.
 - **Medizin:** Keine Diagnosen, keine Heilversprechen. `gelenke` beschreibt Belastung, nicht Eignung bei Verletzungen.
 

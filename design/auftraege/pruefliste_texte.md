@@ -23,9 +23,12 @@ Stand: 15. Oktober 2026, Branch `uebungen-anleitungen`. Erzeugt aus den `pruefun
 - **rumpf_anti_streckung**: „Stack“ wird in jeder Übung in eigenen Worten erklärt: Rippen nach unten Richtung Becken ziehen, so dass Brustkorb und Becken übereinander stehen.
 - **sprung**: Sprünge im Plan immer ohne Weste: so steht es seit jeher im Glossar und bleibt als Regel des Plans (keine allgemeine Behauptung, dass Sprünge mit Weste schädlich sind).
 
+## Entschieden mit Dennis
+
+- Quellen gelöscht (15. Oktober 2026): `quelle` aus lib-data, mobility und fam-data entfernt, der Prüfer verlangt das Feld nicht mehr.
+
 ## Offene Fragen an Dennis
 
-- `lib-data` und `fam-data` tragen im Kopf noch ein Feld `quelle` mit Buchtiteln. Die App zeigt es nirgends an. Löschen oder als Herkunft stehen lassen?
 - Die neue Ansicht (sichtbarer Teil plus „Fehler, Varianten und Technik“ zum Aufklappen) ist ohne Canvas-Entwurf gebaut. Bitte am Handy ansehen.
 - Mobility-Übungen haben oft keinen eigenen Ausstieg oder keine Grenzen-Zeile. Das ist Absicht; die Zeile fehlt dann in der App.
 
