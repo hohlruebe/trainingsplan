@@ -4,7 +4,22 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 15. Oktober 2026 (Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 16. Oktober 2026 (Übungsbibliothek in Obsidian zusammengelegt; davor Übungs-Anleitungen neu, Aufwärmen und Vollbild am Laptop)
+
+## Übungsbibliothek in Obsidian zusammengelegt (16. Oktober 2026, Claude, Branch `bibliothek-obsidian`)
+- Vorgeschichte: Dennis ließ mehrere KIs (GLM-5.3, GPT-6, Gemini, Claude im eigenen Chat) nach einem gemeinsamen Prompt je Bereich eine streng
+  wissenschaftliche Übungsbibliothek erstellen (7 Bereiche: Kraft Unterkörper, Kraft Oberkörper, Rumpf und Tragen, Schnellkraft, Ausdauer,
+  Beweglichkeit, Gleichgewicht und Koordination; Evidenz je Endpunkt Aktivierung/Gelenkbelastung/Trainingswirkung/Gesundheit, Hinweise für Gruppen).
+  Claude hat abgeglichen (Regel: niedrigere Bewertung gilt, ab 2 Stufen Abstand strittig). Ergebnis allein hätte die App nicht ersetzen können
+  (Calisthenics-Skills und CrossFit kaum einzeln erforscht).
+- Entscheidungen von Dennis: zusammenlegen, Obsidian führt; neue Übungen ohne Platz im Plan nur in der Bibliothek; Evidenz kurz im (i)-Blatt.
+- Umgesetzt: `bibliothek/` (Vault, auch in Dennis' Google Drive › Trainingsplan › Obsidian), `design/bibliothek/` (md.js, export.js, bauen.js,
+  js-yaml), Feld `ev` in lib-data (380 von 381 Übungen; 147 mit eigener oder Varianten-Recherche, 233 übertragen vom Bewegungsmuster, Stack Breathing
+  ohne), (i)-Blatt „Was die Forschung sagt“, Test `tests/bibliothek.cjs`. 53 neue Übungen aus der Recherche mit `app: false`.
+- Geprüft: alle Tests (bibliothek, uebungen-anleitungen mit Browser, dreitage(+browser), ausfaelle(+browser), stabilisierung).
+- Offen: 197 Quellen, erst 15 geprüft (Europe PMC/OpenAlex lehnten Abfragen ab; Dennis könnte `www.ebi.ac.uk` und `api.crossref.org` freigeben).
+  Offene Fragen für Dennis stehen in `bibliothek/00 Konzept/Offene Fragen.md` (Abgleich-Regel, Streitfälle, welche neuen Übungen zuerst, Programme,
+  Nordic Curl, dritte KI für Bereich 2–7). Dennis' Antworten künftig in `> [!dennis]`-Kästen der Notizen; vor jeder Arbeit den Ordner vom Mac holen.
 
 ## Übungs-Anleitungen neu (15. Oktober 2026, Claude, Branch `uebungen-anleitungen`)
 - Dennis' Auftrag (zuerst an Gemini, das an der Dateigröße scheiterte): alle Übungen so erklären, dass Anfänger sie verstehen (Vorbereitung, Einstieg,

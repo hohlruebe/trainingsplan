@@ -14,6 +14,8 @@ Dieses Projekt wird mit mehreren KI-Werkzeugen bearbeitet. Damit alle nach dense
 - Ändert sich außer `index.html` eine Datei der App oder kommt eine dazu: `CACHE` in `sw.js` hochzählen und neue Dateien in `ASSETS` eintragen.
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze. Handy zuerst (390 px), Tippflächen mindestens 44 px.
 - Der Coach entscheidet, der Nutzer gibt nur Antworten.
+- Die Übungsbibliothek führt Obsidian (`bibliothek/`): Übungen, Leitern und Familien dort ändern und mit `node design/bibliothek/bauen.js`
+  in `index.html` bauen, nie `lib-data`/`fam-data` von Hand. `node tests/bibliothek.cjs` prüft, dass beides gleich ist.
 - Den Sync-Token und den Link der Kalender-Brücke (`tp.kal`) nie in Code, Export, Sync oder Logs schreiben.
 - Plan 2 (drei Einheiten A, B, C) ist der Standard: intern Tag 1, 3, 6. Neue Einträge tragen `pv: 2` und `unit`, alte behalten ihre Tag-Bedeutung.
   Nie einen alten `tag` neu deuten (Tag 2 bleibt ein Kardio-Eintrag). Offene Pakete des Umbaus stehen in `UEBERGABE.md`.

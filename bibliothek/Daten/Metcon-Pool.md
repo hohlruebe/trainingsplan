@@ -1,0 +1,85 @@
+---
+metcon:
+  - {id: m_pullup, uebung: g_pullup, menge: "5", einheit: wdh, intensitaet: mittel, skalierung: Band oder Ring Row}
+  - {id: m_chinup, uebung: g_chinup, menge: "5", einheit: wdh, intensitaet: mittel, skalierung: Band oder Ring Row}
+  - {id: m_ring_row, uebung: g_row, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Steiler stehen}
+  - {id: m_band_row, uebung: g_band_row, menge: "15", einheit: wdh, intensitaet: leicht, skalierung: Leichteres Band}
+  - {id: m_band_lat, uebung: g_band_lat_pulldown, menge: "15", einheit: wdh, intensitaet: leicht, skalierung: Leichteres Band}
+  - {id: m_kipping_pullup, uebung: g_kipping_pullup, menge: "10", einheit: wdh, intensitaet: hoch, skalierung: Ring Pull-up mit Band}
+  - {id: m_c2b, uebung: g_chest_to_bar, menge: "6", einheit: wdh, intensitaet: hoch, skalierung: Pull-up}
+  - {id: m_ring_mu, uebung: g_ring_muscle_up, menge: "3", einheit: wdh, intensitaet: hoch, skalierung: Banded Ring Muscle-up oder 2 Pull-ups plus 2 Dips}
+  - {id: m_rope_climb, uebung: g_rope_climb, menge: "1", einheit: wdh, intensitaet: hoch, skalierung: 3 Ring Pull-ups}
+  - {id: m_renegade_row, uebung: g_renegade_row, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Leichtere Hanteln oder Ring Row}
+  - {id: m_push, uebung: g_push, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Auf Knien oder Hände erhöht}
+  - {id: m_hr_push, uebung: g_hand_release_push, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Push-up auf Knien}
+  - {id: m_diamond_push, uebung: g_diamond_push, menge: "8", einheit: wdh, intensitaet: mittel, skalierung: Push-up}
+  - {id: m_ring_push, uebung: g_ring_push, menge: "8", einheit: wdh, intensitaet: mittel, skalierung: Push-up}
+  - {id: m_pike, uebung: g_pike, menge: "8", einheit: wdh, intensitaet: mittel, skalierung: Hände erhöht}
+  - {id: m_dip, uebung: g_dip, menge: "6", einheit: wdh, intensitaet: hoch, skalierung: Bench Dip oder Band}
+  - {id: m_bench_dip, uebung: g_bench_dip, menge: "12", einheit: wdh, intensitaet: leicht, skalierung: Knie beugen}
+  - {id: m_hspu, uebung: g_hspu, menge: "5", einheit: wdh, intensitaet: hoch, skalierung: Pike Push-up mit Füßen auf Stuhl}
+  - {id: m_wall_walk, uebung: g_wall_walk, menge: "3", einheit: wdh, intensitaet: hoch, skalierung: Halber Wall Walk}
+  - {id: m_band_press, uebung: g_band_press, menge: "15", einheit: wdh, intensitaet: leicht, skalierung: Leichteres Band}
+  - {id: m_db_press, uebung: g_db_press, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Leichtere Hanteln}
+  - {id: m_push_press, uebung: g_push_press, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Leichteres Gewicht oder Band Overhead Press}
+  - {id: m_air, uebung: g_air, menge: "15", einheit: wdh, intensitaet: leicht, skalierung: Auf Stuhl absitzen}
+  - {id: m_air_weste, uebung: g_air, menge: "15", einheit: wdh, intensitaet: mittel, skalierung: Ohne Weste}
+  - {id: m_lunge, uebung: g_lunge, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Am Türrahmen festhalten}
+  - {id: m_walking_lunge, uebung: g_walking_lunge, menge: "12", einheit: wdh, intensitaet: mittel, skalierung: Reverse Lunge}
+  - {id: m_split_squat, uebung: g_split_squat, menge: "10", einheit: wdh, intensitaet: leicht, skalierung: Kürzerer Weg}
+  - {id: m_step_up, uebung: g_step_up, menge: "10", einheit: wdh, intensitaet: leicht, skalierung: Niedrigere Stufe}
+  - {id: m_pistol, uebung: g_pistol, menge: "5", einheit: wdh, intensitaet: hoch, skalierung: Box Pistol Squat}
+  - {id: m_goblet, uebung: g_goblet_squat, menge: "12", einheit: wdh, intensitaet: mittel, skalierung: Air Squat}
+  - {id: m_wall_ball, uebung: g_wall_ball, menge: "15", einheit: wdh, intensitaet: hoch, skalierung: Leichterer Ball oder Air Squat}
+  - {id: m_thruster, uebung: g_thruster, menge: "10", einheit: wdh, intensitaet: hoch, skalierung: Leichteres Gewicht oder Air Squat mit Band Press}
+  - {id: m_wall_sit, uebung: g_wall_sit, menge: "30", einheit: sek, intensitaet: leicht, skalierung: Höher sitzen}
+  - {id: m_bridge, uebung: g_bridge, menge: "15", einheit: wdh, intensitaet: leicht, skalierung: Kleinerer Weg}
+  - {id: m_hip_thrust, uebung: g_hip_thrust, menge: "12", einheit: wdh, intensitaet: mittel, skalierung: Glute Bridge}
+  - {id: m_slider_curl, uebung: g_slider_curl, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Hüfte unten lassen}
+  - {id: m_kb_swing, uebung: g_kb_swing, menge: "15", einheit: wdh, intensitaet: mittel, skalierung: Leichtere Kettlebell oder Glute Bridge}
+  - {id: m_american_swing, uebung: g_american_swing, menge: "12", einheit: wdh, intensitaet: hoch, skalierung: Kettlebell Swing}
+  - {id: m_db_swing, uebung: g_db_swing, menge: "15", einheit: wdh, intensitaet: mittel, skalierung: Band Pull-Through}
+  - {id: m_band_pull_through, uebung: g_band_pull_through, menge: "15", einheit: wdh, intensitaet: leicht, skalierung: Leichteres Band}
+  - {id: m_deadlift, uebung: g_deadlift, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Kettlebell Deadlift}
+  - {id: m_sdhp, uebung: g_sdhp, menge: "10", einheit: wdh, intensitaet: hoch, skalierung: Kettlebell Deadlift}
+  - {id: m_hollow, uebung: g_hollow, menge: "20", einheit: sek, intensitaet: leicht, skalierung: Knie angezogen}
+  - {id: m_hollow_rock, uebung: g_hollow_rock, menge: "15", einheit: wdh, intensitaet: mittel, skalierung: Hollow Body Hold}
+  - {id: m_plank, uebung: g_plank, menge: "30", einheit: sek, intensitaet: leicht, skalierung: Auf den Knien}
+  - {id: m_tuck, uebung: g_tuck, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Kleinerer Weg}
+  - {id: m_slider_pike, uebung: g_slider_pike, menge: "8", einheit: wdh, intensitaet: mittel, skalierung: Slider Knee Tuck}
+  - {id: m_kneeraise, uebung: g_kneeraise, menge: "8", einheit: wdh, intensitaet: mittel, skalierung: Hollow Body Hold}
+  - {id: m_t2b, uebung: g_kipping_t2b, menge: "10", einheit: wdh, intensitaet: hoch, skalierung: Hanging Knee Raise}
+  - {id: m_sit_up, uebung: g_sit_up, menge: "15", einheit: wdh, intensitaet: leicht, skalierung: Arme vor der Brust}
+  - {id: m_v_up, uebung: g_v_up, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Tuck-up}
+  - {id: m_russian_twist, uebung: g_russian_twist, menge: "20", einheit: wdh, intensitaet: leicht, skalierung: Füße am Boden}
+  - {id: m_body_saw, uebung: g_body_saw, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Plank}
+  - {id: m_bear_crawl, uebung: g_bear_crawl, menge: "10", einheit: meter, intensitaet: mittel, skalierung: Langsamer}
+  - {id: m_mountain_climber, uebung: g_mountain_climber, menge: "20", einheit: wdh, intensitaet: mittel, skalierung: Langsamer}
+  - {id: m_squat_jump, uebung: g_squatjump, menge: "10", einheit: wdh, intensitaet: hoch, skalierung: Air Squat}
+  - {id: m_skater, uebung: g_skater, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Seitlicher Ausfallschritt}
+  - {id: m_box_jump, uebung: g_box_jump, menge: "10", einheit: wdh, intensitaet: hoch, skalierung: Step-up}
+  - {id: m_bbjo, uebung: g_burpee_box_jump_over, menge: "6", einheit: wdh, intensitaet: hoch, skalierung: Burpee plus Step-up}
+  - {id: m_single_under, uebung: g_single_under, menge: "50", einheit: wdh, intensitaet: leicht, skalierung: Ohne Seil hüpfen}
+  - {id: m_double_under, uebung: g_double_under, menge: "30", einheit: wdh, intensitaet: hoch, skalierung: 3 Single-Unders pro geplantem Double-Under}
+  - {id: m_burpee, uebung: g_burpee, menge: "8", einheit: wdh, intensitaet: hoch, skalierung: Step-back Burpee}
+  - {id: m_burpee_pullup, uebung: g_burpee_pullup, menge: "5", einheit: wdh, intensitaet: hoch, skalierung: Burpee}
+  - {id: m_bike_30s, uebung: g_bike_erg, menge: "30", einheit: sek, intensitaet: hoch, skalierung: Weniger Watt}
+  - {id: m_bike_cal, uebung: g_bike_erg, menge: "10", einheit: kalorien, intensitaet: hoch, skalierung: Weniger Kalorien}
+  - {id: m_row_cal, uebung: g_row_erg, menge: "12", einheit: kalorien, intensitaet: hoch, skalierung: Bike Erg}
+  - {id: m_ski_cal, uebung: g_ski_erg, menge: "10", einheit: kalorien, intensitaet: hoch, skalierung: Bike Erg}
+  - {id: m_run_200, uebung: g_run, menge: "200", einheit: meter, intensitaet: hoch, skalierung: 100 m oder 30 s Bike Erg}
+  - {id: m_run_400, uebung: g_run, menge: "400", einheit: meter, intensitaet: hoch, skalierung: 200 m oder 60 s Bike Erg}
+  - {id: m_shuttle, uebung: g_shuttle_run, menge: "50", einheit: meter, intensitaet: hoch, skalierung: Kürzere Strecke}
+  - {id: m_stair, uebung: g_stair_climb, menge: "30", einheit: meter, intensitaet: mittel, skalierung: Langsamer}
+  - {id: m_ball_slam, uebung: g_ball_slam, menge: "12", einheit: wdh, intensitaet: hoch, skalierung: Leichterer Ball}
+  - {id: m_db_snatch, uebung: g_db_snatch, menge: "10", einheit: wdh, intensitaet: hoch, skalierung: Leichtere Hantel}
+  - {id: m_devil_press, uebung: g_devil_press, menge: "6", einheit: wdh, intensitaet: hoch, skalierung: Burpee plus Dumbbell Snatch}
+  - {id: m_kb_clean, uebung: g_kb_clean, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Kettlebell Deadlift}
+  - {id: m_hpc, uebung: g_hang_power_clean, menge: "6", einheit: wdh, intensitaet: hoch, skalierung: Medicine Ball Clean}
+  - {id: m_med_ball_clean, uebung: g_med_ball_clean, menge: "10", einheit: wdh, intensitaet: mittel, skalierung: Leichterer Ball}
+  - {id: m_farmers, uebung: g_farmers_carry, menge: "40", einheit: meter, intensitaet: mittel, skalierung: Backpack Carry}
+  - {id: m_backpack, uebung: g_backpack_carry, menge: "60", einheit: meter, intensitaet: leicht, skalierung: Leichterer Rucksack}
+---
+# Metcon-Pool
+
+Einträge für den Metcon-Teil. Je Eintrag eine Zeile. Die Daten stehen in den Eigenschaften oben.

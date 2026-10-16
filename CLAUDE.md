@@ -118,6 +118,21 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Trennen während des Abgleichs verhindert weitere Anfragen. Export-/Sync-Format und bestehende IDs bleiben erhalten.
   Regressionen: `node tests/stabilisierung.cjs` (Speicherfehler/Wiederholen, Wochenwechsel/Altformat, Cache-Invalidierung,
   Privatheit/Berechtigungen/Verbindungswechsel; ohne Browser oder Netzwerk).
+- Übungsbibliothek in Obsidian (16. Oktober 2026, Dennis: „Obsidian führt“): `bibliothek/` ist ein Obsidian-Vault und die Quelle für
+  `lib-data` und `fam-data`. Dennis bearbeitet ihn in Google Drive › Trainingsplan › Obsidian (auf dem Mac verbunden); vor dem Bauen den Ordner
+  von dort holen und nach `bibliothek/` kopieren, danach zurückspielen. Je Übung eine Notiz `Übungen/<Name>.md`: Maschinenfelder als
+  Eigenschaften (YAML, `pos` = Reihenfolge), Texte als feste Abschnitte (`TEXT` in `design/bibliothek/md.js`: Zweck, Vorbereitung, So geht’s,
+  Raus, Sauber wenn, Technik, Atmung, Häufige Fehler `- f` / `  → k`, Leichter und schwerer, Wann aufhören, Trainiert). `Leitern/<Name> (Leiter).md`,
+  `Familien/<Name> (Familie).md` und `Daten/` (Bibliothek-Version, Geräte, Metcon-Pool, Aufwärmen, Mobility, Familien-Entscheidungen) nur über
+  Eigenschaften. Nicht gelesen werden Einordnung, Evidenz, Recherche, Diskussion, `Evidenz/` (55 Bewegungsmuster der Recherche), `Bereiche/`
+  (Recherche-Vergleich je Bereich), `Quellen/`, `KI-Rohdaten/`. `node design/bibliothek/bauen.js` baut index.html und `design/familien.json`
+  (`--trocken` nur prüfen), `node design/bibliothek/export.js` schreibt App-Daten zurück nach Obsidian und behält Evidenz/Recherche/Diskussion.
+  Übungen mit `app: false` (53 neue aus der Recherche, ohne Anleitung/Werte/Familie) bleiben nur in Obsidian. YAML über `design/bibliothek/js-yaml.min.js`
+  (MIT, eingebunden). Evidenz: Eigenschaft `evidenz` {muster, bezug uebung|variante|uebertragen, von, aktivierung, belastung, wirkung, gesundheit,
+  strittig, gruppen, ki, quellen_geprueft}; der Build macht daraus das kurze Feld `ev` {b, akt, bel, w, ges (0–3), m, von, gr [{g, b, h}], q}, die App
+  zeigt es im (i)-Blatt unter „Was die Forschung sagt“ (`ueEvHTML`, „Für wen“, „Vorläufig“ solange `q` fehlt). Quellen bleiben in Obsidian.
+  Abgleich-Regel der Recherche: je Endpunkt die niedrigere Bewertung der KIs (Details in `bibliothek/00 Konzept/Grundsätze.md`).
+  Test: `node tests/bibliothek.cjs` (App = Build aus Obsidian, Export → Build verlustfrei, Block-YAML, ev gültig, app: false bleibt draußen).
 - `index.html`: die komplette App (HTML, CSS, JavaScript in einer Datei, kein Build-Schritt)
   - erster `<style>`-Block: nur Schriften als Base64 – nicht bearbeiten
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
@@ -602,6 +617,8 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
 - Zu Beginn jeder Sitzung `UEBERGABE.md` lesen (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 - Am Ende jeder Aufgabe `UEBERGABE.md` im selben Pull Request aktualisieren.
 - `design/` enthält nur Entwürfe und Rohdaten (Maskottchen, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.
+- Seit 16. Oktober 2026 führt die Obsidian-Bibliothek (`bibliothek/`, siehe oben): neue Inhalte dort eintragen und bauen. Pakete über
+  `einbauen_bibliothek.js` gehen weiter, danach aber immer `node design/bibliothek/export.js`, sonst schlägt `tests/bibliothek.cjs` fehl.
 - Aufträge für Cowork liegen in `design/auftraege/` (`familien.md` erledigt, `bibliothek.md` läuft). Pakete von Cowork immer zuerst mit
   `node design/auftraege/pruefen_bibliothek.js <datei.json>` prüfen, dann mit `node design/auftraege/einbauen_bibliothek.js <dateien>`
   einbauen (prüft selbst noch einmal, schreibt lib-data, fam-data und `design/familien.json` im alten Format über `familien_format.js`,

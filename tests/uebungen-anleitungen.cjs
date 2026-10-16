@@ -27,18 +27,16 @@ for (const u of ue) {
   assert.ok(!/[a-zäöüß,] (Sie|Ihr(e|en|em)?)\b/.test(u.schritte.join(' ')), 'du-Form (Sie am Satzanfang darf die Hantel sein)' + at);
 }
 
-// 2) Alle Pakete in design/auftraege/texte sind gültig und decken jede Übung genau einmal ab.
+// 2) Die Pakete in design/auftraege/texte (erste Fassung der Anleitungen) sind gültig, jede Übung höchstens einmal.
+// Seit der Obsidian-Bibliothek (bibliothek/) werden die Texte dort gepflegt; tests/bibliothek.cjs prüft, dass die App genau daraus gebaut ist.
 const dir = path.join(ROOT, 'design', 'auftraege', 'texte');
 const files = fs.readdirSync(dir).filter(f => f.endsWith('.json')).map(f => path.join(dir, f));
 execFileSync('node', [path.join(ROOT, 'design', 'auftraege', 'pruefen_bibliothek.js'), ...files], { stdio: 'pipe' });
 const seen = {};
 for (const f of files) for (const u of JSON.parse(fs.readFileSync(f, 'utf8')).uebungen) {
   assert.ok(!seen[u.id], 'doppelt: ' + u.id); seen[u.id] = 1;
-  const l = ue.find(x => x.id === u.id);
-  assert.ok(l, 'unbekannte Übung ' + u.id);
-  assert.deepEqual(l.schritte, u.schritte, 'eingebaut wie im Paket: ' + u.id);
+  assert.ok(ue.find(x => x.id === u.id), 'unbekannte Übung ' + u.id);
 }
-assert.equal(Object.keys(seen).length, ue.length, 'jede Übung in einem Paket');
 
 // 3) IDs, Namen und Leiter-Stufen der Bibliothek bleiben gültig: jede Stufe einer Leiter zeigt auf eine Übung.
 const ids = new Set(ue.map(u => u.id));
@@ -84,6 +82,11 @@ const server = http.createServer((q, r) => { r.setHeader('Content-Type', 'text/h
         const info = await sheet.innerText();
         assert.ok(info.includes(u.zweck.slice(0, 30)), 'Zweck im Blatt: ' + n);
         assert.ok(info.includes(u.fehler[0].f.slice(0, 20)), 'Fehler im Blatt: ' + n);
+        // Evidenz aus der Obsidian-Bibliothek: kurz, ohne Quellen
+        if (u.ev) {
+          assert.ok(info.includes('Was die Forschung sagt'), 'Evidenz im Blatt: ' + n);
+          assert.ok(info.includes(u.ev.b === 'uebertragen' ? 'Keine eigenen Studien' : 'Vorläufig'), 'Evidenz-Art im Blatt: ' + n);
+        }
         const sh = await sheet.evaluate(e => e.getBoundingClientRect().bottom <= innerHeight + 1);
         assert.ok(sh, 'Blatt passt in den Bildschirm (scrollt innen) bei ' + width + ' px');
         await p.locator('#sheet [data-sh="ok"]').click();
