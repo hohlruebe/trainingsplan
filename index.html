@@ -907,6 +907,32 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-fig{flex:none;width:calc(190px*var(--fsu,1));border-radius:20px;background:var(--board);padding:6px}
 .fs-fig .fig{height:calc(200px*var(--fsu,1));margin:0}
 .fs-rh{display:flex;align-items:center;justify-content:space-between;gap:12px}
+/* Trainer im Vollbild (Paket 56): Kopf mit Schritt, Einzeln | Liste, Start/Pause; Fuß mit voriger | nächster Schritt */
+.fs-tr .fs-top{gap:10px}
+.fs-tt{flex:1;min-width:0}.fs-tt .fs-kick{font-weight:700;color:var(--ink);margin:0 0 6px}.fs-tt .st-prog{margin:0}
+.fs-seg{flex:none;margin:0}.fs-seg .seg-btn{min-height:40px;padding:0 14px;font-size:14px}
+.fs-nav{display:flex;gap:10px}.fs-nav .btn{flex:1;min-width:0;min-height:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
+.fs-tr .fs-side{justify-content:safe center}
+.fs-i{flex:none;display:inline-grid;place-items:center;width:calc(34px*var(--fsu,1));height:calc(34px*var(--fsu,1));min-width:34px;min-height:34px;border-radius:50%;border:2px solid var(--acc);background:var(--paper);color:var(--acc);font:italic 700 18px Georgia,serif;padding:0;cursor:pointer}
+.fs-nm{display:flex;align-items:center;gap:10px}
+#fs[data-view="port"] .fs-nm{justify-content:center}
+.fs-row .fs-i{margin-left:auto}.fs-row .btn+.fs-i{margin-left:8px}
+.fs-ok{font-style:normal;color:var(--green);font-weight:800;margin-left:auto}
+.fs-tr .fs-row{font-size:calc(22px*var(--fsu,1));min-height:calc(56px*var(--fsu,1))}.fs-tr .fs-row.on{font-size:calc(26px*var(--fsu,1));min-height:calc(76px*var(--fsu,1))}
+.fs-tr .fs-row b{min-width:calc(96px*var(--fsu,1));white-space:nowrap;font-size:calc(32px*var(--fsu,1))}.fs-tr .fs-row.on b{font-size:calc(44px*var(--fsu,1))}
+.fs-tr .fs-row>span{flex:1;min-width:0}.fs-tr .fs-row .btn{font-size:calc(17px*var(--fsu,1));min-height:44px;padding:0 calc(14px*var(--fsu,1))}
+.fs-tr .fs-fig .fig{height:calc(170px*var(--fsu,1))}.fs-tr .fs-fig{width:calc(160px*var(--fsu,1))}
+.fs-krow{cursor:pointer;text-align:left}.fs-tr .fs-krow b{min-width:calc(76px*var(--fsu,1))}
+.ue-how{margin:0 0 6px}.ue-how ol.how{margin:6px 0 0;padding-left:22px}.ue-how ol.how li{margin:0 0 6px}.fs-krow>small{flex:none;width:calc(54px*var(--fsu,1));font-size:calc(14px*var(--fsu,1));font-weight:600;color:var(--ink2)}
+.fs-krow b em{font-style:normal;font-size:.6em}.fs-krow span{display:flex;flex-direction:column;min-width:0}.fs-krow span small{font-size:calc(14px*var(--fsu,1));font-weight:500;color:var(--ink2)}
+.fs-rd{display:flex;align-items:center;gap:6px;font-size:calc(14px*var(--fsu,1));font-weight:600;color:var(--ink2)}
+.fs-rd i{font-style:normal;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--fill);font-size:13px}
+.fs-rd i.on{background:var(--acc);color:#fff}.fs-rd i.dn{background:color-mix(in srgb,var(--acc) 25%,var(--paper));color:var(--acc)}
+.fs-body{display:flex;flex-direction:column;gap:12px;text-align:left}
+.fs-body .card{box-shadow:none;padding:0;margin:0;background:none}
+.fs-side .co-card,.fs-side .card.co{margin:0}
+.ft-card h3{margin:0 0 2px}.ft-row{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:6px 0;border:0;border-top:1px solid var(--line);background:none;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.ft-row:first-of-type{border-top:0}.ft-row .gl-t{flex:1;min-width:0;display:flex;flex-direction:column}.ft-row small{color:var(--ink2)}
 #fs[data-view="port"] .fs-fig{width:calc(130px*var(--fsu,1))}
 #fs[data-view="port"] .fs-fig .fig{height:calc(140px*var(--fsu,1))}
 #fs[data-view="port"] .fs-reps,#fs[data-view="port"] .fs-wu .fs-kg{font-size:calc(72px*var(--fsu,1))}
@@ -2608,7 +2634,7 @@ var TEST_BASE = {
   T3_ROWS: { 0: 'Ring Chin-up', 1: 'Bulgarian Split Squat', 2: 'Ab Wheel Rollout' }
 };
 
-var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
+var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, fsView: 'one', comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
@@ -2962,6 +2988,9 @@ function render() {
   if (ui.tab === 'uebungen' || ui.tab === 'fam') wakeGloss();
   if (ui.tab === 'fam') { document.querySelectorAll('#view .fam-top .fig').forEach(startFig); fitLadders($view); }
   if (ui.tab === 'skill') drawTree();
+  var T = trainCtx();
+  if (T) { trainLoad(T); if (!FS.on) fsOpen('train'); else if (FS.train) { fsRender(); fsOrient(); } }
+  else if (FS.on && FS.train) fsClose();
   if (FS.on) fsPaint(undefined, true);
 }
 // Unterseiten: Titel mit Pfeil, Tippen öffnet das Drop-down darunter.
@@ -3555,7 +3584,7 @@ function timerToggleTools() {
 function finish() {
   var endL = TM.phases.length ? { i: TM.phases.length - 1, p: TM.phases[TM.phases.length - 1] } : null, endEv = endL && endL.p.kind !== 'pre' && isFinite(endL.p.dur) ? cdEvent(endL) : null;
   TM.finalElapsed = elapsed(); timerStop(); TM.finished = true; if ((cdOn(endEv) || callsOn()) && say(CD_WORDS[cdLang()].end)) hapTimer(true); else cue(true); showFinished(); setToggle();
-  if (FS.on) { if (TM.cfg && TM.cfg.step) fsClose(); else fsPaint(); }
+  if (FS.on) { if (TM.cfg && TM.cfg.step && !FS.train) fsClose(); else fsPaint(); }
   if (TM.mode === 'routine') routineDone();
   if (TM.cfg && TM.cfg.warmItem != null && TM.cfg.step) { // Übung mit Zeit fertig: abhaken, die nächste ist dran (eigener Timer nur, wenn sie eine Zeit hat)
     var wi = TM.cfg.warmItem, ws = flowState(warmFlow(S.tag));
@@ -6794,6 +6823,7 @@ function renderHeute() {
     if (d.type !== 'kraft' && !c.isTest && !c.isMurph) h += runSegHTML(runMode(D)) + '<section class="card">' + ergoTargetHTML(todayRunSpec(tag)) + '</section>';
     var at = +(D._at || 0), wbAsk = cur && !at && wbDue(d);
     if (wbAsk) h += wbCardHTML();
+    if (lean && cur && !lock && d.type === 'kraft' && !c.isTest && !c.isMurph) h += firstTimeHTML(tag);
     h += '<section class="card tl-card">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
       return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
     }).join('') + '</ol>' + (cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '') + '</section>';
@@ -6962,6 +6992,9 @@ function outlookHTML(l) {
 }
 function stepPageHTML(c, st, i, D) {
   var s = st[i], n = st.length, last = i === n - 1, key = draftKey(c.tag);
+  // Trainer im Vollbild (Dennis, Paket 56): die Seite darunter trägt nur noch die Timer-Leiste, der Inhalt steht im Vollbild.
+  if (trainOk(c)) return '<section class="hero"><h1>' + esc(s.title) + '</h1></section>' + (s.timer ? '<div class="tbar" id="tbar" hidden data-step="' + esc(key + ':' + s.id) + '" data-label="' + esc(s.timer.label) + '" data-info="' + esc(s.timer.info) + '"' +
+    (last ? '' : ' data-next="' + (i + 1) + '" data-nextl="' + esc(st[i + 1].title) + '"') + '></div>' : '');
   var h = '<div class="st-top"><button type="button" class="rbtn" data-act="step" data-to="' + (i - 1) + '" aria-label="' + (i ? 'Zurück' : 'Zur Übersicht') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><span class="st-r"><span class="small muted">' + (i + 1) + ' von ' + n + '</span>' +
     (PAIN_STEPS[s.id] && s.id !== 'kraft' && !c.isTest ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + s.id + '" aria-label="Schmerzen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></button>' : '') +
     '<button type="button" class="st-x" data-act="quit" aria-label="Training verlassen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></div>';
@@ -7042,10 +7075,14 @@ function kraftView() { return S.kraftView === 'min' ? 'min' : 'ex'; }
 // und alle Runden geschafft: 1 Wdh. mehr bis zum oberen Ende der Spanne (danach bringt die Sehnen-Bremse die nächste Stufe), sonst gleich.
 // Neue Stufe oder schwereres Gewicht: unteres Ende. Ohne Verlauf der Startwert aus Test bzw. Fragebogen. Entlastung 1 Wdh. weniger.
 // Halteübungen (L-Sit, Hollow Body Hold …): Vorgabe in Sekunden, steigt in 5-s-Schritten (Dennis: „L-Sit mit Wdh. statt Zeit“).
-function holdOf(x) { var t = x.target || ''; return isSecs(ladFor(x.n)) || (/\d\s*s\b/.test(t) && !/Wdh/.test(t)); }
+function holdOf(x, stage) { var t = x.target || ''; return isSecs(ladFor(x.n)) || (/\d\s*s\b/.test(t) && !/Wdh/.test(t)) || /\d\s*s\b/.test(stage || ''); }
 function repGoal(x, stage, kid, K) {
+  // Haltestufe in einer Wdh.-Leiter („Support Hold, 20 s“): die Zeit der Stufe ist die Vorgabe.
+  var hs0 = /(\d+)\s*s\b/.exec(stage || ''); if (hs0 && !isSecs(ladFor(x.n))) return +hs0[1];
   var sec = holdOf(x), m = /(\d+)\s*[–-]\s*(\d+)/.exec(x.target || ''), s1 = sec && !m ? /(\d+)\s*s\b/.exec(x.target || '') : null;
-  var lo = m ? +m[1] : s1 ? +s1[1] : 3, hi = sec ? (m ? +m[2] : lo) : x.hi || (m ? +m[2] : 6), st = sec ? 5 : 1, last = null, g;
+  // Feste Zahl ohne Spanne („10 pro Runde“): genau das ist die Vorgabe.
+  var n1 = !m && !sec ? /^\s*(\d+)\b/.exec(x.target || '') : null;
+  var lo = m ? +m[1] : s1 ? +s1[1] : n1 ? +n1[1] : 3, hi = sec ? (m ? +m[2] : lo) : n1 ? lo : x.hi || (m ? +m[2] : 6), st = sec ? 5 : 1, last = null, g;
   var num1 = function (v) { return typeof v === 'number'; };
   for (var i = LOGS.length - 1; i >= 0 && !last; i--) (LOGS[i].kraft || []).forEach(function (k) {
     if (!last && k.n === x.n && (k.stage || '') === (stage || '') && !(k.pain && k.pain.skip) && (k.reps || []).some(num1)) last = k;
@@ -7076,7 +7113,7 @@ function kraftEx(tag, D, rounds, x, i) {
   else if (!last && base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
   var si = lad && stage ? lad.steps.indexOf(stage) : -1, skip = !!(x.pain && x.pain.skip);
   var first = !!lad && !cs && !last && !base; // noch kein Verlauf: Stufe einmal selbst wählen
-  return { x: x, i: i, g: g, fk: g ? g.key : '', lad: lad, stage: stage, si: si, K: skip ? null : K, kid: skip ? null : kid, hint: skip ? '' : hint, skip: skip, goal: repGoal(x, stage, kid, K), sec: holdOf(x),
+  return { x: x, i: i, g: g, fk: g ? g.key : '', lad: lad, stage: stage, si: si, K: skip ? null : K, kid: skip ? null : kid, hint: skip ? '' : hint, skip: skip, goal: repGoal(x, stage, kid, K), sec: holdOf(x, stage),
     test: isTestCycle(tag) && (d.maxout === 'all' || d.maxout === i), first: first, est: skip ? '' : est };
 }
 // Welche Minute ist dran: beim laufenden EMOM die Uhr, sonst die gewählte oder die erste ohne Eintrag.
@@ -8618,18 +8655,18 @@ function fsOrient() {
   f.dataset.view = o.want; f.classList.toggle('turn', turn);
   f.style.width = W + 'px'; f.style.height = H + 'px';
   // Größen wachsen mit dem Bildschirm (--fsu), die Zeit steht im Ring (--ring), die Übung rechts bzw. unten bekommt den Rest.
-  var land = o.want === 'land', u = land ? Math.min(W / 1100, H / 640) : Math.min(W / 430, H / 900), ring = Math.round(land ? Math.min(H * 0.72, W * 0.36) : Math.min(W * 0.6, H * 0.3));
+  var land = o.want === 'land', u = land ? Math.min(W / 1100, H / 640) : Math.min(W / 430, H / 900), ring = Math.round(land ? Math.min(H * (FS.train ? 0.58 : 0.72), W * 0.34) : Math.min(W * (FS.train ? 0.5 : 0.6), H * (FS.train ? 0.24 : 0.3)));
   f.style.setProperty('--fsu', Math.max(0.6, Math.min(1.7, u)).toFixed(3)); f.style.setProperty('--ring', ring + 'px');
   var n = document.getElementById('fs-num');
   if (n) n.style.fontSize = Math.round(ring * 0.27) + 'px';
   if (turn) { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock(o.want === 'land' ? 'landscape' : 'portrait').catch(function () {}); } catch (e) { /* nicht möglich */ } }
 }
 function fsOpen(why) {
-  var f = fsEl(); FS.on = true; FS.why = why || 'btn'; FS.key = '';
+  var f = fsEl(); FS.on = true; FS.why = why || 'btn'; FS.key = ''; FS.train = why === 'train' || (FS.train && why !== 'btn');
   f.hidden = false; document.body.classList.add('fs-open'); fsRender(); fsOrient(); fsPaint();
 }
 function fsClose() {
-  var f = fsEl(); FS.on = false; FS.lock = null; FS.key = '';
+  var f = fsEl(); FS.on = false; FS.lock = null; FS.key = ''; FS.train = false;
   f.querySelectorAll('.fig').forEach(stopFig); f.innerHTML = ''; f.hidden = true; f.classList.remove('turn'); document.body.classList.remove('fs-open');
   try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (e) { /* egal */ }
   if (ui.tab === 'timer') paintNow(); paintMini();
@@ -8646,7 +8683,8 @@ function fsKick() {
     zeit: 'For Time' + (c.cap ? ' · Time Cap ' + fmtT(c.cap) : ' · ohne Time Cap') }[TM.mode] || '';
 }
 function fsRender() {
-  var tools = !(TM.cfg && TM.cfg.step);
+  var tools = !(TM.cfg && TM.cfg.step), T = FS.train ? trainCtx() : null;
+  if (T) { fsEl().innerHTML = trainShellHTML(T); FS.key = ''; return; }
   fsEl().innerHTML = '<div class="fs-in"><div class="fs-top"><p class="fs-kick">' + esc(fsKick()) + '</p><div class="fs-tools">' +
     '<button type="button" class="rbtn" data-act="fs-rot" aria-label="Ansicht drehen, lange drücken = automatisch">' + I_ROT + '</button>' +
     '<button type="button" class="rbtn" data-act="fs-min" aria-label="Minimieren">' + I_MIN + '</button>' +
@@ -8664,23 +8702,23 @@ function fsStepper(val, act, flow) {
 // Übungen der Runde (Metcon, Murph) je nach „Runden zählen“.
 function fsFlowHTML(F) {
   var s = flowState(F), rm = roundMode(), single = modeOf(F.id) === 'single', n = F.items.length, cur = rm !== 'ex' ? -1 : single ? s.c : s.c < n ? s.c : -1;
-  var h = rm === 'off' ? '<p class="fs-lbl">' + (F.id === 'murph' ? 'Murph' : 'Workout') + '</p>'
+  var h = !F.loop ? '' : rm === 'off' ? '<p class="fs-lbl">' + (F.id === 'murph' ? 'Murph' : 'Workout') + '</p>'
     : '<div class="fs-rh"><p class="fs-lbl">Runden' + (F.loop.times ? ' / ' + F.loop.times : '') + '</p>' + fsStepper(s.r - 1, 'fl-count', F.id) + '</div>';
   h += '<div class="fs-rows">' + F.items.map(function (it, i) {
     var on = i === cur, dn = rm === 'ex' && (single ? i < s.c : s.done.indexOf(i) >= 0);
     return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + '"><b>' + esc(it.qty) + '</b><span>' + esc(it.n) + '</span>' +
-      (on ? '<button type="button" class="btn primary small" data-act="fl-done" data-flow="' + F.id + '"' + (single ? '' : ' data-i="' + i + '"') + '>Erledigt</button>' : '') + '</div>';
+      (on ? '<button type="button" class="btn primary small" data-act="fl-done" data-flow="' + F.id + '"' + (single ? '' : ' data-i="' + i + '"') + '>Erledigt</button>' : dn ? '<i class="fs-ok">✓</i>' : '') + fsI(it.n, it.key) + '</div>';
   }).join('') + '</div>';
   return h;
 }
 // Aufwärmen im Vollbild: aktuelle Übung mit Figur, Erledigt und was danach kommt.
 function fsWarmHTML(F) {
   var s = flowState(F), single = modeOf(F.id) === 'single', n = F.items.length, c = s.c, nx = -1, it = F.items[c];
-  if (!it) return '<p class="fs-lbl">Aufwärmen</p><div class="fs-big">Fertig</div>';
+  if (!it) return '<p class="fs-lbl">' + (F.id === 'warm' ? 'Aufwärmen' : 'Runde') + '</p><div class="fs-big">Fertig</div>';
   for (var a = 1; a < n; a++) { var x = single ? c + a : (c + a) % n; if (x < n && (single || s.done.indexOf(x) < 0)) { nx = x; break; } if (single) break; }
   var dn = single ? c : s.done.length, f = ' data-flow="' + F.id + '"';
   return '<div class="fs-ex fs-wu"><div class="fs-fig">' + figHTML(figOf(it.key) ? it.key : '_wave') + '</div><div><p class="fs-lbl">Jetzt</p>' +
-    '<p class="fs-kg">' + esc(it.qty) + '</p><p class="fs-exn">' + esc(it.n) + '</p>' + (it.x ? '<p class="fs-hint">' + esc(it.x) + '</p>' : '') +
+    '<p class="fs-kg">' + esc(it.qty) + '</p><div class="fs-nm"><p class="fs-exn">' + esc(it.n) + '</p>' + fsI(it.n, it.key) + '</div>' + (it.x ? '<p class="fs-hint">' + esc(it.x) + '</p>' : '') +
     '<p class="fs-hint">Übung ' + (dn + 1) + ' von ' + n + '</p></div></div>' +
     '<div class="bgrp"><button type="button" data-act="fl-back"' + f + (single && c > 0 ? '' : ' disabled') + '>‹ Zurück</button>' +
     '<button type="button" data-act="fl-done"' + f + (single ? '' : ' data-i="' + c + '"') + '>Erledigt ›</button></div>' +
@@ -8692,6 +8730,103 @@ function fsKg(ex, r) {
   var D = dr(S.tag), stage = D['k' + ex + 'stage'] != null ? D['k' + ex + 'stage'] : stageDef(x.n, x.hi), K = kgOfEx(x, ex, stage, D, kraftRounds(S.tag));
   return { n: x.n, kg: K && K.kg[r] != null ? fmtKg(K.kg[r], K.id) : '' };
 }
+/* ---------- Trainer im Vollbild (Dennis, Paket 56): Training immer im Vollbild ---------- */
+// Krafttage in Plan 2: „Training starten“ öffnet den Vollbild-Trainer. Oben ✕, Schritt mit Fortschritt, Einzeln | Liste (S.fsView, zuletzt gewählt,
+// nur auf dem Gerät) und Start/Pause; links bzw. oben die Zeit im Ring, daneben die Übung; unten voriger | nächster Schritt bzw. Speichern.
+// Aufwärmen, Kraft und Metcon haben eigene Ansichten, die übrigen Schritte zeigen ihren Inhalt im Panel. An jeder Übung ein (i) mit der Anleitung.
+function trainOk(c) { return !!c && v2() && c.d && c.d.type === 'kraft' && !c.isTest && !c.isMurph; }
+function trainCtx() {
+  if (ui.tab !== 'heute' || !S.started || S.review || wbOn() || ui.viewTag) return null;
+  var c = dayCtx(viewTag()); if (!c.cur || doneToday0() || !trainOk(c)) return null;
+  var D = dr(c.tag), st = stepsOf(c), i = D._step != null ? +D._step : -1;
+  return st[i] ? { c: c, st: st, i: i, s: st[i], D: D, key: draftKey(c.tag) } : null;
+}
+// Den Timer des Schritts bereitlegen (nicht starten). Ein Timer eines früheren Schritts stoppt.
+function trainLoad(T) {
+  var sk = T.key + ':' + T.s.id, t = T.s.timer;
+  FS.noT = !t; FS.rk = (FS.rk || 0) + 1;
+  if (!t) { if (TM.cfg && TM.cfg.step && TM.cfg.step !== sk && TM.running) timerStop(); return; }
+  var same = TM.cfg && TM.cfg.step === sk && (t.cfg.warmItem == null || TM.cfg.warmItem === t.cfg.warmItem);
+  if (same) return;
+  if (TM.running) timerStop();
+  TM.mode = t.mode; TM.cfg = Object.assign({}, t.cfg, { step: sk }); TM.coolBi = null; timerReset();
+}
+function fsView() { return S.fsView === 'list' ? 'list' : 'one'; }
+// (i): Anleitung der Übung als Blatt (Figur, So geht’s, Sauber, Leichter/Schwerer …), der Timer läuft weiter.
+function ueIdOf(n, key) { var g = GL[n]; return g && g.lib ? g.lib.id : key && UE[key] ? key : g && UE[g.key] ? g.key : null; }
+function stageUe(E) { var l = E && E.lad && LAD[E.fk] && LAD[E.fk].lib; return l && E.si >= 0 && l.stufen[E.si] ? l.stufen[E.si].uebung : null; }
+function fsI(n, key) { var id = UE[key] && !GL[n] ? key : ueIdOf(n, key); return id ? '<button type="button" class="fs-i" data-act="ue-info" data-how="1" data-id="' + esc(id) + '" aria-label="So geht ' + esc(n) + '">i</button>' : ''; }
+function trainShellHTML(T) {
+  var id = T.s.id, views = id === 'warm' || id === 'kraft' || id === 'metcon', v = fsView(), last = T.i === T.st.length - 1;
+  var seg = views ? '<div class="seg fs-seg" role="group" aria-label="Ansicht">' + [['one', 'Einzeln'], ['list', 'Liste']].map(function (x) {
+    return '<button type="button" class="seg-btn' + (x[0] === v ? ' on' : '') + '" data-act="fs-view" data-v="' + x[0] + '" aria-pressed="' + (x[0] === v) + '">' + x[1] + '</button>'; }).join('') + '</div>' : '';
+  var prev = T.i > 0 ? T.st[T.i - 1].title : 'Übersicht';
+  return '<div class="fs-in fs-tr"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
+    '<div class="fs-tt"><p class="fs-kick">' + esc(T.s.title) + ' · ' + (T.i + 1) + ' von ' + T.st.length + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
+    seg + '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
+    '<div class="fs-main"><div class="fs-dig"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
+    '<circle class="fs-rf" id="fs-arc" cx="50" cy="50" r="45" stroke-dasharray="282.7" stroke-dashoffset="282.7"/></svg>' +
+    '<div class="fs-rc"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div><span id="fs-pl"></span></div></div></div><div class="fs-side" id="fs-side"></div></div>' +
+    '<div class="fs-nav"><button type="button" class="btn" data-act="step" data-to="' + (T.i - 1) + '">‹ ' + esc(prev) + '</button>' +
+    (last ? '<button type="button" class="btn save" data-act="save">' + TICK + 'Speichern</button>' : '<button type="button" class="btn primary" data-act="step" data-to="' + (T.i + 1) + '">' + esc(T.st[T.i + 1].title) + ' ›</button>') + '</div></div>';
+}
+function trainSide(T, L) {
+  var id = T.s.id, v = fsView(), co = v2() ? stepCoachHTML(T.c.tag, id) : '';
+  if (id === 'warm' || id === 'metcon') {
+    var F = flowById(id), s = flowState(F);
+    return { k: 'tf' + id + v + s.c + '|' + s.r + '|' + s.done.join(','), h: (v === 'list' ? fsFlowHTML(F) : fsWarmHTML(F)) + co };
+  }
+  if (id === 'kraft') return trainKraft(T, L, v, co);
+  // Übrige Schritte (Skill, Ausgleich, Abschluss …): ihr Inhalt im Panel, neu gezeichnet nur nach Eingaben.
+  return { k: 'tb' + id + '|' + FS.rk, h: '<div class="fs-body">' + co + T.s.body(T.D) + '</div>' };
+}
+function trainKraft(T, L, v, co) {
+  var tag = T.c.tag, D = T.D, d = DAYS[tag], n = d.kraft.length, rounds = kraftRounds(tag);
+  var run = TM.cfg && TM.cfg.step === T.key + ':kraft' && TM.mode === 'emom' && (TM.running || TM.acc > 0) && L && L.p.kind !== 'pre';
+  var m = run ? Math.min(n * rounds - 1, L.i - 1) : kraftNow(tag, D, n, rounds).m, ex = m % n, r = Math.floor(m / n);
+  var E = d.kraft.map(function (x, i) { return kraftEx(tag, D, rounds, x, i); }), e = E[ex], rc = fsReps(ex, r), k0 = fsKg(ex, r);
+  var key = 'tk' + v + m + (rc ? rc.k : '') + (run ? 'r' : '');
+  var dots = '<div class="fs-rd" aria-label="Runde ' + (r + 1) + ' von ' + rounds + '"><span>Runde</span>' + Array.from({ length: rounds }, function (_, i) { return '<i' + (i < r ? ' class="dn"' : i === r ? ' class="on"' : '') + '>' + (i + 1) + '</i>'; }).join('') + '</div>';
+  if (v === 'list') {
+    var rows = E.map(function (x, i) {
+      var mm = r * n + i, f = D['k' + i + 'r' + r], val = (f != null ? f : x.skip ? '–' : x.goal) + (x.sec ? ' s' : ''), kg = fsKg(i, r);
+      return '<div class="fs-row fs-krow' + (i === ex ? ' on' : '') + (f != null && i !== ex ? ' done' : '') + '" data-act="k-sel" data-k="' + esc(draftKey(tag)) + '" data-m="' + mm + '">' +
+        '<small>Min ' + (mm + 1) + '</small><b>' + esc(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + esc(x.x.n) + (x.stage ? '<small>' + stageHTML(x.stage) + '</small>' : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
+    }).join('');
+    return { k: key, h: dots + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
+  }
+  var nx = m + 1 < n * rounds ? E[(m + 1) % n] : null;
+  return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Minute ' + (m + 1) + ' von ' + n * rounds + '</p>' +
+    '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
+    (e.stage ? '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>' : '') + '</div></div>' + (rc ? rc.c : '') +
+    (nx ? '<span class="chip">Als Nächstes: ' + esc(nx.x.n) + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' : '<span class="chip">Letzte Minute</span>') + dots + co };
+}
+// Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
+function firstTimeList(tag) {
+  var d = DAYS[tag], out = [], seenK = function (n, st) { return LOGS.some(function (l) { return (l.kraft || []).some(function (k) { return k.n === n && (st == null || k.stage === st); }); }); };
+  (d.kraft || []).forEach(function (x) {
+    if (x.pain && x.pain.skip) return;
+    var lad = ladFor(x.n), st = lad ? stageDef(x.n, x.hi) : null, si = lad && st ? lad.steps.indexOf(st) : -1, l = lad && LAD[GL[x.n].key].lib;
+    var id = l && si >= 0 && l.stufen[si] ? l.stufen[si].uebung : ueIdOf(x.n);
+    if (!seenK(x.n)) out.push({ n: x.n, sub: st ? 'Stufe ' + (si + 1) + ' · ' + stageText(st) : 'Kraft', id: id, st: st });
+    else if (st && !seenK(x.n, st)) out.push({ n: x.n, sub: 'Neue Stufe: ' + stageText(st), id: id, st: st });
+  });
+  (d.mmin ? d.metcon || [] : []).forEach(function (m) {
+    if (!LOGS.some(function (l) { return l.metcon && (l.metcon.items || []).indexOf(m.n) >= 0 || (l.kraft || []).some(function (k) { return k.n === m.n; }); })) out.push({ n: m.n, sub: 'Metcon', id: ueIdOf(m.n) });
+  });
+  var A = d.type === 'kraft' ? ausgleichUe(tag) : null;
+  if (A && UE[A.id] && !LOGS.some(function (l) { return l.ausgleich && l.ausgleich.ue === A.id; })) out.push({ n: UE[A.id].name, sub: 'Ausgleich', id: A.id });
+  return out.filter(function (x, i) { return out.findIndex(function (y) { return y.n === x.n; }) === i; }).slice(0, 6);
+}
+function firstTimeHTML(tag) {
+  var L = firstTimeList(tag); if (!L.length) return '';
+  return '<section class="card ft-card"><h3>Heute zum ersten Mal</h3><p class="small muted">Schau dir vor dem Start an, wie ' + (L.length === 1 ? 'sie geht' : 'sie gehen') + '. Tippen öffnet die Anleitung.</p>' +
+    L.map(function (x) {
+      return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(x.id || '') + '"' + (x.id ? '' : ' disabled') + '>' + miniFig(x.id || '') + '<span class="gl-t"><b>' + esc(x.n) + '</b><small>' + esc(x.sub) + '</small></span><i class="fs-i" aria-hidden="true">i</i></button>';
+    }).join('') + '</section>';
+}
+ACT['fs-view'] = function (el) { S.fsView = el.dataset.v === 'list' ? 'list' : 'one'; saveState(); render(); };
+
 // EMOM im Vollbild: Vorgabe der Minute groß und Zähler „Geschafft“ (wie im Kraftschritt, die Vorgabe zählt als geschafft).
 function fsReps(ex, r) {
   var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
@@ -8702,6 +8837,7 @@ function fsReps(ex, r) {
     '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="' + st + '" data-def="' + def + '" aria-label="Mehr">+</button></div></div>' };
 }
 function fsSide(L) {
+  if (FS.train) { var T = trainCtx(); if (T) return trainSide(T, L); }
   var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx, k0, k1;
   if (TM.finished && !c.step) return { k: 'fin' + TM.rounds, h: '<p class="fs-lbl">Fertig</p><div class="fs-big">' + (TM.mode === 'amrap' || TM.mode === 'zeit' ? TM.rounds + '<small> Runden</small>' : 'Stark') + '</div><button type="button" class="btn primary block" data-act="fs-min">Fertig</button>' };
   if (c.step && ((t === 'metcon' && TM.mode === 'amrap') || t === 'murph')) {
@@ -8747,6 +8883,7 @@ function fsPaint(L, force) {
   if (force) FS.key = '';
   if (L === undefined) L = TM.phases.length ? locate(elapsed()) : null;
   var $ = function (id) { return document.getElementById(id); }, c = TM.cfg || {}, idle = !TM.running && TM.acc === 0 && !TM.finished, first = TM.phases[1] || {}, p = L ? L.p : first;
+  if (FS.train && FS.noT) { $('fs-num').textContent = '✓'; $('fs-st').textContent = 'Ohne Uhr'; $('fs-pl').textContent = 'Abhaken, wenn fertig'; $('fs-arc').style.strokeDashoffset = '282.7'; var sd0 = fsSide(L), bx = $('fs-side'); if (sd0.k !== FS.key) { FS.key = sd0.k; bx.querySelectorAll('.fig').forEach(stopFig); bx.innerHTML = sd0.h; bx.querySelectorAll('.fig').forEach(startFig); } return; }
   var num = TM.finished ? (TM.mode === 'zeit' ? fmt(Math.max(0, TM.finalElapsed - 10)) : '00:00') : idle || !L ? (first.up || !isFinite(first.dur) ? '00:00' : fmt(first.dur)) : L.rem == null || p.up ? fmt(L.inPhase) : fmt(Math.ceil(L.rem));
   var green = !TM.finished && !idle && (p.kind === 'pre' || p.kind === 'sw' || (TM.mode === 'hiit' && p.kind === 'easy'));
   var hot = TM.running && L && L.rem != null && Math.ceil(L.rem) <= 3;
@@ -8802,7 +8939,7 @@ ACT['fs-rot'] = function () { if (FS.lp) { FS.lp = false; return; } FS.lock = fs
 // Handy drehen: läuft ein Timer, öffnet quer das Vollbild; zurück hochkant schließt es wieder, wenn es so geöffnet wurde.
 function fsTurn() {
   var land = MQ_LAND && MQ_LAND.matches, auto = true;
-  if (FS.on) { if (!land && FS.why === 'rot' && !FS.lock && auto) fsClose(); else fsOrient(); return; }
+  if (FS.on) { if (!land && FS.why === 'rot' && !FS.lock && auto && !FS.train) fsClose(); else fsOrient(); return; }
   var step = TM.cfg && TM.cfg.step;
   if (land && auto && TM.running && (step ? ui.tab === 'heute' && document.getElementById('tbar') : ui.tab === 'timer')) fsOpen('rot');
 }
@@ -9337,7 +9474,10 @@ function ueInfoHTML(u) {
 }
 ACT['ue-info'] = function (el) {
   var u = UE[el.dataset.id]; if (!u) return;
-  openForm(u.name, ueInfoHTML(u), 'Fertig', function () {}, { noCancel: true, noFocus: true });
+  // Im Training und vor dem Start (data-how): zuerst Figur und „So geht’s“, darunter alles Weitere.
+  var how = el.dataset.how ? '<div class="ue-how">' + figBox(u.id) + '<p class="gl-mh">So geht’s</p><ol class="how">' + ueSteps(u).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol></div>' : '';
+  openForm(u.name, ueInfoHTML(u).replace('<div class="ue-info">', '<div class="ue-info">' + how), 'Fertig', function () {}, { noCancel: true, noFocus: true });
+  document.querySelectorAll('#sheet .fig').forEach(startFig);
 };
 // „Leichter: … Schwerer: …“ in Zeilen
 function ueScale(t) {
