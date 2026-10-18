@@ -435,7 +435,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   schätzt er den Start (`stageEst`, „Erstes Mal“ nur noch als Rückfall `E.first`). Die Wdh. gibt der Coach vor (Dennis, `repGoal`, `E.goal`, gespeichert als `goal`
   im Kraft-Eintrag): gleiche Stufe wie zuletzt und alle Runden geschafft → 1 Wdh. mehr bis zum oberen Ende der Spanne, sonst gleich; neue Stufe oder
   schwereres Gewicht → unteres Ende; ohne Verlauf der Startwert; Entlastung 1 weniger. Die Vorgabe zählt als geschafft, gemeldet wird nur, was nicht
-  klappt: Zähler `ACT['k-rep']` (– zieht von der Vorgabe ab), Runden ohne Eintrag speichert `saveDay` mit der Vorgabe. Gewicht `ACT['k-kg']` in `kgStep`-Schritten.
+  klappt: Zähler `ACT['k-rep']` (– zieht von der Vorgabe ab; Halteübungen wie L-Sit/Hollow Body Hold in Sekunden, `holdOf`/`E.sec`, Vorgabe aus der
+  Haltezeit der Leiter, steigt in 5-s-Schritten, Zähler und Vollbild mit „s“), Runden ohne Eintrag speichert `saveDay` mit der Vorgabe. Gewicht `ACT['k-kg']` in `kgStep`-Schritten.
   In „Minuten“ bekommen vorbeigelaufene Minuten einen Haken. Chips „3–6 Wdh.“ und „✓ Stufe N <Stufe>“. (Früher: grauer Vorschlag `kraftAutoFill`, gelöscht.)
   „Schmerzen“ als roter Fahnen-Knopf in der Karte (`kFlag`, `.pn-flag`).
   EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
