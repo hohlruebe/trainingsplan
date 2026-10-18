@@ -74,13 +74,26 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(steps.some(s => s[0] === 'fin') && !steps.some(s => s[0] === 'metcon'), 'A endet mit Kardio');
     assert.ok((await page.locator('.tl-top').first().innerText()).includes('ca. ' + total + ' Min'));
     assert.ok(total <= 90);
+    // Vor dem Start: „Heute zum ersten Mal“ mit (i) für Übungen und Stufen, die es noch nie gab.
+    assert.ok(await page.getByRole('heading', { name: 'Heute zum ersten Mal' }).isVisible());
     await page.getByRole('button', { name: /Training starten/ }).click();
-    await page.getByRole('button', { name: /Weiter zu/ }).first().click();
+    // Training immer im Vollbild: Schritt, Einzeln | Liste, (i) mit „So geht’s“, unten weiter.
+    assert.ok(await page.locator('#fs .fs-tr').isVisible(), 'Training startet im Vollbild');
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Aufwärmen · 1 von \d$/);
+    await page.locator('#fs [data-act="fs-view"][data-v="list"]').click();
+    assert.equal(await page.evaluate(() => window.tpTest.state().fsView), 'list', 'die Ansicht merkt sich die App');
+    assert.ok(await page.locator('#fs .fs-rows .fs-row').count() >= 3, 'Liste wie ein Whiteboard');
+    await page.locator('#fs .fs-nav .btn.primary').click();
     await page.reload();
-    assert.ok(await page.locator('.st-prog').isVisible(), 'nach dem Neuladen geht es beim Schritt weiter');
+    assert.ok(await page.locator('#fs .fs-tr .st-prog').isVisible(), 'nach dem Neuladen geht es beim Schritt im Vollbild weiter');
+    await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft')));
+    await page.locator('#fs .fs-side .fs-i').first().click();
+    assert.ok(await page.locator('#sheet .ue-how ol.how li').count() >= 2, '(i) zeigt die genaue Durchführung');
+    await page.getByRole('button', { name: 'Fertig', exact: true }).click();
+    await page.locator('#fs [data-act="fs-view"][data-v="one"]').click();
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
-    assert.ok(await page.getByRole('heading', { name: 'Kardio locker', level: 1 }).isVisible());
-    await page.getByRole('button', { name: /Training speichern/ }).click();
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Kardio locker/);
+    await page.locator('#fs [data-act="save"]').click();
     await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click(); // Cool-down bleibt eine Frage, kein stiller Zusatz
     const l = await page.evaluate(() => window.tpTest.logs().slice(-1)[0]);
     assert.equal(l.pv, 2); assert.equal(l.unit, 'A'); assert.equal(l.fin.k, 'easy');

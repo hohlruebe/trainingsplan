@@ -4,8 +4,18 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 15. Oktober 2026 (Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 18. Oktober 2026 (Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Training immer im Vollbild (18. Oktober 2026, Claude, Paket 56)
+- Dennis: Ansichten im Training unübersichtlich; immer automatisch ins Vollbild, ein kleines (i) mit der Durchführung, Umschalter Übung für Übung |
+  Liste (Whiteboard), vorher Hinweis „Diese Übungen machst du heute zum ersten Mal“. Antworten: zuletzt gewählte Ansicht gilt überall; neue Stufen
+  bekannter Übungen zählen auch als neu.
+- Umgesetzt: Trainer `FS.train` für Plan-2-Krafttage, `S.fsView`, (i) mit Figur und Schritten, Karte „Heute zum ersten Mal“. Testtage, Murph und
+  Lauftage bleiben wie bisher. Bekannte Grenze: in der Liste bestimmt bei laufender Uhr die Uhr die Minute.
+- Geprüft: alle Tests (`dreitage`, `ausfaelle`, `stabilisierung`, `uebungen-anleitungen` mit Browser, `dreitage-browser` mit neuem Trainer-Ablauf),
+  Screenshots 390 × 844 und quer.
+- Offen: Dennis testet im nächsten Training.
 
 ## Halteübungen in Sekunden (18. Oktober 2026, Claude)
 - Dennis: L-Sit stand im Training mit Wiederholungen statt Haltezeit. Grund: `repGoal` kannte nur Wdh.; bei „20 s pro Runde“ (Hollow Body Hold)

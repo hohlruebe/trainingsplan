@@ -467,6 +467,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Ansagen in der Phase (Dennis, Anlass `calls`, Standard an, nur mit Stimme, `callsOn`): „Halfway there!/Halbzeit!“ ab 20 s, „30 seconds left!/Noch 30 Sekunden!“
   bei Phasen über 60 s (nicht in Intervall-Pausen, `callWork`), am Ende 5, 4, 3, 2, 1 (ab 10 s, sonst 3, 2, 1) und „Done!/Fertig!“ (EMOM und nach der Pause „Go!“).
   Vorlauf und 5-s-Wechsel im Mobility-Player bekommen keine Halbzeit (`callPhase`).
+- Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
+  `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
+  Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
+  Start/Pause; unten Zurück/Weiter bzw. „Speichern“. Aufwärmen/Metcon `fsWarmHTML`/`fsFlowHTML`, Kraft `trainKraft` (Liste je Minute oder Karte mit
+  `fsReps`), andere Schritte mit ihrem Inhalt (`.fs-body`), Coach-Hinweise am Schritt. Jede Übung hat ein kleines (i) (`fsI`, `ACT['ue-info']` mit
+  `data-how`: Figur und „So geht’s“ im Blatt). Vor dem Training auf Heute „Heute zum ersten Mal“ (`firstTimeList`, `firstTimeHTML`): Übungen und
+  neue Stufen bekannter Übungen, die noch in keinem Eintrag stehen, mit (i). Halteübung als Stufe einer Wdh.-Leiter („Ring Support 20 s“) zählt in
+  Sekunden der Stufe (`holdOf(x, stage)`).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
