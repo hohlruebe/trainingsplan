@@ -21,12 +21,12 @@ function setup(extra) {
     daysBetween: (a, b) => Math.round((b - a) / 86400000), pad: n => String(n).padStart(2, '0'),
     saveState() {}, render() {}, blockCheck() {}, planDur: () => .7, missBlocked: () => false, missCarry: () => [],
     curPhase: () => Object.assign({ deload: false, test: false, taper: false }, phase), memList: () => c.KOERPER,
-    ladderStates: () => ({}), partScores: () => ({}), dayLabel: t => 'Ganzkörper ' + ({ 1: 'A', 3: 'B', 6: 'C' })[t], esc: String,
+    ladderStates: () => ({}), ladFor: () => null, partScores: () => ({}), dayLabel: t => 'Ganzkörper ' + ({ 1: 'A', 3: 'B', 6: 'C' })[t], esc: String,
     SHIFT: { f: ['Früh', 6, 14], s: ['Spät', 14, 22], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18], tn: ['12 h Nacht', 18, 6] }
   }, extra || {}));
   vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + ';', c);
   for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
-    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'repGoal', 'befCls', 'befOf', 'longShift',
+    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'isSecs', 'holdOf', 'repGoal', 'befCls', 'befOf', 'longShift',
     'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
   return c;
 }
@@ -123,6 +123,15 @@ assert.equal(c.repGoal(X, 'Mittel'), 3, 'neue Stufe: unteres Ende');
 log([5, 5, 4, 4]); assert.equal(c.repGoal(X, 'Stark'), 5, 'alte Einträge ohne Vorgabe: die schwächste Runde gilt als Vorgabe');
 phase = { deload: true }; assert.equal(c.repGoal(X, 'Stark'), 4, 'Entlastung 1 Wdh. weniger'); phase = {};
 console.log('PASS: Vorgabe im EMOM steigt nur nach geschafften Runden');
+// Halteübungen: Vorgabe in Sekunden, nicht Wdh. (Dennis: „L-Sit mit Wiederholungen statt Zeit“), Schritte zu 5 s.
+c = setup(); c.S.base = {};
+const HL = { n: 'L-Sit', target: '3 × 10–20 s halten', hi: 20 }, hlog = (reps, goal) => c.LOGS.push({ id: 'h' + c.LOGS.length, kind: 'kraft', date: '2026-10-02', kraft: [{ n: 'L-Sit', stage: 'Tuck L-Sit', reps, goal }] });
+assert.equal(c.holdOf(HL), true); assert.equal(c.holdOf(X), false);
+assert.equal(c.repGoal(HL, 'Tuck L-Sit'), 10, 'Start am unteren Ende der Haltezeit');
+hlog([10, 12, 10, 11], 10); assert.equal(c.repGoal(HL, 'Tuck L-Sit'), 15, 'alles gehalten: 5 s mehr');
+hlog([20, 20, 20, 20], 20); assert.equal(c.repGoal(HL, 'Tuck L-Sit'), 20, 'nie über das obere Ende');
+assert.equal(c.repGoal({ n: 'Hollow Body Hold', target: '20 s pro Runde', hi: 6 }, 'Knie angezogen'), 20, 'feste Haltezeit statt 3 „Wdh.“');
+console.log('PASS: Halteübungen mit Sekunden statt Wiederholungen');
 
 // Arbeitsmodell: geregelte Zeiten = feste Woche mit Ausnahmen, Schichtarbeit = Wochenplan. Beide bleiben gespeichert.
 now = '2026-10-12'; c = setup();

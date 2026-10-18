@@ -7041,8 +7041,11 @@ function kraftView() { return S.kraftView === 'min' ? 'min' : 'ex'; }
 // Vorgabe im EMOM (Dennis): der Coach gibt die Wiederholungen vor, gemeldet wird nur, was nicht geklappt hat. Gleiche Stufe wie zuletzt
 // und alle Runden geschafft: 1 Wdh. mehr bis zum oberen Ende der Spanne (danach bringt die Sehnen-Bremse die nächste Stufe), sonst gleich.
 // Neue Stufe oder schwereres Gewicht: unteres Ende. Ohne Verlauf der Startwert aus Test bzw. Fragebogen. Entlastung 1 Wdh. weniger.
+// Halteübungen (L-Sit, Hollow Body Hold …): Vorgabe in Sekunden, steigt in 5-s-Schritten (Dennis: „L-Sit mit Wdh. statt Zeit“).
+function holdOf(x) { var t = x.target || ''; return isSecs(ladFor(x.n)) || (/\d\s*s\b/.test(t) && !/Wdh/.test(t)); }
 function repGoal(x, stage, kid, K) {
-  var m = /(\d+)\s*[–-]\s*(\d+)/.exec(x.target || ''), lo = m ? +m[1] : 3, hi = x.hi || (m ? +m[2] : 6), last = null, g;
+  var sec = holdOf(x), m = /(\d+)\s*[–-]\s*(\d+)/.exec(x.target || ''), s1 = sec && !m ? /(\d+)\s*s\b/.exec(x.target || '') : null;
+  var lo = m ? +m[1] : s1 ? +s1[1] : 3, hi = sec ? (m ? +m[2] : lo) : x.hi || (m ? +m[2] : 6), st = sec ? 5 : 1, last = null, g;
   var num1 = function (v) { return typeof v === 'number'; };
   for (var i = LOGS.length - 1; i >= 0 && !last; i--) (LOGS[i].kraft || []).forEach(function (k) {
     if (!last && k.n === x.n && (k.stage || '') === (stage || '') && !(k.pain && k.pain.skip) && (k.reps || []).some(num1)) last = k;
@@ -7050,12 +7053,12 @@ function repGoal(x, stage, kid, K) {
   if (!last) { var b = S.base[x.n]; g = b && b.start != null && (!b.stage || b.stage === stage) ? b.start : lo; }
   else {
     var R = last.reps.slice(last.max ? 1 : 0).filter(num1), g0 = last.goal != null ? last.goal : R.length ? Math.min.apply(null, R) : lo;
-    g = R.length && R.every(function (v) { return v >= g0; }) && !(last.pain && last.pain.soft) ? Math.max(g0 + 1, Math.min.apply(null, R)) : g0;
+    g = R.length && R.every(function (v) { return v >= g0; }) && !(last.pain && last.pain.soft) ? Math.max(g0 + st, Math.min.apply(null, R)) : g0;
     var lw = (last.kg || []).filter(function (w) { return w != null; });
     if (kid && K && K.rec && lw.length && K.rec.kg > Math.max.apply(null, lw)) g = lo;
   }
   g = Math.max(lo, Math.min(hi, g));
-  if (curPhase().deload) g = Math.max(lo, g - 1);
+  if (curPhase().deload) g = Math.max(lo, g - st);
   return g;
 }
 function kraftEx(tag, D, rounds, x, i) {
@@ -7073,7 +7076,7 @@ function kraftEx(tag, D, rounds, x, i) {
   else if (!last && base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
   var si = lad && stage ? lad.steps.indexOf(stage) : -1, skip = !!(x.pain && x.pain.skip);
   var first = !!lad && !cs && !last && !base; // noch kein Verlauf: Stufe einmal selbst wählen
-  return { x: x, i: i, g: g, fk: g ? g.key : '', lad: lad, stage: stage, si: si, K: skip ? null : K, kid: skip ? null : kid, hint: skip ? '' : hint, skip: skip, goal: repGoal(x, stage, kid, K),
+  return { x: x, i: i, g: g, fk: g ? g.key : '', lad: lad, stage: stage, si: si, K: skip ? null : K, kid: skip ? null : kid, hint: skip ? '' : hint, skip: skip, goal: repGoal(x, stage, kid, K), sec: holdOf(x),
     test: isTestCycle(tag) && (d.maxout === 'all' || d.maxout === i), first: first, est: skip ? '' : est };
 }
 // Welche Minute ist dran: beim laufenden EMOM die Uhr, sonst die gewählte oder die erste ohne Eintrag.
@@ -7099,10 +7102,11 @@ function kCounter(tag, D, E, r) {
   if (E.skip) return '';
   // Die Vorgabe zählt als geschafft. Nur wer weniger (oder mehr) schafft, tippt – bzw. +.
   var f = 'k' + E.i + 'r' + r, v = num(D[f]), def = E.goal, h = '', mx = E.test && r === 0;
-  var sub = mx ? 'Maxout: so viele wie möglich' : v == null || v === def ? 'Vorgabe · weniger? Tippe –' : v < def ? 'Weniger als die Vorgabe (' + def + ')' : 'Mehr als die Vorgabe (' + def + ')';
+  var u = E.sec ? ' s' : '', st = E.sec ? 5 : 1;
+  var sub = mx ? (E.sec ? 'Maxout: so lange wie möglich' : 'Maxout: so viele wie möglich') : v == null || v === def ? (E.sec ? 'Halten · kürzer? Tippe –' : 'Vorgabe · weniger? Tippe –') : v < def ? 'Weniger als die Vorgabe (' + def + u + ')' : 'Mehr als die Vorgabe (' + def + u + ')';
   h += '<div class="k-cnt"><span><b>Runde ' + (r + 1) + '</b>' + (mx ? ' · Maxout' : '') + '<br><span class="small muted">' + sub + '</span></span>' +
-    '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-1" data-def="' + def + '" aria-label="Weniger">–</button><b>' + (v == null ? def : v) + '</b>' +
-    '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="1" data-def="' + def + '" aria-label="Mehr">+</button></div></div>';
+    '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-' + st + '" data-def="' + def + '" aria-label="Weniger">–</button><b>' + (v == null ? def : v) + u + '</b>' +
+    '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="' + st + '" data-def="' + def + '" aria-label="Mehr">+</button></div></div>';
   if (E.kid) {
     var w = E.K.kg[r], st = kgStep(E.kid);
     h += '<div class="k-cnt"><span><b>Gewicht</b><br><span class="small muted">' + (E.K.rec ? 'Empfohlen ' + esc(fmtKg(E.K.rec.kg, E.kid)) : 'leicht starten') + '</span></span>' +
@@ -7131,7 +7135,7 @@ function kraftStepHTML(tag, D, rounds) {
   h += '<p class="small muted">Stufe und Wiederholungen gibt dein Coach vor. Schaffst du weniger, tipp auf –.</p>';
   if (isTestCycle(tag)) h += '<p class="flag">Test-Durchgang: Runde 1 von ' + esc(d.maxout === 'all' ? 'jeder Übung' : d.kraft[d.maxout] ? d.kraft[d.maxout].n : '') + ' ist ein Maxout, danach normal weiter.</p>';
   var cue = function (e) { var g = e.g, t = g ? shortCue(g.cue) : ''; return t ? '<p class="small">' + esc(t) + '</p>' : ''; };
-  var val = function (e, r) { var v = D['k' + e.i + 'r' + r]; return v != null ? esc(v) : e.skip ? '–' : String(e.goal); };
+  var val = function (e, r) { var v = D['k' + e.i + 'r' + r]; return (v != null ? esc(v) : e.skip ? '–' : String(e.goal)) + (e.sec && !e.skip ? ' s' : ''); };
   if (view === 'ex') {
     var e = E[ci];
     h += '<div class="k-dots" role="group" aria-label="Übungen">' + E.map(function (x, i) {
@@ -8692,10 +8696,10 @@ function fsKg(ex, r) {
 function fsReps(ex, r) {
   var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
   var D = dr(S.tag), E = kraftEx(S.tag, D, kraftRounds(S.tag), x, ex); if (E.skip) return null;
-  var f = 'k' + ex + 'r' + r, v = num(D[f]), def = E.goal, val = v == null ? def : v, mx = E.test && r === 0;
-  return { k: '|' + f + ':' + val, h: '<p class="fs-reps">' + (mx ? 'Maxout' : def + ' Wdh.') + '</p>', c: '<div class="fs-rh fs-cnt"><p class="fs-lbl">Geschafft</p>' +
-    '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-1" data-def="' + def + '" aria-label="Weniger">–</button><b>' + val + '</b>' +
-    '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="1" data-def="' + def + '" aria-label="Mehr">+</button></div></div>' };
+  var f = 'k' + ex + 'r' + r, v = num(D[f]), def = E.goal, val = v == null ? def : v, mx = E.test && r === 0, st = E.sec ? 5 : 1;
+  return { k: '|' + f + ':' + val, h: '<p class="fs-reps">' + (mx ? 'Maxout' : def + (E.sec ? ' s halten' : ' Wdh.')) + '</p>', c: '<div class="fs-rh fs-cnt"><p class="fs-lbl">Geschafft</p>' +
+    '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-' + st + '" data-def="' + def + '" aria-label="Weniger">–</button><b>' + val + (E.sec ? ' s' : '') + '</b>' +
+    '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="' + st + '" data-def="' + def + '" aria-label="Mehr">+</button></div></div>' };
 }
 function fsSide(L) {
   var c = TM.cfg || {}, t = c.step ? timerTypeOf(c.step) : 'tools', p = L ? L.p : TM.phases[1], mi = L && L.i > 0 ? L.i - 1 : 0, nx, k0, k1;

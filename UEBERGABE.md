@@ -6,6 +6,11 @@ Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md
 
 Stand: 15. Oktober 2026 (Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Halteübungen in Sekunden (18. Oktober 2026, Claude)
+- Dennis: L-Sit stand im Training mit Wiederholungen statt Haltezeit. Grund: `repGoal` kannte nur Wdh.; bei „20 s pro Runde“ (Hollow Body Hold)
+  wurde daraus sogar 3. Jetzt: `holdOf` erkennt Halteübungen, Vorgabe in Sekunden (5-s-Schritte), Zähler, Minuten-Kacheln und Vollbild mit „s“.
+- Geprüft: `tests/dreitage.cjs` (neuer Test), Browser-Tests, Kraftschritt mit Hollow Body Hold nachgespielt.
 ## Übungs-Anleitungen neu (15. Oktober 2026, Claude, Branch `uebungen-anleitungen`)
 - Dennis' Auftrag (zuerst an Gemini, das an der Dateigröße scheiterte): alle Übungen so erklären, dass Anfänger sie verstehen (Vorbereitung, Einstieg,
   Ausführung, Ausstieg), du-Form, englische Namen bleiben, Prüfliste. Quellen raus, weil es die eigene Bibliothek ist. Auftrag als Dokument zum
