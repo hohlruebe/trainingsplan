@@ -507,6 +507,18 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Taktgeber `tpoTick` (aus `tick`): in der laufenden EMOM-Minute der Übung Wdh. für Wdh., laufende Phase füllt sich, „Wdh. 2 von 6“, bei jedem
   Wechsel Ton (`beep`, braucht Signaltöne) und Vibration. Abschaltbar am Lautsprecher-Knopf der Leiste (`ACT['tpo-cue']`) und unter Einstellungen ›
   Mehr › Tempo (`S.tpoCue`, Standard an, nur auf dem Gerät).
+- Ermüdung je Körperzone (Dennis, Paket 60, Variante Z1d): Zonen Beine, Zug, Druck, Rumpf (`ZONE`, Muskeln wie im Muskelausgleich, `ZONE_OF`).
+  Last je Einheit (`zoneLogLoad`): Kraftsatz Hauptmuskel 1, mitarbeitend ½ (je Zone einmal), Metcon halbe Runden, Ausgleich, Lauf und Kardio-Abschluss
+  auf die Beine (Laufen Min/8, Gerät Min/16, Gehen Min/30), mal Härte `rpe`/7 (ohne Angabe 7). Erholung halbiert sich alle 24 h (Rumpf), 36 h (Zug, Druck),
+  48 h (Beine, `ZONE_HL`), nach Guten Morgen unter 6 h × 1,25. Stand `zoneState` (nichts gespeichert): Rest geteilt durch den eigenen Schnitt je Einheit
+  der letzten 6 Wochen (mindestens `ZONE_MIN`): unter 0,4 frisch, bis 0,8 erholt sich, darüber müde; Muskelkater im Körper-Check (`_kc`) = müde.
+  Heute (`zoneToday`, Plan 2, Krafttag, nicht Testwoche): Übungen, deren Hauptmuskel in einer müden Zone liegt, eine Runde weniger (`zoneApply` im
+  Getter `DAYS[t].kraft`, `x.zcut`, `kRounds`; die letzte Minute ist frei, `zoneFreeHTML`, im Eintrag `null` und `zcut`), Vorgabe und Stufe bleiben;
+  Beine müde: Abschluss locker und ohne Laufen (`zoneLegs` in `finOf`/`finDev`); Metcon (`planFill`) und Ausgleich (`ausgleichUe0`) nehmen dann keine
+  Übung auf der müden Zone; zwei müde Zonen = Kurzversion (`zoneKurz` in `isKurz0`). Rückweg: Heute anpassen › „Doch volle Runden“ (Entwurf `_zf`).
+  Satz unter dem Titel (`zoneLine` in `heuteSub`, mit „Erholung ansehen“ `ACT['zone-open']`) und Coach-Hinweis am Kraft-Schritt. Karte „Erholung“
+  (`zoneCardHTML`, `#zone-card`) nur in Plan › Deine Woche (diese Woche), nicht auf Heute: Figur vorn eingefärbt, je Zone ein Ring „wie erholt“
+  (100 = frisch) mit „bis Fr“ (müde) bzw. „ab 21 Uhr“ (frisch), darunter der Grund („Pistol Squat und 40 Min Laufen am Montag“).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
