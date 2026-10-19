@@ -4513,6 +4513,7 @@ function kgRec(id, lo, hi, rir) {
     // Echte Pause (14 Tage nichts im selben Teil) oder 3 Wochen ohne genau diese Übung (Technik mit der Hantel läuft neu an): 10 % leichter.
     var gap = daysBetween(parseISO(L.date), new Date()), pg = partPause(UE[id] && UE[id].muster, L.date);
     if (pg > 14 || gap > 21) return { kg: kgRound(L.kg * 0.9), why: 'Nach ' + (pg > 14 ? pg : gap) + ' Tagen ' + (pg > 14 ? 'Pause' : 'ohne diese Übung') + ' 10 % leichter' };
+    if (curPhase().blk === 'kraft') hi = lo; // Kraft-Abschnitt: schwerer, sobald alle Sätze das untere Ende schaffen
     var top = Math.min.apply(null, L.reps) >= hi;
     if (kgStallN(H, hi)) return { kg: kgRound(L.kg * 0.9), why: '3-mal gleich ohne mehr Wdh.: 10 % leichter und neu aufbauen' };
     if (top && curPhase().deload) return { kg: L.kg, why: 'Entlastung: das Gewicht bleibt' };
@@ -7206,7 +7207,7 @@ function renderHeute() {
   var title = c.isMurph ? 'Murph' : c.isTest ? TESTDAYS[tag].title : dayLabel(tag);
   // Plan 2: der Kopf nennt nur Heute und die Dauer, Durchgang und Phase stehen in der Block-Karte und im Plan.
   if (v2() && PL) kick = 'Heute' + (mins && cur ? ' · ca. ' + (mins + 2) + ' Min' : '');
-  if (lean) kick = 'Heute' + (cur && !lock && P0 && P0.tag && P0.t != null ? ' · ' + hm(P0.t - 24 * P0.i) + ' Uhr' : '');
+  if (lean) kick = 'Heute' + (cur && !lock && P0 && P0.tag && P0.t != null ? ' · ' + hm(P0.t - 24 * P0.i) + ' Uhr' : '') + (ph.blk ? ' · ' + BLK_N[ph.blk] : '');
   if (todayView) { kick = 'Heute'; title = 'Heute erledigt'; }
   if (plFree) { kick = v2() ? 'Heute' : 'Heute · Durchgang ' + ph.bd + ' von ' + ph.n; title = 'Heute frei'; }
   var sub = lean ? heuteSub(plFree ? 'free' : todayView ? 'done' : 'train', PL, tag) : [];
@@ -7669,6 +7670,7 @@ function repGoal(x, stage, kid, K) {
     if (kid && K && K.rec && lw.length && K.rec.kg > Math.max.apply(null, lw)) g = lo;
   }
   g = Math.max(lo, Math.min(hi, g));
+  if (kid && curPhase().blk === 'kraft') g = lo; // Kraft-Abschnitt: Gewicht hoch, Wdh. am unteren Ende
   if (curPhase().deload) g = Math.max(lo, g - st);
   return g;
 }
@@ -10275,6 +10277,9 @@ var FOKUS = {
     info: '3 Einheiten pro Woche: Aufwärmen, Skill, Kraft als EMOM (3–6 Wdh., RIR 2) und ein Kardio-Abschluss. Du beginnst kurz, dein Coach erhöht den Umfang schrittweise.',
     phase: function (p) {
       p.test = p.check = p.bd === p.n; p.deload = !p.test && p.bd % 4 === 0; p.lab = p.test ? 'Testwoche' : p.deload ? 'Entlastung' : 'Aufbau';
+      // Blöcke (Dennis, Paket 63): Aufbau, Kraft, Spitze je ein Drittel, dann Testwoche. Mit Lauf- oder Rad-Challenge hält der Coach die Kraft
+      // (Erhalt), das Ziel bestimmt das Kardio. Nur Plan 2.
+      if (v2() && !p.test && !p.deload) { var C0 = chal(); p.blk = C0 && (C0.grp === 'lauf' || C0.grp === 'rad') ? 'erhalt' : p.bd <= p.n / 3 ? 'aufbau' : p.bd <= p.n * 2 / 3 ? 'kraft' : 'spitze'; p.lab = BLK_N[p.blk]; }
       // Challenge: die letzten 2 Wochen vor dem Wettkampf Taper (nur im aktuellen Durchgang, er hängt am Kalender).
       if (chal() && chalLeft() <= 14 && p.bd === Math.max(1, Math.min(p.n, S.durchgang - (S.blockStart || 1) + 1))) { p.taper = true; p.lab = 'Taper'; }
     },
@@ -10305,6 +10310,8 @@ function curPhase() {
   if (S.comeback && S.comeback.dl === S.durchgang && !p.test) { p.deload = true; p.lab = 'Wiedereinstieg'; }
   return p;
 }
+var BLK_N = { aufbau: 'Aufbau', kraft: 'Kraft', spitze: 'Spitze', erhalt: 'Erhalt' };
+var BLK_X = { aufbau: 'mehr Wdh., Kardio eher länger', kraft: 'schwerer, Wdh. am unteren Ende', spitze: 'eine Runde weniger, Kardio kurz und intensiv', erhalt: 'Kraft halten, dein Ziel bekommt das Kardio' };
 var DAYS = {}, DAYS_K = null;
 // Woche des aktiven Schwerpunkts. Kraft und Metcon der Krafttage füllt planFill() nach Ort.
 function syncDays() {
@@ -10325,7 +10332,7 @@ function syncDays() {
 // Kraft: Anzahl der Runden (EMOM) oder Sätze je Übung.
 function kraftRounds(tag) {
   var kurz = isKurz(tag) || !!curPhase().taper;
-  if (v2()) { var r = umf().r; return kurz ? Math.min(3, r) : r; }
+  if (v2()) { var r = umf().r, b = curPhase().blk; if (b === 'spitze' || b === 'erhalt') r = Math.max(3, r - 1); return kurz ? Math.min(3, r) : r; }
   return (kurz ? 3 : 4) + (lvl() ? 1 : 0);
 }
 function metconMin(tag) {
@@ -10468,8 +10475,11 @@ function finOf(tag, zl) {
   var calm = kurz || p.deload || p.test || !grundOk() || morgenMild(tag) || zoneLegs(tag);
   if (kurz || p.deload) f = Math.max(6, 2 * Math.round(f * .3));
   if (!calm && d.fin === 'b' && d.mmin && d.metcon.length && (S.durchgang % 2 || !dev.iv)) return { k: 'metcon', min: d.mmin };
+  var blk = p.blk;
+  if (!calm && blk === 'spitze' && dev.iv && d.fin !== 'b') return { k: 'iv', min: f, n: f - 4, dev: dev }; // Spitze: kurz und intensiv
+  if (!calm && d.fin === 'b' && dev.iv && blk === 'aufbau') return { k: 'steady', min: Math.min(f + 4, d.finMax || 99), dev: dev }; // Aufbau: Kardio eher länger
   if (!calm && d.fin === 'b' && dev.iv) return { k: 'iv', min: f, n: f - 4, dev: dev };
-  if (!calm && d.fin === 'c') return { k: 'steady', min: f + 4, dev: dev };
+  if (!calm && d.fin === 'c') return { k: 'steady', min: Math.min(f + 4, d.finMax || 99), dev: dev };
   return { k: 'easy', min: f, dev: dev };
 }
 function finZone(z) { if (!hrKnown()) return 'Puls Zone ' + z; var r = zoneRange(z); return 'Puls ' + r[0] + '–' + r[1]; }

@@ -57,7 +57,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Heute schlank: kein Blättern, keine Karten für Uhrzeit, Coach, Block und Woche; die Uhrzeit steht oben.
     assert.equal(await page.getByRole('button', { name: 'Woche davor', exact: true }).count(), 0, 'Wochen blättern nur im Plan');
     for (const h of ['Training heute', 'Dein Coach hat heute angepasst', 'Deine Woche', 'Allround']) assert.equal(await page.getByRole('heading', { name: h, exact: true }).count(), 0, h + ' läuft im Hintergrund');
-    assert.match(await page.locator('.kicker').first().innerText(), /^Heute · \d\d:\d\d Uhr$/);
+    assert.match(await page.locator('.kicker').first().innerText(), /^Heute · \d\d:\d\d Uhr · Kraft$/, "Abschnitt klein im Kopf (Durchgang 5 = Kraft)");
     // Andere Uhrzeit und Heute nicht stehen in „Heute anpassen“.
     await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
     assert.ok(await page.locator('.ad-it[data-k="time"]').isVisible() && await page.locator('.ad-it[data-k="off"]').isVisible());
@@ -446,6 +446,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const f2 = await page.evaluate(() => window.tpTest.fill());
     assert.deepEqual([f2.kraft[1].length, f2.kraft[3].length, !!f2.kraft[6]], [4, 4, false], '2 Tage: A und B je mit einer vierten Übung, kein C');
     console.log('PASS: 2 bis 6 Trainingstage: Schieberegler im Plan, Wochenziel, Split ab 4 Tagen mit kurzem Kardio, 2 Tage mit vierter Übung');
+
+    // Paket 63: Blöcke. Aufbau (1–3), Kraft (5–7), Spitze (9–11); mit Lauf-Challenge Erhalt. Abschnitt klein im Kopf von Heute.
+    await page.clock.setFixedTime(new Date('2026-10-12T17:05:00+02:00'));
+    const bst = (dg, x) => Object.assign(old(), { durchgang: dg, planV: 2, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, planAsk: '2026-10-12' }, x || {});
+    const blkOf = async (dg, x) => { await page.evaluate(a => window.tpTest.set(a[0], a[1]), [bst(dg, x), logs()]); return { k: await page.locator('.kicker').first().innerText(), st: await page.evaluate(() => window.tpTest.steps().map(s => [s.id, s.dur, s.title])) }; };
+    const b2 = await blkOf(2), b10 = await blkOf(10), bE = await blkOf(10, { challenge: { id: 'k10', date: '2027-02-14', start: '2026-09-28', dg: 1 } });
+    assert.match(b2.k, / · Aufbau$/); assert.match(b10.k, / · Spitze$/); assert.match(bE.k, / · Erhalt$/, 'Lauf-Challenge: Kraft im Erhalt');
+    const krD = b => b.st.filter(s => s[0] === 'kraft')[0][1];
+    assert.ok(krD(b10) < krD(b2), 'Spitze: eine Runde weniger');
+    assert.match(b10.st.filter(s => s[0] === 'fin')[0][2], /Intervalle/, 'Spitze: Kardio kurz und intensiv');
+    console.log('PASS: Blöcke: Aufbau, Spitze mit einer Runde weniger und Intervallen, Erhalt mit Lauf-Challenge, Abschnitt im Kopf');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
