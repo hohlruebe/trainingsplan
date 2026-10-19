@@ -4,8 +4,18 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 19. Oktober 2026 (Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 19. Oktober 2026 (Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Guten Morgen und Körper-Check (19. Oktober 2026, Claude, Paket 59)
+- Erste Fassung (mehr Anlässe für Erholt | Müde | Sehr müde) gefiel Dennis nicht („Aussehen und Möglichkeiten“). Neu nach Varianten im Canvas,
+  gerendert mit echten App-Bausteinen: Dennis wählte S3 (Schlaf-Zähler, Gefühl-Kapsel) und K1 (Muskeln auf der eingebauten Figur antippen).
+  „Guten Morgen kann jeden Tag kommen.“ Ruhepuls und Tracker bleiben draußen.
+- Umgesetzt: siehe CLAUDE.md „Guten Morgen und Körper-Check“. Körper-Check vor jedem Krafttraining (Dennis hat das nicht ausdrücklich
+  entschieden; mit „Alles gut? Einfach weiter“ ist es ein Tipp). Grenzen 5 h / 6 h sind Startwerte.
+- Geprüft: `tests/dreitage-browser.cjs` (Guten Morgen nach Nachtdienst: Kurzversion, heute frei, Ändern; Anlass-Chips; Körper-Check Kater →
+  Schmerz → gut, Ersatz an der Übung), alle übrigen Tests. In den Browser-Tests gilt „Guten Morgen“ als beantwortet, außer der Test setzt `morgen`.
+- Offen: Dennis testet; danach Paket 61 (Zeit unter Spannung), 60, 62, 63.
 
 ## Leistung als Signal (19. Oktober 2026, Claude, Paket 58)
 - Dennis: „Der Coach soll selbst aktiv werden und evtl. kürzen, er soll den richtigen Trainingsreiz selbst ermitteln.“ Darum kürzt der Coach ohne

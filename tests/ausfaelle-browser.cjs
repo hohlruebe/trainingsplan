@@ -11,7 +11,8 @@ html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpTest = { state: () => S, logs: () => LOGS, pending: missPending, plan: wkPlanC,
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
-  set: (s, logs) => { S = Object.assign({}, DEF, s); LOGS = logs || []; DRAFTS = {}; ui.missLog = null; ui.fix = null; ui.tab = 'heute'; ui.viewTag = null; ensureOrte(); DAYS_K = null; invalidateDerived(); render(); }
+  set: (s, logs) => { S = Object.assign({}, DEF, s); if (!('morgen' in s)) { S.morgen = {}; for (var q = 0; q < 120; q++) S.morgen[isoAdd('2026-09-01', q)] = { h: 8, f: 4, ts: 1 }; } // Guten Morgen gilt im Test als beantwortet
+  LOGS = logs || []; DRAFTS = {}; ui.missLog = null; ui.fix = null; ui.tab = 'heute'; ui.viewTag = null; ensureOrte(); DAYS_K = null; invalidateDerived(); render(); }
 };
 applyTheme();
 blockCheck();`);

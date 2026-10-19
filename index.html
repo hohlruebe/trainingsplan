@@ -749,6 +749,19 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .ld-s{display:flex;gap:10px;align-items:flex-start;background:var(--board);border-radius:16px;padding:10px 12px;margin-top:10px;line-height:1.4}
 .ld-s>b{font-size:18px;color:var(--on)}.ld-s.over>b{color:var(--off)}
 .ad-sig{margin:0 0 12px;padding:14px 16px}
+.mg-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 12px}.mg-h b{font-size:17px}
+.mg-tile{display:flex;align-items:center;justify-content:space-between;background:var(--board);border-radius:18px;padding:10px 10px 10px 16px}
+.mg-tile small{display:block;font-size:14px;color:var(--ink2)}.mg-tile b{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mg-sub{font-size:14px;color:var(--ink2);margin:8px 2px 0}.mg-q{font-weight:600;margin:16px 0 8px}.mg-seg{display:flex}.mg-seg .seg-btn{flex:1;padding:0 4px}
+.mg-res{display:flex;gap:10px;align-items:flex-start;background:var(--board);border-radius:16px;padding:12px 14px;margin-top:14px;line-height:1.4}
+.mg-res i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--on-acc,#fff);font:700 13px/22px var(--head);text-align:center;font-style:normal}
+.mg-row{margin:0 0 12px}
+.kc .bf .mu[data-act]{cursor:pointer}.bf .mu.zk{fill:var(--mb2)}.bf .mu.zs{fill:var(--mb0)}
+.kc-lg{display:flex;justify-content:center;gap:16px;font-size:14px;color:var(--ink2);margin:6px 0 4px}.kc-lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.kc-lg i.zk{background:var(--mb2)}.kc-lg i.zs{background:var(--mb0)}
+.kc-r{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;border-top:1px solid var(--line)}.kc-r b{font-weight:600}.kc-r .seg{margin:0}.kc-r .seg-btn{padding:0 10px;min-height:38px;font-size:14px}
+.kc-k{background:color-mix(in srgb,var(--mb2) 24%,var(--paper))}.kc-in{margin:0 0 8px}
+.fs-noring .fs-dig,.fs-noring #fs-tg{display:none}.fs-noring .fs-side{flex:1}
 .rpe{position:relative;padding:4px 0}
 .rpe input{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:0;background:transparent;--p:44.4%}
 .rpe input::-webkit-slider-runnable-track{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--on),#E9B949 55%,var(--off))}
@@ -2669,7 +2682,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null };
+  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -2778,7 +2791,7 @@ function toast(msg) { if (LS.notice) { storageNotice(); return; } var t = docume
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
 function isKurz(tag) { return zeitLv(tag) >= 2 || isKurz0(tag); }
-function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return (!v2() && (S.durchgang === 1 || S.durchgang === 2)) || pauseDays() > 7 || !!(S.comeback && S.comeback.n > 0) || sigKurz(tag) } // Plan 2: der Einstieg steckt in der Umfangsstufe
+function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return (!v2() && (S.durchgang === 1 || S.durchgang === 2)) || pauseDays() > 7 || !!(S.comeback && S.comeback.n > 0) || sigKurz(tag) || morgenKurz(tag) } // Plan 2: der Einstieg steckt in der Umfangsstufe
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
   var d = DAYS[tag];
@@ -2825,7 +2838,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'zusatz'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -2910,7 +2923,7 @@ function mergeRemote(r) {
       if (POS.indexOf(k) >= 0 || !Object.prototype.hasOwnProperty.call(r.stand, k)) return;
       var t = rt ? (rt[k] || 0) : (r.standTs || 0);
       // Planung und Antworten pro Datum zusammenführen: verschiedene Geräte dürfen einander keine Tage löschen.
-      if (k === 'planDays' || k === 'planMiss' || k === 'befinden') {
+      if (k === 'planDays' || k === 'planMiss' || k === 'befinden' || k === 'morgen') {
         var local = Object.assign({}, S[k] || {}), remote = r.stand[k] || {};
         Object.keys(remote).forEach(function (dt) {
           if (!/^\d{4}-\d{2}-\d{2}$/.test(dt) || !remote[dt]) return;
@@ -3382,7 +3395,7 @@ function sigOf(l) {
   if (l.kind === 'kraft' && l.kraft) {
     var prev = sigBefore(l, function (x) { return x.kind === 'kraft' && x.kraft; }), miss = [];
     l.kraft.forEach(function (k) {
-      if (!k.goal || (k.pain && (k.pain.soft || k.pain.skip))) return;
+      if (!k.goal || (k.pain && (k.pain.soft || k.pain.skip || k.pain.kater))) return;
       var below = (k.reps || []).filter(function (v) { return v != null && v < k.goal; }).length;
       // Neue Stufe: die ersten 2 Einheiten zählen nicht (Einstufung).
       var same = prev.filter(function (x) { return x.kraft.some(function (y) { return y.n === k.n && (y.stage || '') === (k.stage || ''); }); }).length;
@@ -3579,7 +3592,7 @@ function saveDay() {
     var AG = ausgleichUe(tag), ar = [num(v.a0), num(v.a1)];
     if (AG && !AG.skip && ar.some(function (x) { return x != null; })) log.ausgleich = { ue: AG.id, reps: ar };
   }
-  if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; }
+  if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; if (v._kc) log.kc = v._kc; }
   if (log && (log.kind === 'kraft' || log.kind === 'easy' || log.kind === 'interval')) loadAttach(log, tag, DRAFTS[key] || {});
   if (log) addLog(log);
   // Ruhetag: der Kurz-Check wird ein Mobility-Eintrag (zählt nicht als Training, aber für Beweglichkeit).
@@ -5474,10 +5487,26 @@ var BEF = [['fit', 'Erholt'], ['tired', 'Müde'], ['very', 'Sehr müde']];
 function befDue(P) {
   if (!v2() || !P || P.today < 0 || doneToday0()) return null;
   var i = P.today, d = P.days[i], d0 = 24 * i, night = P.T.work.some(function (w) { return w[0] < d0 && w[1] > d0 && w[1] <= d0 + 12; }), cls = dayCls(P.T, i), ans = befOf(d.date);
-  if (!night && cls === 'ok' && !ans) return null;
+  var an = night || cls !== 'ok' ? null : befAnlass(P, i);
+  if (!night && cls === 'ok' && !ans && !an) return null;
   if (!ans && (longShift(d.work) || missCareDue() || (S.planCare && S.planCare.checked === isoToday()))) return null;
   if (!ans && !d.tag && !(cls === 'none' && P.dropped.length)) return null;
-  return { night: night, cls: cls, ans: ans, d: d };
+  return { night: night, cls: cls, ans: ans, d: d, an: an };
+}
+// Paket 59: weitere Anlässe für „Wie geht’s dir heute?“, nur an Trainingstagen, der dringendste zuerst.
+function befAnlass(P, i) {
+  if (!P.days[i].tag) return null;
+  var d0 = 24 * i, c = (alltag().wegA || 0) / 60, st = P.T.work.filter(function (w) { return w[0] >= d0 && w[0] < d0 + 24; }).map(function (w) { return w[0]; }).sort(function (a, b) { return a - b; })[0];
+  if (st != null) {
+    var en = P.T.work.filter(function (w) { return w[1] <= st && w[1] > st - 24; }).map(function (w) { return w[1]; }).sort(function (a, b) { return b - a; })[0];
+    if (en != null && st - en - 2 * c < 11) return { k: 'rest', chip: 'Kurze Nacht', t: 'Gestern Arbeit bis ' + hm(en - 24 * (i - 1)) + ', heute ab ' + hm(st - d0) + ': nur ' + Math.round(st - en - 2 * c) + ' Stunden dazwischen.' };
+  }
+  var G = sigState();
+  if (G.last.length && !G.cut && G.at && G.at >= isoAdd(isoToday(), -7)) return { k: 'sig', chip: 'Letzte Einheit schwer', t: G.last[0].t + ': ' + G.last[0].s };
+  var mon = wkMon(), act = 0, soll = 0;
+  LOGS.forEach(function (l) { var x = logLoad(l); if (x != null && l.soll && l.date >= mon && l.date < isoToday()) { act += x; soll += l.soll; } });
+  if (soll && act > soll * LOAD_OVER) return { k: 'load', chip: 'Viel Belastung', t: 'Diese Woche bisher ' + act + ' statt geplant etwa ' + soll + '.' };
+  return null;
 }
 function befAskHTML(P) {
   var B = befDue(P); if (!B) return '';
@@ -5485,7 +5514,7 @@ function befAskHTML(P) {
     : B.ans === 'fit' ? (B.cls === 'none' || (B.cls === 'light' && !B.night) ? 'Erholt: wenn diese Woche ein Training fehlt, ist heute ein guter Tag dafür.' : 'Erholt: alles wie geplant.')
     : B.ans === 'tired' ? 'Heute kürzer, weil du Müdigkeit gemeldet hast. Mehr Umfang gibt es erst wieder, wenn du erholt bist.'
     : 'Heute Erholung, dein Coach hat die Woche umgeplant. Leichte Bewegung tut trotzdem gut.';
-  return '<section class="card pn-ask"><div class="pn-ask-h"><b>' + (B.night ? 'Wie fühlst du dich nach der Nacht?' : 'Wie geht’s dir heute?') + '</b><span class="chip">' + (B.night ? 'Nach dem Nachtdienst' : 'Schichtwechsel') + '</span></div>' +
+  return '<section class="card pn-ask"><div class="pn-ask-h"><b>' + (B.night ? 'Wie fühlst du dich nach der Nacht?' : 'Wie geht’s dir heute?') + '</b><span class="chip">' + esc(B.night ? 'Nach dem Nachtdienst' : B.an ? B.an.chip : 'Schichtwechsel') + '</span></div>' + (B.an && !B.ans ? '<p class="small muted" style="margin:0 0 10px">' + esc(B.an.t) + '</p>' : '') +
     '<div class="seg" role="group" aria-label="Befinden">' + BEF.map(function (o) { var on = B.ans === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="bef" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
     '<p class="tl-x">' + esc(res) + '</p></section>';
 }
@@ -6333,7 +6362,7 @@ function stepsOf(c) {
         ri: es.type === 'interval' ? 7 : 4, timer: ergoTimer(es, 'main'), body: function (D) { return '<p class="small muted">Jetzt die Pulsuhr starten und die Anzeige am Ergometer auf null setzen. Stoppen nach dem Ausfahren.</p>' + runHTML(c, D, es, true); } }];
   }
   if (d.type !== 'kraft') return [];
-  var out = [], rounds = kraftRounds(tag), names = d.kraft.map(function (k) { return k.pain && k.pain.skip ? 'Pause' : k.n; });
+  var out = v2() && c.cur ? [kcStep(tag)] : [], rounds = kraftRounds(tag), names = d.kraft.map(function (k) { return k.pain && k.pain.skip ? 'Pause' : k.n; });
   if (d.warm) out.push({ id: 'warm', title: 'Aufwärmen', sub: wm + ' Min' + (d.jumps ? ' · Sprünge ohne Weste' : ''), dur: wm,
     desc: 'Ergometer, Mobilität' + (d.jumps ? ', ' + jumpN(d) : ''),
     timer: warmTimer(tag, wm),
@@ -7059,6 +7088,8 @@ function heuteSub(kind, PL, tag) {
   if (kind === 'done') return [next];
   var d = DAYS[tag] || {}, ph = curPhase(), p = pauseDays(), cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0, U = S.umfang;
   var t = befOf(isoToday()) === 'tired' && d.type === 'kraft' ? 'Heute kürzer, weil du müde bist.'
+    : morgenMild(tag) && d.type === 'kraft' ? 'Heute ohne Intervalle: ' + esc(morgenWhy()) + '.'
+    : morgenToday(tag) === 3 && isKurz0(tag) ? 'Wenig Schlaf und erschöpft: heute höchstens die Kurzversion.'
     : sigKurz(tag) && isKurz0(tag) ? 'Heute kürzer: deine letzten zwei Einheiten waren schwerer als sonst (' + esc(sigWhy()) + ').'
     : p > 7 ? 'Willkommen zurück nach ' + p + ' Tagen Pause: ' + (p > 28 ? 'dieser Durchgang ist Entlastung, ' : '') + 'die nächsten ' + (p > 14 ? 5 : 2) + ' Einheiten sind kürzer.'
     : cb ? 'Wiedereinstieg: noch ' + (cb === 1 ? '1 Einheit' : cb + ' Einheiten') + ' kürzer.'
@@ -7073,11 +7104,104 @@ function heuteSub(kind, PL, tag) {
 // Höchstens eine Frage auf Heute, die dringendste zuerst; die nächste kommt, sobald diese beantwortet ist. Ein beantwortetes Befinden
 // tritt zur Seite (die Folge steht unter dem Titel), nur „Sehr müde“ bleibt sichtbar, damit man es am freien Tag ändern kann.
 function heuteAskHTML(PL, tag) {
-  var B = befDue(PL);
-  var Q = [function () { return B && (!B.ans || B.ans === 'very') ? befAskHTML(PL) : ''; }, function () { return tag ? painAskHTML(tag) : ''; }, missNoticeHTML, planNextAskHTML, backupHTML];
-  for (var i = 0; i < Q.length; i++) { var x = Q[i](); if (x) return x; }
-  return '';
+  var mg = v2() ? morgenAskHTML(PL, tag) : ''; if (mg) return mg;
+  var row = v2() ? morgenRowHTML() : '', B = befDue(PL);
+  var Q = [function () { return !v2() && B && (!B.ans || B.ans === 'very') ? befAskHTML(PL) : ''; }, function () { return tag ? painAskHTML(tag) : ''; }, missNoticeHTML, planNextAskHTML, backupHTML];
+  for (var i = 0; i < Q.length; i++) { var x = Q[i](); if (x) return row + x; }
+  return row;
 }
+/* ---------- Guten Morgen (Dennis, Paket 59): Schlaf als Zähler, Gefühl als Kapsel, jeden Tag; der Coach entscheidet daraus ---------- */
+var MG_F = ['Platt', 'Müde', 'Okay', 'Gut', 'Top'];
+function morgenOf(dt) { var m = (S.morgen || {})[dt || isoToday()]; return m && m.h != null ? m : null; }
+// 0 wie geplant, 1 ohne Intervalle/Metcon, 2 Kurzversion, 3 Kurzversion und Vorschlag „heute frei“ (Startwerte).
+function morgenLvl(m) { if (!m) return 0; var h = +m.h, f = +m.f; return h < 5 && f <= 1 ? 3 : h < 5 || f <= 1 ? 2 : h < 6 || f === 2 ? 1 : 0; }
+function morgenToday(tag) { return v2() && tag === S.tag && !doneToday0() ? morgenLvl(morgenOf()) : 0; }
+function morgenKurz(tag) { return morgenToday(tag) >= 2; }
+function morgenMild(tag) { var D = DRAFTS[draftKey(tag)] || {}; return morgenToday(tag) === 1 && D._kurz !== '0'; }
+function morgenWhy() { var m = morgenOf(); return !m ? '' : +m.h < 6 ? fmtH(m.h) + ' Schlaf' : 'du fühlst dich müde'; }
+function fmtH(h) { return String(h).replace('.', ',') + ' h'; }
+// Laut Plan möglicher Schlaf der letzten Nacht (Arbeitszeiten, Tagschlaf nach dem Nachtdienst).
+function morgenSleep(PL) {
+  if (!PL || PL.today < 0 || !PL.T) return 7;
+  var d0 = 24 * PL.today, sl = PL.T.sleep.filter(function (x) { return x[1] > d0 - 2 && x[1] <= d0 + 16; })[0];
+  return sl ? Math.max(3, Math.min(10, Math.round((sl[1] - sl[0]) * 2) / 2)) : 7;
+}
+function morgenRes(lvl, tag, free) {
+  if (free) return lvl >= 2 ? 'Heute ist frei. Gut so, erhol dich.' : 'Heute ist frei. Bis zum nächsten Training.';
+  var run = DAYS[tag] && DAYS[tag].kardio;
+  return [run ? 'Alles wie geplant.' : 'Alles wie geplant.', run ? 'Heute locker statt Intervalle.' : 'Heute ohne Intervalle. Kraft wie geplant, der Abschluss wird locker.',
+    run ? 'Heute ein kurzer, lockerer Lauf.' : 'Heute die Kurzversion: Kraft 3 Runden, Abschluss locker.', 'Wenig Schlaf und erschöpft: nimm dir heute frei. Trainierst du trotzdem, wird es die Kurzversion.'][lvl];
+}
+function morgenAskHTML(PL, tag) {
+  var m = morgenOf(), today = isoToday();
+  if ((m && !ui.mgEdit) || !S.started) return '';
+  if (!ui.mg || ui.mg.d !== today) ui.mg = { d: today, h: m ? +m.h : morgenSleep(PL), f: m ? +m.f : 3 };
+  var B = PL ? befDue(PL) : null, chip = B ? (B.night ? 'Nach dem Nachtdienst' : B.an ? B.an.chip : B.cls !== 'ok' ? 'Schichtwechsel' : '') : '';
+  var free = !tag || !(PL && PL.today >= 0 && PL.days[PL.today].tag), lvl = morgenLvl(ui.mg), A = S.alltag;
+  var plan = A && (A.std || Object.keys(S.arbeit || {}).length || kalOn()) ? '<p class="mg-sub">Laut Plan waren etwa ' + fmtH(morgenSleep(PL)) + ' möglich.</p>' : '';
+  return '<section class="card mg"><div class="mg-h"><b>Guten Morgen</b>' + (chip ? '<span class="chip">' + esc(chip) + '</span>' : '') + '</div>' +
+    '<div class="mg-tile"><span><small>Geschlafen</small><b>' + fmtH(ui.mg.h) + '</b></span><span class="stepper"><button type="button" data-act="mg-h" data-d="-0.5" aria-label="Eine halbe Stunde weniger">–</button><button type="button" class="primary" data-act="mg-h" data-d="0.5" aria-label="Eine halbe Stunde mehr">+</button></span></div>' + plan +
+    '<p class="mg-q">Wie fühlst du dich damit?</p><div class="seg mg-seg" role="group" aria-label="Gefühl">' + MG_F.map(function (t, i) { var on = ui.mg.f === i + 1; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mg-f" data-v="' + (i + 1) + '" aria-pressed="' + on + '">' + t + '</button>'; }).join('') + '</div>' +
+    '<div class="mg-res"><i>i</i><span>' + esc(morgenRes(lvl, tag, free)) + '</span></div>' +
+    (lvl === 3 && !free ? '<button type="button" class="btn block" data-act="mg-off" style="margin-top:10px">Heute frei nehmen</button>' : '') +
+    '<button type="button" class="btn save block" data-act="mg-ok" style="margin-top:10px">Fertig</button></section>';
+}
+function morgenRowHTML() {
+  var m = morgenOf(); if (!m || ui.mgEdit) return '';
+  return '<div class="vrows mg-row"><button type="button" class="vrow" data-act="mg-edit"><span class="gl-t"><b>Guten Morgen</b><small>' + fmtH(m.h) + ' Schlaf · Gefühl ' + MG_F[(+m.f || 3) - 1].toLowerCase() + '</small></span><span class="vr-v">Ändern</span></button></div>';
+}
+function morgenSave(off) {
+  var today = isoToday(), lim = isoAdd(today, -60), M = {}, B = {}, lvl = morgenLvl(ui.mg);
+  Object.keys(S.morgen || {}).forEach(function (d) { if (d >= lim) M[d] = S.morgen[d]; });
+  M[today] = { h: ui.mg.h, f: ui.mg.f, ts: Date.now() }; S.morgen = M;
+  // Fürs Befinden (Umfang halten, Tag zwischen zwei Nächten): erholt bis Stufe 1, sonst müde, „heute frei“ = sehr müde.
+  Object.keys(S.befinden || {}).forEach(function (d) { if (d >= isoAdd(today, -30)) B[d] = S.befinden[d]; });
+  B[today] = { v: off ? 'very' : lvl >= 2 ? 'tired' : 'fit', ts: Date.now() }; S.befinden = B;
+  S.planOv = Object.assign({}, S.planOv || {});
+  if (off) S.planOv[today] = { off: 1, reason: 'sehrmuede' }; else if (S.planOv[today] && S.planOv[today].reason === 'sehrmuede') delete S.planOv[today];
+  ui.mgEdit = false; WKP_C.k = null; saveState(); render();
+}
+ACT['mg-h'] = function (el) { ui.mg.h = Math.max(2, Math.min(12, ui.mg.h + (+el.dataset.d))); render(); };
+ACT['mg-f'] = function (el) { ui.mg.f = +el.dataset.v; render(); };
+ACT['mg-ok'] = function () { morgenSave(false); };
+ACT['mg-off'] = function () { morgenSave(true); toast('Heute frei. Dein Coach plant die Woche neu.'); };
+ACT['mg-edit'] = function () { var m = morgenOf(); ui.mg = { d: isoToday(), h: +m.h, f: +m.f }; ui.mgEdit = true; render(); };
+/* ---------- Körper-Check vor dem Start (Dennis, Paket 59): Muskeln auf der Figur antippen, einmal Kater, zweimal Schmerz ---------- */
+var KC_R = { l: 1, m: 2, s: 3 };
+function kcState(tag) { var o = {}; String(dr(tag)._kc || '').split(',').forEach(function (p) { var a = p.split(':'); if (a[0] && MUS_NAME[a[0]] && (a[1] === 'k' || a[1] === 's')) o[a[0]] = { v: a[1], w: a[2] || 'm' }; }); return o; }
+// Wirkt über die Schmerz-Entwürfe je Kraftplatz (_pk<i>): Kater = Übung bleibt (wird nicht gemerkt), Schmerz = Ampel mit der gewählten Stärke.
+function kcSet(tag, o) {
+  setDraft('_kc', Object.keys(o).map(function (m) { return m + ':' + o[m].v + (o[m].v === 's' ? ':' + o[m].w : ''); }).join(','));
+  var D = dr(tag), prev = String(D._kcs || '').split(',').filter(Boolean), set = [];
+  prev.forEach(function (sl) { setDraft('_p' + sl, ''); });
+  (planFill().kraft[tag] || []).forEach(function (x, i) {
+    var sl = 'k' + i; if (dr(tag)['_p' + sl]) return; // eigene Meldung an der Übung bleibt
+    var u = UE[painCur(tag, x, i)], best = null;
+    Object.keys(o).forEach(function (m) {
+      var ld = siteLoad(u, { k: 'm', id: m }); if (!ld || (o[m].v === 'k' && ld < 2)) return;
+      var r = o[m].v === 's' ? 10 + KC_R[o[m].w] : ld; if (!best || r > best.r) best = { r: r, m: m, w: o[m].v === 's' ? o[m].w : 'k' };
+    });
+    if (best) { setDraft('_p' + sl, 'm:' + best.m + ':' + best.w); set.push(sl); }
+  });
+  setDraft('_kcs', set.join(','));
+}
+function kcStep(tag) {
+  return { id: 'koerper', title: 'Körper-Check', sub: 'Muskelkater oder Schmerzen?', dur: 0, desc: 'Alles gut? Einfach weiter.', body: function () { return kcHTML(tag); } };
+}
+function kcHTML(tag) {
+  var o = kcState(tag), fig = musFigHTML(function (m) { var z = o[m]; return 'm_' + m + (z ? (z.v === 's' ? ' zs' : ' zk') : ''); });
+  fig = fig.replace(/class="mu([^"]*?) m_(\w+)([^"]*)"/g, 'class="mu$1$3" data-act="kc" data-m="$2"');
+  var rows = Object.keys(o).map(function (m) {
+    return '<div class="kc-r"><b>' + esc(MUS_NAME[m]) + '</b>' + (o[m].v === 'k' ? '<span class="chip kc-k">Muskelkater</span>' :
+      '<div class="seg" role="group" aria-label="Stärke">' + [['l', 'Leicht'], ['m', 'Mittel'], ['s', 'Stark']].map(function (w) { var on = o[m].w === w[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="kc-w" data-m="' + m + '" data-v="' + w[0] + '" aria-pressed="' + on + '">' + w[1] + '</button>'; }).join('') + '</div>') + '</div>';
+  }).join('');
+  var adj = String(dr(tag)._kcs || '').split(',').filter(Boolean).map(function (sl) { var x = (DAYS[tag].kraft || [])[+sl.slice(1)]; return x && x.pain ? (x.pain.kater ? x.pain.from + ' bleibt, saubere Technik vor Wiederholungen' : x.pain.skip ? x.pain.from + ' heute nicht' : x.pain.soft ? x.pain.from + ' leichter' : x.n + ' statt ' + x.pain.from) : ''; }).filter(Boolean);
+  return '<p class="small muted kc-in">Tipp auf einen Muskel: einmal Kater, zweimal Schmerz, dreimal wieder gut. Alles gut? Einfach weiter.</p><div class="kc">' + fig +
+    '<div class="mk-lg kc-lg"><span><i class="zk"></i>Muskelkater</span><span><i class="zs"></i>Schmerz</span></div>' + rows + '</div>' +
+    (adj.length ? '<p class="tl-x">Dein Coach passt an: ' + esc(adj.join(' · ')) + '.</p>' : '');
+}
+ACT.kc = function (el) { var o = kcState(S.tag), m = el.dataset.m, z = o[m]; if (!z) o[m] = { v: 'k', w: 'm' }; else if (z.v === 'k') z.v = 's'; else delete o[m]; kcSet(S.tag, o); haptic('tap'); render(); };
+ACT['kc-w'] = function (el) { var o = kcState(S.tag); if (o[el.dataset.m]) o[el.dataset.m].w = el.dataset.v; kcSet(S.tag, o); render(); };
 // Freier Tag (Plan 2): Ruhetag-Routine und Kurz-Check als zwei Zeilen in einer Karte, beides freiwillig. Der Kurz-Check klappt darunter auf.
 function freeDayHTML(rrt) {
   var i = rcIdx(), k = i >= 0 ? MOB.check.leitern[i] : null, rows = [];
@@ -8009,7 +8133,7 @@ function runSegHTML(mode) {
     return '<button type="button" class="seg-btn' + (mode === m[0] ? ' on' : '') + '" data-act="run-mode" data-m="' + m[0] + '" aria-pressed="' + (mode === m[0]) + '">' + m[1] + '</button>';
   }).join('') + '</div>';
 }
-function todayRunSpec(tag) { var d = DAYS[tag]; return kardioSpec(d, { kurz: d.type === 'interval' && isKurz(tag) }); }
+function todayRunSpec(tag) { var d = DAYS[tag]; return kardioSpec(d, { kurz: d.type === 'interval' && (isKurz(tag) || morgenMild(tag)) }); }
 function runHTML(c, D, spec, inStep) {
   spec = spec || runSpec(c.d);
   var easy = spec.type === 'easy', kind = spec.type, art = spec.art || 'locker', mode = runMode(D), ergo = mode === 'ergo', h = '';
@@ -8946,7 +9070,7 @@ function trainShellHTML(T) {
   var seg = views ? '<div class="seg fs-seg" role="group" aria-label="Ansicht">' + [['one', 'Einzeln'], ['list', 'Liste']].map(function (x) {
     return '<button type="button" class="seg-btn' + (x[0] === v ? ' on' : '') + '" data-act="fs-view" data-v="' + x[0] + '" aria-pressed="' + (x[0] === v) + '">' + x[1] + '</button>'; }).join('') + '</div>' : '';
   var prev = T.i > 0 ? T.st[T.i - 1].title : 'Übersicht';
-  return '<div class="fs-in fs-tr"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
+  return '<div class="fs-in fs-tr' + (id === 'koerper' ? ' fs-noring' : '') + '"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
     '<div class="fs-tt"><p class="fs-kick">' + esc(T.s.title) + ' · ' + (T.i + 1) + ' von ' + T.st.length + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
     seg + '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
     '<div class="fs-main"><div class="fs-dig"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
@@ -10023,7 +10147,7 @@ function finOf(tag, zl) {
   var U = umf(), p = curPhase(), kurz = isKurz(tag) || !!p.taper, f = U.f, dev = finDev();
   if (zl >= 3) return { k: 'none', min: 0 };
   if (d.cmc && CHAL[d.cmc] && d.metcon.length) return { k: 'metcon', min: metconMin(tag) };
-  var calm = kurz || p.deload || p.test || !grundOk();
+  var calm = kurz || p.deload || p.test || !grundOk() || morgenMild(tag);
   if (kurz || p.deload) f = Math.max(6, 2 * Math.round(f * .3));
   if (!calm && d.fin === 'b' && d.mmin && d.metcon.length && (S.durchgang % 2 || !dev.iv)) return { k: 'metcon', min: d.mmin };
   if (!calm && d.fin === 'b' && dev.iv) return { k: 'iv', min: f, n: f - 4, dev: dev };
