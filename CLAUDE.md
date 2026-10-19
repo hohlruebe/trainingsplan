@@ -474,6 +474,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Abschluss `FIN_RI` locker 4/gleichmäßig 5/30-30 8, Cool-down 2; `stepsLoad`, `runLoad`, `unitLoad`), gemacht = `rpe` × `min` (`logLoad`).
   Plan › Deine Woche: Karte „Belastung“ (`loadCardHTML`, `loadWeek`): Balken je Tag, geplant gestrichelt, grün bis 15 % über dem Plan (`LOAD_OVER`),
   rot mit „!“ darüber, darunter die Woche gegen den Plan der Woche. Der Coach ändert damit noch nichts (Pakete 58 ff.). Alte Einträge ohne Wert bleiben.
+- Leistung als Signal (Dennis, Paket 58, „der Coach soll den richtigen Reiz selbst ermitteln“): `sigOf(l)` je Einheit, nur Vergleich mit eigenen Werten:
+  Kraft „Mehr Mühe als sonst“ (mindestens 2 Übungen mit je ≥ 2 Runden unter `goal`, nicht bei Schmerz leichter/Pause, nicht in den ersten 2 Einheiten
+  einer Stufe), Ausdauer „Puls höher“ (Puls ≥ `SIG_HR` 6 % über dem Schnitt der letzten 3–6 Einheiten gleicher Art bei nicht schnellerem Tempo bzw.
+  nicht mehr Watt), Skill „Haltezeit kürzer“ (unter `SIG_HOLD` 75 % des Schnitts der letzten 3 auf derselben Stufe), Belastung „Härter als geplant“
+  (`logLoad` > `soll` × `LOAD_OVER`). `sigState`: Signale in den letzten zwei Einheiten hintereinander = `cut`; `sigKurz(tag)` macht die nächste
+  Einheit zur Kurzversion (in `isKurz0`, Grund in `heuteSub`), Rückweg in Heute anpassen (Karte `.ad-sig`, `ACT['sig-full']`: `_kurz` '0', „Doch kürzer“
+  gibt zurück). Eine Einheit ohne Signal setzt zurück. `sigHold` (gekürzt oder 2 Einheiten mit Signal in 14 Tagen) hält `umfGrow` und den Zusatz.
+  Signale stehen unter „Was dein Coach daraus macht“ (`outlookHTML`, auch für Läufe). Nichts wird gespeichert, alles aus den Einheiten berechnet.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

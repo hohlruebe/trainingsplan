@@ -748,6 +748,7 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .ld-mt{display:flex;justify-content:space-between;gap:8px}
 .ld-s{display:flex;gap:10px;align-items:flex-start;background:var(--board);border-radius:16px;padding:10px 12px;margin-top:10px;line-height:1.4}
 .ld-s>b{font-size:18px;color:var(--on)}.ld-s.over>b{color:var(--off)}
+.ad-sig{margin:0 0 12px;padding:14px 16px}
 .rpe{position:relative;padding:4px 0}
 .rpe input{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:0;background:transparent;--p:44.4%}
 .rpe input::-webkit-slider-runnable-track{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--on),#E9B949 55%,var(--off))}
@@ -2694,7 +2695,7 @@ var LS = {
 // Auch Korrekturen mit unveränderter Anzahl der Einträge müssen neu gerechnet werden.
 function invalidateDerived() {
   [FILL, EST_C, PR_C, MB_C, PAIN_C, WKP_C].forEach(function (c) { if (c) c.k = null; });
-  AS_C = null; PD_C = {};
+  AS_C = null; PD_C = {}; SIG_C = {}; SIG_S = null;
 }
 function storageNotice() {
   if (storageNotice.t) return;
@@ -2777,7 +2778,7 @@ function toast(msg) { if (LS.notice) { storageNotice(); return; } var t = docume
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
 function isKurz(tag) { return zeitLv(tag) >= 2 || isKurz0(tag); }
-function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return (!v2() && (S.durchgang === 1 || S.durchgang === 2)) || pauseDays() > 7 || !!(S.comeback && S.comeback.n > 0) } // Plan 2: der Einstieg steckt in der Umfangsstufe
+function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return (!v2() && (S.durchgang === 1 || S.durchgang === 2)) || pauseDays() > 7 || !!(S.comeback && S.comeback.n > 0) || sigKurz(tag) } // Plan 2: der Einstieg steckt in der Umfangsstufe
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
   var d = DAYS[tag];
@@ -3371,6 +3372,57 @@ function loadAttach(log, tag, D) {
   if (rpe >= 1 && rpe <= 10) log.rpe = rpe;
 }
 function logLoad(l) { return l && l.rpe && l.min ? Math.round(l.rpe * l.min) : null; }
+/* ---------- Leistung als Signal (Paket 58): das Training misst, wie erholt du bist. Nur Vergleiche mit dir selbst, der Coach bremst nur. ---------- */
+var SIG_HR = 1.06, SIG_HOLD = .75, SIG_C = {}, SIG_S = null; // Startwerte: Puls 6 % über dem Schnitt, Haltezeit 25 % darunter
+function sigKind(l) { return !!l && !!l.tag && (l.kind === 'kraft' || l.kind === 'easy' || l.kind === 'interval'); }
+function sigBefore(l, f) { return LOGS.filter(function (x) { return x !== l && f(x) && (x.date < l.date || (x.date === l.date && (x.ts || 0) < (l.ts || 0))); }); }
+function sigOf(l) {
+  var ck = l.id + ':' + LOGS.length; if (SIG_C[ck]) return SIG_C[ck];
+  var out = [];
+  if (l.kind === 'kraft' && l.kraft) {
+    var prev = sigBefore(l, function (x) { return x.kind === 'kraft' && x.kraft; }), miss = [];
+    l.kraft.forEach(function (k) {
+      if (!k.goal || (k.pain && (k.pain.soft || k.pain.skip))) return;
+      var below = (k.reps || []).filter(function (v) { return v != null && v < k.goal; }).length;
+      // Neue Stufe: die ersten 2 Einheiten zählen nicht (Einstufung).
+      var same = prev.filter(function (x) { return x.kraft.some(function (y) { return y.n === k.n && (y.stage || '') === (k.stage || ''); }); }).length;
+      if (below >= 2 && same >= 2) miss.push(k.n);
+    });
+    if (miss.length >= 2) out.push({ k: 'kraft', t: 'Mehr Mühe als sonst', s: miss.join(' und ') + ': je mindestens 2 Runden unter der Vorgabe.' });
+  }
+  var r = l.kind === 'easy' ? l.run : l.kind === 'interval' ? l.interval : null;
+  if (r && r.hr && r.sec) {
+    var dflt = l.kind === 'easy' ? 'locker' : '', ref = runsOf(l.kind, r.ergo, r.art || dflt).filter(function (x) { return x.date < l.date && x.hr; }).slice(-6);
+    if (ref.length >= 3) {
+      var ah = avg(ref.map(function (x) { return x.hr; })), w = num(r.watt);
+      var notFaster = r.ergo ? w && w <= avg(ref.map(function (x) { return x.watt; })) * 1.02 : r.km && r.sec / r.km >= avg(ref.map(function (x) { return x.pace; })) * .98;
+      if (notFaster && r.hr > ah * SIG_HR) out.push({ k: 'puls', t: 'Puls höher als sonst', s: Math.round(r.hr - ah) + ' Schläge mehr als bei deinen letzten Einheiten mit ' + (r.ergo ? 'gleichen Watt' : 'gleichem Tempo') + '.' });
+    }
+  }
+  if (l.sb && l.sb.sec) {
+    var hs = sigBefore(l, function (x) { return x.sb && x.sb.lad === l.sb.lad && x.sb.stage === l.sb.stage && x.sb.sec; }).slice(-3);
+    if (hs.length >= 2) { var as = avg(hs.map(function (x) { return x.sb.sec; })); if (l.sb.sec < as * SIG_HOLD) out.push({ k: 'skill', t: 'Haltezeit kürzer als sonst', s: (LAD[l.sb.lad] ? LAD[l.sb.lad].name + ': ' : '') + l.sb.sec + ' s, sonst etwa ' + Math.round(as) + ' s.' }); }
+  }
+  var ld = logLoad(l);
+  if (ld && l.soll && ld > l.soll * LOAD_OVER) out.push({ k: 'last', t: 'Härter als geplant', s: 'Du sagst ' + l.rpe + '. Belastung ' + ld + ' statt etwa ' + l.soll + '.' });
+  return (SIG_C[ck] = out);
+}
+// Stand: Signale in den letzten zwei Einheiten hintereinander = die nächste wird kürzer. Eine Einheit ohne Signal setzt zurück.
+function sigState() {
+  var k = LOGS.length + ':' + (LOGS.length ? LOGS[LOGS.length - 1].id : '') + ':' + isoToday();
+  if (SIG_S && SIG_S.k === k) return SIG_S;
+  var L = LOGS.filter(sigKind).slice().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : (a.ts || 0) - (b.ts || 0); }), a = L[L.length - 1], b = L[L.length - 2];
+  var sa = a ? sigOf(a) : [], sb = b ? sigOf(b) : [], lim = isoAdd(isoToday(), -14);
+  var cut = !!(sa.length && sb.length && a.date >= isoAdd(isoToday(), -10));
+  var n14 = L.filter(function (l) { return l.date >= lim && sigOf(l).length; }).length;
+  var why = [];
+  sa.concat(sb).forEach(function (x) { var t = { kraft: 'Vorgabe verfehlt', puls: 'Puls höher', skill: 'Haltezeit kürzer', last: 'härter als geplant' }[x.k]; if (why.indexOf(t) < 0) why.push(t); });
+  return (SIG_S = { k: k, cut: cut, last: sa, n14: n14, why: why, at: a ? a.date : null });
+}
+// Gilt nur für die nächste Einheit nach den Signalen, nicht am Tag, an dem schon trainiert wurde.
+function sigKurz(tag) { if (!v2() || tag !== S.tag || !S.started) return false; var d = DAYS[tag], G = sigState(); return !!(d && (d.type === 'kraft' || d.kardio) && G.cut && G.at < isoToday()); }
+function sigHold() { var G = sigState(); return G.cut || G.n14 >= 2; }
+function sigWhy() { return sigState().why.join(', '); }
 function rpeOn(tag) { var c = dayCtx(tag), d = c.d; return !!(S.started && d && !c.isTest && (d.type === 'kraft' || d.kardio)); }
 // Einmal fragen, dann speichern. „Überspringen“ speichert ohne Wert.
 function rpeThen(fn) {
@@ -6699,6 +6751,7 @@ function zusatzWhy() {
   var P = wkPlanC(), p = curPhase(), mon = wkMon(), C = chal();
   if (P.dropped.length || memList(['akut']).length || (S.comeback && S.comeback.n > 0)) return null;
   if (Object.keys(S.befinden || {}).some(function (d) { return d >= mon && S.befinden[d].v !== 'fit'; })) return null;
+  if (sigHold()) return null;
   if (p.test || cardioTestDue()) return { k: 'test', min: 40, t: p.test ? 'Testwoche: Der Kardio-Test zeigt, was dein Ausdauertraining gebracht hat.' : 'Der Kardio-Test vom Blockende fehlt noch.', what: '5 km oder Rampentest' };
   if (!grundOk() || p.deload || p.taper) return null;
   var cm = wkCardioMin(P);
@@ -7006,6 +7059,7 @@ function heuteSub(kind, PL, tag) {
   if (kind === 'done') return [next];
   var d = DAYS[tag] || {}, ph = curPhase(), p = pauseDays(), cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0, U = S.umfang;
   var t = befOf(isoToday()) === 'tired' && d.type === 'kraft' ? 'Heute kürzer, weil du müde bist.'
+    : sigKurz(tag) && isKurz0(tag) ? 'Heute kürzer: deine letzten zwei Einheiten waren schwerer als sonst (' + esc(sigWhy()) + ').'
     : p > 7 ? 'Willkommen zurück nach ' + p + ' Tagen Pause: ' + (p > 28 ? 'dieser Durchgang ist Entlastung, ' : '') + 'die nächsten ' + (p > 14 ? 5 : 2) + ' Einheiten sind kürzer.'
     : cb ? 'Wiedereinstieg: noch ' + (cb === 1 ? '1 Einheit' : cb + ' Einheiten') + ' kürzer.'
     : ph.test ? 'Testwoche: Maxout in Runde 1, gut schlafen.'
@@ -7092,8 +7146,10 @@ function stepCoachHTML(tag, id) {
 }
 // Nach dem Speichern: was der Coach aus der Einheit macht (nächste Stufe, Gewicht, gleich bleiben).
 function outlookHTML(l) {
-  if (l.kind !== 'kraft' || !l.kraft) return '';
-  var it = [];
+  var it = [], sg = sigKind(l) ? sigOf(l) : [];
+  sg.forEach(function (x) { it.push(coachItem('warn', '<b>' + esc(x.t) + '</b>: ' + esc(x.s))); });
+  if (sg.length) it.push(coachItem('i', sigState().cut && sigState().at === l.date ? '<b>Die nächste Einheit wird kürzer.</b> Zweimal hintereinander mehr Mühe als sonst. Stufen und Vorgaben bleiben gleich.' : '<b>Noch kein Grund zum Kürzen.</b> Ist die nächste Einheit auch so, macht dein Coach sie kürzer.'));
+  if (l.kind !== 'kraft' || !l.kraft) return it.length ? '<section class="card co-card"><h3>Was dein Coach daraus macht</h3>' + it.join('') + '</section>' : '';
   l.kraft.forEach(function (k) {
     if (k.pain && k.pain.skip) return;
     var g = GL[k.n], key = g && LAD[g.key] ? g.key : null, reps = k.reps.filter(function (v) { return v != null; });
@@ -9137,7 +9193,9 @@ ACT.adapt = function (el) {
   var OK = '<svg class="ad-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   var row = function (k, t, sub, end, act) { return '<button type="button" class="gl-row" data-act="' + act + '" data-k="' + k + '"><span class="gl-t"><b>' + t + '</b><small>' + sub + '</small></span>' + end + '</button>'; };
   var item = function (k, t, sub, panel, on) { return '<div class="gl-item ad-it' + (on ? ' sel' : '') + '" data-k="' + k + '">' + row(k, t, sub, CH, 'adapt-sub') + '<div class="ad-p" hidden>' + panel + '</div></div>'; };
-  var body = '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, worauf er heute achten soll.</p><section class="card gl-card ad-list">' +
+  var sigC = sigKurz(tag) ? '<section class="card ad-sig"><b>' + (isKurz0(tag) ? 'Dein Coach hat heute gekürzt' : 'Heute die volle Einheit') + '</b><p class="small muted" style="margin:4px 0 10px">Grund: zweimal hintereinander schwerer als sonst (' + esc(sigWhy()) + ').</p>' +
+    '<button type="button" class="btn small" data-act="sig-full">' + (isKurz0(tag) ? 'Ich fühle mich fit, volle Einheit' : 'Doch kürzer') + '</button></section>' : '';
+  var body = '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, worauf er heute achten soll.</p>' + sigC + '<section class="card gl-card ad-list">' +
     '<div class="gl-item ad-it' + (isKurz0(tag) ? ' sel' : '') + '" data-k="int">' + row('int', 'Mir geht’s heute nicht gut', run ? 'Locker statt intensiv' : 'Der Coach nimmt Intensität raus', OK, 'adapt-int') + '</div>' +
     (run && DAYS[tag].kardio && (D._flat === '1' || kardioSpec(DAYS[tag]).kf === 'hill') ? '<div class="gl-item ad-it' + (D._flat === '1' ? ' sel' : '') + '" data-k="flat">' + row('flat', 'Ich habe keine Steigung', 'Flache Sprints statt Bergsprints', OK, 'adapt-flat') + '</div>' : '') +
     (!run ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
@@ -9158,6 +9216,8 @@ ACT.adapt = function (el) {
   openForm('Heute anpassen', body, 'Fertig', function () { render(); }, { noFocus: true, noCancel: true });
 };
 ACT['adapt-time'] = function () { closeSheet(); ACT['pl-time'](); };
+// Rückweg beim Kürzen wegen Signalen: volle Einheit nur für heute, „Doch kürzer“ gibt die Entscheidung an den Coach zurück.
+ACT['sig-full'] = function (el) { var full = isKurz0(S.tag); setDraft('_kurz', full ? '0' : ''); closeSheet(); render(); toast(full ? 'Heute die volle Einheit.' : 'Heute kürzer, wie dein Coach es plant.'); };
 ACT['adapt-off'] = function () { closeSheet(); ACT['pl-off'](); };
 ACT['adapt-sub'] = function (el) {
   var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
@@ -9888,6 +9948,7 @@ function umfGrow() {
   if (U0.ts && Date.now() - U0.ts < 13.5 * 864e5) return null;
   if (p.deload || p.test || p.taper || (S.comeback && (S.comeback.n > 0 || S.comeback.dl === S.durchgang)) || memList(['akut']).length) return null;
   if (Object.keys(S.befinden || {}).some(function (d) { return d >= since && S.befinden[d].v !== 'fit'; })) return null; // müde gemeldet: Umfang halten
+  if (sigHold()) return null; // Leistung als Signal: mehr Mühe als sonst, Umfang halten
   var L = LOGS.filter(function (l) { return l.pv === 2 && l.kind === 'kraft' && l.date >= since && l.date < today; });
   // Vollständig: keine Kurzversion und höchstens jede vierte Runde unter der Vorgabe (alte Einträge ohne Vorgabe: Runden mit Eintrag).
   var full = L.filter(function (l) { var all = 0, got = 0; (l.kraft || []).forEach(function (k) { if (k.pain && k.pain.skip) return; k.reps.forEach(function (r) { all++; if (r != null && (k.goal == null || r >= k.goal)) got++; }); }); return !l.kurz && all && got / all >= .75; });
