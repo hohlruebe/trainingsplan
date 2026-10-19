@@ -520,7 +520,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`zoneCardHTML`, `#zone-card`) nur in Plan › Deine Woche (diese Woche), nicht auf Heute: Figur vorn eingefärbt, je Zone ein Ring „wie erholt“
   (100 = frisch) mit „bis Fr“ (müde) bzw. „ab 21 Uhr“ (frisch), darunter der Grund („Pistol Squat und 40 Min Laufen am Montag“).
 - 2 bis 6 Trainingstage (Dennis, Paket 62, Variante Hybrid): `S.tage` (2–6, null = 3, in `DEF` und `SYNC_KEYS`, `tageN()`), eingestellt in
-  Plan › Deine Woche › „Trainingstage“ (`ACT['pl-tage']`, `TAGE_OPT`). `daysV2`: 2 = A und B je mit vierter Übung aus C (A Einbein, B Rumpf),
+  Plan › Deine Woche › „Trainingstage“ als Schieberegler 2–6 mit Zahlen darunter und einer kurzen Zeile (`tageHTML`, `.tg-r`, `CHG.tage`, `ACT.tage`, `TAGE_TXT`). `daysV2`: 2 = A und B je mit vierter Übung aus C (A Einbein, B Rumpf),
   Tag 6 frei; 3 = A, B, C; 4 = + L „Ausdauer locker“ (Tag 4, `type: 'easy'`, wie die früheren Kardio-Tage); 5 = + I „Ausdauer intensiv“ (Tag 5,
   `interval`, Testwoche 5 km bzw. Rampe); 6 = + M „Beweglichkeit“ (Tag 7, `type: 'mob'`, `rid: 'r_mtag'` = Ruhetag Flow A + B, Heute zeigt die
   Routine-Karte, `routineDone` speichert `kind: 'mobility'` mit `pv: 2`, `unit: 'M'` und geht weiter; `trainingLog` zählt M). `UNIT` hat L, I, M.

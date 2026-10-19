@@ -781,6 +781,11 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .rpe input::-webkit-slider-thumb{-webkit-appearance:none;width:36px;height:36px;margin-top:-13px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.25)}
 .rpe input::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.25)}
 .rpe.unset input{opacity:.5}.rpe.unset input::-webkit-slider-thumb{border:2px dashed var(--ink2)}.rpe.unset input::-moz-range-thumb{border:2px dashed var(--ink2)}
+.tg{margin:14px 0 0;padding:12px 14px 6px;border-radius:16px;background:var(--board)}.tg-h{display:flex;justify-content:space-between;align-items:baseline;font-size:16px}.tg-h span{color:var(--acc);font-weight:700}
+.tg-r{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:2px 0 0;background:transparent}
+.tg-r::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:color-mix(in srgb,var(--acc) 22%,var(--paper))}.tg-r::-moz-range-track{height:8px;border-radius:999px;background:color-mix(in srgb,var(--acc) 22%,var(--paper))}
+.tg-r::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;margin-top:-12px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.22)}.tg-r::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid var(--acc)}
+.tg-n{margin:0 1px}.tg-n button.on{color:var(--acc);font-weight:700}.tg p{margin:4px 2px 6px}
 .rpe-n{display:flex;justify-content:space-between;margin:0 2px}
 .rpe-n button{width:30px;min-height:44px;border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink2);cursor:pointer;padding:0}
 .rpe-n button.on{color:var(--acc);font-weight:800;font-size:18px}
@@ -6177,6 +6182,7 @@ var CHG = {
   swipe: function (el) { S.swipe = el.checked; saveState(); },
   swipeRev: function (el) { S.swipeRev = el.checked; saveState(); setTimeout(render, 420); },
   tpoCue: function (el) { S.tpoCue = el.checked; saveState(); },
+  tage: function (el) { tageSet(el.value); },
   vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
 };
 // Auswahl über das Rad statt Klapp-Listen und Datumsfeld.
@@ -7166,7 +7172,7 @@ function planWeekV2HTML() {
       (c.pd && c.pd.why && c.pd.why.length ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') + tlHTML(U.st);
   } else h += '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
-  h += '<div class="vrows" style="margin-top:12px">' + valRow('Trainingstage', '<span class="txt">' + tageN() + ' pro Woche</span>', 'data-act="pl-tage"', { sub: 'höchstens, dein Coach plant die Tage' }) + '</div>';
+  h += tageHTML();
   h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';
   return h + '<div class="bgrp" style="margin-top:12px">' + (kalPushOn() ? '' : '<button type="button" data-act="wk-ics">Kalender</button>') + '<button type="button" data-act="wk-open" data-from="plan">Arbeitszeiten</button></div></section>' + loadCardHTML(mon) + (mon === cm ? zoneCardHTML() + zusatzCardHTML('plan') : '');
 }
@@ -8851,12 +8857,22 @@ ACT['wk-zeit'] = function () {
     if (!v) return; S.zeitMax = +v === 90 ? null : +v; DAYS_K = null; WKP_C.k = null; PD_C = {}; saveState(); render();
   });
 };
-var TAGE_OPT = [[2, '2 Tage · A und B, je etwas länger'], [3, '3 Tage · A, B, C'], [4, '4 Tage · A, B, C + Ausdauer locker'], [5, '5 Tage · + Ausdauer intensiv'], [6, '6 Tage · + Beweglichkeit']];
-ACT['pl-tage'] = function () {
-  openChoice('Trainingstage pro Woche', 'Wie oft willst du höchstens trainieren? Dein Coach legt die Tage passend zu Arbeit, Schlaf und Erholung und plant weniger, wenn es nicht passt.', TAGE_OPT.map(function (x) { return [String(x[0]), x[1], tageN() === x[0] ? 'primary' : '']; }), function (v) {
-    if (!v) return; S.tage = +v === 3 ? null : +v; DAYS_K = null; WKP_C.k = null; PD_C = {}; FILL.k = null; saveState(); render();
-  });
-};
+// Trainingstage als Schieberegler 2–6 (Dennis: „über einen Slide-Regler, was dahinter steht entscheidet der Coach, kurze Info reicht“).
+var TAGE_TXT = { 2: 'A und B, je mit einer Übung aus C.', 3: 'A, B und C.', 4: 'A, B, C und lockere Ausdauer.', 5: 'A, B, C und Ausdauer locker und intensiv.', 6: 'A, B, C, Ausdauer und Beweglichkeit.' };
+function tageHTML() {
+  var n = tageN();
+  return '<div class="tg"><div class="tg-h"><b>Trainingstage</b><span id="tg-v">' + n + ' pro Woche</span></div>' +
+    '<input type="range" class="tg-r" min="2" max="6" step="1" value="' + n + '" data-change="tage" aria-label="Trainingstage pro Woche, 2 bis 6">' +
+    '<div class="rpe-n tg-n">' + [2, 3, 4, 5, 6].map(function (i) { return '<button type="button" data-act="tage" data-v="' + i + '"' + (i === n ? ' class="on"' : '') + ' aria-label="' + i + ' Tage">' + i + '</button>'; }).join('') + '</div>' +
+    '<p class="small muted" id="tg-x">' + esc(TAGE_TXT[n]) + ' Den Rest plant dein Coach.</p></div>';
+}
+function tageSet(v) { v = Math.max(2, Math.min(6, +v || 3)); if (v === tageN()) return; S.tage = v === 3 ? null : v; DAYS_K = null; WKP_C.k = null; PD_C = {}; FILL.k = null; saveState(); haptic('tap'); render(); }
+ACT.tage = function (el) { tageSet(el.dataset.v); };
+document.addEventListener('input', function (e) {
+  var r = e.target; if (!r.classList || !r.classList.contains('tg-r')) return;
+  var n = +r.value, v = document.getElementById('tg-v'), x = document.getElementById('tg-x');
+  if (v) v.textContent = n + ' pro Woche'; if (x) x.textContent = TAGE_TXT[n] + ' Den Rest plant dein Coach.';
+});
 ACT['pl-later'] = function () { S.planAsk = isoToday(); saveState(); render(); };
 ACT['pl-time'] = function () {
   var P = wkPlanC(), d = P.days[P.today]; if (!d) return;

@@ -429,8 +429,9 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const tA = { id: 'ta', ts: new Date('2026-10-12T18:00:00+02:00').getTime(), date: '2026-10-12', durchgang: 5, tag: 1, kind: 'kraft', pv: 2, unit: 'A', kraft: [{ n: 'Push-up', stage: 'Push-up', reps: [6, 6, 6, 6], goal: 6 }] };
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [tst(null), logs().concat([tA])]);
     await page.evaluate(() => window.tpTest.navigate('plan'));
-    await page.locator('.vrow[data-act="pl-tage"]').click();
-    await page.getByRole('button', { name: '5 Tage · + Ausdauer intensiv', exact: true }).click();
+    assert.match(await page.locator('.tg').innerText(), /Trainingstage\s*3 pro Woche[\s\S]*A, B und C\. Den Rest plant dein Coach\./);
+    await page.locator('.tg-r').fill('5');
+    assert.match(await page.locator('#tg-x').innerText(), /^A, B, C und Ausdauer locker und intensiv\./, 'Schieberegler mit kurzer Info');
     assert.equal(await page.evaluate(() => window.tpTest.state().tage), 5);
     assert.ok(await page.getByRole('heading', { name: '1 von 5 erledigt' }).isVisible(), 'Wochenziel zählt bis 5');
     assert.equal(await page.evaluate(() => window.tpTest.plan().days.map(d => d.tag || '-').join('')), '-43-6-5', 'Di L, Mi B, Fr C, So I');
