@@ -24,8 +24,8 @@ function setup(extra) {
     ladderStates: () => ({}), ladFor: () => null, partScores: () => ({}), dayLabel: t => 'Ganzkörper ' + ({ 1: 'A', 3: 'B', 6: 'C' })[t], esc: String,
     SHIFT: { f: ['Früh', 6, 14], s: ['Spät', 14, 22], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18], tn: ['12 h Nacht', 18, 6] }
   }, extra || {}));
-  vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + '; var SEQ_V2 = ' + constant('SEQ_V2') + ';', c);
-  for (const name of ['tageN', 'isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
+  vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + ';', c);
+  for (const name of ['tageN', 'splitOn', 'isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
     'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'isSecs', 'holdOf', 'repGoal', 'befCls', 'befOf', 'stepRi', 'stepsLoad', 'logLoad', 'rpeWord', 'longShift',
     'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
   return c;
@@ -276,18 +276,18 @@ assert.deepEqual([r2.neu, r2.weg], [1, 2], 'verschoben: alt weg, neu angelegt; C
 assert.ok(!JSON.parse(vm.runInContext('doGet()', gsCtx).text).k.some(x => x.n === 'Trainingsplan'), 'der eigene Kalender zählt nie als belegt');
 console.log('PASS: Kalender-Brücke trägt Trainings ein: eigener Kalender, neu, gleich, verschoben, abgesagt, Vergangenes bleibt');
 
-// Paket 62: 2 bis 6 Trainingstage (Hybrid). L = Ausdauer locker, I = Ausdauer intensiv, M = Beweglichkeit.
+// Paket 62: 2 bis 6 Trainingstage. Ab 4 Tagen Split (alle Einheiten Kraft), drei Krafttage in Folge erlaubt.
 {
-  const U2 = { 1: 'A', 3: 'B', 4: 'L', 5: 'I', 6: 'C', 7: 'M' }, got = {};
+  const got = {};
   for (const n of [2, 3, 4, 5, 6]) {
-    const D = { 1: { type: 'kraft' }, 2: { type: 'rest' }, 3: { type: 'kraft' }, 4: { type: n >= 4 ? 'easy' : 'rest' }, 5: { type: n >= 5 ? 'interval' : 'rest' }, 6: { type: n >= 3 ? 'kraft' : 'rest' }, 7: { type: n >= 6 ? 'mob' : 'rest' } };
+    const K = { type: 'kraft' }, R = { type: 'rest' };
+    const D = n === 2 ? { 1: K, 2: R, 3: K, 4: R, 5: R, 6: R, 7: R } : n === 3 ? V2 : n === 4 ? { 1: K, 2: R, 3: K, 4: K, 5: K, 6: R, 7: R } : n === 5 ? { 1: K, 2: R, 3: K, 4: K, 5: K, 6: K, 7: R } : { 1: K, 2: R, 3: K, 4: K, 5: K, 6: K, 7: K };
     const c2 = setup({ DAYS: D }); c2.S.tage = n;
-    got[n] = c2.wkPlan().days.map(d => d.tag ? U2[d.tag] : '-').join('');
+    got[n] = c2.wkPlan().days.map(d => d.tag || '-').join('');
   }
-  assert.deepEqual(got, { 2: 'A-B----', 3: 'A-B-C--', 4: 'A-LB-C-', 5: 'ALB-C-I', 6: 'ALBMC-I' }, 'Reihenfolge A, L, B, M, C, I, nie drei harte Tage in Folge');
+  assert.deepEqual(got, { 2: '1-3----', 3: '1-3-6--', 4: '1-3-4-5', 5: '134-5-6', 6: '134-567' }, 'Split: drei Krafttage in Folge erlaubt, nie vier');
   const c3 = setup(); c3.S.tage = 6;
-  assert.deepEqual(c3.planDropOrder([1, 3, 4, 5, 6, 7]), [7, 4, 5, 6, 3, 1], 'zuerst fällt Beweglichkeit weg, dann locker, intensiv, C, B');
-  assert.equal(c3.tageN(), 6); c3.S.tage = 9; assert.equal(c3.tageN(), 6); c3.S.tage = null; assert.equal(c3.tageN(), 3, 'ohne Angabe drei');
-  assert.ok(c3.trainingLog({ kind: 'mobility', unit: 'M', tag: 7 }) && !c3.trainingLog({ kind: 'mobility', tag: 7 }), 'Beweglichkeit als Einheit M zählt als Training');
-  console.log('PASS: 2 bis 6 Trainingstage: Reihenfolge, Wegfall, Einheit M');
+  assert.deepEqual(c3.planDropOrder([1, 3, 4, 5, 6, 7]), [7, 6, 5, 4, 3, 1], 'im Split fällt die letzte Einheit der Woche zuerst weg');
+  c3.S.tage = null; assert.equal(c3.tageN(), 3, 'ohne Angabe drei'); assert.equal(c3.splitOn(), false);
+  console.log('PASS: 2 bis 6 Trainingstage: Split ab 4 Tagen, Reihenfolge, Wegfall');
 }

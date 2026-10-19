@@ -8,13 +8,14 @@ Stand: 19. Oktober 2026 (2 bis 6 Trainingstage; davor Ermüdung je Körperzone; 
 
 
 ## 2 bis 6 Trainingstage (19. Oktober 2026, Claude, Paket 62)
-- Im Canvas: Variante Hybrid (zusätzliche Tage = Ausdauer locker, intensiv, Beweglichkeit), nicht „Mehr Kraft“. Einstellung im Plan (Dennis:
-  „im Plan stellt man ein, wie viele Tage man will“), nicht in den Arbeitszeiten. Bei 2 Tagen bekommen A und B je eine Übung aus C (erklärt, kein Einwand).
-- Umgesetzt: siehe CLAUDE.md „2 bis 6 Trainingstage“. M ist reine Beweglichkeit (Ruhetag Flow A + B, 28 Min); Skill steckt schon in A, B, C.
-  Neu: der Planer meidet Tage mit müder Zone (Paket 60), darum verschiebt sich eine Einheit eher, als dass sie gekürzt wird.
-- Geprüft: `tests/dreitage.cjs` (Reihenfolge je Tagezahl, Wegfall, M als Training), `tests/dreitage-browser.cjs` (Einstellung, Wochenziel,
-  Ausdauer locker heute, ganzer M-Tag, 2 Tage mit vierter Übung, Planer meidet müde Beine), alle übrigen Tests.
-- Offen: Dennis testet; danach Paket 63 (Ziele mit Blockperiodisierung). Fragebogen fragt die Tage noch nicht (Standard 3).
+- Erste Fassung (Hybrid: Zusatztage Ausdauer locker, intensiv, Beweglichkeit) wieder ersetzt. Dennis: Schieberegler statt Auswahlblatt, „was dahinter
+  steht entscheidet der Coach, kurze Info reicht“; keine getrennten Wege Hybrid/Kraft, „Worauf trainierst du?“ (Challenges) bleibt wie bisher;
+  „ab 4 Tagen direkt auf den Split und eine kurze Kardio-Session hinten dran“, Training 20–90 Min, langsam steigern.
+- Umgesetzt: siehe CLAUDE.md „2 bis 6 Trainingstage“. Blockperiodisierung (Aufbau/Kraft/Spitze) und weitere Wege (Marathon, Hyrox, CrossFit) sind nicht
+  gebaut; das Board „Wege und Blöcke“ im Canvas ist damit überholt. Untergrenze bleibt Umfangsstufe 0 = 25 Min.
+- Geprüft: `tests/dreitage.cjs` (Muster je Tagezahl, Wegfall), `tests/dreitage-browser.cjs` (Schieberegler, Wochenziel, Split mit kurzem Abschluss,
+  2 Tage mit vierter Übung, Planer meidet müde Beine), alle übrigen Tests.
+- Offen: Dennis testet. Danach: Blockperiodisierung je Challenge bzw. Ziel (Paket 63) neu besprechen.
 
 ## Ermüdung je Körperzone (19. Oktober 2026, Claude, Paket 60)
 - Reihenfolge mit Dennis: erst 60, dann 62 (2–6 Tage), dann 63 (Ziele). Im Canvas wählte er Z1 (Karte mit Figur), dann aus vier Varianten
