@@ -4,8 +4,18 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 19. Oktober 2026 (Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 19. Oktober 2026 (Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Zeit unter Spannung statt fehlender Last (19. Oktober 2026, Claude, Paket 61)
+- Dennis wählte im Canvas T3 (Leiste Runter | Halten | Hoch, live) „mit Ton und Vibration, aber auch abschaltbar“.
+- Umgesetzt: siehe CLAUDE.md „Zeit unter Spannung“. Fehlt am Ort das Gerät der Stufe, nimmt der Coach die Stufe darunter mit Tempo
+  (3·1·1 bzw. 4·1·1, dann 5·2·1, dann 1½ Wdh.); ein Muster ohne Gerät fällt nicht mehr weg (Körpergewichtsübung mit 4·1·1). Tempo-Einheiten
+  ändern die eigentliche Stufe nicht. Ton und Vibration: Knopf an der Leiste und Einstellungen › Mehr › Tempo (nur auf dem Gerät).
+- Geprüft: `tests/dreitage-browser.cjs` (Stufe darunter, Ersatz statt Wegfall, Steigerung, Stufe bleibt zu Hause, Taktgeber live mit
+  Wdh.-Zähler, Ton aus, `tpo` im Eintrag, Schalter in den Einstellungen), alle übrigen Tests.
+- Bekannt, nicht Teil des Pakets: der Ersatz für „Zug vertikal“ ohne jedes Gerät ist die Prone Y-T-W Raise (nach Nutzen aus der Bibliothek).
+- Offen: Dennis testet; danach Paket 60 (Ermüdung je Körperzone), 62 (2–6 Tage), 63 (Ziele mit Blockperiodisierung).
 
 ## Guten Morgen und Körper-Check (19. Oktober 2026, Claude, Paket 59)
 - Erste Fassung (mehr Anlässe für Erholt | Müde | Sehr müde) gefiel Dennis nicht („Aussehen und Möglichkeiten“). Neu nach Varianten im Canvas,

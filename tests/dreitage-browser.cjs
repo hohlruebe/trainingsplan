@@ -8,7 +8,7 @@ const { chromium } = require(require.resolve('playwright', { paths: [process.env
 let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
-window.tpTest = { state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
+window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
   set: (s, logs) => { S = Object.assign({}, DEF, s); if (!('morgen' in s)) { S.morgen = {}; for (var q = 0; q < 120; q++) S.morgen[isoAdd('2026-09-01', q)] = { h: 8, f: 4, ts: 1 }; } // Guten Morgen gilt im Test als beantwortet
@@ -326,6 +326,58 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await ch.isVisible(), 'Spät auf Früh: der Coach fragt nach');
     assert.match(await page.locator('.mg-sub').innerText(), /Laut Plan waren etwa/);
     console.log('PASS: Guten Morgen mit Anlass: letzte Einheit schwer, kurze Nacht, platt kürzt');
+
+    // Paket 61: Zeit unter Spannung. Unterwegs ohne Weste: Stufe darunter mit Tempo, fehlendes Muster mit Körpergewicht und Tempo, Taktgeber.
+    const reise = Object.assign(v2s(), { ort: 'o2', sound: false, orte: [{ id: 'o1', k: 'zuhause', on: 1, zh: 1, lf: 1, fa: 1, eq: ['eq_zuhause', 'eq_weste', 'eq_klimmzug', 'eq_ringe'] }, { id: 'o2', k: 'reise', on: 1, zh: 1, lf: 1, fa: 1, eq: [] }] });
+    const pist = (d, k) => ({ id: 'ps' + d, ts: 2e12 + d.length, date: d, durchgang: 4, tag: 6, kind: 'kraft', kraft: [k] });
+    const wLogs = logs().concat([pist('2026-10-09', { n: 'Pistol Squat', stage: 'Weste', reps: [4, 4, 4, 4], goal: 4 })]);
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [reise, wLogs]);
+    let tk = await page.evaluate(() => window.tpTest.kx(6));
+    assert.deepEqual(tk[0], { n: 'Pistol Squat', stage: 'Frei', goal: 3, t: '3·1·1' }, 'eine Stufe darunter mit 3·1·1, Vorgabe unteres Ende');
+    const ersatz = (await page.evaluate(() => window.tpTest.kx(1)))[0];
+    assert.equal(ersatz.t, '4·1·1', 'ohne Gerät für Zug vertikal: Körpergewichtsübung mit 4·1·1, der Platz fällt nicht weg');
+    assert.match(await page.locator('.h-sub').innerText(), new RegExp('Unterwegs ohne Gerät für Zug vertikal: ' + ersatz.n + ', dafür langsam \\(4 s runter\\)\\.'));
+    // Mit Tempo alle Runden geschafft → 5·2·1, danach 1½ Wdh.; die eigentliche Stufe bleibt zu Hause „Weste“.
+    const t1 = pist('2026-10-10', { n: 'Pistol Squat', stage: 'Frei', reps: [3, 3, 3, 3], goal: 3, tpo: { t: '3·1·1', lv: 0 } });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [reise, wLogs.concat([t1])]);
+    assert.equal((await page.evaluate(() => window.tpTest.kx(6)))[0].t, '5·2·1');
+    const t2 = pist('2026-10-11', { n: 'Pistol Squat', stage: 'Frei', reps: [3, 3, 3, 3], goal: 3, tpo: { t: '5·2·1', lv: 1 } });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [reise, wLogs.concat([t1, t2])]);
+    assert.equal((await page.evaluate(() => window.tpTest.kx(6)))[0].t, '1½ Wdh.');
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, reise, { ort: 'o1' }), wLogs.concat([t1, t2])]);
+    tk = await page.evaluate(() => window.tpTest.kx(6));
+    assert.equal(tk[0].stage, 'Weste'); assert.ok(!tk[0].t, 'zu Hause wieder Weste ohne Tempo, Tempo-Einheiten ändern die Stufe nicht');
+    // Im Trainer: Leiste Runter | Halten | Hoch, live mit Wdh.-Zähler, Ton abschaltbar.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [reise, wLogs]);
+    await page.getByRole('button', { name: /Training starten/ }).click();
+    await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft')));
+    const bar = page.locator('#fs .tp3');
+    assert.match(await bar.innerText(), /Tempo 4·1·1[\s\S]*Runter[\s\S]*4 s[\s\S]*Halten[\s\S]*1 s[\s\S]*Hoch[\s\S]*1 s/);
+    const T0 = await page.evaluate(() => Date.now());
+    await page.locator('#fs #fs-tg').click();
+    await page.clock.setFixedTime(T0 + 15000); await page.waitForTimeout(450);
+    assert.ok(await page.locator('#fs .tp3.live').isVisible(), 'läuft mit der Minute');
+    assert.equal(await page.locator('#fs .tp2-b span.on').innerText().then(t => t.split('\n')[0]), 'Hoch', '5 s in der Minute: Wdh. 1, Hoch');
+    assert.match(await page.locator('#fs .tp3-c').innerText(), /^Wdh\. 1 von 6$/);
+    await page.clock.setFixedTime(T0 + 18000); await page.waitForTimeout(450);
+    assert.match(await page.locator('#fs .tp3-c').innerText(), /^Wdh\. 2 von 6$/);
+    assert.equal(await page.locator('#fs .tp2-b span.on').innerText().then(t => t.split('\n')[0]), 'Runter');
+    await page.locator('#fs .tp3-m').click();
+    assert.equal(await page.evaluate(() => window.tpTest.state().tpoCue), false, 'Ton und Vibration aus');
+    assert.equal(await page.locator('#fs .tp3-m').getAttribute('aria-pressed'), 'false');
+    await page.locator('#fs #fs-tg').click();
+    await page.clock.setFixedTime(T0);
+    await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
+    await page.locator('#fs [data-act="save"]').click();
+    await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click();
+    await page.locator('#sheet [data-rpe="6"]').click(); await page.locator('#rpe-ok').click();
+    await page.waitForFunction(() => window.tpTest.logs().some(l => l.pv === 2 && l.date === '2026-10-14'), null, { timeout: 3000 });
+    const tl = await page.evaluate(() => window.tpTest.logs().slice(-1)[0].kraft[0]);
+    assert.deepEqual([tl.n, tl.goal, tl.tpo && tl.tpo.t], [ersatz.n, ersatz.goal, '4·1·1'], 'Tempo steht im Kraft-Eintrag');
+    await page.locator('#moment').evaluate(e => e.remove()).catch(() => {});
+    await page.evaluate(() => window.tpTest.navigate('einst'));
+    assert.equal(await page.locator('input[data-change="tpoCue"]').count(), 1, 'Schalter in Einstellungen › Mehr');
+    console.log('PASS: Zeit unter Spannung: Stufe darunter mit Tempo, Körpergewicht statt Wegfall, Steigerung 5·2·1 und 1½, Stufe bleibt, Taktgeber live und abschaltbar');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });

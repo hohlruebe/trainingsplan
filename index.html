@@ -761,6 +761,14 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .kc-lg i.zk{background:var(--mb2)}.kc-lg i.zs{background:var(--mb0)}
 .kc-r{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;border-top:1px solid var(--line)}.kc-r b{font-weight:600}.kc-r .seg{margin:0}.kc-r .seg-btn{padding:0 10px;min-height:38px;font-size:14px}
 .kc-k{background:color-mix(in srgb,var(--mb2) 24%,var(--paper))}.kc-in{margin:0 0 8px}
+.tp3{margin:12px 0 4px}.tp3-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.tp3-h>span{font-size:15px;line-height:1.3}.tp3-h small{display:block;font-size:14px;color:var(--ink2)}
+.tp3-m{width:44px;height:44px;flex:none}.tp3-m svg{width:20px;height:20px}.tp3-m[aria-pressed="false"]{color:var(--ink2)}
+.tp2-b{display:flex;gap:4px;height:56px}.tp2-b span{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;min-width:0;padding:0 10px;border-radius:6px;background:var(--board);font-size:14px;color:var(--ink2);font-weight:600;white-space:nowrap}
+.tp2-b span:first-child{border-radius:14px 6px 6px 14px}.tp2-b span:last-child{border-radius:6px 14px 14px 6px}.tp2-b b{position:relative;font-size:17px;color:var(--ink);font-variant-numeric:tabular-nums}
+.tp2-b i{position:absolute;left:0;top:0;bottom:0;width:0;background:color-mix(in srgb,var(--acc) 18%,transparent);transition:width .2s linear}.tp2-b span.on{color:var(--acc)}.tp2-b span.on b{color:var(--acc)}
+.tp3.live .tp2-b span.on{box-shadow:inset 0 0 0 2px var(--acc)}.tp3.live .tp3-c{color:var(--acc);font-weight:600}
+#fs .tp3{margin:14px 0 6px;width:100%;align-self:stretch;text-align:left}#fs .tp2-b{height:calc(64px*var(--fsu,1))}#fs .tp2-b span{font-size:calc(15px*var(--fsu,1))}#fs .tp2-b b{font-size:calc(22px*var(--fsu,1))}
+@media (prefers-reduced-motion:reduce){.tp2-b i{transition:none}}
 .fs-noring .fs-dig,.fs-noring #fs-tg{display:none}.fs-noring .fs-side{flex:1}
 .rpe{position:relative;padding:4px 0}
 .rpe input{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:0;background:transparent;--p:44.4%}
@@ -2680,7 +2688,7 @@ var TEST_BASE = {
 
 var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, fsView: 'one', comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false,
+  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
   planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null };
 
@@ -3557,9 +3565,10 @@ function saveDay() {
       kraft: d.kraft.map(function (x, i) {
         var stg = x.pain && !x.pain.soft && !x.pain.kater ? '' : v['k' + i + 'stage'] != null ? v['k' + i + 'stage'] : stageDef(x.n, x.hi), kid = kgUe(x.n, stg);
         // Runden ohne Eintrag zählen mit der Vorgabe (gemeldet wird nur, was nicht geklappt hat).
-        var goal = repGoal(x, stg, kid, kid ? kgOfEx(x, i, stg, v, rounds) : null), reps = [];
+        var tp = holdOf(x, stg) ? null : tpoEx(x, stg), goal0 = repGoal(x, stg, kid, kid ? kgOfEx(x, i, stg, v, rounds) : null), goal = tp ? tpoGoal(x, goal0) : goal0, reps = [];
         for (var r = 0; r < rounds; r++) { var rv = num(v['k' + i + 'r' + r]); reps.push(rv != null ? rv : goal); }
         var o = { n: x.n, stage: stg, reps: reps, goal: goal };
+        if (tp) o.tpo = { t: tp.t, lv: tp.lv, from: tp.from || null, miss: tp.miss || null };
         if (isTestCycle(tag)) o.max = d.maxout === 'all' || d.maxout === i;
         if (x.pain && !x.pain.kater) { o.pain = x.pain; if (x.pain.skip) { o.reps = reps.map(function () { return null; }); kid = null; } }
         if (kid) {
@@ -3730,7 +3739,7 @@ function tick() {
     if (calls && callWork(L.p) && L.p.dur > 60 && !sd.s30 && L.rem <= 30 && L.rem > 28) { sd.s30 = 1; if (say(W.s30)) hapTimer(false); }
     if (s <= top && s >= 1 && s !== TM.lastSec) { TM.lastSec = s; if ((calls || cdOn(cdEvent(L))) && say(W.n[s - 1])) hapTimer(false); else if (s <= 3) cue(false); }
   }
-  paint(L); paintMini(L); paintRoutine(L); fsPaint(L);
+  paint(L); paintMini(L); paintRoutine(L); fsPaint(L); tpoTick(L);
 }
 function paint(L) {
   var $ = function (id) { return document.getElementById(id); };
@@ -4236,6 +4245,8 @@ function moreHTML() {
   h += '<h3 style="margin-top:16px">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
   h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
     '<label class="check"><input type="checkbox" data-change="swipeRev"' + (S.swipeRev ? ' checked' : '') + '> Wischen umkehren</label>';
+  h += '<h3 style="margin-top:16px">Tempo</h3><label class="check"><input type="checkbox" data-change="tpoCue"' + (S.tpoCue !== false ? ' checked' : '') + '> Ton und Vibration beim Tempo-Takt</label>' +
+    '<p class="small muted">Gibt dein Coach ein langsames Tempo vor (z. B. 4 s runter), meldet sich jede Phase. Der Ton braucht Signaltöne.</p>';
   h += '<h3 style="margin-top:16px">Puls</h3><p class="small muted">Nur eintragen, wenn gemessen. Sonst rechnet der Coach mit dem Alter.</p>' + valRows(hrRows().slice(1));
   h += '<h3 style="margin-top:16px">Ansicht</h3>' + segRow('Ansicht', [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']], S.layout || 'auto', 'layout') +
     (S.layout === 'desk' && !deskOn() ? '<p class="small muted">Desktop braucht ein Fenster ab 900 px Breite.</p>' : '');
@@ -6004,6 +6015,7 @@ var CHG = {
   roundCounter: function (el) { S.roundCounter = el.checked; saveState(); },
   swipe: function (el) { S.swipe = el.checked; saveState(); },
   swipeRev: function (el) { S.swipeRev = el.checked; saveState(); setTimeout(render, 420); },
+  tpoCue: function (el) { S.tpoCue = el.checked; saveState(); },
   vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
 };
 // Auswahl über das Rad statt Klapp-Listen und Datumsfeld.
@@ -6082,7 +6094,7 @@ function sehneKl(key) { return SEHNE[key] || 0; }
 function ladHist(key) {
   var out = [], lad = LAD[key];
   LOGS.forEach(function (l) {
-    if (l.kraft) l.kraft.forEach(function (k, ki) { var g = GL[k.n], i; if (g && g.key === key && (i = stageIndex(lad, k.stage))) out.push({ date: l.date, dg: l.durchgang, idx: i, reps: k.reps || [], soft: !!(k.pain && k.pain.soft), mx: !!(k.max || (l.test && ki === 0 && k.max !== false)) }); });
+    if (l.kraft) l.kraft.forEach(function (k, ki) { var g = GL[k.n], i; if (g && g.key === key && !k.tpo && (i = stageIndex(lad, k.stage))) out.push({ date: l.date, dg: l.durchgang, idx: i, reps: k.reps || [], soft: !!(k.pain && k.pain.soft), mx: !!(k.max || (l.test && ki === 0 && k.max !== false)) }); });
     if (l.kind === 'test' && l.tests) l.tests.forEach(function (t) { var g = GL[t.name], i; if (g && g.key === key && (i = stageIndex(lad, t.stage))) out.push({ date: l.date, dg: l.durchgang, idx: i, reps: [] }); });
   });
   return out.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
@@ -6142,7 +6154,87 @@ function baseOf(key) {
 // Wiedereinstieg: die Einschätzung gilt ab ihrem Datum, der Verlauf davor zählt für die Stufe nicht mehr.
 function sinceBase(h, bs) { return bs.date ? h.filter(function (e) { return e.date >= bs.date; }) : h;
 }
+/* ---------- Zeit unter Spannung statt fehlender Last (Dennis, Paket 61, T3) ---------- */
+// Fehlt am Ort das Gerät für die Stufe (z. B. Gewichtsweste unterwegs), nimmt der Coach die höchste Stufe darunter, die hier geht,
+// und macht sie mit Tempo schwerer: 1 Stufe darunter 3·1·1, ab 2 Stufen oder Ersatz ohne Gewicht 4·1·1 (runter · unten halten · hoch, s).
+// Alle Runden mit Tempo geschafft → nächstes Mal 5·2·1, danach 1½ Wdh. Vorgabe: unteres Ende der Spanne.
+// Tempo-Einheiten zählen als trainiert, aber nicht für Aufstieg/Abstieg der eigentlichen Stufe (ladHist, stallOf, repGoal lassen sie aus).
+var TPO_LV = [null, { t: '5·2·1', s: [['Runter', 5], ['Halten', 2], ['Hoch', 1]] }, { t: '1½ Wdh.', half: true, s: [['Runter', 4], ['½ hoch', 1], ['Runter', 1], ['Hoch', 1]] }];
+function tpoBase(d) { return d >= 2 ? { t: '4·1·1', s: [['Runter', 4], ['Halten', 1], ['Hoch', 1]] } : { t: '3·1·1', s: [['Runter', 3], ['Halten', 1], ['Hoch', 1]] }; }
+function tpoOf(key, stage, d) {
+  var last = null, lv = 0;
+  for (var i = LOGS.length - 1; i >= 0 && !last; i--) (LOGS[i].kraft || []).forEach(function (k) { if (!last && k.tpo && (GL[k.n] ? GL[k.n].key : k.n) === key && (k.stage || '') === (stage || '')) last = { k: k, date: LOGS[i].date }; });
+  // Lange her (über 4 Wochen): wieder mit dem Grundtempo anfangen.
+  if (last && dSince(last.date) <= 28) {
+    var k = last.k, R = (k.reps || []).filter(function (v) { return typeof v === 'number'; });
+    lv = k.tpo.lv || 0;
+    if (R.length >= 2 && k.goal != null && R.every(function (v) { return v >= k.goal; }) && !(k.pain && k.pain.soft)) lv = Math.min(2, lv + 1);
+  }
+  var o = lv ? TPO_LV[lv] : tpoBase(d);
+  return { t: o.t, s: o.s, lv: lv, half: !!o.half, d: d, rep: o.s.reduce(function (a, x) { return a + x[1]; }, 0) };
+}
 function coachStage(key, hi) {
+  var cs = coachStage0(key, hi), lad = LAD[key], stu = lad && lad.lib && lad.lib.stufen;
+  if (!cs || !stu || !stu[cs.idx - 1]) return cs;
+  var have = haveEq(trainOrt()), s0 = stu[cs.idx - 1]; if (eqOk(s0.equipment, have)) return cs;
+  for (var j = cs.idx - 1; j >= 1 && !eqOk(stu[j - 1].equipment, have); j--);
+  if (j < 1) return cs;
+  var T = tpoOf(key, lad.steps[j - 1], cs.idx - j);
+  T.from = lad.steps[cs.idx - 1]; T.miss = eqMissing(s0.equipment, have);
+  return { idx: j, kl: cs.kl, tpo: T };
+}
+// Tempo einer Kraftübung heute (Stufe darunter oder Ersatz aus planFill), sonst null.
+function tpoEx(x, stage) {
+  if (!v2() || x.pain && !x.pain.soft && !x.pain.kater) return null;
+  var g = GL[x.n], lad = ladFor(x.n);
+  if (lad) { var cs = coachStage(g.key, x.hi); return cs && cs.tpo && lad.steps[cs.idx - 1] === stage ? cs.tpo : null; }
+  if (!x.tpo) return null;
+  var T = tpoOf(g ? g.key : x.n, stage || '', 2); T.miss = x.tpo.miss; T.ersatz = true; return T;
+}
+function tpoGoal(x, def) { var m = /(\d+)\s*[–-]\s*\d+/.exec(x.target || ''); return m ? +m[1] : def; }
+// „langsam (4 s runter)“, „langsam (5 s runter, 2 s halten)“, „1½ Wiederholungen“
+function tpoSay(T) { return T.half ? 'jede Wdh. als 1½' : 'langsam (' + T.s[0][1] + ' s runter' + (T.s[1][1] > 1 ? ', ' + T.s[1][1] + ' s halten' : '') + ')'; }
+// Grund unter dem Titel auf Heute: erste Kraftübung mit Tempo.
+function tpoWhy(tag) {
+  var d = DAYS[tag]; if (!d || d.type !== 'kraft' || !d.kraft) return '';
+  var D = dr(tag), out = '', O = ortName(trainOrt());
+  d.kraft.forEach(function (x, i) {
+    if (out) return;
+    var st = D['k' + i + 'stage'] != null ? D['k' + i + 'stage'] : stageDef(x.n, x.hi), T = tpoEx(x, st); if (!T) return;
+    out = esc(O) + ' ohne ' + esc(T.miss || 'Gerät') + ': ' + esc(x.n) + (T.ersatz ? '' : ' „' + esc(stageText(st)) + '“') + ', dafür ' + tpoSay(T) + '.';
+  });
+  return out;
+}
+// Leiste Runter | Halten | Hoch (Breite nach Sekunden). Live im EMOM: die laufende Phase füllt sich (tpoTick).
+function tpoBarHTML(T, ex, n) {
+  var mute = S.tpoCue !== false;
+  return '<div class="tp3" data-ex="' + ex + '" data-n="' + n + '" data-s="' + T.s.map(function (x) { return x[1]; }).join(',') + '"><div class="tp3-h"><span><b>Tempo ' + esc(T.t) + '</b> <small class="tp3-c">' + n + ' Wdh. · ' + esc(tpoSay(T)) + '</small></span>' +
+    '<button type="button" class="rbtn tp3-m" data-act="tpo-cue" aria-pressed="' + mute + '" aria-label="' + (mute ? 'Takt-Ton aus' : 'Takt-Ton an') + '">' + (mute ? SPK_ON : SPK_OFF) + '</button></div>' +
+    '<div class="tp2-b">' + T.s.map(function (x, i) { return '<span style="flex:' + Math.max(1.4, x[1]) + '" data-i="' + i + '"><i></i>' + esc(x[0]) + '<b>' + x[1] + ' s</b></span>'; }).join('') + '</div></div>';
+}
+var SPK_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+var SPK_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>';
+ACT['tpo-cue'] = function () { S.tpoCue = S.tpoCue === false; saveState(); document.querySelectorAll('.tp3-m').forEach(function (b) { var on = S.tpoCue !== false; b.setAttribute('aria-pressed', on); b.setAttribute('aria-label', on ? 'Takt-Ton aus' : 'Takt-Ton an'); b.innerHTML = on ? SPK_ON : SPK_OFF; }); };
+// Taktgeber: je EMOM-Minute läuft Wdh. für Wdh. Runter, Halten, Hoch; bei jedem Wechsel Ton und Vibration (abschaltbar).
+var TPO = { k: '' };
+function tpoTick(L) {
+  var bars = document.querySelectorAll('.tp3'); if (!bars.length) return;
+  var c = TM.cfg || {}, run = TM.running && L && L.p && L.p.kind !== 'pre' && TM.mode === 'emom' && /:kraft$/.test(c.step || '');
+  var n0 = c.stations ? c.stations.length : DAYS[S.tag] && DAYS[S.tag].kraft ? DAYS[S.tag].kraft.length : 1, ex = run ? (L.i - 1) % n0 : -1;
+  bars.forEach(function (b) {
+    var segs = b.querySelectorAll('.tp2-b>span'), S0 = b.dataset.s.split(',').map(Number), rep = S0.reduce(function (a, v) { return a + v; }, 0), n = +b.dataset.n || 1, live = run && +b.dataset.ex === ex;
+    var t = live ? L.inPhase : 0, r = Math.floor(t / rep), on = -1, fill = 0;
+    if (live && r < n) { var u = t - r * rep; for (var i = 0; i < S0.length; i++) { if (u < S0[i]) { on = i; fill = u / S0[i]; break; } u -= S0[i]; } }
+    segs.forEach(function (sp, i) { sp.classList.toggle('on', i === on); sp.firstChild.style.width = i === on ? (fill * 100).toFixed(1) + '%' : '0'; });
+    b.classList.toggle('live', live); var cc = b.querySelector('.tp3-c');
+    if (cc && live) cc.textContent = r < n ? 'Wdh. ' + (r + 1) + ' von ' + n : 'Geschafft, Pause bis zur nächsten Minute';
+    if (live) {
+      var k = L.i + ':' + r + ':' + on;
+      if (k !== TPO.k) { TPO.k = k; if (on >= 0 && S.tpoCue !== false) { beep(on === 0 ? 520 : on === S0.length - 1 ? 880 : 700, 70); if (S.haptik !== false && hapLevel('timer')) vibrate(on === 0 ? 30 : 15); } }
+    }
+  });
+}
+function coachStage0(key, hi) {
   var lad = LAD[key]; if (!lad || !lad.steps || !lad.steps.length) return null;
   var kl = sehneKl(key), h = ladHist(key), rg = rangeOf(lad), top = hi || (rg ? rg.hi : 6), lo = rg ? rg.lo : 3;
   var bs = baseOf(key), bi = bs.idx, bFb = bs.fb;
@@ -6194,6 +6286,7 @@ function coachStage(key, hi) {
 // Kurzer Satz zur Stufe, für den Ablauf und die Kraft-Karte.
 function brakeNote(name, cs) {
   if (!cs) return '';
+  if (cs.tpo) return '<b>' + esc(name) + '</b>' + ': hier fehlt ' + esc(cs.tpo.miss || 'ein Gerät') + ' für „' + esc(stageText(cs.tpo.from)) + '“. Heute „' + esc(stageText(LAD[GL[name].key].steps[cs.idx - 1])) + '“ mit Tempo ' + esc(cs.tpo.t) + ', ' + esc(tpoSay(cs.tpo)) + '. Zählt als trainiert, deine Stufe bleibt.';
   var lad = ladFor(name), st = lad ? stageText(lad.steps[cs.idx - 1]) : '';
   if (cs.wb) return '<b>' + esc(name) + '</b>' + ': Wiedereinstieg mit „' + esc(st) + '“, deine Einschätzung.' + (cs.wb.pre > cs.idx ? ' Sind alle Runden oben, geht es ohne Wartezeit eine Stufe hoch, bis „' + esc(stageText(ladFor(name).steps[cs.wb.pre - 1])) + '“.' : '');
   if (cs.fb) return '<b>' + esc(name) + '</b>' + ': Start mit „' + esc(st) + '“ aus deinem Fragebogen. Die ersten 2 Einheiten stuft dein Coach nach.';
@@ -7091,6 +7184,7 @@ function heuteSub(kind, PL, tag) {
     : morgenMild(tag) && d.type === 'kraft' ? 'Heute ohne Intervalle: ' + esc(morgenWhy()) + '.'
     : morgenToday(tag) === 3 && isKurz0(tag) ? 'Wenig Schlaf und erschöpft: heute höchstens die Kurzversion.'
     : sigKurz(tag) && isKurz0(tag) ? 'Heute kürzer: deine letzten zwei Einheiten waren schwerer als sonst (' + esc(sigWhy()) + ').'
+    : tpoWhy(tag) ? tpoWhy(tag)
     : p > 7 ? 'Willkommen zurück nach ' + p + ' Tagen Pause: ' + (p > 28 ? 'dieser Durchgang ist Entlastung, ' : '') + 'die nächsten ' + (p > 14 ? 5 : 2) + ' Einheiten sind kürzer.'
     : cb ? 'Wiedereinstieg: noch ' + (cb === 1 ? '1 Einheit' : cb + ' Einheiten') + ' kürzer.'
     : ph.test ? 'Testwoche: Maxout in Runde 1, gut schlafen.'
@@ -7394,7 +7488,7 @@ function repGoal(x, stage, kid, K) {
   var lo = m ? +m[1] : s1 ? +s1[1] : n1 ? +n1[1] : 3, hi = sec ? (m ? +m[2] : lo) : n1 ? lo : x.hi || (m ? +m[2] : 6), st = sec ? 5 : 1, last = null, g;
   var num1 = function (v) { return typeof v === 'number'; };
   for (var i = LOGS.length - 1; i >= 0 && !last; i--) (LOGS[i].kraft || []).forEach(function (k) {
-    if (!last && k.n === x.n && (k.stage || '') === (stage || '') && !(k.pain && k.pain.skip) && (k.reps || []).some(num1)) last = k;
+    if (!last && k.n === x.n && !k.tpo && (k.stage || '') === (stage || '') && !(k.pain && k.pain.skip) && (k.reps || []).some(num1)) last = k;
   });
   if (!last) { var b = S.base[x.n]; g = b && b.start != null && (!b.stage || b.stage === stage) ? b.start : lo; }
   else {
@@ -7420,9 +7514,9 @@ function kraftEx(tag, D, rounds, x, i) {
   var est = cs && cs.est ? estWhy(cs.est).replace(/^./, function (c) { return c.toUpperCase(); }) + '. Die ersten 2 Einheiten stuft dein Coach nach.' : '';
   if (bn && !est) hint += (hint ? '<br>' : '') + bn;
   else if (!last && base) hint = 'Start laut Test: ' + [base.stage ? esc(base.stage) : '', base.start != null ? base.start + ' Wdh.' : ''].filter(Boolean).join(', ');
-  var si = lad && stage ? lad.steps.indexOf(stage) : -1, skip = !!(x.pain && x.pain.skip);
+  var si = lad && stage ? lad.steps.indexOf(stage) : -1, skip = !!(x.pain && x.pain.skip), tp = skip ? null : tpoEx(x, stage), sec = holdOf(x, stage);
   var first = !!lad && !cs && !last && !base; // noch kein Verlauf: Stufe einmal selbst wählen
-  return { x: x, i: i, g: g, fk: g ? g.key : '', lad: lad, stage: stage, si: si, K: skip ? null : K, kid: skip ? null : kid, hint: skip ? '' : hint, skip: skip, goal: repGoal(x, stage, kid, K), sec: holdOf(x, stage),
+  return { x: x, i: i, g: g, fk: g ? g.key : '', lad: lad, stage: stage, si: si, K: skip ? null : K, kid: skip ? null : kid, hint: skip ? '' : hint, skip: skip, goal: tp && !sec ? tpoGoal(x, repGoal(x, stage, kid, K)) : repGoal(x, stage, kid, K), sec: sec, tpo: sec ? null : tp,
     test: isTestCycle(tag) && (d.maxout === 'all' || d.maxout === i), first: first, est: skip ? '' : est };
 }
 // Welche Minute ist dran: beim laufenden EMOM die Uhr, sonst die gewählte oder die erste ohne Eintrag.
@@ -7493,7 +7587,7 @@ function kraftStepHTML(tag, D, rounds) {
       '<div class="chips"><span class="chip">' + esc(e.x.target) + (/^\d+\s*[–-]\s*\d+$/.test(e.x.target || '') ? ' Wdh.' : '') + '</span>' + kStageChip(e) + '</div>' + (e.est ? '<p class="small muted k-est">' + e.est + '</p>' : '') +
       (e.skip ? '' : figBox(e.fk) + (GRIP[e.fk] ? '<p class="grip">' + esc(GRIP[e.fk]) + '</p>' : '') + howHTML(kHow(e))) + (e.x.pain ? '<p class="tl-x">' + esc(painText(e.x, true)) + '</p>' : '') + cue(e) +
       (/je Seite/.test(e.x.target || '') ? '<p class="small muted">Schwache Seite zuerst, sie zählt.</p>' : '') + (e.hint ? '<p class="small hint">' + e.hint + '</p>' : '') +
-      (e.skip ? '' : '<div class="k-rs" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div>' + kCounter(tag, D, e, cr)) + '</section>';
+      (e.tpo ? tpoBarHTML(e.tpo, e.i, tpoN(D, e, cr)) : '') + (e.skip ? '' : '<div class="k-rs" style="grid-template-columns:repeat(' + rounds + ',minmax(0,1fr))">' + cells + '</div>' + kCounter(tag, D, e, cr)) + '</section>';
   } else {
     var rows = '';
     for (var m = 0; m < n * rounds; m++) {
@@ -7501,7 +7595,7 @@ function kraftStepHTML(tag, D, rounds) {
       if (m === now.m) {
         rows += '<div class="k-min on"><div class="card-head"><span><small class="k-now">Minute ' + (m + 1) + (now.run ? ' · jetzt' : '') + '</small><b class="k-n">' + esc(x.x.n) + '</b></span>' + kFlag(x) + '</div>' +
           '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(x.fk) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' + (x.skip ? '' : howHTML(kHow(x))) +
-          (x.x.pain ? '<p class="tl-x">' + esc(painText(x.x, true)) + '</p>' : '') + kCounter(tag, D, x, r2) + '</div>';
+          (x.x.pain ? '<p class="tl-x">' + esc(painText(x.x, true)) + '</p>' : '') + (x.tpo ? tpoBarHTML(x.tpo, x.i, tpoN(D, x, r2)) : '') + kCounter(tag, D, x, r2) + '</div>';
       } else {
         var past = v != null || (now.run && m < now.m);
         rows += '<button type="button" class="k-min' + (past ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + m + '"><span class="k-no">' + (past ? '✓' : m + 1) + '</span><span class="k-n">' + esc(x.x.n) + '</span><b>' + (x.skip ? '<span class="small muted">aus</span>' : v != null ? esc(v) : x.goal) + '</b></button>';
@@ -9089,6 +9183,7 @@ function trainSide(T, L) {
   // Übrige Schritte (Skill, Ausgleich, Abschluss …): ihr Inhalt im Panel, neu gezeichnet nur nach Eingaben.
   return { k: 'tb' + id + '|' + FS.rk, h: '<div class="fs-body">' + co + T.s.body(T.D) + '</div>' };
 }
+function tpoN(D, e, r) { var v = num(D['k' + e.i + 'r' + r]); return v != null ? v : e.goal; }
 function trainKraft(T, L, v, co) {
   var tag = T.c.tag, D = T.D, d = DAYS[tag], n = d.kraft.length, rounds = kraftRounds(tag);
   var run = TM.cfg && TM.cfg.step === T.key + ':kraft' && TM.mode === 'emom' && (TM.running || TM.acc > 0) && L && L.p.kind !== 'pre';
@@ -9102,12 +9197,12 @@ function trainKraft(T, L, v, co) {
       return '<div class="fs-row fs-krow' + (i === ex ? ' on' : '') + (f != null && i !== ex ? ' done' : '') + '" data-act="k-sel" data-k="' + esc(draftKey(tag)) + '" data-m="' + mm + '">' +
         '<small>Min ' + (mm + 1) + '</small><b>' + esc(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + esc(x.x.n) + (x.stage ? '<small>' + stageHTML(x.stage) + '</small>' : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
     }).join('');
-    return { k: key, h: dots + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
+    return { k: key, h: dots + (e.tpo ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
   }
   var nx = m + 1 < n * rounds ? E[(m + 1) % n] : null;
   return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Minute ' + (m + 1) + ' von ' + n * rounds + '</p>' +
     '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
-    (e.stage ? '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>' : '') + '</div></div>' + (rc ? rc.c : '') +
+    (e.stage ? '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>' : '') + '</div></div>' + (e.tpo ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
     (nx ? '<span class="chip">Als Nächstes: ' + esc(nx.x.n) + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' : '<span class="chip">Letzte Minute</span>') + dots + co };
 }
 // Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
@@ -10218,7 +10313,7 @@ function stallOf(key) {
   var name = LAD[key] ? LAD[key].name : '', hist = [];
   for (var i = LOGS.length - 1; i >= 0 && hist.length < 3; i--) {
     (LOGS[i].kraft || []).forEach(function (k) {
-      if (hist.length >= 3 || (k.pain && k.pain.soft) || !(k.n === name || (GL[k.n] && GL[k.n].key === key))) return;
+      if (hist.length >= 3 || (k.pain && k.pain.soft) || k.tpo || !(k.n === name || (GL[k.n] && GL[k.n].key === key))) return;
       var r = (k.reps || []).filter(function (v) { return typeof v === 'number'; });
       if (r.length) hist.push({ stage: k.stage || '', sum: r.reduce(function (a, b) { return a + b; }, 0) });
     });
@@ -10254,11 +10349,14 @@ function planFill() {
         var mu0 = mu; mu = near; cands = cand(false); mu = mu0;
         var ue = !cands.length ? Object.keys(UE).filter(function (id) { var u = UE[id]; return (mu.indexOf(u.muster) >= 0 || near.indexOf(u.muster) >= 0) && !used[id] && !TEMPO_KEYS[id] && (u.rolle || []).indexOf('kraft') >= 0 && (u.einheit === 'wdh' || u.einheit === 'kg') && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st); })
           .sort(function (a, b) { return (mu.indexOf(UE[b].muster) >= 0) - (mu.indexOf(UE[a].muster) >= 0) || UE[b].nutzen - UE[a].nutzen; })[0] : null;
+        // Paket 61: auch ohne Kraft-Einzelübung fällt der Platz nicht weg, eine Körpergewichtsübung des Musters mit Tempo (nur Plan 2).
+        if (!cands.length && !ue && v2()) ue = Object.keys(UE).filter(function (id) { var u = UE[id]; return (mu.indexOf(u.muster) >= 0 || near.indexOf(u.muster) >= 0) && !TEMPO_KEYS[id] && u.einheit === 'wdh' && eqOk(u.equipment, have) && !PAIN_OHNE[u.muster]; })
+          .sort(function (a, b) { return (mu.indexOf(UE[b].muster) >= 0) - (mu.indexOf(UE[a].muster) >= 0) || UE[b].nutzen - UE[a].nutzen; })[0] || null;
         var gone = mu.map(function (m) { return MUSTER[m] || m; }).join(' oder ');
         if (cands.length) { cands.sort(byNutzen); out.why[tag].push('Ersatz: ' + LAD[cands[0]].name + ', weil hier das Gerät für ' + gone + ' fehlt.'); }
         else if (ue) {
           used[ue] = 1; out.why[tag].push('Ersatz: ' + UE[ue].name + ', weil hier das Gerät für ' + gone + ' fehlt.');
-          kr.push({ n: UE[ue].name, target: '6–10', hi: 10, lib: true }); return;
+          kr.push({ n: UE[ue].name, target: '6–10', hi: 10, lib: true, tpo: v2() && UE[ue].einheit === 'wdh' ? { miss: 'Gerät für ' + gone } : null }); return;
         }
       }
       cands.sort(function (a, b) { return (st[b] && st[b].cur ? 1 : 0) - (st[a] && st[a].cur ? 1 : 0) || byNutzen(a, b); });
