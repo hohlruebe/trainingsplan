@@ -386,6 +386,11 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const zsq = { n: 'Pistol Squat', stage: 'Frei', reps: [4, 4, 4, 4], goal: 4 }, zpu = { n: 'Push-up', stage: 'Push-up', reps: [6, 6, 6, 6], goal: 6 };
     const zLogs = ['2026-09-29', '2026-10-02', '2026-10-06', '2026-10-09'].map(d => zk(d, [zsq, zpu])).concat([zk('2026-10-12', [zsq, { n: 'Bulgarian Split Squat', stage: 'Normal', reps: [6, 6, 6, 6], goal: 6 }, zpu], { rpe: 9, fin: { k: 'easy', dev: 'lauf', min: 40, done: true } })]);
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [zst, zLogs]);
+    // Paket 62: der Planer legt B nicht auf den Tag mit müden Beinen, wenn ein anderer Tag passt.
+    assert.equal(await page.evaluate(() => window.tpTest.plan().days.map(d => d.tag || '-').join('')), '----3-6', 'Mittwoch frei, B am Freitag, C am Sonntag');
+    assert.match(await page.locator('.h-sub').first().innerText(), /^Beine noch müde von Montag: heute Erholung/);
+    // Für den Rest: B per Verschieben fest auf Mittwoch.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, zst, { planOv: { '2026-10-14': { pin: 3 } } }), zLogs]);
     assert.match(await page.locator('.h-sub').innerText(), /^Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden, Abschluss auf dem Ergometer, locker\. Erholung ansehen$/);
     await page.getByRole('button', { name: 'Erholung ansehen', exact: true }).click();
     const zc = page.locator('#zone-card');
@@ -417,6 +422,30 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.deepEqual([zl.fin.k, zl.fin.dev], ['easy', 'ergo']);
     await page.locator('#moment').evaluate(e => e.remove()).catch(() => {});
     console.log('PASS: Ermüdung je Körperzone: Satz auf Heute, Karte Erholung mit Ringen, Rückweg, freie Minute im EMOM, Abschluss ohne Laufen');
+
+    // Paket 62: 2 bis 6 Trainingstage im Plan (Schieberegler). Ab 4 Tagen Split mit kurzem Kardio zum Schluss.
+    await page.clock.setFixedTime(new Date('2026-10-12T17:05:00+02:00'));
+    const tst = n => Object.assign(old(), { planV: 2, tage: n, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, planAsk: '2026-10-12' });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [tst(null), logs()]);
+    await page.evaluate(() => window.tpTest.navigate('plan'));
+    assert.match(await page.locator('.tg').innerText(), /Trainingstage\s*3 pro Woche[\s\S]*A, B und C\. Den Rest plant dein Coach\./);
+    await page.locator('.tg-r').fill('5');
+    assert.equal(await page.evaluate(() => window.tpTest.state().tage), 5);
+    assert.match(await page.locator('#tg-x').innerText(), /^Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio\./, 'Schieberegler mit kurzer Info');
+    assert.ok(await page.getByRole('heading', { name: '0 von 5 erledigt' }).isVisible(), 'Wochenziel zählt bis 5');
+    assert.equal(await page.evaluate(() => window.tpTest.plan().days.map(d => d.tag || '-').join('')), '1-345-6', 'Mo Push, Mi Pull, Do Beine, Fr Ober, So Unter');
+    await page.evaluate(() => window.tpTest.navigate('heute'));
+    assert.ok(await page.getByRole('heading', { name: 'Push', level: 1 }).isVisible(), 'heute Push');
+    assert.equal(await page.locator('.wkst .wd.u .wd-u').allInnerTexts().then(x => x.join(' ')), 'Pu Pl Be O U');
+    const sf = await page.evaluate(() => window.tpTest.fill());
+    assert.deepEqual([sf.kraft[1].length, sf.kraft[3].length, sf.kraft[4].length, sf.kraft[5].length, sf.kraft[6].length], [3, 3, 3, 4, 4], 'Push, Pull, Beine je 3, Ober und Unter je 4 Übungen');
+    const st5 = await page.evaluate(() => window.tpTest.steps().map(s => [s.id, s.dur]));
+    const lastS = st5[st5.length - 1];
+    assert.ok(['fin', 'metcon'].includes(lastS[0]) && lastS[1] <= 12, 'kurzes Kardio bzw. Metcon zum Schluss (höchstens 12 Min)');
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [tst(2), logs()]);
+    const f2 = await page.evaluate(() => window.tpTest.fill());
+    assert.deepEqual([f2.kraft[1].length, f2.kraft[3].length, !!f2.kraft[6]], [4, 4, false], '2 Tage: A und B je mit einer vierten Übung, kein C');
+    console.log('PASS: 2 bis 6 Trainingstage: Schieberegler im Plan, Wochenziel, Split ab 4 Tagen mit kurzem Kardio, 2 Tage mit vierter Übung');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });

@@ -519,6 +519,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Satz unter dem Titel (`zoneLine` in `heuteSub`, mit „Erholung ansehen“ `ACT['zone-open']`) und Coach-Hinweis am Kraft-Schritt. Karte „Erholung“
   (`zoneCardHTML`, `#zone-card`) nur in Plan › Deine Woche (diese Woche), nicht auf Heute: Figur vorn eingefärbt, je Zone ein Ring „wie erholt“
   (100 = frisch) mit „bis Fr“ (müde) bzw. „ab 21 Uhr“ (frisch), darunter der Grund („Pistol Squat und 40 Min Laufen am Montag“).
+- 2 bis 6 Trainingstage (Dennis, Paket 62): `S.tage` (2–6, null = 3, in `DEF` und `SYNC_KEYS`, `tageN()`), eingestellt in Plan › Deine Woche ›
+  „Trainingstage“ als Schieberegler 2–6 mit Zahlen darunter und einer kurzen Zeile (`tageHTML`, `.tg-r`, `CHG.tage`, `ACT.tage`, `TAGE_TXT`).
+  `daysV2`: 2 = A und B je mit vierter Übung aus C (A Einbein, B Rumpf), Tag 6 frei; 3 = A, B, C. Ab 4 Tagen Split (`splitOn`, `splitDays`, Dennis:
+  „ab 4 Tagen direkt auf den Split, kurze Kardio-Session hinten dran“): 4 = Oberkörper/Unterkörper je zweimal (Tag 1, 3, 4, 5), 5 = Push, Pull, Beine,
+  Oberkörper, Unterkörper (Tag 1, 3, 4, 5, 6), 6 = Push, Pull, Beine je zweimal (Tag 1, 3–7). Ober/Push/Pull enden wie B (Metcon bzw. Intervalle),
+  Unter/Beine locker, Abschluss höchstens 12 Min (`finMax` in `finOf`). Einheiten-Kürzel aus `d.unit` (O, U, Pu, Pl, Be; `unitL`, `unitOf`), alte
+  Einträge behalten A/B/C (`UNIT`). Tag 2 bleibt der Zusatz. Planer: Reihenfolge nach Tag (ausgefallene zuerst), im Split drei Krafttage in Folge
+  erlaubt (nie vier), Wegfall im Split die letzte Einheit der Woche zuerst (`planDropOrder`); `zonePen` (Paket 60): Krafttag an einem Tag mit müder
+  Zone −4 je Zone (freier Tag dann mit Grund `zoneFreeLine`). Wochenziel „x von N erledigt“. `umfGrow` braucht 2 × min(3, Tage) vollständige
+  Einheiten in 2 Wochen. Dauer weiter über die Umfangsstufen (25 bis 90 Min, wächst langsam), wenig Zeit über Heute anpassen.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

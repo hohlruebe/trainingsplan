@@ -25,7 +25,7 @@ function setup(extra) {
     SHIFT: { f: ['Früh', 6, 14], s: ['Spät', 14, 22], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18], tn: ['12 h Nacht', 18, 6] }
   }, extra || {}));
   vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + ';', c);
-  for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
+  for (const name of ['tageN', 'splitOn', 'isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
     'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'isSecs', 'holdOf', 'repGoal', 'befCls', 'befOf', 'stepRi', 'stepsLoad', 'logLoad', 'rpeWord', 'longShift',
     'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
   return c;
@@ -275,3 +275,19 @@ r2 = post({ app: 'trainingsplan', bis: F(21, 0), t: [{ id: 'tp-a', n: 'Training:
 assert.deepEqual([r2.neu, r2.weg], [1, 2], 'verschoben: alt weg, neu angelegt; C abgesagt');
 assert.ok(!JSON.parse(vm.runInContext('doGet()', gsCtx).text).k.some(x => x.n === 'Trainingsplan'), 'der eigene Kalender zählt nie als belegt');
 console.log('PASS: Kalender-Brücke trägt Trainings ein: eigener Kalender, neu, gleich, verschoben, abgesagt, Vergangenes bleibt');
+
+// Paket 62: 2 bis 6 Trainingstage. Ab 4 Tagen Split (alle Einheiten Kraft), drei Krafttage in Folge erlaubt.
+{
+  const got = {};
+  for (const n of [2, 3, 4, 5, 6]) {
+    const K = { type: 'kraft' }, R = { type: 'rest' };
+    const D = n === 2 ? { 1: K, 2: R, 3: K, 4: R, 5: R, 6: R, 7: R } : n === 3 ? V2 : n === 4 ? { 1: K, 2: R, 3: K, 4: K, 5: K, 6: R, 7: R } : n === 5 ? { 1: K, 2: R, 3: K, 4: K, 5: K, 6: K, 7: R } : { 1: K, 2: R, 3: K, 4: K, 5: K, 6: K, 7: K };
+    const c2 = setup({ DAYS: D }); c2.S.tage = n;
+    got[n] = c2.wkPlan().days.map(d => d.tag || '-').join('');
+  }
+  assert.deepEqual(got, { 2: '1-3----', 3: '1-3-6--', 4: '1-3-4-5', 5: '134-5-6', 6: '134-567' }, 'Split: drei Krafttage in Folge erlaubt, nie vier');
+  const c3 = setup(); c3.S.tage = 6;
+  assert.deepEqual(c3.planDropOrder([1, 3, 4, 5, 6, 7]), [7, 6, 5, 4, 3, 1], 'im Split fällt die letzte Einheit der Woche zuerst weg');
+  c3.S.tage = null; assert.equal(c3.tageN(), 3, 'ohne Angabe drei'); assert.equal(c3.splitOn(), false);
+  console.log('PASS: 2 bis 6 Trainingstage: Split ab 4 Tagen, Reihenfolge, Wegfall');
+}

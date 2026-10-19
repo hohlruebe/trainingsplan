@@ -4,8 +4,18 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 19. Oktober 2026 (Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 19. Oktober 2026 (2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## 2 bis 6 Trainingstage (19. Oktober 2026, Claude, Paket 62)
+- Erste Fassung (Hybrid: Zusatztage Ausdauer locker, intensiv, Beweglichkeit) wieder ersetzt. Dennis: Schieberegler statt Auswahlblatt, „was dahinter
+  steht entscheidet der Coach, kurze Info reicht“; keine getrennten Wege Hybrid/Kraft, „Worauf trainierst du?“ (Challenges) bleibt wie bisher;
+  „ab 4 Tagen direkt auf den Split und eine kurze Kardio-Session hinten dran“, Training 20–90 Min, langsam steigern.
+- Umgesetzt: siehe CLAUDE.md „2 bis 6 Trainingstage“. Blockperiodisierung (Aufbau/Kraft/Spitze) und weitere Wege (Marathon, Hyrox, CrossFit) sind nicht
+  gebaut; das Board „Wege und Blöcke“ im Canvas ist damit überholt. Untergrenze bleibt Umfangsstufe 0 = 25 Min.
+- Geprüft: `tests/dreitage.cjs` (Muster je Tagezahl, Wegfall), `tests/dreitage-browser.cjs` (Schieberegler, Wochenziel, Split mit kurzem Abschluss,
+  2 Tage mit vierter Übung, Planer meidet müde Beine), alle übrigen Tests.
+- Offen: Dennis testet. Danach: Blockperiodisierung je Challenge bzw. Ziel (Paket 63) neu besprechen.
 
 ## Ermüdung je Körperzone (19. Oktober 2026, Claude, Paket 60)
 - Reihenfolge mit Dennis: erst 60, dann 62 (2–6 Tage), dann 63 (Ziele). Im Canvas wählte er Z1 (Karte mit Figur), dann aus vier Varianten
@@ -15,7 +25,7 @@ Stand: 19. Oktober 2026 (Ermüdung je Körperzone; davor Zeit unter Spannung mit
 - Geprüft: `tests/dreitage-browser.cjs` (schwerer Beintag Montag → Mittwoch Satz auf Heute, Karte Erholung, Rückweg „Doch volle Runden“,
   Nordic Curl Runde 4 frei und gespeichert ohne Wert, Abschluss Ergometer locker), alle übrigen Tests.
 - Nicht automatisch getestet: zwei müde Zonen (Kurzversion) und Muskelkater aus dem Körper-Check.
-- Offen: Dennis testet; danach Paket 62 (2–6 Tage, der Planer soll müde Zonen dann mit einplanen), 63 (Ziele mit Blockperiodisierung).
+- Offen: Dennis testet.
 
 ## Zeit unter Spannung statt fehlender Last (19. Oktober 2026, Claude, Paket 61)
 - Dennis wählte im Canvas T3 (Leiste Runter | Halten | Hoch, live) „mit Ton und Vibration, aber auch abschaltbar“.

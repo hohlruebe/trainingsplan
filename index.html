@@ -781,6 +781,11 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .rpe input::-webkit-slider-thumb{-webkit-appearance:none;width:36px;height:36px;margin-top:-13px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.25)}
 .rpe input::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.25)}
 .rpe.unset input{opacity:.5}.rpe.unset input::-webkit-slider-thumb{border:2px dashed var(--ink2)}.rpe.unset input::-moz-range-thumb{border:2px dashed var(--ink2)}
+.tg{margin:14px 0 0;padding:12px 14px 6px;border-radius:16px;background:var(--board)}.tg-h{display:flex;justify-content:space-between;align-items:baseline;font-size:16px}.tg-h span{color:var(--acc);font-weight:700}
+.tg-r{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:2px 0 0;background:transparent}
+.tg-r::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:color-mix(in srgb,var(--acc) 22%,var(--paper))}.tg-r::-moz-range-track{height:8px;border-radius:999px;background:color-mix(in srgb,var(--acc) 22%,var(--paper))}
+.tg-r::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;margin-top:-12px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.22)}.tg-r::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid var(--acc)}
+.tg-n{margin:0 1px}.tg-n button.on{color:var(--acc);font-weight:700}.tg p{margin:4px 2px 6px}
 .rpe-n{display:flex;justify-content:space-between;margin:0 2px}
 .rpe-n button{width:30px;min-height:44px;border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink2);cursor:pointer;padding:0}
 .rpe-n button.on{color:var(--acc);font-weight:800;font-size:18px}
@@ -2694,7 +2699,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null };
+  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -2850,7 +2855,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -3512,6 +3517,12 @@ function zoneLine(tag) {
   if (!a && !b) return '';
   return fr + ': ' + [a, b].filter(Boolean).join(', ') + '.';
 }
+// Freier Tag mit müder Zone (Paket 62: der Planer hat die Einheit verschoben): Grund unter dem Titel.
+function zoneFreeLine() {
+  if (!v2() || !S.started) return '';
+  var Z = zoneState(), mu = Object.keys(Z).filter(function (z) { return Z[z].st === 'muede' && !Z[z].kat; });
+  return mu.length ? esc(mu.map(function (z) { return ZONE_N[z]; }).join(' und ') + ' noch müde ' + zoneFrom(Z[mu[0]].why) + ': heute Erholung, dein Coach hat die Woche danach geplant.') : '';
+}
 // Karte „Erholung“ in Plan › Deine Woche (Z1d): Figur vorn, je Zone ein Ring (100 = frisch).
 function zoneCardHTML() {
   if (!LOGS.some(function (l) { return l.kind === 'kraft' && dSince(l.date) <= 42; })) return '';
@@ -3674,7 +3685,7 @@ function saveDay() {
   var ladBefore = areaStates(LOGS), prBefore = Object.assign({}, prList(LOGS));
   var tag = S.tag, d = DAYS[tag], key = draftKey(tag), v = collectInputs(), extra = '';
   var base = { id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, name: dayLabel(tag), fokus: S.fokus, notes: v.notes || '' };
-  if (v2()) { base.pv = 2; if (UNIT[tag]) base.unit = UNIT[tag]; else if (d && d.zusatz) base.unit = 'Z'; } // Plan 2: Tag 1/3/6 heißt A/B/C, alte Einträge behalten ihre Bedeutung
+  if (v2()) { base.pv = 2; if (unitL(tag) && !(d && d.zusatz)) base.unit = unitL(tag); else if (d && d.zusatz) base.unit = 'Z'; } // Plan 2: Tag 1/3/6 heißt A/B/C, alte Einträge behalten ihre Bedeutung
   var log = null;
   if (S.durchgang === 0 && TESTDAYS[tag]) {
     var td = TESTDAYS[tag], rows = PLAN.tests[td.rows], map = TEST_BASE[td.rows];
@@ -4276,8 +4287,8 @@ function renderPlan() {
     return '<div class="tbl-wrap" style="margin-top:12px"><table>' + (head ? '<thead><tr>' + head.map(function (x) { return '<th>' + x + '</th>'; }).join('') + '</tr></thead>' : '') + '<tbody>' + rows.map(function (r) { return '<tr>' + r.map(function (x) { return '<td>' + x + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
   };
   h += sec('Regeln', W((v2() ? [
-    ['Drei Einheiten pro Woche', 'A, B und C, jede mit Kraft und einem Kardio-Abschluss. Die Woche beginnt am Montag.'],
-    ['Der Coach plant die Tage', 'Er legt die Einheiten um Arbeit und Schlaf, höchstens zwei Tage hintereinander. Passen nicht alle, fällt zuerst C weg.'],
+    [tageN() + ' Trainingstage pro Woche', (TAGE_TXT[tageN()] || '') + ' Jede Einheit mit Kraft und einem Kardio-Abschluss. Einstellen unter Deine Woche › Trainingstage. Die Woche beginnt am Montag.'],
+    ['Der Coach plant die Tage', 'Er legt die Einheiten um Arbeit, Schlaf und müde Muskeln, höchstens zwei harte Tage hintereinander (im Split drei, jeder Tag eine andere Zone). Passen nicht alle, fällt zuerst die letzte Einheit der Woche weg.'],
     ['Durchgang', 'Ab 2 Einheiten in einer Woche geht es am Montag in den nächsten Durchgang, sonst wiederholt dein Coach die Woche.']
   ] : [
     ['Tag für Tag', '1 bis 7, dann wieder Tag 1. Egal, auf welchen Wochentag ein Tag fällt.'],
@@ -5295,7 +5306,7 @@ function planPairOk(a, b) { if (v2() || !a || !b || !planHard(a) || !planHard(b)
 // Was zuerst wegfällt, wenn nicht alles passt: Kardio locker, Kardio intensiv, der stärkere von Zug und Druck, dann der andere, Ganzkörper zuletzt.
 function planDropOrder(R) {
   // Plan 2: A und B decken alle Hauptmuster ab, darum fällt C zuerst weg, dann B, A zuletzt.
-  if (v2()) { var rk2 = { 6: 0, 3: 1, 1: 2 }; return R.slice().sort(function (a, b) { return (rk2[a] || 0) - (rk2[b] || 0); }); }
+  if (v2()) { var rk2 = splitOn() ? { 7: -3, 6: -2, 5: -1, 4: 0, 3: 1, 1: 2 } : { 6: 0, 3: 1, 1: 2 }; return R.slice().sort(function (a, b) { return (rk2[a] || 0) - (rk2[b] || 0); }); }
   var ps = {}; try { ps = partScores(ladderStates(LOGS)) || {}; } catch (e) { ps = {}; }
   var zugFirst = (ps.zug || 0) > (ps.druck || 0);
   var rank = function (t) { var d = DAYS[t]; if (d.type === 'easy') return 0; if (d.type === 'interval') return 1; if (t === 3) return zugFirst ? 2 : 3; if (t === 6) return zugFirst ? 3 : 2; return 4; };
@@ -5423,7 +5434,7 @@ function wkDoneV2(mon, done) {
   var end = isoAdd(mon, 6), old = [];
   LOGS.forEach(function (l) {
     if (!trainingLog(l) || l.date < mon || l.date > end) return;
-    if (l.pv === 2) { if (UNIT[l.tag]) done[l.date] = l.tag; } else if (l.kind === 'kraft' || l.kind === 'test') old.push(l);
+    if (l.pv === 2) { if (l.unit ? l.unit !== 'Z' : UNIT[l.tag]) done[l.date] = l.tag; } else if (l.kind === 'kraft' || l.kind === 'test') old.push(l);
   });
   old.forEach(function (l) {
     if (done[l.date]) return;
@@ -5486,7 +5497,7 @@ function wkPlan(mon) {
   else LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && l.tag && l.date >= mon && l.date <= isoAdd(mon, 6) && DAYS[l.tag] && DAYS[l.tag].type !== 'rest') done[l.date] = l.tag; });
   for (var i = 0; i < 7; i++) { var dt = isoAdd(mon, i), ov = OV[dt] || {}; days.push({ i: i, date: dt, cls: ov.off ? 'none' : befCls(T, i, dt, arbeitOf(mon)[i]), off: !!ov.off, force: ov.t, pin: ov.pin || null, work: arbeitOf(mon)[i], done: done[dt] || null, tag: null }); }
   var future = mon > today, cur = mon === wkMon(today), from = future ? 0 : cur ? ti + (doneToday0() || done[today] ? 1 : 0) : 7;
-  var R = [];
+  var R = [], carryV = [];
   if (future) { for (var t0 = 1; t0 <= 7; t0++) if (DAYS[t0] && DAYS[t0].type !== 'rest') R.push(t0); }
   else if (cur) for (var t1 = S.tag; t1 <= 7; t1++) if (DAYS[t1] && DAYS[t1].type !== 'rest') R.push(t1);
   if (cur && S.planStart) {
@@ -5495,11 +5506,24 @@ function wkPlan(mon) {
       if (!DAYS[rt0] || DAYS[rt0].type === 'rest' || (S.planStart.week === mon && rt0 < S.planStart.tag)) continue;
       if (!Object.keys(done).some(function (dt) { return done[dt] === rt0; })) R.push(rt0);
     }
-    var carry = missCarry().filter(function (t) { return !Object.keys(done).some(function (dt) { return done[dt] === t; }); });
+    var carry = carryV = missCarry().filter(function (t) { return !Object.keys(done).some(function (dt) { return done[dt] === t; }); });
     R = carry.concat(R.filter(function (t) { return carry.indexOf(t) < 0; }));
   }
   // Plan 2: jede Einheit höchstens einmal pro Woche, auch wenn sie schon erledigt ist.
   if (v2()) R = R.filter(function (t) { return !DAYS[t].zusatz && !Object.keys(done).some(function (dt) { return done[dt] === t; }); });
+  // Paket 62: Reihenfolge nach Tag (Split: Push, Pull, Beine …), ausgefallene Einheiten bleiben vorn.
+  if (v2()) R.sort(function (a, b) { return (carryV.indexOf(b) >= 0) - (carryV.indexOf(a) >= 0) || a - b; });
+  // Paket 60/62: müde Zonen am geplanten Tag kosten Punkte, intensive Ausdauer direkt vor Kraft auch.
+  var ZD = {};
+  function zonePen(j, t, prevT) {
+    if (!v2() || future || j < ti) return 0;
+    var d = DAYS[t], pen = prevT === 5 && d && d.type === 'kraft' ? 4 : 0;
+    if (!d || (d.type !== 'kraft' && d.type !== 'interval')) return -pen;
+    if (!(j in ZD)) { try { ZD[j] = zoneState(parseISO(isoAdd(mon, j)).getTime() + 17 * 36e5); } catch (e) { ZD[j] = null; } }
+    var Z = ZD[j]; if (!Z) return -pen;
+    (d.type === 'kraft' ? Object.keys(Z) : ['beine']).forEach(function (z) { if (Z[z].st === 'muede' && !Z[z].kat) pen += 4; });
+    return -pen;
+  }
   // Auch Sonntag/Montag berücksichtigen; Montag setzt die Belastung nicht zurück.
   var prevDate = isoAdd(mon, from - 1), prevLogs = LOGS.filter(function (l) { return trainingLog(l) && l.date === prevDate; });
   var prevTag = prevLogs.length ? prevLogs[prevLogs.length - 1].tag : from > 0 ? days[from - 1].done : null;
@@ -5526,9 +5550,11 @@ function wkPlan(mon) {
         if (!planPairOk(prevT, t)) continue;
         // Plan 2: höchstens zwei Einheiten in Folge; ein freier Tag davor ist besser, ein Übergangstag (vor/nach Nachtschicht) schlechter.
         var gap = 0;
-        if (v2()) { if (hardOn(j - 1, acc) && hardOn(j - 2, acc)) continue; gap = (hardOn(j - 1, acc) ? 0 : 3) - (days[j].cls === 'light' ? 8 : 0); }
+        // Split (ab 4 Tagen): drei Krafttage in Folge sind erlaubt, jeder Tag belastet eine andere Zone.
+        if (v2()) { if (hardOn(j - 1, acc) && hardOn(j - 2, acc) && (!splitOn() || hardOn(j - 3, acc))) continue; gap = (hardOn(j - 1, acc) ? 0 : 3) - (days[j].cls === 'light' ? 8 : 0); }
         var old = (S.planDays || {})[days[j].date], stable = old && old.tag === t && (old.pv || 1) === (S.planV || 1) ? 50 : 0;
         if (days[j].pin === t) gap += 200; // verschoben: die Einheit gehört an diesen Tag
+        gap += zonePen(j, t, prevT);
         acc.push({ i: j, t: t }); go(k + 1, j + 1, t, acc, score + stable + gap + (slot(j, t).sc != null ? slot(j, t).sc : 5) + (days[j].cls === 'ok' ? 2 : 0)); acc.pop();
       }
     })(0, from, null, [], 0);
@@ -5619,7 +5645,7 @@ function planTodayHTML(P) {
 // Training verschieben (Plan 2): der Coach rechnet für jeden späteren Tag dieser Woche durch, ob die Einheit dort passt (heute frei,
 // Einheit dort festgelegt), und bietet die ersten drei Termine an. Fällt dadurch eine andere Einheit weg, steht das dabei.
 function moveOptions() {
-  var P = wkPlanC(), t = S.tag, out = []; if (!v2() || !P || P.today < 0 || !UNIT[t] || P.days[P.today].tag !== t) return out;
+  var P = wkPlanC(), t = S.tag, out = []; if (!v2() || !P || P.today < 0 || !unitL(t) || P.days[P.today].tag !== t) return out;
   var keep = S.planOv;
   try {
     for (var j = P.today + 1; j < 7 && out.length < 3; j++) {
@@ -6154,6 +6180,7 @@ var CHG = {
   swipe: function (el) { S.swipe = el.checked; saveState(); },
   swipeRev: function (el) { S.swipeRev = el.checked; saveState(); setTimeout(render, 420); },
   tpoCue: function (el) { S.tpoCue = el.checked; saveState(); },
+  tage: function (el) { tageSet(el.value); },
   vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
 };
 // Auswahl über das Rad statt Klapp-Listen und Datumsfeld.
@@ -7076,7 +7103,7 @@ function wkCells(mon) {
 function wkCellLab(c) {
   if (c.logs.length) { var l = c.logs[c.logs.length - 1]; return { u: '✓' + (l.pv === 2 && l.unit ? l.unit : ''), s: 'erledigt, ' + logTitle(l) }; }
   if (c.zs) return { u: 'Z', s: 'Zusatz, freiwillig, ' + (c.today ? 'heute' : 'geplant') + ', ' + hm(c.zs.t - 24 * c.i) + ' Uhr, ' + c.zs.min + ' Minuten' };
-  if (c.tag) return { u: UNIT[c.tag], s: 'Einheit ' + UNIT[c.tag] + ', ' + (c.today ? 'heute' : 'geplant') + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) + ' Uhr' : '') + ', ' + Math.round(planDur(c.tag) * 60) + ' Minuten' };
+  if (c.tag) return { u: unitL(c.tag), s: 'Einheit ' + unitL(c.tag) + ', ' + (c.today ? 'heute' : 'geplant') + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) + ' Uhr' : '') + ', ' + Math.round(planDur(c.tag) * 60) + ' Minuten' };
   return { u: 'Frei', s: c.past ? 'kein Training' : 'frei' };
 }
 function wkFirst() { var d = S.startDate || isoToday(); LOGS.forEach(function (l) { if (l.date && l.date < d) d = l.date; }); return wkMon(d); }
@@ -7103,6 +7130,8 @@ function wkPick(m) { var c = wkCells(m).cells.filter(function (x) { return x.tag
 // Durchgang, der in einer künftigen Woche dran ist (wenn jede Woche zählt), für die Vorschau.
 function wkDg(mon) { var n = Math.round(daysBetween(parseISO(wkMon()), parseISO(mon)) / 7); return n > 0 ? Math.min((S.blockStart || 1) + blockN() - 1, S.durchgang + n) : S.durchgang; }
 function wkUnitPreview(c, mon) {
+  // Ausdauer- und Beweglichkeitstage (Paket 62): Dauer aus dem Lauf bzw. der Routine, keine Schritte.
+  if (DAYS[c.tag] && DAYS[c.tag].type !== 'kraft') return { st: [], min: Math.round(planDur(c.tag) * 60) };
   return planPreview(wkDg(mon), function () {
     var st = stepsOf({ tag: c.tag, cur: false, d: DAYS[c.tag], isTest: false, isMurph: false });
     return { st: st, min: st.reduce(function (a, s) { return a + (s.opt ? 0 : s.dur || 0); }, 0) + 2 };
@@ -7131,8 +7160,9 @@ function wkDayHTML(dt) {
 function planWeekV2HTML() {
   var mon = ui.pwMon || wkMon(), W = wkCells(mon), cm = wkMon(), sel = ui.pwSel && wkMon(ui.pwSel) === mon ? ui.pwSel : mon === cm ? isoToday() : wkPick(mon);
   var c = W.cells.filter(function (x) { return x.date === sel; })[0], ph = phaseAt(Math.max(1, Math.min(blockN(), wkDg(mon) - (S.blockStart || 1) + 1)));
-  var done = W.cells.filter(function (x) { return x.logs.some(function (l) { return l.kind === 'kraft' || l.kind === 'test'; }); }).length;
-  var h = '<section class="card pw"><div class="card-head"><h2>' + done + ' von 3 erledigt</h2><span class="chip">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + wkStripHTML(W, sel, 'pw');
+  var done = W.cells.filter(function (x) { return x.logs.some(function (l) { return trainingLog(l) && (l.pv !== 2 || UNIT[l.tag]); }); }).length;
+  var all = Math.max(done, W.cells.filter(function (x) { return x.tag || x.logs.some(function (l) { return trainingLog(l) && (l.pv !== 2 || UNIT[l.tag]); }); }).length) || tageN();
+  var h = '<section class="card pw"><div class="card-head"><h2>' + done + ' von ' + all + ' erledigt</h2><span class="chip">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + wkStripHTML(W, sel, 'pw');
   if (c.logs.length) h += c.logs.map(function (l) { return '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(logTitle(l)) + '</b><small>' + esc(fmtDate(l.date)) + ' · erledigt</small></span><span class="vr-v">' + TICK + '</span></div></div>' + logLines(l); }).join('');
   else if (c.tag) {
     var U = wkUnitPreview(c, mon), F = planPreview(wkDg(mon), function () { return finOf(c.tag, 0); });
@@ -7140,6 +7170,7 @@ function planWeekV2HTML() {
       (c.pd && c.pd.why && c.pd.why.length ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') + tlHTML(U.st);
   } else h += '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
+  h += tageHTML();
   h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';
   return h + '<div class="bgrp" style="margin-top:12px">' + (kalPushOn() ? '' : '<button type="button" data-act="wk-ics">Kalender</button>') + '<button type="button" data-act="wk-open" data-from="plan">Arbeitszeiten</button></div></section>' + loadCardHTML(mon) + (mon === cm ? zoneCardHTML() + zusatzCardHTML('plan') : '');
 }
@@ -7315,7 +7346,7 @@ function renderHeute() {
 function heuteSub(kind, PL, tag) {
   var nx = PL.days.filter(function (x) { return x.i > PL.today && x.tag && !x.done; })[0];
   var next = nx ? 'Nächstes Training: <b>' + WTAG[nx.i] + (nx.t != null ? ', ' + hm(nx.t - 24 * nx.i) : '') + '</b> · ' + esc(dayLabel(nx.tag)) : 'Diese Woche ist geschafft. Montag geht es weiter.';
-  if (kind === 'free') return [esc(planFreeWhy(PL)), next];
+  if (kind === 'free') { var zf = zoneFreeLine(); return [zf || esc(planFreeWhy(PL)), next]; }
   if (kind === 'done') return [next];
   var d = DAYS[tag] || {}, ph = curPhase(), p = pauseDays(), cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0, U = S.umfang;
   var t = befOf(isoToday()) === 'tired' && d.type === 'kraft' ? 'Heute kürzer, weil du müde bist.'
@@ -8822,6 +8853,22 @@ ACT['wk-zeit'] = function () {
     if (!v) return; S.zeitMax = +v === 90 ? null : +v; DAYS_K = null; WKP_C.k = null; PD_C = {}; saveState(); render();
   });
 };
+// Trainingstage als Schieberegler 2–6 (Dennis: „über einen Slide-Regler, was dahinter steht entscheidet der Coach, kurze Info reicht“).
+var TAGE_TXT = { 2: 'A und B, je mit einer Übung aus C.', 3: 'A, B und C.', 4: 'Oberkörper und Unterkörper, je zweimal, mit kurzem Kardio.', 5: 'Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio.', 6: 'Push, Pull, Beine, je zweimal, mit kurzem Kardio.' };
+function tageHTML() {
+  var n = tageN();
+  return '<div class="tg"><div class="tg-h"><b>Trainingstage</b><span id="tg-v">' + n + ' pro Woche</span></div>' +
+    '<input type="range" class="tg-r" min="2" max="6" step="1" value="' + n + '" data-change="tage" aria-label="Trainingstage pro Woche, 2 bis 6">' +
+    '<div class="rpe-n tg-n">' + [2, 3, 4, 5, 6].map(function (i) { return '<button type="button" data-act="tage" data-v="' + i + '"' + (i === n ? ' class="on"' : '') + ' aria-label="' + i + ' Tage">' + i + '</button>'; }).join('') + '</div>' +
+    '<p class="small muted" id="tg-x">' + esc(TAGE_TXT[n]) + ' Den Rest plant dein Coach.</p></div>';
+}
+function tageSet(v) { v = Math.max(2, Math.min(6, +v || 3)); if (v === tageN()) return; S.tage = v === 3 ? null : v; DAYS_K = null; WKP_C.k = null; PD_C = {}; FILL.k = null; saveState(); haptic('tap'); render(); }
+ACT.tage = function (el) { tageSet(el.dataset.v); };
+document.addEventListener('input', function (e) {
+  var r = e.target; if (!r.classList || !r.classList.contains('tg-r')) return;
+  var n = +r.value, v = document.getElementById('tg-v'), x = document.getElementById('tg-x');
+  if (v) v.textContent = n + ' pro Woche'; if (x) x.textContent = TAGE_TXT[n] + ' Den Rest plant dein Coach.';
+});
 ACT['pl-later'] = function () { S.planAsk = isoToday(); saveState(); render(); };
 ACT['pl-time'] = function () {
   var P = wkPlanC(), d = P.days[P.today]; if (!d) return;
@@ -8858,7 +8905,7 @@ function missOpenLog(date) {
   // Ergebnisformular, kein laufendes Training und keine Änderung der heutigen Position.
   ui.fix = planPreview(e.dg || S.durchgang, function () {
     var d = DAYS[e.tag], l = { date: date, durchgang: e.dg, tag: e.tag, name: dayLabel(e.tag), fokus: S.fokus, kind: d.type, notes: 'Nachträglich eingetragen' };
-    if (v2()) { l.pv = 2; if (UNIT[e.tag]) l.unit = UNIT[e.tag]; }
+    if (v2()) { l.pv = 2; if (unitL(e.tag)) l.unit = unitL(e.tag); }
     if (d.type === 'kraft') {
       l.kraft = d.kraft.map(function (x) { return { n: x.n, stage: '', reps: Array(kraftRounds(e.tag)).fill(null) }; });
       if (d.mmin) l.metcon = { min: d.mmin, rounds: null, reps: null, items: d.metcon.map(function (x) { return x.n; }) };
@@ -10290,8 +10337,15 @@ function metconMin(tag) {
 // A, B und C liegen intern auf Tag 1, 3 und 6 (wie die Testtage und die früheren Krafttage), die übrigen Tage sind Ruhetage.
 // An welchem Datum welche Einheit liegt, entscheidet der Wochenplaner (wkPlan), auch ohne eingetragene Arbeitszeiten.
 var UNIT = { 1: 'A', 3: 'B', 6: 'C' };
+// Trainingstage pro Woche (Dennis, Paket 62): höchstens so viele plant der Coach. 2 = A und B (mit Einbein bzw. Rumpf aus C), 3 = A, B, C;
+// ab 4 Tagen ein Split mit kurzem Kardio zum Schluss: 4 = Oberkörper/Unterkörper je zweimal, 5 = Push, Pull, Beine, Oberkörper, Unterkörper,
+// 6 = Push, Pull, Beine je zweimal. Standard 3. Die Einheiten liegen auf Tag 1, 3, 4, 5, 6, 7 (Tag 2 bleibt der Zusatz).
+function tageN() { return v2() ? Math.max(2, Math.min(6, +S.tage || 3)) : 3; }
+function splitOn() { return tageN() >= 4; }
+// Kürzel der Einheit (A, B, C bzw. O, U, Pu, Pl, Be) für Leiste und Eintrag.
+function unitL(t) { var d = DAYS[t]; return d && d.unit ? d.unit : UNIT[t] || ''; }
 function v2() { return S.planV === 2; }
-function unitOf(t) { return v2() ? UNIT[t] || '' : ''; }
+function unitOf(t) { return v2() ? unitL(t) : ''; }
 // Umfangsstufen (Produktvorgaben, keine validierte Tabelle): Aufwärmen, Skill, Kraft-Runden (EMOM mit 3 Übungen) und Abschluss
 // in Minuten (mit 2 Min Ausklingen). Gesamt = Summe + 2 Min für Vorlauf und Wechsel. Stufe 0 ist der Einstieg mit 25 Min.
 // Stufe 4 entspricht dem bisherigen Krafttag (Aufwärmen 8, Skill 5, EMOM 12, AMRAP 8), Stufe 6 der „Nächsten Stufe“ mit EMOM 15.
@@ -10320,7 +10374,7 @@ function umfGrow() {
   var L = LOGS.filter(function (l) { return l.pv === 2 && l.kind === 'kraft' && l.date >= since && l.date < today; });
   // Vollständig: keine Kurzversion und höchstens jede vierte Runde unter der Vorgabe (alte Einträge ohne Vorgabe: Runden mit Eintrag).
   var full = L.filter(function (l) { var all = 0, got = 0; (l.kraft || []).forEach(function (k) { if (k.pain && k.pain.skip) return; k.reps.forEach(function (r) { all++; if (r != null && (k.goal == null || r >= k.goal)) got++; }); }); return !l.kurz && all && got / all >= .75; });
-  if (full.length < 6 || u >= UMF.length - 1 || umfMin(UMF[u + 1]) + 8 > Math.min(90, S.zeitMax || 90)) return null;
+  if (full.length < 2 * Math.min(3, tageN()) || u >= UMF.length - 1 || umfMin(UMF[u + 1]) + 8 > Math.min(90, S.zeitMax || 90)) return null;
   S.umfang = { u: u + 1, ts: Date.now(), why: 'auf', from: u };
   return S.umfang;
 }
@@ -10347,22 +10401,41 @@ function grundOk() {
   GRD_C = { k: k, v: umfIdx() >= 2 && krCount(56) >= 6 }; return GRD_C.v;
 }
 function daysV2(p) {
-  var C = chal(), U = umf(), met = grundOk() && !p.deload && !p.test && !p.taper ? Math.max(5, Math.min(12, U.f - 2)) : 0;
-  return {
+  var N = tageN(), C = chal(), U = umf(), met = grundOk() && !p.deload && !p.test && !p.taper ? Math.max(5, Math.min(12, U.f - 2)) : 0;
+  var W = {
     1: kday({ name: 'Ganzkörper A', what: 'Zug vertikal, Druck horizontal, Kniebeuge', hs: U.s, fin: 'a', fill: 1, maxout: 0, cool: 'r_cooldown_tag6',
       cmc: C && C.mc ? S.challenge.id : null, mmin: C && C.mc ? C.mmin : 0, jumps: { t: '3 × 4 je Seite', n: 'Skater Jump' }, rings: 'Ringe ganz oben',
-      kslots: [['zug_vertikal'], ['druck_horizontal'], ['kniebeuge']], mslots: [['ausdauer'], ['druck_vertikal', 'druck_horizontal'], ['kniebeuge', 'huefte']], mfb: 6 }),
+      kslots: [['zug_vertikal'], ['druck_horizontal'], ['kniebeuge']].concat(N === 2 ? [['einbein']] : []), mslots: [['ausdauer'], ['druck_vertikal', 'druck_horizontal'], ['kniebeuge', 'huefte']], mfb: 6 }),
     // Tag 2 trägt in Plan 2 das freiwillige Zusatztraining (nur ab Durchgang 1, nie im Einstiegstest, nie im Wochenplan der Kerneinheiten).
     2: S.durchgang > 0 ? zusatzDay() : rday('r_ruhetag_a'),
     3: kday({ name: 'Ganzkörper B', what: 'Zug horizontal, Druck vertikal, Hüfte', hs: U.s, fin: 'b', fill: 2, maxout: 0, cool: 'r_cooldown_tag1', mmin: met,
       jumps: { t: '3 × 5', n: 'Squat Jump', lad: 'g_broad_jump' }, rings: 'Ringe hüfthoch',
-      kslots: [['zug_horizontal'], ['druck_vertikal'], ['huefte', 'beinbeuger']], mslots: [['ausdauer'], ['druck_horizontal', 'druck_vertikal'], ['rumpf_anti_streckung', 'rumpf_beugung']], mfb: 1 }),
+      kslots: [['zug_horizontal'], ['druck_vertikal'], ['huefte', 'beinbeuger']].concat(N === 2 ? [['rumpf_anti_streckung', 'rumpf_beugung', 'rumpf_rotation']] : []), mslots: [['ausdauer'], ['druck_horizontal', 'druck_vertikal'], ['rumpf_anti_streckung', 'rumpf_beugung']], mfb: 1 }),
     4: rday('r_ruhetag_b'),
     5: rday('r_ruhetag_a'),
-    6: kday({ name: 'Ganzkörper C', what: 'Einbein, Zug oder Druck, Rumpf', hs: U.s, fin: 'c', fill: 3, maxout: 0, cool: 'r_cooldown_tag3', rings: 'Ringe ganz oben',
+    6: N === 2 ? rday('r_ruhetag_a') : kday({ name: 'Ganzkörper C', what: 'Einbein, Zug oder Druck, Rumpf', hs: U.s, fin: 'c', fill: 3, maxout: 0, cool: 'r_cooldown_tag3', rings: 'Ringe ganz oben',
       kslots: [['einbein'], { schwach: ['zug', 'druck'] }, ['rumpf_anti_streckung', 'rumpf_beugung', 'rumpf_rotation']], mslots: [], mfb: 3 }),
     7: rday('r_ruhetag_b')
   };
+  return N >= 4 && S.durchgang > 0 ? Object.assign(W, splitDays(N, U, met)) : W;
+}
+// Split ab 4 Tagen (Dennis): Kraft auf mehr Tage verteilt, jede Einheit mit kurzem Kardio zum Schluss (höchstens 12 Min, `finMax`).
+// Ober- und Push/Pull-Tage enden im Wechsel mit Metcon oder Intervallen, Unter- und Beintage locker (die Beine sind schon gefordert).
+var RUMPF_MU = ['rumpf_anti_streckung', 'rumpf_beugung', 'rumpf_rotation'];
+function splitDays(N, U, met) {
+  var up = function (o) { return kday(Object.assign({ hs: U.s, fin: 'b', finMax: 12, maxout: 0, mmin: met, cool: 'r_cooldown_tag1', mslots: [['ausdauer'], ['kniebeuge', 'huefte'], ['rumpf_anti_streckung', 'rumpf_beugung']], mfb: 1 }, o)); };
+  var lo = function (o) { return kday(Object.assign({ hs: 0, fin: 'a', finMax: 12, maxout: 0, cool: 'r_cooldown_tag6', mslots: [], mfb: 6 }, o)); };
+  var O1 = function (f) { return up({ name: 'Oberkörper', unit: 'O', fill: f, what: 'Zug und Druck', rings: 'Ringe ganz oben', kslots: [['zug_vertikal'], ['druck_horizontal'], ['zug_horizontal'], ['druck_vertikal']] }); };
+  var O2 = function (f) { return up({ name: 'Oberkörper', unit: 'O', fill: f, what: 'Zug und Druck', rings: 'Ringe hüfthoch', kslots: [['zug_horizontal'], ['druck_vertikal'], ['zug_vertikal'], ['druck_horizontal']] }); };
+  var U1 = function (f) { return lo({ name: 'Unterkörper', unit: 'U', fill: f, what: 'Beine und Rumpf', jumps: { t: '3 × 5', n: 'Squat Jump', lad: 'g_broad_jump' }, kslots: [['kniebeuge'], ['huefte', 'beinbeuger'], ['einbein'], RUMPF_MU] }); };
+  var U2 = function (f) { return lo({ name: 'Unterkörper', unit: 'U', fill: f, what: 'Beine und Rumpf', jumps: { t: '3 × 4 je Seite', n: 'Skater Jump' }, kslots: [['einbein'], ['huefte', 'beinbeuger'], ['kniebeuge'], RUMPF_MU] }); };
+  var PU = function (f) { return up({ name: 'Push', unit: 'Pu', fill: f, what: 'Druck und Rumpf', rings: 'Ringe hüfthoch', kslots: [['druck_horizontal'], ['druck_vertikal'], RUMPF_MU] }); };
+  var PL = function (f) { return up({ name: 'Pull', unit: 'Pl', fill: f, what: 'Zug und Rumpf', rings: 'Ringe ganz oben', hs: 0, kslots: [['zug_vertikal'], ['zug_horizontal'], ['rumpf_rotation', 'rumpf_anti_streckung', 'rumpf_beugung']] }); };
+  var BE = function (f) { return lo({ name: 'Beine', unit: 'Be', fill: f, what: 'Kniebeuge, Hüfte, Einbein', jumps: { t: '3 × 5', n: 'Squat Jump', lad: 'g_broad_jump' }, kslots: [['kniebeuge'], ['huefte', 'beinbeuger'], ['einbein']] }); };
+  var R = function (t) { return rday(t % 2 ? 'r_ruhetag_a' : 'r_ruhetag_b'); };
+  if (N === 4) return { 1: O1(1), 3: U1(2), 4: O2(3), 5: U2(4), 6: R(6), 7: R(7) };
+  if (N === 5) return { 1: PU(1), 3: PL(2), 4: BE(3), 5: O1(4), 6: U2(5), 7: R(7) };
+  return { 1: PU(1), 3: PL(2), 4: BE(3), 5: PU(4), 6: PL(5), 7: BE(6) };
 }
 // Kardiogerät für den Abschluss: was der Ort hat, nichts, was eine akute Stelle stark belastet. Laufen bei einer Lauf-Challenge zuerst.
 var FIN_DEV = [['ergo', 'g_bike_erg', 'Ergometer'], ['row', 'g_row_erg', 'Rudergerät'], ['air', 'g_air_bike', 'Air Bike'], ['xt', 'g_elliptical', 'Crosstrainer'],
@@ -10389,7 +10462,7 @@ var FIN_TXT = { easy: 'Locker, du kannst dabei ganze Sätze sprechen. Die letzte
 function finOf(tag, zl) {
   var d = DAYS[tag]; if (!v2() || !d || d.type !== 'kraft') return null;
   if (zl == null) zl = tag === S.tag ? zeitLv(tag) : 0;
-  var U = umf(), p = curPhase(), kurz = isKurz(tag) || !!p.taper, f = U.f, dev = finDev();
+  var U = umf(), p = curPhase(), kurz = isKurz(tag) || !!p.taper, f = d.finMax ? Math.min(U.f, d.finMax) : U.f, dev = finDev();
   if (zl >= 3) return { k: 'none', min: 0 };
   if (d.cmc && CHAL[d.cmc] && d.metcon.length) return { k: 'metcon', min: metconMin(tag) };
   var calm = kurz || p.deload || p.test || !grundOk() || morgenMild(tag) || zoneLegs(tag);
