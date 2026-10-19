@@ -270,6 +270,25 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal((await page.evaluate(() => window.tpTest.fill())).kraft[3][2].n, 'Nordic Curl', 'kein Hin und Her zum Ersatz');
     console.log('PASS: Fußanker je Ort, Ersatz mit Grund, Rückkehr zum Nordic Curl');
 
+    // Leistung als Signal (Paket 58): zweimal hintereinander Vorgabe verfehlt → die nächste Einheit ist kürzer, mit Rückweg.
+    await page.clock.setFixedTime(new Date('2026-10-14T10:00:00+02:00'));
+    const kx = (id, date, tag, reps) => ({ id, ts: Date.parse(date + 'T17:00:00Z'), date, durchgang: 5, tag, kind: 'kraft', pv: 2, name: 'Ganzkörper',
+      kraft: [{ n: 'Push-up', stage: 'Push-up', goal: 5, reps }, { n: 'Ring Row', stage: 'Ring Row', goal: 5, reps }] });
+    const sigLogs = [kx('s1', '2026-09-28', 1, [5, 5, 5, 5]), kx('s2', '2026-09-30', 3, [5, 5, 5, 5]), kx('s3', '2026-10-09', 6, [5, 5, 3, 3]), kx('s4', '2026-10-12', 1, [5, 4, 3, 3])];
+    const sigSt = Object.assign(old(), { planV: 2, tag: 3, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, tagSince: '2026-10-12', advBy: 'user' });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [sigSt, sigLogs]);
+    assert.match(await page.locator('.h-sub').first().innerText(), /Heute kürzer: deine letzten zwei Einheiten/);
+    const kr = async () => (await page.evaluate(() => window.tpTest.steps().find(s => s.id === 'kraft').sub));
+    assert.match(await kr(), /^3 Runden/, 'gekürzt: Kraft 3 statt 4 Runden');
+    await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
+    assert.ok(await page.getByText('Dein Coach hat heute gekürzt').isVisible());
+    await page.locator('#sheet [data-act="sig-full"]').click();
+    assert.match(await kr(), /^4 Runden/, 'Rückweg: volle Einheit');
+    sigLogs[3] = kx('s4', '2026-10-12', 1, [5, 5, 5, 5]);
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [sigSt, sigLogs]);
+    assert.match(await kr(), /^4 Runden/, 'eine Einheit ohne Signal setzt zurück');
+    console.log('PASS: Leistung als Signal, nächste Einheit kürzer, Rückweg und Zurücksetzen');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
       for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {

@@ -19,7 +19,7 @@ function setup(extra) {
     LOGS: [], ui: {}, WKP_C: { k: null }, DAYS_K: null, DAYS: V2, KOERPER: [], KAL: null,
     isoToday: () => now, parseISO: s => new Date(s + 'T12:00:00'), isoDate: d => d.toISOString().slice(0, 10),
     daysBetween: (a, b) => Math.round((b - a) / 86400000), pad: n => String(n).padStart(2, '0'),
-    saveState() {}, render() {}, blockCheck() {}, planDur: () => .7, missBlocked: () => false, missCarry: () => [],
+    saveState() {}, render() {}, blockCheck() {}, sigHold: () => false, planDur: () => .7, missBlocked: () => false, missCarry: () => [],
     curPhase: () => Object.assign({ deload: false, test: false, taper: false }, phase), memList: () => c.KOERPER,
     ladderStates: () => ({}), ladFor: () => null, partScores: () => ({}), dayLabel: t => 'Ganzkörper ' + ({ 1: 'A', 3: 'B', 6: 'C' })[t], esc: String,
     SHIFT: { f: ['Früh', 6, 14], s: ['Spät', 14, 22], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18], tn: ['12 h Nacht', 18, 6] }

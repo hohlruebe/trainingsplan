@@ -4,8 +4,15 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 19. Oktober 2026 (Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 19. Oktober 2026 (Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Leistung als Signal (19. Oktober 2026, Claude, Paket 58)
+- Dennis: „Der Coach soll selbst aktiv werden und evtl. kürzen, er soll den richtigen Trainingsreiz selbst ermitteln.“ Darum kürzt der Coach ohne
+  Nachfrage, Rückweg „Ich fühle mich fit, volle Einheit“ in Heute anpassen.
+- Umgesetzt: siehe CLAUDE.md „Leistung als Signal“. Grenzen (2 Runden, 6 %, 25 %, 15 %) sind Startwerte.
+- Geprüft: `tests/dreitage-browser.cjs` (Signal → kürzer, Rückweg, Zurücksetzen), alle übrigen Tests, Screenshots.
+- Offen: Dennis testet; danach Paket 59 (Bereitschaft nur bei Anlass, optional Ruhepuls).
 
 ## Belastung: „Wie hart war’s?“ (19. Oktober 2026, Claude, Paket 57)
 - Ausgangspunkt: Dennis’ Konzept „adaptive Hybrid-Trainingsapp“ (State Engine, Readiness, 2–6 Tage, Ziele). Entscheidung: Ausbau in Paketen statt Neubau,
