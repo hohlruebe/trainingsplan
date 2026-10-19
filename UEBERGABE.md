@@ -4,8 +4,18 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 19. Oktober 2026 (2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 19. Oktober 2026 (Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Blöcke Aufbau, Kraft, Spitze (19. Oktober 2026, Claude, Paket 63)
+- Dennis: 1. „ja“ zu Aufbau/Kraft/Spitze, 2. mit Challenge „wir machen das, was nötig ist, um auf das jeweilige Ziel bestmöglich hinzuarbeiten“,
+  3. „Hinweis kann auch dauerhaft irgendwo in klein stehen“.
+- Umgesetzt: siehe CLAUDE.md „Blöcke“. Abweichungen vom Konzept: Spitze = eine Runde weniger und kurzer intensiver Abschluss (keine „letzte Runde
+  so viele wie möglich“); der Kraft-Block wirkt nur auf Gewichtsübungen; Erhalt nur bei Lauf-/Rad-Challenges. Kein eigener Satz auf Heute, nur der
+  Abschnittsname im Kopf und der Chip im Plan.
+- Geprüft: `tests/dreitage-browser.cjs` (Kopf „· Kraft“ in Durchgang 5, Aufbau in 2, Spitze in 10 mit weniger Kraft-Minuten und Intervallen,
+  Erhalt mit Lauf-Challenge), alle übrigen Tests.
+- Offen: Dennis testet. Danach weitere Ziele (Hyrox, CrossFit, Marathon) als Challenges.
 
 ## 2 bis 6 Trainingstage (19. Oktober 2026, Claude, Paket 62)
 - Erste Fassung (Hybrid: Zusatztage Ausdauer locker, intensiv, Beweglichkeit) wieder ersetzt. Dennis: Schieberegler statt Auswahlblatt, „was dahinter
@@ -15,7 +25,7 @@ Stand: 19. Oktober 2026 (2 bis 6 Trainingstage; davor Ermüdung je Körperzone; 
   gebaut; das Board „Wege und Blöcke“ im Canvas ist damit überholt. Untergrenze bleibt Umfangsstufe 0 = 25 Min.
 - Geprüft: `tests/dreitage.cjs` (Muster je Tagezahl, Wegfall), `tests/dreitage-browser.cjs` (Schieberegler, Wochenziel, Split mit kurzem Abschluss,
   2 Tage mit vierter Übung, Planer meidet müde Beine), alle übrigen Tests.
-- Offen: Dennis testet. Danach: Blockperiodisierung je Challenge bzw. Ziel (Paket 63) neu besprechen.
+- Offen: Dennis testet.
 
 ## Ermüdung je Körperzone (19. Oktober 2026, Claude, Paket 60)
 - Reihenfolge mit Dennis: erst 60, dann 62 (2–6 Tage), dann 63 (Ziele). Im Canvas wählte er Z1 (Karte mit Figur), dann aus vier Varianten

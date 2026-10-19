@@ -529,6 +529,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   erlaubt (nie vier), Wegfall im Split die letzte Einheit der Woche zuerst (`planDropOrder`); `zonePen` (Paket 60): Krafttag an einem Tag mit müder
   Zone −4 je Zone (freier Tag dann mit Grund `zoneFreeLine`). Wochenziel „x von N erledigt“. `umfGrow` braucht 2 × min(3, Tage) vollständige
   Einheiten in 2 Wochen. Dauer weiter über die Umfangsstufen (25 bis 90 Min, wächst langsam), wenig Zeit über Heute anpassen.
+- Blöcke (Dennis, Paket 63): jeder 12er-Block in Plan 2 hat drei Abschnitte (`p.blk` in `FOKUS.allround.phase`, nicht in Entlastung und Testwoche):
+  Durchgang 1–3 Aufbau, 5–7 Kraft, 9–11 Spitze (`BLK_N`, Kurztext `BLK_X`). Aufbau: Kardio-Abschluss der B-Einheiten gleichmäßig und 4 Min länger
+  (höchstens `finMax`). Kraft: Gewichtsübungen mit Vorgabe am unteren Ende der Spanne (`repGoal`), Gewicht steigt, sobald alle Sätze die Vorgabe
+  schaffen (`kgRec`: `hi = lo`); Körpergewichtsleitern laufen weiter über die Sehnen-Bremse. Spitze: Kraft eine Runde weniger (`kraftRounds`, mindestens 3),
+  Abschluss kurz und intensiv (Intervalle 30/30, wenn das Gerät es kann). Mit Lauf- oder Rad-Challenge statt dessen Erhalt (Kraft eine Runde weniger,
+  das Ziel bekommt das Kardio; Dennis: „wir machen, was nötig ist, um aufs Ziel hinzuarbeiten“). Der Abschnitt steht dauerhaft klein im Kopf von Heute
+  („Heute · 17:05 Uhr · Kraft“) und als Phase-Chip in Plan › Deine Woche (`p.lab`).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
