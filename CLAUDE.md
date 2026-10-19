@@ -519,6 +519,15 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Satz unter dem Titel (`zoneLine` in `heuteSub`, mit „Erholung ansehen“ `ACT['zone-open']`) und Coach-Hinweis am Kraft-Schritt. Karte „Erholung“
   (`zoneCardHTML`, `#zone-card`) nur in Plan › Deine Woche (diese Woche), nicht auf Heute: Figur vorn eingefärbt, je Zone ein Ring „wie erholt“
   (100 = frisch) mit „bis Fr“ (müde) bzw. „ab 21 Uhr“ (frisch), darunter der Grund („Pistol Squat und 40 Min Laufen am Montag“).
+- 2 bis 6 Trainingstage (Dennis, Paket 62, Variante Hybrid): `S.tage` (2–6, null = 3, in `DEF` und `SYNC_KEYS`, `tageN()`), eingestellt in
+  Plan › Deine Woche › „Trainingstage“ (`ACT['pl-tage']`, `TAGE_OPT`). `daysV2`: 2 = A und B je mit vierter Übung aus C (A Einbein, B Rumpf),
+  Tag 6 frei; 3 = A, B, C; 4 = + L „Ausdauer locker“ (Tag 4, `type: 'easy'`, wie die früheren Kardio-Tage); 5 = + I „Ausdauer intensiv“ (Tag 5,
+  `interval`, Testwoche 5 km bzw. Rampe); 6 = + M „Beweglichkeit“ (Tag 7, `type: 'mob'`, `rid: 'r_mtag'` = Ruhetag Flow A + B, Heute zeigt die
+  Routine-Karte, `routineDone` speichert `kind: 'mobility'` mit `pv: 2`, `unit: 'M'` und geht weiter; `trainingLog` zählt M). `UNIT` hat L, I, M.
+  Planer: feste Reihenfolge `SEQ_V2` A, L, B, M, C, I (ausgefallene zuerst), Wegfall `planDropOrder` M, L, I, C, B, A; `zonePen` (Paket 60):
+  Krafttag bzw. intensiver Tag an einem Tag mit müder Zone −4 je Zone, intensive Ausdauer direkt vor Kraft −4 (freier Tag dann mit Grund
+  `zoneFreeLine`). Wochenziel „x von N erledigt“, L/I/M in der Leiste gestrichelt. Zusatz-Vorschlag nur bis 4 Tage (bei 4 nur als Kardio-Test),
+  `umfGrow` braucht 2 × min(3, Tage) vollständige Einheiten in 2 Wochen. Vorschau ohne Kraft: Dauer aus `planDur` (`wkUnitPreview`).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

@@ -386,6 +386,11 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const zsq = { n: 'Pistol Squat', stage: 'Frei', reps: [4, 4, 4, 4], goal: 4 }, zpu = { n: 'Push-up', stage: 'Push-up', reps: [6, 6, 6, 6], goal: 6 };
     const zLogs = ['2026-09-29', '2026-10-02', '2026-10-06', '2026-10-09'].map(d => zk(d, [zsq, zpu])).concat([zk('2026-10-12', [zsq, { n: 'Bulgarian Split Squat', stage: 'Normal', reps: [6, 6, 6, 6], goal: 6 }, zpu], { rpe: 9, fin: { k: 'easy', dev: 'lauf', min: 40, done: true } })]);
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [zst, zLogs]);
+    // Paket 62: der Planer legt B nicht auf den Tag mit müden Beinen, wenn ein anderer Tag passt.
+    assert.equal(await page.evaluate(() => window.tpTest.plan().days.map(d => d.tag || '-').join('')), '----3-6', 'Mittwoch frei, B am Freitag, C am Sonntag');
+    assert.match(await page.locator('.h-sub').first().innerText(), /^Beine noch müde von Montag: heute Erholung/);
+    // Für den Rest: B per Verschieben fest auf Mittwoch.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, zst, { planOv: { '2026-10-14': { pin: 3 } } }), zLogs]);
     assert.match(await page.locator('.h-sub').innerText(), /^Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden, Abschluss auf dem Ergometer, locker\. Erholung ansehen$/);
     await page.getByRole('button', { name: 'Erholung ansehen', exact: true }).click();
     const zc = page.locator('#zone-card');
@@ -417,6 +422,39 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.deepEqual([zl.fin.k, zl.fin.dev], ['easy', 'ergo']);
     await page.locator('#moment').evaluate(e => e.remove()).catch(() => {});
     console.log('PASS: Ermüdung je Körperzone: Satz auf Heute, Karte Erholung mit Ringen, Rückweg, freie Minute im EMOM, Abschluss ohne Laufen');
+
+    // Paket 62: 2 bis 6 Trainingstage, im Plan eingestellt. Hybrid: L Ausdauer locker, I Ausdauer intensiv, M Beweglichkeit.
+    await page.clock.setFixedTime(new Date('2026-10-13T17:05:00+02:00'));
+    const tst = n => Object.assign(old(), { planV: 2, tage: n, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, planAsk: '2026-10-13' });
+    const tA = { id: 'ta', ts: new Date('2026-10-12T18:00:00+02:00').getTime(), date: '2026-10-12', durchgang: 5, tag: 1, kind: 'kraft', pv: 2, unit: 'A', kraft: [{ n: 'Push-up', stage: 'Push-up', reps: [6, 6, 6, 6], goal: 6 }] };
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [tst(null), logs().concat([tA])]);
+    await page.evaluate(() => window.tpTest.navigate('plan'));
+    await page.locator('.vrow[data-act="pl-tage"]').click();
+    await page.getByRole('button', { name: '5 Tage · + Ausdauer intensiv', exact: true }).click();
+    assert.equal(await page.evaluate(() => window.tpTest.state().tage), 5);
+    assert.ok(await page.getByRole('heading', { name: '1 von 5 erledigt' }).isVisible(), 'Wochenziel zählt bis 5');
+    assert.equal(await page.evaluate(() => window.tpTest.plan().days.map(d => d.tag || '-').join('')), '-43-6-5', 'Di L, Mi B, Fr C, So I');
+    await page.evaluate(() => window.tpTest.navigate('heute'));
+    assert.ok(await page.getByRole('heading', { name: 'Ausdauer locker', level: 1 }).isVisible(), 'heute Ausdauer locker');
+    assert.equal(await page.locator('.wkst .wd.u.z').count(), 2, 'L und I gestrichelt (keine Krafteinheit)');
+    // 6 Tage: Donnerstag Beweglichkeit, fertig = Einheit M erledigt.
+    await page.clock.setFixedTime(new Date('2026-10-15T17:05:00+02:00'));
+    const tL = Object.assign({}, tA, { id: 'tl', date: '2026-10-13', tag: 4, unit: 'L', kind: 'easy', kraft: null, run: { sec: 1800, ergo: true } }), tB = Object.assign({}, tA, { id: 'tb', date: '2026-10-14', tag: 3, unit: 'B' });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(tst(6), { tag: 7 }), logs().concat([tA, tL, tB])]);
+    assert.ok(await page.getByRole('heading', { name: 'Beweglichkeit', level: 1 }).isVisible());
+    await page.locator('.r-card .btn.primary').click();
+    await page.locator('[data-act="r-toggle"]').first().click();
+    const RT0 = await page.evaluate(() => Date.now());
+    await page.clock.setFixedTime(RT0 + 45 * 60000); await page.waitForTimeout(800);
+    await page.waitForFunction(() => window.tpTest.logs().some(l => l.unit === 'M'), null, { timeout: 4000 });
+    const tm = await page.evaluate(() => window.tpTest.logs().filter(l => l.unit === 'M')[0]);
+    assert.deepEqual([tm.kind, tm.tag, tm.pv, tm.date], ['mobility', 7, 2, '2026-10-15']);
+    await page.evaluate(() => window.tpTest.navigate('heute'));
+    assert.ok((await page.locator('.wkst [aria-current="date"]').innerText()).includes('✓M'), 'M in der Leiste erledigt');
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [tst(2), logs()]);
+    const f2 = await page.evaluate(() => window.tpTest.fill());
+    assert.deepEqual([f2.kraft[1].length, f2.kraft[3].length, !!f2.kraft[6]], [4, 4, false], '2 Tage: A und B je mit einer vierten Übung, kein C');
+    console.log('PASS: 2 bis 6 Trainingstage: Einstellung im Plan, Wochenziel, Ausdauer locker heute, Beweglichkeit als Einheit M');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
