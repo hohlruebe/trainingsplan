@@ -482,11 +482,19 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Einheit zur Kurzversion (in `isKurz0`, Grund in `heuteSub`), Rückweg in Heute anpassen (Karte `.ad-sig`, `ACT['sig-full']`: `_kurz` '0', „Doch kürzer“
   gibt zurück). Eine Einheit ohne Signal setzt zurück. `sigHold` (gekürzt oder 2 Einheiten mit Signal in 14 Tagen) hält `umfGrow` und den Zusatz.
   Signale stehen unter „Was dein Coach daraus macht“ (`outlookHTML`, auch für Läufe). Nichts wird gespeichert, alles aus den Einheiten berechnet.
-- Bereitschaft nur bei Anlass (Dennis, Paket 59; Ruhepuls und Tracker bewusst nicht): `befDue` fragt „Wie geht’s dir heute?“ außer nach Nachtdienst/
-  Schichtwechsel auch bei `befAnlass` (nur an Tagen mit Einheit, der dringendste zuerst): „Kurze Nacht“ (Arbeitsende gestern bis Arbeitsbeginn heute
-  abzüglich Arbeitsweg unter 11 h), „Letzte Einheit schwer“ (ein Signal aus `sigOf`, noch nicht gekürzt, höchstens 7 Tage her), „Viel Belastung“
-  (Woche bis gestern mehr als `LOAD_OVER` über `soll`). Chip und ein Satz mit dem Grund; Antworten wirken wie beim Befinden (Müde = Kurzversion,
-  Sehr müde = frei). Weiterhin höchstens eine Frage auf Heute.
+- Guten Morgen und Körper-Check (Dennis, Paket 59, Variante S3 und K1; Ruhepuls und Tracker bewusst nicht): jeden Tag auf Heute die Karte „Guten Morgen“
+  (`morgenAskHTML` als erste Frage in `heuteAskHTML`): Schlaf als Kachel mit – / + in halben Stunden (`mg-h`, Start = laut Plan möglicher Schlaf
+  `morgenSleep`), Gefühl als Kapsel Platt | Müde | Okay | Gut | Top (`MG_F`, `mg-f`), darunter sofort die Folge (`morgenRes`), „Fertig“ (`mg-ok`).
+  `S.morgen {Datum: {h, f, ts}}` (in `DEF`/`SYNC_KEYS`, je Datum zusammengeführt). Danach eine Zeile „Guten Morgen · 6,5 h Schlaf · Gefühl okay“ mit
+  „Ändern“ (`morgenRowHTML`, `mg-edit`). Chip mit Anlass aus `befDue`/`befAnlass` (Nachtdienst, Schichtwechsel, Kurze Nacht, Letzte Einheit schwer,
+  Viel Belastung). `morgenLvl` (Startwerte): unter 5 h und Platt = 3 (Kurzversion, Knopf „Heute frei nehmen“ `mg-off`), unter 5 h oder Platt = 2
+  (Kurzversion über `morgenKurz` in `isKurz0`), unter 6 h oder Müde = 1 (`morgenMild`: Abschluss locker in `finOf`, Lauf locker statt Intervalle),
+  sonst wie geplant. Schreibt auch `S.befinden` (fit bis Stufe 1, sonst tired, frei = very). Rückweg wie gehabt über `_kurz` '0'.
+  Körper-Check (`kcStep`, `kcHTML`) als erster Schritt im Trainer an Plan-2-Krafttagen (ohne Ring, `.fs-noring`): die eingebaute Muskelfigur
+  (`musFigHTML`, Muskeln mit `data-act="kc"`), Tippen = Kater (gelb `--mb2`), nochmal = Schmerz (rot `--mb0`, Stärke Leicht/Mittel/Stark `kc-w`),
+  nochmal = gut. Entwurf `_kc`; `kcSet` setzt je Kraftplatz den Schmerz-Entwurf `_pk<i>` (Kater nur bei Hauptmuskel, `w` 'k' = Übung bleibt,
+  nicht gemerkt; Schmerz = Ampel mit Ersatz, gemerkt über `painSave`), eigene Meldungen an der Übung bleiben (`_kcs`). Im Eintrag `kc`.
+  Kater zählt nicht als Leistungssignal (`sigOf`).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

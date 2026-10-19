@@ -11,7 +11,8 @@ html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpTest = { state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
-  set: (s, logs) => { S = Object.assign({}, DEF, s); LOGS = logs || []; DRAFTS = {}; ui.tab = 'heute'; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; ensureOrte(); DAYS_K = null; invalidateDerived(); LS.set('tp.state', S); LS.set('tp.logs', LOGS); LS.set('tp.drafts', DRAFTS); render(); }
+  set: (s, logs) => { S = Object.assign({}, DEF, s); if (!('morgen' in s)) { S.morgen = {}; for (var q = 0; q < 120; q++) S.morgen[isoAdd('2026-09-01', q)] = { h: 8, f: 4, ts: 1 }; } // Guten Morgen gilt im Test als beantwortet
+  LOGS = logs || []; DRAFTS = {}; ui.tab = 'heute'; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; ensureOrte(); DAYS_K = null; invalidateDerived(); LS.set('tp.state', S); LS.set('tp.logs', LOGS); LS.set('tp.drafts', DRAFTS); render(); }
 };
 applyTheme();
 blockCheck();`);
@@ -79,7 +80,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: /Training starten/ }).click();
     // Training immer im Vollbild: Schritt, Einzeln | Liste, (i) mit „So geht’s“, unten weiter.
     assert.ok(await page.locator('#fs .fs-tr').isVisible(), 'Training startet im Vollbild');
-    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Aufwärmen · 1 von \d$/);
+    // Körper-Check vor dem Start: Muskel antippen = Kater, nochmal = Schmerz; Schmerz ersetzt die belastende Übung.
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Körper-Check · 1 von \d$/);
+    await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
+    assert.ok(await page.locator('#fs .kc-r', { hasText: 'Brust' }).locator('.kc-k').isVisible(), 'einmal = Muskelkater');
+    await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
+    await page.locator('#fs [data-act="kc-w"][data-m="brust"][data-v="s"]').click();
+    const kc = await page.evaluate(() => { const d = window.tpTest.state(); return Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0]; });
+    assert.equal(kc._kc, 'brust:s:s'); assert.ok(/m:brust:s/.test(Object.keys(kc).filter(k => /^_pk/.test(k)).map(k => kc[k]).join(',')), 'Schmerz wirkt auf eine Übung mit Brust');
+    await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
+    assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0]._kc || ''), '', 'dreimal = wieder gut');
+    await page.locator('#fs .fs-nav .btn.primary').click();
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Aufwärmen · 2 von \d$/);
     await page.locator('#fs [data-act="fs-view"][data-v="list"]').click();
     assert.equal(await page.evaluate(() => window.tpTest.state().fsView), 'list', 'die Ansicht merkt sich die App');
     assert.ok(await page.locator('#fs .fs-rows .fs-row').count() >= 3, 'Liste wie ein Whiteboard');
@@ -136,20 +148,30 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Befinden nach der Nacht (Montag Nachtdienst, danach nur 12-h-Dienste, A heute nach der Nacht): Müde = kürzer, Sehr müde = heute frei.
     const T12 = { k: 't', a: 6, b: 18 };
     const night = Object.assign(v2s(), { alltag: { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 }, arbeit: { '2026-10-12': [{ k: 'n', a: 22, b: 6 }, null, T12, T12, T12, T12, T12] } });
-    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [night, logs()]);
+    // Guten Morgen (Paket 59): jeden Tag, Schlaf als Zähler, Gefühl als Kapsel; der Coach entscheidet daraus.
+    const nightM = Object.assign({}, night, { morgen: {} });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [nightM, logs()]);
     const m0 = await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0));
-    assert.ok(await page.getByRole('button', { name: 'Müde', exact: true }).isVisible(), 'Frage nach dem Nachtdienst');
-    assert.equal(await page.locator('.pn-ask').count(), 1, 'höchstens eine Frage');
-    await page.getByRole('button', { name: 'Müde', exact: true }).click();
-    assert.ok(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)) < m0, 'müde: kürzere Einheit');
+    assert.ok(await page.locator('.mg .chip', { hasText: 'Nach dem Nachtdienst' }).isVisible(), 'Guten Morgen mit Anlass');
+    assert.equal(await page.locator('.pn-ask').count(), 0, 'höchstens eine Frage');
+    await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
+    assert.match(await page.locator('.mg-res').innerText(), /Kurzversion/);
+    await page.locator('[data-act="mg-ok"]').click();
+    assert.ok(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)) < m0, 'platt: kürzere Einheit');
     assert.ok(await page.getByText('Heute kürzer, weil du müde bist.').isVisible(), 'die Folge steht unter dem Titel');
-    assert.equal(await page.getByRole('button', { name: 'Sehr müde', exact: true }).count(), 0, 'beantwortet: die Frage tritt zur Seite');
-    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [night, logs()]);
-    await page.getByRole('button', { name: 'Sehr müde', exact: true }).click();
+    assert.match(await page.locator('.mg-row').innerText(), /Gefühl platt/);
+    await page.locator('[data-act="mg-edit"]').click();
+    for (let q = 0; q < 6; q++) await page.locator('.mg [data-act="mg-h"][data-d="-0.5"]').click();
+    assert.match(await page.locator('.mg-res').innerText(), /nimm dir heute frei/);
+    await page.locator('[data-act="mg-off"]').click();
     assert.ok(await page.getByRole('heading', { name: 'Heute frei', level: 1 }).isVisible());
-    await page.getByRole('button', { name: 'Erholt', exact: true }).click(); // „Sehr müde“ bleibt änderbar
+    await page.locator('[data-act="mg-edit"]').click(); // bleibt änderbar
+    await page.locator('.mg [data-act="mg-f"][data-v="4"]').click();
+    for (let q = 0; q < 6; q++) await page.locator('.mg [data-act="mg-h"][data-d="0.5"]').click();
+    await page.locator('[data-act="mg-ok"]').click();
     assert.ok(await page.getByRole('heading', { name: 'Ganzkörper A', level: 1 }).isVisible());
-    console.log('PASS: Befinden nach dem Nachtdienst, eine Frage auf einmal');
+    assert.equal(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)), m0, 'gut geschlafen: wie geplant');
+    console.log('PASS: Guten Morgen nach dem Nachtdienst: Kurzversion, heute frei, änderbar');
 
     // Verschieben: Heute anpassen › Training verschieben › Vorschlag des Coachs.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
@@ -291,18 +313,19 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
 
     // Bereitschaft nur bei Anlass (Paket 59): ein Signal in der letzten Einheit, kurze Nacht zwischen Spät und Früh.
     const oneSig = [kx('s1', '2026-09-28', 1, [5, 5, 5, 5]), kx('s2', '2026-09-30', 3, [5, 5, 5, 5]), kx('s3', '2026-10-09', 6, [5, 5, 5, 5]), kx('s4', '2026-10-12', 1, [5, 4, 3, 3])];
-    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [sigSt, oneSig]);
-    assert.ok(await page.locator('.pn-ask .chip', { hasText: 'Letzte Einheit schwer' }).isVisible(), 'ein Signal: der Coach fragt nach');
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, sigSt, { morgen: {} }), oneSig]);
+    assert.ok(await page.locator('.mg .chip', { hasText: 'Letzte Einheit schwer' }).isVisible(), 'ein Signal: Anlass am Guten Morgen');
     assert.match(await kr(), /^4 Runden/, 'ohne Antwort bleibt alles wie geplant');
-    await page.locator('.pn-ask [data-act="bef"][data-v="tired"]').click();
-    assert.match(await kr(), /^3 Runden/, 'Müde = Kurzversion');
-    const shortN = Object.assign({}, sigSt, { alltag: { on: true, schicht: true, bed: 22.5, wake: 6.5 }, arbeit: { '2026-10-12': [null, { k: 's', a: 14, b: 22 }, { k: 'f', a: 6, b: 14 }, null, null, null, null] } });
+    await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
+    await page.locator('[data-act="mg-ok"]').click();
+    assert.match(await kr(), /^3 Runden/, 'platt = Kurzversion');
+    const shortN = Object.assign({}, sigSt, { morgen: {}, alltag: { on: true, schicht: true, bed: 22.5, wake: 6.5 }, arbeit: { '2026-10-12': [null, { k: 's', a: 14, b: 22 }, { k: 'f', a: 6, b: 14 }, null, null, null, null] } });
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [shortN, sigLogs.slice(0, 2)]);
-    const ch = page.locator('.pn-ask .chip', { hasText: 'Kurze Nacht' });
+    const ch = page.locator('.mg .chip', { hasText: 'Kurze Nacht' });
     assert.ok(await page.evaluate(() => window.tpTest.plan().days[2].tag), 'Mittwoch bleibt ein Trainingstag (nach dem Frühdienst)');
     assert.ok(await ch.isVisible(), 'Spät auf Früh: der Coach fragt nach');
-    assert.match(await page.locator('.pn-ask').innerText(), /Gestern Arbeit bis 22:00, heute ab 6:00: nur 8 Stunden dazwischen/);
-    console.log('PASS: Bereitschaft bei Anlass: letzte Einheit schwer, kurze Nacht, Müde kürzt');
+    assert.match(await page.locator('.mg-sub').innerText(), /Laut Plan waren etwa/);
+    console.log('PASS: Guten Morgen mit Anlass: letzte Einheit schwer, kurze Nacht, platt kürzt');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
