@@ -24,9 +24,9 @@ function setup(extra) {
     ladderStates: () => ({}), ladFor: () => null, partScores: () => ({}), dayLabel: t => 'Ganzkörper ' + ({ 1: 'A', 3: 'B', 6: 'C' })[t], esc: String,
     SHIFT: { f: ['Früh', 6, 14], s: ['Spät', 14, 22], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18], tn: ['12 h Nacht', 18, 6] }
   }, extra || {}));
-  vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + ';', c);
+  vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + ';', c);
   for (const name of ['isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
-    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'isSecs', 'holdOf', 'repGoal', 'befCls', 'befOf', 'longShift',
+    'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'isSecs', 'holdOf', 'repGoal', 'befCls', 'befOf', 'stepRi', 'stepsLoad', 'logLoad', 'rpeWord', 'longShift',
     'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
   return c;
 }
@@ -123,6 +123,15 @@ assert.equal(c.repGoal(X, 'Mittel'), 3, 'neue Stufe: unteres Ende');
 log([5, 5, 4, 4]); assert.equal(c.repGoal(X, 'Stark'), 5, 'alte Einträge ohne Vorgabe: die schwächste Runde gilt als Vorgabe');
 phase = { deload: true }; assert.equal(c.repGoal(X, 'Stark'), 4, 'Entlastung 1 Wdh. weniger'); phase = {};
 console.log('PASS: Vorgabe im EMOM steigt nur nach geschafften Runden');
+// Belastung (Paket 57): geplant = Minuten je Schritt × beabsichtigte Härte, gemacht = Einschätzung × Minuten.
+c = setup();
+const stB = [{ id: 'warm', dur: 8 }, { id: 'hs', dur: 4 }, { id: 'kraft', dur: 15 }, { id: 'ausgl', dur: 4 }, { id: 'fin', dur: 12, ri: 8 }, { id: 'cool', dur: 10, opt: true }];
+assert.deepEqual(JSON.parse(JSON.stringify(c.stepsLoad(stB))), { min: 45, soll: 273 }, 'Beispiel B: 24 + 16 + 112,5 + 20 + 96 + Wechsel, Cool-down auf Nachfrage zählt nicht');
+phase = { deload: true }; assert.equal(c.stepRi({ id: 'kraft' }), 6, 'Entlastung: Kraft leichter geplant'); phase = {};
+assert.equal(c.logLoad({ rpe: 7, min: 50 }), 350); assert.equal(c.logLoad({ min: 50 }), null, 'ohne Einschätzung keine Belastung');
+assert.equal(c.rpeWord(7), 'Hart'); assert.equal(c.rpeWord(1), 'Sehr leicht'); assert.equal(c.rpeWord(10), 'Maximal');
+console.log('PASS: Belastung geplant je Schritt, gemacht aus Einschätzung und Minuten');
+
 // Halteübungen: Vorgabe in Sekunden, nicht Wdh. (Dennis: „L-Sit mit Wiederholungen statt Zeit“), Schritte zu 5 s.
 c = setup(); c.S.base = {};
 const HL = { n: 'L-Sit', target: '3 × 10–20 s halten', hi: 20 }, hlog = (reps, goal) => c.LOGS.push({ id: 'h' + c.LOGS.length, kind: 'kraft', date: '2026-10-02', kraft: [{ n: 'L-Sit', stage: 'Tuck L-Sit', reps, goal }] });

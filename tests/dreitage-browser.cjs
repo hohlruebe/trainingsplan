@@ -95,8 +95,16 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^Kardio locker/);
     await page.locator('#fs [data-act="save"]').click();
     await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click(); // Cool-down bleibt eine Frage, kein stiller Zusatz
+    // Wie hart war's? Regler 1–10, Speichern erst nach einer Wahl.
+    assert.ok(await page.locator('#sheet #rpe.unset').isVisible(), 'Regler startet leer');
+    assert.ok(await page.locator('#rpe-ok').isDisabled(), 'ohne Wahl kein Speichern');
+    await page.locator('#sheet [data-rpe="7"]').click();
+    assert.match(await page.locator('#rpe-t').innerText(), /7 · Hart/);
+    await page.locator('#rpe-ok').click();
+    await page.waitForFunction(() => window.tpTest.logs().length > 0, null, { timeout: 3000 });
     const l = await page.evaluate(() => window.tpTest.logs().slice(-1)[0]);
     assert.equal(l.pv, 2); assert.equal(l.unit, 'A'); assert.equal(l.fin.k, 'easy');
+    assert.equal(l.rpe, 7); assert.ok(l.min > 0 && l.soll > 100, 'echte Minuten und geplante Belastung im Eintrag');
     assert.ok(l.kraft.every(k => (k.pain && k.pain.skip) || (k.goal >= 3 && k.reps.every(r => r === k.goal))), 'ohne Meldung zählt die Vorgabe');
     await page.locator('#moment').evaluate(e => e.remove()).catch(() => {});
     assert.ok((await page.locator('.wkst [aria-current="date"]').innerText()).includes('✓A'));
@@ -105,6 +113,9 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Plan › Deine Woche und Arbeitszeiten: Wochenziel, Zeitlimit, kein Ausschalten.
     await page.evaluate(() => window.tpTest.navigate('plan'));
     assert.ok(await page.getByRole('heading', { name: '1 von 3 erledigt' }).isVisible());
+    assert.ok(await page.getByRole('heading', { name: 'Belastung', exact: true }).isVisible(), 'Karte Belastung in Deine Woche');
+    assert.ok(await page.locator('.ld .ld-a').count() >= 1 && await page.locator('.ld .ld-p').count() >= 1, 'gemacht als Balken, geplant gestrichelt');
+    assert.match(await page.locator('.ld-mt').innerText(), /Plan der Woche \d+/);
     await page.evaluate(() => window.tpTest.navigate('woche'));
     assert.ok(await page.getByText('Zeit pro Training').isVisible());
     assert.equal(await page.getByRole('button', { name: 'Planung ausschalten' }).count(), 0);

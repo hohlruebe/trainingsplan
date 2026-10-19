@@ -4,8 +4,19 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 18. Oktober 2026 (Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 19. Oktober 2026 (Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Belastung: „Wie hart war’s?“ (19. Oktober 2026, Claude, Paket 57)
+- Ausgangspunkt: Dennis’ Konzept „adaptive Hybrid-Trainingsapp“ (State Engine, Readiness, 2–6 Tage, Ziele). Entscheidung: Ausbau in Paketen statt Neubau,
+  keine Tracker-Schnittstelle (Web-App kommt nicht an Health Connect), keine ausgedachten Scores. Fahrplan:
+  57 Belastung → 58 Leistung als Signal (Vorgabe verfehlt, Puls bei gleichem Tempo, Haltezeit) → 59 Bereitschaft nur bei Anlass (+ optional Ruhepuls)
+  → 60 Ermüdung je Zone → 61 Zeit unter Spannung statt fehlender Last → 62 2–6 Tage → 63 Ziele mit Blockperiodisierung; später evtl. Tracker-Brücke.
+  Jedes Paket einzeln, App funktioniert dazwischen, der Coach bremst nur.
+- Dennis: Regler 1–10, Belastung nur in „Deine Woche“, gestrichelt = was der Coach plant, grün im Rahmen, rot darüber.
+- Umgesetzt: siehe CLAUDE.md „Belastung“. Startwerte (Härte je Schritt, 15 %) sind Festlegungen, bei Bedarf mit Dennis anpassen.
+- Geprüft: `tests/dreitage.cjs` (geplante Belastung), `tests/dreitage-browser.cjs` (Regler, Eintrag, Karte), alle übrigen Tests.
+- Offen: Dennis testet; danach Paket 58.
 
 ## Training immer im Vollbild (18. Oktober 2026, Claude, Paket 56)
 - Dennis: Ansichten im Training unübersichtlich; immer automatisch ins Vollbild, ein kleines (i) mit der Durchführung, Umschalter Übung für Übung |

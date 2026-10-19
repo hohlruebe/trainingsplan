@@ -467,6 +467,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Ansagen in der Phase (Dennis, Anlass `calls`, Standard an, nur mit Stimme, `callsOn`): „Halfway there!/Halbzeit!“ ab 20 s, „30 seconds left!/Noch 30 Sekunden!“
   bei Phasen über 60 s (nicht in Intervall-Pausen, `callWork`), am Ende 5, 4, 3, 2, 1 (ab 10 s, sonst 3, 2, 1) und „Done!/Fertig!“ (EMOM und nach der Pause „Go!“).
   Vorlauf und 5-s-Wechsel im Mobility-Player bekommen keine Halbzeit (`callPhase`).
+- Belastung (Dennis, Paket 57): beim Speichern (Krafttag, Lauf, Ergometer, Zusatz; nicht Testtage, Mobility, 1RM) einmal „Wie hart war’s?“ als
+  Regler 1–10 (`rpeThen` um `saveDay` in `saveAsk`, startet leer, „Speichern“ erst nach einer Wahl, „Überspringen“ = ohne Wert; Entwurf `_rpe`).
+  Im Eintrag `rpe`, `min` (Krafttag: Zeit seit `_t0` = erster Schritt, gedeckelt 0,5–1,5 × geplant; Lauf: Zeit von der Uhr) und `soll` (`loadAttach`).
+  Geplant = Minuten je Schritt × beabsichtigte Härte (`stepRi`: Aufwärmen 3, Skill 4, Kraft 7,5 bzw. Entlastung 6/Testwoche 8, Ausgleich 5, Metcon 8,
+  Abschluss `FIN_RI` locker 4/gleichmäßig 5/30-30 8, Cool-down 2; `stepsLoad`, `runLoad`, `unitLoad`), gemacht = `rpe` × `min` (`logLoad`).
+  Plan › Deine Woche: Karte „Belastung“ (`loadCardHTML`, `loadWeek`): Balken je Tag, geplant gestrichelt, grün bis 15 % über dem Plan (`LOAD_OVER`),
+  rot mit „!“ darüber, darunter die Woche gegen den Plan der Woche. Der Coach ändert damit noch nichts (Pakete 58 ff.). Alte Einträge ohne Wert bleiben.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
