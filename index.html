@@ -731,6 +731,36 @@ button.card{display:block;width:100%;border:0;font:inherit;color:var(--ink);text
 .blk-bar i.now{background:var(--acc);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 30%,transparent)}
 .blk-bar i.sel{outline:2px solid var(--acc);outline-offset:2px}
 .pw-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ld-bars{display:flex;gap:8px;align-items:flex-end;height:128px;margin:10px 0 6px}
+.ld-d{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;min-width:0}
+.ld-v{font-size:14px;font-weight:600;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}.ld-v.over{color:var(--off)}
+.ld-b{position:relative;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.ld-a{display:block;width:100%;border-radius:7px;background:var(--on)}.ld-a.over{background:var(--off)}.ld-a.none{background:var(--fill)}
+.ld-p{display:block;width:100%;border-radius:7px;border:2px dashed var(--ink2);box-sizing:border-box}
+.ld-0{display:block;width:100%;height:4px;border-radius:2px;background:var(--fill)}
+.ld-l{position:absolute;left:-2px;right:-2px;border-top:2.5px dashed var(--ink);opacity:.7}
+.ld-n{font-size:14px;font-weight:600}.ld-d.cur .ld-n{color:var(--acc)}
+.ld-key{display:flex;gap:14px;flex-wrap:wrap}.ld-key i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.ld-key .k-a{background:var(--on)}.ld-key .k-a.over{background:var(--off)}.ld-key .k-l{width:16px;height:0;border-radius:0;border-top:2.5px dashed var(--ink);opacity:.7;vertical-align:3px}
+.ld-m{position:relative;height:14px;border-radius:999px;background:var(--fill);margin:14px 0 4px}
+.ld-mb{position:absolute;left:0;top:3px;bottom:3px;border-radius:999px;background:var(--on)}.ld-mb.over{background:var(--off)}
+.ld-ml{position:absolute;top:-3px;bottom:-3px;border-left:2.5px dashed var(--ink);opacity:.7}
+.ld-mt{display:flex;justify-content:space-between;gap:8px}
+.ld-s{display:flex;gap:10px;align-items:flex-start;background:var(--board);border-radius:16px;padding:10px 12px;margin-top:10px;line-height:1.4}
+.ld-s>b{font-size:18px;color:var(--on)}.ld-s.over>b{color:var(--off)}
+.rpe{position:relative;padding:4px 0}
+.rpe input{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:0;background:transparent;--p:44.4%}
+.rpe input::-webkit-slider-runnable-track{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--on),#E9B949 55%,var(--off))}
+.rpe input::-moz-range-track{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--on),#E9B949 55%,var(--off))}
+.rpe input::-webkit-slider-thumb{-webkit-appearance:none;width:36px;height:36px;margin-top:-13px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.rpe input::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:#fff;border:3px solid var(--acc);box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.rpe.unset input{opacity:.5}.rpe.unset input::-webkit-slider-thumb{border:2px dashed var(--ink2)}.rpe.unset input::-moz-range-thumb{border:2px dashed var(--ink2)}
+.rpe-n{display:flex;justify-content:space-between;margin:0 2px}
+.rpe-n button{width:30px;min-height:44px;border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink2);cursor:pointer;padding:0}
+.rpe-n button.on{color:var(--acc);font-weight:800;font-size:18px}
+.rpe-e{display:flex;justify-content:space-between;font-size:14px;color:var(--ink2);margin:0 4px}
+.rpe-t{background:var(--board);border-radius:16px;padding:10px 12px;margin:10px 0 12px;line-height:1.4;min-height:44px}
+.rpe:not(.unset) .rpe-t{background:color-mix(in srgb,var(--acc) 10%,var(--paper))}
 .pw-h .rbtn[disabled]{opacity:.35}
 .pw-t{display:flex;flex-direction:column;align-items:center;text-align:center}
 .pw-t b{font-size:17px}
@@ -3302,20 +3332,118 @@ function dayCheck() {
   if (ch) saveState();
 }
 // Nach dem letzten Trainingsschritt fragt die App nach dem Cool-down (nur an Krafttagen, einmal pro Einheit).
+/* ---------- Belastung (Paket 57): „Wie hart war’s?“ 1–10 × Minuten (Foster), geplant = Minuten je Schritt × beabsichtigte Härte ---------- */
+var RPE_W = ['Sehr leicht', 'Leicht', 'Mittel', 'Hart', 'Maximal'];
+var RPE_X = ['Kaum außer Atem, hätte ewig weitermachen können', 'Locker, gut unterhalten möglich', 'Gefordert, aber gut machbar', 'Richtig anstrengend, wenig Luft nach oben', 'Alles gegeben, mehr ging nicht'];
+var LOAD_OVER = 1.15; // Startwert: ab 15 % über dem Plan rot
+function rpeWord(v) { return RPE_W[Math.min(4, Math.floor((v - 1) / 2))]; }
+// Beabsichtigte Härte je Schritt (Festlegung des Coachs, keine Messung).
+function stepRi(s) {
+  if (s.ri) return s.ri;
+  var p = curPhase();
+  return { warm: 3, ewarm: 3, hs: 4, kraft: p.deload ? 6 : p.test ? 8 : 7.5, ausgl: 5, metcon: 8, mob: 2, cool: 2 }[s.id] || 5;
+}
+function stepsLoad(st) {
+  var m = 0, l = 0;
+  st.forEach(function (s) { if (s.opt || !s.dur) return; m += s.dur; l += s.dur * stepRi(s); });
+  return { min: m + 2, soll: Math.round(l + 2 * 2) };
+}
+function runLoad(spec) {
+  var m = Math.round(planRunSec(spec) / 60), ri = spec.kf === 'k5' || spec.kf === 'ramp' ? 8 : spec.type === 'interval' ? 7 : 4;
+  return { min: m, soll: Math.round(m * ri) };
+}
+// Geplante Belastung einer Einheit (Tag des Plans); preview = ohne heutige Anpassungen.
+function unitLoad(tag, preview) {
+  var d = DAYS[tag]; if (!d) return null;
+  if (d.kardio) return runLoad(preview ? kardioSpec(d, {}) : todayRunSpec(tag));
+  if (d.type !== 'kraft') return null;
+  var c = preview ? { tag: tag, cur: false, d: d, isTest: false, isMurph: false } : dayCtx(tag);
+  if (c.isTest) return null;
+  return stepsLoad(stepsOf(c));
+}
+function loadAttach(log, tag, D) {
+  var u = unitLoad(tag), rpe = +(D._rpe || 0);
+  if (!u) return;
+  var min = u.min;
+  if (log.kind === 'kraft' && +D._t0 > 0) min = Math.round(Math.max(u.min * .5, Math.min(u.min * 1.5, (Date.now() - +D._t0) / 60000)));
+  else if (log.kind !== 'kraft') { var r = log.run || log.interval; if (r && r.sec) min = Math.round(r.sec / 60); }
+  log.soll = u.soll; log.min = min;
+  if (rpe >= 1 && rpe <= 10) log.rpe = rpe;
+}
+function logLoad(l) { return l && l.rpe && l.min ? Math.round(l.rpe * l.min) : null; }
+function rpeOn(tag) { var c = dayCtx(tag), d = c.d; return !!(S.started && d && !c.isTest && (d.type === 'kraft' || d.kardio)); }
+// Einmal fragen, dann speichern. „Überspringen“ speichert ohne Wert.
+function rpeThen(fn) {
+  if (!rpeOn(S.tag)) { fn(); return; }
+  var body = '<p class="small muted" style="margin:0 2px 6px">Das ganze Training zusammen.</p><div class="rpe unset" id="rpe"><input type="range" id="rpe-r" min="1" max="10" step="1" value="5" aria-label="Wie hart war’s? 1 sehr leicht bis 10 maximal">' +
+    '<div class="rpe-n">' + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (i) { return '<button type="button" data-rpe="' + i + '">' + i + '</button>'; }).join('') + '</div>' +
+    '<div class="rpe-e"><span>sehr leicht</span><span>maximal</span></div><p class="rpe-t" id="rpe-t">Zieh den Regler oder tipp auf eine Zahl.</p></div>' +
+    '<button type="button" class="btn save block" data-sh="ok" id="rpe-ok" disabled>' + TICK + 'Speichern</button>';
+  openForm('Wie hart war’s?', body, 'Speichern', function (bg) {
+    var el = bg.querySelector('#rpe'); if (el.classList.contains('unset')) return false;
+    setDraft('_rpe', bg.querySelector('#rpe-r').value); setTimeout(fn, 0);
+  }, { noFocus: true });
+  var bg = document.getElementById('sheet'), R = bg.querySelector('#rpe-r'), x = bg.querySelector('.sh-x'), ok = bg.querySelector('.sh-head .sh-ok');
+  if (ok) ok.style.visibility = 'hidden';
+  if (x) { x.textContent = 'Überspringen'; x.addEventListener('click', function (e) { e.stopPropagation(); setDraft('_rpe', '0'); closeSheet(); setTimeout(fn, 0); }); }
+  function set(v) {
+    R.value = v; bg.querySelector('#rpe').classList.remove('unset'); bg.querySelector('#rpe-ok').disabled = false;
+    bg.querySelector('#rpe-t').innerHTML = '<b>' + v + ' · ' + rpeWord(v) + '</b><br><span class="muted">' + RPE_X[Math.min(4, Math.floor((v - 1) / 2))] + '</span>';
+    bg.querySelectorAll('[data-rpe]').forEach(function (b) { b.classList.toggle('on', +b.dataset.rpe === +v); });
+    R.style.setProperty('--p', ((v - 1) / 9 * 100) + '%');
+  }
+  R.addEventListener('input', function () { set(+R.value); haptic('tap'); });
+  bg.querySelectorAll('[data-rpe]').forEach(function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); set(+b.dataset.rpe); haptic('tap'); }); });
+}
+// Plan › Deine Woche: Belastung je Tag (gemacht gegen geplant).
+function loadWeek(mon) {
+  var W = wkCells(mon), days = W.cells.map(function (c) {
+    var act = 0, plan = 0, rated = 0, done = c.logs.length > 0;
+    c.logs.forEach(function (l) { var x = logLoad(l); if (x != null) { act += x; rated++; } if (l.soll) plan += l.soll; });
+    if (!done && c.tag && !c.past) { var u = planPreview(wkDg(mon), function () { return unitLoad(c.tag, !(c.today && mon === wkMon())); }); if (u) plan = u.soll; }
+    else if (!done && c.zs && !c.past) plan = Math.round(c.zs.min * 5);
+    return { c: c, act: rated ? act : null, plan: plan || null, done: done };
+  });
+  var act = 0, planDone = 0, planAll = 0, rated = 0;
+  days.forEach(function (d) { if (d.plan) planAll += d.plan; if (d.act != null) { act += d.act; rated++; planDone += d.plan || 0; } });
+  return { days: days, act: act, planDone: planDone, planAll: planAll, rated: rated };
+}
+function loadCardHTML(mon) {
+  var L = loadWeek(mon), max = 0;
+  if (!L.planAll && !L.rated) return '';
+  L.days.forEach(function (d) { max = Math.max(max, d.act || 0, d.plan || 0); });
+  max = max || 1;
+  var bars = L.days.map(function (d) {
+    var over = d.act != null && d.plan && d.act > d.plan * LOAD_OVER, H = function (n) { return Math.max(4, Math.round(n / max * 88)); };
+    var lab = d.act != null ? (over ? '! ' : '') + d.act : d.done ? '✓' : d.plan ? '~' + d.plan : '';
+    var inner = d.act != null ? '<i class="ld-a' + (over ? ' over' : '') + '" style="height:' + H(d.act) + 'px"></i>' : d.done ? '<i class="ld-a none" style="height:' + H(d.plan || max * .3) + 'px"></i>' : d.plan ? '<i class="ld-p" style="height:' + H(d.plan) + 'px"></i>' : '<i class="ld-0"></i>';
+    if (d.plan && (d.act != null || d.done)) inner += '<i class="ld-l" style="bottom:' + (H(d.plan) - 1) + 'px"></i>';
+    return '<div class="ld-d' + (d.c.today ? ' cur' : '') + '"><span class="ld-v' + (over ? ' over' : '') + '">' + lab + '</span><div class="ld-b">' + inner + '</div><span class="ld-n">' + WTAG[d.c.i].slice(0, 2) + '</span></div>';
+  }).join('');
+  var h = '<section class="card ld"><div class="card-head"><h2>Belastung</h2><span class="small muted">Minuten × Einschätzung</span></div><div class="ld-bars" aria-hidden="true">' + bars + '</div>' +
+    '<div class="ld-key small muted"><span><i class="k-l"></i>geplant</span><span><i class="k-a"></i>im Rahmen</span><span><i class="k-a over"></i>deutlich drüber</span></div>';
+  if (!L.rated) return h + '<p class="small muted" style="margin:10px 2px 0">' + (mon > wkMon() ? 'Geplant sind etwa ' + L.planAll + '. Nach jedem Training sagst du, wie hart es war.' : 'Noch keine Einschätzung diese Woche. Nach dem Training fragt dein Coach, wie hart es war.') + '</p></section>';
+  var over = L.planDone && L.act > L.planDone * LOAD_OVER, pc = L.planDone ? Math.round((L.act / L.planDone - 1) * 100) : 0, top = Math.max(L.planAll, L.act) * 1.08;
+  var hot = L.days.filter(function (d) { return d.act != null && d.plan && d.act > d.plan * LOAD_OVER; }).map(function (d) { return WTAG[d.c.i]; });
+  h += '<div class="ld-m"><i class="ld-mb' + (over ? ' over' : '') + '" style="width:' + (L.act / top * 100).toFixed(1) + '%"></i><i class="ld-ml" style="left:' + (L.planAll / top * 100).toFixed(1) + '%"></i></div>' +
+    '<div class="ld-mt small muted"><span>' + (mon < wkMon() ? 'Gemacht ' : 'Bisher ') + L.act + '</span><span>Plan der Woche ' + L.planAll + '</span></div>' +
+    '<div class="ld-s' + (over ? ' over' : '') + '"><b>' + (over ? '!' : '✓') + '</b><div><b>' + (over ? 'Deutlich mehr als geplant (+' + pc + ' %)' : pc < -15 ? 'Leichter als geplant' : 'Im Rahmen des Plans') + '</b><br><span class="muted">' +
+    (over ? esc(hot.join(' und ')) + ' ' + (hot.length > 1 ? 'waren' : 'war') + ' deutlich härter als geplant. Noch ändert dein Coach nichts, er merkt es sich.' : 'Deine Einschätzung passt zu dem, was dein Coach geplant hat.') + '</span></div></div>';
+  return h + '</section>';
+}
 function saveAsk() {
   var tag = S.tag, c = dayCtx(tag), D = DRAFTS[draftKey(tag)] || {}, r = coolOf(tag);
   // Lauftag (Laufen oder Ergometer): erst speichern, bei Ja startet danach das Cool-down im Player.
   if (r && !c.isTest && !c.isMurph && (c.d.type === 'easy' || c.d.type === 'interval') && !doneToday(r.id)) {
     openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + routineMin(r) + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
       if (!v) return;
-      saveDay();
-      if (v === 'ja') ACT['r-open']({ dataset: { v: r.id } });
+      rpeThen(function () { saveDay(); if (v === 'ja') ACT['r-open']({ dataset: { v: r.id } }); });
     });
     return;
   }
-  if (!r || D._step == null || D._cd != null || D._cool || c.isTest || c.isMurph || c.d.type !== 'kraft') { saveDay(); return; }
+  if (!r || D._step == null || D._cd != null || D._cool || c.isTest || c.isMurph || c.d.type !== 'kraft') { rpeThen(saveDay); return; }
   openChoice('Möchtest du noch ein Cool-down?', r.name + ', ' + routineMin(r) + ' Min, passend zum Tag.', [['ja', 'Ja, Cool-down machen', 'primary'], ['nein', 'Nein, speichern', '']], function (v) {
-    if (v === 'nein') { setDraft('_cd', '0'); saveDay(); return; }
+    if (v === 'nein') { setDraft('_cd', '0'); rpeThen(saveDay); return; }
     if (v !== 'ja') return;
     setDraft('_cd', '1');
     var st = stepsOf(dayCtx(tag)), to = 0;
@@ -3400,6 +3528,7 @@ function saveDay() {
     if (AG && !AG.skip && ar.some(function (x) { return x != null; })) log.ausgleich = { ue: AG.id, reps: ar };
   }
   if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; }
+  if (log && (log.kind === 'kraft' || log.kind === 'easy' || log.kind === 'interval')) loadAttach(log, tag, DRAFTS[key] || {});
   if (log) addLog(log);
   // Ruhetag: der Kurz-Check wird ein Mobility-Eintrag (zählt nicht als Training, aber für Beweglichkeit).
   if (!log && d.type === 'rest') { var rmb = mobFrom(v); if (rmb.length) addLog(Object.assign(base, { kind: 'mobility', name: 'Kurz-Check', wann: 'check', check: true, sec: 0, mob: rmb })); }
@@ -6149,7 +6278,7 @@ function stepsOf(c) {
     return [{ id: 'ewarm', title: 'Einfahren', sub: seqMin(EW) + ' Min · in Stufen', dur: seqMin(EW), desc: EW.map(function (q) { return q.watt; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' → ') + ' W',
         timer: ergoTimer(es, 'warm'), body: function () { return '<p class="small muted">Bei jedem Wechsel die neue Wattzahl am Ergometer einstellen. Die Pulsuhr startest du erst mit dem Hauptteil.</p><section class="card">' + seqRowsHTML(EW) + '</section>'; } },
       { id: 'ergo', title: eT, sub: seqMin(EM) + ' Min · Ergometer', dur: seqMin(EM), desc: EM.filter(function (q) { return q.kind === 'work'; })[0] ? EM.filter(function (q) { return q.kind === 'work'; })[0].watt + ' W' : '',
-        timer: ergoTimer(es, 'main'), body: function (D) { return '<p class="small muted">Jetzt die Pulsuhr starten und die Anzeige am Ergometer auf null setzen. Stoppen nach dem Ausfahren.</p>' + runHTML(c, D, es, true); } }];
+        ri: es.type === 'interval' ? 7 : 4, timer: ergoTimer(es, 'main'), body: function (D) { return '<p class="small muted">Jetzt die Pulsuhr starten und die Anzeige am Ergometer auf null setzen. Stoppen nach dem Ausfahren.</p>' + runHTML(c, D, es, true); } }];
   }
   if (d.type !== 'kraft') return [];
   var out = [], rounds = kraftRounds(tag), names = d.kraft.map(function (k) { return k.pain && k.pain.skip ? 'Pause' : k.n; });
@@ -6699,7 +6828,7 @@ function planWeekV2HTML() {
   } else h += '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
   h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';
-  return h + '<div class="bgrp" style="margin-top:12px">' + (kalPushOn() ? '' : '<button type="button" data-act="wk-ics">Kalender</button>') + '<button type="button" data-act="wk-open" data-from="plan">Arbeitszeiten</button></div></section>' + (mon === cm ? zusatzCardHTML('plan') : '');
+  return h + '<div class="bgrp" style="margin-top:12px">' + (kalPushOn() ? '' : '<button type="button" data-act="wk-ics">Kalender</button>') + '<button type="button" data-act="wk-open" data-from="plan">Arbeitszeiten</button></div></section>' + loadCardHTML(mon) + (mon === cm ? zusatzCardHTML('plan') : '');
 }
 function weekCardHTML(tag) {
   if (v2() && planOn()) return '';
@@ -8047,7 +8176,7 @@ ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = 
 ACT.layout = function (el) { S.layout = el.dataset.v; saveState(); render(); if (S.layout === 'desk' && !deskOn()) toast('Zu schmal für Desktop: ab 900 px Breite, z. B. am Mac.'); };
 ACT.step = function (el) {
   var to = +el.dataset.to, k = draftKey(S.tag), d = DRAFTS[k] || (DRAFTS[k] = {});
-  if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); }
+  if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); if (!d._t0) d._t0 = String(Date.now()); }
   LS.set('tp.drafts', DRAFTS); window.scrollTo(0, 0); render();
 };
 ACT['t-cap'] = function (el) {
@@ -9823,6 +9952,7 @@ function finDev() {
 // Abschluss: locker im Einstieg, in Entlastung, Testwoche und Kurzversion. Sonst A locker, B im Wechsel Metcon (ungerade Durchgänge
 // und ohne Kardiogerät) und Intervalle, C länger gleichmäßig. Wenig Zeit: ab Stufe 3 ohne Abschluss.
 var FIN_N = { easy: 'Kardio locker', steady: 'Kardio gleichmäßig', iv: 'Intervalle 30/30' };
+var FIN_RI = { easy: 4, steady: 5, iv: 8 };
 var FIN_TXT = { easy: 'Locker, du kannst dabei ganze Sätze sprechen. Die letzten 2 Min ganz ruhig ausklingen.',
   steady: 'Gleichmäßig in Zone 2, nie außer Atem. Die letzten 2 Min ganz ruhig ausklingen.',
   iv: 'Kurz schnell, kurz locker. Kontrolliert, nicht maximal: das letzte Intervall so stark wie das erste.' };
@@ -9856,7 +9986,7 @@ function finSeq(F) {
 function finTarget(F) { var Q = finSeq(F), q = Q.filter(function (x) { return x.kind === 'work'; })[0] || Q[0]; return q.watt ? q.watt + ' W' : q.sub.split(' · ').pop(); }
 function finStep(tag, F) {
   var Q = finSeq(F), nm = FIN_N[F.k], dv = F.dev;
-  return { id: 'fin', title: nm, sub: F.min + ' Min · ' + dv.n, dur: F.min, desc: dv.n + ' · ' + finTarget(F),
+  return { id: 'fin', title: nm, sub: F.min + ' Min · ' + dv.n, dur: F.min, ri: FIN_RI[F.k] || 4, desc: dv.n + ' · ' + finTarget(F),
     timer: { mode: 'seq', cfg: { seq: Q, label: nm, tag: tag }, label: F.min + ' Min starten', info: dv.n + ' · ' + finTarget(F) },
     body: function (D) {
       var h = '<section class="card">' + (dv.ue ? figBox(dv.ue) : '') + '<h3 class="ag-h">' + esc(dv.n) + '<span class="chip">' + F.min + ' Min</span></h3><p class="small">' + esc(FIN_TXT[F.k]) + '</p>' +
