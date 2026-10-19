@@ -495,6 +495,18 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nochmal = gut. Entwurf `_kc`; `kcSet` setzt je Kraftplatz den Schmerz-Entwurf `_pk<i>` (Kater nur bei Hauptmuskel, `w` 'k' = Übung bleibt,
   nicht gemerkt; Schmerz = Ampel mit Ersatz, gemerkt über `painSave`), eigene Meldungen an der Übung bleiben (`_kcs`). Im Eintrag `kc`.
   Kater zählt nicht als Leistungssignal (`sigOf`).
+- Zeit unter Spannung statt fehlender Last (Dennis, Paket 61, Variante T3): `coachStage` = `coachStage0` plus Ort. Fehlt am Ort das Gerät der Stufe
+  (z. B. Weste unterwegs), nimmt der Coach die höchste Stufe darunter, die dort geht, mit Tempo (`cs.tpo`, `tpoOf`): 1 Stufe darunter 3·1·1, ab 2 Stufen
+  4·1·1 (runter · unten halten · hoch in s, `tpoBase`); mit Tempo alle Runden geschafft → nächstes Mal 5·2·1, danach 1½ Wdh. (`TPO_LV`, nach 28 Tagen
+  wieder von vorn). Vorgabe = unteres Ende der Spanne (`tpoGoal`). Ersatz-Einzelübung in `planFill` (Einheit wdh) bekommt 4·1·1 (`x.tpo`); findet sich
+  keine Kraft-Einzelübung, nimmt Plan 2 eine Körpergewichtsübung des Musters oder nahen Musters (Platz fällt nicht mehr weg). `tpoEx(x, stage)` für
+  Anzeige und Speichern, gespeichert als `tpo: {t, lv, from, miss}` im Kraft-Eintrag. Tempo-Einheiten zählen als trainiert, aber nicht für Aufstieg,
+  Abstieg, Stillstand oder Wdh.-Vorgabe der eigentlichen Stufe (`ladHist`, `stallOf`, `repGoal` lassen sie aus). Grund unter dem Titel auf Heute
+  (`tpoWhy`: „Unterwegs ohne Gewichtsweste: Pistol Squat „Frei“, dafür langsam (3 s runter).“), am Kraft-Schritt `brakeNote`.
+  Leiste `tpoBarHTML` (`.tp3`, Segmente `.tp2-b` Runter | Halten | Hoch, Breite nach Sekunden) im Trainer (Einzeln und Liste) und im Kraftschritt;
+  Taktgeber `tpoTick` (aus `tick`): in der laufenden EMOM-Minute der Übung Wdh. für Wdh., laufende Phase füllt sich, „Wdh. 2 von 6“, bei jedem
+  Wechsel Ton (`beep`, braucht Signaltöne) und Vibration. Abschaltbar am Lautsprecher-Knopf der Leiste (`ACT['tpo-cue']`) und unter Einstellungen ›
+  Mehr › Tempo (`S.tpoCue`, Standard an, nur auf dem Gerät).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
