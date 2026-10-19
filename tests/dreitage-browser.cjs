@@ -379,6 +379,45 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.locator('input[data-change="tpoCue"]').count(), 1, 'Schalter in Einstellungen › Mehr');
     console.log('PASS: Zeit unter Spannung: Stufe darunter mit Tempo, Körpergewicht statt Wegfall, Steigerung 5·2·1 und 1½, Stufe bleibt, Taktgeber live und abschaltbar');
 
+    // Paket 60: Ermüdung je Körperzone. Montag schwer für die Beine (Pistol, Split Squat, 40 Min Laufen, Härte 9), heute Mittwoch B.
+    await page.clock.setFixedTime(new Date('2026-10-14T17:05:00+02:00'));
+    const zst = Object.assign(old(), { planV: 2, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' } });
+    const zk = (d, kr, x) => Object.assign({ id: 'z' + d, ts: new Date(d + 'T18:30:00+02:00').getTime(), date: d, durchgang: 4, tag: 1, kind: 'kraft', pv: 2, unit: 'A', rpe: 7, kraft: kr }, x || {});
+    const zsq = { n: 'Pistol Squat', stage: 'Frei', reps: [4, 4, 4, 4], goal: 4 }, zpu = { n: 'Push-up', stage: 'Push-up', reps: [6, 6, 6, 6], goal: 6 };
+    const zLogs = ['2026-09-29', '2026-10-02', '2026-10-06', '2026-10-09'].map(d => zk(d, [zsq, zpu])).concat([zk('2026-10-12', [zsq, { n: 'Bulgarian Split Squat', stage: 'Normal', reps: [6, 6, 6, 6], goal: 6 }, zpu], { rpe: 9, fin: { k: 'easy', dev: 'lauf', min: 40, done: true } })]);
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [zst, zLogs]);
+    assert.match(await page.locator('.h-sub').innerText(), /^Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden, Abschluss auf dem Ergometer, locker\. Erholung ansehen$/);
+    await page.getByRole('button', { name: 'Erholung ansehen', exact: true }).click();
+    const zc = page.locator('#zone-card');
+    assert.ok(await zc.isVisible(), 'Tippen führt zur Karte Erholung in Deine Woche');
+    assert.match(await zc.innerText(), /0\s*Beine\s*bis Fr[\s\S]*Zug\s*frisch[\s\S]*Beine: Pistol Squat und 40 Min Laufen am Montag, müde bis Freitag früh\./);
+    await page.evaluate(() => window.tpTest.navigate('heute'));
+    // Rückweg: Heute anpassen › Doch volle Runden.
+    await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
+    assert.ok(await page.locator('#sheet .ad-sig', { hasText: 'Dein Coach hat heute gekürzt' }).isVisible());
+    await page.getByRole('button', { name: 'Doch volle Runden', exact: true }).click();
+    assert.ok(!(await page.locator('#view').innerText()).includes('Beine noch müde'), 'volle Runden: kein Satz mehr');
+    await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
+    await page.getByRole('button', { name: 'Doch kürzen', exact: true }).click();
+    // Training: Nordic Curl in Runde 4 frei, gespeichert ohne Wert, Abschluss auf dem Ergometer locker.
+    await page.getByRole('button', { name: /Training starten/ }).click();
+    await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft')));
+    await page.locator('#fs [data-act="fs-view"][data-v="list"]').click();
+    await page.locator('#fs .fs-krow[data-m="2"]').click();
+    assert.match(await page.locator('#fs .co-card').innerText(), /Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden[\s\S]*Vorgabe und Stufe bleiben\./);
+    await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
+    await page.locator('#fs [data-act="save"]').click();
+    await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click();
+    await page.locator('#sheet [data-rpe="6"]').click(); await page.locator('#rpe-ok').click();
+    await page.waitForFunction(() => window.tpTest.logs().some(l => l.date === '2026-10-14'), null, { timeout: 3000 });
+    const zl = await page.evaluate(() => window.tpTest.logs().filter(l => l.date === '2026-10-14')[0]);
+    const nc = zl.kraft.filter(k => k.n === 'Nordic Curl')[0];
+    assert.deepEqual([nc.zcut, nc.reps.length, nc.reps[3]], ['beine', 4, null], 'Runde 4 frei');
+    assert.ok(zl.kraft.filter(k => k.n !== 'Nordic Curl').every(k => k.reps.every(r => r != null)), 'die anderen Übungen volle Runden');
+    assert.deepEqual([zl.fin.k, zl.fin.dev], ['easy', 'ergo']);
+    await page.locator('#moment').evaluate(e => e.remove()).catch(() => {});
+    console.log('PASS: Ermüdung je Körperzone: Satz auf Heute, Karte Erholung mit Ringen, Rückweg, freie Minute im EMOM, Abschluss ohne Laufen');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
       for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
