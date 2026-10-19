@@ -4,8 +4,14 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 19. Oktober 2026 (Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 19. Oktober 2026 (Bereitschaft nur bei Anlass; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Bereitschaft nur bei Anlass (19. Oktober 2026, Claude, Paket 59)
+- Dennis: Ruhepuls weglassen, Tracker-Brücke auch. Umgesetzt: drei neue Anlässe für die Befinden-Frage (Kurze Nacht, Letzte Einheit schwer,
+  Viel Belastung), siehe CLAUDE.md.
+- Geprüft: `tests/dreitage-browser.cjs` (Signal → Frage → Müde kürzt, Spät auf Früh → Frage), alle übrigen Tests.
+- Offen: Dennis testet; danach Paket 60 (Ermüdung je Körperzone), 61 (Zeit unter Spannung), 62 (2–6 Tage), 63 (Ziele mit Blockperiodisierung).
 
 ## Leistung als Signal (19. Oktober 2026, Claude, Paket 58)
 - Dennis: „Der Coach soll selbst aktiv werden und evtl. kürzen, er soll den richtigen Trainingsreiz selbst ermitteln.“ Darum kürzt der Coach ohne

@@ -289,6 +289,21 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await kr(), /^4 Runden/, 'eine Einheit ohne Signal setzt zurück');
     console.log('PASS: Leistung als Signal, nächste Einheit kürzer, Rückweg und Zurücksetzen');
 
+    // Bereitschaft nur bei Anlass (Paket 59): ein Signal in der letzten Einheit, kurze Nacht zwischen Spät und Früh.
+    const oneSig = [kx('s1', '2026-09-28', 1, [5, 5, 5, 5]), kx('s2', '2026-09-30', 3, [5, 5, 5, 5]), kx('s3', '2026-10-09', 6, [5, 5, 5, 5]), kx('s4', '2026-10-12', 1, [5, 4, 3, 3])];
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [sigSt, oneSig]);
+    assert.ok(await page.locator('.pn-ask .chip', { hasText: 'Letzte Einheit schwer' }).isVisible(), 'ein Signal: der Coach fragt nach');
+    assert.match(await kr(), /^4 Runden/, 'ohne Antwort bleibt alles wie geplant');
+    await page.locator('.pn-ask [data-act="bef"][data-v="tired"]').click();
+    assert.match(await kr(), /^3 Runden/, 'Müde = Kurzversion');
+    const shortN = Object.assign({}, sigSt, { alltag: { on: true, schicht: true, bed: 22.5, wake: 6.5 }, arbeit: { '2026-10-12': [null, { k: 's', a: 14, b: 22 }, { k: 'f', a: 6, b: 14 }, null, null, null, null] } });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [shortN, sigLogs.slice(0, 2)]);
+    const ch = page.locator('.pn-ask .chip', { hasText: 'Kurze Nacht' });
+    assert.ok(await page.evaluate(() => window.tpTest.plan().days[2].tag), 'Mittwoch bleibt ein Trainingstag (nach dem Frühdienst)');
+    assert.ok(await ch.isVisible(), 'Spät auf Früh: der Coach fragt nach');
+    assert.match(await page.locator('.pn-ask').innerText(), /Gestern Arbeit bis 22:00, heute ab 6:00: nur 8 Stunden dazwischen/);
+    console.log('PASS: Bereitschaft bei Anlass: letzte Einheit schwer, kurze Nacht, Müde kürzt');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
       for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {

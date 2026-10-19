@@ -482,6 +482,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Einheit zur Kurzversion (in `isKurz0`, Grund in `heuteSub`), Rückweg in Heute anpassen (Karte `.ad-sig`, `ACT['sig-full']`: `_kurz` '0', „Doch kürzer“
   gibt zurück). Eine Einheit ohne Signal setzt zurück. `sigHold` (gekürzt oder 2 Einheiten mit Signal in 14 Tagen) hält `umfGrow` und den Zusatz.
   Signale stehen unter „Was dein Coach daraus macht“ (`outlookHTML`, auch für Läufe). Nichts wird gespeichert, alles aus den Einheiten berechnet.
+- Bereitschaft nur bei Anlass (Dennis, Paket 59; Ruhepuls und Tracker bewusst nicht): `befDue` fragt „Wie geht’s dir heute?“ außer nach Nachtdienst/
+  Schichtwechsel auch bei `befAnlass` (nur an Tagen mit Einheit, der dringendste zuerst): „Kurze Nacht“ (Arbeitsende gestern bis Arbeitsbeginn heute
+  abzüglich Arbeitsweg unter 11 h), „Letzte Einheit schwer“ (ein Signal aus `sigOf`, noch nicht gekürzt, höchstens 7 Tage her), „Viel Belastung“
+  (Woche bis gestern mehr als `LOAD_OVER` über `soll`). Chip und ein Satz mit dem Grund; Antworten wirken wie beim Befinden (Müde = Kurzversion,
+  Sehr müde = frei). Weiterhin höchstens eine Frage auf Heute.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
