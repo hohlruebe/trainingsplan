@@ -6208,7 +6208,6 @@ var CHG = {
   swipe: function (el) { S.swipe = el.checked; saveState(); },
   swipeRev: function (el) { S.swipeRev = el.checked; saveState(); setTimeout(render, 420); },
   tpoCue: function (el) { S.tpoCue = el.checked; saveState(); },
-  tage: function (el) { tageSet(el.value); },
   vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
 };
 // Auswahl über das Rad statt Klapp-Listen und Datumsfeld.
@@ -8885,19 +8884,31 @@ ACT['wk-zeit'] = function () {
 };
 // Trainingstage als Schieberegler 2–6 (Dennis: „über einen Slide-Regler, was dahinter steht entscheidet der Coach, kurze Info reicht“).
 var TAGE_TXT = { 2: 'A und B, je mit einer Übung aus C.', 3: 'A, B und C.', 4: 'Oberkörper und Unterkörper, je zweimal, mit kurzem Kardio.', 5: 'Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio.', 6: 'Push, Pull, Beine, je zweimal, mit kurzem Kardio.' };
+// Dennis: der Regler auf der Seite änderte sich beim Scrollen aus Versehen. Darum eine Wert-Zeile, erst das Blatt hat den Regler, „Übernehmen“ setzt.
 function tageHTML() {
   var n = tageN();
+  return '<div class="vrows" style="margin-top:14px">' + valRow('Trainingstage', '<span class="txt">' + n + ' pro Woche</span>', 'data-act="tage-open"', { sub: TAGE_TXT[n] + ' Gilt für alle Wochen.' }) + '</div>';
+}
+function tageSheetBody(n) {
   return '<div class="tg"><div class="tg-h"><b>Trainingstage</b><span id="tg-v">' + n + ' pro Woche</span></div>' +
-    '<input type="range" class="tg-r" min="2" max="6" step="1" value="' + n + '" data-change="tage" aria-label="Trainingstage pro Woche, 2 bis 6">' +
-    '<div class="rpe-n tg-n">' + [2, 3, 4, 5, 6].map(function (i) { return '<button type="button" data-act="tage" data-v="' + i + '"' + (i === n ? ' class="on"' : '') + ' aria-label="' + i + ' Tage">' + i + '</button>'; }).join('') + '</div>' +
-    '<p class="small muted" id="tg-x">' + esc(TAGE_TXT[n]) + ' Den Rest plant dein Coach.</p></div>';
+    '<input type="range" class="tg-r" min="2" max="6" step="1" value="' + n + '" aria-label="Trainingstage pro Woche, 2 bis 6">' +
+    '<div class="rpe-n tg-n">' + [2, 3, 4, 5, 6].map(function (i) { return '<button type="button" data-seg="' + i + '"' + (i === n ? ' class="on"' : '') + ' aria-label="' + i + ' Tage">' + i + '</button>'; }).join('') + '</div>' +
+    '<p class="small muted" id="tg-x">' + esc(TAGE_TXT[n]) + ' Den Rest plant dein Coach.</p></div>' +
+    '<p class="small muted" style="margin:12px 2px 0">Gilt ab sofort für diese und alle folgenden Wochen, bis du es wieder änderst.</p>';
 }
 function tageSet(v) { v = Math.max(2, Math.min(6, +v || 3)); if (v === tageN()) return; S.tage = v === 3 ? null : v; DAYS_K = null; WKP_C.k = null; PD_C = {}; FILL.k = null; saveState(); haptic('tap'); render(); }
-ACT.tage = function (el) { tageSet(el.dataset.v); };
+ACT['tage-open'] = function () {
+  openForm('Trainingstage', tageSheetBody(tageN()), 'Übernehmen', function (bg) {
+    var n = +bg.querySelector('.tg-r').value; if (n !== tageN()) { tageSet(n); toast(n + ' Trainingstage pro Woche, auch in den nächsten Wochen.'); }
+  }, { noFocus: true });
+  var bg = document.getElementById('sheet');
+  if (bg) bg.addEventListener('click', function (e) { var sg = e.target.closest('[data-seg]'); if (!sg) return; var r = bg.querySelector('.tg-r'); r.value = sg.dataset.seg; r.dispatchEvent(new Event('input', { bubbles: true })); });
+};
 document.addEventListener('input', function (e) {
   var r = e.target; if (!r.classList || !r.classList.contains('tg-r')) return;
   var n = +r.value, v = document.getElementById('tg-v'), x = document.getElementById('tg-x');
   if (v) v.textContent = n + ' pro Woche'; if (x) x.textContent = TAGE_TXT[n] + ' Den Rest plant dein Coach.';
+  var bs = r.closest('.tg') ? r.closest('.tg').querySelectorAll('[data-seg]') : []; bs.forEach(function (b) { b.classList.toggle('on', +b.dataset.seg === n); });
 });
 ACT['pl-later'] = function () { S.planAsk = isoToday(); saveState(); render(); };
 ACT['pl-time'] = function () {

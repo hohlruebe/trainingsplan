@@ -4,8 +4,15 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 21. Oktober 2026 (Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 21. Oktober 2026 (Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Trainingstage nur über ein Blatt (21. Oktober 2026, Claude)
+- Dennis (Screenshot Plan › Deine Woche): „Die Änderung der Anzahl der Trainingstage geht zu leicht, manchmal passiert das aus Versehen, außerdem sollen
+  die gewählten Tage auch für die nächsten Wochen gelten.“
+- Umgesetzt: Wert-Zeile „Trainingstage · 3 pro Woche“ mit „Gilt für alle Wochen.“, der Regler sitzt im Blatt, „Übernehmen“ setzt, Abbrechen ändert nichts.
+  `S.tage` galt schon für alle Wochen (eine Zahl, synchronisiert); das Blatt sagt es jetzt ausdrücklich, und die Zeile steht in jeder Woche gleich.
+- Geprüft: `tests/dreitage-browser.cjs` (kein Regler auf der Seite, Abbrechen ändert nichts, Übernehmen 5, nächste Woche ebenfalls 5 Einheiten), alle übrigen Tests.
 
 ## Kalender als einzige Quelle (21. Oktober 2026, Claude, Paket 64)
 - Dennis: „im Moment kann man trotzdem noch Früh- und Spätschicht eingeben, obwohl die Kalender-Integration in der App ist. Alle Termine, egal wie sie

@@ -520,7 +520,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`zoneCardHTML`, `#zone-card`) nur in Plan › Deine Woche (diese Woche), nicht auf Heute: Figur vorn eingefärbt, je Zone ein Ring „wie erholt“
   (100 = frisch) mit „bis Fr“ (müde) bzw. „ab 21 Uhr“ (frisch), darunter der Grund („Pistol Squat und 40 Min Laufen am Montag“).
 - 2 bis 6 Trainingstage (Dennis, Paket 62): `S.tage` (2–6, null = 3, in `DEF` und `SYNC_KEYS`, `tageN()`), eingestellt in Plan › Deine Woche ›
-  „Trainingstage“ als Schieberegler 2–6 mit Zahlen darunter und einer kurzen Zeile (`tageHTML`, `.tg-r`, `CHG.tage`, `ACT.tage`, `TAGE_TXT`).
+  „Trainingstage“: Wert-Zeile (`tageHTML`, „Gilt für alle Wochen“), Antippen öffnet ein Blatt mit Schieberegler 2–6 und Zahlen (`ACT['tage-open']`,
+  `tageSheetBody`, `.tg-r`, `TAGE_TXT`), erst „Übernehmen“ setzt (`tageSet`; Dennis: der Regler auf der Seite änderte sich beim Scrollen aus Versehen).
   `daysV2`: 2 = A und B je mit vierter Übung aus C (A Einbein, B Rumpf), Tag 6 frei; 3 = A, B, C. Ab 4 Tagen Split (`splitOn`, `splitDays`, Dennis:
   „ab 4 Tagen direkt auf den Split, kurze Kardio-Session hinten dran“): 4 = Oberkörper/Unterkörper je zweimal (Tag 1, 3, 4, 5), 5 = Push, Pull, Beine,
   Oberkörper, Unterkörper (Tag 1, 3, 4, 5, 6), 6 = Push, Pull, Beine je zweimal (Tag 1, 3–7). Ober/Push/Pull enden wie B (Metcon bzw. Intervalle),
