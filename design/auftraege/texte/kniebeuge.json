@@ -448,6 +448,50 @@
         "korrektur": "Ausstieg ergänzt.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_band_squat",
+      "zweck": "Die Kniebeuge mit Widerstandsband: mehr Last für Oberschenkel und Gesäß, wenn zu Hause kein Gewicht da ist. Oben wird es am schwersten.",
+      "vorbereitung": "Band auf Risse prüfen. Ein Band mit langer, geschlossener Schlaufe nehmen.",
+      "schritte": [
+        "Stell dich mit beiden Füßen schulterbreit auf das Band.",
+        "Leg die andere Schlaufe hinter den Nacken über die Schultern und halt sie vorn mit beiden Händen fest.",
+        "Schieb die Hüfte nach hinten und unten, die Knie zeigen in Richtung der Fußspitzen.",
+        "Geh so tief, dass die Hüftfalte unter der Kniehöhe ist, wenn der Rücken gerade bleibt.",
+        "Drück dich über den ganzen Fuß gegen das Band wieder hoch, bis Hüfte und Knie gestreckt sind."
+      ],
+      "ausstieg": "Unten absetzen ist nicht nötig: oben stehen bleiben, die Schlaufe vorn von den Schultern nehmen und vom Band steigen.",
+      "sauber": "Die Fersen bleiben am Boden, das Band liegt mittig unter den Füßen und oben auf den Schultern, unten ist die Hüfte unter Kniehöhe.",
+      "details": [
+        "Das Band zieht oben am stärksten, unten fast nicht: deshalb unten genauso sauber und tief wie beim Air Squat.",
+        "Je breiter die Füße auf dem Band stehen, desto mehr Spannung.",
+        "Stufe = Bandstärke: erst leicht, dann normal, stark und sehr stark."
+      ],
+      "atmung": "Oben einatmen, beim Absenken halten oder einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Das Band rutscht unter dem Fuß weg.",
+          "k": "Mittig unter beide Füße, Schuhe mit Sohle oder auf eine Matte."
+        },
+        {
+          "f": "Die Knie fallen beim Hochdrücken nach innen.",
+          "k": "Knie aktiv in Richtung der Fußspitzen schieben, ein leichteres Band nehmen."
+        },
+        {
+          "f": "Oben wird es hektisch, die Hüfte schießt vor.",
+          "k": "Langsam und gleichmäßig hoch, oben kurz fest stehen."
+        }
+      ],
+      "skalierung": "Leichter: leichteres Band oder ohne Band (Air Squat). Schwerer: stärkeres Band, unten 1 s halten oder 3 s absenken.",
+      "grenzen": "Weniger tief gehen oder aufhören bei Schmerz im Knie. Ein Brennen im Oberschenkel ist normal.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung (Dennis, Oktober 2026): Kniebeuge mit Widerstandsband für zu Hause.",
+        "korrektur": "Band unter den Füßen und über den Schultern, Stufe = Bandstärke.",
+        "status": "geklaert"
+      }
     }
   ]
 }

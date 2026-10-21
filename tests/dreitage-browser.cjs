@@ -463,6 +463,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(b10.st.filter(s => s[0] === 'fin')[0][2], /Intervalle/, 'Spitze: Kardio kurz und intensiv');
     console.log('PASS: Blöcke: Aufbau, Spitze mit einer Runde weniger und Intervallen, Erhalt mit Lauf-Challenge, Abschnitt im Kopf');
 
+    // Zuhause ohne Gewichte (Dennis): keine Leiter, die hier nicht weitergeht (Thruster nur als „Air Squat“); mit Bändern Band Squat.
+    for (const band of [false, true]) {
+      const hb = Object.assign(old(), { planV: 2, durchgang: 6, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, planAsk: '2026-10-12',
+        picks: { 'o1:1:3': 'g_thruster' }, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe'].concat(band ? ['eq_band'] : []) }], ort: 'o1' });
+      await page.evaluate(a => window.tpTest.set(a[0], a[1]), [hb, []]);
+      const hf = await page.evaluate(() => { const f = window.tpTest.fill(); return { k: f.kraft[1].map(x => x.n), neu: f.neu[1] }; });
+      assert.equal(hf.k[2], band ? 'Band Squat' : 'Air Squat', 'Kniebeuge zuhause: ' + (band ? 'Band Squat' : 'Air Squat') + ' statt Thruster');
+      assert.equal(hf.neu[0].why, 'weiter');
+    }
+    console.log('PASS: Zuhause ohne Gewichte: kein Thruster als Sackgasse, mit Bändern Band Squat');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
       for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {

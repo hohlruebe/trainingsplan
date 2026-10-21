@@ -382,7 +382,8 @@
         { "uebung": "g_wall_sit", "art": "variante", "rang": null, "effekt": 45, "grund": "Statisches Halten an der Wand, Ausdauerreiz ohne Bewegung." },
         { "uebung": "g_leg_press", "art": "variante", "rang": null, "effekt": 76, "grund": "Kniebeugen-Muster mit kg-Last ohne Last auf der Wirbelsäule." },
         { "uebung": "g_sissy_squat", "art": "variante", "rang": null, "effekt": 68, "grund": "Belastet fast nur den vorderen Oberschenkel, ohne Gewicht." },
-        { "uebung": "g_spanish_squat", "art": "variante", "rang": null, "effekt": 55, "grund": "Isometrische Kniebeuge mit senkrechten Schienbeinen, geringe Rückenlast." }
+        { "uebung": "g_spanish_squat", "art": "variante", "rang": null, "effekt": 55, "grund": "Isometrische Kniebeuge mit senkrechten Schienbeinen, geringe Rückenlast." },
+        { "uebung": "g_band_squat", "art": "variante", "effekt": 72, "grund": "Kniebeuge mit Widerstandsband, Last ohne Gewichte für zu Hause." }
       ]
     },
     {

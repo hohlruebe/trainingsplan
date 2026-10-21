@@ -18,6 +18,10 @@ Stand: 21. Oktober 2026 (Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft
   keine Schicht außerhalb des Zeitraums), `tests/dreitage-browser.cjs` (keine Schicht-Eingabe mit Kalender, freie Zeit je Tag, Schlaf Sa 1–9 Uhr), alle übrigen Tests.
 - Zurückgestellt: Wochen-Kette mit 10-Minuten-Rettung (Motivation A + E). Entwurfsbilder liegen im Scratchpad, noch nicht im Canvas, Dennis hat sie nicht gesehen.
 - Offen: Dennis testet mit seinem echten Kalender (erkennt der Coach jede Schlaf-Eintragung?).
+- Im selben PR (Dennis mit Screenshot): Zuhause stand „Thruster“, das (i) zeigte „Air Squat“. Das (i) war richtig (Stufe 1 der Thruster-Leiter ist
+  der Air Squat), aber die Leiter geht zuhause ohne Wall Ball/Hantel nicht weiter. Jetzt: Sackgassen-Leitern meidet der Coach (`ladRoom`, `why: 'weiter'`),
+  neue Leiter Band Squat (Dennis: „Variationen mit den Widerstandsbändern“), Stufen-Übung wird mit ihrem Namen angezeigt (`kShow`). Weitere Band-Varianten
+  (z. B. Band Row, Band Press) wären ein nächster Schritt, wenn Dennis sie möchte.
 
 ## Blöcke Aufbau, Kraft, Spitze (19. Oktober 2026, Claude, Paket 63)
 - Dennis: 1. „ja“ zu Aufbau/Kraft/Spitze, 2. mit Challenge „wir machen das, was nötig ist, um auf das jeweilige Ziel bestmöglich hinzuarbeiten“,
