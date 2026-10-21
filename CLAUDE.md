@@ -123,7 +123,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 380 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 382 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahmen mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; Handstand neue erste Stufe „Rücken zur Wand“ (`g_wall_handstand_back`, in der Familie als Variante) vor Face-to-Wall; dann plan-data, lib-data und fam-data gleich halten. Gespeichert werden Stufennamen, nicht Nummern, darum bleiben alte Einträge gültig).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 60 Familien (auch Isolation und zwei Mobility-Familien),
@@ -544,6 +544,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Annahme bleibt, wo im Kalender keiner steht). Passt eine Krafteinheit nirgends ganz, nimmt `wkPlan` die größte Lücke ab 30 Min (60/45/30, `fit`,
   Punkte −8, ein ganzer Tag woanders geht vor); `planFit` gibt `zeitLv` das Budget (minus 2 Min Körper-Check), Satz unter dem Titel „Zwischen deinen
   Terminen sind heute nur 30 Min frei, darum kürzer.“ `wkPlan` = `wkPlan0` mit Sperre `KFIT` (sonst ruft `zeitLv` während der Planung den Plan).
+- Sackgassen-Leitern (Dennis, 21. Oktober: Zuhause stand „Thruster“, gemacht wird „Air Squat“): `ladRoom` = gibt es am Ort eine Stufe über der aktuellen
+  (bzw. der ersten machbaren)? Im Kraftteil (`planFill`) kommen Leitern mit Luft zuerst; steht die gewählte Leiter auf Stufe 1 ohne nächste Stufe am Ort,
+  wechselt der Coach (`S.swapped` `why: 'weiter'`, „X statt Y: bei Y fehlt hier das Gerät für die nächste Stufe“). Leitern über Stufe 1 bleiben (Tempo,
+  Paket 61). Neue Leiter `g_band_squat` (Band Squat, Stufen Leicht → Normal → Stark → Sehr stark mit `eq_band`, 8–12 Wdh., Variante in `f_squat`, Text in
+  `design/auftraege/texte/kniebeuge.json`). Ist die Stufe eine eigene Übung (Thruster auf „Air Squat“, Back Squat auf „Goblet Squat“), zeigen Ablauf und
+  „Heute zum ersten Mal“ diese Übung (`kShow`, darunter „Stufe 1 · Thruster-Leiter“), das (i) passt dazu.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
