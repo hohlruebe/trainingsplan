@@ -497,6 +497,11 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       assert.ok(f0.y >= 0 && f0.y + f0.height <= tb.y, 'ganzer Körper über der Reiterleiste (Schrift ' + ts + ')');
     }
     const fig = await page.locator('.mfig svg').boundingBox();
+    // Seite heißt „Körper“; Figur bis zu den Füßen (viewBox 480, Fuß-Flächen), angedeutet räumlich (Verlauf darüber, fängt keine Taps).
+    assert.equal(await page.locator('.hero h1').innerText(), 'Körper');
+    assert.equal(await page.evaluate(() => document.querySelector('.mfig svg').getAttribute('viewBox')), '0 0 200 480');
+    assert.ok(await page.evaluate(() => { var s = document.querySelector('.mfig svg'), b = [...s.querySelectorAll('path.sil')].map(p => p.getBBox()); return Math.max(...b.map(x => x.y + x.height)) > 470; }), 'Füße unten');
+    assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('.mfig .sh')).pointerEvents), 'none');
     await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27); await page.mouse.down(); await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27 + 40, { steps: 4 }); await page.mouse.up();
     assert.equal(await page.locator('.mus-sel').count(), 0, 'Wischen über die Figur wählt nichts aus');
     await page.mouse.click(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27);
@@ -512,7 +517,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.locator('#view .ft-row').count() > nOrt, 'Alle zeigt mehr Übungen');
     await page.locator('#view .ft-row').first().click();
     assert.ok(await page.locator('#sheet .ue-info').isVisible(), '(i) öffnet die Anleitung'); await page.locator('#sheet [data-sh]').first().click(); await page.waitForTimeout(300);
-    console.log('PASS: Muskeln in der Bibliothek: ganzer Körper, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
+    console.log('PASS: Körper unter Tools: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });

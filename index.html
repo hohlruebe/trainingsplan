@@ -671,6 +671,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .gm-h{display:flex;gap:14px;align-items:flex-start}.gm-h h3{margin:2px 0 4px}.gm-h p{margin:0 0 6px}
 .gm-fig{flex:none;margin:0!important}.gm-fig svg{width:64px!important}
 .gm-ex{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+.bf .sh,.mi .sh{pointer-events:none}.bf .sh path,.bf .sh ellipse,.bf .sh rect{stroke:none}
 .bf .hair{fill:color-mix(in srgb,var(--ink) 38%,var(--paper));stroke:none}
 .bf .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.2;stroke-linejoin:round}
 .bf .mu.b0{fill:var(--mb0)}.bf .mu.b1{fill:var(--mb1)}.bf .mu.b2{fill:var(--mb2)}.bf .mu.b3{fill:var(--mb3)}
@@ -2783,7 +2784,7 @@ var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
-var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', muskeln: 'Muskeln', routinen: 'Mobility', rm: '1RM' };
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
 var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
@@ -7035,7 +7036,7 @@ var MQ_DESK = window.matchMedia ? window.matchMedia('(min-width: 1024px) and (ho
 function deskOn() { var m = S.layout || 'auto'; if (m === 'desk') return window.innerWidth >= 900; if (m === 'mobil') return false; return !!(MQ_DESK && MQ_DESK.matches); }
 if (MQ_DESK) { var deskRe = function () { render(); }; if (MQ_DESK.addEventListener) MQ_DESK.addEventListener('change', deskRe); else if (MQ_DESK.addListener) MQ_DESK.addListener(deskRe); }
 // Seitenleiste statt der Reiter-Kapsel: alle Seiten direkt erreichbar.
-var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['muskeln', 'Muskeln'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
+var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['muskeln', 'Körper'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
 var SIDE_IC = { muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>', heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
   profil: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/>', einst: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>' };
 function sideHTML() {
@@ -11037,7 +11038,7 @@ ACT['pn-ask'] = function (el) {
   saveState(); render();
 };
 // Übersicht im Profil › Werte: Figur mit Gelenk-Punkten und Muskeln, je Stelle eine Zeile, gemiedene Übungen.
-var JOINT_XY = { schulter: [[52, 94]], ellbogen: [[44, 174]], handgelenk: [[31, 244]], huefte: [[70, 252]], knie: [[76, 340]], fuss: [[74, 420]] };
+var JOINT_XY = { schulter: [[52, 94]], ellbogen: [[44, 174]], handgelenk: [[31, 244]], huefte: [[70, 252]], knie: [[76, 340]], fuss: [[74, 442]] };
 function painFigHTML() {
   var col = {}, dots = { f: '', b: '' };
   memList().forEach(function (e) {
@@ -11114,7 +11115,7 @@ ACT['pn-physio'] = function () {
 /* ---------- Muskeln: Körperfigur, Ausgleich ---------- */
 // Figur wie eine anatomische Tafel: graue Silhouette, Muskeln einzeln abgegrenzt. Gezeichnet ist die linke Hälfte, rechts gespiegelt.
 // Muskeln mit „_“ (Trapez vorn, Knie, Schienbein) zählen nicht, sie bleiben grau.
-var BODY_SIL = 'M100 76 L84 78 C70 80 58 83 50 90 C42 98 39 112 40 126 L36 150 C33 162 32 172 32 182 C29 202 26 225 24 246 C21 260 20 272 22 284 C25 291 32 290 34 283 L38 252 C41 233 45 212 48 192 C51 180 54 166 56 150 L59 120 C61 150 63 182 64 206 C64 224 61 238 59 252 C55 282 56 312 60 336 C62 362 60 392 62 414 C61 422 55 429 60 433 L86 433 C90 429 88 420 86 412 C86 390 90 362 90 336 C92 310 96 282 98 262 L100 256 Z';
+var BODY_SIL = 'M100 76 L84 78 C70 80 58 83 50 90 C42 98 39 112 40 126 L36 150 C33 162 32 172 32 182 C29 202 26 225 24 246 C21 260 20 272 22 284 C25 291 32 290 34 283 L38 252 C41 233 45 212 48 192 C51 180 54 166 56 150 L59 120 C61 150 63 182 64 206 C64 224 61 238 59 252 C55 282 56 312 60 336 C57 352 56 368 58 384 C60 404 64 424 66 440 C63 448 59 458 60 466 C61 473 67 475 74 475 L81 475 C88 475 90 471 89 464 C88 456 85 447 83 440 C84 420 88 400 90 382 C92 366 92 350 90 336 C92 310 96 282 98 262 L100 256 Z';
 var BODY_F = {
   _trapez: 'M89 64 C85 74 76 80 64 85 L90 82 Z',
   schulter_seite: 'M60 85 C47 87 39 99 39 116 L40 127 L47 124 C45 110 47 97 54 90 Z',
@@ -11128,8 +11129,9 @@ var BODY_F = {
   quadrizeps: 'M60 250 C55 280 57 310 64 332 L72 330 C68 300 68 276 70 256 Z M71 256 C70 284 72 312 76 330 L84 330 C87 304 88 280 86 262 Z M85 300 C90 310 90 324 87 334 L78 334 C80 320 82 308 85 300 Z',
   adduktoren: 'M87 262 L98 260 C98 280 96 296 92 306 C89 290 88 274 87 262 Z',
   _knie: 'M64 335 L88 335 C88 343 84 348 76 348 C68 348 64 343 64 335 Z',
-  _schienbein: 'M67 352 C65 372 67 392 71 408 L75 408 C75 388 75 368 75 352 Z',
-  waden: 'M62 350 C59 368 60 388 64 402 L67 400 C65 384 64 366 66 350 Z M78 350 C82 366 86 380 86 398 C89 380 90 364 88 350 Z'
+  _schienbein: 'M67 354 C65 378 67 404 71 428 L76 428 C76 404 76 378 75 354 Z',
+  waden: 'M61 352 C58 370 59 390 63 408 L67 406 C65 388 64 370 65 352 Z M79 352 C84 368 88 384 87 404 C91 386 92 366 89 352 Z',
+  _fuss: 'M66 452 C63 460 63 468 70 470 L82 470 C87 468 87 460 84 452 C78 449 72 449 66 452 Z'
 };
 var BODY_B = {
   oberer_ruecken: 'M100 54 L91 70 C84 78 72 82 60 86 C72 98 88 118 100 152 Z',
@@ -11142,7 +11144,9 @@ var BODY_B = {
   abduktoren: 'M62 224 C58 234 58 244 63 250 C70 240 80 234 90 234 C80 226 70 222 62 224 Z',
   gesaess: 'M63 248 C58 266 65 286 82 289 C94 290 99 280 99 264 L99 246 C88 238 73 238 63 248 Z',
   beinbeuger: 'M60 294 C56 312 60 330 68 340 L76 338 C74 320 74 304 76 292 Z M77 292 C77 306 78 322 80 338 L88 336 C90 318 90 302 88 293 Z',
-  waden: 'M61 348 C57 366 59 386 66 398 C71 388 74 370 75 350 Z M77 350 C79 370 82 386 86 398 C91 382 91 364 88 350 Z'
+  waden: 'M60 350 C56 368 58 390 66 406 C71 394 74 374 75 352 Z M77 352 C79 374 82 392 86 406 C92 388 92 366 89 350 Z',
+  _achilles: 'M71 414 L80 414 L79 444 L73 444 Z',
+  _ferse: 'M65 452 C63 460 65 468 72 470 L80 470 C86 468 87 460 85 452 C79 449 71 449 65 452 Z'
 };
 var MUS_NAME = { brust: 'Brust', schulter_vorn: 'Vordere Schulter', schulter_seite: 'Seitliche Schulter', schulter_hinten: 'Hintere Schulter',
   trizeps: 'Trizeps', bizeps: 'Bizeps', unterarm: 'Unterarme', latissimus: 'Latissimus', oberer_ruecken: 'Oberer Rücken', rueckenstrecker: 'Rückenstrecker',
@@ -11158,7 +11162,7 @@ var MUS_PAIRS = [[['brust', 'schulter_vorn', 'trizeps'], 'Druck', ['latissimus',
   [['bauch_gerade', 'bauch_schraeg'], 'Bauch', ['rueckenstrecker'], 'Rückenstrecker']];
 // Weibliche und neutrale Figur: dieselben Linien, verzogen. Schultern und Taille schmaler, Hüfte und Oberschenkel breiter,
 // Arme schlanker und mit den Schultern nach innen, dazu Brust und Haare. Neutral (divers) liegt genau in der Mitte.
-var BODY_WARP = [[60, 1], [78, .8], [118, .82], [160, .8], [208, .7], [236, .9], [266, 1.17], [300, 1.15], [338, .98], [380, .96], [440, .94]];
+var BODY_WARP = [[60, 1], [78, .8], [118, .82], [160, .8], [208, .7], [236, .9], [266, 1.17], [300, 1.15], [338, .98], [380, .96], [480, .94]];
 // Brust der weiblichen Figur: rund, unten mit Schatten-Bogen.
 var BODY_BRUST_W = 'M98 104 C93 97 83 95 74 98 C63 102 57 114 59 127 C61 140 71 148 83 148 C92 148 97 142 98 135 Z';
 // Haare: vorn Scheitel und lange Strähnen bis zu den Schultern, hinten ganz mit Pferdeschwanz. Halbe Breite, wird gespiegelt.
@@ -11187,11 +11191,20 @@ function bodyOf(t) {
   var wp = function (P) { var o = {}; Object.keys(P).forEach(function (k) { o[k] = bodyWarp(k === 'brust' && t === 1 ? BODY_BRUST_W : P[k], t); }); return o; };
   return (BODY_C[t] = { sil: bodyWarp(BODY_SIL, t), f: wp(BODY_F), b: wp(BODY_B), head: 19 - 2 * t, neck: 22 - 6 * t, hair: t === 1 ? 'w' : t === 0 ? 'm' : '' });
 }
+var BODY_N = 0;
 function bodySVG(parts, cls) {
-  var B = bodyOf(sexT()), back = parts === BODY_B, P = back ? B.b : parts === BODY_F ? B.f : parts;
+  var B = bodyOf(sexT()), back = parts === BODY_B, P = back ? B.b : parts === BODY_F ? B.f : parts, id = 'bs' + (++BODY_N);
   var half = '<path class="sil" d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path class="mu' + (m.charAt(0) === '_' ? '' : ' ' + (cls(m) || '')) + '" d="' + P[m] + '"/>'; }).join('');
+  // Licht von vorn: jede Fläche rund wie ein Zylinder (Mitte hell, Ränder dunkel), nur angedeutet. Fängt keine Taps.
+  var sh = '<g class="sh" fill="url(#' + id + ')"><path d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path d="' + P[m] + '"/>'; }).join('') + '</g>';
   var hair = B.hair ? '<path class="hair" d="' + (B.hair === 'w' ? (back ? BODY_HAIR_B : BODY_HAIR_F) : (back ? BODY_HAIR_MB : BODY_HAIR_MF)) + '"/>' : '';
-  return '<svg viewBox="0 0 200 440" aria-hidden="true"><ellipse class="sil" cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair === 'w' ? 23 : 24) + '"/><rect class="sil" x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>' + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
+  var head = '<ellipse cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair === 'w' ? 23 : 24) + '"/><rect x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>';
+  return '<svg viewBox="0 0 200 480" aria-hidden="true"><defs><linearGradient id="' + id + '"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset=".22" stop-color="#000" stop-opacity=".07"/>' +
+    '<stop offset=".45" stop-color="#fff" stop-opacity=".16"/><stop offset=".7" stop-color="#000" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".36"/></linearGradient>' +
+    '<radialGradient id="' + id + 'g"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>' +
+    '<ellipse class="gnd" cx="100" cy="474" rx="46" ry="6" fill="url(#' + id + 'g)"/>' +
+    head.replace(/<(ellipse|rect)/g, '<$1 class="sil"') + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
+    '<g class="sh" fill="url(#' + id + ')">' + head + '</g>' + sh + '<g transform="translate(200,0) scale(-1,1)">' + sh + '</g>' +
     (hair ? hair + '<g transform="translate(200,0) scale(-1,1)">' + hair + '</g>' : '') + '</svg>';
 }
 function musFigHTML(cls, small) {
@@ -11224,7 +11237,7 @@ function musBox(m) {
 function musIcon(m, size, zoom) {
   var co = musCo(m), b = musBox(m), s = Math.max(b.w, b.h) * (zoom || 1.9) + 16, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
   var svg = bodySVG(musBack(m) ? BODY_B : BODY_F, function (x) { return x === m ? 'hi' : co.indexOf(x) >= 0 ? 'lo' : ''; });
-  return '<span class="mi" style="width:' + size + 'px;height:' + size + 'px">' + svg.replace('viewBox="0 0 200 440"', 'viewBox="' + (cx - s / 2) + ' ' + (cy - s / 2) + ' ' + s + ' ' + s + '" preserveAspectRatio="xMidYMid slice"') + '</span>';
+  return '<span class="mi" style="width:' + size + 'px;height:' + size + 'px">' + svg.replace('viewBox="0 0 200 480"', 'viewBox="' + (cx - s / 2) + ' ' + (cy - s / 2) + ' ' + s + ' ' + s + '" preserveAspectRatio="xMidYMid slice"') + '</span>';
 }
 function musUe(m, all) {
   var have = haveEq(), by = function (a, b) { return b.nutzen - a.nutzen; }, p = [], s = [];
@@ -11280,7 +11293,7 @@ function renderMuskel() {
   return h;
 }
 // Eigene Seite unter Tools (Dennis: kein Umschalter in der Bibliothek).
-function renderMuskeln() { return '<section class="hero"><h1>Muskeln</h1></section>' + musLibHTML(); }
+function renderMuskeln() { return '<section class="hero"><h1>Körper</h1></section>' + musLibHTML(); }
 // Die Figur so hoch, dass der ganze Körper samt Auswahlzeile über der Reiterleiste Platz hat (auch mit großer Schrift).
 function musFit() {
   var svg = $view.querySelector('.mfig svg'); if (!svg) return;

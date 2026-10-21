@@ -7,7 +7,7 @@ Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md
 Stand: 21. Oktober 2026 (Muskeln in der Bibliothek; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
 
-## Muskeln unter Tools (21. Oktober 2026, Claude)
+## Körper unter Tools (21. Oktober 2026, Claude)
 - Dennis zeigte Muskel-Icons von Gymjourneys „zur Orientierung“. Konzept im Canvas mit Varianten (Übersicht A Raster, B Figur antippen, C Liste;
   Muskel-Seite M1/M2; Bild-Stile S1–S4). Dennis: B, dann drei B-Varianten; „aufpassen, dass man beim Hoch- und Runterwischen nicht aus Versehen einen
   Muskel öffnet“; S3 gefällt; gewählt B2 „aber zeige wirklich den ganzen Körper“.
@@ -16,6 +16,9 @@ Stand: 21. Oktober 2026 (Muskeln in der Bibliothek; davor Trainingstage nur übe
 - Geprüft: `tests/dreitage-browser.cjs` (ganzer Körper im Bild, Wischen wählt nichts, Antippen Brust, Öffnen, Ort | Alle, (i)), alle übrigen Tests.
 - Dennis danach: „Die Beine sind immer noch nicht komplett drauf“ und „das Umschalten zwischen Mustern und Muskeln gefällt mir nicht“. Jetzt eigene Seite
   Tools › Muskeln, Höhe der Figur nach dem Zeichnen gemessen (`musFit`), getestet auch mit großer Schrift.
+- Dennis danach: „Statt Muskeln, Körper, und es fehlt immer noch alles unterhalb der Knie sowie die Füße. Kannst du es außerdem so angedeutet in 3D machen?“
+  Seite heißt jetzt „Körper“ (interne ID bleibt `muskeln`). Figur neu bis zu den Füßen (viewBox 480: Wade, Knöchel, Fuß, hinten Achillessehne und Ferse),
+  dazu Verlauf über jeder Fläche (Ränder dunkel, Mitte hell) und Boden-Schatten. Gilt für alle Figuren (Körper-Check, Muskelausgleich, Beschwerden, Grundmuster).
 - Offen: Dennis testet. Ideen aus dem Konzept, nicht gebaut: Muskel-Bilder im (i) und in der Muskelausgleich-Karte; „Seitliche Schulter“ hat zuhause
   nur 1 Übung (Band-Übungen ergänzen).
 
