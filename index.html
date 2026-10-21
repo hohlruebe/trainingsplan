@@ -677,7 +677,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .bf .mu.p1{fill:var(--acc)}.bf .mu.p2{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
 .mi{display:block;flex:none;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--ink) 7%,var(--card));--g:color-mix(in srgb,var(--ink) 13%,var(--paper));--g2:color-mix(in srgb,var(--ink) 24%,var(--paper))}
 .mi svg{display:block;width:100%;height:100%}.mi .sil,.mi ellipse,.mi rect{fill:var(--g)}.mi .hair{fill:var(--g2)}.mi .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.1;stroke-linejoin:round}.mi .mu.hi{fill:var(--acc)}.mi .mu.lo{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
-.mfig{margin:4px 0 0}.mfig figure{margin:0}.mfig svg{width:auto;height:clamp(300px,calc(100svh - 500px),440px);display:block;margin:0 auto;cursor:pointer;-webkit-user-select:none;user-select:none}
+.mfig{margin:4px 0 0}.mfig figure{margin:0}.mfig svg{width:auto;height:340px;display:block;margin:0 auto;cursor:pointer;-webkit-user-select:none;user-select:none}
 .mfig .mu{transition:fill .2s}.mus-hint{font-size:15px;color:var(--ink2);text-align:center;margin:8px 2px 2px}
 .mus-sel{display:flex;gap:12px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}.mus-sel .gl-t{flex:1;min-width:0}.mus-sel .btn{flex:none}
 .mus-x{font-size:15px;color:var(--ink2);margin:10px 0 14px;line-height:1.5}
@@ -2782,8 +2782,8 @@ if (!S.picksV) {
 var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
-var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen', 'rm'] };
-var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Mobility', rm: '1RM' };
+var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', muskeln: 'Muskeln', routinen: 'Mobility', rm: '1RM' };
 var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
@@ -3030,7 +3030,7 @@ function render() {
   if (S.review && FOKUS_IDS.indexOf(S.review.fokus) < 0) S.review.fokus = 'allround';
   dayCheck();
   syncDays();
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kalender: renderKalender }[ui.tab];
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, muskeln: renderMuskeln, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kalender: renderKalender }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
@@ -3054,6 +3054,7 @@ function render() {
   if (ui.tab === 'heute') { wakeFigs(); paintMini(); syncFig(document.querySelector('.ex-card.now') ? +document.querySelector('.ex-card.now').dataset.ex : 0); }
   if (ui.tab === 'routine') paintRoutine();
   if (ui.tab === 'uebungen' || ui.tab === 'fam') wakeGloss();
+  if (ui.tab === 'muskeln') musFit();
   if (ui.tab === 'fam') { document.querySelectorAll('#view .fam-top .fig').forEach(startFig); fitLadders($view); }
   if (ui.tab === 'skill') drawTree();
   var T = trainCtx();
@@ -3066,6 +3067,7 @@ var SUB_IC = {
   timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2.5h6"/>',
   uebungen: '<path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/>',
   routinen: '<circle cx="12" cy="4.5" r="2"/><path d="M5 9.5l7 1.5 7-1.5M12 11v4l-3.5 6M12 15l3.5 6"/>',
+  muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>',
   rm: '<path d="M3.5 20h17M6 16l4.5-5.5 3 3L18 7.5M14.5 7.5H18V11"/>'
 };
 function subTitle(views) {
@@ -7033,8 +7035,8 @@ var MQ_DESK = window.matchMedia ? window.matchMedia('(min-width: 1024px) and (ho
 function deskOn() { var m = S.layout || 'auto'; if (m === 'desk') return window.innerWidth >= 900; if (m === 'mobil') return false; return !!(MQ_DESK && MQ_DESK.matches); }
 if (MQ_DESK) { var deskRe = function () { render(); }; if (MQ_DESK.addEventListener) MQ_DESK.addEventListener('change', deskRe); else if (MQ_DESK.addListener) MQ_DESK.addListener(deskRe); }
 // Seitenleiste statt der Reiter-Kapsel: alle Seiten direkt erreichbar.
-var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
-var SIDE_IC = { heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
+var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['muskeln', 'Muskeln'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
+var SIDE_IC = { muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>', heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
   profil: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/>', einst: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>' };
 function sideHTML() {
   var cur = ui.tab === 'fam' ? 'uebungen' : ui.tab === 'routine' ? 'routinen' : ui.tab === 'haptik' ? 'einst' : ui.tab === 'skill' ? 'profil' : ui.tab;
@@ -11268,7 +11270,7 @@ function musSelHTML(m) {
 function musRow(u) { return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '">' + miniFig(u.id) + '<span class="gl-t"><b>' + esc(u.name) + '</b><small>' + esc(u.trainiert || MUSTER[u.muster] || '') + '</small></span><i class="fs-i" aria-hidden="true">i</i></button>'; }
 function renderMuskel() {
   var m = MUS_NAME[ui.musId] ? ui.musId : 'brust', all = !!ui.musAll, U = musUe(m, all), st = musStat(m), la = musLast(m), more = !!ui.musMore;
-  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="uebungen" aria-label="Zurück">' + BACK + '</button>' +
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="muskeln" aria-label="Zurück">' + BACK + '</button>' +
     '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hell: arbeitet oft mit (' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ').' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
     '<div class="seg" role="group" aria-label="Ort" style="margin:0 0 12px">' + [['', ortName(curOrt())], ['1', 'Alle']].map(function (o) { var on = !!o[0] === all; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-all" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
   h += '<section class="card"><div class="card-head"><h2>Trainiert ' + (m === 'gesaess' ? 'es' : /^(brust|schulter|unterarm|bauch_schraeg|waden|adduktoren|abduktoren)/.test(m) ? 'sie' : 'ihn') + ' vor allem</h2><span class="chip">' + U.p.length + '</span></div>' +
@@ -11277,7 +11279,17 @@ function renderMuskel() {
     (U.s.length > 6 && !more ? '<button type="button" class="btn small" style="margin-top:10px" data-act="mus-more">Alle ' + U.s.length + ' zeigen</button>' : '') + '</section>';
   return h;
 }
-ACT['lib-view'] = function (el) { ui.libView = el.dataset.v || ''; render(); };
+// Eigene Seite unter Tools (Dennis: kein Umschalter in der Bibliothek).
+function renderMuskeln() { return '<section class="hero"><h1>Muskeln</h1></section>' + musLibHTML(); }
+// Die Figur so hoch, dass der ganze Körper samt Auswahlzeile über der Reiterleiste Platz hat (auch mit großer Schrift).
+function musFit() {
+  var svg = $view.querySelector('.mfig svg'); if (!svg) return;
+  var card = svg.closest('.card'), tb = document.querySelector('.tabbar'), cs = parseFloat(svg.style.height) || 440;
+  svg.style.height = cs + 'px';
+  var r = svg.getBoundingClientRect(), k = r.height / cs || 1, below = card.getBoundingClientRect().bottom - r.bottom + 14;
+  var bottom = (tb && getComputedStyle(tb).display !== 'none' ? tb.getBoundingClientRect().top : window.innerHeight) - below;
+  svg.style.height = Math.max(220, Math.min(440, (bottom - (r.top + window.scrollY - (document.scrollingElement || document.documentElement).scrollTop)) / k)) + 'px';
+}
 ACT['mus-side'] = function (el) { ui.musSide = el.dataset.v; render(); };
 ACT['mus-open'] = function (el) { ui.musId = el.dataset.v; ui.musAll = false; ui.musMore = false; ui.tab = 'muskel'; render(); window.scrollTo(0, 0); };
 ACT['mus-all'] = function (el) { ui.musAll = !!el.dataset.v; render(); };
@@ -11563,10 +11575,7 @@ function nextUnlockHTML(tag, inner) {
 }
 function renderUebungen() {
   var sub = (ui.libAll ? 'Alle' : esc(ortName(curOrt()))) + ' · ' + famCount() + ' Familien · ' + (ui.libAll ? Object.keys(UE).length : libCount()) + ' Übungen';
-  var mv = ui.libView === 'mus', seg = '<div class="seg" role="group" aria-label="Ansicht" style="margin:4px 0 14px">' + [['', 'Muster'], ['mus', 'Muskeln']].map(function (o) {
-    var on = (ui.libView || '') === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="lib-view" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
-  if (mv) return '<section class="hero"><h1>Übungen</h1></section>' + libCapHTML() + seg + musLibHTML(); // Dennis: der ganze Körper soll ohne Scrollen zu sehen sein
-  return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + sub + '</p></section>' + libCapHTML() + seg +
+  return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + sub + '</p></section>' + libCapHTML() +
     '<label class="search"><span class="sr">Übung suchen</span><input id="gloss-search" type="search" placeholder="Übung suchen" value="' + esc(ui.glossQuery) + '"></label>' +
     '<div id="gloss-list">' + glossListHTML(filteredGloss()) + '</div>' + libBandsHTML();
 }

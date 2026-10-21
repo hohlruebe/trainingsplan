@@ -488,10 +488,15 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
 
     // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(old(), { planV: 2, tag: 1, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe', 'eq_band'] }], ort: 'o1' }), logs()]);
-    await page.evaluate(() => window.tpTest.navigate('uebungen'));
-    await page.getByRole('button', { name: 'Muskeln', exact: true }).click();
-    const fig = await page.locator('.mfig svg').boundingBox(), vh = page.viewportSize().height;
-    assert.ok(fig.y >= 0 && fig.y + fig.height <= vh, 'ganzer Körper ohne Scrollen sichtbar');
+    // Eigene Seite unter Tools (kein Umschalter in der Bibliothek); auch mit großer Schrift steht der ganze Körper über der Reiterleiste.
+    assert.equal(await page.evaluate(() => { window.tpTest.navigate('uebungen'); return document.querySelectorAll('[data-act="lib-view"]').length; }), 0);
+    for (const ts of ['l', 'm']) {
+      await page.evaluate(t => { document.documentElement.dataset.text = t; window.tpTest.navigate('muskeln'); }, ts);
+      await page.waitForTimeout(100);
+      const f0 = await page.locator('.mfig svg').boundingBox(), tb = await page.locator('.tabbar').boundingBox();
+      assert.ok(f0.y >= 0 && f0.y + f0.height <= tb.y, 'ganzer Körper über der Reiterleiste (Schrift ' + ts + ')');
+    }
+    const fig = await page.locator('.mfig svg').boundingBox();
     await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27); await page.mouse.down(); await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27 + 40, { steps: 4 }); await page.mouse.up();
     assert.equal(await page.locator('.mus-sel').count(), 0, 'Wischen über die Figur wählt nichts aus');
     await page.mouse.click(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27);

@@ -551,12 +551,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Paket 61). Neue Leiter `g_band_squat` (Band Squat, Stufen Leicht → Normal → Stark → Sehr stark mit `eq_band`, 8–12 Wdh., Variante in `f_squat`, Text in
   `design/auftraege/texte/kniebeuge.json`). Ist die Stufe eine eigene Übung (Thruster auf „Air Squat“, Back Squat auf „Goblet Squat“), zeigen Ablauf und
   „Heute zum ersten Mal“ diese Übung (`kShow`, darunter „Stufe 1 · Thruster-Leiter“), das (i) passt dazu.
-- Muskeln in der Bibliothek (Dennis, 21. Oktober, Variante B2, Bild-Stil S3; Board „Muskeln in der Bibliothek“ im Canvas): Tools › Übungen hat oben
-  „Muster | Muskeln“ (`ui.libView`, nur auf dem Gerät). Muskeln = eine große Figur mit Vorn | Hinten (`musLibHTML`, `ui.musSide`, `.mfig`, Höhe
-  `clamp(300px, 100svh − 500px, 440px)`, damit der ganze Körper ohne Scrollen zu sehen ist; der Kopf ohne Untertitel). Antippen wählt nur aus (`ui.musSel`):
+- Muskeln (Dennis, 21. Oktober, Variante B2, Bild-Stil S3; Board „Muskeln in der Bibliothek“ im Canvas): eigene Seite Tools › Muskeln (`muskeln`,
+  `renderMuskeln`, in `GROUPS`, `VIEW_LABEL`, `SUB_IC`, `SIDE`; Dennis: kein Umschalter in der Bibliothek). Eine große Figur mit Vorn | Hinten
+  (`musLibHTML`, `ui.musSide`, `.mfig`); `musFit` (nach jedem `render`) setzt die Höhe so, dass der ganze Körper samt Auswahlzeile über der
+  Reiterleiste steht, auch mit großer Schrift (220–440 px). Antippen wählt nur aus (`ui.musSel`):
   Muskel blau (`p1`), oft mitarbeitende hell (`p2`, `musCo`: häufigste Mithelfer der Übungen mit ihm als Hauptmuskel), darunter eine Zeile mit Bild,
   Status und „Öffnen“ (`musSelHTML`). Ein Tippen zählt nur ohne Wischen (unter 10 px zwischen `pointerdown` und `click`), daneben getippt nimmt der
-  nächste Muskel bis 28 px (`musAt`). „Öffnen“ (`ACT['mus-open']`) zeigt die versteckte Seite `muskel` (`renderMuskel`, `ui.musId`): Bild (`musIcon`,
+  nächste Muskel bis 28 px (`musAt`). „Öffnen“ (`ACT['mus-open']`) zeigt die versteckte Seite `muskel` (`renderMuskel`, `ui.musId`, Zurück zu Muskeln): Bild (`musIcon`,
   aus der Figur gezoomt über `musBox`, Stil S3), Satz `MUS_TXT`, Status aus dem Muskelausgleich (`musStat`), „zuletzt …“ (`musLast`), Ort | Alle
   (`ui.musAll`), „Trainiert … vor allem“ (Hauptmuskel) und „Arbeitet mit“ (6, „Alle zeigen“ `ui.musMore`), Zeilen wie „Heute zum ersten Mal“ mit (i).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
