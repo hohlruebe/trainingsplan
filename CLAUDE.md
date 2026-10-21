@@ -184,7 +184,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   die Familie. Heute zeigt unter „Training starten“ den Block Fortschritt (`progressHTML`): nur „Als Nächstes freischalten“
   (`nextUnlockHTML`). Neu freigeschaltet / Neuer Reiz (`planFill().neu`) und Sehnen-Pause stehen nur in der Coach-Karte (`coachCardHTML`).
 - Muskeln (`MUS_NAME`, Figur `bodySVG`/`musFigHTML` aus `BODY_SIL`, `BODY_F`, `BODY_B`: graue anatomische Figur vorn/hinten, Umrisse in
-  Kartenfarbe; Teile mit „_“ zählen nicht). viewBox 0 0 200 480: Unterschenkel mit Wade, Knöchel und Fuß (hinten `_achilles`),
+  Kartenfarbe; Teile mit „_“ zählen nicht). viewBox 0 0 200 480: Muskeln als Flächen in Blattform (Dennis: an Gymjourneys orientiert, organisch statt klinisch: runde Bäuche, spitze Sehnen, füllen den
+  Körper fast ganz, Fugen in Kartenfarbe; Füllteile `_saege`, `_tfl`, `_oberarm`, `_infra`, `_teres`, `_flanke`, `_schienbein`, `_achilles`; weibliche Figur ohne `_saege`,
+  Brust zuletzt gezeichnet). Unterschenkel mit Wade (zwei Köpfe und Soleus), Knöchel und Fuß,
   nur ganz leicht räumlich (Dennis: „nur ganz leicht angedeutet, nah am Original“): nur über den Muskeln ein schwacher Verlauf (Ränder 7–8 % dunkler, Umriss und Kopf flach, `.sh`, je SVG eigene ID `bs<n>`, `pointer-events: none`). Bibliothek: aufgeklappte Übung zeigt `musOfHTML` (Hauptmuskeln `--acc`, mitarbeitend hellblau,
   aus `muskeln.primaer/sekundaer`). Muskelausgleich (`musVol`, `musBalance`, gemerkt in `MB_C`): Sätze je Muskel der letzten 4 Wochen
   (Hauptmuskel 1, mitarbeitend ½, Metcon halbe Runden bis 4, Murph 10, `ausgleich` zählt mit), geteilt durch das Soll `MUS_W`, gemessen am

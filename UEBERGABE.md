@@ -21,6 +21,9 @@ Stand: 21. Oktober 2026 (Muskeln in der Bibliothek; davor Trainingstage nur übe
   dazu ein schwacher Verlauf über jeder Fläche. Gilt für alle Figuren (Körper-Check, Muskelausgleich, Beschwerden, Grundmuster).
   Dennis: „nur ganz leicht angedeutet und näher am Original“: Verlauf deutlich schwächer, ohne Boden-Schatten und ohne eigene Fuß-Flächen.
   Dann: „nur an der Form der Muskeln ganz leicht angedeutet“: Verlauf nur noch über den Muskeln, Ränder 7–8 % dunkler.
+  Dann: „orientiere dich an den Screenshots (Gymjourneys), damit es organischer und nicht so klinisch aussieht“: alle Muskeln neu als Blattformen,
+  die den Körper fast ganz füllen (Brust als Fächer zur Achsel, Bauch als Kissen, Oberschenkel als Spindeln, Wade mit zwei Köpfen und Soleus, Schulterblatt, Flanke).
+  Namen der 19 Muskelgruppen bleiben, nur Füllteile mit „_“ sind neu.
 - Offen: Dennis testet. Ideen aus dem Konzept, nicht gebaut: Muskel-Bilder im (i) und in der Muskelausgleich-Karte; „Seitliche Schulter“ hat zuhause
   nur 1 Übung (Band-Übungen ergänzen).
 
