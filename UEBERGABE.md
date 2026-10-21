@@ -18,7 +18,8 @@ Stand: 21. Oktober 2026 (Muskeln in der Bibliothek; davor Trainingstage nur übe
   Tools › Muskeln, Höhe der Figur nach dem Zeichnen gemessen (`musFit`), getestet auch mit großer Schrift.
 - Dennis danach: „Statt Muskeln, Körper, und es fehlt immer noch alles unterhalb der Knie sowie die Füße. Kannst du es außerdem so angedeutet in 3D machen?“
   Seite heißt jetzt „Körper“ (interne ID bleibt `muskeln`). Figur neu bis zu den Füßen (viewBox 480: Wade, Knöchel, Fuß, hinten Achillessehne und Ferse),
-  dazu Verlauf über jeder Fläche (Ränder dunkel, Mitte hell) und Boden-Schatten. Gilt für alle Figuren (Körper-Check, Muskelausgleich, Beschwerden, Grundmuster).
+  dazu ein schwacher Verlauf über jeder Fläche. Gilt für alle Figuren (Körper-Check, Muskelausgleich, Beschwerden, Grundmuster).
+  Dennis: „nur ganz leicht angedeutet und näher am Original“: Verlauf deutlich schwächer, ohne Boden-Schatten und ohne eigene Fuß-Flächen.
 - Offen: Dennis testet. Ideen aus dem Konzept, nicht gebaut: Muskel-Bilder im (i) und in der Muskelausgleich-Karte; „Seitliche Schulter“ hat zuhause
   nur 1 Übung (Band-Übungen ergänzen).
 

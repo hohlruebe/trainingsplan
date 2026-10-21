@@ -11130,8 +11130,7 @@ var BODY_F = {
   adduktoren: 'M87 262 L98 260 C98 280 96 296 92 306 C89 290 88 274 87 262 Z',
   _knie: 'M64 335 L88 335 C88 343 84 348 76 348 C68 348 64 343 64 335 Z',
   _schienbein: 'M67 354 C65 378 67 404 71 428 L76 428 C76 404 76 378 75 354 Z',
-  waden: 'M61 352 C58 370 59 390 63 408 L67 406 C65 388 64 370 65 352 Z M79 352 C84 368 88 384 87 404 C91 386 92 366 89 352 Z',
-  _fuss: 'M66 452 C63 460 63 468 70 470 L82 470 C87 468 87 460 84 452 C78 449 72 449 66 452 Z'
+  waden: 'M61 352 C58 370 59 390 63 408 L67 406 C65 388 64 370 65 352 Z M79 352 C84 368 88 384 87 404 C91 386 92 366 89 352 Z'
 };
 var BODY_B = {
   oberer_ruecken: 'M100 54 L91 70 C84 78 72 82 60 86 C72 98 88 118 100 152 Z',
@@ -11145,8 +11144,7 @@ var BODY_B = {
   gesaess: 'M63 248 C58 266 65 286 82 289 C94 290 99 280 99 264 L99 246 C88 238 73 238 63 248 Z',
   beinbeuger: 'M60 294 C56 312 60 330 68 340 L76 338 C74 320 74 304 76 292 Z M77 292 C77 306 78 322 80 338 L88 336 C90 318 90 302 88 293 Z',
   waden: 'M60 350 C56 368 58 390 66 406 C71 394 74 374 75 352 Z M77 352 C79 374 82 392 86 406 C92 388 92 366 89 350 Z',
-  _achilles: 'M71 414 L80 414 L79 444 L73 444 Z',
-  _ferse: 'M65 452 C63 460 65 468 72 470 L80 470 C86 468 87 460 85 452 C79 449 71 449 65 452 Z'
+  _achilles: 'M71 414 L80 414 L79 444 L73 444 Z'
 };
 var MUS_NAME = { brust: 'Brust', schulter_vorn: 'Vordere Schulter', schulter_seite: 'Seitliche Schulter', schulter_hinten: 'Hintere Schulter',
   trizeps: 'Trizeps', bizeps: 'Bizeps', unterarm: 'Unterarme', latissimus: 'Latissimus', oberer_ruecken: 'Oberer Rücken', rueckenstrecker: 'Rückenstrecker',
@@ -11199,10 +11197,8 @@ function bodySVG(parts, cls) {
   var sh = '<g class="sh" fill="url(#' + id + ')"><path d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path d="' + P[m] + '"/>'; }).join('') + '</g>';
   var hair = B.hair ? '<path class="hair" d="' + (B.hair === 'w' ? (back ? BODY_HAIR_B : BODY_HAIR_F) : (back ? BODY_HAIR_MB : BODY_HAIR_MF)) + '"/>' : '';
   var head = '<ellipse cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair === 'w' ? 23 : 24) + '"/><rect x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>';
-  return '<svg viewBox="0 0 200 480" aria-hidden="true"><defs><linearGradient id="' + id + '"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset=".22" stop-color="#000" stop-opacity=".07"/>' +
-    '<stop offset=".45" stop-color="#fff" stop-opacity=".16"/><stop offset=".7" stop-color="#000" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".36"/></linearGradient>' +
-    '<radialGradient id="' + id + 'g"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>' +
-    '<ellipse class="gnd" cx="100" cy="474" rx="46" ry="6" fill="url(#' + id + 'g)"/>' +
+  return '<svg viewBox="0 0 200 480" aria-hidden="true"><defs><linearGradient id="' + id + '"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".3" stop-color="#000" stop-opacity="0"/>' +
+    '<stop offset=".5" stop-color="#fff" stop-opacity=".05"/><stop offset=".75" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient></defs>' +
     head.replace(/<(ellipse|rect)/g, '<$1 class="sil"') + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
     '<g class="sh" fill="url(#' + id + ')">' + head + '</g>' + sh + '<g transform="translate(200,0) scale(-1,1)">' + sh + '</g>' +
     (hair ? hair + '<g transform="translate(200,0) scale(-1,1)">' + hair + '</g>' : '') + '</svg>';
