@@ -4,8 +4,28 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 21. Oktober 2026 (Muskeln in der Bibliothek; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 21. Oktober 2026 (Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Prüfung der Trainingsplanung (21. Oktober 2026, Claude)
+- Dennis: „Überprüfe, ob unsere Trainingsplanung wirklich gut funktioniert … eine umfassende Bugprüfung“, danach „korrigiere das“.
+- Geprüft: Daten (Leitern, Stufen, Geräte, Familien, Voraussetzungen: sauber), Simulation der echten App Tag für Tag (zu Hause, Gym, 2/3/5 Tage,
+  Leistung voll/gemischt/schwach, bis 26 Wochen), Code der Planung.
+- Gefunden und behoben:
+  1. „Härter als geplant“ verglich die Einschätzung mit dem Zeitschnitt der Schritte (≈ 4,8): jede 6 löste es aus, ab der 3. Einheit nur noch Kurzversion,
+     Umfang wuchs nie. Jetzt „Härter als sonst“ gegen die eigenen letzten Einschätzungen; geplante Belastung neu kalibriert (`stepsLoad`, `logSoll`).
+  2. Stillstand verglich die Summe der Wdh. über verschieden viele Runden (Entlastung, Kurzversion, Spitze): Tausch selbst bei voller Leistung. Jetzt je Runde
+     gegen die Vorgabe.
+  3. Leitern warteten ewig auf ein fehlendes Gerät (Push-up zu Hause auf Parallettes; ohne Weste Air Squat, Pike, Ring Row, Lunge). Jetzt Stufen ohne Gerät
+     überspringen (`nextStage`), oben bzw. in der Sackgasse über Tempo weiter; Tausch-Ziel zuerst eine Leiter mit Luft.
+  4. Im Split wurde der Pull-Tag nach Push jede Woche gekürzt (müde Zonen, die heute gar nicht dran sind). Jetzt zählen nur Zonen der Einheit.
+  5. Keine Gewichtsempfehlung für Goblet Squat, Kettlebell Deadlift u. a. (fehlende Normen). Ergänzt.
+  6. Ausgleich und Skill-Block wurden ohne Antippen nicht gespeichert. Jetzt zählt die Vorgabe (Skill mit `d: 1`, kein Rekord/Signal).
+  7. Zügig gehen wuchs bis 36 Min. Jetzt höchstens 20 Min.
+  8. In der Testwoche konnte eine neue Stufe kommen (Maxout auf ungewohnter Stufe). Jetzt bleibt die Stufe.
+  9. Hollow Body „30 s sauber“ gab 20 s vor; Push-up-Ziel „an Tag 3“ (Altlast).
+- Neu: `tests/langzeit-browser.cjs` (8 s). Mit dem alten Stand schlägt er fehl (22 von 24 Einheiten Kurzversion).
+- Offen: Dennis testet. Danach beobachten, ob „Härter als sonst“ (≥ 8 und +2) im Alltag passt.
 
 ## Körper unter Tools (21. Oktober 2026, Claude)
 - Dennis zeigte Muskel-Icons von Gymjourneys „zur Orientierung“. Konzept im Canvas mit Varianten (Übersicht A Raster, B Figur antippen, C Liste;
