@@ -126,7 +126,8 @@ console.log('PASS: Vorgabe im EMOM steigt nur nach geschafften Runden');
 // Belastung (Paket 57): geplant = Minuten je Schritt × beabsichtigte Härte, gemacht = Einschätzung × Minuten.
 c = setup();
 const stB = [{ id: 'warm', dur: 8 }, { id: 'hs', dur: 4 }, { id: 'kraft', dur: 15 }, { id: 'ausgl', dur: 4 }, { id: 'fin', dur: 12, ri: 8 }, { id: 'cool', dur: 10, opt: true }];
-assert.deepEqual(JSON.parse(JSON.stringify(c.stepsLoad(stB))), { min: 45, soll: 273 }, 'Beispiel B: 24 + 16 + 112,5 + 20 + 96 + Wechsel, Cool-down auf Nachfrage zählt nicht');
+// Geplante Härte der Einheit = Mitte zwischen Zeitschnitt (268,5 / 43 = 6,24) und härtestem Schritt (8) plus ½ = 7,62; × 45 Min (mit Wechsel).
+assert.deepEqual(JSON.parse(JSON.stringify(c.stepsLoad(stB))), { min: 45, soll: 343 }, 'Beispiel B: Cool-down auf Nachfrage zählt nicht');
 phase = { deload: true }; assert.equal(c.stepRi({ id: 'kraft' }), 6, 'Entlastung: Kraft leichter geplant'); phase = {};
 assert.equal(c.logLoad({ rpe: 7, min: 50 }), 350); assert.equal(c.logLoad({ min: 50 }), null, 'ohne Einschätzung keine Belastung');
 assert.equal(c.rpeWord(7), 'Hart'); assert.equal(c.rpeWord(1), 'Sehr leicht'); assert.equal(c.rpeWord(10), 'Maximal');

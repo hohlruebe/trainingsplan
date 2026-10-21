@@ -17,7 +17,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   zügig gehen), nichts, was eine akute Stelle stark belastet. Gespeichert als `fin: {k, dev, min, n, done}` im Kraft-Eintrag, dazu `pv: 2`
   und `unit` ('A'–'C'); alte Einträge behalten ihre Tag-Bedeutung (`dayLog`, `snapName`, `planPreview(dg, fn, pv)`).
   Umfang (`UMF`, Produktvorgaben): Stufe 0 = Einstieg 25 Min (Aufwärmen 4, Skill 2, EMOM 9, Abschluss 8 mit 2 Min Ausklingen, 2 Min
-  Vorlauf/Wechsel), Stufe 4 = bisheriger Krafttag, Stufe 6 = „Nächste Stufe“ (EMOM 15). `umfIdx` deckelt mit dem Zeitlimit (`S.zeitMax`,
+  Vorlauf/Wechsel), Stufe 4 = bisheriger Krafttag, Stufe 6 = „Nächste Stufe“ (EMOM 15). Abschluss ohne Kardiogerät (zügig gehen) höchstens 20 Min (`FIN_GEH_MAX`). `umfIdx` deckelt mit dem Zeitlimit (`S.zeitMax`,
   Deine Woche › Zeit pro Training, höchstens 90 Min, 8 Min Reserve für Ausgleich und C); `zeitLv` kürzt mit dem Zeitlimit zusätzlich.
   Kürzeres Aufwärmen (6/4 Min) = weniger Ergometer und Übungen (`warmMin`, `WARMUP` mit `k4`/`t6`). `umfGrow` beim Wochenwechsel:
   frühestens 14 Tage nach der letzten Änderung, 6 vollständige Einheiten in 2 Wochen (keine Kurzversion, 80 % der Runden mit Eintrag),
@@ -91,7 +91,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Tests: `node tests/dreitage.cjs` (Planer, Umfang, Umstellung, Vorgabe, Arbeitsmodell, Schlaf, Sperrzeiten, Befinden, Kalender und die Brücke
   selbst mit nachgestellten Google-Diensten; ohne Browser),
   `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, Google Kalender mit
-  nachgestellter Brücke, Fußanker je Ort, alle Reiter).
+  nachgestellter Brücke, Fußanker je Ort, alle Reiter),
+  `node tests/langzeit-browser.cjs` (Playwright, Prüfung 21. Oktober: die echte App trainiert 8 bzw. 26 Wochen Tag für Tag zu Hause, im Gym und im Split;
+  prüft Dauer-Kurzversion, Tausch bei voller Leistung, Stufen ohne Gerät, Tempo in der Sackgasse, Gehen ≤ 20 Min, Testwoche, Split, Startgewichte).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
   Erst ab dem ersten Öffnen dieser Version, keine rückwirkende Annahme über alte Termine. Vergangene Snapshots bleiben unverändert.
   `missPending` fragt auf Heute nach fehlenden Abschlüssen der letzten 14 Tage; Ruhetage, gespeicherte Trainings, Mobility/1RM und
@@ -196,7 +198,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   am Tag eine Metcon-Übung gegen eine aus denselben 4 Kandidaten, die `need` trifft (`musHit`, grauer Grund `out.mwhy` am Metcon-Schritt);
   der Kraftteil bleibt. (B) Schritt „Ausgleich“ (`ausgleichStep`, `ausgleichUe`, 4 Min, 2 Sätze, Kacheln `a0`/`a1`) am Ende der Krafttage
   ab Durchgang 3, nicht in Entlastung, Testwoche, Taper, Kurzversion und bei „wenig Zeit“; leichte Übung (ermüdung ≤ 1, Technik ≤ 2, nicht
-  Mobility/Ausdauer/Sprung/Tragen) für den größten Rückstand. Gespeichert als `ausgleich: {ue, reps}` im Kraft-Eintrag, im Verlauf sichtbar.
+  Mobility/Ausdauer/Sprung/Tragen) für den größten Rückstand. Gespeichert als `ausgleich: {ue, reps}` im Kraft-Eintrag, im Verlauf sichtbar; Sätze ohne Eintrag zählen mit der Vorgabe
+  (12 Wdh. bzw. 30 s), wie im Kraftteil.
 - Schmerzen (`painApply` im Getter `DAYS[t].kraft`, `painApplyM` im Getter `DAYS[t].metcon`, `painFlow` in `warmFlow`/`coolFlow`/`murphFlow`,
   `painForUe`, `painSubUe`, `painBody`): roter Fahnen-Knopf „Schmerzen“ in jeder Kraft-Karte (`kFlag`, `ACT.pain`) und bei jedem anderen Schritt oben im Kopf neben dem X
   (`.st-flag`, `ACT['pain-s']`; `painStepLinkHTML` wird nicht mehr benutzt, `PAIN_STEPS`: Aufwärmen, Handstand, Metcon, Ausgleich, Cool-down, Murph), Blatt „<Übung bzw. Schritt> · Schmerzen“,
@@ -295,7 +298,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Übungswahl (`planFill`): Plätze nennen nur Muster; gewählte Leiter (`S.picks`, Schlüssel je Ort, Tag und Platz `slotKey`) bleibt,
   sonst begonnene Leiter vor neuer, dann Nutzen. Tempo-Varianten (`TEMPO_KEYS`) nie im Kraftteil. Platz `{ schwach: [...] }` nimmt den
   schwächsten Kraft-Teil (`partScores`). Der Coach entscheidet, nicht der Nutzer: eine neu freigeschaltete Leiter mit mehr Nutzen
-  und bei Stillstand (`stallOf`: 3× gleiche Stufe ohne mehr Wdh.) eine andere Variante werden sofort übernommen (`S.picks`, `S.swapped`
+  und bei Stillstand (`stallOf`: 3× gleiche Stufe, jedes Mal eine Runde unter der Vorgabe `goal` und je Runde nicht mehr als vorher; Mittel je Runde
+  statt Summe, Maxout-Runde zählt nicht, Entlastung/Kurzversion/Spitze kippen es so nicht mehr) eine andere Variante werden sofort übernommen (`S.picks`, `S.swapped`
   je Platz `{from, to, why: 'neu'|'reiz', ts}`). Fehlt am Ort das Gerät für ein Muster, nimmt `planFill` einen Ersatz ohne dieses Gerät
   (erst Leiter aus nahem Muster `MUSTER_NEAR`, sonst Einzelübung mit Rolle `kraft`, z. B. Table Row / Towel Door Row mit `eq_zuhause`);
   gibt es keinen, fällt der Platz weg (Hinweis am Schritt). Neu nur auf höheren Nutzen wechseln, nie auf eine Leiter, die ein anderer
@@ -305,8 +309,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Ist das Gerät wieder da, nimmt er die alte Wahl zurück (`why: 'zurueck'`, „das Gerät dafür ist jetzt da“), danach nicht wieder zum Ersatz.
 - Sehnen-Bremse (`coachStage`, `ladHist`, `brakeNote`): die Stufe setzt der Coach (`stageDef`), das Rad zeigt nur Stufen bis dahin (`cmax`).
   Aufstieg nur, wenn 2 Einheiten in Folge alle Runden am oberen Ende der Spanne liegen UND die Mindestzeit auf der Stufe um ist
-  (`SEHNE` Klasse 0/1/2 je Leiter, `SEHNE_TAGE` 14/28/42). Höchstens eine Stufe pro Durchgang, keine in der Entlastung, keine ohne Gerät
-  für die nächste Stufe. Nach einer Pause über `SEHNE_PAUSE` (14, hoch 10 Tage) eine Stufe leichter. Wartet die Sehne, steht der Hinweis
+  (`SEHNE` Klasse 0/1/2 je Leiter, `SEHNE_TAGE` 14/28/42). Höchstens eine Stufe pro Durchgang, keine in der Entlastung und keine in der
+  Testwoche (`wait.why: 'test'`). Stufen ohne Gerät am Ort überspringt der Coach (`nextStage`, `cs.skip`, Hinweis „ohne …“); geht über der
+  geschafften Stufe hier keine mehr (Sackgasse, z. B. nur noch „Weste“) oder ist es die oberste, steigert `coachStage` über das Tempo
+  (`cs.dead` → `cs.tpo` mit `top`, wie Paket 61), außer in Entlastung und Testwoche. Ziel eines Tauschs (`reiz`, `weiter`) ist zuerst eine Leiter, auf der
+  es hier wirklich weitergeht (`ladRoom(…, strict)`). Nach einer Pause über `SEHNE_PAUSE` (14, hoch 10 Tage) eine Stufe leichter. Wartet die Sehne, steht der Hinweis
   am Kraft-Schritt (3 s absenken, 1 s Pause) und mit Datum in der Coach-Karte. Volle Wdh. beim Warten sind kein Stillstand.
   Neue Leiter ohne Verlauf und Test: der Coach schätzt den Start (`stageEst`, `EST_C`, `cs.est`, `estWhy`), kein „Erstes Mal · Stufe wählen“ mehr:
   gleiche Familie (eine Stufe der Leiter schon im Metcon/als Ersatz gemacht) → deren Stufe − 1; sonst Teil-Wert des Musters (`partScores`,
@@ -320,6 +327,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Maxout (Testwoche, `k.max`, alte Einträge: `l.test` und erste Übung): Runde 1 ≥ obere Spanne + 3 zählt wie zwei Einheiten oben (`cs.mx`),
   unter der Spanne eine Stufe leichter (`cs.hard.mx`). Metcon-Stufe (`lastMetconStage`) folgt dem Kraftstand: Kraft-Stufe − 1 (Gewichtsleitern
   gleich), ohne Kraftverlauf die Schätzung `stageEst`; Metcon-Stände sind keine Quelle mehr für `stageEst`.
+  Normen auch für die Kurzhantel-/Kettlebell-Stufen (Goblet Squat, Kettlebell Deadlift, Dumbbell Press, Hang Clean/Snatch u. a., Gewicht einer Hantel).
   Gewicht ohne eigenes 1RM (`rmEst` in `kgRec`): gleicher Anteil zwischen den Normen (`rmStd`) wie die 1RM im selben Muster, sonst
   Einsteiger-Norm × Körpergewicht, jeweils 10 % weniger.
   Laufen (`runCap`): lockerer Lauf heute höchstens so lang, dass die Woche 1,3 × Schnitt der letzten 4 Wochen nicht übersteigt (ab 3 Wochen Laufdaten).
@@ -344,7 +352,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Back Lever, Planche, Human Flag) im Wechsel: ungerade Durchgänge Handstand, gerade reihum ein Skill. Steigerung über die Haltezeit (Walk: Meter):
   2× obere Spanne → nächste Stufe (Sehnen-Bremse, eine pro Durchgang, nicht in Entlastung), 2× unter der halben unteren Spanne → leichter; Pause
   = Tage ohne Krafttraining. Karte: Figur der Stufe, Ziel, grüner Chip, „So kommst du rein“ (Handstand und Walk je Stufe aus `SKILL_IN` mit „Raus“,
-  sonst `schritte` der Übung), Zähler „Beste Zeit“/„Beste Strecke“ (`hsSec`). Gespeichert als `sb: {lad, stage, sec}` (Name `skill` ist bei alten
+  sonst `schritte` der Übung), Zähler „Beste Zeit“/„Beste Strecke“ (`hsSec`). Gespeichert als `sb: {lad, stage, sec}` (ohne Eintrag das untere Ende der Spanne mit `d: 1`, zählt nicht als Rekord oder Signal) (Name `skill` ist bei alten
   Einträgen eine Liste!), Handstand zusätzlich weiter als `hs`-Text. Coach-Karte und Ausblick über `skillNote`. Wissen › Skill-Ziele zeigt den Stand je Skill.
 - Sprünge im Aufwärmen nur ein sauberer Satz (`jumpQty`: „3 × 5“ → „5“, Aufwärmen = eine Übung nach der anderen, Dennis); statt „30 s Handgelenke“ die Übung Wrist Rocks (10) in `WARMUP`.
 - Sprünge (`jumps.lad`, Tag 3: `g_broad_jump` Squat Jump → Broad Jump → Tuck Jump; Tag 1 bleibt Skater Jump): im Aufwärmen die Stufe vom Coach
@@ -473,15 +481,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Belastung (Dennis, Paket 57): beim Speichern (Krafttag, Lauf, Ergometer, Zusatz; nicht Testtage, Mobility, 1RM) einmal „Wie hart war’s?“ als
   Regler 1–10 (`rpeThen` um `saveDay` in `saveAsk`, startet leer, „Speichern“ erst nach einer Wahl, „Überspringen“ = ohne Wert; Entwurf `_rpe`).
   Im Eintrag `rpe`, `min` (Krafttag: Zeit seit `_t0` = erster Schritt, gedeckelt 0,5–1,5 × geplant; Lauf: Zeit von der Uhr) und `soll` (`loadAttach`).
-  Geplant = Minuten je Schritt × beabsichtigte Härte (`stepRi`: Aufwärmen 3, Skill 4, Kraft 7,5 bzw. Entlastung 6/Testwoche 8, Ausgleich 5, Metcon 8,
+  Geplant = Minuten × geplante Härte der ganzen Einheit: Mitte zwischen Zeitschnitt und härtestem Schritt plus ½ (Prüfung 21. Oktober; Härte je Schritt `stepRi`: Aufwärmen 3, Skill 4, Kraft 7,5 bzw. Entlastung 6/Testwoche 8, Ausgleich 5, Metcon 8,
   Abschluss `FIN_RI` locker 4/gleichmäßig 5/30-30 8, Cool-down 2; `stepsLoad`, `runLoad`, `unitLoad`), gemacht = `rpe` × `min` (`logLoad`).
   Plan › Deine Woche: Karte „Belastung“ (`loadCardHTML`, `loadWeek`): Balken je Tag, geplant gestrichelt, grün bis 15 % über dem Plan (`LOAD_OVER`),
   rot mit „!“ darüber, darunter die Woche gegen den Plan der Woche. Der Coach ändert damit noch nichts (Pakete 58 ff.). Alte Einträge ohne Wert bleiben.
 - Leistung als Signal (Dennis, Paket 58, „der Coach soll den richtigen Reiz selbst ermitteln“): `sigOf(l)` je Einheit, nur Vergleich mit eigenen Werten:
   Kraft „Mehr Mühe als sonst“ (mindestens 2 Übungen mit je ≥ 2 Runden unter `goal`, nicht bei Schmerz leichter/Pause, nicht in den ersten 2 Einheiten
   einer Stufe), Ausdauer „Puls höher“ (Puls ≥ `SIG_HR` 6 % über dem Schnitt der letzten 3–6 Einheiten gleicher Art bei nicht schnellerem Tempo bzw.
-  nicht mehr Watt), Skill „Haltezeit kürzer“ (unter `SIG_HOLD` 75 % des Schnitts der letzten 3 auf derselben Stufe), Belastung „Härter als geplant“
-  (`logLoad` > `soll` × `LOAD_OVER`). `sigState`: Signale in den letzten zwei Einheiten hintereinander = `cut`; `sigKurz(tag)` macht die nächste
+  nicht mehr Watt), Skill „Haltezeit kürzer“ (unter `SIG_HOLD` 75 % des Schnitts der letzten 3 auf derselben Stufe), Belastung „Härter als sonst“
+  (Einschätzung ≥ 8 und 2 Punkte über dem Schnitt der letzten 3–6 eigenen Einschätzungen gleicher Art, ohne 3 frühere erst ab 9; Prüfung 21. Oktober:
+  vorher galt jede 6 als „härter als geplant“ und machte jede Einheit zur Kurzversion). Alte Einträge ohne `sv` bekommen `logSoll` = `soll` × 1,35. `sigState`: Signale in den letzten zwei Einheiten hintereinander = `cut`; `sigKurz(tag)` macht die nächste
   Einheit zur Kurzversion (in `isKurz0`, Grund in `heuteSub`), Rückweg in Heute anpassen (Karte `.ad-sig`, `ACT['sig-full']`: `_kurz` '0', „Doch kürzer“
   gibt zurück). Eine Einheit ohne Signal setzt zurück. `sigHold` (gekürzt oder 2 Einheiten mit Signal in 14 Tagen) hält `umfGrow` und den Zusatz.
   Signale stehen unter „Was dein Coach daraus macht“ (`outlookHTML`, auch für Läufe). Nichts wird gespeichert, alles aus den Einheiten berechnet.
@@ -518,7 +527,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Heute (`zoneToday`, Plan 2, Krafttag, nicht Testwoche): Übungen, deren Hauptmuskel in einer müden Zone liegt, eine Runde weniger (`zoneApply` im
   Getter `DAYS[t].kraft`, `x.zcut`, `kRounds`; die letzte Minute ist frei, `zoneFreeHTML`, im Eintrag `null` und `zcut`), Vorgabe und Stufe bleiben;
   Beine müde: Abschluss locker und ohne Laufen (`zoneLegs` in `finOf`/`finDev`); Metcon (`planFill`) und Ausgleich (`ausgleichUe0`) nehmen dann keine
-  Übung auf der müden Zone; zwei müde Zonen = Kurzversion (`zoneKurz` in `isKurz0`). Rückweg: Heute anpassen › „Doch volle Runden“ (Entwurf `_zf`).
+  Übung auf der müden Zone; zwei müde Zonen, die die Einheit heute trainiert (`zonesOfDay` aus `kslots`), = Kurzversion (`zoneKurz` in `isKurz0`; vorher wurde im Split
+  der Pull-Tag nach Push jede Woche gekürzt). Rückweg: Heute anpassen › „Doch volle Runden“ (Entwurf `_zf`).
   Satz unter dem Titel (`zoneLine` in `heuteSub`, mit „Erholung ansehen“ `ACT['zone-open']`) und Coach-Hinweis am Kraft-Schritt. Karte „Erholung“
   (`zoneCardHTML`, `#zone-card`) nur in Plan › Deine Woche (diese Woche), nicht auf Heute: Figur vorn eingefärbt, je Zone ein Ring „wie erholt“
   (100 = frisch) mit „bis Fr“ (müde) bzw. „ab 21 Uhr“ (frisch), darunter der Grund („Pistol Squat und 40 Min Laufen am Montag“).
