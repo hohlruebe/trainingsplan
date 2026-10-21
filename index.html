@@ -675,6 +675,13 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .bf .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.2;stroke-linejoin:round}
 .bf .mu.b0{fill:var(--mb0)}.bf .mu.b1{fill:var(--mb1)}.bf .mu.b2{fill:var(--mb2)}.bf .mu.b3{fill:var(--mb3)}
 .bf .mu.p1{fill:var(--acc)}.bf .mu.p2{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
+.mi{display:block;flex:none;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--ink) 7%,var(--card));--g:color-mix(in srgb,var(--ink) 13%,var(--paper));--g2:color-mix(in srgb,var(--ink) 24%,var(--paper))}
+.mi svg{display:block;width:100%;height:100%}.mi .sil,.mi ellipse,.mi rect{fill:var(--g)}.mi .hair{fill:var(--g2)}.mi .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.1;stroke-linejoin:round}.mi .mu.hi{fill:var(--acc)}.mi .mu.lo{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
+.mfig{margin:4px 0 0}.mfig figure{margin:0}.mfig svg{width:auto;height:clamp(300px,calc(100svh - 500px),440px);display:block;margin:0 auto;cursor:pointer;-webkit-user-select:none;user-select:none}
+.mfig .mu{transition:fill .2s}.mus-hint{font-size:15px;color:var(--ink2);text-align:center;margin:8px 2px 2px}
+.mus-sel{display:flex;gap:12px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}.mus-sel .gl-t{flex:1;min-width:0}.mus-sel .btn{flex:none}
+.mus-x{font-size:15px;color:var(--ink2);margin:10px 0 14px;line-height:1.5}
+.mus-hero{display:flex;gap:16px;align-items:center}.mus-hero h2{margin:0;font-size:26px}.mus-hero p{margin:4px 0 8px}
 .mus-lg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin:6px 0 10px;color:var(--ink2)}.mus-lg span{display:inline-flex;align-items:center;gap:6px}
 .mus-lg i{flex:0 0 auto;width:10px;height:10px;border-radius:3px}.mus-lg i.p1{background:var(--acc)}.mus-lg i.p2{background:color-mix(in srgb,var(--acc) 38%,color-mix(in srgb,var(--ink) 21%,var(--paper)))}
 .mus-card .sec-k{margin-top:0}.mus-empty{text-align:center}
@@ -2777,7 +2784,7 @@ var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen', 'rm'] };
 var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Mobility', rm: '1RM' };
-var HIDDEN = { fix: 'profil', fam: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
+var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
@@ -3023,7 +3030,7 @@ function render() {
   if (S.review && FOKUS_IDS.indexOf(S.review.fokus) < 0) S.review.fokus = 'allround';
   dayCheck();
   syncDays();
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kalender: renderKalender }[ui.tab];
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kalender: renderKalender }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
@@ -11188,6 +11195,114 @@ function bodySVG(parts, cls) {
 function musFigHTML(cls, small) {
   return '<div class="bf' + (small ? ' sm' : '') + '"><figure>' + bodySVG(BODY_F, cls) + '<figcaption>Vorn</figcaption></figure><figure>' + bodySVG(BODY_B, cls) + '<figcaption>Hinten</figcaption></figure></div>';
 }
+/* ---------- Muskeln in der Bibliothek (Dennis, Variante B2, Bild-Stil S3) ----------
+   Tools › Übungen › Muskeln: eine große Figur, Vorn | Hinten. Antippen wählt nur aus (Muskel blau, oft mitarbeitende hell),
+   erst „… öffnen“ zeigt die Seite des Muskels. Ein Tippen zählt nur ohne Wischen (unter 10 px), kleine Muskeln fängt eine größere Fläche. */
+var MUS_TXT = { brust: 'Drückt die Arme vor den Körper.', schulter_vorn: 'Hebt den Arm nach vorn und oben.', schulter_seite: 'Hebt den Arm zur Seite, macht die Schultern breit.',
+  schulter_hinten: 'Zieht den Arm nach hinten, hält die Schultern gerade.', trizeps: 'Streckt den Ellbogen, hinten am Oberarm.', bizeps: 'Beugt den Ellbogen, vorn am Oberarm.',
+  unterarm: 'Hält den Griff und das Handgelenk fest.', latissimus: 'Großer Rückenmuskel, zieht die Arme nach unten und hinten.', oberer_ruecken: 'Zieht die Schulterblätter zusammen und nach unten.',
+  rueckenstrecker: 'Hält den Rücken gerade und streckt ihn.', bauch_gerade: 'Rollt den Oberkörper ein und hält die Mitte fest.', bauch_schraeg: 'Dreht den Oberkörper und hält ihn seitlich stabil.',
+  hueftbeuger: 'Zieht das Knie nach oben.', gesaess: 'Streckt die Hüfte, stärkster Muskel des Körpers.', quadrizeps: 'Vorn am Oberschenkel, streckt das Knie.',
+  beinbeuger: 'Hinten am Oberschenkel, beugt das Knie und streckt die Hüfte.', adduktoren: 'Innen am Oberschenkel, zieht das Bein zur Mitte.', abduktoren: 'Außen an der Hüfte, hält das Becken gerade.',
+  waden: 'Streckt das Sprunggelenk, für Sprünge und Laufen.' };
+// Muskeln, die oft mitarbeiten: die häufigsten mitarbeitenden Muskeln der Übungen, in denen er Hauptmuskel ist.
+var MCO_C = {};
+function musCo(m) {
+  if (MCO_C[m]) return MCO_C[m];
+  var c = {}; Object.keys(UE).forEach(function (k) { var u = UE[k]; if (!u.muskeln || (u.muskeln.primaer || []).indexOf(m) < 0) return; (u.muskeln.sekundaer || []).forEach(function (x) { if (x !== m && MUS_NAME[x]) c[x] = (c[x] || 0) + 1; }); });
+  return (MCO_C[m] = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).slice(0, 2));
+}
+function musBack(m) { var B = bodyOf(sexT()); return !B.f[m] && !!B.b[m]; }
+function musBox(m) {
+  var B = bodyOf(sexT()), n = (B.f[m] || B.b[m] || '').match(/-?\d+(\.\d+)?/g) || [], x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (var i = 0; i + 1 < n.length; i += 2) { x0 = Math.min(x0, +n[i]); x1 = Math.max(x1, +n[i]); y0 = Math.min(y0, +n[i + 1]); y1 = Math.max(y1, +n[i + 1]); }
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+}
+// Bild eines Muskels (S3): auf den Muskel gezoomt, er selbst in --acc, oft mitarbeitende hell, der Körper drumherum grau.
+function musIcon(m, size, zoom) {
+  var co = musCo(m), b = musBox(m), s = Math.max(b.w, b.h) * (zoom || 1.9) + 16, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+  var svg = bodySVG(musBack(m) ? BODY_B : BODY_F, function (x) { return x === m ? 'hi' : co.indexOf(x) >= 0 ? 'lo' : ''; });
+  return '<span class="mi" style="width:' + size + 'px;height:' + size + 'px">' + svg.replace('viewBox="0 0 200 440"', 'viewBox="' + (cx - s / 2) + ' ' + (cy - s / 2) + ' ' + s + ' ' + s + '" preserveAspectRatio="xMidYMid slice"') + '</span>';
+}
+function musUe(m, all) {
+  var have = haveEq(), by = function (a, b) { return b.nutzen - a.nutzen; }, p = [], s = [];
+  Object.keys(UE).forEach(function (k) {
+    var u = UE[k]; if (!u.muskeln || u.muster === 'mobilitaet' || (!all && !eqOk(u.equipment, have))) return;
+    if ((u.muskeln.primaer || []).indexOf(m) >= 0) p.push(u); else if ((u.muskeln.sekundaer || []).indexOf(m) >= 0) s.push(u);
+  });
+  return { p: p.sort(by), s: s.sort(by) };
+}
+// Status aus dem Muskelausgleich (ab 3 Krafteinheiten in 4 Wochen).
+function musStat(m) {
+  var B = musBalance(); if (!B.ok || B.lv[m] == null) return null;
+  var c = B.lv[m], t = B.ratio[m] > 2.2 ? 'viel' : ['kommt zu kurz', 'wenig', 'okay', 'im Gleichgewicht'][c];
+  return '<span class="chip" style="background:color-mix(in srgb,var(--mb' + c + ') 30%,transparent)">' + t + '</span>';
+}
+// Zuletzt als Hauptmuskel trainiert (Kraftteil, Metcon und Ausgleich).
+function musLast(m) {
+  var hit = function (id) { var u = UE[id]; return u && u.muskeln && (u.muskeln.primaer || []).indexOf(m) >= 0; }, d = null;
+  LOGS.forEach(function (l) {
+    if (!trainingLog(l) || (d && l.date <= d)) return;
+    var ids = (l.kraft || []).map(function (k) { return ueIdOf(k.n); }).concat(((l.metcon || {}).items || []).map(function (n) { return ueIdOf(n); }), l.ausgleich ? [l.ausgleich.ue] : []);
+    if (ids.some(hit)) d = l.date;
+  });
+  if (!d) return '';
+  var n = daysBetween(parseISO(d), new Date());
+  return n <= 0 ? 'zuletzt heute' : n === 1 ? 'zuletzt gestern' : n < 7 ? 'zuletzt ' + WTAG[(parseISO(d).getDay() + 6) % 7].slice(0, 2) : 'zuletzt vor ' + n + ' Tagen';
+}
+function musLibHTML() {
+  var back = ui.musSide === 'b', m = ui.musSel && MUS_NAME[ui.musSel] && musBack(ui.musSel) === back ? ui.musSel : null, co = m ? musCo(m) : [];
+  var h = '<section class="card"><div class="seg" role="group" aria-label="Seite" style="margin-bottom:8px">' + [['f', 'Vorn'], ['b', 'Hinten']].map(function (o) {
+    var on = (o[0] === 'b') === back; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-side" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+    '<div class="mfig bf" role="group" aria-label="Muskeln ' + (back ? 'hinten' : 'vorn') + '"><figure>' + bodySVG(back ? BODY_B : BODY_F, function (x) { return 'mx-' + x + (x === m ? ' p1' : co.indexOf(x) >= 0 ? ' p2' : ''); }) + '</figure></div>' +
+    (m ? musSelHTML(m) : '<p class="mus-hint">Tipp einen Muskel an.</p>') + '</section>';
+  return h;
+}
+// Gewählter Muskel als eine Zeile unter der Figur, damit der ganze Körper sichtbar bleibt. Erst „Öffnen“ zeigt die Seite.
+function musSelHTML(m) {
+  var n = musUe(m).p.length, B = musBalance(), c = B.ok && B.lv[m] != null ? B.lv[m] : null;
+  var st = c == null ? '' : B.ratio[m] > 2.2 ? 'viel' : ['kommt zu kurz', 'wenig', 'okay', 'im Gleichgewicht'][c];
+  return '<div class="mus-sel">' + musIcon(m, 52) + '<span class="gl-t"><b>' + esc(MUS_NAME[m]) + '</b><small>' + esc((st ? st + ' · ' : '') + (n === 1 ? '1 Übung' : n + ' Übungen') + ' hier') + '</small></span>' +
+    '<button type="button" class="btn primary small" data-act="mus-open" data-v="' + m + '">Öffnen</button></div>';
+}
+function musRow(u) { return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '">' + miniFig(u.id) + '<span class="gl-t"><b>' + esc(u.name) + '</b><small>' + esc(u.trainiert || MUSTER[u.muster] || '') + '</small></span><i class="fs-i" aria-hidden="true">i</i></button>'; }
+function renderMuskel() {
+  var m = MUS_NAME[ui.musId] ? ui.musId : 'brust', all = !!ui.musAll, U = musUe(m, all), st = musStat(m), la = musLast(m), more = !!ui.musMore;
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="uebungen" aria-label="Zurück">' + BACK + '</button>' +
+    '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hell: arbeitet oft mit (' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ').' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
+    '<div class="seg" role="group" aria-label="Ort" style="margin:0 0 12px">' + [['', ortName(curOrt())], ['1', 'Alle']].map(function (o) { var on = !!o[0] === all; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-all" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+  h += '<section class="card"><div class="card-head"><h2>Trainiert ' + (m === 'gesaess' ? 'es' : /^(brust|schulter|unterarm|bauch_schraeg|waden|adduktoren|abduktoren)/.test(m) ? 'sie' : 'ihn') + ' vor allem</h2><span class="chip">' + U.p.length + '</span></div>' +
+    (U.p.length ? U.p.map(musRow).join('') : '<p class="muted">Hier keine. Unter „Alle“ siehst du die Übungen mit anderem Equipment.</p>') + '</section>';
+  if (U.s.length) h += '<section class="card"><div class="card-head"><h2>Arbeitet mit</h2><span class="chip">' + U.s.length + '</span></div>' + U.s.slice(0, more ? 999 : 6).map(musRow).join('') +
+    (U.s.length > 6 && !more ? '<button type="button" class="btn small" style="margin-top:10px" data-act="mus-more">Alle ' + U.s.length + ' zeigen</button>' : '') + '</section>';
+  return h;
+}
+ACT['lib-view'] = function (el) { ui.libView = el.dataset.v || ''; render(); };
+ACT['mus-side'] = function (el) { ui.musSide = el.dataset.v; render(); };
+ACT['mus-open'] = function (el) { ui.musId = el.dataset.v; ui.musAll = false; ui.musMore = false; ui.tab = 'muskel'; render(); window.scrollTo(0, 0); };
+ACT['mus-all'] = function (el) { ui.musAll = !!el.dataset.v; render(); };
+ACT['mus-more'] = function () { ui.musMore = true; render(); };
+// Tippen auf die Figur: nur ohne Wischen; daneben getippt zählt der nächste Muskel bis 28 px (kleine Muskeln).
+(function () {
+  var p0 = null;
+  document.addEventListener('pointerdown', function (e) { p0 = e.target.closest && e.target.closest('.mfig') ? { x: e.clientX, y: e.clientY } : null; }, true);
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest && e.target.closest('.mfig'); if (!f) return;
+    if (p0 && Math.abs(e.clientX - p0.x) + Math.abs(e.clientY - p0.y) > 10) return;
+    var m = musAt(f, e); if (!m) return;
+    ui.musSel = ui.musSel === m ? null : m; haptic('tap'); render();
+  });
+})();
+function musAt(f, e) {
+  var re = /mx-(\w+)/, t = e.target.closest('path.mu'), c = t && re.exec(t.getAttribute('class') || ''); if (c) return c[1];
+  var best = null, bd = 28;
+  f.querySelectorAll('path.mu').forEach(function (p) {
+    var k = re.exec(p.getAttribute('class') || ''); if (!k) return;
+    var r = p.getBoundingClientRect(), dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right), dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom), d = Math.sqrt(dx * dx + dy * dy);
+    if (d < bd) { bd = d; best = k[1]; }
+  });
+  return best;
+}
 // Bibliothek: Hauptmuskeln kräftig blau, mitarbeitende hell (Rot bis Grün bleibt dem Ausgleich vorbehalten).
 function musOfHTML(u, small) {
   var m = u && u.muskeln; if (!m || !(m.primaer || []).some(function (x) { return MUS_NAME[x]; })) return u && u.trainiert ? '<p class="muted small">Trainiert: ' + esc(u.trainiert) + '</p>' : '';
@@ -11448,7 +11563,10 @@ function nextUnlockHTML(tag, inner) {
 }
 function renderUebungen() {
   var sub = (ui.libAll ? 'Alle' : esc(ortName(curOrt()))) + ' · ' + famCount() + ' Familien · ' + (ui.libAll ? Object.keys(UE).length : libCount()) + ' Übungen';
-  return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + sub + '</p></section>' + libCapHTML() +
+  var mv = ui.libView === 'mus', seg = '<div class="seg" role="group" aria-label="Ansicht" style="margin:4px 0 14px">' + [['', 'Muster'], ['mus', 'Muskeln']].map(function (o) {
+    var on = (ui.libView || '') === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="lib-view" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
+  if (mv) return '<section class="hero"><h1>Übungen</h1></section>' + libCapHTML() + seg + musLibHTML(); // Dennis: der ganze Körper soll ohne Scrollen zu sehen sein
+  return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + sub + '</p></section>' + libCapHTML() + seg +
     '<label class="search"><span class="sr">Übung suchen</span><input id="gloss-search" type="search" placeholder="Übung suchen" value="' + esc(ui.glossQuery) + '"></label>' +
     '<div id="gloss-list">' + glossListHTML(filteredGloss()) + '</div>' + libBandsHTML();
 }

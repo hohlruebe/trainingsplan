@@ -486,6 +486,29 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     }
     console.log('PASS: Zuhause ohne Gewichte: kein Thruster als Sackgasse, mit Bändern Band Squat');
 
+    // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(old(), { planV: 2, tag: 1, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe', 'eq_band'] }], ort: 'o1' }), logs()]);
+    await page.evaluate(() => window.tpTest.navigate('uebungen'));
+    await page.getByRole('button', { name: 'Muskeln', exact: true }).click();
+    const fig = await page.locator('.mfig svg').boundingBox(), vh = page.viewportSize().height;
+    assert.ok(fig.y >= 0 && fig.y + fig.height <= vh, 'ganzer Körper ohne Scrollen sichtbar');
+    await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27); await page.mouse.down(); await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27 + 40, { steps: 4 }); await page.mouse.up();
+    assert.equal(await page.locator('.mus-sel').count(), 0, 'Wischen über die Figur wählt nichts aus');
+    await page.mouse.click(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27);
+    assert.match(await page.locator('.mus-sel').innerText(), /Brust[\s\S]*Übungen hier[\s\S]*Öffnen/, 'Antippen wählt die Brust aus');
+    assert.equal(await page.evaluate(() => document.querySelectorAll('.mfig path.mu.p1').length), 2, 'Brust blau (beide Seiten)');
+    assert.ok(await page.evaluate(() => document.querySelectorAll('.mfig path.mu.p2').length) > 0, 'oft mitarbeitende hell');
+    assert.equal(await page.locator('#view .mfig').count(), 1, 'noch keine Muskel-Seite');
+    await page.getByRole('button', { name: 'Öffnen', exact: true }).click();
+    assert.ok(await page.getByRole('heading', { name: 'Brust', level: 2 }).isVisible());
+    assert.ok(await page.getByRole('heading', { name: /^Trainiert sie vor allem/ }).isVisible());
+    const nOrt = await page.locator('#view .ft-row').count();
+    await page.getByRole('button', { name: 'Alle', exact: true }).click();
+    assert.ok(await page.locator('#view .ft-row').count() > nOrt, 'Alle zeigt mehr Übungen');
+    await page.locator('#view .ft-row').first().click();
+    assert.ok(await page.locator('#sheet .ue-info').isVisible(), '(i) öffnet die Anleitung'); await page.locator('#sheet [data-sh]').first().click(); await page.waitForTimeout(300);
+    console.log('PASS: Muskeln in der Bibliothek: ganzer Körper, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
       for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {

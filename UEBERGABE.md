@@ -4,8 +4,18 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 21. Oktober 2026 (Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 21. Oktober 2026 (Muskeln in der Bibliothek; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Muskeln in der Bibliothek (21. Oktober 2026, Claude)
+- Dennis zeigte Muskel-Icons von Gymjourneys „zur Orientierung“. Konzept im Canvas mit Varianten (Übersicht A Raster, B Figur antippen, C Liste;
+  Muskel-Seite M1/M2; Bild-Stile S1–S4). Dennis: B, dann drei B-Varianten; „aufpassen, dass man beim Hoch- und Runterwischen nicht aus Versehen einen
+  Muskel öffnet“; S3 gefällt; gewählt B2 „aber zeige wirklich den ganzen Körper“.
+- Umgesetzt: siehe CLAUDE.md „Muskeln in der Bibliothek“. Statt Doppeltippen: Tippen wählt aus, „Öffnen“ öffnet (Doppeltippen ist unsichtbar und stört das Zoomen).
+  Bilder aus der eigenen Figur (19 Muskelgruppen), keine fremden Grafiken.
+- Geprüft: `tests/dreitage-browser.cjs` (ganzer Körper im Bild, Wischen wählt nichts, Antippen Brust, Öffnen, Ort | Alle, (i)), alle übrigen Tests.
+- Offen: Dennis testet. Ideen aus dem Konzept, nicht gebaut: Muskel-Bilder im (i) und in der Muskelausgleich-Karte; „Seitliche Schulter“ hat zuhause
+  nur 1 Übung (Band-Übungen ergänzen).
 
 ## Trainingstage nur über ein Blatt (21. Oktober 2026, Claude)
 - Dennis (Screenshot Plan › Deine Woche): „Die Änderung der Anzahl der Trainingstage geht zu leicht, manchmal passiert das aus Versehen, außerdem sollen
