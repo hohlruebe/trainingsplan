@@ -11193,14 +11193,13 @@ var BODY_N = 0;
 function bodySVG(parts, cls) {
   var B = bodyOf(sexT()), back = parts === BODY_B, P = back ? B.b : parts === BODY_F ? B.f : parts, id = 'bs' + (++BODY_N);
   var half = '<path class="sil" d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path class="mu' + (m.charAt(0) === '_' ? '' : ' ' + (cls(m) || '')) + '" d="' + P[m] + '"/>'; }).join('');
-  // Licht von vorn: jede Fläche rund wie ein Zylinder (Mitte hell, Ränder dunkel), nur angedeutet. Fängt keine Taps.
-  var sh = '<g class="sh" fill="url(#' + id + ')"><path d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path d="' + P[m] + '"/>'; }).join('') + '</g>';
+  // Nur die Muskeln ganz leicht gewölbt (Ränder ein wenig dunkler), Umriss und Kopf bleiben flach. Fängt keine Taps.
+  var sh = '<g class="sh" fill="url(#' + id + ')">' + Object.keys(P).map(function (m) { return '<path d="' + P[m] + '"/>'; }).join('') + '</g>';
   var hair = B.hair ? '<path class="hair" d="' + (B.hair === 'w' ? (back ? BODY_HAIR_B : BODY_HAIR_F) : (back ? BODY_HAIR_MB : BODY_HAIR_MF)) + '"/>' : '';
   var head = '<ellipse cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair === 'w' ? 23 : 24) + '"/><rect x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>';
-  return '<svg viewBox="0 0 200 480" aria-hidden="true"><defs><linearGradient id="' + id + '"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".3" stop-color="#000" stop-opacity="0"/>' +
-    '<stop offset=".5" stop-color="#fff" stop-opacity=".05"/><stop offset=".75" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient></defs>' +
+  return '<svg viewBox="0 0 200 480" aria-hidden="true"><defs><linearGradient id="' + id + '"><stop offset="0" stop-color="#000" stop-opacity=".07"/><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".08"/></linearGradient></defs>' +
     head.replace(/<(ellipse|rect)/g, '<$1 class="sil"') + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
-    '<g class="sh" fill="url(#' + id + ')">' + head + '</g>' + sh + '<g transform="translate(200,0) scale(-1,1)">' + sh + '</g>' +
+    sh + '<g transform="translate(200,0) scale(-1,1)">' + sh + '</g>' +
     (hair ? hair + '<g transform="translate(200,0) scale(-1,1)">' + hair + '</g>' : '') + '</svg>';
 }
 function musFigHTML(cls, small) {

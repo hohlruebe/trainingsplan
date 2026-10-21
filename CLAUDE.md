@@ -185,7 +185,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`nextUnlockHTML`). Neu freigeschaltet / Neuer Reiz (`planFill().neu`) und Sehnen-Pause stehen nur in der Coach-Karte (`coachCardHTML`).
 - Muskeln (`MUS_NAME`, Figur `bodySVG`/`musFigHTML` aus `BODY_SIL`, `BODY_F`, `BODY_B`: graue anatomische Figur vorn/hinten, Umrisse in
   Kartenfarbe; Teile mit „_“ zählen nicht). viewBox 0 0 200 480: Unterschenkel mit Wade, Knöchel und Fuß (hinten `_achilles`),
-  nur ganz leicht räumlich (Dennis: „nur ganz leicht angedeutet, nah am Original“): über jeder Fläche ein schwacher Verlauf (Ränder 12–14 % dunkler, `.sh`, je SVG eigene ID `bs<n>`, `pointer-events: none`). Bibliothek: aufgeklappte Übung zeigt `musOfHTML` (Hauptmuskeln `--acc`, mitarbeitend hellblau,
+  nur ganz leicht räumlich (Dennis: „nur ganz leicht angedeutet, nah am Original“): nur über den Muskeln ein schwacher Verlauf (Ränder 7–8 % dunkler, Umriss und Kopf flach, `.sh`, je SVG eigene ID `bs<n>`, `pointer-events: none`). Bibliothek: aufgeklappte Übung zeigt `musOfHTML` (Hauptmuskeln `--acc`, mitarbeitend hellblau,
   aus `muskeln.primaer/sekundaer`). Muskelausgleich (`musVol`, `musBalance`, gemerkt in `MB_C`): Sätze je Muskel der letzten 4 Wochen
   (Hauptmuskel 1, mitarbeitend ½, Metcon halbe Runden bis 4, Murph 10, `ausgleich` zählt mit), geteilt durch das Soll `MUS_W`, gemessen am
   mittleren Muskel → Stufe 0–3 (Rot `--mb0` vernachlässigt … Grün `--mb3` im Gleichgewicht, über 2,2× wieder gelb). Gegenspieler-Paare

@@ -20,6 +20,7 @@ Stand: 21. Oktober 2026 (Muskeln in der Bibliothek; davor Trainingstage nur übe
   Seite heißt jetzt „Körper“ (interne ID bleibt `muskeln`). Figur neu bis zu den Füßen (viewBox 480: Wade, Knöchel, Fuß, hinten Achillessehne und Ferse),
   dazu ein schwacher Verlauf über jeder Fläche. Gilt für alle Figuren (Körper-Check, Muskelausgleich, Beschwerden, Grundmuster).
   Dennis: „nur ganz leicht angedeutet und näher am Original“: Verlauf deutlich schwächer, ohne Boden-Schatten und ohne eigene Fuß-Flächen.
+  Dann: „nur an der Form der Muskeln ganz leicht angedeutet“: Verlauf nur noch über den Muskeln, Ränder 7–8 % dunkler.
 - Offen: Dennis testet. Ideen aus dem Konzept, nicht gebaut: Muskel-Bilder im (i) und in der Muskelausgleich-Karte; „Seitliche Schulter“ hat zuhause
   nur 1 Übung (Band-Übungen ergänzen).
 
