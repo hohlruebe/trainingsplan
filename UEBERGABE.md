@@ -4,8 +4,19 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 21. Oktober 2026 (Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 21. Oktober 2026 (Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Muskel-Bilder, seitliche Schulter und Abduktoren (21. Oktober 2026, Claude)
+- Dennis nach dem Merge der Prüfung: „kümmer dich jetzt um die restlichen Sachen“ = die offenen Ideen aus „Körper unter Tools“.
+- Muskel-Bilder (`musChipsHTML`): im (i) jeder Übung „Trainiert vor allem“ mit Stand bei dir, in der Karte Muskelausgleich „Kommt zu kurz“ mit % vom Soll.
+  Tippen öffnet die Muskel-Seite, Zurück führt zurück; im Training nur ein Hinweis (kein Sprung aus dem Training).
+- Zu Hause (Ringe, Band, Alltag) hatte die seitliche Schulter nur Band Lateral Raise (und Shoulder CARs), die Abduktoren 3 Übungen. Neu: Cross-Body Band Lateral Raise,
+  Band Y-Raise, Doorframe Lateral Raise Hold, Side-Lying Hip Abduction, Fire Hydrant (Muster Isolation, also für Ausgleich, nicht im Kraftteil).
+  Eingebaut über `einbauen_bibliothek.js`; das Paket liegt als `pakete/neu_isolation_2.json` (das alte `neu_isolation.json` bleibt). Ohne Grafik (Platzhalter).
+- Test: der Speicher-Test in `dreitage-browser` wartete auf „mehr als 0 Einträge“, obwohl die Testdaten schon 7 haben (Wettlauf, 2 von 6 Läufen rot). Jetzt
+  wartet er auf den neuen Eintrag.
+- Offen: Grafiken für die 5 neuen Übungen (Maskottchen, Runde im Canvas).
 
 ## Prüfung der Trainingsplanung (21. Oktober 2026, Claude)
 - Dennis: „Überprüfe, ob unsere Trainingsplanung wirklich gut funktioniert … eine umfassende Bugprüfung“, danach „korrigiere das“.
@@ -44,8 +55,7 @@ Stand: 21. Oktober 2026 (Prüfung der Trainingsplanung mit Korrekturen; davor K�
   Dann: „orientiere dich an den Screenshots (Gymjourneys), damit es organischer und nicht so klinisch aussieht“: alle Muskeln neu als Blattformen,
   die den Körper fast ganz füllen (Brust als Fächer zur Achsel, Bauch als Kissen, Oberschenkel als Spindeln, Wade mit zwei Köpfen und Soleus, Schulterblatt, Flanke).
   Namen der 19 Muskelgruppen bleiben, nur Füllteile mit „_“ sind neu.
-- Offen: Dennis testet. Ideen aus dem Konzept, nicht gebaut: Muskel-Bilder im (i) und in der Muskelausgleich-Karte; „Seitliche Schulter“ hat zuhause
-  nur 1 Übung (Band-Übungen ergänzen).
+- Erledigt (siehe oben): Muskel-Bilder im (i) und in der Muskelausgleich-Karte, Übungen für die seitliche Schulter zu Hause.
 
 ## Trainingstage nur über ein Blatt (21. Oktober 2026, Claude)
 - Dennis (Screenshot Plan › Deine Woche): „Die Änderung der Anzahl der Trainingstage geht zu leicht, manchmal passiert das aus Versehen, außerdem sollen

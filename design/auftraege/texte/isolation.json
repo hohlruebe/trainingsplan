@@ -430,6 +430,120 @@
       "skalierung": "Leichter: leichteres Band. Schwerer: stärkeres Band.",
       "grenzen": "Aufhören bei Schmerz in der Schulter.",
       "pruefung": { "art": ["ok"], "problem": "Text war verständlich.", "korrektur": "Handtuch als Selbstkontrolle.", "status": "geklaert" }
+    },
+    {
+      "id": "g_band_cross_lateral_raise",
+      "zweck": "Einarmiges Seitheben mit Band über Kreuz: die Spannung bleibt auch unten, die seitliche Schulter arbeitet die ganze Bewegung.",
+      "vorbereitung": "Ein Band.",
+      "schritte": [
+        "Stell dich mit dem linken Fuß auf ein Ende des Bandes.",
+        "Greif das andere Ende mit der rechten Hand vor dem Körper, das Band läuft über Kreuz.",
+        "Heb den fast gestreckten Arm seitlich bis Schulterhöhe.",
+        "Senk ihn langsam ab. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Arm sinken lassen, bis das Band locker ist, dann vom Band steigen.",
+      "sauber": "Der Arm kommt bis Schulterhöhe, die Schulter zieht nicht zum Ohr, der Oberkörper bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Der Oberkörper lehnt sich weg.", "k": "Leichteres Band, aufrecht stehen." },
+        { "f": "Die Schulter zieht hoch.", "k": "Schulter tief, nur bis Schulterhöhe." }
+      ],
+      "skalierung": "Leichter: leichteres Band oder kürzerer Hebel (Ellbogen gebeugt). Schwerer: stärkeres Band oder oben 2 s halten.",
+      "grenzen": "",
+      "trainiert": "Seitliche Schulter",
+      "pruefung": { "art": ["ok"], "problem": "Neu angelegt.", "korrektur": "Ausstieg, Fehler und Leichter/Schwerer ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_band_y_raise",
+      "zweck": "Arme in Y-Form heben: seitliche Schulter und Schulterblatt, gut gegen Hängeschultern.",
+      "vorbereitung": "Ein leichtes Band.",
+      "schritte": [
+        "Stell dich mit beiden Füßen auf die Mitte des Bandes, die Enden über Kreuz greifen.",
+        "Heb die fast gestreckten Arme schräg nach vorn oben zu einem Y, Daumen zeigen nach oben.",
+        "Zieh dabei die Schulterblätter nach unten.",
+        "Senk die Arme langsam ab."
+      ],
+      "ausstieg": "Arme sinken lassen, bis das Band locker ist.",
+      "sauber": "Die Schultern bleiben tief, der Rücken macht kein Hohlkreuz.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Die Schultern ziehen zu den Ohren.", "k": "Leichteres Band, Schulterblätter nach unten." },
+        { "f": "Hohlkreuz beim Heben.", "k": "Bauch fest, nur so hoch wie es sauber geht." }
+      ],
+      "skalierung": "Leichter: leichteres Band oder ohne Band. Schwerer: stärkeres Band oder vorgebeugt.",
+      "grenzen": "",
+      "trainiert": "Seitliche Schulter, unterer Trapez",
+      "pruefung": { "art": ["ok"], "problem": "Neu angelegt.", "korrektur": "Ausstieg, Fehler und Leichter/Schwerer ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_doorframe_lateral_hold",
+      "zweck": "Seitheben als Halteübung im Türrahmen: seitliche Schulter ganz ohne Geräte.",
+      "vorbereitung": "Ein Türrahmen.",
+      "schritte": [
+        "Stell dich in einen Türrahmen, die Arme hängen seitlich.",
+        "Leg die Handrücken außen an den Rahmen.",
+        "Drück die Arme mit voller Kraft nach außen, als wolltest du sie seitlich heben.",
+        "Halte den Druck, die Schultern bleiben tief."
+      ],
+      "ausstieg": "Druck langsam lösen, Arme ausschütteln.",
+      "sauber": "Die Schultern ziehen nicht hoch, der Oberkörper bleibt gerade.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen, nicht pressen.",
+      "fehler": [
+        { "f": "Die Luft wird angehalten.", "k": "Ruhig weiteratmen." },
+        { "f": "Die Schultern ziehen hoch.", "k": "Weniger Druck, Schultern tief." }
+      ],
+      "skalierung": "Leichter: weniger Druck. Schwerer: Arme weiter vom Körper (enger Rahmen) oder länger halten.",
+      "grenzen": "",
+      "trainiert": "Seitliche Schulter",
+      "pruefung": { "art": ["ok"], "problem": "Neu angelegt.", "korrektur": "Ausstieg, Fehler und Leichter/Schwerer ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_side_lying_abduction",
+      "zweck": "Bein in Seitlage heben: seitliches Gesäß, hält das Becken beim Laufen und auf einem Bein gerade.",
+      "vorbereitung": "Eine Matte.",
+      "schritte": [
+        "Leg dich auf die Seite, das untere Bein leicht gebeugt, das obere gestreckt.",
+        "Die Zehen des oberen Beins zeigen nach vorn.",
+        "Heb das obere Bein gerade nach oben, die Ferse führt.",
+        "Senk es langsam ab. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Bein ablegen, auf den Rücken rollen.",
+      "sauber": "Das Becken kippt nicht nach hinten, das Bein bleibt in einer Linie mit dem Körper.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Das Becken kippt nach hinten.", "k": "Kleinere Bewegung, Hand vorn auf den Boden." },
+        { "f": "Das Bein geht nach vorn.", "k": "Ferse führt, Bein leicht nach hinten." }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: Band um die Knie oder oben 2 s halten.",
+      "grenzen": "",
+      "trainiert": "Seitliches Gesäß",
+      "pruefung": { "art": ["ok"], "problem": "Neu angelegt.", "korrektur": "Ausstieg, Fehler und Leichter/Schwerer ergänzt.", "status": "geklaert" }
+    },
+    {
+      "id": "g_fire_hydrant",
+      "zweck": "Knie im Vierfüßlerstand seitlich heben: seitliches Gesäß und Hüfte.",
+      "vorbereitung": "Eine Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Knie unter der Hüfte.",
+        "Heb ein gebeugtes Bein seitlich an, bis der Oberschenkel fast waagrecht ist.",
+        "Der Oberkörper bleibt ruhig.",
+        "Senk das Knie langsam ab. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Knie absetzen, kurz in die Kinderhaltung.",
+      "sauber": "Das Gewicht verlagert sich nicht auf die andere Seite, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": [
+        { "f": "Der Oberkörper kippt zur Seite.", "k": "Weniger hoch, Bauch fest." }
+      ],
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: Band um die Knie.",
+      "grenzen": "",
+      "trainiert": "Seitliches Gesäß",
+      "pruefung": { "art": ["ok"], "problem": "Neu angelegt.", "korrektur": "Ausstieg, Fehler und Leichter/Schwerer ergänzt.", "status": "geklaert" }
     }
   ]
 }
