@@ -433,10 +433,22 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const tst = n => Object.assign(old(), { planV: 2, tage: n, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, planAsk: '2026-10-12' });
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [tst(null), logs()]);
     await page.evaluate(() => window.tpTest.navigate('plan'));
-    assert.match(await page.locator('.tg').innerText(), /Trainingstage\s*3 pro Woche[\s\S]*A, B und C\. Den Rest plant dein Coach\./);
-    await page.locator('.tg-r').fill('5');
+    // Dennis: der Regler änderte sich aus Versehen. Jetzt Wert-Zeile → Blatt → „Übernehmen“; Abbrechen ändert nichts. Gilt für alle Wochen.
+    const tgRow = page.locator('[data-act="tage-open"]');
+    assert.match(await tgRow.innerText(), /Trainingstage[\s\S]*A, B und C\. Gilt für alle Wochen\.[\s\S]*3 pro Woche/);
+    assert.equal(await page.locator('#view .tg-r').count(), 0, 'kein Regler direkt auf der Seite');
+    await tgRow.click(); await page.locator('#sheet .tg-r').fill('6');
+    await page.locator('#sheet [data-sh="x"]').click(); await page.waitForTimeout(300);
+    assert.equal(await page.evaluate(() => window.tpTest.state().tage), null, 'Abbrechen ändert nichts');
+    await tgRow.click(); await page.locator('#sheet [data-seg="5"]').click();
+    assert.match(await page.locator('#tg-x').innerText(), /^Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio\./, 'Regler mit kurzer Info');
+    assert.match(await page.locator('#sheet').innerText(), /alle folgenden Wochen/);
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(300);
     assert.equal(await page.evaluate(() => window.tpTest.state().tage), 5);
-    assert.match(await page.locator('#tg-x').innerText(), /^Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio\./, 'Schieberegler mit kurzer Info');
+    await page.locator('#view [aria-label="Nächste Woche"]').first().click();
+    assert.match(await page.locator('[data-act="tage-open"]').innerText(), /5 pro Woche/, 'nächste Woche ebenfalls 5');
+    assert.equal(await page.locator('#view .pw .wkst .wd .wd-u').allInnerTexts().then(x => x.filter(t => t !== 'Frei').length), 5, 'nächste Woche mit 5 Einheiten');
+    await page.locator('#view [aria-label="Woche davor"]').first().click();
     assert.ok(await page.getByRole('heading', { name: '0 von 5 erledigt' }).isVisible(), 'Wochenziel zählt bis 5');
     assert.equal(await page.evaluate(() => window.tpTest.plan().days.map(d => d.tag || '-').join('')), '1-345-6', 'Mo Push, Mi Pull, Do Beine, Fr Ober, So Unter');
     await page.evaluate(() => window.tpTest.navigate('heute'));
