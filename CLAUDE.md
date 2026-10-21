@@ -77,7 +77,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `#kal-url`, `ACT['kal-connect']` prüft `KAL_RE` und die Antwort `kalFetch`), Karte in den Arbeitszeiten (`kalCardHTML`, Jetzt abgleichen `kal-sync`,
   Trennen `kal-off`). `KAL` in localStorage `tp.kal` {url, ts, err, von, bis, w, b}, nur auf dem Gerät: nicht in `S`, Export, Sync oder Meldungen.
   Abgleich `kalSync` beim Start, beim Zurückkehren und bei Netz, höchstens alle 30 Min, ohne Netz gilt der letzte Stand. `arbeitOf` = `arbeitOf0`
-  plus Kalender: abgeglichene Tage (`kalHas`) nehmen den ersten Dienst des Tages (`kalDay`/`kalShift`, ab 11 h 12-h-Schicht), sonst frei; `kalBlocks`
+  plus Kalender: abgeglichene Tage (`kalHas`) nehmen den ersten Dienst des Tages (`kalDay`/`kalShift`, ab 11 h 12-h-Schicht), sonst frei (seit Paket 64 ohne Rückfall auf eingetragene Schichten); `kalBlocks`
   legt Termine und weitere Dienste als gesperrte Blöcke „Termin“ in `wkTimeline`. Dienste aus dem Kalender sind in den Arbeitszeiten nicht änderbar
   („Deine Dienste“, „aus dem Kalender“); „Wie arbeitest du?“ entfällt. Seit 3 Tagen kein Abgleich: `kalAskHTML` als Frage auf Heute.
   Trainings in den Google Kalender (Brücke ab `v: 3`, Dennis: .ics öffnet die Google-Kalender-App auf Android nicht): `doPost` der Brücke hält einen
@@ -536,6 +536,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Abschluss kurz und intensiv (Intervalle 30/30, wenn das Gerät es kann). Mit Lauf- oder Rad-Challenge statt dessen Erhalt (Kraft eine Runde weniger,
   das Ziel bekommt das Kardio; Dennis: „wir machen, was nötig ist, um aufs Ziel hinzuarbeiten“). Der Abschnitt steht dauerhaft klein im Kopf von Heute
   („Heute · 17:05 Uhr · Kraft“) und als Phase-Chip in Plan › Deine Woche (`p.lab`).
+- Kalender als einzige Quelle (Dennis, Paket 64: „ich pflege meinen Kalender sehr gut“): mit verbundenem Kalender nimmt `arbeitOf` nur den Kalender,
+  eingetragene Schichten gelten nie (auch nicht außerhalb des Zeitraums, nicht abgeglichene Tage sind frei). Arbeitszeiten zeigen „Deine Tage“ ohne
+  Eingabe (kein `wk-day`, kein „Wie arbeitest du?“), je Tag Dienst und „bis x h am Stück frei“ (`dayFreeH`, `fmtHalfH`); Gesperrte Zeiten nur, wenn schon
+  welche da sind. Alles im Kalender ist belegt, egal wie es heißt. Schlaf erkennt der Coach an der Uhrzeit (`kalSleepy`: 3–14 h über 1–5 Uhr oder bis 3 h
+  nach dem Ende eines Nachtdienstes, Block `{n: 'Schlaf', s: 1}`), er ersetzt in `wkTimeline` den angenommenen Schlaf dieser Nacht bzw. den Tagschlaf
+  (Annahme bleibt, wo im Kalender keiner steht). Passt eine Krafteinheit nirgends ganz, nimmt `wkPlan` die größte Lücke ab 30 Min (60/45/30, `fit`,
+  Punkte −8, ein ganzer Tag woanders geht vor); `planFit` gibt `zeitLv` das Budget (minus 2 Min Körper-Check), Satz unter dem Titel „Zwischen deinen
+  Terminen sind heute nur 30 Min frei, darum kürzer.“ `wkPlan` = `wkPlan0` mit Sperre `KFIT` (sonst ruft `zeitLv` während der Planung den Plan).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

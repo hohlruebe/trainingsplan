@@ -5090,9 +5090,10 @@ function planOn() { return (v2() || !!(S.alltag && S.alltag.on)) && S.started &&
 function wkEntry(e) { return e && e.a != null ? e : null; }
 // Arbeitszeiten einer Woche: eingetragen, sonst wie die letzte eingetragene Woche davor, sonst die feste Woche.
 // Mit Google Kalender gelten für die abgeglichenen Tage die Dienste aus dem Kalender (kein Dienst = frei).
+// Paket 64 (Dennis): mit Kalender zählt nur der Kalender. Eingetragene Schichten gelten nicht mehr, nicht abgeglichene Tage sind frei.
 function arbeitOf(mon) {
-  var W = arbeitOf0(mon); if (!kalOn() || !KAL.von) return W;
-  return W.map(function (e, j) { var dt = isoAdd(mon, j); return kalHas(dt) ? kalDay(dt) : e; });
+  if (!kalOn() || !KAL.von) return arbeitOf0(mon);
+  return [0, 1, 2, 3, 4, 5, 6].map(function (j) { var dt = isoAdd(mon, j); return kalHas(dt) ? kalDay(dt) : null; });
 }
 function arbeitOf0(mon) {
   var A = S.arbeit || {}, L = alltag();
@@ -5133,14 +5134,21 @@ function kalShift(x) {
 }
 function kalDays(dt) { return kalW().filter(function (x) { return isoDate(new Date(x.a)) === dt; }).sort(function (p, q) { return p.a - q.a; }); }
 function kalDay(dt) { var x = kalDays(dt)[0]; return x ? kalShift(x) : null; }
-// Belegte Zeiten (und weitere Dienste am selben Tag) als gesperrte Blöcke in Stunden ab Montag 0:00.
+// Schlaf im Kalender (Dennis trägt ihn ein, Titel bleiben im Konto): 3–14 h über die Nacht (zwischen 1 und 5 Uhr)
+// oder ab 3 h nach dem Ende eines Nachtdienstes. Alles andere ist ein Termin.
+function kalSleepy(x, W) {
+  var len = (x.b - x.a) / 36e5; if (len < 3 || len > 14) return false;
+  for (var t = x.a; t < x.b; t += 9e5) { var h = new Date(t).getHours(); if (h >= 1 && h < 5) return true; }
+  return W.some(function (w) { return new Date(w.b).getHours() <= 11 && w.b - w.a >= 6 * 36e5 && x.a >= w.b && x.a - w.b <= 3 * 36e5; });
+}
+// Belegte Zeiten (und weitere Dienste am selben Tag) als gesperrte Blöcke in Stunden ab Montag 0:00, Schlaf mit s.
 function kalBlocks(mon) {
   if (!kalOn() || !KAL.von) return [];
   var m0 = parseISO(mon), first = {}, out = [], W = kalW();
   W.forEach(function (x) { var dt = isoDate(new Date(x.a)); if (!first[dt]) first[dt] = kalDays(dt)[0]; });
   var wh = function (ms) { var d = new Date(ms); return 24 * Math.round((parseISO(isoDate(d)) - m0) / 864e5) + d.getHours() + d.getMinutes() / 60; };
   kalB().concat(W.filter(function (x) { return first[isoDate(new Date(x.a))] !== x; })).forEach(function (x) {
-    var a = wh(x.a), b = wh(x.b); if (b > -24 && a < 192) out.push([a, b, { n: 'Termin', cal: 1 }]);
+    var a = wh(x.a), b = wh(x.b), sl = W.indexOf(x) < 0 && kalSleepy(x, W); if (b > -24 && a < 192) out.push([a, b, sl ? { n: 'Schlaf', cal: 1, s: 1 } : { n: 'Termin', cal: 1 }]);
   });
   return out;
 }
@@ -5242,8 +5250,10 @@ function wkTimeline(mon) {
   });
   // Gesperrte Zeiten (Familie, Termine, Betreuung) jede Woche an den gewählten Tagen.
   (A.sperr || []).forEach(function (p) { for (var i = 0; i < 7; i++) if ((p.d || []).indexOf(i) >= 0) block.push([24 * i + p.a, 24 * i + (p.b <= p.a ? p.b + 24 : p.b), p]); });
-  // Termine aus dem Google Kalender: nur belegt, ohne Titel.
-  kalBlocks(mon).forEach(function (p) { block.push(p); });
+  // Termine aus dem Google Kalender: nur belegt, ohne Titel. Schlaf aus dem Kalender ersetzt den angenommenen Schlaf dieser Nacht bzw. dieses Tages.
+  var ks = [];
+  kalBlocks(mon).forEach(function (p) { if (p[2].s) ks.push([p[0], p[1], p[2]]); else block.push(p); });
+  if (ks.length) sleep = sleep.filter(function (s) { return !ks.some(function (k) { return k[0] < s[1] + 3 && k[1] > s[0] - 3; }); }).concat(ks);
   return { work: work, sleep: sleep, block: block, c: c };
 }
 // Wie der Tag fürs Training taugt: none (12-h-Schicht, zwischen zwei Nächten), light (vor der ersten bzw. nach der letzten Nacht), ok.
@@ -5256,6 +5266,9 @@ function dayCls(T, i) {
   if (nB || nA) return 'light';
   return 'ok';
 }
+// Paket 64: längste Zeit am Stück, die an Tag i fürs Training frei ist (mit Abstand zu Arbeit, Schlaf und Weg), in halben Stunden.
+function dayFreeH(T, i) { for (var d = 8; d >= 0.5; d -= 0.5) if (daySlot(T, i, d, true)) return d; return 0; }
+function fmtHalfH(x) { var f = Math.floor(x), h = x - f >= .5; return (f ? f + (h ? '½' : '') : '½') + ' h' + (x >= 8 ? ' und mehr' : ''); }
 // Beste Startzeit an Tag i für eine Einheit von dur Stunden (mit Weg hin und zurück). Kraft am liebsten 15–19 Uhr.
 function daySlot(T, i, dur, hard, force) {
   var d0 = 24 * i, wg = alltag().weg / 60, D = dur + 2 * wg, best = null;
@@ -5490,7 +5503,10 @@ function planVHintHTML() {
     '<button type="button" class="btn small" data-act="pv-now">Schon jetzt starten</button></section>';
 }
 // Der Plan einer Woche. Erledigtes steht fest, der Rest wird ab heute (bzw. morgen, wenn heute schon trainiert ist) verteilt.
-function wkPlan(mon) {
+// Während der Planung kein Rückgriff auf den Plan (zeitLv → wkPlanC), sonst rechnet er sich im Kreis.
+var KFIT = 0;
+function wkPlan(mon) { KFIT++; try { return wkPlan0(mon); } finally { KFIT--; } }
+function wkPlan0(mon) {
   mon = mon || wkMon();
   var today = isoToday(), ti = daysBetween(parseISO(mon), parseISO(today)), T = wkTimeline(mon), A = alltag(), OV = S.planOv || {};
   var days = [], done = {};
@@ -5530,7 +5546,13 @@ function wkPlan(mon) {
   var prevTag = prevLogs.length ? prevLogs[prevLogs.length - 1].tag : from > 0 ? days[from - 1].done : null;
   if (future && !prevTag) { var prevPlan = wkPlan(wkMon(today)); var last = prevPlan.days[6]; prevTag = last.done || last.tag; }
   var slots = {}; // [Tag-Index][tag] → Slot
-  function slot(i, t) { var k = i + '|' + t; if (!(k in slots)) slots[k] = daySlot(T, i, planDur(t), planHard(t), days[i].force); return slots[k]; }
+  function slot(i, t) {
+    var k = i + '|' + t; if (k in slots) return slots[k];
+    var s = daySlot(T, i, planDur(t), planHard(t), days[i].force);
+    // Paket 64: passt die ganze Einheit nirgends, nimmt der Coach die größte Lücke ab 30 Min und kürzt die Einheit (zeitLv). Ein ganzer Tag woanders geht vor.
+    if (!s && v2() && DAYS[t] && DAYS[t].type === 'kraft') [60, 45, 30].some(function (m) { if (m / 60 >= planDur(t)) return false; s = daySlot(T, i, m / 60, true); if (s) { s.fit = m; s.sc = (s.sc || 0) - 8; } return !!s; });
+    return (slots[k] = s);
+  }
   function usable(i, t) { var c = days[i].cls; if (missBlocked(days[i].date) || days[i].off || (days[i].pin && days[i].pin !== t)) return false; if (c === 'none' && days[i].force == null) return false; if (c === 'light' && planHard(t) && days[i].force == null && !v2()) return false; return !!slot(i, t); }
   // Plan 2: an Tag i harte Einheit? Vor dem Planungsbeginn zählen die Einträge, danach die Zuordnung.
   var prevW = null;
@@ -5568,7 +5590,7 @@ function wkPlan(mon) {
   subs.sort(function (x, y) { return y.n - x.n || y.p - x.p; });
   for (var si = 0; si < subs.length; si++) { var r0 = best(subs[si].s); if (r0) { res = r0; seq = subs[si].s; break; } }
   var dropped = R.filter(function (t) { return seq.indexOf(t) < 0; });
-  (res ? res.a : []).forEach(function (x) { var dy = days[x.i], s = slot(x.i, x.t); dy.tag = x.t; dy.t = s.t; dy.end = s.end; dy.why = s.why; dy.forced = !!s.forced; });
+  (res ? res.a : []).forEach(function (x) { var dy = days[x.i], s = slot(x.i, x.t); dy.tag = x.t; dy.t = s.t; dy.end = s.end; dy.why = s.why; dy.forced = !!s.forced; dy.fit = s.fit || 0; });
   return { mon: mon, days: days, T: T, dropped: dropped, today: cur ? ti : -1 };
 }
 var WKP_C = { k: null, v: null };
@@ -5734,7 +5756,7 @@ function wkDaysLabel(W) {
 // Gleiche Zeiten an allen Arbeitstagen? Dann Beginn/Ende als eine Zeile, sonst je Tag.
 function wkUniform(W) { var E = W.filter(wkEntry); return E.length && E.every(function (e) { return e.a === E[0].a && e.b === E[0].b; }) ? E[0] : null; }
 function renderWoche() {
-  var A = alltag(), nextW = !!ui.wkNext, mon = nextW ? isoAdd(wkMon(), 7) : wkMon(), W = arbeitOf(mon), own = !!(S.arbeit && S.arbeit[mon]), kal = kalOn(), M = kal ? true : A.schicht;
+  var A = alltag(), nextW = !!ui.wkNext, mon = nextW ? isoAdd(wkMon(), 7) : wkMon(), W = arbeitOf(mon), own = !!(S.arbeit && S.arbeit[mon]), kal = kalOn(), M = kal ? true : A.schicht, TW = kal ? wkTimeline(mon) : null;
   var hasNight = W.concat(arbeitOf(isoAdd(mon, 7))).some(function (e) { e = wkEntry(e); return e && (e.b <= e.a || e.a >= 17); });
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + (ui.wocheBack || 'heute') + '" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Arbeitszeiten</h1><p class="hero-title">Dein Alltag</p></section>';
   h += kalCardHTML();
@@ -5751,21 +5773,26 @@ function renderWoche() {
       (ex.length ? '<p class="ob-lab" style="margin:14px 2px 6px">Ausnahmen</p>' + valRows(ex.map(function (d) { var e = A.ex[d]; return valRow(fmtDate(d), '<span class="txt">' + esc(e && e.k !== 'x' ? hm(e.a) + '–' + hm(e.b) : 'frei') + '</span>', 'data-act="wk-ex-del" data-d="' + d + '"'); })) : '') +
       '<button type="button" class="btn" style="margin-top:12px" data-act="wk-ex">Ausnahme eintragen</button></section>';
   } else if (M === true) {
-    h += '<section class="card"><div class="card-head"><h2>' + (kal ? 'Deine Dienste' : 'Dein Schichtplan') + '</h2>' + (kal ? '<span class="chip">aus dem Kalender</span>' : own ? '' : '<span class="chip">wie letzte Woche</span>') + '</div>' +
+    h += '<section class="card"><div class="card-head"><h2>' + (kal ? 'Deine Tage' : 'Dein Schichtplan') + '</h2>' + (kal ? '<span class="chip">aus dem Kalender</span>' : own ? '' : '<span class="chip">wie letzte Woche</span>') + '</div>' +
       '<div class="seg" role="group" aria-label="Woche" style="margin-bottom:10px">' + [['', 'Diese Woche'], ['1', 'Nächste Woche']].map(function (o) { var on = !!o[0] === nextW; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="wk-wk" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
-      '<p class="small muted" style="margin:0 2px 8px">' + esc(wkRange(mon)) + (kal ? ' · Ändern kannst du deine Dienste im Kalender.' : ' · Früh, Spät, Nacht, frei oder eigene Zeiten.') + '</p>' +
-      valRows(W.map(function (e, i) { var c = kal && kalHas(isoAdd(mon, i)); return c ? valRow(WTAG[i], '<span class="txt">' + esc(shiftName(e)) + '</span>', null) : valRow(WTAG[i], '<span class="txt">' + esc(shiftName(e)) + '</span>', 'data-act="wk-day" data-v="' + i + '"'); }).concat([wegA])) + '</section>';
+      '<p class="small muted" style="margin:0 2px 8px">' + esc(wkRange(mon)) + (kal ? ' · Dienste, Termine und Schlaf kommen aus deinem Kalender. Ändern kannst du sie nur dort.' : ' · Früh, Spät, Nacht, frei oder eigene Zeiten.') + '</p>' +
+      valRows(W.map(function (e, i) {
+        if (!kal) return valRow(WTAG[i], '<span class="txt">' + esc(shiftName(e)) + '</span>', 'data-act="wk-day" data-v="' + i + '"');
+        // Mit Kalender nichts zum Eintragen: Dienst und wie viel Zeit fürs Training bleibt.
+        var c = kalHas(isoAdd(mon, i)), fh = c ? dayFreeH(TW, i) : 0;
+        return valRow(WTAG[i], '<span class="txt">' + esc(c ? shiftName(e) : 'nicht abgeglichen') + '</span>', null, { sub: c ? (fh ? 'bis ' + fmtHalfH(fh) + ' am Stück frei' : 'keine Zeit fürs Training') : 'zählt als frei' });
+      }).concat([wegA])) + '</section>';
   }
   var sp = A.sperr || [];
   h += '<section class="card"><div class="card-head"><h2>Schlaf und freie Zeit</h2></div>' + valRows([
-    valRow('Schlaf', '<span class="txt">' + hm(A.bed) + '–' + hm(A.wake) + ' Uhr</span>', 'data-act="wk-sleep"', { sub: 'Geplant · normale Tage' })]
-    .concat(M === true || hasNight ? [valRow('Tagschlaf', '<span class="txt">' + (A.ts ? hm(A.ts.a) + '–' + hm(A.ts.b) + ' Uhr' : 'ca. 7 h') + '</span>', 'data-act="wk-ts"', { sub: 'Geplant · nach Nachtdienst' }),
+    valRow('Schlaf', '<span class="txt">' + hm(A.bed) + '–' + hm(A.wake) + ' Uhr</span>', 'data-act="wk-sleep"', { sub: kal ? 'Nur wenn im Kalender keiner steht' : 'Geplant · normale Tage' })]
+    .concat(M === true || hasNight ? [valRow('Tagschlaf', '<span class="txt">' + (A.ts ? hm(A.ts.a) + '–' + hm(A.ts.b) + ' Uhr' : 'ca. 7 h') + '</span>', 'data-act="wk-ts"', { sub: kal ? 'Nach Nachtdienst, wenn im Kalender keiner steht' : 'Geplant · nach Nachtdienst' }),
       valRow('Weiterer Schlaf', '<span class="txt">' + (A.nap ? hm(A.nap.a) + '–' + hm(A.nap.b) + ' Uhr' : 'Eintragen') + '</span>', 'data-act="wk-nap"', { sub: 'vor dem Nachtdienst' })] : [])
     .concat(sp.map(function (p, i) { return valRow(p.n || 'Gesperrt', '<span class="txt">' + esc(sperrDays(p.d) + ' · ' + hm(p.a) + '–' + hm(p.b)) + '</span>', 'data-act="wk-sperr-del" data-i="' + i + '"', { sub: 'gesperrt' }); }))
-    .concat([valRow('Gesperrte Zeiten', '<span class="txt">' + (sp.length ? 'Hinzufügen' : 'Eintragen') + '</span>', 'data-act="wk-sperr"', { sub: 'Familie, Termine, Betreuung' }),
-      valRow('Weg zum Training', '<span class="txt">' + (A.weg ? A.weg + ' Min' : 'keiner') + '</span>', 'data-act="wk-weg"')])
+    .concat(kal && !sp.length ? [] : [valRow('Gesperrte Zeiten', '<span class="txt">' + (sp.length ? 'Hinzufügen' : 'Eintragen') + '</span>', 'data-act="wk-sperr"', { sub: 'Familie, Termine, Betreuung' })])
+    .concat([valRow('Weg zum Training', '<span class="txt">' + (A.weg ? A.weg + ' Min' : 'keiner') + '</span>', 'data-act="wk-weg"')])
     .concat(v2() ? [valRow('Zeit pro Training', '<span class="txt">bis ' + (S.zeitMax || 90) + ' Min</span>', 'data-act="wk-zeit"', { sub: 'mit allen Pausen, nie länger' })] : [])) +
-    '<p class="small muted" style="margin:10px 2px 0">' + (M === true || hasNight ? 'Geplanter Schlaf ist eine Annahme. Bist du müde, sag es deinem Coach auf Heute.' : 'Dein Coach plant das Training in passende Zeitfenster.') + '</p></section>';
+    '<p class="small muted" style="margin:10px 2px 0">' + (kal ? 'Alles, was in deinem Kalender steht, ist belegt, egal wie es heißt. Schlaf erkennt dein Coach an der Uhrzeit (über Nacht oder nach dem Nachtdienst) und hält Abstand davor und danach.' : M === true || hasNight ? 'Geplanter Schlaf ist eine Annahme. Bist du müde, sag es deinem Coach auf Heute.' : 'Dein Coach plant das Training in passende Zeitfenster.') + '</p></section>';
   if (A.on || v2()) {
     var P = nextW ? wkPlan(mon) : wkPlanC();
     h += wkCardHTML(P, false).replace('<section class="card wk24">', '<section class="card wk24"><div class="card-head"><h2>So plant dein Coach</h2><span class="chip">' + esc(wkRange(mon)) + '</span></div>');
@@ -5791,7 +5818,7 @@ function kalCardHTML() {
       return '<label class="check orte-row"><span class="orte-ic"><i class="kal-dot" style="background:' + c.f + '"></i></span><span class="orte-t"><b>' + esc(c.n) + '</b><small>' +
         esc((c.p ? 'Hauptkalender' : c.e ? 'Eigener Kalender' : 'Geteilt') + ' · ' + (X.w || X.b ? [X.w ? n(X.w, 'Dienst', 'Dienste') : '', X.b ? n(X.b, 'Termin', 'Termine') : ''].filter(Boolean).join(', ') : 'nichts geplant')) +
         '</small></span><input type="checkbox" data-change="kal-cal" data-id="' + esc(c.id) + '"' + (on ? ' checked' : '') + ' aria-label="' + esc(c.n) + ' zählt"></label>';
-    }).join('') + '</div><p class="small muted" style="margin:6px 2px 0">Dienste mit „DD“ werden dein Schichtplan, andere Termine sind belegt. Ausgeschaltete Kalender zählen nicht.</p>' : '') +
+    }).join('') + '</div><p class="small muted" style="margin:6px 2px 0">Dienste mit „DD“ werden dein Schichtplan, alle anderen Termine sind belegt, Schlaf erkennt dein Coach an der Uhrzeit. Ausgeschaltete Kalender zählen nicht.</p>' : '') +
     ((KAL.v || 0) >= 3 ? '<p class="ob-lab" style="margin:14px 2px 2px">Deine Trainings</p><div class="orte-list"><label class="check orte-row"><span class="orte-ic"><i class="kal-dot" style="background:#2952A3"></i></span><span class="orte-t"><b>In den Kalender eintragen</b><small>' +
         esc(KAL.push === false ? 'Aus · Kalender „Trainingsplan“' : KAL.pushTs ? 'Kalender „Trainingsplan“ · ' + n(KAL.pushN || 0, 'Training', 'Trainings') + ' eingetragen' : 'Kalender „Trainingsplan“ · 30 Min vorher Erinnerung') +
         '</small></span><input type="checkbox" data-change="kal-push"' + (KAL.push !== false ? ' checked' : '') + ' aria-label="Trainings in den Kalender eintragen"></label></div>' + (KAL.pushErr && KAL.push !== false ? '<p class="tl-x">' + esc(KAL.pushErr) + '</p>' : '')
@@ -5817,7 +5844,7 @@ function renderKalender() {
   }
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="woche" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Google Kalender</h1><p class="hero-title">Einmal einrichten, dann läuft es von selbst</p></section>';
   h += '<section class="card"><div class="card-head"><h2>Was dein Coach liest</h2></div><div class="pl-why">' +
-    ['Dienste mit „DD“ am Anfang (DD Früh, DD Spät, DD Nacht) mit Uhrzeit. Sie werden dein Schichtplan.', 'Alle anderen Termine mit Uhrzeit, egal wie sie heißen, nur als belegt von–bis, ohne Titel. Trainings, die die App in deinen Kalender gelegt hat, zählen nicht.', 'Ganztägige Termine, Feiertage und Geburtstage zählen nicht.',
+    ['Dienste mit „DD“ am Anfang (DD Früh, DD Spät, DD Nacht) mit Uhrzeit. Sie werden dein Schichtplan.', 'Alle anderen Termine mit Uhrzeit, egal wie sie heißen, nur als belegt von–bis, ohne Titel. Trainings, die die App in deinen Kalender gelegt hat, zählen nicht.', 'Schlaf, den du einträgst, erkennt dein Coach an der Uhrzeit (über Nacht oder nach dem Nachtdienst). Dann plant er mit deinem Schlaf statt mit einer Annahme.', 'Ganztägige Termine, Feiertage und Geburtstage zählen nicht.',
       'Danach siehst du jeden Kalender einzeln und schaltest ihn an oder aus. Geteilte Kalender ohne Dienste sind zuerst aus.', 'Die nächsten drei Wochen. Ohne Netz gilt der letzte Stand.',
       'Deine geplanten Trainings trägt dein Coach in einen eigenen Kalender „Trainingsplan“ ein, mit Erinnerung 30 Min vorher. Abschalten kannst du das jederzeit.']
       .map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div></section>';
@@ -7353,6 +7380,7 @@ function heuteSub(kind, PL, tag) {
   var t = befOf(isoToday()) === 'tired' && d.type === 'kraft' ? 'Heute kürzer, weil du müde bist.'
     : morgenMild(tag) && d.type === 'kraft' ? 'Heute ohne Intervalle: ' + esc(morgenWhy()) + '.'
     : morgenToday(tag) === 3 && isKurz0(tag) ? 'Wenig Schlaf und erschöpft: heute höchstens die Kurzversion.'
+    : planFit(tag) && d.type === 'kraft' ? 'Zwischen deinen Terminen sind heute nur ' + planFit(tag) + ' Min frei, darum kürzer.'
     : sigKurz(tag) && isKurz0(tag) ? 'Heute kürzer: deine letzten zwei Einheiten waren schwerer als sonst (' + esc(sigWhy()) + ').'
     : zoneLine(tag) ? esc(zoneLine(tag)) + ' <button type="button" class="link" data-act="zone-open">Erholung ansehen</button>'
     : tpoWhy(tag) ? tpoWhy(tag)
@@ -9548,10 +9576,17 @@ window.addEventListener('resize', function () { if (FS.on) fsOrient(); });
 // Wenig Zeit (_zeit = 45/30/15 Min im Entwurf): der Coach kürzt in Stufen, bis es passt.
 // 1 = ohne Handstand und Skill, 2 = Kraft und Metcon kürzer, 3 = ohne Metcon, 4 = Aufwärmen 4 Min.
 var ZF = null;
+// Paket 64: Minuten, die heute zwischen Terminen frei sind, wenn der Coach die Einheit deshalb kürzt (0 = passt ganz).
+function planFit(tag) {
+  if (KFIT || !v2() || !planOn()) return 0;
+  var PL = wkPlanC(), d = PL.today >= 0 ? PL.days[PL.today] : null;
+  return d && d.tag === tag && !d.done && d.fit ? d.fit : 0;
+}
 function zeitLv(tag) {
   if (ZF && ZF.tag === tag) return ZF.lv;
   var D = DRAFTS[draftKey(tag)], B = D && +D._zeit, c;
   if (v2() && S.zeitMax && (!B || S.zeitMax < B)) B = S.zeitMax; // Plan 2: dein Zeitlimit gilt immer, „wenig Zeit“ nur heute
+  var F = tag === S.tag ? planFit(tag) - 2 : 0; if (F > 0 && (!B || F < B)) B = F; // Paket 64: nur eine Lücke zwischen deinen Terminen (2 Min für den Körper-Check)
   if (!B || tag !== S.tag || !DAYS[tag] || DAYS[tag].type !== 'kraft') return 0;
   c = dayCtx(tag); if (c.isTest || c.isMurph) return 0;
   for (var lv = 0; lv < 4; lv++) if (zeitMin(c, lv) <= B) return lv;

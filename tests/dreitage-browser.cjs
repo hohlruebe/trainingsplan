@@ -206,7 +206,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     let bridge = { app: 'trainingsplan-kalender', v: 2, ts: Date.now(), von: t('2026-10-05', 0), bis: t('2026-11-03', 0),
       k: [{ id: 'haupt0000001', n: 'Dennis', f: '#4986E7', e: true, s: true, p: true }, { id: 'familie00001', n: 'Familie', f: '#F691B2', e: false, s: true }],
       w: [{ c: 0, k: 'n', a: t('2026-10-13', 22), b: t('2026-10-14', 6) }, { c: 0, k: 'n', a: t('2026-10-14', 22), b: t('2026-10-15', 6) }, { c: 0, k: 'f', a: t('2026-10-16', 6), b: t('2026-10-16', 14) }],
-      b: [{ c: 0, a: t('2026-10-17', 10), b: t('2026-10-17', 13) }, { c: 1, a: t('2026-10-18', 9), b: t('2026-10-18', 21) }] };
+      b: [{ c: 0, a: t('2026-10-17', 1), b: t('2026-10-17', 9) }, { c: 0, a: t('2026-10-17', 10), b: t('2026-10-17', 13) }, { c: 1, a: t('2026-10-18', 9), b: t('2026-10-18', 21) }] };
     const posts = [];
     await page.route('https://script.google.com/**', r => {
       if (r.request().method() === 'POST') { posts.push(JSON.parse(r.request().postData())); return r.fulfill({ status: 200, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ app: 'trainingsplan-kalender', ok: true, neu: 1, weg: 0 }) }); }
@@ -221,8 +221,13 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.getByText('Das ist kein Web-App-Link.', { exact: false }).isVisible(), 'falscher Link wird erklärt');
     await page.locator('#kal-url').fill(BR + '?x=1');
     await page.getByRole('button', { name: 'Verbinden', exact: true }).click();
-    await page.getByRole('heading', { name: 'Deine Dienste' }).waitFor();
+    await page.getByRole('heading', { name: 'Deine Tage' }).waitFor();
     assert.ok(await page.getByText('aus dem Kalender').isVisible());
+    // Paket 64: mit Kalender nichts mehr von Hand eintragen, dafür je Tag die freie Zeit; Schlaf aus dem Kalender ersetzt die Annahme.
+    assert.equal(await page.locator('[data-act="wk-day"], [data-act="wk-schicht"]').count(), 0, 'keine Früh-/Spätschicht von Hand, wenn der Kalender verbunden ist');
+    assert.ok(await page.getByText('am Stück frei', { exact: false }).first().isVisible(), 'freie Zeit je Tag');
+    assert.ok(await page.getByText('Nur wenn im Kalender keiner steht').isVisible());
+    assert.ok(await page.evaluate(() => window.tpTest.plan().T.sleep.some(x => x[0] === 24 * 5 + 1 && x[1] === 24 * 5 + 9)), 'Schlaf aus dem Kalender (Sa 1–9 Uhr)');
     const st2 = await page.evaluate(() => [JSON.stringify(window.tpTest.state()), localStorage.getItem('tp.state'), JSON.parse(localStorage.getItem('tp.kal'))]);
     assert.ok(!st2[0].includes('script.google') && !st2[1].includes('script.google'), 'Link nicht im Stand (nicht in Export und Sync)');
     assert.equal(st2[2].url, BR, 'Link ohne Zusätze nur auf dem Gerät');
@@ -241,7 +246,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.getByRole('heading', { name: 'Brücke aktualisieren', level: 1 }).isVisible());
     bridge.v = 3;
     await page.getByRole('button', { name: 'Jetzt abgleichen', exact: true }).click();
-    await page.getByRole('heading', { name: 'Deine Dienste' }).waitFor();
+    await page.getByRole('heading', { name: 'Deine Tage' }).waitFor();
     await page.waitForFunction(n => window.tpTest && document.querySelector('[data-change="kal-push"]'), null);
     await page.waitForTimeout(500);
     assert.ok(posts.length >= 1, 'nach dem Abgleich trägt der Coach ein');
