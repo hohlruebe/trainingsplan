@@ -1,0 +1,365 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "isolation",
+  "quelle": "Claude, 21. Oktober 2026 (Prüfung: seitliche Schulter und Abduktoren hatten zu Hause zu wenig Übungen). NSCA Essentials, Contreras (Hüftabduktion).",
+  "uebungen": [
+    {
+      "id": "g_band_cross_lateral_raise",
+      "name": "Cross-Body Band Lateral Raise",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ]
+      ],
+      "nutzen": 44,
+      "trainiert": "Seitliche Schulter",
+      "zweck": "Einarmiges Seitheben mit Band über Kreuz: die Spannung bleibt auch unten, die seitliche Schulter arbeitet die ganze Bewegung.",
+      "vorbereitung": "Ein Band.",
+      "schritte": [
+        "Stell dich mit dem linken Fuß auf ein Ende des Bandes.",
+        "Greif das andere Ende mit der rechten Hand vor dem Körper, das Band läuft über Kreuz.",
+        "Heb den fast gestreckten Arm seitlich bis Schulterhöhe.",
+        "Senk ihn langsam ab. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Arm sinken lassen, bis das Band locker ist, dann vom Band steigen.",
+      "sauber": "Der Arm kommt bis Schulterhöhe, die Schulter zieht nicht zum Ohr, der Oberkörper bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": "Der Oberkörper lehnt sich weg. Leichteres Band, aufrecht stehen. Die Schulter zieht hoch. Schulter tief, nur bis Schulterhöhe.",
+      "skalierung": "Leichter: leichteres Band oder kürzerer Hebel (Ellbogen gebeugt). Schwerer: stärkeres Band oder oben 2 s halten.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Einarmiges Seitheben mit Band"
+      ],
+      "muster": "isolation",
+      "level": 1,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_band_y_raise",
+      "name": "Band Y-Raise",
+      "bereich": "zug",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_band"
+        ]
+      ],
+      "nutzen": 43,
+      "trainiert": "Seitliche Schulter, unterer Trapez",
+      "zweck": "Arme in Y-Form heben: seitliche Schulter und Schulterblatt, gut gegen Hängeschultern.",
+      "vorbereitung": "Ein leichtes Band.",
+      "schritte": [
+        "Stell dich mit beiden Füßen auf die Mitte des Bandes, die Enden über Kreuz greifen.",
+        "Heb die fast gestreckten Arme schräg nach vorn oben zu einem Y, Daumen zeigen nach oben.",
+        "Zieh dabei die Schulterblätter nach unten.",
+        "Senk die Arme langsam ab."
+      ],
+      "ausstieg": "Arme sinken lassen, bis das Band locker ist.",
+      "sauber": "Die Schultern bleiben tief, der Rücken macht kein Hohlkreuz.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": "Die Schultern ziehen zu den Ohren. Leichteres Band, Schulterblätter nach unten. Hohlkreuz beim Heben. Bauch fest, nur so hoch wie es sauber geht.",
+      "skalierung": "Leichter: leichteres Band oder ohne Band. Schwerer: stärkeres Band oder vorgebeugt.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "schulter_seite",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "schulter_hinten"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Y-Heben mit Band"
+      ],
+      "muster": "isolation",
+      "level": 1,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_doorframe_lateral_hold",
+      "name": "Doorframe Lateral Raise Hold",
+      "bereich": "druck",
+      "einheit": "sek",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_zuhause"
+        ]
+      ],
+      "nutzen": 38,
+      "trainiert": "Seitliche Schulter",
+      "zweck": "Seitheben als Halteübung im Türrahmen: seitliche Schulter ganz ohne Geräte.",
+      "vorbereitung": "Ein Türrahmen.",
+      "schritte": [
+        "Stell dich in einen Türrahmen, die Arme hängen seitlich.",
+        "Leg die Handrücken außen an den Rahmen.",
+        "Drück die Arme mit voller Kraft nach außen, als wolltest du sie seitlich heben.",
+        "Halte den Druck, die Schultern bleiben tief."
+      ],
+      "ausstieg": "Druck langsam lösen, Arme ausschütteln.",
+      "sauber": "Die Schultern ziehen nicht hoch, der Oberkörper bleibt gerade.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen, nicht pressen.",
+      "fehler": "Die Luft wird angehalten. Ruhig weiteratmen. Die Schultern ziehen hoch. Weniger Druck, Schultern tief.",
+      "skalierung": "Leichter: weniger Druck. Schwerer: Arme weiter vom Körper (enger Rahmen) oder länger halten.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitheben im Türrahmen"
+      ],
+      "muster": "isolation",
+      "level": 1,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_side_lying_abduction",
+      "name": "Side-Lying Hip Abduction",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [],
+      "nutzen": 40,
+      "trainiert": "Seitliches Gesäß",
+      "zweck": "Bein in Seitlage heben: seitliches Gesäß, hält das Becken beim Laufen und auf einem Bein gerade.",
+      "vorbereitung": "Eine Matte.",
+      "schritte": [
+        "Leg dich auf die Seite, das untere Bein leicht gebeugt, das obere gestreckt.",
+        "Die Zehen des oberen Beins zeigen nach vorn.",
+        "Heb das obere Bein gerade nach oben, die Ferse führt.",
+        "Senk es langsam ab. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Bein ablegen, auf den Rücken rollen.",
+      "sauber": "Das Becken kippt nicht nach hinten, das Bein bleibt in einer Linie mit dem Körper.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": "Das Becken kippt nach hinten. Kleinere Bewegung, Hand vorn auf den Boden. Das Bein geht nach vorn. Ferse führt, Bein leicht nach hinten.",
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: Band um die Knie oder oben 2 s halten.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "abduktoren"
+        ],
+        "sekundaer": [
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Seitliches Beinheben"
+      ],
+      "muster": "isolation",
+      "level": 1,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_fire_hydrant",
+      "name": "Fire Hydrant",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [],
+      "nutzen": 39,
+      "trainiert": "Seitliches Gesäß",
+      "zweck": "Knie im Vierfüßlerstand seitlich heben: seitliches Gesäß und Hüfte.",
+      "vorbereitung": "Eine Matte.",
+      "schritte": [
+        "Geh in den Vierfüßlerstand, Hände unter den Schultern, Knie unter der Hüfte.",
+        "Heb ein gebeugtes Bein seitlich an, bis der Oberschenkel fast waagrecht ist.",
+        "Der Oberkörper bleibt ruhig.",
+        "Senk das Knie langsam ab. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Knie absetzen, kurz in die Kinderhaltung.",
+      "sauber": "Das Gewicht verlagert sich nicht auf die andere Seite, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Heben ausatmen.",
+      "fehler": "Der Oberkörper kippt zur Seite. Weniger hoch, Bauch fest.",
+      "skalierung": "Leichter: kleinere Bewegung. Schwerer: Band um die Knie.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "abduktoren",
+          "gesaess"
+        ],
+        "sekundaer": []
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hydrant"
+      ],
+      "muster": "isolation",
+      "level": 1,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_lateral_raise",
+      "varianten": [
+        {
+          "uebung": "g_doorframe_lateral_hold",
+          "art": "variante",
+          "effekt": 38,
+          "grund": "Ganz ohne Geräte, als Halteübung."
+        },
+        {
+          "uebung": "g_band_cross_lateral_raise",
+          "art": "variante",
+          "effekt": 44,
+          "grund": "Einarmig mit Band über Kreuz, Spannung auch unten."
+        },
+        {
+          "uebung": "g_band_y_raise",
+          "art": "variante",
+          "effekt": 43,
+          "grund": "Mit Band, Arme in Y-Form, dazu das Schulterblatt."
+        }
+      ]
+    },
+    {
+      "familie": "f_hip_abduction",
+      "varianten": [
+        {
+          "uebung": "g_side_lying_abduction",
+          "art": "variante",
+          "effekt": 40,
+          "grund": "Ohne Gerät, in Seitlage."
+        },
+        {
+          "uebung": "g_fire_hydrant",
+          "art": "variante",
+          "effekt": 39,
+          "grund": "Ohne Gerät, im Vierfüßlerstand."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

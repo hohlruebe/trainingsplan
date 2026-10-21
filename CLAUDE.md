@@ -125,7 +125,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 382 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 387 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahmen mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; Handstand neue erste Stufe „Rücken zur Wand“ (`g_wall_handstand_back`, in der Familie als Variante) vor Face-to-Wall; dann plan-data, lib-data und fam-data gleich halten. Gespeichert werden Stufennamen, nicht Nummern, darum bleiben alte Einträge gültig).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 60 Familien (auch Isolation und zwei Mobility-Familien),
@@ -573,6 +573,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nächste Muskel bis 28 px (`musAt`). „Öffnen“ (`ACT['mus-open']`) zeigt die versteckte Seite `muskel` (`renderMuskel`, `ui.musId`, Zurück zu Muskeln): Bild (`musIcon`,
   aus der Figur gezoomt über `musBox`, Stil S3), Satz `MUS_TXT`, Status aus dem Muskelausgleich (`musStat`), „zuletzt …“ (`musLast`), Ort | Alle
   (`ui.musAll`), „Trainiert … vor allem“ (Hauptmuskel) und „Arbeitet mit“ (6, „Alle zeigen“ `ui.musMore`), Zeilen wie „Heute zum ersten Mal“ mit (i).
+  Muskel-Bilder als Knöpfe (`musChipsHTML`, `.mus-ic`, `ACT['mus-go']`): im (i) jeder Übung „Trainiert vor allem“ (Hauptmuskeln mit Stand aus dem
+  Muskelausgleich) und in der Karte Muskelausgleich „Kommt zu kurz“ (% vom Soll); Tippen öffnet die Muskel-Seite, Zurück führt dorthin zurück
+  (`ui.musBack`), im laufenden Training nur ein Hinweis. Neu in der Bibliothek (Paket `neu_isolation_2.json`, Texte in `texte/isolation.json`):
+  seitliche Schulter zu Hause (Cross-Body Band Lateral Raise, Band Y-Raise, Doorframe Lateral Raise Hold) und Abduktoren ohne Gerät
+  (Side-Lying Hip Abduction, Fire Hydrant), als Varianten in `f_lateral_raise` bzw. `f_hip_abduction`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

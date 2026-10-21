@@ -1063,7 +1063,10 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_band_lateral_raise", "art": "stufe", "rang": 1, "effekt": 42, "ziel": "3 Sätze mit 15 sauberen Wiederholungen.", "grund": "Einstieg ohne Gewichte." },
-        { "uebung": "g_lateral_raise", "art": "stufe", "rang": 2, "effekt": 56, "ziel": "12 saubere Wiederholungen mit je 5 % des Körpergewichts pro Hand.", "grund": "Messbar steigerbar in kg." }
+        { "uebung": "g_lateral_raise", "art": "stufe", "rang": 2, "effekt": 56, "ziel": "12 saubere Wiederholungen mit je 5 % des Körpergewichts pro Hand.", "grund": "Messbar steigerbar in kg." },
+        { "uebung": "g_doorframe_lateral_hold", "art": "variante", "rang": null, "effekt": 38, "grund": "Ganz ohne Geräte, als Halteübung." },
+        { "uebung": "g_band_cross_lateral_raise", "art": "variante", "rang": null, "effekt": 44, "grund": "Einarmig mit Band über Kreuz, Spannung auch unten." },
+        { "uebung": "g_band_y_raise", "art": "variante", "rang": null, "effekt": 43, "grund": "Mit Band, Arme in Y-Form, dazu das Schulterblatt." }
       ]
     },
     {
@@ -1138,7 +1141,9 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_clamshell", "art": "stufe", "rang": 1, "effekt": 40, "ziel": "3 Sätze mit 20 Wiederholungen je Seite.", "grund": "Einstieg in Seitenlage." },
-        { "uebung": "g_lateral_band_walk", "art": "stufe", "rang": 2, "effekt": 45, "ziel": "3 Runden mit 15 Schritten je Richtung, Band um die Fußgelenke.", "grund": "Hüftstabilität im Stand." }
+        { "uebung": "g_lateral_band_walk", "art": "stufe", "rang": 2, "effekt": 45, "ziel": "3 Runden mit 15 Schritten je Richtung, Band um die Fußgelenke.", "grund": "Hüftstabilität im Stand." },
+        { "uebung": "g_side_lying_abduction", "art": "variante", "rang": null, "effekt": 40, "grund": "Ohne Gerät, in Seitlage." },
+        { "uebung": "g_fire_hydrant", "art": "variante", "rang": null, "effekt": 39, "grund": "Ohne Gerät, im Vierfüßlerstand." }
       ]
     },
     {

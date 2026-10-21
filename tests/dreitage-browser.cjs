@@ -113,7 +113,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#sheet [data-rpe="7"]').click();
     assert.match(await page.locator('#rpe-t').innerText(), /7 · Hart/);
     await page.locator('#rpe-ok').click();
-    await page.waitForFunction(() => window.tpTest.logs().length > 0, null, { timeout: 3000 });
+    // Warten auf den neuen Eintrag (die Testdaten haben schon 7 alte, „länger als 0“ war ein Wettlauf).
+    await page.waitForFunction(() => window.tpTest.logs().some(x => x.pv === 2), null, { timeout: 8000 });
     const l = await page.evaluate(() => window.tpTest.logs().slice(-1)[0]);
     assert.equal(l.pv, 2); assert.equal(l.unit, 'A'); assert.equal(l.fin.k, 'easy');
     assert.equal(l.rpe, 7); assert.ok(l.min > 0 && l.soll > 100, 'echte Minuten und geplante Belastung im Eintrag');
@@ -516,7 +517,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: 'Alle', exact: true }).click();
     assert.ok(await page.locator('#view .ft-row').count() > nOrt, 'Alle zeigt mehr Übungen');
     await page.locator('#view .ft-row').first().click();
-    assert.ok(await page.locator('#sheet .ue-info').isVisible(), '(i) öffnet die Anleitung'); await page.locator('#sheet [data-sh]').first().click(); await page.waitForTimeout(300);
+    assert.ok(await page.locator('#sheet .ue-info').isVisible(), '(i) öffnet die Anleitung');
+    assert.ok(await page.locator('#sheet .mus-ic').count() > 0, '(i) zeigt die Hauptmuskeln als Bild'); await page.locator('#sheet [data-sh]').first().click(); await page.waitForTimeout(300);
     console.log('PASS: Körper unter Tools: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
 
     for (const width of [320, 390, 1366]) {
