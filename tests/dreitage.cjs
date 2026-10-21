@@ -24,10 +24,10 @@ function setup(extra) {
     ladderStates: () => ({}), ladFor: () => null, partScores: () => ({}), dayLabel: t => 'Ganzkörper ' + ({ 1: 'A', 3: 'B', 6: 'C' })[t], esc: String,
     SHIFT: { f: ['Früh', 6, 14], s: ['Spät', 14, 22], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18], tn: ['12 h Nacht', 18, 6] }
   }, extra || {}));
-  vm.runInContext('var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + ';', c);
+  vm.runInContext('var KFIT = 0; var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + ';', c);
   for (const name of ['tageN', 'splitOn', 'isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
     'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'isSecs', 'holdOf', 'repGoal', 'befCls', 'befOf', 'stepRi', 'stepsLoad', 'logLoad', 'rpeWord', 'longShift',
-    'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks']) vm.runInContext(source(name), c);
+    'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks', 'kalSleepy', 'wkPlan0', 'dayFreeH', 'fmtHalfH']) vm.runInContext(source(name), c);
   return c;
 }
 const units = P => P.days.map(d => d.tag ? ({ 1: 'A', 3: 'B', 6: 'C' })[d.tag] : '-').join('');
@@ -203,7 +203,7 @@ assert.ok(T.block.some(b => b[0] === 24 * 4 + 16 && b[1] === 24 * 4 + 19.5 && b[
 const fr = P.days[4];
 if (fr.tag) assert.ok(fr.end <= 24 * 4 + 16 + 1e-9 || fr.t >= 24 * 4 + 19.5 - 1e-9, 'kein Training im Termin');
 c.KAL.bis = parseISOL('2026-10-15').getTime();
-assert.equal(c.arbeitOf('2026-10-12')[0], null); assert.equal(c.arbeitOf('2026-10-19')[0].k, 'f', 'außerhalb des Zeitraums gilt der Schichtplan aus der App');
+assert.equal(c.arbeitOf('2026-10-12')[0], null); assert.equal(c.arbeitOf('2026-10-19')[0], null, 'Paket 64: mit Kalender gelten eingetragene Schichten nie, auch außerhalb des Zeitraums');
 // Kalender einzeln: eigener sichtbarer Kalender und Kalender mit Diensten zählen von selbst, geteilte nicht; die eigene Wahl gewinnt.
 c.KAL.bis = parseISOL('2026-11-02').getTime();
 c.KAL.k = [{ id: 'haupt', e: true, s: true }, { id: 'dienst', e: false, s: true }, { id: 'partner', e: false, s: true }];
@@ -215,6 +215,30 @@ c.KAL.sel = { partner: true, dienst: false };
 assert.ok(c.wkTimeline('2026-10-12').block.some(b => b[0] === 24 * 4 + 8), 'angeschaltet: zählt');
 assert.equal(c.arbeitOf('2026-10-12')[1], null, 'Dienst-Kalender aus: keine Dienste mehr aus dem Kalender');
 c.KAL = null; assert.equal(c.arbeitOf('2026-10-12')[0].k, 'f', 'ohne Kalender wie bisher');
+{
+// Paket 64: Schlaf aus dem Kalender (an der Uhrzeit erkannt) ersetzt den angenommenen Schlaf; nur eine Lücke frei → kürzere Einheit.
+const c64 = setup({ isoDate: isoDateL, parseISO: parseISOL, DAYS: Object.assign({}, V2, { 6: { type: 'rest' } }) }); now = '2026-10-12';
+c64.S.alltag = { on: true, bed: 22.5, wake: 6.5, weg: 0 };
+c64.KAL = { url: 'https://script.google.com/macros/s/x/exec', ts: 1, von: parseISOL('2026-10-04').getTime(), bis: parseISOL('2026-11-02').getTime(), w: [{ k: 'n', a: at('2026-10-13', 22), b: at('2026-10-14', 6) }],
+  b: [{ a: at('2026-10-12', 1), b: at('2026-10-12', 9) }, { a: at('2026-10-14', 7), b: at('2026-10-14', 14) }, { a: at('2026-10-15', 10), b: at('2026-10-15', 11) }] };
+const T64 = c64.wkTimeline('2026-10-12');
+assert.ok(T64.sleep.some(x => x[0] === 1 && x[1] === 9 && x[2].cal), 'Schlaf 1–9 Uhr aus dem Kalender');
+assert.ok(!T64.sleep.some(x => x[0] === -1.5), 'angenommener Schlaf dieser Nacht entfällt');
+assert.ok(T64.sleep.some(x => x[0] === 24 * 2 + 7 && x[1] === 24 * 2 + 14), 'Tagschlaf nach dem Nachtdienst aus dem Kalender');
+assert.ok(T64.block.some(x => x[0] === 24 * 3 + 10 && x[2].n === 'Termin'), 'kurzer Termin am Vormittag bleibt ein Termin');
+assert.ok(T64.sleep.some(x => x[0] === 24 * 3 - 1.5), 'Nacht ohne Schlaf im Kalender: Annahme bleibt');
+// Montag: nur 17–18 Uhr frei (Termine davor und danach), die Einheit dauert 75 Min → 60 Min, weil es keinen anderen Tag gibt.
+c64.planDur = () => 1.25;
+c64.KAL.w = []; c64.KAL.b = [{ a: at('2026-10-12', 9), b: at('2026-10-12', 17) }, { a: at('2026-10-12', 18), b: at('2026-10-12', 22) }];
+for (let d = 13; d <= 18; d++) c64.KAL.b.push({ a: at('2026-10-' + d, 7), b: at('2026-10-' + d, 22) });
+c64.S.tage = 2;
+const P64 = c64.wkPlan();
+assert.equal(P64.days[0].tag, 1, 'A am Montag in der Lücke'); assert.equal(P64.days[0].fit, 60, 'größte passende Lücke: 60 Min');
+assert.ok(P64.days[0].t >= 17 && P64.days[0].end <= 18 + 1e-9, 'liegt in der Lücke');
+assert.equal(c64.dayFreeH(T64, 3), c64.dayFreeH(T64, 3)); assert.equal(c64.dayFreeH(c64.wkTimeline('2026-10-12'), 1), 0, 'Dienstag ganz belegt: keine Zeit');
+assert.equal(c64.fmtHalfH(1.5), '1½ h'); assert.equal(c64.fmtHalfH(.5), '½ h');
+console.log('PASS: Kalender als einzige Quelle: Schlaf aus dem Kalender, kürzere Einheit in der Lücke, freie Zeit je Tag');
+}
 console.log('PASS: Google Kalender: Dienste, 12-h-Erkennung, belegte Zeiten, Zeitraum, Kalender einzeln an und aus, ohne Kalender wie bisher');
 
 // Die Kalender-Brücke selbst (Apps Script) mit nachgestellten Google-Diensten: Dienste nach Titel, private Termine ohne Titel als belegt,

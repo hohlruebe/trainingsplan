@@ -4,8 +4,20 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 19. Oktober 2026 (Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 21. Oktober 2026 (Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Kalender als einzige Quelle (21. Oktober 2026, Claude, Paket 64)
+- Dennis: „im Moment kann man trotzdem noch Früh- und Spätschicht eingeben, obwohl die Kalender-Integration in der App ist. Alle Termine, egal wie sie
+  heißen, blocken die Zeit fürs Training, ich pflege meinen Kalender sehr gut, auch Schlaf. Herausfinden, wie viel Zeit am Tag übrig ist, und das
+  Training in die freien Stellen planen.“
+- Umgesetzt: siehe CLAUDE.md „Kalender als einzige Quelle“. Schlaf wird ohne Titel an der Uhrzeit erkannt (die Brücke schickt keine Titel, darum kein
+  Update der Brücke nötig). Ein kurzer Mittagsschlaf unter 3 h zählt als normaler Termin (ohne Abstand davor und danach).
+- Kein Konzept-Board vorab: Dennis wollte direkt weitermachen, es ist vor allem Logik. Screenshots im PR-Text bzw. in der Antwort.
+- Geprüft: `tests/dreitage.cjs` (Schlaf aus dem Kalender, Annahme in Nächten ohne Eintrag, 60 Min in der einzigen Lücke, keine Zeit an einem vollen Tag,
+  keine Schicht außerhalb des Zeitraums), `tests/dreitage-browser.cjs` (keine Schicht-Eingabe mit Kalender, freie Zeit je Tag, Schlaf Sa 1–9 Uhr), alle übrigen Tests.
+- Zurückgestellt: Wochen-Kette mit 10-Minuten-Rettung (Motivation A + E). Entwurfsbilder liegen im Scratchpad, noch nicht im Canvas, Dennis hat sie nicht gesehen.
+- Offen: Dennis testet mit seinem echten Kalender (erkennt der Coach jede Schlaf-Eintragung?).
 
 ## Blöcke Aufbau, Kraft, Spitze (19. Oktober 2026, Claude, Paket 63)
 - Dennis: 1. „ja“ zu Aufbau/Kraft/Spitze, 2. mit Challenge „wir machen das, was nötig ist, um auf das jeweilige Ziel bestmöglich hinzuarbeiten“,
