@@ -671,10 +671,18 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .gm-h{display:flex;gap:14px;align-items:flex-start}.gm-h h3{margin:2px 0 4px}.gm-h p{margin:0 0 6px}
 .gm-fig{flex:none;margin:0!important}.gm-fig svg{width:64px!important}
 .gm-ex{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+.bf .sh,.mi .sh{pointer-events:none}.bf .sh path,.bf .sh ellipse,.bf .sh rect{stroke:none}
 .bf .hair{fill:color-mix(in srgb,var(--ink) 38%,var(--paper));stroke:none}
 .bf .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.2;stroke-linejoin:round}
 .bf .mu.b0{fill:var(--mb0)}.bf .mu.b1{fill:var(--mb1)}.bf .mu.b2{fill:var(--mb2)}.bf .mu.b3{fill:var(--mb3)}
 .bf .mu.p1{fill:var(--acc)}.bf .mu.p2{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
+.mi{display:block;flex:none;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--ink) 7%,var(--card));--g:color-mix(in srgb,var(--ink) 13%,var(--paper));--g2:color-mix(in srgb,var(--ink) 24%,var(--paper))}
+.mi svg{display:block;width:100%;height:100%}.mi .sil,.mi ellipse,.mi rect{fill:var(--g)}.mi .hair{fill:var(--g2)}.mi .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.1;stroke-linejoin:round}.mi .mu.hi{fill:var(--acc)}.mi .mu.lo{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
+.mfig{margin:4px 0 0}.mfig figure{margin:0}.mfig svg{width:auto;height:340px;display:block;margin:0 auto;cursor:pointer;-webkit-user-select:none;user-select:none}
+.mfig .mu{transition:fill .2s}.mus-hint{font-size:15px;color:var(--ink2);text-align:center;margin:8px 2px 2px}
+.mus-sel{display:flex;gap:12px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}.mus-sel .gl-t{flex:1;min-width:0}.mus-sel .btn{flex:none}
+.mus-x{font-size:15px;color:var(--ink2);margin:10px 0 14px;line-height:1.5}
+.mus-hero{display:flex;gap:16px;align-items:center}.mus-hero h2{margin:0;font-size:26px}.mus-hero p{margin:4px 0 8px}
 .mus-lg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin:6px 0 10px;color:var(--ink2)}.mus-lg span{display:inline-flex;align-items:center;gap:6px}
 .mus-lg i{flex:0 0 auto;width:10px;height:10px;border-radius:3px}.mus-lg i.p1{background:var(--acc)}.mus-lg i.p2{background:color-mix(in srgb,var(--acc) 38%,color-mix(in srgb,var(--ink) 21%,var(--paper)))}
 .mus-card .sec-k{margin-top:0}.mus-empty{text-align:center}
@@ -2775,9 +2783,9 @@ if (!S.picksV) {
 var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
-var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'routinen', 'rm'] };
-var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', routinen: 'Mobility', rm: '1RM' };
-var HIDDEN = { fix: 'profil', fam: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
+var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
+var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
@@ -3023,7 +3031,7 @@ function render() {
   if (S.review && FOKUS_IDS.indexOf(S.review.fokus) < 0) S.review.fokus = 'allround';
   dayCheck();
   syncDays();
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kalender: renderKalender }[ui.tab];
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, muskeln: renderMuskeln, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kalender: renderKalender }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
@@ -3047,6 +3055,7 @@ function render() {
   if (ui.tab === 'heute') { wakeFigs(); paintMini(); syncFig(document.querySelector('.ex-card.now') ? +document.querySelector('.ex-card.now').dataset.ex : 0); }
   if (ui.tab === 'routine') paintRoutine();
   if (ui.tab === 'uebungen' || ui.tab === 'fam') wakeGloss();
+  if (ui.tab === 'muskeln') musFit();
   if (ui.tab === 'fam') { document.querySelectorAll('#view .fam-top .fig').forEach(startFig); fitLadders($view); }
   if (ui.tab === 'skill') drawTree();
   var T = trainCtx();
@@ -3059,6 +3068,7 @@ var SUB_IC = {
   timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2.5h6"/>',
   uebungen: '<path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/>',
   routinen: '<circle cx="12" cy="4.5" r="2"/><path d="M5 9.5l7 1.5 7-1.5M12 11v4l-3.5 6M12 15l3.5 6"/>',
+  muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>',
   rm: '<path d="M3.5 20h17M6 16l4.5-5.5 3 3L18 7.5M14.5 7.5H18V11"/>'
 };
 function subTitle(views) {
@@ -7026,8 +7036,8 @@ var MQ_DESK = window.matchMedia ? window.matchMedia('(min-width: 1024px) and (ho
 function deskOn() { var m = S.layout || 'auto'; if (m === 'desk') return window.innerWidth >= 900; if (m === 'mobil') return false; return !!(MQ_DESK && MQ_DESK.matches); }
 if (MQ_DESK) { var deskRe = function () { render(); }; if (MQ_DESK.addEventListener) MQ_DESK.addEventListener('change', deskRe); else if (MQ_DESK.addListener) MQ_DESK.addListener(deskRe); }
 // Seitenleiste statt der Reiter-Kapsel: alle Seiten direkt erreichbar.
-var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
-var SIDE_IC = { heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
+var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['muskeln', 'Körper'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
+var SIDE_IC = { muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>', heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
   profil: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/>', einst: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>' };
 function sideHTML() {
   var cur = ui.tab === 'fam' ? 'uebungen' : ui.tab === 'routine' ? 'routinen' : ui.tab === 'haptik' ? 'einst' : ui.tab === 'skill' ? 'profil' : ui.tab;
@@ -11028,7 +11038,7 @@ ACT['pn-ask'] = function (el) {
   saveState(); render();
 };
 // Übersicht im Profil › Werte: Figur mit Gelenk-Punkten und Muskeln, je Stelle eine Zeile, gemiedene Übungen.
-var JOINT_XY = { schulter: [[52, 94]], ellbogen: [[44, 174]], handgelenk: [[31, 244]], huefte: [[70, 252]], knie: [[76, 340]], fuss: [[74, 420]] };
+var JOINT_XY = { schulter: [[52, 94]], ellbogen: [[44, 174]], handgelenk: [[31, 244]], huefte: [[70, 252]], knie: [[76, 340]], fuss: [[74, 442]] };
 function painFigHTML() {
   var col = {}, dots = { f: '', b: '' };
   memList().forEach(function (e) {
@@ -11105,35 +11115,45 @@ ACT['pn-physio'] = function () {
 /* ---------- Muskeln: Körperfigur, Ausgleich ---------- */
 // Figur wie eine anatomische Tafel: graue Silhouette, Muskeln einzeln abgegrenzt. Gezeichnet ist die linke Hälfte, rechts gespiegelt.
 // Muskeln mit „_“ (Trapez vorn, Knie, Schienbein) zählen nicht, sie bleiben grau.
-var BODY_SIL = 'M100 76 L84 78 C70 80 58 83 50 90 C42 98 39 112 40 126 L36 150 C33 162 32 172 32 182 C29 202 26 225 24 246 C21 260 20 272 22 284 C25 291 32 290 34 283 L38 252 C41 233 45 212 48 192 C51 180 54 166 56 150 L59 120 C61 150 63 182 64 206 C64 224 61 238 59 252 C55 282 56 312 60 336 C62 362 60 392 62 414 C61 422 55 429 60 433 L86 433 C90 429 88 420 86 412 C86 390 90 362 90 336 C92 310 96 282 98 262 L100 256 Z';
+var BODY_SIL = 'M100 76 L84 78 C70 80 58 83 50 90 C42 98 39 112 40 126 L36 150 C33 162 32 172 32 182 C29 202 26 225 24 246 C21 260 20 272 22 284 C25 291 32 290 34 283 L38 252 C41 233 45 212 48 192 C51 180 54 166 56 150 L59 120 C61 150 63 182 64 206 C64 224 61 238 59 252 C55 282 56 312 60 336 C57 352 56 368 58 384 C60 404 64 424 66 440 C63 448 59 458 60 466 C61 473 67 475 74 475 L81 475 C88 475 90 471 89 464 C88 456 85 447 83 440 C84 420 88 400 90 382 C92 366 92 350 90 336 C92 310 96 282 98 262 L100 256 Z';
+// Muskeln als Flächen in Blattform (Dennis, an Gymjourneys orientiert: organisch, nicht klinisch): runde Bäuche, spitze Sehnen,
+// die Flächen füllen den Körper fast ganz, Fugen in Kartenfarbe. Teile mit „_“ sind nur Füllung und zählen nicht.
 var BODY_F = {
-  _trapez: 'M89 64 C85 74 76 80 64 85 L90 82 Z',
-  schulter_seite: 'M60 85 C47 87 39 99 39 116 L40 127 L47 124 C45 110 47 97 54 90 Z',
-  schulter_vorn: 'M68 86 C57 86 49 93 47 104 C46 112 46 118 47 124 C54 116 61 105 68 96 Z',
-  brust: 'M98 90 L71 89 C64 92 62 100 64 109 C66 119 70 128 78 131 C86 133 93 131 98 128 Z',
-  bizeps: 'M47 128 C42 140 41 156 45 170 C51 162 55 148 56 133 C53 130 50 128 47 128 Z',
-  unterarm: 'M44 174 C37 192 32 214 29 240 L36 243 C41 222 47 200 51 182 C50 177 48 174 44 174 Z',
-  bauch_schraeg: 'M64 131 C62 160 64 196 70 224 L84 232 L84 136 C76 135 70 134 64 131 Z',
-  bauch_gerade: 'M86 136 L98 136 L98 156 L86 156 Z M86 159 L98 159 L98 180 L86 180 Z M86 183 L98 183 L98 205 L86 205 Z M86 208 L98 208 L98 238 C93 238 89 234 86 229 Z',
-  hueftbeuger: 'M72 238 L86 236 L90 252 L84 258 Z',
-  quadrizeps: 'M60 250 C55 280 57 310 64 332 L72 330 C68 300 68 276 70 256 Z M71 256 C70 284 72 312 76 330 L84 330 C87 304 88 280 86 262 Z M85 300 C90 310 90 324 87 334 L78 334 C80 320 82 308 85 300 Z',
-  adduktoren: 'M87 262 L98 260 C98 280 96 296 92 306 C89 290 88 274 87 262 Z',
-  _knie: 'M64 335 L88 335 C88 343 84 348 76 348 C68 348 64 343 64 335 Z',
-  _schienbein: 'M67 352 C65 372 67 392 71 408 L75 408 C75 388 75 368 75 352 Z',
-  waden: 'M62 350 C59 368 60 388 64 402 L67 400 C65 384 64 366 66 350 Z M78 350 C82 366 86 380 86 398 C89 380 90 364 88 350 Z'
+  _trapez: 'M89 64 C86 73 78 79 66 84 C74 85 83 85 90 83 Z',
+  schulter_seite: 'M55 86 C46 89 40 100 40 114 C40 124 43 132 47 138 C46 122 47 104 55 86 Z',
+  schulter_vorn: 'M58 85 C50 102 49 120 48 137 C55 128 62 116 66 103 C68 96 68 90 66 86 C63 85 61 85 58 85 Z',
+  brust: 'M98 90 C88 88 78 88 70 90 C66 98 63 106 59 114 C64 126 80 136 98 132 Z',
+  _saege: 'M61 124 C66 125 71 128 75 133 C70 136 65 136 61 133 Z M62 138 C67 139 71 141 74 145 C70 148 65 148 62 146 Z M63 150 C67 151 70 154 72 158 C68 161 65 160 63 158 Z',
+  bauch_schraeg: 'M77 137 C71 150 65 166 64.5 186 C64.5 204 68 220 76 232 C79 235 82 237 85 237 L85 139 C82 138 80 137 77 137 Z',
+  bauch_gerade: 'M87 138 C91 136 95 136 98 137 L98 156 C94 157 90 157 87 156 C86 150 86 144 87 138 Z M87 160 C91 159 95 159 98 160 L98 180 C94 181 90 181 87 180 C86 173 86 166 87 160 Z M87 184 C91 183 95 183 98 184 L98 205 C94 206 90 206 87 205 C86 198 86 191 87 184 Z M87 209 C91 208 95 208 98 209 L98 240 C93 240 89 236 87 230 C86 223 86 216 87 209 Z',
+  _tfl: 'M60 238 C64 235 68 237 69 241 C70 248 69 256 67 262 C63 261 60 257 59 251 C59 246 59 242 60 238 Z',
+  hueftbeuger: 'M71 239 C77 240 83 244 86 251 C84 255 79 257 75 255 C72 250 71 245 71 239 Z',
+  quadrizeps: 'M60 264 C55 284 55 308 59 328 C62 335 66 338 71 337 C67 318 66 300 68 282 C69 274 70 266 70 260 C66 258 62 259 60 264 Z M74 256 C70 272 69 294 72 314 C74 326 76 333 79 337 C82 333 84 326 85 316 C87 298 85 276 79 256 C77 254 75 254 74 256 Z M87 300 C91 308 92 322 89 333 C86 338 83 339 81 338 C84 330 86 318 87 300 Z',
+  adduktoren: 'M85 258 C90 258 95 260 98 263 C97 280 94 294 90 302 C88 288 86 272 85 258 Z',
+  _knie: 'M70 340 C74 337 80 337 84 340 C85 346 81 350 77 350 C73 350 69 347 70 340 Z',
+  _schienbein: 'M66 355 C64 376 66 400 70 424 C72 426 74 426 75 424 C76 400 77 378 76 357 C73 353 69 353 66 355 Z',
+  waden: 'M60 355 C57 369 58 387 62 401 C64 392 65 377 64 357 C63 355 61 354 60 355 Z M86 353 C91 363 93 379 89 401 C86 389 84 373 84 357 C84 354 85 353 86 353 Z',
+  bizeps: 'M47 139 C42 151 41 165 44 178 C50 174 55 163 56 149 C55 142 51 138 47 139 Z',
+  _oberarm: 'M41 141 C37 153 36 166 38 178 C40 179 41 178 42 177 C40 165 40 153 41 141 Z',
+  unterarm: 'M35 183 C31 199 28 219 26 240 C28 243 30 244 32 243 C35 222 39 203 42 186 C40 183 37 182 35 183 Z M44 185 C41 205 37 225 34 244 C36 246 38 246 40 244 C43 226 47 207 50 192 C49 187 47 184 44 185 Z'
 };
 var BODY_B = {
-  oberer_ruecken: 'M100 54 L91 70 C84 78 72 82 60 86 C72 98 88 118 100 152 Z',
-  schulter_seite: 'M60 85 C47 87 39 99 39 116 L40 127 L47 124 C45 110 47 97 54 90 Z',
-  schulter_hinten: 'M62 88 C54 89 48 96 46 106 C45 113 46 119 47 125 C53 115 58 104 64 94 Z',
-  trizeps: 'M47 128 C41 144 40 160 45 174 C51 166 55 150 56 133 C53 130 50 128 47 128 Z',
-  unterarm: 'M44 176 C37 194 32 216 29 240 L36 243 C41 222 47 200 51 184 C50 179 48 176 44 176 Z',
-  latissimus: 'M64 112 C59 146 65 180 77 204 L96 196 L96 160 C84 148 72 132 64 112 Z',
-  rueckenstrecker: 'M88 158 C86 184 86 214 88 238 L98 238 L98 156 Z',
-  abduktoren: 'M62 224 C58 234 58 244 63 250 C70 240 80 234 90 234 C80 226 70 222 62 224 Z',
-  gesaess: 'M63 248 C58 266 65 286 82 289 C94 290 99 280 99 264 L99 246 C88 238 73 238 63 248 Z',
-  beinbeuger: 'M60 294 C56 312 60 330 68 340 L76 338 C74 320 74 304 76 292 Z M77 292 C77 306 78 322 80 338 L88 336 C90 318 90 302 88 293 Z',
-  waden: 'M61 348 C57 366 59 386 66 398 C71 388 74 370 75 350 Z M77 350 C79 370 82 386 86 398 C91 382 91 364 88 350 Z'
+  oberer_ruecken: 'M100 56 C96 66 90 72 80 78 C72 82 65 84 60 87 C70 96 80 108 88 124 C93 134 97 144 100 152 Z',
+  _infra: 'M61 90 C66 96 71 102 75 108 C76 116 72 124 66 128 C63 118 61 104 61 90 Z',
+  _teres: 'M63 116 C69 114 74 112 77 109 C83 118 88 130 92 147 C82 141 71 131 63 116 Z',
+  schulter_seite: 'M55 86 C46 89 40 100 40 114 C40 124 43 132 47 138 C46 122 47 104 55 86 Z',
+  schulter_hinten: 'M58 86 C51 101 49 118 48 136 C54 126 59 115 62 104 C63 97 62 91 58 86 Z',
+  trizeps: 'M45 139 C39 151 38 166 41 179 C46 171 49 156 49 140 C48 139 46 138 45 139 Z M52 138 C54 152 52 166 47 179 C52 175 56 163 57 149 C57 142 55 138 52 138 Z',
+  unterarm: 'M35 183 C31 199 28 219 26 240 C28 243 30 244 32 243 C35 222 39 203 42 186 C40 183 37 182 35 183 Z M44 185 C41 205 37 225 34 244 C36 246 38 246 40 244 C43 226 47 207 50 192 C49 187 47 184 44 185 Z',
+  latissimus: 'M62 126 C61 150 62 176 65 196 C72 202 80 207 86 211 C88 197 90 183 92 168 C93 162 95 158 96 155 C85 149 73 140 62 126 Z',
+  rueckenstrecker: 'M90 168 C87 188 86 212 88 238 C92 240 96 240 98 238 L98 162 C95 162 92 164 90 168 Z',
+  _flanke: 'M65 201 C66 212 66 222 64 232 C71 230 79 229 87 231 C87 224 87 218 86 215 C79 211 71 206 65 201 Z',
+  abduktoren: 'M62 233 C59 239 59 245 61 250 C68 243 78 238 90 236 C82 231 71 229 62 233 Z',
+  gesaess: 'M62 254 C58 270 64 287 80 291 C92 293 99 283 99 267 L99 247 C88 240 72 242 62 254 Z',
+  beinbeuger: 'M60 297 C56 313 59 328 66 340 C69 341 71 339 72 336 C70 320 70 306 72 295 C68 293 63 293 60 297 Z M75 295 C75 310 77 324 80 338 C83 340 86 339 88 336 C90 320 90 307 88 296 C84 292 79 292 75 295 Z',
+  adduktoren: 'M90 294 C94 292 97 294 97 298 C96 305 94 311 91 314 C90 307 90 300 90 294 Z',
+  waden: 'M61 351 C56 365 57 384 64 398 C68 400 71 398 72 394 C73 379 73 363 70 351 C67 348 63 348 61 351 Z M75 351 C75 367 77 384 80 400 C84 404 88 400 89 394 C92 378 92 362 89 351 C85 347 78 347 75 351 Z M58 388 C58 399 61 410 66 420 C66 416 66 413 66 410 C63 403 60 396 58 388 Z M90 390 C88 401 86 411 82 420 C82 416 82 413 82 410 C85 404 88 397 90 390 Z',
+  _achilles: 'M71 407 C74 405 77 405 80 407 C79 419 79 431 79 444 L73 444 C73 431 72 419 71 407 Z'
 };
 var MUS_NAME = { brust: 'Brust', schulter_vorn: 'Vordere Schulter', schulter_seite: 'Seitliche Schulter', schulter_hinten: 'Hintere Schulter',
   trizeps: 'Trizeps', bizeps: 'Bizeps', unterarm: 'Unterarme', latissimus: 'Latissimus', oberer_ruecken: 'Oberer Rücken', rueckenstrecker: 'Rückenstrecker',
@@ -11149,7 +11169,7 @@ var MUS_PAIRS = [[['brust', 'schulter_vorn', 'trizeps'], 'Druck', ['latissimus',
   [['bauch_gerade', 'bauch_schraeg'], 'Bauch', ['rueckenstrecker'], 'Rückenstrecker']];
 // Weibliche und neutrale Figur: dieselben Linien, verzogen. Schultern und Taille schmaler, Hüfte und Oberschenkel breiter,
 // Arme schlanker und mit den Schultern nach innen, dazu Brust und Haare. Neutral (divers) liegt genau in der Mitte.
-var BODY_WARP = [[60, 1], [78, .8], [118, .82], [160, .8], [208, .7], [236, .9], [266, 1.17], [300, 1.15], [338, .98], [380, .96], [440, .94]];
+var BODY_WARP = [[60, 1], [78, .8], [118, .82], [160, .8], [208, .7], [236, .9], [266, 1.17], [300, 1.15], [338, .98], [380, .96], [480, .94]];
 // Brust der weiblichen Figur: rund, unten mit Schatten-Bogen.
 var BODY_BRUST_W = 'M98 104 C93 97 83 95 74 98 C63 102 57 114 59 127 C61 140 71 148 83 148 C92 148 97 142 98 135 Z';
 // Haare: vorn Scheitel und lange Strähnen bis zu den Schultern, hinten ganz mit Pferdeschwanz. Halbe Breite, wird gespiegelt.
@@ -11175,18 +11195,142 @@ function bodyWarp(d, t) { return t ? d.replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+
 var BODY_C = {};
 function bodyOf(t) {
   if (BODY_C[t]) return BODY_C[t];
-  var wp = function (P) { var o = {}; Object.keys(P).forEach(function (k) { o[k] = bodyWarp(k === 'brust' && t === 1 ? BODY_BRUST_W : P[k], t); }); return o; };
+  var wp = function (P) { var o = {}, ks = Object.keys(P).filter(function (k) { return !(t === 1 && k === '_saege'); }); if (t === 1 && P.brust) ks = ks.filter(function (k) { return k !== 'brust'; }).concat('brust'); ks.forEach(function (k) { o[k] = bodyWarp(k === 'brust' && t === 1 ? BODY_BRUST_W : P[k], t); }); return o; };
   return (BODY_C[t] = { sil: bodyWarp(BODY_SIL, t), f: wp(BODY_F), b: wp(BODY_B), head: 19 - 2 * t, neck: 22 - 6 * t, hair: t === 1 ? 'w' : t === 0 ? 'm' : '' });
 }
+var BODY_N = 0;
 function bodySVG(parts, cls) {
-  var B = bodyOf(sexT()), back = parts === BODY_B, P = back ? B.b : parts === BODY_F ? B.f : parts;
+  var B = bodyOf(sexT()), back = parts === BODY_B, P = back ? B.b : parts === BODY_F ? B.f : parts, id = 'bs' + (++BODY_N);
   var half = '<path class="sil" d="' + B.sil + '"/>' + Object.keys(P).map(function (m) { return '<path class="mu' + (m.charAt(0) === '_' ? '' : ' ' + (cls(m) || '')) + '" d="' + P[m] + '"/>'; }).join('');
+  // Nur die Muskeln ganz leicht gewölbt (Ränder ein wenig dunkler), Umriss und Kopf bleiben flach. Fängt keine Taps.
+  var sh = '<g class="sh" fill="url(#' + id + ')">' + Object.keys(P).map(function (m) { return '<path d="' + P[m] + '"/>'; }).join('') + '</g>';
   var hair = B.hair ? '<path class="hair" d="' + (B.hair === 'w' ? (back ? BODY_HAIR_B : BODY_HAIR_F) : (back ? BODY_HAIR_MB : BODY_HAIR_MF)) + '"/>' : '';
-  return '<svg viewBox="0 0 200 440" aria-hidden="true"><ellipse class="sil" cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair === 'w' ? 23 : 24) + '"/><rect class="sil" x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>' + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
+  var head = '<ellipse cx="100" cy="34" rx="' + B.head + '" ry="' + (B.hair === 'w' ? 23 : 24) + '"/><rect x="' + (100 - B.neck / 2) + '" y="52" width="' + B.neck + '" height="28" rx="6"/>';
+  return '<svg viewBox="0 0 200 480" aria-hidden="true"><defs><linearGradient id="' + id + '"><stop offset="0" stop-color="#000" stop-opacity=".07"/><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".08"/></linearGradient></defs>' +
+    head.replace(/<(ellipse|rect)/g, '<$1 class="sil"') + half + '<g transform="translate(200,0) scale(-1,1)">' + half + '</g>' +
+    sh + '<g transform="translate(200,0) scale(-1,1)">' + sh + '</g>' +
     (hair ? hair + '<g transform="translate(200,0) scale(-1,1)">' + hair + '</g>' : '') + '</svg>';
 }
 function musFigHTML(cls, small) {
   return '<div class="bf' + (small ? ' sm' : '') + '"><figure>' + bodySVG(BODY_F, cls) + '<figcaption>Vorn</figcaption></figure><figure>' + bodySVG(BODY_B, cls) + '<figcaption>Hinten</figcaption></figure></div>';
+}
+/* ---------- Muskeln in der Bibliothek (Dennis, Variante B2, Bild-Stil S3) ----------
+   Tools › Übungen › Muskeln: eine große Figur, Vorn | Hinten. Antippen wählt nur aus (Muskel blau, oft mitarbeitende hell),
+   erst „… öffnen“ zeigt die Seite des Muskels. Ein Tippen zählt nur ohne Wischen (unter 10 px), kleine Muskeln fängt eine größere Fläche. */
+var MUS_TXT = { brust: 'Drückt die Arme vor den Körper.', schulter_vorn: 'Hebt den Arm nach vorn und oben.', schulter_seite: 'Hebt den Arm zur Seite, macht die Schultern breit.',
+  schulter_hinten: 'Zieht den Arm nach hinten, hält die Schultern gerade.', trizeps: 'Streckt den Ellbogen, hinten am Oberarm.', bizeps: 'Beugt den Ellbogen, vorn am Oberarm.',
+  unterarm: 'Hält den Griff und das Handgelenk fest.', latissimus: 'Großer Rückenmuskel, zieht die Arme nach unten und hinten.', oberer_ruecken: 'Zieht die Schulterblätter zusammen und nach unten.',
+  rueckenstrecker: 'Hält den Rücken gerade und streckt ihn.', bauch_gerade: 'Rollt den Oberkörper ein und hält die Mitte fest.', bauch_schraeg: 'Dreht den Oberkörper und hält ihn seitlich stabil.',
+  hueftbeuger: 'Zieht das Knie nach oben.', gesaess: 'Streckt die Hüfte, stärkster Muskel des Körpers.', quadrizeps: 'Vorn am Oberschenkel, streckt das Knie.',
+  beinbeuger: 'Hinten am Oberschenkel, beugt das Knie und streckt die Hüfte.', adduktoren: 'Innen am Oberschenkel, zieht das Bein zur Mitte.', abduktoren: 'Außen an der Hüfte, hält das Becken gerade.',
+  waden: 'Streckt das Sprunggelenk, für Sprünge und Laufen.' };
+// Muskeln, die oft mitarbeiten: die häufigsten mitarbeitenden Muskeln der Übungen, in denen er Hauptmuskel ist.
+var MCO_C = {};
+function musCo(m) {
+  if (MCO_C[m]) return MCO_C[m];
+  var c = {}; Object.keys(UE).forEach(function (k) { var u = UE[k]; if (!u.muskeln || (u.muskeln.primaer || []).indexOf(m) < 0) return; (u.muskeln.sekundaer || []).forEach(function (x) { if (x !== m && MUS_NAME[x]) c[x] = (c[x] || 0) + 1; }); });
+  return (MCO_C[m] = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).slice(0, 2));
+}
+function musBack(m) { var B = bodyOf(sexT()); return !B.f[m] && !!B.b[m]; }
+function musBox(m) {
+  var B = bodyOf(sexT()), n = (B.f[m] || B.b[m] || '').match(/-?\d+(\.\d+)?/g) || [], x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (var i = 0; i + 1 < n.length; i += 2) { x0 = Math.min(x0, +n[i]); x1 = Math.max(x1, +n[i]); y0 = Math.min(y0, +n[i + 1]); y1 = Math.max(y1, +n[i + 1]); }
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+}
+// Bild eines Muskels (S3): auf den Muskel gezoomt, er selbst in --acc, oft mitarbeitende hell, der Körper drumherum grau.
+function musIcon(m, size, zoom) {
+  var co = musCo(m), b = musBox(m), s = Math.max(b.w, b.h) * (zoom || 1.9) + 16, cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+  var svg = bodySVG(musBack(m) ? BODY_B : BODY_F, function (x) { return x === m ? 'hi' : co.indexOf(x) >= 0 ? 'lo' : ''; });
+  return '<span class="mi" style="width:' + size + 'px;height:' + size + 'px">' + svg.replace('viewBox="0 0 200 480"', 'viewBox="' + (cx - s / 2) + ' ' + (cy - s / 2) + ' ' + s + ' ' + s + '" preserveAspectRatio="xMidYMid slice"') + '</span>';
+}
+function musUe(m, all) {
+  var have = haveEq(), by = function (a, b) { return b.nutzen - a.nutzen; }, p = [], s = [];
+  Object.keys(UE).forEach(function (k) {
+    var u = UE[k]; if (!u.muskeln || u.muster === 'mobilitaet' || (!all && !eqOk(u.equipment, have))) return;
+    if ((u.muskeln.primaer || []).indexOf(m) >= 0) p.push(u); else if ((u.muskeln.sekundaer || []).indexOf(m) >= 0) s.push(u);
+  });
+  return { p: p.sort(by), s: s.sort(by) };
+}
+// Status aus dem Muskelausgleich (ab 3 Krafteinheiten in 4 Wochen).
+function musStat(m) {
+  var B = musBalance(); if (!B.ok || B.lv[m] == null) return null;
+  var c = B.lv[m], t = B.ratio[m] > 2.2 ? 'viel' : ['kommt zu kurz', 'wenig', 'okay', 'im Gleichgewicht'][c];
+  return '<span class="chip" style="background:color-mix(in srgb,var(--mb' + c + ') 30%,transparent)">' + t + '</span>';
+}
+// Zuletzt als Hauptmuskel trainiert (Kraftteil, Metcon und Ausgleich).
+function musLast(m) {
+  var hit = function (id) { var u = UE[id]; return u && u.muskeln && (u.muskeln.primaer || []).indexOf(m) >= 0; }, d = null;
+  LOGS.forEach(function (l) {
+    if (!trainingLog(l) || (d && l.date <= d)) return;
+    var ids = (l.kraft || []).map(function (k) { return ueIdOf(k.n); }).concat(((l.metcon || {}).items || []).map(function (n) { return ueIdOf(n); }), l.ausgleich ? [l.ausgleich.ue] : []);
+    if (ids.some(hit)) d = l.date;
+  });
+  if (!d) return '';
+  var n = daysBetween(parseISO(d), new Date());
+  return n <= 0 ? 'zuletzt heute' : n === 1 ? 'zuletzt gestern' : n < 7 ? 'zuletzt ' + WTAG[(parseISO(d).getDay() + 6) % 7].slice(0, 2) : 'zuletzt vor ' + n + ' Tagen';
+}
+function musLibHTML() {
+  var back = ui.musSide === 'b', m = ui.musSel && MUS_NAME[ui.musSel] && musBack(ui.musSel) === back ? ui.musSel : null, co = m ? musCo(m) : [];
+  var h = '<section class="card"><div class="seg" role="group" aria-label="Seite" style="margin-bottom:8px">' + [['f', 'Vorn'], ['b', 'Hinten']].map(function (o) {
+    var on = (o[0] === 'b') === back; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-side" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+    '<div class="mfig bf" role="group" aria-label="Muskeln ' + (back ? 'hinten' : 'vorn') + '"><figure>' + bodySVG(back ? BODY_B : BODY_F, function (x) { return 'mx-' + x + (x === m ? ' p1' : co.indexOf(x) >= 0 ? ' p2' : ''); }) + '</figure></div>' +
+    (m ? musSelHTML(m) : '<p class="mus-hint">Tipp einen Muskel an.</p>') + '</section>';
+  return h;
+}
+// Gewählter Muskel als eine Zeile unter der Figur, damit der ganze Körper sichtbar bleibt. Erst „Öffnen“ zeigt die Seite.
+function musSelHTML(m) {
+  var n = musUe(m).p.length, B = musBalance(), c = B.ok && B.lv[m] != null ? B.lv[m] : null;
+  var st = c == null ? '' : B.ratio[m] > 2.2 ? 'viel' : ['kommt zu kurz', 'wenig', 'okay', 'im Gleichgewicht'][c];
+  return '<div class="mus-sel">' + musIcon(m, 52) + '<span class="gl-t"><b>' + esc(MUS_NAME[m]) + '</b><small>' + esc((st ? st + ' · ' : '') + (n === 1 ? '1 Übung' : n + ' Übungen') + ' hier') + '</small></span>' +
+    '<button type="button" class="btn primary small" data-act="mus-open" data-v="' + m + '">Öffnen</button></div>';
+}
+function musRow(u) { return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '">' + miniFig(u.id) + '<span class="gl-t"><b>' + esc(u.name) + '</b><small>' + esc(u.trainiert || MUSTER[u.muster] || '') + '</small></span><i class="fs-i" aria-hidden="true">i</i></button>'; }
+function renderMuskel() {
+  var m = MUS_NAME[ui.musId] ? ui.musId : 'brust', all = !!ui.musAll, U = musUe(m, all), st = musStat(m), la = musLast(m), more = !!ui.musMore;
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="muskeln" aria-label="Zurück">' + BACK + '</button>' +
+    '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hell: arbeitet oft mit (' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ').' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
+    '<div class="seg" role="group" aria-label="Ort" style="margin:0 0 12px">' + [['', ortName(curOrt())], ['1', 'Alle']].map(function (o) { var on = !!o[0] === all; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-all" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+  h += '<section class="card"><div class="card-head"><h2>Trainiert ' + (m === 'gesaess' ? 'es' : /^(brust|schulter|unterarm|bauch_schraeg|waden|adduktoren|abduktoren)/.test(m) ? 'sie' : 'ihn') + ' vor allem</h2><span class="chip">' + U.p.length + '</span></div>' +
+    (U.p.length ? U.p.map(musRow).join('') : '<p class="muted">Hier keine. Unter „Alle“ siehst du die Übungen mit anderem Equipment.</p>') + '</section>';
+  if (U.s.length) h += '<section class="card"><div class="card-head"><h2>Arbeitet mit</h2><span class="chip">' + U.s.length + '</span></div>' + U.s.slice(0, more ? 999 : 6).map(musRow).join('') +
+    (U.s.length > 6 && !more ? '<button type="button" class="btn small" style="margin-top:10px" data-act="mus-more">Alle ' + U.s.length + ' zeigen</button>' : '') + '</section>';
+  return h;
+}
+// Eigene Seite unter Tools (Dennis: kein Umschalter in der Bibliothek).
+function renderMuskeln() { return '<section class="hero"><h1>Körper</h1></section>' + musLibHTML(); }
+// Die Figur so hoch, dass der ganze Körper samt Auswahlzeile über der Reiterleiste Platz hat (auch mit großer Schrift).
+function musFit() {
+  var svg = $view.querySelector('.mfig svg'); if (!svg) return;
+  var card = svg.closest('.card'), tb = document.querySelector('.tabbar'), cs = parseFloat(svg.style.height) || 440;
+  svg.style.height = cs + 'px';
+  var r = svg.getBoundingClientRect(), k = r.height / cs || 1, below = card.getBoundingClientRect().bottom - r.bottom + 14;
+  var bottom = (tb && getComputedStyle(tb).display !== 'none' ? tb.getBoundingClientRect().top : window.innerHeight) - below;
+  svg.style.height = Math.max(220, Math.min(440, (bottom - (r.top + window.scrollY - (document.scrollingElement || document.documentElement).scrollTop)) / k)) + 'px';
+}
+ACT['mus-side'] = function (el) { ui.musSide = el.dataset.v; render(); };
+ACT['mus-open'] = function (el) { ui.musId = el.dataset.v; ui.musAll = false; ui.musMore = false; ui.tab = 'muskel'; render(); window.scrollTo(0, 0); };
+ACT['mus-all'] = function (el) { ui.musAll = !!el.dataset.v; render(); };
+ACT['mus-more'] = function () { ui.musMore = true; render(); };
+// Tippen auf die Figur: nur ohne Wischen; daneben getippt zählt der nächste Muskel bis 28 px (kleine Muskeln).
+(function () {
+  var p0 = null;
+  document.addEventListener('pointerdown', function (e) { p0 = e.target.closest && e.target.closest('.mfig') ? { x: e.clientX, y: e.clientY } : null; }, true);
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest && e.target.closest('.mfig'); if (!f) return;
+    if (p0 && Math.abs(e.clientX - p0.x) + Math.abs(e.clientY - p0.y) > 10) return;
+    var m = musAt(f, e); if (!m) return;
+    ui.musSel = ui.musSel === m ? null : m; haptic('tap'); render();
+  });
+})();
+function musAt(f, e) {
+  var re = /mx-(\w+)/, t = e.target.closest('path.mu'), c = t && re.exec(t.getAttribute('class') || ''); if (c) return c[1];
+  var best = null, bd = 28;
+  f.querySelectorAll('path.mu').forEach(function (p) {
+    var k = re.exec(p.getAttribute('class') || ''); if (!k) return;
+    var r = p.getBoundingClientRect(), dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right), dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom), d = Math.sqrt(dx * dx + dy * dy);
+    if (d < bd) { bd = d; best = k[1]; }
+  });
+  return best;
 }
 // Bibliothek: Hauptmuskeln kräftig blau, mitarbeitende hell (Rot bis Grün bleibt dem Ausgleich vorbehalten).
 function musOfHTML(u, small) {

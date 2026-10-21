@@ -486,6 +486,39 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     }
     console.log('PASS: Zuhause ohne Gewichte: kein Thruster als Sackgasse, mit Bändern Band Squat');
 
+    // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(old(), { planV: 2, tag: 1, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe', 'eq_band'] }], ort: 'o1' }), logs()]);
+    // Eigene Seite unter Tools (kein Umschalter in der Bibliothek); auch mit großer Schrift steht der ganze Körper über der Reiterleiste.
+    assert.equal(await page.evaluate(() => { window.tpTest.navigate('uebungen'); return document.querySelectorAll('[data-act="lib-view"]').length; }), 0);
+    for (const ts of ['l', 'm']) {
+      await page.evaluate(t => { document.documentElement.dataset.text = t; window.tpTest.navigate('muskeln'); }, ts);
+      await page.waitForTimeout(100);
+      const f0 = await page.locator('.mfig svg').boundingBox(), tb = await page.locator('.tabbar').boundingBox();
+      assert.ok(f0.y >= 0 && f0.y + f0.height <= tb.y, 'ganzer Körper über der Reiterleiste (Schrift ' + ts + ')');
+    }
+    const fig = await page.locator('.mfig svg').boundingBox();
+    // Seite heißt „Körper“; Figur bis zu den Füßen (viewBox 480, Fuß-Flächen), angedeutet räumlich (Verlauf darüber, fängt keine Taps).
+    assert.equal(await page.locator('.hero h1').innerText(), 'Körper');
+    assert.equal(await page.evaluate(() => document.querySelector('.mfig svg').getAttribute('viewBox')), '0 0 200 480');
+    assert.ok(await page.evaluate(() => { var s = document.querySelector('.mfig svg'), b = [...s.querySelectorAll('path.sil')].map(p => p.getBBox()); return Math.max(...b.map(x => x.y + x.height)) > 470; }), 'Füße unten');
+    assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('.mfig .sh')).pointerEvents), 'none');
+    await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27); await page.mouse.down(); await page.mouse.move(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27 + 40, { steps: 4 }); await page.mouse.up();
+    assert.equal(await page.locator('.mus-sel').count(), 0, 'Wischen über die Figur wählt nichts aus');
+    await page.mouse.click(fig.x + fig.width * 0.4, fig.y + fig.height * 0.27);
+    assert.match(await page.locator('.mus-sel').innerText(), /Brust[\s\S]*Übungen hier[\s\S]*Öffnen/, 'Antippen wählt die Brust aus');
+    assert.equal(await page.evaluate(() => document.querySelectorAll('.mfig path.mu.p1').length), 2, 'Brust blau (beide Seiten)');
+    assert.ok(await page.evaluate(() => document.querySelectorAll('.mfig path.mu.p2').length) > 0, 'oft mitarbeitende hell');
+    assert.equal(await page.locator('#view .mfig').count(), 1, 'noch keine Muskel-Seite');
+    await page.getByRole('button', { name: 'Öffnen', exact: true }).click();
+    assert.ok(await page.getByRole('heading', { name: 'Brust', level: 2 }).isVisible());
+    assert.ok(await page.getByRole('heading', { name: /^Trainiert sie vor allem/ }).isVisible());
+    const nOrt = await page.locator('#view .ft-row').count();
+    await page.getByRole('button', { name: 'Alle', exact: true }).click();
+    assert.ok(await page.locator('#view .ft-row').count() > nOrt, 'Alle zeigt mehr Übungen');
+    await page.locator('#view .ft-row').first().click();
+    assert.ok(await page.locator('#sheet .ue-info').isVisible(), '(i) öffnet die Anleitung'); await page.locator('#sheet [data-sh]').first().click(); await page.waitForTimeout(300);
+    console.log('PASS: Körper unter Tools: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
       for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
