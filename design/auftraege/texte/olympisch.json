@@ -578,6 +578,80 @@
         "korrektur": "Als Korrektur formuliert.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_clean_press",
+      "trainiert": "Ganzer Körper: Hüfte, Schultern, Rumpf",
+      "zweck": "Die Kettlebell aus dem Schwung ins Rack holen und dann über Kopf drücken: ganzer Körper mit einem Gerät.",
+      "vorbereitung": "Eine Kettlebell vor den Füßen.",
+      "schritte": [
+        "Greif die Kettlebell mit einer Hand, schwing sie zwischen den Beinen nach hinten.",
+        "Streck die Hüfte kräftig und zieh die Kettlebell eng am Körper ins Rack, die Kugel landet weich auf dem Unterarm.",
+        "Drück sie aus dem Rack gerade über den Kopf, bis der Arm gestreckt ist.",
+        "Senk sie ins Rack und dann zwischen die Beine für die nächste Wiederholung. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Nach dem letzten Mal aus dem Rack zwischen die Beine absenken und abstellen.",
+      "sauber": "Die Kettlebell schlägt nicht auf den Unterarm, oben ist der Arm gestreckt und der Rumpf fest.",
+      "details": [
+        "Die Kraft für den Clean kommt aus der Hüfte, der Arm führt nur."
+      ],
+      "atmung": "Beim Hüftstrecken und beim Drücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Kettlebell knallt auf den Unterarm.",
+          "k": "Hand früher um den Griff drehen, Kettlebell nah am Körper führen."
+        },
+        {
+          "f": "Hohlkreuz beim Drücken.",
+          "k": "Bauch und Gesäß fest."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Kettlebell oder nur Kettlebell Clean. Schwerer: schwerere Kettlebell oder Push Press statt Press.",
+      "grenzen": "Bei Schmerzen im unteren Rücken oder in der Schulter aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_high_pull",
+      "trainiert": "Hüfte, oberer Rücken, Schultern hinten",
+      "zweck": "Aus dem Swing die Kettlebell mit gebeugtem Ellbogen bis zur Brust ziehen: Zwischenschritt zum Snatch, viel Puls.",
+      "vorbereitung": "Eine Kettlebell vor den Füßen.",
+      "schritte": [
+        "Schwing die Kettlebell mit einer Hand zwischen den Beinen nach hinten.",
+        "Streck die Hüfte kräftig, die Kettlebell steigt nach vorn.",
+        "Zieh sie mit dem Ellbogen hoch und nach hinten, bis die Hand auf Brusthöhe ist.",
+        "Stoß sie wieder nach vorn weg und lass sie zurück zwischen die Beine schwingen. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell auspendeln lassen und vor dir abstellen.",
+      "sauber": "Die Kraft kommt aus der Hüfte, der Ellbogen zieht hoch und nach hinten, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Hüftstrecken ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Arm zieht allein.",
+          "k": "Erst die Hüfte strecken, dann ziehen."
+        },
+        {
+          "f": "Der Rücken rundet sich unten.",
+          "k": "Hüfte nach hinten schieben, Brust bleibt vorn."
+        }
+      ],
+      "skalierung": "Leichter: Kettlebell Swing. Schwerer: schwerere Kettlebell oder Kettlebell Snatch.",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }

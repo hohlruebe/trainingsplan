@@ -876,6 +876,118 @@
         "korrektur": "Als Korrektur und Abbruchsignal formuliert.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_push_press",
+      "trainiert": "Schultern, Trizeps, Beine",
+      "zweck": "Drücken über Kopf mit Schwung aus den Beinen: mehr Gewicht als beim strikten Drücken und gut für Metcons.",
+      "vorbereitung": "Eine Kettlebell in der Rack-Position.",
+      "schritte": [
+        "Halte die Kettlebell im Rack, Ellbogen vor dem Körper, Füße hüftbreit.",
+        "Beug die Knie kurz und gerade ein Stück, der Oberkörper bleibt aufrecht.",
+        "Streck die Beine explosiv und drück die Kettlebell im selben Moment gerade nach oben.",
+        "Senk sie kontrolliert zurück ins Rack. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell aus dem Rack zwischen die Beine absenken und abstellen.",
+      "sauber": "Oben ist der Arm gestreckt, der Bizeps neben dem Ohr, die Rippen bleiben unten.",
+      "details": [
+        "Der Schwung kommt aus einem kurzen Eintauchen, nicht aus einer Kniebeuge."
+      ],
+      "atmung": "Vor dem Eintauchen einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz oben.",
+          "k": "Bauch und Gesäß fest, Kettlebell über der Schulter."
+        },
+        {
+          "f": "Zu tiefes Eintauchen.",
+          "k": "Nur ein Viertel der Kniebeuge, schnell umkehren."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Kettlebell oder Single-Arm Dumbbell Press ohne Schwung. Schwerer: schwerere Kettlebell.",
+      "grenzen": "Bei Schmerzen in der Schulter über Kopf aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_bottoms_up_press",
+      "trainiert": "Schultern, Rotatorenmanschette, Unterarm",
+      "zweck": "Drücken über Kopf mit der Kettlebell kopfüber: die Schulter muss die Last bei jedem Zentimeter stabilisieren.",
+      "vorbereitung": "Eine leichte Kettlebell, deutlich leichter als beim normalen Drücken.",
+      "schritte": [
+        "Greif die Kettlebell fest und dreh sie so, dass die Kugel oben ist und der Griff senkrecht steht.",
+        "Halte sie vor der Schulter, Ellbogen unter der Hand, Bauch fest.",
+        "Drück sie langsam gerade nach oben, die Kugel bleibt über dem Griff.",
+        "Senk sie genauso langsam zurück. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell vor der Schulter umdrehen und normal absetzen.",
+      "sauber": "Die Kettlebell kippt nicht, das Handgelenk bleibt gerade, die Schulter bleibt tief.",
+      "details": [
+        "Je fester du zugreifst, desto ruhiger steht die Kettlebell."
+      ],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Kettlebell kippt.",
+          "k": "Fester greifen, langsamer drücken oder leichtere Kettlebell."
+        },
+        {
+          "f": "Die Schulter zieht zum Ohr.",
+          "k": "Schulterblatt nach unten, nur so hoch wie es ruhig geht."
+        }
+      ],
+      "skalierung": "Leichter: nur vor der Schulter halten (Bottoms-up Hold). Schwerer: schwerere Kettlebell oder oben 3 s halten.",
+      "grenzen": "Bei Schmerzen in der Schulter aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_halo",
+      "trainiert": "Schultern, oberer Rücken, Rumpf",
+      "zweck": "Die Kettlebell eng um den Kopf kreisen: macht die Schultern beweglich und warm, gut vor dem Drücken.",
+      "vorbereitung": "Eine leichte Kettlebell.",
+      "schritte": [
+        "Halte die Kettlebell kopfüber am Griff vor der Brust, Füße hüftbreit.",
+        "Führ sie eng an der rechten Seite des Kopfs vorbei nach hinten.",
+        "Lass sie hinter dem Kopf entlanglaufen und an der linken Seite wieder nach vorn kommen.",
+        "Nach jeder Runde die Richtung wechseln."
+      ],
+      "ausstieg": "Kettlebell vor der Brust anhalten und absenken.",
+      "sauber": "Der Kopf bleibt ruhig, der Rumpf dreht nicht mit, die Kettlebell bleibt eng am Kopf.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": [
+        {
+          "f": "Der Oberkörper dreht mit.",
+          "k": "Bauch fest, Becken nach vorn."
+        },
+        {
+          "f": "Hohlkreuz.",
+          "k": "Rippen unten, Gesäß anspannen."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Kettlebell oder Hantelscheibe. Schwerer: schwerere Kettlebell oder im halben Kniestand.",
+      "grenzen": "",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }

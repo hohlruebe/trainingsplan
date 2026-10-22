@@ -127,7 +127,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 387 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 402 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahmen mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; Handstand neue erste Stufe „Rücken zur Wand“ (`g_wall_handstand_back`, in der Familie als Variante) vor Face-to-Wall; dann plan-data, lib-data und fam-data gleich halten. Gespeichert werden Stufennamen, nicht Nummern, darum bleiben alte Einträge gültig).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 60 Familien (auch Isolation und zwei Mobility-Familien),
@@ -585,6 +585,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`ui.musBack`), im laufenden Training nur ein Hinweis. Neu in der Bibliothek (Paket `neu_isolation_2.json`, Texte in `texte/isolation.json`):
   seitliche Schulter zu Hause (Cross-Body Band Lateral Raise, Band Y-Raise, Doorframe Lateral Raise Hold) und Abduktoren ohne Gerät
   (Side-Lying Hip Abduction, Fire Hydrant), als Varianten in `f_lateral_raise` bzw. `f_hip_abduction`.
+- Kettlebell (Dennis, 22. Oktober: „mehr Kettlebell-Übungen, vor allem mit verstellbarer Kettlebell“): 15 neue Übungen (Pakete `neu_<muster>_kettlebell.json`,
+  Texte in `design/auftraege/texte/<muster>.json`): Kettlebell Front Squat, Suitcase Deadlift, Glute Bridge, Push Press, Bottoms-up Press, Halo, Pullover,
+  Goblet Reverse Lunge, Goblet Bulgarian Split Squat, Goblet Cossack Squat, Clean and Press, High Pull, Around the World, Figure 8, Plank Pull-Through
+  (als Varianten in den passenden Familien, Normen in `RM_STD`, Rx für die Metcon-Übungen, 8 neue Einträge im Metcon-Pool). Floor Press und Push Press gehen
+  auch mit Kettlebell. Neues Gerät `eq_kb_verstellbar` „Kettlebell (verstellbar)“ (nicht `auto`): zählt überall als Kettlebell (`haveEq`, `EQ_USE`).
+  `kgGrow(id, have)`: Gewicht kann hier wachsen (verstellbare Kettlebell, Kurzhanteln, Langhantel, Kabelzug, `KG_GROW`); dann ist eine Gewichtsstufe ohne
+  nächste Stufe am Ort keine Sackgasse (`ladRoom`, `coachStage0` ohne `dead`/Tempo), der Coach steigert über `kgRec`. Feste Kettlebell wie bisher.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

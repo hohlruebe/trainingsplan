@@ -298,6 +298,22 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal((await page.evaluate(() => window.tpTest.fill())).kraft[3][2].n, 'Nordic Curl', 'kein Hin und Her zum Ersatz');
     console.log('PASS: Fußanker je Ort, Ersatz mit Grund, Rückkehr zum Nordic Curl');
 
+    // Verstellbare Kettlebell (Dennis, 22. Oktober): zählt als Kettlebell, Goblet Squat ist keine Sackgasse mehr, das Gewicht wächst.
+    const kbSt = kb => Object.assign(old(), { planV: 2, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, planAsk: '2026-10-12',
+      weight: 80, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_band', kb], fa: 1, lf: 1 }], ort: 'o1', picks: {} });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [kbSt('eq_kettlebell'), []]);
+    const fest = (await page.evaluate(() => window.tpTest.fill())).kraft[1].map(x => x.n);
+    assert.ok(!fest.includes('Back Squat'), 'feste Kettlebell: Goblet Squat wäre eine Sackgasse (' + fest + ')');
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [kbSt('eq_kb_verstellbar'), []]);
+    const fill = await page.evaluate(() => window.tpTest.fill());
+    assert.ok(fill.kraft[1].some(x => x.n === 'Back Squat'), 'verstellbar: Kniebeuge-Leiter mit Goblet Squat (' + fill.kraft[1].map(x => x.n) + ')');
+    assert.ok((await page.evaluate(() => window.tpTest.kx(1))).some(x => x.stage === 'Goblet Squat' && !x.t), 'Goblet Squat ohne Tempo, das Gewicht steigt');
+    await page.evaluate(() => window.tpTest.navigate('uebungen'));
+    await page.locator('[data-act="eq-sheet"]').first().click();
+    assert.match(await page.locator('#eq-sheet .eq-row', { has: page.locator('input[data-id="eq_kb_verstellbar"]') }).innerText(), /Kettlebell \(verstellbar\)/);
+    await page.getByRole('button', { name: 'Fertig', exact: true }).click();
+    console.log('PASS: Verstellbare Kettlebell zählt als Kettlebell, Goblet Squat steigt über das Gewicht');
+
     // Leistung als Signal (Paket 58): zweimal hintereinander Vorgabe verfehlt → die nächste Einheit ist kürzer, mit Rückweg.
     await page.clock.setFixedTime(new Date('2026-10-14T10:00:00+02:00'));
     const kx = (id, date, tag, reps) => ({ id, ts: Date.parse(date + 'T17:00:00Z'), date, durchgang: 5, tag, kind: 'kraft', pv: 2, name: 'Ganzkörper',

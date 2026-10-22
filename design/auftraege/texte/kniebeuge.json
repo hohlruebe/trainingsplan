@@ -492,6 +492,44 @@
         "korrektur": "Band unter den Füßen und über den Schultern, Stufe = Bandstärke.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_front_squat",
+      "trainiert": "Oberschenkel vorn, Gesäß, Rumpf",
+      "zweck": "Kniebeuge mit einer Kettlebell vorn auf der Schulter: die Last zieht zur Seite, der Rumpf hält dagegen.",
+      "vorbereitung": "Eine Kettlebell. Füße schulterbreit.",
+      "schritte": [
+        "Bring die Kettlebell mit einem Clean in die Rack-Position: Griff vor der Brust, Kugel liegt außen auf dem Unterarm, Ellbogen am Körper.",
+        "Spann Bauch und Gesäß an, die freie Hand hilft beim Gleichgewicht.",
+        "Geh mit aufrechtem Oberkörper tief in die Hocke, die Knie zeigen über die Zehen.",
+        "Drück dich über die ganzen Füße wieder hoch. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell kontrolliert zwischen die Beine absenken und abstellen.",
+      "sauber": "Der Oberkörper bleibt aufrecht und neigt sich nicht zur Kettlebell, die Fersen bleiben am Boden.",
+      "details": [
+        "Die Kettlebell liegt ruhig im Rack. Das Handgelenk bleibt gerade."
+      ],
+      "atmung": "Oben einatmen, Luft beim Runtergehen halten, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Oberkörper kippt zur Seite der Kettlebell.",
+          "k": "Leichtere Kettlebell, Bauch fester, freien Arm zur Seite strecken."
+        },
+        {
+          "f": "Das Handgelenk knickt ab.",
+          "k": "Griff tiefer in die Hand, Unterarm senkrecht."
+        }
+      ],
+      "skalierung": "Leichter: Goblet Squat mit beiden Händen. Schwerer: schwerere Kettlebell oder unten 2 s halten.",
+      "grenzen": "Bei Schmerzen im Knie oder im unteren Rücken nur so tief, wie es schmerzfrei geht.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }

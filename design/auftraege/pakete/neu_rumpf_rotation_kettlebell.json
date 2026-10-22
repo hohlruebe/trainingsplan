@@ -1,0 +1,243 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "rumpf_rotation",
+  "quelle": "Claude, 22. Oktober 2026 (Dennis: mehr Kettlebell-Übungen für zu Hause, vor allem mit verstellbarer Kettlebell). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_around_world",
+      "name": "Kettlebell Around the World",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 48,
+      "trainiert": "Rumpf, Griff",
+      "zweck": "Die Kettlebell um die Hüfte von Hand zu Hand reichen: der Rumpf hält von allen Seiten dagegen.",
+      "vorbereitung": "Eine leichte Kettlebell.",
+      "schritte": [
+        "Steh aufrecht, Füße hüftbreit, die Kettlebell in der rechten Hand vor dem Körper.",
+        "Reich sie vorn in die linke Hand.",
+        "Führ sie hinter dem Rücken wieder in die rechte Hand, die Hüfte bleibt ruhig.",
+        "Nach der Hälfte der Wiederholungen die Richtung wechseln."
+      ],
+      "ausstieg": "Kettlebell vorn anhalten und abstellen.",
+      "sauber": "Hüfte und Schultern bleiben gerade, der Oberkörper schwankt nicht.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": "Die Hüfte schwingt mit. Langsamer übergeben, Bauch und Gesäß fest. Die Kettlebell fällt beim Übergeben. Leichtere Kettlebell, Griff ganz übergeben, bevor du loslässt.",
+      "skalierung": "Leichter: leichtere Kettlebell. Schwerer: schwerere Kettlebell oder schneller.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "unterarm",
+          "schulter_vorn",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kettlebell um die Hüfte"
+      ],
+      "muster": "rumpf_rotation",
+      "level": 1,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_figure8",
+      "name": "Kettlebell Figure 8",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 50,
+      "trainiert": "Rumpf, Hüfte, Griff",
+      "zweck": "Die Kettlebell in einer Acht durch die Beine reichen: Rumpf und Hüfte halten die Position, der Griff arbeitet mit.",
+      "vorbereitung": "Eine Kettlebell. Füße mehr als schulterbreit.",
+      "schritte": [
+        "Geh in eine leichte Hüftbeuge, Rücken gerade, die Kettlebell in der rechten Hand.",
+        "Führ sie von vorn zwischen den Beinen nach hinten und gib sie dort an die linke Hand, die um das linke Bein greift.",
+        "Bring sie mit links nach vorn und wieder zwischen den Beinen nach hinten zur rechten Hand.",
+        "So läuft die Kettlebell in einer Acht um beide Beine."
+      ],
+      "ausstieg": "Kettlebell vorn anhalten und abstellen, aufrichten.",
+      "sauber": "Der Rücken bleibt gerade, die Hüfte bleibt gebeugt und ruhig.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": "Der Rücken rundet sich. Hüfte weiter nach hinten, Brust nach vorn. Die Übergabe hakt. Langsamer, Blick nach vorn statt auf die Kettlebell.",
+      "skalierung": "Leichter: leichtere Kettlebell oder langsamer. Schwerer: schwerere Kettlebell oder mit Schwung (Figure 8 to Hold).",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "rueckenstrecker"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "beinbeuger",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kettlebell-Acht"
+      ],
+      "muster": "rumpf_rotation",
+      "level": 2,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_plank_pull_through",
+      "name": "Kettlebell Plank Pull-Through",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 62,
+      "trainiert": "Rumpf (gegen Drehen), Schultern",
+      "zweck": "Im hohen Liegestütz die Kettlebell unter dem Körper zur anderen Seite ziehen: der Rumpf darf nicht mitdrehen.",
+      "vorbereitung": "Eine Kettlebell neben der linken Hand.",
+      "schritte": [
+        "Geh in den hohen Liegestütz, Füße etwas breiter als hüftbreit, die Kettlebell steht links neben dem Körper auf Brusthöhe.",
+        "Greif mit der rechten Hand unter dem Körper durch und zieh die Kettlebell auf die rechte Seite.",
+        "Stell die Hand zurück auf den Boden, die Hüfte bleibt waagerecht.",
+        "Zieh die Kettlebell mit der linken Hand zurück. Abwechselnd weiter."
+      ],
+      "ausstieg": "Knie ablegen, aufrichten.",
+      "sauber": "Hüfte und Schultern bleiben waagerecht, der Körper bildet eine Linie.",
+      "details": [
+        "Breitere Füße machen es leichter, engere schwerer."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": "Die Hüfte dreht und kippt. Füße breiter, Gesäß fester, langsamer ziehen. Die Hüfte hängt durch. Bauch fest, Becken leicht einrollen.",
+      "skalierung": "Leichter: Plank Shoulder Tap oder Knie am Boden. Schwerer: schwerere Kettlebell, Füße enger.",
+      "grenzen": "Bei Schmerzen im Handgelenk auf den Fäusten oder an Liegestützgriffen.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg",
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "schulter_vorn",
+          "latissimus",
+          "gesaess"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 1,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kettlebell durchziehen im Stütz"
+      ],
+      "muster": "rumpf_rotation",
+      "level": 2,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_russian_twist",
+      "varianten": [
+        {
+          "uebung": "g_kb_around_world",
+          "art": "variante",
+          "effekt": 48,
+          "grund": "Kettlebell um die Hüfte reichen: Rumpf hält gegen den Zug ringsum."
+        },
+        {
+          "uebung": "g_kb_figure8",
+          "art": "variante",
+          "effekt": 50,
+          "grund": "Kettlebell als Acht durch die Beine: Rumpf, Hüfte und Griff."
+        }
+      ]
+    },
+    {
+      "familie": "f_turkish_getup",
+      "varianten": [
+        {
+          "uebung": "g_kb_plank_pull_through",
+          "art": "variante",
+          "effekt": 62,
+          "grund": "Im Liegestütz die Kettlebell unter dem Körper durchziehen: Rumpf gegen Drehen."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

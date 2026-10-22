@@ -380,6 +380,118 @@
         "korrektur": "Ergänzt.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_goblet_reverse_lunge",
+      "trainiert": "Oberschenkel vorn, Gesäß",
+      "zweck": "Ausfallschritt nach hinten mit der Kettlebell vor der Brust: schont das Knie und lässt sich mit dem Gewicht steigern.",
+      "vorbereitung": "Eine Kettlebell, an den Griffseiten vor der Brust gehalten.",
+      "schritte": [
+        "Halte die Kettlebell vor der Brust, Ellbogen nach unten, Füße hüftbreit.",
+        "Mach einen großen Schritt nach hinten und senk das hintere Knie fast bis zum Boden.",
+        "Drück dich über die Ferse des vorderen Fußes wieder in den Stand.",
+        "Wechsel das Bein bei jeder Wiederholung oder nach dem Satz."
+      ],
+      "ausstieg": "Füße nebeneinander stellen, Kettlebell absenken.",
+      "sauber": "Das vordere Knie zeigt über die Zehen, der Oberkörper bleibt aufrecht.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Das vordere Knie fällt nach innen.",
+          "k": "Knie bewusst nach außen über die Zehen."
+        },
+        {
+          "f": "Der Schritt ist zu kurz.",
+          "k": "Größerer Schritt, bis beide Knie etwa im rechten Winkel stehen."
+        }
+      ],
+      "skalierung": "Leichter: Reverse Lunge ohne Gewicht. Schwerer: schwerere Kettlebell oder Goblet Bulgarian Split Squat.",
+      "grenzen": "Bei Schmerzen im Knie nur so tief, wie es schmerzfrei geht.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_goblet_bss",
+      "trainiert": "Oberschenkel vorn, Gesäß",
+      "zweck": "Einbeinige Kniebeuge mit dem hinteren Fuß erhöht und der Kettlebell vor der Brust: viel Reiz für Bein und Gesäß mit wenig Gewicht.",
+      "vorbereitung": "Eine Kettlebell und ein Stuhl, Sofa oder eine Bank, etwa kniehoch.",
+      "schritte": [
+        "Stell dich gut einen Schritt vor den Stuhl und leg den Fußrücken des hinteren Beins darauf.",
+        "Halte die Kettlebell an den Griffseiten vor der Brust.",
+        "Senk dich gerade nach unten, bis der vordere Oberschenkel etwa waagerecht ist.",
+        "Drück dich über die ganze vordere Fußsohle wieder hoch. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Hinteren Fuß vom Stuhl nehmen, Kettlebell absenken.",
+      "sauber": "Das vordere Knie bleibt über dem Fuß, die Ferse bleibt am Boden, der Oberkörper bleibt ruhig.",
+      "details": [
+        "Steht der vordere Fuß zu nah, hebt die Ferse ab. Dann einen halben Schritt weiter vor."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die vordere Ferse hebt ab.",
+          "k": "Vorderen Fuß weiter nach vorn stellen."
+        },
+        {
+          "f": "Das Knie fällt nach innen.",
+          "k": "Knie nach außen, leichtere Kettlebell."
+        }
+      ],
+      "skalierung": "Leichter: Bulgarian Split Squat ohne Gewicht oder Split Squat. Schwerer: schwerere Kettlebell oder 3 s absenken.",
+      "grenzen": "Bei Schmerzen im Knie oder in der Leiste aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_goblet_cossack",
+      "trainiert": "Oberschenkel vorn, Adduktoren, Gesäß",
+      "zweck": "Tiefe Kniebeuge zur Seite mit der Kettlebell vor der Brust: Kraft im Bein und Beweglichkeit in der Leiste.",
+      "vorbereitung": "Eine leichte Kettlebell. Füße weit auseinander, etwa doppelt schulterbreit.",
+      "schritte": [
+        "Halte die Kettlebell an den Griffseiten vor der Brust, Füße weit auseinander, Zehen leicht nach außen.",
+        "Verlager das Gewicht auf das rechte Bein und geh tief in die Hocke, das linke Bein bleibt gestreckt, die Zehen zeigen nach oben.",
+        "Drück dich über die rechte Ferse zurück zur Mitte.",
+        "Wechsel die Seite bei jeder Wiederholung."
+      ],
+      "ausstieg": "Zur Mitte zurück, Füße heranziehen, Kettlebell absenken.",
+      "sauber": "Die Ferse des gebeugten Beins bleibt am Boden, der Oberkörper bleibt aufrecht.",
+      "details": [
+        "Die Kettlebell vorn hilft beim Gleichgewicht, du kommst damit oft tiefer als ohne."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Ferse hebt ab.",
+          "k": "Nur so tief wie die Ferse unten bleibt, Füße weiter nach außen drehen."
+        },
+        {
+          "f": "Der Rücken rundet sich.",
+          "k": "Brust hoch, Kettlebell nah am Körper."
+        }
+      ],
+      "skalierung": "Leichter: Cossack Squat ohne Gewicht oder nicht ganz so tief. Schwerer: schwerere Kettlebell oder unten 2 s halten.",
+      "grenzen": "Bei Schmerzen in der Leiste oder im Knie nur so tief, wie es schmerzfrei geht.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }

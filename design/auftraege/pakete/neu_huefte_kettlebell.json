@@ -1,0 +1,170 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "huefte",
+  "quelle": "Claude, 22. Oktober 2026 (Dennis: mehr Kettlebell-Übungen für zu Hause, vor allem mit verstellbarer Kettlebell). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_suitcase_deadlift",
+      "name": "Kettlebell Suitcase Deadlift",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 66,
+      "trainiert": "Gesäß, Beinbeuger, seitlicher Rumpf",
+      "zweck": "Kreuzheben mit der Kettlebell seitlich neben dem Fuß: Hüfte und Rumpf halten gegen den Zug zur Seite.",
+      "vorbereitung": "Eine Kettlebell neben dem rechten Fuß.",
+      "schritte": [
+        "Stell dich hüftbreit hin, die Kettlebell steht direkt neben deinem rechten Fuß.",
+        "Schieb die Hüfte nach hinten, beug die Knie leicht und greif den Griff mit der rechten Hand.",
+        "Zieh die Schulter nach unten und steh mit geradem Rücken auf, bis die Hüfte gestreckt ist.",
+        "Schieb die Hüfte wieder nach hinten und stell die Kettlebell kontrolliert ab. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell abstellen, loslassen, aufrichten.",
+      "sauber": "Die Schultern bleiben waagerecht, der Oberkörper neigt sich nicht zur Kettlebell.",
+      "details": [
+        "Die Bewegung kommt aus der Hüfte, nicht aus dem Rücken."
+      ],
+      "atmung": "Vor dem Hochziehen einatmen und den Bauch fest machen, oben ausatmen.",
+      "fehler": "Der Oberkörper neigt sich zur Kettlebell. Leichtere Kettlebell, freien Arm zur Seite strecken. Der Rücken rundet sich. Hüfte weiter nach hinten, Brust nach vorn.",
+      "skalierung": "Leichter: Kettlebell Deadlift mit beiden Händen zwischen den Füßen. Schwerer: schwerere Kettlebell oder langsam absenken (3 s).",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "rueckenstrecker",
+          "unterarm"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Koffer-Kreuzheben"
+      ],
+      "muster": "huefte",
+      "level": 1,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_glute_bridge",
+      "name": "Kettlebell Glute Bridge",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 64,
+      "trainiert": "Gesäß, Beinbeuger",
+      "zweck": "Hüftstrecken in Rückenlage mit einer Kettlebell auf der Hüfte: stärkt das Gesäß ohne Bank.",
+      "vorbereitung": "Eine Kettlebell, eine Matte oder ein Handtuch für die Hüfte.",
+      "schritte": [
+        "Leg dich auf den Rücken, die Füße hüftbreit und nah am Gesäß.",
+        "Leg die Kettlebell quer auf die Hüftknochen und halt sie mit beiden Händen am Griff.",
+        "Drück die Fersen in den Boden und heb die Hüfte, bis Knie, Hüfte und Schultern eine Linie bilden.",
+        "Halte oben kurz an und senk die Hüfte langsam ab."
+      ],
+      "ausstieg": "Hüfte ablegen, Kettlebell zur Seite rollen.",
+      "sauber": "Oben ist die Hüfte ganz gestreckt, die Rippen bleiben unten, kein Hohlkreuz.",
+      "details": [
+        "Polster die Kettlebell mit einem Handtuch, dann drückt sie nicht."
+      ],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": "Hohlkreuz oben. Bauch fest, Becken leicht einrollen, nur bis zur Linie. Die Beinbeuger krampfen. Füße etwas näher ans Gesäß.",
+      "skalierung": "Leichter: Glute Bridge ohne Gewicht. Schwerer: schwerere Kettlebell, oben 2 s halten oder einbeinig.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Hüftheben mit Kettlebell"
+      ],
+      "muster": "huefte",
+      "level": 1,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_deadlift",
+      "varianten": [
+        {
+          "uebung": "g_kb_suitcase_deadlift",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Die Kettlebell seitlich wie ein Koffer: Hüfte und seitlicher Rumpf."
+        }
+      ]
+    },
+    {
+      "familie": "f_hip_thrust",
+      "varianten": [
+        {
+          "uebung": "g_kb_glute_bridge",
+          "art": "variante",
+          "effekt": 64,
+          "grund": "Glute Bridge mit Kettlebell auf der Hüfte, ganz ohne Bank."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}
