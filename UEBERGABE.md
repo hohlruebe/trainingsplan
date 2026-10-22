@@ -4,8 +4,20 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 21. Oktober 2026 (Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 22. Oktober 2026 (Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Ausfall nicht mehr aufs Wochenende gequetscht (22. Oktober 2026, Claude)
+- Dennis (Screenshot Do 22.): „Ich habe einen Tag Training ausfallen lassen, bis zum Ende der Woche wäre noch genug Zeit, aber es wird einfach ans Ende
+  gequetscht.“ Heute frei, Sa A, So B, C fiel weg.
+- Nachgestellt mit seinem echten Stand (Sync-Datei) und seinem Kalender: A war auf Mi verschoben und fiel aus („keine Zeit“), heute „Erholt“.
+  Ursache: Frühdienst 6–14 + 1 h Heimweg, Schlaf laut Kalender ab 20:15. Die festen Abstände (1,5 h nach der Arbeit, 3 h vor dem Schlafen, 2 × 15 Min Weg)
+  brauchen 5,4 h, frei waren 5 h; Fr nach der Küche fehlten 5 Min. Also blieben nur Sa und So.
+- Jetzt: passt eine Einheit mit den üblichen Abständen nicht, plant der Coach knapper (1 h nach der Arbeit, 2 h vor dem Schlafen) statt den Tag zu verlieren,
+  mit Grund am Termin. Ergebnis für diese Woche: Do 17:00 A, Sa B, So C. Wo es mit den üblichen Abständen geht, ändert sich nichts.
+- Test in `tests/dreitage.cjs` (schlägt mit dem alten Stand fehl). Der Paket-64-Test hatte morgens 2,5 h frei, dort passt jetzt die ganze Einheit statt der
+  gekürzten; der Termin im Test beginnt darum um 8 statt 9 Uhr.
+- Nebenbei gesehen, nicht geändert: die Uhrzeit von heute bleibt im Plan, auch wenn sie schon vorbei ist (z. B. um 21 Uhr „heute 17:00“).
 
 ## Prüfung 2 der Trainingsplanung (21. Oktober 2026, Claude)
 - Dennis: „Wie kannst du den fehlerhaften Test beheben? Findest du andere Fehler? Das A und O ist die Trainingsplanung, die muss optimal funktionieren.“

@@ -5321,15 +5321,17 @@ function dayCls(T, i) {
 function dayFreeH(T, i) { for (var d = 8; d >= 0.5; d -= 0.5) if (daySlot(T, i, d, true)) return d; return 0; }
 function fmtHalfH(x) { var f = Math.floor(x), h = x - f >= .5; return (f ? f + (h ? '½' : '') : '½') + ' h' + (x >= 8 ? ' und mehr' : ''); }
 // Beste Startzeit an Tag i für eine Einheit von dur Stunden (mit Weg hin und zurück). Kraft am liebsten 15–19 Uhr.
-function daySlot(T, i, dur, hard, force) {
-  var d0 = 24 * i, wg = alltag().weg / 60, D = dur + 2 * wg, best = null;
+// relax (Dennis, 22. Oktober: nach Frühdienst mit 1 h Heimweg und frühem Schlaf passte nichts mehr, alles rutschte aufs Wochenende):
+// knapper planen, 1 h nach Arbeit/Aufstehen und vor der Arbeit, 2 h (locker 1½ h) vor dem Schlafen. Nur, wenn es sonst nicht passt.
+function daySlot(T, i, dur, hard, force, relax) {
+  var d0 = 24 * i, wg = alltag().weg / 60, D = dur + 2 * wg, best = null, gp = relax ? 1 : 1.5, gs = relax ? (hard ? 2 : 1.5) : (hard ? 3 : 2);
   var c = T.c || 0, busy = T.work.map(function (w) { return { s: w[0] - c, e: w[1] + c, k: 'w', ent: w[2] }; }).concat(T.sleep.map(function (s) { return { s: s[0], e: s[1], k: 's' }; }))
     .concat((T.block || []).map(function (p) { return { s: p[0], e: p[1], k: 'p', ent: p[2] }; }));
   function ok(t) {
     for (var j = 0; j < busy.length; j++) {
       var b = busy[j];
-      if (b.e <= t) { if (t < b.e + (b.k === 'p' ? 0 : 1.5)) return false; }
-      else if (b.s >= t + D) { if (t + D > b.s - (b.k === 's' ? (hard ? 3 : 2) : b.k === 'p' ? 0 : 1.5)) return false; }
+      if (b.e <= t) { if (t < b.e + (b.k === 'p' ? 0 : gp)) return false; }
+      else if (b.s >= t + D) { if (t + D > b.s - (b.k === 's' ? gs : b.k === 'p' ? 0 : gp)) return false; }
       else return false;
     }
     return true;
@@ -5340,7 +5342,7 @@ function daySlot(T, i, dur, hard, force) {
     var h = t + wg - d0, sc = (hard ? 10 : 6) - Math.abs(h - 17) * (h > 19 ? 1.6 : 1) + (h >= 15 && h <= 19 ? 2 : 0);
     if (!best || sc > best.sc) best = { t: t + wg, end: t + wg + dur, sc: sc, h: h, q: t, D: D };
   }
-  if (best) best.why = slotWhy(busy, best.q, D, hard, best.h);
+  if (best) { best.why = slotWhy(busy, best.q, D, hard, best.h); if (relax) { best.relax = 1; best.sc -= 6; best.why.push('Etwas knapper geplant, damit die Einheit noch in diese Woche passt'); } }
   return best;
 }
 function slotWhy(busy, t, D, hard, h) {
@@ -5600,6 +5602,8 @@ function wkPlan0(mon) {
   function slot(i, t) {
     var k = i + '|' + t; if (k in slots) return slots[k];
     var s = daySlot(T, i, planDur(t), planHard(t), days[i].force);
+    // Plan 2: passt die Einheit mit den üblichen Abständen nicht, dann knapper (Punkte −6), bevor der Tag ganz wegfällt.
+    if (!s && v2()) s = daySlot(T, i, planDur(t), planHard(t), null, true);
     // Paket 64: passt die ganze Einheit nirgends, nimmt der Coach die größte Lücke ab 30 Min und kürzt die Einheit (zeitLv). Ein ganzer Tag woanders geht vor.
     if (!s && v2() && DAYS[t] && DAYS[t].type === 'kraft') [60, 45, 30].some(function (m) { if (m / 60 >= planDur(t)) return false; s = daySlot(T, i, m / 60, true); if (s) { s.fit = m; s.sc = (s.sc || 0) - 8; } return !!s; });
     return (slots[k] = s);
@@ -5641,7 +5645,7 @@ function wkPlan0(mon) {
   subs.sort(function (x, y) { return y.n - x.n || y.p - x.p; });
   for (var si = 0; si < subs.length; si++) { var r0 = best(subs[si].s); if (r0) { res = r0; seq = subs[si].s; break; } }
   var dropped = R.filter(function (t) { return seq.indexOf(t) < 0; });
-  (res ? res.a : []).forEach(function (x) { var dy = days[x.i], s = slot(x.i, x.t); dy.tag = x.t; dy.t = s.t; dy.end = s.end; dy.why = s.why; dy.forced = !!s.forced; dy.fit = s.fit || 0; });
+  (res ? res.a : []).forEach(function (x) { var dy = days[x.i], s = slot(x.i, x.t); dy.tag = x.t; dy.t = s.t; dy.end = s.end; dy.why = s.why; dy.forced = !!s.forced; dy.fit = s.fit || 0; dy.relax = !!s.relax; });
   return { mon: mon, days: days, T: T, dropped: dropped, today: cur ? ti : -1 };
 }
 var WKP_C = { k: null, v: null };
