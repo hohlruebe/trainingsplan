@@ -24,7 +24,7 @@ function setup(extra) {
     ladderStates: () => ({}), ladFor: () => null, partScores: () => ({}), dayLabel: t => 'Ganzkörper ' + ({ 1: 'A', 3: 'B', 6: 'C' })[t], esc: String,
     SHIFT: { f: ['Früh', 6, 14], s: ['Spät', 14, 22], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18], tn: ['12 h Nacht', 18, 6] }
   }, extra || {}));
-  vm.runInContext('var KFIT = 0; var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + ';', c);
+  vm.runInContext('var KFIT = 0; var UMF_HIT = 0.7; var UNIT = ' + constant('UNIT') + '; var UMF = ' + constant('UMF') + '; var RPE_W = ' + constant('RPE_W') + ';', c);
   for (const name of ['tageN', 'splitOn', 'isoAdd', 'wkMon', 'alltag', 'v2', 'planOn', 'wkEntry', 'arbeitOf', 'wkTimeline', 'dayCls', 'daySlot', 'slotWhy', 'planHard',
     'planPairOk', 'planDropOrder', 'trainingLog', 'wkDoneV2', 'wkPlan', 'doneToday0', 'umfMin', 'umfIdx', 'umfGrow', 'umfDiff', 'planRoll', 'snapName', 'isSecs', 'holdOf', 'repGoal', 'befCls', 'befOf', 'stepRi', 'stepsLoad', 'logLoad', 'rpeWord', 'longShift',
     'arbeitOf0', 'kalOn', 'kalCalOn', 'kalW', 'kalB', 'kalHas', 'kalShift', 'kalDays', 'kalDay', 'kalBlocks', 'kalSleepy', 'wkPlan0', 'dayFreeH', 'fmtHalfH']) vm.runInContext(source(name), c);

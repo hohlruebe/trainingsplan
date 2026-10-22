@@ -20,7 +20,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Vorlauf/Wechsel), Stufe 4 = bisheriger Krafttag, Stufe 6 = „Nächste Stufe“ (EMOM 15). Abschluss ohne Kardiogerät (zügig gehen) höchstens 20 Min (`FIN_GEH_MAX`). `umfIdx` deckelt mit dem Zeitlimit (`S.zeitMax`,
   Deine Woche › Zeit pro Training, höchstens 90 Min, 8 Min Reserve für Ausgleich und C); `zeitLv` kürzt mit dem Zeitlimit zusätzlich.
   Kürzeres Aufwärmen (6/4 Min) = weniger Ergometer und Übungen (`warmMin`, `WARMUP` mit `k4`/`t6`). `umfGrow` beim Wochenwechsel:
-  frühestens 14 Tage nach der letzten Änderung, 6 vollständige Einheiten in 2 Wochen (keine Kurzversion, 80 % der Runden mit Eintrag),
+  frühestens 14 Tage nach der letzten Änderung, 6 Einheiten in 2 Wochen ohne Kurzversion und im Schnitt 70 % der Runden auf der Vorgabe (`UMF_HIT`;
+  Prüfung 2: verlangt war jede Einheit einzeln, so wuchs der Umfang bei echter Leistung nie),
   keine akute Beschwerde, nicht vor Entlastung, Testwoche, Taper, Wiedereinstieg; eine Stufe, Hinweis „Mehr Umfang“ in der Coach-Karte.
   Start (`umfStart`): wer in 8 Wochen 6 Krafteinheiten hatte, Stufe 4 (mit „Nächster Stufe“ 6), sonst nach Erfahrung im Fragebogen.
   Durchgang 1 und 2 sind in Plan 2 keine Kurzversion mehr (der Einstieg steckt in der Umfangsstufe).
@@ -93,7 +94,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `node tests/dreitage-browser.cjs` (Playwright: Umstellung, Wochenleiste, Training, Arbeitszeiten, Befinden, Verschieben, Zusatz, Google Kalender mit
   nachgestellter Brücke, Fußanker je Ort, alle Reiter),
   `node tests/langzeit-browser.cjs` (Playwright, Prüfung 21. Oktober: die echte App trainiert 8 bzw. 26 Wochen Tag für Tag zu Hause, im Gym und im Split;
-  prüft Dauer-Kurzversion, Tausch bei voller Leistung, Stufen ohne Gerät, Tempo in der Sackgasse, Gehen ≤ 20 Min, Testwoche, Split, Startgewichte).
+  prüft Dauer-Kurzversion, Tausch bei voller Leistung, Stufen ohne Gerät, Tempo in der Sackgasse, Gehen ≤ 20 Min, Testwoche, Split, Startgewichte;
+  dazu ein realistischer Athlet, der langsam stärker wird: Stufe nur nach geschaffter Vorgabe, Umfang wächst; Normen je Gewichtsstufe, keine Metcon-Leiter im Kraftteil).
 - Ausfälle (12. Oktober 2026): `planDays` hält geplante Kalendertage fest (diese und nächste Woche; ohne Wochenplanung den aktuellen Tag).
   Erst ab dem ersten Öffnen dieser Version, keine rückwirkende Annahme über alte Termine. Vergangene Snapshots bleiben unverändert.
   `missPending` fragt auf Heute nach fehlenden Abschlüssen der letzten 14 Tage; Ruhetage, gespeicherte Trainings, Mobility/1RM und
@@ -321,13 +323,18 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   den Chips (`.k-est`) und in der Coach-Karte. Einstufung (`cs.cal`): in den ersten 2 Einheiten ohne Test alle Runden oben → sofort eine Stufe
   höher, ohne Sehnen-Wartezeit, nie zurück auf eine Stufe, die schon zu schwer war. Zu schwer (`cs.hard`): in der letzten Einheit mindestens
   2 Runden unter dem unteren Ende der Spanne → nächstes Mal eine Stufe leichter (nicht an Tagen „leichter“ wegen Schmerzen, `ladHist().soft`,
-  nicht bei Gewichtsleitern). Metcon und Handstand ohne Verlauf nehmen dieselbe Schätzung (`lastMetconStage`, `lastHsStage`).
+  nicht bei Gewichtsleitern); die erste Einheit nach einem Aufstieg darf holpern (zurück nur, wenn sie im Schnitt unter der Hälfte des unteren Endes liegt
+  oder die zweite auch zu schwer ist; Prüfung 2: sonst rauf, runter, rauf). Spanne (`rangeOf`): „3–6“ oder feste Vorgabe „10 pro Runde“ / „20 s pro Runde“
+  = oben die Zahl, unten 60 % davon (`fix`; vorher gab es keine Spanne und der Coach rechnete mit 3–6, die Stufe kam schon bei 6 von 10 Wdh.).
+  Haltestufe in einer Wdh.-Leiter („Support Hold, 20 s“, `stageRange`) misst die Sekunden der Stufe. Metcon-Leitern („… im Metcon“: Thruster, V-up,
+  `METCON_LAD`) kommen nicht in den Kraftteil (`planFill`; eine alte Wahl wird mit Hinweis `why: 'metcon'` ersetzt). Metcon und Handstand ohne Verlauf nehmen dieselbe Schätzung (`lastMetconStage`, `lastHsStage`).
   Pause (`partPause`, `partLastDate`): zählt je Teil (Zug, Druck, Beine, Rumpf), nicht je Übung: eine Leiter, die nur woanders oder eine Woche
   nicht dran war, verliert keine Stufe. Gewicht: 10 % leichter nach 14 Tagen ohne den Teil oder 21 Tagen ohne genau diese Übung.
   Maxout (Testwoche, `k.max`, alte Einträge: `l.test` und erste Übung): Runde 1 ≥ obere Spanne + 3 zählt wie zwei Einheiten oben (`cs.mx`),
   unter der Spanne eine Stufe leichter (`cs.hard.mx`). Metcon-Stufe (`lastMetconStage`) folgt dem Kraftstand: Kraft-Stufe − 1 (Gewichtsleitern
   gleich), ohne Kraftverlauf die Schätzung `stageEst`; Metcon-Stände sind keine Quelle mehr für `stageEst`.
-  Normen auch für die Kurzhantel-/Kettlebell-Stufen (Goblet Squat, Kettlebell Deadlift, Dumbbell Press, Hang Clean/Snatch u. a., Gewicht einer Hantel).
+  Normen auch für die Kurzhantel-/Kettlebell-Stufen (Goblet Squat, Kettlebell Deadlift, Dumbbell Press, Hang Clean/Snatch u. a., Gewicht einer Hantel;
+  Goblet Squat 0,4–1,3 und Kettlebell Deadlift 0,6–2, damit der Übergang zur Langhantel bei einem machbaren Startgewicht liegt).
   Gewicht ohne eigenes 1RM (`rmEst` in `kgRec`): gleicher Anteil zwischen den Normen (`rmStd`) wie die 1RM im selben Muster, sonst
   Einsteiger-Norm × Körpergewicht, jeweils 10 % weniger.
   Laufen (`runCap`): lockerer Lauf heute höchstens so lang, dass die Woche 1,3 × Schnitt der letzten 4 Wochen nicht übersteigt (ab 3 Wochen Laufdaten).
@@ -487,7 +494,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   rot mit „!“ darüber, darunter die Woche gegen den Plan der Woche. Der Coach ändert damit noch nichts (Pakete 58 ff.). Alte Einträge ohne Wert bleiben.
 - Leistung als Signal (Dennis, Paket 58, „der Coach soll den richtigen Reiz selbst ermitteln“): `sigOf(l)` je Einheit, nur Vergleich mit eigenen Werten:
   Kraft „Mehr Mühe als sonst“ (mindestens 2 Übungen mit je ≥ 2 Runden unter `goal`, nicht bei Schmerz leichter/Pause, nicht in den ersten 2 Einheiten
-  einer Stufe), Ausdauer „Puls höher“ (Puls ≥ `SIG_HR` 6 % über dem Schnitt der letzten 3–6 Einheiten gleicher Art bei nicht schnellerem Tempo bzw.
+  einer Stufe, und mindestens 3 verfehlte Runden mehr als im Schnitt der letzten 3–6 Einheiten; Prüfung 2: fest gezählt kam es fast jedes vierte Mal), Ausdauer „Puls höher“ (Puls ≥ `SIG_HR` 6 % über dem Schnitt der letzten 3–6 Einheiten gleicher Art bei nicht schnellerem Tempo bzw.
   nicht mehr Watt), Skill „Haltezeit kürzer“ (unter `SIG_HOLD` 75 % des Schnitts der letzten 3 auf derselben Stufe), Belastung „Härter als sonst“
   (Einschätzung ≥ 8 und 2 Punkte über dem Schnitt der letzten 3–6 eigenen Einschätzungen gleicher Art, ohne 3 frühere erst ab 9; Prüfung 21. Oktober:
   vorher galt jede 6 als „härter als geplant“ und machte jede Einheit zur Kurzversion). Alte Einträge ohne `sv` bekommen `logSoll` = `soll` × 1,35. `sigState`: Signale in den letzten zwei Einheiten hintereinander = `cut`; `sigKurz(tag)` macht die nächste

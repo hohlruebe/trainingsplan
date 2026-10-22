@@ -4,8 +4,24 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 21. Oktober 2026 (Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 21. Oktober 2026 (Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Prüfung 2 der Trainingsplanung (21. Oktober 2026, Claude)
+- Dennis: „Wie kannst du den fehlerhaften Test beheben? Findest du andere Fehler? Das A und O ist die Trainingsplanung, die muss optimal funktionieren.“
+- Test: Nach „Speichern“ legt die App den Eintrag mit kurzer Verzögerung an (`setTimeout` in `rpeThen`); der Test wartete auf „mehr als 0 Einträge“, die
+  Testdaten haben aber 7. Behoben in #115 (wartet auf den neuen Eintrag).
+- Neue Simulation mit realistischem Athleten (Fähigkeit je Leiter wächst langsam, schwere Stufen gehen schlechter, Runden werden müde, Maxout = alles):
+  1. Feste Vorgaben („10 pro Runde“: Ring Row, Air Squat, Pike, Lunge, Hollow u. a., 9 Leitern) hatten keine Spanne: Stufe schon bei 6 von 10. Jetzt `rangeOf` mit `fix`.
+  2. Haltestufe in Wdh.-Leiter („Support Hold, 20 s“): Sekunden mit 3–6 Wdh. verglichen, 7 s galten als oben. Jetzt `stageRange`.
+  3. Umfang wuchs mit echter Leistung nie (jede Einheit einzeln ≥ 75 % verlangt). Jetzt im Schnitt 70 % über 2 Wochen.
+  4. „Mehr Mühe als sonst“ war fest gezählt (fast jedes vierte Mal). Jetzt gegen den eigenen Schnitt.
+  5. Rauf-runter: eine neue Stufe flog nach der ersten holprigen Einheit wieder raus. Jetzt zweite Chance.
+  6. Metcon-Leitern (Thruster, V-up) konnten in den Kraftteil kommen (im Gym nach Stillstand Thruster ab „Air Squat“). Jetzt ausgeschlossen.
+  7. Übergang Goblet Squat 32,5 kg → Front Squat 62,5 kg (Normen zu niedrig). Jetzt 40 kg.
+- Ergebnis Simulation zu Hause, 26 Wochen: Runden unter der Vorgabe 37 % → 23 %, Umfang wächst wieder (4 → 12), keine Dauer-Kurzversion.
+- `tests/langzeit-browser.cjs` um den realistischen Athleten und eine Datenprüfung erweitert; mit dem alten Stand schlägt er fehl.
+- Offen: Simulation ist ein Modell. Dennis' echte Rückmeldung im Training ist wichtiger (fühlen sich Aufstiege und Vorgaben richtig an?).
 
 ## Muskel-Bilder, seitliche Schulter und Abduktoren (21. Oktober 2026, Claude)
 - Dennis nach dem Merge der Prüfung: „kümmer dich jetzt um die restlichen Sachen“ = die offenen Ideen aus „Körper unter Tools“.
