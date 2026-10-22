@@ -228,9 +228,9 @@ assert.ok(!T64.sleep.some(x => x[0] === -1.5), 'angenommener Schlaf dieser Nacht
 assert.ok(T64.sleep.some(x => x[0] === 24 * 2 + 7 && x[1] === 24 * 2 + 14), 'Tagschlaf nach dem Nachtdienst aus dem Kalender');
 assert.ok(T64.block.some(x => x[0] === 24 * 3 + 10 && x[2].n === 'Termin'), 'kurzer Termin am Vormittag bleibt ein Termin');
 assert.ok(T64.sleep.some(x => x[0] === 24 * 3 - 1.5), 'Nacht ohne Schlaf im Kalender: Annahme bleibt');
-// Montag: nur 17–18 Uhr frei (Termine davor und danach), die Einheit dauert 75 Min → 60 Min, weil es keinen anderen Tag gibt.
+// Montag: nur 17–18 Uhr frei (Termine davor und danach, morgens auch knapp keine 75 Min), die Einheit dauert 75 Min → 60 Min, weil es keinen anderen Tag gibt.
 c64.planDur = () => 1.25;
-c64.KAL.w = []; c64.KAL.b = [{ a: at('2026-10-12', 9), b: at('2026-10-12', 17) }, { a: at('2026-10-12', 18), b: at('2026-10-12', 22) }];
+c64.KAL.w = []; c64.KAL.b = [{ a: at('2026-10-12', 8), b: at('2026-10-12', 17) }, { a: at('2026-10-12', 18), b: at('2026-10-12', 22) }];
 for (let d = 13; d <= 18; d++) c64.KAL.b.push({ a: at('2026-10-' + d, 7), b: at('2026-10-' + d, 22) });
 c64.S.tage = 2;
 const P64 = c64.wkPlan();
@@ -239,6 +239,25 @@ assert.ok(P64.days[0].t >= 17 && P64.days[0].end <= 18 + 1e-9, 'liegt in der Lü
 assert.equal(c64.dayFreeH(T64, 3), c64.dayFreeH(T64, 3)); assert.equal(c64.dayFreeH(c64.wkTimeline('2026-10-12'), 1), 0, 'Dienstag ganz belegt: keine Zeit');
 assert.equal(c64.fmtHalfH(1.5), '1½ h'); assert.equal(c64.fmtHalfH(.5), '½ h');
 console.log('PASS: Kalender als einzige Quelle: Schlaf aus dem Kalender, kürzere Einheit in der Lücke, freie Zeit je Tag');
+}
+{
+// Dennis, 22. Oktober: Frühdienst 6–14, 1 h Heimweg, Schlaf laut Kalender ab 20:15. Mit festen 1,5 h nach der Arbeit und 3 h vor dem Schlafen
+// passte unter der Woche nichts, nach einem Ausfall rutschte alles aufs Wochenende und C fiel weg. Jetzt plant der Coach dann knapper.
+const cd = setup({ isoDate: isoDateL, parseISO: parseISOL, DAYS: V2 }); now = '2026-10-15';
+cd.S.alltag = { on: true, bed: 22, wake: 7, schicht: true, weg: 15, wegA: 60 }; cd.S.tag = 1;
+cd.KAL = { url: 'https://script.google.com/macros/s/x/exec', ts: 1, von: parseISOL('2026-10-04').getTime(), bis: parseISOL('2026-11-02').getTime(),
+  w: [12, 13, 14, 15, 16].map(d => ({ k: 'f', a: at('2026-10-' + d, 6), b: at('2026-10-' + d, 14) })),
+  b: [11, 12, 13, 14, 15].map(d => ({ a: at('2026-10-' + d, 20, 15), b: at('2026-10-' + (d + 1), 4, 15) }))
+    .concat([{ a: at('2026-10-16', 16), b: at('2026-10-16', 19) }, { a: at('2026-10-16', 23, 30), b: at('2026-10-17', 7, 30) }, { a: at('2026-10-18', 8, 30), b: at('2026-10-18', 14) }]) };
+cd.planDur = () => 27 / 60;
+const PD = cd.wkPlan(), on = PD.days.filter(d => d.tag).map(d => d.i + ':' + d.tag);
+assert.equal(on.join(' '), '3:1 5:3 6:6', 'Donnerstag A, Samstag B, Sonntag C statt nur Wochenende: ' + on);
+assert.ok(PD.days[3].relax && PD.days[3].why.some(w => /knapper/.test(w)), 'Donnerstag knapper geplant, mit Grund');
+assert.ok(PD.days[3].end <= 24 * 3 + 20.25 - 2 + 1e-9, 'trotzdem 2 h vor dem Schlafen fertig');
+assert.ok(!PD.days[5].relax, 'Samstag mit den üblichen Abständen');
+assert.equal(PD.dropped.length, 0, 'keine Einheit fällt weg');
+now = '2026-10-12';
+console.log('PASS: Nach einem Ausfall knapper planen statt aufs Wochenende quetschen (Frühdienst, langer Heimweg, früher Schlaf)');
 }
 console.log('PASS: Google Kalender: Dienste, 12-h-Erkennung, belegte Zeiten, Zeitraum, Kalender einzeln an und aus, ohne Kalender wie bisher');
 

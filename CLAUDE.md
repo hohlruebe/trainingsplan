@@ -707,7 +707,9 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
   Schlaf als Blöcke (früher Dienst = früher aufstehen, später Dienst = später ins Bett, nach Nachtarbeit Tagschlaf Ende + 1 bis + 8 h);
   Tag none (12-h-Schicht, zwischen zwei Nächten), light (vor der ersten bzw. nach der letzten Nacht, nur Kardio locker), ok. Uhrzeit: 1,5 h nach
   Aufstehen und Arbeit, 1,5 h vor der Arbeit, 3 h (locker 2 h) vor dem Schlafen, Weg hin und zurück, Kraft am liebsten 15–19 Uhr; Gründe als
-  Haken (`slotWhy`). Verteilung: Reihenfolge der Tage bleibt, möglichst viele Einheiten, bei gleicher Zahl die wichtigeren (`planDropOrder`:
+  Haken (`slotWhy`). Plan 2: passt es so nicht, plant der Coach knapper (`daySlot(…, relax)`: 1 h nach/vor Arbeit und Aufstehen, 2 h bzw.
+  locker 1½ h vor dem Schlafen, Punkte −6, Grund „Etwas knapper geplant …“, `d.relax`), erst danach kürzt er (Paket 64); Dennis, 22. Oktober: nach
+  Frühdienst mit 1 h Heimweg und Schlaf ab 20:15 passte unter der Woche nichts, nach einem Ausfall rutschte alles aufs Wochenende und C fiel weg. Verteilung: Reihenfolge der Tage bleibt, möglichst viele Einheiten, bei gleicher Zahl die wichtigeren (`planDropOrder`:
   Kardio locker, Kardio intensiv, der stärkere von Zug/Druck, der andere, Ganzkörper), nie zwei harte Tage hintereinander außer Zug + Druck.
   `planOn()` (an, gestartet, ab Durchgang 1): `dayCheck` ruft `planRoll` (Montag: Durchgang + 1 nur bei mindestens 2 Krafttagen in der Woche davor,
   sonst gleicher Durchgang, Tag 1) und `planSyncTag` (heute dran = Einheit des Plans), Ruhetage zählen nicht von selbst; `advance` geht zur nächsten
