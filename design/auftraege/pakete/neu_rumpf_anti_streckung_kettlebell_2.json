@@ -1,0 +1,93 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "rumpf_anti_streckung",
+  "quelle": "Claude, 23. Oktober 2026 (Dennis: noch mehr Kettlebell-Übungen, Auswahl eine oder zwei Kettlebells). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_dead_bug",
+      "name": "Kettlebell Dead Bug",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "kraft",
+        "aufwaermen"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 60,
+      "trainiert": "Gerader Bauchmuskel, tiefe Rumpfmuskeln",
+      "zweck": "In Rückenlage die Kettlebell mit gestreckten Armen über der Brust halten und die Beine abwechselnd strecken: der Rücken bleibt am Boden.",
+      "vorbereitung": "Eine leichte Kettlebell, eine Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken und halt die Kettlebell mit beiden Händen und gestreckten Armen über der Brust.",
+        "Heb die Beine, Knie und Hüfte im rechten Winkel, der untere Rücken drückt in den Boden.",
+        "Streck das rechte Bein langsam aus, bis die Ferse knapp über dem Boden ist.",
+        "Hol es zurück und streck das linke Bein. Abwechselnd weiter."
+      ],
+      "ausstieg": "Beide Füße abstellen, Kettlebell auf der Brust ablegen und zur Seite rollen.",
+      "sauber": "Der untere Rücken hebt nicht vom Boden ab, die Arme bleiben senkrecht über der Brust.",
+      "details": [
+        "Die Kettlebell zieht die Schultern leicht nach oben, das hilft dem Bauch."
+      ],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": "Hohlkreuz beim Strecken. Bein weniger weit strecken, Bauch fester. Die Arme wandern zum Kopf. Kettlebell senkrecht über der Brust halten.",
+      "skalierung": "Leichter: Dead Bug ohne Gewicht. Schwerer: schwerere Kettlebell oder Bein langsamer strecken (3 s).",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "bauch_gerade"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "hueftbeuger",
+          "schulter_vorn"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte",
+        "knie"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Toter Käfer mit Kettlebell"
+      ],
+      "muster": "rumpf_anti_streckung",
+      "level": 1,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_hollow_body",
+      "varianten": [
+        {
+          "uebung": "g_kb_dead_bug",
+          "art": "variante",
+          "effekt": 60,
+          "grund": "Dead Bug mit Kettlebell über der Brust: mehr Spannung im Bauch."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

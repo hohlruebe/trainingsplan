@@ -999,6 +999,44 @@
         "korrektur": "Als Ausführungshinweis mit klarem Abbruchsignal formuliert.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_gorilla_row",
+      "trainiert": "Oberer Rücken, Latissimus, Bizeps",
+      "zweck": "Vorgebeugt zwischen zwei Kettlebells abwechselnd rudern: viel Rücken ganz ohne Bank oder Stange.",
+      "vorbereitung": "Zwei Kettlebells zwischen den Füßen, Füße weit auseinander.",
+      "schritte": [
+        "Stell dich breit über die Kettlebells, schieb die Hüfte nach hinten, bis der Oberkörper fast waagerecht ist, und greif beide Griffe.",
+        "Drück die linke Kettlebell in den Boden und zieh die rechte zur Hüfte, der Ellbogen geht nach hinten.",
+        "Stell sie ab und zieh die linke hoch, während die rechte in den Boden drückt.",
+        "Abwechselnd weiter, der Rücken bleibt gerade."
+      ],
+      "ausstieg": "Beide Kettlebells abstellen, loslassen und mit geradem Rücken aufrichten.",
+      "sauber": "Der Oberkörper dreht nicht mit, der Ellbogen zieht nah am Körper zur Hüfte.",
+      "details": [
+        "Die Kettlebell am Boden gibt dir Halt, drück sie richtig nach unten."
+      ],
+      "atmung": "Beim Ziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Oberkörper dreht beim Ziehen auf.",
+          "k": "Leichtere Kettlebells, Bauch fest, Hüfte bleibt gerade."
+        },
+        {
+          "f": "Der Rücken rundet sich.",
+          "k": "Hüfte weiter nach hinten, Brust nach vorn."
+        }
+      ],
+      "skalierung": "Leichter: Dumbbell Row mit einer Kettlebell und Hand auf dem Knie. Schwerer: schwerere Kettlebells oder oben 1 s halten.",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }

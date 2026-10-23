@@ -1,0 +1,339 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "kniebeuge",
+  "quelle": "Claude, 23. Oktober 2026 (Dennis: noch mehr Kettlebell-Übungen, Auswahl eine oder zwei Kettlebells). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_double_front_squat",
+      "name": "Double Kettlebell Front Squat",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kb_paar"
+        ]
+      ],
+      "nutzen": 78,
+      "trainiert": "Oberschenkel vorn, Gesäß, Rumpf",
+      "zweck": "Kniebeuge mit zwei Kettlebells vorn auf den Schultern: mehr Gewicht als beim Goblet Squat, der Rumpf muss aufrecht bleiben.",
+      "vorbereitung": "Zwei gleich schwere Kettlebells. Füße schulterbreit.",
+      "schritte": [
+        "Bring beide Kettlebells mit einem Clean in die Rack-Position, Ellbogen eng am Körper, Unterarme fast senkrecht.",
+        "Spann Bauch und Gesäß an, die Brust bleibt hoch.",
+        "Geh tief in die Hocke, bis die Hüfte unter den Knien ist, die Knie zeigen über die Zehen.",
+        "Drück dich über die ganzen Füße wieder hoch."
+      ],
+      "ausstieg": "Beide Kettlebells kontrolliert zwischen die Beine absenken und abstellen.",
+      "sauber": "Die Ellbogen bleiben vor dem Körper, der Oberkörper kippt nicht nach vorn, die Fersen bleiben unten.",
+      "details": [
+        "Die Kettlebells liegen außen auf den Unterarmen, die Handgelenke bleiben gerade."
+      ],
+      "atmung": "Oben einatmen, Luft beim Runtergehen halten, beim Hochdrücken ausatmen.",
+      "fehler": "Der Oberkörper kippt nach vorn. Ellbogen hoch, Brust raus, leichtere Kettlebells. Die Ellbogen fallen nach außen. Ellbogen eng am Körper, Griffe nah zusammen.",
+      "skalierung": "Leichter: Kettlebell Front Squat mit einer Kettlebell oder Goblet Squat. Schwerer: schwerere Kettlebells oder unten 2 s halten.",
+      "grenzen": "Bei Schmerzen im Knie oder im unteren Rücken nur so tief, wie es schmerzfrei geht.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "bauch_gerade",
+          "adduktoren",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Frontkniebeuge mit zwei Kettlebells"
+      ],
+      "muster": "kniebeuge",
+      "level": 2,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_double_thruster",
+      "name": "Double Kettlebell Thruster",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kb_paar"
+        ]
+      ],
+      "nutzen": 70,
+      "trainiert": "Beine, Schultern, Puls",
+      "zweck": "Aus der tiefen Kniebeuge mit zwei Kettlebells im Rack direkt über Kopf drücken: ganzer Körper, viel Puls.",
+      "vorbereitung": "Zwei Kettlebells in der Rack-Position, Füße schulterbreit.",
+      "schritte": [
+        "Halte beide Kettlebells im Rack, Ellbogen vor dem Körper.",
+        "Geh tief in die Hocke, bis die Hüfte unter den Knien ist.",
+        "Drück dich explosiv hoch und nutz den Schwung, um beide Kettlebells über den Kopf zu drücken.",
+        "Senk sie ins Rack und geh direkt in die nächste Kniebeuge."
+      ],
+      "ausstieg": "Kettlebells aus dem Rack absenken und abstellen.",
+      "sauber": "Unten ist die Hüfte unter den Knien, oben sind die Arme gestreckt, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Unten einatmen, beim Hochdrücken ausatmen.",
+      "fehler": "Die Kniebeuge wird zu flach. Leichtere Kettlebells, tief genug gehen. Hohlkreuz oben. Bauch und Gesäß fest.",
+      "skalierung": "Leichter: Single-Arm Kettlebell Thruster oder Air Squat mit Band Press. Schwerer: schwerere Kettlebells.",
+      "grenzen": "Bei Schmerzen im Knie oder in der Schulter aufhören.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "schulter_vorn",
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "trizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 3,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Thruster mit zwei Kettlebells"
+      ],
+      "muster": "kniebeuge",
+      "level": 2,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_thruster_single",
+      "name": "Single-Arm Kettlebell Thruster",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 64,
+      "trainiert": "Beine, Schulter, seitlicher Rumpf",
+      "zweck": "Aus der tiefen Kniebeuge mit einer Kettlebell im Rack direkt über Kopf drücken: Thruster für zu Hause.",
+      "vorbereitung": "Eine Kettlebell in der Rack-Position.",
+      "schritte": [
+        "Halte die Kettlebell im Rack, Ellbogen vor dem Körper, die freie Hand zur Seite.",
+        "Geh tief in die Hocke, bis die Hüfte unter den Knien ist.",
+        "Drück dich explosiv hoch und drück die Kettlebell mit dem Schwung über den Kopf.",
+        "Senk sie ins Rack und geh in die nächste Kniebeuge. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell aus dem Rack absenken und abstellen.",
+      "sauber": "Der Oberkörper neigt sich nicht zur Kettlebell, oben ist der Arm gestreckt.",
+      "details": [],
+      "atmung": "Unten einatmen, beim Hochdrücken ausatmen.",
+      "fehler": "Der Oberkörper kippt zur Seite. Freien Arm zur Seite strecken, leichtere Kettlebell. Die Kniebeuge wird zu flach. Tief genug gehen, Hüfte unter die Knie.",
+      "skalierung": "Leichter: Goblet Squat und Kettlebell Halo getrennt. Schwerer: schwerere Kettlebell oder Double Kettlebell Thruster.",
+      "grenzen": "Bei Schmerzen im Knie oder in der Schulter aufhören.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "schulter_vorn"
+        ],
+        "sekundaer": [
+          "gesaess",
+          "trizeps",
+          "bauch_schraeg"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Einarmiger Kettlebell-Thruster"
+      ],
+      "muster": "kniebeuge",
+      "level": 2,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_sumo_squat",
+      "name": "Kettlebell Sumo Squat",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 66,
+      "trainiert": "Oberschenkel innen und vorn, Gesäß",
+      "zweck": "Kniebeuge im breiten Stand, die Kettlebell hängt mit gestreckten Armen zwischen den Beinen: mehr Innenschenkel und Gesäß.",
+      "vorbereitung": "Eine Kettlebell. Füße weit auseinander, Zehen nach außen.",
+      "schritte": [
+        "Stell dich breit hin, Zehen leicht nach außen, und halt die Kettlebell mit beiden Händen am Griff vor dem Körper.",
+        "Geh mit aufrechtem Oberkörper tief nach unten, die Knie zeigen in Richtung der Zehen.",
+        "Die Kettlebell hängt locker und berührt fast den Boden.",
+        "Drück dich über die Fersen wieder hoch."
+      ],
+      "ausstieg": "Kettlebell zwischen den Füßen abstellen, aufrichten.",
+      "sauber": "Die Knie fallen nicht nach innen, der Oberkörper bleibt aufrecht, die Arme ziehen nicht.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": "Die Knie fallen nach innen. Knie aktiv nach außen über die Zehen drücken. Der Oberkörper beugt sich weit vor. Brust hoch, auf eine Erhöhung stellen, wenn die Kettlebell den Boden berührt.",
+      "skalierung": "Leichter: ohne Gewicht. Schwerer: schwerere Kettlebell oder auf zwei Erhöhungen für mehr Tiefe.",
+      "grenzen": "Bei Schmerzen in der Leiste oder im Knie aufhören.",
+      "muskeln": {
+        "primaer": [
+          "adduktoren",
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Sumo-Kniebeuge mit Kettlebell"
+      ],
+      "muster": "kniebeuge",
+      "level": 1,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_squat",
+      "varianten": [
+        {
+          "uebung": "g_kb_double_front_squat",
+          "art": "variante",
+          "effekt": 78,
+          "grund": "Zwei Kettlebells im Rack: schwerer als Goblet, gleichmäßig auf beiden Seiten."
+        },
+        {
+          "uebung": "g_kb_sumo_squat",
+          "art": "variante",
+          "effekt": 66,
+          "grund": "Breiter Stand, Kettlebell hängt zwischen den Beinen: Innenseite und Gesäß."
+        }
+      ]
+    },
+    {
+      "familie": "f_thruster",
+      "varianten": [
+        {
+          "uebung": "g_kb_double_thruster",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Thruster mit zwei Kettlebells: Kniebeuge und Drücken in einem."
+        },
+        {
+          "uebung": "g_kb_thruster_single",
+          "art": "variante",
+          "effekt": 64,
+          "grund": "Thruster mit einer Kettlebell im Rack, je Seite."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

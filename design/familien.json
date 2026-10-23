@@ -156,7 +156,8 @@
         { "uebung": "g_barbell_row", "art": "stufe", "rang": 2, "effekt": 70, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Beidarmig mit Langhantel, höhere Last und mehr Rumpfstabilität." },
         { "uebung": "g_renegade_row", "art": "variante", "rang": null, "effekt": 64, "grund": "Rudern aus dem Stütz, mehr Rumpf- und Metcon-Reiz bei weniger Last." },
         { "uebung": "g_seated_cable_row", "art": "variante", "rang": null, "effekt": 74, "grund": "Rudern mit kg-Last ohne Belastung für den vorgebeugten Rücken." },
-        { "uebung": "g_chest_supported_row", "art": "variante", "rang": null, "effekt": 70, "grund": "Die Bank trägt den Oberkörper, Ausweichübung bei Rückenschmerzen." }
+        { "uebung": "g_chest_supported_row", "art": "variante", "rang": null, "effekt": 70, "grund": "Die Bank trägt den Oberkörper, Ausweichübung bei Rückenschmerzen." },
+        { "uebung": "g_kb_gorilla_row", "art": "variante", "rang": null, "effekt": 72, "grund": "Zwei Kettlebells am Boden, abwechselnd rudern: Rücken ohne Bank." }
       ]
     },
     {
@@ -363,7 +364,9 @@
         { "uebung": "g_z_press", "art": "variante", "rang": null, "effekt": 72, "grund": "Ohne Hilfe aus Beinen und Hohlkreuz, verlangt freie Überkopf-Beweglichkeit." },
         { "uebung": "g_kb_push_press", "art": "variante", "rang": null, "effekt": 70, "grund": "Mit Schwung aus den Beinen: mehr Gewicht über Kopf als beim strikten Drücken." },
         { "uebung": "g_kb_bottoms_up_press", "art": "variante", "rang": null, "effekt": 60, "grund": "Kettlebell kopfüber: wenig Gewicht, viel Arbeit für die Schulterstabilität." },
-        { "uebung": "g_kb_halo", "art": "variante", "rang": null, "effekt": 50, "grund": "Kettlebell um den Kopf kreisen: Schulter beweglich und warm." }
+        { "uebung": "g_kb_halo", "art": "variante", "rang": null, "effekt": 50, "grund": "Kettlebell um den Kopf kreisen: Schulter beweglich und warm." },
+        { "uebung": "g_kb_double_press", "art": "variante", "rang": null, "effekt": 74, "grund": "Beide Kettlebells gleichzeitig über Kopf: strikt, viel Rumpf." },
+        { "uebung": "g_kb_seesaw_press", "art": "variante", "rang": null, "effekt": 64, "grund": "Abwechselnd drücken: eine oben, eine im Rack, der Rumpf hält gegen das Kippen." }
       ]
     },
     {
@@ -388,7 +391,9 @@
         { "uebung": "g_sissy_squat", "art": "variante", "rang": null, "effekt": 68, "grund": "Belastet fast nur den vorderen Oberschenkel, ohne Gewicht." },
         { "uebung": "g_spanish_squat", "art": "variante", "rang": null, "effekt": 55, "grund": "Isometrische Kniebeuge mit senkrechten Schienbeinen, geringe Rückenlast." },
         { "uebung": "g_band_squat", "art": "variante", "effekt": 72, "grund": "Kniebeuge mit Widerstandsband, Last ohne Gewichte für zu Hause." },
-        { "uebung": "g_kb_front_squat", "art": "variante", "rang": null, "effekt": 72, "grund": "Eine Kettlebell im Rack statt vor der Brust: aufrechter, mehr Rumpf, je Seite." }
+        { "uebung": "g_kb_front_squat", "art": "variante", "rang": null, "effekt": 72, "grund": "Eine Kettlebell im Rack statt vor der Brust: aufrechter, mehr Rumpf, je Seite." },
+        { "uebung": "g_kb_double_front_squat", "art": "variante", "rang": null, "effekt": 78, "grund": "Zwei Kettlebells im Rack: schwerer als Goblet, gleichmäßig auf beiden Seiten." },
+        { "uebung": "g_kb_sumo_squat", "art": "variante", "rang": null, "effekt": 66, "grund": "Breiter Stand, Kettlebell hängt zwischen den Beinen: Innenseite und Gesäß." }
       ]
     },
     {
@@ -405,7 +410,9 @@
       "fuehrt_zu": [],
       "varianten": [
         { "uebung": "g_wall_ball", "art": "stufe", "rang": 1, "effekt": 78, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Ball und Wurf, leichter Einstieg." },
-        { "uebung": "g_thruster", "art": "stufe", "rang": 2, "effekt": 82, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Hantel und höherer Last." }
+        { "uebung": "g_thruster", "art": "stufe", "rang": 2, "effekt": 82, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Mit Hantel und höherer Last." },
+        { "uebung": "g_kb_double_thruster", "art": "variante", "rang": null, "effekt": 70, "grund": "Thruster mit zwei Kettlebells: Kniebeuge und Drücken in einem." },
+        { "uebung": "g_kb_thruster_single", "art": "variante", "rang": null, "effekt": 64, "grund": "Thruster mit einer Kettlebell im Rack, je Seite." }
       ]
     },
     {
@@ -453,7 +460,9 @@
         { "uebung": "g_sandbag_lunge", "art": "variante", "rang": null, "effekt": 74, "grund": "Feste Hyrox-Station mit Last auf den Schultern." },
         { "uebung": "g_overhead_lunge", "art": "variante", "rang": null, "effekt": 70, "grund": "Ausfallschritt mit Überkopf-Stabilität, im CrossFit üblich." },
         { "uebung": "g_kb_goblet_reverse_lunge", "art": "variante", "rang": null, "effekt": 72, "grund": "Rückwärts-Ausfallschritt mit Kettlebell vor der Brust, Gewicht steigt mit." },
-        { "uebung": "g_kb_goblet_bss", "art": "variante", "rang": null, "effekt": 76, "grund": "Bulgarian Split Squat mit Kettlebell: das stärkste Einbein-Training zu Hause." }
+        { "uebung": "g_kb_goblet_bss", "art": "variante", "rang": null, "effekt": 76, "grund": "Bulgarian Split Squat mit Kettlebell: das stärkste Einbein-Training zu Hause." },
+        { "uebung": "g_kb_double_rack_lunge", "art": "variante", "rang": null, "effekt": 72, "grund": "Rückwärts-Ausfallschritt mit zwei Kettlebells im Rack." },
+        { "uebung": "g_kb_goblet_step_up", "art": "variante", "rang": null, "effekt": 66, "grund": "Aufsteigen mit Kettlebell vor der Brust, kniefreundlich." }
       ]
     },
     {
@@ -498,7 +507,8 @@
         { "uebung": "g_american_swing", "art": "stufe", "rang": 2, "effekt": 74, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Schwung bis über den Kopf, längerer Weg." },
         { "uebung": "g_single_arm_swing", "art": "stufe", "rang": 3, "effekt": 72, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Einarmig, mehr Rumpfarbeit gegen Rotation." },
         { "uebung": "g_db_swing", "art": "variante", "rang": null, "effekt": 66, "grund": "Gleiche Bewegung mit Kurzhantel." },
-        { "uebung": "g_band_pull_through", "art": "variante", "rang": null, "effekt": 54, "grund": "Lehrt die Hüftstreckung mit Band, ohne Gewicht." }
+        { "uebung": "g_band_pull_through", "art": "variante", "rang": null, "effekt": 54, "grund": "Lehrt die Hüftstreckung mit Band, ohne Gewicht." },
+        { "uebung": "g_kb_double_swing", "art": "variante", "rang": null, "effekt": 70, "grund": "Swing mit zwei Kettlebells: mehr Gewicht, breiterer Stand." }
       ]
     },
     {
@@ -588,7 +598,8 @@
         { "uebung": "g_dead_bug", "art": "stufe", "rang": 1, "effekt": 60, "ziel": "Alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Kontrollierte Gegenbewegung von Arm und Bein, Einstieg." },
         { "uebung": "g_hollow", "art": "stufe", "rang": 2, "effekt": 78, "ziel": "Erhalten: einmal pro Woche alle Runden mit 6 Wdh. bei RIR 2.", "grund": "Statische Grundposition; die Hollow-Leiter steigert über den Hebel." },
         { "uebung": "g_hollow_rock", "art": "variante", "rang": null, "effekt": 70, "grund": "Dynamisches Wippen in der Hollow-Position." },
-        { "uebung": "g_bird_dog", "art": "variante", "rang": null, "effekt": 50, "grund": "Rumpfstabilität im Vierfüßlerstand mit sehr geringer Rückenlast, Teil der Big Three nach McGill." }
+        { "uebung": "g_bird_dog", "art": "variante", "rang": null, "effekt": 50, "grund": "Rumpfstabilität im Vierfüßlerstand mit sehr geringer Rückenlast, Teil der Big Three nach McGill." },
+        { "uebung": "g_kb_dead_bug", "art": "variante", "rang": null, "effekt": 60, "grund": "Dead Bug mit Kettlebell über der Brust: mehr Spannung im Bauch." }
       ]
     },
     {
@@ -747,7 +758,8 @@
         { "uebung": "g_med_ball_rotational_throw", "art": "variante", "rang": null, "effekt": 64, "grund": "Explosive Rotation für Schnellkraft." },
         { "uebung": "g_bicycle_crunch", "art": "variante", "rang": null, "effekt": 52, "grund": "Rotation in Rückenlage ohne Gerät, hohe Aktivität der schrägen Bauchmuskeln." },
         { "uebung": "g_kb_around_world", "art": "variante", "rang": null, "effekt": 48, "grund": "Kettlebell um die Hüfte reichen: Rumpf hält gegen den Zug ringsum." },
-        { "uebung": "g_kb_figure8", "art": "variante", "rang": null, "effekt": 50, "grund": "Kettlebell als Acht durch die Beine: Rumpf, Hüfte und Griff." }
+        { "uebung": "g_kb_figure8", "art": "variante", "rang": null, "effekt": 50, "grund": "Kettlebell als Acht durch die Beine: Rumpf, Hüfte und Griff." },
+        { "uebung": "g_kb_russian_twist", "art": "variante", "rang": null, "effekt": 54, "grund": "Russian Twist mit Kettlebell: mehr Last für den schrägen Bauch." }
       ]
     },
     {
@@ -896,7 +908,8 @@
         { "uebung": "g_kb_snatch", "art": "variante", "rang": null, "effekt": 78, "grund": "Gleiche Bewegung mit Kettlebell, zugleich Ziel der Swing-Leiter.", "auch_in": ["f_kettlebell_swing"] },
         { "uebung": "g_devil_press", "art": "variante", "rang": null, "effekt": 74, "grund": "Burpee mit beidarmigem Reißen als Metcon-Bewegung, kein schwererer Snatch." },
         { "uebung": "g_kb_clean_press", "art": "variante", "rang": null, "effekt": 70, "grund": "Clean ins Rack, dann über Kopf drücken: ganzer Körper mit einer Kettlebell." },
-        { "uebung": "g_kb_high_pull", "art": "variante", "rang": null, "effekt": 62, "grund": "Swing mit Zug zur Brust: Zwischenschritt zum Snatch." }
+        { "uebung": "g_kb_high_pull", "art": "variante", "rang": null, "effekt": 62, "grund": "Swing mit Zug zur Brust: Zwischenschritt zum Snatch." },
+        { "uebung": "g_kb_double_clean", "art": "variante", "rang": null, "effekt": 72, "grund": "Beide Kettlebells aus dem Schwung ins Rack." }
       ]
     },
     {

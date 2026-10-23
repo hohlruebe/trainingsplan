@@ -988,6 +988,78 @@
         "korrektur": "Keine.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_double_press",
+      "trainiert": "Schultern, Trizeps, Rumpf",
+      "zweck": "Zwei Kettlebells gleichzeitig aus dem Rack über den Kopf drücken: Schulterkraft und ein fester Rumpf.",
+      "vorbereitung": "Zwei Kettlebells in der Rack-Position, Füße hüftbreit.",
+      "schritte": [
+        "Halte beide Kettlebells im Rack, Ellbogen vor dem Körper.",
+        "Spann Bauch, Gesäß und Beine fest an.",
+        "Drück beide Kettlebells gerade nach oben, bis die Arme gestreckt sind, der Kopf geht leicht nach vorn durch die Arme.",
+        "Senk sie kontrolliert zurück ins Rack."
+      ],
+      "ausstieg": "Kettlebells aus dem Rack zwischen die Beine absenken und abstellen.",
+      "sauber": "Oben sind beide Arme gestreckt, die Rippen bleiben unten, kein Schwung aus den Beinen.",
+      "details": [],
+      "atmung": "Vor dem Drücken einatmen, oben ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz beim Drücken.",
+          "k": "Gesäß und Bauch fester, leichtere Kettlebells."
+        },
+        {
+          "f": "Ein Arm bleibt zurück.",
+          "k": "Langsamer drücken, die schwächere Seite bestimmt das Tempo."
+        }
+      ],
+      "skalierung": "Leichter: Single-Arm Dumbbell Press mit einer Kettlebell oder Kettlebell Seesaw Press. Schwerer: schwerere Kettlebells.",
+      "grenzen": "Bei Schmerzen in der Schulter über Kopf aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_seesaw_press",
+      "trainiert": "Schultern, Trizeps, seitlicher Rumpf",
+      "zweck": "Zwei Kettlebells abwechselnd über Kopf drücken: eine geht hoch, während die andere herunterkommt.",
+      "vorbereitung": "Zwei Kettlebells in der Rack-Position.",
+      "schritte": [
+        "Halte beide Kettlebells im Rack und drück die rechte nach oben.",
+        "Senk die rechte ins Rack, während die linke nach oben geht.",
+        "Die Arme kreuzen sich auf Kopfhöhe, der Oberkörper bleibt gerade.",
+        "Abwechselnd weiter, jede Seite zählt eine Wiederholung."
+      ],
+      "ausstieg": "Beide Kettlebells ins Rack, dann absenken.",
+      "sauber": "Der Oberkörper neigt sich nicht zur Seite, oben ist der Arm gestreckt.",
+      "details": [],
+      "atmung": "Gleichmäßig weiteratmen, bei jedem Drücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Oberkörper neigt sich weg.",
+          "k": "Bauch fest, langsamer wechseln."
+        },
+        {
+          "f": "Der Arm wird oben nicht ganz gestreckt.",
+          "k": "Leichtere Kettlebells, oben kurz halten."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Kettlebells oder Single-Arm Dumbbell Press. Schwerer: schwerere Kettlebells oder oben 1 s halten.",
+      "grenzen": "Bei Schmerzen in der Schulter aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }

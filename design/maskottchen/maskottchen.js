@@ -153,6 +153,19 @@
         sh = '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx) + '" ry="' + o.r + '"/>';
         if (o.hub) sh += '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx * .3) + '" ry="' + n1(o.r * .3) + '"/>';
       }
+      else if (o.type === 'kb') { // Kettlebell: Griff bei o.g (in der Hand), Kugel in Richtung o.dn, im Bild immer rund
+        var gp = pr(o.g), cp = pr(add(o.g, mul(norm(o.dn), o.r + 13))), w = [gp[0] - cp[0], gp[1] - cp[1]], wl = Math.hypot(w[0], w[1]) || 1;
+        w = [w[0] / wl, w[1] / wl]; var nv = [-w[1], w[0]], r0 = o.r;
+        // Wird die Kugel stark verkürzt (zeigt zur Kamera), bleibt der Griff trotzdem über der Kugel.
+        if (wl < r0) { cp = [gp[0] - w[0] * (r0 + 8), gp[1] - w[1] * (r0 + 8)]; }
+        var P2 = function (u, v) { return n1(cp[0] + w[0] * u + nv[0] * v) + ' ' + n1(cp[1] + w[1] * u + nv[1] * v); };
+        var tip = [gp[0] + w[0] * 3, gp[1] + w[1] * 3], T2 = function (u, v) { return n1(tip[0] + w[0] * u + nv[0] * v) + ' ' + n1(tip[1] + w[1] * u + nv[1] * v); };
+        sh = '<circle cx="' + n1(cp[0]) + '" cy="' + n1(cp[1]) + '" r="' + r0 + '"/>' +
+          '<path d="M' + P2(r0 * .55, r0 * .72) + ' C' + T2(-4, r0 * .95) + ' ' + T2(2, r0 * .6) + ' ' + T2(2, 0) + ' C' + T2(2, -r0 * .6) + ' ' + T2(-4, -r0 * .95) + ' ' + P2(r0 * .55, -r0 * .72) + '"/>' +
+          '<path d="M' + P2(-r0 * .86, r0 * .5) + ' L' + P2(-r0 * .86, -r0 * .5) + '"/>';
+        if (o.keep) [cp, gp].forEach(function (q) { ext.push([q[0] - r0, q[1] - r0], [q[0] + r0, q[1] + r0]); });
+        return S(sh, col);
+      }
       if (o.keep) (o.type === 'circle' ? [o.c] : o.type === 'line' ? [o.a, o.b] : o.pts).forEach(function (p) { ext.push(pr(p)); });
       return S(sh, col);
     }
@@ -1159,6 +1172,167 @@
 
 
 
+
+  // ---- Runde Kettlebell (Dennis, 23. Oktober 2026) ----
+  // Die Kettlebell hängt immer an den berechneten Händen (Griff zwischen Handgelenk und Hand), die Kugel zeigt in Richtung dn.
+  var KB_R = 15;
+  function kbP(g, dn, layer, r) { return { type: 'kb', g: g, dn: dn, r: r || KB_R, layer: layer || 'front', keep: true }; }
+  // Spiegeln (links ↔ rechts): einarmige Übungen haben die Kettlebell so auf der Seite zur Kamera.
+  function flipX(J) {
+    var O = {}, k; for (k in J) {
+      if (k.charAt(0) === '_') continue;
+      var m = /^(sh|el|wr|ha|hi|kn|an|to)([ab])$/.exec(k), nk = m ? m[1] + (m[2] === 'a' ? 'b' : 'a') : k, v = J[k]; O[nk] = [-v[0], v[1], v[2]];
+    }
+    var fv = function (v) { return [-v[0], v[1], v[2]]; };
+    O._props = (J._props || []).map(function (o) { var q = Object.assign({}, o); ['g', 'dn', 'a', 'b', 'c'].forEach(function (z) { if (q[z]) q[z] = fv(q[z]); }); if (q.pts) q.pts = q.pts.map(fv); return q; });
+    if (J._to) O._to = { wra: fv(J._to.wrb), wrb: fv(J._to.wra), ana: fv(J._to.anb), anb: fv(J._to.ana) };
+    if (J._tw) O._tw = J._tw;
+    return O;
+  }
+  function gripOf(J, sd) { return sd ? lerp(J['wr' + sd], J['ha' + sd], .45) : lerp(mid(J.wra, J.wrb), mid(J.haa, J.hab), .45); }
+  function shOf(pc, a, x) { return add(add(add(pc, mul(trunkU(a), 112)), [31 * (x || 0), 0, 0]), mul(trunkF(a), -2)); }
+  function armDir(th, x) { return norm([x || 0, Math.cos(th * R), Math.sin(th * R)]); } // 0 = senkrecht nach unten, 90 = waagerecht nach vorn
+  function swingAt(t, o) { // Swing-Bahn: t 0 = Kettlebell hinten zwischen den Beinen, 1 = oben auf Brusthöhe; Arme bleiben gestreckt
+    o = o || {}; var pc = lerp([0, 252, -44], [0, 222, -2], t), a = lerp(52, -3, t), th = lerp(-27, o.top || 88, t), wide = o.wide || 24;
+    var J = build({ pc: pc, a: a, nod: lerp(-16, 0, t),
+      arms: both(function (x) { var d = armDir(th, x * (o.hx || .06)), sh = shOf(pc, a, x); return { to: add(sh, mul(d, 114)), pole: [x * .2, -d[2], d[1]], dir: d }; }),
+      legs: both(function (x) { return { to: [x * wide, 390, 0], pole: [x * .3, 0, 1] }; }) });
+    J._kbd = armDir(th, 0); return J;
+  }
+  function kbSwing(p) { // Russian Swing: Hüfte schiebt nach hinten, explosiv strecken, Kettlebell schwebt auf Brusthöhe
+    var t = (1 + Math.cos(p * 2 * Math.PI)) / 2, J = swingAt(t);
+    J._props = [kbP(gripOf(J), J._kbd)]; return J;
+  }
+  function kbDoubleSwing(p) { // zwei Kettlebells, breiter Stand, je eine Hand
+    var t = (1 + Math.cos(p * 2 * Math.PI)) / 2, J = swingAt(t, { wide: 30, hx: .16 });
+    J._props = [kbP(gripOf(J, 'a'), J._kbd, 'back'), kbP(gripOf(J, 'b'), J._kbd)]; return J;
+  }
+  function gobletAt(t, o) { // Kniebeuge mit der Kettlebell vor der Brust, unten below parallel
+    o = o || {}; var pc = lerp([0, 222, -6], [0, o.low || 332, o.lz || -36], t), a = lerp(2, o.lean || 30, t), u = trunkU(a), f = trunkF(a);
+    var g = add(add(pc, mul(u, 88)), mul(f, 40)), w = o.wide || 24;
+    var J = build({ pc: pc, a: a, nod: lerp(0, -8, t),
+      arms: both(function (x) { return { to: add(g, [x * 11, 9, -6]), pole: [x * .5, 1, -.2], dir: [-x * .5, -.8, .3] }; }),
+      legs: both(function (x) { return { to: [x * w, 390, x * (o.toe || 0)], pole: [x * .45, -.1, 1], dir: o.out ? [x * .5, .25, .8] : null }; }) });
+    J._props = [kbP(gripOf(J), DOWN)]; return J;
+  }
+  function kbGoblet(p) { return gobletAt(rep(p, .42, .08)); }
+  function kbSumo(p) { // breiter Stand, Zehen nach außen, Kettlebell hängt mit gestreckten Armen zwischen den Beinen
+    var t = rep(p, .42, .08), pc = lerp([0, 226, -4], [0, 334, -18], t), a = lerp(2, 14, t), w = 46;
+    var J = build({ pc: pc, a: a, nod: 0,
+      arms: both(function (x) { var sh = shOf(pc, a, x); return { to: add(sh, [-x * 22, 110, 6]), pole: [x, 0, -.2], dir: DOWN }; }),
+      legs: both(function (x) { return { to: [x * w, 390, 0], pole: [x * .9, -.1, .45], dir: [x * .5, .25, .8] }; }) });
+    J._props = [kbP(gripOf(J), DOWN)]; return J;
+  }
+  function hingeAt(t, o) { // Kreuzheben mit Kettlebell: unten Rücken gerade, Arme senkrecht, oben ganz aufgerichtet
+    o = o || {}; var pc = lerp([0, o.low || 310, -74], [0, 222, -2], t), a = lerp(o.lean || 46, 0, t);
+    var J = build({ pc: pc, a: a, nod: lerp(-14, 0, t),
+      arms: both(function (x) { var sh = shOf(pc, a, x), hx = o.hx ? o.hx(x) : -x * 21; return { to: add(sh, [hx, 112, 3]), pole: [x * .3, 0, -1], dir: DOWN }; }),
+      legs: both(function (x) { return { to: [x * (o.wide || 26), 390, 0], pole: [x * .3, 0, 1] }; }) });
+    return J;
+  }
+  function kbDeadlift(p) { var J = hingeAt(1 - rep(p, .36, .14)); J._props = [kbP(gripOf(J), DOWN)]; return J; }
+  function kbSuitcase(p) { // Kettlebell seitlich neben dem rechten Fuß, nur die rechte Hand
+    var t = 1 - rep(p, .36, .14), J = hingeAt(t, { wide: 20, low: 314, lean: 44, hx: function (x) { return x > 0 ? 16 : -6; } });
+    J._props = [kbP(gripOf(J, 'b'), DOWN)]; return flipX(J);
+  }
+  // Einarmige Abläufe aus Zuständen (Rack, Hüftbeuge, Zug, über Kopf), weich überblendet. Rechte Hand (b) hält die Kettlebell.
+  // pc, a: Becken und Rumpf; w/wp/wd: Ziel, Ellbogen-Richtung, Hand-Richtung rechts; fa: linke Hand (frei); dn: Richtung der Kugel.
+  var KS = {
+    rack: { pc: [0, 222, -4], a: 0, nod: 0, w: [8, 132, 34], wp: [.15, 1, .6], wd: [-.2, -.95, .25], fa: [-36, 222, 12], dn: [.6, .2, .35] },
+    dip: { pc: [0, 248, -16], a: 3, nod: 0, w: [8, 156, 24], wp: [.15, 1, .6], wd: [-.2, -.95, .25], fa: [-36, 246, 4], dn: [.6, .2, .35] },
+    over: { pc: [0, 222, -4], a: 0, nod: 0, w: [24, -4, -4], wp: [1, 0, .2], wd: UP, fa: [-36, 222, 12], dn: [.25, .3, -.92] },
+    hike: { pc: [0, 252, -44], a: 52, nod: -16, w: [8, 283, -8], wp: [.2, -.45, .9], wd: [0, .89, -.45], fa: [-30, 288, 34], dn: [0, .89, -.45] },
+    pull: { pc: [0, 224, -6], a: -2, nod: 0, w: [14, 176, 26], wp: [.6, -.4, -.7], wd: [0, -.3, 1], fa: [-36, 222, 12], dn: [0, .95, .3] },
+    high: { pc: [0, 222, -4], a: -3, nod: 0, w: [10, 134, 36], wp: [.7, -.5, -.6], wd: [0, -.2, 1], fa: [-36, 222, 12], dn: [0, .9, .44] }
+  };
+  function kbFlow(p, seq) { // seq: [[Zeitpunkt, Zustand], …]
+    var s = keys(p, seq.map(function (k) { return [k[0], KS[k[1]] || k[1]]; }));
+    var J = build({ pc: s.pc, a: s.a, nod: s.nod,
+      arms: { a: { to: s.fa, pole: [-.3, 0, -1], dir: DOWN }, b: { to: s.w, pole: s.wp, dir: s.wd } },
+      legs: both(function (x) { return { to: [x * 24, 390, 0], pole: [x * .3, 0, 1] }; }) });
+    J._props = [kbP(gripOf(J, 'b'), norm(s.dn))]; return flipX(J);
+  }
+  function kbClean(p) { return kbFlow(p, [[0, 'rack'], [.14, 'rack'], [.44, 'hike'], [.7, 'pull'], [.84, 'rack'], [1, 'rack']]); }
+  function kbSnatch(p) { return kbFlow(p, [[0, 'over'], [.12, 'over'], [.3, 'high'], [.48, 'hike'], [.68, 'high'], [.84, 'over'], [1, 'over']]); }
+  function kbHighPull(p) { return kbFlow(p, [[0, 'hike'], [.45, 'high'], [.56, 'high'], [1, 'hike']]); }
+  function kbPushPress(p) { return kbFlow(p, [[0, 'rack'], [.18, 'dip'], [.32, 'rack'], [.46, 'over'], [.66, 'over'], [.9, 'rack'], [1, 'rack']]); }
+  function kbCleanPress(p) { return kbFlow(p, [[0, 'rack'], [.1, 'rack'], [.3, 'over'], [.4, 'over'], [.54, 'rack'], [.7, 'hike'], [.86, 'pull'], [.95, 'rack'], [1, 'rack']]); }
+  // Rack im Rumpf mitgedreht (Kniebeugen mit Kettlebell im Rack): Ziel aus Rumpfrichtung, Kugel außen auf dem Unterarm.
+  function rackAt(pc, a, x) { var u = trunkU(a), f = trunkF(a); return add(add(add(pc, mul(u, 90)), mul(f, 38)), [x * 9, 0, 0]); }
+  function rackDn(a, x) { var u = trunkU(a), f = trunkF(a); return norm(add(add([x * .6, 0, 0], mul(u, -.2)), mul(f, .35))); }
+  function rackSquat(p, two) {
+    var t = rep(p, .42, .08), pc = lerp([0, 222, -6], [0, 330, -32], t), a = lerp(2, 24, t), u = trunkU(a), f = trunkF(a);
+    var J = build({ pc: pc, a: a, nod: lerp(0, -8, t),
+      arms: both(function (x) {
+        if (two || x > 0) return { to: rackAt(pc, a, x), pole: add([x * .15, 0, 0], add(mul(u, -1), mul(f, .6))), dir: add([-x * .2, 0, 0], add(mul(u, .95), mul(f, .2))) };
+        return { to: add(add(pc, mul(u, 62)), [-62, 0, 30]), pole: [-.5, .6, -.4], dir: [-.4, .2, .9] }; // freie Hand locker zur Seite
+      }),
+      legs: both(function (x) { return { to: [x * 24, 390, 0], pole: [x * .45, -.1, 1] }; }) });
+    J._props = (two ? ['a', 'b'] : ['b']).map(function (sd) { return kbP(gripOf(J, sd), rackDn(a, sd === 'a' ? -1 : 1), sd === 'a' ? 'back' : 'front'); });
+    return two ? J : flipX(J);
+  }
+  function kbFrontSquat(p) { return rackSquat(p, false); }
+  function kbDoubleFrontSquat(p) { return rackSquat(p, true); }
+  function kbDoublePress(p) { // beide aus dem Rack über den Kopf
+    var t = rep(p, .36, .14), pc = [0, 222, -4];
+    var J = build({ pc: pc, a: 0, nod: lerp(0, 4, t),
+      arms: both(function (x) { return { to: lerp([x * 8, 132, 34], [x * 24, -4, -4], t), pole: lerp([x * .15, 1, .6], [x, 0, .2], t), dir: lerp([-x * .2, -.95, .25], UP, t) }; }),
+      legs: both(function (x) { return { to: [x * 22, 390, 0], pole: FWD }; }) });
+    J._props = ['a', 'b'].map(function (sd) { var x = sd === 'a' ? -1 : 1; return kbP(gripOf(J, sd), norm(lerp([x * .6, .2, .35], [x * .25, .3, -.92], t)), sd === 'a' ? 'back' : 'front'); });
+    return J;
+  }
+  function kbHalo(p) { // Kettlebell kopfüber an den Hörnern, eng um den Kopf
+    var f = p * 2 * Math.PI, c = [0, 70, 6], g = [Math.sin(f) * 44, c[1] + 10 - 6 * Math.cos(f), c[2] + Math.cos(f) * 44];
+    var tg = [Math.cos(f), 0, -Math.sin(f)], pc = [0, 222, -4];
+    var J = build({ pc: pc, a: 0, nod: 0,
+      arms: both(function (x) { return { to: add(add(g, mul(tg, x * 10)), [0, 14, 0]), pole: add(mul(norm([g[0], 0, g[2]]), .6), [x * .5, .3, 0]), dir: UP }; }),
+      legs: both(function (x) { return { to: [x * 20, 390, 0], pole: FWD }; }) });
+    J._props = [kbP(gripOf(J), UP)]; return J;
+  }
+  function kbRevLunge(p) { // linkes Bein tritt zurück, hinteres Knie knapp über dem Boden, Kettlebell vor der Brust
+    var t = rep(p, .42, .08), pc = lerp([0, 222, -4], [0, 296, -40], t), a = lerp(2, 6, t), u = trunkU(a), f = trunkF(a);
+    var g = add(add(pc, mul(u, 88)), mul(f, 40)), lift = Math.sin(Math.PI * Math.min(1, t * 1.25)) * 16 * (t < .8 ? 1 : 0);
+    var J = build({ pc: pc, a: a, nod: 0,
+      arms: both(function (x) { return { to: add(g, [x * 11, 9, -6]), pole: [x * .5, 1, -.2], dir: [-x * .5, -.8, .3] }; }),
+      legs: { a: { to: [-18, lerp(390, 372, t) - lift, lerp(-2, -150, t)], pole: [0, lerp(-.1, 1, t), lerp(1, .15, t)], dir: [0, lerp(.28, .7, t), lerp(1, .7, t)] },
+        b: { to: [20, 390, 8], pole: [.3, 0, 1] } } });
+    J._props = [kbP(gripOf(J), DOWN)]; return J;
+  }
+  function kbGorillaRow(p) { // breit über zwei Kettlebells, Rumpf fast waagerecht, abwechselnd rudern; die andere drückt in den Boden
+    var pc = [0, 288, -77], a = 60, low = [0, 342, 20], side = p < .5 ? 'b' : 'a', t = rep((p % .5) * 2, .38, .2);
+    var J = build({ pc: pc, a: a, nod: -20,
+      arms: both(function (x) { var sd = x < 0 ? 'a' : 'b', fl = [x * 24, low[1], low[2]];
+        return sd === side ? { to: lerp(fl, [x * 28, 266, -22], t), pole: [x * .25, -.5, -.8], dir: DOWN } : { to: fl, pole: [x * .3, 0, -1], dir: DOWN }; }),
+      legs: both(function (x) { return { to: [x * 34, 390, 0], pole: [x * .35, 0, 1] }; }) });
+    J._props = ['a', 'b'].map(function (sd) { return kbP(gripOf(J, sd), DOWN, sd === 'a' ? 'back' : 'front'); });
+    return J;
+  }
+  function kbBridge(p) { // Glute Bridge mit Kettlebell quer auf der Hüfte, beide Hände halten sie
+    var t = rep(p, .38, .16), S = [0, 384, -150], py = lerp(372, 340, t);
+    var pz = S[2] + Math.sqrt(Math.max(0, 112 * 112 - Math.pow(py - S[1], 2))), pc = [0, py, pz];
+    var v = norm(sub3(S, pc)), a = Math.atan2(v[2], -v[1]) / R, n = norm([0, -v[2], v[1]]); if (n[1] > 0) n = mul(n, -1);
+    var g = add(add(pc, mul(n, 40)), mul(v, 8));
+    var J = build({ pc: pc, a: a, hc: [0, 380, -195],
+      arms: both(function (x) { return { to: add(g, [x * 14, 10, -8]), pole: [x, -.3, -.3], dir: [-x * .4, -.6, .6] }; }),
+      legs: both(function (x) { return { to: [x * 16, 388, 40], pole: [0, -1, .3], dir: [0, .35, 1] }; }) });
+    J._props = [kbP(gripOf(J), mul(n, -1))]; return J;
+  }
+  function kbTwist(p) { // sitzen, zurückgelehnt, Fersen am Boden; Kettlebell von Seite zu Seite
+    var pc = [0, 372, -6], a = -42, u = trunkU(a), f = trunkF(a), g = add(add(pc, mul(u, 74)), mul(f, 44));
+    var J = build({ pc: pc, a: a, nod: 10,
+      arms: both(function (x) { return { to: add(g, [x * 11, 6, -6]), pole: [x * .6, .8, -.2], dir: [-x * .4, -.5, .7] }; }),
+      legs: both(function (x) { return { to: [x * 16, 388, 128], pole: [x * .1, -1, .3], dir: [0, .3, 1] }; }) });
+    twist(J, Math.sin(p * 2 * Math.PI) * 38);
+    J._props = [kbP(gripOf(J), DOWN)]; return J;
+  }
+  function kbDeadBug(p) { // Rückenlage, Kettlebell mit gestreckten Armen über der Brust, Beine abwechselnd strecken
+    var side = p < .5 ? 'a' : 'b', t = rep((p % .5) * 2, .36, .2);
+    var J = supine({ nod: 6,
+      arms: both(function (x) { return { to: [x * 12, 258, -108], pole: [x, 0, 0], dir: UP }; }),
+      legs: both(function (x) { var sd = x < 0 ? 'a' : 'b', ex = sd === side ? t : 0;
+        return { to: lerp([x * 18, 300, 82], [x * 18, 366, 172], ex), pole: [0, -1, lerp(.2, .6, ex)], dir: [0, -.2 + .1 * ex, 1] }; }) });
+    J._props = [kbP(gripOf(J), UP)]; return J;
+  }
   var api = {
     STYLE: STYLE, PALETTES: PALETTES, STAND: STAND, figure: figure, fitBox: fitBox, frames: frames, animatedSVG: animatedSVG, play: play,
     build: build, ik3: ik3, rep: rep, sway: sway, ease: ease, rings: rings, bench: bench,
@@ -1238,7 +1412,28 @@
       g_doorway_pec: { name: 'Doorway Pec Stretch', pose: doorPec, yaw: 50, tilt: 10, mat: [-130, 130, -120, 90], dur: 5 },
       g_prayer_stretch: { name: 'Prayer Stretch', pose: prayer, yaw: 62, dur: 4 },
       g_couch_stretch: { name: 'Couch Stretch', pose: couch, yaw: 64, dur: 4 },
-      g_calf_wall_stretch: { name: 'Wall Calf Stretch', pose: calfWall, yaw: 60, dur: 4 }
+      g_calf_wall_stretch: { name: 'Wall Calf Stretch', pose: calfWall, yaw: 60, dur: 4 },
+      // Runde Kettlebell
+      g_kb_swing: { name: 'Kettlebell Swing', pose: kbSwing, yaw: 64, dur: 1.6 },
+      g_goblet_squat: { name: 'Goblet Squat', pose: kbGoblet, yaw: 50, dur: 3 },
+      g_kb_deadlift: { name: 'Kettlebell Deadlift', pose: kbDeadlift, yaw: 60, dur: 3 },
+      g_kb_sumo_squat: { name: 'Kettlebell Sumo Squat', pose: kbSumo, yaw: 30, dur: 3 },
+      g_kb_suitcase_deadlift: { name: 'Kettlebell Suitcase Deadlift', pose: kbSuitcase, yaw: 40, dur: 3 },
+      g_kb_double_swing: { name: 'Double Kettlebell Swing', pose: kbDoubleSwing, yaw: 60, dur: 1.6 },
+      g_kb_clean: { name: 'Kettlebell Clean', pose: kbClean, yaw: 64, dur: 2.4 },
+      g_kb_snatch: { name: 'Kettlebell Snatch', pose: kbSnatch, yaw: 64, dur: 2.6 },
+      g_kb_high_pull: { name: 'Kettlebell High Pull', pose: kbHighPull, yaw: 58, dur: 1.8 },
+      g_kb_push_press: { name: 'Kettlebell Push Press', pose: kbPushPress, yaw: 58, dur: 2.6 },
+      g_kb_clean_press: { name: 'Kettlebell Clean and Press', pose: kbCleanPress, yaw: 62, dur: 3.6 },
+      g_kb_front_squat: { name: 'Kettlebell Front Squat', pose: kbFrontSquat, yaw: 40, dur: 3 },
+      g_kb_double_front_squat: { name: 'Double Kettlebell Front Squat', pose: kbDoubleFrontSquat, yaw: 40, dur: 3 },
+      g_kb_double_press: { name: 'Double Kettlebell Press', pose: kbDoublePress, yaw: 40, dur: 2.6 },
+      g_kb_halo: { name: 'Kettlebell Halo', pose: kbHalo, yaw: 30, dur: 3 },
+      g_kb_goblet_reverse_lunge: { name: 'Goblet Reverse Lunge', pose: kbRevLunge, yaw: 62, dur: 3 },
+      g_kb_gorilla_row: { name: 'Kettlebell Gorilla Row', pose: kbGorillaRow, yaw: 56, dur: 3.6 },
+      g_kb_glute_bridge: { name: 'Kettlebell Glute Bridge', pose: kbBridge, yaw: 66, dur: 3 },
+      g_kb_russian_twist: { name: 'Kettlebell Russian Twist', pose: kbTwist, yaw: 40, dur: 2.6 },
+      g_kb_dead_bug: { name: 'Kettlebell Dead Bug', pose: kbDeadBug, yaw: 64, dur: 4 }
     }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Maskottchen = api;

@@ -127,7 +127,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - zweiter `<style>`-Block: nur die Schrift Geist als Base64 – nicht bearbeiten
   - dritter `<style>`-Block: Design (Stil A „Emaille“: ruhig, an iOS angelehnt, Whiteboard nur als Akzent)
   - `<script id="plan-data">`: Glossar, Leitern, Testtage als JSON
-  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 402 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
+  - `<script id="lib-data">`: Übungsbibliothek (Equipment mit Score, 415 Übungen, Leitern, Metcon-Pool, Aufwärmen) als JSON,
     dazu `mobility` (Beweglichkeits-Check und Routinen, aus Cowork). `equipment` ist immer eine Liste von Alternativen-Gruppen.
     Wird beim Start in `GL`/`LAD` gemischt; alte IDs, Namen und Stufen nie ändern, neue Stufen nur hinten anhängen (Ausnahmen mit Dennis: Pistol Squat Stuhl → Mit Halt → Frei → Weste; Handstand neue erste Stufe „Rücken zur Wand“ (`g_wall_handstand_back`, in der Familie als Variante) vor Face-to-Wall; dann plan-data, lib-data und fam-data gleich halten. Gespeichert werden Stufennamen, nicht Nummern, darum bleiben alte Einträge gültig).
   - `<script id="fam-data">`: Übungsfamilien von Cowork (Kopie von `design/familien.json`, beide gleich halten). 60 Familien (auch Isolation und zwei Mobility-Familien),
@@ -592,6 +592,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   auch mit Kettlebell. Neues Gerät `eq_kb_verstellbar` „Kettlebell (verstellbar)“ (nicht `auto`): zählt überall als Kettlebell (`haveEq`, `EQ_USE`).
   `kgGrow(id, have)`: Gewicht kann hier wachsen (verstellbare Kettlebell, Kurzhanteln, Langhantel, Kabelzug, `KG_GROW`); dann ist eine Gewichtsstufe ohne
   nächste Stufe am Ort keine Sackgasse (`ladRoom`, `coachStage0` ohne `dead`/Tempo), der Coach steigert über `kgRec`. Feste Kettlebell wie bisher.
+  Eine oder zwei (Dennis, 23. Oktober): Gerät `eq_kb_paar` „Zwei Kettlebells“ (zählt als Kettlebell, `KG_GROW` mit verstellbar). Im Equipment-Blatt keine
+  eigenen Zeilen für Paar und verstellbar (`KB_SUB`): unter der Kettlebell-Zeile `kbSubHTML` mit Umschalter Eine | Zwei (`ACT['eq-kbn']`) und Schalter
+  „Verstellbar“; Kettlebell aus nimmt beide mit (`CHG.eq`). 13 weitere Übungen (`neu_<muster>_kettlebell_2.json`): mit zwei Kettlebells Double Front Squat,
+  Double Clean, Double Press, Seesaw Press, Double Swing, Gorilla Row, Double Thruster, Double Front Rack Lunge; mit einer Single-Arm Thruster, Goblet Step-up,
+  Sumo Squat, Russian Twist, Dead Bug (Normen je Kettlebell in `RM_STD`, Rx, 10 neue Einträge im Metcon-Pool).
+  Grafiken: Gerät `kb` in `maskottchen.js` (Griff `g` in der Hand, Kugel in Richtung `dn`, im Bild immer rund), Runde Kettlebell mit 20 Übungen
+  (Swing, Goblet, Deadlift, Sumo, Suitcase, Double Swing, Clean, Snatch, High Pull, Push Press, Clean and Press, Front Squat einzeln/doppelt,
+  Double Press, Halo, Goblet Reverse Lunge, Gorilla Row, Glute Bridge, Russian Twist, Dead Bug), Hilfen `swingAt`, `gobletAt`, `hingeAt`, `kbFlow`
+  (Zustände `KS`: rack, dip, over, hike, pull, high), `rackSquat`, `flipX` (einarmig: Kettlebell auf der Seite zur Kamera). Liegt zur Freigabe im Canvas,
+  erst danach kommt die Kopie nach `index.html` (bis dahin ist `<script id="maskottchen">` die ältere Fassung).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

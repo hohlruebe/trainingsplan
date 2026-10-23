@@ -1,0 +1,89 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "rumpf_rotation",
+  "quelle": "Claude, 23. Oktober 2026 (Dennis: noch mehr Kettlebell-Übungen, Auswahl eine oder zwei Kettlebells). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_russian_twist",
+      "name": "Kettlebell Russian Twist",
+      "bereich": "rumpf",
+      "einheit": "wdh",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 54,
+      "trainiert": "Schräge Bauchmuskeln",
+      "zweck": "Im Sitzen zurückgelehnt die Kettlebell von Seite zu Seite führen: kräftigt die schrägen Bauchmuskeln.",
+      "vorbereitung": "Eine leichte Kettlebell, eine Matte.",
+      "schritte": [
+        "Setz dich hin, Knie gebeugt, Fersen am Boden, und halt die Kettlebell an den Griffseiten vor der Brust.",
+        "Lehn dich mit geradem Rücken etwas zurück.",
+        "Dreh den Oberkörper nach rechts und führ die Kettlebell neben die Hüfte.",
+        "Dreh dich über die Mitte nach links. Jede Seite zählt eine Wiederholung."
+      ],
+      "ausstieg": "Kettlebell neben dir abstellen, aufrichten.",
+      "sauber": "Der Rücken bleibt gerade, die Drehung kommt aus dem Oberkörper, nicht nur aus den Armen.",
+      "details": [],
+      "atmung": "Bei jeder Drehung ausatmen.",
+      "fehler": "Der Rücken rundet sich. Weniger zurücklehnen, Brust hoch. Nur die Arme bewegen sich. Die Schultern drehen mit, der Blick folgt der Kettlebell.",
+      "skalierung": "Leichter: Russian Twist ohne Gewicht. Schwerer: schwerere Kettlebell oder Füße vom Boden heben.",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "muskeln": {
+        "primaer": [
+          "bauch_schraeg"
+        ],
+        "sekundaer": [
+          "bauch_gerade",
+          "hueftbeuger"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 2,
+        "huefte": 1,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "ruecken"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Russischer Twist mit Kettlebell"
+      ],
+      "muster": "rumpf_rotation",
+      "level": 2,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_russian_twist",
+      "varianten": [
+        {
+          "uebung": "g_kb_russian_twist",
+          "art": "variante",
+          "effekt": 54,
+          "grund": "Russian Twist mit Kettlebell: mehr Last für den schrägen Bauch."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}
