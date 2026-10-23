@@ -1,0 +1,249 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "druck_vertikal",
+  "quelle": "Claude, 22. Oktober 2026 (Dennis: mehr Kettlebell-Übungen für zu Hause, vor allem mit verstellbarer Kettlebell). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_push_press",
+      "name": "Kettlebell Push Press",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 70,
+      "trainiert": "Schultern, Trizeps, Beine",
+      "zweck": "Drücken über Kopf mit Schwung aus den Beinen: mehr Gewicht als beim strikten Drücken und gut für Metcons.",
+      "vorbereitung": "Eine Kettlebell in der Rack-Position.",
+      "schritte": [
+        "Halte die Kettlebell im Rack, Ellbogen vor dem Körper, Füße hüftbreit.",
+        "Beug die Knie kurz und gerade ein Stück, der Oberkörper bleibt aufrecht.",
+        "Streck die Beine explosiv und drück die Kettlebell im selben Moment gerade nach oben.",
+        "Senk sie kontrolliert zurück ins Rack. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell aus dem Rack zwischen die Beine absenken und abstellen.",
+      "sauber": "Oben ist der Arm gestreckt, der Bizeps neben dem Ohr, die Rippen bleiben unten.",
+      "details": [
+        "Der Schwung kommt aus einem kurzen Eintauchen, nicht aus einer Kniebeuge."
+      ],
+      "atmung": "Vor dem Eintauchen einatmen, beim Hochdrücken ausatmen.",
+      "fehler": "Hohlkreuz oben. Bauch und Gesäß fest, Kettlebell über der Schulter. Zu tiefes Eintauchen. Nur ein Viertel der Kniebeuge, schnell umkehren.",
+      "skalierung": "Leichter: leichtere Kettlebell oder Single-Arm Dumbbell Press ohne Schwung. Schwerer: schwerere Kettlebell.",
+      "grenzen": "Bei Schmerzen in der Schulter über Kopf aufhören.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "trizeps"
+        ],
+        "sekundaer": [
+          "schulter_seite",
+          "quadrizeps",
+          "gesaess",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 1
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Schwungdrücken mit Kettlebell"
+      ],
+      "muster": "druck_vertikal",
+      "level": 2,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_bottoms_up_press",
+      "name": "Bottoms-up Kettlebell Press",
+      "bereich": "druck",
+      "einheit": "kg",
+      "rolle": [
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 60,
+      "trainiert": "Schultern, Rotatorenmanschette, Unterarm",
+      "zweck": "Drücken über Kopf mit der Kettlebell kopfüber: die Schulter muss die Last bei jedem Zentimeter stabilisieren.",
+      "vorbereitung": "Eine leichte Kettlebell, deutlich leichter als beim normalen Drücken.",
+      "schritte": [
+        "Greif die Kettlebell fest und dreh sie so, dass die Kugel oben ist und der Griff senkrecht steht.",
+        "Halte sie vor der Schulter, Ellbogen unter der Hand, Bauch fest.",
+        "Drück sie langsam gerade nach oben, die Kugel bleibt über dem Griff.",
+        "Senk sie genauso langsam zurück. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell vor der Schulter umdrehen und normal absetzen.",
+      "sauber": "Die Kettlebell kippt nicht, das Handgelenk bleibt gerade, die Schulter bleibt tief.",
+      "details": [
+        "Je fester du zugreifst, desto ruhiger steht die Kettlebell."
+      ],
+      "atmung": "Beim Hochdrücken ausatmen.",
+      "fehler": "Die Kettlebell kippt. Fester greifen, langsamer drücken oder leichtere Kettlebell. Die Schulter zieht zum Ohr. Schulterblatt nach unten, nur so hoch wie es ruhig geht.",
+      "skalierung": "Leichter: nur vor der Schulter halten (Bottoms-up Hold). Schwerer: schwerere Kettlebell oder oben 3 s halten.",
+      "grenzen": "Bei Schmerzen in der Schulter aufhören.",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "trizeps",
+          "unterarm",
+          "oberer_ruecken"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 2,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kettlebell kopfüber drücken"
+      ],
+      "muster": "druck_vertikal",
+      "level": 3,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_halo",
+      "name": "Kettlebell Halo",
+      "bereich": "druck",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 50,
+      "trainiert": "Schultern, oberer Rücken, Rumpf",
+      "zweck": "Die Kettlebell eng um den Kopf kreisen: macht die Schultern beweglich und warm, gut vor dem Drücken.",
+      "vorbereitung": "Eine leichte Kettlebell.",
+      "schritte": [
+        "Halte die Kettlebell kopfüber am Griff vor der Brust, Füße hüftbreit.",
+        "Führ sie eng an der rechten Seite des Kopfs vorbei nach hinten.",
+        "Lass sie hinter dem Kopf entlanglaufen und an der linken Seite wieder nach vorn kommen.",
+        "Nach jeder Runde die Richtung wechseln."
+      ],
+      "ausstieg": "Kettlebell vor der Brust anhalten und absenken.",
+      "sauber": "Der Kopf bleibt ruhig, der Rumpf dreht nicht mit, die Kettlebell bleibt eng am Kopf.",
+      "details": [],
+      "atmung": "Ruhig weiteratmen.",
+      "fehler": "Der Oberkörper dreht mit. Bauch fest, Becken nach vorn. Hohlkreuz. Rippen unten, Gesäß anspannen.",
+      "skalierung": "Leichter: leichtere Kettlebell oder Hantelscheibe. Schwerer: schwerere Kettlebell oder im halben Kniestand.",
+      "grenzen": "",
+      "muskeln": {
+        "primaer": [
+          "schulter_vorn",
+          "schulter_seite"
+        ],
+        "sekundaer": [
+          "oberer_ruecken",
+          "trizeps",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 0,
+        "knie": 0,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen"
+      ],
+      "sehne": 0,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": false,
+      "rx": null,
+      "alias": [
+        "Kettlebell um den Kopf"
+      ],
+      "muster": "druck_vertikal",
+      "level": 1,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_overhead_press",
+      "varianten": [
+        {
+          "uebung": "g_kb_push_press",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Mit Schwung aus den Beinen: mehr Gewicht über Kopf als beim strikten Drücken."
+        },
+        {
+          "uebung": "g_kb_bottoms_up_press",
+          "art": "variante",
+          "effekt": 60,
+          "grund": "Kettlebell kopfüber: wenig Gewicht, viel Arbeit für die Schulterstabilität."
+        },
+        {
+          "uebung": "g_kb_halo",
+          "art": "variante",
+          "effekt": 50,
+          "grund": "Kettlebell um den Kopf kreisen: Schulter beweglich und warm."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

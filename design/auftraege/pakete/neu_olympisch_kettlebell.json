@@ -1,0 +1,179 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "olympisch",
+  "quelle": "Claude, 22. Oktober 2026 (Dennis: mehr Kettlebell-Übungen für zu Hause, vor allem mit verstellbarer Kettlebell). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_clean_press",
+      "name": "Kettlebell Clean and Press",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 70,
+      "trainiert": "Ganzer Körper: Hüfte, Schultern, Rumpf",
+      "zweck": "Die Kettlebell aus dem Schwung ins Rack holen und dann über Kopf drücken: ganzer Körper mit einem Gerät.",
+      "vorbereitung": "Eine Kettlebell vor den Füßen.",
+      "schritte": [
+        "Greif die Kettlebell mit einer Hand, schwing sie zwischen den Beinen nach hinten.",
+        "Streck die Hüfte kräftig und zieh die Kettlebell eng am Körper ins Rack, die Kugel landet weich auf dem Unterarm.",
+        "Drück sie aus dem Rack gerade über den Kopf, bis der Arm gestreckt ist.",
+        "Senk sie ins Rack und dann zwischen die Beine für die nächste Wiederholung. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Nach dem letzten Mal aus dem Rack zwischen die Beine absenken und abstellen.",
+      "sauber": "Die Kettlebell schlägt nicht auf den Unterarm, oben ist der Arm gestreckt und der Rumpf fest.",
+      "details": [
+        "Die Kraft für den Clean kommt aus der Hüfte, der Arm führt nur."
+      ],
+      "atmung": "Beim Hüftstrecken und beim Drücken ausatmen.",
+      "fehler": "Die Kettlebell knallt auf den Unterarm. Hand früher um den Griff drehen, Kettlebell nah am Körper führen. Hohlkreuz beim Drücken. Bauch und Gesäß fest.",
+      "skalierung": "Leichter: leichtere Kettlebell oder nur Kettlebell Clean. Schwerer: schwerere Kettlebell oder Push Press statt Press.",
+      "grenzen": "Bei Schmerzen im unteren Rücken oder in der Schulter aufhören.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "schulter_vorn",
+          "ganzkoerper"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "trizeps",
+          "rueckenstrecker",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 2,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 3,
+      "seitig": true,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Umsetzen und Drücken mit Kettlebell"
+      ],
+      "muster": "olympisch",
+      "level": 2,
+      "voraussetzung": []
+    },
+    {
+      "id": "g_kb_high_pull",
+      "name": "Kettlebell High Pull",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 62,
+      "trainiert": "Hüfte, oberer Rücken, Schultern hinten",
+      "zweck": "Aus dem Swing die Kettlebell mit gebeugtem Ellbogen bis zur Brust ziehen: Zwischenschritt zum Snatch, viel Puls.",
+      "vorbereitung": "Eine Kettlebell vor den Füßen.",
+      "schritte": [
+        "Schwing die Kettlebell mit einer Hand zwischen den Beinen nach hinten.",
+        "Streck die Hüfte kräftig, die Kettlebell steigt nach vorn.",
+        "Zieh sie mit dem Ellbogen hoch und nach hinten, bis die Hand auf Brusthöhe ist.",
+        "Stoß sie wieder nach vorn weg und lass sie zurück zwischen die Beine schwingen. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell auspendeln lassen und vor dir abstellen.",
+      "sauber": "Die Kraft kommt aus der Hüfte, der Ellbogen zieht hoch und nach hinten, der Rücken bleibt gerade.",
+      "details": [],
+      "atmung": "Beim Hüftstrecken ausatmen.",
+      "fehler": "Der Arm zieht allein. Erst die Hüfte strecken, dann ziehen. Der Rücken rundet sich unten. Hüfte nach hinten schieben, Brust bleibt vorn.",
+      "skalierung": "Leichter: Kettlebell Swing. Schwerer: schwerere Kettlebell oder Kettlebell Snatch.",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "oberer_ruecken"
+        ],
+        "sekundaer": [
+          "beinbeuger",
+          "schulter_hinten",
+          "bizeps",
+          "rueckenstrecker"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 1,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "schulter",
+        "ellbogen",
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Hochziehen mit Kettlebell"
+      ],
+      "muster": "olympisch",
+      "level": 2,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_db_snatch",
+      "varianten": [
+        {
+          "uebung": "g_kb_clean_press",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Clean ins Rack, dann über Kopf drücken: ganzer Körper mit einer Kettlebell."
+        },
+        {
+          "uebung": "g_kb_high_pull",
+          "art": "variante",
+          "effekt": 62,
+          "grund": "Swing mit Zug zur Brust: Zwischenschritt zum Snatch."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

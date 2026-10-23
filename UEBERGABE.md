@@ -4,8 +4,20 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 22. Oktober 2026 (Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 22. Oktober 2026 (Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Mehr Kettlebell, verstellbare Kettlebell (22. Oktober 2026, Claude)
+- Dennis: „mehr Kettlebell-Übungen, damit lässt sich zu Hause eine riesige Variation umsetzen, vor allem mit einer verstellbaren Kettlebell“.
+- Bestand: 30 Übungen gingen mit Kettlebell, echte Kettlebell-Klassiker fehlten. Zu Hause nur mit Kettlebell endeten die Leitern bei Goblet Squat bzw.
+  Dumbbell Press (nächste Stufe Langhantel) und der Coach wich auf Tempo oder Band Squat aus, obwohl das Gewicht hätte wachsen können.
+- Neu: 15 Übungen mit Anleitung (Front Squat, Suitcase Deadlift, Glute Bridge, Push Press, Bottoms-up Press, Halo, Pullover, Goblet Reverse Lunge,
+  Goblet Bulgarian Split Squat, Goblet Cossack Squat, Clean and Press, High Pull, Around the World, Figure 8, Plank Pull-Through), 8 davon im Metcon-Pool.
+  Zu Hause mit Kettlebell stehen im Metcon jetzt 12 statt 4 Kettlebell-Übungen zur Wahl. Floor Press und Push Press auch mit Kettlebell.
+- Gerät „Kettlebell (verstellbar)“: zählt als Kettlebell; damit steigert der Coach Goblet Squat & Co. über das Gewicht statt auf Tempo zu wechseln.
+  Test in `tests/dreitage-browser.cjs` (feste Kettlebell: keine Kniebeuge-Leiter mit Goblet; verstellbar: Goblet Squat ohne Tempo).
+- Offen: Grafiken (Maskottchen) für die 15 neuen Übungen (zeigen „Grafik folgt“). Gewichtssprünge der eigenen Kettlebell (z. B. 2 oder 4 kg) kennt der
+  Coach noch nicht, er empfiehlt in 2,5- bzw. 5-kg-Schritten.
 
 ## Ausfall nicht mehr aufs Wochenende gequetscht (22. Oktober 2026, Claude)
 - Dennis (Screenshot Do 22.): „Ich habe einen Tag Training ausfallen lassen, bis zum Ende der Woche wäre noch genug Zeit, aber es wird einfach ans Ende

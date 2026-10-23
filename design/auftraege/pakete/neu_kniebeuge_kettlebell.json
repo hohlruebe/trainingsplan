@@ -1,0 +1,98 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "kniebeuge",
+  "quelle": "Claude, 22. Oktober 2026 (Dennis: mehr Kettlebell-Übungen für zu Hause, vor allem mit verstellbarer Kettlebell). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_front_squat",
+      "name": "Kettlebell Front Squat",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "kraft",
+        "metcon"
+      ],
+      "equipment": [
+        [
+          "eq_kettlebell"
+        ]
+      ],
+      "nutzen": 72,
+      "trainiert": "Oberschenkel vorn, Gesäß, Rumpf",
+      "zweck": "Kniebeuge mit einer Kettlebell vorn auf der Schulter: die Last zieht zur Seite, der Rumpf hält dagegen.",
+      "vorbereitung": "Eine Kettlebell. Füße schulterbreit.",
+      "schritte": [
+        "Bring die Kettlebell mit einem Clean in die Rack-Position: Griff vor der Brust, Kugel liegt außen auf dem Unterarm, Ellbogen am Körper.",
+        "Spann Bauch und Gesäß an, die freie Hand hilft beim Gleichgewicht.",
+        "Geh mit aufrechtem Oberkörper tief in die Hocke, die Knie zeigen über die Zehen.",
+        "Drück dich über die ganzen Füße wieder hoch. Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Kettlebell kontrolliert zwischen die Beine absenken und abstellen.",
+      "sauber": "Der Oberkörper bleibt aufrecht und neigt sich nicht zur Kettlebell, die Fersen bleiben am Boden.",
+      "details": [
+        "Die Kettlebell liegt ruhig im Rack. Das Handgelenk bleibt gerade."
+      ],
+      "atmung": "Oben einatmen, Luft beim Runtergehen halten, beim Hochdrücken ausatmen.",
+      "fehler": "Der Oberkörper kippt zur Seite der Kettlebell. Leichtere Kettlebell, Bauch fester, freien Arm zur Seite strecken. Das Handgelenk knickt ab. Griff tiefer in die Hand, Unterarm senkrecht.",
+      "skalierung": "Leichter: Goblet Squat mit beiden Händen. Schwerer: schwerere Kettlebell oder unten 2 s halten.",
+      "grenzen": "Bei Schmerzen im Knie oder im unteren Rücken nur so tief, wie es schmerzfrei geht.",
+      "muskeln": {
+        "primaer": [
+          "quadrizeps",
+          "gesaess"
+        ],
+        "sekundaer": [
+          "bauch_schraeg",
+          "rueckenstrecker",
+          "adduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 1,
+        "huefte": 2,
+        "knie": 2,
+        "fuss": 1
+      },
+      "bewegt": [
+        "huefte",
+        "knie",
+        "fuss"
+      ],
+      "sehne": 1,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": true,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Kettlebell-Frontkniebeuge"
+      ],
+      "muster": "kniebeuge",
+      "level": 2,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_squat",
+      "varianten": [
+        {
+          "uebung": "g_kb_front_squat",
+          "art": "variante",
+          "effekt": 72,
+          "grund": "Eine Kettlebell im Rack statt vor der Brust: aufrechter, mehr Rumpf, je Seite."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

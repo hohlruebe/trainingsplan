@@ -1521,6 +1521,44 @@
         "korrektur": "Pflock prüfen und Abstieg ergänzt.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_pullover",
+      "trainiert": "Latissimus, Brust, Trizeps",
+      "zweck": "Die Kettlebell in Rückenlage hinter den Kopf und zurück führen: trainiert den Latissimus ganz ohne Stange.",
+      "vorbereitung": "Eine Kettlebell, eine Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken, Knie gebeugt, und halt die Kettlebell mit beiden Händen an den Griffseiten über der Brust.",
+        "Mach den Bauch fest, der untere Rücken bleibt am Boden.",
+        "Führ die Kettlebell mit leicht gebeugten Armen langsam hinter den Kopf, bis du die Dehnung unter den Achseln spürst.",
+        "Zieh sie mit gestreckten Armen über die Brust zurück."
+      ],
+      "ausstieg": "Kettlebell auf der Brust ablegen und zur Seite rollen.",
+      "sauber": "Die Arme bleiben gleich gebeugt, der Rücken hebt nicht vom Boden ab.",
+      "details": [
+        "Nur so weit nach hinten, wie der Rücken am Boden bleibt."
+      ],
+      "atmung": "Beim Absenken einatmen, beim Zurückziehen ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Rücken geht ins Hohlkreuz.",
+          "k": "Weniger weit nach hinten, Bauch fester."
+        },
+        {
+          "f": "Die Arme beugen und strecken sich.",
+          "k": "Ellbogenwinkel festhalten, die Bewegung kommt aus der Schulter."
+        }
+      ],
+      "skalierung": "Leichter: leichtere Kettlebell. Schwerer: schwerere Kettlebell oder hinten 2 s halten.",
+      "grenzen": "Bei Schmerzen in der Schulter nur so weit, wie es schmerzfrei geht.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }
