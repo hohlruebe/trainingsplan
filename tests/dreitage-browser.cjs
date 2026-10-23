@@ -310,9 +310,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok((await page.evaluate(() => window.tpTest.kx(1))).some(x => x.stage === 'Goblet Squat' && !x.t), 'Goblet Squat ohne Tempo, das Gewicht steigt');
     await page.evaluate(() => window.tpTest.navigate('uebungen'));
     await page.locator('[data-act="eq-sheet"]').first().click();
-    assert.match(await page.locator('#eq-sheet .eq-row', { has: page.locator('input[data-id="eq_kb_verstellbar"]') }).innerText(), /Kettlebell \(verstellbar\)/);
+    // Eine Zeile Kettlebell mit „Eine | Zwei“ und „Verstellbar“ (Dennis, 23. Oktober); Paar und verstellbar sind keine eigenen Zeilen mehr.
+    const kbRow = page.locator('#eq-sheet .eq-row', { has: page.locator('input[data-id="eq_kb_verstellbar"]') });
+    assert.match(await kbRow.innerText(), /Kettlebell[\s\S]*Eine[\s\S]*Zwei[\s\S]*Verstellbar/);
+    assert.equal(await page.locator('#eq-sheet .eq-row input[data-id="eq_kb_paar"]').count(), 0, 'kein eigener Schalter für das Paar');
+    await kbRow.getByRole('button', { name: 'Zwei', exact: true }).click();
+    assert.ok((await page.evaluate(() => window.tpTest.state().orte[0].eq)).includes('eq_kb_paar'), 'Zwei = Paar am Ort');
+    assert.ok((await page.evaluate(() => window.tpTest.fill())).kraft[3].some(x => x.n === 'Kettlebell Gorilla Row'), 'mit zwei Kettlebells rudert B die Gorilla Row');
+    await page.locator('#eq-sheet .eq-row', { has: page.locator('input[data-id="eq_kettlebell"]') }).locator('label.check').first().click(); await page.waitForTimeout(500);
+    assert.deepEqual((await page.evaluate(() => window.tpTest.state().orte[0].eq)).filter(x => /kb|kettle/.test(x)), [], 'Kettlebell aus nimmt Paar und verstellbar mit');
     await page.getByRole('button', { name: 'Fertig', exact: true }).click();
-    console.log('PASS: Verstellbare Kettlebell zählt als Kettlebell, Goblet Squat steigt über das Gewicht');
+    console.log('PASS: Kettlebell eine oder zwei, verstellbar; verstellbar steigert über das Gewicht, zwei schalten Doppel-Übungen frei');
 
     // Leistung als Signal (Paket 58): zweimal hintereinander Vorgabe verfehlt → die nächste Einheit ist kürzer, mit Rückweg.
     await page.clock.setFixedTime(new Date('2026-10-14T10:00:00+02:00'));

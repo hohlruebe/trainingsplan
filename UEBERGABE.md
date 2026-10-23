@@ -4,8 +4,20 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 22. Oktober 2026 (Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 23. Oktober 2026 (Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Eine oder zwei Kettlebells, weitere Übungen, Grafiken Runde 1 (23. Oktober 2026, Claude)
+- Dennis: „noch mehr Kettlebell-Übungen, zwischen einer und zwei Kettlebells auswählen, dann mit den Animationen anfangen“.
+- Auswahl: im Equipment-Blatt unter „Kettlebell“ der Umschalter Eine | Zwei und der Schalter „Verstellbar“ (statt eigener Zeilen). Zwei = Gerät `eq_kb_paar`.
+- 13 neue Übungen (8 mit zwei Kettlebells, 5 mit einer), alle mit Anleitung, Normen, Rx, 10 im Metcon-Pool. Bibliothek jetzt 415 Übungen.
+  Zu Hause mit zwei Kettlebells nimmt der Coach in B die Gorilla Row und in C Dumbbell Row statt Table Row im Tempo; im Metcon stehen 22 Kettlebell-Übungen zur Wahl.
+- Grafiken Runde Kettlebell: 20 Animationen in `design/maskottchen/maskottchen.js`, Board im Canvas: https://claude.ai/artifact/9v1pkgmVa2wTgAKosuM2Rz
+  (hell/dunkel). Nachgemessen: Kontakte halten, Kniebeugen below parallel, Kugel setzt am Boden auf. **Offen: Freigabe von Dennis**, danach Kopie nach
+  `index.html` (`<script id="maskottchen">`), bis dahin zeigt die App für Kettlebell-Übungen weiter „Grafik folgt“.
+- Offen danach: Runde 2 (American/Single-Arm Swing, Farmer's/Suitcase/Overhead/Front Rack Carry, Goblet BSS, Cossack, Pullover, Bottoms-up, Seesaw,
+  Thruster, Step-up, Figure 8, Around the World, Plank Pull-Through, Double Clean, Rack Lunge, Dumbbell Row, Turkish Get-up, Windmill, Single-Arm Press).
+  Gewichtsschritte der eigenen Kettlebell (2 oder 4 kg) kennt der Coach noch nicht.
 
 ## Mehr Kettlebell, verstellbare Kettlebell (22. Oktober 2026, Claude)
 - Dennis: „mehr Kettlebell-Übungen, damit lässt sich zu Hause eine riesige Variation umsetzen, vor allem mit einer verstellbaren Kettlebell“.
