@@ -606,7 +606,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   gespeichert („Kettlebell Swing“), angezeigt über `STAGE_LABEL`; alte Namen in Einträgen finden die Übung über `NAME_ALT` (nicht aufzählbarer Eintrag in `GL`),
   Suche über `alias`. Grafik dazu: American Kettlebell Swing (`kbAmericanSwing`, bis senkrecht über den Kopf), beide als Stufen in `f_kettlebell_swing`.
 - Schwerpunkt (Dennis, 24. Oktober: „Trainingsschwerpunkte beim Allround-Plan, z. B. Kettlebell, CrossFit, Hyrox“): `S.schwerpunkt` (null | 'kb', in `DEF` und
-  `SYNC_KEYS`, `SP`, `spOf`), Plan & Challenges › Schwerpunkt (`.seg` Keiner | Kettlebell, `ACT['sp-set']`). Färbt Allround nur ein: Aufbau, Blöcke, Tests, Stufen bleiben.
+  `SYNC_KEYS`, `SP`, `spOf`), Plan & Challenges › Schwerpunkt direkt unter der Allround-Karte, als Auswahl-Karten wie in `DESIGN.md` (`button.card.fk`, Keiner | Kettlebell, je Symbol, Satz und Stichworte `SP[k].chips`, gewählt blau umrandet mit „Aktiv“, `ACT['sp-set']`; vorher ein `.seg`, Impeccable-Audit 24. Oktober). Färbt Allround nur ein: Aufbau, Blöcke, Tests, Stufen bleiben.
   Kettlebell gilt nur mit Kettlebell am Ort (`spKb`, sonst Hinweis in `coachItems` und auf der Seite): `planFill` gibt Leitern, deren Stufe hier mit Kettlebell
   geht (`kbLad`, `isKbEq`), `SP_BONUS` 10 auf den Nutzen (`nF`, `byF`); Wechsel deswegen `S.swapped` `why: 'fokus'` („dein Schwerpunkt ist Kettlebell“). Metcon:
   Kettlebell-Übungen zuerst, Platz `ausdauer` wird Hüfte/Olympisch, Rumpf auch Rotation, der Ausgleich nimmt dann nur Kettlebell-Treffer. `finOf`: B endet immer mit
