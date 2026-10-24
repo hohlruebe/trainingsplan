@@ -605,6 +605,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Umbenannt mit Dennis (24. Oktober): `g_kb_swing` heißt „Russian Kettlebell Swing“ (vorher „Kettlebell Swing“). Leitername und Stufenname bleiben
   gespeichert („Kettlebell Swing“), angezeigt über `STAGE_LABEL`; alte Namen in Einträgen finden die Übung über `NAME_ALT` (nicht aufzählbarer Eintrag in `GL`),
   Suche über `alias`. Grafik dazu: American Kettlebell Swing (`kbAmericanSwing`, bis senkrecht über den Kopf), beide als Stufen in `f_kettlebell_swing`.
+- Schwerpunkt (Dennis, 24. Oktober: „Trainingsschwerpunkte beim Allround-Plan, z. B. Kettlebell, CrossFit, Hyrox“): `S.schwerpunkt` (null | 'kb', in `DEF` und
+  `SYNC_KEYS`, `SP`, `spOf`), Plan & Challenges › Schwerpunkt (`.seg` Keiner | Kettlebell, `ACT['sp-set']`). Färbt Allround nur ein: Aufbau, Blöcke, Tests, Stufen bleiben.
+  Kettlebell gilt nur mit Kettlebell am Ort (`spKb`, sonst Hinweis in `coachItems` und auf der Seite): `planFill` gibt Leitern, deren Stufe hier mit Kettlebell
+  geht (`kbLad`, `isKbEq`), `SP_BONUS` 10 auf den Nutzen (`nF`, `byF`); Wechsel deswegen `S.swapped` `why: 'fokus'` („dein Schwerpunkt ist Kettlebell“). Metcon:
+  Kettlebell-Übungen zuerst, Platz `ausdauer` wird Hüfte/Olympisch, Rumpf auch Rotation, der Ausgleich nimmt dann nur Kettlebell-Treffer. `finOf`: B endet immer mit
+  dem Metcon (nicht mit Challenge). Noch nicht: Skill-Wechsel Turkish Get-up/Windmill, Snatch-Test, CrossFit, Hyrox.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
