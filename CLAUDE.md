@@ -754,6 +754,7 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
 
 ## Übergabe zwischen Sitzungen
 - `AGENTS.md`: Kurzfassung der Regeln für andere KI-Werkzeuge (Codex, ChatGPT), verweist auf diese Datei. Bei neuen Grundregeln mitpflegen.
+- `PRODUCT.md`: Produkt-Wissen für Design-Arbeit mit Impeccable (`.claude/skills/impeccable/`, Einstellungen in `.impeccable/config.json`).
 - Zu Beginn jeder Sitzung `UEBERGABE.md` lesen (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 - Am Ende jeder Aufgabe `UEBERGABE.md` im selben Pull Request aktualisieren.
 - `design/` enthält nur Entwürfe und Rohdaten (Maskottchen, `mobility2.json`), nicht Teil der App und nicht in `sw.js`.

@@ -4,8 +4,22 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 24. Oktober 2026 (Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 24. Oktober 2026 (Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+
+## Impeccable eingerichtet (24. Oktober 2026, Claude)
+- Dennis: `$impeccable init`, dann `hooks on`, Installation im Projekt und `doctor`.
+- Neu: `PRODUCT.md` (Produkt-Wissen für Design-Arbeit: Nutzer, Kern, Regeln, Grundsätze; aus `CLAUDE.md`, `AGENTS.md`, `DESIGN.md` und
+  Dennis' Antworten: zuerst Dennis, später andere; Kern = Coach entscheidet, plant um den Schichtdienst, offline ohne Konto).
+  `DESIGN.md` bleibt unverändert und verbindlich.
+- Impeccable liegt im Projekt unter `.claude/skills/impeccable/` (dazu `.claude/agents/impeccable-*`), Einstellungen in `.impeccable/config.json`
+  (Design-Hook an). Die Programmdatei (`scripts/bin/`, 16 MB) und `.claude/settings.local.json` mit den Hooks sind in `.gitignore`;
+  auf einem anderen Gerät lädt der Launcher die Programmdatei beim ersten Aufruf, die Hooks kommen mit
+  `.claude/skills/impeccable/scripts/impeccable hooks on` dazu.
+- Kein Teil der App: nicht in `sw.js`, `CACHE` unverändert.
+- Offen: `doctor` meldet, dass `DESIGN.md` keine Abschnitte zu Farben, Schrift und Bausteinen in Impeccable-Form hat. `$impeccable document`
+  könnte sie aus dem CSS ergänzen, nur mit Dennis.
 
 ## Schwerpunkt Kettlebell (24. Oktober 2026, Claude)
 - Dennis: „können wir beim Allround-Plan Trainingsschwerpunkte legen? Z. B. Kettlebell, CrossFit, Hyrox?“, dann „leg los“.
