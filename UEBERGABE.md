@@ -4,9 +4,19 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 24. Oktober 2026 (Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 24. Oktober 2026 (Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
 
+
+## Schwerpunkt als Karten, Impeccable-Audit (24. Oktober 2026, Claude)
+- Dennis: Impeccable laufen lassen, dann „ja bau es um“ nach dem Board https://claude.ai/artifact/5MbvhrubvHqo7a15xS8e1r (Vorher/Nachher hell und dunkel).
+- Audit „Plan & Challenges“: 18/20. Befunde: Schwerpunkt war ein Umschalter, `DESIGN.md` verlangt Auswahl-Karten; Umschalter 42 statt 44 px;
+  einzelne Wörter in der letzten Zeile. Kontrast des Chips „Aktiv“ nachgemessen 4,9 : 1 (hell) bzw. 5,4 : 1 (dunkel), passt.
+- Umgesetzt: Schwerpunkt als Karten (Keiner, Kettlebell; Platz für CrossFit und Hyrox) direkt unter der Allround-Karte, danach „Worauf trainierst du?“
+  und die Challenges. `.seg-btn` überall mindestens 44 px. `text-wrap: pretty` für Untertitel und Erklärtexte.
+- Impeccable in der Cloud-Sitzung: Kontext lädt, der Detektor braucht `IMPECCABLE_BROWSER` mit einem Chromium-Wrapper (`--no-sandbox`, als root).
+  Der Detektor über `index.html` meldet nur Bekanntes: Geist (in `DESIGN.md` festgelegt), Schraffur der gesperrten Zeiten (gewollt), Leuchten/Halo der Momente.
+- Offen: Dennis' zwei Fragen aus dem Board blieben ohne Antwort (Stichworte unter Kettlebell, „Keiner“ als eigene Karte); umgesetzt wie im Entwurf.
 
 ## Impeccable eingerichtet (24. Oktober 2026, Claude)
 - Dennis: `$impeccable init`, dann `hooks on`, Installation im Projekt und `doctor`.

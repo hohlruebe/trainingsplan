@@ -333,7 +333,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const ohne = await page.evaluate(() => window.tpTest.fill());
     assert.equal(ohne.kraft[3][2].n, 'Deadlift', 'ohne Schwerpunkt bleibt der Deadlift');
     await page.evaluate(() => window.tpTest.navigate('fokus'));
-    await page.getByRole('group', { name: 'Schwerpunkt' }).getByRole('button', { name: 'Kettlebell', exact: true }).click();
+    await page.locator('button.card.fk[data-act="sp-set"]', { hasText: 'Kettlebell' }).click();
+    assert.equal(await page.locator('button.card.fk.on').innerText().then(x => /Kettlebell[\s\S]*Aktiv/.test(x)), true, 'gewählte Karte mit „Aktiv“');
     assert.equal(await page.evaluate(() => window.tpTest.state().schwerpunkt), 'kb');
     const mit = await page.evaluate(() => window.tpTest.fill());
     assert.equal(mit.kraft[3][2].n, 'Kettlebell Swing', 'Hüfte: Swing statt Deadlift (' + mit.kraft[3].map(x => x.n) + ')');
@@ -343,7 +344,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.evaluate(() => window.tpTest.coach(3)), /Hier gibt es keine Kettlebell/);
     await page.evaluate(() => window.tpTest.navigate('fokus'));
     assert.match(await page.locator('main').innerText(), /fehlt die Kettlebell, dort trainierst du wie sonst/);
-    await page.getByRole('group', { name: 'Schwerpunkt' }).getByRole('button', { name: 'Keiner', exact: true }).click();
+    await page.locator('button.card.fk[data-act="sp-set"]', { hasText: 'Keiner' }).click();
     assert.equal(await page.evaluate(() => window.tpTest.state().schwerpunkt), null);
     console.log('PASS: Schwerpunkt Kettlebell: Einstellung, Swing im Kraftteil, Kettlebell-Metcon, Hinweis ohne Kettlebell');
 
