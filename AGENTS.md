@@ -6,6 +6,7 @@ Dieses Projekt wird mit mehreren KI-Werkzeugen bearbeitet. Damit alle nach dense
 1. `CLAUDE.md`: was die App ist, wo was im Code steht, alle Regeln. Gilt für dich genauso wie für Claude.
 2. `UEBERGABE.md`: aktueller Stand, offene Aufgaben, Rückmeldungen von Dennis.
 3. `DESIGN.md`: vor jeder neuen Oberfläche (Kapsel-Konzept, fünf Grundsätze).
+4. `PRODUCT.md`: für wen die App ist und was sie im Kern ausmacht.
 
 ## Die wichtigsten Regeln in Kürze
 - Die ganze App ist `index.html` (HTML, CSS, JavaScript in einer Datei, kein Build-Schritt). Die ersten beiden `<style>`-Blöcke (Schriften als Base64) nie bearbeiten.
