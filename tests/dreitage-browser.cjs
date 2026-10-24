@@ -75,8 +75,10 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(steps.some(s => s[0] === 'fin') && !steps.some(s => s[0] === 'metcon'), 'A endet mit Kardio');
     assert.ok((await page.locator('.tl-top').first().innerText()).includes('ca. ' + total + ' Min'));
     assert.ok(total <= 90);
-    // Vor dem Start: „Heute zum ersten Mal“ mit (i) für Übungen und Stufen, die es noch nie gab.
-    assert.ok(await page.getByRole('heading', { name: 'Heute zum ersten Mal' }).isVisible());
+    // Vor dem Start: neue Übungen stehen als „Neu“ am Kraftschritt (Impeccable-Kritik 24. Oktober), keine eigene Karte mehr.
+    assert.match(await page.locator('.tl-card .tl-neu').first().innerText(), /Neu[\s\S]*ansehen/);
+    const goY = (await page.getByRole('button', { name: /Training starten/ }).boundingBox()).y;
+    assert.ok(goY + 56 < 844, 'Training starten im ersten Bildschirm (' + goY + ')');
     await page.getByRole('button', { name: /Training starten/ }).click();
     // Training immer im Vollbild: Schritt, Einzeln | Liste, (i) mit „So geht’s“, unten weiter.
     assert.ok(await page.locator('#fs .fs-tr').isVisible(), 'Training startet im Vollbild');
@@ -155,21 +157,22 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const m0 = await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0));
     assert.ok(await page.locator('.mg .chip', { hasText: 'Nach dem Nachtdienst' }).isVisible(), 'Guten Morgen mit Anlass');
     assert.equal(await page.locator('.pn-ask').count(), 0, 'höchstens eine Frage');
+    assert.equal(await page.locator('.mg [data-act="mg-f"].on').count(), 0, 'nichts vorgewählt');
+    assert.equal(await page.locator('[data-act="mg-ok"]').count(), 0, 'kein „Fertig“: ein Tippen auf das Gefühl ist die Antwort');
     await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
-    assert.match(await page.locator('.mg-res').innerText(), /Kurzversion/);
-    await page.locator('[data-act="mg-ok"]').click();
+    assert.match(await page.locator('.mg-row').innerText(), /Kurzversion/);
     assert.ok(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)) < m0, 'platt: kürzere Einheit');
     assert.ok(await page.getByText('Heute kürzer, weil du müde bist.').isVisible(), 'die Folge steht unter dem Titel');
     assert.match(await page.locator('.mg-row').innerText(), /Gefühl platt/);
     await page.locator('[data-act="mg-edit"]').click();
     for (let q = 0; q < 6; q++) await page.locator('.mg [data-act="mg-h"][data-d="-0.5"]').click();
-    assert.match(await page.locator('.mg-res').innerText(), /nimm dir heute frei/);
+    await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
+    assert.match(await page.locator('.mg-row').innerText(), /nimm dir heute frei/);
     await page.locator('[data-act="mg-off"]').click();
     assert.ok(await page.getByRole('heading', { name: 'Heute frei', level: 1 }).isVisible());
     await page.locator('[data-act="mg-edit"]').click(); // bleibt änderbar
-    await page.locator('.mg [data-act="mg-f"][data-v="4"]').click();
     for (let q = 0; q < 6; q++) await page.locator('.mg [data-act="mg-h"][data-d="0.5"]').click();
-    await page.locator('[data-act="mg-ok"]').click();
+    await page.locator('.mg [data-act="mg-f"][data-v="4"]').click();
     assert.ok(await page.getByRole('heading', { name: 'Ganzkörper A', level: 1 }).isVisible());
     assert.equal(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)), m0, 'gut geschlafen: wie geplant');
     console.log('PASS: Guten Morgen nach dem Nachtdienst: Kurzversion, heute frei, änderbar');
@@ -322,6 +325,21 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: 'Fertig', exact: true }).click();
     console.log('PASS: Kettlebell eine oder zwei, verstellbar; verstellbar steigert über das Gewicht, zwei schalten Doppel-Übungen frei');
 
+    // Ausfall annehmen (Impeccable-Kritik 24. Oktober): kein Fragenblock vor dem Tag, eine Zeile mit „Stimmt nicht“, die Leiste zeigt „A ×“.
+    await page.clock.setFixedTime(new Date('2026-10-14T08:30:00+02:00'));
+    const msSt = Object.assign(old(), { planV: 2, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planAsk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' },
+      planDays: { '2026-10-13': { tag: 1, dg: 5, time: 17, ts: 1, pv: 2, n: 'Ganzkörper A' } } });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [msSt, []]);
+    assert.equal(await page.getByText('Kurze Rückfrage').count(), 0, 'keine Rückfrage vor dem Tag');
+    assert.match(await page.locator('.h-sub').first().innerText(), /^Gestern ist ausgefallen, dein Coach hat die Woche neu verteilt\. Stimmt nicht/);
+    assert.equal(await page.evaluate(() => window.tpTest.state().planMiss['2026-10-13'].reason), 'auto');
+    assert.match(await page.locator('.pill.wd.miss').first().innerText(), /Di\s*13\s*A ×/);
+    await page.locator('[data-act="miss-wrong"]').click();
+    assert.ok(await page.locator('#sheet').getByRole('button', { name: 'Krank / Beschwerden' }).isVisible(), '„Stimmt nicht“ fragt nach');
+    await page.locator('#sheet').getByRole('button', { name: 'Trainiert, aber nicht eingetragen' }).isVisible();
+    await page.keyboard.press('Escape');
+    console.log('PASS: Ausfall angenommen: Zeile unter dem Titel, Stimmt nicht, A × in der Wochenleiste');
+
     // Schwerpunkt Kettlebell (Dennis, 24. Oktober): Plan & Challenges › Schwerpunkt, Kraftteil nimmt den Swing, Metcon mit Kettlebell, B endet mit Metcon.
     const spLogs = ['2026-09-28', '2026-09-30', '2026-10-02', '2026-10-05', '2026-10-07', '2026-10-09', '2026-10-12', '2026-10-14'].map((date, i) => {
       const tag = [1, 3, 6][i % 3];
@@ -373,14 +391,13 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.locator('.mg .chip', { hasText: 'Letzte Einheit schwer' }).isVisible(), 'ein Signal: Anlass am Guten Morgen');
     assert.match(await kr(), /^4 Runden/, 'ohne Antwort bleibt alles wie geplant');
     await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
-    await page.locator('[data-act="mg-ok"]').click();
     assert.match(await kr(), /^3 Runden/, 'platt = Kurzversion');
     const shortN = Object.assign({}, sigSt, { morgen: {}, alltag: { on: true, schicht: true, bed: 22.5, wake: 6.5 }, arbeit: { '2026-10-12': [null, { k: 's', a: 14, b: 22 }, { k: 'f', a: 6, b: 14 }, null, null, null, null] } });
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [shortN, sigLogs.slice(0, 2)]);
     const ch = page.locator('.mg .chip', { hasText: 'Kurze Nacht' });
     assert.ok(await page.evaluate(() => window.tpTest.plan().days[2].tag), 'Mittwoch bleibt ein Trainingstag (nach dem Frühdienst)');
     assert.ok(await ch.isVisible(), 'Spät auf Früh: der Coach fragt nach');
-    assert.match(await page.locator('.mg-sub').innerText(), /Laut Plan waren etwa/);
+    assert.match(await page.locator('.mg-sub').first().innerText(), /Laut Plan waren etwa/);
     console.log('PASS: Guten Morgen mit Anlass: letzte Einheit schwer, kurze Nacht, platt kürzt');
 
     // Paket 61: Zeit unter Spannung. Unterwegs ohne Weste: Stufe darunter mit Tempo, fehlendes Muster mit Körpergewicht und Tempo, Taktgeber.

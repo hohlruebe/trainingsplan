@@ -611,6 +611,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   geht (`kbLad`, `isKbEq`), `SP_BONUS` 10 auf den Nutzen (`nF`, `byF`); Wechsel deswegen `S.swapped` `why: 'fokus'` („dein Schwerpunkt ist Kettlebell“). Metcon:
   Kettlebell-Übungen zuerst, Platz `ausdauer` wird Hüfte/Olympisch, Rumpf auch Rotation, der Ausgleich nimmt dann nur Kettlebell-Treffer. `finOf`: B endet immer mit
   dem Metcon (nicht mit Challenge). Noch nicht: Skill-Wechsel Turkish Get-up/Windmill, Snatch-Test, CrossFit, Hyrox.
+- Heute neu sortiert (Impeccable-Kritik 24. Oktober, Dennis: „Training nach oben“, „Ausfall annehmen, kurz sagen“, alle fünf Punkte; Board
+  https://claude.ai/artifact/AoxfQcEoeWHYrMDHeMY1Fa): Plan 2 schlank zeigt Kopf, Wochenleiste, Ablauf mit „Training starten“ (`.tl-card.lean`, engere Schritte,
+  Körper-Check ohne Zeile), „Heute anpassen“, erst dann die Frage (`askL` = `heuteAskHTML`). Ausfall: `missAuto` markiert offene Termine als `{status: 'missed',
+  reason: 'auto', auto: <Datum>}` ohne `planCare`-Rückfrage, `missAutoLine` als erste Zeile in `heuteSub` („Gestern ist ausgefallen … Stimmt nicht“, `ACT['miss-wrong']`:
+  Nachtrag oder Krank/Beschwerden); Plan 1 fragt wie bisher (`missQuestionHTML`). Guten Morgen ohne Vorwahl und ohne „Fertig“: Tippen auf das Gefühl speichert
+  (`mg-f` → `morgenSave`), danach `morgenRowHTML(PL, tag)` mit Folge (`morgenRes`) und „Heute frei nehmen“ bei Stufe 3. „Heute zum ersten Mal“ als Knopf am Schritt
+  (`firstTimeSteps`, `firstTimeChips`, `ACT['ft-open']`), die Karte `firstTimeHTML` ist auf Heute nicht mehr in Gebrauch. Wochenleiste: geplant und ausgefallen
+  „A ×“ (`wkCellLab` aus `S.planDays`, Klasse `.miss`), vergangene Tage grau statt verblasst. `.stepper button` 44 px, Laptop-Spalte 720 px.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
