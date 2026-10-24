@@ -1203,6 +1203,10 @@
     var t = (1 + Math.cos(p * 2 * Math.PI)) / 2, J = swingAt(t);
     J._props = [kbP(gripOf(J), J._kbd)]; return J;
   }
+  function kbAmericanSwing(p) { // American Swing: gleiche Hüftbewegung, die Kettlebell geht bis senkrecht über den Kopf, Boden nach oben
+    var t = (1 + Math.cos(p * 2 * Math.PI)) / 2, J = swingAt(t, { top: 176 });
+    J._props = [kbP(gripOf(J), J._kbd)]; return J;
+  }
   function kbDoubleSwing(p) { // zwei Kettlebells, breiter Stand, je eine Hand
     var t = (1 + Math.cos(p * 2 * Math.PI)) / 2, J = swingAt(t, { wide: 30, hx: .16 });
     J._props = [kbP(gripOf(J, 'a'), J._kbd, 'back'), kbP(gripOf(J, 'b'), J._kbd)]; return J;
@@ -1414,7 +1418,8 @@
       g_couch_stretch: { name: 'Couch Stretch', pose: couch, yaw: 64, dur: 4 },
       g_calf_wall_stretch: { name: 'Wall Calf Stretch', pose: calfWall, yaw: 60, dur: 4 },
       // Runde Kettlebell
-      g_kb_swing: { name: 'Kettlebell Swing', pose: kbSwing, yaw: 64, dur: 1.6 },
+      g_kb_swing: { name: 'Russian Kettlebell Swing', pose: kbSwing, yaw: 64, dur: 1.6 },
+      g_american_swing: { name: 'American Kettlebell Swing', pose: kbAmericanSwing, yaw: 64, dur: 1.8 },
       g_goblet_squat: { name: 'Goblet Squat', pose: kbGoblet, yaw: 50, dur: 3 },
       g_kb_deadlift: { name: 'Kettlebell Deadlift', pose: kbDeadlift, yaw: 60, dur: 3 },
       g_kb_sumo_squat: { name: 'Kettlebell Sumo Squat', pose: kbSumo, yaw: 30, dur: 3 },

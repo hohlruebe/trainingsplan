@@ -602,6 +602,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Double Press, Halo, Goblet Reverse Lunge, Gorilla Row, Glute Bridge, Russian Twist, Dead Bug), Hilfen `swingAt`, `gobletAt`, `hingeAt`, `kbFlow`
   (Zustände `KS`: rack, dip, over, hike, pull, high), `rackSquat`, `flipX` (einarmig: Kettlebell auf der Seite zur Kamera). Liegt zur Freigabe im Canvas,
   erst danach kommt die Kopie nach `index.html` (bis dahin ist `<script id="maskottchen">` die ältere Fassung).
+  Umbenannt mit Dennis (24. Oktober): `g_kb_swing` heißt „Russian Kettlebell Swing“ (vorher „Kettlebell Swing“). Leitername und Stufenname bleiben
+  gespeichert („Kettlebell Swing“), angezeigt über `STAGE_LABEL`; alte Namen in Einträgen finden die Übung über `NAME_ALT` (nicht aufzählbarer Eintrag in `GL`),
+  Suche über `alias`. Grafik dazu: American Kettlebell Swing (`kbAmericanSwing`, bis senkrecht über den Kopf), beide als Stufen in `f_kettlebell_swing`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

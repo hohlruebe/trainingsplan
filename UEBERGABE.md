@@ -15,7 +15,10 @@ Stand: 23. Oktober 2026 (Eine oder zwei Kettlebells, 13 weitere Übungen, Kettle
 - Grafiken Runde Kettlebell: 20 Animationen in `design/maskottchen/maskottchen.js`, Board im Canvas: https://claude.ai/artifact/9v1pkgmVa2wTgAKosuM2Rz
   (hell/dunkel). Nachgemessen: Kontakte halten, Kniebeugen below parallel, Kugel setzt am Boden auf. **Offen: Freigabe von Dennis**, danach Kopie nach
   `index.html` (`<script id="maskottchen">`), bis dahin zeigt die App für Kettlebell-Übungen weiter „Grafik folgt“.
-- Offen danach: Runde 2 (American/Single-Arm Swing, Farmer's/Suitcase/Overhead/Front Rack Carry, Goblet BSS, Cossack, Pullover, Bottoms-up, Seesaw,
+- Dennis (24. Oktober): „Kettlebell Swing american oder russian? … benenne die Übung richtig, Russian und American jeweils als Variation“.
+  `g_kb_swing` heißt jetzt „Russian Kettlebell Swing“ (Stufen- und Leitername bleiben gespeichert, nur angezeigt neu), American Swing hat eine Grafik
+  im Board (jetzt 21).
+- Offen danach: Runde 2 (Single-Arm Swing, Farmer's/Suitcase/Overhead/Front Rack Carry, Goblet BSS, Cossack, Pullover, Bottoms-up, Seesaw,
   Thruster, Step-up, Figure 8, Around the World, Plank Pull-Through, Double Clean, Rack Lunge, Dumbbell Row, Turkish Get-up, Windmill, Single-Arm Press).
   Gewichtsschritte der eigenen Kettlebell (2 oder 4 kg) kennt der Coach noch nicht.
 
