@@ -71,6 +71,10 @@ Ohne `tilt` bleibt jede Figur wie bisher. Neue Hilfen: `kneelLeg` (Knie am Boden
 Gedrehter Oberkörper (`twist`), liegende Figur (`turnAll`) oder Kamera von oben: Brustkorb und Becken werden als Körper im Raum gezeichnet
 (ausgerichtet an Wirbelsäule, Schulter- und Hüftlinie) und ohne V-Verschiebung, damit die Schultern in jeder Lage am Rumpf sitzen.
 Für alle anderen Figuren bleibt die Zeichnung exakt wie bisher.
+Runde Kettlebell (23. Oktober 2026, im Canvas zur Freigabe): neues Gerät `kb` (`kbP(griff, richtung)`): Griff in der Hand (`gripOf`, zwischen Handgelenk
+und Hand), die Kugel zeigt in Richtung `dn` und ist im Bild immer rund. Kugel am Boden setzt bei y 397 auf (nachgemessen). Einarmige Übungen mit `flipX`
+spiegeln, damit die Kettlebell auf der Seite zur Kamera liegt. Rack: Hand vor dem Schlüsselbein, Ellbogen vor dem Rumpf, Kugel außen und leicht vorn,
+damit sie von der Seite sichtbar ist. Abläufe aus Zuständen (`kbFlow`, `KS`). Kniebeugen mit Kettlebell gehen unten below parallel (Sumo 19 px, Goblet 18 px).
 Eigene Blickrichtung des Kopfes: `J._hf` (Vektor, nur die waagerechte Richtung zählt), z. B. World's Greatest Stretch: Gesicht dreht zur Hand. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
 
 ## Regeln für die Darstellung

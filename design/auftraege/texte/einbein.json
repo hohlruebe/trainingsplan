@@ -492,6 +492,80 @@
         "korrektur": "Keine.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_double_rack_lunge",
+      "trainiert": "Oberschenkel vorn, Gesäß, Rumpf",
+      "zweck": "Ausfallschritt nach hinten mit zwei Kettlebells vorn im Rack: viel Last für das Bein, der Rumpf bleibt aufrecht.",
+      "vorbereitung": "Zwei Kettlebells in der Rack-Position.",
+      "schritte": [
+        "Halte beide Kettlebells im Rack, Füße hüftbreit.",
+        "Mach einen großen Schritt nach hinten und senk das hintere Knie fast bis zum Boden.",
+        "Drück dich über die Ferse des vorderen Fußes wieder in den Stand.",
+        "Wechsel das Bein bei jeder Wiederholung."
+      ],
+      "ausstieg": "Füße nebeneinander, Kettlebells aus dem Rack absenken.",
+      "sauber": "Der Oberkörper bleibt aufrecht, das vordere Knie zeigt über die Zehen.",
+      "details": [],
+      "atmung": "Beim Absenken einatmen, beim Hochdrücken ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Oberkörper kippt nach vorn.",
+          "k": "Ellbogen hoch, leichtere Kettlebells."
+        },
+        {
+          "f": "Das vordere Knie fällt nach innen.",
+          "k": "Knie nach außen über die Zehen."
+        }
+      ],
+      "skalierung": "Leichter: Goblet Reverse Lunge mit einer Kettlebell. Schwerer: schwerere Kettlebells oder hinterer Fuß erhöht.",
+      "grenzen": "Bei Schmerzen im Knie aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_goblet_step_up",
+      "trainiert": "Oberschenkel vorn, Gesäß",
+      "zweck": "Mit der Kettlebell vor der Brust auf eine Erhöhung steigen: einbeinige Kraft, schonend fürs Knie.",
+      "vorbereitung": "Eine Kettlebell und eine stabile Kiste, Stufe oder ein Stuhl, etwa kniehoch.",
+      "schritte": [
+        "Halte die Kettlebell an den Griffseiten vor der Brust und stell den rechten Fuß ganz auf die Erhöhung.",
+        "Drück dich über die rechte Ferse nach oben, bis das Bein gestreckt ist.",
+        "Steig mit dem linken Fuß langsam wieder herunter, das rechte Bein bremst.",
+        "Nach dem Satz die Seite wechseln."
+      ],
+      "ausstieg": "Beide Füße auf den Boden, Kettlebell absenken.",
+      "sauber": "Das hintere Bein stößt sich nicht ab, das Knie bleibt über dem Fuß.",
+      "details": [
+        "Je höher die Erhöhung, desto mehr arbeitet das Gesäß."
+      ],
+      "atmung": "Beim Hochsteigen ausatmen.",
+      "fehler": [
+        {
+          "f": "Der untere Fuß drückt kräftig mit ab.",
+          "k": "Unteren Fuß nur auf die Zehen, die Arbeit macht das obere Bein."
+        },
+        {
+          "f": "Das Knie fällt nach innen.",
+          "k": "Knie nach außen, niedrigere Erhöhung."
+        }
+      ],
+      "skalierung": "Leichter: Step-up ohne Gewicht oder niedrigere Erhöhung. Schwerer: schwerere Kettlebell oder höhere Erhöhung.",
+      "grenzen": "Bei Schmerzen im Knie aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }

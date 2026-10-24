@@ -1,0 +1,96 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "huefte",
+  "quelle": "Claude, 23. Oktober 2026 (Dennis: noch mehr Kettlebell-Übungen, Auswahl eine oder zwei Kettlebells). Pavel Tsatsouline (Enter the Kettlebell), NSCA Essentials.",
+  "uebungen": [
+    {
+      "id": "g_kb_double_swing",
+      "name": "Double Kettlebell Swing",
+      "bereich": "beine",
+      "einheit": "kg",
+      "rolle": [
+        "metcon",
+        "kraft"
+      ],
+      "equipment": [
+        [
+          "eq_kb_paar"
+        ]
+      ],
+      "nutzen": 70,
+      "trainiert": "Gesäß, Beinbeuger, Rumpf, Griff",
+      "zweck": "Zwei Kettlebells gleichzeitig schwingen: mehr Gewicht als beim normalen Swing, die Hüfte arbeitet explosiv.",
+      "vorbereitung": "Zwei Kettlebells vor den Füßen, Füße etwas weiter als schulterbreit.",
+      "schritte": [
+        "Greif beide Kettlebells, schieb die Hüfte nach hinten und schwing sie zwischen den Beinen nach hinten.",
+        "Streck die Hüfte explosiv, die Kettlebells schwingen bis auf Brusthöhe.",
+        "Oben stehst du gerade, Gesäß und Bauch fest.",
+        "Lass sie zurückfallen und schieb die Hüfte erst nach hinten, wenn die Unterarme die Hüfte berühren."
+      ],
+      "ausstieg": "Kettlebells auspendeln lassen und vor dir abstellen.",
+      "sauber": "Die Arme ziehen nicht, die Kraft kommt aus der Hüfte, der Rücken bleibt gerade.",
+      "details": [
+        "Die Kettlebells laufen zwischen den Knien durch, darum der breitere Stand."
+      ],
+      "atmung": "Oben kräftig ausatmen.",
+      "fehler": "Der Swing wird zur Kniebeuge. Knie nur leicht beugen, Hüfte nach hinten schieben. Die Arme heben die Kettlebells. Arme locker, die Hüfte gibt den Schwung.",
+      "skalierung": "Leichter: Kettlebell Swing mit einer Kettlebell. Schwerer: schwerere Kettlebells.",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "muskeln": {
+        "primaer": [
+          "gesaess",
+          "beinbeuger"
+        ],
+        "sekundaer": [
+          "rueckenstrecker",
+          "unterarm",
+          "bauch_gerade"
+        ]
+      },
+      "gelenke": {
+        "schulter": 1,
+        "ellbogen": 0,
+        "handgelenk": 1,
+        "ruecken": 2,
+        "huefte": 2,
+        "knie": 1,
+        "fuss": 0
+      },
+      "bewegt": [
+        "huefte"
+      ],
+      "sehne": 0,
+      "ermuedung": 2,
+      "technik": 2,
+      "seitig": false,
+      "laut": false,
+      "rx": {
+        "m": 24,
+        "w": 16
+      },
+      "alias": [
+        "Schwingen mit zwei Kettlebells"
+      ],
+      "muster": "huefte",
+      "level": 2,
+      "voraussetzung": []
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_kettlebell_swing",
+      "varianten": [
+        {
+          "uebung": "g_kb_double_swing",
+          "art": "variante",
+          "effekt": 70,
+          "grund": "Swing mit zwei Kettlebells: mehr Gewicht, breiterer Stand."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

@@ -642,7 +642,45 @@
           "k": "Hüfte nach hinten schieben, Brust bleibt vorn."
         }
       ],
-      "skalierung": "Leichter: Kettlebell Swing. Schwerer: schwerere Kettlebell oder Kettlebell Snatch.",
+      "skalierung": "Leichter: Russian Kettlebell Swing. Schwerer: schwerere Kettlebell oder Kettlebell Snatch.",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_double_clean",
+      "trainiert": "Hüfte, oberer Rücken, Griff",
+      "zweck": "Zwei Kettlebells aus dem Schwung zwischen den Beinen in die Rack-Position holen: Schnellkraft aus der Hüfte.",
+      "vorbereitung": "Zwei Kettlebells vor den Füßen, Füße etwas weiter als hüftbreit.",
+      "schritte": [
+        "Greif beide Kettlebells, schieb die Hüfte nach hinten und schwing sie zwischen den Beinen nach hinten.",
+        "Streck die Hüfte kräftig, die Kettlebells steigen eng am Körper nach oben.",
+        "Dreh die Hände um die Griffe, die Kettlebells landen weich auf den Unterarmen im Rack.",
+        "Lass sie aus dem Rack wieder zwischen die Beine fallen und beginn die nächste Wiederholung."
+      ],
+      "ausstieg": "Nach der letzten Wiederholung beide Kettlebells kontrolliert vor dir abstellen.",
+      "sauber": "Die Kettlebells schlagen nicht auf die Unterarme, die Hüfte macht die Arbeit, der Rücken bleibt gerade.",
+      "details": [
+        "Die Ellbogen bleiben beim Hochziehen nah am Körper."
+      ],
+      "atmung": "Beim Hüftstrecken ausatmen.",
+      "fehler": [
+        {
+          "f": "Die Kettlebells knallen auf die Unterarme.",
+          "k": "Früher um den Griff drehen, Kettlebells nah am Körper führen."
+        },
+        {
+          "f": "Der Rücken rundet sich unten.",
+          "k": "Hüfte weiter nach hinten, Brust nach vorn."
+        }
+      ],
+      "skalierung": "Leichter: Kettlebell Clean mit einer Kettlebell. Schwerer: schwerere Kettlebells.",
       "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
       "pruefung": {
         "art": [

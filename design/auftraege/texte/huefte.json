@@ -218,7 +218,7 @@
           "k": "Rippen unten halten, Gesäß fest."
         }
       ],
-      "skalierung": "Leichter: Kettlebell Swing bis Brusthöhe. Schwerer: schwerere Kettlebell.",
+      "skalierung": "Leichter: Russian Kettlebell Swing (bis Brusthöhe). Schwerer: schwerere Kettlebell.",
       "grenzen": "Aufhören bei Schulterschmerz oder wenn die Kettlebell oben unkontrolliert kippt.",
       "pruefung": {
         "art": [
@@ -824,6 +824,44 @@
       ],
       "skalierung": "Leichter: Glute Bridge ohne Gewicht. Schwerer: schwerere Kettlebell, oben 2 s halten oder einbeinig.",
       "grenzen": "",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
+    },
+    {
+      "id": "g_kb_double_swing",
+      "trainiert": "Gesäß, Beinbeuger, Rumpf, Griff",
+      "zweck": "Zwei Kettlebells gleichzeitig schwingen: mehr Gewicht als beim normalen Swing, die Hüfte arbeitet explosiv.",
+      "vorbereitung": "Zwei Kettlebells vor den Füßen, Füße etwas weiter als schulterbreit.",
+      "schritte": [
+        "Greif beide Kettlebells, schieb die Hüfte nach hinten und schwing sie zwischen den Beinen nach hinten.",
+        "Streck die Hüfte explosiv, die Kettlebells schwingen bis auf Brusthöhe.",
+        "Oben stehst du gerade, Gesäß und Bauch fest.",
+        "Lass sie zurückfallen und schieb die Hüfte erst nach hinten, wenn die Unterarme die Hüfte berühren."
+      ],
+      "ausstieg": "Kettlebells auspendeln lassen und vor dir abstellen.",
+      "sauber": "Die Arme ziehen nicht, die Kraft kommt aus der Hüfte, der Rücken bleibt gerade.",
+      "details": [
+        "Die Kettlebells laufen zwischen den Knien durch, darum der breitere Stand."
+      ],
+      "atmung": "Oben kräftig ausatmen.",
+      "fehler": [
+        {
+          "f": "Der Swing wird zur Kniebeuge.",
+          "k": "Knie nur leicht beugen, Hüfte nach hinten schieben."
+        },
+        {
+          "f": "Die Arme heben die Kettlebells.",
+          "k": "Arme locker, die Hüfte gibt den Schwung."
+        }
+      ],
+      "skalierung": "Leichter: Russian Kettlebell Swing mit einer Kettlebell. Schwerer: schwerere Kettlebells.",
+      "grenzen": "Bei Schmerzen im unteren Rücken aufhören.",
       "pruefung": {
         "art": [
           "ok"

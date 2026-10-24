@@ -410,6 +410,44 @@
         "korrektur": "Korrektur ergänzt.",
         "status": "geklaert"
       }
+    },
+    {
+      "id": "g_kb_dead_bug",
+      "trainiert": "Gerader Bauchmuskel, tiefe Rumpfmuskeln",
+      "zweck": "In Rückenlage die Kettlebell mit gestreckten Armen über der Brust halten und die Beine abwechselnd strecken: der Rücken bleibt am Boden.",
+      "vorbereitung": "Eine leichte Kettlebell, eine Matte.",
+      "schritte": [
+        "Leg dich auf den Rücken und halt die Kettlebell mit beiden Händen und gestreckten Armen über der Brust.",
+        "Heb die Beine, Knie und Hüfte im rechten Winkel, der untere Rücken drückt in den Boden.",
+        "Streck das rechte Bein langsam aus, bis die Ferse knapp über dem Boden ist.",
+        "Hol es zurück und streck das linke Bein. Abwechselnd weiter."
+      ],
+      "ausstieg": "Beide Füße abstellen, Kettlebell auf der Brust ablegen und zur Seite rollen.",
+      "sauber": "Der untere Rücken hebt nicht vom Boden ab, die Arme bleiben senkrecht über der Brust.",
+      "details": [
+        "Die Kettlebell zieht die Schultern leicht nach oben, das hilft dem Bauch."
+      ],
+      "atmung": "Beim Strecken ausatmen.",
+      "fehler": [
+        {
+          "f": "Hohlkreuz beim Strecken.",
+          "k": "Bein weniger weit strecken, Bauch fester."
+        },
+        {
+          "f": "Die Arme wandern zum Kopf.",
+          "k": "Kettlebell senkrecht über der Brust halten."
+        }
+      ],
+      "skalierung": "Leichter: Dead Bug ohne Gewicht. Schwerer: schwerere Kettlebell oder Bein langsamer strecken (3 s).",
+      "grenzen": "",
+      "pruefung": {
+        "art": [
+          "ok"
+        ],
+        "problem": "Neue Übung, Text neu geschrieben.",
+        "korrektur": "Keine.",
+        "status": "geklaert"
+      }
     }
   ]
 }
