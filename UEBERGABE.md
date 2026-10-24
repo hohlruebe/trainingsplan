@@ -4,9 +4,17 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 24. Oktober 2026 (Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 24. Oktober 2026 (Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
 
+
+## Heute neu sortiert (24. Oktober 2026, Claude)
+- Dennis: „schau dir jetzt den home tab an“. Impeccable-Kritik mit seinen Sync-Daten (Sa 24. Okt. 8:30): 27/40, Board https://claude.ai/artifact/LUaYAPCUmMJ7rzcYCqm5wX.
+  Hauptbefunde: Start bei 1.360 px, drei Fragen hintereinander, Wochenleiste „Frei“ für ausgefallene Tage, Guten Morgen mit Vorwahl „Okay“, Kleinkram.
+- Dennis' Antworten: Training nach oben, Ausfall annehmen und kurz sagen, alle fünf Punkte. Entwurf in der echten App: https://claude.ai/artifact/AoxfQcEoeWHYrMDHeMY1Fa
+- Umgesetzt (siehe CLAUDE.md „Heute neu sortiert“): Start bei 668 px, Ausfall-Zeile mit „Stimmt nicht“, Guten Morgen mit einem Tippen, „A ×“ in der Leiste, Neu-Knopf am Schritt,
+  Zähler 44 px. Detektor auf der Seite: hell 1 statt 10, dunkel 3 statt 11 Funde. Tests angepasst (Guten Morgen, Neu-Knopf, neuer Test „Ausfall angenommen“).
+- Offen: Freigabe von Dennis für den PR; Plan 1 fragt weiter vor dem Tag; die Kritik liegt in `.impeccable/critique/`.
 
 ## Schwerpunkt als Karten, Impeccable-Audit (24. Oktober 2026, Claude)
 - Dennis: Impeccable laufen lassen, dann „ja bau es um“ nach dem Board https://claude.ai/artifact/5MbvhrubvHqo7a15xS8e1r (Vorher/Nachher hell und dunkel).

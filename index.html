@@ -94,7 +94,7 @@ html.desk body:has(main[data-tab=heute]) #storage-error,html.desk body:has(main[
 .bgrp button.red{color:var(--red)}
 /* Zähler: Minus und Plus als Kreise in einer Kapsel */
 .stepper{display:inline-flex;align-items:center;gap:4px;padding:4px;border-radius:999px;background:var(--board)}
-.stepper button{width:40px;height:40px;border-radius:20px;border:0;background:var(--paper);color:var(--ink);font-family:var(--head);font-size:22px;font-weight:500;line-height:1;padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(17,18,20,.08);display:flex;align-items:center;justify-content:center}
+.stepper button{width:44px;height:44px;border-radius:22px;border:0;background:var(--paper);color:var(--ink);font-family:var(--head);font-size:22px;font-weight:500;line-height:1;padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(17,18,20,.08);display:flex;align-items:center;justify-content:center}
 .stepper button.primary{background:var(--acc);color:var(--on-acc)}
 .stepper b{min-width:96px;text-align:center;font-family:var(--hand);font-weight:var(--hand-w);font-size:22px}
 .btn.block{width:100%;margin-top:10px}
@@ -112,13 +112,14 @@ html.desk body:has(main[data-tab=heute]) #storage-error,html.desk body:has(main[
 @media (max-width:360px){.pill{height:40px;font-size:15px}}
 .pills.wkst{border-radius:32px;margin:10px 0 14px}
 .pill.wd{height:auto;min-height:66px;border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:7px 0;font-size:14px;font-weight:500}
-.wd-a{font-size:14px;line-height:1;opacity:.8}
+.wd-a{font-size:14px;line-height:1}
 .wd-d{font-size:16px;line-height:1;font-weight:600}
 .wd-u{font-size:14px;line-height:1;font-weight:600;white-space:nowrap}
 .pill.wd.fr:not(.cur):not(.view){color:var(--ink2)}
 .pill.wd.fr .wd-u{font-weight:400}
 .pill.wd.z:not(.cur):not(.view){outline:1.5px dashed color-mix(in srgb,var(--acc) 55%,transparent);outline-offset:-4px}.pill.wd.z:not(.cur):not(.view) .wd-u{color:var(--acc)}
-.pill.wd.past:not(.cur):not(.view):not(.ok){opacity:.6}
+.pill.wd.past:not(.cur):not(.view):not(.ok){color:var(--ink2)}
+.pill.wd.miss:not(.cur):not(.view) .wd-u{font-weight:600;color:var(--ink)}
 .pill.wd.ok:not(.cur):not(.view) .wd-u{color:var(--green)}
 .wk-h{margin-top:4px}
 @media (max-width:360px){.pill.wd{min-height:62px;font-size:13px}.wd-a,.wd-u{font-size:13px}.wd-d{font-size:15px}}
@@ -400,6 +401,7 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .tl{list-style:none;margin:0;padding:0}
 .tl li{position:relative;display:flex;gap:14px;padding-bottom:16px}
 .tl li:last-child{padding-bottom:2px}
+.tl-card.lean .tl li{padding-bottom:10px}.tl-card.lean .tl li:last-child{padding-bottom:2px}
 .tl li::before{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;border-radius:1px;background:var(--line)}
 .tl li:last-child::before{display:none}
 .tl-n{flex:0 0 32px;height:32px;border-radius:16px;border:2px solid var(--acc);color:var(--acc);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
@@ -767,8 +769,9 @@ button.card.fk:active{transform:scale(.98)}
 .mg-tile small{display:block;font-size:14px;color:var(--ink2)}.mg-tile b{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .mg-sub{font-size:14px;color:var(--ink2);margin:8px 2px 0}.mg-q{font-weight:600;margin:16px 0 8px}.mg-seg{display:flex}.mg-seg .seg-btn{flex:1;padding:0 4px}
 .mg-res{display:flex;gap:10px;align-items:flex-start;background:var(--board);border-radius:16px;padding:12px 14px;margin-top:14px;line-height:1.4}
-.mg-res i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--on-acc,#fff);font:700 13px/22px var(--head);text-align:center;font-style:normal}
-.mg-row{margin:0 0 12px}
+.mg-res i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--on-acc,#fff);font:700 14px/22px var(--head);text-align:center;font-style:normal}
+.mg-row{margin:0 0 12px}.mg-row .gl-t small+small{color:var(--ink)}.mg-chg{flex:none;color:var(--acc);font-weight:600;font-size:15px}
+.btn.tl-neu{margin-top:8px;gap:8px;padding-left:6px}.btn.tl-neu .chip{margin:0}
 .kc .bf .mu[data-act]{cursor:pointer}.bf .mu.zk{fill:var(--mb2)}.bf .mu.zs{fill:var(--mb0)}
 .kc-lg{display:flex;justify-content:center;gap:16px;font-size:14px;color:var(--ink2);margin:6px 0 4px}.kc-lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .kc-lg i.zk{background:var(--mb2)}.kc-lg i.zs{background:var(--mb0)}
@@ -1157,7 +1160,7 @@ html.desk .side{display:block;position:fixed;left:0;top:0;bottom:0;width:248px;z
 .side-keys{margin:28px 12px 0;line-height:1.5}
 html.desk main{max-width:880px;padding:36px 40px 64px}
 html.desk main[data-tab=heute],html.desk main[data-tab=uebungen],html.desk main[data-tab=fam]{max-width:1200px}
-html.desk main[data-tab=heute]:not(:has(.dk2,.dk-step)){max-width:880px}
+html.desk main[data-tab=heute]:not(:has(.dk2,.dk-step)){max-width:720px}
 html.desk body.focus{padding-left:0}
 html.desk body.focus .side{display:none}
 html.desk body.focus main{max-width:1320px}
@@ -5502,10 +5505,24 @@ function missQuestionHTML() {
 function missNoticeHTML() {
   var c = S.planCare; if (!c || c.checked !== isoToday() || c.ready !== 'fit') return '';
   var tags = missCarry(), P = planOn() ? wkPlanC() : null, next = P ? P.days.filter(function (d) { return d.date >= isoToday() && d.tag && !d.done; })[0] : null;
-  var text = next ? 'Nächste Einheit: ' + dayLabel(next.tag) + ' am ' + fmtDate(next.date) + ' um ' + hm(next.t - next.i * 24) + '.' : P ? 'Diese Woche passt keine weitere Einheit sinnvoll hinein. Du musst nichts zusätzlich abarbeiten.' : 'Du setzt mit ' + dayLabel(S.tag) + ' fort. Keine zusätzliche Einheit zum Abarbeiten.';
+  var text = next ? 'Nächste Einheit: ' + dayLabel(next.tag) + (next.date === isoToday() ? ' heute' : ' am ' + fmtDate(next.date)) + ' um ' + hm(next.t - next.i * 24) + '.' : P ? 'Diese Woche passt keine weitere Einheit sinnvoll hinein. Du musst nichts zusätzlich abarbeiten.' : 'Du setzt mit ' + dayLabel(S.tag) + ' fort. Keine zusätzliche Einheit zum Abarbeiten.';
   return '<section class="card"><h2>Dein Plan ist angepasst</h2><p>' + esc(text) + '</p><p class="small muted">' +
     (tags.length ? 'Offene Trainings werden bei der Verteilung berücksichtigt. Arbeit, Schlaf und Erholung gehen vor.' : 'Die Planung richtet sich nach deinen tatsächlich absolvierten Einheiten.') +
     '</p><button type="button" class="btn small" data-act="miss-check">Antwort ändern</button></section>';
+}
+// Ausfall annehmen (Plan 2): offene Termine gelten als ausgefallen (Grund unbekannt, `reason: 'auto'`, `auto` = Datum des Annehmens),
+// ohne Rückfrage zum Befinden (das fragt Guten Morgen). Unter dem Titel steht es einmal, „Stimmt nicht“ öffnet Krank/Beschwerden und Nachtrag.
+function missAuto() {
+  var ch = false;
+  for (var p = missPending(), n = 0; p && n < 14; p = missPending(), n++) { missSet(p.date, { status: 'missed', reason: 'auto', auto: isoToday() }); ch = true; }
+  if (ch) { WKP_C.k = null; saveState(); }
+}
+function missAutoDates() { var t = isoToday(); return Object.keys(S.planMiss || {}).filter(function (dt) { var a = S.planMiss[dt]; return a.auto === t && a.reason === 'auto' && !missDone(dt); }).sort(); }
+function missAutoLine() {
+  var L = missAutoDates(); if (!L.length) return '';
+  var wd = function (dt) { var d = parseISO(dt); return daysBetween(d, parseISO(isoToday())) === 1 ? 'Gestern' : WTAG[(d.getDay() + 6) % 7]; };
+  var names = L.map(wd), who = names.length === 1 ? names[0] : names.slice(0, -1).join(', ') + ' und ' + names[names.length - 1];
+  return esc(who) + (L.length === 1 ? ' ist' : ' sind') + ' ausgefallen, dein Coach hat die Woche neu verteilt. <button type="button" class="link" data-act="miss-wrong">Stimmt nicht</button>';
 }
 // Befinden nach der Nacht (Dennis, Konzept): Erholt macht einen Tag zwischen zwei Nächten zum möglichen Trainingstag (wie ein Übergangstag),
 // nie einen 12-h-Dienst. Ohne Antwort bleibt der Tag frei: unbekannt heißt nicht erholt.
@@ -7222,6 +7239,9 @@ function wkCellLab(c) {
   if (c.logs.length) { var l = c.logs[c.logs.length - 1]; return { u: '✓' + (l.pv === 2 && l.unit ? l.unit : ''), s: 'erledigt, ' + logTitle(l) }; }
   if (c.zs) return { u: 'Z', s: 'Zusatz, freiwillig, ' + (c.today ? 'heute' : 'geplant') + ', ' + hm(c.zs.t - 24 * c.i) + ' Uhr, ' + c.zs.min + ' Minuten' };
   if (c.tag) return { u: unitL(c.tag), s: 'Einheit ' + unitL(c.tag) + ', ' + (c.today ? 'heute' : 'geplant') + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) + ' Uhr' : '') + ', ' + Math.round(planDur(c.tag) * 60) + ' Minuten' };
+  // Geplant und ausgefallen (Impeccable-Kritik 24. Oktober): nicht „Frei“, sondern die Einheit mit ×.
+  var sn = c.past ? (S.planDays || {})[c.date] : null;
+  if (sn && sn.tag && (sn.pv || 1) === (S.planV || 1)) return { u: unitL(sn.tag) + ' ×', s: 'ausgefallen, ' + snapName(sn), miss: true };
   return { u: 'Frei', s: c.past ? 'kein Training' : 'frei' };
 }
 function wkFirst() { var d = S.startDate || isoToday(); LOGS.forEach(function (l) { if (l.date && l.date < d) d = l.date; }); return wkMon(d); }
@@ -7237,7 +7257,7 @@ function wkStripHTML(W, sel, act, noHead) {
   if (noHead) h = '<nav class="pills wkst" aria-label="Woche">';
   W.cells.forEach(function (c) {
     var L = wkCellLab(c), d = parseISO(c.date), on = c.date === sel;
-    h += '<button type="button" class="pill wd' + (c.today ? ' cur' : '') + (on && !c.today ? ' view' : '') + (c.logs.length ? ' ok' : c.tag ? ' u' : c.zs ? ' u z' : ' fr') + (c.past ? ' past' : '') + '" data-act="' + act + '-sel" data-d="' + c.date + '"' +
+    h += '<button type="button" class="pill wd' + (c.today ? ' cur' : '') + (on && !c.today ? ' view' : '') + (c.logs.length ? ' ok' : c.tag ? ' u' : c.zs ? ' u z' : L.miss ? ' miss' : ' fr') + (c.past ? ' past' : '') + '" data-act="' + act + '-sel" data-d="' + c.date + '"' +
       (c.today ? ' aria-current="date"' : '') + ' aria-pressed="' + on + '" aria-label="' + esc(WTAG[c.i] + ', ' + d.getDate() + '. ' + MONATE[d.getMonth()] + (c.today ? ', heute' : '') + ', ' + L.s) + '">' +
       '<span class="wd-a">' + WTAG[c.i].slice(0, 2) + '</span><b class="wd-d">' + d.getDate() + '</b><span class="wd-u">' + esc(L.u) + '</span></button>';
   });
@@ -7307,6 +7327,8 @@ function renderHeute() {
   if (lock && c.cur) c = Object.assign({}, c, { cur: false, isMurph: false });
   var cur = c.cur, d = c.d, next = tag % 7 + 1, D = dr(tag), st = stepsOf(c), ph = curPhase();
   var todayView = lock && !ui.viewTag;
+  // Plan 2 (Dennis, 24. Oktober): ein Ausfall wird angenommen und kurz gesagt, statt vor dem Tag zu fragen („Stimmt nicht“ korrigiert).
+  if (!ui.viewTag && v2() && planOn()) missAuto();
   if (!ui.viewTag) { var missed = missQuestionHTML(); if (missed) return missed; }
   if (cur && st.length && D._step != null && st[+D._step]) { ui.noSub = true; ui.focus = true; return stepPageHTML(c, st, +D._step, D); }
   // Plan 2: ein anderer Tag in der Wochenleiste gewählt.
@@ -7383,7 +7405,9 @@ function renderHeute() {
     h += '<div class="viewbar"><span class="small muted">' + dran + '</span><span class="row">' +
       '<button type="button" class="btn small" data-act="back-today">Zurück</button></span></div>';
   }
-  if (lean) { if (cur && !lock && !(+(D._at || 0) === 0 && wbDue(d))) h += heuteAskHTML(PL, tag); }
+  // Plan 2 schlank: der Tag zuerst, die Frage (Guten Morgen, Schmerzen …) kommt unter den Ablauf mit „Training starten“.
+  var askL = '';
+  if (lean) { if (cur && !lock && !(+(D._at || 0) === 0 && wbDue(d))) askL = heuteAskHTML(PL, tag); }
   else if (cur && !c.isTest && !c.isMurph) h += painAskHTML(tag);
   if (lean) {} else if (PL && cur && !lock) h += befAskHTML(PL) + planNextAskHTML() + planTodayHTML(PL); else if (cur && !lock && !c.isTest) {
     h += planAskHTML();
@@ -7414,14 +7438,16 @@ function renderHeute() {
     if (d.type !== 'kraft' && !c.isTest && !c.isMurph) h += runSegHTML(runMode(D)) + '<section class="card">' + ergoTargetHTML(todayRunSpec(tag)) + '</section>';
     var at = +(D._at || 0), wbAsk = cur && !at && wbDue(d);
     if (wbAsk) h += wbCardHTML();
-    if (lean && cur && !lock && d.type === 'kraft' && !c.isTest && !c.isMurph) h += firstTimeHTML(tag);
-    h += '<section class="card tl-card">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
-      return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div>' + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + '</div></li>';
+    // „Heute zum ersten Mal“ steht als „Neu“ am Schritt (mit Anleitung), keine eigene Karte mehr.
+    var ftS = lean && cur && !lock && d.type === 'kraft' && !c.isTest && !c.isMurph ? firstTimeSteps(tag) : {};
+    h += '<section class="card tl-card' + (lean ? ' lean' : '') + '">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
+      return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div>' + (lean && s.id === 'koerper' ? '' : '<div class="tl-d">' + esc(s.desc || '') + '</div>') + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + (ftS[s.id] ? firstTimeChips(ftS[s.id]) : '') + '</div></li>';
     }).join('') + '</ol>' + (cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '') + '</section>';
     if (cur && !lock && !at && !c.isTest && !c.isMurph && d.type === 'kraft' && !lean) h += fastHTML(tag);
     if (cur && !c.isTest && !c.isMurph && !lean) h += coachCardHTML(tag, miss);
     if (cur && !c.isTest && !c.isMurph && d.type === 'kraft' && (d.kraft.length || d.mmin)) h += adaptLineHTML(tag, false);
     else if (cur && d.type === 'interval') h += adaptLineHTML(tag, true);
+    h += askL; askL = '';
     h += blk; blk = '';
     if (cur) {
       if (!c.isTest && !c.isMurph && d.type === 'kraft' && !lean) { if (desk) side += progressHTML(tag); else h += progressHTML(tag); }
@@ -7462,8 +7488,13 @@ function renderHeute() {
 // Plan 2 schlank (Dennis: „viele Dinge können im Hintergrund laufen“): statt eigener Karten ein bis zwei ruhige Zeilen unter dem Titel.
 // Training: der wichtigste Hinweis für heute (müde, Wiedereinstieg, Phase, mehr Umfang); frei und erledigt: warum und wann es weitergeht.
 function heuteSub(kind, PL, tag) {
+  // Ein angenommener Ausfall steht zuerst; daneben bleibt eine Zeile (Training: der Hinweis des Tages, frei: der nächste Termin).
+  var ml = missAutoLine(), R = heuteSub0(kind, PL, tag); // Allgemeine Zeilen (Einstieg, mehr Umfang) treten dann zurück, Gründe für heute (müde, kürzer) bleiben.
+  return !ml ? R : [ml].concat(kind === 'free' ? R.slice(-1) : R.slice(0, 1).filter(function (x) { return !/^(Einstieg|Mehr Umfang)/.test(x); }));
+}
+function heuteSub0(kind, PL, tag) {
   var nx = PL.days.filter(function (x) { return x.i > PL.today && x.tag && !x.done; })[0];
-  var next = nx ? 'Nächstes Training: <b>' + WTAG[nx.i] + (nx.t != null ? ', ' + hm(nx.t - 24 * nx.i) : '') + '</b> · ' + esc(dayLabel(nx.tag)) : 'Diese Woche ist geschafft. Montag geht es weiter.';
+  var next = nx ? 'Nächstes Training: <b>' + WTAG[nx.i] + (nx.t != null ? ', ' + hm(nx.t - 24 * nx.i) : '') + '</b> <span class="nobr">· ' + esc(dayLabel(nx.tag)) + '</span>' : 'Diese Woche ist geschafft. Montag geht es weiter.';
   if (kind === 'free') { var zf = zoneFreeLine(); return [zf || esc(planFreeWhy(PL)), next]; }
   if (kind === 'done') return [next];
   var d = DAYS[tag] || {}, ph = curPhase(), p = pauseDays(), cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0, U = S.umfang;
@@ -7488,7 +7519,7 @@ function heuteSub(kind, PL, tag) {
 // tritt zur Seite (die Folge steht unter dem Titel), nur „Sehr müde“ bleibt sichtbar, damit man es am freien Tag ändern kann.
 function heuteAskHTML(PL, tag) {
   var mg = v2() ? morgenAskHTML(PL, tag) : ''; if (mg) return mg;
-  var row = v2() ? morgenRowHTML() : '', B = befDue(PL);
+  var row = v2() ? morgenRowHTML(PL, tag) : '', B = befDue(PL);
   var Q = [function () { return !v2() && B && (!B.ans || B.ans === 'very') ? befAskHTML(PL) : ''; }, function () { return tag ? painAskHTML(tag) : ''; }, missNoticeHTML, planNextAskHTML, backupHTML];
   for (var i = 0; i < Q.length; i++) { var x = Q[i](); if (x) return row + x; }
   return row;
@@ -7518,20 +7549,21 @@ function morgenRes(lvl, tag, free) {
 function morgenAskHTML(PL, tag) {
   var m = morgenOf(), today = isoToday();
   if ((m && !ui.mgEdit) || !S.started) return '';
-  if (!ui.mg || ui.mg.d !== today) ui.mg = { d: today, h: m ? +m.h : morgenSleep(PL), f: m ? +m.f : 3 };
+  // Nichts vorgewählt (ehrliche Zahlen): erst ein Tippen auf das Gefühl ist die Antwort und speichert.
+  if (!ui.mg || ui.mg.d !== today) ui.mg = { d: today, h: m ? +m.h : morgenSleep(PL), f: m ? +m.f : 0 };
   var B = PL ? befDue(PL) : null, chip = B ? (B.night ? 'Nach dem Nachtdienst' : B.an ? B.an.chip : B.cls !== 'ok' ? 'Schichtwechsel' : '') : '';
   var free = !tag || !(PL && PL.today >= 0 && PL.days[PL.today].tag), lvl = morgenLvl(ui.mg), A = S.alltag;
   var plan = A && (A.std || Object.keys(S.arbeit || {}).length || kalOn()) ? '<p class="mg-sub">Laut Plan waren etwa ' + fmtH(morgenSleep(PL)) + ' möglich.</p>' : '';
   return '<section class="card mg"><div class="mg-h"><b>Guten Morgen</b>' + (chip ? '<span class="chip">' + esc(chip) + '</span>' : '') + '</div>' +
     '<div class="mg-tile"><span><small>Geschlafen</small><b>' + fmtH(ui.mg.h) + '</b></span><span class="stepper"><button type="button" data-act="mg-h" data-d="-0.5" aria-label="Eine halbe Stunde weniger">–</button><button type="button" class="primary" data-act="mg-h" data-d="0.5" aria-label="Eine halbe Stunde mehr">+</button></span></div>' + plan +
-    '<p class="mg-q">Wie fühlst du dich damit?</p><div class="seg mg-seg" role="group" aria-label="Gefühl">' + MG_F.map(function (t, i) { var on = ui.mg.f === i + 1; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mg-f" data-v="' + (i + 1) + '" aria-pressed="' + on + '">' + t + '</button>'; }).join('') + '</div>' +
-    '<div class="mg-res"><i>i</i><span>' + esc(morgenRes(lvl, tag, free)) + '</span></div>' +
-    (lvl === 3 && !free ? '<button type="button" class="btn block" data-act="mg-off" style="margin-top:10px">Heute frei nehmen</button>' : '') +
-    '<button type="button" class="btn save block" data-act="mg-ok" style="margin-top:10px">Fertig</button></section>';
+    '<p class="mg-q">Wie fühlst du dich?</p><div class="seg mg-seg" role="group" aria-label="Gefühl">' + MG_F.map(function (t, i) { var on = ui.mg.f === i + 1; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mg-f" data-v="' + (i + 1) + '" aria-pressed="' + on + '">' + t + '</button>'; }).join('') + '</div>' +
+    '<p class="mg-sub">Ein Tippen auf dein Gefühl, dann richtet sich dein Coach danach.</p></section>';
 }
-function morgenRowHTML() {
+function morgenRowHTML(PL, tag) {
   var m = morgenOf(); if (!m || ui.mgEdit) return '';
-  return '<div class="vrows mg-row"><button type="button" class="vrow" data-act="mg-edit"><span class="gl-t"><b>Guten Morgen</b><small>' + fmtH(m.h) + ' Schlaf · Gefühl ' + MG_F[(+m.f || 3) - 1].toLowerCase() + '</small></span><span class="vr-v">Ändern</span></button></div>';
+  var free = !tag || !(PL && PL.today >= 0 && PL.days[PL.today].tag), lvl = morgenLvl(m), off = S.planOv && S.planOv[isoToday()] && S.planOv[isoToday()].reason === 'sehrmuede';
+  return '<div class="vrows mg-row"><button type="button" class="vrow" data-act="mg-edit"><span class="gl-t"><b>Guten Morgen</b><small>' + fmtH(m.h) + ' Schlaf · Gefühl ' + MG_F[(+m.f || 3) - 1].toLowerCase() + '</small><small>' + esc(morgenRes(lvl, tag, free)) + '</small></span><span class="mg-chg">Ändern</span></button></div>' +
+    (lvl === 3 && !free && !off ? '<button type="button" class="btn block" data-act="mg-off" style="margin:-4px 0 12px">Heute frei nehmen</button>' : '');
 }
 function morgenSave(off) {
   var today = isoToday(), lim = isoAdd(today, -60), M = {}, B = {}, lvl = morgenLvl(ui.mg);
@@ -7545,9 +7577,9 @@ function morgenSave(off) {
   ui.mgEdit = false; WKP_C.k = null; saveState(); render();
 }
 ACT['mg-h'] = function (el) { ui.mg.h = Math.max(2, Math.min(12, ui.mg.h + (+el.dataset.d))); render(); };
-ACT['mg-f'] = function (el) { ui.mg.f = +el.dataset.v; render(); };
+ACT['mg-f'] = function (el) { ui.mg.f = +el.dataset.v; morgenSave(false); };
 ACT['mg-ok'] = function () { morgenSave(false); };
-ACT['mg-off'] = function () { morgenSave(true); toast('Heute frei. Dein Coach plant die Woche neu.'); };
+ACT['mg-off'] = function () { var m = morgenOf(); if (m && !ui.mgEdit) ui.mg = { d: isoToday(), h: +m.h, f: +m.f }; morgenSave(true); toast('Heute frei. Dein Coach plant die Woche neu.'); };
 ACT['mg-edit'] = function () { var m = morgenOf(); ui.mg = { d: isoToday(), h: +m.h, f: +m.f }; ui.mgEdit = true; render(); };
 /* ---------- Körper-Check vor dem Start (Dennis, Paket 59): Muskeln auf der Figur antippen, einmal Kater, zweimal Schmerz ---------- */
 var KC_R = { l: 1, m: 2, s: 3 };
@@ -9024,6 +9056,12 @@ function missHealth(date) {
     else { S.planCare = Object.assign({}, S.planCare, { reason: v }); missReady('rest'); }
   });
 }
+ACT['miss-wrong'] = function () {
+  var L = missAutoDates(), dt = L[L.length - 1]; if (!dt) return;
+  openChoice('Was war ' + (L.length === 1 ? 'da' : 'am ' + fmtDate(dt)) + ' los?', 'Ohne Antwort nimmt dein Coach an, dass die Einheit ausgefallen ist.', [['logged', 'Trainiert, aber nicht eingetragen'], ['health', 'Krank / Beschwerden']], function (v) {
+    if (v === 'logged') missOpenLog(dt); else if (v === 'health') missHealth(dt);
+  });
+};
 ACT['miss-reason'] = function (el) {
   var date = el.dataset.date, v = el.dataset.v;
   if (v === 'logged') return missOpenLog(date);
@@ -9554,6 +9592,22 @@ function firstTimeList(tag) {
   if (A && UE[A.id] && !LOGS.some(function (l) { return l.ausgleich && l.ausgleich.ue === A.id; })) out.push({ n: UE[A.id].name, sub: 'Ausgleich', id: A.id });
   return out.filter(function (x, i) { return out.findIndex(function (y) { return y.n === x.n; }) === i; }).slice(0, 6);
 }
+// Neue Übungen je Schritt: Kraft am Kraftschritt, Metcon am Metcon bzw. Abschluss, Ausgleich am Ausgleich.
+function firstTimeSteps(tag) {
+  var o = {}, ids = stepsOf(dayCtx(tag)).map(function (s) { return s.id; }), put = function (k, x) { var id = ids.indexOf(k) >= 0 ? k : ids.indexOf('kraft') >= 0 ? 'kraft' : ids[ids.length - 1]; (o[id] = o[id] || []).push(x); };
+  firstTimeList(tag).forEach(function (x) { put(x.sub === 'Metcon' ? (ids.indexOf('metcon') >= 0 ? 'metcon' : 'fin') : x.sub === 'Ausgleich' ? 'ausgl' : 'kraft', x); });
+  return o;
+}
+function firstTimeChips(L) {
+  var ids = L.filter(function (x) { return x.id; }).map(function (x) { return x.id; }).join(',');
+  return '<button type="button" class="btn small tl-neu" data-act="ft-open" data-ids="' + esc(ids) + '"><span class="chip blue">Neu</span>' + (L.length === 1 ? esc(L[0].n) + ' ansehen' : L.length + ' neue Übungen ansehen') + '</button>';
+}
+// Blatt „Heute zum ersten Mal“: je Übung eine Zeile, Tippen zeigt Figur und „So geht’s“.
+ACT['ft-open'] = function (el) {
+  var L = firstTimeList(S.tag).filter(function (x) { return x.id && String(el.dataset.ids).split(',').indexOf(x.id) >= 0; });
+  if (L.length === 1) return ACT['ue-info']({ dataset: { id: L[0].id, how: '1' } });
+  openChoice('Heute zum ersten Mal', 'Tippen zeigt, wie die Übung geht.', L.map(function (x) { return [x.id, x.n + ' · ' + x.sub]; }), function (v) { if (v) ACT['ue-info']({ dataset: { id: v, how: '1' } }); });
+};
 function firstTimeHTML(tag) {
   var L = firstTimeList(tag); if (!L.length) return '';
   return '<section class="card ft-card"><h3>Heute zum ersten Mal</h3><p class="small muted">Schau dir vor dem Start an, wie ' + (L.length === 1 ? 'sie geht' : 'sie gehen') + '. Tippen öffnet die Anleitung.</p>' +
