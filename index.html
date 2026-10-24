@@ -2712,7 +2712,7 @@ var TEST_BASE = {
 var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, fsView: 'one', comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
-  fokus: 'allround', blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
+  fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
   planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null };
 
 var LS = {
@@ -2869,7 +2869,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage', 'schwerpunkt'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -7622,10 +7622,11 @@ function coachItems(tag, miss) {
   if (S.autoRest === isoToday()) add('top', coachItem('ok', 'Der Ruhetag ist vorbei, der Coach hat ihn gezählt.'));
   if (befOf(isoToday()) === 'tired' && d.type === 'kraft' && tag === S.tag && !doneToday0()) add('top', coachItem('i', 'Heute kürzer, weil du Müdigkeit gemeldet hast.'));
   if (v2() && S.umfang && S.umfang.why === 'auf' && Date.now() - S.umfang.ts < 7 * 864e5 && S.umfang.from != null) add('top', coachItem('up', '<b>Mehr Umfang</b>: ' + esc(umfDiff(S.umfang.from, S.umfang.u)) + '. Du hast die letzten zwei Wochen alles gut geschafft.'));
+  if (spOf() === 'kb' && d.type === 'kraft' && !spKb()) add('top', coachItem('i', 'Hier gibt es keine Kettlebell. Heute trainierst du ohne deinen Schwerpunkt.'));
   if (S.comeback && S.comeback.n > 0) add('top', coachItem('i', 'Wiedereinstieg nach der Pause: noch ' + (S.comeback.n === 1 ? '1 Einheit' : S.comeback.n + ' Einheiten') + ' kürzer.'));
   if (d.type === 'kraft') {
     (pf.neu[tag] || []).forEach(function (n) { var a = LAD[n.from], b = LAD[n.to]; add('kraft', coachItem(n.why === 'neu' || n.why === 'zurueck' ? 'up' : 'i', '<b>' + esc(b.name) + '</b> statt ' + esc(a.name) + (n.why === 'neu' ? ': neu freigeschaltet, mehr Nutzen.' :
-      n.why === 'zurueck' ? ': das Gerät dafür ist jetzt da.' : n.why === 'weiter' ? ': bei ' + esc(a.name) + ' fehlt hier das Gerät für die nächste Stufe, so kommst du weiter.' : n.why === 'metcon' ? ': ' + esc(a.name) + ' ist eine Metcon-Übung, im Kraftteil zählen wenige schwere Wiederholungen.' : n.why === 'eq' ? ', weil hier ein Gerät fehlt' + (EQ[n.eq] ? ' (' + esc(EQ[n.eq].name) + ')' : '') + '.' : ': ' + esc(a.name) + ' kam 3-mal nicht weiter.'))); });
+      n.why === 'zurueck' ? ': das Gerät dafür ist jetzt da.' : n.why === 'fokus' ? ': dein Schwerpunkt ist Kettlebell.' : n.why === 'weiter' ? ': bei ' + esc(a.name) + ' fehlt hier das Gerät für die nächste Stufe, so kommst du weiter.' : n.why === 'metcon' ? ': ' + esc(a.name) + ' ist eine Metcon-Übung, im Kraftteil zählen wenige schwere Wiederholungen.' : n.why === 'eq' ? ', weil hier ein Gerät fehlt' + (EQ[n.eq] ? ' (' + esc(EQ[n.eq].name) + ')' : '') + '.' : ': ' + esc(a.name) + ' kam 3-mal nicht weiter.'))); });
     (pf.why[tag] || []).forEach(function (w) { add('kraft', coachItem('i', esc(w))); });
     if (d.hs && zeitLv(tag) < 1) add('hs', skillNote(skillKey(tag), false));
     if (d.jumps && d.jumps.lad && LAD[d.jumps.lad]) { var js = jumpStage(d.jumps.lad); if (js.up) add('warm', coachItem('up', '<b>Sprünge</b>: zweimal sauber. Heute „' + esc(jumpN(d)) + '“.')); else if (js.down) add('warm', coachItem('i', '<b>Sprünge</b>: nach der Pause eine Stufe leichter, „' + esc(jumpN(d)) + '“.')); }
@@ -9998,6 +9999,19 @@ function kgGrow(id, have) {
 }
 // Equipment-Gruppen: jede Gruppe muss erfüllt sein, innerhalb einer Gruppe reicht ein Gerät.
 function eqOk(groups, have) { return !groups || groups.every(function (g) { return !g.length || g.some(function (x) { return have[x]; }); }); }
+/* ---------- Schwerpunkt (Dennis, 24. Oktober): färbt Allround ein, Aufbau, Blöcke, Tests und Stufen bleiben ---------- */
+// Kettlebell: im Kraftteil die Kettlebell-Variante, wo sie fast so nützlich ist (`SP_BONUS`), Metcon mit Kettlebell zuerst,
+// Abschluss der B-Einheiten immer als Metcon. Eine Challenge geht beim Abschluss vor. Ohne Kettlebell am Ort gilt der Plan wie sonst.
+var SP = { kb: { name: 'Kettlebell', kurz: 'Swing, Goblet, Press und Row mit der Kettlebell, Metcon als Kettlebell-Komplex.' } }, SP_BONUS = 10;
+function spOf() { return SP[S.schwerpunkt] ? S.schwerpunkt : null; }
+function isKbEq(groups) { return (groups || []).some(function (g) { return g.indexOf('eq_kettlebell') >= 0 || g.indexOf('eq_kb_paar') >= 0; }); }
+function spKb(have) { return spOf() === 'kb' && !!(have || haveEq(trainOrt())).eq_kettlebell; }
+// Leiter, deren Stufe hier (aktuelle bzw. erste machbare) mit der Kettlebell geht.
+function kbLad(key, have, st) {
+  var l = LAD[key] && LAD[key].lib; if (!l) return false;
+  var ok = l.stufen.map(function (x) { return eqOk(x.equipment, have); }), c = st && st[key] && st[key].cur ? st[key].cur - 1 : ok.indexOf(true);
+  return c >= 0 && ok[c] && isKbEq(l.stufen[c].equipment);
+}
 function eqMissing(groups, have) {
   var g = (groups || []).filter(function (g) { return g.length && !g.some(function (x) { return have[x]; }); })[0];
   return g ? g.map(function (x) { return EQ[x] ? EQ[x].name : x; }).join(' oder ') : '';
@@ -10661,7 +10675,8 @@ function finOf(tag, zl) {
   if (d.cmc && CHAL[d.cmc] && d.metcon.length) return { k: 'metcon', min: metconMin(tag) };
   var calm = kurz || p.deload || p.test || !grundOk() || morgenMild(tag) || zoneLegs(tag);
   if (kurz || p.deload) f = Math.max(6, 2 * Math.round(f * .3));
-  if (!calm && d.fin === 'b' && d.mmin && d.metcon.length && (S.durchgang % 2 || !dev.iv)) return { k: 'metcon', min: d.mmin };
+  // Schwerpunkt Kettlebell: B endet immer mit dem Kettlebell-Metcon (eine Challenge hat beim Abschluss Vorrang).
+  if (!calm && d.fin === 'b' && d.mmin && d.metcon.length && (S.durchgang % 2 || !dev.iv || (spKb() && !chal()))) return { k: 'metcon', min: d.mmin };
   var blk = p.blk;
   if (!calm && blk === 'spitze' && dev.iv && d.fin !== 'b') return { k: 'iv', min: f, n: f - 4, dev: dev }; // Spitze: kurz und intensiv
   if (!calm && d.fin === 'b' && dev.iv && blk === 'aufbau') return { k: 'steady', min: Math.min(f + 4, d.finMax || 99, dev.id === 'geh' ? FIN_GEH_MAX : 99), dev: dev }; // Aufbau: Kardio eher länger
@@ -10758,9 +10773,11 @@ var FILL = { k: null, v: null };
 function planFill() {
   ensureOrte();
   var zT0 = DAYS[S.tag] ? zoneToday(S.tag) : null, zmu0 = zT0 && !zT0.off ? zT0.mu : [];
-  var O = trainOrt(), k = [LOGS.length, O.id, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base), S.tag + ':' + zmu0.join(',')].join('|');
+  var O = trainOrt(), k = [LOGS.length, O.id, S.durchgang, S.fokus, DAYS_K, JSON.stringify(S.orte), JSON.stringify(S.picks), JSON.stringify(S.pickSkip), JSON.stringify(S.base), S.tag + ':' + zmu0.join(','), spOf()].join('|');
   if (FILL.k === k) return FILL.v;
   var st = ladderStates(LOGS), have = haveEq(O), used = {}, out = { kraft: {}, metcon: {}, neu: {}, kraftKeys: {}, missing: {}, why: {}, mwhy: {} }, sc = partScores(st);
+  // Schwerpunkt Kettlebell: Kettlebell-Leitern zählen etwas mehr (nur, wo hier eine Kettlebell ist).
+  var kbOn = spKb(have), nF = function (x) { return nutzenOf(x) + (kbOn && kbLad(x, have, st) ? SP_BONUS : 0); }, byF = function (a, b) { return nF(b) - nF(a) || byNutzen(a, b); };
   var tags = Object.keys(DAYS).filter(function (t) { return DAYS[t].type === 'kraft'; }).sort(function (a, b) { return (DAYS[a].fill || 9) - (DAYS[b].fill || 9) || a - b; });
   tags.forEach(function (tag) {
     var d = DAYS[tag], kr = [];
@@ -10788,7 +10805,7 @@ function planFill() {
       }
       // Dennis: Leitern, die hier nicht weitergehen (Thruster zu Hause: nur „Air Squat“, für die nächste Stufe fehlt das Gerät), kommen zuletzt.
       var room = function (x) { return ladRoom(x, have, st); }, room1 = function (x) { return ladRoom(x, have, st, true); };
-      cands.sort(function (a, b) { return room(b) - room(a) || (st[b] && st[b].cur ? 1 : 0) - (st[a] && st[a].cur ? 1 : 0) || byNutzen(a, b); });
+      cands.sort(function (a, b) { return room(b) - room(a) || (st[b] && st[b].cur ? 1 : 0) - (st[a] && st[a].cur ? 1 : 0) || byF(a, b); });
       var sk = slotKey(tag, i + 1), pk = S.picks[sk], fbn = FB_KRAFT[mu[0]], fb = fbn && GL[fbn] ? GL[fbn].key : null;
       var cur = pk && cands.indexOf(pk) >= 0 ? pk : fb && cands.indexOf(fb) >= 0 ? fb : cands[0] || null;
       if (!cands.length) out.missing[tag].push(mu.map(function (m) { return MUSTER[m] || m; }).join(' oder '));
@@ -10801,7 +10818,11 @@ function planFill() {
       // Auch nicht zurück auf eine Leiter, die wegen Stillstand verlassen wurde oder die nur Ersatz war (Gerät wieder da).
       var held = {}, sw0 = (S.swapped || {})[sk]; Object.keys(S.picks).forEach(function (k2) { if (k2 !== sk && k2.indexOf(O.id + ':') === 0) held[S.picks[k2]] = 1; });
       if (sw0 && (sw0.why === 'reiz' || sw0.why === 'zurueck')) held[sw0.from] = 1;
-      var free = cands.filter(function (x) { return x !== cur && !used[x] && !held[x]; }), best = free.filter(function (x) { return !stallOf(x) && (room(x) || !room(cur)); }).sort(byNutzen)[0];
+      var free = cands.filter(function (x) { return x !== cur && !used[x] && !held[x]; }), best = free.filter(function (x) { return !stallOf(x) && (room(x) || !room(cur)); }).sort(byF)[0];
+      // Schwerpunkt: auf die Kettlebell-Variante, wenn sie mit dem Bonus vorn liegt und es dort weitergeht.
+      var fkb = kbOn && !kbLad(cur, have, st) ? free.filter(function (x) { return kbLad(x, have, st) && room1(x) && !stallOf(x); }).sort(byF)[0] : null;
+      // Nur, wenn der Bonus den Ausschlag gibt (sonst ist es ein ganz normaler Wechsel auf mehr Nutzen).
+      if (fkb && (nF(fkb) <= nF(cur) || nutzenOf(fkb) > nutzenOf(cur))) fkb = null;
       var onward = !room(cur) ? free.filter(function (x) { return room1(x) && !stallOf(x); }).sort(byNutzen)[0] : null;
       // Gewählte Leiter geht hier nicht mehr (Gerät fehlt, z. B. Fußanker für Nordic Curls): der Coach nimmt die nützlichste,
       // die hier geht, und sagt einmal warum (bis der Ersatz trainiert ist). Ist das Gerät wieder da, nimmt er die alte Wahl zurück.
@@ -10814,7 +10835,8 @@ function planFill() {
       else if (sw0 && sw0.why === 'eq' && sw0.to === cur && cands.indexOf(sw0.from) >= 0 && !used[sw0.from] && !held[sw0.from]) swap(sw0.from, 'zurueck');
       else if (pk && pk !== cur && METCON_LAD(pk) && !(sw0 && sw0.from === pk)) { cur = best && nutzenOf(best) > nutzenOf(cur) ? best : cur; S.swapped = Object.assign({}, S.swapped || {}); S.swapped[sk] = { from: pk, to: cur, why: 'metcon', ts: Date.now() }; S.picks[sk] = cur; setTimeout(saveState, 0); }
       else if (onward) swap(onward, 'weiter');
-      else if (best && nutzenOf(best) > nutzenOf(cur)) swap(best, 'neu');
+      else if (fkb) swap(fkb, 'fokus');
+      else if (best && nF(best) > nF(cur) && nutzenOf(best) > nutzenOf(cur)) swap(best, kbOn && kbLad(best, have, st) && free.filter(function (x) { return !stallOf(x) && (room(x) || !room(cur)); }).sort(byNutzen)[0] !== best ? 'fokus' : 'neu');
       // Stillstand: lieber eine Leiter, auf der es hier weitergeht, nie zuerst eine Sackgasse (Prüfung 21. Oktober: Band Squat → Air Squat ohne Weste).
       else if (LAD[cur] && stallOf(cur) && free[0]) swap(free.filter(function (x) { return room1(x) && !stallOf(x); })[0] || free.filter(function (x) { return !stallOf(x); })[0] || free[0], 'reiz');
       var sw = (S.swapped || {})[sk];
@@ -10835,10 +10857,12 @@ function planFill() {
     (out.kraft[tag] || []).forEach(function (x) { if (GL[x.n]) today[GL[x.n].key] = 1; });
     var fb = d.mfb ? DAYS0[d.mfb].metcon : [], res = [], need = musBalance().need.slice(0, 3), aus = false;
     (d.mslots || []).forEach(function (spec, i) {
+      // Schwerpunkt Kettlebell: statt Kardio ein Schwung oder Umsetzen (Swing, Clean, Snatch), im Rumpf auch die Rotation (Halo, Around the World).
+      if (kbOn) spec = spec.indexOf('ausdauer') >= 0 ? ['huefte', 'olympisch'] : spec.some(function (m) { return /^rumpf/.test(m); }) ? spec.concat(['rumpf_rotation']) : spec;
       var cands = LIB.metcon.filter(function (m) {
         var u = UE[m.uebung];
         return u && spec.indexOf(u.muster) >= 0 && !mu[m.uebung] && !today[m.uebung] && !TEMPO_KEYS[m.uebung] && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st);
-      }).sort(function (a, b) { return UE[b.uebung].nutzen - UE[a.uebung].nutzen; });
+      }).sort(function (a, b) { return (kbOn && isKbEq(UE[b.uebung].equipment)) - (kbOn && isKbEq(UE[a.uebung].equipment)) || UE[b.uebung].nutzen - UE[a.uebung].nutzen; });
       // Paket 60: heute keine Metcon-Übung auf einer müden Zone, wenn es eine andere gibt.
       if (+tag === S.tag && zmu0.length) { var zc = cands.filter(function (m) { return !zoneHitsUe(m.uebung, zmu0).length; }); if (zc.length) cands = zc; }
       cands = cands.slice(0, 4);
@@ -10846,7 +10870,7 @@ function planFill() {
       var m = cands[(S.durchgang + i) % cands.length];
       // Muskelausgleich: einmal am Tag eine Übung, die trifft, was zu kurz kommt (aus denselben 4 Kandidaten).
       if (!aus && need.length && !musHit(m.uebung, need)) {
-        var hit = cands.filter(function (x) { return musHit(x.uebung, need) > 0; }).sort(function (a, b) { return musHit(b.uebung, need) - musHit(a.uebung, need); })[0];
+        var hit = cands.filter(function (x) { return musHit(x.uebung, need) > 0 && (!kbOn || isKbEq(UE[x.uebung].equipment)); }).sort(function (a, b) { return musHit(b.uebung, need) - musHit(a.uebung, need); })[0];
         if (hit) {
           var mm = (UE[hit.uebung].muskeln.primaer || []).filter(function (x) { return need.indexOf(x) >= 0; })[0];
           out.mwhy[tag] = 'Ausgleich: ' + UE[hit.uebung].name + ' statt ' + UE[m.uebung].name + ', weil ' + (MUS_NAME[mm] || 'das') + ' zuletzt zu kurz kam.';
@@ -11680,6 +11704,12 @@ function renderFokus() {
     '<button type="button" class="gl-row' + (C ? '' : ' on') + '" data-act="ch-none" aria-pressed="' + !C + '"><span class="ch-ic">' + fkIcon(CH_FREE) + '</span><span class="gl-t"><b>Einfach trainieren</b><small>Kein Wettkampf: Allround läuft ohne Datum weiter, Block für Block.</small></span>' + (C ? '' : OK2) + '</button>' +
     (C ? '<button type="button" class="gl-row on" data-act="ch-open" data-v="' + S.challenge.id + '" aria-pressed="true"><span class="ch-ic">' + fkIcon(C.ic) + '</span><span class="gl-t"><b>' + esc(C.name) + '</b><small>' + esc(fmtDateLong(S.challenge.date)) + ' · ' + (dl <= 0 ? 'heute' : dl === 1 ? 'morgen' : 'noch ' + dl + ' Tage') + (dl > 0 && dl <= 14 ? ' · Taper' : '') + '</small></span>' + OK2 + '</button>' +
       '<div class="bgrp"><button type="button" class="red" data-act="ch-end">Challenge beenden</button></div>' : '') + '</section>';
+  // Schwerpunkt: färbt Allround ein (Kraftteil, Metcon, Abschluss). Gilt neben einer Challenge im Kraftteil weiter.
+  var sp = spOf();
+  h += '<h2 class="ch-h">Schwerpunkt</h2><section class="card"><div class="seg" role="group" aria-label="Schwerpunkt">' + [[null, 'Keiner']].concat(Object.keys(SP).map(function (k) { return [k, SP[k].name]; })).map(function (x) {
+    return '<button type="button" class="seg-btn' + (x[0] === sp ? ' on' : '') + '" data-act="sp-set" data-v="' + (x[0] || '') + '" aria-pressed="' + (x[0] === sp) + '">' + esc(x[1]) + '</button>';
+  }).join('') + '</div><p class="small muted" style="margin:10px 0 0">' + (sp ? esc(SP[sp].kurz) + (spKb() ? '' : ' An deinem Ort ' + esc(ortName(trainOrt())) + ' fehlt die Kettlebell, dort trainierst du wie sonst.') + (C ? ' Mit Challenge zählt beim Abschluss das Ziel.' : '') :
+    'Allround ohne Schwerpunkt: der Coach nimmt, was am meisten bringt.') + '</p></section>';
   h += '<h2 class="ch-h">' + (C ? 'Andere Challenge' : 'Challenge dazubuchen') + '</h2><p class="small muted" style="margin-top:-4px">Ein Ziel mit Datum. Der Plan rechnet rückwärts, mit Taper, danach geht es mit Allround weiter.</p>';
   CHAL_GRP.forEach(function (g) {
     var ids = CHAL_IDS.filter(function (id) { return CHAL[id].grp === g[0]; });
@@ -11693,6 +11723,7 @@ function renderFokus() {
 }
 var CH_FREE = 'M7 9a3 3 0 1 0 0 6c2 0 3-1.5 5-3s3-3 5-3a3 3 0 1 1 0 6c-2 0-3-1.5-5-3S9 9 7 9z';
 // „Einfach trainieren“: ohne Challenge ist es schon gewählt, mit Challenge fragt es, ob sie enden soll.
+ACT['sp-set'] = function (el) { var v = SP[el.dataset.v] ? el.dataset.v : null; if (v === spOf()) return; S.schwerpunkt = v; FILL.k = null; saveState(); toast(v ? 'Schwerpunkt ' + SP[v].name + ': gilt ab jetzt.' : 'Ohne Schwerpunkt.'); render(); };
 ACT['ch-none'] = function () { if (chal()) ACT['ch-end'](); else toast('Läuft schon: Allround ohne Wettkampf.'); };
 ACT['fk-open'] = function (el) { ui.fkFrom = el.dataset.from || 'heute'; ui.tab = 'fokus'; window.scrollTo(0, 0); render(); };
 ACT['fk-go'] = function () { startBlock(S.review ? S.review.fokus : S.fokus); };

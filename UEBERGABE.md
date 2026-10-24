@@ -4,8 +4,21 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 23. Oktober 2026 (Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 24. Oktober 2026 (Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
+
+## Schwerpunkt Kettlebell (24. Oktober 2026, Claude)
+- Dennis: „können wir beim Allround-Plan Trainingsschwerpunkte legen? Z. B. Kettlebell, CrossFit, Hyrox?“, dann „leg los“.
+- Konzept: ein Schwerpunkt färbt Allround ein. Aufbau, Blöcke, Tests und Stufen bleiben gleich. Einstellung in Plan & Challenges › Schwerpunkt
+  (Keiner | Kettlebell, `S.schwerpunkt`, synchronisiert).
+- Kettlebell, nur wo am Ort eine Kettlebell ist (`spKb`):
+  - Im Kraftteil bekommen Leitern, deren Stufe hier mit Kettlebell geht, 10 Punkte Bonus (`SP_BONUS`, `kbLad`). Zum Beispiel nimmt die Hüfte den Swing statt Deadlift,
+    sobald die Voraussetzung (Glute Bridge „Einbeinig“) da ist. Hinweis: „X statt Y: dein Schwerpunkt ist Kettlebell.“ (`why: 'fokus'`).
+  - Im Metcon kommen Kettlebell-Übungen zuerst; statt Kardio steht ein Swing oder Clean im Metcon, im Rumpf auch Rotation (Halo, Around the World).
+  - B endet immer mit dem Metcon. Hat Dennis eine Challenge, hat das Ziel beim Abschluss Vorrang.
+  - Ohne Kettlebell am Ort trainiert er wie sonst, Hinweis in der Coach-Karte.
+- Offen: Skill-Block mit Turkish Get-up/Windmill im Wechsel, Snatch-Test (100 in 5 Min) in der Testwoche, Gewichtsschritte der eigenen Kettlebell,
+  danach die Schwerpunkte CrossFit und Hyrox. Die Kettlebell-Grafiken (Runde 1) warten weiter auf Freigabe.
 
 ## Eine oder zwei Kettlebells, weitere Übungen, Grafiken Runde 1 (23. Oktober 2026, Claude)
 - Dennis: „noch mehr Kettlebell-Übungen, zwischen einer und zwei Kettlebells auswählen, dann mit den Animationen anfangen“.

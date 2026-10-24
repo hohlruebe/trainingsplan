@@ -322,6 +322,31 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: 'Fertig', exact: true }).click();
     console.log('PASS: Kettlebell eine oder zwei, verstellbar; verstellbar steigert über das Gewicht, zwei schalten Doppel-Übungen frei');
 
+    // Schwerpunkt Kettlebell (Dennis, 24. Oktober): Plan & Challenges › Schwerpunkt, Kraftteil nimmt den Swing, Metcon mit Kettlebell, B endet mit Metcon.
+    const spLogs = ['2026-09-28', '2026-09-30', '2026-10-02', '2026-10-05', '2026-10-07', '2026-10-09', '2026-10-12', '2026-10-14'].map((date, i) => {
+      const tag = [1, 3, 6][i % 3];
+      return { id: 'sp' + i, ts: Date.parse(date + 'T17:00:00Z'), date, durchgang: 4, tag, kind: 'kraft', pv: 2, name: 'Ganzkörper',
+        kraft: tag === 3 ? [{ n: 'Deadlift', stage: 'Deadlift', goal: 5, reps: [5, 5, 5, 5], kg: [100, 100, 100, 100] }, { n: 'Glute Bridge', stage: 'Einbeinig', goal: 10, reps: [10, 10, 10, 10] }]
+          : [{ n: 'Back Squat', stage: 'Back Squat', goal: 5, reps: [5, 5, 5, 5], kg: [80, 80, 80, 80] }] };
+    });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(kbSt('eq_kb_verstellbar'), { durchgang: 5, tag: 3, planWk: '2026-10-19' }), spLogs]);
+    const ohne = await page.evaluate(() => window.tpTest.fill());
+    assert.equal(ohne.kraft[3][2].n, 'Deadlift', 'ohne Schwerpunkt bleibt der Deadlift');
+    await page.evaluate(() => window.tpTest.navigate('fokus'));
+    await page.getByRole('group', { name: 'Schwerpunkt' }).getByRole('button', { name: 'Kettlebell', exact: true }).click();
+    assert.equal(await page.evaluate(() => window.tpTest.state().schwerpunkt), 'kb');
+    const mit = await page.evaluate(() => window.tpTest.fill());
+    assert.equal(mit.kraft[3][2].n, 'Kettlebell Swing', 'Hüfte: Swing statt Deadlift (' + mit.kraft[3].map(x => x.n) + ')');
+    assert.ok(mit.metcon[3].length >= 2 && mit.metcon[3].every(x => /Kettlebell|Dumbbell|High Pull|Swing|Clean|Snatch|Goblet|Thruster/.test(x.n)), 'Metcon mit Kettlebell (' + mit.metcon[3].map(x => x.n) + ')');
+    assert.match(await page.evaluate(() => window.tpTest.coach(3)), /Kettlebell Swing statt Deadlift: dein Schwerpunkt ist Kettlebell\./);
+    await page.evaluate(() => { const S = window.tpTest.state(); S.orte[0].eq = S.orte[0].eq.filter(x => !/kb|kettle/.test(x)); });
+    assert.match(await page.evaluate(() => window.tpTest.coach(3)), /Hier gibt es keine Kettlebell/);
+    await page.evaluate(() => window.tpTest.navigate('fokus'));
+    assert.match(await page.locator('main').innerText(), /fehlt die Kettlebell, dort trainierst du wie sonst/);
+    await page.getByRole('group', { name: 'Schwerpunkt' }).getByRole('button', { name: 'Keiner', exact: true }).click();
+    assert.equal(await page.evaluate(() => window.tpTest.state().schwerpunkt), null);
+    console.log('PASS: Schwerpunkt Kettlebell: Einstellung, Swing im Kraftteil, Kettlebell-Metcon, Hinweis ohne Kettlebell');
+
     // Leistung als Signal (Paket 58): zweimal hintereinander Vorgabe verfehlt → die nächste Einheit ist kürzer, mit Rückweg.
     await page.clock.setFixedTime(new Date('2026-10-14T10:00:00+02:00'));
     const kx = (id, date, tag, reps) => ({ id, ts: Date.parse(date + 'T17:00:00Z'), date, durchgang: 5, tag, kind: 'kraft', pv: 2, name: 'Ganzkörper',
