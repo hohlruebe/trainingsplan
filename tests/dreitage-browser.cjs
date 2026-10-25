@@ -97,6 +97,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#fs [data-act="fs-view"][data-v="list"]').click();
     assert.equal(await page.evaluate(() => window.tpTest.state().fsView), 'list', 'die Ansicht merkt sich die App');
     assert.ok(await page.locator('#fs .fs-rows .fs-row').count() >= 3, 'Liste wie ein Whiteboard');
+    assert.equal(await page.locator('#fs .fs-rows [data-act="fl-done"]').count(), 0, 'Liste ohne Abhaken (Dennis: das Ergebnis kommt danach)');
     await page.locator('#fs .fs-nav .btn.primary').click();
     await page.reload();
     assert.ok(await page.locator('#fs .fs-tr .st-prog').isVisible(), 'nach dem Neuladen geht es beim Schritt im Vollbild weiter');

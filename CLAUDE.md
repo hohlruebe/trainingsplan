@@ -632,7 +632,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Zurück/Weiter grau mit „Uhr läuft · lang drücken“, `ACT.step` bleibt beim Schritt (Hinweis), langes Drücken (700 ms) überspringt (`force`, `FS.lpStep`).
   `ACT['k-rep']` setzt ohne laufende Uhr `ui.kSel` auf die Minute des Zählers (sonst sprang `kraftNow` weiter). Schmerzen-Knopf `.st-flag` (`PAIN_FLAG`, `pain-s`) im Kopf
   jedes Schritts aus `PAIN_STEPS`. Einzeln | Liste unter dem Ring (`.fs-dig2`, beim Sperren ausgeblendet), Kopf zeigt „x von n“ ganz. Liste: `fsQty` (Zahl groß, Einheit klein),
-  `fsName` (kein Umbruch am Bindestrich), „Erledigt“ unter der offenen Zeile, Bandstufe einzeilig. Quer: Texte mindestens 14 px (`max(14px, …)`), Zähler 44 px, (i) mit 44-px-Fläche.
+  `fsName` (kein Umbruch am Bindestrich), kein „Erledigt“ in der Liste (Dennis: das Ergebnis kommt danach), Bandstufe einzeilig. Quer: Texte mindestens 14 px (`max(14px, …)`), Zähler 44 px, (i) mit 44-px-Fläche.
   `saveAsk`: lief die Uhr des letzten Schritts nie, erst „<Schritt> noch nicht gemacht“ (Hauptaktion „Zurück zum Training“). `.btn.save` mit dunkler Schrift (`#0E2A18`).
   Heute erledigt: zuerst `outlookHTML`, ohne Ausfall-Zeile, Fragen darunter; Guten Morgen ohne Folge-Satz.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`

@@ -9508,7 +9508,8 @@ function fsFlowHTML(F) {
   h += '<div class="fs-rows">' + F.items.map(function (it, i) {
     var on = i === cur, dn = rm === 'ex' && (single ? i < s.c : s.done.indexOf(i) >= 0);
     return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + '"><b>' + fsQty(it.qty) + '</b><span>' + fsName(it.n) + '</span>' +
-      (on ? '<button type="button" class="btn primary small" data-act="fl-done" data-flow="' + F.id + '"' + (single ? '' : ' data-i="' + i + '"') + '>Erledigt</button>' : dn ? '<i class="fs-ok">✓</i>' : '') + fsI(it.n, it.key) + '</div>';
+      // Dennis (25. Oktober): in der Liste nichts abhaken, das Ergebnis trägt man danach ein; die laufende Übung bleibt nur markiert.
+      (dn ? '<i class="fs-ok">✓</i>' : '') + fsI(it.n, it.key) + '</div>';
   }).join('') + '</div>';
   return h;
 }

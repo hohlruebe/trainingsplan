@@ -13,6 +13,7 @@ Stand: 25. Oktober 2026 (Trainer neu sortiert nach Impeccable-Kritik; davor Heut
   Board https://claude.ai/artifact/VDawHexGmXDQnzyT1HKVse. P0: „Weiter“ stoppte ein laufendes EMOM still. P1: Liste verrutscht, Zähler traf die falsche Minute,
   kein Schmerzen-Knopf, Querformat mit 8,5-px-Texten. P2: Kopf abgeschnitten, Speichern ohne Kardio ohne Warnung, Ende mit Ausfall-Zeile.
 - Dennis' Antworten: Fehler zuerst, „Weiter erst nach der Uhr“ (lang drücken überspringt), alle sechs Punkte. Entwurf: https://claude.ai/artifact/KLFWj56UeUgCcgZCWadbji
+- Dennis danach: in der Liste nichts abhaken, das Ergebnis wird danach eingetragen („Erledigt“ in der Liste entfernt).
 - Umgesetzt siehe CLAUDE.md „Trainer neu sortiert“. Tests: Browser-Test mit Prüfungen für Zähler, Sperre, Schmerzen-Knopf und die Nachfrage beim Speichern.
 - Offen: Freigabe für den PR; „Grafik folgt“ bei Handstand/Kardio bleibt, bis die Grafiken da sind; quer passen „Als Nächstes“ und die Rundenpunkte noch nicht in die Karte;
   „Trotzdem speichern“ trägt den Abschluss weiter mit den geplanten Minuten ein.
