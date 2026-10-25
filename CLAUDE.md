@@ -538,7 +538,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Satz unter dem Titel (`zoneLine` in `heuteSub`, mit „Erholung ansehen“ `ACT['zone-open']`) und Coach-Hinweis am Kraft-Schritt. Karte „Erholung“
   (`zoneCardHTML`, `#zone-card`) nur in Plan › Deine Woche (diese Woche), nicht auf Heute: Figur vorn eingefärbt, je Zone ein Ring „wie erholt“
   (100 = frisch) mit „bis Fr“ (müde) bzw. „ab 21 Uhr“ (frisch), darunter der Grund („Pistol Squat und 40 Min Laufen am Montag“).
-- 2 bis 6 Trainingstage (Dennis, Paket 62): `S.tage` (2–6, null = 3, in `DEF` und `SYNC_KEYS`, `tageN()`), eingestellt in Plan › Deine Woche ›
+- 2 bis 6 Trainingstage (Dennis, Paket 62): `S.tage` (2–6, null = 3, in `DEF` und `SYNC_KEYS`, `tageN()`), eingestellt in Plan & Challenges (vorher Plan › Deine Woche) ›
   „Trainingstage“: Wert-Zeile (`tageHTML`, „Gilt für alle Wochen“), Antippen öffnet ein Blatt mit Schieberegler 2–6 und Zahlen (`ACT['tage-open']`,
   `tageSheetBody`, `.tg-r`, `TAGE_TXT`), erst „Übernehmen“ setzt (`tageSet`; Dennis: der Regler auf der Seite änderte sich beim Scrollen aus Versehen).
   `daysV2`: 2 = A und B je mit vierter Übung aus C (A Einbein, B Rumpf), Tag 6 frei; 3 = A, B, C. Ab 4 Tagen Split (`splitOn`, `splitDays`, Dennis:
@@ -634,6 +634,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   im 32er-Raster: Herz mit Puls, Bewegungsbogen, Wippe, Kraft `KRAFT_SYM`, Blitz), darunter 1–4 Stufen-Perlen (Farbe nie allein), Lorbeerzweig mit
   verdienten Blättern in Metall und offenen als Umriss. Platin kühl blau (`METAL2`, `metalOf`). Karte (`medalsHTML`, `.mv1`): kein Schild, zwei Zeilen
   „52 Punkte“ / „Silber ab 65“ (`MEDAL_T`, `medalNext`), Balken in der dunklen Farbe der nächsten Medaille mit Ansatz (`.mb2`), `aria-label` je Zelle.
+- Plan & Challenges ohne Allround (Dennis, 25. Oktober: „wenn Allround die Baseline ist, muss das nicht extra angezeigt werden“; Board
+  https://claude.ai/artifact/Qjt5tzLauHHZdwMeULggG5): Allround bleibt intern das Grundgerüst (`S.fokus`, `FOKUS`), die Seite `fokus` (`renderFokus`) zeigt
+  oben „Trainingstage“ (`tageHTML(true)`: Wert-Zeile „Pro Woche · 3 Tage“, gleiches Blatt), dann Schwerpunkt und Challenge; keine Allround-Karte, Texte
+  „dein Training“, am Blockende „Nächsten Block starten“. Dein Plan: Karte „Dein Ziel“ (Challenge mit Datum, sonst Schwerpunkt, sonst „Einfach trainieren“,
+  dazu Tage pro Woche); in Deine Woche keine Trainingstage-Zeile mehr.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
