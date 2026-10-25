@@ -765,8 +765,6 @@ button.card.fk:active{transform:scale(.98)}
 .ld-s>b{font-size:18px;color:var(--on)}.ld-s.over>b{color:var(--off)}
 .ad-sig{margin:0 0 12px;padding:14px 16px}
 .mg-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 12px}.mg-h b{font-size:17px}
-.mg-tile{display:flex;align-items:center;justify-content:space-between;background:var(--board);border-radius:18px;padding:10px 10px 10px 16px}
-.mg-tile small{display:block;font-size:14px;color:var(--ink2)}.mg-tile b{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .mg-sub{font-size:14px;color:var(--ink2);margin:8px 2px 0}.mg-q{font-weight:600;margin:16px 0 8px}.mg-seg{display:flex}.mg-seg .seg-btn{flex:1;padding:0 4px}
 .mg-res{display:flex;gap:10px;align-items:flex-start;background:var(--board);border-radius:16px;padding:12px 14px;margin-top:14px;line-height:1.4}
 .mg-res i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--on-acc,#fff);font:700 14px/22px var(--head);text-align:center;font-style:normal}
@@ -3487,9 +3485,9 @@ function zoneLogLoad(l) {
 function zoneLogTime(l) { var t = +l.ts || 0; return t && isoDate(new Date(t)) === l.date ? t : parseISO(l.date).getTime() + 18 * 36e5; }
 // Stand je Zone jetzt: {z: {f, st, rec, free, why: {nm, d}}}, gemerkt je Einheiten, Stunde und Schlaf.
 function zoneState(at) {
-  var now = at || Date.now(), M = morgenOf(), kc = v2() && S.started ? kcState(S.tag) : {}, k = [LOGS.length, Math.floor(now / 6e5), M ? M.h : '', JSON.stringify(kc)].join('|');
+  var now = at || Date.now(), M = morgenOf(), kc = v2() && S.started ? kcState(S.tag) : {}, k = [LOGS.length, Math.floor(now / 6e5), JSON.stringify(kc)].join('|');
   if (!at && ZONE_C.k === k) return ZONE_C.v;
-  var slow = M && +M.h < 6 ? 1.25 : 1, from = now - 42 * 864e5, cur = zoneZero(), ref = {}, why = {};
+  var slow = 1, from = now - 42 * 864e5, cur = zoneZero(), ref = {}, why = {};
   Object.keys(cur).forEach(function (z) { ref[z] = []; });
   LOGS.forEach(function (l) {
     if (!l.date || l.kind === 'mobility' || l.kind === 'rm' || l.deleted) return;
@@ -7528,7 +7526,6 @@ function heuteSub0(kind, PL, tag) {
   var d = DAYS[tag] || {}, ph = curPhase(), p = pauseDays(), cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0, U = S.umfang;
   var t = befOf(isoToday()) === 'tired' && d.type === 'kraft' ? 'Heute kürzer, weil du müde bist.'
     : morgenMild(tag) && d.type === 'kraft' ? 'Heute ohne Intervalle: ' + esc(morgenWhy()) + '.'
-    : morgenToday(tag) === 3 && isKurz0(tag) ? 'Wenig Schlaf und erschöpft: heute höchstens die Kurzversion.'
     : planFit(tag) && d.type === 'kraft' ? 'Zwischen deinen Terminen sind heute nur ' + planFit(tag) + ' Min frei, darum kürzer.'
     : sigKurz(tag) && isKurz0(tag) ? 'Heute kürzer: deine letzten zwei Einheiten waren schwerer als sonst (' + esc(sigWhy()) + ').'
     : zoneLine(tag) ? esc(zoneLine(tag)) + ' <button type="button" class="link" data-act="zone-open">Erholung ansehen</button>'
@@ -7554,49 +7551,39 @@ function heuteAskHTML(PL, tag) {
 }
 /* ---------- Guten Morgen (Dennis, Paket 59): Schlaf als Zähler, Gefühl als Kapsel, jeden Tag; der Coach entscheidet daraus ---------- */
 var MG_F = ['Platt', 'Müde', 'Okay', 'Gut', 'Top'];
-function morgenOf(dt) { var m = (S.morgen || {})[dt || isoToday()]; return m && m.h != null ? m : null; }
+function morgenOf(dt) { var m = (S.morgen || {})[dt || isoToday()]; return m && +m.f > 0 ? m : null; }
 // 0 wie geplant, 1 ohne Intervalle/Metcon, 2 Kurzversion, 3 Kurzversion und Vorschlag „heute frei“ (Startwerte).
-function morgenLvl(m) { if (!m) return 0; var h = +m.h, f = +m.f; return h < 5 && f <= 1 ? 3 : h < 5 || f <= 1 ? 2 : h < 6 || f === 2 ? 1 : 0; }
+// Dennis (25. Oktober): keine Schlafstunden mehr („gibt eher eine Ausrede als einen Nutzen“), nur das Gefühl zählt. Alte Einträge mit `h` bleiben.
+function morgenLvl(m) { if (!m) return 0; var f = +m.f; return f === 1 ? 2 : f === 2 ? 1 : 0; }
 function morgenToday(tag) { return v2() && tag === S.tag && !doneToday0() ? morgenLvl(morgenOf()) : 0; }
 function morgenKurz(tag) { return morgenToday(tag) >= 2; }
 function morgenMild(tag) { var D = DRAFTS[draftKey(tag)] || {}; return morgenToday(tag) === 1 && D._kurz !== '0'; }
-function morgenWhy() { var m = morgenOf(); return !m ? '' : +m.h < 6 ? fmtH(m.h) + ' Schlaf' : 'du fühlst dich müde'; }
-function fmtH(h) { return String(h).replace('.', ',') + ' h'; }
-// Laut Plan möglicher Schlaf der letzten Nacht (Arbeitszeiten, Tagschlaf nach dem Nachtdienst).
-function morgenSleep(PL) {
-  if (!PL || PL.today < 0 || !PL.T) return 7;
-  var d0 = 24 * PL.today, sl = PL.T.sleep.filter(function (x) { return x[1] > d0 - 2 && x[1] <= d0 + 16; })[0];
-  return sl ? Math.max(3, Math.min(10, Math.round((sl[1] - sl[0]) * 2) / 2)) : 7;
-}
+function morgenWhy() { return morgenOf() ? 'du fühlst dich müde' : ''; }
 function morgenRes(lvl, tag, free) {
   if (free) return lvl >= 2 ? 'Heute ist frei. Gut so, erhol dich.' : 'Heute ist frei. Bis zum nächsten Training.';
   var run = DAYS[tag] && DAYS[tag].kardio;
   return [run ? 'Alles wie geplant.' : 'Alles wie geplant.', run ? 'Heute locker statt Intervalle.' : 'Heute ohne Intervalle. Kraft wie geplant, der Abschluss wird locker.',
-    run ? 'Heute ein kurzer, lockerer Lauf.' : 'Heute die Kurzversion: Kraft 3 Runden, Abschluss locker.', 'Wenig Schlaf und erschöpft: nimm dir heute frei. Trainierst du trotzdem, wird es die Kurzversion.'][lvl];
+    run ? 'Heute ein kurzer, lockerer Lauf.' : 'Heute die Kurzversion: Kraft 3 Runden, Abschluss locker.'][lvl];
 }
 function morgenAskHTML(PL, tag) {
   var m = morgenOf(), today = isoToday();
   if ((m && !ui.mgEdit) || !S.started) return '';
   // Nichts vorgewählt (ehrliche Zahlen): erst ein Tippen auf das Gefühl ist die Antwort und speichert.
-  if (!ui.mg || ui.mg.d !== today) ui.mg = { d: today, h: m ? +m.h : morgenSleep(PL), f: m ? +m.f : 0 };
+  if (!ui.mg || ui.mg.d !== today) ui.mg = { d: today, f: m ? +m.f : 0 };
   var B = PL ? befDue(PL) : null, chip = B ? (B.night ? 'Nach dem Nachtdienst' : B.an ? B.an.chip : B.cls !== 'ok' ? 'Schichtwechsel' : '') : '';
-  var free = !tag || !(PL && PL.today >= 0 && PL.days[PL.today].tag), lvl = morgenLvl(ui.mg), A = S.alltag;
-  var plan = A && (A.std || Object.keys(S.arbeit || {}).length || kalOn()) ? '<p class="mg-sub">Laut Plan waren etwa ' + fmtH(morgenSleep(PL)) + ' möglich.</p>' : '';
   return '<section class="card mg"><div class="mg-h"><b>Guten Morgen</b>' + (chip ? '<span class="chip">' + esc(chip) + '</span>' : '') + '</div>' +
-    '<div class="mg-tile"><span><small>Geschlafen</small><b>' + fmtH(ui.mg.h) + '</b></span><span class="stepper"><button type="button" data-act="mg-h" data-d="-0.5" aria-label="Eine halbe Stunde weniger">–</button><button type="button" class="primary" data-act="mg-h" data-d="0.5" aria-label="Eine halbe Stunde mehr">+</button></span></div>' + plan +
     '<p class="mg-q">Wie fühlst du dich?</p><div class="seg mg-seg" role="group" aria-label="Gefühl">' + MG_F.map(function (t, i) { var on = ui.mg.f === i + 1; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mg-f" data-v="' + (i + 1) + '" aria-pressed="' + on + '">' + t + '</button>'; }).join('') + '</div>' +
     '<p class="mg-sub">Ein Tippen auf dein Gefühl, dann richtet sich dein Coach danach.</p></section>';
 }
 function morgenRowHTML(PL, tag) {
   var m = morgenOf(); if (!m || ui.mgEdit) return '';
-  var free = !tag || !(PL && PL.today >= 0 && PL.days[PL.today].tag), lvl = morgenLvl(m), off = S.planOv && S.planOv[isoToday()] && S.planOv[isoToday()].reason === 'sehrmuede';
-  return '<div class="vrows mg-row"><button type="button" class="vrow" data-act="mg-edit"><span class="gl-t"><b>Guten Morgen</b><small>' + fmtH(m.h) + ' Schlaf · Gefühl ' + MG_F[(+m.f || 3) - 1].toLowerCase() + '</small>' + (doneToday0() ? '' : '<small>' + esc(morgenRes(lvl, tag, free)) + '</small>') + '</span><span class="mg-chg">Ändern</span></button></div>' +
-    (lvl === 3 && !free && !off ? '<button type="button" class="btn block" data-act="mg-off" style="margin:-4px 0 12px">Heute frei nehmen</button>' : '');
+  var free = !tag || !(PL && PL.today >= 0 && PL.days[PL.today].tag), lvl = morgenLvl(m);
+  return '<div class="vrows mg-row"><button type="button" class="vrow" data-act="mg-edit"><span class="gl-t"><b>Guten Morgen</b><small>Gefühl ' + MG_F[(+m.f || 3) - 1].toLowerCase() + '</small>' + (doneToday0() ? '' : '<small>' + esc(morgenRes(lvl, tag, free)) + '</small>') + '</span><span class="mg-chg">Ändern</span></button></div>';
 }
 function morgenSave(off) {
   var today = isoToday(), lim = isoAdd(today, -60), M = {}, B = {}, lvl = morgenLvl(ui.mg);
   Object.keys(S.morgen || {}).forEach(function (d) { if (d >= lim) M[d] = S.morgen[d]; });
-  M[today] = { h: ui.mg.h, f: ui.mg.f, ts: Date.now() }; S.morgen = M;
+  M[today] = { f: ui.mg.f, ts: Date.now() }; S.morgen = M;
   // Fürs Befinden (Umfang halten, Tag zwischen zwei Nächten): erholt bis Stufe 1, sonst müde, „heute frei“ = sehr müde.
   Object.keys(S.befinden || {}).forEach(function (d) { if (d >= isoAdd(today, -30)) B[d] = S.befinden[d]; });
   B[today] = { v: off ? 'very' : lvl >= 2 ? 'tired' : 'fit', ts: Date.now() }; S.befinden = B;
@@ -7604,11 +7591,9 @@ function morgenSave(off) {
   if (off) S.planOv[today] = { off: 1, reason: 'sehrmuede' }; else if (S.planOv[today] && S.planOv[today].reason === 'sehrmuede') delete S.planOv[today];
   ui.mgEdit = false; WKP_C.k = null; saveState(); render();
 }
-ACT['mg-h'] = function (el) { ui.mg.h = Math.max(2, Math.min(12, ui.mg.h + (+el.dataset.d))); render(); };
 ACT['mg-f'] = function (el) { ui.mg.f = +el.dataset.v; morgenSave(false); };
 ACT['mg-ok'] = function () { morgenSave(false); };
-ACT['mg-off'] = function () { var m = morgenOf(); if (m && !ui.mgEdit) ui.mg = { d: isoToday(), h: +m.h, f: +m.f }; morgenSave(true); toast('Heute frei. Dein Coach plant die Woche neu.'); };
-ACT['mg-edit'] = function () { var m = morgenOf(); ui.mg = { d: isoToday(), h: +m.h, f: +m.f }; ui.mgEdit = true; render(); };
+ACT['mg-edit'] = function () { var m = morgenOf(); ui.mg = { d: isoToday(), f: +m.f }; ui.mgEdit = true; render(); };
 /* ---------- Körper-Check vor dem Start (Dennis, Paket 59): Muskeln auf der Figur antippen, einmal Kater, zweimal Schmerz ---------- */
 var KC_R = { l: 1, m: 2, s: 3 };
 function kcState(tag) { var o = {}; String(dr(tag)._kc || '').split(',').forEach(function (p) { var a = p.split(':'); if (a[0] && MUS_NAME[a[0]] && (a[1] === 'k' || a[1] === 's')) o[a[0]] = { v: a[1], w: a[2] || 'm' }; }); return o; }

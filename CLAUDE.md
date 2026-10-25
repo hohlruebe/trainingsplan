@@ -502,13 +502,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   gibt zurück). Eine Einheit ohne Signal setzt zurück. `sigHold` (gekürzt oder 2 Einheiten mit Signal in 14 Tagen) hält `umfGrow` und den Zusatz.
   Signale stehen unter „Was dein Coach daraus macht“ (`outlookHTML`, auch für Läufe). Nichts wird gespeichert, alles aus den Einheiten berechnet.
 - Guten Morgen und Körper-Check (Dennis, Paket 59, Variante S3 und K1; Ruhepuls und Tracker bewusst nicht): jeden Tag auf Heute die Karte „Guten Morgen“
-  (`morgenAskHTML` als erste Frage in `heuteAskHTML`): Schlaf als Kachel mit – / + in halben Stunden (`mg-h`, Start = laut Plan möglicher Schlaf
-  `morgenSleep`), Gefühl als Kapsel Platt | Müde | Okay | Gut | Top (`MG_F`, `mg-f`), darunter sofort die Folge (`morgenRes`), „Fertig“ (`mg-ok`).
-  `S.morgen {Datum: {h, f, ts}}` (in `DEF`/`SYNC_KEYS`, je Datum zusammengeführt). Danach eine Zeile „Guten Morgen · 6,5 h Schlaf · Gefühl okay“ mit
+  (`morgenAskHTML` als erste Frage in `heuteAskHTML`): nur das Gefühl als Kapsel Platt | Müde | Okay | Gut | Top (`MG_F`, `mg-f`). Schlafstunden gibt es nicht
+  mehr (Dennis, 25. Oktober: „gibt eher eine Ausrede als einen Nutzen“; kein `mg-h`, `morgenSleep`, `mg-off`, keine Zonen-Wirkung). `S.morgen {Datum: {f, ts}}`
+  (in `DEF`/`SYNC_KEYS`, je Datum zusammengeführt; alte Einträge mit `h` bleiben gültig, `h` wird nicht mehr gelesen). Danach eine Zeile „Guten Morgen · Gefühl okay“ mit
   „Ändern“ (`morgenRowHTML`, `mg-edit`). Chip mit Anlass aus `befDue`/`befAnlass` (Nachtdienst, Schichtwechsel, Kurze Nacht, Letzte Einheit schwer,
-  Viel Belastung). `morgenLvl` (Startwerte): unter 5 h und Platt = 3 (Kurzversion, Knopf „Heute frei nehmen“ `mg-off`), unter 5 h oder Platt = 2
-  (Kurzversion über `morgenKurz` in `isKurz0`), unter 6 h oder Müde = 1 (`morgenMild`: Abschluss locker in `finOf`, Lauf locker statt Intervalle),
-  sonst wie geplant. Schreibt auch `S.befinden` (fit bis Stufe 1, sonst tired, frei = very). Rückweg wie gehabt über `_kurz` '0'.
+  Viel Belastung). `morgenLvl`: Platt = 2 (Kurzversion über `morgenKurz` in `isKurz0`), Müde = 1 (`morgenMild`: Abschluss locker in `finOf`, Lauf locker
+  statt Intervalle), sonst wie geplant. Schreibt auch `S.befinden` (fit bis Stufe 1, sonst tired). Heute frei geht über Heute anpassen › Heute nicht. Rückweg über `_kurz` '0'.
   Körper-Check (`kcStep`, `kcHTML`) als erster Schritt im Trainer an Plan-2-Krafttagen (ohne Ring, `.fs-noring`): die eingebaute Muskelfigur
   (`musFigHTML`, Muskeln mit `data-act="kc"`), Tippen = Kater (gelb `--mb2`), nochmal = Schmerz (rot `--mb0`, Stärke Leicht/Mittel/Stark `kc-w`),
   nochmal = gut. Entwurf `_kc`; `kcSet` setzt je Kraftplatz den Schmerz-Entwurf `_pk<i>` (Kater nur bei Hauptmuskel, `w` 'k' = Übung bleibt,
@@ -529,7 +528,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Ermüdung je Körperzone (Dennis, Paket 60, Variante Z1d): Zonen Beine, Zug, Druck, Rumpf (`ZONE`, Muskeln wie im Muskelausgleich, `ZONE_OF`).
   Last je Einheit (`zoneLogLoad`): Kraftsatz Hauptmuskel 1, mitarbeitend ½ (je Zone einmal), Metcon halbe Runden, Ausgleich, Lauf und Kardio-Abschluss
   auf die Beine (Laufen Min/8, Gerät Min/16, Gehen Min/30), mal Härte `rpe`/7 (ohne Angabe 7). Erholung halbiert sich alle 24 h (Rumpf), 36 h (Zug, Druck),
-  48 h (Beine, `ZONE_HL`), nach Guten Morgen unter 6 h × 1,25. Stand `zoneState` (nichts gespeichert): Rest geteilt durch den eigenen Schnitt je Einheit
+  48 h (Beine, `ZONE_HL`). Stand `zoneState` (nichts gespeichert): Rest geteilt durch den eigenen Schnitt je Einheit
   der letzten 6 Wochen (mindestens `ZONE_MIN`): unter 0,4 frisch, bis 0,8 erholt sich, darüber müde; Muskelkater im Körper-Check (`_kc`) = müde.
   Heute (`zoneToday`, Plan 2, Krafttag, nicht Testwoche): Übungen, deren Hauptmuskel in einer müden Zone liegt, eine Runde weniger (`zoneApply` im
   Getter `DAYS[t].kraft`, `x.zcut`, `kRounds`; die letzte Minute ist frei, `zoneFreeHTML`, im Eintrag `null` und `zcut`), Vorgabe und Stufe bleiben;
@@ -616,7 +615,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Körper-Check ohne Zeile), „Heute anpassen“, erst dann die Frage (`askL` = `heuteAskHTML`). Ausfall: `missAuto` markiert offene Termine als `{status: 'missed',
   reason: 'auto', auto: <Datum>}` ohne `planCare`-Rückfrage, `missAutoLine` als erste Zeile in `heuteSub` („Gestern ist ausgefallen … Stimmt nicht“, `ACT['miss-wrong']`:
   Nachtrag oder Krank/Beschwerden); Plan 1 fragt wie bisher (`missQuestionHTML`). Guten Morgen ohne Vorwahl und ohne „Fertig“: Tippen auf das Gefühl speichert
-  (`mg-f` → `morgenSave`), danach `morgenRowHTML(PL, tag)` mit Folge (`morgenRes`) und „Heute frei nehmen“ bei Stufe 3. „Heute zum ersten Mal“ als Knopf am Schritt
+  (`mg-f` → `morgenSave`), danach `morgenRowHTML(PL, tag)` mit Folge (`morgenRes`). „Heute zum ersten Mal“ als Knopf am Schritt
   (`firstTimeSteps`, `firstTimeChips`, `ACT['ft-open']`), die Karte `firstTimeHTML` ist auf Heute nicht mehr in Gebrauch. Wochenleiste: geplant und ausgefallen
   „A ×“ (`wkCellLab` aus `S.planDays`, Klasse `.miss`), vergangene Tage grau statt verblasst. `.stepper button` 44 px, Laptop-Spalte 720 px.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;

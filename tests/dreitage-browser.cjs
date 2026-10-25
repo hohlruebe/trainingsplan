@@ -173,7 +173,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Befinden nach der Nacht (Montag Nachtdienst, danach nur 12-h-Dienste, A heute nach der Nacht): Müde = kürzer, Sehr müde = heute frei.
     const T12 = { k: 't', a: 6, b: 18 };
     const night = Object.assign(v2s(), { alltag: { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 }, arbeit: { '2026-10-12': [{ k: 'n', a: 22, b: 6 }, null, T12, T12, T12, T12, T12] } });
-    // Guten Morgen (Paket 59): jeden Tag, Schlaf als Zähler, Gefühl als Kapsel; der Coach entscheidet daraus.
+    // Guten Morgen (Paket 59): jeden Tag, nur das Gefühl als Kapsel; der Coach entscheidet daraus.
     const nightM = Object.assign({}, night, { morgen: {} });
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [nightM, logs()]);
     const m0 = await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0));
@@ -186,18 +186,13 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)) < m0, 'platt: kürzere Einheit');
     assert.ok(await page.getByText('Heute kürzer, weil du müde bist.').isVisible(), 'die Folge steht unter dem Titel');
     assert.match(await page.locator('.mg-row').innerText(), /Gefühl platt/);
-    await page.locator('[data-act="mg-edit"]').click();
-    for (let q = 0; q < 6; q++) await page.locator('.mg [data-act="mg-h"][data-d="-0.5"]').click();
-    await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
-    assert.match(await page.locator('.mg-row').innerText(), /nimm dir heute frei/);
-    await page.locator('[data-act="mg-off"]').click();
-    assert.ok(await page.getByRole('heading', { name: 'Heute frei', level: 1 }).isVisible());
+    assert.equal(await page.locator('[data-act="mg-off"]').count(), 0, 'kein „Heute frei nehmen“ mehr');
     await page.locator('[data-act="mg-edit"]').click(); // bleibt änderbar
-    for (let q = 0; q < 6; q++) await page.locator('.mg [data-act="mg-h"][data-d="0.5"]').click();
+    assert.equal(await page.locator('.mg [data-act="mg-h"], .mg-tile').count(), 0, 'keine Schlafstunden mehr (Dennis, 25. Oktober)');
     await page.locator('.mg [data-act="mg-f"][data-v="4"]').click();
     assert.ok(await page.getByRole('heading', { name: 'Ganzkörper A', level: 1 }).isVisible());
-    assert.equal(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)), m0, 'gut geschlafen: wie geplant');
-    console.log('PASS: Guten Morgen nach dem Nachtdienst: Kurzversion, heute frei, änderbar');
+    assert.equal(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)), m0, 'gut: wie geplant');
+    console.log('PASS: Guten Morgen nach dem Nachtdienst: Kurzversion, änderbar, ohne Schlafstunden');
 
     // Verschieben: Heute anpassen › Training verschieben › Vorschlag des Coachs.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
@@ -419,7 +414,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const ch = page.locator('.mg .chip', { hasText: 'Kurze Nacht' });
     assert.ok(await page.evaluate(() => window.tpTest.plan().days[2].tag), 'Mittwoch bleibt ein Trainingstag (nach dem Frühdienst)');
     assert.ok(await ch.isVisible(), 'Spät auf Früh: der Coach fragt nach');
-    assert.match(await page.locator('.mg-sub').first().innerText(), /Laut Plan waren etwa/);
+    assert.doesNotMatch(await page.locator('.mg').first().innerText(), /Laut Plan|Geschlafen/);
     console.log('PASS: Guten Morgen mit Anlass: letzte Einheit schwer, kurze Nacht, platt kürzt');
 
     // Paket 61: Zeit unter Spannung. Unterwegs ohne Weste: Stufe darunter mit Tempo, fehlendes Muster mit Körpergewicht und Tempo, Taktgeber.
