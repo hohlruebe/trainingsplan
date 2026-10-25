@@ -651,6 +651,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`.mbal-lg`), Titelzeile „Deine letzten 4 Wochen“, darunter Karte „Kommt zu kurz“ (`musChipsHTML`, % vom Soll). Equipment-Blatt: Gruppen „Hast du“ und
   „Weitere Geräte“ (`eqRowsHTML`/`eqRows`, Stand beim Öffnen in `ui.eqGrp`, damit nichts springt; Rest mit grauem Score `.eq-rest`), „Orte wählen“ als `.btn.small`
   in der Zeile mit der Geräteanzahl (`.eq-sumrow`).
+  Rest der Kritik (Board https://claude.ai/artifact/5zaGxCzDoHFrozAo8mQcSZ; Dennis: Vollbild-Timer bleibt, wie er ist). Familie: der Skill-Pfad ist die einzige Stufenliste (Liste „Stufen“ in `famBody` entfernt), jede Stufe ein Knopf mit „So geht’s“ (`ue-info`), gesperrte
+  grau statt halb durchsichtig mit Grund (`.lad-why` „braucht …“); gesperrte Varianten in `--ink2` statt `opacity`; Knöpfe unter Gehört auch dazu / Baut auf /
+  Führt zu 44 px (`.chips.fam-go`).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

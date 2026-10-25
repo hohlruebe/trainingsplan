@@ -16,7 +16,10 @@ Stand: 25. Oktober 2026 (Tools nach der Impeccable-Kritik, Körper und Equipment
 - Board https://claude.ai/artifact/R2kB1VTkkjPF27mCG9z23F. Umgesetzt siehe CLAUDE.md „Tools nach der Impeccable-Kritik“.
 - PR #129 gemergt. Danach Körper nach Muskelausgleich und Equipment-Blatt „Hast du“, Board https://claude.ai/artifact/SChJQsjh1H23waLBvt3hpJ
   (Dennis' Daten: 2 Krafteinheiten in 4 Wochen, darum noch grau; das Board zeigt ein Beispiel mit einer Einheit mehr).
-- Offen: Freigabe für den PR; übrige P2 (Vollbild-Timer in Tools leer, Familie doppelte Stufenliste, Kontrast gesperrter Stufen, 28-px-Chips).
+- PR #130 (Körper, Equipment). Danach die übrigen P2, Board https://claude.ai/artifact/5zaGxCzDoHFrozAo8mQcSZ (Dennis: „Timer lassen wie zuvor“, also nur die Familie):
+  Familie ohne doppelte Stufenliste, gesperrte Stufen lesbar mit Grund, Knöpfe 44 px.
+- Offen aus der Kritik (klein): Mobility „Guten Morgen · 6 Min“ gegen „höchstens 5 Minuten“, Timer-Vorlagen, Sprungleiste in der Übungsliste,
+  Muskel-Seite (Zeilen öffnen nur das (i), „Hell: arbeitet oft mit“ im Text), 1RM-Detail „+“ und „Ersten Wert eintragen“ doppelt.
 - Starter-Challenges (30 Tage Plank usw.) wurden gebaut und auf Dennis' Wunsch wieder entfernt (PR #128 geschlossen): „da reden wir noch drüber“.
 
 ## Wochen-Kette und neue Medaillen (25. Oktober 2026, Claude)

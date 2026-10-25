@@ -650,7 +650,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 :root[data-paper="nebel"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
 /* Übungsfamilien, Skill-Pfad, Skill-Baum */
 .gl-row{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:12px 0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
-.gl-item.locked>.gl-row{opacity:.5}
+.gl-item.locked>.gl-row{color:var(--ink2)}.gl-item.locked>.gl-row b{color:var(--ink2);font-weight:600}.gl-item.locked>.gl-row small{color:var(--ink2)}
 .gl-chev{flex:none;width:18px;height:18px;color:var(--ink2)}
 .hero+.fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 4px}
 .gl-row .gl-t{flex:1}
@@ -659,7 +659,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .gl-item.fam .fam-chips .chip svg{flex:none;align-self:flex-start;margin-top:1px}
 .chip.lock{color:var(--ink2);gap:4px}
 .chip.sm{min-height:22px;font-size:14px;padding:2px 8px}
-.fam-path .lad-row.lock{opacity:.5}
+.fam-path .lad-row.lock{color:var(--ink2)}.fam-path button.lad-row{width:100%;border:0;font:inherit;text-align:left;cursor:pointer}.fam-path button.lad-row:not(.cur){background:none}.lad-why{display:block;font-size:14px;font-weight:400;color:var(--ink2);overflow:hidden;text-overflow:ellipsis}.fam-path .lad-row.lock{min-height:52px}.chips.fam-go .chip{min-height:44px;padding:0 16px;font-size:15px}
 .lad-lk{color:var(--ink2);display:flex}
 .sec-k{margin:16px 0 6px;font-size:14px;font-weight:600;letter-spacing:.08em;color:var(--ink2);text-transform:uppercase}
 /* Muskeln: Körperfigur (Bibliothek blau, Ausgleich Rot bis Grün) */
@@ -1105,7 +1105,7 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 .gl-t{display:flex;flex-direction:column;min-width:0}
 .gl-t b{font-size:16px}
 .gl-t small{font-size:14px;color:var(--ink2)}
-.gl-item.locked>summary{opacity:.5}
+.gl-item.locked>summary,.gl-item.locked>summary b,.gl-item.locked>summary small{color:var(--ink2)}
 .gl-body{padding:0 0 14px}
 .gl-zweck{margin:4px 0 8px;font-size:15px;line-height:1.45}
 .gl-how{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 2px}
@@ -10672,7 +10672,9 @@ function famPathHTML(f, c) {
   var rows = st.map(function (v) {
     var u = UE[v.uebung], miss = u ? eqMissing(u.equipment, c.have) : '', cur = v.rang === lv, done = v.rang < lv;
     var right = cur ? '<span class="lad-now">Aktuelle Stufe</span>' : NX && v === NX.v && !NX.miss ? '<span class="chip sm">Als Nächstes</span>' : miss ? '<span class="lad-lk">' + LOCK_SVG + '</span>' : '';
-    return '<div class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (miss && !cur && !done ? ' lock' : '') + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span></span>' + right + '</div>';
+    // Jede Stufe öffnet ihre Anleitung; gesperrte sagen, was fehlt (die zweite Stufenliste darunter ist weg, Impeccable-Kritik Tools).
+    var lk = miss && !cur && !done;
+    return '<button type="button" class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (lk ? ' lock' : '') + '" data-act="ue-info" data-how="1" data-id="' + esc(v.uebung) + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span>' + (lk ? '<small class="lad-why">braucht ' + esc(miss) + '</small>' : '') + '</span>' + right + '</button>';
   }).reverse().join('');
   var cur = lv ? st[lv - 1] : null, next = NX && NX.v;
   var hint = cur && next ? '<p class="small hint">' + (NX.miss ? esc(uName(next.uebung)) + ' braucht ' + esc(NX.miss) + '. Ziel: ' : NX.skip ? esc(uName(NX.skip.uebung)) + ' braucht ' + esc(eqMissing(UE[NX.skip.uebung].equipment, c.have)) + ', hier geht als Nächstes ' + esc(uName(next.uebung)) + '. Ziel: ' : 'Für „' + esc(uName(next.uebung)) + '“: ') + esc(cur.ziel) + '</p>' : cur && !next ? '<p class="small hint">Oberste Stufe. ' + esc(cur.ziel) + '</p>' : '';
@@ -10698,12 +10700,11 @@ function famBody(f, c) {
   var vars = f.varianten.filter(function (v) { return v.art === 'variante'; }), tempo = f.varianten.filter(function (v) { return v.art === 'tempo'; });
   var also = []; FAMD.familien.forEach(function (g) { if (g !== f) g.varianten.forEach(function (v) { if ((v.auch_in || []).indexOf(f.id) >= 0) also.push(v); }); });
   var top = figBox(famFigKey(f, c)) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c);
-  var body = (st.length ? '<p class="sec-k">Stufen</p><div class="fam-list">' + st.map(item).join('') + '</div>' : '') +
-    (vars.length ? '<p class="sec-k">Gleichwertige Varianten</p><div class="fam-list">' + vars.map(item).join('') + '</div>' : '') +
+  var body = (vars.length ? '<p class="sec-k">Gleichwertige Varianten</p><div class="fam-list">' + vars.map(item).join('') + '</div>' : '') +
     (tempo.length ? '<p class="sec-k">Auf Tempo (CrossFit)</p><p class="tempo-note">' + esc(tempo[0].vermerk || 'Auf Tempo ausgelegt, nicht auf saubere Range of Motion oder Effizienz.') + ' Ersetzt nie eine Stufe im Krafttraining.</p><div class="fam-list">' + tempo.map(item).join('') + '</div>' : '') +
-    (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + ' ›</button>'; }).join('') + '</div>' : '') +
-    ((f.voraussetzt || []).length ? '<p class="sec-k">Baut auf</p><div class="chips">' + f.voraussetzt.map(function (p) { return FAM[p.familie] ? '<button type="button" class="chip" data-act="fam-go" data-id="' + p.familie + '">' + esc(FAM[p.familie].name) + ' ›</button>' : ''; }).join('') + '</div>' : '') +
-    ((f.fuehrt_zu || []).length ? '<p class="sec-k">Führt zu</p><div class="chips">' + f.fuehrt_zu.map(function (id) { return FAM[id] ? '<button type="button" class="chip blue" data-act="fam-go" data-id="' + id + '">' + esc(FAM[id].name) + ' ›</button>' : ''; }).join('') + '</div>' : '');
+    (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips fam-go">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + ' ›</button>'; }).join('') + '</div>' : '') +
+    ((f.voraussetzt || []).length ? '<p class="sec-k">Baut auf</p><div class="chips fam-go">' + f.voraussetzt.map(function (p) { return FAM[p.familie] ? '<button type="button" class="chip" data-act="fam-go" data-id="' + p.familie + '">' + esc(FAM[p.familie].name) + ' ›</button>' : ''; }).join('') + '</div>' : '') +
+    ((f.fuehrt_zu || []).length ? '<p class="sec-k">Führt zu</p><div class="chips fam-go">' + f.fuehrt_zu.map(function (id) { return FAM[id] ? '<button type="button" class="chip blue" data-act="fam-go" data-id="' + id + '">' + esc(FAM[id].name) + ' ›</button>' : ''; }).join('') + '</div>' : '');
   return { top: top, body: body };
 }
 function famItemHTML(f, c, avail) {
