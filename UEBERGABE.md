@@ -4,9 +4,20 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 25. Oktober 2026 (Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 25. Oktober 2026 (Wochen-Kette und neue Medaillen; davor Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
 
+
+## Wochen-Kette und neue Medaillen (25. Oktober 2026, Claude)
+- Dennis: „zurück zum Motivationspart, um den User langfristig sportlicher zu machen“. Vorschlag: Wochen-Kette mit 10-Minuten-Rettung (Konzepte A + E),
+  dann Monatsrückblick, Block beginnt, später Teilen. Dennis: „fang mit der Wochenkette an“.
+- Boards: Vorher/Nachher https://claude.ai/artifact/9KtJMJGxBnzz95KyHR4piM, drei Darstellungen https://claude.ai/artifact/WpLfvADTuHBoHthqf2wmPh
+  (Dennis: blaue Glieder gefallen nicht, Ringe „cool“), Ring-Optionen und Medaillen https://claude.ai/artifact/L7VtNGW5qZYCS9goqNLpoS (Dennis: A2 und M1),
+  Medaillen mit Prägung https://claude.ai/artifact/2uvNrV7zRykQvEPQypBui1 (Impeccable 18/32; Dennis: D2 Lorbeerzweig), Symbole
+  https://claude.ai/artifact/R6bFUUF9vQXVoQNV41JnP1 (Dennis: Zeichen, Kraft braucht ein anderes), Kraft-Zeichen https://claude.ai/artifact/E5rSWWRzGMBPeubvLZKVsq.
+- Regel: gehalten ab zwei Dritteln des eigenen Ziels (Dennis: „an das persönliche Ziel geknüpft“), Joker von selbst, Rettung 15 Min (kürzeste Stufe, die
+  der Coach schon baut). Umgesetzt siehe CLAUDE.md „Wochen-Kette“ und „Medaillen neu“.
+- Offen: Kraft-Zeichen wählen (Entwurf: Langhantel, `KRAFT_SYM.lang`; Kurzhantel und Gewicht liegen bereit); Monatsrückblick, Block beginnt, Teilen.
 
 ## Guten Morgen ohne Schlafstunden (25. Oktober 2026, Claude)
 - Dennis: die Eingabe „Geschlafen 9 h“ raus, sie „gibt usern eher eine Ausrede als einen Nutzen“. Die Schlafzeiten in den Arbeitszeiten (Ins Bett/Aufstehen) bleiben.

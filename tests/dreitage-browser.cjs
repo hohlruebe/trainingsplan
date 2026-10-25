@@ -9,6 +9,7 @@ let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
+  chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk() }; },
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
   set: (s, logs) => { S = Object.assign({}, DEF, s); if (!('morgen' in s)) { S.morgen = {}; for (var q = 0; q < 120; q++) S.morgen[isoAdd('2026-09-01', q)] = { h: 8, f: 4, ts: 1 }; } // Guten Morgen gilt im Test als beantwortet
@@ -572,6 +573,42 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       assert.equal(hf.neu[0].why, 'metcon', 'Thruster ist eine Metcon-Leiter und kommt nicht in den Kraftteil');
     }
     console.log('PASS: Zuhause ohne Gewichte: kein Thruster als Sackgasse, mit Bändern Band Squat');
+
+    // Wochen-Kette (Dennis, 25. Oktober): Wochen statt Tage, gehalten ab zwei Dritteln des Ziels, Joker, 15-Minuten-Rettung, Karte in Erfolge.
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:00+02:00'));
+    const chLogs = ['2026-09-28', '2026-09-30', '2026-10-02', '2026-10-05', '2026-10-07', '2026-10-09', '2026-10-12'].map((d, i) => kx('c' + i, d, [1, 3, 6][i % 3], [5, 5, 5, 5]));
+    const chSt = Object.assign(old(), { planV: 2, tag: 3, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, tagSince: '2026-10-12', advBy: 'auto',
+      planOv: { '2026-10-16': { off: 1, reason: 'time' }, '2026-10-17': { off: 1, reason: 'time' }, '2026-10-18': { off: 1, reason: 'time' } } });
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [chSt, chLogs]);
+    let wc = await page.evaluate(() => window.tpTest.chain());
+    assert.deepEqual(wc.st, ['full', 'full', 'open'], 'zwei volle Wochen, diese läuft');
+    assert.equal(wc.n, 2); assert.equal(wc.need, 2, 'bei 3 Tagen gehalten ab 2');
+    assert.ok(wc.risk && wc.risk.tight && wc.risk.today, 'nur noch heute geplant, eine fehlt: eng');
+    assert.match(await page.locator('.ch-row').innerText(), /2 Wochen in Folge · noch 1 für diese Woche, auch 15 Minuten zählen/);
+    const full0 = await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0));
+    await page.locator('[data-act="chain-short"]').click();
+    const short = await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0));
+    assert.ok(short <= 16 && short < full0, '15 Minuten: kurze Einheit (' + short + ' statt ' + full0 + ' Min)');
+    await page.getByRole('button', { name: 'Heute anpassen' }).click();
+    await page.locator('#sheet [data-act="adapt-off"]').click();
+    await page.getByRole('button', { name: '15 Minuten statt gar nicht' }).waitFor();
+    await page.getByRole('button', { name: 'Heute trotzdem nicht' }).click();
+    await page.getByText('Was soll dein Coach berücksichtigen?').waitFor();
+    await page.keyboard.press('Escape'); await page.evaluate(() => { const s = document.getElementById('sheet'); if (s) s.remove(); });
+    // Gehalten mit der zweiten Einheit; Krank ist Pause, eine leere Woche ohne Grund kostet den Joker, die nächste reißt die Kette.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [chSt, chLogs.concat([kx('c9', '2026-10-14', 3, [5, 5, 5, 5])])]);
+    assert.equal((await page.evaluate(() => window.tpTest.chain())).st[2], 'held');
+    await page.clock.setFixedTime(new Date('2026-11-12T09:00:00+01:00'));
+    await page.evaluate(a => window.tpTest.set(Object.assign({}, a[0], { planWk: '2026-11-09', planMiss: { '2026-10-28': { status: 'missed', reason: 'ill', ts: 1 } } }), a[1]), [chSt, chLogs.concat([kx('c9', '2026-10-14', 3, [5, 5, 5, 5])])]);
+    wc = await page.evaluate(() => window.tpTest.chain());
+    assert.deepEqual(wc.st, ['full', 'full', 'held', 'joker', 'pause', 'miss', 'open'], 'Joker, dann Pause wegen Krankheit, dann Riss');
+    assert.equal(wc.n, 0);
+    await page.evaluate(() => window.tpTest.profile('erfolge'));
+    assert.equal(await page.locator('.ch-card .cr').count(), 7, 'eine Woche je Ring');
+    assert.equal(await page.locator('.ch-card .cr.joker .jk').count(), 1, 'Joker als Schild');
+    assert.equal(await page.locator('.mv1 .medal.md').count(), 5, 'fünf geprägte Medaillen');
+    assert.match(await page.locator('.mv1 .m-cell').first().getAttribute('aria-label'), /^Ausdauer, /);
+    console.log('PASS: Wochen-Kette: gehalten nach Ziel, 15-Minuten-Rettung, Joker, Pause, Riss; Erfolge mit Ringen und geprägten Medaillen');
 
     // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(old(), { planV: 2, tag: 1, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe', 'eq_band'] }], ort: 'o1' }), logs()]);

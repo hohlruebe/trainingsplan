@@ -618,6 +618,22 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`mg-f` → `morgenSave`), danach `morgenRowHTML(PL, tag)` mit Folge (`morgenRes`). „Heute zum ersten Mal“ als Knopf am Schritt
   (`firstTimeSteps`, `firstTimeChips`, `ACT['ft-open']`), die Karte `firstTimeHTML` ist auf Heute nicht mehr in Gebrauch. Wochenleiste: geplant und ausgefallen
   „A ×“ (`wkCellLab` aus `S.planDays`, Klasse `.miss`), vergangene Tage grau statt verblasst. `.stepper button` 44 px, Laptop-Spalte 720 px.
+- Wochen-Kette und 15-Minuten-Rettung (Dennis, 25. Oktober: „den User langfristig sportlicher machen“, Motivation A + E; Boards im Canvas, Variante A2):
+  gezählt werden Wochen, nicht Tage (`chainState`, `CHAIN_C`, nichts gespeichert). Eine Woche hält ab zwei Dritteln des eigenen Wochenziels (`chainNeed` =
+  ⌈`tageN()` × 2/3⌉: 2→2, 3→2, 4→3, 5→4, 6→4; Dennis: „an das persönliche Ziel geknüpft“), geschafft mit dem ganzen Ziel. Jede Einheit zählt voll (auch
+  15 Min, Kurzversion, Nachtrag), der Zusatz nicht (`chainUnits`). Krank/Beschwerden in `planMiss` (`ill`/`pain`) = Pause, kein Bruch (`chainPause`).
+  Ein Joker je 12 Wochen (`CHAIN_JOKER` 84 Tage) überbrückt eine Woche von selbst. Darstellung (`chainLinksHTML`, `.chv`/`.crw`/`.cr`): je Woche ein Ring
+  in Stücken je Einheit des Ziels (`chainSeg`), geschafft mit Haken, Joker als graues Schild (Gold/Stern heißen schon Bestwert), Pause gestrichelt,
+  verpasst ein Punkt, laufende Woche füllt sich. Heute: eine Zeile unter der Wochenleiste (`chainLineHTML`, `.ch-row`, nur `lean`); wird es eng
+  (`chainRisk`: geplante Termine ab heute ≤ fehlende Einheiten), „auch 15 Minuten zählen“ mit Knopf `ACT['chain-short']` (`_zeit` 15); „Heute nicht“
+  (`ACT['pl-off']`) bietet dann zuerst „15 Minuten statt gar nicht“ an. Profil › Erfolge: Karte „Wochen-Kette“ über den Medaillen (`chainCardHTML`,
+  letzte 12 Wochen, Joker-Zeile). Nach dem Speichern Moment „Woche gehalten“/„Woche geschafft“ (`chainEvent` mit `chBefore` in `saveDay`, Typ `chain`
+  in `showMoment`, `chainMomentHTML`), vor Rekorden und Medaillen.
+- Medaillen neu (Dennis, 25. Oktober, Impeccable-Kritik 18/32, Varianten M1 + D2 + Zeichen): Bereichs-Medaillen sind eine geprägte Münze als ein SVG
+  (`medal2HTML`, nur `area_*`; Leitern und 1RM behalten `medalHTML`): geriffelter Rand, Perlkranz, flaches Gesicht, vertieftes Zeichen (`AREA_SYM`
+  im 32er-Raster: Herz mit Puls, Bewegungsbogen, Wippe, Kraft `KRAFT_SYM`, Blitz), darunter 1–4 Stufen-Perlen (Farbe nie allein), Lorbeerzweig mit
+  verdienten Blättern in Metall und offenen als Umriss. Platin kühl blau (`METAL2`, `metalOf`). Karte (`medalsHTML`, `.mv1`): kein Schild, zwei Zeilen
+  „52 Punkte“ / „Silber ab 65“ (`MEDAL_T`, `medalNext`), Balken in der dunklen Farbe der nächsten Medaille mit Ansatz (`.mb2`), `aria-label` je Zelle.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

@@ -1323,40 +1323,18 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .ch-row{display:flex;align-items:center;gap:8px;margin:10px 4px 0;font-size:15px;color:var(--ink2);line-height:1.35}.ch-row b{color:var(--ink)}
 .ch-row .ch-ic{flex:none;width:18px;height:18px;color:var(--acc)}.ch-row .btn{margin-left:auto;flex:none}
 .chv{display:flex;align-items:center;gap:6px;padding:10px 0 8px;overflow:hidden}
-.chv-a .cr{flex:1 1 0;min-width:0;max-width:30px;height:auto;aspect-ratio:1}.chv-a.big{justify-content:center;gap:10px}.chv-a.big .cr{flex:none;width:40px;max-width:none;animation:chIn .4s cubic-bezier(.3,1.4,.5,1) both}.chv-a.big .cr:last-child{animation-delay:.25s}
-.cr circle{fill:none;stroke-width:4}.cr .bg{stroke:var(--fill)}.cr .ar{stroke:var(--acc);stroke-linecap:round}
-.cr.full .bg{fill:var(--acc);stroke:var(--acc)}.cr .ck{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.cr text{font-weight:800;font-size:11px;fill:var(--acc);text-anchor:middle}.cr.joker .bg{stroke:var(--mb2);stroke-dasharray:3 3}.cr .jk{fill:var(--mb2)}
-.cr.pause .bg{stroke-dasharray:2 3}.cr.miss .bg{stroke:none;fill:var(--fill);r:4}.cr.open .bg{stroke-dasharray:2 3}
-.chv-b svg{flex:none}.chv-b .fc{fill:none;stroke-width:5}.chv-b .fc.open{stroke:color-mix(in srgb,var(--acc) 45%,transparent);stroke-dasharray:5 4}.chv-b .fc.pause{stroke:var(--line2);stroke-dasharray:4 4}
-.chv-b .eg.ghost{fill:var(--line2)}.chv-b .fc.joker{stroke-dasharray:7 3}
-.chv-b.big{justify-content:center}.chv-b.big svg{margin:6px 0;animation:chIn .4s cubic-bezier(.3,1.4,.5,1) both}
-.chv-c{align-items:flex-end;gap:6px;justify-content:space-between}.chv-c .cs{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none;padding:6px 5px;border-radius:12px}
-.chv-c .cs i{width:14px;height:14px;border-radius:5px;background:var(--fill)}.chv-c .cs i.on{background:var(--acc)}
-.chv-c .cs.full{background:color-mix(in srgb,var(--acc) 10%,transparent)}.chv-c .cs.held i.on{background:color-mix(in srgb,var(--acc) 65%,var(--paper))}
-.chv-c .cs.open{outline:2px dashed color-mix(in srgb,var(--acc) 45%,transparent);outline-offset:-2px}
-.chv-c .cs-j{display:flex;align-items:center;justify-content:center;width:14px;color:var(--mb2);font-size:15px}
-.chv-c .cs small{font-size:14px;line-height:18px;min-height:18px;color:var(--ink2);white-space:nowrap}.chv-c.big{justify-content:center}.chv-c.big .cs i{width:20px;height:20px;border-radius:7px}
-.chv-a .crw{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1 1 0;min-width:0;max-width:30px}.chv-a .crw .cr{flex:none;width:100%;max-width:none;height:auto}
-.chv-a .crw small{font-size:14px;line-height:16px;color:var(--ink2);white-space:nowrap}.chv-a.a3{align-items:flex-start}.chv-a.a3 .crw small{font-size:0}.chv-a.a3 .crw:first-child small,.chv-a.a3 .crw:last-child small,.chv-a.a3 .crw:nth-child(5n) small{font-size:12px}
-.chv-a.big .crw{flex:none;width:40px;max-width:none}
-.cr .ck2{fill:none;stroke:var(--acc);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}.chv-a .cr.joker .jkr{stroke:var(--ink2);stroke-dasharray:3 3;opacity:.6}.chv-a .crw .cr .bg{stroke:color-mix(in srgb,var(--acc) 16%,transparent)}.chv-a .crw .cr.open .bg{stroke-dasharray:none}.chv-a.a2 .jk,.chv-a.a3 .jk,.chv-a.a4 .jk{fill:var(--ink2);opacity:.75}
-.cr .ps{stroke-dasharray:2 3}.cr .dot{fill:var(--line2)}
-.ch-leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 4px;font-size:14px;color:var(--ink2)}.ch-leg span{display:flex;align-items:center;gap:6px}.ch-leg .chv{padding:0}.ch-leg .crw{width:20px;flex:none}
-.ch4-row{display:flex;align-items:center;gap:16px}.cr4{flex:none;width:96px;height:96px}.cr4 circle{fill:none;stroke-width:7}.cr4 .bg{stroke:var(--fill)}.cr4 .ar{stroke:var(--acc);stroke-linecap:butt}
-.cr4 text{font-size:20px;font-weight:800;fill:var(--ink);text-anchor:middle}.cr4 text.s{font-size:11px;font-weight:600;fill:var(--ink2)}.ch4-r{min-width:0;flex:1}.ch4 .ch-big b{font-size:36px}
+.chv .crw{display:flex;flex:1 1 0;min-width:0;max-width:30px}.chv .cr{flex:none;width:100%;height:auto}
+.chv.big{justify-content:center;gap:10px}.chv.big .crw{flex:none;width:40px;max-width:none;animation:chIn .4s cubic-bezier(.3,1.4,.5,1) both}.chv.big .crw:last-child{animation-delay:.25s}
+.cr circle{fill:none;stroke-width:4}.cr .bg{stroke:color-mix(in srgb,var(--acc) 16%,transparent)}.cr .ar{stroke:var(--acc)}
+.cr .ck2{fill:none;stroke:var(--acc);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.cr.joker .jkr{stroke:var(--ink2);stroke-dasharray:3 3;opacity:.6}.cr .jk{fill:var(--ink2);opacity:.75}.cr .ps{stroke:var(--line2);stroke-dasharray:2 3}.cr .dot{fill:var(--line2)}
+/* Medaillen (Dennis, 25. Oktober, M1 mit Lorbeerzweig): geprägte Münze, zwei feste Zeilen, Balken bis zur nächsten Medaille */
 .m-cell .mb2{display:block;width:64px;height:6px;border-radius:3px;background:var(--fill);position:relative;overflow:hidden;margin-top:2px}.m-cell .mb2::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--f);background:var(--c);border-radius:3px}
-.mv1 .medal .m-tag,.mv2 .medal .m-tag,.mv3 .medal .m-tag{display:none}.mv1 .medal,.mv2 .medal{height:96px}.mv1 .medals,.mv2 .medals{justify-items:center}
-.mv1 .medals>:nth-child(4),.mv2 .medals>:nth-child(4){grid-column:1/2;justify-self:end;transform:translateX(50%)}.mv1 .medals>:nth-child(5),.mv2 .medals>:nth-child(5){grid-column:2/3;justify-self:end;transform:translateX(50%)}
-.mv2 .wreath{display:none}.m-wrap{position:relative;display:block;width:104px;height:104px}.m-wrap .medal{position:absolute;inset:0}.m-ring{position:absolute;inset:0;width:104px;height:104px}.m-ring circle{fill:none;stroke-width:5}.m-ring .bg{stroke:var(--fill)}.m-ring .fg{stroke-linecap:round}
-.m-rows{display:flex;flex-direction:column;gap:6px;margin-top:6px}.m-row{display:flex;align-items:center;gap:12px;border:0;background:none;padding:4px 0;font:inherit;color:var(--ink);text-align:left;cursor:pointer;min-height:64px}
-.m-sm{flex:none;width:58px;height:58px;position:relative;overflow:hidden}.m-sm .medal{transform:scale(.56);transform-origin:0 0;position:absolute;left:0;top:-2px}.m-sm .wreath{display:none}
-.m-rt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}.m-rh{display:flex;justify-content:space-between;gap:8px}.m-rh .muted{font-size:14px}.m-rt small{font-size:14px}
-.m-track{position:relative;height:8px;border-radius:4px;background:var(--fill)}.m-track .fill{position:absolute;inset:0 auto 0 0;border-radius:4px}.m-track .tk{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--paper);border-radius:1px}
+.mv1 .medals{justify-items:center}.mv1 .medals>:nth-child(4){grid-column:1/2;justify-self:end;transform:translateX(50%)}.mv1 .medals>:nth-child(5){grid-column:2/3;justify-self:end;transform:translateX(50%)}
+.mv1 .m-cell span.muted{line-height:1.25}
 .medal.md{width:104px;height:104px}.md-svg{position:absolute;inset:0;width:104px;height:104px;filter:drop-shadow(0 6px 10px rgba(17,18,20,.18))}
 .md .md-sh{left:25px;top:25px;width:54px;height:54px;mix-blend-mode:soft-light}
 html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
-.mv1 .medal.md{height:104px}.mv1 .m-cell span.muted{line-height:1.25}
 @keyframes chIn{from{transform:scale(.4);opacity:0}}
 @media (prefers-reduced-motion:reduce){.chv.big *{animation:none!important}}
 .ch-big{margin:2px 0 0;font-size:17px;color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin-right:6px}
@@ -4876,51 +4854,33 @@ function mondayISO() { var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.g
 
 /* ---------- Medaillen mit Prägung (Dennis, 25. Oktober: „mehr Details im selben Stil“, Symbole neu; Impeccable-Kritik) ---------- */
 // Eine geprägte Münze als ein SVG: geriffelter Rand, Perlkranz, flaches Gesicht, vertieftes Symbol, Stufen-Perlen (Farbe nie allein).
-// MEDAL_D 1 = Münze, 2 = Münze mit Lorbeerzweig (verdiente Blätter in Metall), 3 = Münze mit Band in der Farbe des Bereichs.
-var MEDAL_D = 0, MD_N = 0;
+// Dazu ein Lorbeerzweig: je Seite vier Blätter, verdiente in Metall, offene nur als Umriss (Dennis: Variante D2).
+var MD_N = 0;
 var METAL2 = { platin: { name: 'Platin', base: '#9FB6CC', hi: '#F4FAFF', lo: '#5E7286' } };
-// Symbole im 32er-Raster, aus einer Familie (Zeichen statt Übungs-Icons).
-// Drei Symbol-Familien zur Wahl (Dennis: „gib mir auch hier verschiedene Variationen“): z = Zeichen, f = Figuren, o = Gegenstände.
-var MEDAL_S = 'z', SYM_SETS = {
-  z: {
-    ausdauer: 'M16 26.5C9.6 22.2 5 18 5 12.6A5.6 5.6 0 0 1 16 10.4a5.6 5.6 0 0 1 11 2.2c0 5.4-4.6 9.6-11 13.9zM8.5 15.5h4l1.8-3.5 2.8 7 1.9-3.5h4.5',
-    beweglichkeit: 'M6 22A10 10 0 0 1 26 22M6 22l-1.6-3.6M6 22l3.6-1.4M26 22l1.6-3.6M26 22l-3.6-1.4M16 22.2v.01M10 26.5h12',
-    koordination: 'M5 14.5l22-3M16 13l-4.2 9h8.4zM9.2 10.4a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M27.6 7.2a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M9 26.5h14',
-    kraft: 'M11.5 13V10a4.5 4.5 0 0 1 9 0v3M9.4 26.5a8.2 8.2 0 1 1 13.2 0z',
-    schnellkraft: 'M18.5 3.5L8 18h7l-2.2 10.5L24 13.5h-7.2z'
-  },
-  f: {
-    ausdauer: 'M22.4 6.4a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M18.5 10.5l-3 8M17.4 12.5l5 2.5M17.4 12.5l-5.4.8M15.5 18.5l5 3-1 6M15.5 18.5l-4 4.5-4.5-1',
-    beweglichkeit: 'M26.4 15.6a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M7 25.5h20M7 25.5C8 18 14 15.5 20.5 17M13 18.5l13.5 5.5M4 28h25',
-    koordination: 'M18.4 5.6a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M16 10v9M8 13.5h16M16 19v9M16 19l5.5 2.4 1.8-3.6',
-    kraft: 'M18.4 9a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M16 12v8M16 13.5l-6-6.5M16 13.5l6-6.5M7 5h18M7 2.5v5M25 2.5v5M16 20l-4 8M16 20l4 8',
-    schnellkraft: 'M18.4 5.2a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M16 9v9M16 11l-7-5M16 11l7-5M16 18l-6 7M16 18l6 7M9 29.5h4M19 29.5h4'
-  },
-  o: {
-    ausdauer: 'M4 23.5c0-2.6 1.6-4 3.6-4.2L11.5 13l4.5 2.4c2.2 1.2 4.4 3.1 8.6 4 2.6.6 3.4 1.9 3.4 3.6v1.5H4zM12.8 16.5l2.2 1.2M11.2 19l2.2 1.2M4 21.5h24',
-    beweglichkeit: 'M8 11h16a3.2 7 0 0 1 0 14H8a3.2 7 0 0 1 0-14zM8 11a3.2 7 0 0 0 0 14M13 11v14M18 11v14',
-    koordination: 'M14.4 9.5a4 4 0 1 1-8 0a4 4 0 1 1 8 0M25.6 9.5a4 4 0 1 1-8 0a4 4 0 1 1 8 0M20 23a4 4 0 1 1-8 0a4 4 0 1 1 8 0M7 17c1 5 3 8 5 9M25 17c-1 5-3 8-5 9',
-    kraft: 'M5.5 12v8M9 9.5v13M23 9.5v13M26.5 12v8M9 16h14',
-    schnellkraft: 'M25 18a9 9 0 1 1-18 0a9 9 0 1 1 18 0M13.5 5.5h5M16 5.5v3.5M16 18l4-4.5M23.5 9l1.6-1.6'
-  }
+// Symbole als Zeichen im 32er-Raster (Dennis: Zeichen, Kraft mit eigenem Zeichen statt Kettlebell).
+var KRAFT_SYM = {
+  lang: 'M3 16h26M7.5 9.5v13M10.5 11.5v9M21.5 11.5v9M24.5 9.5v13',
+  kurz: 'M5.5 12v8M9 9.5v13M23 9.5v13M26.5 12v8M9 16h14',
+  gewicht: 'M10.5 13h11l4 14h-19zM13 13v-1.5a3 3 0 0 1 6 0V13M13 22h6'
 };
-var AREA_SYM = SYM_SETS.z;
+var AREA_SYM = {
+  ausdauer: 'M16 26.5C9.6 22.2 5 18 5 12.6A5.6 5.6 0 0 1 16 10.4a5.6 5.6 0 0 1 11 2.2c0 5.4-4.6 9.6-11 13.9zM8.5 15.5h4l1.8-3.5 2.8 7 1.9-3.5h4.5',
+  beweglichkeit: 'M6 22A10 10 0 0 1 26 22M6 22l-1.6-3.6M6 22l3.6-1.4M26 22l1.6-3.6M26 22l-3.6-1.4M16 22.2v.01M10 26.5h12',
+  koordination: 'M5 14.5l22-3M16 13l-4.2 9h8.4zM9.2 10.4a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M27.6 7.2a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M9 26.5h14',
+  kraft: KRAFT_SYM.lang,
+  schnellkraft: 'M18.5 3.5L8 18h7l-2.2 10.5L24 13.5h-7.2z'
+};
 function metalOf(k) { return METAL2[k] || METAL[k]; }
 function medal2HTML(key, s, extra) {
   var id = key.replace('area_', ''), A = AREAS.filter(function (a) { return a.id === id; })[0] || {}, cur = s ? s.cur : 0, n = 4;
-  var tk = cur ? MEDAL_K[cur - 1] : null, t = tk ? metalOf(tk) : null, g = 'md' + (++MD_N), D = MEDAL_D;
+  var tk = cur ? MEDAL_K[cur - 1] : null, t = tk ? metalOf(tk) : null, g = 'md' + (++MD_N);
   var hi = t ? t.hi : 'var(--paper)', base = t ? t.base : 'var(--fill)', lo = t ? t.lo : 'var(--line2)';
   var o = '<svg class="md-svg" viewBox="0 0 104 104" aria-hidden="true"><defs>' +
     '<linearGradient id="' + g + 'r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + hi + '"/><stop offset=".55" stop-color="' + lo + '"/><stop offset="1" stop-color="' + base + '"/></linearGradient>' +
     '<linearGradient id="' + g + 'f" x1=".15" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="' + hi + '"/><stop offset=".45" stop-color="' + base + '"/><stop offset="1" stop-color="' + lo + '"/></linearGradient>' +
     '<radialGradient id="' + g + 'l" cx=".32" cy=".26" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>';
-  // Band hinter der Münze (D3)
-  if (D === 3) {
-    var bc = cur ? A.col || 'var(--acc)' : 'var(--line2)';
-    o += '<path d="M38 70L30 100l9-5 6 7 5-26z" fill="' + bc + '"/><path d="M66 70l8 30-9-5-6 7-5-26z" fill="' + bc + '"/><path d="M38 70L30 100l9-5 6 7 5-26z M66 70l8 30-9-5-6 7-5-26z" fill="#000" opacity=".12"/>';
-  }
-  // Lorbeerzweig (D2): je Seite ein Stiel mit vier Blättern, verdiente in Metall, offene als Umriss
-  if (D === 2) {
+  // Lorbeerzweig: je Seite ein Stiel mit vier Blättern
+  {
     var side = function (m) {
       var q = '<path d="M' + (52 - 8 * m) + ' 94C' + (52 - 30 * m) + ' 88 ' + (52 - 42 * m) + ' 66 ' + (52 - 38 * m) + ' 30" fill="none" stroke="' + (cur ? lo : 'var(--line2)') + '" stroke-width="1.6" stroke-linecap="round"/>';
       [[44, 88, 200], [27, 78, 222], [17, 61, 245], [15, 42, 268]].forEach(function (L, j) {
@@ -4939,17 +4899,17 @@ function medal2HTML(key, s, extra) {
     '<circle cx="52" cy="52" r="27" fill="none" stroke="' + lo + '" stroke-opacity=".55" stroke-width="1"/><circle cx="52" cy="52" r="26" fill="none" stroke="' + hi + '" stroke-opacity=".6" stroke-width=".8"/>';
   if (t) { var bd = ''; for (var b = 0; b < 32; b++) { var a2 = b * 11.25 * Math.PI / 180; bd += '<circle cx="' + (52 + 23.6 * Math.cos(a2)).toFixed(2) + '" cy="' + (52 + 23.6 * Math.sin(a2)).toFixed(2) + '" r=".75"/>'; } o += '<g fill="' + lo + '" opacity=".5">' + bd + '</g>'; }
   // Vertieftes Symbol: dunkle Kante oben links, helle unten rechts
-  var sym = (SYM_SETS[MEDAL_S] || AREA_SYM)[id] || '', tr = 'translate(37 33) scale(.94)';
+  var sym = AREA_SYM[id] || '', tr = 'translate(37 33) scale(.94)';
   o += '<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" transform="' + tr + '">' +
     (t ? '<path d="' + sym + '" stroke="' + hi + '" stroke-opacity=".9" transform="translate(.7 .7)"/><path d="' + sym + '" stroke="' + lo + '" stroke-opacity=".75" transform="translate(-.5 -.5)"/>' : '') +
     '<path d="' + sym + '" stroke="' + (t ? lo : 'var(--line2)') + '"/></g>';
   // Stufen-Perlen unter dem Symbol: 1 Bronze … 4 Platin
   var pr = ''; for (var k = 0; k < n; k++) { var x2 = 52 + (k - (n - 1) / 2) * 5.4, on2 = k < cur; pr += '<circle cx="' + x2.toFixed(1) + '" cy="68.5" r="1.7" fill="' + (on2 ? lo : 'none') + '" stroke="' + (on2 ? lo : (t ? lo : 'var(--line2)')) + '" stroke-opacity="' + (on2 ? 1 : 0.5) + '" stroke-width=".8"/>'; }
   o += pr + '</svg>';
-  return '<span class="medal md d' + D + (t ? '' : ' locked') + (extra || '') + '">' + o + '<span class="m-sheen md-sh"></span></span>';
+  return '<span class="medal md' + (t ? '' : ' locked') + (extra || '') + '">' + o + '<span class="m-sheen md-sh"></span></span>';
 }
 function medalHTML(key, s, extra) {
-  if (MEDAL_D && key.indexOf('area_') === 0) return medal2HTML(key, s, extra);
+  if (key.indexOf('area_') === 0) return medal2HTML(key, s, extra);
   var lad = ladOf(key), n = lad.steps.length, cur = s ? s.cur : 0, best = s ? s.best : 0;
   var t = cur ? METAL[tierOf(cur, n)] : null, tb = best ? METAL[tierOf(best, n)] : null, leaves = '';
   for (var j = 0; j < n; j++) {
@@ -5091,35 +5051,24 @@ function areaDetailHTML(stats, id) {
   return h;
 }
 var AREA_PART_COL = { zug: '#1E5BD8', druck: '#C8734E', beine: '#4E9C78', rumpf: '#3A8E9C' };
-var MEDAL_V = 0, MEDAL_T = [0, 65, 75, 85], MEDAL_K = ['bronze', 'silber', 'gold', 'platin'];
+var MEDAL_T = [0, 65, 75, 85], MEDAL_K = ['bronze', 'silber', 'gold', 'platin'];
 // Nächste Medaille: Name, Punkte bis dahin, Anteil auf dem Weg dorthin.
 function medalNext(s2) { var c = s2.cur || 0; if (c >= 4) return null; var a = MEDAL_T[c - 1] || 40, b = MEDAL_T[c], v = s2.val || 0; return { k: MEDAL_K[c], name: METAL[MEDAL_K[c]].name, left: Math.max(0, b - v), f: Math.max(0, Math.min(1, (v - a) / (b - a))) }; }
+// Medaillen-Karte (Dennis, Variante M1, Impeccable-Kritik 25. Oktober): kein doppeltes Schild, zwei feste Zeilen „52 Punkte“ / „Silber ab 65“,
+// Balken in der dunklen Farbe der nächsten Medaille (mit Ansatz, auch direkt nach einem Aufstieg), Name und Stand im aria-label.
 function medalsHTML(ast, first) {
-  var cells = AREAS.map(function (a) {
-    var k = 'area_' + a.id, s2 = ast[k], nx = medalNext(s2), M = medalHTML(k, s2, first && s2.cur ? ' shine' : ''), t = s2.cur ? METAL[MEDAL_K[s2.cur - 1]] : null;
-    var line = !s2.cur ? 'noch offen' : nx ? s2.val + ' · ' + nx.name + (MEDAL_D ? '\u00a0ab\u00a0' + MEDAL_T[s2.cur] : ' in ' + nx.left) : s2.val + ' · höchste Stufe';
-    var bar = nx ? '<i class="mb2" style="--f:' + (MEDAL_D ? Math.max(8, Math.round(nx.f * 100)) : Math.round(nx.f * 100)) + '%;--c:' + (MEDAL_D ? metalOf(nx.k).lo : METAL[nx.k].base) + '"></i>' : '';
-    if (MEDAL_V === 2) {
-      var R = 49, Cc = 2 * Math.PI * R, ring = nx ? '<svg class="m-ring" viewBox="0 0 104 104"><circle cx="52" cy="52" r="' + R + '" class="bg"/><circle cx="52" cy="52" r="' + R + '" class="fg" stroke="' + METAL[nx.k].base + '" stroke-dasharray="' + (Cc * nx.f).toFixed(1) + ' ' + Cc.toFixed(1) + '" transform="rotate(-90 52 52)"/></svg>' : '';
-      return '<button type="button" class="m-cell mv2" data-act="parea-go" data-v="' + a.id + '"><span class="m-wrap">' + M + ring + '</span><b>' + esc(a.name) + '</b><span class="muted">' + esc(line) + '</span></button>';
-    }
-    if (MEDAL_V === 3) {
-      var ticks = MEDAL_T.slice(1).map(function (x) { return '<i class="tk" style="left:' + ((x - 40) / 59 * 100).toFixed(1) + '%"></i>'; }).join('');
-      return '<button type="button" class="m-row" data-act="parea-go" data-v="' + a.id + '"><span class="m-sm">' + M + '</span><span class="m-rt"><span class="m-rh"><b>' + esc(a.name) + '</b><span class="muted">' + esc(t ? t.name + ' · ' + s2.val : 'noch offen') + '</span></span><span class="m-track"><i class="fill" style="width:' + Math.max(0, Math.min(100, ((s2.val || 40) - 40) / 59 * 100)).toFixed(1) + '%;background:' + (t ? t.base : 'var(--line2)') + '"></i>' + ticks + '</span><small class="muted">' + esc(nx ? nx.name + ' in ' + nx.left + (nx.left === 1 ? ' Punkt' : ' Punkten') : 'Höchste Stufe erreicht') + '</small></span></button>';
-    }
-    return '<button type="button" class="m-cell mv1" data-act="parea-go" data-v="' + a.id + '" aria-label="' + esc(a.name + ', ' + (t ? t.name + ', ' + s2.val : 'noch offen') + (nx ? ', ' + nx.name + ' in ' + nx.left + ' Punkten' : '')) + '">' + M + '<b>' + esc(a.name) + '</b>' + (MEDAL_D && s2.cur ? '<span class="muted">' + s2.val + ' Punkte</span><span class="muted">' + esc(nx ? nx.name + ' ab ' + MEDAL_T[s2.cur] : 'Höchste Stufe') + '</span>' : '<span class="muted">' + esc(line) + '</span>') + bar + '</button>';
-  }).join('');
-  return '<section class="card mv' + MEDAL_V + '"><div class="card-head"><h2>Medaillen</h2>' + (MEDAL_D ? '' : '<span class="chip">je Bereich</span>') + '</div><div class="' + (MEDAL_V === 3 ? 'm-rows' : 'medals') + '">' + cells + '</div>' + (MEDAL_V === 3 ? '<p class="small muted">Striche bei Silber 65, Gold 75, Platin 85.</p>' : '') + '</section>';
+  return '<section class="card mv1"><div class="card-head"><h2>Medaillen</h2></div><div class="medals">' + AREAS.map(function (a) {
+    var k = 'area_' + a.id, s2 = ast[k], nx = medalNext(s2), t = s2.cur ? metalOf(MEDAL_K[s2.cur - 1]) : null;
+    var bar = nx ? '<i class="mb2" style="--f:' + Math.max(8, Math.round(nx.f * 100)) + '%;--c:' + metalOf(nx.k).lo + '"></i>' : '';
+    var lines = s2.cur ? '<span class="muted">' + s2.val + ' Punkte</span><span class="muted">' + esc(nx ? nx.name + ' ab ' + MEDAL_T[s2.cur] : 'Höchste Stufe') + '</span>' : '<span class="muted">noch offen</span>';
+    return '<button type="button" class="m-cell" data-act="parea-go" data-v="' + a.id + '" aria-label="' + esc(a.name + ', ' + (t ? t.name + ', ' + s2.val + ' Punkte' : 'noch offen') + (nx && t ? ', ' + nx.name + ' ab ' + MEDAL_T[s2.cur] : '')) + '">' +
+      medalHTML(k, s2, first && s2.cur ? ' shine' : '') + '<b>' + esc(a.name) + '</b>' + lines + bar + '</button>';
+  }).join('') + '</div></section>';
 }
 function erfolgeHTML(stats) {
   var first = !ui.medShown; ui.medShown = true;
   var ast = areaStates(LOGS);
-  if (MEDAL_V) { var hm0 = (v2() ? chainCardHTML() : '') + medalsHTML(ast, first); return erfolgeRest(hm0); }
-  var h = (v2() ? chainCardHTML() : '') + '<section class="card"><div class="card-head"><h2>Medaillen</h2><span class="chip">je Bereich</span></div><div class="medals">' + AREAS.map(function (a) {
-    var k = 'area_' + a.id, s2 = ast[k], lost = s2.best > s2.cur;
-    return '<button type="button" class="m-cell" data-act="parea-go" data-v="' + a.id + '">' + medalHTML(k, s2, first && s2.cur ? ' shine' : '') + '<b>' + esc(a.name) + '</b><span class="' + (lost ? 'm-best' : 'muted') + '">' +
-      esc(s2.cur ? AREA_LAD[k].steps[s2.cur - 1] + ' · ' + s2.val : 'noch offen') + (lost ? ' · Bestwert ' + AREA_LAD[k].steps[s2.best - 1] : '') + '</span></button>';
-  }).join('') + '</div><p class="small muted">Bronze ab Start · Silber ab 65 · Gold ab 75 · Platin ab 85</p></section>';
+  var h = (v2() ? chainCardHTML() : '') + medalsHTML(ast, first);
   return erfolgeRest(h);
 }
 function erfolgeRest(h) {
@@ -5741,48 +5690,23 @@ function chainRisk() {
   var P = wkPlanC(), left = chainNeed() - w.n, r = P.days.filter(function (x) { return x.i >= P.today && x.tag && !x.done && !DAYS[x.tag].zusatz; }).length;
   return { left: left, r: r, tight: r <= left, lost: r < left, today: P.today >= 0 && !!(P.days[P.today] && P.days[P.today].tag && !P.days[P.today].done) };
 }
-var CHAIN_IC = '<svg class="ch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 13.5a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';
-var CHAIN_IC_A = '<svg class="ch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" opacity=".3"/><path d="M12 3.5a8.5 8.5 0 0 1 8.2 10.7"/></svg>';
-var CHAIN_IC_C = '<svg class="ch-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="12" width="4" height="8" rx="2"/><rect x="10" y="8" width="4" height="12" rx="2"/><rect x="16" y="4" width="4" height="16" rx="2"/></svg>';
+// Symbol der Zeile auf Heute: ein Ring, der sich füllt (wie die Glieder in Erfolge).
+var CHAIN_IC = '<svg class="ch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" opacity=".3"/><path d="M12 3.5a8.5 8.5 0 0 1 8.2 10.7"/></svg>';
 function chainWk(n) { return n + (n === 1 ? ' Woche' : ' Wochen'); }
-// Darstellung der Wochen (Dennis, 25. Oktober: drei Varianten zur Wahl). a = Ringe, b = Kettenglieder aus Metall, c = Wochen-Säulen.
-var CHAIN_V = 'a', CHAIN_A = 1, CHAIN_SVG = 0;
-// Joker als Schild (A2–A4): Gold heißt in der App schon „Bestwert“, darum neutral.
+// Joker als Schild (Dennis, Variante A2): Gold und Stern heißen in der App schon „Bestwert“ und „Rekord“, darum neutral.
 var CHAIN_SHIELD = '<path class="jk" d="M14 7.5l5 1.8v3.9c0 3.1-2.1 5.5-5 6.5-2.9-1-5-3.4-5-6.5V9.3z"/>';
 // Segment-Ring: je Einheit des Wochenziels ein Stück, gemacht = gefüllt.
 function chainSeg(n, G, R, cx) { var C = 2 * Math.PI * R, gap = G > 1 ? 4.5 : 0, L = C / G - gap, o = ''; for (var i = 0; i < G; i++) o += '<circle class="' + (i < n ? 'ar' : 'bg') + '" cx="' + cx + '" cy="' + cx + '" r="' + R + '" stroke-dasharray="' + L.toFixed(2) + ' ' + (C - L).toFixed(2) + '" stroke-dashoffset="' + (-(C / G) * i - gap / 2).toFixed(2) + '" transform="rotate(-90 ' + cx + ' ' + cx + ')"/>'; return o; }
+// Wochen als Ringe: geschafft voll mit Haken, gehalten in Stücken, Joker Schild, Pause gestrichelt, verpasst ein Punkt, laufende Woche füllt sich.
 function chainLinksHTML(W, cls) {
-  var big = cls === 'big', v = CHAIN_V, G = tageN(), id = 'chg' + (++CHAIN_SVG);
-  if (v === 'a' && CHAIN_A > 1) return '<div class="chv chv-a a' + CHAIN_A + (big ? ' big' : '') + '" aria-hidden="true">' + W.map(function (w) {
+  var G = tageN();
+  return '<div class="chv' + (cls === 'big' ? ' big' : '') + '" aria-hidden="true">' + W.map(function (w) {
     var st = w.st, mid = '', ring;
     if (st === 'joker') ring = '<circle class="bg jkr" cx="14" cy="14" r="11"/>' + CHAIN_SHIELD;
     else if (st === 'pause') ring = '<circle class="bg ps" cx="14" cy="14" r="11"/>';
     else if (st === 'miss') ring = '<circle class="dot" cx="14" cy="14" r="3.5"/>';
     else { ring = chainSeg(w.n, G, 11, 14); if (st === 'full') mid = '<path class="ck2" d="M9.5 14.3l3 3L18.6 11"/>'; }
-    var lab = CHAIN_A === 3 && w.mon ? '<small>' + (w.cur ? 'jetzt' : parseISO(w.mon).getDate() + '.' + (parseISO(w.mon).getMonth() + 1) + '.') + '</small>' : '';
-    return '<span class="crw">' + '<svg class="cr ' + st + '" viewBox="0 0 28 28">' + ring + mid + '</svg>' + lab + '</span>';
-  }).join('') + '</div>';
-  if (v === 'a') return '<div class="chv chv-a' + (big ? ' big' : '') + '" aria-hidden="true">' + W.map(function (w, k) {
-    var R = 11, C = 2 * Math.PI * R, f = Math.min(1, w.n / G), st = w.st;
-    var arc = st === 'joker' || st === 'pause' || st === 'miss' ? '' : '<circle class="ar" cx="14" cy="14" r="' + R + '" stroke-dasharray="' + (C * f).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 14 14)"/>';
-    var mid = st === 'full' ? '<path class="ck" d="M9 14.5l3.3 3.3L19 10.8"/>' : st === 'joker' ? '<path class="jk" d="M14 8.2l1.7 3.5 3.8.5-2.8 2.6.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.6 3.8-.5z"/>' : st === 'held' ? '<text x="14" y="18.2">' + w.n + '</text>' : '';
-    return '<svg class="cr ' + st + '" viewBox="0 0 28 28"><circle class="bg" cx="14" cy="14" r="' + R + '"/>' + arc + mid + '</svg>';
-  }).join('') + '</div>';
-  if (v === 'b') {
-    var M = { full: ['#FFF0B8', '#CFA43C', '#86641B'], held: ['#FFFFFF', '#A9B0B7', '#6B7178'], joker: ['#F1C9A2', '#B0764B', '#6E4527'] }, x = 4, out = '', defs = '';
-    Object.keys(M).forEach(function (k) { defs += '<linearGradient id="' + id + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + M[k][0] + '"/><stop offset=".5" stop-color="' + M[k][1] + '"/><stop offset="1" stop-color="' + M[k][2] + '"/></linearGradient>'; });
-    W.forEach(function (w, k) {
-      var st = w.st, prev = W[k - 1], gap = st === 'miss' || (prev && prev.st === 'miss');
-      if (k && !gap) { out += '<rect class="eg ' + (M[st] ? st : 'ghost') + '" x="' + (x - 17) + '" y="17" width="24" height="6" rx="3"' + (M[st] ? ' fill="url(#' + id + st + ')"' : '') + '/>'; }
-      if (st === 'miss') { x += 10; return; }
-      out += '<rect class="fc ' + st + '" x="' + x + '" y="9" width="26" height="22" rx="11"' + (M[st] ? ' stroke="url(#' + id + st + ')"' : '') + '/>';
-      x += 36;
-    });
-    return '<div class="chv chv-b' + (big ? ' big' : '') + '" aria-hidden="true"><svg viewBox="0 0 ' + (x + 2) + ' 40" style="width:100%;max-width:' + Math.round((x + 2) * (big ? 1.4 : 1)) + 'px;height:auto"><defs>' + defs + '</defs>' + out + '</svg></div>';
-  }
-  return '<div class="chv chv-c' + (big ? ' big' : '') + '" aria-hidden="true">' + W.map(function (w) {
-    var d = ''; for (var q = G; q >= 1; q--) d += '<i class="' + (q <= w.n ? 'on' : '') + '"></i>';
-    return '<span class="cs ' + w.st + '">' + (w.st === 'joker' ? '<b class="cs-j" style="height:' + (G * 17 - 3) + 'px">★</b>' : d) + '</span>';
+    return '<span class="crw"><svg class="cr ' + st + '" viewBox="0 0 28 28">' + ring + mid + '</svg></span>';
   }).join('') + '</div>';
 }
 // Heute: eine Zeile unter der Wochenleiste. Wird es eng, bietet der Coach 15 Minuten statt gar nichts an.
@@ -5796,28 +5720,15 @@ function chainLineHTML(tag) {
     txt = (C.n ? '<b>' + chainWk(C.n) + '</b> in Folge · ' : '') + 'noch ' + (R ? R.left : chainNeed() - w.n) + ' für diese Woche';
     if (R && R.tight && R.today && !doneToday0() && DAYS[tag] && DAYS[tag].type === 'kraft' && +D._zeit !== 15) { txt += ', auch 15 Minuten zählen'; btn = '<button type="button" class="btn small" data-act="chain-short">15 Minuten</button>'; }
   }
-  return '<div class="ch-row">' + (CHAIN_V === 'a' ? CHAIN_IC_A : CHAIN_V === 'c' ? CHAIN_IC_C : CHAIN_IC) + '<span>' + txt + '</span>' + btn + '</div>';
+  return '<div class="ch-row">' + CHAIN_IC + '<span>' + txt + '</span>' + btn + '</div>';
 }
 function chainCardHTML() {
   var C = chainState(); if (!C.cur) return '';
   var W = C.weeks.slice(-12), w = C.cur, nx = C.joker ? isoAdd(C.joker, CHAIN_JOKER) : null;
-  if (CHAIN_V === 'a' && CHAIN_A === 4) return chainCard4(C, W, w, nx);
   return '<section class="card ch-card"><div class="card-head"><h2>Wochen-Kette</h2>' + (C.best > C.n ? '<span class="chip">Längste: ' + chainWk(C.best) + '</span>' : '') + '</div>' +
     '<p class="ch-big"><b>' + C.n + '</b>' + (C.n === 1 ? ' Woche' : ' Wochen') + ' in Folge</p>' + chainLinksHTML(W) +
-    (CHAIN_V === 'a' && CHAIN_A === 3 ? chainLegend() : '') + '<p class="small muted ch-x">' + (w.st === 'open' ? 'Diese Woche ' + w.n + ' von ' + chainNeed() + '. ' : '') + 'Mit ' + chainNeed() + ' Einheiten hält die Woche, mit ' + tageN() + ' ist sie geschafft. Auch kurze Einheiten zählen.</p>' +
+    '<p class="small muted ch-x">' + (w.st === 'open' ? 'Diese Woche ' + w.n + ' von ' + chainNeed() + '. ' : '') + 'Mit ' + chainNeed() + ' Einheiten hält die Woche, mit ' + tageN() + ' ist sie geschafft. Auch kurze Einheiten zählen.</p>' +
     '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>Joker</b><small>' + (C.jokerOk ? 'Hält die Kette, wenn eine Woche nicht reicht.' : 'Genutzt in der Woche ab ' + esc(fmtDate(C.joker)) + ', wieder da ab ' + esc(fmtDate(nx)) + '.') + '</small></span><span class="vr-v">' + (C.jokerOk ? '1' : '0') + '</span></div></div></section>';
-}
-function chainLegend() {
-  var it = [['full', 'geschafft'], ['held', 'gehalten'], ['joker', 'Joker'], ['miss', 'verpasst']], o = CHAIN_A;
-  return '<div class="ch-leg">' + it.map(function (x) { return '<span>' + chainLinksHTML([{ st: x[0], n: x[0] === 'full' ? tageN() : x[0] === 'held' ? chainNeed() : 0 }], '').replace('chv ', 'chv one ') + x[1] + '</span>'; }).join('') + '</div>';
-}
-// A4: die laufende Woche groß links, die Kette klein daneben.
-function chainCard4(C, W, w, nx) {
-  var G = tageN(), big = '<svg class="cr4" viewBox="0 0 64 64">' + chainSeg(w.st === 'open' ? w.n : w.n, G, 27, 32) + '<text x="32" y="30">' + w.n + '</text><text class="s" x="32" y="44">von ' + (w.st === 'open' ? chainNeed() : G) + '</text></svg>';
-  return '<section class="card ch-card ch4"><div class="card-head"><h2>Wochen-Kette</h2>' + (C.best > C.n ? '<span class="chip">Längste: ' + chainWk(C.best) + '</span>' : '') + '</div>' +
-    '<div class="ch4-row">' + big + '<div class="ch4-r"><p class="ch-big"><b>' + C.n + '</b>' + (C.n === 1 ? ' Woche' : ' Wochen') + ' in Folge</p>' + chainLinksHTML(W.slice(0, -1).slice(-8)) + '</div></div>' +
-    '<p class="small muted ch-x">' + (w.st === 'open' ? 'Diese Woche ' + w.n + ' von ' + chainNeed() + ' zum Halten, ' + G + ' zum Schaffen.' : 'Diese Woche ist ' + (w.st === 'full' ? 'geschafft.' : 'gehalten.')) + ' Auch kurze Einheiten zählen.</p>' +
-    '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>Joker</b><small>' + (C.jokerOk ? 'Hält die Kette, wenn eine Woche nicht reicht.' : 'Genutzt ab ' + esc(fmtDate(C.joker)) + ', wieder da ab ' + esc(fmtDate(nx)) + '.') + '</small></span><span class="vr-v">' + (C.jokerOk ? '1' : '0') + '</span></div></div></section>';
 }
 // Moment nach dem Speichern: die Woche hält (2. Einheit) bzw. ist geschafft (Wochenziel).
 function chainEvent(before) {
