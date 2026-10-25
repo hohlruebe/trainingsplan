@@ -1,3 +1,4 @@
 # Impeccable: Hook-Einstellungen und Programmdatei bleiben auf dem Gerät
 .claude/settings.local.json
 .claude/skills/impeccable/scripts/bin/
+.impeccable/live/

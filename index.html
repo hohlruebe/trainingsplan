@@ -411,7 +411,7 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .tl-h span{font-weight:400;font-size:14px;color:var(--ink2);white-space:nowrap}
 .tl-x{margin:6px 0 0;padding:6px 10px;border-radius:10px;background:var(--board);font-size:14px;line-height:1.4;color:var(--ink2)}.tl-d{font-size:14px;color:var(--ink2);margin-top:2px}
 .btn.go{min-height:56px;font-size:18px}
-.btn.save{background:var(--on);color:#fff;border-color:transparent}
+.btn.save{background:var(--on);color:#0E2A18;border-color:transparent}
 .ov-foot{text-align:center;font-size:14px;color:var(--ink2);margin:12px 0}
 .rlist{list-style:none;margin:8px 0 0;padding:0}
 .rlist li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:15px;transition:color .2s}
@@ -987,7 +987,8 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 /* Trainer im Vollbild (Paket 56): Kopf mit Schritt, Einzeln | Liste, Start/Pause; Fuß mit voriger | nächster Schritt */
 .fs-tr .fs-top{gap:10px}
 .fs-tt{flex:1;min-width:0}.fs-tt .fs-kick{font-weight:700;color:var(--ink);margin:0 0 6px}.fs-tt .st-prog{margin:0}
-.fs-seg{flex:none;margin:0}.fs-seg .seg-btn{min-height:40px;padding:0 14px;font-size:14px}
+.fs-seg{flex:none;margin:0}.fs-seg .seg-btn{min-height:44px;padding:0 16px;font-size:14px}
+
 .fs-nav{display:flex;gap:10px}.fs-nav .btn{flex:1;min-width:0;min-height:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
 .fs-tr .fs-side{justify-content:safe center}
 .fs-i{flex:none;display:inline-grid;place-items:center;width:calc(34px*var(--fsu,1));height:calc(34px*var(--fsu,1));min-width:34px;min-height:34px;border-radius:50%;border:2px solid var(--acc);background:var(--paper);color:var(--acc);font:italic 700 18px Georgia,serif;padding:0;cursor:pointer}
@@ -1302,6 +1303,24 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .ob-bar{display:grid;grid-template-columns:1fr auto;column-gap:10px;row-gap:6px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}.ob-bar:last-child{border:0}
 .ob-bar .ob-n{font-weight:600;font-size:16px}.ob-sub{font-weight:400;font-size:14px;color:var(--ink2)}.ob-bar .ob-v{font-size:15px;color:var(--acc);font-weight:600;white-space:nowrap}
 .ob-seg{grid-column:1 / -1;display:flex;gap:3px}.ob-seg i{flex:1;height:6px;border-radius:3px;background:var(--fill)}.ob-seg i.on{background:var(--acc)}.ob-seg i.now{background:var(--acc);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 30%,transparent)}
+/* Impeccable-Kritik 25. Oktober: Umschalter unter dem Ring (Kopf zeigt „x von n“ ganz), Liste mit schmaler Menge, quer nichts unter 14 px */
+.fs-dig2{flex-direction:column;align-items:center;gap:calc(10px*var(--fsu,1))}
+.fs-tr .fs-top .st-flag{margin:0;width:44px;height:44px}
+.fs-nav.lock .btn{background:var(--board);color:var(--ink2);box-shadow:none;display:flex;flex-direction:column;justify-content:center;line-height:1.15}
+.fs-nav.lock .btn small{display:block;font-size:14px;font-weight:500}
+.fs-tr .fs-row b,#fs[data-view] .fs-tr .fs-row b{min-width:0;flex:none}.fs-tr .fs-row b small{font-size:.5em;font-weight:700}
+.fs-tr .fs-row>span{hyphens:none;overflow-wrap:normal}
+.fs-tr .fs-row.on:not(.fs-krow){flex-wrap:wrap;row-gap:6px;padding-top:10px;padding-bottom:12px}.fs-tr .fs-row.on:not(.fs-krow)>span{min-width:55%}.fs-tr .fs-row.on .btn{order:9;margin:0 0 0 auto}
+.fs-krow span.bst{display:inline;white-space:nowrap}.nw{white-space:nowrap}
+.fs-i{position:relative}.fs-i::before{content:"";position:absolute;inset:-6px}
+.fs-tr.lk .fs-seg{display:none}
+.fs-tr .fs-krow b{min-width:calc(58px*var(--fsu,1))}
+.fs-krow .bst{white-space:nowrap}
+.fs-st{font-size:max(14px,calc(14px*var(--fsu,1)))}#fs-pl{font-size:max(14px,calc(15px*var(--fsu,1)))}
+.fs-lbl,.fs-hint{font-size:max(14px,calc(15px*var(--fsu,1)))}.fs-rd,.fs-krow>small,.fs-krow span small{font-size:max(14px,calc(14px*var(--fsu,1)))}
+.fs-rd i{font-size:14px;width:28px;height:28px}
+.fs-rd i:not(.on):not(.dn){color:var(--ink)}
+#fs .stepper button{min-width:44px;min-height:44px}
 </style>
 </head>
 <body>
@@ -3697,6 +3716,14 @@ function loadCardHTML(mon) {
   return h + '</section>';
 }
 function saveAsk() {
+  // Trainer: ist die Uhr des letzten Schritts (z. B. Kardio-Abschluss) nie gelaufen, erst nachfragen.
+  var T0 = FS.on && FS.train ? trainCtx() : null;
+  if (T0 && !ui.saveSure && T0.s.timer && !(TM.cfg && TM.cfg.step === T0.key + ':' + T0.s.id && (TM.finished || TM.running || TM.acc > 0))) {
+    openChoice(T0.s.title + ' noch nicht gemacht', 'Die Uhr für diesen Schritt ist nicht gelaufen. Trotzdem speichern?', [['nein', 'Zurück zum Training', 'primary'], ['ja', 'Trotzdem speichern', '']], function (v) {
+      if (v === 'ja') { ui.saveSure = true; saveAsk(); ui.saveSure = false; }
+    });
+    return;
+  }
   var tag = S.tag, c = dayCtx(tag), D = DRAFTS[draftKey(tag)] || {}, r = coolOf(tag);
   // Lauftag (Laufen oder Ergometer): erst speichern, bei Ja startet danach das Cool-down im Player.
   if (r && !c.isTest && !c.isMurph && (c.d.type === 'easy' || c.d.type === 'interval') && !doneToday(r.id)) {
@@ -7385,10 +7412,11 @@ function renderHeute() {
   // Heute erledigt: Ergebnis von heute, morgen geht es weiter.
   if (todayView) {
     var TL = LOGS.filter(function (l) { return l.date === isoToday() && l.kind !== 'mobility' && l.kind !== 'rm'; });
-    if (lean) h += heuteAskHTML(PL, 0);
     h += TL.map(outlookHTML).join('');
+    var askD = lean ? heuteAskHTML(PL, 0) : '';
     h += TL.length ? TL.map(function (l) { return '<section class="card"><div class="row between wrap"><h2>' + esc(logTitle(l)) + '</h2><span class="chip">' + TICK + 'Erledigt</span></div>' + logLines(l) + logBtns(l, fixable(l)) + '</section>'; }).join('')
       : '<section class="card"><div class="row between wrap"><h2>Abgehakt</h2><span class="chip">' + TICK + 'Erledigt</span></div><p class="small muted">Erholung gehört zum Plan.</p></section>';
+    h += askD; // Fragen (Guten Morgen, neue Woche …) erst nach dem Ergebnis
     h += lean ? '' : (PL ? planNextAskHTML() + wkCardHTML(PL) : '<p class="small muted">Ein Trainingstag pro Kalendertag. Morgen ist Tag ' + S.tag + ' dran: ' + esc(dayLabel(S.tag)) + '.</p>') + blk;
     if (!desk) return h;
     return h.slice(0, cut) + '<div class="dk2"><div class="dk-main">' + h.slice(cut) + '</div><aside class="dk-side">' + side + weekCardHTML(tag) + '</aside></div>';
@@ -7489,7 +7517,7 @@ function renderHeute() {
 // Training: der wichtigste Hinweis für heute (müde, Wiedereinstieg, Phase, mehr Umfang); frei und erledigt: warum und wann es weitergeht.
 function heuteSub(kind, PL, tag) {
   // Ein angenommener Ausfall steht zuerst; daneben bleibt eine Zeile (Training: der Hinweis des Tages, frei: der nächste Termin).
-  var ml = missAutoLine(), R = heuteSub0(kind, PL, tag); // Allgemeine Zeilen (Einstieg, mehr Umfang) treten dann zurück, Gründe für heute (müde, kürzer) bleiben.
+  var ml = kind === 'done' ? '' : missAutoLine(), R = heuteSub0(kind, PL, tag); // Allgemeine Zeilen (Einstieg, mehr Umfang) treten dann zurück, Gründe für heute (müde, kürzer) bleiben.
   return !ml ? R : [ml].concat(kind === 'free' ? R.slice(-1) : R.slice(0, 1).filter(function (x) { return !/^(Einstieg|Mehr Umfang)/.test(x); }));
 }
 function heuteSub0(kind, PL, tag) {
@@ -7562,7 +7590,7 @@ function morgenAskHTML(PL, tag) {
 function morgenRowHTML(PL, tag) {
   var m = morgenOf(); if (!m || ui.mgEdit) return '';
   var free = !tag || !(PL && PL.today >= 0 && PL.days[PL.today].tag), lvl = morgenLvl(m), off = S.planOv && S.planOv[isoToday()] && S.planOv[isoToday()].reason === 'sehrmuede';
-  return '<div class="vrows mg-row"><button type="button" class="vrow" data-act="mg-edit"><span class="gl-t"><b>Guten Morgen</b><small>' + fmtH(m.h) + ' Schlaf · Gefühl ' + MG_F[(+m.f || 3) - 1].toLowerCase() + '</small><small>' + esc(morgenRes(lvl, tag, free)) + '</small></span><span class="mg-chg">Ändern</span></button></div>' +
+  return '<div class="vrows mg-row"><button type="button" class="vrow" data-act="mg-edit"><span class="gl-t"><b>Guten Morgen</b><small>' + fmtH(m.h) + ' Schlaf · Gefühl ' + MG_F[(+m.f || 3) - 1].toLowerCase() + '</small>' + (doneToday0() ? '' : '<small>' + esc(morgenRes(lvl, tag, free)) + '</small>') + '</span><span class="mg-chg">Ändern</span></button></div>' +
     (lvl === 3 && !free && !off ? '<button type="button" class="btn block" data-act="mg-off" style="margin:-4px 0 12px">Heute frei nehmen</button>' : '');
 }
 function morgenSave(off) {
@@ -7861,6 +7889,7 @@ function kStageChip(E) {
   if (!E.stage || E.first) return '</div>' + stageRow('Erstes Mal · Stufe', E.stage, { sf: 'k' + E.i + 'stage', sdef: E.stage, lad: E.g.key, title: E.x.n }) + '<p class="small muted">Die Stufe, bei der 3–6 saubere Wdh. gehen. Ab dann setzt sie dein Coach.</p><div class="chips">';
   return '<span class="chip ok">✓ Stufe ' + (E.si + 1) + ' ' + stageHTML(E.stage) + '</span>';
 }
+var PAIN_FLAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>';
 function kFlag(E) {
   var P = E.x.pain, weg = P && (P.src === 'hand' || P.src === 'mem');
   return '<button type="button" class="rbtn pn-flag" data-act="' + (weg ? 'pain-off' : 'pain') + '" data-i="' + E.i + '" aria-label="' + (weg ? 'Schmerzen weg' : 'Schmerzen') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></button>';
@@ -8773,11 +8802,17 @@ ACT['storage-backup'] = function () {
 ACT['text-size'] = function (el) { S.textSize = el.dataset.v; saveState(); applyTheme(); render(); };
 ACT['k-view'] = function (el) { S.kraftView = el.dataset.v; saveState(); render(); };
 ACT['k-sel'] = function (el) { ui.kSel = { k: el.dataset.k, m: +el.dataset.m }; render(); };
-ACT['k-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]), d = +el.dataset.d; v = v == null ? Math.max(0, (+el.dataset.def || 0) + d) : Math.max(0, v + d); setDraft(el.dataset.f, v); render(); };
+ACT['k-rep'] = function (el) {
+  // Ohne laufende Uhr bleibt die Karte auf dieser Minute (sonst springt sie still weiter und das nächste „–“ trifft eine andere Übung).
+  var km = /^k(\d+)r(\d+)$/.exec(el.dataset.f || ''), kd = DAYS[S.tag];
+  if (km && kd && kd.kraft && !(TM.running && TM.mode === 'emom')) ui.kSel = { k: draftKey(S.tag), m: +km[2] * kd.kraft.length + +km[1] };
+  var D = dr(S.tag), v = num(D[el.dataset.f]), d = +el.dataset.d; v = v == null ? Math.max(0, (+el.dataset.def || 0) + d) : Math.max(0, v + d); setDraft(el.dataset.f, v); render(); };
 ACT['k-kg'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = (v == null ? +el.dataset.def : v) + (+el.dataset.d); setDraft(el.dataset.f, Math.max(0, Math.round(v * 10) / 10)); render(); };
 ACT['t-rep'] = function (el) { var D = dr(S.tag), v = num(D[el.dataset.f]); v = v == null ? (+el.dataset.def || 0) : Math.max(0, v + (+el.dataset.d)); setDraft(el.dataset.f, v); render(); };
 ACT.layout = function (el) { S.layout = el.dataset.v; saveState(); render(); if (S.layout === 'desk' && !deskOn()) toast('Zu schmal für Desktop: ab 900 px Breite, z. B. am Mac.'); };
 ACT.step = function (el) {
+  if (FS.lpStep && !el.dataset.force) { FS.lpStep = false; return; } // der Klick nach einem langen Druck
+  if (!el.dataset.force && fsLocked()) { haptic('tap'); toast('Die Uhr läuft noch. Lange drücken überspringt den Schritt.'); return; }
   var to = +el.dataset.to, k = draftKey(S.tag), d = DRAFTS[k] || (DRAFTS[k] = {});
   if (to < 0) { d._at = String(d._step || 0); delete d._step; } else { d._step = String(to); d._at = String(to); if (!d._t0) d._t0 = String(Date.now()); }
   LS.set('tp.drafts', DRAFTS); window.scrollTo(0, 0); render();
@@ -9421,7 +9456,7 @@ function fsOrient() {
   f.dataset.view = o.want; f.classList.toggle('turn', turn);
   f.style.width = W + 'px'; f.style.height = H + 'px';
   // Größen wachsen mit dem Bildschirm (--fsu), die Zeit steht im Ring (--ring), die Übung rechts bzw. unten bekommt den Rest.
-  var land = o.want === 'land', u = land ? Math.min(W / 1100, H / 640) : Math.min(W / 430, H / 900), ring = Math.round(land ? Math.min(H * (FS.train ? 0.58 : 0.72), W * 0.34) : Math.min(W * (FS.train ? 0.5 : 0.6), H * (FS.train ? 0.24 : 0.3)));
+  var land = o.want === 'land', u = land ? Math.min(W / 1100, H / 640) : Math.min(W / 430, H / 900), ring = Math.round(land ? Math.min(H * (FS.train ? 0.5 : 0.72), W * 0.34) : Math.min(W * (FS.train ? 0.44 : 0.6), H * (FS.train ? 0.22 : 0.3)));
   f.style.setProperty('--fsu', Math.max(0.6, Math.min(1.7, u)).toFixed(3)); f.style.setProperty('--ring', ring + 'px');
   var n = document.getElementById('fs-num');
   if (n) n.style.fontSize = Math.round(ring * 0.27) + 'px';
@@ -9472,11 +9507,16 @@ function fsFlowHTML(F) {
     : '<div class="fs-rh"><p class="fs-lbl">Runden' + (F.loop.times ? ' / ' + F.loop.times : '') + '</p>' + fsStepper(s.r - 1, 'fl-count', F.id) + '</div>';
   h += '<div class="fs-rows">' + F.items.map(function (it, i) {
     var on = i === cur, dn = rm === 'ex' && (single ? i < s.c : s.done.indexOf(i) >= 0);
-    return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + '"><b>' + esc(it.qty) + '</b><span>' + esc(it.n) + '</span>' +
-      (on ? '<button type="button" class="btn primary small" data-act="fl-done" data-flow="' + F.id + '"' + (single ? '' : ' data-i="' + i + '"') + '>Erledigt</button>' : dn ? '<i class="fs-ok">✓</i>' : '') + fsI(it.n, it.key) + '</div>';
+    return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + '"><b>' + fsQty(it.qty) + '</b><span>' + fsName(it.n) + '</span>' +
+      // Dennis (25. Oktober): in der Liste nichts abhaken, das Ergebnis trägt man danach ein; die laufende Übung bleibt nur markiert.
+      (dn ? '<i class="fs-ok">✓</i>' : '') + fsI(it.n, it.key) + '</div>';
   }).join('') + '</div>';
   return h;
 }
+// Übungsnamen nie am Bindestrich trennen („Scapular Push-up“, „Band Pull-Apart“).
+function fsName(n) { return esc(n).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>'); }
+// Menge in der Liste: Zahl groß, Einheit klein dahinter („3 je Seite“, „2 Min“), damit der Name Platz hat.
+function fsQty(q) { var m = /^(\d+(?:[,.]\d+)?)\s+(.+)$/.exec(String(q || '')); return m ? esc(m[1]) + '<small> ' + esc(m[2]) + '</small>' : esc(q || ''); }
 // Aufwärmen im Vollbild: aktuelle Übung mit Figur, Erledigt und was danach kommt.
 function fsWarmHTML(F) {
   var s = flowState(F), single = modeOf(F.id) === 'single', n = F.items.length, c = s.c, nx = -1, it = F.items[c];
@@ -9535,11 +9575,12 @@ function trainShellHTML(T) {
   var prev = T.i > 0 ? T.st[T.i - 1].title : 'Übersicht';
   return '<div class="fs-in fs-tr' + (id === 'koerper' ? ' fs-noring' : '') + '"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
     '<div class="fs-tt"><p class="fs-kick">' + esc(T.s.title) + ' · ' + (T.i + 1) + ' von ' + T.st.length + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
-    seg + '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
-    '<div class="fs-main"><div class="fs-dig"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
+    (PAIN_STEPS[id] ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + id + '" aria-label="Schmerzen">' + PAIN_FLAG + '</button>' : '') +
+    '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
+    '<div class="fs-main"><div class="fs-dig' + (seg ? ' fs-dig2' : '') + '"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
     '<circle class="fs-rf" id="fs-arc" cx="50" cy="50" r="45" stroke-dasharray="282.7" stroke-dashoffset="282.7"/></svg>' +
-    '<div class="fs-rc"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div><span id="fs-pl"></span></div></div></div><div class="fs-side" id="fs-side"></div></div>' +
-    '<div class="fs-nav"><button type="button" class="btn" data-act="step" data-to="' + (T.i - 1) + '">‹ ' + esc(prev) + '</button>' +
+    '<div class="fs-rc"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div><span id="fs-pl"></span></div></div>' + seg + '</div><div class="fs-side" id="fs-side"></div></div>' +
+    '<div class="fs-nav" id="fs-nav"><button type="button" class="btn" data-act="step" data-to="' + (T.i - 1) + '">‹ ' + esc(prev) + '</button>' +
     (last ? '<button type="button" class="btn save" data-act="save">' + TICK + 'Speichern</button>' : '<button type="button" class="btn primary" data-act="step" data-to="' + (T.i + 1) + '">' + esc(T.st[T.i + 1].title) + ' ›</button>') + '</div></div>';
 }
 function trainSide(T, L) {
@@ -9564,7 +9605,7 @@ function trainKraft(T, L, v, co) {
     var rows = E.map(function (x, i) {
       var mm = r * n + i, f = D['k' + i + 'r' + r], val = r >= x.zr ? 'frei' : (f != null ? f : x.skip ? '–' : x.goal) + (x.sec ? ' s' : ''), kg = r >= x.zr ? null : fsKg(i, r);
       return '<div class="fs-row fs-krow' + (i === ex ? ' on' : '') + (f != null && i !== ex ? ' done' : '') + '" data-act="k-sel" data-k="' + esc(draftKey(tag)) + '" data-m="' + mm + '">' +
-        '<small>Min ' + (mm + 1) + '</small><b>' + esc(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + esc(x.x.n) + (x.stage ? '<small>' + stageHTML(x.stage) + '</small>' : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
+        '<small>Min ' + (mm + 1) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + (x.stage ? '<small>' + stageHTML(x.stage) + '</small>' : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
     }).join('');
     return { k: key, h: dots + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
   }
@@ -9702,6 +9743,12 @@ function fsPaint(L, force) {
     tg.innerHTML = want === 's' ? STOP : want === 'p' ? PAUSE : PLAY;
     tg.setAttribute('aria-label', want === 's' ? 'Fertig' : want === 'p' ? 'Pause' : 'Start');
   }
+  // Impeccable-Kritik 25. Oktober (Dennis: „Weiter erst nach der Uhr“): solange EMOM, AMRAP oder Abschnitte laufen, blättert der Trainer nicht.
+  var nav = FS.train && $('fs-nav'), lk = !!(nav && fsLocked());
+  if (nav && nav.classList.contains('lock') !== lk) {
+    nav.classList.toggle('lock', lk); var tr0 = nav.closest('.fs-tr'); if (tr0) tr0.classList.toggle('lk', lk);
+    nav.querySelectorAll('[data-act="step"]').forEach(function (b) { if (lk) { b.dataset.t = b.innerHTML; b.innerHTML = '<small>Uhr läuft · lang drücken</small>' + b.dataset.t; } else if (b.dataset.t != null) { b.innerHTML = b.dataset.t; delete b.dataset.t; } });
+  }
   var sd = fsSide(L), box = $('fs-side');
   if (sd.k !== FS.key) {
     FS.key = sd.k; box.querySelectorAll('.fig').forEach(stopFig);
@@ -9710,6 +9757,16 @@ function fsPaint(L, force) {
   }
   var nx = $('fs-nxt'); if (nx && L && L.rem != null) nx.textContent = 'in ' + fmtT(Math.ceil(L.rem));
 }
+// Läuft die Uhr des Schritts (nicht Aufwärmen oder Handstand, die zählen je Übung), bleibt der Trainer auf dem Schritt.
+function fsLocked() { return !!(FS.on && FS.train && TM.running && !TM.finished && TM.cfg && TM.cfg.step && ['emom', 'amrap', 'seq', 'hiit', 'zeit'].indexOf(TM.mode) >= 0); }
+(function () {
+  var t = null;
+  document.addEventListener('pointerdown', function (e) {
+    var b = e.target.closest && e.target.closest('#fs-nav.lock [data-act="step"]'); if (!b) return;
+    clearTimeout(t); t = setTimeout(function () { FS.lpStep = true; haptic('switch'); ACT.step({ dataset: { to: b.dataset.to, force: '1' } }); }, 700);
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (k) { document.addEventListener(k, function () { clearTimeout(t); }); });
+})();
 ACT['fs-open'] = function (el) { if (el.dataset.start) ACT['tb-start'](); fsOpen('btn'); };
 ACT['fs-min'] = function () { fsClose(); };
 ACT['fs-x'] = function () {
@@ -11186,7 +11243,7 @@ function painBody(tag) {
     (s.kater ? '' : '<p class="small muted" style="margin:10px 0 0">Der Coach merkt es sich und fragt beim nächsten Training nach.</p>');
 }
 function painRefresh() { var b = document.querySelector('#sheet .pn-body'); if (b) b.innerHTML = painBody(S.tag); render(); }
-var PAIN_TITLE = { warm: 'Aufwärmen', hs: 'Handstand', metcon: 'Metcon', ausgl: 'Ausgleich', cool: 'Cool-down', murph: 'Murph' };
+var PAIN_TITLE = { kraft: 'Kraft', warm: 'Aufwärmen', hs: 'Handstand', metcon: 'Metcon', ausgl: 'Ausgleich', cool: 'Cool-down', murph: 'Murph' };
 ACT['pain-k'] = function (el) { var sl = ui.painSlot, p = painOf(S.tag, sl); ui.painK = el.dataset.v; ui.painAll = false; if (p && p.t.k !== el.dataset.v) setDraft('_p' + sl, ''); painRefresh(); };
 ACT['pain-all'] = function () { ui.painAll = true; painRefresh(); };
 function painOpen(title) {
