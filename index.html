@@ -441,13 +441,13 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .rp p{margin:0}
 .rp-fig{align-self:stretch;text-align:left;margin:8px 0 4px}
 .rp-fig .fig,.rp-fig .figph{margin:0}
-.rp-ctl{display:flex;gap:14px;justify-content:center;margin:10px 0 2px}
+.rp-go{margin:10px 0 4px}.rp-ctl[hidden]{display:none}.rp-ctl{display:flex;gap:14px;justify-content:center;margin:10px 0 2px}
 .rp-tg{width:56px;height:56px;border-radius:28px;background:var(--acc);color:var(--on-acc);border-color:transparent}
 .rp #rp-done{margin-top:12px}
 .mc-how summary{font-weight:600;cursor:pointer;min-height:44px;display:flex;align-items:center}
 .mc-how p{margin:6px 0 0;font-size:15px;line-height:1.45}
 .tl li.opt .tl-n{border-style:dashed}
-.rm-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:60px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left;padding:10px 0;cursor:pointer}
+.rm-empty h2{margin:0 0 6px}.rm-empty p{margin:0}.rm-empty p+p{margin-top:8px}.rm-more{margin:6px 0 14px}.rm-row .gl-chev{flex:none}.rm-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:60px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left;padding:10px 0;cursor:pointer}
 .a-lads>.rm-row:first-child,.a-lads .card-head+.rm-row{border-top:0}
 .rm-row b{font-size:16px}
 .rm-row small{display:block;font-size:14px;color:var(--ink2);font-weight:400}
@@ -9031,7 +9031,9 @@ function renderRM() {
   var best = ui.rmBest === true;
   var h = '<section class="hero"><h1>One Rep Max</h1><p class="hero-title">Deine schwersten Wiederholungen</p></section>';
   if (!S.weight) h += '<section class="card"><p>Trag dein Körpergewicht ein, dann zählt dein 1RM im Wert Kraft mit.</p>' + valRows([weightRow()]) + '</section>';
-  h += '<div class="seg" role="group" aria-label="Wert">' + [['', 'Aktuell'], ['1', 'Bestwert']].map(function (o) {
+  var withV = RM_ALL.filter(function (id) { return rmOf(id); }), rest = RM_ALL.filter(function (id) { return !rmOf(id); });
+  // Aktuell | Bestwert erst, wenn es einen Wert gibt (Impeccable-Kritik Tools, 25. Oktober).
+  if (withV.length) h += '<div class="seg" role="group" aria-label="Wert">' + [['', 'Aktuell'], ['1', 'Bestwert']].map(function (o) {
     var on = !!o[0] === best; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="rm-view" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>';
   }).join('') + '</div>';
   // Alle Übungen mit 1RM: zuerst die mit Werten, dann der Rest, jeweils nach Nutzen.
@@ -9039,13 +9041,39 @@ function renderRM() {
     var r = rmOf(id), d = r ? r.cur.e1 - r.best.e1 : 0, big = r ? (best ? r.best : r.cur) : null;
     var sub = !r ? 'noch kein Wert' : best ? 'am ' + dateY(r.best.date) + (d < 0 ? ' · aktuell ' + fmtKg(r.cur.e1, id) : ' · ist auch aktuell') : sinceText(r.cur.date) + (d < 0 ? ' · Bestwert ' + fmtKg(r.best.e1, id) : ' · ist dein Bestwert');
     return '<button type="button" class="rm-row" data-act="rm-open" data-v="' + id + '"><span><b>' + esc(UE[id].name) + '</b><small>' + esc(sub) + '</small></span>' +
-      '<span class="rm-kg">' + (r ? esc(fmtKg(big.e1, id)) + (best || d >= 0 ? '<small class="gold">★ Bestwert</small>' : '<small class="neg">' + String(d).replace('.', ',') + ' kg zum Bestwert</small>') : '<span class="muted">–</span>') + '</span></button>';
+      (r ? '<span class="rm-kg">' + esc(fmtKg(big.e1, id)) + (best || d >= 0 ? '<small class="gold">★ Bestwert</small>' : '<small class="neg">' + String(d).replace('.', ',') + ' kg zum Bestwert</small>') + '</span>' : CHEV_R) + '</button>';
   };
-  var withV = RM_ALL.filter(function (id) { return rmOf(id); }), rest = RM_ALL.filter(function (id) { return !rmOf(id); });
   if (withV.length) h += '<p class="sec-k">Deine Werte</p><section class="card a-lads rm-list">' + withV.map(row).join('') + '</section>';
-  h += '<p class="sec-k">' + (withV.length ? 'Weitere Übungen' : 'Alle Übungen') + '</p><section class="card a-lads rm-list">' + rest.map(row).join('') + '</section>';
+  // Ohne Wert keine Wand aus „noch kein Wert“: zuerst die Übungen aus deinem Plan, der Rest eingeklappt.
+  var sug = rmSuggest().filter(function (id) { return !rmOf(id); });
+  if (!withV.length) h += '<section class="card rm-empty"><h2>Noch kein 1RM</h2><p class="muted">Ein 1RM ist das Gewicht, das du genau einmal schaffst. Du musst es nicht testen: ein schwerer Satz mit bis zu 10 Wdh. reicht, der Coach rechnet es aus und schlägt dir damit Gewichte vor.</p>' + (sug.length ? '' : '<p class="muted">An deinen Orten gibt es gerade keine Gewichte. Kommt eine Kettlebell oder ein Gym dazu, schlägt der Coach hier passende Übungen vor.</p>') + '</section>';
+  if (sug.length) h += '<p class="sec-k">Passt zu deinem Plan</p><section class="card a-lads rm-list">' + sug.map(row).join('') + '</section>';
+  var more = rest.filter(function (id) { return sug.indexOf(id) < 0; });
+  h += ui.rmAll ? '<p class="sec-k">' + (withV.length || sug.length ? 'Weitere Übungen' : 'Alle Übungen') + '</p><section class="card a-lads rm-list">' + more.map(row).join('') + '</section>'
+    : '<button type="button" class="btn block rm-more" data-act="rm-all">' + (withV.length || sug.length ? 'Weitere Übungen' : 'Alle Übungen') + ' (' + more.length + ')</button>';
   h += '<p class="small muted">Antippen öffnet den Prozent-Rechner mit den üblichen Trainingswerten.</p>';
   return h;
+}
+ACT['rm-all'] = function () { ui.rmAll = true; render(); };
+// Übungen mit Gewicht, die dein Plan gerade nutzt oder als nächste Stufe hat, dann die nützlichsten, die am Ort gehen (höchstens 5).
+function rmSuggest() {
+  var out = [], add = function (id) { if (id && UE[id] && UE[id].einheit === 'kg' && out.indexOf(id) < 0) out.push(id); };
+  for (var t = 1; t <= 7; t++) {
+    var d = DAYS[t]; if (!d || d.type !== 'kraft') continue;
+    (d.kraft || []).forEach(function (x) {
+      var lad = ladFor(x.n), cur = stageDef(x.n, x.hi);
+      if (!lad || !lad.lib) return add(kgUe(x.n, cur));
+      var st = lad.lib.stufen, i0 = Math.max(0, st.map(function (y) { return y.name; }).indexOf(cur));
+      for (var i = i0; i < st.length; i++) if (UE[st[i].uebung] && UE[st[i].uebung].einheit === 'kg') { add(st[i].uebung); break; }
+    });
+    (d.metcon || []).forEach(function (m) { add(ueIdOf(m.n)); });
+  }
+  // Nur, was an einem deiner Orte geht (Weighted Pull-up ohne Weste wäre kein Vorschlag).
+  var any = {}; ensureOrte(); S.orte.filter(function (o) { return o.on; }).forEach(function (o) { Object.assign(any, haveEq(o)); });
+  out = out.filter(function (id) { return eqOk(UE[id].equipment, any); });
+  var have = haveEq(curOrt());
+  RM_ALL.forEach(function (id) { if (out.length < 4 && eqOk(UE[id].equipment, have)) add(id); });
+  return out.slice(0, 5);
 }
 ACT['pr-g'] = function (el) { ui.prG = el.dataset.v; render(); };
 // Deine Woche: Antworten speichern, der Coach plant neu.
@@ -9427,11 +9455,13 @@ function renderRoutine() {
   h += '<section class="hero"><h1>' + esc(r.name) + '</h1><p class="st-sub muted">' + esc(r.ziel) + '</p></section>';
   h += '<section class="card rp"><p class="kicker muted" id="rp-k"></p><h2 id="rp-n"></h2><div class="seg rp-sd" id="rp-sd" role="group" aria-label="Seite" hidden>' + ['Links', 'Rechts'].map(function (x) { return '<button type="button" class="seg-btn" data-act="r-side" data-v="' + x + '">' + x + '</button>'; }).join('') + '</div><div id="rp-fig" class="rp-fig"></div>' +
     '<div class="rp-ring"><svg viewBox="0 0 190 190" aria-hidden="true"><circle class="rr-bg" cx="95" cy="95" r="84"/><circle class="rr-fg" id="rp-arc" cx="95" cy="95" r="84" stroke-dasharray="' + RRING.toFixed(1) + '"/></svg><b id="rp-t"></b></div>' +
-    '<p class="small muted" id="rp-h"></p><ol class="how small rp-how" id="rp-how"></ol><p class="small muted" id="rp-x"></p>' +
-    '<div class="rp-ctl"><button type="button" class="rbtn" data-act="r-jump" data-d="-1" aria-label="Zurück">' + BACK + '</button>' +
+    // Impeccable-Kritik Tools (25. Oktober): Start direkt unter dem Ring, vor dem Start als Hauptaktion; Anleitung darunter.
+    '<button type="button" class="btn primary block go rp-go" id="rp-go" data-act="r-toggle">' + PLAY + 'Starten</button>' +
+    '<div class="rp-ctl" id="rp-ctl" hidden><button type="button" class="rbtn" data-act="r-jump" data-d="-1" aria-label="Zurück">' + BACK + '</button>' +
     '<button type="button" class="rbtn rp-tg" id="rp-tg" data-act="r-toggle" aria-label="Start"></button>' +
     '<button type="button" class="rbtn" data-act="r-jump" data-d="1" aria-label="Weiter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>' +
-    '<button type="button" class="btn primary block" id="rp-done" data-act="r-close" hidden>' + TICK + 'Fertig</button></section>';
+    '<button type="button" class="btn primary block" id="rp-done" data-act="r-close" hidden>' + TICK + 'Fertig</button>' +
+    '<p class="small muted" id="rp-h"></p><ol class="how small rp-how" id="rp-how"></ol><p class="small muted" id="rp-x"></p></section>';
   h += '<section class="card">' + routineListHTML(r) + '</section>';
   return h;
 }
@@ -9453,11 +9483,11 @@ function paintRoutine(L) {
   if (TM.finished) {
     $('rp-k').textContent = 'Geschafft'; $('rp-n').textContent = 'Stark gemacht.'; $('rp-sd').hidden = true; $('rp-how').innerHTML = ''; var f0 = $('rp-fig'); if (f0) { f0.querySelectorAll('.fig').forEach(stopFig); f0.innerHTML = ''; f0.dataset.k = ''; } $('rp-how').dataset.k = '';
     $('rp-t').innerHTML = TICK; $('rp-arc').style.strokeDashoffset = 0; $('rp-h').textContent = LS.notice ? 'Noch nicht gespeichert. Bitte erneut speichern oder eine Sicherung herunterladen.' : 'Gespeichert unter Profil › Verlauf › Mobility.'; $('rp-x').textContent = '';
-    $('rp-tg').hidden = true; $('rp-done').hidden = false; return;
+    $('rp-ctl').hidden = true; $('rp-go').hidden = true; $('rp-done').hidden = false; return;
   }
   if (!p) return;
   var fb = $('rp-fig'); if (fb && fb.dataset.k !== String(p.key || '')) { fb.querySelectorAll('.fig').forEach(stopFig); fb.dataset.k = p.key || ''; fb.innerHTML = figBox(p.key || ''); fb.querySelectorAll('.fig').forEach(startFig); }
-  $('rp-tg').hidden = false; $('rp-done').hidden = true;
+  $('rp-ctl').hidden = idle; $('rp-go').hidden = !idle; $('rp-done').hidden = true;
   var pre = p.kind === 'pre', sw = p.kind === 'sw', q = pre ? TM.phases[1] : p;
   $('rp-k').textContent = pre ? 'Gleich geht’s los' : p.sub;
   $('rp-n').textContent = q.label;
@@ -10619,17 +10649,24 @@ function famFigKey(f, c) {
   if (!pick) { var av = f.varianten.filter(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, c.have); }); pick = (av.length ? av : f.varianten).slice().sort(function (a, b) { return (UE[b.uebung] ? UE[b.uebung].nutzen : 0) - (UE[a.uebung] ? UE[a.uebung].nutzen : 0); })[0].uebung; }
   return pick;
 }
+// Nächste Stufe am Ort (Impeccable-Kritik Tools, 25. Oktober): fehlt hier das Gerät, die nächste höhere, die hier geht, wie beim Coach (nextStage).
+// Geht keine, bleibt die nächste mit Grund (miss), statt „Als Nächstes“ neben „Gesperrt“ zu zeigen.
+function famNext(f, c, lv) {
+  var st = famStufen(f); if (lv == null) lv = famLevel(f, c);
+  for (var i = lv; i < st.length; i++) { var u = UE[st[i].uebung]; if (!u || eqOk(u.equipment, c.have)) return { v: st[i], skip: i > lv ? st[lv] : null }; }
+  return st[lv] ? { v: st[lv], miss: UE[st[lv].uebung] ? eqMissing(UE[st[lv].uebung].equipment, c.have) : '' } : null;
+}
 // Skill-Pfad: Stufen wie eine Leiter, unten leicht, oben schwer, die aktuelle als weiße Pille.
 function famPathHTML(f, c) {
   var st = famStufen(f); if (!st.length) return '';
-  var lv = famLevel(f, c);
+  var lv = famLevel(f, c), NX = famNext(f, c, lv);
   var rows = st.map(function (v) {
     var u = UE[v.uebung], miss = u ? eqMissing(u.equipment, c.have) : '', cur = v.rang === lv, done = v.rang < lv;
-    var right = cur ? '<span class="lad-now">Aktuelle Stufe</span>' : v.rang === lv + 1 ? '<span class="chip sm">Als Nächstes</span>' : miss ? '<span class="lad-lk">' + LOCK_SVG + '</span>' : '';
+    var right = cur ? '<span class="lad-now">Aktuelle Stufe</span>' : NX && v === NX.v && !NX.miss ? '<span class="chip sm">Als Nächstes</span>' : miss ? '<span class="lad-lk">' + LOCK_SVG + '</span>' : '';
     return '<div class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (miss && !cur && !done ? ' lock' : '') + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span></span>' + right + '</div>';
   }).reverse().join('');
-  var cur = lv ? st[lv - 1] : null, next = st[lv];
-  var hint = cur && next ? '<p class="small hint">Für „' + esc(uName(next.uebung)) + '“: ' + esc(cur.ziel) + '</p>' : cur && !next ? '<p class="small hint">Oberste Stufe. ' + esc(cur.ziel) + '</p>' : '';
+  var cur = lv ? st[lv - 1] : null, next = NX && NX.v;
+  var hint = cur && next ? '<p class="small hint">' + (NX.miss ? esc(uName(next.uebung)) + ' braucht ' + esc(NX.miss) + '. Ziel: ' : NX.skip ? esc(uName(NX.skip.uebung)) + ' braucht ' + esc(eqMissing(UE[NX.skip.uebung].equipment, c.have)) + ', hier geht als Nächstes ' + esc(uName(next.uebung)) + '. Ziel: ' : 'Für „' + esc(uName(next.uebung)) + '“: ') + esc(cur.ziel) + '</p>' : cur && !next ? '<p class="small hint">Oberste Stufe. ' + esc(cur.ziel) + '</p>' : '';
   return '<div class="lad fam-path"><p class="lad-k">Skill-Pfad · ↑ Schwerer</p><div class="lad-cap">' + rows + '</div><p class="lad-k">Leichter</p></div>' + hint;
 }
 function famChipsHTML(f, c, avail) {
@@ -10637,7 +10674,8 @@ function famChipsHTML(f, c, avail) {
   if (lv) {
     var s = c.st[st[lv - 1].uebung], lad = LAD[st[lv - 1].uebung];
     ch.push('<span class="chip blue">Du: ' + esc(lad && s && s.cur ? stageText(lad.steps[s.cur - 1]) : uName(st[lv - 1].uebung)) + '</span>');
-    if (st[lv]) ch.push('<span class="chip">Als Nächstes: ' + esc(uName(st[lv].uebung)) + '</span>');
+    var NX = famNext(f, c, lv);
+    if (NX) ch.push('<span class="chip">Als Nächstes: ' + esc(uName(NX.v.uebung)) + (NX.miss ? ' · braucht ' + esc(NX.miss) : '') + '</span>');
   } else if (status === 'lock') ch.push('<span class="chip lock">' + LOCK_SVG + ' ab ' + esc(famPreText(f, c)) + '</span>');
   else if (st.length) ch.push('<span class="chip">Start: ' + esc(uName(st[0].uebung)) + '</span>');
   if (!avail.length) { var u = UE[f.varianten[0].uebung]; ch.push('<span class="chip lock">' + LOCK_SVG + ' braucht ' + esc(eqMissing(u.equipment, c.have) || 'anderes Equipment') + '</span>'); }

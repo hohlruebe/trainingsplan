@@ -639,6 +639,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   oben „Trainingstage“ (`tageHTML(true)`: Wert-Zeile „Pro Woche · 3 Tage“, gleiches Blatt), dann Schwerpunkt und Challenge; keine Allround-Karte, Texte
   „dein Training“, am Blockende „Nächsten Block starten“. Dein Plan: Karte „Dein Ziel“ (Challenge mit Datum, sonst Schwerpunkt, sonst „Einfach trainieren“,
   dazu Tage pro Woche); in Deine Woche keine Trainingstage-Zeile mehr.
+- Tools nach der Impeccable-Kritik (Dennis, 25. Oktober: „Tools-Tab ist noch nicht geprüft“, 25/40, Dennis: „Die drei P1“; Board
+  https://claude.ai/artifact/R2kB1VTkkjPF27mCG9z23F): Mobility-Player mit „Starten“ (`#rp-go`, `.btn.primary`) direkt unter dem Ring, laufend Zurück/Pause/Weiter
+  (`#rp-ctl`) an derselben Stelle, Anleitung darunter (`paintRoutine` schaltet über `idle`). 1RM ohne Wert: Karte „Noch kein 1RM“ (`.rm-empty`), „Passt zu deinem
+  Plan“ (`rmSuggest`: Gewichtsstufen der Kraftleitern ab der aktuellen Stufe und Metcon-Übungen mit kg aus `DAYS`, nur was an einem eingeschalteten Ort geht, sonst
+  die nützlichsten am Ort, höchstens 5), Rest eingeklappt (`ui.rmAll`, `ACT['rm-all']`), Aktuell | Bestwert erst ab dem ersten Wert, Chevron statt „–“. Familie:
+  „Als Nächstes“ (`famNext`) ist die nächste Stufe, die am Ort geht (Pfad-Chip, Listen-Chip, Satz unter dem Pfad „X braucht …, hier geht als Nächstes Y“), geht
+  keine, steht der Grund am Chip. Kritik in `.impeccable/critique/2026-10-25T19-26-29Z__index-html.md`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
