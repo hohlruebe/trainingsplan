@@ -650,7 +650,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 :root[data-paper="nebel"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
 /* Übungsfamilien, Skill-Pfad, Skill-Baum */
 .gl-row{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:12px 0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
-.gl-item.locked>.gl-row{opacity:.5}
+.gl-item.locked>.gl-row{color:var(--ink2)}.gl-item.locked>.gl-row b{color:var(--ink2);font-weight:600}.gl-item.locked>.gl-row small{color:var(--ink2)}
 .gl-chev{flex:none;width:18px;height:18px;color:var(--ink2)}
 .hero+.fam-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 4px}
 .gl-row .gl-t{flex:1}
@@ -659,7 +659,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .gl-item.fam .fam-chips .chip svg{flex:none;align-self:flex-start;margin-top:1px}
 .chip.lock{color:var(--ink2);gap:4px}
 .chip.sm{min-height:22px;font-size:14px;padding:2px 8px}
-.fam-path .lad-row.lock{opacity:.5}
+.fam-path .lad-row.lock{color:var(--ink2)}.fam-path button.lad-row{width:100%;border:0;font:inherit;text-align:left;cursor:pointer}.fam-path button.lad-row:not(.cur){background:none}.lad-why{display:block;font-size:14px;font-weight:400;color:var(--ink2);overflow:hidden;text-overflow:ellipsis}.fam-path .lad-row.lock{min-height:52px}.chips.fam-go .chip{min-height:44px;padding:0 16px;font-size:15px}
 .lad-lk{color:var(--ink2);display:flex}
 .sec-k{margin:16px 0 6px;font-size:14px;font-weight:600;letter-spacing:.08em;color:var(--ink2);text-transform:uppercase}
 /* Muskeln: Körperfigur (Bibliothek blau, Ausgleich Rot bis Grün) */
@@ -681,7 +681,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .mi{display:block;flex:none;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--ink) 7%,var(--card));--g:color-mix(in srgb,var(--ink) 13%,var(--paper));--g2:color-mix(in srgb,var(--ink) 24%,var(--paper))}
 .mi svg{display:block;width:100%;height:100%}.mi .sil,.mi ellipse,.mi rect{fill:var(--g)}.mi .hair{fill:var(--g2)}.mi .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.1;stroke-linejoin:round}.mi .mu.hi{fill:var(--acc)}.mi .mu.lo{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
 .mfig{margin:4px 0 0}.mfig figure{margin:0}.mfig svg{width:auto;height:340px;display:block;margin:0 auto;cursor:pointer;-webkit-user-select:none;user-select:none}
-.mfig .mu{transition:fill .2s}.mus-hint{font-size:15px;color:var(--ink2);text-align:center;margin:8px 2px 2px}
+.eq-grp{font-size:15px;font-weight:600;color:var(--ink2);margin:14px 4px 4px}.eq-grp:first-child{margin-top:4px}.eq-rest .eq-sc{background:var(--fill);color:var(--ink2)}.eq-sumrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 4px 4px}.mfig .mu{transition:fill .2s}.mbal-lg{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink2);margin:8px 0 2px}.mbal-lg span{display:inline-flex;align-items:center;gap:6px}.mbal-lg i{flex:none;width:20px;height:20px;min-width:20px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-size:13px;line-height:1;font-weight:700;color:#141414}.mbal-lg i.b0{background:var(--mb0)}.mbal-lg i.b1{background:var(--mb1)}.mbal-lg i.b2{background:var(--mb2)}.mbal-lg i.b3{background:var(--mb3)}.mus-hint{font-size:15px;color:var(--ink2);text-align:center;margin:8px 2px 2px}
 .mus-ics{display:flex;flex-direction:column;gap:6px;margin:4px 0 8px}.mus-ic{display:flex;align-items:center;gap:12px;min-height:52px;padding:4px 10px 4px 4px;border:0;border-radius:16px;background:var(--fill);color:var(--ink);text-align:left;font:inherit;cursor:pointer}
 .mus-ic span{display:flex;flex-direction:column;min-width:0}.mus-ic small{font-size:14px;color:var(--ink2)}.mus-ic::after{content:'›';margin-left:auto;color:var(--ink2);font-size:20px}
 .mus-sel{display:flex;gap:12px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}.mus-sel .gl-t{flex:1;min-width:0}.mus-sel .btn{flex:none}
@@ -1105,7 +1105,7 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 .gl-t{display:flex;flex-direction:column;min-width:0}
 .gl-t b{font-size:16px}
 .gl-t small{font-size:14px;color:var(--ink2)}
-.gl-item.locked>summary{opacity:.5}
+.gl-item.locked>summary,.gl-item.locked>summary b,.gl-item.locked>summary small{color:var(--ink2)}
 .gl-body{padding:0 0 14px}
 .gl-zweck{margin:4px 0 8px;font-size:15px;line-height:1.45}
 .gl-how{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 2px}
@@ -1310,7 +1310,7 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .fs-tr .fs-row>span{hyphens:none;overflow-wrap:normal}
 .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:wrap;row-gap:6px;padding-top:10px;padding-bottom:12px}.fs-tr .fs-row.on:not(.fs-krow)>span{min-width:55%}.fs-tr .fs-row.on .btn{order:9;margin:0 0 0 auto}
 .fs-krow span.bst{display:inline;white-space:nowrap}.nw{white-space:nowrap}
-.fs-i{position:relative}.fs-i::before{content:"";position:absolute;inset:-6px}
+.mu-row{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line)}.mu-row .ft-row{flex:1;min-width:0;border-top:0}.mu-row .mini-fig,.ft-row>.mini-fig{width:44px;height:52px;margin:0;border-radius:12px}.fs-i.mu-i{border-color:var(--line2);color:var(--ink2)}.fs-i{position:relative}.fs-i::before{content:"";position:absolute;inset:-6px}
 .fs-tr.lk .fs-seg{display:none}
 .fs-tr .fs-krow b{min-width:calc(58px*var(--fsu,1))}
 .fs-krow .bst{white-space:nowrap}
@@ -9371,7 +9371,7 @@ function rmDetailHTML(id) {
   var r = rmOf(id), u = UE[id], base = r ? r.cur : null;
   ui.noSub = true;
   var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button>' +
-    '<button type="button" class="rbtn" data-act="rm-new" data-v="' + id + '" aria-label="Neuen Wert eintragen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>';
+    (!r ? '' : '<button type="button" class="rbtn" data-act="rm-new" data-v="' + id + '" aria-label="Neuen Wert eintragen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>') + '</div>';
   h += '<section class="hero"><h1>' + esc(u.name) + '</h1><p class="hero-title">Prozent-Rechner</p></section>';
   if (!r) return h + '<section class="card"><p>Noch kein Wert. Trag einen schweren Satz ein (1–10 Wdh.), daraus schätzt die App dein 1RM und rechnet die Trainingsgewichte aus.</p></section>' +
     '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">Ersten Wert eintragen</button>';
@@ -9429,7 +9429,7 @@ function routineCardHTML(r, main, label) {
     '<button type="button" class="btn ' + (main ? 'primary' : '') + ' block" data-act="r-open" data-v="' + r.id + '">' + PLAY + (label || (main ? 'Flow starten' : 'Cool-down starten')) + '</button></section>';
 }
 function renderRoutinen() {
-  var groups = [['morgen', 'Morgens', 'Sanft wach werden, höchstens 5 Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
+  var groups = [['morgen', 'Morgens', 'Sanft wach werden, ein paar ruhige Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
   var h = '<section class="hero"><h1>Mobility</h1><p class="hero-title">Routinen für jeden Tag</p></section>';
   groups.forEach(function (g) {
     var list = MOB.routinen.filter(function (r) { return r.wann === g[0]; });
@@ -10374,9 +10374,17 @@ function kbSubHTML(o) {
     var on = !!x[0] === two; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="eq-kbn" data-v="' + x[0] + '" aria-pressed="' + on + '">' + x[1] + '</button>';
   }).join('') + '</div><label class="check eq-adj"><input type="checkbox" data-change="eq" data-id="eq_kb_verstellbar"' + (adj ? ' checked' : '') + '><span>Verstellbar<small>Gewicht wächst mit, der Coach steigert darüber</small></span></label></div>';
 }
+// Gruppen (Impeccable-Kritik Tools, Dennis: „Hast du“ oben): was am Ort da ist zuerst, der Rest darunter. Die Gruppe merkt sich den Stand beim Öffnen
+// (ui.eqGrp), damit eine Zeile beim Umschalten nicht wegspringt.
 function eqRowsHTML(o) {
-  var have = haveEq(o);
-  return LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; }).map(function (e) {
+  var have = haveEq(o), all = LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; });
+  if (!ui.eqGrp || ui.eqGrp.o !== o.id) ui.eqGrp = { o: o.id, on: all.filter(function (e) { return have[e.id]; }).map(function (e) { return e.id; }) };
+  var G = ui.eqGrp.on, mine = all.filter(function (e) { return G.indexOf(e.id) >= 0; }), rest = all.filter(function (e) { return G.indexOf(e.id) < 0; });
+  return (mine.length ? '<p class="eq-grp">Hast du · ' + mine.length + '</p>' + eqRows(mine, o, have) : '') +
+    '<p class="eq-grp">' + (mine.length ? 'Weitere Geräte' : 'Alle Geräte') + ' · ' + rest.length + '</p><div class="eq-rest">' + eqRows(rest, o, have) + '</div>';
+}
+function eqRows(list, o, have) {
+  return list.map(function (e) {
     var on = !!have[e.id], open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
     return '<div class="eq-row' + (open ? ' open' : '') + (open && ui.eqAnim === e.id ? ' anim' : '') + '"><div class="eq-top"><button type="button" class="eq-main" data-act="eq-open" data-id="' + e.id + '" aria-expanded="' + open + '"><span class="eq-sc">' + e.score + '</span>' +
       '<span class="eq-t"><b>' + esc(e.name) + '</b><small>' + esc(e.preis) + ' · ' + use.length + (use.length === 1 ? ' Übung' : ' Übungen') + '</small></span></button>' +
@@ -10388,7 +10396,7 @@ function eqRowsHTML(o) {
 function eqSheetBody() {
   var o = curOrt();
   return capHTML(orteOn().map(function (x) { return { id: x.id, label: ortName(x), d: ortIc(x) }; }), 'eq-ort', S.ort, 'Ort', 'in-sheet') +
-    '<p class="small muted eq-sum">' + o.eq.filter(function (x) { return !KB_SUB[x]; }).length + ' von ' + LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; }).length + ' Geräten · <button type="button" class="link" data-act="orte" data-from="eq">Orte wählen</button></p>' +
+    '<div class="eq-sumrow"><span class="small muted">' + o.eq.filter(function (x) { return !KB_SUB[x]; }).length + ' von ' + LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; }).length + ' Geräten</span><button type="button" class="btn small" data-act="orte" data-from="eq">Orte wählen</button></div>' +
     '<div class="eq-list eq-scroll">' + eqRowsHTML(o) + '</div><p class="small muted" style="text-align:center;margin:10px 0 0">Sortiert nach Score aus Nutzen und Kosten.</p>';
 }
 function refreshEqSheet() {
@@ -10398,6 +10406,7 @@ function refreshEqSheet() {
   var t = b.closest('.sheet').querySelector('.sh-head b'); if (t) t.textContent = ortName(curOrt()) + ' · Equipment';
 }
 ACT['eq-sheet'] = function () {
+  ui.eqGrp = null;
   openForm(ortName(curOrt()) + ' · Equipment', '<div id="eq-sheet">' + eqSheetBody() + '</div>', 'Fertig', function () { render(); });
   // Änderungen gelten sofort, deshalb nur „Fertig“.
   var x = document.querySelector('#sheet .sh-x'); if (x) x.style.visibility = 'hidden';
@@ -10663,7 +10672,9 @@ function famPathHTML(f, c) {
   var rows = st.map(function (v) {
     var u = UE[v.uebung], miss = u ? eqMissing(u.equipment, c.have) : '', cur = v.rang === lv, done = v.rang < lv;
     var right = cur ? '<span class="lad-now">Aktuelle Stufe</span>' : NX && v === NX.v && !NX.miss ? '<span class="chip sm">Als Nächstes</span>' : miss ? '<span class="lad-lk">' + LOCK_SVG + '</span>' : '';
-    return '<div class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (miss && !cur && !done ? ' lock' : '') + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span></span>' + right + '</div>';
+    // Jede Stufe öffnet ihre Anleitung; gesperrte sagen, was fehlt (die zweite Stufenliste darunter ist weg, Impeccable-Kritik Tools).
+    var lk = miss && !cur && !done;
+    return '<button type="button" class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (lk ? ' lock' : '') + '" data-act="ue-info" data-how="1" data-id="' + esc(v.uebung) + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span>' + (lk ? '<small class="lad-why">braucht ' + esc(miss) + '</small>' : '') + '</span>' + right + '</button>';
   }).reverse().join('');
   var cur = lv ? st[lv - 1] : null, next = NX && NX.v;
   var hint = cur && next ? '<p class="small hint">' + (NX.miss ? esc(uName(next.uebung)) + ' braucht ' + esc(NX.miss) + '. Ziel: ' : NX.skip ? esc(uName(NX.skip.uebung)) + ' braucht ' + esc(eqMissing(UE[NX.skip.uebung].equipment, c.have)) + ', hier geht als Nächstes ' + esc(uName(next.uebung)) + '. Ziel: ' : 'Für „' + esc(uName(next.uebung)) + '“: ') + esc(cur.ziel) + '</p>' : cur && !next ? '<p class="small hint">Oberste Stufe. ' + esc(cur.ziel) + '</p>' : '';
@@ -10689,12 +10700,11 @@ function famBody(f, c) {
   var vars = f.varianten.filter(function (v) { return v.art === 'variante'; }), tempo = f.varianten.filter(function (v) { return v.art === 'tempo'; });
   var also = []; FAMD.familien.forEach(function (g) { if (g !== f) g.varianten.forEach(function (v) { if ((v.auch_in || []).indexOf(f.id) >= 0) also.push(v); }); });
   var top = figBox(famFigKey(f, c)) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c);
-  var body = (st.length ? '<p class="sec-k">Stufen</p><div class="fam-list">' + st.map(item).join('') + '</div>' : '') +
-    (vars.length ? '<p class="sec-k">Gleichwertige Varianten</p><div class="fam-list">' + vars.map(item).join('') + '</div>' : '') +
+  var body = (vars.length ? '<p class="sec-k">Gleichwertige Varianten</p><div class="fam-list">' + vars.map(item).join('') + '</div>' : '') +
     (tempo.length ? '<p class="sec-k">Auf Tempo (CrossFit)</p><p class="tempo-note">' + esc(tempo[0].vermerk || 'Auf Tempo ausgelegt, nicht auf saubere Range of Motion oder Effizienz.') + ' Ersetzt nie eine Stufe im Krafttraining.</p><div class="fam-list">' + tempo.map(item).join('') + '</div>' : '') +
-    (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + ' ›</button>'; }).join('') + '</div>' : '') +
-    ((f.voraussetzt || []).length ? '<p class="sec-k">Baut auf</p><div class="chips">' + f.voraussetzt.map(function (p) { return FAM[p.familie] ? '<button type="button" class="chip" data-act="fam-go" data-id="' + p.familie + '">' + esc(FAM[p.familie].name) + ' ›</button>' : ''; }).join('') + '</div>' : '') +
-    ((f.fuehrt_zu || []).length ? '<p class="sec-k">Führt zu</p><div class="chips">' + f.fuehrt_zu.map(function (id) { return FAM[id] ? '<button type="button" class="chip blue" data-act="fam-go" data-id="' + id + '">' + esc(FAM[id].name) + ' ›</button>' : ''; }).join('') + '</div>' : '');
+    (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips fam-go">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + ' ›</button>'; }).join('') + '</div>' : '') +
+    ((f.voraussetzt || []).length ? '<p class="sec-k">Baut auf</p><div class="chips fam-go">' + f.voraussetzt.map(function (p) { return FAM[p.familie] ? '<button type="button" class="chip" data-act="fam-go" data-id="' + p.familie + '">' + esc(FAM[p.familie].name) + ' ›</button>' : ''; }).join('') + '</div>' : '') +
+    ((f.fuehrt_zu || []).length ? '<p class="sec-k">Führt zu</p><div class="chips fam-go">' + f.fuehrt_zu.map(function (id) { return FAM[id] ? '<button type="button" class="chip blue" data-act="fam-go" data-id="' + id + '">' + esc(FAM[id].name) + ' ›</button>' : ''; }).join('') + '</div>' : '');
   return { top: top, body: body };
 }
 function famItemHTML(f, c, avail) {
@@ -10728,7 +10738,7 @@ function famCount() { var have = haveEq(); return FAMD.familien.filter(function 
 // Familie als eigene Seite öffnen; Zurück führt dorthin, wo man herkam.
 function famOpen(id, gloss) {
   if (!FAM[id]) return;
-  if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' ? ui.tab : 'uebungen';
+  if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' || ui.tab === 'muskel' ? ui.tab : 'uebungen';
   ui.famId = id; ui.glossOpen = gloss || null; ui.tab = 'fam'; window.scrollTo(0, 0); render();
 }
 ACT['fam-open'] = function (el) { famOpen(el.dataset.id); };
@@ -11741,10 +11751,15 @@ function musLast(m) {
 }
 function musLibHTML() {
   var back = ui.musSide === 'b', m = ui.musSel && MUS_NAME[ui.musSel] && musBack(ui.musSel) === back ? ui.musSel : null, co = m ? musCo(m) : [];
+  // Dennis (Kritik Tools): die Figur zeigt den Muskelausgleich der letzten 4 Wochen, der gewählte Muskel bleibt blau. Ohne genug Daten neutral wie bisher.
+  var B = musBalance(), bal = B.ok, mcls = function (x) { return 'mx-' + x + (x === m ? ' p1' : bal ? (B.lv[x] != null ? ' b' + B.lv[x] : '') : co.indexOf(x) >= 0 ? ' p2' : ''); };
   var h = '<section class="card"><div class="seg" role="group" aria-label="Seite" style="margin-bottom:8px">' + [['f', 'Vorn'], ['b', 'Hinten']].map(function (o) {
     var on = (o[0] === 'b') === back; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-side" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
-    '<div class="mfig bf" role="group" aria-label="Muskeln ' + (back ? 'hinten' : 'vorn') + '"><figure>' + bodySVG(back ? BODY_B : BODY_F, function (x) { return 'mx-' + x + (x === m ? ' p1' : co.indexOf(x) >= 0 ? ' p2' : ''); }) + '</figure></div>' +
-    (m ? musSelHTML(m) : '<p class="mus-hint">Tipp einen Muskel an.</p>') + '</section>';
+    '<div class="mfig bf" role="group" aria-label="Muskeln ' + (back ? 'hinten' : 'vorn') + '"><figure>' + bodySVG(back ? BODY_B : BODY_F, mcls) + '</figure></div>' +
+    (bal ? '<div class="mbal-lg" aria-label="Farben"><span><i class="b0">×</i>Kommt zu kurz</span><span><i class="b1">!</i>Wenig</span><span><i class="b2">!</i>Okay</span><span><i class="b3">✓</i>Im Gleichgewicht</span></div>' : '') +
+    (m ? musSelHTML(m) : '<p class="mus-hint">' + (bal ? 'Tipp einen Muskel an.' : 'Tipp einen Muskel an. Ab 3 Krafteinheiten in 4 Wochen zeigt die Figur, was zu kurz kommt.') + '</p>') + '</section>';
+  if (bal && B.need.length) h += '<section class="card"><div class="card-head"><h2>Kommt zu kurz</h2></div>' + musChipsHTML(B.need.slice(0, 4), function (x) { return Math.round(B.ratio[x] * 100) + ' % vom Soll'; }) +
+    '<p class="tl-x">Dein Coach gleicht das aus, im Metcon und mit dem Schritt „Ausgleich“ am Ende der Krafttage.</p></section>';
   return h;
 }
 // Gewählter Muskel als eine Zeile unter der Figur, damit der ganze Körper sichtbar bleibt. Erst „Öffnen“ zeigt die Seite.
@@ -11754,11 +11769,16 @@ function musSelHTML(m) {
   return '<div class="mus-sel">' + musIcon(m, 52) + '<span class="gl-t"><b>' + esc(MUS_NAME[m]) + '</b><small>' + esc((st ? st + ' · ' : '') + (n === 1 ? '1 Übung' : n + ' Übungen') + ' hier') + '</small></span>' +
     '<button type="button" class="btn primary small" data-act="mus-open" data-v="' + m + '">Öffnen</button></div>';
 }
-function musRow(u) { return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '">' + miniFig(u.id) + '<span class="gl-t"><b>' + esc(u.name) + '</b><small>' + esc(u.trainiert || MUSTER[u.muster] || '') + '</small></span><i class="fs-i" aria-hidden="true">i</i></button>'; }
+// Zeile öffnet die Familie der Übung (Skill-Pfad, Stand), das (i) die Anleitung; ohne Familie öffnet die ganze Zeile die Anleitung.
+function musRow(u) {
+  var f = FAM_OF[u.id], inner = miniFig(u.id) + '<span class="gl-t"><b>' + esc(u.name) + '</b><small>' + esc(u.trainiert || MUSTER[u.muster] || '') + '</small></span>';
+  if (!f) return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '">' + inner + '<i class="fs-i mu-i" aria-hidden="true">i</i></button>';
+  return '<div class="mu-row"><button type="button" class="ft-row" data-act="fam-open" data-id="' + esc(f.id) + '">' + inner + '</button><button type="button" class="fs-i mu-i" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '" aria-label="So geht ' + esc(u.name) + '">i</button></div>';
+}
 function renderMuskel() {
   var m = MUS_NAME[ui.musId] ? ui.musId : 'brust', all = !!ui.musAll, U = musUe(m, all), st = musStat(m), la = musLast(m), more = !!ui.musMore;
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + esc(ui.musBack || 'muskeln') + '" aria-label="Zurück">' + BACK + '</button>' +
-    '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hell: arbeitet oft mit (' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ').' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
+    '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hellblau im Bild: ' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ', die arbeiten oft mit.' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
     '<div class="seg" role="group" aria-label="Ort" style="margin:0 0 12px">' + [['', ortName(curOrt())], ['1', 'Alle']].map(function (o) { var on = !!o[0] === all; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-all" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
   h += '<section class="card"><div class="card-head"><h2>Trainiert ' + (m === 'gesaess' ? 'es' : /^(brust|schulter|unterarm|bauch_schraeg|waden|adduktoren|abduktoren)/.test(m) ? 'sie' : 'ihn') + ' vor allem</h2><span class="chip">' + U.p.length + '</span></div>' +
     (U.p.length ? U.p.map(musRow).join('') : '<p class="muted">Hier keine. Unter „Alle“ siehst du die Übungen mit anderem Equipment.</p>') + '</section>';
@@ -11767,7 +11787,7 @@ function renderMuskel() {
   return h;
 }
 // Eigene Seite unter Tools (Dennis: kein Umschalter in der Bibliothek).
-function renderMuskeln() { return '<section class="hero"><h1>Körper</h1></section>' + musLibHTML(); }
+function renderMuskeln() { return '<section class="hero"><h1>Körper</h1>' + (musBalance().ok ? '<p class="hero-title">Deine letzten 4 Wochen</p>' : '') + '</section>' + musLibHTML(); }
 // Die Figur so hoch, dass der ganze Körper samt Auswahlzeile über der Reiterleiste Platz hat (auch mit großer Schrift).
 function musFit() {
   var svg = $view.querySelector('.mfig svg'); if (!svg) return;
