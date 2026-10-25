@@ -1319,6 +1319,27 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .fs-rd i{font-size:14px;width:28px;height:28px}
 .fs-rd i:not(.on):not(.dn){color:var(--ink)}
 #fs .stepper button{min-width:44px;min-height:44px}
+/* Wochen-Kette */
+.ch-row{display:flex;align-items:center;gap:8px;margin:10px 4px 0;font-size:15px;color:var(--ink2);line-height:1.35}.ch-row b{color:var(--ink)}
+.ch-row .ch-ic{flex:none;width:18px;height:18px;color:var(--acc)}.ch-row .btn{margin-left:auto;flex:none}
+.chv{display:flex;align-items:center;gap:6px;padding:10px 0 8px;overflow:hidden}
+.chv .crw{display:flex;flex:1 1 0;min-width:0;max-width:30px}.chv .cr{flex:none;width:100%;height:auto}
+.chv.big{justify-content:center;gap:10px}.chv.big .crw{flex:none;width:40px;max-width:none;animation:chIn .4s cubic-bezier(.3,1.4,.5,1) both}.chv.big .crw:last-child{animation-delay:.25s}
+.cr circle{fill:none;stroke-width:4}.cr .bg{stroke:color-mix(in srgb,var(--acc) 16%,transparent)}.cr .ar{stroke:var(--acc)}
+.cr .ck2{fill:none;stroke:var(--acc);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.cr.joker .jkr{stroke:var(--ink2);stroke-dasharray:3 3;opacity:.6}.cr .jk{fill:var(--ink2);opacity:.75}.cr .ps{stroke:var(--line2);stroke-dasharray:2 3}.cr .dot{fill:var(--line2)}
+/* Medaillen (Dennis, 25. Oktober, M1 mit Lorbeerzweig): geprägte Münze, zwei feste Zeilen, Balken bis zur nächsten Medaille */
+.m-cell .mb2{display:block;width:64px;height:6px;border-radius:3px;background:var(--fill);position:relative;overflow:hidden;margin-top:2px}.m-cell .mb2::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--f);background:var(--c);border-radius:3px}
+.mv1 .medals{justify-items:center}.mv1 .medals>:nth-child(4){grid-column:1/2;justify-self:end;transform:translateX(50%)}.mv1 .medals>:nth-child(5){grid-column:2/3;justify-self:end;transform:translateX(50%)}
+.mv1 .m-cell span.muted{line-height:1.25}
+.medal.md{width:104px;height:104px}.md-svg{position:absolute;inset:0;width:104px;height:104px;filter:drop-shadow(0 6px 10px rgba(17,18,20,.18))}
+.md .md-sh{left:25px;top:25px;width:54px;height:54px;mix-blend-mode:soft-light}
+html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+@keyframes chIn{from{transform:scale(.4);opacity:0}}
+@media (prefers-reduced-motion:reduce){.chv.big *{animation:none!important}}
+.ch-big{margin:2px 0 0;font-size:17px;color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin-right:6px}
+.ch-x{margin:4px 0 12px}
+.mo-ch{gap:2px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:6px}.moment.mo-chain .mo-btns{animation-delay:.8s}
 </style>
 </head>
 <body>
@@ -3751,7 +3772,7 @@ function showUndo(msg, u) {
 function saveDay() {
   syncDays();
   var undo = { S: JSON.stringify(S), key: draftKey(S.tag), draft: DRAFTS[draftKey(S.tag)] ? JSON.stringify(DRAFTS[draftKey(S.tag)]) : null, n: LOGS.length };
-  var ladBefore = areaStates(LOGS), prBefore = Object.assign({}, prList(LOGS));
+  var chBefore = v2() ? chainState() : null, ladBefore = areaStates(LOGS), prBefore = Object.assign({}, prList(LOGS));
   var tag = S.tag, d = DAYS[tag], key = draftKey(tag), v = collectInputs(), extra = '';
   var base = { id: newId(), ts: Date.now(), date: isoToday(), durchgang: S.durchgang, tag: tag, name: dayLabel(tag), fokus: S.fokus, notes: v.notes || '' };
   if (v2()) { base.pv = 2; if (unitL(tag) && !(d && d.zusatz)) base.unit = unitL(tag); else if (d && d.zusatz) base.unit = 'Z'; } // Plan 2: Tag 1/3/6 heißt A/B/C, alte Einträge behalten ihre Bedeutung
@@ -3843,7 +3864,7 @@ function saveDay() {
   window.scrollTo(0, 0); render();
   undo.ids = LOGS.slice(undo.n).map(function (l) { return l.id; });
   showUndo((log ? 'Gespeichert. ' : 'Abgehakt. ') + nextText() + extra, undo);
-  if (log) { MOMENTS = prEvents(prBefore, prList(LOGS)).concat(medalEvents(ladBefore, areaStates(LOGS), AREA_KEYS)); showMoment(); }
+  if (log) { MOMENTS = chainEvent(chBefore).concat(prEvents(prBefore, prList(LOGS)), medalEvents(ladBefore, areaStates(LOGS), AREA_KEYS)); showMoment(); }
 }
 
 /* ---------- timer ---------- */
@@ -4830,7 +4851,65 @@ function cardTier(v) { return v >= 85 ? 'Platin' : v >= 75 ? 'Gold' : v >= 65 ? 
 function nextTier(v) { return v >= 85 ? '' : v >= 75 ? 'Platin ab 85' : v >= 65 ? 'Gold ab 75' : 'Silber ab 65'; }
 function mondayISO() { var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return isoDate(d); }
 
+
+/* ---------- Medaillen mit Prägung (Dennis, 25. Oktober: „mehr Details im selben Stil“, Symbole neu; Impeccable-Kritik) ---------- */
+// Eine geprägte Münze als ein SVG: geriffelter Rand, Perlkranz, flaches Gesicht, vertieftes Symbol, Stufen-Perlen (Farbe nie allein).
+// Dazu ein Lorbeerzweig: je Seite vier Blätter, verdiente in Metall, offene nur als Umriss (Dennis: Variante D2).
+var MD_N = 0;
+var METAL2 = { platin: { name: 'Platin', base: '#9FB6CC', hi: '#F4FAFF', lo: '#5E7286' } };
+// Symbole als Zeichen im 32er-Raster (Dennis: Zeichen, Kraft mit eigenem Zeichen statt Kettlebell).
+var KRAFT_SYM = {
+  lang: 'M3 16h26M7.5 9.5v13M10.5 11.5v9M21.5 11.5v9M24.5 9.5v13',
+  kurz: 'M5.5 12v8M9 9.5v13M23 9.5v13M26.5 12v8M9 16h14',
+  gewicht: 'M10.5 13h11l4 14h-19zM13 13v-1.5a3 3 0 0 1 6 0V13M13 22h6'
+};
+var AREA_SYM = {
+  ausdauer: 'M16 26.5C9.6 22.2 5 18 5 12.6A5.6 5.6 0 0 1 16 10.4a5.6 5.6 0 0 1 11 2.2c0 5.4-4.6 9.6-11 13.9zM8.5 15.5h4l1.8-3.5 2.8 7 1.9-3.5h4.5',
+  beweglichkeit: 'M6 22A10 10 0 0 1 26 22M6 22l-1.6-3.6M6 22l3.6-1.4M26 22l1.6-3.6M26 22l-3.6-1.4M16 22.2v.01M10 26.5h12',
+  koordination: 'M5 14.5l22-3M16 13l-4.2 9h8.4zM9.2 10.4a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M27.6 7.2a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M9 26.5h14',
+  kraft: KRAFT_SYM.lang,
+  schnellkraft: 'M18.5 3.5L8 18h7l-2.2 10.5L24 13.5h-7.2z'
+};
+function metalOf(k) { return METAL2[k] || METAL[k]; }
+function medal2HTML(key, s, extra) {
+  var id = key.replace('area_', ''), A = AREAS.filter(function (a) { return a.id === id; })[0] || {}, cur = s ? s.cur : 0, n = 4;
+  var tk = cur ? MEDAL_K[cur - 1] : null, t = tk ? metalOf(tk) : null, g = 'md' + (++MD_N);
+  var hi = t ? t.hi : 'var(--paper)', base = t ? t.base : 'var(--fill)', lo = t ? t.lo : 'var(--line2)';
+  var o = '<svg class="md-svg" viewBox="0 0 104 104" aria-hidden="true"><defs>' +
+    '<linearGradient id="' + g + 'r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + hi + '"/><stop offset=".55" stop-color="' + lo + '"/><stop offset="1" stop-color="' + base + '"/></linearGradient>' +
+    '<linearGradient id="' + g + 'f" x1=".15" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="' + hi + '"/><stop offset=".45" stop-color="' + base + '"/><stop offset="1" stop-color="' + lo + '"/></linearGradient>' +
+    '<radialGradient id="' + g + 'l" cx=".32" cy=".26" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>';
+  // Lorbeerzweig: je Seite ein Stiel mit vier Blättern
+  {
+    var side = function (m) {
+      var q = '<path d="M' + (52 - 8 * m) + ' 94C' + (52 - 30 * m) + ' 88 ' + (52 - 42 * m) + ' 66 ' + (52 - 38 * m) + ' 30" fill="none" stroke="' + (cur ? lo : 'var(--line2)') + '" stroke-width="1.6" stroke-linecap="round"/>';
+      [[44, 88, 200], [27, 78, 222], [17, 61, 245], [15, 42, 268]].forEach(function (L, j) {
+        var x = 52 + (L[0] - 52) * m, ang = m > 0 ? L[2] : 180 - L[2], on = j < cur;
+        q += '<path transform="translate(' + x + ' ' + L[1] + ') rotate(' + ang + ')" d="M0 0C3-3.6 9-3.6 13 0C9 3.6 3 3.6 0 0z" fill="' + (on ? 'url(#' + g + 'f)' : 'none') + '" stroke="' + (on ? lo : 'var(--line2)') + '" stroke-width="' + (on ? 0.8 : 1.3) + '"/>';
+      });
+      return q;
+    };
+    o += side(1) + side(-1);
+  }
+  // Rand mit Riffelung
+  o += '<circle cx="52" cy="52" r="32" fill="url(#' + g + 'r)"/>';
+  if (t) { var rb = ''; for (var i = 0; i < 72; i++) { var a = i * 5 * Math.PI / 180; rb += 'M' + (52 + 29.4 * Math.cos(a)).toFixed(2) + ' ' + (52 + 29.4 * Math.sin(a)).toFixed(2) + 'L' + (52 + 31.6 * Math.cos(a)).toFixed(2) + ' ' + (52 + 31.6 * Math.sin(a)).toFixed(2); } o += '<path d="' + rb + '" stroke="' + lo + '" stroke-width=".9" opacity=".45"/>'; }
+  // Gesicht, Licht, Perlkranz
+  o += '<circle cx="52" cy="52" r="27" fill="url(#' + g + 'f)"/><circle cx="52" cy="52" r="27" fill="url(#' + g + 'l)"/>' +
+    '<circle cx="52" cy="52" r="27" fill="none" stroke="' + lo + '" stroke-opacity=".55" stroke-width="1"/><circle cx="52" cy="52" r="26" fill="none" stroke="' + hi + '" stroke-opacity=".6" stroke-width=".8"/>';
+  if (t) { var bd = ''; for (var b = 0; b < 32; b++) { var a2 = b * 11.25 * Math.PI / 180; bd += '<circle cx="' + (52 + 23.6 * Math.cos(a2)).toFixed(2) + '" cy="' + (52 + 23.6 * Math.sin(a2)).toFixed(2) + '" r=".75"/>'; } o += '<g fill="' + lo + '" opacity=".5">' + bd + '</g>'; }
+  // Vertieftes Symbol: dunkle Kante oben links, helle unten rechts
+  var sym = AREA_SYM[id] || '', tr = 'translate(37 33) scale(.94)';
+  o += '<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" transform="' + tr + '">' +
+    (t ? '<path d="' + sym + '" stroke="' + hi + '" stroke-opacity=".9" transform="translate(.7 .7)"/><path d="' + sym + '" stroke="' + lo + '" stroke-opacity=".75" transform="translate(-.5 -.5)"/>' : '') +
+    '<path d="' + sym + '" stroke="' + (t ? lo : 'var(--line2)') + '"/></g>';
+  // Stufen-Perlen unter dem Symbol: 1 Bronze … 4 Platin
+  var pr = ''; for (var k = 0; k < n; k++) { var x2 = 52 + (k - (n - 1) / 2) * 5.4, on2 = k < cur; pr += '<circle cx="' + x2.toFixed(1) + '" cy="68.5" r="1.7" fill="' + (on2 ? lo : 'none') + '" stroke="' + (on2 ? lo : (t ? lo : 'var(--line2)')) + '" stroke-opacity="' + (on2 ? 1 : 0.5) + '" stroke-width=".8"/>'; }
+  o += pr + '</svg>';
+  return '<span class="medal md' + (t ? '' : ' locked') + (extra || '') + '">' + o + '<span class="m-sheen md-sh"></span></span>';
+}
 function medalHTML(key, s, extra) {
+  if (key.indexOf('area_') === 0) return medal2HTML(key, s, extra);
   var lad = ladOf(key), n = lad.steps.length, cur = s ? s.cur : 0, best = s ? s.best : 0;
   var t = cur ? METAL[tierOf(cur, n)] : null, tb = best ? METAL[tierOf(best, n)] : null, leaves = '';
   for (var j = 0; j < n; j++) {
@@ -4972,14 +5051,27 @@ function areaDetailHTML(stats, id) {
   return h;
 }
 var AREA_PART_COL = { zug: '#1E5BD8', druck: '#C8734E', beine: '#4E9C78', rumpf: '#3A8E9C' };
+var MEDAL_T = [0, 65, 75, 85], MEDAL_K = ['bronze', 'silber', 'gold', 'platin'];
+// Nächste Medaille: Name, Punkte bis dahin, Anteil auf dem Weg dorthin.
+function medalNext(s2) { var c = s2.cur || 0; if (c >= 4) return null; var a = MEDAL_T[c - 1] || 40, b = MEDAL_T[c], v = s2.val || 0; return { k: MEDAL_K[c], name: METAL[MEDAL_K[c]].name, left: Math.max(0, b - v), f: Math.max(0, Math.min(1, (v - a) / (b - a))) }; }
+// Medaillen-Karte (Dennis, Variante M1, Impeccable-Kritik 25. Oktober): kein doppeltes Schild, zwei feste Zeilen „52 Punkte“ / „Silber ab 65“,
+// Balken in der dunklen Farbe der nächsten Medaille (mit Ansatz, auch direkt nach einem Aufstieg), Name und Stand im aria-label.
+function medalsHTML(ast, first) {
+  return '<section class="card mv1"><div class="card-head"><h2>Medaillen</h2></div><div class="medals">' + AREAS.map(function (a) {
+    var k = 'area_' + a.id, s2 = ast[k], nx = medalNext(s2), t = s2.cur ? metalOf(MEDAL_K[s2.cur - 1]) : null;
+    var bar = nx ? '<i class="mb2" style="--f:' + Math.max(8, Math.round(nx.f * 100)) + '%;--c:' + metalOf(nx.k).lo + '"></i>' : '';
+    var lines = s2.cur ? '<span class="muted">' + s2.val + ' Punkte</span><span class="muted">' + esc(nx ? nx.name + ' ab ' + MEDAL_T[s2.cur] : 'Höchste Stufe') + '</span>' : '<span class="muted">noch offen</span>';
+    return '<button type="button" class="m-cell" data-act="parea-go" data-v="' + a.id + '" aria-label="' + esc(a.name + ', ' + (t ? t.name + ', ' + s2.val + ' Punkte' : 'noch offen') + (nx && t ? ', ' + nx.name + ' ab ' + MEDAL_T[s2.cur] : '')) + '">' +
+      medalHTML(k, s2, first && s2.cur ? ' shine' : '') + '<b>' + esc(a.name) + '</b>' + lines + bar + '</button>';
+  }).join('') + '</div></section>';
+}
 function erfolgeHTML(stats) {
   var first = !ui.medShown; ui.medShown = true;
   var ast = areaStates(LOGS);
-  var h = '<section class="card"><div class="card-head"><h2>Medaillen</h2><span class="chip">je Bereich</span></div><div class="medals">' + AREAS.map(function (a) {
-    var k = 'area_' + a.id, s2 = ast[k], lost = s2.best > s2.cur;
-    return '<button type="button" class="m-cell" data-act="parea-go" data-v="' + a.id + '">' + medalHTML(k, s2, first && s2.cur ? ' shine' : '') + '<b>' + esc(a.name) + '</b><span class="' + (lost ? 'm-best' : 'muted') + '">' +
-      esc(s2.cur ? AREA_LAD[k].steps[s2.cur - 1] + ' · ' + s2.val : 'noch offen') + (lost ? ' · Bestwert ' + AREA_LAD[k].steps[s2.best - 1] : '') + '</span></button>';
-  }).join('') + '</div><p class="small muted">Bronze ab Start · Silber ab 65 · Gold ab 75 · Platin ab 85</p></section>';
+  var h = (v2() ? chainCardHTML() : '') + medalsHTML(ast, first);
+  return erfolgeRest(h);
+}
+function erfolgeRest(h) {
   h += prCardHTML();
   var arch = RM_ALL.map(function (id) { return { id: id, r: rmOf(id) }; }).filter(function (x) { return x.r; });
   h += '<section class="card a-lads"><div class="card-head"><h2>1RM-Archiv</h2><span class="chip">Bestwerte</span></div>' + (arch.length ? arch.map(function (x) {
@@ -5567,6 +5659,88 @@ function wkDoneV2(mon, done) {
   });
   return done;
 }
+/* ---------- Wochen-Kette (Dennis, 25. Oktober: „den User langfristig sportlicher machen“, Motivation A + E) ---------- */
+// Gezählt werden Wochen, nicht Tage (Schichtarbeit). Eine Woche hält die Kette mit mindestens 2 Einheiten (wie der Durchgang in planRoll),
+// voll mit dem Wochenziel. Kurze Einheiten (wenig Zeit, Kurzversion, Nachtrag) zählen voll, der Zusatz nicht. Krank/Beschwerden = Pause
+// (kein Glied, kein Bruch). Ein Joker je 12 Wochen überbrückt eine Woche von selbst, damit ein Riss nicht alles kostet. Nichts wird gespeichert.
+var CHAIN_C = { k: null }, CHAIN_JOKER = 84;
+// Dennis: „das kommt drauf an, wie viele Trainings man pro Woche machen will“ – gehalten ab zwei Dritteln des eigenen Ziels (2→2, 3→2, 4→3, 5→4, 6→4).
+function chainNeed() { return Math.max(1, Math.ceil(tageN() * 2 / 3)); }
+function chainUnits(mon) { var end = isoAdd(mon, 6), d = {}; LOGS.forEach(function (l) { if (trainingLog(l) && l.unit !== 'Z' && l.date >= mon && l.date <= end) d[l.date] = 1; }); return Object.keys(d).length; }
+function chainPause(mon) { var end = isoAdd(mon, 6), M = S.planMiss || {}; return Object.keys(M).some(function (dt) { return dt >= mon && dt <= end && (M[dt].reason === 'ill' || M[dt].reason === 'pain'); }); }
+function chainState() {
+  var cm = wkMon(), k = [LOGS.length, LOGS.length ? LOGS[LOGS.length - 1].id : '', cm, JSON.stringify(S.planMiss || {}), tageN()].join('|');
+  if (CHAIN_C.k === k) return CHAIN_C.v;
+  var first = LOGS.filter(trainingLog).map(function (l) { return l.date; }).sort()[0], W = [], n = 0, best = 0, joker = null;
+  if (first) for (var m = wkMon(first); m <= cm; m = isoAdd(m, 7)) {
+    var c = chainUnits(m), w = { mon: m, n: c, cur: m === cm };
+    if (c >= chainNeed()) { n++; w.st = c >= tageN() ? 'full' : 'held'; }
+    else if (w.cur) w.st = 'open';
+    else if (chainPause(m)) w.st = 'pause';
+    else if (n && (!joker || daysBetween(parseISO(joker), parseISO(m)) >= CHAIN_JOKER)) { joker = m; w.st = 'joker'; }
+    else { n = 0; w.st = 'miss'; }
+    w.len = n; best = Math.max(best, n); W.push(w);
+  }
+  var v = { n: n, best: best, weeks: W, cur: W[W.length - 1] || null, joker: joker, jokerOk: !joker || daysBetween(parseISO(joker), parseISO(cm)) >= CHAIN_JOKER };
+  CHAIN_C = { k: k, v: v }; return v;
+}
+// Reicht die Woche noch? left = fehlende Einheiten, r = geplante Termine ab heute. tight: jede geplante Einheit zählt.
+function chainRisk() {
+  var C = chainState(), w = C.cur; if (!w || w.st !== 'open' || !planOn()) return null;
+  var P = wkPlanC(), left = chainNeed() - w.n, r = P.days.filter(function (x) { return x.i >= P.today && x.tag && !x.done && !DAYS[x.tag].zusatz; }).length;
+  return { left: left, r: r, tight: r <= left, lost: r < left, today: P.today >= 0 && !!(P.days[P.today] && P.days[P.today].tag && !P.days[P.today].done) };
+}
+// Symbol der Zeile auf Heute: ein Ring, der sich füllt (wie die Glieder in Erfolge).
+var CHAIN_IC = '<svg class="ch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" opacity=".3"/><path d="M12 3.5a8.5 8.5 0 0 1 8.2 10.7"/></svg>';
+function chainWk(n) { return n + (n === 1 ? ' Woche' : ' Wochen'); }
+// Joker als Schild (Dennis, Variante A2): Gold und Stern heißen in der App schon „Bestwert“ und „Rekord“, darum neutral.
+var CHAIN_SHIELD = '<path class="jk" d="M14 7.5l5 1.8v3.9c0 3.1-2.1 5.5-5 6.5-2.9-1-5-3.4-5-6.5V9.3z"/>';
+// Segment-Ring: je Einheit des Wochenziels ein Stück, gemacht = gefüllt.
+function chainSeg(n, G, R, cx) { var C = 2 * Math.PI * R, gap = G > 1 ? 4.5 : 0, L = C / G - gap, o = ''; for (var i = 0; i < G; i++) o += '<circle class="' + (i < n ? 'ar' : 'bg') + '" cx="' + cx + '" cy="' + cx + '" r="' + R + '" stroke-dasharray="' + L.toFixed(2) + ' ' + (C - L).toFixed(2) + '" stroke-dashoffset="' + (-(C / G) * i - gap / 2).toFixed(2) + '" transform="rotate(-90 ' + cx + ' ' + cx + ')"/>'; return o; }
+// Wochen als Ringe: geschafft voll mit Haken, gehalten in Stücken, Joker Schild, Pause gestrichelt, verpasst ein Punkt, laufende Woche füllt sich.
+function chainLinksHTML(W, cls) {
+  var G = tageN();
+  return '<div class="chv' + (cls === 'big' ? ' big' : '') + '" aria-hidden="true">' + W.map(function (w) {
+    var st = w.st, mid = '', ring;
+    if (st === 'joker') ring = '<circle class="bg jkr" cx="14" cy="14" r="11"/>' + CHAIN_SHIELD;
+    else if (st === 'pause') ring = '<circle class="bg ps" cx="14" cy="14" r="11"/>';
+    else if (st === 'miss') ring = '<circle class="dot" cx="14" cy="14" r="3.5"/>';
+    else { ring = chainSeg(w.n, G, 11, 14); if (st === 'full') mid = '<path class="ck2" d="M9.5 14.3l3 3L18.6 11"/>'; }
+    return '<span class="crw"><svg class="cr ' + st + '" viewBox="0 0 28 28">' + ring + mid + '</svg></span>';
+  }).join('') + '</div>';
+}
+// Heute: eine Zeile unter der Wochenleiste. Wird es eng, bietet der Coach 15 Minuten statt gar nichts an.
+function chainLineHTML(tag) {
+  var C = chainState(), w = C.cur; if (!w) return '';
+  var R = chainRisk(), D = DRAFTS[draftKey(tag)] || {}, txt, btn = '';
+  if (w.st === 'full') txt = '<b>Woche geschafft</b> · ' + chainWk(C.n) + ' in Folge';
+  else if (w.st === 'held') txt = '<b>' + chainWk(C.n) + '</b> in Folge · Woche gehalten';
+  else if (R && R.lost) txt = C.n && C.jokerOk ? '<b>' + chainWk(C.n) + '</b> in Folge · dein Joker hält diese Woche' : 'Diese Woche reicht es nicht mehr, ab Montag beginnt eine neue Kette';
+  else {
+    txt = (C.n ? '<b>' + chainWk(C.n) + '</b> in Folge · ' : '') + 'noch ' + (R ? R.left : chainNeed() - w.n) + ' für diese Woche';
+    if (R && R.tight && R.today && !doneToday0() && DAYS[tag] && DAYS[tag].type === 'kraft' && +D._zeit !== 15) { txt += ', auch 15 Minuten zählen'; btn = '<button type="button" class="btn small" data-act="chain-short">15 Minuten</button>'; }
+  }
+  return '<div class="ch-row">' + CHAIN_IC + '<span>' + txt + '</span>' + btn + '</div>';
+}
+function chainCardHTML() {
+  var C = chainState(); if (!C.cur) return '';
+  var W = C.weeks.slice(-12), w = C.cur, nx = C.joker ? isoAdd(C.joker, CHAIN_JOKER) : null;
+  return '<section class="card ch-card"><div class="card-head"><h2>Wochen-Kette</h2>' + (C.best > C.n ? '<span class="chip">Längste: ' + chainWk(C.best) + '</span>' : '') + '</div>' +
+    '<p class="ch-big"><b>' + C.n + '</b>' + (C.n === 1 ? ' Woche' : ' Wochen') + ' in Folge</p>' + chainLinksHTML(W) +
+    '<p class="small muted ch-x">' + (w.st === 'open' ? 'Diese Woche ' + w.n + ' von ' + chainNeed() + '. ' : '') + 'Mit ' + chainNeed() + ' Einheiten hält die Woche, mit ' + tageN() + ' ist sie geschafft. Auch kurze Einheiten zählen.</p>' +
+    '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>Joker</b><small>' + (C.jokerOk ? 'Hält die Kette, wenn eine Woche nicht reicht.' : 'Genutzt in der Woche ab ' + esc(fmtDate(C.joker)) + ', wieder da ab ' + esc(fmtDate(nx)) + '.') + '</small></span><span class="vr-v">' + (C.jokerOk ? '1' : '0') + '</span></div></div></section>';
+}
+// Moment nach dem Speichern: die Woche hält (2. Einheit) bzw. ist geschafft (Wochenziel).
+function chainEvent(before) {
+  var a = chainState(), w = a.cur; if (!before || !before.cur || !w || w.mon !== before.cur.mon || w.st === before.cur.st) return [];
+  return w.st === 'held' || w.st === 'full' ? [{ type: 'chain', st: w.st, n: a.n, weeks: a.weeks.slice(-6) }] : [];
+}
+function chainMomentHTML(e) {
+  return '<div class="mo-card mo-ch" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">Training gespeichert</p>' + chainLinksHTML(e.weeks, 'big') +
+    '<div class="mo-text"><p class="mo-head">' + (e.st === 'full' ? 'Woche geschafft' : 'Woche gehalten') + '</p><h2 id="mo-t">' + chainWk(e.n) + ' in Folge</h2><p class="mo-body">' +
+    (e.st === 'full' ? 'Alle ' + tageN() + ' Einheiten. Genau so wird Training zur Gewohnheit.' : 'Deine Kette hält. ' + (tageN() > chainNeed() ? 'Mit ' + (tageN() - chainNeed()) + ' weiteren ist die Woche geschafft.' : '')) + '</p></div>' +
+    '<div class="mo-btns"><button type="button" class="btn" data-act="mo-next">' + (MOMENTS.length ? 'Nächste' : 'Weiter') + '</button><button type="button" class="btn primary" data-act="mo-view">Ansehen</button></div></div>';
+}
 // Umstellung auf Plan 2 (drei Einheiten): neue Nutzer sofort, bestehende ab dem nächsten Montag oder früher, wenn sie es wollen.
 // Nie während ein Training läuft. Alte Einträge, Stufen und Entwürfe bleiben, wie sie sind; nur die künftige Planung ändert sich.
 function trainingOpen() { return Object.keys(DRAFTS).some(function (k) { var D = DRAFTS[k]; return k.indexOf(S.durchgang + '-') === 0 && D && (D._step != null || +D._at > 0); }); }
@@ -6039,6 +6213,10 @@ function showMoment() {
   if (LS.notice) { whenStored(showMoment); return; }
   var old = document.getElementById('moment'); if (old) old.remove();
   var e = MOMENTS.shift(); if (!e) return;
+  if (e.type === 'chain') {
+    var cb = document.createElement('div'); cb.id = 'moment'; cb.className = 'moment mo-chain'; cb.innerHTML = chainMomentHTML(e);
+    document.body.appendChild(cb); buzz(e.st === 'full' ? [80, 100, 80, 100, 80, 100, 260] : [120, 200, 220]); return;
+  }
   if (e.type === 'pr') {
     var pb = document.createElement('div'); pb.id = 'moment'; pb.className = 'moment mo-pr';
     var P = e.pr, nR = P.h.length - 1, gn = prGain(P, e.prev), g0 = nR > 1 ? prGain(P, P.h[0]) : '', stg = /^[ks]:/.test(P.k);
@@ -7377,7 +7555,7 @@ function renderHeute() {
   var sub = lean ? heuteSub(plFree ? 'free' : todayView ? 'done' : 'train', PL, tag) : [];
   var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + PLAN_BTN + '</span></div><section class="hero"><h1>' + esc(title) + '</h1>' +
     sub.map(function (x) { return '<p class="h-sub">' + x + '</p>'; }).join('') + '</section>';
-  if (v2() && PL) h += wkStripHTML(wkCells(ui.wkMon || wkMon()), ui.wkSel || isoToday(), 'wk', lean);
+  if (v2() && PL) h += wkStripHTML(wkCells(ui.wkMon || wkMon()), ui.wkSel || isoToday(), 'wk', lean) + (lean && !ui.wkSel && !ui.wkMon ? chainLineHTML(tag) : '');
   else {
   h += planVHintHTML() + '<nav class="pills" aria-label="Tage">';
   for (var t = 1; t <= 7; t++) {
@@ -9061,8 +9239,13 @@ ACT['pl-time'] = function () {
   var P = wkPlanC(), d = P.days[P.today]; if (!d) return;
   openHourSheet('Training heute um', d.t != null ? d.t - 24 * d.i : 17, function (h) { S.planOv = Object.assign({}, S.planOv || {}); S.planOv[d.date] = { t: h }; WKP_C.k = null; saveState(); render(); toast('Training heute um ' + hm(h) + '.'); });
 };
-ACT['pl-off'] = function () {
-  var date = isoToday(); missRemember();
+ACT['pl-off'] = function (el, force) {
+  var date = isoToday(), R = v2() && chainRisk(), C = R && chainState();
+  // Wochen-Kette: wird es eng, erst 15 Minuten statt gar nicht anbieten (Motivation E). Krank/Beschwerden geht weiter über „Heute trotzdem nicht“.
+  if (!force && R && R.tight && !R.lost && R.today && DAYS[S.tag] && DAYS[S.tag].type === 'kraft') return openChoice(C.n ? 'Deine Kette: ' + chainWk(C.n) : 'Deine Woche', 'Diese Woche fehl' + (R.left === 1 ? 't noch 1 Einheit' : 'en noch ' + R.left + ' Einheiten') + '. Auch 15 Minuten zählen, dein Coach macht daraus eine kurze Einheit.', [['short', '15 Minuten statt gar nicht', 'primary'], ['off', 'Heute trotzdem nicht']], function (v) {
+    if (v === 'short') ACT['chain-short'](); else if (v === 'off') setTimeout(function () { ACT['pl-off'](null, true); }, 0);
+  });
+  missRemember();
   openChoice('Heute kein Training', 'Was soll dein Coach berücksichtigen?', [['time', 'Keine Zeit'], ['tired', 'Zu müde / schlecht geschlafen'], ['hungover', 'Verkatert'], ['health', 'Krank / Beschwerden']], function (v) {
     if (!v) return;
     if (v === 'health') return missHealth(date);
@@ -9879,6 +10062,7 @@ ACT['sig-full'] = function (el) { var full = isKurz0(S.tag); setDraft('_kurz', f
 ACT['zone-open'] = function () { ui.tab = 'plan'; ui.planSec = null; render(); setTimeout(function () { var c = document.getElementById('zone-card'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 60); };
 ACT['zone-full'] = function () { var off = (DRAFTS[draftKey(S.tag)] || {})._zf === '1'; setDraft('_zf', off ? '' : '1'); closeSheet(); render(); toast(off ? 'Heute wie dein Coach es plant.' : 'Heute volle Runden.'); };
 ACT['adapt-off'] = function () { closeSheet(); ACT['pl-off'](); };
+ACT['chain-short'] = function () { setDraft('_zeit', 15); render(); toast('Heute 15 Minuten. Das zählt für deine Kette.'); };
 ACT['adapt-sub'] = function (el) {
   var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
   document.querySelectorAll('#sheet .ad-it').forEach(function (x) { x.classList.remove('open'); var q = x.querySelector('.ad-p'); if (q) q.hidden = true; });
