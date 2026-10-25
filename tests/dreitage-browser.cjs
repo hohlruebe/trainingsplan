@@ -616,6 +616,29 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('.mv1 .m-cell').first().getAttribute('aria-label'), /^Ausdauer, /);
     console.log('PASS: Wochen-Kette: gehalten nach Ziel, 15-Minuten-Rettung, Joker, Pause, Riss; Erfolge mit Ringen und geprägten Medaillen');
 
+    // Starter-Challenges (Dennis, 25. Oktober): jeden Tag eine kleine Aufgabe neben dem Plan, Tag zählt nur, wenn geschafft, Moment am Ende.
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:00+02:00'));
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [chSt, chLogs]);
+    await page.evaluate(() => window.tpTest.navigate('fokus'));
+    assert.equal(await page.locator('[data-act="st-open"]').count(), 4, 'vier Starter unter Zum Einstieg');
+    await page.locator('[data-act="st-open"][data-v="plank"]').click();
+    await page.getByRole('button', { name: 'Starten' }).click();
+    assert.match(await page.locator('.st-row').innerText(), /30 Tage Plank\s*Tag 1 von 30 · heute 20 s/);
+    await page.locator('[data-act="st-done"]').click();
+    assert.match(await page.locator('.st-row').innerText(), /Tag 1 von 30 geschafft\s*· morgen 25 s/);
+    assert.equal((await page.evaluate(() => window.tpTest.chain())).st[2], 'open', 'Starter zählt nicht in die Kette');
+    await page.clock.setFixedTime(new Date('2026-10-17T09:00:00+02:00')); // ein Tag ausgelassen: es geht mit Tag 2 weiter
+    await page.evaluate(() => window.tpTest.navigate('heute'));
+    assert.match(await page.locator('.st-row').innerText(), /Tag 2 von 30/);
+    await page.evaluate(() => { const S = window.tpTest.state(), d = {}; for (let i = 0; i < 29; i++) d['2026-09-' + String(i + 1).padStart(2, '0')] = 1; S.starter.d = d; window.tpTest.navigate('heute'); });
+    assert.match(await page.locator('.st-row').innerText(), /Tag 30 von 30 · heute 2 Min/);
+    await page.locator('[data-act="st-done"]').click();
+    await page.locator('.mo-st').getByText('30 Tage geschafft').waitFor();
+    assert.equal(await page.evaluate(() => window.tpTest.state().starter.end), '2026-10-17');
+    await page.locator('.mo-st [data-act="mo-next"]').click();
+    assert.match(await page.locator('.st-row').innerText(), /30 Tage Plank geschafft/);
+    console.log('PASS: Starter-Challenges: starten, Tag abhaken, Lücke ohne Strafe, Ziel steigt, Moment nach 30 Tagen');
+
     // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(old(), { planV: 2, tag: 1, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe', 'eq_band'] }], ort: 'o1' }), logs()]);
     // Eigene Seite unter Tools (kein Umschalter in der Bibliothek); auch mit großer Schrift steht der ganze Körper über der Reiterleiste.

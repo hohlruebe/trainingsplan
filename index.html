@@ -1339,7 +1339,7 @@ html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 @media (prefers-reduced-motion:reduce){.chv.big *{animation:none!important}}
 .ch-big{margin:2px 0 0;font-size:17px;color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin-right:6px}
 .ch-x{margin:4px 0 12px}
-.mo-ch{gap:2px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:6px}.moment.mo-chain .mo-btns{animation-delay:.8s}
+.mo-ch{gap:2px}.st-t{display:flex;flex-direction:column;min-width:0}.st-t small{font-size:14px}.st-i{flex:none;width:44px;height:44px;margin:-10px -8px -10px -12px;display:grid;place-items:center;background:none;border:0;color:var(--acc);border-radius:50%}.st-i svg{width:20px;height:20px}.mo-st .mo-btns{display:flex}.mo-st .mo-btns>.btn{flex:1}.mo-st-ic{display:grid;place-items:center;width:84px;height:84px;margin:8px auto;border-radius:50%;background:var(--fill);color:var(--acc)}.mo-st-ic svg{width:44px;height:44px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:6px}.moment.mo-chain .mo-btns{animation-delay:.8s}
 </style>
 </head>
 <body>
@@ -2753,7 +2753,7 @@ var TEST_BASE = {
   T3_ROWS: { 0: 'Ring Chin-up', 1: 'Bulgarian Split Squat', 2: 'Ab Wheel Rollout' }
 };
 
-var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, fsView: 'one', comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
+var DEF = { v: 1, starter: null, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, fsView: 'one', comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
@@ -2913,7 +2913,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage', 'schwerpunkt'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage', 'schwerpunkt', 'starter'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -6218,6 +6218,10 @@ function showMoment() {
     var cb = document.createElement('div'); cb.id = 'moment'; cb.className = 'moment mo-chain'; cb.innerHTML = chainMomentHTML(e);
     document.body.appendChild(cb); buzz(e.st === 'full' ? [80, 100, 80, 100, 80, 100, 260] : [120, 200, 220]); return;
   }
+  if (e.type === 'starter') {
+    var sb = document.createElement('div'); sb.id = 'moment'; sb.className = 'moment mo-chain'; sb.innerHTML = starterMomentHTML(e);
+    document.body.appendChild(sb); buzz([80, 100, 80, 100, 80, 100, 260]); return;
+  }
   if (e.type === 'pr') {
     var pb = document.createElement('div'); pb.id = 'moment'; pb.className = 'moment mo-pr';
     var P = e.pr, nR = P.h.length - 1, gn = prGain(P, e.prev), g0 = nR > 1 ? prGain(P, P.h[0]) : '', stg = /^[ks]:/.test(P.k);
@@ -7555,7 +7559,7 @@ function renderHeute() {
   var sub = lean ? heuteSub(plFree ? 'free' : todayView ? 'done' : 'train', PL, tag) : [];
   var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + PLAN_BTN + '</span></div><section class="hero"><h1>' + esc(title) + '</h1>' +
     sub.map(function (x) { return '<p class="h-sub">' + x + '</p>'; }).join('') + '</section>';
-  if (v2() && PL) h += wkStripHTML(wkCells(ui.wkMon || wkMon()), ui.wkSel || isoToday(), 'wk', lean) + (lean && !ui.wkSel && !ui.wkMon ? chainLineHTML(tag) : '');
+  if (v2() && PL) h += wkStripHTML(wkCells(ui.wkMon || wkMon()), ui.wkSel || isoToday(), 'wk', lean) + (lean && !ui.wkSel && !ui.wkMon ? chainLineHTML(tag) + starterRowHTML() : '');
   else {
   h += planVHintHTML() + '<nav class="pills" aria-label="Tage">';
   for (var t = 1; t <= 7; t++) {
@@ -11986,6 +11990,7 @@ function renderFokus() {
   if (S.review) h += '<button type="button" class="btn primary block go" data-act="fk-go">' + 'Nächsten Block starten</button>';
   // Ohne Wettkampf läuft Allround einfach weiter, Block für Block. Das ist eine eigene Wahl, keine Lücke.
   var OK2 = '<svg class="ch-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>', dl = C ? chalLeft() : 0;
+  h += starterListHTML();
   h += '<h2 class="ch-h">Worauf trainierst du?</h2><section class="card gl-card ch-now">' +
     '<button type="button" class="gl-row' + (C ? '' : ' on') + '" data-act="ch-none" aria-pressed="' + !C + '"><span class="ch-ic">' + fkIcon(CH_FREE) + '</span><span class="gl-t"><b>Einfach trainieren</b><small>Kein Wettkampf: dein Training läuft ohne Datum weiter, Block für Block.</small></span>' + (C ? '' : OK2) + '</button>' +
     (C ? '<button type="button" class="gl-row on" data-act="ch-open" data-v="' + S.challenge.id + '" aria-pressed="true"><span class="ch-ic">' + fkIcon(C.ic) + '</span><span class="gl-t"><b>' + esc(C.name) + '</b><small>' + esc(fmtDateLong(S.challenge.date)) + ' · ' + (dl <= 0 ? 'heute' : dl === 1 ? 'morgen' : 'noch ' + dl + ' Tage') + (dl > 0 && dl <= 14 ? ' · Taper' : '') + '</small></span>' + OK2 + '</button>' +
@@ -12007,6 +12012,76 @@ ACT['sp-set'] = function (el) { var v = SP[el.dataset.v] ? el.dataset.v : null; 
 ACT['ch-none'] = function () { if (chal()) ACT['ch-end'](); else toast('Läuft schon: Allround ohne Wettkampf.'); };
 ACT['fk-open'] = function (el) { ui.fkFrom = el.dataset.from || 'heute'; ui.tab = 'fokus'; window.scrollTo(0, 0); render(); };
 ACT['fk-go'] = function () { startBlock(S.review ? S.review.fokus : S.fokus); };
+/* ---------- Starter-Challenges: jeden Tag eine kleine Aufgabe neben dem Plan (Dennis, 25. Oktober: Anfangsmotivation) ---------- */
+// Zählt geschaffte Tage, nicht Kalendertage: ein verpasster Tag macht nichts, es geht am nächsten weiter. Ziel steigt von a bis b (Sekunden bzw. Wdh.).
+// S.starter {id, start, d: {Datum: ts}, end}. Zählt nicht als Training (Kette, Woche, Pause).
+var STARTER = {
+  plank: { name: '30 Tage Plank', sub: 'Jeden Tag halten, von 20 s bis 2 Min', ue: 'g_plank', u: 's', a: 20, b: 120, ic: 'M3 17h18M5 17l3-4h10l2 4M17 10a2 2 0 1 0 0-.1' },
+  hang: { name: '30 Tage Dead Hang', sub: 'Griff und Schultern, von 10 s bis 1 Min', ue: 'g_dead_hang', u: 's', a: 10, b: 60, ic: 'M4 4h16M9 4v6M15 4v6M9 10a3 3 0 0 0 6 0M12 13v7' },
+  squat: { name: '30 Tage Kniebeugen', sub: 'Von 15 bis 60 Air Squats am Tag', ue: 'g_air', u: 'wdh', a: 15, b: 60, ic: 'M12 3a2 2 0 1 0 0 .1M12 7v5l-4 3v5M12 12l4 3v5' },
+  push: { name: '22 Liegestütze', sub: '22 Tage lang jeden Tag 22, auf Knien erlaubt', ue: 'g_push', u: 'wdh', a: 22, b: 22, n: 22, ic: 'M3 18h18M5 14l7-3 7 1M5 14v4M19 12v6' }
+};
+var STARTER_IDS = Object.keys(STARTER);
+function starterN(X) { return X.n || 30; }
+function starterGoal(X, k) { var N = starterN(X), v = X.a + (X.b - X.a) * (Math.min(k, N) - 1) / Math.max(1, N - 1); return X.u === 's' ? Math.round(v / 5) * 5 : Math.round(v); }
+function starterFmt(X, v) { return X.u === 's' ? (v >= 60 && v % 60 === 0 ? v / 60 + ' Min' : v > 60 ? fmtDur(v) + ' Min' : v + ' s') : v + ' ' + (UE[X.ue] ? UE[X.ue].name : ''); }
+function starterOf() {
+  var c = S.starter, X = c && STARTER[c.id]; if (!X) return null;
+  var d = c.d || {}, today = isoToday(), n = Object.keys(d).length, dn = !!d[today], N = starterN(X);
+  var k = dn ? n : n + 1;
+  return { id: c.id, X: X, N: N, n: n, k: Math.min(k, N), done: dn, end: c.end || null, goal: starterGoal(X, k), next: starterGoal(X, k + 1) };
+}
+// Heute: eine Zeile unter der Kette, mit „Geschafft“. Fehlt am Ort das Gerät (Dead Hang ohne Stange), steht es dabei.
+function starterRowHTML() {
+  var T = starterOf(); if (!T) return '';
+  var X = T.X, u = UE[X.ue], txt, btn = '';
+  if (T.end) { if (T.end !== isoToday()) return ''; txt = '<b>' + esc(X.name) + ' geschafft</b> · alle ' + T.N + ' Tage'; }
+  else if (T.done) txt = '<b>Tag ' + T.k + ' von ' + T.N + ' geschafft</b> · morgen ' + esc(starterFmt(X, T.next));
+  else {
+    var eq = u && !eqOk(u.equipment, haveEq(curOrt()));
+    txt = '<b>' + esc(X.name) + '</b><small>Tag ' + T.k + ' von ' + T.N + ' · heute ' + esc(starterFmt(X, T.goal)) + (eq ? ' · hier fehlt eine Stange' : '') + '</small>';
+    btn = '<button type="button" class="btn small" data-act="st-done">Geschafft</button>';
+  }
+  return '<div class="ch-row st-row"><button type="button" class="st-i" data-act="ue-info" data-how="1" data-id="' + esc(X.ue) + '" aria-label="So geht ' + esc(u ? u.name : X.name) + '">' + fkIcon(X.ic) + '</button><span class="st-t">' + txt + '</span>' + btn + '</div>';
+}
+ACT['st-done'] = function () {
+  var T = starterOf(); if (!T || T.done || T.end) return;
+  S.starter.d = S.starter.d || {}; S.starter.d[isoToday()] = Date.now();
+  if (T.n + 1 >= T.N) { S.starter.end = isoToday(); MOMENTS = [{ type: 'starter', id: T.id, last: T.goal }]; }
+  saveState(); haptic('step'); render();
+  if (S.starter.end) whenStored(showMoment); else toast('Tag ' + T.k + ' geschafft. Morgen ' + starterFmt(T.X, T.next) + '.');
+};
+// Plan & Challenges: Gruppe „Zum Einstieg“. Läuft neben dem Plan und neben einer Challenge, immer nur eine.
+function starterListHTML() {
+  var T = starterOf(), act = T && !T.end ? T.id : null;
+  return '<h2 class="ch-h">Zum Einstieg</h2><p class="small muted" style="margin-top:-4px">Jeden Tag eine kleine Aufgabe, 1–3 Minuten, neben deinem Training. Ein verpasster Tag macht nichts.</p><section class="card gl-card">' +
+    STARTER_IDS.map(function (id) {
+      var X = STARTER[id], on = id === act;
+      return '<button type="button" class="gl-row' + (on ? ' on' : '') + '" data-act="st-open" data-v="' + id + '" aria-pressed="' + on + '"><span class="ch-ic">' + fkIcon(X.ic) + '</span><span class="gl-t"><b>' + esc(X.name) + (on ? ' <span class="chip blue">Tag ' + T.k + ' von ' + T.N + '</span>' : '') + '</b><small>' + esc(X.sub) + '</small></span>' + (on ? '' : CHEV_R) + '</button>';
+    }).join('') + (act ? '<div class="bgrp"><button type="button" class="red" data-act="st-end">Beenden</button></div>' : '') + '</section>';
+}
+ACT['st-open'] = function (el) {
+  var id = el.dataset.v, X = STARTER[id], T = starterOf(); if (!X) return;
+  if (T && !T.end && T.id === id) { toast('Läuft schon: Tag ' + T.k + ' von ' + T.N + '.'); return; }
+  var g = starterGoal(X, 1), u = UE[X.ue];
+  openChoice(X.name + ' starten?', 'Tag 1: ' + starterFmt(X, g) + ', am Ende ' + starterFmt(X, starterGoal(X, starterN(X))) + '. In so vielen Anläufen, wie du brauchst. Die Aufgabe steht jeden Tag auf Heute' + (u && u.equipment && u.equipment.length ? ', du brauchst eine Stange oder Ringe' : '') + '.' + (T && !T.end ? ' Ersetzt ' + T.X.name + '.' : ''),
+    [['ja', 'Starten', 'primary'], ['nein', 'Abbrechen', '']], function (v) {
+      if (v !== 'ja') return;
+      S.starter = { id: id, start: isoToday(), d: {}, end: null }; saveState(); ui.tab = 'heute'; window.scrollTo(0, 0); render(); toast(X.name + ': heute ist Tag 1.');
+    });
+};
+ACT['st-end'] = function () {
+  var T = starterOf(); if (!T) return;
+  openChoice(T.X.name + ' beenden?', 'Deine ' + T.n + (T.n === 1 ? ' Tag bleibt' : ' Tage bleiben') + ' gezählt, die Aufgabe verschwindet von Heute.', [['ja', 'Beenden', 'red'], ['nein', 'Abbrechen', '']], function (v) {
+    if (v !== 'ja') return; S.starter = null; saveState(); render();
+  });
+};
+function starterMomentHTML(e) {
+  var X = STARTER[e.id];
+  return '<div class="mo-card mo-st" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">Zum Einstieg</p><span class="mo-st-ic">' + fkIcon(X.ic) + '</span>' +
+    '<div class="mo-text"><p class="mo-head">' + starterN(X) + ' Tage geschafft</p><h2 id="mo-t">' + esc(X.name) + '</h2><p class="mo-body">Am ersten Tag ' + esc(starterFmt(X, starterGoal(X, 1))) + ', heute ' + esc(starterFmt(X, e.last)) + '. Du hast gezeigt, dass du dranbleibst.</p></div>' +
+    '<div class="mo-btns"><button type="button" class="btn primary" data-act="mo-next">Weiter</button></div></div>';
+}
 function hrRows() {
   var hv = hrVals();
   return [valRow('Geburtsjahr', S.birthYear ? String(S.birthYear) : '–', 'data-act="choose" data-k="birth"', { sub: S.birthYear ? hrAge() + ' Jahre' : 'Für den Maximalpuls', set: !!S.birthYear }),

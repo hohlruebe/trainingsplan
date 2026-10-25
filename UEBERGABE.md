@@ -4,9 +4,17 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 25. Oktober 2026 (Wochen-Kette und neue Medaillen; davor Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 25. Oktober 2026 (Starter-Challenges; davor Wochen-Kette und neue Medaillen; davor Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
 
+
+## Starter-Challenges (25. Oktober 2026, Claude)
+- Dennis: „Was gibt's für virale Fitness-Challenges, um die Anfangsmotivation zu steigern?“ Vorschlag: 30-Tage-Challenges, Couch to 5K, erster Klimmzug,
+  12-3-30, 22 Liegestütze (nicht 75 Hard). Dennis: „ja mach den PR daraus“ (ohne eigenes Board, direkt als PR).
+- Umgesetzt: vier tägliche Starter (Plank, Dead Hang, Kniebeugen, 22 Liegestütze) in Plan & Challenges › Zum Einstieg, Zeile auf Heute, Moment am Ende.
+  Details siehe CLAUDE.md „Starter-Challenges“. Test im Browser-Test.
+- Offen: Couch to 5K (braucht eigene Lauf-Einheiten neben A/B/C), Vorschlag nach dem Fragebogen, Starter auf Heute in Plan 1; Sync nimmt `S.starter` als ganzes
+  Feld (zwei Geräte am selben Tag: der neuere Stand gewinnt). Kraft-Zeichen weiter offen.
 
 ## Wochen-Kette und neue Medaillen (25. Oktober 2026, Claude)
 - Dennis: „zurück zum Motivationspart, um den User langfristig sportlicher zu machen“. Vorschlag: Wochen-Kette mit 10-Minuten-Rettung (Konzepte A + E),

@@ -639,6 +639,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   oben „Trainingstage“ (`tageHTML(true)`: Wert-Zeile „Pro Woche · 3 Tage“, gleiches Blatt), dann Schwerpunkt und Challenge; keine Allround-Karte, Texte
   „dein Training“, am Blockende „Nächsten Block starten“. Dein Plan: Karte „Dein Ziel“ (Challenge mit Datum, sonst Schwerpunkt, sonst „Einfach trainieren“,
   dazu Tage pro Woche); in Deine Woche keine Trainingstage-Zeile mehr.
+- Starter-Challenges (Dennis, 25. Oktober: „virale Challenges für die Anfangsmotivation“, „ja mach den PR daraus“): Plan & Challenges › „Zum Einstieg“
+  (`starterListHTML`, unter Schwerpunkt) mit `STARTER`: 30 Tage Plank (20 s → 2 Min), 30 Tage Dead Hang (10 s → 1 Min, Stange oder Ringe), 30 Tage Kniebeugen
+  (15 → 60 Air Squats), 22 Liegestütze (22 Tage je 22). Läuft neben Plan und Challenge, immer nur eine. `S.starter {id, start, d: {Datum: ts}, end}` (in `DEF`
+  und `SYNC_KEYS`). Gezählt werden geschaffte Tage, nicht Kalendertage (`starterOf`): ein verpasster Tag macht nichts, das Ziel steigt linear (`starterGoal`,
+  Sekunden auf 5 gerundet). Heute (nur Plan 2 schlank): Zeile unter der Wochen-Kette (`starterRowHTML`, `.st-row`: Symbol = (i) der Übung, „Tag 7 von 30 ·
+  heute 40 s“, „Geschafft“ `ACT['st-done']`), danach „Tag 7 von 30 geschafft · morgen …“. Am letzten Tag Moment „30 Tage geschafft“ (Typ `starter` in
+  `showMoment`, `starterMomentHTML`). Starten/Beenden mit Nachfrage (`st-open`, `st-end`). Zählt nicht als Training (Kette, Woche, Pause). Noch nicht:
+  Couch to 5K, Vorschlag nach dem Fragebogen.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
