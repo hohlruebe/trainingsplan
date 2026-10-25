@@ -1356,7 +1356,7 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .medal.md{width:104px;height:104px}.md-svg{position:absolute;inset:0;width:104px;height:104px;filter:drop-shadow(0 6px 10px rgba(17,18,20,.18))}
 .md .md-sh{left:25px;top:25px;width:54px;height:54px;mix-blend-mode:soft-light}
 html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
-.mv1 .medal.md{height:104px}
+.mv1 .medal.md{height:104px}.mv1 .m-cell span.muted{line-height:1.25}
 @keyframes chIn{from{transform:scale(.4);opacity:0}}
 @media (prefers-reduced-motion:reduce){.chv.big *{animation:none!important}}
 .ch-big{margin:2px 0 0;font-size:17px;color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin-right:6px}
@@ -4880,13 +4880,31 @@ function mondayISO() { var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.g
 var MEDAL_D = 0, MD_N = 0;
 var METAL2 = { platin: { name: 'Platin', base: '#9FB6CC', hi: '#F4FAFF', lo: '#5E7286' } };
 // Symbole im 32er-Raster, aus einer Familie (Zeichen statt Übungs-Icons).
-var AREA_SYM = {
-  ausdauer: 'M16 26.5C9.6 22.2 5 18 5 12.6A5.6 5.6 0 0 1 16 10.4a5.6 5.6 0 0 1 11 2.2c0 5.4-4.6 9.6-11 13.9zM8.5 15.5h4l1.8-3.5 2.8 7 1.9-3.5h4.5',
-  beweglichkeit: 'M13.4 6.4a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M11.5 10.5c1.2 5 1.3 10 .3 17.5M11.8 28h4.5M11.6 13.5c4.6-1.2 9.2-4.4 12.6-8.8M11.4 15l-4.6 3.6M18 22a10 10 0 0 0 7-8.5M25 13.5l-2.6 2.2M25 13.5l.9 3.3',
-  koordination: 'M18.4 6.6a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M16 11v8M8.5 14h15M16 19v8.5M16 19l5.5 2.4 1.8-3.6',
-  kraft: 'M11.5 13V10a4.5 4.5 0 0 1 9 0v3M9.4 26.5a8.2 8.2 0 1 1 13.2 0z',
-  schnellkraft: 'M18.5 3.5L8 18h7l-2.2 10.5L24 13.5h-7.2z'
+// Drei Symbol-Familien zur Wahl (Dennis: „gib mir auch hier verschiedene Variationen“): z = Zeichen, f = Figuren, o = Gegenstände.
+var MEDAL_S = 'z', SYM_SETS = {
+  z: {
+    ausdauer: 'M16 26.5C9.6 22.2 5 18 5 12.6A5.6 5.6 0 0 1 16 10.4a5.6 5.6 0 0 1 11 2.2c0 5.4-4.6 9.6-11 13.9zM8.5 15.5h4l1.8-3.5 2.8 7 1.9-3.5h4.5',
+    beweglichkeit: 'M6 22A10 10 0 0 1 26 22M6 22l-1.6-3.6M6 22l3.6-1.4M26 22l1.6-3.6M26 22l-3.6-1.4M16 22.2v.01M10 26.5h12',
+    koordination: 'M5 14.5l22-3M16 13l-4.2 9h8.4zM9.2 10.4a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M27.6 7.2a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M9 26.5h14',
+    kraft: 'M11.5 13V10a4.5 4.5 0 0 1 9 0v3M9.4 26.5a8.2 8.2 0 1 1 13.2 0z',
+    schnellkraft: 'M18.5 3.5L8 18h7l-2.2 10.5L24 13.5h-7.2z'
+  },
+  f: {
+    ausdauer: 'M22.4 6.4a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M18.5 10.5l-3 8M17.4 12.5l5 2.5M17.4 12.5l-5.4.8M15.5 18.5l5 3-1 6M15.5 18.5l-4 4.5-4.5-1',
+    beweglichkeit: 'M26.4 15.6a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M7 25.5h20M7 25.5C8 18 14 15.5 20.5 17M13 18.5l13.5 5.5M4 28h25',
+    koordination: 'M18.4 5.6a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M16 10v9M8 13.5h16M16 19v9M16 19l5.5 2.4 1.8-3.6',
+    kraft: 'M18.4 9a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M16 12v8M16 13.5l-6-6.5M16 13.5l6-6.5M7 5h18M7 2.5v5M25 2.5v5M16 20l-4 8M16 20l4 8',
+    schnellkraft: 'M18.4 5.2a2.4 2.4 0 1 1-4.8 0a2.4 2.4 0 1 1 4.8 0M16 9v9M16 11l-7-5M16 11l7-5M16 18l-6 7M16 18l6 7M9 29.5h4M19 29.5h4'
+  },
+  o: {
+    ausdauer: 'M4 23.5c0-2.6 1.6-4 3.6-4.2L11.5 13l4.5 2.4c2.2 1.2 4.4 3.1 8.6 4 2.6.6 3.4 1.9 3.4 3.6v1.5H4zM12.8 16.5l2.2 1.2M11.2 19l2.2 1.2M4 21.5h24',
+    beweglichkeit: 'M8 11h16a3.2 7 0 0 1 0 14H8a3.2 7 0 0 1 0-14zM8 11a3.2 7 0 0 0 0 14M13 11v14M18 11v14',
+    koordination: 'M14.4 9.5a4 4 0 1 1-8 0a4 4 0 1 1 8 0M25.6 9.5a4 4 0 1 1-8 0a4 4 0 1 1 8 0M20 23a4 4 0 1 1-8 0a4 4 0 1 1 8 0M7 17c1 5 3 8 5 9M25 17c-1 5-3 8-5 9',
+    kraft: 'M5.5 12v8M9 9.5v13M23 9.5v13M26.5 12v8M9 16h14',
+    schnellkraft: 'M25 18a9 9 0 1 1-18 0a9 9 0 1 1 18 0M13.5 5.5h5M16 5.5v3.5M16 18l4-4.5M23.5 9l1.6-1.6'
+  }
 };
+var AREA_SYM = SYM_SETS.z;
 function metalOf(k) { return METAL2[k] || METAL[k]; }
 function medal2HTML(key, s, extra) {
   var id = key.replace('area_', ''), A = AREAS.filter(function (a) { return a.id === id; })[0] || {}, cur = s ? s.cur : 0, n = 4;
@@ -4921,7 +4939,7 @@ function medal2HTML(key, s, extra) {
     '<circle cx="52" cy="52" r="27" fill="none" stroke="' + lo + '" stroke-opacity=".55" stroke-width="1"/><circle cx="52" cy="52" r="26" fill="none" stroke="' + hi + '" stroke-opacity=".6" stroke-width=".8"/>';
   if (t) { var bd = ''; for (var b = 0; b < 32; b++) { var a2 = b * 11.25 * Math.PI / 180; bd += '<circle cx="' + (52 + 23.6 * Math.cos(a2)).toFixed(2) + '" cy="' + (52 + 23.6 * Math.sin(a2)).toFixed(2) + '" r=".75"/>'; } o += '<g fill="' + lo + '" opacity=".5">' + bd + '</g>'; }
   // Vertieftes Symbol: dunkle Kante oben links, helle unten rechts
-  var sym = AREA_SYM[id] || '', tr = 'translate(37 33) scale(.94)';
+  var sym = (SYM_SETS[MEDAL_S] || AREA_SYM)[id] || '', tr = 'translate(37 33) scale(.94)';
   o += '<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" transform="' + tr + '">' +
     (t ? '<path d="' + sym + '" stroke="' + hi + '" stroke-opacity=".9" transform="translate(.7 .7)"/><path d="' + sym + '" stroke="' + lo + '" stroke-opacity=".75" transform="translate(-.5 -.5)"/>' : '') +
     '<path d="' + sym + '" stroke="' + (t ? lo : 'var(--line2)') + '"/></g>';
@@ -5089,7 +5107,7 @@ function medalsHTML(ast, first) {
       var ticks = MEDAL_T.slice(1).map(function (x) { return '<i class="tk" style="left:' + ((x - 40) / 59 * 100).toFixed(1) + '%"></i>'; }).join('');
       return '<button type="button" class="m-row" data-act="parea-go" data-v="' + a.id + '"><span class="m-sm">' + M + '</span><span class="m-rt"><span class="m-rh"><b>' + esc(a.name) + '</b><span class="muted">' + esc(t ? t.name + ' · ' + s2.val : 'noch offen') + '</span></span><span class="m-track"><i class="fill" style="width:' + Math.max(0, Math.min(100, ((s2.val || 40) - 40) / 59 * 100)).toFixed(1) + '%;background:' + (t ? t.base : 'var(--line2)') + '"></i>' + ticks + '</span><small class="muted">' + esc(nx ? nx.name + ' in ' + nx.left + (nx.left === 1 ? ' Punkt' : ' Punkten') : 'Höchste Stufe erreicht') + '</small></span></button>';
     }
-    return '<button type="button" class="m-cell mv1" data-act="parea-go" data-v="' + a.id + '" aria-label="' + esc(a.name + ', ' + (t ? t.name + ', ' + s2.val : 'noch offen') + (nx ? ', ' + nx.name + ' in ' + nx.left + ' Punkten' : '')) + '">' + M + '<b>' + esc(a.name) + '</b><span class="muted">' + esc(line) + '</span>' + bar + '</button>';
+    return '<button type="button" class="m-cell mv1" data-act="parea-go" data-v="' + a.id + '" aria-label="' + esc(a.name + ', ' + (t ? t.name + ', ' + s2.val : 'noch offen') + (nx ? ', ' + nx.name + ' in ' + nx.left + ' Punkten' : '')) + '">' + M + '<b>' + esc(a.name) + '</b>' + (MEDAL_D && s2.cur ? '<span class="muted">' + s2.val + ' Punkte</span><span class="muted">' + esc(nx ? nx.name + ' ab ' + MEDAL_T[s2.cur] : 'Höchste Stufe') + '</span>' : '<span class="muted">' + esc(line) + '</span>') + bar + '</button>';
   }).join('');
   return '<section class="card mv' + MEDAL_V + '"><div class="card-head"><h2>Medaillen</h2>' + (MEDAL_D ? '' : '<span class="chip">je Bereich</span>') + '</div><div class="' + (MEDAL_V === 3 ? 'm-rows' : 'medals') + '">' + cells + '</div>' + (MEDAL_V === 3 ? '<p class="small muted">Striche bei Silber 65, Gold 75, Platin 85.</p>' : '') + '</section>';
 }
@@ -5697,7 +5715,8 @@ function wkDoneV2(mon, done) {
 // voll mit dem Wochenziel. Kurze Einheiten (wenig Zeit, Kurzversion, Nachtrag) zählen voll, der Zusatz nicht. Krank/Beschwerden = Pause
 // (kein Glied, kein Bruch). Ein Joker je 12 Wochen überbrückt eine Woche von selbst, damit ein Riss nicht alles kostet. Nichts wird gespeichert.
 var CHAIN_C = { k: null }, CHAIN_JOKER = 84;
-function chainNeed() { return Math.min(2, tageN()); }
+// Dennis: „das kommt drauf an, wie viele Trainings man pro Woche machen will“ – gehalten ab zwei Dritteln des eigenen Ziels (2→2, 3→2, 4→3, 5→4, 6→4).
+function chainNeed() { return Math.max(1, Math.ceil(tageN() * 2 / 3)); }
 function chainUnits(mon) { var end = isoAdd(mon, 6), d = {}; LOGS.forEach(function (l) { if (trainingLog(l) && l.unit !== 'Z' && l.date >= mon && l.date <= end) d[l.date] = 1; }); return Object.keys(d).length; }
 function chainPause(mon) { var end = isoAdd(mon, 6), M = S.planMiss || {}; return Object.keys(M).some(function (dt) { return dt >= mon && dt <= end && (M[dt].reason === 'ill' || M[dt].reason === 'pain'); }); }
 function chainState() {
