@@ -646,6 +646,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   die nützlichsten am Ort, höchstens 5), Rest eingeklappt (`ui.rmAll`, `ACT['rm-all']`), Aktuell | Bestwert erst ab dem ersten Wert, Chevron statt „–“. Familie:
   „Als Nächstes“ (`famNext`) ist die nächste Stufe, die am Ort geht (Pfad-Chip, Listen-Chip, Satz unter dem Pfad „X braucht …, hier geht als Nächstes Y“), geht
   keine, steht der Grund am Chip. Kritik in `.impeccable/critique/2026-10-25T19-26-29Z__index-html.md`.
+  Danach (Dennis' Antworten, Board https://claude.ai/artifact/SChJQsjh1H23waLBvt3hpJ): Tools › Körper färbt die Figur nach dem Muskelausgleich (`musLibHTML`:
+  `b0`–`b3` aus `musBalance`, ab 3 Krafteinheiten in 4 Wochen, sonst neutral mit Hinweis; gewählter Muskel bleibt `p1`), Legende mit Zeichen × ! ! ✓
+  (`.mbal-lg`), Titelzeile „Deine letzten 4 Wochen“, darunter Karte „Kommt zu kurz“ (`musChipsHTML`, % vom Soll). Equipment-Blatt: Gruppen „Hast du“ und
+  „Weitere Geräte“ (`eqRowsHTML`/`eqRows`, Stand beim Öffnen in `ui.eqGrp`, damit nichts springt; Rest mit grauem Score `.eq-rest`), „Orte wählen“ als `.btn.small`
+  in der Zeile mit der Geräteanzahl (`.eq-sumrow`).
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

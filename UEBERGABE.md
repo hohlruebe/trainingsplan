@@ -4,7 +4,7 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 25. Oktober 2026 (Tools nach der Impeccable-Kritik; davor Wochen-Kette und neue Medaillen; davor Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 25. Oktober 2026 (Tools nach der Impeccable-Kritik, Körper und Equipment; davor Wochen-Kette und neue Medaillen; davor Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
 
 
@@ -14,7 +14,9 @@ Stand: 25. Oktober 2026 (Tools nach der Impeccable-Kritik; davor Wochen-Kette un
   (1,9–3,4:1) und 28-px-Chips, Körper ohne Daten. P3: Equipment-Blatt rot, Bänder am Listenende.
 - Dennis' Antworten: erst die drei P1; Körper nach Muskelausgleich einfärben; 1RM bleibt in Tools; Equipment-Blatt mit Gruppe „Hast du“ oben.
 - Board https://claude.ai/artifact/R2kB1VTkkjPF27mCG9z23F. Umgesetzt siehe CLAUDE.md „Tools nach der Impeccable-Kritik“.
-- Offen: Freigabe für den PR; danach Körper (Muskelausgleich), Equipment-Blatt, die übrigen P2.
+- PR #129 gemergt. Danach Körper nach Muskelausgleich und Equipment-Blatt „Hast du“, Board https://claude.ai/artifact/SChJQsjh1H23waLBvt3hpJ
+  (Dennis' Daten: 2 Krafteinheiten in 4 Wochen, darum noch grau; das Board zeigt ein Beispiel mit einer Einheit mehr).
+- Offen: Freigabe für den PR; übrige P2 (Vollbild-Timer in Tools leer, Familie doppelte Stufenliste, Kontrast gesperrter Stufen, 28-px-Chips).
 - Starter-Challenges (30 Tage Plank usw.) wurden gebaut und auf Dennis' Wunsch wieder entfernt (PR #128 geschlossen): „da reden wir noch drüber“.
 
 ## Wochen-Kette und neue Medaillen (25. Oktober 2026, Claude)

@@ -681,7 +681,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .mi{display:block;flex:none;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--ink) 7%,var(--card));--g:color-mix(in srgb,var(--ink) 13%,var(--paper));--g2:color-mix(in srgb,var(--ink) 24%,var(--paper))}
 .mi svg{display:block;width:100%;height:100%}.mi .sil,.mi ellipse,.mi rect{fill:var(--g)}.mi .hair{fill:var(--g2)}.mi .mu{fill:var(--g2);stroke:var(--paper);stroke-width:1.1;stroke-linejoin:round}.mi .mu.hi{fill:var(--acc)}.mi .mu.lo{fill:color-mix(in srgb,var(--acc) 38%,var(--g2))}
 .mfig{margin:4px 0 0}.mfig figure{margin:0}.mfig svg{width:auto;height:340px;display:block;margin:0 auto;cursor:pointer;-webkit-user-select:none;user-select:none}
-.mfig .mu{transition:fill .2s}.mus-hint{font-size:15px;color:var(--ink2);text-align:center;margin:8px 2px 2px}
+.eq-grp{font-size:15px;font-weight:600;color:var(--ink2);margin:14px 4px 4px}.eq-grp:first-child{margin-top:4px}.eq-rest .eq-sc{background:var(--fill);color:var(--ink2)}.eq-sumrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 4px 4px}.mfig .mu{transition:fill .2s}.mbal-lg{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink2);margin:8px 0 2px}.mbal-lg span{display:inline-flex;align-items:center;gap:6px}.mbal-lg i{flex:none;width:20px;height:20px;min-width:20px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-size:13px;line-height:1;font-weight:700;color:#141414}.mbal-lg i.b0{background:var(--mb0)}.mbal-lg i.b1{background:var(--mb1)}.mbal-lg i.b2{background:var(--mb2)}.mbal-lg i.b3{background:var(--mb3)}.mus-hint{font-size:15px;color:var(--ink2);text-align:center;margin:8px 2px 2px}
 .mus-ics{display:flex;flex-direction:column;gap:6px;margin:4px 0 8px}.mus-ic{display:flex;align-items:center;gap:12px;min-height:52px;padding:4px 10px 4px 4px;border:0;border-radius:16px;background:var(--fill);color:var(--ink);text-align:left;font:inherit;cursor:pointer}
 .mus-ic span{display:flex;flex-direction:column;min-width:0}.mus-ic small{font-size:14px;color:var(--ink2)}.mus-ic::after{content:'›';margin-left:auto;color:var(--ink2);font-size:20px}
 .mus-sel{display:flex;gap:12px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}.mus-sel .gl-t{flex:1;min-width:0}.mus-sel .btn{flex:none}
@@ -10374,9 +10374,17 @@ function kbSubHTML(o) {
     var on = !!x[0] === two; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="eq-kbn" data-v="' + x[0] + '" aria-pressed="' + on + '">' + x[1] + '</button>';
   }).join('') + '</div><label class="check eq-adj"><input type="checkbox" data-change="eq" data-id="eq_kb_verstellbar"' + (adj ? ' checked' : '') + '><span>Verstellbar<small>Gewicht wächst mit, der Coach steigert darüber</small></span></label></div>';
 }
+// Gruppen (Impeccable-Kritik Tools, Dennis: „Hast du“ oben): was am Ort da ist zuerst, der Rest darunter. Die Gruppe merkt sich den Stand beim Öffnen
+// (ui.eqGrp), damit eine Zeile beim Umschalten nicht wegspringt.
 function eqRowsHTML(o) {
-  var have = haveEq(o);
-  return LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; }).map(function (e) {
+  var have = haveEq(o), all = LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; });
+  if (!ui.eqGrp || ui.eqGrp.o !== o.id) ui.eqGrp = { o: o.id, on: all.filter(function (e) { return have[e.id]; }).map(function (e) { return e.id; }) };
+  var G = ui.eqGrp.on, mine = all.filter(function (e) { return G.indexOf(e.id) >= 0; }), rest = all.filter(function (e) { return G.indexOf(e.id) < 0; });
+  return (mine.length ? '<p class="eq-grp">Hast du · ' + mine.length + '</p>' + eqRows(mine, o, have) : '') +
+    '<p class="eq-grp">' + (mine.length ? 'Weitere Geräte' : 'Alle Geräte') + ' · ' + rest.length + '</p><div class="eq-rest">' + eqRows(rest, o, have) + '</div>';
+}
+function eqRows(list, o, have) {
+  return list.map(function (e) {
     var on = !!have[e.id], open = ui.eqOpen === e.id, use = EQ_USE[e.id] || [];
     return '<div class="eq-row' + (open ? ' open' : '') + (open && ui.eqAnim === e.id ? ' anim' : '') + '"><div class="eq-top"><button type="button" class="eq-main" data-act="eq-open" data-id="' + e.id + '" aria-expanded="' + open + '"><span class="eq-sc">' + e.score + '</span>' +
       '<span class="eq-t"><b>' + esc(e.name) + '</b><small>' + esc(e.preis) + ' · ' + use.length + (use.length === 1 ? ' Übung' : ' Übungen') + '</small></span></button>' +
@@ -10388,7 +10396,7 @@ function eqRowsHTML(o) {
 function eqSheetBody() {
   var o = curOrt();
   return capHTML(orteOn().map(function (x) { return { id: x.id, label: ortName(x), d: ortIc(x) }; }), 'eq-ort', S.ort, 'Ort', 'in-sheet') +
-    '<p class="small muted eq-sum">' + o.eq.filter(function (x) { return !KB_SUB[x]; }).length + ' von ' + LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; }).length + ' Geräten · <button type="button" class="link" data-act="orte" data-from="eq">Orte wählen</button></p>' +
+    '<div class="eq-sumrow"><span class="small muted">' + o.eq.filter(function (x) { return !KB_SUB[x]; }).length + ' von ' + LIB.equipment.filter(function (e) { return !KB_SUB[e.id]; }).length + ' Geräten</span><button type="button" class="btn small" data-act="orte" data-from="eq">Orte wählen</button></div>' +
     '<div class="eq-list eq-scroll">' + eqRowsHTML(o) + '</div><p class="small muted" style="text-align:center;margin:10px 0 0">Sortiert nach Score aus Nutzen und Kosten.</p>';
 }
 function refreshEqSheet() {
@@ -10398,6 +10406,7 @@ function refreshEqSheet() {
   var t = b.closest('.sheet').querySelector('.sh-head b'); if (t) t.textContent = ortName(curOrt()) + ' · Equipment';
 }
 ACT['eq-sheet'] = function () {
+  ui.eqGrp = null;
   openForm(ortName(curOrt()) + ' · Equipment', '<div id="eq-sheet">' + eqSheetBody() + '</div>', 'Fertig', function () { render(); });
   // Änderungen gelten sofort, deshalb nur „Fertig“.
   var x = document.querySelector('#sheet .sh-x'); if (x) x.style.visibility = 'hidden';
@@ -11741,10 +11750,15 @@ function musLast(m) {
 }
 function musLibHTML() {
   var back = ui.musSide === 'b', m = ui.musSel && MUS_NAME[ui.musSel] && musBack(ui.musSel) === back ? ui.musSel : null, co = m ? musCo(m) : [];
+  // Dennis (Kritik Tools): die Figur zeigt den Muskelausgleich der letzten 4 Wochen, der gewählte Muskel bleibt blau. Ohne genug Daten neutral wie bisher.
+  var B = musBalance(), bal = B.ok, mcls = function (x) { return 'mx-' + x + (x === m ? ' p1' : bal ? (B.lv[x] != null ? ' b' + B.lv[x] : '') : co.indexOf(x) >= 0 ? ' p2' : ''); };
   var h = '<section class="card"><div class="seg" role="group" aria-label="Seite" style="margin-bottom:8px">' + [['f', 'Vorn'], ['b', 'Hinten']].map(function (o) {
     var on = (o[0] === 'b') === back; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-side" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
-    '<div class="mfig bf" role="group" aria-label="Muskeln ' + (back ? 'hinten' : 'vorn') + '"><figure>' + bodySVG(back ? BODY_B : BODY_F, function (x) { return 'mx-' + x + (x === m ? ' p1' : co.indexOf(x) >= 0 ? ' p2' : ''); }) + '</figure></div>' +
-    (m ? musSelHTML(m) : '<p class="mus-hint">Tipp einen Muskel an.</p>') + '</section>';
+    '<div class="mfig bf" role="group" aria-label="Muskeln ' + (back ? 'hinten' : 'vorn') + '"><figure>' + bodySVG(back ? BODY_B : BODY_F, mcls) + '</figure></div>' +
+    (bal ? '<div class="mbal-lg" aria-label="Farben"><span><i class="b0">×</i>Kommt zu kurz</span><span><i class="b1">!</i>Wenig</span><span><i class="b2">!</i>Okay</span><span><i class="b3">✓</i>Im Gleichgewicht</span></div>' : '') +
+    (m ? musSelHTML(m) : '<p class="mus-hint">' + (bal ? 'Tipp einen Muskel an.' : 'Tipp einen Muskel an. Ab 3 Krafteinheiten in 4 Wochen zeigt die Figur, was zu kurz kommt.') + '</p>') + '</section>';
+  if (bal && B.need.length) h += '<section class="card"><div class="card-head"><h2>Kommt zu kurz</h2></div>' + musChipsHTML(B.need.slice(0, 4), function (x) { return Math.round(B.ratio[x] * 100) + ' % vom Soll'; }) +
+    '<p class="tl-x">Dein Coach gleicht das aus, im Metcon und mit dem Schritt „Ausgleich“ am Ende der Krafttage.</p></section>';
   return h;
 }
 // Gewählter Muskel als eine Zeile unter der Figur, damit der ganze Körper sichtbar bleibt. Erst „Öffnen“ zeigt die Seite.
@@ -11767,7 +11781,7 @@ function renderMuskel() {
   return h;
 }
 // Eigene Seite unter Tools (Dennis: kein Umschalter in der Bibliothek).
-function renderMuskeln() { return '<section class="hero"><h1>Körper</h1></section>' + musLibHTML(); }
+function renderMuskeln() { return '<section class="hero"><h1>Körper</h1>' + (musBalance().ok ? '<p class="hero-title">Deine letzten 4 Wochen</p>' : '') + '</section>' + musLibHTML(); }
 // Die Figur so hoch, dass der ganze Körper samt Auswahlzeile über der Reiterleiste Platz hat (auch mit großer Schrift).
 function musFit() {
   var svg = $view.querySelector('.mfig svg'); if (!svg) return;
