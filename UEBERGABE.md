@@ -17,6 +17,8 @@ Stand: 25. Oktober 2026 (Wochen-Kette und neue Medaillen; davor Guten Morgen ohn
   https://claude.ai/artifact/R6bFUUF9vQXVoQNV41JnP1 (Dennis: Zeichen, Kraft braucht ein anderes), Kraft-Zeichen https://claude.ai/artifact/E5rSWWRzGMBPeubvLZKVsq.
 - Regel: gehalten ab zwei Dritteln des eigenen Ziels (Dennis: „an das persönliche Ziel geknüpft“), Joker von selbst, Rettung 15 Min (kürzeste Stufe, die
   der Coach schon baut). Umgesetzt siehe CLAUDE.md „Wochen-Kette“ und „Medaillen neu“.
+- Im selben PR (Dennis: „Ja, perfekt“): Plan & Challenges ohne Allround-Karte, Trainingstage oben, Dein Plan mit Karte „Dein Ziel“,
+  Board https://claude.ai/artifact/Qjt5tzLauHHZdwMeULggG5.
 - Offen: Kraft-Zeichen wählen (Entwurf: Langhantel, `KRAFT_SYM.lang`; Kurzhantel und Gewicht liegen bereit); Monatsrückblick, Block beginnt, Teilen.
 
 ## Guten Morgen ohne Schlafstunden (25. Oktober 2026, Claude)
