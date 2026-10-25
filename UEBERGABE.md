@@ -18,8 +18,8 @@ Stand: 25. Oktober 2026 (Tools nach der Impeccable-Kritik, Körper und Equipment
   (Dennis' Daten: 2 Krafteinheiten in 4 Wochen, darum noch grau; das Board zeigt ein Beispiel mit einer Einheit mehr).
 - PR #130 (Körper, Equipment). Danach die übrigen P2, Board https://claude.ai/artifact/5zaGxCzDoHFrozAo8mQcSZ (Dennis: „Timer lassen wie zuvor“, also nur die Familie):
   Familie ohne doppelte Stufenliste, gesperrte Stufen lesbar mit Grund, Knöpfe 44 px.
-- Offen aus der Kritik (klein): Mobility „Guten Morgen · 6 Min“ gegen „höchstens 5 Minuten“, Timer-Vorlagen, Sprungleiste in der Übungsliste,
-  Muskel-Seite (Zeilen öffnen nur das (i), „Hell: arbeitet oft mit“ im Text), 1RM-Detail „+“ und „Ersten Wert eintragen“ doppelt.
+- Feinschliff, Board https://claude.ai/artifact/SPLex83FXcewWodYFbzo8d: Muskel-Seite (Zeile = Familie, (i) eigener Knopf), 1RM ohne doppeltes „+“, Mobility-Text.
+- Offen aus der Kritik: Timer-Vorlagen, Sprungleiste in der Übungsliste (beides neue Funktionen, mit Dennis klären).
 - Starter-Challenges (30 Tage Plank usw.) wurden gebaut und auf Dennis' Wunsch wieder entfernt (PR #128 geschlossen): „da reden wir noch drüber“.
 
 ## Wochen-Kette und neue Medaillen (25. Oktober 2026, Claude)

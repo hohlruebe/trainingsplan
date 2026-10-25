@@ -645,9 +645,13 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const nOrt = await page.locator('#view .ft-row').count();
     await page.getByRole('button', { name: 'Alle', exact: true }).click();
     assert.ok(await page.locator('#view .ft-row').count() > nOrt, 'Alle zeigt mehr Übungen');
-    await page.locator('#view .ft-row').first().click();
+    await page.locator('#view .mu-i').first().click();
     assert.ok(await page.locator('#sheet .ue-info').isVisible(), '(i) öffnet die Anleitung');
     assert.ok(await page.locator('#sheet .mus-ic').count() > 0, '(i) zeigt die Hauptmuskeln als Bild'); await page.locator('#sheet [data-sh]').first().click(); await page.waitForTimeout(300);
+    await page.locator('#view .mu-row .ft-row').first().click();
+    assert.equal(await page.evaluate(() => window.tpTest.state() && document.querySelector('#view .fam-path') != null), true, 'Zeile öffnet die Familie');
+    await page.locator('#view .rbtn.back').first().click();
+    assert.ok(await page.getByRole('heading', { name: 'Brust', level: 2 }).isVisible(), 'Zurück führt zum Muskel');
     console.log('PASS: Körper unter Tools: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
 
     for (const width of [320, 390, 1366]) {

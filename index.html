@@ -1310,7 +1310,7 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .fs-tr .fs-row>span{hyphens:none;overflow-wrap:normal}
 .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:wrap;row-gap:6px;padding-top:10px;padding-bottom:12px}.fs-tr .fs-row.on:not(.fs-krow)>span{min-width:55%}.fs-tr .fs-row.on .btn{order:9;margin:0 0 0 auto}
 .fs-krow span.bst{display:inline;white-space:nowrap}.nw{white-space:nowrap}
-.fs-i{position:relative}.fs-i::before{content:"";position:absolute;inset:-6px}
+.mu-row{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line)}.mu-row .ft-row{flex:1;min-width:0;border-top:0}.mu-row .mini-fig,.ft-row>.mini-fig{width:44px;height:52px;margin:0;border-radius:12px}.fs-i.mu-i{border-color:var(--line2);color:var(--ink2)}.fs-i{position:relative}.fs-i::before{content:"";position:absolute;inset:-6px}
 .fs-tr.lk .fs-seg{display:none}
 .fs-tr .fs-krow b{min-width:calc(58px*var(--fsu,1))}
 .fs-krow .bst{white-space:nowrap}
@@ -9371,7 +9371,7 @@ function rmDetailHTML(id) {
   var r = rmOf(id), u = UE[id], base = r ? r.cur : null;
   ui.noSub = true;
   var h = '<div class="row between"><button type="button" class="rbtn" data-act="rm-open" data-v="" aria-label="Zurück">' + BACK + '</button>' +
-    '<button type="button" class="rbtn" data-act="rm-new" data-v="' + id + '" aria-label="Neuen Wert eintragen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>';
+    (!r ? '' : '<button type="button" class="rbtn" data-act="rm-new" data-v="' + id + '" aria-label="Neuen Wert eintragen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>') + '</div>';
   h += '<section class="hero"><h1>' + esc(u.name) + '</h1><p class="hero-title">Prozent-Rechner</p></section>';
   if (!r) return h + '<section class="card"><p>Noch kein Wert. Trag einen schweren Satz ein (1–10 Wdh.), daraus schätzt die App dein 1RM und rechnet die Trainingsgewichte aus.</p></section>' +
     '<button type="button" class="btn primary block go" data-act="rm-new" data-v="' + id + '">Ersten Wert eintragen</button>';
@@ -9429,7 +9429,7 @@ function routineCardHTML(r, main, label) {
     '<button type="button" class="btn ' + (main ? 'primary' : '') + ' block" data-act="r-open" data-v="' + r.id + '">' + PLAY + (label || (main ? 'Flow starten' : 'Cool-down starten')) + '</button></section>';
 }
 function renderRoutinen() {
-  var groups = [['morgen', 'Morgens', 'Sanft wach werden, höchstens 5 Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
+  var groups = [['morgen', 'Morgens', 'Sanft wach werden, ein paar ruhige Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
   var h = '<section class="hero"><h1>Mobility</h1><p class="hero-title">Routinen für jeden Tag</p></section>';
   groups.forEach(function (g) {
     var list = MOB.routinen.filter(function (r) { return r.wann === g[0]; });
@@ -10738,7 +10738,7 @@ function famCount() { var have = haveEq(); return FAMD.familien.filter(function 
 // Familie als eigene Seite öffnen; Zurück führt dorthin, wo man herkam.
 function famOpen(id, gloss) {
   if (!FAM[id]) return;
-  if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' ? ui.tab : 'uebungen';
+  if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' || ui.tab === 'muskel' ? ui.tab : 'uebungen';
   ui.famId = id; ui.glossOpen = gloss || null; ui.tab = 'fam'; window.scrollTo(0, 0); render();
 }
 ACT['fam-open'] = function (el) { famOpen(el.dataset.id); };
@@ -11769,11 +11769,16 @@ function musSelHTML(m) {
   return '<div class="mus-sel">' + musIcon(m, 52) + '<span class="gl-t"><b>' + esc(MUS_NAME[m]) + '</b><small>' + esc((st ? st + ' · ' : '') + (n === 1 ? '1 Übung' : n + ' Übungen') + ' hier') + '</small></span>' +
     '<button type="button" class="btn primary small" data-act="mus-open" data-v="' + m + '">Öffnen</button></div>';
 }
-function musRow(u) { return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '">' + miniFig(u.id) + '<span class="gl-t"><b>' + esc(u.name) + '</b><small>' + esc(u.trainiert || MUSTER[u.muster] || '') + '</small></span><i class="fs-i" aria-hidden="true">i</i></button>'; }
+// Zeile öffnet die Familie der Übung (Skill-Pfad, Stand), das (i) die Anleitung; ohne Familie öffnet die ganze Zeile die Anleitung.
+function musRow(u) {
+  var f = FAM_OF[u.id], inner = miniFig(u.id) + '<span class="gl-t"><b>' + esc(u.name) + '</b><small>' + esc(u.trainiert || MUSTER[u.muster] || '') + '</small></span>';
+  if (!f) return '<button type="button" class="ft-row" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '">' + inner + '<i class="fs-i mu-i" aria-hidden="true">i</i></button>';
+  return '<div class="mu-row"><button type="button" class="ft-row" data-act="fam-open" data-id="' + esc(f.id) + '">' + inner + '</button><button type="button" class="fs-i mu-i" data-act="ue-info" data-how="1" data-id="' + esc(u.id) + '" aria-label="So geht ' + esc(u.name) + '">i</button></div>';
+}
 function renderMuskel() {
   var m = MUS_NAME[ui.musId] ? ui.musId : 'brust', all = !!ui.musAll, U = musUe(m, all), st = musStat(m), la = musLast(m), more = !!ui.musMore;
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + esc(ui.musBack || 'muskeln') + '" aria-label="Zurück">' + BACK + '</button>' +
-    '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hell: arbeitet oft mit (' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ').' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
+    '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hellblau im Bild: ' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ', die arbeiten oft mit.' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
     '<div class="seg" role="group" aria-label="Ort" style="margin:0 0 12px">' + [['', ortName(curOrt())], ['1', 'Alle']].map(function (o) { var on = !!o[0] === all; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-all" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
   h += '<section class="card"><div class="card-head"><h2>Trainiert ' + (m === 'gesaess' ? 'es' : /^(brust|schulter|unterarm|bauch_schraeg|waden|adduktoren|abduktoren)/.test(m) ? 'sie' : 'ihn') + ' vor allem</h2><span class="chip">' + U.p.length + '</span></div>' +
     (U.p.length ? U.p.map(musRow).join('') : '<p class="muted">Hier keine. Unter „Alle“ siehst du die Übungen mit anderem Equipment.</p>') + '</section>';

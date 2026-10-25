@@ -654,6 +654,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Rest der Kritik (Board https://claude.ai/artifact/5zaGxCzDoHFrozAo8mQcSZ; Dennis: Vollbild-Timer bleibt, wie er ist). Familie: der Skill-Pfad ist die einzige Stufenliste (Liste „Stufen“ in `famBody` entfernt), jede Stufe ein Knopf mit „So geht’s“ (`ue-info`), gesperrte
   grau statt halb durchsichtig mit Grund (`.lad-why` „braucht …“); gesperrte Varianten in `--ink2` statt `opacity`; Knöpfe unter Gehört auch dazu / Baut auf /
   Führt zu 44 px (`.chips.fam-go`).
+  Feinschliff (Board https://claude.ai/artifact/SPLex83FXcewWodYFbzo8d): Muskel-Seite, Zeile öffnet die Familie der Übung (`musRow`, `.mu-row`, `famOpen` mit
+  `famBack` 'muskel'), das (i) ist ein eigener grauer Knopf (`.mu-i`), Figuren 44 px; „Hellblau im Bild: …, die arbeiten oft mit.“ 1RM-Detail ohne Wert ohne „+“
+  (nur „Ersten Wert eintragen“). Mobility › Morgens: „Sanft wach werden, ein paar ruhige Minuten.“
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
