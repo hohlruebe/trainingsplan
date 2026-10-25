@@ -4,9 +4,19 @@ Diese Datei ist das Übergabe-Protokoll zwischen Chat-Sitzungen. Zu Beginn jeder
 am Ende jeder Aufgabe aktualisieren (Stand, offene Aufgaben, Rückmeldungen von Dennis).
 Regeln und Aufbau der App stehen in `CLAUDE.md`, das Designkonzept in `DESIGN.md`.
 
-Stand: 25. Oktober 2026 (Tools nach der Impeccable-Kritik, Körper und Equipment; davor Wochen-Kette und neue Medaillen; davor Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
+Stand: 25. Oktober 2026 (Profil nach der Impeccable-Kritik; davor Tools nach der Impeccable-Kritik, Körper und Equipment; davor Wochen-Kette und neue Medaillen; davor Guten Morgen ohne Schlafstunden; davor Trainer neu sortiert nach Impeccable-Kritik; davor Heute neu sortiert nach Impeccable-Kritik; davor Schwerpunkt als Karten nach Impeccable-Audit; davor Impeccable eingerichtet, `PRODUCT.md`; davor Schwerpunkt Kettlebell; davor Eine oder zwei Kettlebells, 13 weitere Übungen, Kettlebell-Grafiken Runde 1 im Canvas; davor Mehr Kettlebell, verstellbare Kettlebell; davor Ausfall nicht mehr aufs Wochenende gequetscht; davor Prüfung 2 der Trainingsplanung; davor Muskel-Bilder und neue Übungen für seitliche Schulter/Abduktoren; davor Prüfung der Trainingsplanung mit Korrekturen; davor Körper unter Tools; davor Trainingstage nur über ein Blatt; davor Kalender als einzige Quelle; davor Blöcke Aufbau/Kraft/Spitze; davor 2 bis 6 Trainingstage; davor Ermüdung je Körperzone; davor Zeit unter Spannung mit Taktgeber; davor Guten Morgen und Körper-Check; davor Leistung als Signal; davor Belastung „Wie hart war’s?“; davor Training immer im Vollbild; davor Halteübungen in Sekunden, Übungs-Anleitungen neu; davor Aufwärmen und Vollbild am Laptop, Nordic Curls nur mit Fußanker, Trainings im Google Kalender)
 
 
+
+## Profil nach der Impeccable-Kritik (25. Oktober 2026, Claude)
+- Dennis: „dann jetzt das Profil“. Kritik (zwei Agenten) 24/40. P1: 59 ohne Beschriftung und BRONZE neben Silber-Medaillen, „Als Nächstes freischalten“
+  mit drei Zahlen und Ziel ohne Gerät, Verlauf als Textwand mit Jargon, Netzdiagramm mit falschem Vergleich. P2: Woche im Kopf doppelt zur Kette, sinkende
+  Werte ohne Grund, Rekorde (Halte-Stufe als Wdh., leeres 1RM-Archiv, Gold/Grün-Kontrast). P3: Bereich öffnet unter dem Rand, Skill-Baum gesperrt halb
+  durchsichtig, Einstellungen „Schrift für Zahlen“.
+- Dennis' Antworten: die vier P1, ein Satz vom Coach oben, Gesamtwert behalten und erklären, Verlauf als Wochen-Tagebuch.
+- Board https://claude.ai/artifact/X1noYNxatusLDMrFzXTN5f. Umgesetzt siehe CLAUDE.md „Profil nach der Impeccable-Kritik“.
+- Offen: Freigabe; danach P2/P3; außerdem nie geprüft: Plan/Deine Woche, Arbeitszeiten/Kalender, Einstellungen im Detail, Fragebogen/Wiedereinstieg,
+  Testtage, Lauf-/Ergometer-Tage, Blätter „Heute anpassen“/„Schmerzen“, Momente.
 
 ## Tools nach der Impeccable-Kritik (25. Oktober 2026, Claude)
 - Dennis: „kümmere dich um den Tools-Tab, der ist noch nicht von Impeccable geprüft“. Kritik (zwei Agenten): 25/40, P1 Mobility-Start versteckt, 1RM als Wand aus

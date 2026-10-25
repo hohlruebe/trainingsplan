@@ -657,6 +657,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Feinschliff (Board https://claude.ai/artifact/SPLex83FXcewWodYFbzo8d): Muskel-Seite, Zeile öffnet die Familie der Übung (`musRow`, `.mu-row`, `famOpen` mit
   `famBack` 'muskel'), das (i) ist ein eigener grauer Knopf (`.mu-i`), Figuren 44 px; „Hellblau im Bild: …, die arbeiten oft mit.“ 1RM-Detail ohne Wert ohne „+“
   (nur „Ersten Wert eintragen“). Mobility › Morgens: „Sanft wach werden, ein paar ruhige Minuten.“
+- Profil nach der Impeccable-Kritik (Dennis, 25. Oktober, 24/40, „die vier P1“, Coach-Satz ja, Gesamtwert behalten und erklären, Verlauf als Wochen-Tagebuch;
+  Board https://claude.ai/artifact/X1noYNxatusLDMrFzXTN5f): Kopf (`profileHead`) mit „Gesamtwert“ über der Zahl (`.p-lbl`), Stufe normal geschrieben, „+3 in 4 Wochen“
+  (erst wenn der erste Eintrag älter als 4 Wochen ist) und „6 bis Silber“ (`tierGap`); darunter ein Satz vom Coach (`coachLineHTML`, `.p-coach`): seit dem Start
+  bzw. in den letzten 4 Wochen Stufen je Teil (`ladderStates` damals/jetzt, `partOf`) und der größte Rekord-Gewinn (`prList`), sonst „hältst du deine Stufen“.
+  „Als Nächstes freischalten“ (`nextUnlockHTML`) nimmt `famNext` (Stufe am Ort), sagt „jetzt Stufe x von n“, Ring-Zahl 15 px, `.rbtn.sm` 44 px. Verlauf
+  (`trainVerlaufHTML`): je Kalenderwoche eine Karte `.vl-wk` mit Ring aus `chainState` und „x von N Einheiten · geschafft/gehalten/Joker“, je Einheit eine Zeile
+  (`vlRowHTML`, Kürzel `l.unit` bzw. `T<tag>`, Wochentag, Kennzahl `vlKey`: Runden auf Vorgabe und Minuten, beim Lauf `runLine`), Antippen klappt Details und
+  Korrigieren auf (`ui.vlOpen`, `ACT['vl-open']`); ohne „DG“, ohne die Notiz alter Testtage, fehlende Intervalle „geplant, nicht eingetragen“. Netzdiagramm:
+  „Vor 4 Wochen“ nur, wenn damals jeder Bereich mit Daten schon einen Wert hatte (sonst Hinweis `.r-note`), viewBox breiter, Tippflächen `.r-hit` 46 px.
+  Kritik in `.impeccable/critique/2026-10-25T20-39-34Z__index-html.md`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

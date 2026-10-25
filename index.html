@@ -252,11 +252,11 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .p-photo img,.p-nofoto{position:absolute;left:13px;top:13px;width:98px;height:98px;border-radius:50%;object-fit:cover}
 .p-nofoto{background:var(--fill);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:14px;font-weight:500}
 .p-nofoto svg{width:34px;height:34px}
-.p-tier{position:absolute;left:50%;bottom:0;transform:translateX(-50%);padding:4px 12px;border-radius:999px;background:var(--ink);color:var(--board);font-size:14px;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.p-tier{position:absolute;left:50%;bottom:0;transform:translateX(-50%);padding:4px 12px;border-radius:999px;background:var(--ink);color:var(--board);font-size:14px;font-weight:700;letter-spacing:.01em;white-space:nowrap}
 .p-info{min-width:0;padding-right:34px}
 .p-name{font-size:24px;font-weight:700;letter-spacing:-.03em;line-height:1.15;overflow-wrap:anywhere}
-.p-total{font-size:72px;font-weight:800;letter-spacing:-.06em;line-height:.9;margin-top:6px}
-.p-sub{font-size:14px;color:var(--ink2);margin-top:6px}
+.p-total{font-size:72px;font-weight:800;letter-spacing:-.06em;line-height:.9;margin-top:2px}
+.p-sub{font-size:14px;color:color-mix(in srgb,var(--ink) 78%,var(--ink2));margin-top:6px}
 .p-week{border-top:1px solid var(--plate-line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
 .p-week-h{display:flex;justify-content:space-between;font-size:14px}
 .p-week-h span{font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
@@ -273,7 +273,7 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .radar .r-ring{fill:none;stroke:var(--line)}
 .radar .r-prev{fill:none;stroke:color-mix(in srgb,var(--acc) 45%,transparent);stroke-width:1.5;stroke-dasharray:4 3}
 .radar .r-cur{fill:color-mix(in srgb,var(--acc) 16%,transparent);stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
-.radar .r-lab{cursor:pointer}
+.radar .r-lab{cursor:pointer}.radar .r-hit{fill:transparent}.r-note{text-align:center;margin:4px 8px 0}
 .radar text{font-family:var(--text);font-size:14px;fill:var(--ink2)}
 .radar .r-val{font-family:var(--head);font-size:15px;font-weight:700;fill:var(--ink)}
 .r-leg{display:flex;gap:16px;margin:0 0 4px;font-size:14px;color:var(--ink2)}
@@ -855,7 +855,7 @@ button.card.fk:active{transform:scale(.98)}
 .rv-x{font-size:14px;color:var(--ink2)}
 .rv-d{color:var(--green);font-weight:600}.rv-d.neg{color:var(--red)}
 tr.now td{background:color-mix(in srgb,var(--acc) 10%,transparent)}
-.unl-ring{width:58px;height:58px;flex:0 0 auto}
+.p-lbl{font-size:14px;font-weight:600;color:var(--ink2);margin-top:2px}.p-coach{margin:12px 2px 2px;font-size:15px;line-height:1.4;color:var(--ink)}.p-coach b{font-weight:700}.vl-wk{padding-top:12px;padding-bottom:6px}.vl-wh{display:flex;align-items:center;gap:12px;padding:2px 0 8px}.vl-wh .chv{flex:none;width:36px;margin:0}.vl-wh .chv .crw{width:36px}.vl-it{border-top:1px solid var(--line)}.vl-row{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:8px 0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.vl-row .gl-t{flex:1;min-width:0}.vl-u{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--fill);color:var(--acc);font-weight:800;font-size:15px}.vl-it.open .gl-chev{transform:rotate(90deg)}.vl-det{padding:0 0 12px 48px}.vl-det .bgrp{margin-top:6px}.unl-ring{width:58px;height:58px;flex:0 0 auto}
 .unl-t{flex:1;min-width:0}.unl-t small{display:block;color:var(--ink2);font-size:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
 .unl-t b{display:block;font-size:17px;margin:2px 0}.unl-t span{font-size:14px;color:var(--ink2);line-height:1.35}
 /* Bewegung: Antippen gibt nach (kein blaues Aufleuchten), die weiße Pille gleitet, Neues blendet ein */
@@ -872,7 +872,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .cap.in-sheet{margin:2px auto 8px}
 .eq-sum{text-align:center;margin:0 0 8px}
 .eq-scroll{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border-radius:16px}
-.rbtn.sm{width:40px;height:40px;flex:0 0 auto}
+.rbtn.sm{width:44px;height:44px;flex:0 0 auto}
 .rbtn.sm svg{width:18px;height:18px}
 .ort-prev{margin:4px auto 14px;pointer-events:none}
 .ort-hint{margin:4px 0 14px}
@@ -4130,7 +4130,7 @@ function logLines(l) {
     out.push((KF[l.run.kf] ? KF[l.run.kf][0] : 'Locker') + ': ' + (l.run.sec ? fmtDur(l.run.sec) : '–') + (l.run.sec >= 3600 ? ' h' : ' Min'));
     if (l.run.km || l.run.hr || l.run.ergo) out.push(runLine(l.run));
   } else if (l.kind === 'interval' && l.interval.kf) {
-    out.push((KF[l.interval.kf] ? KF[l.interval.kf][0] : 'Intervalle') + (l.interval.reps ? ': ' + (l.interval.done != null ? l.interval.done : '–') + ' von ' + l.interval.reps + ' geschafft' : l.interval.rampW ? ': ' + l.interval.rampW + ' W letzte Minute' : ''));
+    out.push((KF[l.interval.kf] ? KF[l.interval.kf][0] : 'Intervalle') + (l.interval.reps ? ': ' + (l.interval.done != null ? l.interval.done + ' von ' + l.interval.reps + ' geschafft' : l.interval.reps + ' geplant, nicht eingetragen') : l.interval.rampW ? ': ' + l.interval.rampW + ' W letzte Minute' : ''));
     if (l.interval.km || l.interval.hr || l.interval.ergo) out.push(runLine(l.interval));
   } else if (l.kind === 'easy') {
     out.push(({ lang: 'Langer Lauf: ', tempo: 'Tempolauf: ', test: 'Testlauf 5 km: ', ziel: 'Ziel-Lauf: ' }[l.run.art] || '') + (l.run.sec ? fmtDur(l.run.sec) : (l.run.min != null ? l.run.min : '–')) + ' von ' + l.run.target + ' Min' + (l.run.ergo ? ' auf dem Ergometer' : ''));
@@ -4141,7 +4141,7 @@ function logLines(l) {
   } else if (l.kind === 'murph') {
     out.push('Stufe ' + l.murph.stage + ': ' + (l.murph.time ? esc(l.murph.time) : 'ohne Zeit'));
   } else if (l.kind === 'test') {
-    l.tests.forEach(function (t) { out.push('<b>' + esc(t.name) + '</b> <span class="muted">' + esc(t.note) + '</span>: ' + (t.stage ? esc(stageText(t.stage)) + ', ' : '') + (t.max != null ? 'Max ' + t.max : '–') + (t.start != null ? ', Start ' + t.start : '')); });
+    l.tests.forEach(function (t) { out.push('<b>' + esc(t.name) + '</b>: ' + (t.stage ? esc(stageText(t.stage)) + ', ' : '') + (t.max != null ? 'Max ' + t.max : '–') + (t.start != null ? ', Start ' + t.start : '')); });
     if (l.metcon && l.metcon.rounds != null) out.push('<b>Metcon · AMRAP ' + (l.metcon.min || 8) + '</b>: ' + l.metcon.rounds + ' Runden + ' + (l.metcon.reps || 0) + ' <span class="muted">(' + esc((l.metcon.items || []).join(', ')) + ')</span>');
   }
   if (l.kw) out.push('<span class="muted">Kernwert: ' + Math.round(l.kw.ftp) + ' W · ' + fmtPace(l.kw.thr) + ' /km' + (l.kw.d ? ' (' + (l.kw.d > 0 ? '+' : '−') + String(Math.abs(l.kw.d)).replace('.', ',') + ' %)' : '') + '</span>');
@@ -4191,6 +4191,16 @@ function trainVerlaufHTML() {
   }
   var p = pauseDays();
   h += '<div class="chips"><span class="chip">' + TL.length + (TL.length === 1 ? ' Einheit' : ' Einheiten') + '</span><span class="chip">' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang) + '</span><span class="chip">' + (p === 0 ? 'Zuletzt heute' : p === 1 ? 'Zuletzt gestern' : 'Zuletzt vor ' + p + ' Tagen') + '</span></div>';
+  // Wochen-Tagebuch (Impeccable-Kritik Profil, Dennis): je Kalenderwoche ein Kopf mit Ring der Wochen-Kette, je Einheit eine Zeile mit Kennzahl, Details zum Aufklappen.
+  var list = TL.slice().reverse(), shown = list.slice(0, ui.logLimit), CW = {}, wk = {}, order = [];
+  chainState().weeks.forEach(function (w) { CW[w.mon] = w; });
+  shown.forEach(function (l) { var m = wkMon(l.date); if (!wk[m]) { wk[m] = []; order.push(m); } wk[m].push(l); });
+  h += order.map(function (m) {
+    var w = CW[m], tw = wkMon(), lab = m === tw ? 'Diese Woche' : m === isoAdd(tw, -7) ? 'Letzte Woche' : shortDate(m).replace(/\.$/, '') + ' – ' + shortDate(isoAdd(m, 6)).replace(/\.$/, '');
+    var n = w ? w.n : wk[m].filter(function (l) { return l.unit !== 'Z'; }).length;
+    return '<section class="card vl-wk"><div class="vl-wh">' + (w ? chainLinksHTML([w]) : '') + '<span class="gl-t"><b>' + esc(lab) + '</b><small>' + n + ' von ' + tageN() + (tageN() === 1 ? ' Einheit' : ' Einheiten') + (w && w.st === 'full' ? ' · geschafft' : w && w.st === 'held' ? ' · gehalten' : w && w.st === 'joker' ? ' · Joker' : '') + '</small></span></div>' +
+      wk[m].map(vlRowHTML).join('') + '</section>';
+  }).join('') + (list.length > shown.length ? '<button type="button" class="btn block" data-act="more-logs">Ältere anzeigen</button>' : '');
   var murphs = TL.filter(function (l) { return l.kind === 'murph'; });
   if (murphs.length) {
     h += '<section class="card"><h2>Murph-Zeiten</h2><div class="tbl-wrap"><table><thead><tr><th>Datum</th><th>Stufe</th><th>Zeit</th></tr></thead><tbody>' +
@@ -4202,11 +4212,27 @@ function trainVerlaufHTML() {
   if (bt.length) {
     h += '<section class="card"><h2>Beste Metcons</h2><ul class="list">' + bt.map(function (t) { var m = best[t].l.metcon; return '<li><span class="qty">' + esc(t) + '</span><span>' + m.rounds + ' Runden + ' + (m.reps || 0) + ' <span class="muted small">(' + esc(fmtDate(best[t].l.date)) + ')</span></span></li>'; }).join('') + '</ul></section>';
   }
-  var list = TL.slice().reverse(), shown = list.slice(0, ui.logLimit);
-  h += '<section class="card"><h2>Alle Einheiten</h2>' + shown.map(function (l) {
-    return '<div class="log-item"><div class="row between wrap"><h3>' + esc(logTitle(l)) + '</h3><span class="small muted">' + esc(fmtDate(l.date)) + (l.durchgang != null ? ', DG ' + l.durchgang : '') + (l.fixed ? ', korrigiert' : '') + '</span></div>' + logLines(l) + logBtns(l, fixable(l)) + '</div>';
-  }).join('') + (list.length > shown.length ? '<button type="button" class="btn block" data-act="more-logs">Ältere anzeigen</button>' : '') + '</section>';
   return h;
+}
+// Eine Einheit als Zeile: Kürzel, Titel, Wochentag, Kennzahl; aufgeklappt die Details und Korrigieren.
+function vlKey(l) {
+  if (l.kind === 'kraft' && l.kraft && l.kraft.length) {
+    var hit = 0, all = 0; l.kraft.forEach(function (k) { if (!k.goal || k.pain && k.pain.skip) return; (k.reps || []).forEach(function (v) { if (v == null) return; all++; if (v >= k.goal) hit++; }); });
+    return [all ? hit + ' von ' + all + ' Runden auf Vorgabe' : l.kraft.length + (l.kraft.length === 1 ? ' Übung' : ' Übungen'), l.min ? l.min + ' Min' : ''].filter(Boolean).join(' · ');
+  }
+  var r = l.run || l.interval; if (r) return runLine(r) || (r.sec ? fmtDur(r.sec) : '');
+  if (l.kind === 'test') return 'Test · ' + (l.tests || []).length + ' Übungen';
+  if (l.kind === 'murph' && l.murph) return l.murph.time || 'ohne Zeit';
+  if (l.kind === 'race') return 'Wettkampf';
+  if (l.kind === 'attendance') return 'nachgetragen';
+  return '';
+}
+function vlRowHTML(l) {
+  var open = ui.vlOpen === l.id, d = parseISO(l.date), u = l.unit || (l.pv === 2 ? '' : 'T' + l.tag);
+  return '<div class="vl-it' + (open ? ' open' : '') + '"><button type="button" class="vl-row" data-act="vl-open" data-id="' + esc(l.id) + '" aria-expanded="' + open + '">' +
+    '<span class="vl-u">' + esc(u || '·') + '</span><span class="gl-t"><b>' + esc(logTitle(l)) + '</b><small>' + esc(WTAG[(d.getDay() + 6) % 7].slice(0, 2) + ', ' + shortDate(l.date).replace(/\.$/, '')) + (vlKey(l) ? ' · ' + esc(vlKey(l)) : '') + (l.fixed ? ' · korrigiert' : '') + '</small></span>' +
+    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>' +
+    (open ? '<div class="vl-det">' + logLines(l) + logBtns(l, fixable(l)) + '</div>' : '') + '</div>';
 }
 
 /* ---------- Übungen ---------- */
@@ -4849,6 +4875,27 @@ function statsOf(logs) {
   return { st: st, areas: areas, total: total };
 }
 function cardTier(v) { return v >= 85 ? 'Platin' : v >= 75 ? 'Gold' : v >= 65 ? 'Silber' : v > 0 ? 'Bronze' : 'Start'; }
+function tierGap(v) { var t = v >= 85 ? 0 : v >= 75 ? 85 : v >= 65 ? 75 : 65; return t ? (t - v) + ' bis ' + cardTier(t) : ''; }
+// Ein Satz vom Coach oben im Profil (Dennis: „ein Satz oben“): was sich seit 4 Wochen bzw. seit dem Start getan hat, aus den Einheiten berechnet.
+function coachLineHTML() {
+  var T = LOGS.filter(trainingLog); if (T.length < 2) return '';
+  var ago = isoDaysAgo(28), first = T.reduce(function (m, l) { return !m || l.date < m ? l.date : m; }, null), since = first > ago ? first : ago;
+  var then = ladderStates(LOGS.filter(function (l) { return l.date < since; })), now = ladderStates(LOGS), parts = {}, out = [];
+  Object.keys(now).forEach(function (k) {
+    var a = then[k], b = now[k], p = partOf(k); if (!a || !a.cur || !b.cur || !PART_NAME[p] || !LAD[k]) return;
+    parts[p] = (parts[p] || 0) + (b.cur - a.cur);
+  });
+  ['zug', 'druck', 'beine', 'rumpf'].forEach(function (p) { var d = parts[p]; if (d) out.push('<b>' + PART_NAME[p] + '</b> ' + (d > 0 ? '+' + d : '−' + (-d)) + (Math.abs(d) === 1 ? ' Stufe' : ' Stufen')); });
+  var R = prList(LOGS), top = null;
+  Object.keys(R).forEach(function (k) {
+    var p = R[k]; if (!p.h || p.h.length < 2 || p.date < since || p.k.charAt(0) === 'm') return;
+    var base = p.h.filter(function (x) { return x.d < since; }).pop() || p.h[0], pc = base.v > 0 ? (p.v - base.v) / base.v : 0;
+    if (pc > 0 && (!top || pc > top.pc)) top = { p: p, pc: pc };
+  });
+  if (top) out.push('<span class="nobr"><b>' + esc(top.p.t) + '</b> ' + esc(top.p.disp).replace(/ /g, '\u00a0') + ' (+' + Math.round(top.pc * 100) + '\u00a0%)</span>');
+  var when = since === first ? 'Seit deinem Start am ' + shortDate(first).replace(/\.$/, '') : 'In den letzten 4 Wochen';
+  return '<p class="p-coach">' + (out.length ? when + ': ' + out.join(', ') + '.' : when + ' hältst du deine Stufen. Die nächste kommt, sobald zwei Einheiten in Folge oben liegen.') + '</p>';
+}
 function nextTier(v) { return v >= 85 ? '' : v >= 75 ? 'Platin ab 85' : v >= 65 ? 'Gold ab 75' : 'Silber ab 65'; }
 function mondayISO() { var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return isoDate(d); }
 
@@ -4929,7 +4976,9 @@ function medalHTML(key, s, extra) {
 }
 
 function profileHead(stats) {
-  var v = stats.total, before = statsOf(LOGS.filter(function (l) { return l.date < mondayISO(); })).total, diff = v - before;
+  // Gesamtwert erklärt (Dennis: behalten, aber erklären): Beschriftung, Entwicklung über 4 Wochen, Abstand zur nächsten Stufe.
+  var v = stats.total, ago = isoDaysAgo(28), first = LOGS.reduce(function (m, l) { return trainingLog(l) && (!m || l.date < m) ? l.date : m; }, null);
+  var before = first && first < ago ? statsOf(LOGS.filter(function (l) { return l.date < ago; })).total : 0, diff = before ? v - before : 0;
   var foto = LS.get('tp.foto', null), dash = Math.round(358 * v / 99);
   var mon = mondayISO(), days = {}, today = isoToday();
   LOGS.forEach(function (l) { if (l.date >= mon && l.kind !== 'mobility' && l.kind !== 'rm') days[l.date] = true; });
@@ -4943,9 +4992,10 @@ function profileHead(stats) {
   return '<section class="p-head"><button type="button" class="p-gear" data-act="tab" data-tab="einst" aria-label="Einstellungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h9M18 7h2M4 17h3M12 17h8"/><circle cx="15.5" cy="7" r="2.3"/><circle cx="9.5" cy="17" r="2.3"/></svg></button>' +
     '<div class="p-top"><button type="button" class="p-photo" data-act="foto" aria-label="Foto wählen"><svg class="p-ring" viewBox="0 0 124 124" aria-hidden="true"><circle cx="62" cy="62" r="57" class="track"/><circle cx="62" cy="62" r="57" class="fill" stroke-dasharray="' + dash + ' 358" transform="rotate(-90 62 62)"/></svg>' +
     (foto ? '<img src="' + esc(foto) + '" alt="">' : '<span class="p-nofoto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg>Foto</span>') +
-    '<span class="p-tier">' + esc(cardTier(v).toUpperCase()) + '</span></button>' +
-    '<div class="p-info"><div class="p-name">' + esc(S.name || 'Dein Profil') + '</div><div class="p-total">' + v + '</div><div class="p-sub">' +
-    [diff ? (diff > 0 ? '+' : '') + diff + ' diese Woche' : '', nextTier(v)].filter(Boolean).join(' · ') + '</div></div></div>' +
+    '<span class="p-tier">' + esc(cardTier(v)) + '</span></button>' +
+    '<div class="p-info"><div class="p-name">' + esc(S.name || 'Dein Profil') + '</div><div class="p-lbl">Gesamtwert</div><div class="p-total" aria-label="Gesamtwert ' + v + ' von 99">' + v + '</div><div class="p-sub">' +
+    [before ? (diff > 0 ? '+' + diff : diff < 0 ? '−' + (-diff) : '±0') + ' in 4 Wochen' : '', tierGap(v)].filter(Boolean).join(' · ') + '</div></div></div>' +
+    coachLineHTML() +
     '<div class="p-week"><div class="p-week-h"><span>Diese Woche</span><b>' + cnt + (cnt === 1 ? ' Einheit' : ' Einheiten') + '</b></div><div class="p-days">' + week + '</div></div></section>';
 }
 
@@ -4981,14 +5031,14 @@ function radarSVG(cur, prev) {
   var n = cur.length, cx = 160, cy = 142, R = 98;
   function pt(i, v) { var a = -Math.PI / 2 + i * 2 * Math.PI / n, r = R * v / 99; return (cx + r * Math.cos(a)).toFixed(1) + ',' + (cy + r * Math.sin(a)).toFixed(1); }
   function poly(vals) { return vals.map(function (v, i) { return pt(i, v); }).join(' '); }
-  var h = '<svg class="radar" viewBox="0 0 320 300" role="img" aria-label="Netzdiagramm: ' + esc(cur.map(function (a) { return a.name + ' ' + (a.val || 'keine Daten'); }).join(', ')) + '">';
+  var h = '<svg class="radar" viewBox="-24 0 368 300" role="img" aria-label="Netzdiagramm: ' + esc(cur.map(function (a) { return a.name + ' ' + (a.val || 'keine Daten'); }).join(', ')) + '">';
   [33, 66, 99].forEach(function (v) { h += '<polygon class="r-ring" points="' + poly(cur.map(function () { return v; })) + '"/>'; });
   cur.forEach(function (a, i) { h += '<line class="r-ring" x1="' + cx + '" y1="' + cy + '" x2="' + pt(i, 99).split(',')[0] + '" y2="' + pt(i, 99).split(',')[1] + '"/>'; });
   if (prev) h += '<polygon class="r-prev" points="' + poly(prev.map(function (a) { return a.val; })) + '"/>';
   h += '<polygon class="r-cur" points="' + poly(cur.map(function (a) { return a.val; })) + '"/>';
   cur.forEach(function (a, i) {
     var an = -Math.PI / 2 + i * 2 * Math.PI / n, x = cx + (R + 30) * Math.cos(an), y = cy + (R + 20) * Math.sin(an);
-    h += '<g class="r-lab" data-act="parea" data-v="' + a.id + '"><text x="' + x.toFixed(0) + '" y="' + y.toFixed(0) + '" text-anchor="middle">' + esc(a.name) + '</text><text class="r-val" x="' + x.toFixed(0) + '" y="' + (y + 16).toFixed(0) + '" text-anchor="middle">' + (a.val || '–') + '</text></g>';
+    h += '<g class="r-lab" data-act="parea" data-v="' + a.id + '"><rect class="r-hit" x="' + (x - 56).toFixed(0) + '" y="' + (y - 20).toFixed(0) + '" width="112" height="46" rx="12"/><text x="' + x.toFixed(0) + '" y="' + y.toFixed(0) + '" text-anchor="middle">' + esc(a.name) + '</text><text class="r-val" x="' + x.toFixed(0) + '" y="' + (y + 16).toFixed(0) + '" text-anchor="middle">' + (a.val || '–') + '</text></g>';
   });
   return h + '</svg>';
 }
@@ -5000,8 +5050,10 @@ function sparkSVG(vals) {
 function werteHTML(stats) {
   if (ui.parea && AREA[ui.parea]) return areaDetailHTML(stats, ui.parea);
   var prev = statsAt(isoDaysAgo(28)), dates = sampleDates(8), hist = dates.map(statsAt);
-  var h = '<section class="card radar-card">' + radarSVG(stats.areas, prev.areas) +
-    '<p class="r-leg"><span><i class="cur"></i>Jetzt</span><span><i class="prev"></i>Vor 4 Wochen</span></p></section>';
+  // Vergleich nur, wenn vor 4 Wochen jeder Bereich mit Daten schon einen Wert hatte (sonst zieht eine Linie aus der Mitte, Impeccable-Kritik Profil).
+  var pOk = stats.areas.some(function (a) { return a.val; }) && stats.areas.every(function (a, i) { return !a.val || prev.areas[i].val > 0; });
+  var h = '<section class="card radar-card">' + radarSVG(stats.areas, pOk ? prev.areas : null) +
+    (pOk ? '<p class="r-leg"><span><i class="cur"></i>Jetzt</span><span><i class="prev"></i>Vor 4 Wochen</span></p>' : '<p class="r-leg"><span><i class="cur"></i>Jetzt</span></p><p class="small muted r-note">Der Vergleich mit vor 4 Wochen kommt, sobald es für alle Bereiche damals schon Werte gibt.</p>') + '</section>';
   h += '<section class="card a-list">' + stats.areas.map(function (a, i) {
     var d = a.val && prev.areas[i].val ? a.val - prev.areas[i].val : 0;
     return '<button type="button" class="a-row" data-act="parea" data-v="' + a.id + '"><b>' + esc(a.name) + '</b>' + sparkSVG(hist.map(function (x) { return x.areas[i].val; })) +
@@ -10677,7 +10729,7 @@ function famPathHTML(f, c) {
     return '<button type="button" class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (lk ? ' lock' : '') + '" data-act="ue-info" data-how="1" data-id="' + esc(v.uebung) + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span>' + (lk ? '<small class="lad-why">braucht ' + esc(miss) + '</small>' : '') + '</span>' + right + '</button>';
   }).reverse().join('');
   var cur = lv ? st[lv - 1] : null, next = NX && NX.v;
-  var hint = cur && next ? '<p class="small hint">' + (NX.miss ? esc(uName(next.uebung)) + ' braucht ' + esc(NX.miss) + '. Ziel: ' : NX.skip ? esc(uName(NX.skip.uebung)) + ' braucht ' + esc(eqMissing(UE[NX.skip.uebung].equipment, c.have)) + ', hier geht als Nächstes ' + esc(uName(next.uebung)) + '. Ziel: ' : 'Für „' + esc(uName(next.uebung)) + '“: ') + esc(cur.ziel) + '</p>' : cur && !next ? '<p class="small hint">Oberste Stufe. ' + esc(cur.ziel) + '</p>' : '';
+  var hint = cur && next ? '<p class="small hint">' + (NX.miss ? esc(uName(next.uebung)) + ' braucht ' + esc(NX.miss) + '. Ziel: ' + esc(cur.ziel) : NX.skip ? esc(uName(NX.skip.uebung)) + ' braucht ' + esc(eqMissing(UE[NX.skip.uebung].equipment, c.have)) + ', hier geht als Nächstes ' + esc(uName(next.uebung)) + '. Ziel: die aktuelle Stufe sicher, alle Runden oben.' : 'Für „' + esc(uName(next.uebung)) + '“: ' + esc(cur.ziel)) + '</p>' : cur && !next ? '<p class="small hint">Oberste Stufe. ' + esc(cur.ziel) + '</p>' : '';
   return '<div class="lad fam-path"><p class="lad-k">Skill-Pfad · ↑ Schwerer</p><div class="lad-cap">' + rows + '</div><p class="lad-k">Leichter</p></div>' + hint;
 }
 function famChipsHTML(f, c, avail) {
@@ -12065,6 +12117,7 @@ ACT['sp-set'] = function (el) { var v = SP[el.dataset.v] ? el.dataset.v : null; 
 ACT['ch-none'] = function () { if (chal()) ACT['ch-end'](); else toast('Läuft schon: Allround ohne Wettkampf.'); };
 ACT['fk-open'] = function (el) { ui.fkFrom = el.dataset.from || 'heute'; ui.tab = 'fokus'; window.scrollTo(0, 0); render(); };
 ACT['fk-go'] = function () { startBlock(S.review ? S.review.fokus : S.fokus); };
+ACT['vl-open'] = function (el) { ui.vlOpen = ui.vlOpen === el.dataset.id ? null : el.dataset.id; render(); };
 function hrRows() {
   var hv = hrVals();
   return [valRow('Geburtsjahr', S.birthYear ? String(S.birthYear) : '–', 'data-act="choose" data-k="birth"', { sub: S.birthYear ? hrAge() + ' Jahre' : 'Für den Maximalpuls', set: !!S.birthYear }),
@@ -12089,9 +12142,10 @@ function nextUnlockHTML(tag, inner) {
     var fr = lv / st.length; if (!best || fr > best.fr) best = { f: f, st: st, lv: lv, fr: fr };
   });
   if (!best) return '';
-  var cur = best.st[best.lv - 1], next = best.st[best.lv], u = UE[next.uebung], miss = u ? eqMissing(u.equipment, c.have) : '', R = 24, C = 2 * Math.PI * R;
-  return '<div class="unl' + (inner ? '' : ' card') + '"><svg class="unl-ring" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + (C * best.fr).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 29 29)"/><text x="29" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">' + best.lv + '/' + best.st.length + '</text></svg>' +
-    '<div class="unl-t"><small>Als Nächstes freischalten</small><b>' + esc(uName(next.uebung)) + '</b><span>' + esc(best.f.name) + ', Stufe ' + (best.lv + 1) + ' von ' + best.st.length + '. ' + esc(cur.ziel) + (miss ? ' Braucht ' + esc(miss) + '.' : '') + '</span></div>' +
+  // Impeccable-Kritik Profil: wie in Tools die nächste Stufe, die am Ort geht (famNext), und nur eine Zahl (jetzt Stufe x von n).
+  var cur = best.st[best.lv - 1], NX = famNext(best.f, c, best.lv), next = NX ? NX.v : best.st[best.lv], miss = NX && NX.miss ? NX.miss : '', R = 24, C = 2 * Math.PI * R;
+  return '<div class="unl' + (inner ? '' : ' card') + '"><svg class="unl-ring" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="29" cy="29" r="' + R + '" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + (C * best.fr).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 29 29)"/><text x="29" y="34" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">' + best.lv + '/' + best.st.length + '</text></svg>' +
+    '<div class="unl-t"><small>Als Nächstes freischalten</small><b>' + esc(uName(next.uebung)) + '</b><span>' + esc(best.f.name) + ': jetzt Stufe ' + best.lv + ' von ' + best.st.length + '. ' + (miss ? 'Braucht ' + esc(miss) + '. ' : '') + (NX && NX.skip ? esc(uName(NX.skip.uebung)) + ' geht hier nicht. Ziel: die aktuelle Stufe sicher, alle Runden oben.' : 'Ziel: ' + esc(cur.ziel.replace(/ geschafft:/, ':'))) + '</span></div>' +
     '<button type="button" class="rbtn sm" data-act="fam-go" data-id="' + best.f.id + '" aria-label="Skill-Pfad öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
 }
 function renderUebungen() {
