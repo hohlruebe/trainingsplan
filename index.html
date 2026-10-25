@@ -1322,20 +1322,26 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 /* Wochen-Kette */
 .ch-row{display:flex;align-items:center;gap:8px;margin:10px 4px 0;font-size:15px;color:var(--ink2);line-height:1.35}.ch-row b{color:var(--ink)}
 .ch-row .ch-ic{flex:none;width:18px;height:18px;color:var(--acc)}.ch-row .btn{margin-left:auto;flex:none}
-.ch-links{display:flex;align-items:center;padding:8px 0 8px 8px;overflow:hidden}
-.ch-row .ch-links{display:none}
-.ch-l{flex:none;width:34px;height:20px;margin-left:-8px;border:4px solid var(--acc);border-radius:999px;box-sizing:border-box;background:transparent}
-.ch-l.full{background:var(--acc)}.ch-l.held{background:var(--paper)}
-.ch-l.joker{border-style:dashed}.ch-l.pause{border:4px dashed var(--line2);background:transparent}
-.ch-l.miss{border-color:transparent;width:18px}
-.ch-l.open{border-style:dotted;background:linear-gradient(90deg,color-mix(in srgb,var(--acc) 40%,transparent) var(--p),transparent var(--p))}
-.ch-links.big{justify-content:center;padding:18px 0 8px 10px}.ch-links.big .ch-l{width:44px;height:26px;border-width:5px;margin-left:-10px;animation:chIn .4s cubic-bezier(.3,1.4,.5,1) both}
-.ch-links.big .ch-l:last-child{animation-delay:.25s}
+.chv{display:flex;align-items:center;gap:6px;padding:10px 0 8px;overflow:hidden}
+.chv-a .cr{flex:1 1 0;min-width:0;max-width:30px;height:auto;aspect-ratio:1}.chv-a.big{justify-content:center;gap:10px}.chv-a.big .cr{flex:none;width:40px;max-width:none;animation:chIn .4s cubic-bezier(.3,1.4,.5,1) both}.chv-a.big .cr:last-child{animation-delay:.25s}
+.cr circle{fill:none;stroke-width:4}.cr .bg{stroke:var(--fill)}.cr .ar{stroke:var(--acc);stroke-linecap:round}
+.cr.full .bg{fill:var(--acc);stroke:var(--acc)}.cr .ck{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.cr text{font-weight:800;font-size:11px;fill:var(--acc);text-anchor:middle}.cr.joker .bg{stroke:var(--mb2);stroke-dasharray:3 3}.cr .jk{fill:var(--mb2)}
+.cr.pause .bg{stroke-dasharray:2 3}.cr.miss .bg{stroke:none;fill:var(--fill);r:4}.cr.open .bg{stroke-dasharray:2 3}
+.chv-b svg{flex:none}.chv-b .fc{fill:none;stroke-width:5}.chv-b .fc.open{stroke:color-mix(in srgb,var(--acc) 45%,transparent);stroke-dasharray:5 4}.chv-b .fc.pause{stroke:var(--line2);stroke-dasharray:4 4}
+.chv-b .eg.ghost{fill:var(--line2)}.chv-b .fc.joker{stroke-dasharray:7 3}
+.chv-b.big{justify-content:center}.chv-b.big svg{margin:6px 0;animation:chIn .4s cubic-bezier(.3,1.4,.5,1) both}
+.chv-c{align-items:flex-end;gap:6px;justify-content:space-between}.chv-c .cs{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none;padding:6px 5px;border-radius:12px}
+.chv-c .cs i{width:14px;height:14px;border-radius:5px;background:var(--fill)}.chv-c .cs i.on{background:var(--acc)}
+.chv-c .cs.full{background:color-mix(in srgb,var(--acc) 10%,transparent)}.chv-c .cs.held i.on{background:color-mix(in srgb,var(--acc) 65%,var(--paper))}
+.chv-c .cs.open{outline:2px dashed color-mix(in srgb,var(--acc) 45%,transparent);outline-offset:-2px}
+.chv-c .cs-j{display:flex;align-items:center;justify-content:center;width:14px;color:var(--mb2);font-size:15px}
+.chv-c .cs small{font-size:14px;line-height:18px;min-height:18px;color:var(--ink2);white-space:nowrap}.chv-c.big{justify-content:center}.chv-c.big .cs i{width:20px;height:20px;border-radius:7px}
 @keyframes chIn{from{transform:scale(.4);opacity:0}}
+@media (prefers-reduced-motion:reduce){.chv.big *{animation:none!important}}
 .ch-big{margin:2px 0 0;font-size:17px;color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin-right:6px}
 .ch-x{margin:4px 0 12px}
 .mo-ch{gap:2px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:6px}.moment.mo-chain .mo-btns{animation-delay:.8s}
-@media (prefers-reduced-motion:reduce){.ch-links.big .ch-l{animation:none}}
 </style>
 </head>
 <body>
@@ -5615,11 +5621,34 @@ function chainRisk() {
   return { left: left, r: r, tight: r <= left, lost: r < left, today: P.today >= 0 && !!(P.days[P.today] && P.days[P.today].tag && !P.days[P.today].done) };
 }
 var CHAIN_IC = '<svg class="ch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 13.5a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';
+var CHAIN_IC_A = '<svg class="ch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" opacity=".3"/><path d="M12 3.5a8.5 8.5 0 0 1 8.2 10.7"/></svg>';
+var CHAIN_IC_C = '<svg class="ch-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="12" width="4" height="8" rx="2"/><rect x="10" y="8" width="4" height="12" rx="2"/><rect x="16" y="4" width="4" height="16" rx="2"/></svg>';
 function chainWk(n) { return n + (n === 1 ? ' Woche' : ' Wochen'); }
-// Glieder der letzten Wochen: voll gefüllt, gehalten umrandet, Joker gestrichelt, Pause grau, Riss als Lücke, laufende Woche mit Stand.
+// Darstellung der Wochen (Dennis, 25. Oktober: drei Varianten zur Wahl). a = Ringe, b = Kettenglieder aus Metall, c = Wochen-Säulen.
+var CHAIN_V = 'a', CHAIN_SVG = 0;
 function chainLinksHTML(W, cls) {
-  return '<div class="ch-links' + (cls ? ' ' + cls : '') + '" aria-hidden="true">' + W.map(function (w) {
-    return '<i class="ch-l ' + w.st + '"' + (w.st === 'open' ? ' style="--p:' + Math.round(w.n / chainNeed() * 100) + '%"' : '') + '></i>';
+  var big = cls === 'big', v = CHAIN_V, G = tageN(), id = 'chg' + (++CHAIN_SVG);
+  if (v === 'a') return '<div class="chv chv-a' + (big ? ' big' : '') + '" aria-hidden="true">' + W.map(function (w, k) {
+    var R = 11, C = 2 * Math.PI * R, f = Math.min(1, w.n / G), st = w.st;
+    var arc = st === 'joker' || st === 'pause' || st === 'miss' ? '' : '<circle class="ar" cx="14" cy="14" r="' + R + '" stroke-dasharray="' + (C * f).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 14 14)"/>';
+    var mid = st === 'full' ? '<path class="ck" d="M9 14.5l3.3 3.3L19 10.8"/>' : st === 'joker' ? '<path class="jk" d="M14 8.2l1.7 3.5 3.8.5-2.8 2.6.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.6 3.8-.5z"/>' : st === 'held' ? '<text x="14" y="18.2">' + w.n + '</text>' : '';
+    return '<svg class="cr ' + st + '" viewBox="0 0 28 28"><circle class="bg" cx="14" cy="14" r="' + R + '"/>' + arc + mid + '</svg>';
+  }).join('') + '</div>';
+  if (v === 'b') {
+    var M = { full: ['#FFF0B8', '#CFA43C', '#86641B'], held: ['#FFFFFF', '#A9B0B7', '#6B7178'], joker: ['#F1C9A2', '#B0764B', '#6E4527'] }, x = 4, out = '', defs = '';
+    Object.keys(M).forEach(function (k) { defs += '<linearGradient id="' + id + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + M[k][0] + '"/><stop offset=".5" stop-color="' + M[k][1] + '"/><stop offset="1" stop-color="' + M[k][2] + '"/></linearGradient>'; });
+    W.forEach(function (w, k) {
+      var st = w.st, prev = W[k - 1], gap = st === 'miss' || (prev && prev.st === 'miss');
+      if (k && !gap) { out += '<rect class="eg ' + (M[st] ? st : 'ghost') + '" x="' + (x - 17) + '" y="17" width="24" height="6" rx="3"' + (M[st] ? ' fill="url(#' + id + st + ')"' : '') + '/>'; }
+      if (st === 'miss') { x += 10; return; }
+      out += '<rect class="fc ' + st + '" x="' + x + '" y="9" width="26" height="22" rx="11"' + (M[st] ? ' stroke="url(#' + id + st + ')"' : '') + '/>';
+      x += 36;
+    });
+    return '<div class="chv chv-b' + (big ? ' big' : '') + '" aria-hidden="true"><svg viewBox="0 0 ' + (x + 2) + ' 40" style="width:100%;max-width:' + Math.round((x + 2) * (big ? 1.4 : 1)) + 'px;height:auto"><defs>' + defs + '</defs>' + out + '</svg></div>';
+  }
+  return '<div class="chv chv-c' + (big ? ' big' : '') + '" aria-hidden="true">' + W.map(function (w) {
+    var d = ''; for (var q = G; q >= 1; q--) d += '<i class="' + (q <= w.n ? 'on' : '') + '"></i>';
+    return '<span class="cs ' + w.st + '">' + (w.st === 'joker' ? '<b class="cs-j" style="height:' + (G * 17 - 3) + 'px">★</b>' : d) + '</span>';
   }).join('') + '</div>';
 }
 // Heute: eine Zeile unter der Wochenleiste. Wird es eng, bietet der Coach 15 Minuten statt gar nichts an.
@@ -5633,7 +5662,7 @@ function chainLineHTML(tag) {
     txt = (C.n ? '<b>' + chainWk(C.n) + '</b> in Folge · ' : '') + 'noch ' + (R ? R.left : chainNeed() - w.n) + ' für diese Woche';
     if (R && R.tight && R.today && !doneToday0() && DAYS[tag] && DAYS[tag].type === 'kraft' && +D._zeit !== 15) { txt += ', auch 15 Minuten zählen'; btn = '<button type="button" class="btn small" data-act="chain-short">15 Minuten</button>'; }
   }
-  return '<div class="ch-row">' + CHAIN_IC + '<span>' + txt + '</span>' + btn + '</div>';
+  return '<div class="ch-row">' + (CHAIN_V === 'a' ? CHAIN_IC_A : CHAIN_V === 'c' ? CHAIN_IC_C : CHAIN_IC) + '<span>' + txt + '</span>' + btn + '</div>';
 }
 function chainCardHTML() {
   var C = chainState(); if (!C.cur) return '';
@@ -5646,7 +5675,7 @@ function chainCardHTML() {
 // Moment nach dem Speichern: die Woche hält (2. Einheit) bzw. ist geschafft (Wochenziel).
 function chainEvent(before) {
   var a = chainState(), w = a.cur; if (!before || !before.cur || !w || w.mon !== before.cur.mon || w.st === before.cur.st) return [];
-  return w.st === 'held' || w.st === 'full' ? [{ type: 'chain', st: w.st, n: a.n, weeks: a.weeks.slice(-8) }] : [];
+  return w.st === 'held' || w.st === 'full' ? [{ type: 'chain', st: w.st, n: a.n, weeks: a.weeks.slice(-6) }] : [];
 }
 function chainMomentHTML(e) {
   return '<div class="mo-card mo-ch" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">Training gespeichert</p>' + chainLinksHTML(e.weeks, 'big') +
