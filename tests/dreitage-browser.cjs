@@ -105,9 +105,30 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.locator('#sheet .ue-how ol.how li').count() >= 2, '(i) zeigt die genaue Durchführung');
     await page.getByRole('button', { name: 'Fertig', exact: true }).click();
     await page.locator('#fs [data-act="fs-view"][data-v="one"]').click();
+    // Impeccable-Kritik 25. Oktober: Zähler bleibt auf seiner Minute, „Weiter“ erst nach der Uhr, Schmerzen-Knopf im Trainer.
+    const lbl0 = await page.locator('#fs .fs-side .fs-lbl').first().innerText();
+    await page.locator('#fs [data-act="k-rep"][data-d^="-"]').first().click();
+    await page.locator('#fs [data-act="k-rep"][data-d^="-"]').first().click();
+    assert.equal(await page.locator('#fs .fs-side .fs-lbl').first().innerText(), lbl0, 'zweimal „–“ bleibt auf derselben Minute');
+    assert.ok(await page.locator('#fs .fs-top [data-act="pain-s"]').isVisible(), 'roter Schmerzen-Knopf im Kopf des Trainers');
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /von \d$/, 'Kopf zeigt „x von n“ ganz');
+    await page.locator('#fs #fs-tg').click();
+    await page.waitForTimeout(300);
+    assert.match(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Uhr läuft: Weiter gesperrt');
+    const kk = await page.locator('#fs .fs-kick').innerText();
+    await page.locator('#fs .fs-nav [data-act="step"]').last().click();
+    assert.equal(await page.locator('#fs .fs-kick').innerText(), kk, 'ein Tippen auf Weiter bleibt beim laufenden EMOM');
+    await page.locator('#fs #fs-tg').click();
+    await page.waitForTimeout(300);
+    assert.doesNotMatch(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'angehalten: Weiter wieder frei');
+    await page.evaluate(() => { const o = JSON.parse(localStorage.getItem('tp.drafts')); for (const k in o) for (const f in o[k]) if (/^k\dr\d$/.test(f)) delete o[k][f]; localStorage.setItem('tp.drafts', JSON.stringify(o)); });
+    await page.reload();
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^Kardio locker/);
     await page.locator('#fs [data-act="save"]').click();
+    // Impeccable-Kritik 25. Oktober: ist die Uhr des letzten Schritts nie gelaufen, fragt der Trainer erst nach.
+    assert.match(await page.locator('#sheet').innerText(), /Kardio locker noch nicht gemacht/);
+    await page.getByRole('button', { name: 'Trotzdem speichern', exact: true }).click();
     await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click(); // Cool-down bleibt eine Frage, kein stiller Zusatz
     // Wie hart war's? Regler 1–10, Speichern erst nach einer Wahl.
     assert.ok(await page.locator('#sheet #rpe.unset').isVisible(), 'Regler startet leer');
@@ -442,6 +463,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.clock.setFixedTime(T0);
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
     await page.locator('#fs [data-act="save"]').click();
+    await page.getByRole('button', { name: 'Trotzdem speichern', exact: true }).click();
     await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click();
     await page.locator('#sheet [data-rpe="6"]').click(); await page.locator('#rpe-ok').click();
     await page.waitForFunction(() => window.tpTest.logs().some(l => l.pv === 2 && l.date === '2026-10-14'), null, { timeout: 3000 });
@@ -485,6 +507,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('#fs .co-card').innerText(), /Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden[\s\S]*Vorgabe und Stufe bleiben\./);
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
     await page.locator('#fs [data-act="save"]').click();
+    await page.getByRole('button', { name: 'Trotzdem speichern', exact: true }).click();
     await page.getByRole('button', { name: 'Nein, speichern', exact: true }).click();
     await page.locator('#sheet [data-rpe="6"]').click(); await page.locator('#rpe-ok').click();
     await page.waitForFunction(() => window.tpTest.logs().some(l => l.date === '2026-10-14'), null, { timeout: 3000 });

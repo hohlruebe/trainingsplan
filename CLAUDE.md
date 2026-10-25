@@ -627,6 +627,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `data-how`: Figur und „So geht’s“ im Blatt). Vor dem Training auf Heute „Heute zum ersten Mal“ (`firstTimeList`, `firstTimeHTML`): Übungen und
   neue Stufen bekannter Übungen, die noch in keinem Eintrag stehen, mit (i). Halteübung als Stufe einer Wdh.-Leiter („Ring Support 20 s“) zählt in
   Sekunden der Stufe (`holdOf(x, stage)`).
+- Trainer neu sortiert (Impeccable-Kritik 25. Oktober, 22/40, Dennis: „Fehler zuerst“, „Weiter erst nach der Uhr“, alle sechs Punkte; Board
+  https://claude.ai/artifact/KLFWj56UeUgCcgZCWadbji): `fsLocked` (Trainer, Uhr läuft im Modus emom/amrap/seq/hiit/zeit) setzt in `fsPaint` `#fs-nav.lock` und `.fs-tr.lk`:
+  Zurück/Weiter grau mit „Uhr läuft · lang drücken“, `ACT.step` bleibt beim Schritt (Hinweis), langes Drücken (700 ms) überspringt (`force`, `FS.lpStep`).
+  `ACT['k-rep']` setzt ohne laufende Uhr `ui.kSel` auf die Minute des Zählers (sonst sprang `kraftNow` weiter). Schmerzen-Knopf `.st-flag` (`PAIN_FLAG`, `pain-s`) im Kopf
+  jedes Schritts aus `PAIN_STEPS`. Einzeln | Liste unter dem Ring (`.fs-dig2`, beim Sperren ausgeblendet), Kopf zeigt „x von n“ ganz. Liste: `fsQty` (Zahl groß, Einheit klein),
+  `fsName` (kein Umbruch am Bindestrich), „Erledigt“ unter der offenen Zeile, Bandstufe einzeilig. Quer: Texte mindestens 14 px (`max(14px, …)`), Zähler 44 px, (i) mit 44-px-Fläche.
+  `saveAsk`: lief die Uhr des letzten Schritts nie, erst „<Schritt> noch nicht gemacht“ (Hauptaktion „Zurück zum Training“). `.btn.save` mit dunkler Schrift (`#0E2A18`).
+  Heute erledigt: zuerst `outlookHTML`, ohne Ausfall-Zeile, Fragen darunter; Guten Morgen ohne Folge-Satz.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
