@@ -673,6 +673,17 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`areaTop`, `#a-top`). Rekorde: Haltestufe einer Wdh.-Leiter in Sekunden (`holdOf` in `prList`; alte Einträge mit Vorgabe unter 5 zählen nicht),
   Gold `#7E5A08` und Grün `#1D6B3A` dunkler, 1RM-Archiv nur mit Werten. Skill-Baum: gesperrt gestrichelt statt halb durchsichtig (auch die Legende).
   Einstellungen › Mehr: „Schrift für Zahlen“ als `.seg` mit Zahl in der Schrift (`.f-smp`), Haptik als Wert-Zeile. Korrigieren: Karten mit `h2`. „Foto“ in `--ink`.
+- Plan nach der Impeccable-Kritik (Dennis, 26. Oktober, 25/40, „alle fünf Punkte“, „einmal ×, dann weiter“, Belastung und Erholung als eine Zeile):
+  Seite `plan` in Plan 2 zuerst „Deine Woche“, „Dein Ziel“ als Wert-Zeile darunter (`goalRow`, Antippen = `fk-open`). Wochenkarte zählt gegen das Ziel
+  („0 von 3 erledigt“, künftige Wochen „x von N geplant“), darunter `.pw-line` („Diese Woche geht noch 1: A heute 17:00.“). Ausfall (`missOf`): erster
+  Termin einer Einheit in der Woche „A ×“, spätere Termine derselben Einheit „A →“ (Klasse `.mv`, weitergerückt); angetippt (`missDayHTML`, Plan und Heute)
+  „… war um 17:00 geplant und ist ausgefallen. Dein Coach hat die Einheit auf Do gelegt.“, Grund aus `planMiss` (`MISS_WHY`), bei `reason: 'auto'`
+  „Stimmt nicht“ (`ACT['miss-wrong']` mit `data-d`). Belastung und Erholung (`bodyWeekHTML`): eine Zeile `.ldz`, offen bei Signal (deutlich über Plan,
+  müde Zone) oder `ui.ldOpen` (`ACT['ld-open']`, „Erholung ansehen“ öffnet sie); Balken ohne Zahlen (✓ oder !), „x % vom Plan der Woche“. Abschluss
+  in der Kachel „Abschluss locker“ hinter `dotSub`. Wissen: Verweis auf Plan & Challenges › Trainingstage, Kurzversion und Festgefahren in der
+  Plan-2-Fassung (der Coach kürzt bzw. wechselt selbst), Methode „Ein Skill in jeder Einheit“, Vorgabe-Spanne, Handstand „zweimal das obere Ende“,
+  Skill-Block „je nach Umfang 2 bis 5“, „Kommt nach:“ statt „Frei ab:“, „Nach einer Pause“, „Einstiegstest neu starten“ rot mit Satz, Grundmuster mit `h2`,
+  „Challenge wählen“. (i) in `--acc`, Erholung „frisch“ 14 px, Wochenleiste in der Karte breiter. Kritik in `.impeccable/critique/2026-10-26T05-09-58Z__index-html.md`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
