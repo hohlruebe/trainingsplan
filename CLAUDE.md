@@ -667,6 +667,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Korrigieren auf (`ui.vlOpen`, `ACT['vl-open']`); ohne „DG“, ohne die Notiz alter Testtage, fehlende Intervalle „geplant, nicht eingetragen“. Netzdiagramm:
   „Vor 4 Wochen“ nur, wenn damals jeder Bereich mit Daten schon einen Wert hatte (sonst Hinweis `.r-note`), viewBox breiter, Tippflächen `.r-hit` 46 px.
   Kritik in `.impeccable/critique/2026-10-25T20-39-34Z__index-html.md`.
+  Danach P2/P3 (Dennis: „Und weiter“): Kopf zählt in Plan 2 wie die Wochen-Kette („0 von 3 Einheiten“, ohne Zusatz), die Ketten-Karte wiederholt die Woche
+  nicht mehr. Bereich (`areaDetailHTML`): sinkt die Kurve um 2 und mehr, sagt `areaDropHTML` unter der Kurve um wie viel seit wann und welche Leiter am meisten
+  verloren hat (Stufe tiefer oder weniger Wdh. in der Spanne); „Noch nicht begonnen: N Übungen in diesem Bereich …“; geöffnet scrollt der Bereich nach oben
+  (`areaTop`, `#a-top`). Rekorde: Haltestufe einer Wdh.-Leiter in Sekunden (`holdOf` in `prList`; alte Einträge mit Vorgabe unter 5 zählen nicht),
+  Gold `#7E5A08` und Grün `#1D6B3A` dunkler, 1RM-Archiv nur mit Werten. Skill-Baum: gesperrt gestrichelt statt halb durchsichtig (auch die Legende).
+  Einstellungen › Mehr: „Schrift für Zahlen“ als `.seg` mit Zahl in der Schrift (`.f-smp`), Haptik als Wert-Zeile. Korrigieren: Karten mit `h2`. „Foto“ in `--ink`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

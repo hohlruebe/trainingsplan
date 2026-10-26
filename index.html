@@ -231,6 +231,7 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .fonts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0}
 .fopt{min-height:80px;border:1px solid var(--line2);border-radius:14px;background:var(--board);color:var(--ink);cursor:pointer;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .fopt b{font-size:28px;line-height:1;font-weight:400}
+.f-smp{font-size:20px;line-height:1;margin-right:4px}
 .fopt span{font-family:var(--text);font-size:14px;font-weight:600;color:var(--ink2)}
 .fopt[aria-pressed="true"]{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
 .fopt[aria-pressed="true"] span{color:var(--ink)}
@@ -250,7 +251,7 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .p-ring .track{stroke:var(--plate-line)}
 .p-ring .fill{stroke:var(--acc);stroke-linecap:round}
 .p-photo img,.p-nofoto{position:absolute;left:13px;top:13px;width:98px;height:98px;border-radius:50%;object-fit:cover}
-.p-nofoto{background:var(--fill);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:14px;font-weight:500}
+.p-nofoto{background:var(--fill);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:14px;font-weight:600}
 .p-nofoto svg{width:34px;height:34px}
 .p-tier{position:absolute;left:50%;bottom:0;transform:translateX(-50%);padding:4px 12px;border-radius:999px;background:var(--ink);color:var(--board);font-size:14px;font-weight:700;letter-spacing:.01em;white-space:nowrap}
 .p-info{min-width:0;padding-right:34px}
@@ -712,7 +713,8 @@ button.chip{cursor:pointer;border:0}
 .t-node.done{background:color-mix(in srgb,var(--acc) 14%,var(--paper));color:var(--acc);box-shadow:none}
 .t-node.cur{background:var(--pill);color:var(--acc);box-shadow:0 0 0 2px var(--acc),0 2px 8px rgba(17,18,20,.1)}
 .t-node.next{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line2)}
-.t-node.lock{opacity:.6}
+.t-leg .chip.lk{background:transparent;outline:1.5px dashed var(--line2);outline-offset:-1.5px;gap:4px}
+.t-node.lock{background:transparent;box-shadow:none;outline:1.5px dashed var(--line2);outline-offset:-1.5px;color:var(--ink2)}
 .t-leg{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
 .unl{display:flex;gap:14px;align-items:center}.pg .unl{padding-top:2px}.pg-neu{display:flex;flex-direction:column;gap:2px;padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line)}.pg-neu b{font-size:17px}.pg-neu span:last-child{font-size:14px;color:var(--ink2);line-height:1.35}.pg-wait{color:var(--acc)!important}.pg-chip{align-self:flex-start;margin:0 0 4px;color:var(--green);font-weight:700}.pg-neu:last-child{border:0;margin:0;padding:0}
 /* Schwerpunkte: Auswahl, Block-Karte, Laufziel, Rückblick */
@@ -1222,8 +1224,8 @@ html.desk .ob{max-width:520px;margin:0 auto}
 .moment.mo-pr .mo-btns{animation-delay:.8s}.mo-prc .pr-top.wide{flex-direction:column}.mo-prc .pr-top.wide .pr-num{margin-top:6px}
 .pr-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.pr-row:last-child{border:0}.pr-row>span:first-child{display:flex;flex-direction:column;min-width:0}.pr-row small{font-size:14px;color:var(--ink2)}
 .pr-v{display:flex;align-items:center;gap:8px;flex:none;align-self:flex-start;margin-top:2px}.pr-v b{font-family:var(--hand);font-weight:var(--hand-w);font-size:20px;color:var(--acc);white-space:nowrap}
-.pr-k{align-self:flex-start;display:inline-flex;gap:6px;font-size:14px;font-weight:700;color:#A8780F;background:color-mix(in srgb,#D9A21B 16%,var(--paper));border-radius:999px;padding:4px 10px}
-.pr-gain{align-self:flex-start;white-space:nowrap;font-size:14px;font-weight:700;color:#2E8A50;background:color-mix(in srgb,#4DBF79 18%,var(--paper));border-radius:999px;padding:4px 10px}
+.pr-k{align-self:flex-start;display:inline-flex;gap:6px;font-size:14px;font-weight:700;color:#7E5A08;background:color-mix(in srgb,#D9A21B 16%,var(--paper));border-radius:999px;padding:4px 10px}
+.pr-gain{align-self:flex-start;white-space:nowrap;font-size:14px;font-weight:700;color:#1D6B3A;background:color-mix(in srgb,#4DBF79 18%,var(--paper));border-radius:999px;padding:4px 10px}
 .pr-hero{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:2px}.pr-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,color-mix(in srgb,#D9A21B 22%,transparent) 0%,transparent 60%);pointer-events:none}
 .pr-hero>*{position:relative}.pr-hero h3{margin:10px 0 0;font-size:22px}.pr-hero small{font-size:14px;color:var(--ink2)}
 .pr-bigrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:8px}.pr-bigrow .pr-gain{align-self:auto;margin-bottom:8px}
@@ -1235,7 +1237,7 @@ html.desk .ob{max-width:520px;margin:0 auto}
 .pr-ch{width:100%;height:auto;margin-top:12px;overflow:visible}.pr-glow{transform-box:fill-box;transform-origin:center;animation:prPop .7s cubic-bezier(.3,1.5,.5,1) .4s both}
 .pr-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);margin:2px 0 10px}
 .pr-foot{margin:8px 0 0;font-size:15px;line-height:1.45}
-.pr-new{font-size:14px;font-weight:700;color:#A8780F;white-space:nowrap}
+.pr-new{font-size:14px;font-weight:700;color:#7E5A08;white-space:nowrap}
 /* Deine Woche: 24-Stunden-Leisten */
 .wk-ticks{display:grid;grid-template-columns:30px 1fr;gap:8px;margin-top:8px}.wk-ticks div{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2)}
 .wk-r{display:grid;grid-template-columns:30px 1fr;gap:4px 8px;align-items:center;padding:6px 0}.wk-r>b{font-size:14px}.wk-r.now>b{color:var(--acc)}
@@ -4506,12 +4508,12 @@ function moreHTML() {
     var on = S.color === c.id;
     return '<button type="button" class="sw" data-act="color" data-v="' + c.id + '" aria-pressed="' + on + '" style="--c:' + (dark ? c.dark : c.light) + '"><i aria-hidden="true"></i>' + esc(dark && c.darkLabel ? c.darkLabel : c.label) + '</button>';
   }).join('') + '</div>';
-  h += '<h3 style="margin-top:16px">Schrift für Zahlen</h3><div class="fonts" role="group" aria-label="Schrift für Zahlen">' + FONTS.map(function (f) {
-    var on = S.font === f.id;
-    return '<button type="button" class="fopt" data-act="font" data-v="' + f.id + '" aria-pressed="' + on + '"><b style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">Tag 1</b><span>' + esc(f.label) + '</span></button>';
-  }).join('') + '</div>';
+  // Kapsel statt eckiger Kacheln (Impeccable-Kritik Profil, P3): jede Wahl zeigt eine Zahl in ihrer Schrift.
+  h += '<h3 style="margin-top:16px">Schrift für Zahlen</h3>' + segRow('Schrift für Zahlen', FONTS.map(function (f) {
+    return [f.id, '<span class="f-smp" style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">12</span> ' + esc(f.label)];
+  }), S.font, 'font');
   h += countdownHTML();
-  h += '<h3 style="margin-top:16px">Haptik</h3><button type="button" class="st-row" data-act="tab" data-tab="haptik"><span>Vibration ' + (S.haptik === false ? 'aus' : 'an') + '</span><span class="muted">›</span></button>';
+  h += '<h3 style="margin-top:16px">Haptik</h3>' + valRows([valRow('Vibration', S.haptik === false ? 'Aus' : 'An', 'data-act="tab" data-tab="haptik"')]);
   h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
     '<label class="check"><input type="checkbox" data-change="swipeRev"' + (S.swipeRev ? ' checked' : '') + '> Wischen umkehren</label>';
   h += '<h3 style="margin-top:16px">Tempo</h3><label class="check"><input type="checkbox" data-change="tpoCue"' + (S.tpoCue !== false ? ' checked' : '') + '> Ton und Vibration beim Tempo-Takt</label>' +
@@ -4981,7 +4983,8 @@ function profileHead(stats) {
   var before = first && first < ago ? statsOf(LOGS.filter(function (l) { return l.date < ago; })).total : 0, diff = before ? v - before : 0;
   var foto = LS.get('tp.foto', null), dash = Math.round(358 * v / 99);
   var mon = mondayISO(), days = {}, today = isoToday();
-  LOGS.forEach(function (l) { if (l.date >= mon && l.kind !== 'mobility' && l.kind !== 'rm') days[l.date] = true; });
+  // Plan 2: dieselbe Zählung wie die Wochen-Kette (ohne Zusatz), damit Kopf und Kette nicht zwei Zahlen für dieselbe Woche zeigen.
+  LOGS.forEach(function (l) { if (l.date >= mon && l.kind !== 'mobility' && l.kind !== 'rm' && (!v2() || (trainingLog(l) && l.unit !== 'Z'))) days[l.date] = true; });
   var week = '', cnt = 0, d0 = parseISO(mon);
   ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].forEach(function (lab, i) {
     var d = new Date(d0); d.setDate(d0.getDate() + i); var iso = isoDate(d), done = !!days[iso];
@@ -4996,7 +4999,7 @@ function profileHead(stats) {
     '<div class="p-info"><div class="p-name">' + esc(S.name || 'Dein Profil') + '</div><div class="p-lbl">Gesamtwert</div><div class="p-total" aria-label="Gesamtwert ' + v + ' von 99">' + v + '</div><div class="p-sub">' +
     [before ? (diff > 0 ? '+' + diff : diff < 0 ? '−' + (-diff) : '±0') + ' in 4 Wochen' : '', tierGap(v)].filter(Boolean).join(' · ') + '</div></div></div>' +
     coachLineHTML() +
-    '<div class="p-week"><div class="p-week-h"><span>Diese Woche</span><b>' + cnt + (cnt === 1 ? ' Einheit' : ' Einheiten') + '</b></div><div class="p-days">' + week + '</div></div></section>';
+    '<div class="p-week"><div class="p-week-h"><span>Diese Woche</span><b>' + (v2() ? cnt + ' von ' + tageN() + ' Einheiten' : cnt + (cnt === 1 ? ' Einheit' : ' Einheiten')) + '</b></div><div class="p-days">' + week + '</div></div></section>';
 }
 
 var PVIEWS = [
@@ -5065,7 +5068,7 @@ function areaDetailHTML(stats, id) {
   var a = stats.areas.filter(function (x) { return x.id === id; })[0], def = AREA[id], part = def.parts && ui.ppart ? ui.ppart : null;
   var keys = a.keys.filter(function (k) { return !part || partOf(k) === part; });
   function partVal(st, p) { var sc = a.keys.filter(function (k) { return partOf(k) === p; }).map(function (k) { return ladderScore(k, st[k]); }).filter(function (v) { return v > 0; }); return sc.length ? Math.round(sc.reduce(function (x, y) { return x + y; }, 0) / sc.length) : 0; }
-  var h = '<div class="row between"><button type="button" class="rbtn" data-act="parea" data-v="" aria-label="Zurück zu Werte">' + BACK + '</button></div>';
+  var h = '<div class="row between" id="a-top"><button type="button" class="rbtn" data-act="parea" data-v="" aria-label="Zurück zu Werte">' + BACK + '</button></div>';
   var pv = part ? partVal(stats.st, part) : a.val, pn = part ? def.parts.filter(function (x) { return x[0] === part; })[0][1] : '';
   h += '<div class="a-head"><h2>' + esc(a.name) + (pn ? ' <span class="muted">· ' + esc(pn) + '</span>' : '') + '</h2><span class="a-big">' + (pv || '–') + '</span></div>';
   var dates = sampleDates(10), hist = dates.map(statsAt), vals = hist.map(function (x) { return part ? partVal(x.st, part) : x.areas.filter(function (y) { return y.id === id; })[0].val; });
@@ -5073,7 +5076,7 @@ function areaDetailHTML(stats, id) {
     var ok = vals.filter(function (v) { return v > 0; }), lo = Math.max(0, Math.min.apply(null, ok) - 5), hi = Math.min(99, Math.max.apply(null, ok) + 5);
     h += '<section class="card"><svg class="dev-chart" viewBox="0 0 320 130" aria-hidden="true"><line class="grid" x1="0" y1="10" x2="320" y2="10"/><line class="grid" x1="0" y1="60" x2="320" y2="60"/><line class="grid" x1="0" y1="110" x2="320" y2="110"/>' +
       '<polyline class="line" points="' + vals.map(function (v, i) { return v > 0 ? (6 + i * 308 / (vals.length - 1)).toFixed(1) + ',' + (110 - (v - lo) / Math.max(1, hi - lo) * 100).toFixed(1) : null; }).filter(Boolean).join(' ') + '"/>' +
-      '<text x="6" y="126">' + esc(shortDate(dates[0])) + '</text><text x="314" y="126" text-anchor="end">heute</text></svg></section>';
+      '<text x="6" y="126">' + esc(shortDate(dates[0])) + '</text><text x="314" y="126" text-anchor="end">heute</text></svg>' + areaDropHTML(a, keys, dates, hist, vals, stats) + '</section>';
   }
   if (def.parts) {
     h += '<div class="seg" role="group" aria-label="Teil">' + [['', 'Alle']].concat(def.parts).map(function (p) {
@@ -5099,9 +5102,26 @@ function areaDetailHTML(stats, id) {
     return '<button type="button" class="a-lad" data-act="ptrack" data-v="' + k + '" aria-expanded="' + on + '"><span class="a-lt"><b>' + esc(lad.name) + '</b><span class="muted">Stufe ' + s2.cur + ' von ' + n + ' · ' + METAL[tierOf(s2.cur, n)].name + '</span></span>' +
       '<span class="a-bar"><i style="width:' + sc + '%;background:' + (def.parts ? (AREA_PART_COL[partOf(k)] || def.col) : def.col) + '"></i></span></button>' + (on ? '<div class="a-dev">' + devLadderHTML(k) + '</div>' : '');
   }).join('') + '</section>';
-  if (open) h += '<p class="small muted" style="text-align:center">' + open + (open === 1 ? ' weitere Übung' : ' weitere Übungen') + ' noch offen.</p>';
+  if (open) h += '<p class="small muted" style="text-align:center">Noch nicht begonnen: ' + open + (open === 1 ? ' Übung' : ' Übungen') + ' in diesem Bereich. Sie zählen, sobald dein Coach sie einplant.</p>';
   if (def.run && (!part)) h += '<section class="card"><h2>' + (def.run === 'easy' ? 'Laufen locker' : 'Intervalle laufen') + '</h2>' + devRunHTML(def.run) + '</section>';
   return h;
+}
+// Sinkt ein Wert, sagt die Karte warum (Impeccable-Kritik Profil, P2): Abstand zum Höchststand der Kurve und die Leiter, die am meisten verloren hat.
+function areaDropHTML(a, keys, dates, hist, vals, stats) {
+  var last = vals[vals.length - 1], top = 0, ti = -1;
+  vals.forEach(function (v, i) { if (v > top) { top = v; ti = i; } });
+  if (!last || ti < 0 || top - last < 2) return '';
+  var st0 = hist[ti].st, worst = null;
+  keys.forEach(function (k) {
+    var o = st0[k], n = stats.st[k]; if (!o || !o.cur || !n || !n.cur) return;
+    var d = ladderScore(k, o) - ladderScore(k, n); if (d > 0 && (!worst || d > worst.d)) worst = { k: k, d: d, o: o, n: n };
+  });
+  var why = '';
+  if (worst) {
+    var k = worst.k, nm = k === 'cardio' ? 'Kardio-Kernwert' : ladOf(k).name;
+    why = ' Vor allem ' + esc(nm) + (k === 'cardio' || k.indexOf('rm:') === 0 ? ': der Wert ist niedriger als damals.' : worst.n.cur < worst.o.cur ? ': jetzt Stufe ' + worst.n.cur + ' statt ' + worst.o.cur + '.' : ': weniger Wdh. in der Zielspanne als damals.');
+  }
+  return '<p class="small muted a-why">−' + (top - last) + ' seit ' + esc(shortDate(dates[ti]).replace(/\.$/, '')) + '.' + why + ' Das holst du mit den nächsten Einheiten zurück.</p>';
 }
 var AREA_PART_COL = { zug: '#1E5BD8', druck: '#C8734E', beine: '#4E9C78', rumpf: '#3A8E9C' };
 var MEDAL_T = [0, 65, 75, 85], MEDAL_K = ['bronze', 'silber', 'gold', 'platin'];
@@ -5127,9 +5147,10 @@ function erfolgeHTML(stats) {
 function erfolgeRest(h) {
   h += prCardHTML();
   var arch = RM_ALL.map(function (id) { return { id: id, r: rmOf(id) }; }).filter(function (x) { return x.r; });
-  h += '<section class="card a-lads"><div class="card-head"><h2>1RM-Archiv</h2><span class="chip">Bestwerte</span></div>' + (arch.length ? arch.map(function (x) {
+  // Ohne 1RM keine leere Karte am Ende (Impeccable-Kritik Profil): eingetragen wird in Tools › 1RM.
+  if (arch.length) h += '<section class="card a-lads"><div class="card-head"><h2>1RM-Archiv</h2><span class="chip">Bestwerte</span></div>' + arch.map(function (x) {
     return '<button type="button" class="rm-row" data-act="rm-go" data-v="' + x.id + '"><span><b>' + esc(UE[x.id].name) + '</b><small>' + esc(fmtDate(x.r.best.date)) + '</small></span><span class="rm-kg">' + esc(fmtKg(x.r.best.e1, x.id)) + '</span></button>';
-  }).join('') : '<p class="muted">Noch keine Werte. Trag sie unter Tools › 1RM ein.</p>') + '</section>';
+  }).join('') + '</section>';
   return h;
 }
 function renderHaptik() {
@@ -5163,16 +5184,16 @@ function renderFix() {
     if (k.pain && k.pain.skip) return;
     var c = '';
     k.reps.forEach(function (r, j) { c += fixStep('kraft.' + i + '.reps.' + j, r, 1, null, 'Runde ' + (j + 1)); if (k.kg && k.kg[j] != null) c += fixStep('kraft.' + i + '.kg.' + j, k.kg[j], 2.5, kgF, 'Gewicht'); });
-    h += '<section class="card"><h3 style="margin-top:0">' + esc(k.n) + '</h3>' + (ui.missLog ? '<button type="button" class="btn small" data-act="miss-stage" data-i="' + i + '">' + esc(k.stage || 'Stufe angeben') + '</button>' : '') + c + '</section>';
+    h += '<section class="card"><h2>' + esc(k.n) + '</h2>' + (ui.missLog ? '<button type="button" class="btn small" data-act="miss-stage" data-i="' + i + '">' + esc(k.stage || 'Stufe angeben') + '</button>' : '') + c + '</section>';
   });
-  if (L.tests) h += '<section class="card"><h3 style="margin-top:0">Tests</h3>' + L.tests.map(function (t, i) { return fixStep('tests.' + i + '.max', t.max, 1, null, esc(t.name)); }).join('') + '</section>';
-  if (L.metcon) h += '<section class="card"><h3 style="margin-top:0">Metcon</h3>' + fixStep('metcon.rounds', L.metcon.rounds, 1, null, 'Runden') + fixStep('metcon.reps', L.metcon.reps, 1, null, 'Extra-Wdh.') + '</section>';
-  if (L.ausgleich) h += '<section class="card"><h3 style="margin-top:0">Ausgleich</h3>' + L.ausgleich.reps.map(function (r, j) { return fixStep('ausgleich.reps.' + j, r, 1, null, 'Satz ' + (j + 1)); }).join('') + '</section>';
+  if (L.tests) h += '<section class="card"><h2>Tests</h2>' + L.tests.map(function (t, i) { return fixStep('tests.' + i + '.max', t.max, 1, null, esc(t.name)); }).join('') + '</section>';
+  if (L.metcon) h += '<section class="card"><h2>Metcon</h2>' + fixStep('metcon.rounds', L.metcon.rounds, 1, null, 'Runden') + fixStep('metcon.reps', L.metcon.reps, 1, null, 'Extra-Wdh.') + '</section>';
+  if (L.ausgleich) h += '<section class="card"><h2>Ausgleich</h2>' + L.ausgleich.reps.map(function (r, j) { return fixStep('ausgleich.reps.' + j, r, 1, null, 'Satz ' + (j + 1)); }).join('') + '</section>';
   ['run', 'interval'].forEach(function (rk) {
     var r = L[rk]; if (!r) return;
     var c = fixStep(rk + '.sec', r.sec, 60, fmtDur, 'Dauer') + (r.km != null || !r.ergo ? fixStep(rk + '.km', r.km, 0.1, function (v) { return fmtKm(v) + ' km'; }, 'Strecke') : '') + fixStep(rk + '.hr', r.hr, 1, null, 'Puls Ø');
     if (r.reps) c += fixStep(rk + '.done', r.done, 1, null, 'Intervalle geschafft');
-    h += '<section class="card"><h3 style="margin-top:0">' + (r.ergo ? 'Ergometer' : 'Lauf') + '</h3>' + c + '</section>';
+    h += '<section class="card"><h2>' + (r.ergo ? 'Ergometer' : 'Lauf') + '</h2>' + c + '</section>';
   });
   return h + '<button type="button" class="btn block go save" data-act="fix-save">' + TICK + (ui.missLog ? 'Training speichern' : 'Korrektur speichern') + '</button>';
 }
@@ -5241,7 +5262,10 @@ function prList(logs) {
     if (l.kraft) l.kraft.forEach(function (k) {
       if (k.kg && k.kg.some(function (w) { return w; })) return;
       var reps = (k.reps || []).filter(function (v) { return typeof v === 'number'; }); if (!reps.length || !k.stage) return;
-      var lad = ladFor(k.n), sec = isSecs(lad), v = Math.max.apply(null, reps);
+      // Haltestufe einer Wdh.-Leiter („Ring Support 20 s“) zählt in Sekunden (holdOf), nicht als Wdh. Alte Einträge davor
+      // (Vorgabe in Wdh., z. B. 3) sind weder Sekunden noch Wdh. der Stufe und zählen nicht als Rekord.
+      var sec = holdOf(k, k.stage), v = Math.max.apply(null, reps);
+      if (sec && !isSecs(ladFor(k.n)) && k.goal != null && k.goal < 5) return;
       put('k:' + k.n + '|' + k.stage, { g: sec ? 'halten' : 'kraft', t: k.n, st: k.stage, v: v, disp: v + (sec ? ' s' : ' Wdh.'), date: l.date, id: l.id });
     });
     if (l.sb && l.sb.sec && !l.sb.d && LAD[l.sb.lad]) { var u = skillUnit(LAD[l.sb.lad]);
@@ -5780,7 +5804,7 @@ function chainCardHTML() {
   var W = C.weeks.slice(-12), w = C.cur, nx = C.joker ? isoAdd(C.joker, CHAIN_JOKER) : null;
   return '<section class="card ch-card"><div class="card-head"><h2>Wochen-Kette</h2>' + (C.best > C.n ? '<span class="chip">Längste: ' + chainWk(C.best) + '</span>' : '') + '</div>' +
     '<p class="ch-big"><b>' + C.n + '</b>' + (C.n === 1 ? ' Woche' : ' Wochen') + ' in Folge</p>' + chainLinksHTML(W) +
-    '<p class="small muted ch-x">' + (w.st === 'open' ? 'Diese Woche ' + w.n + ' von ' + chainNeed() + '. ' : '') + 'Mit ' + chainNeed() + ' Einheiten hält die Woche, mit ' + tageN() + ' ist sie geschafft. Auch kurze Einheiten zählen.</p>' +
+    '<p class="small muted ch-x">' + 'Mit ' + chainNeed() + ' Einheiten hält die Woche, mit ' + tageN() + ' ist sie geschafft. Auch kurze Einheiten zählen.</p>' +
     '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>Joker</b><small>' + (C.jokerOk ? 'Hält die Kette, wenn eine Woche nicht reicht.' : 'Genutzt in der Woche ab ' + esc(fmtDate(C.joker)) + ', wieder da ab ' + esc(fmtDate(nx)) + '.') + '</small></span><span class="vr-v">' + (C.jokerOk ? '1' : '0') + '</span></div></div></section>';
 }
 // Moment nach dem Speichern: die Woche hält (2. Einheit) bzw. ist geschafft (Wochenziel).
@@ -6507,7 +6531,9 @@ ACT['fb-start'] = function () {
 
 ACT.pmenu = function () { ui.pmenu = !ui.pmenu; render(); };
 ACT.pview = function (el) { ui.pview = el.dataset.v; ui.pmenu = false; render(); };
-ACT.parea = function (el) { ui.parea = el.dataset.v || el.closest('[data-v]').dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); };
+ACT.parea = function (el) { ui.parea = el.dataset.v || el.closest('[data-v]').dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); areaTop(); };
+// Geöffneter Bereich beginnt oben am Bildschirm, nicht unter dem Profilkopf (Impeccable-Kritik Profil, P3).
+function areaTop() { var e = document.getElementById('a-top'); if (e) window.scrollTo(0, Math.max(0, e.getBoundingClientRect().top + window.scrollY - 12)); }
 ACT.ppart = function (el) { ui.ppart = el.dataset.v || null; ui.track = null; render(); };
 ACT.ptrack = function (el) { ui.track = ui.track === el.dataset.v ? null : el.dataset.v; render(); };
 ACT.medal = function (el) {
@@ -9450,7 +9476,7 @@ function rmDetailHTML(id) {
   }).join('') + '</section>';
   return h;
 }
-ACT['parea-go'] = function (el) { ui.pview = 'werte'; ui.parea = el.dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); };
+ACT['parea-go'] = function (el) { ui.pview = 'werte'; ui.parea = el.dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); areaTop(); };
 ACT['rm-go'] = function (el) { ui.rmLift = el.dataset.v; ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
 ACT['rm-open'] = function (el) { ui.rmLift = el.dataset.v || null; if (ui.tab !== 'rm') ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
 ACT['rm-new'] = function (el) {
@@ -10815,7 +10841,7 @@ function renderSkill() {
       return '<div class="t-row">' + rows[e].sort(function (x, y) { return famTop(y) - famTop(x); }).map(function (f) {
         var s = famStatus(f, c); return '<button type="button" class="t-node ' + s + '" data-act="fam-go" data-id="' + f.id + '" data-n="' + f.id + '">' + (lab[s] || '') + esc(f.name) + '</button>';
       }).join('') + '</div>';
-    }).join('') + '</div><div class="t-leg"><span class="chip">✓ geschafft</span><span class="chip blue">aktuell</span><span class="chip">als Nächstes</span><span class="chip">' + LOCK_SVG + ' gesperrt</span></div></section>' +
+    }).join('') + '</div><div class="t-leg"><span class="chip">✓ geschafft</span><span class="chip blue">aktuell</span><span class="chip">als Nächstes</span><span class="chip lk">' + LOCK_SVG + ' gesperrt</span></div></section>' +
     (ext.length ? '<p class="small muted" style="text-align:center">Aus anderen Bereichen: ' + esc(ext.join(' · ')) + '</p>' : '') +
     '<p class="small muted" style="text-align:center">Tippe eine Familie an, um ihren Skill-Pfad zu öffnen.</p>';
   return h;
