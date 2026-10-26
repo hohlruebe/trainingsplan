@@ -1350,6 +1350,7 @@ html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 .ch-x{margin:4px 0 12px}
 .mo-ch{gap:2px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:6px}.moment.mo-chain .mo-btns{animation-delay:.8s}
 .mo-btns .btn.block{grid-column:1/-1}
+.acc-it{display:flex;align-items:center;gap:10px;margin-top:12px}.acc-t{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;min-width:0}.acc-t .small{flex-basis:100%}.acc-it .mini-fig{width:44px;height:44px;flex:none}
 </style>
 </head>
 <body>
@@ -3442,7 +3443,7 @@ function rpeWord(v) { return RPE_W[Math.min(4, Math.floor((v - 1) / 2))]; }
 function stepRi(s) {
   if (s.ri) return s.ri;
   var p = curPhase();
-  return { warm: 3, ewarm: 3, hs: 4, kraft: p.deload ? 6 : p.test ? 8 : 7.5, ausgl: 5, metcon: 8, mob: 2, cool: 2 }[s.id] || 5;
+  return { warm: 3, ewarm: 3, hs: 4, kraft: p.deload ? 6 : p.test ? 8 : 7.5, ausgl: 5, acc: 5, metcon: 8, mob: 2, cool: 2 }[s.id] || 5;
 }
 // Geplante Härte der ganzen Einheit: Eine Einheit fühlt sich härter an als der Zeitschnitt ihrer Schritte (lockeres Aufwärmen zieht ihn runter).
 // Darum Mitte zwischen Schnitt und härtestem Schritt plus ½ (Prüfung 21. Oktober: mit dem reinen Schnitt galt schon „6 von 10“ als zu hart).
@@ -3504,6 +3505,7 @@ function zoneLogLoad(l) {
     (l.kraft || []).forEach(function (k) { add(ueOfEntry(k.n, k.stage), sets(k.reps), k.n); });
     if (l.metcon && l.metcon.items) { var stg = {}; (l.metcon.stages || []).forEach(function (x) { stg[x.n] = x.stage; }); l.metcon.items.forEach(function (nm) { add(ueOfEntry(nm, stg[nm]), Math.min(8, Math.max(1, l.metcon.rounds || 0)) / 2, nm); }); }
     if (l.ausgleich) add(l.ausgleich.ue, sets(l.ausgleich.reps));
+    (l.acc || []).forEach(function (a) { add(a.ue, sets(a.reps)); });
     if (l.fin && l.fin.done !== false && l.fin.min) { var b = l.fin.min / (l.fin.dev === 'lauf' ? 8 : l.fin.dev === 'geh' ? 30 : 16); o.beine += b; if (b >= 2) kard = l.fin.min + ' Min ' + (l.fin.dev === 'lauf' ? 'Laufen' : finDevName(l.fin.dev)); }
   } else if (l.kind === 'murph') ['Ring Pull-up', 'Push-up', 'Air Squat'].forEach(function (nm) { add(ueOfEntry(nm), 10, nm); });
   var R = l.run || l.interval;
@@ -3866,6 +3868,9 @@ function saveDay() {
     var AG = ausgleichUe(tag), ar = [num(v.a0), num(v.a1)];
     // Ausgleich: Sätze ohne Eintrag zählen mit der Vorgabe (wie im Kraftteil), sonst sieht der Muskelausgleich ihn nie.
     if (AG && !AG.skip) log.ausgleich = { ue: AG.id, reps: ar.map(function (x) { return x != null ? x : AG.sek ? 30 : 12; }) };
+    // Accessory (mehr Zeit): drei Sätze je Übung, ohne Eintrag mit der Vorgabe.
+    var AC = mehrOf(tag) ? accUe(tag, mehrOf(tag) > 15 ? 4 : 3) : [];
+    if (AC.length) { log.acc = AC.map(function (A, i) { var x = num(v['ac' + i]), r = x != null ? x : A.sek ? 30 : 12; return { ue: A.id, reps: [r, r, r] }; }); log.mehr = mehrOf(tag); }
   }
   if (log) { var mob = mobFrom(v); if (mob.length) log.mob = mob; if (v._cool) log.cool = v._cool; if (v._kc) log.kc = v._kc; }
   if (log && (log.kind === 'kraft' || log.kind === 'easy' || log.kind === 'interval')) loadAttach(log, tag, DRAFTS[key] || {});
@@ -4142,6 +4147,7 @@ function logLines(l) {
     if (l.metcon && l.metcon.stages) out.push('<span class="muted">Metcon: ' + l.metcon.stages.map(function (m) { return esc(m.n) + ' (' + esc(stageText(m.stage)) + ')'; }).join(', ') + '</span>');
     if (l.fin) out.push('<b>' + (FIN_N[l.fin.k] || 'Kardio') + '</b>: ' + (l.fin.k === 'iv' ? (l.fin.done != null ? l.fin.done : '–') + ' von ' + l.fin.n + ' · ' : l.fin.min + ' Min · ') + esc(finDevName(l.fin.dev)));
     if (l.ausgleich) out.push('<b>Ausgleich</b>: ' + esc(ueName(l.ausgleich.ue)) + ' · ' + l.ausgleich.reps.map(function (r) { return r == null ? '–' : r; }).join(' / ') + (UE[l.ausgleich.ue] && UE[l.ausgleich.ue].einheit === 'sek' ? ' s' : ' Wdh.'));
+    if (l.acc) l.acc.forEach(function (a) { out.push('<b>Accessory</b>: ' + esc(ueName(a.ue)) + ' · ' + a.reps.join(' / ') + (UE[a.ue] && UE[a.ue].einheit === 'sek' ? ' s' : ' Wdh.')); });
     if (l.hs) out.push('<b>Handstand</b>: ' + esc(l.hs));
     if (l.jump && LAD[l.jump.lad]) out.push('<b>Sprünge</b>: ' + esc(stageText(l.jump.stage)));
     if (!l.hs && l.sb && LAD[l.sb.lad]) out.push('<b>' + esc(LAD[l.sb.lad].name) + '</b>: ' + esc(stageText(l.sb.stage)) + (l.sb.sec != null ? ' · ' + l.sb.sec + ' ' + skillUnit(LAD[l.sb.lad]) : ''));
@@ -7139,7 +7145,7 @@ function stepsOf(c) {
       body: function (D) { return metconStepHTML(tag, D, am); } });
   }
   else if (F && F.k !== 'none') out.push(finStep(tag, F));
-  return out.concat(F ? [] : ausgleichStep(tag)).concat(mobCheckStep(tag)).concat(D0._cd === '1' || D0._cool ? coolStep(tag) : []);
+  return out.concat(F ? [] : ausgleichStep(tag)).concat(accStep(tag)).concat(mobCheckStep(tag)).concat(D0._cd === '1' || D0._cool ? coolStep(tag) : []);
 }
 // Beweglichkeits-Check: letzter Schritt an Tag 1 im Einstiegstest und in den Test-Durchgängen des Schwerpunkts.
 function mobCheckStep(tag) {
@@ -10032,6 +10038,7 @@ function firstTimeList(tag) {
   });
   var A = d.type === 'kraft' ? ausgleichUe(tag) : null;
   if (A && UE[A.id] && !LOGS.some(function (l) { return l.ausgleich && l.ausgleich.ue === A.id; })) out.push({ n: UE[A.id].name, sub: 'Ausgleich', id: A.id });
+  if (d.type === 'kraft' && mehrOf(tag)) accUe(tag, mehrOf(tag) > 15 ? 4 : 3).forEach(function (a) { if (UE[a.id] && !LOGS.some(function (l) { return (l.acc || []).some(function (x) { return x.ue === a.id; }) || l.ausgleich && l.ausgleich.ue === a.id; })) out.push({ n: UE[a.id].name, sub: 'Accessory', id: a.id }); });
   return out.filter(function (x, i) { return out.findIndex(function (y) { return y.n === x.n; }) === i; }).slice(0, 6);
 }
 // Neue Übungen je Schritt: Kraft am Kraftschritt, Metcon am Metcon bzw. Abschluss, Ausgleich am Ausgleich.
@@ -10209,7 +10216,7 @@ function planFit(tag) {
 function zeitLv(tag) {
   if (ZF && ZF.tag === tag) return ZF.lv;
   var D = DRAFTS[draftKey(tag)], B = D && +D._zeit, c;
-  if (v2() && S.zeitMax && (!B || S.zeitMax < B)) B = S.zeitMax; // Plan 2: dein Zeitlimit gilt immer, „wenig Zeit“ nur heute
+  if (v2() && S.zeitMax && (!B || S.zeitMax < B) && !(D && +D._mehr)) B = S.zeitMax; // Plan 2: dein Zeitlimit gilt immer, „wenig Zeit“ nur heute
   var F = tag === S.tag ? planFit(tag) - 2 : 0; if (F > 0 && (!B || F < B)) B = F; // Paket 64: nur eine Lücke zwischen deinen Terminen (2 Min für den Körper-Check)
   if (!B || tag !== S.tag || !DAYS[tag] || DAYS[tag].type !== 'kraft') return 0;
   c = dayCtx(tag); if (c.isTest || c.isMurph) return 0;
@@ -10245,10 +10252,19 @@ function zeitText(tag, B) {
   if (!z.lv) return 'Passt schon, die Einheit dauert etwa ' + z.m + ' Min.';
   return 'Etwa ' + z.m + ' Min: ' + z.cuts.join(', ') + '.';
 }
+// „Ich habe mehr Zeit“ nur, wo es greift (Plan 2, Krafttag, nicht Entlastung/Testwoche/Taper); Satz im Blatt mit Dauer und was dazukommt.
+function mehrAsk(tag) { var d = DAYS[tag], p = curPhase(); return v2() && tag === S.tag && d && d.type === 'kraft' && (d.kraft || []).length > 0 && S.durchgang >= 1 && !p.deload && !p.test && !p.taper; }
+function mehrText(tag) {
+  var D = DRAFTS[draftKey(tag)] || {}, M = mehrOf(tag), z = zeitPreview(tag, 0);
+  if (!M) return isKurz0(tag) ? 'Heute ist eine Kurzversion geplant, mehr gibt es dann nicht.' : planFit(tag) ? 'Zwischen deinen Terminen ist heute nicht mehr Zeit frei.' : 'Die Einheit dauert etwa ' + z.m + ' Min.';
+  var L = accUe(tag, M > 15 ? 4 : 3).map(function (a) { return UE[a.id].name; });
+  return 'Etwa ' + z.m + ' Min: ' + (M > 15 ? 'eine Kraftrunde mehr, längerer Abschluss und ' : '') + (L.length ? 'Accessory mit ' + L.join(', ') : 'kein Accessory, hier passt gerade keine Übung') + (+D._mehr > M ? '. Mehr als 90 Min plant dein Coach nicht.' : '.');
+}
 function adaptChanges(tag, run) {
   var D = DRAFTS[draftKey(tag)] || {}, out = [], B = +D._zeit || 0;
   if (isKurz0(tag) && D._kurz === '1') out.push(run ? 'lockerer Lauf' : 'leichter');
   if (B && !run) out.push('unter ' + B + ' Min');
+  if (!run && mehrOf(tag)) out.push(mehrOf(tag) + ' Min länger');
   if (run && D._flat === '1') out.push('flach statt Berg');
   if (D._ort && D._ort !== S.ort && trainOrt().id === D._ort) out.push('Ort ' + ortName(trainOrt()));
   return out;
@@ -10276,6 +10292,10 @@ ACT.adapt = function (el) {
       '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + [45, 30, 15].map(function (B) {
         var on = B === z0; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-zeit" data-z="' + B + '" aria-pressed="' + on + '">&lt; ' + B + ' Min</button>';
       }).join('') + '</div><p class="small muted ad-cut" style="margin:8px 0 0">' + esc(zeitText(tag, z0)) + '</p>', z0) : '') +
+    (!run && mehrAsk(tag) ? item('mehr', 'Ich habe mehr Zeit', 'Training verlängern, mit Accessory',
+      '<p class="small muted" style="margin:0 0 8px">Wie viel mehr?</p><div class="seg" role="group" aria-label="Mehr Zeit">' + [15, 30].map(function (M) {
+        var on = M === (+D._mehr || 0); return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="adapt-mehr" data-m="' + M + '" aria-pressed="' + on + '">+ ' + M + ' Min</button>';
+      }).join('') + '</div><p class="small muted ad-mehr" style="margin:8px 0 0">' + esc(mehrText(tag)) + '</p>', !!mehrOf(tag)) : '') +
     (!run && v2() && planOn() && wkPlanC().today >= 0 && wkPlanC().days[wkPlanC().today].tag === tag ? item('move', 'Training verschieben', 'Auf einen anderen Tag diese Woche', (function () {
       var O = moveOptions();
       return O.length ? '<p class="small muted" style="margin:0 0 8px">Dein Coach schlägt diese Termine vor:</p>' + O.map(function (o) {
@@ -10323,11 +10343,20 @@ ACT['adapt-int'] = function (el) {
 };
 // Keine Steigung: Bergsprints werden flache Sprints, nochmal tippen nimmt es zurück.
 ACT['adapt-flat'] = function (el) { var on = dr(S.tag)._flat !== '1'; setDraft('_flat', on ? '1' : ''); el.closest('.ad-it').classList.toggle('sel', on); render(); };
+// Mehr Zeit: gilt sofort, nochmal tippen = wieder normale Dauer; „wenig Zeit“ fällt dabei weg.
+ACT['adapt-mehr'] = function (el) {
+  var tag = S.tag, p = el.closest('.ad-p'), D = DRAFTS[draftKey(tag)] || {}, m = +D._mehr === +el.dataset.m ? 0 : +el.dataset.m;
+  p.querySelectorAll('.seg-btn').forEach(function (b) { var on = +b.dataset.m === m; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  setDraft('_mehr', m || ''); if (m && D._zeit) { setDraft('_zeit', ''); var z = document.querySelector('.ad-it[data-k="zeit"]'); if (z) { z.classList.remove('sel'); z.querySelectorAll('.seg-btn').forEach(function (b) { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); }); } }
+  el.closest('.ad-it').classList.toggle('sel', !!m);
+  p.querySelector('.ad-mehr').textContent = mehrText(tag); render();
+};
 // Zeit: gilt sofort, nochmal auf die gewählte Zeit tippen = wieder normale Dauer.
 ACT['adapt-zeit'] = function (el) {
   var tag = S.tag, p = el.closest('.ad-p'), D = DRAFTS[draftKey(tag)] || {}, z = +D._zeit === +el.dataset.z ? 0 : +el.dataset.z;
   p.querySelectorAll('.seg-btn').forEach(function (b) { var on = +b.dataset.z === z; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
-  setDraft('_zeit', z || ''); el.closest('.ad-it').classList.toggle('sel', !!z);
+  setDraft('_zeit', z || ''); if (z && dr(tag)._mehr) { setDraft('_mehr', ''); var mi = document.querySelector('.ad-it[data-k="mehr"]'); if (mi) mi.classList.remove('sel'); }
+  el.closest('.ad-it').classList.toggle('sel', !!z);
   p.querySelector('.ad-cut').textContent = zeitText(tag, z); render();
 };
 ACT['plan-wk'] = function (el) { ui.planDg = (ui.planDg || S.durchgang) + (+el.dataset.d); render(); };
@@ -11080,7 +11109,7 @@ function syncDays() {
 // Kraft: Anzahl der Runden (EMOM) oder Sätze je Übung.
 function kraftRounds(tag) {
   var kurz = isKurz(tag) || !!curPhase().taper;
-  if (v2()) { var r = umf().r, b = curPhase().blk; if (b === 'spitze' || b === 'erhalt') r = Math.max(3, r - 1); return kurz ? Math.min(3, r) : r; }
+  if (v2()) { var r = umf().r, b = curPhase().blk; if (b === 'spitze' || b === 'erhalt') r = Math.max(3, r - 1); if (mehrOf(tag) > 15) r++; return kurz ? Math.min(3, r) : r; }
   return (kurz ? 3 : 4) + (lvl() ? 1 : 0);
 }
 function metconMin(tag) {
@@ -11223,7 +11252,7 @@ var FIN_GEH_MAX = 20;
 function finOf(tag, zl) {
   var d = DAYS[tag]; if (!v2() || !d || d.type !== 'kraft') return null;
   if (zl == null) zl = tag === S.tag ? zeitLv(tag) : 0;
-  var U = umf(), p = curPhase(), kurz = isKurz(tag) || !!p.taper, f = d.finMax ? Math.min(U.f, d.finMax) : U.f, dev = finDev();
+  var U = umf(), p = curPhase(), kurz = isKurz(tag) || !!p.taper, f = (d.finMax ? Math.min(U.f, d.finMax) : U.f) + (mehrOf(tag) > 15 ? 6 : 0), dev = finDev();
   // Ohne Kardiogerät (zügig gehen): höchstens 20 Min. Mehr Gehen bringt kaum Reiz, der Umfang wächst dann über Kraft und Skill
   // (Prüfung 21. Oktober: zu Hause 36 Min Gehen in einer 78-Min-Einheit).
   if (dev.id === 'geh') f = Math.min(f, FIN_GEH_MAX);
@@ -11232,7 +11261,7 @@ function finOf(tag, zl) {
   var calm = kurz || p.deload || p.test || !grundOk() || morgenMild(tag) || zoneLegs(tag);
   if (kurz || p.deload) f = Math.max(6, 2 * Math.round(f * .3));
   // Schwerpunkt Kettlebell: B endet immer mit dem Kettlebell-Metcon (eine Challenge hat beim Abschluss Vorrang).
-  if (!calm && d.fin === 'b' && d.mmin && d.metcon.length && (S.durchgang % 2 || !dev.iv || (spKb() && !chal()))) return { k: 'metcon', min: d.mmin };
+  if (!calm && d.fin === 'b' && d.mmin && d.metcon.length && (S.durchgang % 2 || !dev.iv || (spKb() && !chal()))) return { k: 'metcon', min: d.mmin + (mehrOf(tag) > 15 ? 5 : 0) };
   var blk = p.blk;
   if (!calm && blk === 'spitze' && dev.iv && d.fin !== 'b') return { k: 'iv', min: f, n: f - 4, dev: dev }; // Spitze: kurz und intensiv
   if (!calm && d.fin === 'b' && dev.iv && blk === 'aufbau') return { k: 'steady', min: Math.min(f + 4, d.finMax || 99, dev.id === 'geh' ? FIN_GEH_MAX : 99), dev: dev }; // Aufbau: Kardio eher länger
@@ -11966,7 +11995,7 @@ function musLast(m) {
   var hit = function (id) { var u = UE[id]; return u && u.muskeln && (u.muskeln.primaer || []).indexOf(m) >= 0; }, d = null;
   LOGS.forEach(function (l) {
     if (!trainingLog(l) || (d && l.date <= d)) return;
-    var ids = (l.kraft || []).map(function (k) { return ueIdOf(k.n); }).concat(((l.metcon || {}).items || []).map(function (n) { return ueIdOf(n); }), l.ausgleich ? [l.ausgleich.ue] : []);
+    var ids = (l.kraft || []).map(function (k) { return ueIdOf(k.n); }).concat(((l.metcon || {}).items || []).map(function (n) { return ueIdOf(n); }), l.ausgleich ? [l.ausgleich.ue] : [], (l.acc || []).map(function (a) { return a.ue; }));
     if (ids.some(hit)) d = l.date;
   });
   if (!d) return '';
@@ -12090,6 +12119,7 @@ function musVol(logs, days) {
         l.metcon.items.forEach(function (nm) { add(ueOfEntry(nm, stg[nm]), Math.min(8, Math.max(1, l.metcon.rounds || 0)) / 2); });
       }
       if (l.ausgleich) add(l.ausgleich.ue, sets(l.ausgleich.reps));
+      (l.acc || []).forEach(function (a) { add(a.ue, sets(a.reps)); });
     } else if (l.kind === 'murph') { n++; ['Ring Pull-up', 'Push-up', 'Air Squat'].forEach(function (nm) { add(ueOfEntry(nm), 10); }); }
   });
   return { v: v, n: n };
@@ -12189,6 +12219,58 @@ function ausgleichStepHTML(A, D) {
   }
   var pn = A.pain ? '<p class="tl-x">' + esc(siteName(A.pain.t) + ' ' + PAIN_WN[A.pain.w] + ': heute ' + u.name + ' statt ' + UE[A.pain.from].name + '.') + '</p>' : '';
   return h + '</div>' + pn + '<p class="tl-x">Für ' + esc(MUS_NAME[A.m] || 'deinen Ausgleich') + ': ' + (A.m ? 'kam in den letzten 4 Wochen zu kurz.' : 'kommt gerade zu kurz.') + ' 60 s Pause zwischen den Sätzen.</p></section>';
+}
+
+// Mehr Zeit (Dennis, 26. Oktober: „Training verlängern“, dazu Accessory work wie im CrossFit): Heute anpassen › „Ich habe mehr Zeit“, nur heute.
+// +15 = Accessory am Ende (3 Übungen für Muskeln, die zu kurz kommen, im Wechsel), +30 = 4 Übungen, eine Kraftrunde mehr und ein längerer Abschluss.
+// Stufen und Vorgaben bleiben, der Umfang wächst dadurch nicht. Nie über 90 Min (+30 wird dann +15); nicht in Entlastung, Testwoche, Taper,
+// Kurzversion, mit „wenig Zeit“ oder wenn zwischen den Terminen nur eine Lücke frei ist. Das Zeitlimit gilt heute nicht (du hast mehr Zeit gesagt).
+function mehrOf(tag) {
+  var D = DRAFTS[draftKey(tag)] || {}, m = +D._mehr || 0; if (!m) return 0;
+  var d = DAYS[tag], p = curPhase();
+  if (!v2() || tag !== S.tag || !d || d.type !== 'kraft' || !(d.kraft || []).length || S.durchgang < 1 || p.deload || p.test || p.taper || +D._zeit || planFit(tag) || isKurz0(tag)) return 0;
+  return m > 15 && umfMin(umf()) + 4 + 30 > 90 ? 15 : m;
+}
+function accUe(tag, n) {
+  var B = musBalance(), d = DAYS[tag], have = haveEq(trainOrt()), st = ladderStates(LOGS), today = {}, hit = {}, out = [], got = {};
+  var zT = zoneToday(tag), zmu = zT && !zT.off ? zT.mu : [], A = ausgleichUe(tag);
+  (d.kraft || []).concat(d.metcon || []).forEach(function (k) { var id = ueOfEntry(k.n); if (id) today[id] = 1; });
+  if (A) today[A.id] = 1;
+  Object.keys(today).forEach(function (id) { ((UE[id] && UE[id].muskeln || {}).primaer || []).forEach(function (m) { hit[m] = 1; }); });
+  // Ziel: was zu kurz kommt, dann die Muskeln mit dem kleinsten Anteil am Soll; heute schon als Hauptmuskel trainierte zuletzt.
+  var tgt = B.need.concat(Object.keys(MUS_W).filter(function (m) { return B.need.indexOf(m) < 0; }).sort(function (a, b) { return (hit[a] || 0) - (hit[b] || 0) || (B.ratio[a] || 0) - (B.ratio[b] || 0); }));
+  var ok = Object.keys(UE).filter(function (id) {
+    var u = UE[id];
+    return u.muskeln && !AUSGL_OHNE[u.muster] && !TEMPO_KEYS[id] && !today[id] && (u.ermuedung || 0) <= 1 && (u.technik || 0) <= 2 &&
+      ['wdh', 'sek', 'kg'].indexOf(u.einheit) >= 0 && eqOk(u.equipment, have) && reqOk(u.voraussetzung, st) && !painBlocks(tag, id) && !zoneHitsUe(id, zmu).length;
+  });
+  // Erst nur Isolation (klassisches Accessory), dann auffüllen mit anderen leichten Übungen.
+  for (var pass = 0; pass < 2; pass++) for (var i = 0; i < tgt.length && out.length < n; i++) {
+    var m = tgt[i]; if (got[m]) continue;
+    var c = ok.filter(function (id) { return (pass || UE[id].muster === 'isolation') && out.every(function (x) { return x.id !== id; }) && (UE[id].muskeln.primaer || []).indexOf(m) >= 0; })
+      .sort(function (a, b) { return (UE[b].muster === 'isolation') - (UE[a].muster === 'isolation') || UE[b].nutzen - UE[a].nutzen; });
+    if (!c.length) continue;
+    var id = c[c[1] ? S.durchgang % 2 : 0], u = UE[id];
+    (u.muskeln.primaer || []).forEach(function (x) { got[x] = 1; });
+    out.push({ id: id, m: m, sek: u.einheit === 'sek', menge: '3 × ' + (u.einheit === 'sek' ? '30–45 s' : '10–15') + (u.seitig ? ' je Seite' : '') + (u.einheit === 'kg' ? ', leicht' : '') });
+  }
+  return out;
+}
+function accStep(tag) {
+  var M = mehrOf(tag); if (!M) return [];
+  var L = accUe(tag, M > 15 ? 4 : 3); if (!L.length) return [];
+  var min = 4 * L.length, nm = L.map(function (x) { return UE[x.id].name; });
+  return [{ id: 'acc', title: 'Accessory', sub: min + ' Min · ' + L.length + ' Übungen im Wechsel', dur: min, ri: 5, desc: nm.join(' · '),
+    timer: { mode: 'block', cfg: { minutes: min, label: 'Accessory', tag: tag }, label: min + ' Min starten', info: nm.join(' · ') },
+    body: function (D) { return accStepHTML(L, D); } }];
+}
+function accStepHTML(L, D) {
+  return '<section class="card acc-card"><p class="small muted" style="margin:0 0 6px">3 Runden: jede Übung einmal, dann 60 s Pause. Ruhig und sauber, 2 Wdh. vor Schluss aufhören.</p>' +
+    L.map(function (A, i) {
+      var u = UE[A.id];
+      return '<div class="acc-it">' + miniFig(A.id) + '<div class="acc-t"><b>' + esc(u.name) + '</b>' + fsI(u.name, A.id) + '<span class="small muted">' + esc(A.menge) + ' · für ' + esc(MUS_NAME[A.m] || A.m) + '</span></div></div>' +
+        cntRow('Je Satz', A.sek ? 'Sekunden' : 'Wiederholungen', 'ac' + i, D, A.sek ? 30 : 12, A.sek ? 5 : 1, A.sek ? ' s' : '');
+    }).join('') + '</section>';
 }
 
 /* ---------- Block: Fortschritt, Ende und Rückblick ---------- */
@@ -12366,6 +12448,7 @@ function exportCSV() {
     else if (l.hs) add('Skill', 'Handstand', l.hs.split(' · ')[0], '', (/(\d+)\s*s$/.exec(l.hs) || [])[1] || '', 's', '');
     if (l.jump) add('Sprünge', LAD[l.jump.lad] ? LAD[l.jump.lad].name : l.jump.lad, l.jump.stage, '', l.jump.ok ? 'sauber' : '', '', '');
     if (l.ausgleich) (l.ausgleich.reps || []).forEach(function (v, r) { if (v != null) add('Ausgleich', UE[l.ausgleich.ue] ? UE[l.ausgleich.ue].name : l.ausgleich.ue, '', r + 1, v, '', ''); });
+    (l.acc || []).forEach(function (a) { (a.reps || []).forEach(function (v, r) { if (v != null) add('Accessory', UE[a.ue] ? UE[a.ue].name : a.ue, '', r + 1, v, '', ''); }); });
     var run = l.run || l.interval;
     if (run) { add(l.kind === 'interval' ? 'Kardio intensiv' : 'Kardio', run.ergo ? 'Ergometer' : 'Laufen', '', '', run.sec ? fmtDur(run.sec) : '', 'Dauer', '');
       if (run.km) add('', '', '', '', String(run.km).replace('.', ','), 'km', ''); if (run.hr) add('', '', '', '', run.hr, 'Puls Ø', ''); if (run.watt) add('', '', '', '', run.watt, 'Watt', ''); }

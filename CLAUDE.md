@@ -517,6 +517,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nochmal = gut. Entwurf `_kc`; `kcSet` setzt je Kraftplatz den Schmerz-Entwurf `_pk<i>` (Kater nur bei Hauptmuskel, `w` 'k' = Übung bleibt,
   nicht gemerkt; Schmerz = Ampel mit Ersatz, gemerkt über `painSave`), eigene Meldungen an der Übung bleiben (`_kcs`). Im Eintrag `kc`.
   Kater zählt nicht als Leistungssignal (`sigOf`).
+- Mehr Zeit und Accessory (Dennis, 26. Oktober: „ein Training verlängern“, „Accessory work, Muskelgruppen, die normalerweise zu kurz kommen“):
+  Heute anpassen › „Ich habe mehr Zeit“ (`mehrAsk`, `.seg` + 15 | + 30 Min, `ACT['adapt-mehr']`, Entwurf `_mehr`, nur heute; schließt „wenig Zeit“ `_zeit` aus,
+  Satz `mehrText`, „Angepasst: 15 Min länger“). `mehrOf(tag)`: nur Plan 2, Krafttag, nicht Entlastung/Testwoche/Taper/Kurzversion, nicht mit `planFit`;
+  +30 wird +15, wenn es über 90 Min ginge; das Zeitlimit `S.zeitMax` gilt dann heute nicht (`zeitLv`). +15 = Schritt „Accessory“ am Ende (`accStep`, Id `acc`,
+  Härte 5): 3 Übungen im Wechsel, je 3 Sätze, 4 Min je Übung (`accUe`: erst Isolation, dann leichte Übungen wie im Ausgleich; Ziel `musBalance().need`, dann
+  der kleinste Anteil am Soll, heute schon trainierte Hauptmuskeln zuletzt; nicht die Übungen von heute, nicht auf Schmerz oder müder Zone). +30 = 4 Übungen,
+  eine Kraftrunde mehr (`kraftRounds`) und ein längerer Abschluss (+6 Min, Metcon +5). Zähler „Je Satz“ (`ac<i>`), gespeichert als `acc: [{ue, reps}]` und
+  `mehr` im Kraft-Eintrag; zählt im Muskelausgleich, in den Zonen, im Verlauf, in der Tabelle und in „Heute zum ersten Mal“. Stufen und Umfang bleiben.
 - Zeit unter Spannung statt fehlender Last (Dennis, Paket 61, Variante T3): `coachStage` = `coachStage0` plus Ort. Fehlt am Ort das Gerät der Stufe
   (z. B. Weste unterwegs), nimmt der Coach die höchste Stufe darunter, die dort geht, mit Tempo (`cs.tpo`, `tpoOf`): 1 Stufe darunter 3·1·1, ab 2 Stufen
   4·1·1 (runter · unten halten · hoch in s, `tpoBase`); mit Tempo alle Runden geschafft → nächstes Mal 5·2·1, danach 1½ Wdh. (`TPO_LV`, nach 28 Tagen

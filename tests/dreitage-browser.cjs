@@ -10,6 +10,7 @@ let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
   notice: () => { MOMENTS = []; var o = document.getElementById('moment'); if (o) o.remove(); chainNotice(); o = document.getElementById('moment'); return o ? o.innerText : ''; },
+  saveNow: () => { saveDay(); var M = document.getElementById('moment'); if (M) M.remove(); MOMENTS = []; return LOGS[LOGS.length - 1]; },
   chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk(), bank: C.bank, pend: C.pend, jk: S.chainJk }; },
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
@@ -632,6 +633,37 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.locator('.mv1 .medal.md').count(), 5, 'fünf geprägte Medaillen');
     assert.match(await page.locator('.mv1 .m-cell').first().getAttribute('aria-label'), /^Ausdauer, /);
     console.log('PASS: Wochen-Kette: gehalten nach Ziel, 15-Minuten-Rettung, Joker, Pause, Riss; Erfolge mit Ringen und geprägten Medaillen');
+
+    // Mehr Zeit (Dennis, 26. Oktober): Heute anpassen › „Ich habe mehr Zeit“, +15 = Accessory, +30 = dazu eine Kraftrunde und längerer Abschluss.
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:00+02:00'));
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { zeitMax: 45 }), chLogs]);
+    const stp = () => page.evaluate(() => window.tpTest.steps().map(s => ({ id: s.id, dur: s.dur || 0, opt: s.opt })));
+    const sum = L => L.reduce((a, s) => a + (s.opt ? 0 : s.dur), 0);
+    const mz0 = await stp();
+    assert.ok(!mz0.some(s => s.id === 'acc'), 'ohne Wunsch kein Accessory');
+    await page.getByRole('button', { name: 'Heute anpassen' }).click();
+    await page.locator('#sheet .ad-it[data-k="mehr"] .gl-row').click();
+    await page.locator('#sheet [data-act="adapt-mehr"][data-m="15"]').click();
+    let mz1 = await stp(), acc = mz1.find(s => s.id === 'acc');
+    assert.ok(acc && acc.dur === 12, 'Accessory mit 3 Übungen, 12 Min');
+    assert.equal(sum(mz1) - sum(mz0), 12, 'nur das Accessory kommt dazu, das Zeitlimit gilt heute nicht');
+    assert.match(await page.locator('#sheet .ad-mehr').innerText(), /Accessory mit /);
+    await page.locator('#sheet [data-act="adapt-mehr"][data-m="30"]').click();
+    let mz2 = await stp(), k0 = mz0.find(s => s.id === 'kraft'), k2 = mz2.find(s => s.id === 'kraft');
+    assert.equal(mz2.find(s => s.id === 'acc').dur, 16, '+30: vier Übungen');
+    assert.ok(k2.dur > k0.dur, '+30: eine Kraftrunde mehr');
+    assert.ok(sum(mz2) - sum(mz0) >= 22 && sum(mz2) - sum(mz0) <= 32, '+30: etwa eine halbe Stunde mehr (' + (sum(mz2) - sum(mz0)) + ')');
+    await page.locator('#sheet .ad-it[data-k="zeit"] .gl-row').click();
+    await page.locator('#sheet [data-act="adapt-zeit"][data-z="45"]').click();
+    assert.ok(!(await stp()).some(s => s.id === 'acc'), 'wenig Zeit nimmt mehr Zeit zurück');
+    await page.locator('#sheet .ad-it[data-k="mehr"] .gl-row').click();
+    await page.locator('#sheet [data-act="adapt-mehr"][data-m="15"]').click();
+    await page.keyboard.press('Escape'); await page.evaluate(() => { const s = document.getElementById('sheet'); if (s) s.remove(); });
+    assert.match(await page.locator('.adj').innerText(), /15 Min länger/);
+    const sv = await page.evaluate(() => window.tpTest.saveNow());
+    assert.equal(sv.acc.length, 3); assert.deepEqual(sv.acc[0].reps.length, 3); assert.equal(sv.mehr, 15);
+    await page.clock.setFixedTime(new Date('2026-11-12T09:00:00+01:00'));
+    console.log('PASS: Mehr Zeit: +15 Accessory, +30 dazu Kraftrunde und Abschluss, wenig Zeit hebt es auf, Accessory gespeichert');
 
     // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(old(), { planV: 2, tag: 1, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe', 'eq_band'] }], ort: 'o1' }), logs()]);
