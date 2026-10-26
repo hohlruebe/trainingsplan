@@ -52,6 +52,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Training verschieben (Heute anpassen › „Training verschieben“, `moveOptions`, `ACT['mv-go']`): der Coach rechnet jeden späteren Tag dieser
   Woche durch (heute `off` mit `reason: 'moved'`, Ziel `planOv.pin`) und bietet bis zu 3 Termine an; Wegfall einer anderen Einheit steht dabei.
   Der Entwurf bleibt (gleicher Schlüssel). Nur innerhalb der Woche.
+  Gemerkter Plan (Dennis, 26. Oktober: Sonntag ausgefallen, Montag frei, A und B Di/Mi direkt hintereinander): `wkPlan0` gibt +50 nur für Tage,
+  die in dieser Woche schon so geplant waren (Merkzettel `planDays` mit `ts` ab Montag) oder heute; eine Vorschau aus der Woche davor plant der
+  Coach neu (sonst rutscht ohne Bonus eine Einheit Tag für Tag nach hinten, das hält die Langzeit-Prüfung fest). Vorziehen: an einem freien Tag
+  zeigt „Für deinen freien Tag“ oben „Heute trainieren“ (`pullOption`: nächste Einheit der Woche, nur wenn sie heute passt, Uhrzeit und was
+  wegfällt), `ACT['pull-today']` setzt `planOv[heute] = {pin, pull, was, unpin}` (`pullOv`: ein früheres Verschieben derselben Einheit auf
+  später fällt weg); Rückweg Heute anpassen › „Doch nicht vorziehen“ (`ACT['pull-undo']`, stellt den gemerkten Tag und den Termin wieder her).
   Zusatztag (`zusatzDay` auf Tag 2, `zusatzWhy`, `zusatzPlace`, `zusatzNow`, `zusatzCardHTML`, Seite `zusatz` `renderZusatz`, `S.zusatz`):
   Vorschlag nur mit Grund (Testwoche oder fehlender Kardio-Test → Kardio-Test 5 km bzw. Rampe, `d.ktest`; Challenge; weniger als 45 Min
   Ausdauer in der Woche, `wkCardioMin`) und nur wenn A, B, C Platz haben, ohne akute Beschwerde, Müdigkeit oder Wiedereinstieg, nicht im Einstieg.
