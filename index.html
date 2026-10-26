@@ -5961,7 +5961,11 @@ function wkPlan0(mon) {
         var gap = 0;
         // Split (ab 4 Tagen): drei Krafttage in Folge sind erlaubt, jeder Tag belastet eine andere Zone.
         if (v2()) { if (hardOn(j - 1, acc) && hardOn(j - 2, acc) && (!splitOn() || hardOn(j - 3, acc))) continue; gap = (hardOn(j - 1, acc) ? 0 : 3) - (days[j].cls === 'light' ? 8 : 0); }
-        var old = (S.planDays || {})[days[j].date], stable = old && old.tag === t && (old.pv || 1) === (S.planV || 1) ? 50 : 0;
+        // Was der Coach in dieser Woche schon geplant hat, bleibt (sonst rutscht eine Einheit Tag für Tag nach hinten). Eine Vorschau aus
+        // der Woche davor zählt nicht (Dennis, 26. Oktober: der Plan vom 20. hielt A und B auf Di/Mi fest, obwohl Montag nach dem Ausfall
+        // am Sonntag frei war und zwei Einheiten direkt hintereinander lagen). Heute bleibt immer, was schon geplant war.
+        var old = (S.planDays || {})[days[j].date], fresh = old && (days[j].date === today || (old.ts || 0) >= parseISO(mon).getTime());
+        var stable = fresh && old.tag === t && (old.pv || 1) === (S.planV || 1) ? 50 : 0;
         if (days[j].pin === t) gap += 200; // verschoben: die Einheit gehört an diesen Tag
         gap += zonePen(j, t, prevT);
         acc.push({ i: j, t: t }); go(k + 1, j + 1, t, acc, score + stable + gap + (slot(j, t).sc != null ? slot(j, t).sc : 5) + (days[j].cls === 'ok' ? 2 : 0)); acc.pop();
@@ -7939,8 +7943,30 @@ function kcHTML(tag) {
 ACT.kc = function (el) { var o = kcState(S.tag), m = el.dataset.m, z = o[m]; if (!z) o[m] = { v: 'k', w: 'm' }; else if (z.v === 'k') z.v = 's'; else delete o[m]; kcSet(S.tag, o); haptic('tap'); render(); };
 ACT['kc-w'] = function (el) { var o = kcState(S.tag); if (o[el.dataset.m]) o[el.dataset.m].w = el.dataset.v; kcSet(S.tag, o); render(); };
 // Freier Tag (Plan 2): Ruhetag-Routine und Kurz-Check als zwei Zeilen in einer Karte, beides freiwillig. Der Kurz-Check klappt darunter auf.
+// Vorziehen (Dennis, 26. Oktober: „dass der User ein Training auf den heutigen Tag vorziehen kann“): heute frei, die nächste Einheit
+// dieser Woche passt heute noch (Zeit, Schlaf, Erholung) → als Angebot. Gerechnet wie beim Verschieben, nur mit Pin auf heute.
+function pullOption() {
+  var P = wkPlanC(); if (!v2() || !P || P.today < 0 || doneToday0()) return null;
+  var d0 = P.days[P.today]; if (d0.tag || d0.off || d0.cls === 'none') return null;
+  var nx = P.days.filter(function (x) { return x.i > P.today && x.tag && !x.done && !(DAYS[x.tag] && DAYS[x.tag].zusatz); })[0]; if (!nx) return null;
+  var keep = S.planOv;
+  try {
+    S.planOv = pullOv(keep, d0.date, nx.tag, nx.date);
+    var Q = wkPlan(), d = Q.days[P.today];
+    if (d.tag !== nx.tag || d.t == null) return null;
+    return { tag: nx.tag, from: nx, t: d.t - 24 * P.today, lost: Q.dropped.filter(function (x) { return P.dropped.indexOf(x) < 0; }) };
+  } finally { S.planOv = keep; }
+}
+// Pin auf heute; ein früheres „Verschieben“ derselben Einheit auf einen späteren Tag dieser Woche fällt dabei weg.
+function pullOv(ov0, today, tag, from, was) {
+  var ov = Object.assign({}, ov0 || {}), end = isoAdd(wkMon(today), 6), un = [];
+  Object.keys(ov).forEach(function (dt) { if (dt > today && dt <= end && ov[dt].pin === tag) { un.push(dt); ov[dt] = Object.assign({}, ov[dt]); delete ov[dt].pin; if (!Object.keys(ov[dt]).length) delete ov[dt]; } });
+  ov[today] = { pin: tag, pull: from }; if (was !== undefined) ov[today].was = was; if (un.length) ov[today].unpin = un;
+  return ov;
+}
 function freeDayHTML(rrt) {
-  var i = rcIdx(), k = i >= 0 ? MOB.check.leitern[i] : null, rows = [];
+  var i = rcIdx(), k = i >= 0 ? MOB.check.leitern[i] : null, rows = [], po = pullOption();
+  if (po) rows.push(valRow('Heute trainieren', hm(po.t), 'data-act="pull-today"', { sub: dayLabel(po.tag) + ' statt ' + WTAG[po.from.i] + (po.lost.length ? ', ' + po.lost.map(dayLabel).join(', ') + ' fällt weg' : '') }));
   if (rrt) rows.push(valRow(rrt.name, doneToday(rrt.id) ? TICK + 'gemacht' : routineMin(rrt) + ' Min', 'data-act="r-open" data-v="' + rrt.id + '"', { sub: 'Mobility · ' + rrt.bloecke.length + ' Übungen' }));
   if (k) rows.push(valRow('Kurz-Check', '1 Min', 'data-act="rc-open" aria-expanded="' + !!ui.rcOpen + '"', { sub: LAD[k] ? LAD[k].name : 'Beweglichkeit' }));
   if (!rows.length) return '';
@@ -10209,6 +10235,7 @@ ACT.adapt = function (el) {
         return '<button type="button" class="btn block" style="margin-top:6px" data-act="mv-go" data-d="' + o.date + '">' + WTAG[o.i] + ', ' + hm(o.t) + (o.lost.length ? ' · ' + esc(o.lost.map(dayLabel).join(', ')) + ' fällt weg' : '') + '</button>';
       }).join('') + '<p class="small muted" style="margin:8px 0 0">Dein Zwischenstand bleibt erhalten.</p>' : '<p class="small muted" style="margin:0">Diese Woche passt kein anderer Termin, ohne dass die Erholung zu kurz kommt. Mit „Heute nicht“ plant dein Coach die Woche neu.</p>';
     })(), false) : '') +
+    (!run && v2() && (S.planOv || {})[isoToday()] && S.planOv[isoToday()].pull ? '<div class="gl-item ad-it" data-k="unpull">' + row('unpull', 'Doch nicht vorziehen', 'Zurück auf ' + WTAG[(parseISO(S.planOv[isoToday()].pull).getDay() + 6) % 7], CH, 'pull-undo') + '</div>' : '') +
     (!run && v2() && planOn() && wkPlanC().today >= 0 && wkPlanC().days[wkPlanC().today].tag === tag ? '<div class="gl-item ad-it" data-k="time">' + row('time', 'Andere Uhrzeit', 'Heute zu einer anderen Zeit', CH, 'adapt-time') + '</div>' +
       '<div class="gl-item ad-it" data-k="off">' + row('off', 'Heute nicht', 'Dein Coach plant die Woche neu', CH, 'adapt-off') + '</div>' : '') +
     (orteOn().length > 1 ? item('ort', 'Ich trainiere woanders', 'Nur heute, die Übungen passen sich an',
@@ -10259,6 +10286,20 @@ ACT['pw-sel'] = function (el) { ui.pwSel = el.dataset.d; render(); };
 ACT['ld-open'] = function (el) { ui.ldOpen = el.getAttribute('aria-expanded') !== 'true'; render(); };
 ACT['pw-nav'] = function (el) { var m = isoAdd(ui.pwMon || wkMon(), 7 * +el.dataset.d); ui.pwMon = m === wkMon() ? null : m; ui.pwSel = null; render(); };
 // Befinden: Müde = Kurzversion für heute, Sehr müde = heute frei (die Woche wird neu geplant), Erholt = wie geplant.
+ACT['pull-today'] = function () {
+  var po = pullOption(); if (!po) return render();
+  // Der gemerkte Plan von heute kommt mit, damit „Doch nicht vorziehen“ ihn wiederherstellt (sonst hielte der Heute-Bonus die Einheit fest).
+  var today = isoToday(), was = (S.planDays || {})[today]; S.planOv = pullOv(S.planOv, today, po.tag, po.from.date, was ? Object.assign({}, was) : null);
+  WKP_C.k = null; saveState(); render(); window.scrollTo(0, 0);
+  toast(dayLabel(po.tag) + ' heute um ' + hm(po.t) + '. ' + WTAG[po.from.i] + ' ist jetzt frei.');
+};
+ACT['pull-undo'] = function () {
+  var today = isoToday(); if (!S.planOv || !S.planOv[today] || !S.planOv[today].pull) return;
+  var was = S.planOv[today].was, un = S.planOv[today].unpin || [], tag = S.planOv[today].pin; S.planOv = Object.assign({}, S.planOv); delete S.planOv[today];
+  un.forEach(function (dt) { S.planOv[dt] = Object.assign({}, S.planOv[dt] || {}, { pin: tag }); });
+  S.planDays = Object.assign({}, S.planDays || {}); if (was) S.planDays[today] = Object.assign({}, was, { ts: Date.now() }); else S.planDays[today] = { tag: null, dg: S.durchgang, time: null, ts: Date.now(), pv: S.planV || 1, n: null };
+  WKP_C.k = null; closeSheet(); saveState(); render(); window.scrollTo(0, 0); toast('Wieder wie vorher geplant.');
+};
 ACT['mv-go'] = function (el) {
   var P = wkPlanC(), today = P.days[P.today].date, dt = el.dataset.d;
   S.planOv = Object.assign({}, S.planOv || {}); S.planOv[today] = { off: 1, reason: 'moved' }; S.planOv[dt] = Object.assign({}, S.planOv[dt] || {}, { pin: S.tag });
