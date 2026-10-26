@@ -9,7 +9,7 @@ let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
-  chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk() }; },
+  chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk(), bank: C.bank, pend: C.pend, jk: S.chainJk }; },
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
   set: (s, logs) => { S = Object.assign({}, DEF, s); if (!('morgen' in s)) { S.morgen = {}; for (var q = 0; q < 120; q++) S.morgen[isoAdd('2026-09-01', q)] = { h: 8, f: 4, ts: 1 }; } // Guten Morgen gilt im Test als beantwortet
@@ -589,14 +589,36 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Gehalten mit der zweiten Einheit; Krank ist Pause, eine leere Woche ohne Grund kostet den Joker, die nächste reißt die Kette.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [chSt, chLogs.concat([kx('c9', '2026-10-14', 3, [5, 5, 5, 5])])]);
     assert.equal((await page.evaluate(() => window.tpTest.chain())).st[2], 'held');
-    await page.clock.setFixedTime(new Date('2026-11-12T09:00:00+01:00'));
-    await page.evaluate(a => window.tpTest.set(Object.assign({}, a[0], { planWk: '2026-11-09', planMiss: { '2026-10-28': { status: 'missed', reason: 'ill', ts: 1 } } }), a[1]), [chSt, chLogs.concat([kx('c9', '2026-10-14', 3, [5, 5, 5, 5])])]);
+    // Joker (Dennis, 26. Oktober): verdient mit 4 geschafften Wochen, nur von Hand eingesetzt bis Sonntag der Woche danach.
+    const jkLogs = chLogs.concat(['2026-09-21', '2026-09-23', '2026-09-25', '2026-10-14', '2026-10-16'].map((d, i) => kx('j' + i, d, [1, 3, 6][i % 3], [5, 5, 5, 5])));
+    const jkSt = Object.assign({}, chSt, { planWk: '2026-10-26', planOv: {} });
+    await page.clock.setFixedTime(new Date('2026-10-28T09:00:00+01:00'));
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [jkSt, chLogs]);
     wc = await page.evaluate(() => window.tpTest.chain());
-    assert.deepEqual(wc.st, ['full', 'full', 'held', 'joker', 'pause', 'miss', 'open'], 'Joker, dann Pause wegen Krankheit, dann Riss');
+    assert.deepEqual(wc.st, ['full', 'full', 'miss', 'miss', 'open'], 'ohne verdienten Joker reißt die Kette, nichts geschieht von selbst');
+    assert.equal(wc.n, 0);
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [jkSt, jkLogs]);
+    wc = await page.evaluate(() => window.tpTest.chain());
+    assert.deepEqual(wc.st, ['full', 'full', 'full', 'full', 'pend', 'open'], 'vier geschaffte Wochen: Joker verdient, letzte Woche offen');
+    assert.equal(wc.n, 4); assert.equal(wc.bank, 1);
+    assert.match(await page.locator('.ch-row').innerText(), /letzte Woche fehlt, Joker in Erfolge/);
+    await page.evaluate(() => window.tpTest.profile('erfolge'));
+    assert.match(await page.locator('.ch-card').innerText(), /hat nicht gereicht/);
+    await page.locator('[data-act="chain-jk"]').click();
+    wc = await page.evaluate(() => window.tpTest.chain());
+    assert.deepEqual(wc.st.slice(-2), ['joker', 'open'], 'von Hand eingesetzt'); assert.equal(wc.n, 4); assert.equal(wc.bank, 0);
+    assert.equal(await page.locator('.ch-card .cr.joker .jk').count(), 1, 'Joker als Schild');
+    assert.match(await page.locator('.ch-card').innerText(), /4 geschafften Wochen verdienst du einen neuen/);
+    const jkUsed = (await page.evaluate(() => window.tpTest.chain())).jk;
+    // Nicht eingesetzt: nach Sonntag der Woche danach reißt die Kette. Krank ist Pause.
+    await page.clock.setFixedTime(new Date('2026-11-12T09:00:00+01:00'));
+    await page.evaluate(a => window.tpTest.set(Object.assign({}, a[0], { planWk: '2026-11-09' }), a[1]), [jkSt, jkLogs]);
+    assert.deepEqual((await page.evaluate(() => window.tpTest.chain())).st.slice(4), ['miss', 'miss', 'miss', 'open'], 'zu spät: kein Joker mehr');
+    await page.evaluate(a => window.tpTest.set(Object.assign({}, a[0], { planWk: '2026-11-09', chainJk: a[2], planMiss: { '2026-10-28': { status: 'missed', reason: 'ill', ts: 1 } } }), a[1]), [jkSt, jkLogs, jkUsed]);
+    wc = await page.evaluate(() => window.tpTest.chain());
+    assert.deepEqual(wc.st.slice(4), ['joker', 'pause', 'miss', 'open'], 'Joker, dann Pause wegen Krankheit, dann Riss');
     assert.equal(wc.n, 0);
     await page.evaluate(() => window.tpTest.profile('erfolge'));
-    assert.equal(await page.locator('.ch-card .cr').count(), 7, 'eine Woche je Ring');
-    assert.equal(await page.locator('.ch-card .cr.joker .jk').count(), 1, 'Joker als Schild');
     assert.equal(await page.locator('.mv1 .medal.md').count(), 5, 'fünf geprägte Medaillen');
     assert.match(await page.locator('.mv1 .m-cell').first().getAttribute('aria-label'), /^Ausdauer, /);
     console.log('PASS: Wochen-Kette: gehalten nach Ziel, 15-Minuten-Rettung, Joker, Pause, Riss; Erfolge mit Ringen und geprägten Medaillen');
