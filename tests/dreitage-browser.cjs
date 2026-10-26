@@ -180,26 +180,12 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Befinden nach der Nacht (Montag Nachtdienst, danach nur 12-h-Dienste, A heute nach der Nacht): Müde = kürzer, Sehr müde = heute frei.
     const T12 = { k: 't', a: 6, b: 18 };
     const night = Object.assign(v2s(), { alltag: { on: true, bed: 22.5, wake: 6.5, schicht: true, weg: 0 }, arbeit: { '2026-10-12': [{ k: 'n', a: 22, b: 6 }, null, T12, T12, T12, T12, T12] } });
-    // Guten Morgen (Paket 59): jeden Tag, nur das Gefühl als Kapsel; der Coach entscheidet daraus.
+    // Guten Morgen ist weg (Dennis, 26. Oktober): auch nach dem Nachtdienst keine Karte, der Ablauf steht wie geplant.
     const nightM = Object.assign({}, night, { morgen: {} });
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [nightM, logs()]);
-    const m0 = await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0));
-    assert.ok(await page.locator('.mg .chip', { hasText: 'Nach dem Nachtdienst' }).isVisible(), 'Guten Morgen mit Anlass');
-    assert.equal(await page.locator('.pn-ask').count(), 0, 'höchstens eine Frage');
-    assert.equal(await page.locator('.mg [data-act="mg-f"].on').count(), 0, 'nichts vorgewählt');
-    assert.equal(await page.locator('[data-act="mg-ok"]').count(), 0, 'kein „Fertig“: ein Tippen auf das Gefühl ist die Antwort');
-    await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
-    assert.match(await page.locator('.mg-row').innerText(), /Kurzversion/);
-    assert.ok(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)) < m0, 'platt: kürzere Einheit');
-    assert.ok(await page.getByText('Heute kürzer, weil du müde bist.').isVisible(), 'die Folge steht unter dem Titel');
-    assert.match(await page.locator('.mg-row').innerText(), /Gefühl platt/);
-    assert.equal(await page.locator('[data-act="mg-off"]').count(), 0, 'kein „Heute frei nehmen“ mehr');
-    await page.locator('[data-act="mg-edit"]').click(); // bleibt änderbar
-    assert.equal(await page.locator('.mg [data-act="mg-h"], .mg-tile').count(), 0, 'keine Schlafstunden mehr (Dennis, 25. Oktober)');
-    await page.locator('.mg [data-act="mg-f"][data-v="4"]').click();
+    assert.equal(await page.locator('.mg, .mg-row').count(), 0, 'kein Guten Morgen');
     assert.ok(await page.getByRole('heading', { name: 'Ganzkörper A', level: 1 }).isVisible());
-    assert.equal(await page.evaluate(() => window.tpTest.steps().reduce((a, s) => a + (s.opt ? 0 : s.dur || 0), 0)), m0, 'gut: wie geplant');
-    console.log('PASS: Guten Morgen nach dem Nachtdienst: Kurzversion, änderbar, ohne Schlafstunden');
+    console.log('PASS: kein Guten Morgen nach dem Nachtdienst');
 
     // Verschieben: Heute anpassen › Training verschieben › Vorschlag des Coachs.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
@@ -409,20 +395,12 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await kr(), /^4 Runden/, 'eine Einheit ohne Signal setzt zurück');
     console.log('PASS: Leistung als Signal, nächste Einheit kürzer, Rückweg und Zurücksetzen');
 
-    // Bereitschaft nur bei Anlass (Paket 59): ein Signal in der letzten Einheit, kurze Nacht zwischen Spät und Früh.
+    // Guten Morgen ist weg (Dennis, 26. Oktober): auch mit Anlass keine Karte, Heute bleibt wie geplant.
     const oneSig = [kx('s1', '2026-09-28', 1, [5, 5, 5, 5]), kx('s2', '2026-09-30', 3, [5, 5, 5, 5]), kx('s3', '2026-10-09', 6, [5, 5, 5, 5]), kx('s4', '2026-10-12', 1, [5, 4, 3, 3])];
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, sigSt, { morgen: {} }), oneSig]);
-    assert.ok(await page.locator('.mg .chip', { hasText: 'Letzte Einheit schwer' }).isVisible(), 'ein Signal: Anlass am Guten Morgen');
-    assert.match(await kr(), /^4 Runden/, 'ohne Antwort bleibt alles wie geplant');
-    await page.locator('.mg [data-act="mg-f"][data-v="1"]').click();
-    assert.match(await kr(), /^3 Runden/, 'platt = Kurzversion');
-    const shortN = Object.assign({}, sigSt, { morgen: {}, alltag: { on: true, schicht: true, bed: 22.5, wake: 6.5 }, arbeit: { '2026-10-12': [null, { k: 's', a: 14, b: 22 }, { k: 'f', a: 6, b: 14 }, null, null, null, null] } });
-    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [shortN, sigLogs.slice(0, 2)]);
-    const ch = page.locator('.mg .chip', { hasText: 'Kurze Nacht' });
-    assert.ok(await page.evaluate(() => window.tpTest.plan().days[2].tag), 'Mittwoch bleibt ein Trainingstag (nach dem Frühdienst)');
-    assert.ok(await ch.isVisible(), 'Spät auf Früh: der Coach fragt nach');
-    assert.doesNotMatch(await page.locator('.mg').first().innerText(), /Laut Plan|Geschlafen/);
-    console.log('PASS: Guten Morgen mit Anlass: letzte Einheit schwer, kurze Nacht, platt kürzt');
+    assert.equal(await page.locator('.mg, .mg-row').count(), 0, 'kein Guten Morgen mehr');
+    assert.match(await kr(), /^4 Runden/, 'ein Signal allein ändert nichts');
+    console.log('PASS: kein Guten Morgen, auch mit Anlass');
 
     // Paket 61: Zeit unter Spannung. Unterwegs ohne Weste: Stufe darunter mit Tempo, fehlendes Muster mit Körpergewicht und Tempo, Taktgeber.
     const reise = Object.assign(v2s(), { ort: 'o2', sound: false, orte: [{ id: 'o1', k: 'zuhause', on: 1, zh: 1, lf: 1, fa: 1, eq: ['eq_zuhause', 'eq_weste', 'eq_klimmzug', 'eq_ringe'] }, { id: 'o2', k: 'reise', on: 1, zh: 1, lf: 1, fa: 1, eq: [] }] });

@@ -108,7 +108,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   bereits über „Heute nicht“ beantwortete Termine werden unterschieden. Gründe: Zeit, müde, verkatert, krank, Beschwerden, nur Eintrag fehlt.
   `planMiss` speichert Antworten je Datum, `planCare` die aktuelle Rückfrage zur Erholung, `planStart` den Beginn/Modus der Erkennung.
   Alle neuen Felder sind in `DEF` und `SYNC_KEYS`. Snapshots und Antworten werden beim Sync je Datum nach `ts` zusammengeführt.
-  Erschöpft/verkatert/keine Zeit = heute frei, Befinden am Folgetag erneut; krank/Beschwerden pausiert die Planung bis zur ausdrücklichen
+  Erschöpft/verkatert/keine Zeit = heute frei, Befinden am Folgetag erneut (nur Plan 1; Plan 2 fragt nicht nach, nur Krank/Beschwerden pausieren); krank/Beschwerden pausiert die Planung bis zur ausdrücklichen
   Antwort „Erholt, beschwerdefrei und Zeit“. Das ist keine medizinische Freigabe. Leichteres Training bleibt im vorhandenen „Heute anpassen“.
   Mit Wochenplanung: bekannte Termine bevorzugen, letzte tatsächliche Einheit auch über Sonntag/Montag prüfen; ausgefallene Typen der letzten
   7 Tage zuerst berücksichtigen, höchstens einmal je Typ in der Woche (kein zusätzliches Nachholvolumen). Schichten, Schlaf und vorhandene
@@ -507,13 +507,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Einheit zur Kurzversion (in `isKurz0`, Grund in `heuteSub`), Rückweg in Heute anpassen (Karte `.ad-sig`, `ACT['sig-full']`: `_kurz` '0', „Doch kürzer“
   gibt zurück). Eine Einheit ohne Signal setzt zurück. `sigHold` (gekürzt oder 2 Einheiten mit Signal in 14 Tagen) hält `umfGrow` und den Zusatz.
   Signale stehen unter „Was dein Coach daraus macht“ (`outlookHTML`, auch für Läufe). Nichts wird gespeichert, alles aus den Einheiten berechnet.
-- Guten Morgen und Körper-Check (Dennis, Paket 59, Variante S3 und K1; Ruhepuls und Tracker bewusst nicht): jeden Tag auf Heute die Karte „Guten Morgen“
-  (`morgenAskHTML` als erste Frage in `heuteAskHTML`): nur das Gefühl als Kapsel Platt | Müde | Okay | Gut | Top (`MG_F`, `mg-f`). Schlafstunden gibt es nicht
-  mehr (Dennis, 25. Oktober: „gibt eher eine Ausrede als einen Nutzen“; kein `mg-h`, `morgenSleep`, `mg-off`, keine Zonen-Wirkung). `S.morgen {Datum: {f, ts}}`
-  (in `DEF`/`SYNC_KEYS`, je Datum zusammengeführt; alte Einträge mit `h` bleiben gültig, `h` wird nicht mehr gelesen). Danach eine Zeile „Guten Morgen · Gefühl okay“ mit
-  „Ändern“ (`morgenRowHTML`, `mg-edit`). Chip mit Anlass aus `befDue`/`befAnlass` (Nachtdienst, Schichtwechsel, Kurze Nacht, Letzte Einheit schwer,
-  Viel Belastung). `morgenLvl`: Platt = 2 (Kurzversion über `morgenKurz` in `isKurz0`), Müde = 1 (`morgenMild`: Abschluss locker in `finOf`, Lauf locker
-  statt Intervalle), sonst wie geplant. Schreibt auch `S.befinden` (fit bis Stufe 1, sonst tired). Heute frei geht über Heute anpassen › Heute nicht. Rückweg über `_kurz` '0'.
+- Guten Morgen ist weg (Dennis, 26. Oktober: „führt manchmal dazu, dass man den Tab überhaupt nicht mehr nutzen kann … man hat ja eh schon „Heute anpassen““):
+  keine Karte mehr auf Heute (`heuteAskHTML` ohne `morgenAskHTML`/`morgenRowHTML`, `morgenToday` = 0, damit wirken alte Antworten in `S.morgen` nicht mehr;
+  Feld bleibt in `DEF`/`SYNC_KEYS`). Die Befinden-Frage nach dem Nachtdienst (`befAskHTML`) gibt es nur noch in Plan 1. Ausfälle in Plan 2 ohne blockierende
+  Rückfrage: nach „Heute nicht“ (Zeit, müde, verkatert) setzt `missChoose` kein `planCare`, `missCareDue`/`missBlocked` greifen in Plan 2 nur bei Krank/Beschwerden
+  (`careHealth`). Früher (Paket 59): Gefühl Platt | Müde | Okay | Gut | Top, Platt = Kurzversion, Müde = Abschluss locker.
   Körper-Check (`kcStep`, `kcHTML`) als erster Schritt im Trainer an Plan-2-Krafttagen (ohne Ring, `.fs-noring`): die eingebaute Muskelfigur
   (`musFigHTML`, Muskeln mit `data-act="kc"`), Tippen = Kater (gelb `--mb2`), nochmal = Schmerz (rot `--mb0`, Stärke Leicht/Mittel/Stark `kc-w`),
   nochmal = gut. Entwurf `_kc`; `kcSet` setzt je Kraftplatz den Schmerz-Entwurf `_pk<i>` (Kater nur bei Hauptmuskel, `w` 'k' = Übung bleibt,
