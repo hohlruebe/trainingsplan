@@ -27,7 +27,7 @@ function setup() {
     SHIFT: { f: ['Früh', 6, 14], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18] }, UNIT: { 1: 'A', 3: 'B', 6: 'C' }
   });
   for (const name of ['isoAdd','wkMon','alltag','planOn','wkEntry','arbeitOf','wkTimeline','dayCls','daySlot','slotWhy','planHard','planPairOk','planDropOrder',
-    'trainingLog','missDone','missOf','pullOption','pullOv','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
+    'trainingLog','careHealth','missDone','missOf','pullOption','pullOv','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
     'wkPlan','wkPlan0','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow','befCls','befOf','longShift','arbeitOf0','kalOn','kalCalOn','kalW','kalB','kalHas','kalShift','kalDays','kalDay','kalBlocks','kalSleepy']) vm.runInContext(source(name), c);
   vm.runInContext('var KFIT = 0; var UMF_HIT = 0.7;', c);
   return c;
@@ -142,3 +142,13 @@ assert.equal(c.S.planOv['2026-10-14'], undefined, 'der verschobene Termin am Mit
 const P1 = c.wkPlanC();
 assert.equal(P1.days[0].tag, 1, 'nach dem Vorziehen ist A heute'); assert.notEqual(P1.days[2].tag, 1, 'Mittwoch nicht mehr A');
 console.log('PASS: Training auf heute vorziehen');
+
+// Dennis, 26. Oktober: in Plan 2 ersetzt nach „Heute nicht“ keine Rückfrage mehr die Heute-Seite; Krank/Beschwerden pausieren weiter.
+now = '2026-10-12'; c = setup(); c.S.planV = 2;
+planned(c, '2026-10-12', 1, { pv: 2 }); c.missChoose('2026-10-12', 'time');
+assert.equal(c.S.planCare, null, 'keine Zeit: keine Rückfrage'); assert.equal(c.missCareDue(), false); assert.equal(c.missBlocked('2026-10-13'), false);
+c.S.planCare = { source: '2026-10-10', reason: 'tired', checked: null, ready: null, follow: true };
+assert.equal(c.missCareDue(), false, 'alte Rückfrage aus Plan 1 blockiert nicht');
+planned(c, '2026-10-13', 3, { pv: 2 }); now = '2026-10-13'; c.missChoose('2026-10-13', 'ill');
+assert.equal(c.missBlocked('2026-10-13'), true, 'krank pausiert weiter');
+console.log('PASS: Plan 2 ohne blockierende Rückfrage, Krank pausiert');

@@ -5628,12 +5628,13 @@ function missPending() {
   }).sort();
   return dates.length ? { date: dates[0], entry: S.planDays[dates[0]] } : null;
 }
+function careHealth(c) { return !!c && (c.reason === 'ill' || c.reason === 'pain'); }
 function missCareDue() {
-  var c = S.planCare;
+  var c = S.planCare; if (v2() && !careHealth(c)) return false;
   return !!(c && c.follow && c.checked !== isoToday());
 }
 function missBlocked(date) {
-  var c = S.planCare;
+  var c = S.planCare; if (v2() && !careHealth(c)) return false;
   return !!(c && c.follow && (c.reason === 'ill' || c.reason === 'pain' || (date === isoToday() && (c.checked !== date || c.ready !== 'fit'))));
 }
 function missCarry() {
@@ -5683,7 +5684,8 @@ function missSet(date, value) {
 function missChoose(date, reason) {
   var e = (S.planDays || {})[date]; if (!e || !e.tag || missDone(date)) return;
   missSet(date, { status: 'missed', reason: reason });
-  S.planCare = { source: date, reason: reason, checked: date === isoToday() ? date : null, ready: date === isoToday() ? 'rest' : null, follow: true };
+  // Plan 2 (Dennis, 26. Oktober): nach „Heute nicht“ keine Rückfrage am nächsten Morgen, die Heute ersetzt; nur Krank/Beschwerden pausieren.
+  S.planCare = v2() && reason !== 'ill' && reason !== 'pain' ? null : { source: date, reason: reason, checked: date === isoToday() ? date : null, ready: date === isoToday() ? 'rest' : null, follow: true };
   if (date === isoToday()) {
     S.planOv = Object.assign({}, S.planOv || {}); S.planOv[date] = { off: 1, reason: reason };
   }
@@ -7855,8 +7857,8 @@ function heuteSub0(kind, PL, tag) {
 // Höchstens eine Frage auf Heute, die dringendste zuerst; die nächste kommt, sobald diese beantwortet ist. Ein beantwortetes Befinden
 // tritt zur Seite (die Folge steht unter dem Titel), nur „Sehr müde“ bleibt sichtbar, damit man es am freien Tag ändern kann.
 function heuteAskHTML(PL, tag) {
-  var mg = v2() ? morgenAskHTML(PL, tag) : ''; if (mg) return mg;
-  var row = v2() ? morgenRowHTML(PL, tag) : '', B = befDue(PL);
+  // Dennis, 26. Oktober: „Guten Morgen“ ganz weg (einmal tippen am Tag, wenig Nutzen; „Heute anpassen“ kann dasselbe). Alte Antworten wirken nicht mehr.
+  var row = '', B = befDue(PL);
   var Q = [function () { return !v2() && B && (!B.ans || B.ans === 'very') ? befAskHTML(PL) : ''; }, function () { return tag ? painAskHTML(tag) : ''; }, missNoticeHTML, planNextAskHTML, backupHTML];
   for (var i = 0; i < Q.length; i++) { var x = Q[i](); if (x) return row + x; }
   return row;
@@ -7867,7 +7869,7 @@ function morgenOf(dt) { var m = (S.morgen || {})[dt || isoToday()]; return m && 
 // 0 wie geplant, 1 ohne Intervalle/Metcon, 2 Kurzversion, 3 Kurzversion und Vorschlag „heute frei“ (Startwerte).
 // Dennis (25. Oktober): keine Schlafstunden mehr („gibt eher eine Ausrede als einen Nutzen“), nur das Gefühl zählt. Alte Einträge mit `h` bleiben.
 function morgenLvl(m) { if (!m) return 0; var f = +m.f; return f === 1 ? 2 : f === 2 ? 1 : 0; }
-function morgenToday(tag) { return v2() && tag === S.tag && !doneToday0() ? morgenLvl(morgenOf()) : 0; }
+function morgenToday(tag) { return 0; }
 function morgenKurz(tag) { return morgenToday(tag) >= 2; }
 function morgenMild(tag) { var D = DRAFTS[draftKey(tag)] || {}; return morgenToday(tag) === 1 && D._kurz !== '0'; }
 function morgenWhy() { return morgenOf() ? 'du fühlst dich müde' : ''; }
