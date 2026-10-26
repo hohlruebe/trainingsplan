@@ -1349,6 +1349,7 @@ html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 .ch-big{margin:2px 0 0;font-size:17px;color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin-right:6px}
 .ch-x{margin:4px 0 12px}
 .mo-ch{gap:2px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:6px}.moment.mo-chain .mo-btns{animation-delay:.8s}
+.mo-btns .btn.block{grid-column:1/-1}
 </style>
 </head>
 <body>
@@ -2766,7 +2767,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null };
+  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -2922,7 +2923,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage', 'schwerpunkt'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage', 'schwerpunkt', 'chainJk'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -3007,7 +3008,7 @@ function mergeRemote(r) {
       if (POS.indexOf(k) >= 0 || !Object.prototype.hasOwnProperty.call(r.stand, k)) return;
       var t = rt ? (rt[k] || 0) : (r.standTs || 0);
       // Planung und Antworten pro Datum zusammenführen: verschiedene Geräte dürfen einander keine Tage löschen.
-      if (k === 'planDays' || k === 'planMiss' || k === 'befinden' || k === 'morgen') {
+      if (k === 'planDays' || k === 'planMiss' || k === 'befinden' || k === 'morgen' || k === 'chainJk') {
         var local = Object.assign({}, S[k] || {}), remote = r.stand[k] || {};
         Object.keys(remote).forEach(function (dt) {
           if (!/^\d{4}-\d{2}-\d{2}$/.test(dt) || !remote[dt]) return;
@@ -4221,7 +4222,7 @@ function trainVerlaufHTML() {
   h += order.map(function (m) {
     var w = CW[m], tw = wkMon(), lab = m === tw ? 'Diese Woche' : m === isoAdd(tw, -7) ? 'Letzte Woche' : shortDate(m).replace(/\.$/, '') + ' – ' + shortDate(isoAdd(m, 6)).replace(/\.$/, '');
     var n = w ? w.n : wk[m].filter(function (l) { return l.unit !== 'Z'; }).length;
-    return '<section class="card vl-wk"><div class="vl-wh">' + (w ? chainLinksHTML([w]) : '') + '<span class="gl-t"><b>' + esc(lab) + '</b><small>' + n + ' von ' + tageN() + (tageN() === 1 ? ' Einheit' : ' Einheiten') + (w && w.st === 'full' ? ' · geschafft' : w && w.st === 'held' ? ' · gehalten' : w && w.st === 'joker' ? ' · Joker' : '') + '</small></span></div>' +
+    return '<section class="card vl-wk"><div class="vl-wh">' + (w ? chainLinksHTML([w]) : '') + '<span class="gl-t"><b>' + esc(lab) + '</b><small>' + n + ' von ' + tageN() + (tageN() === 1 ? ' Einheit' : ' Einheiten') + (w && w.st === 'full' ? ' · geschafft' : w && w.st === 'held' ? ' · gehalten' : w && w.st === 'joker' ? ' · Joker' : w && w.st === 'pend' ? ' · Joker möglich' : '') + '</small></span></div>' +
       wk[m].map(vlRowHTML).join('') + '</section>';
   }).join('') + (list.length > shown.length ? '<button type="button" class="btn block" data-act="more-logs">Ältere anzeigen</button>' : '');
   var murphs = TL.filter(function (l) { return l.kind === 'murph'; });
@@ -5764,26 +5765,32 @@ function wkDoneV2(mon, done) {
 /* ---------- Wochen-Kette (Dennis, 25. Oktober: „den User langfristig sportlicher machen“, Motivation A + E) ---------- */
 // Gezählt werden Wochen, nicht Tage (Schichtarbeit). Eine Woche hält die Kette mit mindestens 2 Einheiten (wie der Durchgang in planRoll),
 // voll mit dem Wochenziel. Kurze Einheiten (wenig Zeit, Kurzversion, Nachtrag) zählen voll, der Zusatz nicht. Krank/Beschwerden = Pause
-// (kein Glied, kein Bruch). Ein Joker je 12 Wochen überbrückt eine Woche von selbst, damit ein Riss nicht alles kostet. Nichts wird gespeichert.
-var CHAIN_C = { k: null }, CHAIN_JOKER = 84;
+// (kein Glied, kein Bruch). Joker (Dennis, 26. Oktober: „automatisch sollte nicht sein“): verdient mit 4 geschafften Wochen (`CHAIN_EARN`, höchstens 1
+// auf Vorrat), eingesetzt nur von Hand in Profil › Erfolge bis Sonntag der Woche danach (`S.chainJk {<Montag>: {ts}}`); bis dahin ist die Woche offen
+// (`pend`), danach reißt die Kette. Sonst wird nichts gespeichert.
+var CHAIN_C = { k: null }, CHAIN_EARN = 4;
 // Dennis: „das kommt drauf an, wie viele Trainings man pro Woche machen will“ – gehalten ab zwei Dritteln des eigenen Ziels (2→2, 3→2, 4→3, 5→4, 6→4).
 function chainNeed() { return Math.max(1, Math.ceil(tageN() * 2 / 3)); }
 function chainUnits(mon) { var end = isoAdd(mon, 6), d = {}; LOGS.forEach(function (l) { if (trainingLog(l) && l.unit !== 'Z' && l.date >= mon && l.date <= end) d[l.date] = 1; }); return Object.keys(d).length; }
 function chainPause(mon) { var end = isoAdd(mon, 6), M = S.planMiss || {}; return Object.keys(M).some(function (dt) { return dt >= mon && dt <= end && (M[dt].reason === 'ill' || M[dt].reason === 'pain'); }); }
 function chainState() {
-  var cm = wkMon(), k = [LOGS.length, LOGS.length ? LOGS[LOGS.length - 1].id : '', cm, JSON.stringify(S.planMiss || {}), tageN()].join('|');
+  var cm = wkMon(), J = S.chainJk || {}, k = [LOGS.length, LOGS.length ? LOGS[LOGS.length - 1].id : '', cm, JSON.stringify(S.planMiss || {}), JSON.stringify(J), tageN()].join('|');
   if (CHAIN_C.k === k) return CHAIN_C.v;
-  var first = LOGS.filter(trainingLog).map(function (l) { return l.date; }).sort()[0], W = [], n = 0, best = 0, joker = null;
+  var first = LOGS.filter(trainingLog).map(function (l) { return l.date; }).sort()[0], W = [], n = 0, best = 0, bank = 0, run = 0, pend = null, used = null;
   if (first) for (var m = wkMon(first); m <= cm; m = isoAdd(m, 7)) {
     var c = chainUnits(m), w = { mon: m, n: c, cur: m === cm };
-    if (c >= chainNeed()) { n++; w.st = c >= tageN() ? 'full' : 'held'; }
+    if (c >= chainNeed()) {
+      n++; w.st = c >= tageN() ? 'full' : 'held';
+      if (w.st === 'full' && ++run >= CHAIN_EARN) { run = 0; bank = 1; }
+    }
     else if (w.cur) w.st = 'open';
     else if (chainPause(m)) w.st = 'pause';
-    else if (n && (!joker || daysBetween(parseISO(joker), parseISO(m)) >= CHAIN_JOKER)) { joker = m; w.st = 'joker'; }
-    else { n = 0; w.st = 'miss'; }
+    else if (n && bank && J[m]) { bank = 0; used = m; w.st = 'joker'; }
+    else if (n && bank && isoAdd(m, 7) === cm) { pend = m; w.st = 'pend'; }
+    else { n = 0; run = 0; w.st = 'miss'; }
     w.len = n; best = Math.max(best, n); W.push(w);
   }
-  var v = { n: n, best: best, weeks: W, cur: W[W.length - 1] || null, joker: joker, jokerOk: !joker || daysBetween(parseISO(joker), parseISO(cm)) >= CHAIN_JOKER };
+  var v = { n: n, best: best, weeks: W, cur: W[W.length - 1] || null, bank: bank, run: run, pend: pend, used: used, jokerOk: bank > 0 };
   CHAIN_C = { k: k, v: v }; return v;
 }
 // Reicht die Woche noch? left = fehlende Einheiten, r = geplante Termine ab heute. tight: jede geplante Einheit zählt.
@@ -5806,7 +5813,7 @@ function chainLinksHTML(W, cls) {
     var st = w.st, mid = '', ring;
     if (st === 'joker') ring = '<circle class="bg jkr" cx="14" cy="14" r="11"/>' + CHAIN_SHIELD;
     else if (st === 'pause') ring = '<circle class="bg ps" cx="14" cy="14" r="11"/>';
-    else if (st === 'miss') ring = '<circle class="dot" cx="14" cy="14" r="3.5"/>';
+    else if (st === 'miss' || st === 'pend') ring = '<circle class="dot" cx="14" cy="14" r="3.5"/>';
     else { ring = chainSeg(w.n, G, 11, 14); if (st === 'full') mid = '<path class="ck2" d="M9.5 14.3l3 3L18.6 11"/>'; }
     return '<span class="crw"><svg class="cr ' + st + '" viewBox="0 0 28 28">' + ring + mid + '</svg></span>';
   }).join('') + '</div>';
@@ -5817,20 +5824,24 @@ function chainLineHTML(tag) {
   var R = chainRisk(), D = DRAFTS[draftKey(tag)] || {}, txt, btn = '';
   if (w.st === 'full') txt = '<b>Woche geschafft</b> · ' + chainWk(C.n) + ' in Folge';
   else if (w.st === 'held') txt = '<b>' + chainWk(C.n) + '</b> in Folge · Woche gehalten';
-  else if (R && R.lost) txt = C.n && C.jokerOk ? '<b>' + chainWk(C.n) + '</b> in Folge · dein Joker hält diese Woche' : 'Diese Woche reicht es nicht mehr, ab Montag beginnt eine neue Kette';
+  else if (R && R.lost) txt = C.n && C.jokerOk && !C.pend ? '<b>' + chainWk(C.n) + '</b> in Folge · diese Woche reicht es nicht mehr, dein Joker kann sie halten' : 'Diese Woche reicht es nicht mehr, ab Montag beginnt eine neue Kette';
   else {
-    txt = (C.n ? '<b>' + chainWk(C.n) + '</b> in Folge · ' : '') + 'noch ' + (R ? R.left : chainNeed() - w.n) + ' für diese Woche';
+    txt = (C.n ? '<b>' + chainWk(C.n) + '</b> in Folge · ' : '') + (C.pend ? 'letzte Woche fehlt, Joker in Erfolge · ' : '') + 'noch ' + (R ? R.left : chainNeed() - w.n) + ' für diese Woche';
     if (R && R.tight && R.today && !doneToday0() && DAYS[tag] && DAYS[tag].type === 'kraft' && +D._zeit !== 15) { txt += ', auch 15 Minuten zählen'; btn = '<button type="button" class="btn small" data-act="chain-short">15 Minuten</button>'; }
   }
   return '<div class="ch-row">' + CHAIN_IC + '<span>' + txt + '</span>' + btn + '</div>';
 }
 function chainCardHTML() {
   var C = chainState(); if (!C.cur) return '';
-  var W = C.weeks.slice(-12), w = C.cur, nx = C.joker ? isoAdd(C.joker, CHAIN_JOKER) : null;
+  var W = C.weeks.slice(-12), jx;
+  if (C.pend) jx = 'Die Woche ab ' + esc(fmtDate(C.pend)) + ' hat nicht gereicht. Setzt du deinen Joker bis Sonntag ein, hält die Kette.';
+  else if (C.bank) jx = 'Hält eine Woche, die nicht reicht. Du setzt ihn selbst ein, bis Sonntag der Woche danach.';
+  else jx = 'Mit ' + chainWk(CHAIN_EARN - C.run).replace('Woche', 'geschafften Woche') + ' verdienst du einen' + (C.used ? ' neuen' : '') + '.';
   return '<section class="card ch-card"><div class="card-head"><h2>Wochen-Kette</h2>' + (C.best > C.n ? '<span class="chip">Längste: ' + chainWk(C.best) + '</span>' : '') + '</div>' +
     '<p class="ch-big"><b>' + C.n + '</b>' + (C.n === 1 ? ' Woche' : ' Wochen') + ' in Folge</p>' + chainLinksHTML(W) +
     '<p class="small muted ch-x">' + 'Mit ' + chainNeed() + ' Einheiten hält die Woche, mit ' + tageN() + ' ist sie geschafft. Auch kurze Einheiten zählen.</p>' +
-    '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>Joker</b><small>' + (C.jokerOk ? 'Hält die Kette, wenn eine Woche nicht reicht.' : 'Genutzt in der Woche ab ' + esc(fmtDate(C.joker)) + ', wieder da ab ' + esc(fmtDate(nx)) + '.') + '</small></span><span class="vr-v">' + (C.jokerOk ? '1' : '0') + '</span></div></div></section>';
+    '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>Joker</b><small>' + jx + '</small></span><span class="vr-v">' + C.bank + '</span></div></div>' +
+    (C.pend ? '<button type="button" class="btn block ch-jk" data-act="chain-jk" data-m="' + C.pend + '">Joker einsetzen</button>' : '') + '</section>';
 }
 // Moment nach dem Speichern: die Woche hält (2. Einheit) bzw. ist geschafft (Wochenziel).
 function chainEvent(before) {
@@ -5842,6 +5853,36 @@ function chainMomentHTML(e) {
     '<div class="mo-text"><p class="mo-head">' + (e.st === 'full' ? 'Woche geschafft' : 'Woche gehalten') + '</p><h2 id="mo-t">' + chainWk(e.n) + ' in Folge</h2><p class="mo-body">' +
     (e.st === 'full' ? 'Alle ' + tageN() + ' Einheiten. Genau so wird Training zur Gewohnheit.' : 'Deine Kette hält. ' + (tageN() > chainNeed() ? 'Mit ' + (tageN() - chainNeed()) + ' weiteren ist die Woche geschafft.' : '')) + '</p></div>' +
     '<div class="mo-btns"><button type="button" class="btn" data-act="mo-next">' + (MOMENTS.length ? 'Nächste' : 'Weiter') + '</button><button type="button" class="btn primary" data-act="mo-view">Ansehen</button></div></div>';
+}
+// Beim Öffnen (Dennis, 26. Oktober): reicht die letzte Woche nicht, kommt einmal eine Nachricht. Mit Joker das Angebot, ihn einzusetzen,
+// ohne Joker der Riss mit etwas Mut. Je Woche nur einmal (`S.chainSeen`, nur auf dem Gerät), nie im Training.
+var CHAIN_MUT = ['Eine Woche ändert nichts an dem, was du aufgebaut hast.', 'Gewohnheiten reißen mal. Wer wieder anfängt, gewinnt.', 'Deine Kraft ist nicht weg, nur die Zählung beginnt neu.'];
+function chainNoticeOf() {
+  if (!v2() || !S.started) return null;
+  var C = chainState(), W = C.weeks, seen = S.chainSeen || {};
+  if (C.pend) return seen['p' + C.pend] ? null : { type: 'chainjk', mon: C.pend, n: C.n, weeks: W.slice(-6) };
+  for (var i = W.length - 2; i >= 1 && i >= W.length - 3; i--) if (W[i].st === 'miss') {
+    if (!(W[i - 1].len > 0)) continue;
+    if (seen['r' + W[i].mon]) return null;
+    return { type: 'chainbr', mon: W[i].mon, was: W[i - 1].len, best: C.best, weeks: W.slice(-6) };
+  }
+  return null;
+}
+function chainNotice() {
+  if (document.getElementById('moment') || MOMENTS.length || document.body.classList.contains('focus') || trainingOpen()) return;
+  var e = chainNoticeOf(); if (!e) return;
+  S.chainSeen = Object.assign({}, S.chainSeen || {}); S.chainSeen[(e.type === 'chainjk' ? 'p' : 'r') + e.mon] = Date.now(); saveState();
+  MOMENTS = [e]; showMoment();
+}
+function chainNoticeHTML(e) {
+  var jk = e.type === 'chainjk', mut = CHAIN_MUT[Math.floor(Math.random() * CHAIN_MUT.length)];
+  return '<div class="mo-card mo-ch" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">Wochen-Kette</p>' + chainLinksHTML(e.weeks, 'big') +
+    '<div class="mo-text"><p class="mo-head">' + (jk ? 'Letzte Woche hat nicht gereicht' : 'Deine Kette ist gerissen') + '</p><h2 id="mo-t">' + (jk ? chainWk(e.n) + ' in Folge' : 'Nach ' + chainWk(e.was)) + '</h2><p class="mo-body">' +
+    (jk ? 'Du hast einen Joker. Setz ihn ein, dann hält deine Kette. Das geht bis Sonntag, auch später in Profil › Erfolge.' :
+      esc(mut) + ' <b>Deine Stufen und Werte bleiben.</b> Die neue Kette beginnt mit deiner nächsten Einheit' + (e.best > e.was ? ', deine längste waren ' + chainWk(e.best) + '.' : '.') +
+      ' Mit ' + CHAIN_EARN + ' geschafften Wochen verdienst du einen Joker für so eine Woche.') + '</p></div>' +
+    '<div class="mo-btns">' + (jk ? '<button type="button" class="btn" data-act="mo-next">Nicht jetzt</button><button type="button" class="btn primary" data-act="chain-jk" data-m="' + e.mon + '">Joker einsetzen</button>' :
+      '<button type="button" class="btn primary block" data-act="mo-next">Los geht’s</button>') + '</div></div>';
 }
 // Umstellung auf Plan 2 (drei Einheiten): neue Nutzer sofort, bestehende ab dem nächsten Montag oder früher, wenn sie es wollen.
 // Nie während ein Training läuft. Alte Einträge, Stufen und Entwürfe bleiben, wie sie sind; nur die künftige Planung ändert sich.
@@ -6319,6 +6360,10 @@ function showMoment() {
   if (LS.notice) { whenStored(showMoment); return; }
   var old = document.getElementById('moment'); if (old) old.remove();
   var e = MOMENTS.shift(); if (!e) return;
+  if (e.type === 'chainjk' || e.type === 'chainbr') {
+    var nb = document.createElement('div'); nb.id = 'moment'; nb.className = 'moment mo-chain'; nb.innerHTML = chainNoticeHTML(e);
+    document.body.appendChild(nb); buzz([120, 200, 120]); return;
+  }
   if (e.type === 'chain') {
     var cb = document.createElement('div'); cb.id = 'moment'; cb.className = 'moment mo-chain'; cb.innerHTML = chainMomentHTML(e);
     document.body.appendChild(cb); buzz(e.st === 'full' ? [80, 100, 80, 100, 80, 100, 260] : [120, 200, 220]); return;
@@ -10251,6 +10296,11 @@ ACT['sig-full'] = function (el) { var full = isKurz0(S.tag); setDraft('_kurz', f
 ACT['zone-open'] = function () { ui.tab = 'plan'; ui.planSec = null; ui.ldOpen = true; render(); setTimeout(function () { var c = document.getElementById('zone-card'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 60); };
 ACT['zone-full'] = function () { var off = (DRAFTS[draftKey(S.tag)] || {})._zf === '1'; setDraft('_zf', off ? '' : '1'); closeSheet(); render(); toast(off ? 'Heute wie dein Coach es plant.' : 'Heute volle Runden.'); };
 ACT['adapt-off'] = function () { closeSheet(); ACT['pl-off'](); };
+ACT['chain-jk'] = function (el) {
+  var m = el && el.dataset.m, C = chainState(); if (!m || C.pend !== m) return render();
+  S.chainJk = Object.assign({}, S.chainJk || {}); S.chainJk[m] = { ts: Date.now() }; saveState(); MOMENTS = []; var mo = document.getElementById('moment'); if (mo) mo.remove(); render();
+  toast('Joker eingesetzt. Deine Kette hält: ' + chainWk(chainState().n) + ' in Folge.');
+};
 ACT['chain-short'] = function () { setDraft('_zeit', 15); render(); toast('Heute 15 Minuten. Das zählt für deine Kette.'); };
 ACT['adapt-sub'] = function (el) {
   var it = el.closest('.ad-it'), p = it.querySelector('.ad-p'), open = p.hidden;
@@ -12407,6 +12457,8 @@ if (SY) syncSoon(700);
 applyTheme();
 blockCheck();
 render();
+setTimeout(chainNotice, 600);
+document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') setTimeout(chainNotice, 600); });
 })();
 </script>
 </body>
