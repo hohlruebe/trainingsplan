@@ -27,7 +27,7 @@ function setup() {
     SHIFT: { f: ['Früh', 6, 14], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18] }, UNIT: { 1: 'A', 3: 'B', 6: 'C' }
   });
   for (const name of ['isoAdd','wkMon','alltag','planOn','wkEntry','arbeitOf','wkTimeline','dayCls','daySlot','slotWhy','planHard','planPairOk','planDropOrder',
-    'trainingLog','missDone','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
+    'trainingLog','missDone','missOf','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
     'wkPlan','wkPlan0','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow','befCls','befOf','longShift','arbeitOf0','kalOn','kalCalOn','kalW','kalB','kalHas','kalShift','kalDays','kalDay','kalBlocks','kalSleepy']) vm.runInContext(source(name), c);
   vm.runInContext('var KFIT = 0; var UMF_HIT = 0.7;', c);
   return c;
@@ -106,3 +106,14 @@ c.mergeRemote({ app: 'trainingsplan', standTs: 40, stand: { planMiss: {
 assert.equal(c.S.planMiss['2026-10-10'].reason, 'hungover');
 assert.equal(c.S.planMiss['2026-10-09'].status, 'logged');
 console.log('PASS: sync merges answers by date without overwriting newer answers');
+
+// Impeccable-Kritik Plan (Dennis, 26. Oktober): dieselbe Einheit mehrmals nicht geschafft = einmal ausgefallen, danach weitergerückt.
+now = '2026-10-11'; c = setup();
+['2026-10-07', '2026-10-08', '2026-10-09'].forEach(d => planned(c, d, 1));
+planned(c, '2026-10-11', 1);
+const m1 = c.missOf('2026-10-07'), m2 = c.missOf('2026-10-08');
+assert.equal(m1.mv, false, 'erster Termin ist der Ausfall'); assert.equal(m1.to, '2026-10-08', 'weiter auf den nächsten Termin');
+assert.equal(m2.mv, true, 'späterer Termin derselben Einheit ist weitergerückt'); assert.equal(c.missOf('2026-10-09').to, '2026-10-11');
+c.LOGS = [{ id: 'x', kind: 'kraft', date: '2026-10-07', tag: 1 }];
+assert.equal(c.missOf('2026-10-07'), null, 'mit Eintrag kein Ausfall'); assert.equal(c.missOf('2026-10-08').mv, false, 'dann ist der nächste offene Termin der Ausfall');
+console.log('PASS: einmal ausgefallen, danach weitergerückt');

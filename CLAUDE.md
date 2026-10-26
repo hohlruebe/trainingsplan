@@ -657,6 +657,33 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Feinschliff (Board https://claude.ai/artifact/SPLex83FXcewWodYFbzo8d): Muskel-Seite, Zeile öffnet die Familie der Übung (`musRow`, `.mu-row`, `famOpen` mit
   `famBack` 'muskel'), das (i) ist ein eigener grauer Knopf (`.mu-i`), Figuren 44 px; „Hellblau im Bild: …, die arbeiten oft mit.“ 1RM-Detail ohne Wert ohne „+“
   (nur „Ersten Wert eintragen“). Mobility › Morgens: „Sanft wach werden, ein paar ruhige Minuten.“
+- Profil nach der Impeccable-Kritik (Dennis, 25. Oktober, 24/40, „die vier P1“, Coach-Satz ja, Gesamtwert behalten und erklären, Verlauf als Wochen-Tagebuch;
+  Board https://claude.ai/artifact/X1noYNxatusLDMrFzXTN5f): Kopf (`profileHead`) mit „Gesamtwert“ über der Zahl (`.p-lbl`), Stufe normal geschrieben, „+3 in 4 Wochen“
+  (erst wenn der erste Eintrag älter als 4 Wochen ist) und „6 bis Silber“ (`tierGap`); darunter ein Satz vom Coach (`coachLineHTML`, `.p-coach`): seit dem Start
+  bzw. in den letzten 4 Wochen Stufen je Teil (`ladderStates` damals/jetzt, `partOf`) und der größte Rekord-Gewinn (`prList`), sonst „hältst du deine Stufen“.
+  „Als Nächstes freischalten“ (`nextUnlockHTML`) nimmt `famNext` (Stufe am Ort), sagt „jetzt Stufe x von n“, Ring-Zahl 15 px, `.rbtn.sm` 44 px. Verlauf
+  (`trainVerlaufHTML`): je Kalenderwoche eine Karte `.vl-wk` mit Ring aus `chainState` und „x von N Einheiten · geschafft/gehalten/Joker“, je Einheit eine Zeile
+  (`vlRowHTML`, Kürzel `l.unit` bzw. `T<tag>`, Wochentag, Kennzahl `vlKey`: Runden auf Vorgabe und Minuten, beim Lauf `runLine`), Antippen klappt Details und
+  Korrigieren auf (`ui.vlOpen`, `ACT['vl-open']`); ohne „DG“, ohne die Notiz alter Testtage, fehlende Intervalle „geplant, nicht eingetragen“. Netzdiagramm:
+  „Vor 4 Wochen“ nur, wenn damals jeder Bereich mit Daten schon einen Wert hatte (sonst Hinweis `.r-note`), viewBox breiter, Tippflächen `.r-hit` 46 px.
+  Kritik in `.impeccable/critique/2026-10-25T20-39-34Z__index-html.md`.
+  Danach P2/P3 (Dennis: „Und weiter“): Kopf zählt in Plan 2 wie die Wochen-Kette („0 von 3 Einheiten“, ohne Zusatz), die Ketten-Karte wiederholt die Woche
+  nicht mehr. Bereich (`areaDetailHTML`): sinkt die Kurve um 2 und mehr, sagt `areaDropHTML` unter der Kurve um wie viel seit wann und welche Leiter am meisten
+  verloren hat (Stufe tiefer oder weniger Wdh. in der Spanne); „Noch nicht begonnen: N Übungen in diesem Bereich …“; geöffnet scrollt der Bereich nach oben
+  (`areaTop`, `#a-top`). Rekorde: Haltestufe einer Wdh.-Leiter in Sekunden (`holdOf` in `prList`; alte Einträge mit Vorgabe unter 5 zählen nicht),
+  Gold `#7E5A08` und Grün `#1D6B3A` dunkler, 1RM-Archiv nur mit Werten. Skill-Baum: gesperrt gestrichelt statt halb durchsichtig (auch die Legende).
+  Einstellungen › Mehr: „Schrift für Zahlen“ als `.seg` mit Zahl in der Schrift (`.f-smp`), Haptik als Wert-Zeile. Korrigieren: Karten mit `h2`. „Foto“ in `--ink`.
+- Plan nach der Impeccable-Kritik (Dennis, 26. Oktober, 25/40, „alle fünf Punkte“, „einmal ×, dann weiter“, Belastung und Erholung als eine Zeile):
+  Seite `plan` in Plan 2 zuerst „Deine Woche“, „Dein Ziel“ als Wert-Zeile darunter (`goalRow`, Antippen = `fk-open`). Wochenkarte zählt gegen das Ziel
+  („0 von 3 erledigt“, künftige Wochen „x von N geplant“), darunter `.pw-line` („Diese Woche geht noch 1: A heute 17:00.“). Ausfall (`missOf`): erster
+  Termin einer Einheit in der Woche „A ×“, spätere Termine derselben Einheit „A →“ (Klasse `.mv`, weitergerückt); angetippt (`missDayHTML`, Plan und Heute)
+  „… war um 17:00 geplant und ist ausgefallen. Dein Coach hat die Einheit auf Do gelegt.“, Grund aus `planMiss` (`MISS_WHY`), bei `reason: 'auto'`
+  „Stimmt nicht“ (`ACT['miss-wrong']` mit `data-d`). Belastung und Erholung (`bodyWeekHTML`): eine Zeile `.ldz`, offen bei Signal (deutlich über Plan,
+  müde Zone) oder `ui.ldOpen` (`ACT['ld-open']`, „Erholung ansehen“ öffnet sie); Balken ohne Zahlen (✓ oder !), „x % vom Plan der Woche“. Abschluss
+  in der Kachel „Abschluss locker“ hinter `dotSub`. Wissen: Verweis auf Plan & Challenges › Trainingstage, Kurzversion und Festgefahren in der
+  Plan-2-Fassung (der Coach kürzt bzw. wechselt selbst), Methode „Ein Skill in jeder Einheit“, Vorgabe-Spanne, Handstand „zweimal das obere Ende“,
+  Skill-Block „je nach Umfang 2 bis 5“, „Kommt nach:“ statt „Frei ab:“, „Nach einer Pause“, „Einstiegstest neu starten“ rot mit Satz, Grundmuster mit `h2`,
+  „Challenge wählen“. (i) in `--acc`, Erholung „frisch“ 14 px, Wochenleiste in der Karte breiter. Kritik in `.impeccable/critique/2026-10-26T05-09-58Z__index-html.md`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),

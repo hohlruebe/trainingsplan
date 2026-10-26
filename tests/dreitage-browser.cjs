@@ -151,9 +151,15 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Plan › Deine Woche und Arbeitszeiten: Wochenziel, Zeitlimit, kein Ausschalten.
     await page.evaluate(() => window.tpTest.navigate('plan'));
     assert.ok(await page.getByRole('heading', { name: '1 von 3 erledigt' }).isVisible());
+    // Belastung und Erholung als eine Zeile: ohne Signal zu, auf Tippen auf (Impeccable-Kritik Plan, 26. Oktober).
+    const ldz = page.locator('[data-act="ld-open"]');
+    // Nach dem Training ist eine Zone müde: die Zeile ist schon offen und sagt welche.
+    assert.equal(await ldz.getAttribute('aria-expanded'), 'true', 'mit Signal offen');
+    assert.match(await ldz.innerText(), /Belastung und Erholung[\s\S]*müde/);
     assert.ok(await page.getByRole('heading', { name: 'Belastung', exact: true }).isVisible(), 'Karte Belastung in Deine Woche');
     assert.ok(await page.locator('.ld .ld-a').count() >= 1 && await page.locator('.ld .ld-p').count() >= 1, 'gemacht als Balken, geplant gestrichelt');
-    assert.match(await page.locator('.ld-mt').innerText(), /Plan der Woche \d+/);
+    assert.match(await page.locator('.ld-mt').innerText(), /\d+ % vom Plan der Woche/);
+    assert.ok(!/~\d/.test(await page.locator('.ld').innerText()), 'keine Zahlen ohne Einheit');
     await page.evaluate(() => window.tpTest.navigate('woche'));
     assert.ok(await page.getByText('Zeit pro Training').isVisible());
     assert.equal(await page.getByRole('button', { name: 'Planung ausschalten' }).count(), 0);
@@ -523,7 +529,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Dennis, 25. Oktober: Trainingstage stehen in Plan & Challenges (Allround läuft im Hintergrund), nicht mehr in Deine Woche.
     await page.evaluate(() => window.tpTest.navigate('plan'));
     assert.equal(await page.locator('[data-act="tage-open"]').count(), 0, 'keine Trainingstage in Deine Woche');
-    assert.match(await page.locator('#view .fk-cur').innerText(), /Einfach trainieren[\s\S]*3 Tage pro Woche/, 'Karte „Dein Ziel“');
+    // Impeccable-Kritik Plan (26. Oktober): „Dein Ziel“ als Wert-Zeile unter der Woche, Antippen öffnet Plan & Challenges.
+    assert.match(await page.locator('#view [data-act="fk-open"]').innerText(), /Einfach trainieren[\s\S]*3 Tage/, 'Zeile „Dein Ziel“');
     await page.evaluate(() => window.tpTest.navigate('fokus'));
     assert.equal(await page.locator('#view .card.fk:not([data-act])').count(), 0, 'keine Allround-Karte mehr');
     // Dennis: der Regler änderte sich aus Versehen. Jetzt Wert-Zeile → Blatt → „Übernehmen“; Abbrechen ändert nichts. Gilt für alle Wochen.
