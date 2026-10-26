@@ -9,6 +9,7 @@ let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
+  notice: () => { MOMENTS = []; var o = document.getElementById('moment'); if (o) o.remove(); chainNotice(); o = document.getElementById('moment'); return o ? o.innerText : ''; },
   chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk(), bank: C.bank, pend: C.pend, jk: S.chainJk }; },
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
@@ -597,7 +598,16 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     wc = await page.evaluate(() => window.tpTest.chain());
     assert.deepEqual(wc.st, ['full', 'full', 'miss', 'miss', 'open'], 'ohne verdienten Joker reißt die Kette, nichts geschieht von selbst');
     assert.equal(wc.n, 0);
+    // Beim Öffnen: Riss mit etwas Mut, nur einmal.
+    let nt = await page.evaluate(() => window.tpTest.notice());
+    assert.match(nt, /Deine Kette ist gerissen/); assert.match(nt, /Nach 2 Wochen/); assert.match(nt, /Deine Stufen und Werte bleiben/);
+    await page.locator('#moment [data-act="mo-next"]').click();
+    assert.equal(await page.evaluate(() => window.tpTest.notice()), '', 'nur einmal');
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [jkSt, jkLogs]);
+    nt = await page.evaluate(() => window.tpTest.notice());
+    assert.match(nt, /Letzte Woche hat nicht gereicht/); assert.match(nt, /Joker einsetzen/);
+    await page.locator('#moment [data-act="mo-next"]').click();
+    assert.equal(await page.evaluate(() => window.tpTest.notice()), '', 'Nicht jetzt: kommt nicht wieder');
     wc = await page.evaluate(() => window.tpTest.chain());
     assert.deepEqual(wc.st, ['full', 'full', 'full', 'full', 'pend', 'open'], 'vier geschaffte Wochen: Joker verdient, letzte Woche offen');
     assert.equal(wc.n, 4); assert.equal(wc.bank, 1);

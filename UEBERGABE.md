@@ -12,7 +12,9 @@ Stand: 26. Oktober 2026 (Joker verdienen und selbst einsetzen; Guten Morgen weg,
 - Dennis (Bild): „2 Wochen in Folge, dabei habe ich letzte Woche nicht trainiert … Wird ein Joker automatisch gesetzt? Das sollte nicht sein. Und wie
   verdient man sich überhaupt einen Joker?“ Bisher: einer je 12 Wochen, von selbst. Jetzt (seine Wahl „Verdienen, selbst einsetzen“): 4 geschaffte Wochen
   = 1 Joker, Einsetzen von Hand in Profil › Erfolge bis Sonntag der Woche danach. Seine Kette steht damit bei 0 (noch kein Joker verdient).
-- Test: Wochen-Kette in `tests/dreitage-browser.cjs` neu (ohne Joker Riss, verdient, offen, eingesetzt, zu spät, Pause).
+- Dennis danach: „Benachrichtigung beim nächsten Öffnen … Angebot, den vorhandenen Joker einzusetzen. Ist keiner vorhanden, die Benachrichtigung über den
+  Riss und ein bisschen Motivation.“ Umgesetzt als Moment beim Öffnen, einmal je Woche (CLAUDE.md „Wochen-Kette“).
+- Test: Wochen-Kette in `tests/dreitage-browser.cjs` neu (ohne Joker Riss, verdient, offen, eingesetzt, zu spät, Pause, Nachricht beim Öffnen).
  (26. Oktober 2026, Claude)
 - Dennis (Bild „Heute bleibt frei“): „Das morgendliche Check-up führt manchmal dazu, dass man den Tab überhaupt nicht mehr nutzen kann … bringt es
   wirklich so einen großen Nutzen?“ Antwort: „Ganz weglassen“. Ursache des gesperrten Tabs war die Rückfrage nach „Heute nicht“ (`planCare`), nicht

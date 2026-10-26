@@ -628,7 +628,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   15 Min, Kurzversion, Nachtrag), der Zusatz nicht (`chainUnits`). Krank/Beschwerden in `planMiss` (`ill`/`pain`) = Pause, kein Bruch (`chainPause`).
   Joker (Dennis, 26. Oktober: „automatisch sollte nicht sein“): verdient mit 4 geschafften Wochen (`CHAIN_EARN`, höchstens 1 auf Vorrat, ein Riss setzt die
   Zählung zurück), eingesetzt nur von Hand in Profil › Erfolge (`ACT['chain-jk']`, `S.chainJk {<Montag>: {ts}}` in `DEF`/`SYNC_KEYS`, je Woche zusammengeführt)
-  bis Sonntag der Woche danach; bis dahin ist die Woche `pend` (Punkt, Zeile auf Heute „letzte Woche fehlt, Joker in Erfolge“), danach reißt die Kette. Darstellung (`chainLinksHTML`, `.chv`/`.crw`/`.cr`): je Woche ein Ring
+  bis Sonntag der Woche danach; bis dahin ist die Woche `pend` (Punkt, Zeile auf Heute „letzte Woche fehlt, Joker in Erfolge“), danach reißt die Kette.
+  Beim Öffnen (`chainNotice` beim Start und bei `visibilitychange`, nicht im Training): einmal je Woche (`S.chainSeen`, nur auf dem Gerät) eine Nachricht als
+  Moment (`chainNoticeOf`, `chainNoticeHTML`, Typen `chainjk`/`chainbr`): mit Joker „Letzte Woche hat nicht gereicht“ mit „Joker einsetzen“ | „Nicht jetzt“,
+  ohne Joker „Deine Kette ist gerissen“ mit Mut-Satz (`CHAIN_MUT`), „Deine Stufen und Werte bleiben“ und wie man einen Joker verdient. Darstellung (`chainLinksHTML`, `.chv`/`.crw`/`.cr`): je Woche ein Ring
   in Stücken je Einheit des Ziels (`chainSeg`), geschafft mit Haken, Joker als graues Schild (Gold/Stern heißen schon Bestwert), Pause gestrichelt,
   verpasst ein Punkt, laufende Woche füllt sich. Heute: eine Zeile unter der Wochenleiste (`chainLineHTML`, `.ch-row`, nur `lean`); wird es eng
   (`chainRisk`: geplante Termine ab heute ≤ fehlende Einheiten), „auch 15 Minuten zählen“ mit Knopf `ACT['chain-short']` (`_zeit` 15); „Heute nicht“

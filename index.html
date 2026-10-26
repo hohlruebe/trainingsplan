@@ -1349,6 +1349,7 @@ html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 .ch-big{margin:2px 0 0;font-size:17px;color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--acc);margin-right:6px}
 .ch-x{margin:4px 0 12px}
 .mo-ch{gap:2px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:6px}.moment.mo-chain .mo-btns{animation-delay:.8s}
+.mo-btns .btn.block{grid-column:1/-1}
 </style>
 </head>
 <body>
@@ -2766,7 +2767,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null };
+  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -5853,6 +5854,36 @@ function chainMomentHTML(e) {
     (e.st === 'full' ? 'Alle ' + tageN() + ' Einheiten. Genau so wird Training zur Gewohnheit.' : 'Deine Kette hält. ' + (tageN() > chainNeed() ? 'Mit ' + (tageN() - chainNeed()) + ' weiteren ist die Woche geschafft.' : '')) + '</p></div>' +
     '<div class="mo-btns"><button type="button" class="btn" data-act="mo-next">' + (MOMENTS.length ? 'Nächste' : 'Weiter') + '</button><button type="button" class="btn primary" data-act="mo-view">Ansehen</button></div></div>';
 }
+// Beim Öffnen (Dennis, 26. Oktober): reicht die letzte Woche nicht, kommt einmal eine Nachricht. Mit Joker das Angebot, ihn einzusetzen,
+// ohne Joker der Riss mit etwas Mut. Je Woche nur einmal (`S.chainSeen`, nur auf dem Gerät), nie im Training.
+var CHAIN_MUT = ['Eine Woche ändert nichts an dem, was du aufgebaut hast.', 'Gewohnheiten reißen mal. Wer wieder anfängt, gewinnt.', 'Deine Kraft ist nicht weg, nur die Zählung beginnt neu.'];
+function chainNoticeOf() {
+  if (!v2() || !S.started) return null;
+  var C = chainState(), W = C.weeks, seen = S.chainSeen || {};
+  if (C.pend) return seen['p' + C.pend] ? null : { type: 'chainjk', mon: C.pend, n: C.n, weeks: W.slice(-6) };
+  for (var i = W.length - 2; i >= 1 && i >= W.length - 3; i--) if (W[i].st === 'miss') {
+    if (!(W[i - 1].len > 0)) continue;
+    if (seen['r' + W[i].mon]) return null;
+    return { type: 'chainbr', mon: W[i].mon, was: W[i - 1].len, best: C.best, weeks: W.slice(-6) };
+  }
+  return null;
+}
+function chainNotice() {
+  if (document.getElementById('moment') || MOMENTS.length || document.body.classList.contains('focus') || trainingOpen()) return;
+  var e = chainNoticeOf(); if (!e) return;
+  S.chainSeen = Object.assign({}, S.chainSeen || {}); S.chainSeen[(e.type === 'chainjk' ? 'p' : 'r') + e.mon] = Date.now(); saveState();
+  MOMENTS = [e]; showMoment();
+}
+function chainNoticeHTML(e) {
+  var jk = e.type === 'chainjk', mut = CHAIN_MUT[Math.floor(Math.random() * CHAIN_MUT.length)];
+  return '<div class="mo-card mo-ch" role="dialog" aria-modal="true" aria-labelledby="mo-t"><p class="mo-kicker">Wochen-Kette</p>' + chainLinksHTML(e.weeks, 'big') +
+    '<div class="mo-text"><p class="mo-head">' + (jk ? 'Letzte Woche hat nicht gereicht' : 'Deine Kette ist gerissen') + '</p><h2 id="mo-t">' + (jk ? chainWk(e.n) + ' in Folge' : 'Nach ' + chainWk(e.was)) + '</h2><p class="mo-body">' +
+    (jk ? 'Du hast einen Joker. Setz ihn ein, dann hält deine Kette. Das geht bis Sonntag, auch später in Profil › Erfolge.' :
+      esc(mut) + ' <b>Deine Stufen und Werte bleiben.</b> Die neue Kette beginnt mit deiner nächsten Einheit' + (e.best > e.was ? ', deine längste waren ' + chainWk(e.best) + '.' : '.') +
+      ' Mit ' + CHAIN_EARN + ' geschafften Wochen verdienst du einen Joker für so eine Woche.') + '</p></div>' +
+    '<div class="mo-btns">' + (jk ? '<button type="button" class="btn" data-act="mo-next">Nicht jetzt</button><button type="button" class="btn primary" data-act="chain-jk" data-m="' + e.mon + '">Joker einsetzen</button>' :
+      '<button type="button" class="btn primary block" data-act="mo-next">Los geht’s</button>') + '</div></div>';
+}
 // Umstellung auf Plan 2 (drei Einheiten): neue Nutzer sofort, bestehende ab dem nächsten Montag oder früher, wenn sie es wollen.
 // Nie während ein Training läuft. Alte Einträge, Stufen und Entwürfe bleiben, wie sie sind; nur die künftige Planung ändert sich.
 function trainingOpen() { return Object.keys(DRAFTS).some(function (k) { var D = DRAFTS[k]; return k.indexOf(S.durchgang + '-') === 0 && D && (D._step != null || +D._at > 0); }); }
@@ -6329,6 +6360,10 @@ function showMoment() {
   if (LS.notice) { whenStored(showMoment); return; }
   var old = document.getElementById('moment'); if (old) old.remove();
   var e = MOMENTS.shift(); if (!e) return;
+  if (e.type === 'chainjk' || e.type === 'chainbr') {
+    var nb = document.createElement('div'); nb.id = 'moment'; nb.className = 'moment mo-chain'; nb.innerHTML = chainNoticeHTML(e);
+    document.body.appendChild(nb); buzz([120, 200, 120]); return;
+  }
   if (e.type === 'chain') {
     var cb = document.createElement('div'); cb.id = 'moment'; cb.className = 'moment mo-chain'; cb.innerHTML = chainMomentHTML(e);
     document.body.appendChild(cb); buzz(e.st === 'full' ? [80, 100, 80, 100, 80, 100, 260] : [120, 200, 220]); return;
@@ -10263,7 +10298,7 @@ ACT['zone-full'] = function () { var off = (DRAFTS[draftKey(S.tag)] || {})._zf =
 ACT['adapt-off'] = function () { closeSheet(); ACT['pl-off'](); };
 ACT['chain-jk'] = function (el) {
   var m = el && el.dataset.m, C = chainState(); if (!m || C.pend !== m) return render();
-  S.chainJk = Object.assign({}, S.chainJk || {}); S.chainJk[m] = { ts: Date.now() }; saveState(); render();
+  S.chainJk = Object.assign({}, S.chainJk || {}); S.chainJk[m] = { ts: Date.now() }; saveState(); MOMENTS = []; var mo = document.getElementById('moment'); if (mo) mo.remove(); render();
   toast('Joker eingesetzt. Deine Kette hält: ' + chainWk(chainState().n) + ' in Folge.');
 };
 ACT['chain-short'] = function () { setDraft('_zeit', 15); render(); toast('Heute 15 Minuten. Das zählt für deine Kette.'); };
@@ -12422,6 +12457,8 @@ if (SY) syncSoon(700);
 applyTheme();
 blockCheck();
 render();
+setTimeout(chainNotice, 600);
+document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') setTimeout(chainNotice, 600); });
 })();
 </script>
 </body>
