@@ -13,6 +13,7 @@ window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t
   saveNow: () => { saveDay(); var M = document.getElementById('moment'); if (M) M.remove(); MOMENTS = []; return LOGS[LOGS.length - 1]; },
   finishTimer: () => finish(),
   stepId: () => { var T = trainCtx(); return T ? T.s.id : null; },
+  goStep: id => { var i = stepsOf(dayCtx(S.tag)).findIndex(s => s.id === id); setDraft('_step', i); setDraft('_at', Date.now()); render(); return i; },
   chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk(), bank: C.bank, pend: C.pend, jk: S.chainJk }; },
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
@@ -499,8 +500,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: /Training starten/ }).click();
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft')));
     await page.locator('#fs [data-act="fs-view"][data-v="list"]').click();
-    await page.locator('#fs .fs-krow[data-m="2"]').click();
-    assert.match(await page.locator('#fs .co-card').innerText(), /Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden[\s\S]*Vorgabe und Stufe bleiben\./);
+    await page.locator('#fs .fs-krow[data-m="2"]').click({ position: { x: 12, y: 12 } });
+    assert.match(await page.locator('#fs .fs-co').innerText(), /Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden[\s\S]*Vorgabe und Stufe bleiben\./);
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
     await page.locator('#fs [data-act="save"]').click();
     await page.getByRole('button', { name: 'Trotzdem speichern', exact: true }).click();
@@ -687,11 +688,20 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.clock.setFixedTime(new Date('2026-10-15T09:00:50+02:00'));
     await page.locator('#fs #fs-tg').click();
     assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '25', 'kürzerer Versuch: beste Zeit bleibt');
+    assert.ok(await page.evaluate(() => { const b = document.getElementById('fs-side'); return b.scrollHeight <= b.clientHeight + 2; }), 'Handstand passt ohne Scrollen');
+    await page.setViewportSize({ width: 360, height: 430 }); await page.waitForTimeout(300);
     await page.evaluate(() => { const b = document.getElementById('fs-side'); b.scrollTop = b.scrollHeight; });
     const sc0 = await page.evaluate(() => document.getElementById('fs-side').scrollTop);
-    assert.ok(sc0 > 50, 'Karte lässt sich scrollen');
+    assert.ok(sc0 > 5, 'auf kleinem Bildschirm lässt sich scrollen');
     await page.locator('#fs [data-act="k-rep"][data-f="hsSec"][data-d^="-"]').click();
     assert.ok(Math.abs(await page.evaluate(() => document.getElementById('fs-side').scrollTop) - sc0) < 5, '„–5 s“ bleibt an der Stelle');
+    await page.setViewportSize({ width: 390, height: 844 });
+    // Dennis, 28. Oktober: „alles, was man braucht, auf einer Seite ohne Scrollen“ (390 × 844, beide Ansichten).
+    for (const vw of ['one', 'list']) {
+      const over = await page.evaluate(vw => { window.tpTest.state().fsView = vw; const o = []; window.tpTest.steps().forEach((s, i) => { window.tpTest.goStep(s.id); const b = document.getElementById('fs-side'); if (b && b.scrollHeight > b.clientHeight + 2) o.push(s.id + ' +' + (b.scrollHeight - b.clientHeight)); }); return o; }, vw);
+      assert.deepEqual(over, [], 'ohne Scrollen (' + vw + ')');
+    }
+    await page.evaluate(() => { window.tpTest.state().fsView = 'one'; window.tpTest.goStep('hs'); });
     await page.evaluate(() => window.tpTest.finishTimer());
     await page.waitForTimeout(2600);
     assert.equal(await page.evaluate(() => window.tpTest.stepId()), 'kraft', 'nach der Uhr von selbst weiter');

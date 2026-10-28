@@ -725,6 +725,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   weiter (`autoNext`, `AUTO_NEXT`: Aufwärmen nach der letzten Übung mit Zeit, Skill, Kraft, Ausgleich, Accessory, Abschluss außer Intervallen; nicht Metcon,
   nicht der letzte Schritt; Hinweis „Gleich weiter: …“, 2,2 s, bleibt stehen, wenn man vorher wechselt). Stufe im Training wählbar (`fsStgBtn`, `.fs-stg`,
   `ACT['k-stg']`, `stgChoices`): Stufe des Coachs und bis zu zwei darunter und darüber, die am Ort gehen (auch Bandstufen), nur für heute (Entwurf `k<i>stage`).
+  Ohne Scrollen (Dennis, 28. Oktober: „alles, was man braucht, auf einer Seite“; geprüft bei 390 × 844 in beiden Ansichten, jeder Schritt): Ring kleiner
+  (`fsOrient`: Trainer 0,38 W / 0,18 H), „10 s Vorlauf“, Übung im Einzeln-Modus quer neben der Figur (`.fs-ex` als Zeile, Wdh. 52 px), Coach-Hinweise als
+  eine Zeile (`fsCoLine`, `.fs-co`, Antippen = Blatt `ACT['fs-co']`), kompakte Trainer-Körper (Körper bekommt `tr`): Handstand/Ausgleich als Kopfzeile `trHead`
+  (Mini-Figur, Name, (i), Chip) plus Zähler, Accessory je Übung eine Zeile mit Zähler (Name öffnet „So geht’s“), Abschluss ohne große Figur und mit
+  `finTrain`: laufender Abschnitt groß, „Als Nächstes“ darunter (statt aller Abschnitte). Listen-Zeilen enger (`#fs .fs-tr .fs-row`).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

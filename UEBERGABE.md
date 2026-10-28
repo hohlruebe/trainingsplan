@@ -12,6 +12,8 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 - Dennis nach einem Training: Einzeln | Liste zu groß (weg unter dem Ring, jetzt Symbol im Kopf), Handstand-Zeit beim Pausieren automatisch,
   „+/–5 s“ sprang an den Seitenanfang (behoben), nach der Uhr direkt weiter (automatisch, wo nichts einzutragen ist), „nächster Punkt“ unten zu groß
   (Fuß kompakt), Stufen/Bänder im Training anpassbar (Coach-Stufe ±2). Details CLAUDE.md „Trainer-Feinschliff“.
+- Danach Dennis: „auf dem Timer nicht scrollen müssen“: jeder Schritt passt bei 390 × 844 (Test prüft es); bei 360 × 740 bleiben Aufwärmen als Liste
+  und Accessory mit 4 Übungen knapp drüber (rund 50 px).
 - Tests: `tests/dreitage-browser.cjs` (Stufenwahl, Handstand-Pause, Scrollen, automatisches Weiter); alle Tests grün.
 
 ## Mehr Zeit mit Accessory (26. Oktober 2026, Claude)
