@@ -711,7 +711,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Sekunden der Stufe (`holdOf(x, stage)`).
 - Trainer neu sortiert (Impeccable-Kritik 25. Oktober, 22/40, Dennis: „Fehler zuerst“, „Weiter erst nach der Uhr“, alle sechs Punkte; Board
   https://claude.ai/artifact/KLFWj56UeUgCcgZCWadbji): `fsLocked` (Trainer, Uhr läuft im Modus emom/amrap/seq/hiit/zeit) setzt in `fsPaint` `#fs-nav.lock` und `.fs-tr.lk`:
-  Zurück/Weiter grau mit „Uhr läuft · lang drücken“, `ACT.step` bleibt beim Schritt (Hinweis), langes Drücken (700 ms) überspringt (`force`, `FS.lpStep`).
+  Zurück/Weiter grau, Weiter einzeilig mit Schloss (`LOCK_SVG`; Dennis: zwei Zeilen waren zu gequetscht), Antippen sagt „Lange drücken überspringt“, `ACT.step` bleibt beim Schritt (Hinweis), langes Drücken (700 ms) überspringt (`force`, `FS.lpStep`).
   `ACT['k-rep']` setzt ohne laufende Uhr `ui.kSel` auf die Minute des Zählers (sonst sprang `kraftNow` weiter). Schmerzen-Knopf `.st-flag` (`PAIN_FLAG`, `pain-s`) im Kopf
   jedes Schritts aus `PAIN_STEPS`. Einzeln | Liste unter dem Ring (`.fs-dig2`, beim Sperren ausgeblendet), Kopf zeigt „x von n“ ganz. Liste: `fsQty` (Zahl groß, Einheit klein),
   `fsName` (kein Umbruch am Bindestrich), kein „Erledigt“ in der Liste (Dennis: das Ergebnis kommt danach), Bandstufe einzeilig. Quer: Texte mindestens 14 px (`max(14px, …)`), Zähler 44 px, (i) mit 44-px-Fläche.

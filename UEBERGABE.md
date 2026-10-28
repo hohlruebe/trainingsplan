@@ -19,6 +19,7 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Umriss fein in Blau, Vorlauf ohne Text in der Kapsel. Offen: Querformat und Tools › Timer zeigen weiter den Ring.
 - Zuletzt Vergleich oben | in der Karte (https://claude.ai/artifact/9ytRHHGNG1e2oDdEQuJ4UG), Dennis: „So machen wir das“ (verstanden als „in der Karte“):
   die Kapsel ist jetzt die erste Zeile der weißen Trainer-Karte. Dabei behoben: Intervalle zeigten bei laufender Uhr „Als Erstes“ statt „Jetzt“.
+- Dennis: grauer Fuß bei laufender Uhr „zu viel Text, zu gequetscht“: Weiter jetzt einzeilig mit Schloss, der Hinweis „lange drücken“ kommt beim Antippen.
 - Tests: `tests/dreitage-browser.cjs` (Stufenwahl, Handstand-Pause, Scrollen, automatisches Weiter); alle Tests grün.
 
 ## Mehr Zeit mit Accessory (26. Oktober 2026, Claude)

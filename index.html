@@ -1332,8 +1332,8 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 /* Impeccable-Kritik 25. Oktober: Umschalter unter dem Ring (Kopf zeigt „x von n“ ganz), Liste mit schmaler Menge, quer nichts unter 14 px */
 .fs-dig2{flex-direction:column;align-items:center;gap:calc(10px*var(--fsu,1))}
 .fs-tr .fs-top .st-flag{margin:0;width:44px;height:44px}
-.fs-nav.lock .btn{background:var(--board);color:var(--ink2);box-shadow:none;display:flex;flex-direction:column;justify-content:center;line-height:1.15}
-.fs-nav.lock .btn small{display:block;font-size:14px;font-weight:500}
+.fs-nav.lock .btn{background:var(--board);color:var(--ink2);box-shadow:none;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:8px}
+.fs-nav.lock .btn .lk{width:15px;height:15px;flex:none}
 .fs-tr .fs-row b,#fs[data-view] .fs-tr .fs-row b{min-width:0;flex:none}.fs-tr .fs-row b small{font-size:.5em;font-weight:700}
 .fs-tr .fs-row>span{hyphens:none;overflow-wrap:normal}
 .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:wrap;row-gap:6px;padding-top:10px;padding-bottom:12px}.fs-tr .fs-row.on:not(.fs-krow)>span{min-width:55%}.fs-tr .fs-row.on .btn{order:9;margin:0 0 0 auto}
@@ -10250,7 +10250,7 @@ function fsPaint(L, force) {
   var nav = FS.train && $('fs-nav'), lk = !!(nav && fsLocked());
   if (nav && nav.classList.contains('lock') !== lk) {
     nav.classList.toggle('lock', lk); var tr0 = nav.closest('.fs-tr'); if (tr0) tr0.classList.toggle('lk', lk);
-    nav.querySelectorAll('.btn[data-act="step"]').forEach(function (b) { if (lk) { b.dataset.t = b.innerHTML; b.innerHTML = '<small>Uhr läuft · lang drücken</small>' + b.dataset.t; } else if (b.dataset.t != null) { b.innerHTML = b.dataset.t; delete b.dataset.t; } });
+    nav.querySelectorAll('.btn[data-act="step"]').forEach(function (b) { if (lk) { b.dataset.t = b.innerHTML; b.innerHTML = LOCK_SVG + b.dataset.t; b.setAttribute('aria-label', 'Uhr läuft, lange drücken zum Überspringen'); } else if (b.dataset.t != null) { b.innerHTML = b.dataset.t; delete b.dataset.t; b.removeAttribute('aria-label'); } });
   }
   var sd = fsSide(L), box = $('fs-side');
   if (sd.k !== FS.key) {
