@@ -1307,7 +1307,7 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .ob-row.on .ob-c::after{content:'';width:9px;height:5px;border:2.4px solid var(--on-acc);border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg)}
 .ob-lab{font-size:14px;color:var(--ink2);margin:6px 6px}
 .ob-foot{margin-top:auto;position:sticky;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-top:18px;display:flex;flex-direction:column;gap:8px}
-.ob-alt{display:flex;justify-content:center;align-items:center;gap:4px}.ob-alt button{border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;min-height:44px;padding:0 10px;cursor:pointer}
+.ob-login{margin-top:4px}.ob-alt{display:flex;justify-content:center;align-items:center;gap:4px}.ob-alt button{border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;min-height:44px;padding:0 10px;cursor:pointer}
 .ob-nums{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .ob-num{border:0;background:var(--paper);border-radius:22px;box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
 .ob-num small,.ob-num i{font-size:14px;color:var(--ink2);font-style:normal}.ob-num b{font-family:var(--hand);font-weight:var(--hand-w);font-size:34px;line-height:1.1;color:var(--acc)}.ob-num b span{font-size:16px;color:var(--ink2)}
@@ -3016,7 +3016,9 @@ function localDoc() {
 }
 function mergeRemote(r) {
   if (!r || r.app !== 'trainingsplan') return false;
-  var changed = false, have = {};
+  // Neues Gerät (nie gestartet, keine Einheiten): hier gibt es nichts zu verlieren, der Stand aus GitHub gilt ganz
+  // (Anmelden beim ersten Start, Dennis, 28. Oktober; sonst gewännen frisch gespeicherte Standardwerte wie die Orte).
+  var changed = false, have = {}, fresh = !S.started && !LOGS.length && !!(r.stand && r.stand.started);
   var rd = r.geloescht || {};
   Object.keys(rd).forEach(function (id) { if (!DELETED[id] || DELETED[id] < rd[id]) DELETED[id] = rd[id]; });
   LOGS = LOGS.filter(function (l) { if (DELETED[l.id]) { changed = true; return false; } have[l.id] = true; return true; });
@@ -3032,7 +3034,7 @@ function mergeRemote(r) {
       // Sicherungen älterer Clients ohne planWk anhand ihres Positionsdatums einordnen.
       if (lw && !rw && /^\d{4}-\d{2}-\d{2}$/.test(rs.tagSince || '')) rw = wkMon(rs.tagSince);
       if (rw && !lw && /^\d{4}-\d{2}-\d{2}$/.test(S.tagSince || '')) lw = wkMon(S.tagSince);
-      var take = rSet !== lSet ? rSet > lSet : rw && lw && rw !== lw ? rw > lw : rp > lp || (rp === lp && (rs.tagSince || '') > (S.tagSince || ''));
+      var take = fresh || (rSet !== lSet ? rSet > lSet : rw && lw && rw !== lw ? rw > lw : rp > lp || (rp === lp && (rs.tagSince || '') > (S.tagSince || '')));
       if (take) { POS.forEach(function (k) { if (k in rs) { S[k] = rs[k]; S.feldTs[k] = Math.max(S.feldTs[k] || 0, rt ? (rt[k] || 0) : (r.standTs || 0)); } }); took = true; }
     }
     SYNC_KEYS.forEach(function (k) {
@@ -3047,7 +3049,7 @@ function mergeRemote(r) {
         });
         S[k] = local; S.feldTs[k] = Math.max(S.feldTs[k] || 0, t); return;
       }
-      if (t > (S.feldTs[k] || 0)) { S[k] = r.stand[k]; S.feldTs[k] = t; took = true; }
+      if (fresh || t > (S.feldTs[k] || 0)) { S[k] = r.stand[k]; S.feldTs[k] = Math.max(t, fresh ? S.feldTs[k] || 0 : 0); took = true; }
     });
     if (took) { ensureOrte(); S.standTs = Math.max(S.standTs || 0, r.standTs || 0); lastFeld = feldSnap(); changed = true; }
   }
@@ -3252,7 +3254,8 @@ function fbPage() {
   var F = fb(), p = F.p, a = F.a;
   if (p === 'hallo') return '<div class="ob-hero">' + figHTML('_wave') + '<h1>Hallo, ich bin<br>dein Coach.</h1><p>In drei Minuten weiß ich, wo du stehst. Danach plane ich jeden Tag für dich.</p></div>' +
     '<div class="ob-steps"><div><b>1</b><span>Ein paar Fragen, jede überspringbar</span></div><div><b>2</b><span>Ich stelle deinen Start ein</span></div><div><b>3</b><span>Training ab heute</span></div></div>' +
-    '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-go" data-p="dich">Los geht’s</button><div class="ob-alt"><button type="button" data-act="start-test">Lieber messen</button><span class="muted" aria-hidden="true">|</span><button type="button" data-act="fb-go" data-p="mitten">Schon mittendrin</button></div></div>';
+    '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-go" data-p="dich">Los geht’s</button><div class="ob-alt"><button type="button" data-act="start-test">Lieber messen</button><span class="muted" aria-hidden="true">|</span><button type="button" data-act="fb-go" data-p="mitten">Schon mittendrin</button></div>' +
+    (SY ? '' : '<button type="button" class="btn block ob-login" data-act="login">Ich nutze die App schon · Anmelden</button>') + '</div>' + loginAuto();
   if (p === 'mitten') return '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-go" data-p="hallo" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>' +
     fbQ('Schon mittendrin', 'Wo stehst du im Plan?', 'Stell Durchgang und Tag ein, dann geht es dort weiter.') + '<section class="card">' + standTilesHTML('ob', ui.ob || (ui.ob = { d: 1, t: 1 })) + '</section>' +
     '<div class="ob-foot"><button type="button" class="btn primary block" data-act="start-at">Hier weitermachen</button></div>';
@@ -3400,6 +3403,39 @@ function wbStartHTML() {
     '<p class="ob-k">Fertig</p><h1 class="ob-q ob-big-t">Dein Wieder­einstieg</h1><p class="ob-s">' + wbDays() + ' Tage Pause. Ich starte bei deiner Einschätzung, höchstens auf deinem Stand vor der Pause.</p>' +
     (rows ? '<section class="card">' + rows + '</section>' : '') + '<section class="card co-card"><h3>Ich achte auf</h3>' + notes + '</section>' +
     '<button type="button" class="btn primary block" data-act="wb-start">Training starten</button><div class="ob-alt"><button type="button" data-act="fb-go" data-p="zug">Antworten ändern</button></div>';
+}
+// Anmelden beim ersten Start (Dennis, 28. Oktober: „Name plus Token und ich bekomme den Stand von heute“): auf einem neuen Gerät
+// (nie gestartet, keine Einheiten, kein Sync) geht das Fenster einmal von selbst auf; „Ich bin neu“ führt zum Fragebogen.
+function loginAuto() {
+  if (SY || S.started || LOGS.length || ui.lgAuto) return '';
+  ui.lgAuto = true; setTimeout(function () { if (!S.started && !SY && !document.getElementById('sheet')) loginOpen(); }, 350);
+  return '';
+}
+function loginOpen() {
+  var body = '<p class="muted" style="margin:0 0 12px">Du nutzt die App schon auf einem anderen Gerät? Mit deinem GitHub-Namen und Token holt sie deinen Stand von heute.</p>' +
+    '<div class="setting col"><label class="field"><span>GitHub-Name</span><input type="text" id="lg-owner" autocomplete="username" autocapitalize="off" spellcheck="false" placeholder="z. B. dennis-nbg"></label>' +
+    '<label class="field"><span>Token</span><input type="password" id="lg-token" autocomplete="current-password" autocapitalize="off" spellcheck="false" placeholder="github_pat_…"></label>' +
+    '<label class="field"><span>Repository für die Daten</span><input type="text" id="lg-repo" autocomplete="off" autocapitalize="off" spellcheck="false" value="trainingsplan-daten"></label></div>' +
+    '<p class="small muted lg-msg" id="lg-msg" role="status" style="margin:8px 0 0">Der Token bleibt nur auf diesem Gerät.</p>' +
+    '<button type="button" class="btn block" data-sh="x" style="margin-top:12px">Ich bin neu</button>';
+  openForm('Anmelden', body, 'Anmelden', function (bg) {
+    var o = (bg.querySelector('#lg-owner').value || '').trim().replace(/^@/, ''), t = (bg.querySelector('#lg-token').value || '').trim(), r = (bg.querySelector('#lg-repo').value || '').trim() || 'trainingsplan-daten', msg = bg.querySelector('#lg-msg');
+    var m = r.match(/github\.com\/([^\/\s]+)\/([^\/\s#?]+)/); if (m) { o = m[1]; r = m[2].replace(/\.git$/, ''); }
+    if (!o || !t) { msg.textContent = 'Bitte GitHub-Namen und Token eintragen.'; msg.classList.add('sync-err'); return false; }
+    if (bg.dataset.busy) return false; bg.dataset.busy = '1'; msg.classList.remove('sync-err'); msg.textContent = 'Wird angemeldet …';
+    SY = { owner: o, repo: r, path: 'trainingsplan.json', token: t, dirty: true, last: null };
+    runSync().then(function () {
+      delete bg.dataset.busy;
+      if (syncState.status !== 'ok') {
+        msg.textContent = syncState.msg || 'Anmelden hat nicht geklappt.'; msg.classList.add('sync-err');
+        SY = null; delete LS.pending['tp.sync']; try { localStorage.removeItem('tp.sync'); } catch (e) { /* ignore */ } syncState = { status: 'off', msg: '' };
+        return;
+      }
+      closeSheet(); ui.tab = 'heute'; render();
+      toast(S.started ? 'Angemeldet. Dein Stand von heute ist da.' : 'Angemeldet. Noch kein Stand gespeichert, los geht’s mit dem Fragebogen.');
+    });
+    return false;
+  }, { noFocus: true, noCancel: true });
 }
 function onboardingHTML() { ui.focus = true; ui.noSub = true; return '<div class="ob">' + fbPage() + '</div>'; }
 function restHTML(tag) {
@@ -6587,6 +6623,7 @@ var ACT = {
   'del-log': function (el) { twoStep(el, function () { removeLog(el.dataset.id); render(); toast('Einheit gelöscht.'); }); },
   'more-logs': function () { ui.logLimit += 30; render(); }
 };
+ACT.login = loginOpen;
 // Fragebogen beim Start
 ACT['wb-go'] = function () { var P = wbPre(); S.wb = { on: 1, p: 'zug', a: {}, pre: P.pre, prev: P.prev }; saveState(); window.scrollTo(0, 0); render(); };
 ACT['wb-start'] = function () {

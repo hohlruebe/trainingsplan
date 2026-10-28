@@ -399,6 +399,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Testdatum, Beschwerde über `memRecord`, dann Durchgang 1, Tag 1 (Kurzversion wie nach dem Test). Startstufen aus dem Fragebogen sind
   eine Angabe: `baseOf` meldet `fb`, `coachStage` stuft in den ersten 2 Einheiten nach (`cs.cal`), Hinweis „aus deinem Fragebogen“
   (`brakeNote`, `skillNote`); `skillStage` nimmt die Startstufe aus `S.base`. Zusätze hinter „·“ brechen nur als Ganzes um (`dotSub`, `.nobr`).
+- Anmelden beim ersten Start (Dennis, 28. Oktober: „Name plus Token und ich bekomme den Stand von heute“): auf einem neuen Gerät (nie gestartet, keine
+  Einheiten, kein Sync) geht auf der Begrüßung einmal von selbst das Blatt „Anmelden“ auf (`loginAuto`, `ui.lgAuto`, `loginOpen` = `ACT.login`): GitHub-Name,
+  Token, Repository (vorbelegt „trainingsplan-daten“), Hauptaktion „Anmelden“, „Ich bin neu“ schließt; die Begrüßung behält „Ich nutze die App schon · Anmelden“
+  (`.ob-login`). Anmelden = derselbe Abgleich wie Einstellungen › Sync (`runSync`); Fehler (falscher Token, Repository) stehen im Blatt (`#lg-msg`), die
+  Verbindung wird dann nicht gespeichert. `mergeRemote` übernimmt auf einem frischen Gerät (`fresh`: lokal nie gestartet, keine Einheiten, entfernt gestartet)
+  den ganzen Stand und die Position, sonst gewännen dort frisch gespeicherte Standardwerte mit neuerer Feldzeit. Test: `node tests/anmelden-browser.cjs`
+  (Playwright, nachgestelltes GitHub).
 - Wiedereinstieg (Dennis): ab 15 Tagen Pause (`S.comeback.ask`, `days`) zeigt Heute am Krafttag vor dem ersten Training die Karte „Willkommen zurück“
   (`wbDue`, `wbCardHTML`, „Kurz einschätzen“, `ACT['wb-go']`); „Training starten“ wird dann „Ohne Einschätzung starten“. Sechs Seiten `WB_PAGES`
   (Zug, Druck, Beine, Rumpf, Skill, Schmerzen) aus dem Fragebogen, Stand in `S.wb {on, p, a, pre, prev}` (in `DEF`, nicht synchronisiert; `fb()` und

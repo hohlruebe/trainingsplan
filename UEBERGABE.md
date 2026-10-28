@@ -19,6 +19,9 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Umriss fein in Blau, Vorlauf ohne Text in der Kapsel. Offen: Querformat und Tools › Timer zeigen weiter den Ring.
 - Zuletzt Vergleich oben | in der Karte (https://claude.ai/artifact/9ytRHHGNG1e2oDdEQuJ4UG), Dennis: „So machen wir das“ (verstanden als „in der Karte“):
   die Kapsel ist jetzt die erste Zeile der weißen Trainer-Karte. Dabei behoben: Intervalle zeigten bei laufender Uhr „Als Erstes“ statt „Jetzt“.
+- Anmelden beim ersten Start (Dennis: „Name plus Token und ich bekomme den Stand von heute“): neues Gerät = Blatt „Anmelden“ geht von selbst auf, Begrüßung
+  behält „Ich nutze die App schon · Anmelden“. Ein frisches Gerät übernimmt den Stand aus GitHub ganz (vorher hätten gespeicherte Standardwerte gewonnen).
+  Lokal mit Dennis' echten Daten geprüft (nachgestelltes GitHub, nichts hochgeladen): danach Heute mit „Ganzkörper B“. Test `tests/anmelden-browser.cjs`.
 - Stufen-Pille im Trainer: nur der Stufenname („Körper steil“), einzeilig, wenn er passt. Lange Namen („Mit Halt (Ringe oder Türrahmen)“) erst 14 px, dann zwei Zeilen,
   nie abgeschnitten (Dennis: mit „…“ konnte man nicht mehr alles lesen; `fsStgFit`).
 - Dennis: „Mir geht’s nicht gut“ war an jedem Trainingstag angehakt. Der Haken zeigte auch die eigene Kürzung des Coachs (bei Dennis der Wiedereinstieg nach
