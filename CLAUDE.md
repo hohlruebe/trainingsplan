@@ -730,6 +730,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   eine Zeile (`fsCoLine`, `.fs-co`, Antippen = Blatt `ACT['fs-co']`), kompakte Trainer-Körper (Körper bekommt `tr`): Handstand/Ausgleich als Kopfzeile `trHead`
   (Mini-Figur, Name, (i), Chip) plus Zähler, Accessory je Übung eine Zeile mit Zähler (Name öffnet „So geht’s“), Abschluss ohne große Figur und mit
   `finTrain`: laufender Abschnitt groß, „Als Nächstes“ darunter (statt aller Abschnitte). Listen-Zeilen enger (`#fs .fs-tr .fs-row`).
+  Zeit-Kapsel statt Ring (Dennis, 28. Oktober, Boards Varianten → Kapsel → Stelle → Umriss: „Kapsel bleibt oben“, „fein in Blau“): im Trainer hochkant
+  (`#fs[data-view="port"] .fs-tr .fs-ring`, quer und Tools › Timer behalten den Ring) eine Glas-Kapsel über die ganze Breite, 68 px, Umriss 1,5 px `--acc` 55 %
+  (im Vorlauf grün), Zeit 44 px in der Mitte, links der Zustand, rechts Runde bzw. Rest; die Kapsel füllt sich hellblau mit der Phase (`--pr` aus `fsPaint`,
+  im Vorlauf grün). Bereit und Vorlauf ohne Text (kein „10 s Vorlauf“, kein „In Position kommen“): nach Start laufen die 10 s nur in der Kapsel ab.
+  Scroll-Stelle: `FS.sKeep` aus einem scroll-Listener auf `#fs-side` (nicht direkt nach dem Neuzeichnen, `FS.sIgn`), im selben Schritt wiederhergestellt.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

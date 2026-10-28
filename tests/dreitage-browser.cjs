@@ -689,9 +689,9 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#fs #fs-tg').click();
     assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '25', 'kürzerer Versuch: beste Zeit bleibt');
     assert.ok(await page.evaluate(() => { const b = document.getElementById('fs-side'); return b.scrollHeight <= b.clientHeight + 2; }), 'Handstand passt ohne Scrollen');
-    await page.setViewportSize({ width: 360, height: 430 }); await page.waitForTimeout(300);
+    await page.setViewportSize({ width: 360, height: 430 }); await page.waitForTimeout(600);
     await page.evaluate(() => { const b = document.getElementById('fs-side'); b.scrollTop = b.scrollHeight; });
-    const sc0 = await page.evaluate(() => document.getElementById('fs-side').scrollTop);
+    await page.waitForTimeout(100); const sc0 = await page.evaluate(() => document.getElementById('fs-side').scrollTop);
     assert.ok(sc0 > 5, 'auf kleinem Bildschirm lässt sich scrollen');
     await page.locator('#fs [data-act="k-rep"][data-f="hsSec"][data-d^="-"]').click();
     assert.ok(Math.abs(await page.evaluate(() => document.getElementById('fs-side').scrollTop) - sc0) < 5, '„–5 s“ bleibt an der Stelle');

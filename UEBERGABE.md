@@ -14,6 +14,9 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   (Fuß kompakt), Stufen/Bänder im Training anpassbar (Coach-Stufe ±2). Details CLAUDE.md „Trainer-Feinschliff“.
 - Danach Dennis: „auf dem Timer nicht scrollen müssen“: jeder Schritt passt bei 390 × 844 (Test prüft es); bei 360 × 740 bleiben Aufwärmen als Liste
   und Accessory mit 4 Übungen knapp drüber (rund 50 px).
+- Danach Dennis: „weg von der runden Timer-Anzeige?“ Boards: vier Varianten (https://claude.ai/artifact/CEncwapwAn3XkwMTBbyV1F), Kapsel an vier Stellen
+  (https://claude.ai/artifact/EnNbPiTr59GxvprNxEuYbU), drei Umrisse (https://claude.ai/artifact/9bdz8KndiXYr8J3sf12y76). Gewählt: Kapsel oben, Zeit in der Mitte,
+  Umriss fein in Blau, Vorlauf ohne Text in der Kapsel. Offen: Querformat und Tools › Timer zeigen weiter den Ring.
 - Tests: `tests/dreitage-browser.cjs` (Stufenwahl, Handstand-Pause, Scrollen, automatisches Weiter); alle Tests grün.
 
 ## Mehr Zeit mit Accessory (26. Oktober 2026, Claude)
