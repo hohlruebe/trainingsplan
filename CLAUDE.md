@@ -378,6 +378,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (< 45 / < 30 / < 15 Min, `_zeit`; `zeitLv` kürzt in Stufen: ohne Handstand/Skill, Kraft und Metcon kürzer, ohne Metcon, Aufwärmen 4 Min),
   „Ich trainiere woanders“ (`_ort`, `trainOrt()`, nur diese Einheit; `S.ort` bleibt), am Bergsprint-Tag „Ich habe keine Steigung“
   (`_flat`, flache Sprints). Kein Ort-Feld mehr auf Heute.
+  „Mir geht’s heute nicht gut“ ist nur angehakt, wenn man es selbst wählt (`_kurz` '1'; Dennis, 28. Oktober: war an jedem Trainingstag an). Kürzt der Coach selbst
+  (Wiedereinstieg, Pause über 7 Tage, Signal, müde Zonen; `kurzAuto`), steht der Grund in der Karte `.ad-sig` mit „Ich fühle mich fit, volle Einheit“ (`ACT['sig-full']`).
 - UX-Check Pakete 3, 4, 5: Heute zeigt den Ablauf in einer Karte mit „ca. X Min · N Schritte“ und „Training starten“ darin (`.tl-card`), darunter
   „Dein Coach hat heute angepasst“ (`coachCardHTML`: getauschte Leiter `planFill().neu`, Ersatz `why`, Stufe `brakeNote`, Metcon-Tausch `mwhy`, fehlendes
   Gerät, automatisch gezählter Ruhetag `S.autoRest`, Wiedereinstieg, nachgeholter Kardio-Test; Zeichen `coachItem`/`CI`), dann „Heute anpassen“,

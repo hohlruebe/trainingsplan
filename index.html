@@ -2896,6 +2896,17 @@ function toast(msg) { if (LS.notice) { storageNotice(); return; } var t = docume
 function lastTrainingDate() { var d = null; LOGS.forEach(function (l) { if (l.kind !== 'mobility' && l.kind !== 'rm' && (!d || l.date > d)) d = l.date; }); return d; }
 function pauseDays() { var d = lastTrainingDate(); return d ? daysBetween(parseISO(d), new Date()) : 0; }
 function isKurz(tag) { return zeitLv(tag) >= 2 || isKurz0(tag); }
+// Warum der Coach heute selbst kürzt (Dennis, 28. Oktober: „Mir geht’s nicht gut“ war sonst an jedem Trainingstag angehakt). Leer = keine eigene Kürzung.
+function kurzAuto(tag) {
+  var o = [], p = pauseDays(), cb = S.comeback && S.comeback.n > 0 ? S.comeback.n : 0;
+  if (!v2() && (S.durchgang === 1 || S.durchgang === 2)) o.push('Einstieg in den ersten zwei Durchgängen.');
+  if (cb) o.push('Wiedereinstieg nach der Pause, noch ' + (cb === 1 ? '1 Einheit' : cb + ' Einheiten') + ' kürzer.');
+  else if (p > 7) o.push(p + ' Tage seit dem letzten Training.');
+  if (sigKurz(tag)) o.push('Zweimal hintereinander schwerer als sonst (' + sigWhy() + ').');
+  if (morgenKurz(tag)) o.push('Du fühlst dich heute platt.');
+  if (zoneKurz(tag)) o.push('Zwei Körperzonen, die heute dran sind, sind noch müde.');
+  return o;
+}
 function isKurz0(tag) { var k = draftKey(tag), D = DRAFTS[k]; if (D && D._kurz != null) return D._kurz === '1'; if (k in ui.kurz) return ui.kurz[k]; return (!v2() && (S.durchgang === 1 || S.durchgang === 2)) || pauseDays() > 7 || !!(S.comeback && S.comeback.n > 0) || sigKurz(tag) || morgenKurz(tag) || zoneKurz(tag) } // Plan 2: der Einstieg steckt in der Umfangsstufe
 // Test-Durchgang je Schwerpunkt (z. B. jeder 4.): Runde 1 der ersten Kraftübung ist ein Maxout.
 function isTestCycle(tag) {
@@ -10379,13 +10390,13 @@ ACT.adapt = function (el) {
   var OK = '<svg class="ad-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   var row = function (k, t, sub, end, act) { return '<button type="button" class="gl-row" data-act="' + act + '" data-k="' + k + '"><span class="gl-t"><b>' + t + '</b><small>' + sub + '</small></span>' + end + '</button>'; };
   var item = function (k, t, sub, panel, on) { return '<div class="gl-item ad-it' + (on ? ' sel' : '') + '" data-k="' + k + '">' + row(k, t, sub, CH, 'adapt-sub') + '<div class="ad-p" hidden>' + panel + '</div></div>'; };
-  var sigC = sigKurz(tag) ? '<section class="card ad-sig"><b>' + (isKurz0(tag) ? 'Dein Coach hat heute gekürzt' : 'Heute die volle Einheit') + '</b><p class="small muted" style="margin:4px 0 10px">Grund: zweimal hintereinander schwerer als sonst (' + esc(sigWhy()) + ').</p>' +
+  var kw = kurzAuto(tag), sigC = kw.length ? '<section class="card ad-sig"><b>' + (isKurz0(tag) ? 'Dein Coach hat heute gekürzt' : 'Heute die volle Einheit') + '</b><p class="small muted" style="margin:4px 0 10px">Grund: ' + esc(kw.join(' ')) + '</p>' +
     '<button type="button" class="btn small" data-act="sig-full">' + (isKurz0(tag) ? 'Ich fühle mich fit, volle Einheit' : 'Doch kürzer') + '</button></section>' : '';
   var zT = !run && zoneToday(tag), zl0 = zT ? zoneLine(tag) || (zT.off ? ZONE_N[zT.mu[0]] + ' noch müde.' : '') : '';
   var zoneC = zT && zl0 ? '<section class="card ad-sig"><b>' + (zT.off ? 'Heute volle Runden' : 'Dein Coach hat heute gekürzt') + '</b><p class="small muted" style="margin:4px 0 10px">Grund: ' + esc(zT.off ? zT.mu.map(function (z) { return ZONE_N[z]; }).join(' und ') + ' noch müde.' : zl0) + '</p>' +
     '<button type="button" class="btn small" data-act="zone-full">' + (zT.off ? 'Doch kürzen' : 'Doch volle Runden') + '</button></section>' : '';
   var body = '<p class="muted" style="margin:0 0 12px">Sag deinem Coach, worauf er heute achten soll.</p>' + sigC + zoneC + '<section class="card gl-card ad-list">' +
-    '<div class="gl-item ad-it' + (isKurz0(tag) ? ' sel' : '') + '" data-k="int">' + row('int', 'Mir geht’s heute nicht gut', run ? 'Locker statt intensiv' : 'Der Coach nimmt Intensität raus', OK, 'adapt-int') + '</div>' +
+    '<div class="gl-item ad-it' + (D._kurz === '1' ? ' sel' : '') + '" data-k="int">' + row('int', 'Mir geht’s heute nicht gut', run ? 'Locker statt intensiv' : 'Der Coach nimmt Intensität raus', OK, 'adapt-int') + '</div>' +
     (run && DAYS[tag].kardio && (D._flat === '1' || kardioSpec(DAYS[tag]).kf === 'hill') ? '<div class="gl-item ad-it' + (D._flat === '1' ? ' sel' : '') + '" data-k="flat">' + row('flat', 'Ich habe keine Steigung', 'Flache Sprints statt Bergsprints', OK, 'adapt-flat') + '</div>' : '') +
     (!run ? item('zeit', 'Ich habe wenig Zeit', 'Trainingsdauer anpassen',
       '<p class="small muted" style="margin:0 0 8px">Wie viel Zeit hast du?</p><div class="seg" role="group" aria-label="Zeit">' + [45, 30, 15].map(function (B) {
@@ -10435,9 +10446,8 @@ ACT['adapt-ort'] = function (el) {
 };
 // Nicht gut: Antippen setzt es sofort um, nochmal tippen nimmt es zurück.
 ACT['adapt-int'] = function (el) {
-  var tag = S.tag, D = DRAFTS[draftKey(tag)] || {}, it = el.closest('.ad-it'), on = !isKurz0(tag);
-  delete D._kurz; var auto = isKurz0(tag);
-  setDraft('_kurz', on === auto ? '' : on ? '1' : '0');
+  var tag = S.tag, D = DRAFTS[draftKey(tag)] || {}, it = el.closest('.ad-it'), on = D._kurz !== '1';
+  setDraft('_kurz', on ? '1' : '');
   it.classList.toggle('sel', on); render();
 };
 // Keine Steigung: Bergsprints werden flache Sprints, nochmal tippen nimmt es zurück.

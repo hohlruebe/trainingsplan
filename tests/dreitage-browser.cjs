@@ -203,6 +203,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.getByRole('heading', { name: 'Ganzkörper A', level: 1 }).isVisible());
     console.log('PASS: kein Guten Morgen nach dem Nachtdienst');
 
+    // Dennis, 28. Oktober: kürzt der Coach selbst (Wiedereinstieg), ist „Mir geht’s heute nicht gut“ nicht angehakt; der Grund steht in einer eigenen Karte.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(v2s(), { comeback: { from: '2026-10-01', n: 1, dl: null } }), logs()]);
+    await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
+    assert.ok(!(await page.locator('#sheet .ad-it[data-k="int"]').getAttribute('class')).includes('sel'), 'nicht selbst gewählt: kein Haken');
+    assert.match(await page.locator('#sheet .ad-sig').innerText(), /Dein Coach hat heute gekürzt[\s\S]*Wiedereinstieg nach der Pause, noch 1 Einheit kürzer/);
+    await page.locator('#sheet .ad-it[data-k="int"] .gl-row').click();
+    assert.ok((await page.locator('#sheet .ad-it[data-k="int"]').getAttribute('class')).includes('sel'), 'selbst gewählt: Haken');
+    await page.locator('#sheet .ad-it[data-k="int"] .gl-row').click();
+    await page.locator('#sheet [data-act="sig-full"]').click();
+    await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
+    assert.match(await page.locator('#sheet .ad-sig').innerText(), /Heute die volle Einheit/);
+    await page.keyboard.press('Escape');
     // Verschieben: Heute anpassen › Training verschieben › Vorschlag des Coachs.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
     await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
