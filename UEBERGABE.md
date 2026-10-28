@@ -19,7 +19,8 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Umriss fein in Blau, Vorlauf ohne Text in der Kapsel. Offen: Querformat und Tools › Timer zeigen weiter den Ring.
 - Zuletzt Vergleich oben | in der Karte (https://claude.ai/artifact/9ytRHHGNG1e2oDdEQuJ4UG), Dennis: „So machen wir das“ (verstanden als „in der Karte“):
   die Kapsel ist jetzt die erste Zeile der weißen Trainer-Karte. Dabei behoben: Intervalle zeigten bei laufender Uhr „Als Erstes“ statt „Jetzt“.
-- Stufen-Pille im Trainer einzeilig: nur der Stufenname („Körper steil“), „Stufe 1“ fiel weg, sonst bricht sie um. Notfalls endet der Name mit „…“.
+- Stufen-Pille im Trainer: nur der Stufenname („Körper steil“), einzeilig, wenn er passt. Lange Namen („Mit Halt (Ringe oder Türrahmen)“) erst 14 px, dann zwei Zeilen,
+  nie abgeschnitten (Dennis: mit „…“ konnte man nicht mehr alles lesen; `fsStgFit`).
 - Dennis: „Mir geht’s nicht gut“ war an jedem Trainingstag angehakt. Der Haken zeigte auch die eigene Kürzung des Coachs (bei Dennis der Wiedereinstieg nach
   8 Tagen Pause, noch 1 Einheit). Jetzt nur noch bei eigener Wahl; die Kürzung des Coachs steht mit Grund in einer Karte (`kurzAuto`) mit „volle Einheit“.
 - Dennis: grauer Fuß bei laufender Uhr „zu viel Text, zu gequetscht“: Weiter jetzt einzeilig mit Schloss, der Hinweis „lange drücken“ kommt beim Antippen.

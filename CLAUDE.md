@@ -727,7 +727,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   weiter (`autoNext`, `AUTO_NEXT`: Aufwärmen nach der letzten Übung mit Zeit, Skill, Kraft, Ausgleich, Accessory, Abschluss außer Intervallen; nicht Metcon,
   nicht der letzte Schritt; Hinweis „Gleich weiter: …“, 2,2 s, bleibt stehen, wenn man vorher wechselt). Stufe im Training wählbar (`fsStgBtn`, `.fs-stg`,
   `ACT['k-stg']`, `stgChoices`): Stufe des Coachs und bis zu zwei darunter und darüber, die am Ort gehen (auch Bandstufen), nur für heute (Entwurf `k<i>stage`).
-  Die Pille ist einzeilig und zeigt nur den Stufennamen (`.fs-stg-t`, „Stufe N“ steht im `aria-label`; Dennis: „Stufe 1 · Körper steil“ war zu gequetscht).
+  Die Pille zeigt nur den Stufennamen (`.fs-stg-t`, „Stufe N“ steht im `aria-label`; Dennis: „Stufe 1 · Körper steil“ war zu gequetscht), einzeilig, wenn er passt;
+  sonst `fsStgFit` (nach dem Neuzeichnen in `fsPaint`): erst 14 px (`.sm14`), dann zwei Zeilen (`.two`), nie abgeschnitten (Dennis: „dann kann man nicht mehr alles lesen“).
   Ohne Scrollen (Dennis, 28. Oktober: „alles, was man braucht, auf einer Seite“; geprüft bei 390 × 844 in beiden Ansichten, jeder Schritt): Ring kleiner
   (`fsOrient`: Trainer 0,38 W / 0,18 H), „10 s Vorlauf“, Übung im Einzeln-Modus quer neben der Figur (`.fs-ex` als Zeile, Wdh. 52 px), Coach-Hinweise als
   eine Zeile (`fsCoLine`, `.fs-co`, Antippen = Blatt `ACT['fs-co']`), kompakte Trainer-Körper (Körper bekommt `tr`): Handstand/Ausgleich als Kopfzeile `trHead`
