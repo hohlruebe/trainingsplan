@@ -717,6 +717,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `fsName` (kein Umbruch am Bindestrich), kein „Erledigt“ in der Liste (Dennis: das Ergebnis kommt danach), Bandstufe einzeilig. Quer: Texte mindestens 14 px (`max(14px, …)`), Zähler 44 px, (i) mit 44-px-Fläche.
   `saveAsk`: lief die Uhr des letzten Schritts nie, erst „<Schritt> noch nicht gemacht“ (Hauptaktion „Zurück zum Training“). `.btn.save` mit dunkler Schrift (`#0E2A18`).
   Heute erledigt: zuerst `outlookHTML`, ohne Ausfall-Zeile, Fragen darunter; Guten Morgen ohne Folge-Satz.
+- Trainer-Feinschliff (Dennis, 28. Oktober, aus dem Training): Einzeln | Liste nicht mehr unter dem Ring, sondern als kleines Symbol im Kopf (`.fs-vb`,
+  zeigt, wohin es wechselt; `ACT['fs-view']`). Kopf „4/6 · Kraft …“ (x/n zuerst). Fuß kompakt: Zurück als runder Knopf (`.fs-back`, `I_BACK`), „Weiter · <Schritt> ›“
+  48 px (`.fs-next`, `.fs-nxt-t`); die Sperre bei laufender Uhr schreibt nur in den Weiter-Knopf. Handstand: „Pause“ nimmt die Haltezeit seit Start bzw. Weiter
+  ohne Vorlauf (`hsCapture` in `timerToggle`, ab 3 s, nur Sekunden-Skills), die beste zählt als „Beste Zeit“ (`hsSec`). Zähler im Trainer springen nicht mehr
+  an den Anfang: `fsRender` merkt `FS.sTop`, `fsPaint` stellt im selben Schritt (`FS.sStep`) die Stelle wieder her. Nach der Uhr geht der Trainer von selbst
+  weiter (`autoNext`, `AUTO_NEXT`: Aufwärmen nach der letzten Übung mit Zeit, Skill, Kraft, Ausgleich, Accessory, Abschluss außer Intervallen; nicht Metcon,
+  nicht der letzte Schritt; Hinweis „Gleich weiter: …“, 2,2 s, bleibt stehen, wenn man vorher wechselt). Stufe im Training wählbar (`fsStgBtn`, `.fs-stg`,
+  `ACT['k-stg']`, `stgChoices`): Stufe des Coachs und bis zu zwei darunter und darüber, die am Ort gehen (auch Bandstufen), nur für heute (Entwurf `k<i>stage`).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

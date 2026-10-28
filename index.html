@@ -996,7 +996,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-tt{flex:1;min-width:0}.fs-tt .fs-kick{font-weight:700;color:var(--ink);margin:0 0 6px}.fs-tt .st-prog{margin:0}
 .fs-seg{flex:none;margin:0}.fs-seg .seg-btn{min-height:44px;padding:0 16px;font-size:14px}
 
-.fs-nav{display:flex;gap:10px}.fs-nav .btn{flex:1;min-width:0;min-height:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
+.fs-nav{display:flex;gap:10px;align-items:center}.fs-nav .btn{flex:1;min-width:0;min-height:48px;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}.fs-nav .fs-back{flex:none;width:48px;height:48px;margin:0}.fs-nxt-t{font-weight:500;opacity:.85}.fs-tr .fs-top .fs-vb{margin:0;width:44px;height:44px;flex:none}.fs-tr.lk .fs-vb{display:none}.fs-stg{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;margin:4px auto 0;border:0;border-radius:999px;background:var(--fill);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}.fs-stg svg{width:16px;height:16px;flex:none}.fs-stg.sm{min-height:44px;padding:0 10px;font-size:14px;margin:0}.fs-nav.lock .fs-back{color:var(--ink2);background:var(--board);box-shadow:none}
 .fs-tr .fs-side{justify-content:safe center}
 .fs-i{flex:none;display:inline-grid;place-items:center;width:calc(34px*var(--fsu,1));height:calc(34px*var(--fsu,1));min-width:34px;min-height:34px;border-radius:50%;border:2px solid var(--acc);background:var(--paper);color:var(--acc);font:italic 700 18px Georgia,serif;padding:0;cursor:pointer}
 .fs-nm{display:flex;align-items:center;gap:10px}
@@ -4047,8 +4047,27 @@ function setToggle() {
 }
 function timerToggle() {
   if (TM.finished) timerReset();
-  if (TM.running) { TM.acc = elapsed(); timerStop(); setToggle(); paint(locate(TM.acc)); paintMini(); fsPaint(); return; }
+  if (TM.running) { var a0 = TM.acc; TM.acc = elapsed(); timerStop(); setToggle(); paint(locate(TM.acc)); paintMini(); fsPaint(); hsCapture(a0, TM.acc); return; }
   ensureAudio(); TM.t0 = Date.now(); TM.running = true; TM.int = setInterval(tick, 200); wakeOn(); tick(); setToggle();
+}
+// Handstand (Dennis, 28. Oktober): „Pause“ nimmt die Haltezeit seit Start bzw. Weiter (ohne Vorlauf), die beste zählt als „Beste Zeit“.
+function hsCapture(a0, a1) {
+  var c = TM.cfg; if (!c || !c.step || c.step !== draftKey(S.tag) + ':hs') return;
+  var key = skillKey(S.tag); if (!key || !LAD[key] || skillUnit(LAD[key]) !== 's') return;
+  var pre = TM.phases[0] && TM.phases[0].kind === 'pre' ? TM.phases[0].dur : 0, sec = Math.round(a1 - Math.max(a0, pre)); if (sec < 3) return;
+  var old = num(dr(S.tag).hsSec), best = old == null || sec > old;
+  if (best) setDraft('hsSec', sec);
+  toast(sec + ' s gehalten' + (best ? ', als beste Zeit gemerkt.' : '. Beste Zeit bleibt ' + old + ' s.')); render();
+}
+// Nach der Uhr (Dennis, 28. Oktober): wo nichts mehr einzutragen ist, geht der Trainer von selbst zum nächsten Schritt.
+// Intervalle (geschafft zählen) und Metcon (Ergebnis prüfen) bleiben stehen, ebenso der letzte Schritt.
+var AUTO_NEXT = { warm: 1, hs: 1, kraft: 1, ausgl: 1, acc: 1, fin: 1 };
+function autoNext(id) {
+  var T = FS.train && trainCtx(); if (!T || T.s.id !== id || !AUTO_NEXT[id] || T.i >= T.st.length - 1) return;
+  if (id === 'fin' && TM.cfg && TM.cfg.seq && finOf(T.c.tag) && finOf(T.c.tag).k === 'iv') return;
+  var at = String(T.i), nx = T.st[T.i + 1];
+  toast('Geschafft. Gleich weiter: ' + nx.title + '.');
+  setTimeout(function () { var D = dr(S.tag); if (String(D._step) !== at || !FS.train || TM.running) return; ACT.step({ dataset: { to: String(T.i + 1), force: '1' } }); }, 2200);
 }
 function timerToggleTools() {
   var start = !TM.running && (TM.acc === 0 || TM.finished);
@@ -4064,7 +4083,8 @@ function finish() {
     var wi = TM.cfg.warmItem, ws = flowState(warmFlow(S.tag));
     timerReset(); TM.cfg.step = null;
     if (modeOf('warm') === 'single') { if (ws.c === wi) flowStep('warm', true); else render(); } else if (ws.done.indexOf(wi) < 0) flowRow('warm', wi, true); else render();
-  }
+    var wF = warmFlow(S.tag); if (flowState(wF).done.length >= wF.items.length) autoNext('warm');
+  } else if (FS.train && TM.cfg && TM.cfg.step) autoNext(String(TM.cfg.step).split(':').pop());
   if (TM.mode === 'zeit' && TM.cfg && TM.cfg.step) { setDraft('murphTime', fmt(Math.max(0, TM.finalElapsed - 10))); if (ui.tab === 'heute') render(); }
   if (TM.mode === 'amrap' && TM.cfg && TM.cfg.step === draftKey(S.tag) + ':metcon') { if (ui.tab === 'heute') render(); amrapCheck(); }
   paintMini();
@@ -9849,7 +9869,10 @@ var ICO = function (p, w) { return '<svg width="20" height="20" viewBox="0 0 24 
 var I_ROT = ICO('<rect x="7.5" y="3" width="9" height="18" rx="2.5"/><path d="M3 9.5A9 9 0 0 1 6 4.5M21 14.5a9 9 0 0 1-3 5M3 4.5v5h5M21 19.5v-5h-5"/>', 1.8),
   I_MIN = ICO('<path d="M4 10h6V4M20 14h-6v6M10 10L3.5 3.5M14 14l6.5 6.5"/>', 2.2),
   I_EXP = ICO('<path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/>', 2.2),
-  I_X = ICO('<path d="M6 6l12 12M18 6L6 18"/>', 2.2);
+  I_X = ICO('<path d="M6 6l12 12M18 6L6 18"/>', 2.2),
+  I_LIST = ICO('<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>', 2.2),
+  I_ONE = ICO('<rect x="4" y="4" width="16" height="16" rx="3.5"/>', 2),
+  I_BACK = ICO('<path d="M15 5l-7 7 7 7"/>', 2.4);
 var FS = { on: false, why: '', lock: null, key: '', lp: false }, MQ_LAND = window.matchMedia ? window.matchMedia('(orientation: landscape)') : null;
 function fsEl() { var f = document.getElementById('fs'); if (!f) { f = document.createElement('div'); f.id = 'fs'; f.hidden = true; f.setAttribute('role', 'dialog'); f.setAttribute('aria-label', 'Timer im Vollbild'); document.body.appendChild(f); } return f; }
 function fsWant() {
@@ -9892,7 +9915,7 @@ function fsKick() {
 }
 function fsRender() {
   var tools = !(TM.cfg && TM.cfg.step), T = FS.train ? trainCtx() : null;
-  if (T) { fsEl().innerHTML = trainShellHTML(T); FS.key = ''; return; }
+  if (T) { var ob = document.getElementById('fs-side'); FS.sTop = ob ? ob.scrollTop : 0; fsEl().innerHTML = trainShellHTML(T); FS.key = ''; return; }
   fsEl().innerHTML = '<div class="fs-in"><div class="fs-top"><p class="fs-kick">' + esc(fsKick()) + '</p><div class="fs-tools">' +
     '<button type="button" class="rbtn" data-act="fs-rot" aria-label="Ansicht drehen, lange drücken = automatisch">' + I_ROT + '</button>' +
     '<button type="button" class="rbtn" data-act="fs-min" aria-label="Minimieren">' + I_MIN + '</button>' +
@@ -9977,18 +10000,19 @@ function stageUe(E) { var l = E && E.lad && LAD[E.fk] && LAD[E.fk].lib; return l
 function fsI(n, key) { var id = UE[key] && !GL[n] ? key : ueIdOf(n, key); return id ? '<button type="button" class="fs-i" data-act="ue-info" data-how="1" data-id="' + esc(id) + '" aria-label="So geht ' + esc(n) + '">i</button>' : ''; }
 function trainShellHTML(T) {
   var id = T.s.id, views = id === 'warm' || id === 'kraft' || id === 'metcon', v = fsView(), last = T.i === T.st.length - 1;
-  var seg = views ? '<div class="seg fs-seg" role="group" aria-label="Ansicht">' + [['one', 'Einzeln'], ['list', 'Liste']].map(function (x) {
-    return '<button type="button" class="seg-btn' + (x[0] === v ? ' on' : '') + '" data-act="fs-view" data-v="' + x[0] + '" aria-pressed="' + (x[0] === v) + '">' + x[1] + '</button>'; }).join('') + '</div>' : '';
+  // Dennis, 28. Oktober: Einzeln | Liste nahm unter dem Ring zu viel Platz, jetzt ein kleines Symbol im Kopf (zeigt, wohin es wechselt).
+  var seg = '', vb = views ? '<button type="button" class="rbtn fs-vb" data-act="fs-view" data-v="' + (v === 'list' ? 'one' : 'list') + '" aria-label="' + (v === 'list' ? 'Einzeln zeigen' : 'Als Liste zeigen') + '">' + (v === 'list' ? I_ONE : I_LIST) + '</button>' : '';
   var prev = T.i > 0 ? T.st[T.i - 1].title : 'Übersicht';
   return '<div class="fs-in fs-tr' + (id === 'koerper' ? ' fs-noring' : '') + '"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
-    '<div class="fs-tt"><p class="fs-kick">' + esc(T.s.title) + ' · ' + (T.i + 1) + ' von ' + T.st.length + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
-    (PAIN_STEPS[id] ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + id + '" aria-label="Schmerzen">' + PAIN_FLAG + '</button>' : '') +
+    '<div class="fs-tt"><p class="fs-kick">' + (T.i + 1) + '/' + T.st.length + ' · ' + esc(T.s.title) + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
+    vb + (PAIN_STEPS[id] ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + id + '" aria-label="Schmerzen">' + PAIN_FLAG + '</button>' : '') +
     '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
     '<div class="fs-main"><div class="fs-dig' + (seg ? ' fs-dig2' : '') + '"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
     '<circle class="fs-rf" id="fs-arc" cx="50" cy="50" r="45" stroke-dasharray="282.7" stroke-dashoffset="282.7"/></svg>' +
     '<div class="fs-rc"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div><span id="fs-pl"></span></div></div>' + seg + '</div><div class="fs-side" id="fs-side"></div></div>' +
-    '<div class="fs-nav" id="fs-nav"><button type="button" class="btn" data-act="step" data-to="' + (T.i - 1) + '">‹ ' + esc(prev) + '</button>' +
-    (last ? '<button type="button" class="btn save" data-act="save">' + TICK + 'Speichern</button>' : '<button type="button" class="btn primary" data-act="step" data-to="' + (T.i + 1) + '">' + esc(T.st[T.i + 1].title) + ' ›</button>') + '</div></div>';
+    // Fuß (Dennis, 28. Oktober: „der nächste Punkt ist viel zu groß“): Zurück als runder Knopf, Weiter klein mit dem Namen des nächsten Schritts.
+    '<div class="fs-nav" id="fs-nav"><button type="button" class="rbtn fs-back" data-act="step" data-to="' + (T.i - 1) + '" aria-label="Zurück: ' + esc(prev) + '">' + I_BACK + '</button>' +
+    (last ? '<button type="button" class="btn save" data-act="save">' + TICK + 'Speichern</button>' : '<button type="button" class="btn primary fs-next" data-act="step" data-to="' + (T.i + 1) + '"><span>Weiter <span class="fs-nxt-t">· ' + esc(T.st[T.i + 1].title) + '</span> ›</span></button>') + '</div></div>';
 }
 function trainSide(T, L) {
   var id = T.s.id, v = fsView(), co = v2() ? stepCoachHTML(T.c.tag, id) : '';
@@ -10000,6 +10024,29 @@ function trainSide(T, L) {
   // Übrige Schritte (Skill, Ausgleich, Abschluss …): ihr Inhalt im Panel, neu gezeichnet nur nach Eingaben.
   return { k: 'tb' + id + '|' + FS.rk, h: '<div class="fs-body">' + co + T.s.body(T.D) + '</div>' };
 }
+// Stufe im Training wählen (Dennis, 28. Oktober: „Bänder bzw. Übungen anpassbar, zwei Stufen drunter, zwei drüber“). Der Coach setzt sie weiter,
+// das Blatt bietet seine Stufe und bis zu zwei darunter und darüber, die hier gehen; gilt nur für diese Einheit (Entwurf k<i>stage).
+function fsStgBtn(e, small) {
+  if (!e.lad || e.skip || e.lad.steps.length < 2) return small ? '<small>' + stageHTML(e.stage) + '</small>' : '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>';
+  return '<button type="button" class="fs-stg' + (small ? ' sm' : '') + '" data-act="k-stg" data-i="' + e.i + '" aria-label="Stufe ändern">' + (small ? '' : 'Stufe ' + (e.si + 1) + ' · ') + stageHTML(e.stage) + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>';
+}
+function stgChoices(x) {
+  var lad = ladFor(x.n); if (!lad) return [];
+  var coach = stageDef(x.n, x.hi), ci = lad.steps.indexOf(coach), have = haveEq(trainOrt()), stu = lad.lib && lad.lib.stufen, out = [];
+  if (ci < 0) ci = 0;
+  for (var j = Math.max(0, ci - 2); j <= Math.min(lad.steps.length - 1, ci + 2); j++) if (j === ci || !stu || !stu[j] || eqOk(stu[j].equipment, have)) out.push({ j: j, n: lad.steps[j], coach: j === ci });
+  return out;
+}
+ACT['k-stg'] = function (el) {
+  var i = +el.dataset.i, x = DAYS[S.tag].kraft[i]; if (!x) return;
+  var D = dr(S.tag), cur = D['k' + i + 'stage'] != null ? D['k' + i + 'stage'] : stageDef(x.n, x.hi), C = stgChoices(x);
+  openChoice(x.n + ' · Stufe', 'Nur für heute. Dein Coach plant danach mit dem, was du gemacht hast.', C.map(function (c) {
+    return [String(c.j), 'Stufe ' + (c.j + 1) + ' · ' + stageText(c.n) + (c.coach ? ' (Coach)' : ''), c.n === cur ? 'primary' : ''];
+  }), function (v) {
+    if (v === '') return; var c = C.filter(function (q) { return String(q.j) === v; })[0]; if (!c) return;
+    setDraft('k' + i + 'stage', c.coach ? '' : c.n); render(); toast(c.coach ? 'Wieder die Stufe deines Coachs.' : 'Heute ' + stageText(c.n) + '.');
+  });
+};
 function tpoN(D, e, r) { var v = num(D['k' + e.i + 'r' + r]); return v != null ? v : e.goal; }
 function trainKraft(T, L, v, co) {
   var tag = T.c.tag, D = T.D, d = DAYS[tag], n = d.kraft.length, rounds = kraftRounds(tag);
@@ -10012,14 +10059,14 @@ function trainKraft(T, L, v, co) {
     var rows = E.map(function (x, i) {
       var mm = r * n + i, f = D['k' + i + 'r' + r], val = r >= x.zr ? 'frei' : (f != null ? f : x.skip ? '–' : x.goal) + (x.sec ? ' s' : ''), kg = r >= x.zr ? null : fsKg(i, r);
       return '<div class="fs-row fs-krow' + (i === ex ? ' on' : '') + (f != null && i !== ex ? ' done' : '') + '" data-act="k-sel" data-k="' + esc(draftKey(tag)) + '" data-m="' + mm + '">' +
-        '<small>Min ' + (mm + 1) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + (x.stage ? '<small>' + stageHTML(x.stage) + '</small>' : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
+        '<small>Min ' + (mm + 1) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + (x.stage ? fsStgBtn(x, true) : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
     }).join('');
     return { k: key, h: dots + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
   }
   var nx = m + 1 < n * rounds ? E[(m + 1) % n] : null;
   return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Minute ' + (m + 1) + ' von ' + n * rounds + '</p>' +
     '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
-    (e.stage ? '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>' : '') + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
+    (e.stage ? fsStgBtn(e) : '') + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
     (nx ? '<span class="chip">Als Nächstes: ' + esc(nx.x.n) + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' : '<span class="chip">Letzte Minute</span>') + dots + co };
 }
 // Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
@@ -10155,12 +10202,14 @@ function fsPaint(L, force) {
   var nav = FS.train && $('fs-nav'), lk = !!(nav && fsLocked());
   if (nav && nav.classList.contains('lock') !== lk) {
     nav.classList.toggle('lock', lk); var tr0 = nav.closest('.fs-tr'); if (tr0) tr0.classList.toggle('lk', lk);
-    nav.querySelectorAll('[data-act="step"]').forEach(function (b) { if (lk) { b.dataset.t = b.innerHTML; b.innerHTML = '<small>Uhr läuft · lang drücken</small>' + b.dataset.t; } else if (b.dataset.t != null) { b.innerHTML = b.dataset.t; delete b.dataset.t; } });
+    nav.querySelectorAll('.btn[data-act="step"]').forEach(function (b) { if (lk) { b.dataset.t = b.innerHTML; b.innerHTML = '<small>Uhr läuft · lang drücken</small>' + b.dataset.t; } else if (b.dataset.t != null) { b.innerHTML = b.dataset.t; delete b.dataset.t; } });
   }
   var sd = fsSide(L), box = $('fs-side');
   if (sd.k !== FS.key) {
+    // Dennis, 28. Oktober: „+5 s“ im Handstand sprang jedes Mal an den Anfang. Im selben Schritt bleibt die Stelle, an der man war.
+    var stp = FS.train ? String((DRAFTS[draftKey(S.tag)] || {})._step) : '', keep = stp && FS.sStep === stp ? box.scrollTop || FS.sTop || 0 : 0; FS.sStep = stp; FS.sTop = 0;
     FS.key = sd.k; box.querySelectorAll('.fig').forEach(stopFig);
-    box.innerHTML = sd.h; box.classList.toggle('tap', !!sd.tap); if (sd.tap) box.dataset.act = 'fs-plus'; else delete box.dataset.act;
+    box.innerHTML = sd.h; if (keep) box.scrollTop = keep; box.classList.toggle('tap', !!sd.tap); if (sd.tap) box.dataset.act = 'fs-plus'; else delete box.dataset.act;
     box.querySelectorAll('.fig').forEach(startFig);
   }
   var nx = $('fs-nxt'); if (nx && L && L.rem != null) nx.textContent = 'in ' + fmtT(Math.ceil(L.rem));
