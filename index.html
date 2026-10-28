@@ -996,7 +996,26 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-tt{flex:1;min-width:0}.fs-tt .fs-kick{font-weight:700;color:var(--ink);margin:0 0 6px}.fs-tt .st-prog{margin:0}
 .fs-seg{flex:none;margin:0}.fs-seg .seg-btn{min-height:44px;padding:0 16px;font-size:14px}
 
-.fs-nav{display:flex;gap:10px}.fs-nav .btn{flex:1;min-width:0;min-height:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
+.fs-nav{display:flex;gap:10px;align-items:center}.fs-nav .btn{flex:1;min-width:0;min-height:48px;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}.fs-nav .fs-back{flex:none;width:48px;height:48px;margin:0}.fs-nxt-t{font-weight:500;opacity:.85}.fs-tr .fs-top .fs-vb{margin:0;width:44px;height:44px;flex:none}.fs-tr.lk .fs-vb{display:none}
+/* Zeit-Kapsel im Trainer (Dennis, 28. Oktober: Kapsel oben, Zeit in der Mitte, Umriss fein in Blau, Vorlauf läuft in der Kapsel ab) */
+#fs[data-view="port"] .fs-tr .fs-dig{width:100%}#fs[data-view="port"] .fs-tr .fs-ring svg{display:none}
+#fs[data-view="port"] .fs-tr .fs-ring{width:100%;height:68px;flex:none;border-radius:999px;background:var(--board);overflow:hidden;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--acc) 55%,transparent)}
+#fs[data-view="port"] .fs-tr .fs-ring.grn{box-shadow:inset 0 0 0 1.5px var(--green)}
+#fs[data-view="port"] .fs-tr .fs-ring::before{content:"";position:absolute;inset:0;width:calc(var(--pr,0)*100%);background:color-mix(in srgb,var(--acc) 18%,transparent);transition:width .25s linear}
+#fs[data-view="port"] .fs-tr .fs-ring.grn::before{background:color-mix(in srgb,var(--green) 26%,transparent)}
+#fs[data-view="port"] .fs-tr .fs-rc{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 22px;gap:10px}
+#fs[data-view="port"] .fs-tr .fs-st{justify-self:start;text-align:left;font-size:14px;letter-spacing:.04em;text-transform:none}
+#fs[data-view="port"] .fs-tr #fs-num{font-size:44px!important;line-height:1}
+#fs[data-view="port"] .fs-tr #fs-pl{justify-self:end;text-align:right;max-width:none;font-size:14px;line-height:1.2;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){#fs .fs-tr .fs-ring::before{transition:none}}
+/* Kapsel in der Karte (Dennis, 28. Oktober): Uhr und Übung teilen sich eine weiße Karte, die Kapsel ist ihre erste Zeile. */
+#fs[data-view="port"] .fs-tr .fs-main{gap:0;background:var(--paper);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+#fs[data-view="port"] .fs-tr .fs-dig{padding:14px 14px 2px;box-sizing:border-box}
+#fs[data-view="port"] .fs-tr .fs-side{background:none;box-shadow:none;border-radius:0;justify-content:flex-start;padding-top:12px}
+#fs[data-view="port"] .fs-tr.fs-noring .fs-side{padding-top:calc(22px*var(--fsu,1))}.tr-fin{align-items:center;text-align:center}.tr-fin .tr-hd{justify-content:center}.tr-fin .fs-exn small{font-size:.5em;font-weight:500;color:var(--ink2)}.tr-fin .fs-reps.calm{color:var(--ink)}#fs .fs-tr .fs-ex{flex-direction:row;align-items:center;text-align:left;gap:12px}#fs .fs-tr .fs-ex>div:last-child{flex:1;min-width:0}#fs .fs-tr .fs-ex .fs-nm{justify-content:flex-start}#fs .fs-tr .fs-ex .fs-stg{margin:4px 0 0}#fs .fs-tr .fs-ex .fs-reps{font-size:calc(52px*var(--fsu,1));white-space:nowrap}#fs .fs-tr .fs-side>.fs-body{align-self:stretch;width:100%;min-width:0;box-sizing:border-box}#fs .fs-co{max-width:100%}#fs .stepper b{white-space:nowrap}#fs .fs-tr .fs-ex .fs-lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#fs .fs-tr .fs-ex{width:100%}#fs .fs-tr .fs-fig{width:calc(104px*var(--fsu,1))}#fs .fs-tr .fs-row{min-height:calc(44px*var(--fsu,1));font-size:calc(18px*var(--fsu,1));padding-top:4px;padding-bottom:4px}#fs .fs-tr .fs-row>span{flex:1}#fs .fs-tr .fs-rows{gap:2px}#fs .fs-tr .fs-row b{font-size:calc(30px*var(--fsu,1));min-width:calc(70px*var(--fsu,1))}#fs .fs-tr .fs-row .fs-i{width:40px;height:40px}#fs .fs-krow .fs-stg.sm{min-height:34px;padding:0 10px;align-self:flex-start;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-flex}#fs .fs-krow .fs-stg.sm .bst{overflow:hidden;text-overflow:ellipsis}.tr-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.tr-hd .mini-fig{width:48px;height:48px;flex:none}.tr-hd b{font-size:20px}.tr-x{margin:0;color:var(--ink2)}
+.fs-co{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:14px;background:var(--fill);color:var(--ink);font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.fs-co-k{font-weight:700;color:var(--acc);flex:none}.fs-co-t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fs-co svg{flex:none}
+.acc-it.tr{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;margin-top:6px}.acc-it.tr .mini-fig{width:40px;height:40px}.acc-it.tr .acc-t{display:block}.acc-it.tr .acc-t .small{display:block}#fs .acc-it.tr .stepper{padding:2px;gap:0}#fs .acc-it.tr .stepper button{width:44px;height:44px;min-width:44px}#fs .acc-it.tr .stepper b{min-width:40px;width:40px;font-size:22px;text-align:center}#fs .acc-it.tr{grid-template-columns:36px minmax(0,1fr) auto}#fs .acc-it.tr .mini-fig{width:36px;height:40px}.acc-it.tr .acc-t b{font-size:16px;line-height:1.2}.acc-it.tr .acc-t{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit;min-height:44px;cursor:pointer}.acc-i{color:var(--acc);font-weight:600}.fs-stg{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;margin:4px auto 0;border:0;border-radius:999px;background:var(--fill);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}.fs-stg svg{width:16px;height:16px;flex:none}.fs-stg.sm{min-height:44px;padding:0 10px;font-size:14px;margin:0}.fs-nav.lock .fs-back{color:var(--ink2);background:var(--board);box-shadow:none}
 .fs-tr .fs-side{justify-content:safe center}
 .fs-i{flex:none;display:inline-grid;place-items:center;width:calc(34px*var(--fsu,1));height:calc(34px*var(--fsu,1));min-width:34px;min-height:34px;border-radius:50%;border:2px solid var(--acc);background:var(--paper);color:var(--acc);font:italic 700 18px Georgia,serif;padding:0;cursor:pointer}
 .fs-nm{display:flex;align-items:center;gap:10px}
@@ -1313,8 +1332,8 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 /* Impeccable-Kritik 25. Oktober: Umschalter unter dem Ring (Kopf zeigt „x von n“ ganz), Liste mit schmaler Menge, quer nichts unter 14 px */
 .fs-dig2{flex-direction:column;align-items:center;gap:calc(10px*var(--fsu,1))}
 .fs-tr .fs-top .st-flag{margin:0;width:44px;height:44px}
-.fs-nav.lock .btn{background:var(--board);color:var(--ink2);box-shadow:none;display:flex;flex-direction:column;justify-content:center;line-height:1.15}
-.fs-nav.lock .btn small{display:block;font-size:14px;font-weight:500}
+.fs-nav.lock .btn{background:var(--board);color:var(--ink2);box-shadow:none;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:8px}
+.fs-nav.lock .btn .lk{width:15px;height:15px;flex:none}
 .fs-tr .fs-row b,#fs[data-view] .fs-tr .fs-row b{min-width:0;flex:none}.fs-tr .fs-row b small{font-size:.5em;font-weight:700}
 .fs-tr .fs-row>span{hyphens:none;overflow-wrap:normal}
 .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:wrap;row-gap:6px;padding-top:10px;padding-bottom:12px}.fs-tr .fs-row.on:not(.fs-krow)>span{min-width:55%}.fs-tr .fs-row.on .btn{order:9;margin:0 0 0 auto}
@@ -4047,8 +4066,27 @@ function setToggle() {
 }
 function timerToggle() {
   if (TM.finished) timerReset();
-  if (TM.running) { TM.acc = elapsed(); timerStop(); setToggle(); paint(locate(TM.acc)); paintMini(); fsPaint(); return; }
+  if (TM.running) { var a0 = TM.acc; TM.acc = elapsed(); timerStop(); setToggle(); paint(locate(TM.acc)); paintMini(); fsPaint(); hsCapture(a0, TM.acc); return; }
   ensureAudio(); TM.t0 = Date.now(); TM.running = true; TM.int = setInterval(tick, 200); wakeOn(); tick(); setToggle();
+}
+// Handstand (Dennis, 28. Oktober): „Pause“ nimmt die Haltezeit seit Start bzw. Weiter (ohne Vorlauf), die beste zählt als „Beste Zeit“.
+function hsCapture(a0, a1) {
+  var c = TM.cfg; if (!c || !c.step || c.step !== draftKey(S.tag) + ':hs') return;
+  var key = skillKey(S.tag); if (!key || !LAD[key] || skillUnit(LAD[key]) !== 's') return;
+  var pre = TM.phases[0] && TM.phases[0].kind === 'pre' ? TM.phases[0].dur : 0, sec = Math.round(a1 - Math.max(a0, pre)); if (sec < 3) return;
+  var old = num(dr(S.tag).hsSec), best = old == null || sec > old;
+  if (best) setDraft('hsSec', sec);
+  toast(sec + ' s gehalten' + (best ? ', als beste Zeit gemerkt.' : '. Beste Zeit bleibt ' + old + ' s.')); render();
+}
+// Nach der Uhr (Dennis, 28. Oktober): wo nichts mehr einzutragen ist, geht der Trainer von selbst zum nächsten Schritt.
+// Intervalle (geschafft zählen) und Metcon (Ergebnis prüfen) bleiben stehen, ebenso der letzte Schritt.
+var AUTO_NEXT = { warm: 1, hs: 1, kraft: 1, ausgl: 1, acc: 1, fin: 1 };
+function autoNext(id) {
+  var T = FS.train && trainCtx(); if (!T || T.s.id !== id || !AUTO_NEXT[id] || T.i >= T.st.length - 1) return;
+  if (id === 'fin' && TM.cfg && TM.cfg.seq && finOf(T.c.tag) && finOf(T.c.tag).k === 'iv') return;
+  var at = String(T.i), nx = T.st[T.i + 1];
+  toast('Geschafft. Gleich weiter: ' + nx.title + '.');
+  setTimeout(function () { var D = dr(S.tag); if (String(D._step) !== at || !FS.train || TM.running) return; ACT.step({ dataset: { to: String(T.i + 1), force: '1' } }); }, 2200);
 }
 function timerToggleTools() {
   var start = !TM.running && (TM.acc === 0 || TM.finished);
@@ -4064,7 +4102,8 @@ function finish() {
     var wi = TM.cfg.warmItem, ws = flowState(warmFlow(S.tag));
     timerReset(); TM.cfg.step = null;
     if (modeOf('warm') === 'single') { if (ws.c === wi) flowStep('warm', true); else render(); } else if (ws.done.indexOf(wi) < 0) flowRow('warm', wi, true); else render();
-  }
+    var wF = warmFlow(S.tag); if (flowState(wF).done.length >= wF.items.length) autoNext('warm');
+  } else if (FS.train && TM.cfg && TM.cfg.step) autoNext(String(TM.cfg.step).split(':').pop());
   if (TM.mode === 'zeit' && TM.cfg && TM.cfg.step) { setDraft('murphTime', fmt(Math.max(0, TM.finalElapsed - 10))); if (ui.tab === 'heute') render(); }
   if (TM.mode === 'amrap' && TM.cfg && TM.cfg.step === draftKey(S.tag) + ':metcon') { if (ui.tab === 'heute') render(); amrapCheck(); }
   paintMini();
@@ -7125,7 +7164,7 @@ function stepsOf(c) {
   var sk = d.hs && zl < 1 ? skillKey(tag) : null, skl = sk ? LAD[sk] : null, skS = sk ? stageText(skl.steps[skillStage(sk).idx - 1]) : '';
   if (sk) out.push({ id: 'hs', title: sk === 'g_handstand' ? 'Handstand' : 'Skill · ' + skl.name, sub: d.hs + ' Min · ' + (skl.range || ''), dur: d.hs, desc: (sk === 'g_handstand' ? '' : skl.name + ', ') + skS + ', ' + (skl.range || ''),
     timer: { mode: 'block', cfg: { minutes: d.hs, label: skl.name, tag: tag }, label: d.hs + ' Min starten', info: skl.name + ' · ' + skS },
-    body: function (D) { return hsStepHTML(D); } });
+    body: function (D, tr) { return hsStepHTML(D, tr); } });
   if (names.length && rounds) {
     var rg = '3–6', rir = curPhase().deload ? 3 : 2;
     var em = rounds * names.length;
@@ -8171,7 +8210,7 @@ function warmStepHTML(tag, D) {
   var F = warmFlow(tag);
   return modeOf('warm') === 'single' ? flowHTML(F, D) : '<section class="card">' + flowHTML(F, D) + '</section>';
 }
-function hsStepHTML(D) {
+function hsStepHTML(D, tr) {
   var key = skillKey(S.tag), lad = LAD[key], cs = skillStage(key), ue = skillUe(key, cs.idx), hp = painForUe(S.tag, 'h', ue), nm = lad.name;
   if (hp && hp.w !== 'k' && hp.w !== 'l') {
     var ht = { n: nm, pain: painInfo(hp, { skip: 1 }, nm) };
@@ -8180,6 +8219,8 @@ function hsStepHTML(D) {
   var hn = hp && hp.w === 'l' ? '<p class="tl-x">' + esc(siteName(hp.t)) + ' leicht: kürzere Sätze, aufhören, wenn es zieht.</p>' : '';
   var stage = D.hsStage != null ? D.hsStage : lad.steps[cs.idx - 1], si = stageIndex(lad, stage) || cs.idx, unit = skillUnit(lad), rg = rangeOf(lad) || { lo: 20, hi: 30 };
   var inn = SKILL_IN[key] && SKILL_IN[key][si - 1], how = inn ? inn.in : ueSteps(UE[skillUe(key, si)]);
+  var cnt = cntRow(unit === 'm' ? 'Beste Strecke' : 'Beste Zeit', tr ? '' : unit === 'm' ? 'Meter am Stück' : 'Sekunden am Stück', 'hsSec', D, rg.lo, unit === 's' && rg.hi >= 20 ? 5 : 1, ' ' + unit);
+  if (tr) return trHead(skillUe(key, si), nm, stageHTML(stage)) + '<p class="small tr-x">Ziel ' + esc(lad.range || '20–30 s halten') + ', immer mit 2 s Reserve.' + (unit === 's' ? ' Drück „Pause“, wenn du runterkommst: die Zeit zählt.' : '') + '</p>' + hn + cnt;
   return '<section class="card">' + figBox(skillUe(key, si)) +
     '<p>' + gl(nm) + ': Ziel ' + esc(lad.range || '20–30 s halten') + ', immer mit 2 s Reserve. Pause nach Gefühl.</p>' + hn +
     coachStageHTML(nm, stage, { sf: 'hsStage', sdef: stage, lad: key, title: nm }) +
@@ -9849,7 +9890,10 @@ var ICO = function (p, w) { return '<svg width="20" height="20" viewBox="0 0 24 
 var I_ROT = ICO('<rect x="7.5" y="3" width="9" height="18" rx="2.5"/><path d="M3 9.5A9 9 0 0 1 6 4.5M21 14.5a9 9 0 0 1-3 5M3 4.5v5h5M21 19.5v-5h-5"/>', 1.8),
   I_MIN = ICO('<path d="M4 10h6V4M20 14h-6v6M10 10L3.5 3.5M14 14l6.5 6.5"/>', 2.2),
   I_EXP = ICO('<path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/>', 2.2),
-  I_X = ICO('<path d="M6 6l12 12M18 6L6 18"/>', 2.2);
+  I_X = ICO('<path d="M6 6l12 12M18 6L6 18"/>', 2.2),
+  I_LIST = ICO('<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>', 2.2),
+  I_ONE = ICO('<rect x="4" y="4" width="16" height="16" rx="3.5"/>', 2),
+  I_BACK = ICO('<path d="M15 5l-7 7 7 7"/>', 2.4);
 var FS = { on: false, why: '', lock: null, key: '', lp: false }, MQ_LAND = window.matchMedia ? window.matchMedia('(orientation: landscape)') : null;
 function fsEl() { var f = document.getElementById('fs'); if (!f) { f = document.createElement('div'); f.id = 'fs'; f.hidden = true; f.setAttribute('role', 'dialog'); f.setAttribute('aria-label', 'Timer im Vollbild'); document.body.appendChild(f); } return f; }
 function fsWant() {
@@ -9863,7 +9907,7 @@ function fsOrient() {
   f.dataset.view = o.want; f.classList.toggle('turn', turn);
   f.style.width = W + 'px'; f.style.height = H + 'px';
   // Größen wachsen mit dem Bildschirm (--fsu), die Zeit steht im Ring (--ring), die Übung rechts bzw. unten bekommt den Rest.
-  var land = o.want === 'land', u = land ? Math.min(W / 1100, H / 640) : Math.min(W / 430, H / 900), ring = Math.round(land ? Math.min(H * (FS.train ? 0.5 : 0.72), W * 0.34) : Math.min(W * (FS.train ? 0.44 : 0.6), H * (FS.train ? 0.22 : 0.3)));
+  var land = o.want === 'land', u = land ? Math.min(W / 1100, H / 640) : Math.min(W / 430, H / 900), ring = Math.round(land ? Math.min(H * (FS.train ? 0.5 : 0.72), W * 0.34) : Math.min(W * (FS.train ? 0.38 : 0.6), H * (FS.train ? 0.18 : 0.3)));
   f.style.setProperty('--fsu', Math.max(0.6, Math.min(1.7, u)).toFixed(3)); f.style.setProperty('--ring', ring + 'px');
   var n = document.getElementById('fs-num');
   if (n) n.style.fontSize = Math.round(ring * 0.27) + 'px';
@@ -9977,28 +10021,78 @@ function stageUe(E) { var l = E && E.lad && LAD[E.fk] && LAD[E.fk].lib; return l
 function fsI(n, key) { var id = UE[key] && !GL[n] ? key : ueIdOf(n, key); return id ? '<button type="button" class="fs-i" data-act="ue-info" data-how="1" data-id="' + esc(id) + '" aria-label="So geht ' + esc(n) + '">i</button>' : ''; }
 function trainShellHTML(T) {
   var id = T.s.id, views = id === 'warm' || id === 'kraft' || id === 'metcon', v = fsView(), last = T.i === T.st.length - 1;
-  var seg = views ? '<div class="seg fs-seg" role="group" aria-label="Ansicht">' + [['one', 'Einzeln'], ['list', 'Liste']].map(function (x) {
-    return '<button type="button" class="seg-btn' + (x[0] === v ? ' on' : '') + '" data-act="fs-view" data-v="' + x[0] + '" aria-pressed="' + (x[0] === v) + '">' + x[1] + '</button>'; }).join('') + '</div>' : '';
+  // Dennis, 28. Oktober: Einzeln | Liste nahm unter dem Ring zu viel Platz, jetzt ein kleines Symbol im Kopf (zeigt, wohin es wechselt).
+  var seg = '', vb = views ? '<button type="button" class="rbtn fs-vb" data-act="fs-view" data-v="' + (v === 'list' ? 'one' : 'list') + '" aria-label="' + (v === 'list' ? 'Einzeln zeigen' : 'Als Liste zeigen') + '">' + (v === 'list' ? I_ONE : I_LIST) + '</button>' : '';
   var prev = T.i > 0 ? T.st[T.i - 1].title : 'Übersicht';
   return '<div class="fs-in fs-tr' + (id === 'koerper' ? ' fs-noring' : '') + '"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
-    '<div class="fs-tt"><p class="fs-kick">' + esc(T.s.title) + ' · ' + (T.i + 1) + ' von ' + T.st.length + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
-    (PAIN_STEPS[id] ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + id + '" aria-label="Schmerzen">' + PAIN_FLAG + '</button>' : '') +
+    '<div class="fs-tt"><p class="fs-kick">' + (T.i + 1) + '/' + T.st.length + ' · ' + esc(T.s.title) + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
+    vb + (PAIN_STEPS[id] ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + id + '" aria-label="Schmerzen">' + PAIN_FLAG + '</button>' : '') +
     '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
     '<div class="fs-main"><div class="fs-dig' + (seg ? ' fs-dig2' : '') + '"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
     '<circle class="fs-rf" id="fs-arc" cx="50" cy="50" r="45" stroke-dasharray="282.7" stroke-dashoffset="282.7"/></svg>' +
     '<div class="fs-rc"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div><span id="fs-pl"></span></div></div>' + seg + '</div><div class="fs-side" id="fs-side"></div></div>' +
-    '<div class="fs-nav" id="fs-nav"><button type="button" class="btn" data-act="step" data-to="' + (T.i - 1) + '">‹ ' + esc(prev) + '</button>' +
-    (last ? '<button type="button" class="btn save" data-act="save">' + TICK + 'Speichern</button>' : '<button type="button" class="btn primary" data-act="step" data-to="' + (T.i + 1) + '">' + esc(T.st[T.i + 1].title) + ' ›</button>') + '</div></div>';
+    // Fuß (Dennis, 28. Oktober: „der nächste Punkt ist viel zu groß“): Zurück als runder Knopf, Weiter klein mit dem Namen des nächsten Schritts.
+    '<div class="fs-nav" id="fs-nav"><button type="button" class="rbtn fs-back" data-act="step" data-to="' + (T.i - 1) + '" aria-label="Zurück: ' + esc(prev) + '">' + I_BACK + '</button>' +
+    (last ? '<button type="button" class="btn save" data-act="save">' + TICK + 'Speichern</button>' : '<button type="button" class="btn primary fs-next" data-act="step" data-to="' + (T.i + 1) + '"><span>Weiter <span class="fs-nxt-t">· ' + esc(T.st[T.i + 1].title) + '</span> ›</span></button>') + '</div></div>';
 }
 function trainSide(T, L) {
-  var id = T.s.id, v = fsView(), co = v2() ? stepCoachHTML(T.c.tag, id) : '';
+  var id = T.s.id, v = fsView(), co = fsCoLine(T.c.tag, id);
   if (id === 'warm' || id === 'metcon') {
     var F = flowById(id), s = flowState(F);
     return { k: 'tf' + id + v + s.c + '|' + s.r + '|' + s.done.join(','), h: (v === 'list' ? fsFlowHTML(F) : fsWarmHTML(F)) + co };
   }
   if (id === 'kraft') return trainKraft(T, L, v, co);
+  if (id === 'fin') { var FT = finTrain(T, L, co); if (FT) return FT; }
   // Übrige Schritte (Skill, Ausgleich, Abschluss …): ihr Inhalt im Panel, neu gezeichnet nur nach Eingaben.
-  return { k: 'tb' + id + '|' + FS.rk, h: '<div class="fs-body">' + co + T.s.body(T.D) + '</div>' };
+  return { k: 'tb' + id + '|' + FS.rk, h: '<div class="fs-body">' + co + T.s.body(T.D, true) + '</div>' };
+}
+// Stufe im Training wählen (Dennis, 28. Oktober: „Bänder bzw. Übungen anpassbar, zwei Stufen drunter, zwei drüber“). Der Coach setzt sie weiter,
+// das Blatt bietet seine Stufe und bis zu zwei darunter und darüber, die hier gehen; gilt nur für diese Einheit (Entwurf k<i>stage).
+// Trainer ohne Scrollen (Dennis, 28. Oktober: „alles, was man braucht, auf einer Seite“): Übung als eine Zeile mit kleiner Figur und (i),
+// die Anleitung steckt im (i), Coach-Hinweise in einer Zeile (`fsCoLine`, Blatt mit allen).
+function trHead(id, name, chip) {
+  return '<div class="tr-hd">' + miniFig(id) + '<b>' + esc(name) + '</b>' + fsI(name, id) + (chip ? '<span class="chip">' + chip + '</span>' : '') + '</div>';
+}
+function fsCoLine(tag, id) {
+  var co = v2() ? stepCoachHTML(tag, id) : ''; if (!co) return '';
+  var t = co.replace(/<span class="co-ic[^>]*>[\s\S]*?<\/span>/g, '').replace(/<\/(div|p)>/g, ' · ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').replace(/(\s*·\s*)+$/, '').replace(/^(\s*·\s*)+/, '').replace(/(\s·)+\s·/g, ' ·').trim();
+  return '<button type="button" class="fs-co" data-act="fs-co" data-s="' + id + '"><span class="fs-co-k">Coach</span><span class="fs-co-t">' + esc(t) + '</span>' + CHEV + '</button>';
+}
+ACT['fs-co'] = function (el) { openForm('Dein Coach', stepCoachHTML(S.tag, el.dataset.s), 'Fertig', function () {}, { noFocus: true, noCancel: true }); };
+function fsStgBtn(e, small) {
+  if (!e.lad || e.skip || e.lad.steps.length < 2) return small ? '<small>' + stageHTML(e.stage) + '</small>' : '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>';
+  return '<button type="button" class="fs-stg' + (small ? ' sm' : '') + '" data-act="k-stg" data-i="' + e.i + '" aria-label="Stufe ändern">' + (small ? '' : 'Stufe ' + (e.si + 1) + ' · ') + stageHTML(e.stage) + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>';
+}
+function stgChoices(x) {
+  var lad = ladFor(x.n); if (!lad) return [];
+  var coach = stageDef(x.n, x.hi), ci = lad.steps.indexOf(coach), have = haveEq(trainOrt()), stu = lad.lib && lad.lib.stufen, out = [];
+  if (ci < 0) ci = 0;
+  for (var j = Math.max(0, ci - 2); j <= Math.min(lad.steps.length - 1, ci + 2); j++) if (j === ci || !stu || !stu[j] || eqOk(stu[j].equipment, have)) out.push({ j: j, n: lad.steps[j], coach: j === ci });
+  return out;
+}
+ACT['k-stg'] = function (el) {
+  var i = +el.dataset.i, x = DAYS[S.tag].kraft[i]; if (!x) return;
+  var D = dr(S.tag), cur = D['k' + i + 'stage'] != null ? D['k' + i + 'stage'] : stageDef(x.n, x.hi), C = stgChoices(x);
+  openChoice(x.n + ' · Stufe', 'Nur für heute. Dein Coach plant danach mit dem, was du gemacht hast.', C.map(function (c) {
+    return [String(c.j), 'Stufe ' + (c.j + 1) + ' · ' + stageText(c.n) + (c.coach ? ' (Coach)' : ''), c.n === cur ? 'primary' : ''];
+  }), function (v) {
+    if (v === '') return; var c = C.filter(function (q) { return String(q.j) === v; })[0]; if (!c) return;
+    setDraft('k' + i + 'stage', c.coach ? '' : c.n); render(); toast(c.coach ? 'Wieder die Stufe deines Coachs.' : 'Heute ' + stageText(c.n) + '.');
+  });
+};
+// Abschluss im Trainer: der laufende Abschnitt groß, darunter der nächste (die ganze Liste passte nicht ohne Scrollen).
+function finTrain(T, L, co) {
+  var F = finOf(T.c.tag); if (!F || !F.dev) return null;
+  var Q = finSeq(F), run = TM.cfg && TM.cfg.step === T.key + ':fin' && TM.mode === 'seq' && (TM.running || TM.acc > 0 || TM.finished);
+  var cur = !run ? 0 : TM.finished ? Q.length : L && L.p.kind !== 'pre' ? L.i - 1 : 0, q = Q[Math.min(cur, Q.length - 1)], nx = Q[cur + 1];
+  var big = q.watt ? q.watt + ' W' : q.sub || '', sw = function (x) { return esc(x.label) + (x.watt ? ' · ' + x.watt + ' W' : '') + ' · ' + fmtT(x.dur); };
+  var h = '<div class="tr-hd">' + (F.dev.ue ? miniFig(F.dev.ue) : '') + '<b>' + esc(F.dev.n) + '</b><span class="chip">' + F.min + ' Min</span></div>' +
+    '<p class="small tr-x">' + esc(FIN_TXT[F.k]) + '</p>' +
+    (TM.finished ? '<p class="fs-lbl">Geschafft</p>' : '<p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Abschnitt ' + (cur + 1) + ' von ' + Q.length + '</p><p class="fs-exn">' + esc(q.label) + (q.sub && q.watt ? ' <small>' + esc(q.sub) + '</small>' : '') + '</p>' +
+      (big ? '<p class="fs-reps' + (q.kind === 'work' ? '' : ' calm') + '">' + esc(big) + '</p>' : '')) +
+    (nx && !TM.finished ? '<span class="chip">Als Nächstes: ' + sw(nx) + '</span>' : '') +
+    (F.k === 'iv' ? cntRow('Intervalle geschafft', 'von ' + F.n, 'fiDone', T.D, F.n) : '');
+  return { k: 'tfin' + cur + (TM.finished ? 'f' : run ? 'r' : '') + '|' + FS.rk, h: '<div class="fs-body tr-fin">' + co + h + '</div>' };
 }
 function tpoN(D, e, r) { var v = num(D['k' + e.i + 'r' + r]); return v != null ? v : e.goal; }
 function trainKraft(T, L, v, co) {
@@ -10012,14 +10106,14 @@ function trainKraft(T, L, v, co) {
     var rows = E.map(function (x, i) {
       var mm = r * n + i, f = D['k' + i + 'r' + r], val = r >= x.zr ? 'frei' : (f != null ? f : x.skip ? '–' : x.goal) + (x.sec ? ' s' : ''), kg = r >= x.zr ? null : fsKg(i, r);
       return '<div class="fs-row fs-krow' + (i === ex ? ' on' : '') + (f != null && i !== ex ? ' done' : '') + '" data-act="k-sel" data-k="' + esc(draftKey(tag)) + '" data-m="' + mm + '">' +
-        '<small>Min ' + (mm + 1) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + (x.stage ? '<small>' + stageHTML(x.stage) + '</small>' : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
+        '<small>Min ' + (mm + 1) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + (x.stage ? fsStgBtn(x, true) : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk) + '</div>';
     }).join('');
     return { k: key, h: dots + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
   }
   var nx = m + 1 < n * rounds ? E[(m + 1) % n] : null;
   return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Minute ' + (m + 1) + ' von ' + n * rounds + '</p>' +
     '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
-    (e.stage ? '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>' : '') + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
+    (e.stage ? fsStgBtn(e) : '') + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
     (nx ? '<span class="chip">Als Nächstes: ' + esc(nx.x.n) + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' : '<span class="chip">Letzte Minute</span>') + dots + co };
 }
 // Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
@@ -10129,16 +10223,17 @@ function fsPaint(L, force) {
   var hot = TM.running && L && L.rem != null && Math.ceil(L.rem) <= 3;
   var st = TM.finished ? 'Fertig' : idle ? 'Bereit' : !TM.running ? 'Angehalten' : p.kind === 'pre' ? 'Vorlauf' : TM.mode === 'hiit' && p.kind === 'easy' ? 'Pause' : 'Läuft';
   $('fs-num').textContent = num; $('fs-num').className = 'fs-num' + (green ? ' grn' : '') + (hot ? ' hot' : '');
-  $('fs-st').textContent = st; $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
+  $('fs-st').textContent = FS.train && (idle || p.kind === 'pre') && !TM.finished ? '' : st; $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
   var total = 0; TM.phases.forEach(function (x) { if (isFinite(x.dur)) total += x.dur; });
   // Ring: beim AMRAP und For Time die ganze Zeit, sonst die laufende Phase (EMOM: die Minute, Intervall: Arbeit bzw. Pause).
   var whole = TM.mode === 'amrap' || TM.mode === 'zeit', pr = TM.finished ? (TM.mode === 'zeit' && !c.cap ? 0 : 1) : idle || !L ? 0
     : whole ? (TM.mode === 'zeit' && !c.cap ? 0 : elapsed() / (total || 1)) : L.rem != null && isFinite(p.dur) && p.dur > 0 ? 1 - L.rem / p.dur : 0;
   $('fs-arc').style.strokeDashoffset = (282.7 * (1 - Math.max(0, Math.min(1, pr)))).toFixed(1); $('fs-ring').classList.toggle('grn', green);
+  $('fs-ring').style.setProperty('--pr', Math.max(0, Math.min(1, green && !idle && p.kind === 'pre' && L && L.rem != null && isFinite(p.dur) ? 1 - L.rem / p.dur : pr)).toFixed(3));
   var pl = '';
   if (TM.finished) pl = TM.mode === 'zeit' ? 'Deine Zeit' : 'Geschafft';
-  else if (idle) pl = 'Start mit 10 Sekunden Vorlauf';
-  else if (p.kind === 'pre') pl = 'In Position kommen';
+  else if (idle) pl = FS.train ? '' : 'Start mit 10 Sekunden Vorlauf';
+  else if (p.kind === 'pre') pl = FS.train ? '' : 'In Position kommen';
   else if (TM.mode === 'emom') pl = c.stations ? 'Runde ' + (Math.floor((L.i - 1) / c.stations.length) + 1) + ' von ' + Math.ceil(c.minutes / c.stations.length) : 'Runde ' + L.i + ' von ' + (c.rounds || c.minutes);
   else if (TM.mode === 'hiit') pl = p.sub || '';
   else if (TM.mode === 'zeit') pl = c.cap ? 'Time Cap ' + fmtT(c.cap) : c.rounds ? c.rounds + ' Runden' : 'Ohne Time Cap';
@@ -10155,12 +10250,16 @@ function fsPaint(L, force) {
   var nav = FS.train && $('fs-nav'), lk = !!(nav && fsLocked());
   if (nav && nav.classList.contains('lock') !== lk) {
     nav.classList.toggle('lock', lk); var tr0 = nav.closest('.fs-tr'); if (tr0) tr0.classList.toggle('lk', lk);
-    nav.querySelectorAll('[data-act="step"]').forEach(function (b) { if (lk) { b.dataset.t = b.innerHTML; b.innerHTML = '<small>Uhr läuft · lang drücken</small>' + b.dataset.t; } else if (b.dataset.t != null) { b.innerHTML = b.dataset.t; delete b.dataset.t; } });
+    nav.querySelectorAll('.btn[data-act="step"]').forEach(function (b) { if (lk) { b.dataset.t = b.innerHTML; b.innerHTML = LOCK_SVG + b.dataset.t; b.setAttribute('aria-label', 'Uhr läuft, lange drücken zum Überspringen'); } else if (b.dataset.t != null) { b.innerHTML = b.dataset.t; delete b.dataset.t; b.removeAttribute('aria-label'); } });
   }
   var sd = fsSide(L), box = $('fs-side');
   if (sd.k !== FS.key) {
+    // Dennis, 28. Oktober: „+5 s“ im Handstand sprang jedes Mal an den Anfang. Im selben Schritt bleibt die Stelle, an der man war.
+    // Die Stelle merkt sich ein scroll-Listener (nur echte Bewegungen, nicht das Zurücksetzen beim Neuzeichnen).
+    var stp = FS.train ? String((DRAFTS[draftKey(S.tag)] || {})._step) : '', keep = stp && FS.sStep === stp ? FS.sKeep || 0 : 0; if (FS.sStep !== stp) FS.sKeep = 0; FS.sStep = stp; FS.sIgn = true; clearTimeout(FS.sIgnT); FS.sIgnT = setTimeout(function () { FS.sIgn = false; }, 350);
+    if (!box.dataset.sl) { box.dataset.sl = '1'; box.addEventListener('scroll', function () { if (!FS.sIgn) FS.sKeep = box.scrollTop; }, { passive: true }); }
     FS.key = sd.k; box.querySelectorAll('.fig').forEach(stopFig);
-    box.innerHTML = sd.h; box.classList.toggle('tap', !!sd.tap); if (sd.tap) box.dataset.act = 'fs-plus'; else delete box.dataset.act;
+    box.innerHTML = sd.h; if (keep) { box.scrollTop = keep; requestAnimationFrame(function () { box.scrollTop = keep; }); } box.classList.toggle('tap', !!sd.tap); if (sd.tap) box.dataset.act = 'fs-plus'; else delete box.dataset.act;
     box.querySelectorAll('.fig').forEach(startFig);
   }
   var nx = $('fs-nxt'); if (nx && L && L.rem != null) nx.textContent = 'in ' + fmtT(Math.ceil(L.rem));
@@ -11288,8 +11387,8 @@ function finStep(tag, F) {
   var Q = finSeq(F), nm = FIN_N[F.k], dv = F.dev;
   return { id: 'fin', title: nm, sub: F.min + ' Min · ' + dv.n, dur: F.min, ri: FIN_RI[F.k] || 4, desc: dv.n + ' · ' + finTarget(F),
     timer: { mode: 'seq', cfg: { seq: Q, label: nm, tag: tag }, label: F.min + ' Min starten', info: dv.n + ' · ' + finTarget(F) },
-    body: function (D) {
-      var h = '<section class="card">' + (dv.ue ? figBox(dv.ue) : '') + '<h3 class="ag-h">' + esc(dv.n) + '<span class="chip">' + F.min + ' Min</span></h3><p class="small">' + esc(FIN_TXT[F.k]) + '</p>' +
+    body: function (D, tr) {
+      var h = '<section class="card">' + (dv.ue && !tr ? figBox(dv.ue) : '') + '<h3 class="ag-h">' + esc(dv.n) + '<span class="chip">' + F.min + ' Min</span></h3><p class="small">' + esc(FIN_TXT[F.k]) + '</p>' +
         (dv.id === 'geh' ? '<p class="small muted">Hier gibt es kein Kardiogerät: zügig gehen, gern draußen oder auf der Treppe.</p>' : '') + seqRowsHTML(Q);
       if (F.k === 'iv') h += cntRow('Intervalle geschafft', 'von ' + F.n, 'fiDone', D, F.n);
       return h + '</section>';
@@ -12207,9 +12306,14 @@ function ausgleichStep(tag) {
   var nm = UE[A.id].name, menge = A.menge;
   return [{ id: 'ausgl', title: 'Ausgleich', sub: '4 Min · ' + menge, dur: 4, desc: nm + ' · ' + menge,
     timer: { mode: 'block', cfg: { minutes: 4, label: 'Ausgleich', tag: tag }, label: '4 Min starten', info: nm },
-    body: function (D) { return ausgleichStepHTML(A, D); } }];
+    body: function (D, tr) { return ausgleichStepHTML(A, D, tr); } }];
 }
-function ausgleichStepHTML(A, D) {
+function ausgleichStepHTML(A, D, tr) {
+  if (tr && !A.skip) {
+    var c = ''; for (var q = 0; q < 2; q++) c += cntRow('Satz ' + (q + 1), A.sek ? 'Sekunden' : 'Wiederholungen', 'a' + q, D, A.sek ? 30 : 12, A.sek ? 5 : 1, A.sek ? ' s' : '');
+    return trHead(A.id, UE[A.id].name, esc(A.menge)) + '<p class="small tr-x">Für ' + esc(MUS_NAME[A.m] || 'deinen Ausgleich') + (A.m ? ', kam zuletzt zu kurz' : '') + '. 60 s Pause zwischen den Sätzen.' +
+      (A.pain ? ' ' + esc(siteName(A.pain.t) + ': heute ' + UE[A.id].name + ' statt ' + UE[A.pain.from].name + '.') : '') + '</p>' + c;
+  }
   if (A.skip) return '<section class="card">' + figBox(A.id) + '<p class="tl-x">' + esc(siteName(A.pain.t) + ' ' + PAIN_WN[A.pain.w] + ': heute kein Ausgleich, keine passende Übung ohne Last auf ' + siteDat(A.pain.t) + '. Du kannst direkt speichern.') + '</p></section>';
   var u = UE[A.id], h = '<section class="card">' + figBox(A.id) + '<h3 class="ag-h">' + esc(u.name) + '<span class="chip">' + esc(A.menge) + '</span></h3>' +
     howHTML(ueSteps(u)) + '<p class="small">' + esc(u.sauber || '') + '</p><div>';
@@ -12262,9 +12366,13 @@ function accStep(tag) {
   var min = 4 * L.length, nm = L.map(function (x) { return UE[x.id].name; });
   return [{ id: 'acc', title: 'Accessory', sub: min + ' Min · ' + L.length + ' Übungen im Wechsel', dur: min, ri: 5, desc: nm.join(' · '),
     timer: { mode: 'block', cfg: { minutes: min, label: 'Accessory', tag: tag }, label: min + ' Min starten', info: nm.join(' · ') },
-    body: function (D) { return accStepHTML(L, D); } }];
+    body: function (D, tr) { return accStepHTML(L, D, tr); } }];
 }
-function accStepHTML(L, D) {
+function accStepHTML(L, D, tr) {
+  if (tr) return '<p class="small tr-x">3 Runden: jede Übung einmal, dann 60 s Pause. 2 Wdh. vor Schluss aufhören.</p>' + L.map(function (A, i) {
+    var u = UE[A.id], st = cntRow('', '', 'ac' + i, D, A.sek ? 30 : 12, A.sek ? 5 : 1, A.sek ? ' s' : '').replace(/^<div class="k-cnt"><span>.*?<\/span>/, '').replace(/<\/div>$/, '');
+    return '<div class="acc-it tr">' + miniFig(A.id) + '<button type="button" class="acc-t" data-act="ue-info" data-how="1" data-id="' + esc(A.id) + '" aria-label="So geht ' + esc(u.name) + '"><b>' + esc(u.name) + '</b><span class="small muted">' + esc(A.menge) + ' · <span class="acc-i">So geht’s</span></span></button>' + st + '</div>';
+  }).join('');
   return '<section class="card acc-card"><p class="small muted" style="margin:0 0 6px">3 Runden: jede Übung einmal, dann 60 s Pause. Ruhig und sauber, 2 Wdh. vor Schluss aufhören.</p>' +
     L.map(function (A, i) {
       var u = UE[A.id];

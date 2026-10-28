@@ -11,6 +11,9 @@ html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
   notice: () => { MOMENTS = []; var o = document.getElementById('moment'); if (o) o.remove(); chainNotice(); o = document.getElementById('moment'); return o ? o.innerText : ''; },
   saveNow: () => { saveDay(); var M = document.getElementById('moment'); if (M) M.remove(); MOMENTS = []; return LOGS[LOGS.length - 1]; },
+  finishTimer: () => finish(),
+  stepId: () => { var T = trainCtx(); return T ? T.s.id : null; },
+  goStep: id => { var i = stepsOf(dayCtx(S.tag)).findIndex(s => s.id === id); setDraft('_step', i); setDraft('_at', Date.now()); render(); return i; },
   chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk(), bank: C.bank, pend: C.pend, jk: S.chainJk }; },
   navigate: (tab) => { ui.tab = tab; ui.viewTag = null; ui.wkSel = null; ui.wkMon = null; render(); },
   profile: (v) => { ui.pview = v; ui.tab = 'profil'; render(); },
@@ -86,7 +89,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Training immer im Vollbild: Schritt, Einzeln | Liste, (i) mit „So geht’s“, unten weiter.
     assert.ok(await page.locator('#fs .fs-tr').isVisible(), 'Training startet im Vollbild');
     // Körper-Check vor dem Start: Muskel antippen = Kater, nochmal = Schmerz; Schmerz ersetzt die belastende Übung.
-    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Körper-Check · 1 von \d$/);
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^1\/\d · Körper-Check$/);
     await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
     assert.ok(await page.locator('#fs .kc-r', { hasText: 'Brust' }).locator('.kc-k').isVisible(), 'einmal = Muskelkater');
     await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
@@ -96,8 +99,9 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
     assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0]._kc || ''), '', 'dreimal = wieder gut');
     await page.locator('#fs .fs-nav .btn.primary').click();
-    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Aufwärmen · 2 von \d$/);
-    await page.locator('#fs [data-act="fs-view"][data-v="list"]').click();
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · Aufwärmen$/);
+    assert.equal(await page.locator('#fs .fs-seg').count(), 0, 'kein Einzeln | Liste mehr unter dem Ring (Dennis, 28. Oktober)');
+    await page.locator('#fs .fs-top [data-act="fs-view"][data-v="list"]').click();
     assert.equal(await page.evaluate(() => window.tpTest.state().fsView), 'list', 'die Ansicht merkt sich die App');
     assert.ok(await page.locator('#fs .fs-rows .fs-row').count() >= 3, 'Liste wie ein Whiteboard');
     assert.equal(await page.locator('#fs .fs-rows [data-act="fl-done"]').count(), 0, 'Liste ohne Abhaken (Dennis: das Ergebnis kommt danach)');
@@ -115,7 +119,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#fs [data-act="k-rep"][data-d^="-"]').first().click();
     assert.equal(await page.locator('#fs .fs-side .fs-lbl').first().innerText(), lbl0, 'zweimal „–“ bleibt auf derselben Minute');
     assert.ok(await page.locator('#fs .fs-top [data-act="pain-s"]').isVisible(), 'roter Schmerzen-Knopf im Kopf des Trainers');
-    assert.match(await page.locator('#fs .fs-kick').innerText(), /von \d$/, 'Kopf zeigt „x von n“ ganz');
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^\d\/\d · /, 'Kopf zeigt „x/n“ zuerst');
+    // Stufe im Training (Dennis, 28. Oktober): Coach-Stufe und bis zu zwei darunter/darüber, nur für heute.
+    await page.locator('#fs .fs-side [data-act="k-stg"]').first().click();
+    const stgN = await page.locator('#sheet [data-c]').count();
+    assert.ok(stgN >= 2 && stgN <= 5, 'zwei Stufen drunter und drüber (' + stgN + ')');
+    assert.equal(await page.locator('#sheet [data-c]', { hasText: '(Coach)' }).count(), 1);
+    const stgOther = page.locator('#sheet [data-c]:not(.primary)').first(), stgTxt = (await stgOther.innerText()).replace(/^Stufe \d+ · /, '');
+    await stgOther.click();
+    assert.ok((await page.locator('#fs .fs-side [data-act="k-stg"]').first().innerText()).includes(stgTxt), 'gewählte Stufe steht in der Karte');
+    await page.locator('#fs .fs-side [data-act="k-stg"]').first().click();
+    await page.locator('#sheet [data-c]', { hasText: '(Coach)' }).click();
     await page.locator('#fs #fs-tg').click();
     await page.waitForTimeout(300);
     assert.match(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Uhr läuft: Weiter gesperrt');
@@ -128,7 +142,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(() => { const o = JSON.parse(localStorage.getItem('tp.drafts')); for (const k in o) for (const f in o[k]) if (/^k\dr\d$/.test(f)) delete o[k][f]; localStorage.setItem('tp.drafts', JSON.stringify(o)); });
     await page.reload();
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
-    assert.match(await page.locator('#fs .fs-kick').innerText(), /^Kardio locker/);
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^\d\/\d · Kardio locker/);
     await page.locator('#fs [data-act="save"]').click();
     // Impeccable-Kritik 25. Oktober: ist die Uhr des letzten Schritts nie gelaufen, fragt der Trainer erst nach.
     assert.match(await page.locator('#sheet').innerText(), /Kardio locker noch nicht gemacht/);
@@ -486,8 +500,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: /Training starten/ }).click();
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft')));
     await page.locator('#fs [data-act="fs-view"][data-v="list"]').click();
-    await page.locator('#fs .fs-krow[data-m="2"]').click();
-    assert.match(await page.locator('#fs .co-card').innerText(), /Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden[\s\S]*Vorgabe und Stufe bleiben\./);
+    await page.locator('#fs .fs-krow[data-m="2"]').click({ position: { x: 12, y: 12 } });
+    assert.match(await page.locator('#fs .fs-co').innerText(), /Beine noch müde von Montag: Nordic Curl heute 3 statt 4 Runden[\s\S]*Vorgabe und Stufe bleiben\./);
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
     await page.locator('#fs [data-act="save"]').click();
     await page.getByRole('button', { name: 'Trotzdem speichern', exact: true }).click();
@@ -662,7 +676,37 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('.adj').innerText(), /15 Min länger/);
     const sv = await page.evaluate(() => window.tpTest.saveNow());
     assert.equal(sv.acc.length, 3); assert.deepEqual(sv.acc[0].reps.length, 3); assert.equal(sv.mehr, 15);
+    // Trainer (Dennis, 28. Oktober): Handstand-Zeit beim Pausieren, Stelle bleibt beim Zählen, nach der Uhr von selbst weiter.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { fsView: 'one' }), chLogs]);
+    await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'hs')));
+    assert.equal(await page.evaluate(() => window.tpTest.stepId()), 'hs');
+    await page.locator('#fs #fs-tg').click();
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:35+02:00'));
+    await page.locator('#fs #fs-tg').click();
+    assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '25', 'Pause nimmt 25 s (35 s minus 10 s Vorlauf)');
+    await page.locator('#fs #fs-tg').click();
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:50+02:00'));
+    await page.locator('#fs #fs-tg').click();
+    assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '25', 'kürzerer Versuch: beste Zeit bleibt');
+    assert.ok(await page.evaluate(() => { const b = document.getElementById('fs-side'); return b.scrollHeight <= b.clientHeight + 2; }), 'Handstand passt ohne Scrollen');
+    await page.setViewportSize({ width: 360, height: 430 }); await page.waitForTimeout(600);
+    await page.evaluate(() => { const b = document.getElementById('fs-side'); b.scrollTop = b.scrollHeight; });
+    await page.waitForTimeout(100); const sc0 = await page.evaluate(() => document.getElementById('fs-side').scrollTop);
+    assert.ok(sc0 > 5, 'auf kleinem Bildschirm lässt sich scrollen');
+    await page.locator('#fs [data-act="k-rep"][data-f="hsSec"][data-d^="-"]').click();
+    assert.ok(Math.abs(await page.evaluate(() => document.getElementById('fs-side').scrollTop) - sc0) < 5, '„–5 s“ bleibt an der Stelle');
+    await page.setViewportSize({ width: 390, height: 844 });
+    // Dennis, 28. Oktober: „alles, was man braucht, auf einer Seite ohne Scrollen“ (390 × 844, beide Ansichten).
+    for (const vw of ['one', 'list']) {
+      const over = await page.evaluate(vw => { window.tpTest.state().fsView = vw; const o = []; window.tpTest.steps().forEach((s, i) => { window.tpTest.goStep(s.id); const b = document.getElementById('fs-side'); if (b && b.scrollHeight > b.clientHeight + 2) o.push(s.id + ' +' + (b.scrollHeight - b.clientHeight)); }); return o; }, vw);
+      assert.deepEqual(over, [], 'ohne Scrollen (' + vw + ')');
+    }
+    await page.evaluate(() => { window.tpTest.state().fsView = 'one'; window.tpTest.goStep('hs'); });
+    await page.evaluate(() => window.tpTest.finishTimer());
+    await page.waitForTimeout(2600);
+    assert.equal(await page.evaluate(() => window.tpTest.stepId()), 'kraft', 'nach der Uhr von selbst weiter');
     await page.clock.setFixedTime(new Date('2026-11-12T09:00:00+01:00'));
+    console.log('PASS: Trainer: Handstand-Zeit beim Pausieren, Stelle bleibt, nach der Uhr weiter');
     console.log('PASS: Mehr Zeit: +15 Accessory, +30 dazu Kraftrunde und Abschluss, wenig Zeit hebt es auf, Accessory gespeichert');
 
     // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.

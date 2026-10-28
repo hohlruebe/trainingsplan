@@ -711,12 +711,32 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Sekunden der Stufe (`holdOf(x, stage)`).
 - Trainer neu sortiert (Impeccable-Kritik 25. Oktober, 22/40, Dennis: „Fehler zuerst“, „Weiter erst nach der Uhr“, alle sechs Punkte; Board
   https://claude.ai/artifact/KLFWj56UeUgCcgZCWadbji): `fsLocked` (Trainer, Uhr läuft im Modus emom/amrap/seq/hiit/zeit) setzt in `fsPaint` `#fs-nav.lock` und `.fs-tr.lk`:
-  Zurück/Weiter grau mit „Uhr läuft · lang drücken“, `ACT.step` bleibt beim Schritt (Hinweis), langes Drücken (700 ms) überspringt (`force`, `FS.lpStep`).
+  Zurück/Weiter grau, Weiter einzeilig mit Schloss (`LOCK_SVG`; Dennis: zwei Zeilen waren zu gequetscht), Antippen sagt „Lange drücken überspringt“, `ACT.step` bleibt beim Schritt (Hinweis), langes Drücken (700 ms) überspringt (`force`, `FS.lpStep`).
   `ACT['k-rep']` setzt ohne laufende Uhr `ui.kSel` auf die Minute des Zählers (sonst sprang `kraftNow` weiter). Schmerzen-Knopf `.st-flag` (`PAIN_FLAG`, `pain-s`) im Kopf
   jedes Schritts aus `PAIN_STEPS`. Einzeln | Liste unter dem Ring (`.fs-dig2`, beim Sperren ausgeblendet), Kopf zeigt „x von n“ ganz. Liste: `fsQty` (Zahl groß, Einheit klein),
   `fsName` (kein Umbruch am Bindestrich), kein „Erledigt“ in der Liste (Dennis: das Ergebnis kommt danach), Bandstufe einzeilig. Quer: Texte mindestens 14 px (`max(14px, …)`), Zähler 44 px, (i) mit 44-px-Fläche.
   `saveAsk`: lief die Uhr des letzten Schritts nie, erst „<Schritt> noch nicht gemacht“ (Hauptaktion „Zurück zum Training“). `.btn.save` mit dunkler Schrift (`#0E2A18`).
   Heute erledigt: zuerst `outlookHTML`, ohne Ausfall-Zeile, Fragen darunter; Guten Morgen ohne Folge-Satz.
+- Trainer-Feinschliff (Dennis, 28. Oktober, aus dem Training): Einzeln | Liste nicht mehr unter dem Ring, sondern als kleines Symbol im Kopf (`.fs-vb`,
+  zeigt, wohin es wechselt; `ACT['fs-view']`). Kopf „4/6 · Kraft …“ (x/n zuerst). Fuß kompakt: Zurück als runder Knopf (`.fs-back`, `I_BACK`), „Weiter · <Schritt> ›“
+  48 px (`.fs-next`, `.fs-nxt-t`); die Sperre bei laufender Uhr schreibt nur in den Weiter-Knopf. Handstand: „Pause“ nimmt die Haltezeit seit Start bzw. Weiter
+  ohne Vorlauf (`hsCapture` in `timerToggle`, ab 3 s, nur Sekunden-Skills), die beste zählt als „Beste Zeit“ (`hsSec`). Zähler im Trainer springen nicht mehr
+  an den Anfang: `fsRender` merkt `FS.sTop`, `fsPaint` stellt im selben Schritt (`FS.sStep`) die Stelle wieder her. Nach der Uhr geht der Trainer von selbst
+  weiter (`autoNext`, `AUTO_NEXT`: Aufwärmen nach der letzten Übung mit Zeit, Skill, Kraft, Ausgleich, Accessory, Abschluss außer Intervallen; nicht Metcon,
+  nicht der letzte Schritt; Hinweis „Gleich weiter: …“, 2,2 s, bleibt stehen, wenn man vorher wechselt). Stufe im Training wählbar (`fsStgBtn`, `.fs-stg`,
+  `ACT['k-stg']`, `stgChoices`): Stufe des Coachs und bis zu zwei darunter und darüber, die am Ort gehen (auch Bandstufen), nur für heute (Entwurf `k<i>stage`).
+  Ohne Scrollen (Dennis, 28. Oktober: „alles, was man braucht, auf einer Seite“; geprüft bei 390 × 844 in beiden Ansichten, jeder Schritt): Ring kleiner
+  (`fsOrient`: Trainer 0,38 W / 0,18 H), „10 s Vorlauf“, Übung im Einzeln-Modus quer neben der Figur (`.fs-ex` als Zeile, Wdh. 52 px), Coach-Hinweise als
+  eine Zeile (`fsCoLine`, `.fs-co`, Antippen = Blatt `ACT['fs-co']`), kompakte Trainer-Körper (Körper bekommt `tr`): Handstand/Ausgleich als Kopfzeile `trHead`
+  (Mini-Figur, Name, (i), Chip) plus Zähler, Accessory je Übung eine Zeile mit Zähler (Name öffnet „So geht’s“), Abschluss ohne große Figur und mit
+  `finTrain`: laufender Abschnitt groß, „Als Nächstes“ darunter (statt aller Abschnitte). Listen-Zeilen enger (`#fs .fs-tr .fs-row`).
+  Zeit-Kapsel statt Ring (Dennis, 28. Oktober, Boards Varianten → Kapsel → Stelle → Umriss: „Kapsel bleibt oben“, „fein in Blau“): im Trainer hochkant
+  (`#fs[data-view="port"] .fs-tr .fs-ring`, quer und Tools › Timer behalten den Ring) eine Glas-Kapsel über die ganze Breite, 68 px, Umriss 1,5 px `--acc` 55 %
+  (im Vorlauf grün), Zeit 44 px in der Mitte, links der Zustand, rechts Runde bzw. Rest; die Kapsel füllt sich hellblau mit der Phase (`--pr` aus `fsPaint`,
+  im Vorlauf grün). Bereit und Vorlauf ohne Text (kein „10 s Vorlauf“, kein „In Position kommen“): nach Start laufen die 10 s nur in der Kapsel ab.
+  Scroll-Stelle: `FS.sKeep` aus einem scroll-Listener auf `#fs-side` (nicht direkt nach dem Neuzeichnen, `FS.sIgn`), im selben Schritt wiederhergestellt.
+  Kapsel in der Karte (Dennis, 28. Oktober, Vergleich oben | in der Karte): die Zeit-Kapsel ist die erste Zeile der weißen Trainer-Karte (`.fs-main` hochkant
+  mit `--paper` und Schatten, `.fs-side` darin ohne eigene Karte). Abschluss: `finTrain` zeigt bei laufender Uhr „Jetzt“ (Schlüssel mit `r`, sonst blieb „Als Erstes“ stehen).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
