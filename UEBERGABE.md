@@ -17,6 +17,8 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 - Danach Dennis: „weg von der runden Timer-Anzeige?“ Boards: vier Varianten (https://claude.ai/artifact/CEncwapwAn3XkwMTBbyV1F), Kapsel an vier Stellen
   (https://claude.ai/artifact/EnNbPiTr59GxvprNxEuYbU), drei Umrisse (https://claude.ai/artifact/9bdz8KndiXYr8J3sf12y76). Gewählt: Kapsel oben, Zeit in der Mitte,
   Umriss fein in Blau, Vorlauf ohne Text in der Kapsel. Offen: Querformat und Tools › Timer zeigen weiter den Ring.
+- Zuletzt Vergleich oben | in der Karte (https://claude.ai/artifact/9ytRHHGNG1e2oDdEQuJ4UG), Dennis: „So machen wir das“ (verstanden als „in der Karte“):
+  die Kapsel ist jetzt die erste Zeile der weißen Trainer-Karte. Dabei behoben: Intervalle zeigten bei laufender Uhr „Als Erstes“ statt „Jetzt“.
 - Tests: `tests/dreitage-browser.cjs` (Stufenwahl, Handstand-Pause, Scrollen, automatisches Weiter); alle Tests grün.
 
 ## Mehr Zeit mit Accessory (26. Oktober 2026, Claude)

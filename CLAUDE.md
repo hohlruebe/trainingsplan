@@ -735,6 +735,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (im Vorlauf grün), Zeit 44 px in der Mitte, links der Zustand, rechts Runde bzw. Rest; die Kapsel füllt sich hellblau mit der Phase (`--pr` aus `fsPaint`,
   im Vorlauf grün). Bereit und Vorlauf ohne Text (kein „10 s Vorlauf“, kein „In Position kommen“): nach Start laufen die 10 s nur in der Kapsel ab.
   Scroll-Stelle: `FS.sKeep` aus einem scroll-Listener auf `#fs-side` (nicht direkt nach dem Neuzeichnen, `FS.sIgn`), im selben Schritt wiederhergestellt.
+  Kapsel in der Karte (Dennis, 28. Oktober, Vergleich oben | in der Karte): die Zeit-Kapsel ist die erste Zeile der weißen Trainer-Karte (`.fs-main` hochkant
+  mit `--paper` und Schatten, `.fs-side` darin ohne eigene Karte). Abschluss: `finTrain` zeigt bei laufender Uhr „Jetzt“ (Schlüssel mit `r`, sonst blieb „Als Erstes“ stehen).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
