@@ -399,6 +399,24 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Testdatum, Beschwerde über `memRecord`, dann Durchgang 1, Tag 1 (Kurzversion wie nach dem Test). Startstufen aus dem Fragebogen sind
   eine Angabe: `baseOf` meldet `fb`, `coachStage` stuft in den ersten 2 Einheiten nach (`cs.cal`), Hinweis „aus deinem Fragebogen“
   (`brakeNote`, `skillNote`); `skillStage` nimmt die Startstufe aus `S.base`. Zusätze hinter „·“ brechen nur als Ganzes um (`dotSub`, `.nobr`).
+- Anmelden beim ersten Start (Dennis, 28. Oktober: „Name plus Token und ich bekomme den Stand von heute“; 29. Oktober: „erst Sync falls vorhanden, dann
+  Fragebogen falls man nichts hat“): auf einem neuen Gerät (nie gestartet, keine Einheiten, kein Sync, `lgFirst`) ist die erste Seite „Anmelden“
+  (`loginPageHTML`, „Schön, dass du da bist.“): GitHub-Name, Token, Repository (vorbelegt „trainingsplan-daten“), Hauptaktion „Anmelden“ (`ACT['lg-go']`,
+  `loginRun`, Eingaben in `ui.lg`, damit das Neuzeichnen beim Abgleich nichts leert), „Ich bin neu“ (`ACT['lg-new']`, `fb().lg`) führt zur Begrüßung mit dem
+  Fragebogen; die Begrüßung behält „Ich nutze die App schon · Anmelden“ (`.ob-login`, `ACT.login` zurück zur Anmelde-Seite). Liegt in GitHub noch kein Stand,
+  geht es nach dem Anmelden mit dem Fragebogen weiter. Anmelden = derselbe Abgleich wie Einstellungen › Sync (`runSync`); Fehler (falscher Token, Repository) stehen auf der Seite (`#lg-msg`), die
+  Verbindung wird dann nicht gespeichert. `mergeRemote` übernimmt auf einem frischen Gerät (`fresh`: lokal nie gestartet, keine Einheiten, entfernt gestartet)
+  den ganzen Stand und die Position, sonst gewännen dort frisch gespeicherte Standardwerte mit neuerer Feldzeit. Dasselbe beim ersten Verbinden eines Geräts
+  (`mergeRemote(r, join)`, `join` = Verbindung noch nie abgeglichen, `!connection.last`) ohne eigenes Training (nur Einträge, die schon in GitHub stehen, oder
+  1RM): Dennis, 28. Oktober, richtete auf dem zweiten Gerät erst den Fragebogen ein (Durchgang 1, `posSet` neu) und verband dann den Sync, das überschrieb
+  Durchgang, Einheit und Startdatum. Test: `node tests/anmelden-browser.cjs` (Playwright, nachgestelltes GitHub, auch der Fall „Fragebogen, dann Sync“).
+- App-Tour (Dennis, 29. Oktober: „wie die App funktioniert und wie man sie am Handy im App-Format speichert, überspringbar“): Vollbild-Ebene `#tour`
+  (`tourOpen`, `tourHTML`, `tourSlides`, `TOUR_I`), 6 Karten mit Symbol: Coach plant, Training starten, Heute anpassen, Dein Plan, Tools und Profil,
+  Als App speichern (Schritte je Gerät `tourOS`: Android/Chrome ⋮, iPhone/Safari Teilen › Zum Home-Bildschirm, Computer Adressleiste; installiert:
+  „✓ Als App installiert“, `isInstalled`; bietet Chrome die Installation an, Knopf „Jetzt als App installieren“ über `beforeinstallprompt`/`INSTALL_EV`).
+  „Überspringen“ oben rechts (nicht auf der letzten Karte), Zurück als runder Knopf, Punkte. Einmal je Gerät nach dem Start (`tourCheck` aus `renderHeute`
+  und nach dem Anmelden; `S.tourSeen`, in `DEF`, nur auf dem Gerät), vor der Ketten-Nachricht; später Plan › Wissen › „So funktioniert die App“ (`ACT.tour`).
+  Browser-Tests setzen `tourSeen` in ihrem `set`.
 - Wiedereinstieg (Dennis): ab 15 Tagen Pause (`S.comeback.ask`, `days`) zeigt Heute am Krafttag vor dem ersten Training die Karte „Willkommen zurück“
   (`wbDue`, `wbCardHTML`, „Kurz einschätzen“, `ACT['wb-go']`); „Training starten“ wird dann „Ohne Einschätzung starten“. Sechs Seiten `WB_PAGES`
   (Zug, Druck, Beine, Rumpf, Skill, Schmerzen) aus dem Fragebogen, Stand in `S.wb {on, p, a, pre, prev}` (in `DEF`, nicht synchronisiert; `fb()` und
@@ -727,6 +745,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   weiter (`autoNext`, `AUTO_NEXT`: Aufwärmen nach der letzten Übung mit Zeit, Skill, Kraft, Ausgleich, Accessory, Abschluss außer Intervallen; nicht Metcon,
   nicht der letzte Schritt; Hinweis „Gleich weiter: …“, 2,2 s, bleibt stehen, wenn man vorher wechselt). Stufe im Training wählbar (`fsStgBtn`, `.fs-stg`,
   `ACT['k-stg']`, `stgChoices`): Stufe des Coachs und bis zu zwei darunter und darüber, die am Ort gehen (auch Bandstufen), nur für heute (Entwurf `k<i>stage`).
+  Die Pille zeigt nur den Stufennamen (`.fs-stg-t`, „Stufe N“ steht im `aria-label`; Dennis: „Stufe 1 · Körper steil“ war zu gequetscht), einzeilig, wenn er passt;
+  sonst `fsStgFit` (nach dem Neuzeichnen in `fsPaint`): erst 14 px (`.sm14`), dann zwei Zeilen (`.two`), nie abgeschnitten (Dennis: „dann kann man nicht mehr alles lesen“).
   Ohne Scrollen (Dennis, 28. Oktober: „alles, was man braucht, auf einer Seite“; geprüft bei 390 × 844 in beiden Ansichten, jeder Schritt): Ring kleiner
   (`fsOrient`: Trainer 0,38 W / 0,18 H), „10 s Vorlauf“, Übung im Einzeln-Modus quer neben der Figur (`.fs-ex` als Zeile, Wdh. 52 px), Coach-Hinweise als
   eine Zeile (`fsCoLine`, `.fs-co`, Antippen = Blatt `ACT['fs-co']`), kompakte Trainer-Körper (Körper bekommt `tr`): Handstand/Ausgleich als Kopfzeile `trHead`
