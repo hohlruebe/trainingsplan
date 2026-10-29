@@ -792,6 +792,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Alle Umschalter sind Kapseln in diesem Stil (`.seg`, `.cap`).
 - Haptik bei allen Interaktionen (`haptic(kind)`): Einstellungen › Haptik (versteckte Seite `haptik`) mit Hauptschalter
   und je Aktion Aus/Leicht/Mittel/Stark (`HAPT_KINDS`, pro Gerät in `S.hapt`, nicht synchronisiert). Ändern spielt die Stärke sofort ab.
+  iPhone (keine Vibration im Browser): `iosTick` klickt je Antippen einen frischen, ungerenderten Schalter (`input switch` im `<head>`), das gibt ein
+  kurzes Klicken; geht nur direkt beim Tippen, nicht von der Uhr aus (Countdown und Rundenwechsel vibrieren am iPhone nicht). Ton (Dennis, 29. Oktober:
+  „Ton hat im Training gefehlt“): `audioWake` weckt den `AudioContext` bei jedem Tippen und beim Zurückkehren (iOS hält ihn nach Sperre oder
+  App-Wechsel an, Zustand `interrupted`), spielt einmal einen stillen Puffer zur Freigabe; `beep` versucht es selbst noch einmal.
 - Manifest `display: standalone`. Ist `vollbild` an (Einstellung, Standard an), wechselt die
   installierte App beim ersten Tippen per `requestFullscreen` ins Vollbild (`goFullscreen()`).
   Nach dem Minimieren holt das nächste Tippen es zurück.

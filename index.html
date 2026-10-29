@@ -3985,9 +3985,25 @@ function saveDay() {
 /* ---------- timer ---------- */
 var TM = { mode: 'emom', cfg: null, phases: [], running: false, t0: 0, acc: 0, idx: -1, lastSec: null, rounds: 0, finished: false, finalElapsed: 0, wake: null, int: null };
 var AC = null;
-function ensureAudio() { try { if (S.cdVoice && window.speechSynthesis && !ensureAudio.sp) { ensureAudio.sp = 1; var u0 = new SpeechSynthesisUtterance(' '); u0.volume = 0; speechSynthesis.speak(u0); } } catch (e) { /* egal */ } try { if (!AC) { var C = window.AudioContext || window.webkitAudioContext; if (C) AC = new C(); } if (AC && AC.state === 'suspended') AC.resume(); } catch (e) { /* no sound */ } }
+function ensureAudio() { try { if (S.cdVoice && window.speechSynthesis && !ensureAudio.sp) { ensureAudio.sp = 1; var u0 = new SpeechSynthesisUtterance(' '); u0.volume = 0; speechSynthesis.speak(u0); } } catch (e) { /* egal */ } audioWake(); }
+// iPhone (Dennis, 29. Oktober: „der Ton hat im Training heute gefehlt“): Safari hält den Ton nach Sperre, Anruf oder App-Wechsel an
+// („interrupted“, nicht nur „suspended“) und lässt ihn nur bei einem Tippen wieder an. Darum weckt jedes Tippen den Ton; einmal spielt ein
+// stiller Puffer, damit iOS den Ton überhaupt freigibt. Läuft die Uhr ohne Tippen weiter, versucht `tick` es trotzdem.
+function audioWake() {
+  if (S.sound === false) return;
+  try {
+    var C = window.AudioContext || window.webkitAudioContext;
+    if (C && (!AC || AC.state === 'closed')) { AC = new C(); audioWake.unl = 0; }
+    if (!AC) return;
+    if (AC.state !== 'running' && AC.resume) { var r = AC.resume(); if (r && r.catch) r.catch(function () {}); }
+    if (!audioWake.unl) { audioWake.unl = 1; var b = AC.createBuffer(1, 1, 22050), src = AC.createBufferSource(); src.buffer = b; src.connect(AC.destination); src.start(0); }
+  } catch (e) { /* kein Ton */ }
+}
+['touchend', 'pointerdown', 'keydown'].forEach(function (ev) { document.addEventListener(ev, function () { if (AC || TM.running) audioWake(); }, true); });
+document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && AC) audioWake(); });
 function beep(freq, ms) {
   if (!S.sound || !AC) return;
+  if (AC.state !== 'running') audioWake();
   try {
     var o = AC.createOscillator(), g = AC.createGain(), now = AC.currentTime;
     o.type = 'square'; o.frequency.value = freq;
@@ -6575,17 +6591,16 @@ function hapLevel(kind) {
   return 1;
 }
 function vibrate(pattern) { try { return !!(navigator.vibrate && navigator.vibrate(pattern)); } catch (e) { return false; } }
-// iPhone (ab iOS 18) hat keine Vibration im Browser: Antippen eines versteckten Schalters löst ein kurzes Klicken aus.
-var hapticEl = null;
+// iPhone (ab iOS 18) hat keine Vibration im Browser: Antippen eines Schalters löst ein kurzes Klicken aus. Geht nur direkt beim Tippen,
+// nicht von der Uhr aus. Je Klick ein frischer Schalter, ungerendert im Kopf der Seite (Dennis, 29. Oktober: Haptik auf iOS ging nicht mehr;
+// der eine wiederbenutzte, unsichtbar verschobene Schalter klickte nicht mehr).
 function iosTick() {
-  if (!hapticEl) {
-    hapticEl = document.createElement('label');
-    hapticEl.setAttribute('aria-hidden', 'true');
-    hapticEl.style.cssText = 'position:fixed;left:-200px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
-    var i = document.createElement('input'); i.type = 'checkbox'; i.setAttribute('switch', ''); i.tabIndex = -1;
-    hapticEl.appendChild(i); document.body.appendChild(hapticEl);
-  }
-  hapticEl.click();
+  try {
+    var l = document.createElement('label'), i = document.createElement('input');
+    l.setAttribute('aria-hidden', 'true'); l.style.display = 'none';
+    i.type = 'checkbox'; i.setAttribute('switch', ''); i.tabIndex = -1;
+    l.appendChild(i); document.head.appendChild(l); l.click(); document.head.removeChild(l);
+  } catch (e) { /* keine Haptik */ }
 }
 function haptic(kind) {
   if (S.haptik === false) return;
