@@ -11,7 +11,7 @@ let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 html = html.replace('\napplyTheme();\nblockCheck();', `
 window.tpSim = {
   start: (o) => {
-    S = Object.assign({}, DEF, { started: true, planV: 2, durchgang: 1, tag: 1, startDate: o.mon, blockStart: 1, umfang: { u: 4, ts: 0 }, planWk: o.mon,
+    S = Object.assign({}, DEF, { tourSeen: 1, started: true, planV: 2, durchgang: 1, tag: 1, startDate: o.mon, blockStart: 1, umfang: { u: 4, ts: 0 }, planWk: o.mon,
       planStart: { date: o.mon, week: o.mon, tag: 1, mode: 'week' }, planAsk: o.mon, name: 'Sim', sex: 'm', weight: 80, birthYear: 1994, tage: o.tage || 3,
       vollbild: false, sound: false, haptik: false, feldTs: {}, tagSince: isoAdd(o.mon, -1), advBy: 'auto', orte: [{ id: 'o1', k: 'zuhause', on: true, eq: o.eq, fa: 1, lf: 1, zh: 1 }], ort: 'o1', morgen: {} });
     LOGS = []; DRAFTS = {}; window.SIMA = {}; ensureOrte(); DAYS_K = null; invalidateDerived(); render();

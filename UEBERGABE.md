@@ -19,6 +19,12 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Umriss fein in Blau, Vorlauf ohne Text in der Kapsel. Offen: Querformat und Tools › Timer zeigen weiter den Ring.
 - Zuletzt Vergleich oben | in der Karte (https://claude.ai/artifact/9ytRHHGNG1e2oDdEQuJ4UG), Dennis: „So machen wir das“ (verstanden als „in der Karte“):
   die Kapsel ist jetzt die erste Zeile der weißen Trainer-Karte. Dabei behoben: Intervalle zeigten bei laufender Uhr „Als Erstes“ statt „Jetzt“.
+- Zwei Geräte zeigten verschiedene Pläne (Dennis, 28. Oktober): das zweite Gerät hatte erst den Fragebogen (Durchgang 1, von Hand gesetzt) und dann den Sync
+  verbunden und so in GitHub Durchgang 2 → 1, B → A und Start 17. → 28. Oktober überschrieben (Einheiten unberührt). Schutz eingebaut (`join` in `mergeRemote`).
+  OFFEN: Reparatur der Datei im Daten-Repository (Dennis hat zugestimmt, das Schreiben dorthin wurde aber von der Rechteprüfung der Sitzung blockiert):
+  durchgang 2, tag 3, tagSince 2026-10-26, advBy user, startDate 2026-10-17, planStart/swapped aus Commit c62b89c, posSet und feldTs = jetzt,
+  planDays ab 2026-10-28 neutral mit neuer Zeit.
+- App-Tour mit 6 Karten (überspringbar, einmal je Gerät, später Plan › Wissen), letzte Karte „Als App speichern“ je Gerät.
 - Anmelden beim ersten Start (Dennis: „Name plus Token und ich bekomme den Stand von heute“): neues Gerät = Blatt „Anmelden“ geht von selbst auf, Begrüßung
   behält „Ich nutze die App schon · Anmelden“. Ein frisches Gerät übernimmt den Stand aus GitHub ganz (vorher hätten gespeicherte Standardwerte gewonnen).
   Lokal mit Dennis' echten Daten geprüft (nachgestelltes GitHub, nichts hochgeladen): danach Heute mit „Ganzkörper B“. Test `tests/anmelden-browser.cjs`.

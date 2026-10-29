@@ -1307,7 +1307,19 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .ob-row.on .ob-c::after{content:'';width:9px;height:5px;border:2.4px solid var(--on-acc);border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg)}
 .ob-lab{font-size:14px;color:var(--ink2);margin:6px 6px}
 .ob-foot{margin-top:auto;position:sticky;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-top:18px;display:flex;flex-direction:column;gap:8px}
-.ob-login{margin-top:4px}.ob-alt{display:flex;justify-content:center;align-items:center;gap:4px}.ob-alt button{border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;min-height:44px;padding:0 10px;cursor:pointer}
+.ob-login{margin-top:4px}
+.tour{position:fixed;inset:0;z-index:45;background:var(--board);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 14px) 20px calc(env(safe-area-inset-bottom,0px) + 18px);overflow-y:auto;overscroll-behavior:contain}
+.tour>*{width:100%;max-width:520px;margin-left:auto;margin-right:auto}
+.tr-top{display:flex;align-items:center;justify-content:space-between;min-height:44px}.tr-n{color:var(--ink2);font-size:15px;font-weight:600}
+.tr-skip{border:0;background:none;color:var(--ink2);font:inherit;font-size:16px;min-height:44px;padding:0 4px;cursor:pointer}
+.tr-body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:12px 4px}
+.tr-ic{width:88px;height:88px;border-radius:28px;background:var(--paper);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--acc);margin-bottom:18px}.tr-ic svg{width:46px;height:46px}
+.tr-body h2{font-size:30px;line-height:1.12;letter-spacing:-.02em;margin:0 0 10px}.tr-body p{font-size:17px;line-height:1.5;color:var(--ink);margin:0}
+.tr-steps{margin:16px 0 0;padding:14px 16px 14px 36px;background:var(--paper);border-radius:20px;box-shadow:var(--shadow);font-size:16px;line-height:1.5}.tr-steps li+li{margin-top:6px}
+.tr-inst{margin-top:14px}.tr-ok{margin-top:14px!important;color:var(--green)!important;font-weight:700}
+.tr-dots{display:flex;justify-content:center;gap:6px;margin:6px auto 14px}.tr-dots i{width:7px;height:7px;border-radius:99px;background:var(--fill);transition:width .2s}.tr-dots i.on{width:20px;background:var(--acc)}
+.tr-foot{display:flex;gap:10px;align-items:center}.tr-foot .tr-next{flex:1;margin:0;min-height:52px}.tr-sp{width:0}
+@media (prefers-reduced-motion:reduce){.tr-dots i{transition:none}}.ob-alt{display:flex;justify-content:center;align-items:center;gap:4px}.ob-alt button{border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;min-height:44px;padding:0 10px;cursor:pointer}
 .ob-nums{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .ob-num{border:0;background:var(--paper);border-radius:22px;box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
 .ob-num small,.ob-num i{font-size:14px;color:var(--ink2);font-style:normal}.ob-num b{font-family:var(--hand);font-weight:var(--hand-w);font-size:34px;line-height:1.1;color:var(--acc)}.ob-num b span{font-size:16px;color:var(--ink2)}
@@ -2787,7 +2799,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null };
+  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -3014,11 +3026,15 @@ function localDoc() {
   var ft = LS.get('tp.fotoTs', 0); if (ft) doc.foto = { ts: ft, data: LS.get('tp.foto', null) };
   return doc;
 }
-function mergeRemote(r) {
+function mergeRemote(r, join) {
   if (!r || r.app !== 'trainingsplan') return false;
   // Neues Gerät (nie gestartet, keine Einheiten): hier gibt es nichts zu verlieren, der Stand aus GitHub gilt ganz
   // (Anmelden beim ersten Start, Dennis, 28. Oktober; sonst gewännen frisch gespeicherte Standardwerte wie die Orte).
-  var changed = false, have = {}, fresh = !S.started && !LOGS.length && !!(r.stand && r.stand.started);
+  // Ebenso ein Gerät, das sich zum ersten Mal verbindet (`join`) und kein eigenes Training hat: Dennis richtete am 28. Oktober auf dem
+  // zweiten Gerät erst den Fragebogen ein und verband dann den Sync; dessen Start (Durchgang 1, „von Hand gesetzt“) überschrieb den echten Stand.
+  var remoteIds = {}; (r.einheiten || []).forEach(function (l) { if (l && l.id) remoteIds[l.id] = 1; });
+  var ownTraining = LOGS.some(function (l) { return !remoteIds[l.id] && l.kind !== 'rm'; });
+  var changed = false, have = {}, fresh = !!(r.stand && r.stand.started) && !ownTraining && (!S.started || !!join);
   var rd = r.geloescht || {};
   Object.keys(rd).forEach(function (id) { if (!DELETED[id] || DELETED[id] < rd[id]) DELETED[id] = rd[id]; });
   LOGS = LOGS.filter(function (l) { if (DELETED[l.id]) { changed = true; return false; } have[l.id] = true; return true; });
@@ -3067,7 +3083,7 @@ function runSync() {
   var attempt = function (n) {
     return ghPrivate(connection).then(function () { current(); return ghGet(connection); }).then(function (got) {
       current();
-      if (mergeRemote(got.doc)) { LS.set('tp.logs', LOGS); LS.set('tp.state', S); LS.set('tp.deleted', DELETED); ui.viewTag = null; applyTheme(); }
+      if (mergeRemote(got.doc, !connection.last)) { LS.set('tp.logs', LOGS); LS.set('tp.state', S); LS.set('tp.deleted', DELETED); ui.viewTag = null; applyTheme(); }
       if (LS.notice) throw new Error('local-storage');
       var mine = localDoc();
       if (got.doc && JSON.stringify(got.doc) === JSON.stringify(mine)) return null;
@@ -3431,7 +3447,7 @@ function loginOpen() {
         SY = null; delete LS.pending['tp.sync']; try { localStorage.removeItem('tp.sync'); } catch (e) { /* ignore */ } syncState = { status: 'off', msg: '' };
         return;
       }
-      closeSheet(); ui.tab = 'heute'; render();
+      closeSheet(); ui.tab = 'heute'; render(); setTimeout(tourCheck, 2800);
       toast(S.started ? 'Angemeldet. Dein Stand von heute ist da.' : 'Angemeldet. Noch kein Stand gespeichert, los geht’s mit dem Fragebogen.');
     });
     return false;
@@ -4603,7 +4619,8 @@ function renderPlan() {
     (v2p ? esc((C2 ? 'am ' + goal.s + ' · ' : '') + tageN() + ' Tage pro Woche' + (C2 && sp2 ? ' · Schwerpunkt ' + SP[sp2].name : '')) : S.durchgang ? 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + esc(ph.lab) : '') : 'Startet nach dem Einstiegstest') + '</span></span></div>' +
     (v2p ? '' : '<p class="small">' + esc(F.info) + '</p>') + '<button type="button" class="btn block" data-act="fk-open" data-from="plan">Plan &amp; Challenges</button></section>';
   h += v2p ? '<p class="kicker muted gl-group">Deine Woche</p>' + planWeekV2HTML() + goalRow : planVHintHTML() + '<p class="kicker muted gl-group">Woche</p>' + planWeekHTML();
-  h += '<p class="kicker muted gl-group">Wissen</p><section class="card gl-card">' + K.map(function (k) {
+  h += '<p class="kicker muted gl-group">Wissen</p><section class="card gl-card"><div class="gl-item"><button type="button" class="gl-row" data-act="tour"><span class="gl-t"><b>So funktioniert die App</b><small>Kurze Tour und als App speichern</small></span>' +
+    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>' + K.map(function (k) {
     return '<div class="gl-item"><button type="button" class="gl-row" data-act="plan-sec" data-k="' + esc(k.t) + '"><span class="gl-t"><b>' + esc(k.t) + '</b><small>' + esc(PLAN_SUB[k.t] || '') + '</small></span>' +
       '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
   }).join('') + '</section>';
@@ -5960,7 +5977,60 @@ function chainNoticeOf() {
   }
   return null;
 }
+// App-Tour (Dennis, 29. Oktober: „zeig, wie die App funktioniert und wie man sie am Handy als App speichert, überspringbar“): einmal je Gerät
+// nach dem Start (`S.tourSeen`, nur auf dem Gerät), später über Plan › Wissen › „So funktioniert die App“. Die letzte Karte erklärt das Installieren
+// je Gerät (Android/Chrome, iPhone/Safari, Computer); bietet Chrome selbst die Installation an (`beforeinstallprompt`), gibt es dafür einen Knopf.
+var INSTALL_EV = null;
+window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); INSTALL_EV = e; if (document.getElementById('tour')) tourPaint(); });
+window.addEventListener('appinstalled', function () { INSTALL_EV = null; if (document.getElementById('tour')) tourPaint(); });
+var TOUR_I = 0;
+function tourOS() { var u = navigator.userAgent || ''; return /iPhone|iPad|iPod/.test(u) || (/Macintosh/.test(u) && navigator.maxTouchPoints > 1) ? 'ios' : /Android/.test(u) ? 'android' : 'desktop'; }
+function tourIc(d) { return '<span class="tr-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg></span>'; }
+function tourSlides() {
+  var os = tourOS(), inst = isInstalled(), steps;
+  if (inst) steps = null;
+  else if (os === 'ios') steps = ['Öffne die App in Safari.', 'Tippe unten auf <b>Teilen</b> (Quadrat mit Pfeil nach oben).', 'Wähle <b>Zum Home-Bildschirm</b> und tippe auf <b>Hinzufügen</b>.'];
+  else if (os === 'android') steps = ['Öffne die App in Chrome.', 'Tippe oben rechts auf <b>⋮</b>.', 'Wähle <b>App installieren</b> oder <b>Zum Startbildschirm hinzufügen</b>.'];
+  else steps = ['Öffne die App in Chrome oder Edge.', 'Klicke rechts in der Adressleiste auf das Symbol <b>Installieren</b>.', 'Bestätige mit <b>Installieren</b>.'];
+  return [
+    { ic: '<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14.5h3"/>', t: 'Dein Coach plant für dich',
+      p: 'Unter <b>Coach</b> steht, was heute dran ist. Die Wochenleiste zeigt deine Einheiten A, B und C. Tage, Uhrzeiten und Stufen legt der Coach fest, du antwortest nur.' },
+    { ic: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2.5h6"/>', t: 'Training starten',
+      p: 'Der Trainer führt dich Schritt für Schritt, die Uhr läuft mit. Die Vorgabe zählt als geschafft: Du meldest nur, was nicht geklappt hat. Am Ende <b>Speichern</b>, daraus plant der Coach die nächste Einheit.' },
+    { ic: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>', t: 'Heute anpassen',
+      p: 'Wenig Zeit, mehr Zeit, nicht fit oder woanders? Sag es unter <b>Heute anpassen</b>, die Einheit passt sich sofort an. Dort verschiebst du auch ein Training. Schmerzen meldest du im Training über die rote Fahne.' },
+    { ic: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/>', t: 'Dein Plan',
+      p: 'Der runde <b>(i)-Knopf</b> oben rechts auf Heute öffnet deine Woche, dein Ziel und das Wissen dazu: wie gesteigert wird, was nach einer Pause gilt und warum.' },
+    { ic: '<rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><circle cx="17" cy="17" r="3.5"/>', t: 'Tools und Profil',
+      p: 'Links in der Leiste: <b>Tools</b> mit Timer, Übungen und Anleitungen, Körper, Mobility und 1RM. Rechts: <b>Profil</b> mit Erfolgen, Verlauf und Werten. Einstellungen und Sync liegen oben rechts im Profil.' },
+    { ic: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10.5 18.5h3"/>', t: 'Als App speichern', inst: inst, steps: steps,
+      p: inst ? 'Erledigt: Du nutzt den Trainingsplan schon als App. Er startet vom Startbildschirm, im Vollbild und auch ohne Internet.' :
+        'Dann startet der Trainingsplan wie eine App vom Startbildschirm, im Vollbild und auch ohne Internet.' }
+  ];
+}
+function tourHTML() {
+  var T = tourSlides(), i = Math.max(0, Math.min(TOUR_I, T.length - 1)), sl = T[i], last = i === T.length - 1;
+  var body = '<p>' + sl.p + '</p>' + (sl.steps ? '<ol class="tr-steps">' + sl.steps.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol>' : '') +
+    (last && !sl.inst && INSTALL_EV ? '<button type="button" class="btn block tr-inst" data-act="tour-inst">Jetzt als App installieren</button>' : '') +
+    (sl.inst ? '<p class="tr-ok">✓ Als App installiert</p>' : '');
+  return '<div class="tr-top"><span class="tr-n">' + (i + 1) + ' von ' + T.length + '</span>' + (last ? '' : '<button type="button" class="tr-skip" data-act="tour-end">Überspringen</button>') + '</div>' +
+    '<div class="tr-body" aria-live="polite">' + tourIc(sl.ic) + '<h2 id="tr-t">' + sl.t + '</h2>' + body + '</div>' +
+    '<div class="tr-dots" aria-hidden="true">' + T.map(function (_, k) { return '<i' + (k === i ? ' class="on"' : '') + '></i>'; }).join('') + '</div>' +
+    '<div class="tr-foot">' + (i ? '<button type="button" class="rbtn" data-act="tour-go" data-d="-1" aria-label="Zurück">' + I_BACK + '</button>' : '<span class="tr-sp"></span>') +
+    '<button type="button" class="btn primary tr-next" data-act="' + (last ? 'tour-end' : 'tour-go') + '" data-d="1">' + (last ? 'Los geht’s' : 'Weiter') + '</button></div>';
+}
+function tourPaint() { var o = document.getElementById('tour'); if (o) o.innerHTML = tourHTML(); }
+function tourOpen(at) {
+  if (document.getElementById('tour')) return;
+  TOUR_I = at || 0; var o = document.createElement('div'); o.id = 'tour'; o.className = 'tour'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-modal', 'true'); o.setAttribute('aria-labelledby', 'tr-t');
+  o.innerHTML = tourHTML(); document.body.appendChild(o); haptic('tap');
+}
+function tourCheck() {
+  if (!S.started || S.tourSeen || ui.tab !== 'heute' || document.getElementById('tour') || document.getElementById('moment') || document.getElementById('sheet') || MOMENTS.length || document.body.classList.contains('focus') || trainingOpen()) return;
+  tourOpen(0);
+}
 function chainNotice() {
+  if (document.getElementById('tour')) return;
   if (document.getElementById('moment') || MOMENTS.length || document.body.classList.contains('focus') || trainingOpen()) return;
   var e = chainNoticeOf(); if (!e) return;
   S.chainSeen = Object.assign({}, S.chainSeen || {}); S.chainSeen[(e.type === 'chainjk' ? 'p' : 'r') + e.mon] = Date.now(); saveState();
@@ -6624,6 +6694,10 @@ var ACT = {
   'more-logs': function () { ui.logLimit += 30; render(); }
 };
 ACT.login = loginOpen;
+ACT.tour = function () { tourOpen(0); };
+ACT['tour-go'] = function (el) { TOUR_I = Math.max(0, Math.min(tourSlides().length - 1, TOUR_I + (+el.dataset.d || 1))); haptic('tap'); tourPaint(); };
+ACT['tour-end'] = function () { var o = document.getElementById('tour'); if (o) o.remove(); S.tourSeen = Date.now(); saveState(); setTimeout(chainNotice, 300); };
+ACT['tour-inst'] = function () { var e = INSTALL_EV; if (!e) return; e.prompt(); (e.userChoice || Promise.resolve()).then(function () { INSTALL_EV = null; tourPaint(); }); };
 // Fragebogen beim Start
 ACT['wb-go'] = function () { var P = wbPre(); S.wb = { on: 1, p: 'zug', a: {}, pre: P.pre, prev: P.prev }; saveState(); window.scrollTo(0, 0); render(); };
 ACT['wb-start'] = function () {
@@ -7796,6 +7870,7 @@ function weekCardHTML(tag) {
   return h + '</section>';
 }
 function renderHeute() {
+  if (S.started && !S.tourSeen && !ui.tourT) ui.tourT = setTimeout(function () { ui.tourT = null; tourCheck(); }, 500);
   if (!S.started || wbOn()) return onboardingHTML();
   if (S.review) return reviewHTML();
   if (raceDue() && !ui.viewTag) return raceHTML();
@@ -12703,7 +12778,7 @@ if (SY) syncSoon(700);
 applyTheme();
 blockCheck();
 render();
-setTimeout(chainNotice, 600);
+setTimeout(tourCheck, 400); setTimeout(chainNotice, 600);
 document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') setTimeout(chainNotice, 600); });
 })();
 </script>

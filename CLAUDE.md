@@ -404,8 +404,17 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Token, Repository (vorbelegt „trainingsplan-daten“), Hauptaktion „Anmelden“, „Ich bin neu“ schließt; die Begrüßung behält „Ich nutze die App schon · Anmelden“
   (`.ob-login`). Anmelden = derselbe Abgleich wie Einstellungen › Sync (`runSync`); Fehler (falscher Token, Repository) stehen im Blatt (`#lg-msg`), die
   Verbindung wird dann nicht gespeichert. `mergeRemote` übernimmt auf einem frischen Gerät (`fresh`: lokal nie gestartet, keine Einheiten, entfernt gestartet)
-  den ganzen Stand und die Position, sonst gewännen dort frisch gespeicherte Standardwerte mit neuerer Feldzeit. Test: `node tests/anmelden-browser.cjs`
-  (Playwright, nachgestelltes GitHub).
+  den ganzen Stand und die Position, sonst gewännen dort frisch gespeicherte Standardwerte mit neuerer Feldzeit. Dasselbe beim ersten Verbinden eines Geräts
+  (`mergeRemote(r, join)`, `join` = Verbindung noch nie abgeglichen, `!connection.last`) ohne eigenes Training (nur Einträge, die schon in GitHub stehen, oder
+  1RM): Dennis, 28. Oktober, richtete auf dem zweiten Gerät erst den Fragebogen ein (Durchgang 1, `posSet` neu) und verband dann den Sync, das überschrieb
+  Durchgang, Einheit und Startdatum. Test: `node tests/anmelden-browser.cjs` (Playwright, nachgestelltes GitHub, auch der Fall „Fragebogen, dann Sync“).
+- App-Tour (Dennis, 29. Oktober: „wie die App funktioniert und wie man sie am Handy im App-Format speichert, überspringbar“): Vollbild-Ebene `#tour`
+  (`tourOpen`, `tourHTML`, `tourSlides`, `TOUR_I`), 6 Karten mit Symbol: Coach plant, Training starten, Heute anpassen, Dein Plan, Tools und Profil,
+  Als App speichern (Schritte je Gerät `tourOS`: Android/Chrome ⋮, iPhone/Safari Teilen › Zum Home-Bildschirm, Computer Adressleiste; installiert:
+  „✓ Als App installiert“, `isInstalled`; bietet Chrome die Installation an, Knopf „Jetzt als App installieren“ über `beforeinstallprompt`/`INSTALL_EV`).
+  „Überspringen“ oben rechts (nicht auf der letzten Karte), Zurück als runder Knopf, Punkte. Einmal je Gerät nach dem Start (`tourCheck` aus `renderHeute`
+  und nach dem Anmelden; `S.tourSeen`, in `DEF`, nur auf dem Gerät), vor der Ketten-Nachricht; später Plan › Wissen › „So funktioniert die App“ (`ACT.tour`).
+  Browser-Tests setzen `tourSeen` in ihrem `set`.
 - Wiedereinstieg (Dennis): ab 15 Tagen Pause (`S.comeback.ask`, `days`) zeigt Heute am Krafttag vor dem ersten Training die Karte „Willkommen zurück“
   (`wbDue`, `wbCardHTML`, „Kurz einschätzen“, `ACT['wb-go']`); „Training starten“ wird dann „Ohne Einschätzung starten“. Sechs Seiten `WB_PAGES`
   (Zug, Druck, Beine, Rumpf, Skill, Schmerzen) aus dem Fragebogen, Stand in `S.wb {on, p, a, pre, prev}` (in `DEF`, nicht synchronisiert; `fb()` und
