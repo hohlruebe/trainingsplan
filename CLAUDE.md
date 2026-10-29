@@ -399,10 +399,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Testdatum, Beschwerde über `memRecord`, dann Durchgang 1, Tag 1 (Kurzversion wie nach dem Test). Startstufen aus dem Fragebogen sind
   eine Angabe: `baseOf` meldet `fb`, `coachStage` stuft in den ersten 2 Einheiten nach (`cs.cal`), Hinweis „aus deinem Fragebogen“
   (`brakeNote`, `skillNote`); `skillStage` nimmt die Startstufe aus `S.base`. Zusätze hinter „·“ brechen nur als Ganzes um (`dotSub`, `.nobr`).
-- Anmelden beim ersten Start (Dennis, 28. Oktober: „Name plus Token und ich bekomme den Stand von heute“): auf einem neuen Gerät (nie gestartet, keine
-  Einheiten, kein Sync) geht auf der Begrüßung einmal von selbst das Blatt „Anmelden“ auf (`loginAuto`, `ui.lgAuto`, `loginOpen` = `ACT.login`): GitHub-Name,
-  Token, Repository (vorbelegt „trainingsplan-daten“), Hauptaktion „Anmelden“, „Ich bin neu“ schließt; die Begrüßung behält „Ich nutze die App schon · Anmelden“
-  (`.ob-login`). Anmelden = derselbe Abgleich wie Einstellungen › Sync (`runSync`); Fehler (falscher Token, Repository) stehen im Blatt (`#lg-msg`), die
+- Anmelden beim ersten Start (Dennis, 28. Oktober: „Name plus Token und ich bekomme den Stand von heute“; 29. Oktober: „erst Sync falls vorhanden, dann
+  Fragebogen falls man nichts hat“): auf einem neuen Gerät (nie gestartet, keine Einheiten, kein Sync, `lgFirst`) ist die erste Seite „Anmelden“
+  (`loginPageHTML`, „Schön, dass du da bist.“): GitHub-Name, Token, Repository (vorbelegt „trainingsplan-daten“), Hauptaktion „Anmelden“ (`ACT['lg-go']`,
+  `loginRun`, Eingaben in `ui.lg`, damit das Neuzeichnen beim Abgleich nichts leert), „Ich bin neu“ (`ACT['lg-new']`, `fb().lg`) führt zur Begrüßung mit dem
+  Fragebogen; die Begrüßung behält „Ich nutze die App schon · Anmelden“ (`.ob-login`, `ACT.login` zurück zur Anmelde-Seite). Liegt in GitHub noch kein Stand,
+  geht es nach dem Anmelden mit dem Fragebogen weiter. Anmelden = derselbe Abgleich wie Einstellungen › Sync (`runSync`); Fehler (falscher Token, Repository) stehen auf der Seite (`#lg-msg`), die
   Verbindung wird dann nicht gespeichert. `mergeRemote` übernimmt auf einem frischen Gerät (`fresh`: lokal nie gestartet, keine Einheiten, entfernt gestartet)
   den ganzen Stand und die Position, sonst gewännen dort frisch gespeicherte Standardwerte mit neuerer Feldzeit. Dasselbe beim ersten Verbinden eines Geräts
   (`mergeRemote(r, join)`, `join` = Verbindung noch nie abgeglichen, `!connection.last`) ohne eigenes Training (nur Einträge, die schon in GitHub stehen, oder

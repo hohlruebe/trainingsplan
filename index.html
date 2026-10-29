@@ -1308,6 +1308,7 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:14px}
 .ob-lab{font-size:14px;color:var(--ink2);margin:6px 6px}
 .ob-foot{margin-top:auto;position:sticky;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-top:18px;display:flex;flex-direction:column;gap:8px}
 .ob-login{margin-top:4px}
+.ob-hero.lg-hero .fig{height:120px}.ob-hero.lg-hero h1{font-size:32px}.lg-card{margin-top:16px}
 .tour{position:fixed;inset:0;z-index:45;background:var(--board);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 14px) 20px calc(env(safe-area-inset-bottom,0px) + 18px);overflow-y:auto;overscroll-behavior:contain}
 .tour>*{width:100%;max-width:520px;margin-left:auto;margin-right:auto}
 .tr-top{display:flex;align-items:center;justify-content:space-between;min-height:44px}.tr-n{color:var(--ink2);font-size:15px;font-weight:600}
@@ -3268,10 +3269,11 @@ function fbChoice(id) {
 function fbRmVal(r) { return r ? esc(fmtKg(r.kg, null)) : '–'; }
 function fbPage() {
   var F = fb(), p = F.p, a = F.a;
+  if (p === 'hallo' && lgFirst()) return loginPageHTML();
   if (p === 'hallo') return '<div class="ob-hero">' + figHTML('_wave') + '<h1>Hallo, ich bin<br>dein Coach.</h1><p>In drei Minuten weiß ich, wo du stehst. Danach plane ich jeden Tag für dich.</p></div>' +
     '<div class="ob-steps"><div><b>1</b><span>Ein paar Fragen, jede überspringbar</span></div><div><b>2</b><span>Ich stelle deinen Start ein</span></div><div><b>3</b><span>Training ab heute</span></div></div>' +
     '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-go" data-p="dich">Los geht’s</button><div class="ob-alt"><button type="button" data-act="start-test">Lieber messen</button><span class="muted" aria-hidden="true">|</span><button type="button" data-act="fb-go" data-p="mitten">Schon mittendrin</button></div>' +
-    (SY ? '' : '<button type="button" class="btn block ob-login" data-act="login">Ich nutze die App schon · Anmelden</button>') + '</div>' + loginAuto();
+    (SY ? '' : '<button type="button" class="btn block ob-login" data-act="login">Ich nutze die App schon · Anmelden</button>') + '</div>';
   if (p === 'mitten') return '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-go" data-p="hallo" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>' +
     fbQ('Schon mittendrin', 'Wo stehst du im Plan?', 'Stell Durchgang und Tag ein, dann geht es dort weiter.') + '<section class="card">' + standTilesHTML('ob', ui.ob || (ui.ob = { d: 1, t: 1 })) + '</section>' +
     '<div class="ob-foot"><button type="button" class="btn primary block" data-act="start-at">Hier weitermachen</button></div>';
@@ -3420,38 +3422,40 @@ function wbStartHTML() {
     (rows ? '<section class="card">' + rows + '</section>' : '') + '<section class="card co-card"><h3>Ich achte auf</h3>' + notes + '</section>' +
     '<button type="button" class="btn primary block" data-act="wb-start">Training starten</button><div class="ob-alt"><button type="button" data-act="fb-go" data-p="zug">Antworten ändern</button></div>';
 }
-// Anmelden beim ersten Start (Dennis, 28. Oktober: „Name plus Token und ich bekomme den Stand von heute“): auf einem neuen Gerät
-// (nie gestartet, keine Einheiten, kein Sync) geht das Fenster einmal von selbst auf; „Ich bin neu“ führt zum Fragebogen.
-function loginAuto() {
-  if (SY || S.started || LOGS.length || ui.lgAuto) return '';
-  ui.lgAuto = true; setTimeout(function () { if (!S.started && !SY && !document.getElementById('sheet')) loginOpen(); }, 350);
-  return '';
+// Anmelden beim ersten Start (Dennis, 28. Oktober: „Name plus Token und ich bekomme den Stand von heute“; 29. Oktober: „erst Sync falls
+// vorhanden, dann Fragebogen falls man nichts hat“): auf einem neuen Gerät (nie gestartet, keine Einheiten, kein Sync) ist Anmelden die erste
+// Seite (`lgFirst`, `loginPageHTML`); „Ich bin neu“ (`fb().lg`) oder ein leerer Stand in GitHub führen zur Begrüßung mit dem Fragebogen.
+function lgFirst() { return ui.lgBusy || !SY && !S.started && !LOGS.length && !wbOn() && !fb().lg; }
+function loginPageHTML() {
+  var L = ui.lg || (ui.lg = { o: '', t: '', r: 'trainingsplan-daten', msg: '', err: 0 });
+  return '<div class="ob-hero lg-hero">' + figHTML('_wave') + '<h1>Schön, dass<br>du da bist.</h1><p>Nutzt du die App schon auf einem anderen Gerät? Dann melde dich an und dein Stand von heute ist sofort da.</p></div>' +
+    '<section class="card lg-card"><div class="setting col"><label class="field"><span>GitHub-Name</span><input type="text" id="lg-owner" autocomplete="username" autocapitalize="off" spellcheck="false" placeholder="z. B. dennis-nbg" value="' + esc(L.o) + '"></label>' +
+    '<label class="field"><span>Token</span><input type="password" id="lg-token" autocomplete="current-password" autocapitalize="off" spellcheck="false" placeholder="github_pat_…" value="' + esc(L.t) + '"></label>' +
+    '<label class="field"><span>Repository für die Daten</span><input type="text" id="lg-repo" autocomplete="off" autocapitalize="off" spellcheck="false" value="' + esc(L.r) + '"></label></div>' +
+    '<p class="small muted lg-msg' + (L.err ? ' sync-err' : '') + '" id="lg-msg" role="status" style="margin:8px 0 0">' + esc(L.msg || 'Der Token bleibt nur auf diesem Gerät.') + '</p></section>' +
+    '<div class="ob-foot"><button type="button" class="btn primary block" data-act="lg-go"' + (ui.lgBusy ? ' disabled' : '') + '>Anmelden</button>' +
+    '<button type="button" class="btn block" data-act="lg-new">Ich bin neu</button></div>';
 }
-function loginOpen() {
-  var body = '<p class="muted" style="margin:0 0 12px">Du nutzt die App schon auf einem anderen Gerät? Mit deinem GitHub-Namen und Token holt sie deinen Stand von heute.</p>' +
-    '<div class="setting col"><label class="field"><span>GitHub-Name</span><input type="text" id="lg-owner" autocomplete="username" autocapitalize="off" spellcheck="false" placeholder="z. B. dennis-nbg"></label>' +
-    '<label class="field"><span>Token</span><input type="password" id="lg-token" autocomplete="current-password" autocapitalize="off" spellcheck="false" placeholder="github_pat_…"></label>' +
-    '<label class="field"><span>Repository für die Daten</span><input type="text" id="lg-repo" autocomplete="off" autocapitalize="off" spellcheck="false" value="trainingsplan-daten"></label></div>' +
-    '<p class="small muted lg-msg" id="lg-msg" role="status" style="margin:8px 0 0">Der Token bleibt nur auf diesem Gerät.</p>' +
-    '<button type="button" class="btn block" data-sh="x" style="margin-top:12px">Ich bin neu</button>';
-  openForm('Anmelden', body, 'Anmelden', function (bg) {
-    var o = (bg.querySelector('#lg-owner').value || '').trim().replace(/^@/, ''), t = (bg.querySelector('#lg-token').value || '').trim(), r = (bg.querySelector('#lg-repo').value || '').trim() || 'trainingsplan-daten', msg = bg.querySelector('#lg-msg');
-    var m = r.match(/github\.com\/([^\/\s]+)\/([^\/\s#?]+)/); if (m) { o = m[1]; r = m[2].replace(/\.git$/, ''); }
-    if (!o || !t) { msg.textContent = 'Bitte GitHub-Namen und Token eintragen.'; msg.classList.add('sync-err'); return false; }
-    if (bg.dataset.busy) return false; bg.dataset.busy = '1'; msg.classList.remove('sync-err'); msg.textContent = 'Wird angemeldet …';
-    SY = { owner: o, repo: r, path: 'trainingsplan.json', token: t, dirty: true, last: null };
-    runSync().then(function () {
-      delete bg.dataset.busy;
-      if (syncState.status !== 'ok') {
-        msg.textContent = syncState.msg || 'Anmelden hat nicht geklappt.'; msg.classList.add('sync-err');
-        SY = null; delete LS.pending['tp.sync']; try { localStorage.removeItem('tp.sync'); } catch (e) { /* ignore */ } syncState = { status: 'off', msg: '' };
-        return;
-      }
-      closeSheet(); ui.tab = 'heute'; render(); setTimeout(tourCheck, 2800);
-      toast(S.started ? 'Angemeldet. Dein Stand von heute ist da.' : 'Angemeldet. Noch kein Stand gespeichert, los geht’s mit dem Fragebogen.');
-    });
-    return false;
-  }, { noFocus: true, noCancel: true });
+function loginRun() {
+  var q = function (id) { return document.getElementById(id); };
+  if (!q('lg-msg') || ui.lgBusy) return;
+  var L = ui.lg, o = (q('lg-owner').value || '').trim().replace(/^@/, ''), t = (q('lg-token').value || '').trim(), r = (q('lg-repo').value || '').trim() || 'trainingsplan-daten';
+  var m = r.match(/github\.com\/([^\/\s]+)\/([^\/\s#?]+)/); if (m) { o = m[1]; r = m[2].replace(/\.git$/, ''); }
+  L.o = o; L.t = t; L.r = r;
+  var say = function (txt, err) { L.msg = txt; L.err = err ? 1 : 0; render(); };
+  if (!o || !t) return say('Bitte GitHub-Namen und Token eintragen.', 1);
+  ui.lgBusy = true; say('Wird angemeldet …');
+  SY = { owner: o, repo: r, path: 'trainingsplan.json', token: t, dirty: true, last: null };
+  runSync().then(function () {
+    ui.lgBusy = false;
+    if (syncState.status !== 'ok') {
+      var e = syncState.msg || 'Anmelden hat nicht geklappt.';
+      SY = null; delete LS.pending['tp.sync']; try { localStorage.removeItem('tp.sync'); } catch (x) { /* ignore */ } syncState = { status: 'off', msg: '' };
+      return say(e, 1);
+    }
+    ui.lg = null; ui.tab = 'heute'; window.scrollTo(0, 0); render(); if (S.started) setTimeout(tourCheck, 2800);
+    toast(S.started ? 'Angemeldet. Dein Stand von heute ist da.' : 'Angemeldet. Noch kein Stand gespeichert, los geht’s mit dem Fragebogen.');
+  });
 }
 function onboardingHTML() { ui.focus = true; ui.noSub = true; return '<div class="ob">' + fbPage() + '</div>'; }
 function restHTML(tag) {
@@ -6693,7 +6697,9 @@ var ACT = {
   'del-log': function (el) { twoStep(el, function () { removeLog(el.dataset.id); render(); toast('Einheit gelöscht.'); }); },
   'more-logs': function () { ui.logLimit += 30; render(); }
 };
-ACT.login = loginOpen;
+ACT.login = function () { fb().lg = 0; fbGo('hallo'); };
+ACT['lg-go'] = loginRun;
+ACT['lg-new'] = function () { fb().lg = 1; fbGo('hallo'); };
 ACT.tour = function () { tourOpen(0); };
 ACT['tour-go'] = function (el) { TOUR_I = Math.max(0, Math.min(tourSlides().length - 1, TOUR_I + (+el.dataset.d || 1))); haptic('tap'); tourPaint(); };
 ACT['tour-end'] = function () { var o = document.getElementById('tour'); if (o) o.remove(); S.tourSeen = Date.now(); saveState(); setTimeout(chainNotice, 300); };

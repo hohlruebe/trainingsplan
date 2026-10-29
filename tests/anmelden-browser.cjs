@@ -38,23 +38,24 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
     const page = await context.newPage(), errors = [];
     page.on('pageerror', e => errors.push(e.message));
     await page.goto('http://127.0.0.1:' + server.address().port);
-    const dlg = page.getByRole('dialog', { name: 'Anmelden' });
-    await dlg.waitFor({ state: 'visible', timeout: 3000 });
-    assert.ok(await page.getByRole('heading', { name: /Hallo, ich bin/ }).count(), 'darunter die Begrüßung');
-    console.log('PASS: neues Gerät: das Anmeldefenster geht von selbst auf');
+    const dlg = page.locator('.ob');
+    await page.getByRole('heading', { name: /Schön, dass/ }).waitFor({ timeout: 3000 });
+    assert.equal(await page.getByRole('heading', { name: /Hallo, ich bin/ }).count(), 0, 'Fragebogen erst danach');
+    assert.equal(await page.getByRole('dialog').count(), 0, 'eine Seite, kein Fenster darüber');
+    console.log('PASS: neues Gerät: Anmelden ist die erste Seite, noch kein Fragebogen');
 
-    await dlg.getByRole('button', { name: 'Ich bin neu' }).click();
-    await dlg.waitFor({ state: 'detached' });
-    await page.waitForTimeout(500);
-    assert.equal(await page.getByRole('dialog').count(), 0, 'geht nicht noch einmal von selbst auf');
+    await page.getByRole('button', { name: 'Ich bin neu' }).click();
+    await page.getByRole('heading', { name: /Hallo, ich bin/ }).waitFor();
+    await page.reload();
+    await page.getByRole('heading', { name: /Hallo, ich bin/ }).waitFor({ timeout: 3000 });
     const again = page.getByRole('button', { name: 'Ich nutze die App schon · Anmelden' });
     assert.ok(await again.isVisible(), 'Begrüßung behält den Weg zum Anmelden');
-    console.log('PASS: „Ich bin neu“ schließt, die Begrüßung bietet Anmelden weiter an');
+    console.log('PASS: „Ich bin neu“ führt zur Begrüßung mit Fragebogen (auch nach dem Neuladen), Anmelden bleibt erreichbar');
 
     // Das Gerät hat inzwischen Standardwerte gespeichert (neuer als der Stand in GitHub): sie dürfen den echten Stand nicht verdrängen.
     assert.ok(await page.evaluate(() => window.tpTest.localSave()) > 1.7e12);
     await again.click();
-    await dlg.waitFor({ state: 'visible' });
+    await page.getByRole('heading', { name: /Schön, dass/ }).waitFor();
     await dlg.getByRole('button', { name: 'Anmelden', exact: true }).click();
     assert.equal(await dlg.locator('#lg-msg').innerText(), 'Bitte GitHub-Namen und Token eintragen.');
     await dlg.getByLabel('GitHub-Name').fill('dennis-test');
@@ -62,11 +63,11 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
     await dlg.getByRole('button', { name: 'Anmelden', exact: true }).click();
     await page.waitForFunction(() => /Token ist ungültig/.test(document.getElementById('lg-msg').textContent));
     assert.equal(await page.evaluate(() => localStorage.getItem('tp.sync')), null, 'falscher Token wird nicht gespeichert');
-    console.log('PASS: leere Felder und falscher Token: Hinweis im Fenster, nichts gespeichert');
+    console.log('PASS: leere Felder und falscher Token: Hinweis auf der Seite, nichts gespeichert');
 
     await dlg.getByLabel('Token').fill('github_pat_gut');
     await dlg.getByRole('button', { name: 'Anmelden', exact: true }).click();
-    await dlg.waitFor({ state: 'detached', timeout: 5000 });
+    await page.getByRole('heading', { name: /Schön, dass/ }).waitFor({ state: 'detached', timeout: 5000 });
     const st = await page.evaluate(() => { const s = window.tpTest.state(); return { started: s.started, name: s.name, dg: s.durchgang, tage: s.tage, sp: s.schwerpunkt, n: window.tpTest.logs().length }; });
     assert.deepEqual(st, { started: true, name: 'Dennis', dg: 3, tage: 4, sp: 'kb', n: 1 }, 'der Stand aus GitHub gilt ganz');
     assert.equal(await page.getByRole('heading', { name: /Hallo, ich bin/ }).count(), 0, 'kein Fragebogen mehr');
@@ -114,7 +115,7 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
     });
     const p2 = await c2.newPage(); p2.on('pageerror', e => errors.push(e.message));
     await p2.goto('http://127.0.0.1:' + server.address().port);
-    await p2.getByRole('dialog', { name: 'Anmelden' }).getByRole('button', { name: 'Ich bin neu' }).click();
+    await p2.getByRole('button', { name: 'Ich bin neu' }).click();
     await p2.evaluate(() => window.tpTest.fbDone());
     await p2.waitForTimeout(700); assert.equal(await p2.locator('#tour').count(), 0, 'keine Tour auf den Einstellungen');
     await p2.locator('details[data-sec="Sync über GitHub"] summary').click();

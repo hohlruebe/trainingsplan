@@ -21,12 +21,12 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   die Kapsel ist jetzt die erste Zeile der weißen Trainer-Karte. Dabei behoben: Intervalle zeigten bei laufender Uhr „Als Erstes“ statt „Jetzt“.
 - Zwei Geräte zeigten verschiedene Pläne (Dennis, 28. Oktober): das zweite Gerät hatte erst den Fragebogen (Durchgang 1, von Hand gesetzt) und dann den Sync
   verbunden und so in GitHub Durchgang 2 → 1, B → A und Start 17. → 28. Oktober überschrieben (Einheiten unberührt). Schutz eingebaut (`join` in `mergeRemote`).
-  OFFEN: Reparatur der Datei im Daten-Repository (Dennis hat zugestimmt, das Schreiben dorthin wurde aber von der Rechteprüfung der Sitzung blockiert):
-  durchgang 2, tag 3, tagSince 2026-10-26, advBy user, startDate 2026-10-17, planStart/swapped aus Commit c62b89c, posSet und feldTs = jetzt,
-  planDays ab 2026-10-28 neutral mit neuer Zeit.
+  Keine Reparatur der Datei im Daten-Repository (Dennis, 29. Oktober: „Du musst nichts reparieren“).
 - App-Tour mit 6 Karten (überspringbar, einmal je Gerät, später Plan › Wissen), letzte Karte „Als App speichern“ je Gerät.
-- Anmelden beim ersten Start (Dennis: „Name plus Token und ich bekomme den Stand von heute“): neues Gerät = Blatt „Anmelden“ geht von selbst auf, Begrüßung
-  behält „Ich nutze die App schon · Anmelden“. Ein frisches Gerät übernimmt den Stand aus GitHub ganz (vorher hätten gespeicherte Standardwerte gewonnen).
+- Anmelden beim ersten Start (Dennis: „Name plus Token und ich bekomme den Stand von heute“; 29. Oktober: „erst Sync falls vorhanden, dann Fragebogen
+  falls man nichts hat“): neues Gerät = erste Seite „Anmelden“ (`loginPageHTML`), erst „Ich bin neu“ oder ein leerer Stand führt zur Begrüßung mit Fragebogen;
+  die Begrüßung behält „Ich nutze die App schon · Anmelden“. Dennis fragte, ob man das nächste Training auf heute vorziehen kann: ja, an einem freien Tag
+  „Heute trainieren“ in „Für deinen freien Tag“ (nur wenn es heute passt). Ein frisches Gerät übernimmt den Stand aus GitHub ganz (vorher hätten gespeicherte Standardwerte gewonnen).
   Lokal mit Dennis' echten Daten geprüft (nachgestelltes GitHub, nichts hochgeladen): danach Heute mit „Ganzkörper B“. Test `tests/anmelden-browser.cjs`.
 - Stufen-Pille im Trainer: nur der Stufenname („Körper steil“), einzeilig, wenn er passt. Lange Namen („Mit Halt (Ringe oder Türrahmen)“) erst 14 px, dann zwei Zeilen,
   nie abgeschnitten (Dennis: mit „…“ konnte man nicht mehr alles lesen; `fsStgFit`).
