@@ -8,6 +8,16 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Ton und Haptik, alle Trainingsansichten (29. Oktober 2026, Claude)
+- Dennis: Haptik auf iOS geht nicht mehr, im Training fehlte der Ton. Im Code hatte sich nichts geändert, in Chromium kommen alle Töne und Vibrationen.
+  Abgehärtet für das iPhone: `audioWake` (Ton nach Sperre/App-Wechsel wieder an, bei jedem Tippen), `iosTick` mit frischem Schalter je Klick.
+  OFFEN: auf Dennis' iPhone prüfen (Einstellungen › Haptik, Training mit Ton). Am iPhone vibriert die Uhr selbst nie (Apple lässt das nicht zu).
+  Falls weiter kein Ton: Stummschalter am iPhone (Web-Töne folgen ihm) und welches Gerät es war.
+- Board mit allen Trainingsansichten (94 Bilder, nummeriert): https://claude.ai/artifact/PmpkPr3J2kQP2cgqguhcSk, nur EMOM: https://claude.ai/artifact/8zQWXyEYDjLEL77vpjXJkb.
+  Dennis beschreibt je Nummer, was stört; Ziel: alle Ansichten vereinheitlichen. Auffällig schon jetzt: Zusatz-Ergometer und Zusatz-Lauf laufen noch nicht im
+  Trainer (alte Schritt-Seite bzw. lange Lauf-Seite), Mobility-Player und Tools-Timer haben eigene Darstellungen, nach dem letzten Schritt ist der Trainer
+  hinter der Cool-down-Frage leer und das Blatt ragt unten heraus.
+
 ## Trainer-Feinschliff aus dem Training (28. Oktober 2026, Claude)
 - Dennis nach einem Training: Einzeln | Liste zu groß (weg unter dem Ring, jetzt Symbol im Kopf), Handstand-Zeit beim Pausieren automatisch,
   „+/–5 s“ sprang an den Seitenanfang (behoben), nach der Uhr direkt weiter (automatisch, wo nichts einzutragen ist), „nächster Punkt“ unten zu groß
