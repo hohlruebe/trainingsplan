@@ -759,6 +759,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Scroll-Stelle: `FS.sKeep` aus einem scroll-Listener auf `#fs-side` (nicht direkt nach dem Neuzeichnen, `FS.sIgn`), im selben Schritt wiederhergestellt.
   Kapsel in der Karte (Dennis, 28. Oktober, Vergleich oben | in der Karte): die Zeit-Kapsel ist die erste Zeile der weißen Trainer-Karte (`.fs-main` hochkant
   mit `--paper` und Schatten, `.fs-side` darin ohne eigene Karte). Abschluss: `finTrain` zeigt bei laufender Uhr „Jetzt“ (Schlüssel mit `r`, sonst blieb „Als Erstes“ stehen).
+- Trainer nach dem Test im Chat (Dennis, 30. Oktober): ohne Liste (Einzeln und Schritte ohne Liste, Klasse `.cen`) steht der Inhalt mittig in der Karte statt
+  oben mit viel Leere darunter. Die Zeit-Kapsel ist der Start/Pause-Knopf (`#fs-ring` mit `data-act="fs-toggle"`, ohne Uhr wirkungslos), rechts steht kein
+  „noch …“ mehr neben derselben Zeit. Automatisch weiter (`autoNext`, 1,5 s) jetzt auch nach Intervallen, nach dem bestätigten Metcon-Ergebnis (`amrapCheck`)
+  und wenn im Aufwärmen die letzte Übung abgehakt ist (`flowRow`); nur der letzte Schritt bleibt stehen. Liste: Antippen der Zeile hakt ab, nochmal nimmt
+  es zurück (`ACT['fl-row']`, `.fs-row.tap`), das (i) bleibt die Anleitung.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

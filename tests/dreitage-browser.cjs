@@ -104,7 +104,16 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#fs .fs-top [data-act="fs-view"][data-v="list"]').click();
     assert.equal(await page.evaluate(() => window.tpTest.state().fsView), 'list', 'die Ansicht merkt sich die App');
     assert.ok(await page.locator('#fs .fs-rows .fs-row').count() >= 3, 'Liste wie ein Whiteboard');
-    assert.equal(await page.locator('#fs .fs-rows [data-act="fl-done"]').count(), 0, 'Liste ohne Abhaken (Dennis: das Ergebnis kommt danach)');
+    assert.equal(await page.locator('#fs .fs-rows [data-act="fl-done"]').count(), 0, 'Liste ohne eigenen Erledigt-Knopf');
+    // Dennis, 30. Oktober: Antippen der Zeile hakt ab, nochmal nimmt es zurück; das (i) öffnet nur die Anleitung.
+    await page.locator('#fs .fs-rows .fs-row.tap').nth(1).click();
+    assert.equal(await page.locator('#fs .fs-rows .fs-row.done').count(), 1, 'Zeile antippen = abgehakt');
+    await page.locator('#fs .fs-rows .fs-row.tap').nth(1).click();
+    assert.equal(await page.locator('#fs .fs-rows .fs-row.done').count(), 0, 'nochmal = zurück');
+    await page.locator('#fs .fs-rows .fs-row .fs-i').first().click();
+    assert.ok(await page.locator('#sheet').isVisible(), '(i) öffnet die Anleitung');
+    assert.equal(await page.locator('#fs .fs-rows .fs-row.done').count(), 0, '(i) hakt nichts ab');
+    await page.getByRole('button', { name: 'Fertig', exact: true }).click();
     await page.locator('#fs .fs-nav .btn.primary').click();
     await page.reload();
     assert.ok(await page.locator('#fs .fs-tr .st-prog').isVisible(), 'nach dem Neuladen geht es beim Schritt im Vollbild weiter');
@@ -130,15 +139,16 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok((await page.locator('#fs .fs-side [data-act="k-stg"]').first().innerText()).includes(stgTxt), 'gewählte Stufe steht in der Karte');
     await page.locator('#fs .fs-side [data-act="k-stg"]').first().click();
     await page.locator('#sheet [data-c]', { hasText: '(Coach)' }).click();
-    await page.locator('#fs #fs-tg').click();
+    await page.locator('#fs #fs-ring').click();
     await page.waitForTimeout(300);
-    assert.match(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Uhr läuft: Weiter gesperrt');
+    assert.match(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Tippen auf die Kapsel startet die Uhr, Weiter gesperrt');
+    assert.doesNotMatch(await page.locator('#fs-pl').innerText(), /^noch /, 'keine zweite Restzeit neben der Uhr');
     const kk = await page.locator('#fs .fs-kick').innerText();
     await page.locator('#fs .fs-nav [data-act="step"]').last().click();
     assert.equal(await page.locator('#fs .fs-kick').innerText(), kk, 'ein Tippen auf Weiter bleibt beim laufenden EMOM');
-    await page.locator('#fs #fs-tg').click();
+    await page.locator('#fs #fs-ring').click();
     await page.waitForTimeout(300);
-    assert.doesNotMatch(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'angehalten: Weiter wieder frei');
+    assert.doesNotMatch(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Kapsel nochmal: angehalten, Weiter wieder frei');
     await page.evaluate(() => { const o = JSON.parse(localStorage.getItem('tp.drafts')); for (const k in o) for (const f in o[k]) if (/^k\dr\d$/.test(f)) delete o[k][f]; localStorage.setItem('tp.drafts', JSON.stringify(o)); });
     await page.reload();
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));

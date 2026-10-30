@@ -1012,6 +1012,10 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 #fs[data-view="port"] .fs-tr .fs-main{gap:0;background:var(--paper);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
 #fs[data-view="port"] .fs-tr .fs-dig{padding:14px 14px 2px;box-sizing:border-box}
 #fs[data-view="port"] .fs-tr .fs-side{background:none;box-shadow:none;border-radius:0;justify-content:flex-start;padding-top:12px}
+#fs[data-view="port"] .fs-tr.cen .fs-side{justify-content:safe center;padding-bottom:12px}
+.fs-tr .fs-ring[data-act]{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-ring[data-act]:active{transform:scale(.98)}
+.fs-tr.fs-noring .fs-ring{pointer-events:none}
+.fs-tr .fs-row.tap{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-row.tap:active{transform:scale(.985)}
 #fs[data-view="port"] .fs-tr.fs-noring .fs-side{padding-top:calc(22px*var(--fsu,1))}.tr-fin{align-items:center;text-align:center}.tr-fin .tr-hd{justify-content:center}.tr-fin .fs-exn small{font-size:.5em;font-weight:500;color:var(--ink2)}.tr-fin .fs-reps.calm{color:var(--ink)}#fs .fs-tr .fs-ex{flex-direction:row;align-items:center;text-align:left;gap:12px}#fs .fs-tr .fs-ex>div:last-child{flex:1;min-width:0}#fs .fs-tr .fs-ex .fs-nm{justify-content:flex-start}#fs .fs-tr .fs-ex .fs-stg{margin:4px 0 0}#fs .fs-tr .fs-ex .fs-reps{font-size:calc(52px*var(--fsu,1));white-space:nowrap}#fs .fs-tr .fs-side>.fs-body{align-self:stretch;width:100%;min-width:0;box-sizing:border-box}#fs .fs-co{max-width:100%}#fs .stepper b{white-space:nowrap}#fs .fs-tr .fs-ex .fs-lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#fs .fs-tr .fs-ex{width:100%}#fs .fs-tr .fs-fig{width:calc(104px*var(--fsu,1))}#fs .fs-tr .fs-row{min-height:calc(44px*var(--fsu,1));font-size:calc(18px*var(--fsu,1));padding-top:4px;padding-bottom:4px}#fs .fs-tr .fs-row>span{flex:1}#fs .fs-tr .fs-rows{gap:2px}#fs .fs-tr .fs-row b{font-size:calc(30px*var(--fsu,1));min-width:calc(70px*var(--fsu,1))}#fs .fs-tr .fs-row .fs-i{width:40px;height:40px}#fs .fs-krow .fs-stg.sm{min-height:34px;padding:0 10px;align-self:flex-start;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-flex}#fs .fs-krow .fs-stg.sm .bst{overflow:hidden;text-overflow:ellipsis}.tr-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.tr-hd .mini-fig{width:48px;height:48px;flex:none}.tr-hd b{font-size:20px}.tr-x{margin:0;color:var(--ink2)}
 .fs-co{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:14px;background:var(--fill);color:var(--ink);font:inherit;font-size:14px;text-align:left;cursor:pointer}
 .fs-co-k{font-weight:700;color:var(--acc);flex:none}.fs-co-t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fs-co svg{flex:none}
@@ -4162,14 +4166,15 @@ function hsCapture(a0, a1) {
   toast(sec + ' s gehalten' + (best ? ', als beste Zeit gemerkt.' : '. Beste Zeit bleibt ' + old + ' s.')); render();
 }
 // Nach der Uhr (Dennis, 28. Oktober): wo nichts mehr einzutragen ist, geht der Trainer von selbst zum nächsten Schritt.
-// Intervalle (geschafft zählen) und Metcon (Ergebnis prüfen) bleiben stehen, ebenso der letzte Schritt.
-var AUTO_NEXT = { warm: 1, hs: 1, kraft: 1, ausgl: 1, acc: 1, fin: 1 };
+// Seit 30. Oktober (Dennis: „automatisch zum nächsten Part statt zu warten“) auch nach Intervallen, nach dem bestätigten Metcon-Ergebnis
+// und wenn im Aufwärmen die letzte Übung abgehakt ist. Nur der letzte Schritt bleibt stehen (dort kommt Speichern).
+var AUTO_NEXT = { warm: 1, hs: 1, kraft: 1, ausgl: 1, acc: 1, fin: 1, metcon: 1 };
 function autoNext(id) {
   var T = FS.train && trainCtx(); if (!T || T.s.id !== id || !AUTO_NEXT[id] || T.i >= T.st.length - 1) return;
-  if (id === 'fin' && TM.cfg && TM.cfg.seq && finOf(T.c.tag) && finOf(T.c.tag).k === 'iv') return;
   var at = String(T.i), nx = T.st[T.i + 1];
   toast('Geschafft. Gleich weiter: ' + nx.title + '.');
-  setTimeout(function () { var D = dr(S.tag); if (String(D._step) !== at || !FS.train || TM.running) return; ACT.step({ dataset: { to: String(T.i + 1), force: '1' } }); }, 2200);
+  if (autoNext.at === at) return; autoNext.at = at;
+  setTimeout(function () { autoNext.at = null; var D = dr(S.tag); if (String(D._step) !== at || !FS.train || TM.running) return; ACT.step({ dataset: { to: String(T.i + 1), force: '1' } }); }, 1500);
 }
 function timerToggleTools() {
   var start = !TM.running && (TM.acc === 0 || TM.finished);
@@ -4185,7 +4190,6 @@ function finish() {
     var wi = TM.cfg.warmItem, ws = flowState(warmFlow(S.tag));
     timerReset(); TM.cfg.step = null;
     if (modeOf('warm') === 'single') { if (ws.c === wi) flowStep('warm', true); else render(); } else if (ws.done.indexOf(wi) < 0) flowRow('warm', wi, true); else render();
-    var wF = warmFlow(S.tag); if (flowState(wF).done.length >= wF.items.length) autoNext('warm');
   } else if (FS.train && TM.cfg && TM.cfg.step) autoNext(String(TM.cfg.step).split(':').pop());
   if (TM.mode === 'zeit' && TM.cfg && TM.cfg.step) { setDraft('murphTime', fmt(Math.max(0, TM.finalElapsed - 10))); if (ui.tab === 'heute') render(); }
   if (TM.mode === 'amrap' && TM.cfg && TM.cfg.step === draftKey(S.tag) + ':metcon') { if (ui.tab === 'heute') render(); amrapCheck(); }
@@ -7526,12 +7530,14 @@ function flowRow(id, i, on) {
     for (var a = 1; a <= n; a++) { var x = (i + a) % n; if (s.done.indexOf(x) < 0) { s.c = x; break; } }
   } else s.c = i;
   flowSave(F, s); render();
+  if (on && !L && s.done.length >= n) autoNext(F.step || id);
 }
 function flowCount(d, id) {
   var F = flowById(id || 'metcon'), s = flowState(F); s.r = Math.max(1, Math.min(99, s.r + d)); flowSave(F, s); render();
 }
 ACT['fl-done'] = function (el) { if (el.dataset.i != null) flowRow(el.dataset.flow, +el.dataset.i, true); else flowStep(el.dataset.flow, true); };
 ACT['fl-back'] = function (el) { flowStep(el.dataset.flow, false); };
+ACT['fl-row'] = function (el) { var F = flowById(el.dataset.flow), i = +el.dataset.i; flowRow(el.dataset.flow, i, flowState(F).done.indexOf(i) < 0); };
 ACT['fl-pick'] = function (el) {
   var F = flowById(el.dataset.flow), s = flowState(F), i = +el.dataset.i;
   if (s.done.indexOf(i) >= 0) { flowRow(F.id, i, false); return; }
@@ -7552,11 +7558,11 @@ function amrapCheck() {
   var x = amrapCount(S.tag);
   function edit() {
     openSheet('Ergebnis', [{ head: 'Runden', items: numItems(0, 30), val: String(Math.min(30, x.r)) }, { head: 'Extra-Wdh.', items: numItems(0, 60), val: String(Math.min(60, x.w)) }],
-      function (v2) { setDraft('mr', v2[0]); setDraft('mw', v2[1]); render(); }, { num: 0 });
+      function (v2) { setDraft('mr', v2[0]); setDraft('mw', v2[1]); render(); autoNext('metcon'); }, { num: 0 });
   }
   if (roundMode() === 'off') { openChoice('Ergebnis eintragen?', 'Runden und Extra-Wdh. aus dem AMRAP. Du kannst es auch leer lassen.', [['edit', 'Eintragen', 'primary'], ['skip', 'Leer lassen', '']], function (v) { if (v === 'edit') edit(); }); return; }
   openChoice('Stimmt dein Ergebnis?', 'Gezählt: ' + x.r + (x.r === 1 ? ' Runde' : ' Runden') + ' + ' + x.w + ' Wdh.', [['ok', 'Stimmt, speichern', 'primary'], ['edit', 'Ändern', '']], function (v) {
-    if (v === 'ok') { setDraft('mr', x.r); setDraft('mw', x.w); render(); }
+    if (v === 'ok') { setDraft('mr', x.r); setDraft('mw', x.w); render(); autoNext('metcon'); }
     else if (v === 'edit') edit();
   });
 }
@@ -10102,8 +10108,9 @@ function fsFlowHTML(F) {
     : '<div class="fs-rh"><p class="fs-lbl">Runden' + (F.loop.times ? ' / ' + F.loop.times : '') + '</p>' + fsStepper(s.r - 1, 'fl-count', F.id) + '</div>';
   h += '<div class="fs-rows">' + F.items.map(function (it, i) {
     var on = i === cur, dn = rm === 'ex' && (single ? i < s.c : s.done.indexOf(i) >= 0);
-    return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + '"><b>' + fsQty(it.qty) + '</b><span>' + fsName(it.n) + '</span>' +
-      // Dennis (25. Oktober): in der Liste nichts abhaken, das Ergebnis trägt man danach ein; die laufende Übung bleibt nur markiert.
+    // Dennis, 30. Oktober: Antippen der Zeile hakt die Übung ab (nochmal = zurück), das (i) bleibt die Anleitung.
+    var tap = rm === 'ex' && !single ? ' data-act="fl-row" data-flow="' + F.id + '" data-i="' + i + '" role="button" aria-pressed="' + dn + '"' : '';
+    return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + (tap ? ' tap' : '') + '"' + tap + '><b>' + fsQty(it.qty) + '</b><span>' + fsName(it.n) + '</span>' +
       (dn ? '<i class="fs-ok">✓</i>' : '') + fsI(it.n, it.key) + '</div>';
   }).join('') + '</div>';
   return h;
@@ -10168,11 +10175,13 @@ function trainShellHTML(T) {
   // Dennis, 28. Oktober: Einzeln | Liste nahm unter dem Ring zu viel Platz, jetzt ein kleines Symbol im Kopf (zeigt, wohin es wechselt).
   var seg = '', vb = views ? '<button type="button" class="rbtn fs-vb" data-act="fs-view" data-v="' + (v === 'list' ? 'one' : 'list') + '" aria-label="' + (v === 'list' ? 'Einzeln zeigen' : 'Als Liste zeigen') + '">' + (v === 'list' ? I_ONE : I_LIST) + '</button>' : '';
   var prev = T.i > 0 ? T.st[T.i - 1].title : 'Übersicht';
-  return '<div class="fs-in fs-tr' + (id === 'koerper' ? ' fs-noring' : '') + '"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
+  // Dennis, 30. Oktober: in Einzeln stand unter der Übung viel leerer Platz; ohne Liste steht der Inhalt jetzt mittig in der Karte.
+  return '<div class="fs-in fs-tr' + (id === 'koerper' ? ' fs-noring' : '') + (views && v === 'list' ? '' : ' cen') + '"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
     '<div class="fs-tt"><p class="fs-kick">' + (T.i + 1) + '/' + T.st.length + ' · ' + esc(T.s.title) + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
     vb + (PAIN_STEPS[id] ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + id + '" aria-label="Schmerzen">' + PAIN_FLAG + '</button>' : '') +
     '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
-    '<div class="fs-main"><div class="fs-dig' + (seg ? ' fs-dig2' : '') + '"><div class="fs-ring" id="fs-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
+    // Dennis, 30. Oktober: Tippen auf die Kapsel startet und hält die Uhr an.
+    '<div class="fs-main"><div class="fs-dig' + (seg ? ' fs-dig2' : '') + '"><div class="fs-ring" id="fs-ring" data-act="fs-toggle" role="button" aria-label="Uhr starten oder anhalten"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fs-rt" cx="50" cy="50" r="45"/>' +
     '<circle class="fs-rf" id="fs-arc" cx="50" cy="50" r="45" stroke-dasharray="282.7" stroke-dashoffset="282.7"/></svg>' +
     '<div class="fs-rc"><p class="fs-st" id="fs-st"></p><div class="fs-num" id="fs-num"></div><span id="fs-pl"></span></div></div>' + seg + '</div><div class="fs-side" id="fs-side"></div></div>' +
     // Fuß (Dennis, 28. Oktober: „der nächste Punkt ist viel zu groß“): Zurück als runder Knopf, Weiter klein mit dem Namen des nächsten Schritts.
@@ -10390,7 +10399,7 @@ function fsPaint(L, force) {
   else if (TM.mode === 'hiit') pl = p.sub || '';
   else if (TM.mode === 'zeit') pl = c.cap ? 'Time Cap ' + fmtT(c.cap) : c.rounds ? c.rounds + ' Runden' : 'Ohne Time Cap';
   else if (TM.mode === 'routine') pl = p.next ? 'Danach: ' + p.next : '';
-  else if (L && L.rem != null) pl = 'noch ' + fmtT(Math.ceil(L.rem));
+  // Dennis, 30. Oktober: „noch 3:40“ neben derselben Zeit in der Mitte war doppelt.
   $('fs-pl').textContent = pl;
   var tg = $('fs-tg'), want = TM.finished ? 'f' : TM.mode === 'zeit' && TM.running ? 's' : TM.running ? 'p' : 'r';
   if (tg.dataset.i !== want) {
@@ -10432,7 +10441,7 @@ ACT['fs-x'] = function () {
   if (!TM.running && TM.acc === 0) { fsClose(); return; }
   openChoice('Timer beenden?', 'Der Timer stoppt und startet wieder von vorn.', [['stop', 'Beenden', 'red'], ['go', 'Weiter', '']], function (v) { if (v === 'stop') { timerReset(); fsClose(); render(); } });
 };
-ACT['fs-toggle'] = function () { if (TM.mode === 'zeit' && TM.running) { finish(); return; } timerToggle(); paintMini(); fsPaint(); };
+ACT['fs-toggle'] = function () { if (FS.train && FS.noT) return; if (TM.mode === 'zeit' && TM.running) { finish(); return; } timerToggle(); paintMini(); fsPaint(); };
 ACT['fs-plus'] = function () { ACT['t-round']({ dataset: { d: 1 } }); };
 ACT['fs-rot'] = function () { if (FS.lp) { FS.lp = false; return; } FS.lock = fsWant().want === 'land' ? 'port' : 'land'; fsOrient(); fsPaint(undefined, true); };
 (function () {
