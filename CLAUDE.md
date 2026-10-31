@@ -791,6 +791,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Pille „Übung tauschen“ / „statt …“ (`fsStgBtn`), Rad mit der Übung des Coachs „· heute“ oben und ähnlichen Übungen am Ort (`repCands`: gleiches Muster,
   dann nahes). Entwurf `_rk<i>` = „ID|anders“, `repApply` im Getter `DAYS[t].kraft` (nach `painApply`): der Platz zählt unter dem Ersatz, im Eintrag
   `rep: {from, why}`, Verlauf „X statt Y“.
+  Rad mit Umschalter (Dennis, 1. November, Variante V2): hat die Übung Stufen und gibt es andere Übungen, steht oben im Blatt `.seg` Stufe | Andere Übung
+  (`stgSheet(el, mode)`, `openSheet` mit `o.top`, `o.onSeg` über `data-sg`, `o.note` = Satz `.sh-note` unter dem Rad); getauscht startet es bei „Andere Übung“,
+  eine Stufe wählen nimmt den Tausch zurück. Stufen nach Wissensstand (`stgKnow`, `STG_SPAN`, `STG_NOTE`): neu (nie gemacht oder geschätzt) alle Stufen am Ort,
+  mittel (1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg, über 14 Tage her) ±2, sicher (ab 3 Einheiten, letzte in 14 Tagen) ±1.
+  Andere Übungen (`repCands`): alle am Ort und freigeschaltet (`reqOk` mit `repSt`), gleiches Muster vor nahem, dann nach `nutzen`, ohne Limit; Satz „N Übungen gehen hier“.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

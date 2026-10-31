@@ -1089,6 +1089,8 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 .wheel:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:12px}
 .wi{height:44px;line-height:44px;text-align:center;scroll-snap-align:center;font-size:18px;color:var(--ink);opacity:.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px;cursor:pointer;transition:opacity .15s,font-size .15s}
 .wi.sel{opacity:1;font-size:21px;font-weight:700;color:var(--acc)}
+.sheet .seg.sh-seg{margin:6px 0 0}
+.sh-note{text-align:center;color:var(--ink2);font-size:14px;margin:8px 12px 0;line-height:1.35}
 .dev-chart{width:100%;height:auto;margin-top:12px}
 .dev-chart text{fill:var(--ink2);font-size:14px;font-family:var(--text)}
 .dev-chart .band{fill:var(--board)}
@@ -9232,11 +9234,11 @@ function openSheet(title, cols, done, o) {
   closeSheet(); o = o || {};
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div>' +
-    '<div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">Fertig</button></div>' +
+    '<div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">Fertig</button></div>' + (o.top || '') +
     (o.time || o.num != null ? '<div class="sh-tv"><button type="button" class="sh-time" data-sh="time" aria-label="' + (o.time ? 'Zeit' : 'Zahl') + ' eintippen"></button><input class="sh-tin" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" tabindex="-1" aria-label="' + (o.time ? 'Zeit' : 'Zahl') + ' eintippen"><p class="sh-hint">Nochmal tippen zum Eintippen</p></div>' : '') +
     '<div class="wheels" style="grid-template-columns:' + cols.map(function (c) { return c.wide ? '1.6fr' : '1fr'; }).join(' ') + '">' +
     cols.map(function (c) { return '<div class="wcol"><span class="wh">' + esc(c.head || '') + '</span><div class="wheel" tabindex="0">' + c.items.map(function (it, k) { return '<div class="wi" data-k="' + k + '">' + (it.c ? bdot(it.c) : '') + esc(it.t) + '</div>'; }).join('') + '</div></div>'; }).join('') +
-    '</div>' + (o.live ? '<p class="sh-live"></p>' : '') + '</div>';
+    '</div>' + (o.live ? '<p class="sh-live"></p>' : '') + (o.note ? '<p class="sh-note">' + esc(o.note) + '</p>' : '') + '</div>';
   document.body.appendChild(bg);
   var wheels = bg.querySelectorAll('.wheel'), idx = [];
   function live() { var el = bg.querySelector('.sh-live'); if (el) el.innerHTML = o.live(cols.map(function (c, j) { return c.items[idx[j]].v; })); }
@@ -9288,6 +9290,7 @@ function openSheet(title, cols, done, o) {
     showTime();
   }
   bg.addEventListener('click', function (e) {
+    var sg = e.target.closest('[data-sg]'); if (sg && o.onSeg) { haptic('tap'); o.onSeg(sg.dataset.sg); return; }
     var b = e.target.closest('[data-sh]');
     if (b) haptic(b.dataset.sh === 'ok' ? 'step' : 'tap');
     if (e.target === bg || (b && b.dataset.sh === 'x')) closeSheet();
@@ -10256,36 +10259,54 @@ function fsStgBtn(e, small) {
   if (!e.lad || e.skip || e.lad.steps.length < 2) return small ? '<small>' + stageHTML(e.stage) + '</small>' : '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>';
   return '<button type="button" class="fs-stg' + (small ? ' sm' : '') + '" data-act="k-stg" data-i="' + e.i + '" aria-label="Stufe ' + (e.si + 1) + ' ändern">' + '<span class="fs-stg-t">' + stageHTML(e.stage) + '</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>';
 }
+// Wie gut kennt der Coach diese Übung? (Dennis, 1. November: je nach Wissensstand mehr oder weniger Stufen im Rad.)
+// neu = noch nie gemacht bzw. geschätzt → alle Stufen am Ort; mittel = 1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg oder über 14 Tage her → ±2;
+// sicher = mindestens 3 Einheiten, die letzte in den letzten 14 Tagen → ±1.
+function stgKnow(x) {
+  var g = GL[x.n], key = g && g.key; if (!key || !LAD[key]) return 'mittel';
+  var bs = baseOf(key), h = sinceBase(ladHist(key), bs), cs = coachStage(key, x.hi) || {};
+  if (!h.length && !bs.idx || cs.est) return 'neu';
+  if (h.length < 3 || cs.cal || dSince(h[h.length - 1].date) > 14) return 'mittel';
+  return 'sicher';
+}
+var STG_SPAN = { neu: 99, mittel: 2, sicher: 1 };
+var STG_NOTE = { neu: 'Dein Coach kennt diese Übung noch nicht gut, darum mehr Auswahl.', mittel: 'Gleiche Übung, leichter oder schwerer.', sicher: 'Dein Coach ist sich sicher, darum nur eine Stufe leichter oder schwerer.' };
 function stgChoices(x) {
   var lad = ladFor(x.n); if (!lad) return [];
-  var coach = stageDef(x.n, x.hi), ci = lad.steps.indexOf(coach), have = haveEq(trainOrt()), stu = lad.lib && lad.lib.stufen, out = [];
+  var coach = stageDef(x.n, x.hi), ci = lad.steps.indexOf(coach), have = haveEq(trainOrt()), stu = lad.lib && lad.lib.stufen, out = [], sp = STG_SPAN[stgKnow(x)];
   if (ci < 0) ci = 0;
-  for (var j = Math.max(0, ci - 2); j <= Math.min(lad.steps.length - 1, ci + 2); j++) if (j === ci || !stu || !stu[j] || eqOk(stu[j].equipment, have)) out.push({ j: j, n: lad.steps[j], coach: j === ci, d: j - ci });
+  for (var j = Math.max(0, ci - sp); j <= Math.min(lad.steps.length - 1, ci + sp); j++) if (j === ci || !stu || !stu[j] || eqOk(stu[j].equipment, have)) out.push({ j: j, n: lad.steps[j], coach: j === ci, d: j - ci });
   return out;
 }
 // Dennis, 1. November: Auswahlrad statt Liste, schwerere Stufen oben, die des Coachs in der Mitte, leichtere unten, mit „schwerer“/„leichter“.
-ACT['k-stg'] = function (el) {
+// Darüber der Umschalter Stufe | Andere Übung (Variante V2): Stufen nach Wissensstand (`stgKnow`), andere Übungen alle, die hier gehen
+// und freigeschaltet sind, nützlichste zuerst (`repCands`). Ohne Stufen (Einzelübung) nur die anderen Übungen.
+ACT['k-stg'] = function (el) { stgSheet(el); };
+function stgSheet(el, mode) {
   var i = +el.dataset.i, x = DAYS[S.tag].kraft[i]; if (!x) return;
-  var D = dr(S.tag), C = x.rep ? [] : stgChoices(x).slice().reverse();
-  if (C.length >= 2) {
-    var cur = D['k' + i + 'stage'] != null ? D['k' + i + 'stage'] : stageDef(x.n, x.hi);
-    openSheet(x.n + ' · Stufe', [{ wide: true, val: cur, items: C.map(function (c) {
+  var D = dr(S.tag), orig = x.rep ? { n: x.rep.from, hi: x.hi } : x, C = stgChoices(orig).slice().reverse(), A = repCands(orig), both = C.length >= 2 && A.length;
+  if (C.length < 2 && !A.length) { toast('Hier gibt es keine passende andere Übung.'); return; }
+  mode = mode || (C.length < 2 || x.rep ? 'ue' : 'stg');
+  var top = both ? '<div class="seg sh-seg" role="group" aria-label="Was ändern?"><button type="button" class="seg-btn' + (mode === 'stg' ? ' on' : '') + '" data-sg="stg">Stufe</button><button type="button" class="seg-btn' + (mode === 'ue' ? ' on' : '') + '" data-sg="ue">Andere Übung</button></div>' : '';
+  var onSeg = function (m) { if (m !== mode) stgSheet(el, m); };
+  if (mode === 'stg') {
+    var cur = D['k' + i + 'stage'] != null && D['k' + i + 'stage'] !== '' ? D['k' + i + 'stage'] : stageDef(orig.n, orig.hi);
+    openSheet(both ? orig.n : orig.n + ' · Stufe', [{ wide: true, val: x.rep ? stageDef(orig.n, orig.hi) : cur, items: C.map(function (c) {
       return { v: c.n, t: stageText(c.n) + (c.coach ? ' · heute' : c.d > 0 ? ' · schwerer' : ' · leichter'), c: bandColor(c.n) };
     }) }], function (v) {
-      var c = C.filter(function (q) { return q.n === v[0]; })[0]; if (!c || c.n === cur) return;
-      setDraft('k' + i + 'stage', c.coach ? '' : c.n); render(); toast(c.coach ? 'Wieder die Stufe deines Coachs.' : 'Heute ' + stageText(c.n) + '.');
-    });
+      var c = C.filter(function (q) { return q.n === v[0]; })[0]; if (!c) return;
+      if (!x.rep && c.n === cur) return;
+      if (x.rep) setDraft('_rk' + i, '');
+      setDraft('k' + i + 'stage', c.coach ? '' : c.n); render(); toast(c.coach ? (x.rep ? 'Wieder ' + orig.n + '.' : 'Wieder die Stufe deines Coachs.') : 'Heute ' + stageText(c.n) + '.');
+    }, { top: top, onSeg: onSeg, note: STG_NOTE[stgKnow(orig)] });
     return;
   }
-  // Ohne Stufen (Einzelübung) oder schon getauscht: ähnliche Übungen, die hier gehen; die des Coachs steht oben.
-  var orig = x.rep ? { n: x.rep.from } : x, A = repCands(orig); if (!A.length) { toast('Hier gibt es keine passende andere Übung.'); return; }
-  var own = (GL[orig.n] && (GL[orig.n].lib ? GL[orig.n].lib.id : GL[orig.n].key)) || '';
   var items = [{ v: '', t: orig.n + ' · heute' }].concat(A.map(function (c) { return { v: c.id, t: c.n + (c.r ? ' · ähnlich' : '') }; }));
-  openSheet(orig.n + ' · tauschen', [{ wide: true, val: x.rep ? (D['_rk' + i] || '').split('|')[0] : '', items: items }], function (v) {
+  openSheet(both ? orig.n : orig.n + ' · tauschen', [{ wide: true, val: x.rep ? (D['_rk' + i] || '').split('|')[0] : '', items: items }], function (v) {
     var id = v[0];
     setDraft('_rk' + i, id && UE[id] ? id + '|anders' : ''); render(); toast(id && UE[id] ? 'Heute ' + UE[id].name + '.' : 'Wieder ' + orig.n + '.');
-  });
-};
+  }, { top: top, onSeg: onSeg, note: A.length + (A.length === 1 ? ' Übung geht' : ' Übungen gehen') + ' hier · nützlichste zuerst' });
+}
 // Abschluss im Trainer: der laufende Abschnitt groß, darunter der nächste (die ganze Liste passte nicht ohne Scrollen).
 function ftpPct(w) { var f = cardioKw().ftp; return f && w ? Math.round(w / f * 100) + ' % FTP' : ''; }
 function rmPct(kg, id) { var r = rmOf(id), e = r ? r.cur.e1 : (rmEst(id) || {}).e1; return e && kg ? (r ? '' : '≈ ') + Math.round(kg / e * 100) + ' % 1RM' : ''; }
@@ -11939,16 +11960,19 @@ function repApply(tag, list) {
     return { n: u.name, target: x.target, hi: x.hi, lib: true, rep: { from: x.n, why: p[1] || 'anders' } };
   });
 }
+var REP_ST = { k: null };
+function repSt() { var k = LOGS.length + '|' + (LOGS.length ? LOGS[LOGS.length - 1].id : ''); if (REP_ST.k !== k) REP_ST = { k: k, v: ladderStates(LOGS) }; return REP_ST.v; }
 function repCands(x) {
   var g = GL[x.n], lad = g && LAD[g.key], mu = (lad && lad.muster) || (g && g.lib && g.lib.muster) || (UE[g && g.key] || {}).muster, have = haveEq(trainOrt());
   if (!mu) return [];
-  var near = MUSTER_NEAR[mu] || [], own = g && g.lib ? g.lib.id : g && g.key, out = [];
+  var near = MUSTER_NEAR[mu] || [], own = g && g.lib ? g.lib.id : g && g.key, out = [], st = repSt();
   Object.keys(UE).forEach(function (id) {
     var u = UE[id]; if (id === own || u.name === x.n || !u.muster || /mobility/.test(u.muster)) return;
-    var r = u.muster === mu ? 0 : near.indexOf(u.muster) >= 0 ? 1 : -1; if (r < 0 || !eqOk(u.equipment, have)) return;
-    out.push({ id: id, n: u.name, r: r });
+    var r = u.muster === mu ? 0 : near.indexOf(u.muster) >= 0 ? 1 : -1; if (r < 0 || !eqOk(u.equipment, have) || !reqOk(u.voraussetzung, st)) return;
+    out.push({ id: id, n: u.name, r: r, u: u.nutzen || 0 });
   });
-  return out.sort(function (a, b) { return a.r - b.r || (a.n < b.n ? -1 : 1); }).slice(0, 40);
+  // Dennis, 1. November: alle, die hier gehen und freigeschaltet sind (kein Limit), gleiches Muster vor ähnlichem, dann nach Nutzen.
+  return out.sort(function (a, b) { return a.r - b.r || b.u - a.u || (a.n < b.n ? -1 : 1); });
 }
 function painApply(tag, list) {
   if (+tag !== S.tag) return list;

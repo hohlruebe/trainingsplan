@@ -8,7 +8,7 @@ const { chromium } = require(require.resolve('playwright', { paths: [process.env
 let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
-window.tpTest = { kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
+window.tpTest = { know: i => stgKnow(DAYS[S.tag].kraft[i]), kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
   notice: () => { MOMENTS = []; var o = document.getElementById('moment'); if (o) o.remove(); chainNotice(); o = document.getElementById('moment'); return o ? o.innerText : ''; },
   saveNow: () => { saveDay(); var M = document.getElementById('moment'); if (M) M.remove(); MOMENTS = []; return LOGS[LOGS.length - 1]; },
   finishTimer: () => finish(),
@@ -132,8 +132,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Stufe im Training (Dennis, 28. Oktober): Coach-Stufe und bis zu zwei darunter/darüber, nur für heute.
     await page.locator('#fs .fs-side .fs-stg[data-act="k-stg"]').first().click();
     // Dennis, 1. November: Auswahlrad, schwerere oben, die des Coachs („heute“) in der Mitte, leichtere unten.
+    // Je nach Wissensstand (stgKnow): sicher ±1, mittel ±2, neu alle Stufen am Ort; Satz unter dem Rad.
     const stgN = await page.locator('#sheet .wi').count();
-    assert.ok(stgN >= 2 && stgN <= 5, 'zwei Stufen drunter und drüber (' + stgN + ')');
+    const kn = await page.evaluate(() => window.tpTest.know(0));
+    assert.ok(stgN >= 2 && stgN <= (kn === 'sicher' ? 3 : kn === 'mittel' ? 5 : 99), 'Stufen nach Wissensstand ' + kn + ' (' + stgN + ')');
+    assert.ok((await page.locator('#sheet .sh-note').innerText()).length > 10, 'Satz unter dem Rad');
+    // Umschalter Stufe | Andere Übung: andere Übungen, die hier gehen, die des Coachs oben mit „heute“.
+    if (await page.locator('#sheet [data-sg="ue"]').count()) {
+      await page.locator('#sheet [data-sg="ue"]').click(); await page.waitForTimeout(300);
+      assert.match(await page.locator('#sheet .wi').first().innerText(), /· heute$/, 'Übung des Coachs oben');
+      assert.match(await page.locator('#sheet .sh-note').innerText(), /Übung(en)? geh/, 'Anzahl der anderen Übungen');
+      await page.locator('#sheet [data-sg="stg"]').click(); await page.waitForTimeout(300);
+    }
     assert.equal(await page.locator('#sheet .wi', { hasText: '· heute' }).count(), 1);
     const wiT = await page.locator('#sheet .wi').allInnerTexts(), hi = wiT.findIndex(t => /· heute/.test(t));
     assert.ok(wiT.slice(0, hi).every(t => /schwerer/.test(t)) && wiT.slice(hi + 1).every(t => /leichter/.test(t)), 'schwerer oben, leichter unten: ' + wiT.join(' | '));
