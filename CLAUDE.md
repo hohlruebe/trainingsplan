@@ -786,9 +786,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   L-Sit ist ein Skill (Dennis, 1. November): `SKILL_ONLY`/`noKraft` halten ihn aus dem Kraftteil (alte Wahl wird ersetzt, `why: 'skill'`, bevorzugt
   `g_kneeraise`, sonst die nützlichste Rumpf-Leiter; Knee Raise braucht freien Pull-up), `SKILL_KEYS` mit `g_lsit`, frei ab Vorbeuge Stufe 4
   „Fingerspitzen am Boden“ im Beweglichkeits-Check (`mobBest`, `LSIT_MOB`).
-  „Ich musste eine Übung ersetzen“ (Dennis, 1. November): Knopf im Blatt „Wie hart war’s?“ (`#rpe-rep`, `repFlow`): Übung des Tages, dann Rad mit Ersatz
-  (`repCands`: gleiches Muster, dann nahes, nur was am Ort geht), dann Grund (`REP_WHY`). Entwurf `_rk<i>` = „ID|Grund“, `repApply` im Getter
-  `DAYS[t].kraft` (nach `painApply`): der Platz zählt unter dem Ersatz, im Eintrag `rep: {from, why}`, Verlauf „X statt Y“.
+  Übung im Training tauschen (Dennis, 1. November: „wenn man drauf drückt, soll man das Rad sehen“; kein Knopf mehr am Ende): Antippen des Namens
+  (`.fs-swap`) oder der Stufen-Pille öffnet das Rad (`ACT['k-stg']`). Mit Stufen: Stufen-Rad wie oben. Ohne Stufen (Einzelübung) bzw. schon getauscht:
+  Pille „Übung tauschen“ / „statt …“ (`fsStgBtn`), Rad mit der Übung des Coachs „· heute“ oben und ähnlichen Übungen am Ort (`repCands`: gleiches Muster,
+  dann nahes). Entwurf `_rk<i>` = „ID|anders“, `repApply` im Getter `DAYS[t].kraft` (nach `painApply`): der Platz zählt unter dem Ersatz, im Eintrag
+  `rep: {from, why}`, Verlauf „X statt Y“.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

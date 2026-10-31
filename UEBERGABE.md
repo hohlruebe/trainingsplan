@@ -13,7 +13,7 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Ringhöhe an jeder Ring-Übung, Stufen-Rad (schwerer oben, heute Mitte, leichter unten).
 - Danach (Dennis' Antworten): Ringhöhe und Stufe nur im (i); „je Seite · nacheinander/alternierend“; Blatt-Kopf nicht mehr unter der Statusleiste
   (iPhone-Screenshot „Fertig“ verwischt); Schrift in der Liste (Pfeil über dem Text) behoben; L-Sit als Skill ab Vorbeuge „Fingerspitzen am Boden“,
-  Rumpf im Kraftteil Hanging Knee Raise bzw. (ohne freien Pull-up) Ab Wheel Rollout; „Ich musste eine Übung ersetzen“ beim Speichern.
+  Rumpf im Kraftteil Hanging Knee Raise bzw. (ohne freien Pull-up) Ab Wheel Rollout; Übung tauschen im Training über das Rad (Name oder Pille antippen), kein Knopf am Ende mehr.
 - Offen: auf dem iPhone prüfen, ob der Blatt-Kopf jetzt frei ist.
 
 ## Prozent-Bezug im Training (31. Oktober 2026, Claude)

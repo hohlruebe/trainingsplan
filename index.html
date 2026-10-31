@@ -1022,7 +1022,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 #fs .fs-tr .fs-wu .fs-nm{min-width:0}#fs .fs-tr .fs-wu .fs-nm .fs-i{flex:none}#fs .fs-tr .fs-wu .fs-exn{min-width:0;font-size:calc(34px*var(--fsu,1));line-height:1.05}
 #fs .bst{color:color-mix(in srgb,var(--bc,currentColor) 82%,var(--ink))}.fs-krow .fs-ring-x{display:block;font-size:14px}.fs-side-x,.fs-ring-x{margin:2px 0 0;font-size:calc(16px*var(--fsu,1));font-weight:600;color:var(--ink2);line-height:1.25}.fs-ring-x{color:var(--acc)}
 .sheet-bg{padding-top:calc(env(safe-area-inset-top,0px) + 28px);box-sizing:border-box}.ue-info{max-height:calc(100dvh - env(safe-area-inset-top,0px) - 150px)}.ue-stg,.ue-ring{margin:0 0 8px;font-size:15px;color:var(--ink2)}.ue-stg b{color:var(--ink)}.ue-ring{color:var(--acc);font-weight:600}
-.rep-btn{display:block;margin:10px auto 4px}.rep-line{text-align:center;margin:4px 0 8px}
+.fs-swap{cursor:pointer}
 .fs-pct{margin:0 0 4px;font-weight:700;font-size:calc(20px*var(--fsu,1));color:var(--ink2)}
 .fs-qx{margin:0;font-weight:700;font-size:calc(26px*var(--fsu,1));line-height:1.1;color:var(--acc)}
 .fs-tr .fs-row.tap{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-row.tap:active{transform:scale(.985)}
@@ -3788,16 +3788,11 @@ function sigHold() { var G = sigState(); return G.cut || G.n14 >= 2; }
 function sigWhy() { return sigState().why.join(', '); }
 function rpeOn(tag) { var c = dayCtx(tag), d = c.d; return !!(S.started && d && !c.isTest && (d.type === 'kraft' || d.kardio)); }
 // Einmal fragen, dann speichern. „Überspringen“ speichert ohne Wert.
-function repLine() {
-  var r = (DAYS[S.tag].kraft || []).filter(function (x) { return x.rep; });
-  return r.length ? '<p class="small muted rep-line">' + r.map(function (x) { return esc(x.n + ' statt ' + x.rep.from); }).join(' · ') + '</p>' : '';
-}
 function rpeThen(fn) {
   if (!rpeOn(S.tag)) { fn(); return; }
   var body = '<p class="small muted" style="margin:0 2px 6px">Das ganze Training zusammen.</p><div class="rpe unset" id="rpe"><input type="range" id="rpe-r" min="1" max="10" step="1" value="5" aria-label="Wie hart war’s? 1 sehr leicht bis 10 maximal">' +
     '<div class="rpe-n">' + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (i) { return '<button type="button" data-rpe="' + i + '">' + i + '</button>'; }).join('') + '</div>' +
     '<div class="rpe-e"><span>sehr leicht</span><span>maximal</span></div><p class="rpe-t" id="rpe-t">Zieh den Regler oder tipp auf eine Zahl.</p></div>' +
-    ((DAYS[S.tag] && DAYS[S.tag].type === 'kraft' && (DAYS[S.tag].kraft || []).length) ? '<button type="button" class="btn small rep-btn" id="rpe-rep">Ich musste eine Übung ersetzen</button>' + repLine() : '') +
     '<button type="button" class="btn save block" data-sh="ok" id="rpe-ok" disabled>' + TICK + 'Speichern</button>';
   openForm('Wie hart war’s?', body, 'Speichern', function (bg) {
     var el = bg.querySelector('#rpe'); if (el.classList.contains('unset')) return false;
@@ -3813,7 +3808,6 @@ function rpeThen(fn) {
     R.style.setProperty('--p', ((v - 1) / 9 * 100) + '%');
   }
   R.addEventListener('input', function () { set(+R.value); haptic('tap'); });
-  var rb = bg.querySelector('#rpe-rep'); if (rb) rb.addEventListener('click', function (e) { e.stopPropagation(); closeSheet(); setTimeout(function () { repFlow(function () { rpeThen(fn); }); }, 0); });
   bg.querySelectorAll('[data-rpe]').forEach(function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); set(+b.dataset.rpe); haptic('tap'); }); });
 }
 // Plan › Deine Woche: Belastung je Tag (gemacht gegen geplant).
@@ -10254,7 +10248,11 @@ function fsStgFit(box) {
     b.classList.add('sm14'); if (t.scrollWidth > t.clientWidth + 1) b.classList.add('two');
   });
 }
+var SWAP_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 function fsStgBtn(e, small) {
+  // Ohne Stufen: trotzdem tauschen können (Rad mit ähnlichen Übungen, `ACT['k-stg']`).
+  if (!e.skip && (!e.lad || e.lad.steps.length < 2) && (e.x.rep || repCands(e.x).length)) return '<button type="button" class="fs-stg' + (small ? ' sm' : '') + '" data-act="k-stg" data-i="' + e.i + '" aria-label="Übung tauschen"><span class="fs-stg-t">' + esc(e.x.rep ? 'statt ' + e.x.rep.from : 'Übung tauschen') + '</span>' + SWAP_SVG + '</button>';
+  if (!e.stage) return '';
   if (!e.lad || e.skip || e.lad.steps.length < 2) return small ? '<small>' + stageHTML(e.stage) + '</small>' : '<p class="fs-hint">Stufe ' + (e.si + 1) + ' · ' + stageHTML(e.stage) + '</p>';
   return '<button type="button" class="fs-stg' + (small ? ' sm' : '') + '" data-act="k-stg" data-i="' + e.i + '" aria-label="Stufe ' + (e.si + 1) + ' ändern">' + '<span class="fs-stg-t">' + stageHTML(e.stage) + '</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>';
 }
@@ -10268,12 +10266,24 @@ function stgChoices(x) {
 // Dennis, 1. November: Auswahlrad statt Liste, schwerere Stufen oben, die des Coachs in der Mitte, leichtere unten, mit „schwerer“/„leichter“.
 ACT['k-stg'] = function (el) {
   var i = +el.dataset.i, x = DAYS[S.tag].kraft[i]; if (!x) return;
-  var D = dr(S.tag), cur = D['k' + i + 'stage'] != null ? D['k' + i + 'stage'] : stageDef(x.n, x.hi), C = stgChoices(x).slice().reverse();
-  openSheet(x.n + ' · Stufe', [{ wide: true, val: cur, items: C.map(function (c) {
-    return { v: c.n, t: stageText(c.n) + (c.coach ? ' · heute' : c.d > 0 ? ' · schwerer' : ' · leichter'), c: bandColor(c.n) };
-  }) }], function (v) {
-    var c = C.filter(function (q) { return q.n === v[0]; })[0]; if (!c || c.n === cur) return;
-    setDraft('k' + i + 'stage', c.coach ? '' : c.n); render(); toast(c.coach ? 'Wieder die Stufe deines Coachs.' : 'Heute ' + stageText(c.n) + '.');
+  var D = dr(S.tag), C = x.rep ? [] : stgChoices(x).slice().reverse();
+  if (C.length >= 2) {
+    var cur = D['k' + i + 'stage'] != null ? D['k' + i + 'stage'] : stageDef(x.n, x.hi);
+    openSheet(x.n + ' · Stufe', [{ wide: true, val: cur, items: C.map(function (c) {
+      return { v: c.n, t: stageText(c.n) + (c.coach ? ' · heute' : c.d > 0 ? ' · schwerer' : ' · leichter'), c: bandColor(c.n) };
+    }) }], function (v) {
+      var c = C.filter(function (q) { return q.n === v[0]; })[0]; if (!c || c.n === cur) return;
+      setDraft('k' + i + 'stage', c.coach ? '' : c.n); render(); toast(c.coach ? 'Wieder die Stufe deines Coachs.' : 'Heute ' + stageText(c.n) + '.');
+    });
+    return;
+  }
+  // Ohne Stufen (Einzelübung) oder schon getauscht: ähnliche Übungen, die hier gehen; die des Coachs steht oben.
+  var orig = x.rep ? { n: x.rep.from } : x, A = repCands(orig); if (!A.length) { toast('Hier gibt es keine passende andere Übung.'); return; }
+  var own = (GL[orig.n] && (GL[orig.n].lib ? GL[orig.n].lib.id : GL[orig.n].key)) || '';
+  var items = [{ v: '', t: orig.n + ' · heute' }].concat(A.map(function (c) { return { v: c.id, t: c.n + (c.r ? ' · ähnlich' : '') }; }));
+  openSheet(orig.n + ' · tauschen', [{ wide: true, val: x.rep ? (D['_rk' + i] || '').split('|')[0] : '', items: items }], function (v) {
+    var id = v[0];
+    setDraft('_rk' + i, id && UE[id] ? id + '|anders' : ''); render(); toast(id && UE[id] ? 'Heute ' + UE[id].name + '.' : 'Wieder ' + orig.n + '.');
   });
 };
 // Abschluss im Trainer: der laufende Abschnitt groß, darunter der nächste (die ganze Liste passte nicht ohne Scrollen).
@@ -10311,14 +10321,14 @@ function trainKraft(T, L, v, co) {
     var rows = E.map(function (x, i) {
       var mm = r * n + i, f = D['k' + i + 'r' + r], val = r >= x.zr ? 'frei' : (f != null ? f : x.skip ? '–' : x.goal) + (x.sec ? ' s' : ''), kg = r >= x.zr ? null : fsKg(i, r);
       return '<div class="fs-row fs-krow' + (i === ex ? ' on' : '') + (f != null && i !== ex ? ' done' : '') + '" data-act="k-sel" data-k="' + esc(draftKey(tag)) + '" data-m="' + mm + '">' +
-        '<small>Min ' + (mm + 1) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + (x.stage ? fsStgBtn(x, true) : '') + '</span>' + fsI(x.x.n, stageUe(x) || x.fk, x.stage) + '</div>';
+        '<small>Min ' + (mm + 1) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + fsStgBtn(x, true) + '</span>' + fsI(x.x.n, stageUe(x) || x.fk, x.stage) + '</div>';
     }).join('');
     return { k: key, h: dots + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
   }
   var nx = m + 1 < n * rounds ? E[(m + 1) % n] : null;
   return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Minute ' + (m + 1) + ' von ' + n * rounds + '</p>' +
-    '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk, e.stage) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' + (k0.pct ? '<p class="fs-pct">' + esc(k0.pct) + '</p>' : '') : '') +
-    (e.stage ? fsStgBtn(e) : '') + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
+    '<div class="fs-nm"><p class="fs-exn fs-swap" role="button" data-act="k-stg" data-i="' + e.i + '" aria-label="Übung oder Stufe wechseln">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk, e.stage) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' + (k0.pct ? '<p class="fs-pct">' + esc(k0.pct) + '</p>' : '') : '') +
+    fsStgBtn(e) + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
     (nx ? '<p class="fs-nx"><span class="nl">Als Nächstes' + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' + fsName(nx.x.n) + '</p>' : '<p class="fs-nx"><span class="nl">Letzte Minute</span></p>') + dots + co };
 }
 // Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
@@ -11917,7 +11927,7 @@ function painFor(tag, x, i) { return painForUe(tag, 'k' + i, painCur(tag, x, i))
 function painInfo(p, s, from) { return { k: p.t.k, j: p.t.id, w: p.w, src: p.src, from: from, skip: !!s.skip, soft: !!s.soft, other: !!s.other, kater: !!s.kater, wk: p.wk || null, n: p.n || null }; }
 // Kraftteil von heute mit Schmerzen: Ersatz statt der Übung, ohne Leiter (zählt nicht in Stufe, Gewicht und Stillstand).
 var PAIN_C = { k: null };
-// Dennis, 1. November: „Ich musste eine Übung ersetzen“ beim Speichern. Entwurf `_rk<i>` = „<Übungs-ID>|<Grund>“; der Platz zählt dann unter dem Ersatz
+// Dennis, 1. November: Übung im Training tauschen (Rad am Namen bzw. an der Stufe). Entwurf `_rk<i>` = „<Übungs-ID>|<Grund>“; der Platz zählt dann unter dem Ersatz
 // (eigener Name, eigene Leiter bzw. Einzelübung), im Eintrag `rep: {from, why}`, damit der Coach mit dem plant, was wirklich gemacht wurde.
 var REP_WHY = { geraet: 'Gerät belegt oder nicht da', schmerz: 'Schmerzen', schwer: 'Zu schwer', leicht: 'Zu leicht', anders: 'Anderer Grund' };
 function repApply(tag, list) {
@@ -11939,23 +11949,6 @@ function repCands(x) {
     out.push({ id: id, n: u.name, r: r });
   });
   return out.sort(function (a, b) { return a.r - b.r || (a.n < b.n ? -1 : 1); }).slice(0, 40);
-}
-function repFlow(back) {
-  var d = DAYS[S.tag], K = (d && d.kraft) || [], D = dr(S.tag);
-  var opts = K.map(function (x, i) { return [String(i), (x.rep ? x.rep.from : x.n) + (x.rep ? ' · ersetzt durch ' + x.n : ''), '']; }).filter(function (o, i) { return !(K[i].pain && !K[i].pain.soft && !K[i].pain.kater && !K[i].rep); });
-  if (!opts.length) { back(); return; }
-  openChoice('Welche Übung hast du ersetzt?', 'Dein Coach plant danach mit dem, was du wirklich gemacht hast.', opts.concat([['', 'Zurück', '']]), function (v) {
-    if (v === '' || v == null) { back(); return; }
-    var i = +v, x0 = K[i], orig = x0.rep ? { n: x0.rep.from } : x0;
-    if (x0.rep) { setDraft('_rk' + i, ''); }
-    var C = repCands(orig); if (!C.length) { toast('Kein Ersatz für diesen Ort gefunden.'); back(); return; }
-    openSheet('Statt ' + orig.n, [{ wide: true, val: C[0].id, items: C.map(function (c) { return { v: c.id, t: c.n + (c.r ? ' · ähnlich' : '') }; }) }], function (vals) {
-      var id = vals[0]; if (!UE[id]) { back(); return; }
-      openChoice('Warum?', UE[id].name + ' statt ' + orig.n + '.', Object.keys(REP_WHY).map(function (k) { return [k, REP_WHY[k], '']; }), function (w) {
-        setDraft('_rk' + i, id + '|' + (w || 'anders')); toast(UE[id].name + ' statt ' + orig.n + '.'); back();
-      });
-    });
-  });
 }
 function painApply(tag, list) {
   if (+tag !== S.tag) return list;

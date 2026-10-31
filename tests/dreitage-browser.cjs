@@ -130,7 +130,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.locator('#fs .fs-top [data-act="pain-s"]').isVisible(), 'roter Schmerzen-Knopf im Kopf des Trainers');
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^\d\/\d · /, 'Kopf zeigt „x/n“ zuerst');
     // Stufe im Training (Dennis, 28. Oktober): Coach-Stufe und bis zu zwei darunter/darüber, nur für heute.
-    await page.locator('#fs .fs-side [data-act="k-stg"]').first().click();
+    await page.locator('#fs .fs-side .fs-stg[data-act="k-stg"]').first().click();
     // Dennis, 1. November: Auswahlrad, schwerere oben, die des Coachs („heute“) in der Mitte, leichtere unten.
     const stgN = await page.locator('#sheet .wi').count();
     assert.ok(stgN >= 2 && stgN <= 5, 'zwei Stufen drunter und drüber (' + stgN + ')');
@@ -139,8 +139,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(wiT.slice(0, hi).every(t => /schwerer/.test(t)) && wiT.slice(hi + 1).every(t => /leichter/.test(t)), 'schwerer oben, leichter unten: ' + wiT.join(' | '));
     const oi = hi > 0 ? hi - 1 : hi + 1, stgTxt = wiT[oi].replace(/ · (schwerer|leichter)$/, '').replace(/^\s+/, '');
     await page.locator('#sheet .wi').nth(oi).click(); await page.waitForTimeout(700); await page.locator('#sheet [data-sh="ok"]').click();
-    assert.ok((await page.locator('#fs .fs-side [data-act="k-stg"]').first().innerText()).includes(stgTxt), 'gewählte Stufe steht in der Karte');
-    await page.locator('#fs .fs-side [data-act="k-stg"]').first().click();
+    assert.ok((await page.locator('#fs .fs-side .fs-stg[data-act="k-stg"]').first().innerText()).includes(stgTxt), 'gewählte Stufe steht in der Karte');
+    await page.locator('#fs .fs-side .fs-stg[data-act="k-stg"]').first().click();
     await page.locator('#sheet .wi', { hasText: '· heute' }).click(); await page.waitForTimeout(700); await page.locator('#sheet [data-sh="ok"]').click();
     await page.locator('#fs #fs-ring').click();
     await page.waitForTimeout(300);
