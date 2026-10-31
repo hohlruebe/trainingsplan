@@ -8,6 +8,16 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Rückmeldung aus dem Training (1. November 2026, Claude)
+- Erledigt: (i) = Übung der Stufe, Bandstufe in Bandfarbe auch in der Liste (nicht mehr abgeschnitten), Seiten-Zeile bei einseitigen Übungen,
+  Ringhöhe an jeder Ring-Übung, Stufen-Rad (schwerer oben, heute Mitte, leichter unten).
+- Danach (Dennis' Antworten): Ringhöhe und Stufe nur im (i); „je Seite · nacheinander/alternierend“; Blatt-Kopf nicht mehr unter der Statusleiste
+  (iPhone-Screenshot „Fertig“ verwischt); Schrift in der Liste (Pfeil über dem Text) behoben; L-Sit als Skill ab Vorbeuge „Fingerspitzen am Boden“,
+  Rumpf im Kraftteil Hanging Knee Raise bzw. (ohne freien Pull-up) Ab Wheel Rollout; Übung tauschen im Training über das Rad (Name oder Pille antippen), kein Knopf am Ende mehr.
+- Danach: ein Rad (V1, Dennis: Umschalter braucht es nicht): Stufen, Trennzeile „Andere Übung“, andere Übungen; Stufen nach Wissensstand (neu alle, mittel ±2, sicher ±1, Satz unter dem Rad);
+  andere Übungen alle am Ort, ohne gesperrte (z. B. Muscle-up), nützlichste zuerst, ohne Limit.
+- Offen: auf dem iPhone prüfen, ob der Blatt-Kopf jetzt frei ist.
+
 ## Prozent-Bezug im Training (31. Oktober 2026, Claude)
 - Dennis: neben jeder Vorgabe steht, wovon sie wie viel Prozent ist. Watt „% FTP“, Laufen „% Schwelle“, Gewicht „% 1RM“ (≈ = geschätzt), Metcon „% Rx“.
 - Runde 2 nach Dennis' Rückmeldung: % FTP in eigener Zeile, in der Liste alles klein unter der Zahl (auch „je Seite“), feste Spalte, aktive Zeile wie die

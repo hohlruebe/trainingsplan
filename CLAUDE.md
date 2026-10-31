@@ -776,6 +776,26 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Zeit-Kapsel Variante C (Board https://claude.ai/artifact/AksBu2LJyZsMpvEUUt7nou): 112 px hoch, Zeit 66 px, Zustand über und Runde unter der Zeit (gestapelt).
   „Läuft“ steht im Trainer nicht mehr (nur Angehalten, Pause, Fertig). Metcon im Trainer mit Gewicht und % Rx: `metconFlow` verglich `L === d.metcon`,
   der Getter liefert aber jedes Mal eine neue Liste, darum fehlte das Gewicht immer; jetzt `mKg` je Index (nicht am Testtag).
+  Aus dem Training (Dennis, 1. November): das (i) zeigt die Übung der Stufe (`fsI` nimmt den Schlüssel der Stufe vor der Grundübung); Bandstufen in
+  Bandfarbe (`stageHTML` setzt `--bc`, im Trainer `#fs .bst`); in der Liste steht die Stufe ganz als Text mit Pfeil (kein Abschneiden); einseitige Übungen
+  sagen „je Seite · nacheinander“ bzw. „je Seite · alternierend“ (`sideLine`, `ALT_RE`, aus `seitig` bzw. „je Seite“); Ringhöhe (`ringH`, `RING_S`,
+  auch Pistol „Mit Halt“ mit Ringen am Ort) und „Deine Stufe heute: Stufe N · …“ stehen nur im (i) (`fsI(n, key, stg)` mit `data-stg`/`data-lad`).
+  Von 261 Leiterstufen sind 164 eigene Übungen; die übrigen (Bänder, Fußhöhe) zeigen im (i) die Übung plus diese Stufen-Zeile. Stufe wählen als Rad (`ACT['k-stg']` mit `openSheet`):
+  schwerere oben, die des Coachs „· heute“ in der Mitte, leichtere unten, mit „schwerer“/„leichter“.
+  Blätter bleiben unter der Statusleiste (`.sheet-bg` mit `safe-area-inset-top` + 28 px; iPhone verwischte dort den Kopf mit „Fertig“).
+  L-Sit ist ein Skill (Dennis, 1. November): `SKILL_ONLY`/`noKraft` halten ihn aus dem Kraftteil (alte Wahl wird ersetzt, `why: 'skill'`, bevorzugt
+  `g_kneeraise`, sonst die nützlichste Rumpf-Leiter; Knee Raise braucht freien Pull-up), `SKILL_KEYS` mit `g_lsit`, frei ab Vorbeuge Stufe 4
+  „Fingerspitzen am Boden“ im Beweglichkeits-Check (`mobBest`, `LSIT_MOB`).
+  Übung im Training tauschen (Dennis, 1. November: „wenn man drauf drückt, soll man das Rad sehen“; kein Knopf mehr am Ende): Antippen des Namens
+  (`.fs-swap`) oder der Stufen-Pille öffnet das Rad (`ACT['k-stg']`). Mit Stufen: Stufen-Rad wie oben. Ohne Stufen (Einzelübung) bzw. schon getauscht:
+  Pille „Übung tauschen“ / „statt …“ (`fsStgBtn`), Rad mit der Übung des Coachs „· heute“ oben und ähnlichen Übungen am Ort (`repCands`: gleiches Muster,
+  dann nahes). Entwurf `_rk<i>` = „ID|anders“, `repApply` im Getter `DAYS[t].kraft` (nach `painApply`): der Platz zählt unter dem Ersatz, im Eintrag
+  `rep: {from, why}`, Verlauf „X statt Y“.
+  Ein Rad statt Umschalter (Dennis, 1. November: erst V2 mit `.seg` Stufe | Andere Übung, dann „wie in erstens“ = V1): oben die Stufen, dann die Trennzeile
+  „— Andere Übung —“ (`.wi.sep`, nicht wählbar, `openSheet` mit `it.x` als Klasse und `o.note` = Satz `.sh-note` unter dem Rad), darunter die anderen Übungen
+  (Werte `s:<Stufe>` / `u:<id>`); getauscht steht das Rad auf dem Ersatz, eine Stufe wählen nimmt den Tausch zurück. Stufen nach Wissensstand (`stgKnow`, `STG_SPAN`, `STG_NOTE`):
+  neu (nie gemacht oder geschätzt) alle Stufen am Ort, mittel (1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg, über 14 Tage her) ±2, sicher (ab 3 Einheiten, letzte in 14 Tagen) ±1.
+  Andere Übungen (`repCands`): alle am Ort und freigeschaltet (`reqOk` mit `repSt`), gleiches Muster vor nahem, dann nach `nutzen`, ohne Limit; Satz „N Übungen gehen hier“.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
