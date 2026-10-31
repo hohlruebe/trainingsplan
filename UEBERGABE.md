@@ -8,6 +8,11 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Trainer aus dem Test im Chat (30. Oktober 2026, Claude)
+- Testversion der App im Chat mit Handy-Rahmen: https://claude.ai/artifact/8pRvPRdMmKG1GDgHR9zqUW (Kopie von Dennis' Stand, ohne Sync, „Auf Anfang setzen“).
+- Dennis' fünf Punkte umgesetzt: Einzeln ohne Leere (Inhalt mittig), Kapsel ohne doppelte Restzeit, Kapsel antippen = Start/Pause, automatisch weiter auch nach
+  Intervallen, Metcon und abgehaktem Aufwärmen, Liste: Zeile antippen = erledigt. Offen: ob ihm die mittige Einzeln-Ansicht reicht oder die Figur größer soll.
+
 ## Ton und Haptik, alle Trainingsansichten (29. Oktober 2026, Claude)
 - Dennis: Haptik auf iOS geht nicht mehr, im Training fehlte der Ton. Im Code hatte sich nichts geändert, in Chromium kommen alle Töne und Vibrationen.
   Abgehärtet für das iPhone: `audioWake` (Ton nach Sperre/App-Wechsel wieder an, bei jedem Tippen), `iosTick` mit frischem Schalter je Klick.
