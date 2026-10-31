@@ -1089,7 +1089,7 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 .wheel:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:12px}
 .wi{height:44px;line-height:44px;text-align:center;scroll-snap-align:center;font-size:18px;color:var(--ink);opacity:.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px;cursor:pointer;transition:opacity .15s,font-size .15s}
 .wi.sel{opacity:1;font-size:21px;font-weight:700;color:var(--acc)}
-.sheet .seg.sh-seg{margin:6px 0 0}
+.wi.sep,.wi.sep.sel{font-size:14px;font-weight:600;color:var(--ink2);opacity:1}
 .sh-note{text-align:center;color:var(--ink2);font-size:14px;margin:8px 12px 0;line-height:1.35}
 .dev-chart{width:100%;height:auto;margin-top:12px}
 .dev-chart text{fill:var(--ink2);font-size:14px;font-family:var(--text)}
@@ -9234,10 +9234,10 @@ function openSheet(title, cols, done, o) {
   closeSheet(); o = o || {};
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div>' +
-    '<div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">Fertig</button></div>' + (o.top || '') +
+    '<div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">Fertig</button></div>' +
     (o.time || o.num != null ? '<div class="sh-tv"><button type="button" class="sh-time" data-sh="time" aria-label="' + (o.time ? 'Zeit' : 'Zahl') + ' eintippen"></button><input class="sh-tin" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" tabindex="-1" aria-label="' + (o.time ? 'Zeit' : 'Zahl') + ' eintippen"><p class="sh-hint">Nochmal tippen zum Eintippen</p></div>' : '') +
     '<div class="wheels" style="grid-template-columns:' + cols.map(function (c) { return c.wide ? '1.6fr' : '1fr'; }).join(' ') + '">' +
-    cols.map(function (c) { return '<div class="wcol"><span class="wh">' + esc(c.head || '') + '</span><div class="wheel" tabindex="0">' + c.items.map(function (it, k) { return '<div class="wi" data-k="' + k + '">' + (it.c ? bdot(it.c) : '') + esc(it.t) + '</div>'; }).join('') + '</div></div>'; }).join('') +
+    cols.map(function (c) { return '<div class="wcol"><span class="wh">' + esc(c.head || '') + '</span><div class="wheel" tabindex="0">' + c.items.map(function (it, k) { return '<div class="wi' + (it.x ? ' ' + it.x : '') + '" data-k="' + k + '">' + (it.c ? bdot(it.c) : '') + esc(it.t) + '</div>'; }).join('') + '</div></div>'; }).join('') +
     '</div>' + (o.live ? '<p class="sh-live"></p>' : '') + (o.note ? '<p class="sh-note">' + esc(o.note) + '</p>' : '') + '</div>';
   document.body.appendChild(bg);
   var wheels = bg.querySelectorAll('.wheel'), idx = [];
@@ -9290,7 +9290,6 @@ function openSheet(title, cols, done, o) {
     showTime();
   }
   bg.addEventListener('click', function (e) {
-    var sg = e.target.closest('[data-sg]'); if (sg && o.onSeg) { haptic('tap'); o.onSeg(sg.dataset.sg); return; }
     var b = e.target.closest('[data-sh]');
     if (b) haptic(b.dataset.sh === 'ok' ? 'step' : 'tap');
     if (e.target === bg || (b && b.dataset.sh === 'x')) closeSheet();
@@ -10279,34 +10278,31 @@ function stgChoices(x) {
   return out;
 }
 // Dennis, 1. November: Auswahlrad statt Liste, schwerere Stufen oben, die des Coachs in der Mitte, leichtere unten, mit „schwerer“/„leichter“.
-// Darüber der Umschalter Stufe | Andere Übung (Variante V2): Stufen nach Wissensstand (`stgKnow`), andere Übungen alle, die hier gehen
-// und freigeschaltet sind, nützlichste zuerst (`repCands`). Ohne Stufen (Einzelübung) nur die anderen Übungen.
-ACT['k-stg'] = function (el) { stgSheet(el); };
-function stgSheet(el, mode) {
+// Ein Rad (Variante V1, kein Umschalter): oben die Stufen nach Wissensstand (`stgKnow`), dann die Trennzeile „Andere Übung“, darunter alle anderen
+// Übungen, die hier gehen und freigeschaltet sind, nützlichste zuerst (`repCands`). Ohne Stufen (Einzelübung) nur die anderen Übungen.
+ACT['k-stg'] = function (el) {
   var i = +el.dataset.i, x = DAYS[S.tag].kraft[i]; if (!x) return;
-  var D = dr(S.tag), orig = x.rep ? { n: x.rep.from, hi: x.hi } : x, C = stgChoices(orig).slice().reverse(), A = repCands(orig), both = C.length >= 2 && A.length;
-  if (C.length < 2 && !A.length) { toast('Hier gibt es keine passende andere Übung.'); return; }
-  mode = mode || (C.length < 2 || x.rep ? 'ue' : 'stg');
-  var top = both ? '<div class="seg sh-seg" role="group" aria-label="Was ändern?"><button type="button" class="seg-btn' + (mode === 'stg' ? ' on' : '') + '" data-sg="stg">Stufe</button><button type="button" class="seg-btn' + (mode === 'ue' ? ' on' : '') + '" data-sg="ue">Andere Übung</button></div>' : '';
-  var onSeg = function (m) { if (m !== mode) stgSheet(el, m); };
-  if (mode === 'stg') {
-    var cur = D['k' + i + 'stage'] != null && D['k' + i + 'stage'] !== '' ? D['k' + i + 'stage'] : stageDef(orig.n, orig.hi);
-    openSheet(both ? orig.n : orig.n + ' · Stufe', [{ wide: true, val: x.rep ? stageDef(orig.n, orig.hi) : cur, items: C.map(function (c) {
-      return { v: c.n, t: stageText(c.n) + (c.coach ? ' · heute' : c.d > 0 ? ' · schwerer' : ' · leichter'), c: bandColor(c.n) };
-    }) }], function (v) {
-      var c = C.filter(function (q) { return q.n === v[0]; })[0]; if (!c) return;
-      if (!x.rep && c.n === cur) return;
-      if (x.rep) setDraft('_rk' + i, '');
-      setDraft('k' + i + 'stage', c.coach ? '' : c.n); render(); toast(c.coach ? (x.rep ? 'Wieder ' + orig.n + '.' : 'Wieder die Stufe deines Coachs.') : 'Heute ' + stageText(c.n) + '.');
-    }, { top: top, onSeg: onSeg, note: STG_NOTE[stgKnow(orig)] });
-    return;
-  }
-  var items = [{ v: '', t: orig.n + ' · heute' }].concat(A.map(function (c) { return { v: c.id, t: c.n + (c.r ? ' · ähnlich' : '') }; }));
-  openSheet(both ? orig.n : orig.n + ' · tauschen', [{ wide: true, val: x.rep ? (D['_rk' + i] || '').split('|')[0] : '', items: items }], function (v) {
-    var id = v[0];
-    setDraft('_rk' + i, id && UE[id] ? id + '|anders' : ''); render(); toast(id && UE[id] ? 'Heute ' + UE[id].name + '.' : 'Wieder ' + orig.n + '.');
-  }, { top: top, onSeg: onSeg, note: A.length + (A.length === 1 ? ' Übung geht' : ' Übungen gehen') + ' hier · nützlichste zuerst' });
-}
+  var D = dr(S.tag), orig = x.rep ? { n: x.rep.from, hi: x.hi } : x, C = stgChoices(orig).slice().reverse(), A = repCands(orig);
+  if (C.length < 2) C = [];
+  if (!C.length && !A.length) { toast('Hier gibt es keine passende andere Übung.'); return; }
+  var coach = stageDef(orig.n, orig.hi), cur = D['k' + i + 'stage'] ? D['k' + i + 'stage'] : coach, items = [];
+  if (C.length) items = C.map(function (c) { return { v: 's:' + c.n, t: stageText(c.n) + (c.coach ? ' · heute' : c.d > 0 ? ' · schwerer' : ' · leichter'), c: bandColor(c.n) }; });
+  else items = [{ v: 's:', t: orig.n + ' · heute' }];
+  if (A.length) items = items.concat([{ v: '-', t: '— Andere Übung —', x: 'sep' }], A.map(function (c) { return { v: 'u:' + c.id, t: c.n + (c.r ? ' · ähnlich' : '') }; }));
+  var val = x.rep ? 'u:' + (D['_rk' + i] || '').split('|')[0] : 's:' + (C.length ? cur : '');
+  var note = C.length ? STG_NOTE[stgKnow(orig)] + (A.length ? ' Darunter ' + A.length + (A.length === 1 ? ' andere Übung' : ' andere Übungen') + ', die hier gehen.' : '') : A.length + (A.length === 1 ? ' Übung geht' : ' Übungen gehen') + ' hier · nützlichste zuerst';
+  openSheet(orig.n, [{ wide: true, val: val, items: items }], function (v) {
+    var w = v[0]; if (w === '-' || w === val) return;
+    if (w.slice(0, 2) === 'u:') {
+      var id = w.slice(2); if (!UE[id]) return;
+      setDraft('_rk' + i, id + '|anders'); setDraft('k' + i + 'stage', ''); render(); toast('Heute ' + UE[id].name + '.'); return;
+    }
+    var n = w.slice(2), c = C.filter(function (q) { return q.n === n; })[0];
+    if (x.rep) setDraft('_rk' + i, '');
+    setDraft('k' + i + 'stage', !c || c.coach ? '' : c.n); render();
+    toast(!c || c.coach ? (x.rep ? 'Wieder ' + orig.n + '.' : 'Wieder die Stufe deines Coachs.') : 'Heute ' + stageText(c.n) + '.');
+  }, { note: note });
+};
 // Abschluss im Trainer: der laufende Abschnitt groß, darunter der nächste (die ganze Liste passte nicht ohne Scrollen).
 function ftpPct(w) { var f = cardioKw().ftp; return f && w ? Math.round(w / f * 100) + ' % FTP' : ''; }
 function rmPct(kg, id) { var r = rmOf(id), e = r ? r.cur.e1 : (rmEst(id) || {}).e1; return e && kg ? (r ? '' : '≈ ') + Math.round(kg / e * 100) + ' % 1RM' : ''; }

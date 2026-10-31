@@ -132,20 +132,15 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Stufe im Training (Dennis, 28. Oktober): Coach-Stufe und bis zu zwei darunter/darüber, nur für heute.
     await page.locator('#fs .fs-side .fs-stg[data-act="k-stg"]').first().click();
     // Dennis, 1. November: Auswahlrad, schwerere oben, die des Coachs („heute“) in der Mitte, leichtere unten.
-    // Je nach Wissensstand (stgKnow): sicher ±1, mittel ±2, neu alle Stufen am Ort; Satz unter dem Rad.
-    const stgN = await page.locator('#sheet .wi').count();
+    // Ein Rad: oben die Stufen nach Wissensstand (stgKnow: sicher ±1, mittel ±2, neu alle Stufen am Ort), dann „— Andere Übung —“ und die anderen Übungen.
+    const allT = await page.locator('#sheet .wi').allInnerTexts(), sepI = allT.findIndex(t => /Andere Übung/.test(t)), stgN = sepI < 0 ? allT.length : sepI;
     const kn = await page.evaluate(() => window.tpTest.know(0));
     assert.ok(stgN >= 2 && stgN <= (kn === 'sicher' ? 3 : kn === 'mittel' ? 5 : 99), 'Stufen nach Wissensstand ' + kn + ' (' + stgN + ')');
     assert.ok((await page.locator('#sheet .sh-note').innerText()).length > 10, 'Satz unter dem Rad');
-    // Umschalter Stufe | Andere Übung: andere Übungen, die hier gehen, die des Coachs oben mit „heute“.
-    if (await page.locator('#sheet [data-sg="ue"]').count()) {
-      await page.locator('#sheet [data-sg="ue"]').click(); await page.waitForTimeout(300);
-      assert.match(await page.locator('#sheet .wi').first().innerText(), /· heute$/, 'Übung des Coachs oben');
-      assert.match(await page.locator('#sheet .sh-note').innerText(), /Übung(en)? geh/, 'Anzahl der anderen Übungen');
-      await page.locator('#sheet [data-sg="stg"]').click(); await page.waitForTimeout(300);
-    }
+    assert.ok(sepI > 0 && allT.length > sepI + 1, 'unter den Stufen die anderen Übungen');
+    assert.equal(await page.locator('#sheet [data-sg]').count(), 0, 'kein Umschalter mehr');
     assert.equal(await page.locator('#sheet .wi', { hasText: '· heute' }).count(), 1);
-    const wiT = await page.locator('#sheet .wi').allInnerTexts(), hi = wiT.findIndex(t => /· heute/.test(t));
+    const wiT = (await page.locator('#sheet .wi').allInnerTexts()).slice(0, stgN), hi = wiT.findIndex(t => /· heute/.test(t));
     assert.ok(wiT.slice(0, hi).every(t => /schwerer/.test(t)) && wiT.slice(hi + 1).every(t => /leichter/.test(t)), 'schwerer oben, leichter unten: ' + wiT.join(' | '));
     const oi = hi > 0 ? hi - 1 : hi + 1, stgTxt = wiT[oi].replace(/ · (schwerer|leichter)$/, '').replace(/^\s+/, '');
     await page.locator('#sheet .wi').nth(oi).click(); await page.waitForTimeout(700); await page.locator('#sheet [data-sh="ok"]').click();
