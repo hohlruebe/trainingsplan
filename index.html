@@ -1015,6 +1015,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 #fs[data-view="port"] .fs-tr.cen .fs-side{justify-content:safe center;padding-bottom:12px}
 .fs-tr .fs-ring[data-act]{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-ring[data-act]:active{transform:scale(.98)}
 .fs-tr.fs-noring .fs-ring{pointer-events:none}
+.fs-qx{margin:0;font-weight:700;font-size:calc(26px*var(--fsu,1));line-height:1.1;color:var(--acc)}
 .fs-tr .fs-row.tap{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-row.tap:active{transform:scale(.985)}
 #fs[data-view="port"] .fs-tr.fs-noring .fs-side{padding-top:calc(22px*var(--fsu,1))}.tr-fin{align-items:center;text-align:center}.tr-fin .tr-hd{justify-content:center}.tr-fin .fs-exn small{font-size:.5em;font-weight:500;color:var(--ink2)}.tr-fin .fs-reps.calm{color:var(--ink)}#fs .fs-tr .fs-ex{flex-direction:row;align-items:center;text-align:left;gap:12px}#fs .fs-tr .fs-ex>div:last-child{flex:1;min-width:0}#fs .fs-tr .fs-ex .fs-nm{justify-content:flex-start}#fs .fs-tr .fs-ex .fs-stg{margin:4px 0 0}#fs .fs-tr .fs-ex .fs-reps{font-size:calc(52px*var(--fsu,1));white-space:nowrap}#fs .fs-tr .fs-side>.fs-body{align-self:stretch;width:100%;min-width:0;box-sizing:border-box}#fs .fs-co{max-width:100%}#fs .stepper b{white-space:nowrap}#fs .fs-tr .fs-ex .fs-lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#fs .fs-tr .fs-ex{width:100%}#fs .fs-tr .fs-fig{width:calc(104px*var(--fsu,1))}#fs .fs-tr .fs-row{min-height:calc(44px*var(--fsu,1));font-size:calc(18px*var(--fsu,1));padding-top:4px;padding-bottom:4px}#fs .fs-tr .fs-row>span{flex:1}#fs .fs-tr .fs-rows{gap:2px}#fs .fs-tr .fs-row b{font-size:calc(30px*var(--fsu,1));min-width:calc(70px*var(--fsu,1))}#fs .fs-tr .fs-row .fs-i{width:40px;height:40px}#fs .fs-krow .fs-stg.sm{min-height:34px;padding:0 10px;align-self:flex-start;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-flex}#fs .fs-krow .fs-stg.sm .bst{overflow:hidden;text-overflow:ellipsis}.tr-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.tr-hd .mini-fig{width:48px;height:48px;flex:none}.tr-hd b{font-size:20px}.tr-x{margin:0;color:var(--ink2)}
 .fs-co{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:14px;background:var(--fill);color:var(--ink);font:inherit;font-size:14px;text-align:left;cursor:pointer}
@@ -7378,6 +7379,8 @@ function warmFlow(tag) { return painFlow(tag, warmFlow0(tag), 'w'); }
 function warmFlow0(tag) {
   var d = DAYS[tag], wm = warmMin(tag), it = WARMUP.filter(function (w) { return wm > 5 || !w.k4; }).map(function (w) {
     var t = /Ergometer/.test(w.n) && wm < 8 ? (wm >= 6 ? '3 Min' : '2 Min') : wm < 8 && w.t6 ? w.t6 : w.t;
+    // Dennis, 31. Oktober: beim Ergometer fehlte die Wattzahl; locker wie das Einrollen im Abschluss (55 % der Schwelle).
+    if (/Ergometer/.test(w.n)) t += ' · ' + kW(.55) + ' W';
     return flowItem(w.n, t, w.x, null, w.h);
   });
   // Aufwärmen = eine Übung nach der anderen: von den Sprüngen ein sauberer Satz („3 × 5“ → „5“).
@@ -10126,11 +10129,11 @@ function fsWarmHTML(F) {
   for (var a = 1; a < n; a++) { var x = single ? c + a : (c + a) % n; if (x < n && (single || s.done.indexOf(x) < 0)) { nx = x; break; } if (single) break; }
   var dn = single ? c : s.done.length, f = ' data-flow="' + F.id + '"';
   return '<div class="fs-ex fs-wu"><div class="fs-fig">' + figHTML(figOf(it.key) ? it.key : '_wave') + '</div><div><p class="fs-lbl">Jetzt</p>' +
-    '<p class="fs-kg">' + esc(it.qty) + '</p><div class="fs-nm"><p class="fs-exn">' + esc(it.n) + '</p>' + fsI(it.n, it.key) + '</div>' + (it.x ? '<p class="fs-hint">' + esc(it.x) + '</p>' : '') +
+    '<p class="fs-kg">' + esc(String(it.qty).split(' · ')[0]) + '</p>' + (String(it.qty).split(' · ')[1] ? '<p class="fs-qx">' + esc(String(it.qty).split(' · ').slice(1).join(' · ')) + '</p>' : '') + '<div class="fs-nm"><p class="fs-exn">' + esc(it.n) + '</p>' + fsI(it.n, it.key) + '</div>' + (it.x ? '<p class="fs-hint">' + esc(it.x) + '</p>' : '') +
     '<p class="fs-hint">Übung ' + (dn + 1) + ' von ' + n + '</p></div></div>' +
     '<div class="bgrp"><button type="button" data-act="fl-back"' + f + (single && c > 0 ? '' : ' disabled') + '>‹ Zurück</button>' +
     '<button type="button" data-act="fl-done"' + f + (single ? '' : ' data-i="' + c + '"') + '>Erledigt ›</button></div>' +
-    (nx >= 0 ? '<span class="chip">Als Nächstes: ' + esc(F.items[nx].qty + ' ' + F.items[nx].n) + '</span>' : '<span class="chip">Letzte Übung</span>');
+    (nx >= 0 ? '<span class="chip">Als Nächstes: ' + esc(String(F.items[nx].qty).split(' · ')[0]) + ' ' + fsName(F.items[nx].n) + '</span>' : '<span class="chip">Letzte Übung</span>');
 }
 // Kraftteil im Vollbild: Gewicht des Satzes groß, damit man zwischen den Sätzen umbauen kann.
 function fsKg(ex, r) {

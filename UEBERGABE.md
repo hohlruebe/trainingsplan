@@ -12,6 +12,7 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 - Testversion der App im Chat mit Handy-Rahmen: https://claude.ai/artifact/8pRvPRdMmKG1GDgHR9zqUW (Kopie von Dennis' Stand, ohne Sync, „Auf Anfang setzen“).
 - Dennis' fünf Punkte umgesetzt: Einzeln ohne Leere (Inhalt mittig), Kapsel ohne doppelte Restzeit, Kapsel antippen = Start/Pause, automatisch weiter auch nach
   Intervallen, Metcon und abgehaktem Aufwärmen, Liste: Zeile antippen = erledigt. Offen: ob ihm die mittige Einzeln-Ansicht reicht oder die Figur größer soll.
+- Dennis (31. Oktober, Bild vom iPhone): beim Ergometer im Aufwärmen fehlte die Wattzahl. Jetzt „2 Min“ und darunter „100 W“ (55 % der Schwelle).
 
 ## Ton und Haptik, alle Trainingsansichten (29. Oktober 2026, Claude)
 - Dennis: Haptik auf iOS geht nicht mehr, im Training fehlte der Ton. Im Code hatte sich nichts geändert, in Chromium kommen alle Töne und Vibrationen.

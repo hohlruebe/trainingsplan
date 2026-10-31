@@ -764,6 +764,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   „noch …“ mehr neben derselben Zeit. Automatisch weiter (`autoNext`, 1,5 s) jetzt auch nach Intervallen, nach dem bestätigten Metcon-Ergebnis (`amrapCheck`)
   und wenn im Aufwärmen die letzte Übung abgehakt ist (`flowRow`); nur der letzte Schritt bleibt stehen. Liste: Antippen der Zeile hakt ab, nochmal nimmt
   es zurück (`ACT['fl-row']`, `.fs-row.tap`), das (i) bleibt die Anleitung.
+  Aufwärmen am Ergometer mit Wattzahl (Dennis, 31. Oktober): `warmFlow0` hängt „· 100 W“ an (55 % der Schwelle wie das Einrollen, `kW(.55)`); in Einzeln steht
+  die Wattzahl als eigene Zeile unter der Dauer (`.fs-qx`), in der Liste klein hinter der Dauer.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
