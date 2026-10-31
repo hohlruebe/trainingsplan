@@ -1018,7 +1018,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 #fs[data-view] .fs-tr .fs-row b.fs-q{display:flex;flex-direction:column;align-items:flex-start;line-height:1.05;width:calc(68px*var(--fsu,1));min-width:calc(68px*var(--fsu,1))}.fs-tr .fs-row b.fs-q>span{white-space:nowrap}.fs-tr .fs-row b.fs-q em{font-style:normal;font-size:calc(15px*var(--fsu,1));font-weight:700;white-space:nowrap;margin-top:2px}.fs-tr .fs-row b.fs-q em.pc{color:var(--ink2)}
 #fs .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:nowrap;font-size:calc(18px*var(--fsu,1));min-height:calc(44px*var(--fsu,1));padding-top:8px;padding-bottom:8px}#fs .fs-tr .fs-row.on:not(.fs-krow) b{font-size:calc(30px*var(--fsu,1))}
 #fs .fs-fin .fs-sub{margin:0 0 2px;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink2)}#fs .fs-fin .fs-exn{font-size:calc(30px*var(--fsu,1));line-height:1.05}#fs .fs-fin .fs-reps{margin:4px 0 0;line-height:1}#fs .fs-fin .fs-pct{margin:2px 0 0;font-size:calc(18px*var(--fsu,1))}
-.fs-nx{margin:6px 0 0;text-align:center;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink)}.fs-nx>span{display:block;font-size:14px;font-weight:600;color:var(--ink2)}
+.fs-nx{margin:6px 0 0;text-align:center;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink)}.fs-nx>.nl{display:block;font-size:14px;font-weight:600;color:var(--ink2)}
 .fs-pct{margin:0 0 4px;font-weight:700;font-size:calc(20px*var(--fsu,1));color:var(--ink2)}
 .fs-qx{margin:0;font-weight:700;font-size:calc(26px*var(--fsu,1));line-height:1.1;color:var(--acc)}
 .fs-tr .fs-row.tap{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-row.tap:active{transform:scale(.985)}
@@ -10148,7 +10148,7 @@ function fsWarmHTML(F) {
     '<p class="fs-hint">Übung ' + (dn + 1) + ' von ' + n + '</p></div></div>' +
     '<div class="bgrp"><button type="button" data-act="fl-back"' + f + (single && c > 0 ? '' : ' disabled') + '>‹ Zurück</button>' +
     '<button type="button" data-act="fl-done"' + f + (single ? '' : ' data-i="' + c + '"') + '>Erledigt ›</button></div>' +
-    (nx >= 0 ? '<p class="fs-nx"><span>Als Nächstes</span>' + esc(String(F.items[nx].qty).split(' · ')[0]) + ' ' + fsName(F.items[nx].n) + '</p>' : '<p class="fs-nx"><span>Letzte Übung</span></p>');
+    (nx >= 0 ? '<p class="fs-nx"><span class="nl">Als Nächstes</span>' + esc(String(F.items[nx].qty).split(' · ')[0]) + ' ' + fsName(F.items[nx].n) + '</p>' : '<p class="fs-nx"><span class="nl">Letzte Übung</span></p>');
 }
 // Kraftteil im Vollbild: Gewicht des Satzes groß, damit man zwischen den Sätzen umbauen kann.
 function fsKg(ex, r) {
@@ -10278,7 +10278,7 @@ function finTrain(T, L, co) {
       (q.sub && q.watt ? '<p class="fs-sub">' + esc(q.sub) + '</p>' : '') +
       (big ? '<p class="fs-reps' + (q.kind === 'work' ? '' : ' calm') + '">' + esc(big) + '</p>' + (q.watt ? '<p class="fs-pct">' + ftpPct(q.watt) + '</p>' : '') : '')) +
     '</div></div>' +
-    (nx && !TM.finished ? '<p class="fs-nx"><span>Als Nächstes</span>' + sw(nx) + '</p>' : '') +
+    (nx && !TM.finished ? '<p class="fs-nx"><span class="nl">Als Nächstes</span>' + sw(nx) + '</p>' : '') +
     (F.k === 'iv' ? cntRow('Intervalle geschafft', 'von ' + F.n, 'fiDone', T.D, F.n) : '');
   return { k: 'tfin' + cur + (TM.finished ? 'f' : run ? 'r' : '') + '|' + FS.rk, h: '<div class="fs-body tr-fin">' + co + h + '</div>' };
 }
@@ -10302,7 +10302,7 @@ function trainKraft(T, L, v, co) {
   return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Minute ' + (m + 1) + ' von ' + n * rounds + '</p>' +
     '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' + (k0.pct ? '<p class="fs-pct">' + esc(k0.pct) + '</p>' : '') : '') +
     (e.stage ? fsStgBtn(e) : '') + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
-    (nx ? '<span class="chip">Als Nächstes: ' + esc(nx.x.n) + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' : '<span class="chip">Letzte Minute</span>') + dots + co };
+    (nx ? '<p class="fs-nx"><span class="nl">Als Nächstes' + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' + fsName(nx.x.n) + '</p>' : '<p class="fs-nx"><span class="nl">Letzte Minute</span></p>') + dots + co };
 }
 // Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
 function firstTimeList(tag) {
