@@ -999,14 +999,14 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-nav{display:flex;gap:10px;align-items:center}.fs-nav .btn{flex:1;min-width:0;min-height:48px;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}.fs-nav .fs-back{flex:none;width:48px;height:48px;margin:0}.fs-nxt-t{font-weight:500;opacity:.85}.fs-tr .fs-top .fs-vb{margin:0;width:44px;height:44px;flex:none}.fs-tr.lk .fs-vb{display:none}
 /* Zeit-Kapsel im Trainer (Dennis, 28. Oktober: Kapsel oben, Zeit in der Mitte, Umriss fein in Blau, Vorlauf läuft in der Kapsel ab) */
 #fs[data-view="port"] .fs-tr .fs-dig{width:100%}#fs[data-view="port"] .fs-tr .fs-ring svg{display:none}
-#fs[data-view="port"] .fs-tr .fs-ring{width:100%;height:68px;flex:none;border-radius:999px;background:var(--board);overflow:hidden;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--acc) 55%,transparent)}
+#fs[data-view="port"] .fs-tr .fs-ring{width:100%;height:112px;flex:none;border-radius:999px;background:var(--board);overflow:hidden;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--acc) 55%,transparent)}
 #fs[data-view="port"] .fs-tr .fs-ring.grn{box-shadow:inset 0 0 0 1.5px var(--green)}
 #fs[data-view="port"] .fs-tr .fs-ring::before{content:"";position:absolute;inset:0;width:calc(var(--pr,0)*100%);background:color-mix(in srgb,var(--acc) 18%,transparent);transition:width .25s linear}
 #fs[data-view="port"] .fs-tr .fs-ring.grn::before{background:color-mix(in srgb,var(--green) 26%,transparent)}
-#fs[data-view="port"] .fs-tr .fs-rc{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 22px;gap:10px}
-#fs[data-view="port"] .fs-tr .fs-st{justify-self:start;text-align:left;font-size:14px;letter-spacing:.04em;text-transform:none}
-#fs[data-view="port"] .fs-tr #fs-num{font-size:44px!important;line-height:1}
-#fs[data-view="port"] .fs-tr #fs-pl{justify-self:end;text-align:right;max-width:none;font-size:14px;line-height:1.2;white-space:nowrap}
+#fs[data-view="port"] .fs-tr .fs-rc{display:grid;grid-template-columns:1fr;grid-template-rows:auto auto auto;justify-items:center;align-content:center;padding:0 22px;gap:0}
+#fs[data-view="port"] .fs-tr .fs-st{justify-self:center;text-align:center;font-size:14px;letter-spacing:.04em;text-transform:none}
+#fs[data-view="port"] .fs-tr #fs-num{font-size:66px!important;line-height:1}#fs[data-view="port"] .fs-tr .fs-st:empty,#fs[data-view="port"] .fs-tr #fs-pl:empty{display:none}
+#fs[data-view="port"] .fs-tr #fs-pl{justify-self:center;text-align:center;max-width:none;font-size:14px;line-height:1.2;white-space:nowrap}
 @media (prefers-reduced-motion:reduce){#fs .fs-tr .fs-ring::before{transition:none}}
 /* Kapsel in der Karte (Dennis, 28. Oktober): Uhr und Übung teilen sich eine weiße Karte, die Kapsel ist ihre erste Zeile. */
 #fs[data-view="port"] .fs-tr .fs-main{gap:0;background:var(--paper);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
@@ -1015,9 +1015,15 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 #fs[data-view="port"] .fs-tr.cen .fs-side{justify-content:safe center;padding-bottom:12px}
 .fs-tr .fs-ring[data-act]{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-ring[data-act]:active{transform:scale(.98)}
 .fs-tr.fs-noring .fs-ring{pointer-events:none}
+#fs[data-view] .fs-tr .fs-row b.fs-q{display:flex;flex-direction:column;align-items:flex-start;line-height:1.05;width:calc(68px*var(--fsu,1));min-width:calc(68px*var(--fsu,1))}.fs-tr .fs-row b.fs-q>span{white-space:nowrap}.fs-tr .fs-row b.fs-q em{font-style:normal;font-size:calc(15px*var(--fsu,1));font-weight:700;white-space:nowrap;margin-top:2px}.fs-tr .fs-row b.fs-q em.pc{color:var(--ink2)}
+#fs .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:nowrap;font-size:calc(18px*var(--fsu,1));min-height:calc(44px*var(--fsu,1));padding-top:8px;padding-bottom:8px}#fs .fs-tr .fs-row.on:not(.fs-krow) b{font-size:calc(30px*var(--fsu,1))}
+#fs .fs-fin .fs-sub{margin:0 0 2px;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink2)}#fs .fs-fin .fs-exn{font-size:calc(30px*var(--fsu,1));line-height:1.05}#fs .fs-fin .fs-reps{margin:4px 0 0;line-height:1}#fs .fs-fin .fs-pct{margin:2px 0 0;font-size:calc(18px*var(--fsu,1))}
+.fs-nx{margin:6px 0 0;text-align:center;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink)}.fs-nx>.nl{display:block;font-size:14px;font-weight:600;color:var(--ink2)}
+#fs .fs-tr .fs-wu .fs-nm{min-width:0}#fs .fs-tr .fs-wu .fs-nm .fs-i{flex:none}#fs .fs-tr .fs-wu .fs-exn{min-width:0;font-size:calc(34px*var(--fsu,1));line-height:1.05}
+.fs-pct{margin:0 0 4px;font-weight:700;font-size:calc(20px*var(--fsu,1));color:var(--ink2)}
 .fs-qx{margin:0;font-weight:700;font-size:calc(26px*var(--fsu,1));line-height:1.1;color:var(--acc)}
 .fs-tr .fs-row.tap{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-row.tap:active{transform:scale(.985)}
-#fs[data-view="port"] .fs-tr.fs-noring .fs-side{padding-top:calc(22px*var(--fsu,1))}.tr-fin{align-items:center;text-align:center}.tr-fin .tr-hd{justify-content:center}.tr-fin .fs-exn small{font-size:.5em;font-weight:500;color:var(--ink2)}.tr-fin .fs-reps.calm{color:var(--ink)}#fs .fs-tr .fs-ex{flex-direction:row;align-items:center;text-align:left;gap:12px}#fs .fs-tr .fs-ex>div:last-child{flex:1;min-width:0}#fs .fs-tr .fs-ex .fs-nm{justify-content:flex-start}#fs .fs-tr .fs-ex .fs-stg{margin:4px 0 0}#fs .fs-tr .fs-ex .fs-reps{font-size:calc(52px*var(--fsu,1));white-space:nowrap}#fs .fs-tr .fs-side>.fs-body{align-self:stretch;width:100%;min-width:0;box-sizing:border-box}#fs .fs-co{max-width:100%}#fs .stepper b{white-space:nowrap}#fs .fs-tr .fs-ex .fs-lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#fs .fs-tr .fs-ex{width:100%}#fs .fs-tr .fs-fig{width:calc(104px*var(--fsu,1))}#fs .fs-tr .fs-row{min-height:calc(44px*var(--fsu,1));font-size:calc(18px*var(--fsu,1));padding-top:4px;padding-bottom:4px}#fs .fs-tr .fs-row>span{flex:1}#fs .fs-tr .fs-rows{gap:2px}#fs .fs-tr .fs-row b{font-size:calc(30px*var(--fsu,1));min-width:calc(70px*var(--fsu,1))}#fs .fs-tr .fs-row .fs-i{width:40px;height:40px}#fs .fs-krow .fs-stg.sm{min-height:34px;padding:0 10px;align-self:flex-start;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-flex}#fs .fs-krow .fs-stg.sm .bst{overflow:hidden;text-overflow:ellipsis}.tr-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.tr-hd .mini-fig{width:48px;height:48px;flex:none}.tr-hd b{font-size:20px}.tr-x{margin:0;color:var(--ink2)}
+#fs[data-view="port"] .fs-tr.fs-noring .fs-side{padding-top:calc(22px*var(--fsu,1))}.tr-fin{align-items:center;text-align:center}.tr-fin .tr-hd{justify-content:flex-start;align-self:stretch}.tr-fin .tr-x{align-self:stretch;text-align:left}.tr-fin .fs-exn small{font-size:.5em;font-weight:500;color:var(--ink2)}.tr-fin .fs-reps.calm{color:var(--ink)}#fs .fs-tr .fs-ex{flex-direction:row;align-items:center;text-align:left;gap:12px}#fs .fs-tr .fs-ex>div:last-child{flex:1;min-width:0}#fs .fs-tr .fs-ex .fs-nm{justify-content:flex-start}#fs .fs-tr .fs-ex .fs-stg{margin:4px 0 0}#fs .fs-tr .fs-ex .fs-reps{font-size:calc(52px*var(--fsu,1));white-space:nowrap}#fs .fs-tr .fs-side>.fs-body{align-self:stretch;width:100%;min-width:0;box-sizing:border-box}#fs .fs-co{max-width:100%}#fs .stepper b{white-space:nowrap}#fs .fs-tr .fs-ex .fs-lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#fs .fs-tr .fs-ex{width:100%}#fs .fs-tr .fs-fig{width:calc(104px*var(--fsu,1))}#fs .fs-tr .fs-row{min-height:calc(44px*var(--fsu,1));font-size:calc(18px*var(--fsu,1));padding-top:4px;padding-bottom:4px}#fs .fs-tr .fs-row>span{flex:1}#fs .fs-tr .fs-rows{gap:2px}#fs .fs-tr .fs-row b{font-size:calc(30px*var(--fsu,1));min-width:calc(70px*var(--fsu,1))}#fs .fs-tr .fs-row .fs-i{width:40px;height:40px}#fs .fs-krow .fs-stg.sm{min-height:34px;padding:0 10px;align-self:flex-start;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-flex}#fs .fs-krow .fs-stg.sm .bst{overflow:hidden;text-overflow:ellipsis}.tr-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.tr-hd .mini-fig{width:48px;height:48px;flex:none}.tr-hd b{font-size:20px}.tr-x{margin:0;color:var(--ink2)}
 .fs-co{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:14px;background:var(--fill);color:var(--ink);font:inherit;font-size:14px;text-align:left;cursor:pointer}
 .fs-co-k{font-weight:700;color:var(--acc);flex:none}.fs-co-t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fs-co svg{flex:none}
 .acc-it.tr{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;margin-top:6px}.acc-it.tr .mini-fig{width:40px;height:40px}.acc-it.tr .acc-t{display:block}.acc-it.tr .acc-t .small{display:block}#fs .acc-it.tr .stepper{padding:2px;gap:0}#fs .acc-it.tr .stepper button{width:44px;height:44px;min-width:44px}#fs .acc-it.tr .stepper b{min-width:40px;width:40px;font-size:22px;text-align:center}#fs .acc-it.tr{grid-template-columns:36px minmax(0,1fr) auto}#fs .acc-it.tr .mini-fig{width:36px;height:40px}.acc-it.tr .acc-t b{font-size:16px;line-height:1.2}.acc-it.tr .acc-t{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit;min-height:44px;cursor:pointer}.acc-i{color:var(--acc);font-weight:600}.fs-stg{display:inline-flex;align-items:center;gap:6px;max-width:100%;min-width:0;white-space:nowrap;min-height:44px;padding:0 14px;margin:4px auto 0;border:0;border-radius:999px;background:var(--fill);color:var(--ink);font:inherit;font-size:15px;cursor:pointer}.fs-stg svg{width:16px;height:16px;flex:none}.fs-stg-t{min-width:0;overflow:hidden;text-overflow:ellipsis}.fs-stg.sm14{font-size:14px}.fs-stg.two{white-space:normal;border-radius:22px;padding:6px 14px;line-height:1.25;text-align:left}.fs-stg.two .fs-stg-t{overflow:visible}.fs-stg.sm{min-height:44px;padding:0 10px;font-size:14px;margin:0}.fs-nav.lock .fs-back{color:var(--ink2);background:var(--board);box-shadow:none}
@@ -7380,7 +7386,7 @@ function warmFlow0(tag) {
   var d = DAYS[tag], wm = warmMin(tag), it = WARMUP.filter(function (w) { return wm > 5 || !w.k4; }).map(function (w) {
     var t = /Ergometer/.test(w.n) && wm < 8 ? (wm >= 6 ? '3 Min' : '2 Min') : wm < 8 && w.t6 ? w.t6 : w.t;
     // Dennis, 31. Oktober: beim Ergometer fehlte die Wattzahl; locker wie das Einrollen im Abschluss (55 % der Schwelle).
-    if (/Ergometer/.test(w.n)) t += ' · ' + kW(.55) + ' W';
+    if (/Ergometer/.test(w.n)) t += ' · ' + kW(.55) + ' W · 55 % FTP';
     return flowItem(w.n, t, w.x, null, w.h);
   });
   // Aufwärmen = eine Übung nach der anderen: von den Sprüngen ein sauberer Satz („3 × 5“ → „5“).
@@ -7388,10 +7394,11 @@ function warmFlow0(tag) {
   return { id: 'warm', items: it };
 }
 function metconFlow(tag) {
-  var d = DAYS[tag], L = isTestDay(tag) ? testMetcon(tag) : d.metcon;
-  return { id: 'metcon', items: L.map(function (m) {
-    var g = GL[m.n], k = L === d.metcon ? mKg(tag, m, d.metcon.indexOf(m), dr(tag)) : null;
-    return flowItem(m.n, m.r + (k && k.kg != null ? ' · ' + fmtKg(k.kg, k.id) : ''), m.pain ? painShort(m) : m.note, null, m.pain ? painText(m) : [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
+  // DAYS[tag].metcon ist ein Getter (Schmerzen) und liefert jedes Mal eine neue Liste: L === d.metcon war nie wahr, darum fehlte im Trainer das Gewicht.
+  var d = DAYS[tag], test = isTestDay(tag), L = test ? testMetcon(tag) : d.metcon, D = dr(tag);
+  return { id: 'metcon', items: L.map(function (m, i) {
+    var g = GL[m.n], k = test ? null : mKg(tag, m, i, D);
+    return flowItem(m.n, m.r + (k && k.kg != null ? ' · ' + fmtKg(k.kg, k.id) + (rxPct(k.kg, k.id) ? ' · ' + rxPct(k.kg, k.id) : '') : ''), m.pain ? painShort(m) : m.note, null, m.pain ? painText(m) : [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
   }), loop: { from: 0, to: L.length - 1, times: 0 } };
 }
 function murphFlow() { return painFlow(S.tag, murphFlow0(), 'u'); }
@@ -8473,7 +8480,7 @@ function kCounter(tag, D, E, r) {
     '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="' + st + '" data-def="' + def + '" aria-label="Mehr">+</button></div></div>';
   if (E.kid) {
     var w = E.K.kg[r], st = kgStep(E.kid);
-    h += '<div class="k-cnt"><span><b>Gewicht</b><br><span class="small muted">' + (E.K.rec ? 'Empfohlen ' + esc(fmtKg(E.K.rec.kg, E.kid)) : 'leicht starten') + '</span></span>' +
+    h += '<div class="k-cnt"><span><b>Gewicht</b><br><span class="small muted">' + (E.K.rec ? 'Empfohlen ' + esc(fmtKg(E.K.rec.kg, E.kid)) + ' · ' + esc(rmPct(E.K.rec.kg, E.kid)) : 'leicht starten') + '</span></span>' +
       '<div class="stepper"><button type="button" data-act="k-kg" data-f="k' + E.i + 'kg' + r + '" data-d="-' + st + '" data-def="' + (w != null ? w : 20) + '" aria-label="Leichter">–</button><b>' + (w != null ? esc(fmtKg(w, E.kid)) : '–') + '</b>' +
       '<button type="button" class="primary" data-act="k-kg" data-f="k' + E.i + 'kg' + r + '" data-d="' + st + '" data-def="' + (w != null ? w : 20) + '" aria-label="Schwerer">+</button></div></div>';
   }
@@ -8824,7 +8831,7 @@ function kardioSpec(d, o) {
   var kw = cardioKw(), F = KF[kf], flat = kf === 'hill' && D._flat === '1';
   var spec = { kardio: true, kf: kf, art: kf, ergo: ergo, type: easy ? 'easy' : 'interval', name: F[0], quote: F[1], desc: F[2], zone: F[3], lite: lite, flat: flat };
   var Q = [], L = [];
-  function V(f, pf, dev) { return (dev || (ergo ? 'ergo' : 'lauf')) === 'ergo' ? (f == null ? '' : kW(f, kw) + ' W') : (pf == null ? '' : fmtPace(kP(pf, kw)) + ' /km'); }
+  function V(f, pf, dev) { return (dev || (ergo ? 'ergo' : 'lauf')) === 'ergo' ? (f == null ? '' : kW(f, kw) + ' W · ' + Math.round(f * 100) + ' % FTP') : (pf == null ? '' : fmtPace(kP(pf, kw)) + ' /km · ' + Math.round(100 / pf) + ' % Schwelle'); }
   function seg(label, sec, f, pf, kind, sub, dev) { Q.push({ label: label, dur: Math.round(sec), f: f, pf: pf, kind: kind || 'work', sub: sub || '', dev: dev || '' }); }
   function rest(sec, sub) { seg(ergo ? 'Locker' : 'Traben', sec, .5, 1.5, 'easy', sub || (ergo ? 'Locker treten' : 'Locker traben oder gehen')); }
   var restTxt = ergo ? 'locker treten' : 'locker traben';
@@ -10113,7 +10120,7 @@ function fsFlowHTML(F) {
     var on = i === cur, dn = rm === 'ex' && (single ? i < s.c : s.done.indexOf(i) >= 0);
     // Dennis, 30. Oktober: Antippen der Zeile hakt die Übung ab (nochmal = zurück), das (i) bleibt die Anleitung.
     var tap = rm === 'ex' && !single ? ' data-act="fl-row" data-flow="' + F.id + '" data-i="' + i + '" role="button" aria-pressed="' + dn + '"' : '';
-    return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + (tap ? ' tap' : '') + '"' + tap + '><b>' + fsQty(it.qty) + '</b><span>' + fsName(it.n) + '</span>' +
+    return '<div class="fs-row' + (on ? ' on' : '') + (dn ? ' done' : '') + (tap ? ' tap' : '') + '"' + tap + '>' + fsQtyCol(it.qty) + '<span>' + fsName(it.n) + '</span>' +
       (dn ? '<i class="fs-ok">✓</i>' : '') + fsI(it.n, it.key) + '</div>';
   }).join('') + '</div>';
   return h;
@@ -10122,6 +10129,16 @@ function fsFlowHTML(F) {
 function fsName(n) { return esc(n).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>'); }
 // Menge in der Liste: Zahl groß, Einheit klein dahinter („3 je Seite“, „2 Min“), damit der Name Platz hat.
 function fsQty(q) { var m = /^(\d+(?:[,.]\d+)?)\s+(.+)$/.exec(String(q || '')); return m ? esc(m[1]) + '<small> ' + esc(m[2]) + '</small>' : esc(q || ''); }
+// Dennis, 31. Oktober: Zahl groß, kurze Einheit dahinter („2 Min“), „je Seite“, Watt und % FTP klein darunter, jede Angabe in einer eigenen Zeile.
+function qtyParts(q) {
+  var a = String(q || '').split(' · '), m = /^(\d+(?:[,.]\d+)?)\s+(.+)$/.exec(a[0]), sub = a.slice(1);
+  if (m && /\s/.test(m[2])) { sub.unshift(m[2]); return { n: m[1], u: '', sub: sub }; }
+  return { n: m ? m[1] : a[0], u: m ? m[2] : '', sub: sub };
+}
+function fsQtyCol(q) {
+  var P = qtyParts(q);
+  return '<b class="fs-q"><span>' + esc(P.n) + (P.u ? '<small> ' + esc(P.u) + '</small>' : '') + '</span>' + P.sub.map(function (x) { return '<em' + (/%/.test(x) ? ' class="pc"' : '') + '>' + esc(x) + '</em>'; }).join('') + '</b>';
+}
 // Aufwärmen im Vollbild: aktuelle Übung mit Figur, Erledigt und was danach kommt.
 function fsWarmHTML(F) {
   var s = flowState(F), single = modeOf(F.id) === 'single', n = F.items.length, c = s.c, nx = -1, it = F.items[c];
@@ -10129,17 +10146,17 @@ function fsWarmHTML(F) {
   for (var a = 1; a < n; a++) { var x = single ? c + a : (c + a) % n; if (x < n && (single || s.done.indexOf(x) < 0)) { nx = x; break; } if (single) break; }
   var dn = single ? c : s.done.length, f = ' data-flow="' + F.id + '"';
   return '<div class="fs-ex fs-wu"><div class="fs-fig">' + figHTML(figOf(it.key) ? it.key : '_wave') + '</div><div><p class="fs-lbl">Jetzt</p>' +
-    '<p class="fs-kg">' + esc(String(it.qty).split(' · ')[0]) + '</p>' + (String(it.qty).split(' · ')[1] ? '<p class="fs-qx">' + esc(String(it.qty).split(' · ').slice(1).join(' · ')) + '</p>' : '') + '<div class="fs-nm"><p class="fs-exn">' + esc(it.n) + '</p>' + fsI(it.n, it.key) + '</div>' + (it.x ? '<p class="fs-hint">' + esc(it.x) + '</p>' : '') +
+    (function (P) { return '<p class="fs-kg">' + esc(P.n) + (P.u ? ' ' + esc(P.u) : '') + '</p>' + P.sub.map(function (x) { return '<p class="' + (/%/.test(x) ? 'fs-pct' : 'fs-qx') + '">' + esc(x) + '</p>'; }).join(''); })(qtyParts(it.qty)) + '<div class="fs-nm"><p class="fs-exn">' + esc(it.n) + '</p>' + fsI(it.n, it.key) + '</div>' + (it.x ? '<p class="fs-hint">' + esc(it.x) + '</p>' : '') +
     '<p class="fs-hint">Übung ' + (dn + 1) + ' von ' + n + '</p></div></div>' +
     '<div class="bgrp"><button type="button" data-act="fl-back"' + f + (single && c > 0 ? '' : ' disabled') + '>‹ Zurück</button>' +
     '<button type="button" data-act="fl-done"' + f + (single ? '' : ' data-i="' + c + '"') + '>Erledigt ›</button></div>' +
-    (nx >= 0 ? '<span class="chip">Als Nächstes: ' + esc(String(F.items[nx].qty).split(' · ')[0]) + ' ' + fsName(F.items[nx].n) + '</span>' : '<span class="chip">Letzte Übung</span>');
+    (nx >= 0 ? '<p class="fs-nx"><span class="nl">Als Nächstes</span>' + esc(String(F.items[nx].qty).split(' · ')[0]) + ' ' + fsName(F.items[nx].n) + '</p>' : '<p class="fs-nx"><span class="nl">Letzte Übung</span></p>');
 }
 // Kraftteil im Vollbild: Gewicht des Satzes groß, damit man zwischen den Sätzen umbauen kann.
 function fsKg(ex, r) {
   var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
   var D = dr(S.tag), stage = D['k' + ex + 'stage'] != null ? D['k' + ex + 'stage'] : stageDef(x.n, x.hi), K = kgOfEx(x, ex, stage, D, kraftRounds(S.tag));
-  return { n: x.n, kg: K && K.kg[r] != null ? fmtKg(K.kg[r], K.id) : '' };
+  return { n: x.n, kg: K && K.kg[r] != null ? fmtKg(K.kg[r], K.id) : '', pct: K && K.kg[r] != null ? rmPct(K.kg[r], K.id) : '' };
 }
 /* ---------- Trainer im Vollbild (Dennis, Paket 56): Training immer im Vollbild ---------- */
 // Krafttage in Plan 2: „Training starten“ öffnet den Vollbild-Trainer. Oben ✕, Schritt mit Fortschritt, Einzeln | Liste (S.fsView, zuletzt gewählt,
@@ -10245,16 +10262,25 @@ ACT['k-stg'] = function (el) {
   });
 };
 // Abschluss im Trainer: der laufende Abschnitt groß, darunter der nächste (die ganze Liste passte nicht ohne Scrollen).
+function ftpPct(w) { var f = cardioKw().ftp; return f && w ? Math.round(w / f * 100) + ' % FTP' : ''; }
+function rmPct(kg, id) { var r = rmOf(id), e = r ? r.cur.e1 : (rmEst(id) || {}).e1; return e && kg ? (r ? '' : '≈ ') + Math.round(kg / e * 100) + ' % 1RM' : ''; }
+function rxPct(kg, id) { var x = rxOf(id); return x && kg ? Math.round(kg / x * 100) + ' % Rx' : ''; }
 function finTrain(T, L, co) {
   var F = finOf(T.c.tag); if (!F || !F.dev) return null;
   var Q = finSeq(F), run = TM.cfg && TM.cfg.step === T.key + ':fin' && TM.mode === 'seq' && (TM.running || TM.acc > 0 || TM.finished);
   var cur = !run ? 0 : TM.finished ? Q.length : L && L.p.kind !== 'pre' ? L.i - 1 : 0, q = Q[Math.min(cur, Q.length - 1)], nx = Q[cur + 1];
   var big = q.watt ? q.watt + ' W' : q.sub || '', sw = function (x) { return esc(x.label) + (x.watt ? ' · ' + x.watt + ' W' : '') + ' · ' + fmtT(x.dur); };
-  var h = '<div class="tr-hd">' + (F.dev.ue ? miniFig(F.dev.ue) : '') + '<b>' + esc(F.dev.n) + '</b><span class="chip">' + F.min + ' Min</span></div>' +
+  // Dennis, 31. Oktober: Figur bzw. Platzhalter links wie bei den anderen Schritten, rechts der Abschnitt; Zusatz („Zone 2 halten“, „1 von 4“)
+  // in einer eigenen Zeile unter dem Namen, „Als Nächstes“ zweizeilig.
+  var fig = F.dev.ue && figOf(F.dev.ue) ? F.dev.ue : '_wave';
+  var h = '<div class="tr-hd"><b>' + esc(F.dev.n) + '</b><span class="chip">' + F.min + ' Min</span></div>' +
     '<p class="small tr-x">' + esc(FIN_TXT[F.k]) + '</p>' +
-    (TM.finished ? '<p class="fs-lbl">Geschafft</p>' : '<p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Abschnitt ' + (cur + 1) + ' von ' + Q.length + '</p><p class="fs-exn">' + esc(q.label) + (q.sub && q.watt ? ' <small>' + esc(q.sub) + '</small>' : '') + '</p>' +
-      (big ? '<p class="fs-reps' + (q.kind === 'work' ? '' : ' calm') + '">' + esc(big) + '</p>' : '')) +
-    (nx && !TM.finished ? '<span class="chip">Als Nächstes: ' + sw(nx) + '</span>' : '') +
+    '<div class="fs-ex fs-fin"><div class="fs-fig">' + figHTML(fig) + '</div><div>' +
+    (TM.finished ? '<p class="fs-lbl">Geschafft</p>' : '<p class="fs-lbl">' + (run ? 'Abschnitt ' + (cur + 1) + ' von ' + Q.length : 'Als Erstes') + '</p><p class="fs-exn">' + esc(q.label) + '</p>' +
+      (q.sub && q.watt ? '<p class="fs-sub">' + esc(q.sub) + '</p>' : '') +
+      (big ? '<p class="fs-reps' + (q.kind === 'work' ? '' : ' calm') + '">' + esc(big) + '</p>' + (q.watt ? '<p class="fs-pct">' + ftpPct(q.watt) + '</p>' : '') : '')) +
+    '</div></div>' +
+    (nx && !TM.finished ? '<p class="fs-nx"><span class="nl">Als Nächstes</span>' + sw(nx) + '</p>' : '') +
     (F.k === 'iv' ? cntRow('Intervalle geschafft', 'von ' + F.n, 'fiDone', T.D, F.n) : '');
   return { k: 'tfin' + cur + (TM.finished ? 'f' : run ? 'r' : '') + '|' + FS.rk, h: '<div class="fs-body tr-fin">' + co + h + '</div>' };
 }
@@ -10276,9 +10302,9 @@ function trainKraft(T, L, v, co) {
   }
   var nx = m + 1 < n * rounds ? E[(m + 1) % n] : null;
   return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (run ? 'Jetzt' : 'Als Erstes') + ' · Minute ' + (m + 1) + ' von ' + n * rounds + '</p>' +
-    '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' : '') +
+    '<div class="fs-nm"><p class="fs-exn">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' + (k0.pct ? '<p class="fs-pct">' + esc(k0.pct) + '</p>' : '') : '') +
     (e.stage ? fsStgBtn(e) : '') + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
-    (nx ? '<span class="chip">Als Nächstes: ' + esc(nx.x.n) + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' : '<span class="chip">Letzte Minute</span>') + dots + co };
+    (nx ? '<p class="fs-nx"><span class="nl">Als Nächstes' + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' + fsName(nx.x.n) + '</p>' : '<p class="fs-nx"><span class="nl">Letzte Minute</span></p>') + dots + co };
 }
 // Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
 function firstTimeList(tag) {
@@ -10387,7 +10413,7 @@ function fsPaint(L, force) {
   var hot = TM.running && L && L.rem != null && Math.ceil(L.rem) <= 3;
   var st = TM.finished ? 'Fertig' : idle ? 'Bereit' : !TM.running ? 'Angehalten' : p.kind === 'pre' ? 'Vorlauf' : TM.mode === 'hiit' && p.kind === 'easy' ? 'Pause' : 'Läuft';
   $('fs-num').textContent = num; $('fs-num').className = 'fs-num' + (green ? ' grn' : '') + (hot ? ' hot' : '');
-  $('fs-st').textContent = FS.train && (idle || p.kind === 'pre') && !TM.finished ? '' : st; $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
+  $('fs-st').textContent = FS.train && (idle || p.kind === 'pre' || st === 'Läuft') && !TM.finished ? '' : st; // Dennis, 31. Oktober: „Läuft“ ist überflüssig, man sieht die Sekunden laufen. $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
   var total = 0; TM.phases.forEach(function (x) { if (isFinite(x.dur)) total += x.dur; });
   // Ring: beim AMRAP und For Time die ganze Zeit, sonst die laufende Phase (EMOM: die Minute, Intervall: Arbeit bzw. Pause).
   var whole = TM.mode === 'amrap' || TM.mode === 'zeit', pr = TM.finished ? (TM.mode === 'zeit' && !c.cap ? 0 : 1) : idle || !L ? 0
@@ -11545,7 +11571,7 @@ function finSeq(F) {
   put('Ausklingen', 120, 'easy', .45, 1.6, 1, 'Ganz ruhig');
   return Q;
 }
-function finTarget(F) { var Q = finSeq(F), q = Q.filter(function (x) { return x.kind === 'work'; })[0] || Q[0]; return q.watt ? q.watt + ' W' : q.sub.split(' · ').pop(); }
+function finTarget(F) { var Q = finSeq(F), q = Q.filter(function (x) { return x.kind === 'work'; })[0] || Q[0]; return q.watt ? q.watt + ' W · ' + ftpPct(q.watt) : q.sub.split(' · ').pop(); }
 function finStep(tag, F) {
   var Q = finSeq(F), nm = FIN_N[F.k], dv = F.dev;
   return { id: 'fin', title: nm, sub: F.min + ' Min · ' + dv.n, dur: F.min, ri: FIN_RI[F.k] || 4, desc: dv.n + ' · ' + finTarget(F),
