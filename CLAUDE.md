@@ -766,6 +766,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   es zurück (`ACT['fl-row']`, `.fs-row.tap`), das (i) bleibt die Anleitung.
   Aufwärmen am Ergometer mit Wattzahl (Dennis, 31. Oktober): `warmFlow0` hängt „· 100 W“ an (55 % der Schwelle wie das Einrollen, `kW(.55)`); in Einzeln steht
   die Wattzahl als eigene Zeile unter der Dauer (`.fs-qx`), in der Liste klein hinter der Dauer.
+  Prozent-Bezug (Dennis, 31. Oktober: „so weiß der User immer, worauf sich das Training bezieht“): Watt mit „% FTP“ (`ftpPct`, `cardioKw().ftp`),
+  Lauftempo mit „% Schwelle“ (`V` in `kardioSpec`), Gewicht im Kraftteil mit „% 1RM“ (`rmPct`, „≈“ wenn das 1RM nur geschätzt ist, `rmEst`), Metcon-Gewicht
+  mit „% Rx“ (`rxPct`), auch auf Heute (`finTarget`). Im Trainer jede Angabe eine eigene Zeile (`qtyParts`: Zahl groß mit kurzer Einheit, „je Seite“, Watt,
+  % FTP darunter; Prozent grau `.fs-pct`), in der Liste eine feste Spalte (`fsQtyCol`, `b.fs-q`), damit die Namen in einer Linie stehen; die aktive Zeile
+  ist wie die anderen aufgebaut. „Als Nächstes“ nur mit Watt, keine Herkunftszeile der FTP.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

@@ -8,6 +8,12 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Prozent-Bezug im Training (31. Oktober 2026, Claude)
+- Dennis: neben jeder Vorgabe steht, wovon sie wie viel Prozent ist. Watt „% FTP“, Laufen „% Schwelle“, Gewicht „% 1RM“ (≈ = geschätzt), Metcon „% Rx“.
+- Runde 2 nach Dennis' Rückmeldung: % FTP in eigener Zeile, in der Liste alles klein unter der Zahl (auch „je Seite“), feste Spalte, aktive Zeile wie die
+  anderen, „Als Nächstes“ ohne FTP, keine Zeile „FTP 180 W · deine Angabe“. Board: https://claude.ai/artifact/EGbo8eKrksNS3qtCD7VPoW
+- Offen: Metcon zeigt im Trainer noch kein Gewicht (und damit kein % Rx), nur auf Heute; Dennis' Freigabe der Runde 2.
+
 ## Trainer aus dem Test im Chat (30. Oktober 2026, Claude)
 - Testversion der App im Chat mit Handy-Rahmen: https://claude.ai/artifact/8pRvPRdMmKG1GDgHR9zqUW (Kopie von Dennis' Stand, ohne Sync, „Auf Anfang setzen“).
 - Dennis' fünf Punkte umgesetzt: Einzeln ohne Leere (Inhalt mittig), Kapsel ohne doppelte Restzeit, Kapsel antippen = Start/Pause, automatisch weiter auch nach
