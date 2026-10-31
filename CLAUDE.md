@@ -778,9 +778,17 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   der Getter liefert aber jedes Mal eine neue Liste, darum fehlte das Gewicht immer; jetzt `mKg` je Index (nicht am Testtag).
   Aus dem Training (Dennis, 1. November): das (i) zeigt die Übung der Stufe (`fsI` nimmt den Schlüssel der Stufe vor der Grundübung); Bandstufen in
   Bandfarbe (`stageHTML` setzt `--bc`, im Trainer `#fs .bst`); in der Liste steht die Stufe ganz als Text mit Pfeil (kein Abschneiden); einseitige Übungen
-  sagen „3 auf einer Seite, dann 3 auf der anderen“ bzw. „Abwechselnd: 6 je Seite“ (`sideLine`, `ALT_RE`, aus `seitig` bzw. „je Seite“); Ringhöhe immer
-  an der Übung (`ringH`, `RING_S`, Einzeln und Liste, auch Pistol „Mit Halt“ mit Ringen am Ort). Stufe wählen als Rad (`ACT['k-stg']` mit `openSheet`):
+  sagen „je Seite · nacheinander“ bzw. „je Seite · alternierend“ (`sideLine`, `ALT_RE`, aus `seitig` bzw. „je Seite“); Ringhöhe (`ringH`, `RING_S`,
+  auch Pistol „Mit Halt“ mit Ringen am Ort) und „Deine Stufe heute: Stufe N · …“ stehen nur im (i) (`fsI(n, key, stg)` mit `data-stg`/`data-lad`).
+  Von 261 Leiterstufen sind 164 eigene Übungen; die übrigen (Bänder, Fußhöhe) zeigen im (i) die Übung plus diese Stufen-Zeile. Stufe wählen als Rad (`ACT['k-stg']` mit `openSheet`):
   schwerere oben, die des Coachs „· heute“ in der Mitte, leichtere unten, mit „schwerer“/„leichter“.
+  Blätter bleiben unter der Statusleiste (`.sheet-bg` mit `safe-area-inset-top` + 28 px; iPhone verwischte dort den Kopf mit „Fertig“).
+  L-Sit ist ein Skill (Dennis, 1. November): `SKILL_ONLY`/`noKraft` halten ihn aus dem Kraftteil (alte Wahl wird ersetzt, `why: 'skill'`, bevorzugt
+  `g_kneeraise`, sonst die nützlichste Rumpf-Leiter; Knee Raise braucht freien Pull-up), `SKILL_KEYS` mit `g_lsit`, frei ab Vorbeuge Stufe 4
+  „Fingerspitzen am Boden“ im Beweglichkeits-Check (`mobBest`, `LSIT_MOB`).
+  „Ich musste eine Übung ersetzen“ (Dennis, 1. November): Knopf im Blatt „Wie hart war’s?“ (`#rpe-rep`, `repFlow`): Übung des Tages, dann Rad mit Ersatz
+  (`repCands`: gleiches Muster, dann nahes, nur was am Ort geht), dann Grund (`REP_WHY`). Entwurf `_rk<i>` = „ID|Grund“, `repApply` im Getter
+  `DAYS[t].kraft` (nach `painApply`): der Platz zählt unter dem Ersatz, im Eintrag `rep: {from, why}`, Verlauf „X statt Y“.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
