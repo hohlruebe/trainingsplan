@@ -754,7 +754,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `finTrain`: laufender Abschnitt groß, „Als Nächstes“ darunter (statt aller Abschnitte). Listen-Zeilen enger (`#fs .fs-tr .fs-row`).
   Zeit-Kapsel statt Ring (Dennis, 28. Oktober, Boards Varianten → Kapsel → Stelle → Umriss: „Kapsel bleibt oben“, „fein in Blau“): im Trainer hochkant
   (`#fs[data-view="port"] .fs-tr .fs-ring`, quer und Tools › Timer behalten den Ring) eine Glas-Kapsel über die ganze Breite, 68 px, Umriss 1,5 px `--acc` 55 %
-  (im Vorlauf grün), Zeit 44 px in der Mitte, links der Zustand, rechts Runde bzw. Rest; die Kapsel füllt sich hellblau mit der Phase (`--pr` aus `fsPaint`,
+  (im Vorlauf grün), Zeit in der Mitte (heute Variante C, siehe unten), Zustand und Runde bzw. Rest dazu; die Kapsel füllt sich hellblau mit der Phase (`--pr` aus `fsPaint`,
   im Vorlauf grün). Bereit und Vorlauf ohne Text (kein „10 s Vorlauf“, kein „In Position kommen“): nach Start laufen die 10 s nur in der Kapsel ab.
   Scroll-Stelle: `FS.sKeep` aus einem scroll-Listener auf `#fs-side` (nicht direkt nach dem Neuzeichnen, `FS.sIgn`), im selben Schritt wiederhergestellt.
   Kapsel in der Karte (Dennis, 28. Oktober, Vergleich oben | in der Karte): die Zeit-Kapsel ist die erste Zeile der weißen Trainer-Karte (`.fs-main` hochkant
@@ -771,6 +771,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   mit „% Rx“ (`rxPct`), auch auf Heute (`finTarget`). Im Trainer jede Angabe eine eigene Zeile (`qtyParts`: Zahl groß mit kurzer Einheit, „je Seite“, Watt,
   % FTP darunter; Prozent grau `.fs-pct`), in der Liste eine feste Spalte (`fsQtyCol`, `b.fs-q`), damit die Namen in einer Linie stehen; die aktive Zeile
   ist wie die anderen aufgebaut. „Als Nächstes“ nur mit Watt, keine Herkunftszeile der FTP.
+  Danach (Dennis, 31. Oktober): Abschluss mit Figur bzw. Platzhalter links wie die anderen Schritte (`finTrain`, `.fs-fin`), Zusatz („Zone 2 halten“,
+  „1 von 4“) als eigene Zeile `.fs-sub`, „Abschnitt x von n“ ohne „Jetzt“; „Als Nächstes“ überall zweizeilig (`.fs-nx` mit `.nl`: Aufwärmen, Kraft, Abschluss).
+  Zeit-Kapsel Variante C (Board https://claude.ai/artifact/AksBu2LJyZsMpvEUUt7nou): 112 px hoch, Zeit 66 px, Zustand über und Runde unter der Zeit (gestapelt).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:
