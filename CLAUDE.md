@@ -776,6 +776,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Zeit-Kapsel Variante C (Board https://claude.ai/artifact/AksBu2LJyZsMpvEUUt7nou): 112 px hoch, Zeit 66 px, Zustand über und Runde unter der Zeit (gestapelt).
   „Läuft“ steht im Trainer nicht mehr (nur Angehalten, Pause, Fertig). Metcon im Trainer mit Gewicht und % Rx: `metconFlow` verglich `L === d.metcon`,
   der Getter liefert aber jedes Mal eine neue Liste, darum fehlte das Gewicht immer; jetzt `mKg` je Index (nicht am Testtag).
+  Aus dem Training (Dennis, 1. November): das (i) zeigt die Übung der Stufe (`fsI` nimmt den Schlüssel der Stufe vor der Grundübung); Bandstufen in
+  Bandfarbe (`stageHTML` setzt `--bc`, im Trainer `#fs .bst`); in der Liste steht die Stufe ganz als Text mit Pfeil (kein Abschneiden); einseitige Übungen
+  sagen „3 auf einer Seite, dann 3 auf der anderen“ bzw. „Abwechselnd: 6 je Seite“ (`sideLine`, `ALT_RE`, aus `seitig` bzw. „je Seite“); Ringhöhe immer
+  an der Übung (`ringH`, `RING_S`, Einzeln und Liste, auch Pistol „Mit Halt“ mit Ringen am Ort). Stufe wählen als Rad (`ACT['k-stg']` mit `openSheet`):
+  schwerere oben, die des Coachs „· heute“ in der Mitte, leichtere unten, mit „schwerer“/„leichter“.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

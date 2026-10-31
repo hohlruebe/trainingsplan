@@ -8,6 +8,12 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Rückmeldung aus dem Training (1. November 2026, Claude)
+- Erledigt: (i) = Übung der Stufe, Bandstufe in Bandfarbe auch in der Liste (nicht mehr abgeschnitten), Seiten-Zeile bei einseitigen Übungen,
+  Ringhöhe an jeder Ring-Übung, Stufen-Rad (schwerer oben, heute Mitte, leichter unten).
+- Offen: „Fertig halb ausgeblendet“ und „Probleme mit Schrift“ (Screenshots von Dennis fehlen noch), L-Sit vs. Hanging Knee Raise (Entscheidung),
+  nach dem Training „Ich musste eine Übung ersetzen“ (Entwurf zeigen).
+
 ## Prozent-Bezug im Training (31. Oktober 2026, Claude)
 - Dennis: neben jeder Vorgabe steht, wovon sie wie viel Prozent ist. Watt „% FTP“, Laufen „% Schwelle“, Gewicht „% 1RM“ (≈ = geschätzt), Metcon „% Rx“.
 - Runde 2 nach Dennis' Rückmeldung: % FTP in eigener Zeile, in der Liste alles klein unter der Zahl (auch „je Seite“), feste Spalte, aktive Zeile wie die

@@ -131,14 +131,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^\d\/\d · /, 'Kopf zeigt „x/n“ zuerst');
     // Stufe im Training (Dennis, 28. Oktober): Coach-Stufe und bis zu zwei darunter/darüber, nur für heute.
     await page.locator('#fs .fs-side [data-act="k-stg"]').first().click();
-    const stgN = await page.locator('#sheet [data-c]').count();
+    // Dennis, 1. November: Auswahlrad, schwerere oben, die des Coachs („heute“) in der Mitte, leichtere unten.
+    const stgN = await page.locator('#sheet .wi').count();
     assert.ok(stgN >= 2 && stgN <= 5, 'zwei Stufen drunter und drüber (' + stgN + ')');
-    assert.equal(await page.locator('#sheet [data-c]', { hasText: '(Coach)' }).count(), 1);
-    const stgOther = page.locator('#sheet [data-c]:not(.primary)').first(), stgTxt = (await stgOther.innerText()).replace(/^Stufe \d+ · /, '');
-    await stgOther.click();
+    assert.equal(await page.locator('#sheet .wi', { hasText: '· heute' }).count(), 1);
+    const wiT = await page.locator('#sheet .wi').allInnerTexts(), hi = wiT.findIndex(t => /· heute/.test(t));
+    assert.ok(wiT.slice(0, hi).every(t => /schwerer/.test(t)) && wiT.slice(hi + 1).every(t => /leichter/.test(t)), 'schwerer oben, leichter unten: ' + wiT.join(' | '));
+    const oi = hi > 0 ? hi - 1 : hi + 1, stgTxt = wiT[oi].replace(/ · (schwerer|leichter)$/, '').replace(/^\s+/, '');
+    await page.locator('#sheet .wi').nth(oi).click(); await page.waitForTimeout(700); await page.locator('#sheet [data-sh="ok"]').click();
     assert.ok((await page.locator('#fs .fs-side [data-act="k-stg"]').first().innerText()).includes(stgTxt), 'gewählte Stufe steht in der Karte');
     await page.locator('#fs .fs-side [data-act="k-stg"]').first().click();
-    await page.locator('#sheet [data-c]', { hasText: '(Coach)' }).click();
+    await page.locator('#sheet .wi', { hasText: '· heute' }).click(); await page.waitForTimeout(700); await page.locator('#sheet [data-sh="ok"]').click();
     await page.locator('#fs #fs-ring').click();
     await page.waitForTimeout(300);
     assert.match(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Tippen auf die Kapsel startet die Uhr, Weiter gesperrt');
