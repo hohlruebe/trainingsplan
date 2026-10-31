@@ -774,6 +774,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Danach (Dennis, 31. Oktober): Abschluss mit Figur bzw. Platzhalter links wie die anderen Schritte (`finTrain`, `.fs-fin`), Zusatz („Zone 2 halten“,
   „1 von 4“) als eigene Zeile `.fs-sub`, „Abschnitt x von n“ ohne „Jetzt“; „Als Nächstes“ überall zweizeilig (`.fs-nx` mit `.nl`: Aufwärmen, Kraft, Abschluss).
   Zeit-Kapsel Variante C (Board https://claude.ai/artifact/AksBu2LJyZsMpvEUUt7nou): 112 px hoch, Zeit 66 px, Zustand über und Runde unter der Zeit (gestapelt).
+  „Läuft“ steht im Trainer nicht mehr (nur Angehalten, Pause, Fertig). Metcon im Trainer mit Gewicht und % Rx: `metconFlow` verglich `L === d.metcon`,
+  der Getter liefert aber jedes Mal eine neue Liste, darum fehlte das Gewicht immer; jetzt `mKg` je Index (nicht am Testtag).
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

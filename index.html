@@ -1019,6 +1019,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 #fs .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:nowrap;font-size:calc(18px*var(--fsu,1));min-height:calc(44px*var(--fsu,1));padding-top:8px;padding-bottom:8px}#fs .fs-tr .fs-row.on:not(.fs-krow) b{font-size:calc(30px*var(--fsu,1))}
 #fs .fs-fin .fs-sub{margin:0 0 2px;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink2)}#fs .fs-fin .fs-exn{font-size:calc(30px*var(--fsu,1));line-height:1.05}#fs .fs-fin .fs-reps{margin:4px 0 0;line-height:1}#fs .fs-fin .fs-pct{margin:2px 0 0;font-size:calc(18px*var(--fsu,1))}
 .fs-nx{margin:6px 0 0;text-align:center;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink)}.fs-nx>.nl{display:block;font-size:14px;font-weight:600;color:var(--ink2)}
+#fs .fs-tr .fs-wu .fs-nm{min-width:0}#fs .fs-tr .fs-wu .fs-nm .fs-i{flex:none}#fs .fs-tr .fs-wu .fs-exn{min-width:0;font-size:calc(34px*var(--fsu,1));line-height:1.05}
 .fs-pct{margin:0 0 4px;font-weight:700;font-size:calc(20px*var(--fsu,1));color:var(--ink2)}
 .fs-qx{margin:0;font-weight:700;font-size:calc(26px*var(--fsu,1));line-height:1.1;color:var(--acc)}
 .fs-tr .fs-row.tap{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-row.tap:active{transform:scale(.985)}
@@ -7393,9 +7394,10 @@ function warmFlow0(tag) {
   return { id: 'warm', items: it };
 }
 function metconFlow(tag) {
-  var d = DAYS[tag], L = isTestDay(tag) ? testMetcon(tag) : d.metcon;
-  return { id: 'metcon', items: L.map(function (m) {
-    var g = GL[m.n], k = L === d.metcon ? mKg(tag, m, d.metcon.indexOf(m), dr(tag)) : null;
+  // DAYS[tag].metcon ist ein Getter (Schmerzen) und liefert jedes Mal eine neue Liste: L === d.metcon war nie wahr, darum fehlte im Trainer das Gewicht.
+  var d = DAYS[tag], test = isTestDay(tag), L = test ? testMetcon(tag) : d.metcon, D = dr(tag);
+  return { id: 'metcon', items: L.map(function (m, i) {
+    var g = GL[m.n], k = test ? null : mKg(tag, m, i, D);
     return flowItem(m.n, m.r + (k && k.kg != null ? ' · ' + fmtKg(k.kg, k.id) + (rxPct(k.kg, k.id) ? ' · ' + rxPct(k.kg, k.id) : '') : ''), m.pain ? painShort(m) : m.note, null, m.pain ? painText(m) : [shortCue(g && g.cue), m.scale ? 'Leichter: ' + m.scale + '.' : ''].filter(Boolean).join(' '));
   }), loop: { from: 0, to: L.length - 1, times: 0 } };
 }
@@ -10411,7 +10413,7 @@ function fsPaint(L, force) {
   var hot = TM.running && L && L.rem != null && Math.ceil(L.rem) <= 3;
   var st = TM.finished ? 'Fertig' : idle ? 'Bereit' : !TM.running ? 'Angehalten' : p.kind === 'pre' ? 'Vorlauf' : TM.mode === 'hiit' && p.kind === 'easy' ? 'Pause' : 'Läuft';
   $('fs-num').textContent = num; $('fs-num').className = 'fs-num' + (green ? ' grn' : '') + (hot ? ' hot' : '');
-  $('fs-st').textContent = FS.train && (idle || p.kind === 'pre') && !TM.finished ? '' : st; $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
+  $('fs-st').textContent = FS.train && (idle || p.kind === 'pre' || st === 'Läuft') && !TM.finished ? '' : st; // Dennis, 31. Oktober: „Läuft“ ist überflüssig, man sieht die Sekunden laufen. $('fs-st').className = 'fs-st' + (green ? ' grn' : '');
   var total = 0; TM.phases.forEach(function (x) { if (isFinite(x.dur)) total += x.dur; });
   // Ring: beim AMRAP und For Time die ganze Zeit, sonst die laufende Phase (EMOM: die Minute, Intervall: Arbeit bzw. Pause).
   var whole = TM.mode === 'amrap' || TM.mode === 'zeit', pr = TM.finished ? (TM.mode === 'zeit' && !c.cap ? 0 : 1) : idle || !L ? 0
