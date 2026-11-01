@@ -1390,7 +1390,7 @@
     var J = quad({ pc: pc, S: S, nod: c > 0 ? 42 * c : -22 * -c });
     var u = norm(sub3(J.nb, J.pc)), up = [0, -1, 0], piv = add(J.pc, mul(u, 60));
     ['nb', 'hc'].forEach(function (q) { J[q] = rotAround(J[q], piv, [1, 0, 0], c > 0 ? -22 * c : -10 * c); }); // hohl: Kopf nur leicht nach vorn oben
-    J._bend = { pel: norm(add(u, mul(up, .75 * c))), rib: norm(add(u, mul(up, -.6 * c))), rc: mul(up, 16 * c) };
+    J._bend = { pel: norm(add(u, mul(up, .4 * c))), rib: norm(add(u, mul(up, -.3 * c))), rc: mul(up, 20 * c) }; // Bogen über die Brustkorb-Mitte, damit die Linie der Bewegung mitgeht
     return J;
   }
   function shoulderCars(p) { // aufrecht, freie Hand an der Hüfte; gestreckter Arm langsam nach vorn, über Kopf, hinten im großen Kreis nach unten
@@ -1434,9 +1434,10 @@
     return quad({ pc: [0, 296 + 2 * Math.abs(s), -112 + dz], S: [0, Sy, dz], nod: -10 });
   }
   function cobra(p) { // Bauchlage, Hände neben der Brust; Oberkörper hoch drücken, Hüfte bleibt am Boden
-    var t = rep(p, .4, .2), pc = [0, 380, -20], a = lerp(87, 52, t);
-    return build({ pc: pc, a: a, nod: lerp(4, -14, t),
-      arms: both(function (x) { return { to: [x * 36, 393, 64], pole: [x * .5, -1, -.4], dir: [0, .1, 1] }; }),
+    // Dennis: oben sind die Arme ganz gestreckt. Die Hände stehen dort, wo der gestreckte Arm aus der oberen Lage den Boden erreicht.
+    var t = rep(p, .4, .2), pc = [0, 380, -20], top = 36, a = lerp(87, top, t), Hz = onFloor(shOf(pc, top, 1), 393, 113);
+    return build({ pc: pc, a: a, nod: lerp(4, -16, t),
+      arms: both(function (x) { return { to: [x * 36, 393, Hz], pole: [x * .5, -1, -.4], dir: [0, .1, 1] }; }),
       legs: both(function (x) { return { to: [x * 14, 390, -190], pole: DOWN, dir: [0, .1, -1] }; }) });
   }
   function inchworm(p) { // aus der Vorbeuge mit den Händen nach vorn bis in den Liegestütz laufen, mit den Füßen hinterher
@@ -1466,11 +1467,16 @@
       arms: { a: { to: [-46, 393, 110], pole: [-.4, -.2, -1], dir: [0, .12, 1] }, b: { to: H, pole: [.3, -.2, -1], dir: [0, .12, 1] } },
       legs: { a: legVia(pc, a, -1, [-18, 391, pc[2] - Math.sqrt(Math.max(0, 6300 - Math.pow(385 - pc[1], 2)))], [0, .03, -1], [0, .06, -1]), b: { to: [26, 390, 106], pole: [.3, -.3, 1] } } });
   }
-  function butterfly(p) { // sitzen, Fußsohlen zusammen, Knie sinken zur Seite; mit langem Rücken nach vorn kippen
-    var t = rep(p, .4, .2), pc = [0, 370, -20], a = lerp(34, 50, t);
-    var J = build({ pc: pc, a: a, nod: lerp(-6, 6, t),
-      arms: both(function (x) { return { to: [x * 14, 384, 50], pole: [x, -.2, -.4], dir: [0, .4, 1] }; }),
-      legs: both(function (x) { var hi = add(pc, [x * 18, 6, 0]), An = [x * 7, 392, 52], K = [x * 76, 376, 26]; return { to: An, pole: sub3(K, mid(hi, An)), dir: [-x, .2, .2] }; }) });
+  function butterfly(p) { // sitzen, Fußsohlen zusammen, Hände halten die Füße; mit langem Rücken nach vorn kippen, die Ellbogen drücken die Knie sanft Richtung Boden
+    var t = rep(p, .4, .2), pc = [0, 372, -20], a = lerp(48, 60, t);
+    var J = build({ pc: pc, a: a, nod: lerp(-6, 8, t),
+      arms: both(function (x) { return { to: [x * 10, 384, 56], pole: [x, -.2, -.2], dir: [0, .4, 1] }; }),
+      legs: both(function (x) { var hi = add(pc, [x * 18, 6, 0]), An = [x * 7, 392, 52], K = [x * 78, lerp(360, 382, t), 30]; return { to: An, pole: sub3(K, mid(hi, An)), dir: [-x, .2, .2] }; }) });
+    [['a', -1], ['b', 1]].forEach(function (q) { // Ellbogen liegt innen auf dem Oberschenkel nahe am Knie, Unterarm zur Hand am Fuß
+      var sd = q[0], kn = J['kn' + sd], hi = J['hi' + sd], Et = add(lerp(hi, kn, .72), [-q[1] * 4, -9, 0]), sh = J['sh' + sd], H = [q[1] * 10, 384, 56];
+      var el = add(sh, mul(norm(sub3(Et, sh)), 56)), wr = add(el, mul(norm(sub3(H, el)), 54));
+      J['el' + sd] = el; J['wr' + sd] = wr; J['ha' + sd] = add(wr, mul(norm(sub3(H, el)), 24)); J._to['wr' + sd] = wr;
+    });
     return J;
   }
   function pancake(p) { // weite Grätsche, Beine gestreckt, Kniescheiben oben; mit geradem Rücken nach vorn
@@ -1501,16 +1507,17 @@
   function dbPress(p) { var J = pressAt(rep(p, .36, .14)); J._props = dumbbell(gripOf(J, 'a')).concat(dumbbell(gripOf(J, 'b'))); return J; }
   function run(p) { // Laufen von der Seite: Fuß landet unter dem Körper, Knie vorn hoch, Ferse hinten hoch, Arme schwingen locker gegengleich,
     // Schultern drehen leicht gegen die Hüfte (Dennis: „etwas steif“)
-    var pc = [0, 216 + 7 * Math.cos((p - .08) * 4 * Math.PI), 0], a = 10;
+    var pc = [0, 226 + 7 * Math.cos((p - .08) * 4 * Math.PI), 0], a = 12; // Knie federt in der Landung, nie ganz gestreckt
     function legAt(q) { // q = 0 Landung … .38 Abdruck, dann Schwung
       var K = [[0, [0, 386, 30]], [.18, [0, 390, -6]], [.38, [0, 380, -62]], [.52, [0, 318, -96]], [.7, [0, 286, -14]], [.82, [0, 318, 40]], [.93, [0, 370, 46]], [1, [0, 386, 30]]];
       for (var i = 0; i < K.length - 1; i++) if (q <= K[i + 1][0]) return lerp(K[i][1], K[i + 1][1], ease((q - K[i][0]) / (K[i + 1][0] - K[i][0])));
       return K[0][1];
     }
     var J = build({ pc: pc, a: a, nod: -2 + 3 * Math.cos(p * 4 * Math.PI),
-      arms: both(function (x) { var q = (p + (x < 0 ? .5 : 0)) % 1, th = -46 * Math.cos(q * 2 * Math.PI) * R, sh = shOf(pc, a, x);
-        var el = add(sh, mul([x * .08, Math.cos(th), Math.sin(th)], 56)), fa = th + lerp(70, 100, (1 + Math.cos(q * 2 * Math.PI)) / 2) * R, fd = norm([-x * .15, Math.cos(fa), Math.sin(fa)]);
-        return { to: add(el, mul(fd, 54)), pole: [x * .2, .3, -1], dir: fd }; }),
+      arms: both(function (x) { // Oberarm pendelt aus der Schulter, vorn bis knapp vor die Brust, hinten weiter als vorn; Ellbogen um 90°, vorn enger, hinten offener
+        var q = (p + (x < 0 ? .5 : 0)) % 1, w = Math.cos(q * 2 * Math.PI), th = (-14 - 42 * w) * R, sh = shOf(pc, a, x);
+        var el = add(sh, mul([x * .1, Math.cos(th), Math.sin(th)], 56)), fa = th + lerp(80, 110, (1 - w) / 2) * R, fd = norm([-x * .22, Math.cos(fa), Math.sin(fa)]);
+        return { to: add(el, mul(fd, 54)), pole: [x * .2, .3, -1], dir: norm(add(fd, [0, .25, 0])) }; }), // Hand locker, leicht hängend
       legs: both(function (x) { var q = (p + (x < 0 ? 0 : .5)) % 1, A = add(legAt(q), [x * 10, 0, 0]), sw = q > .38 && q < .95;
         return { to: A, pole: [0, 0, 1], dir: sw ? (q < .6 ? [0, .75, -.6] : [0, .45, .9]) : [0, .28, 1] }; }) });
     return twist(J, 9 * Math.sin(p * 2 * Math.PI));
