@@ -8,6 +8,14 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Familien-Seite mit Bühne (1. November 2026, Claude)
+- Dennis: „wenn ich innerhalb der Übungsfamilie auf die andere Übung drücke, nicht weitergeleitet werden, Bild und Erklärungstext ändern sich direkt dort“.
+  Boards: drei Wege https://claude.ai/artifact/EutLpz5W9SyLMxKUDrxTFd → Vorschlag 1 „Bühne oben“, drei Versionen https://claude.ai/artifact/GqvQbNBDbPjNAeQr3dtwxY
+  → 1B „Bühne klebt oben“, drei Optiken https://claude.ai/artifact/MzYB4wTGbPQNz9Af6vcrZz → Optik 3 „Bild-Fenster“, ohne automatisches Einklappen.
+- Gebaut: `famStageHTML` (Bühne klebt oben), `ACT['fam-sel']`/`ui.famSel`, `ACT['fam-how']`/`ui.famHow`. Der Skill-Pfad öffnet kein Blatt mehr.
+- Verdecktes „Fertig“: war der Inhalt eines Blatts höher als der Platz, wuchs das Blatt über den oberen Rand. Jetzt `.sheet{max-height:100%}`, der Inhalt
+  (`.sh-body`) scrollt innen. Gilt für alle Blätter. Test in `dreitage-browser`.
+
 ## Grafiken Runde 6 (1. November 2026, Claude)
 - Platz 62–80 aus `REIHENFOLGE.md` (Ausgleich): Lat Pulldown (Kabelzug mit Sitz, Knie-Polster, Seil, Gewichtsblock), Shrug, Reverse Nordic,
   Leg Extension (Beinstrecker mit Hebel), Single-Leg Slider Curl, Ring Leg Curl, Ring Triceps Extension, Skull Crusher (auf der Flachbank),

@@ -411,6 +411,29 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       await lf.dblclick();
     }
     console.log('PASS: Figur in der Bibliothek drehbar');
+    // Familien-Seite (Dennis, 1. November, Optik 3): Stufe im Skill-Pfad antippen wechselt die Bühne oben, kein Blatt; „So geht’s“ klappt auf und bleibt offen;
+    // das (i)-Blatt bleibt unter dem oberen Rand (vorher wuchs es über den Rand, „Fertig“ war verdeckt).
+    await page.evaluate(() => window.tpTest.navigate('uebungen'));
+    await page.locator((await page.locator('[data-act="fam-open"][data-id="f_pullup"]').count()) ? '[data-act="fam-open"][data-id="f_pullup"]' : '[data-act="fam-open"]').first().click(); await page.waitForTimeout(300);
+    {
+      const stg = page.locator('.fam-stage .fst-t b'), st0 = await stg.innerText(), rows = page.locator('.fam-path .lad-row');
+      assert.ok((await rows.count()) > 1, 'Skill-Pfad mit Stufen');
+      const other = page.locator('.fam-path .lad-row:not(.sel)').last(); // die leichteste Stufe ganz unten: dafür muss die Seite scrollen
+      await other.scrollIntoViewIfNeeded(); await other.click(); await page.waitForTimeout(250);
+      assert.equal(await page.locator('#sheet').count(), 0, 'Stufe antippen öffnet kein Blatt');
+      assert.notEqual(await stg.innerText(), st0, 'Bühne zeigt die angetippte Stufe');
+      assert.equal(await page.locator('.fam-path .lad-row.sel').count(), 1, 'eine Stufe markiert');
+      const by = (await page.locator('.fam-stage').boundingBox()).y; assert.ok(by >= 0 && by < 60, 'Bühne bleibt oben stehen: y ' + by);
+      await page.locator('[data-act="fam-how"]').click(); await page.waitForTimeout(150);
+      assert.ok(await page.locator('.fst-how ol.how li').count() >= 2, 'So geht’s klappt auf');
+      await page.mouse.wheel(0, 300); await page.waitForTimeout(200);
+      assert.equal(await page.locator('.fst-how').count(), 1, 'beim Scrollen bleibt es offen');
+      await page.locator('.fst-how [data-act="ue-info"]').click(); await page.waitForTimeout(400);
+      const sh = await page.locator('#sheet .sheet').boundingBox(); assert.ok(sh.y >= 27, 'Blatt beginnt unter dem oberen Rand: y ' + sh.y);
+      assert.ok(await page.getByRole('button', { name: 'Fertig', exact: true }).isVisible(), '„Fertig“ sichtbar');
+      await page.getByRole('button', { name: 'Fertig', exact: true }).click(); await page.waitForTimeout(300);
+    }
+    console.log('PASS: Familien-Seite mit Bühne: Stufe antippen wechselt Bild und Erklärung, kein Blatt; (i)-Blatt unter dem Rand');
 
     // Ausfall annehmen (Impeccable-Kritik 24. Oktober): kein Fragenblock vor dem Tag, eine Zeile mit „Stimmt nicht“, die Leiste zeigt „A ×“.
     await page.clock.setFixedTime(new Date('2026-10-14T08:30:00+02:00'));
