@@ -15,6 +15,12 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Butterfly, Pancake, Glute Bridge Hold, Band/Dumbbell Press, Run, Strict Press, Hip Flexor Stretch). Board: https://claude.ai/artifact/QdT7dqH3WtRRqQQKrEA4r2
   `pruefen.js` misst Gelenke und Kontakte, alle halten. **Offen: Freigabe von Dennis**, danach Kopie nach `index.html` (zusammen mit der Kettlebell-Runde).
 - Unsicher: Sleeper Stretch und Pancake sind klein bzw. schwer zu lesen (liegende bzw. gegrätschte Figur), Hip CARs von schräg vorn.
+- Dennis' Rückmeldung (Fassung 2): Cat-Cow Rücken oben und unten runder (neu in der Vorlage: `J._bend` mit eigener Achse für Brustkorb und Becken und
+  verschobenem Brustkorb, nur wenn gesetzt), Shoulder CARs mit dem Arm zum Bildschirm, 90/90 mit festen Füßen (Knie wie Scheibenwischer), Half Split ohne
+  springendes Bein (Fuß fest, Bein streckt sich mit der Hüfte), ein Band unter beiden Füßen (`poly` kann jetzt `w`), Butterfly von vorn, Dumbbell Press
+  Ellbogen leicht vor dem Körper, Run lockerer. Lizard: hinteres Knie bleibt am Boden, angewinkelt (laut Anleitung).
+- Dennis' Idee: Grafik in der App um 360° drehen, im (i) und im Training, das Training merkt sich die letzte Ansicht. Im Board zum Ausprobieren
+  (ziehen = drehen, senkrecht = von oben, doppeltippen = zurück). Offen: Freigabe der Bedienung, dann Einbau in der App.
 - Nächste Runde 5: Platz 41–60 aus `REIHENFOLGE.md` (Dehnungen Cool-down, Bench Dip, Body Saw, Band Row, Sit-up, Russian Twist, Wall Ball, Push Press …).
 
 ## Rückmeldung aus dem Training (1. November 2026, Claude)
