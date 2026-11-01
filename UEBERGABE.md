@@ -8,6 +8,18 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Grafiken Runde 6 (1. November 2026, Claude)
+- Platz 62–80 aus `REIHENFOLGE.md` (Ausgleich): Lat Pulldown (Kabelzug mit Sitz, Knie-Polster, Seil, Gewichtsblock), Shrug, Reverse Nordic,
+  Leg Extension (Beinstrecker mit Hebel), Single-Leg Slider Curl, Ring Leg Curl, Ring Triceps Extension, Skull Crusher (auf der Flachbank),
+  Ring Biceps Curl, Biceps Curl, Lateral Raise, Band Lateral Raise, Band External Rotation, Band Face Pull, 45-Degree Back Extension, Bird Dog,
+  Pallof Press, Single-Leg Calf Raise, Seated Calf Raise. Board: https://claude.ai/artifact/KHBbRLJkm868GKYHburxa4
+  Neu in der Vorlage: `dumbbellZ` (Kurzhantel längs, Kreis mit `ax: 'z'`), `dbX`, `padBench` (Bank längs oder quer), `solve` (Haltung über einen Abstand
+  bestimmen, z. B. Schulter zum Ring), `anchor` (Bandanker). `pruefen.js`: Kontakte und Schleifen halten. **Offen: Freigabe.**
+- **In der App seit 1. November** (Dennis: „baue alle bisherigen Grafiken in die App ein“): Runde 1–6, Kettlebell, deckend, Schulterpartie, ruhige Geräte.
+  `<script id="maskottchen">` = genaue Kopie von `design/maskottchen/maskottchen.js`. 152 der 415 Übungen haben eine Grafik; Runde 7 ff. folgt später.
+  Dazu: jede große Figur ist drehbar, auch in Tools › Übungen und auf der Familien-Seite (dort scrollt senkrechtes Wischen weiter); beim Ziehen
+  jetzt deckend gezeichnet (vorher fehlte `solid`, Bank und Geräte wirkten beim Drehen durchsichtig). Test in `dreitage-browser`.
+
 ## Grafiken Runde 5 (1. November 2026, Claude)
 - Platz 42–61 aus `REIHENFOLGE.md`: Dead Hang, Wall Biceps Stretch, Overhead Triceps Stretch, Wrist Flexion Stretch, Bench Dip, Body Saw, Band Row, AbMat Sit-up,
   Russian Twist, Wall Ball Shot, Shuttle Run, Push Press, Stair Climb, Bike Erg, Row, Band Lat Pulldown, Box Jump, Lateral Band Walk, Clamshell, Copenhagen Plank.

@@ -395,6 +395,22 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.deepEqual((await page.evaluate(() => window.tpTest.state().orte[0].eq)).filter(x => /kb|kettle/.test(x)), [], 'Kettlebell aus nimmt Paar und verstellbar mit');
     await page.getByRole('button', { name: 'Fertig', exact: true }).click();
     console.log('PASS: Kettlebell eine oder zwei, verstellbar; verstellbar steigert über das Gewicht, zwei schalten Doppel-Übungen frei');
+    // Figur drehen auch in der Bibliothek (Dennis, 1. November): Familien-Seite, waagerecht ziehen dreht und wird gemerkt.
+    await page.evaluate(() => window.tpTest.navigate('uebungen'));
+    await page.locator('[data-act="fam-open"]').first().click(); await page.waitForTimeout(300);
+    {
+      if (!(await page.locator('#view .fig[data-fig]:not([data-fig="_wave"]):visible').count())) { // eine Übung mit Grafik aufklappen
+        await page.locator('#view details.gl-item', { has: page.locator('.fig[data-fig]:not([data-fig="_wave"])') }).first().locator('summary').click(); await page.waitForTimeout(300); }
+      const lf = page.locator('#view .fig[data-fig]:not([data-fig="_wave"]):visible').first();
+      assert.ok(await lf.count(), 'Figur auf der Familien-Seite');
+      const lk = await lf.getAttribute('data-fig'), bb = await lf.boundingBox();
+      await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.down();
+      await page.mouse.move(bb.x + bb.width / 2 + 80, bb.y + bb.height / 2, { steps: 6 }); await page.mouse.up(); await page.waitForTimeout(150);
+      const lc = await page.evaluate(k => (window.tpTest.state().figCam || {})[k], lk);
+      assert.ok(lc && typeof lc.yaw === 'number', 'Bibliothek: Ansicht gemerkt ' + JSON.stringify(lc));
+      await lf.dblclick();
+    }
+    console.log('PASS: Figur in der Bibliothek drehbar');
 
     // Ausfall annehmen (Impeccable-Kritik 24. Oktober): kein Fragenblock vor dem Tag, eine Zeile mit „Stimmt nicht“, die Leiste zeigt „A ×“.
     await page.clock.setFixedTime(new Date('2026-10-14T08:30:00+02:00'));
