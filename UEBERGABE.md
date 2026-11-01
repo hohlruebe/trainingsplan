@@ -8,6 +8,15 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Woche in den Kalender per Knopf (1. November 2026, Claude)
+- Dennis: „Kann man nicht einfach einen Knopf einbauen, mit dem die nächste Woche zum Kalender hinzugefügt wird? Dann können wir uns den Aufwand sparen
+  und zur Version wie davor zurückkehren.“ (Sein Google-Konto hatte keinen Kalender „Trainingsplan“, die Brücke war nie auf Version 3.)
+- Umgesetzt: siehe CLAUDE.md „Trainings in den Kalender“. Das automatische Eintragen ist aus. Knopf in Plan › Deine Woche (Woche blättern, dann
+  „In den Kalender“) und in den Arbeitszeiten; je Training ein Google-Kalender-Link (die Android-App öffnet .ics nicht, darum kein Sammel-Import),
+  „eingetragen“ wird gemerkt, verschobene Trainings zeigen „neu eintragen“. Erinnerung kommt aus den Standard-Erinnerungen des Google Kalenders.
+- Geprüft: `dreitage-browser` (nichts wird geschickt, alte Einträge einmal herausgenommen, Blatt mit Link und „eingetragen“), `dreitage`, `ausfaelle`, `stabilisierung`.
+- Offen: Dennis testet am Handy, ob „Eintragen“ die Google-Kalender-App bzw. -Seite mit dem fertigen Termin öffnet.
+
 ## Bibliothek mit Mobility (1. November 2026, Claude)
 - Dennis: „integriere die Mobility-Übungen auch dort und nimm als Familie Mobility mit einer Listenansicht nach Körperteil sortiert, nenne das Ganze einfach Bibliothek“.
 - Tools › Übungen heißt jetzt Bibliothek (Titel, Seitenleiste, Titel-Drop-down, Texte). Neue Familie „Mobility“ (`mobItemHTML`, `renderMob`, `MOB_PART`) mit allen

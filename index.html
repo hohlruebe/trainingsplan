@@ -927,6 +927,7 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .vrow+.vrow{border-top:1px solid var(--line)}
 .vrow .gl-t{flex:1}
 .vrow.calc{cursor:default;padding-right:30px}
+.vrow.cal-row{padding-right:0}.cal-row>.btn{flex:none;min-width:96px;justify-content:center;text-decoration:none}
 .vr-v{font-family:var(--hand);font-weight:var(--hand-w);font-size:20px;color:var(--acc);white-space:nowrap}
 .vr-v.est{color:var(--ink2)}
 .vr-v .unit{font-family:var(--text);font-size:14px;font-weight:500;color:var(--ink2);margin-left:2px}
@@ -3847,7 +3848,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null, figCam: null };
+  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null, figCam: null, calAdd: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -6695,9 +6696,10 @@ function kalSync(force) {
     return true;
   }, function (e) { KAL.err = e.message; LS.set('tp.kal', KAL); if (force) render(); return false; }).then(function (r) { kalRun = false; return r; });
 }
-// Trainings in den Google Kalender (Brücke ab Version 3): der Coach hält den eigenen Kalender „Trainingsplan“ auf dem Stand seines Plans
-// (diese und nächste Woche, nur künftige Trainings). Geschickt wird nur, wenn sich etwas geändert hat (oder nach 6 Stunden). Aus = einmal leer schicken.
-function kalPushOn() { return kalOn() && (KAL.v || 0) >= 3 && KAL.push !== false; }
+// Trainings in den Google Kalender über die Brücke (Version 3) ist zurückgenommen (Dennis, 1. November: „einfach einen Knopf, mit dem die nächste
+// Woche zum Kalender hinzugefügt wird“, siehe `ACT['wk-cal']`). Hat die Brücke schon eingetragen, schickt die App einmal eine leere Liste,
+// damit im Kalender „Trainingsplan“ keine alten Termine stehen bleiben (`kalPushSoon`).
+function kalPushOn() { return false; }
 // Ohne laufende Planung (Rückblick am Blockende, noch nicht gestartet) null: dann bleibt der Kalender, wie er ist.
 function kalPlanEvents() {
   if (!v2() || !planOn()) return null;
@@ -6707,7 +6709,9 @@ function kalPlanEvents() {
   }).filter(function (x) { return x.a > now + 6e4; });
 }
 var kalPushT = null, kalPushRun = false;
-function kalPushSoon() { if (!kalOn() || !(kalPushOn() || KAL.pushOff)) return; clearTimeout(kalPushT); kalPushT = setTimeout(function () { kalPush(); }, 4000); }
+function kalPushSoon() {
+  if (kalOn() && (KAL.v || 0) >= 3 && KAL.pushN && !KAL.pushOff) { KAL.pushOff = true; LS.set('tp.kal', KAL); }
+  if (!kalOn() || !(kalPushOn() || KAL.pushOff)) return; clearTimeout(kalPushT); kalPushT = setTimeout(function () { kalPush(); }, 4000); }
 function kalPush(force) {
   if (!kalOn() || kalPushRun || navigator.onLine === false) return Promise.resolve(false);
   var off = !kalPushOn(); if (off && !KAL.pushOff) return Promise.resolve(false);
@@ -7361,7 +7365,7 @@ function wkCardHTML(P, head) {
     h += '<div class="wk-r' + (d.i === P.today ? ' now' : '') + '"><b>' + WTAG[d.i].slice(0, 2) + '</b>' + tlBarHTML(P.T, d.i, d.tag && !d.done ? d : null) + '<div class="wk-lab">' + dayNote(d, P.today) + '</div></div>';
   });
   h += WK_LEG + planDropNote(P);
-  if (head !== false) h += '<div class="bgrp" style="margin-top:12px"><button type="button" data-act="wk-ics">Kalender</button><button type="button" data-act="wk-open" data-from="heute">Arbeitszeiten</button></div>';
+  if (head !== false) h += '<div class="bgrp" style="margin-top:12px"><button type="button" data-act="wk-cal" data-v="' + P.mon + '">In den Kalender</button><button type="button" data-act="wk-open" data-from="heute">Arbeitszeiten</button></div>';
   return h + '</section>';
 }
 function wkRange(mon) { var a = parseISO(mon), b = parseISO(isoAdd(mon, 6)); return a.getDate() + '.' + (a.getMonth() !== b.getMonth() ? ' ' + MONATE[a.getMonth()].slice(0, 3) : '') + '–' + b.getDate() + '. ' + MONATE[b.getMonth()].slice(0, 3); }
@@ -7506,7 +7510,7 @@ function renderWoche() {
   if (A.on || v2()) {
     var P = nextW ? wkPlan(mon) : wkPlanC();
     h += wkCardHTML(P, false).replace('<section class="card wk24">', '<section class="card wk24"><div class="card-head"><h2>So plant dein Coach</h2><span class="chip">' + esc(wkRange(mon)) + '</span></div>');
-    if (!kalPushOn()) h += '<div class="bgrp" style="margin:0 0 16px"><button type="button" data-act="wk-ics"' + (nextW ? ' data-v="1"' : '') + '>Alle in den Kalender</button></div>';
+    h += '<div class="bgrp" style="margin:0 0 16px"><button type="button" data-act="wk-cal" data-v="' + mon + '">Woche in den Kalender</button></div>';
   }
   // Plan 2 plant immer in Kalenderwochen, darum gibt es dort kein An und Aus.
   if (v2()) return h;
@@ -7529,10 +7533,6 @@ function kalCardHTML() {
         esc((c.p ? 'Hauptkalender' : c.e ? 'Eigener Kalender' : 'Geteilt') + ' · ' + (X.w || X.b ? [X.w ? n(X.w, 'Dienst', 'Dienste') : '', X.b ? n(X.b, 'Termin', 'Termine') : ''].filter(Boolean).join(', ') : 'nichts geplant')) +
         '</small></span><input type="checkbox" data-change="kal-cal" data-id="' + esc(c.id) + '"' + (on ? ' checked' : '') + ' aria-label="' + esc(c.n) + ' zählt"></label>';
     }).join('') + '</div><p class="small muted" style="margin:6px 2px 0">Dienste mit „DD“ werden dein Schichtplan, alle anderen Termine sind belegt, Schlaf erkennt dein Coach an der Uhrzeit. Ausgeschaltete Kalender zählen nicht.</p>' : '') +
-    ((KAL.v || 0) >= 3 ? '<p class="ob-lab" style="margin:14px 2px 2px">Deine Trainings</p><div class="orte-list"><label class="check orte-row"><span class="orte-ic"><i class="kal-dot" style="background:#2952A3"></i></span><span class="orte-t"><b>In den Kalender eintragen</b><small>' +
-        esc(KAL.push === false ? 'Aus · Kalender „Trainingsplan“' : KAL.pushTs ? 'Kalender „Trainingsplan“ · ' + n(KAL.pushN || 0, 'Training', 'Trainings') + ' eingetragen' : 'Kalender „Trainingsplan“ · 30 Min vorher Erinnerung') +
-        '</small></span><input type="checkbox" data-change="kal-push"' + (KAL.push !== false ? ' checked' : '') + ' aria-label="Trainings in den Kalender eintragen"></label></div>' + (KAL.pushErr && KAL.push !== false ? '<p class="tl-x">' + esc(KAL.pushErr) + '</p>' : '')
-      : '<p class="ob-lab" style="margin:14px 2px 2px">Deine Trainings</p><p class="small muted" style="margin:2px 2px 8px">Damit dein Coach deine Trainings selbst in den Google Kalender einträgt, braucht die Brücke den neuen Code. Das dauert 2 Minuten, der Link bleibt gleich.</p><button type="button" class="btn block" data-act="kal-upd">So aktualisierst du die Brücke</button>') +
     (KAL.err ? '<p class="tl-x">' + esc(KAL.err) + '</p>' : '') +
     '<div class="bgrp" style="margin-top:12px"><button type="button" data-act="kal-sync">Jetzt abgleichen</button><button type="button" class="red" data-act="kal-off">Trennen</button></div></section>';
 }
@@ -7540,23 +7540,10 @@ function kalCardHTML() {
 function renderKalender() {
   var code = '<div class="bgrp"><button type="button" data-act="kal-copy">Code kopieren</button><button type="button" data-act="kal-code">' + (ui.kalCode ? 'Code ausblenden' : 'Code ansehen') + '</button></div>' +
     (ui.kalCode ? '<pre class="kal-code">' + esc(KAL_GS) + '</pre>' : '');
-  if (ui.kalUpd && kalOn()) {
-    var up = [
-      { title: 'Projekt öffnen', desc: 'Öffne auf script.google.com dein Projekt „Trainingsplan Kalender“. Am einfachsten am Computer.' },
-      { title: 'Neuen Code einfügen', desc: 'Alles im Editor löschen, den neuen Code einfügen und speichern (Strg + S).' },
-      { title: 'Einmal „einrichten“ ausführen', desc: 'Oben in der Leiste die Funktion „einrichten“ wählen und auf „Ausführen“ klicken. Den Zugriff erlauben („Erweitert“ › „Weiter zu …“). Das legt deinen Kalender „Trainingsplan“ an.' },
-      { title: 'Neue Version bereitstellen', desc: '„Bereitstellen“ › „Bereitstellungen verwalten“ › Stift › bei „Version“ „Neue Version“ wählen › „Bereitstellen“. Der Link bleibt gleich.' },
-      { title: 'Abgleichen', desc: 'Zurück in der App auf „Jetzt abgleichen“ tippen. Dann trägt dein Coach deine Trainings ein.' }];
-    return '<button type="button" class="rbtn back" data-act="tab" data-tab="woche" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Brücke aktualisieren</h1><p class="hero-title">Damit deine Trainings im Google Kalender stehen</p></section>' +
-      '<section class="card"><div class="card-head"><h2>So geht’s</h2><span class="chip">ca. 2 Min</span></div>' + tlHTML(up) +
-      '<a class="btn block kal-go" href="https://script.google.com/home" target="_blank" rel="noopener">script.google.com öffnen</a>' + code + '</section>' +
-      '<button type="button" class="btn primary block" data-act="kal-sync" data-back="1">Jetzt abgleichen</button>';
-  }
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="woche" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Google Kalender</h1><p class="hero-title">Einmal einrichten, dann läuft es von selbst</p></section>';
   h += '<section class="card"><div class="card-head"><h2>Was dein Coach liest</h2></div><div class="pl-why">' +
     ['Dienste mit „DD“ am Anfang (DD Früh, DD Spät, DD Nacht) mit Uhrzeit. Sie werden dein Schichtplan.', 'Alle anderen Termine mit Uhrzeit, egal wie sie heißen, nur als belegt von–bis, ohne Titel. Trainings, die die App in deinen Kalender gelegt hat, zählen nicht.', 'Schlaf, den du einträgst, erkennt dein Coach an der Uhrzeit (über Nacht oder nach dem Nachtdienst). Dann plant er mit deinem Schlaf statt mit einer Annahme.', 'Ganztägige Termine, Feiertage und Geburtstage zählen nicht.',
-      'Danach siehst du jeden Kalender einzeln und schaltest ihn an oder aus. Geteilte Kalender ohne Dienste sind zuerst aus.', 'Die nächsten drei Wochen. Ohne Netz gilt der letzte Stand.',
-      'Deine geplanten Trainings trägt dein Coach in einen eigenen Kalender „Trainingsplan“ ein, mit Erinnerung 30 Min vorher. Abschalten kannst du das jederzeit.']
+      'Danach siehst du jeden Kalender einzeln und schaltest ihn an oder aus. Geteilte Kalender ohne Dienste sind zuerst aus.', 'Die nächsten drei Wochen. Ohne Netz gilt der letzte Stand.']
       .map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div></section>';
   var steps = [
     { title: 'Neues Skript anlegen', desc: 'Öffne script.new und melde dich mit deinem Google-Konto an. Am einfachsten am Computer.' },
@@ -7593,7 +7580,8 @@ function icsText(ev) {
       'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + esc2(e.title), 'TRIGGER:-PT30M', 'END:VALARM', 'END:VEVENT']);
   }, [])).concat(['END:VCALENDAR']).join('\r\n');
 }
-function gcalLink(e) { return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.title) + '&dates=' + icsStamp(e.date, e.a) + '/' + icsStamp(e.date, e.b) + '&details=' + encodeURIComponent(e.desc || ''); }
+function gcalLink(e) { return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.title) + '&dates=' + icsStamp(e.date, e.a) + '/' + icsStamp(e.date, e.b) + '&details=' + encodeURIComponent(e.desc || '') + (calTz() ? '&ctz=' + encodeURIComponent(calTz()) : ''); }
+function calTz() { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { return ''; } }
 // Zeit-Rad Stunde/Minute (Viertelstunden).
 function openHourSheet(title, h, done) {
   var mins = [0, 15, 30, 45], hh = Math.floor(h), mm = mins.reduce(function (a, m) { return Math.abs(m - (h - hh) * 60) < Math.abs(a - (h - hh) * 60) ? m : a; }, 0);
@@ -8985,7 +8973,7 @@ function planWeekV2HTML() {
   } else h += (c.past && missDayHTML(c.date)) || '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
   h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';
-  return h + '<div class="bgrp" style="margin-top:12px">' + (kalPushOn() ? '' : '<button type="button" data-act="wk-ics">Kalender</button>') + '<button type="button" data-act="wk-open" data-from="plan">Arbeitszeiten</button></div></section>' + bodyWeekHTML(mon) + (mon === cm ? zusatzCardHTML('plan') : '');
+  return h + '<div class="bgrp" style="margin-top:12px">' + (mon >= cm ? '<button type="button" data-act="wk-cal" data-v="' + mon + '">In den Kalender</button>' : '') + '<button type="button" data-act="wk-open" data-from="plan">Arbeitszeiten</button></div></section>' + bodyWeekHTML(mon) + (mon === cm ? zusatzCardHTML('plan') : '');
 }
 function weekCardHTML(tag) {
   if (v2() && planOn()) return '';
@@ -10658,7 +10646,6 @@ ACT['wk-wk'] = function (el) { ui.wkNext = !!el.dataset.v; render(); };
 ACT['wk-next'] = function () { ui.wkNext = true; ui.tab = 'woche'; window.scrollTo(0, 0); render(); };
 // Google Kalender: Seite öffnen, Code kopieren oder ansehen, verbinden, abgleichen, trennen.
 ACT['kal-open'] = function () { ui.kalErr = ''; ui.kalUrl = ''; ui.kalCode = false; ui.kalUpd = false; ui.tab = 'kalender'; window.scrollTo(0, 0); render(); };
-ACT['kal-upd'] = function () { ui.kalCode = false; ui.kalUpd = true; ui.tab = 'kalender'; window.scrollTo(0, 0); render(); };
 ACT['kal-code'] = function () { ui.kalCode = !ui.kalCode; render(); };
 ACT['kal-copy'] = function () {
   var done = function () { toast('Code kopiert. Jetzt im Skript einfügen.'); };
@@ -10849,6 +10836,41 @@ ACT['day-ics'] = function () {
   openChoice('In den Kalender', 'Mit Erinnerung 30 Minuten vorher.', [['g', 'Google Kalender', 'primary'], ['f', 'Kalenderdatei (.ics)', '']], function (v) {
     if (v === 'g') window.open(gcalLink(e), '_blank');
     else if (v === 'f') shareFile(icsText([e]), 'training-' + e.date + '.ics', 'text/calendar');
+  });
+};
+// Woche in den Kalender (Dennis, 1. November): je Training „Eintragen“, das öffnet den Termin fertig ausgefüllt im Google Kalender (dort „Speichern“).
+// Gemerkt wird nur auf dem Gerät (`S.calAdd {uid: Zeit|Titel}`): eingetragen, oder die Zeit hat sich seitdem geändert. Für andere Kalender eine .ics-Datei.
+function calWeekEv(mon) {
+  var P = mon === wkMon() ? wkPlanC() : wkPlan(mon), now = Date.now();
+  return icsEvents(P).filter(function (e) { var d = parseISO(e.date); d.setMinutes(Math.round(e.b * 60)); return d.getTime() > now; });
+}
+function calKey(e) { return e.a + '|' + e.b + '|' + e.title; }
+function calRowHTML(e) {
+  var was = (S.calAdd || {})[e.uid], st = !was ? '' : was === calKey(e) ? 'ok' : 'chg';
+  return '<div class="vrow calc cal-row" data-u="' + esc(e.uid) + '"><span class="gl-t"><b>' + esc(e.title.replace(/^Training: /, '')) + '</b><small>' + esc(fmtDate(e.date) + ', ' + hm(e.a) + '–' + hm(e.b) + ' Uhr') +
+    (st === 'ok' ? '<br>✓ eingetragen' : st === 'chg' ? '<br>Zeit geändert, neu eintragen' : '') + '</small></span>' +
+    '<a class="btn small" href="' + esc(gcalLink(e)) + '" target="_blank" rel="noopener" data-u="' + esc(e.uid) + '">' + (st === 'ok' ? 'Nochmal' : 'Eintragen') + '</a></div>';
+}
+ACT['wk-cal'] = function (el) {
+  var mon = (el && el.dataset.v) || wkMon(), ev = calWeekEv(mon);
+  if (!ev.length) { toast(mon === wkMon() ? 'Diese Woche ist kein Training mehr offen.' : 'In dieser Woche ist kein Training geplant.'); return; }
+  var body = '<p class="small muted" style="margin:0 2px 10px">' + esc(wkRange(mon)) + ' · Tippe je Training auf „Eintragen“. Google Kalender öffnet den Termin, dort auf „Speichern“.</p>' +
+    '<div class="vrows cal-rows">' + ev.map(calRowHTML).join('') + '</div>' +
+    '<p class="small muted" style="margin:10px 2px 0">Verschiebt dein Coach ein Training, steht es hier als „neu eintragen“. Den alten Termin löschst du im Kalender selbst.</p>' +
+    '<div class="bgrp" style="margin-top:14px"><button type="button" data-cal-ics="1">Als Datei (.ics)</button></div><p class="small muted" style="margin:6px 2px 0">Für Apple-, Outlook- und andere Kalender, mit Erinnerung 30 Min vorher.</p>';
+  openForm('In den Kalender', body, 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
+  var bg = document.getElementById('sheet'); if (!bg) return;
+  bg.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-u]');
+    if (a) {
+      var x = ev.filter(function (y) { return y.uid === a.dataset.u; })[0]; if (!x) return;
+      var A = S.calAdd || {}, lim = isoAdd(isoToday(), -14);
+      Object.keys(A).forEach(function (k) { var m = /^tp-(\d{4}-\d\d-\d\d)/.exec(k); if (m && m[1] < lim) delete A[k]; });
+      A[x.uid] = calKey(x); S.calAdd = A; saveState();
+      setTimeout(function () { var r = bg.querySelector('.cal-row[data-u="' + x.uid + '"]'); if (r) r.outerHTML = calRowHTML(x); }, 400);
+      return;
+    }
+    if (e.target.closest('[data-cal-ics]')) shareFile(icsText(ev), 'trainings-' + mon + '.ics', 'text/calendar');
   });
 };
 ACT['wk-ics'] = function (el) {
@@ -12161,13 +12183,6 @@ ACT['ort-edit'] = function (el) {
   bg.addEventListener('click', function (e) { if (e.target.closest('[data-seg]')) setTimeout(prev, 0); });
 };
 // Google Kalender: ein Kalender zählt oder nicht (nur auf dem Gerät), der Coach plant sofort neu.
-// Trainings eintragen an/aus. Aus nimmt die künftigen Trainings wieder aus dem Kalender „Trainingsplan“.
-CHG['kal-push'] = function (el) {
-  if (!kalOn()) return;
-  KAL.push = !!el.checked; KAL.pushOff = !el.checked; KAL.pushKey = ''; KAL.pushErr = ''; LS.set('tp.kal', KAL);
-  kalPush(true).then(function (ok) { if (ok) toast(el.checked ? 'Deine Trainings stehen jetzt im Kalender „Trainingsplan“.' : 'Trainings aus dem Kalender genommen.'); });
-  setTimeout(render, 260);
-};
 CHG['kal-cal'] = function (el) {
   if (!kalOn()) return;
   KAL.sel = Object.assign({}, KAL.sel); KAL.sel[el.dataset.id] = !!el.checked; LS.set('tp.kal', KAL); WKP_C.k = null;
