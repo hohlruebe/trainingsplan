@@ -8,6 +8,50 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Grafiken Runde 5 (1. November 2026, Claude)
+- Platz 42–61 aus `REIHENFOLGE.md`: Dead Hang, Wall Biceps Stretch, Overhead Triceps Stretch, Wrist Flexion Stretch, Bench Dip, Body Saw, Band Row, AbMat Sit-up,
+  Russian Twist, Wall Ball Shot, Shuttle Run, Push Press, Stair Climb, Bike Erg, Row, Band Lat Pulldown, Box Jump, Lateral Band Walk, Clamshell, Copenhagen Plank.
+  Board: https://claude.ai/artifact/7LwtySa61xCfyN5xsNazsu (deckend, drehbar). Neu in der Vorlage: Ball (`type: 'ball'`, immer rund), `bar`, `box`, `runPose`/`blendJ`.
+  Treppe läuft mit (Figur bleibt im Bild), Shuttle Run dreht an der Linie um. `pruefen.js`: Kontakte halten. **Offen: Freigabe**, dann Kopie nach `index.html`.
+- Dennis' Rückmeldung (Fassung 2): Wall Biceps Wand seitlich, Hand flach daran; Trizeps: andere Hand drückt den Ellbogen nach unten; Bench Dip tiefer (Oberarm
+  waagerecht); AbMat gezeichnet; Wall Ball eine flüssige Bewegung (Fangen im Absenken); Shuttle Run Fingerspitzen am Boden (hinteres Bein über `legVia`);
+  Stair Climb mit Becken, Oberkörper, gebeugten Armen und Drehung; Bike Erg ganzes Rad und tritt vorwärts; Box Jump Plyo-Box 61 × 51 × 76 cm (`plyoBox`,
+  Figur ≈ 2 px/cm); Copenhagen unteres Bein frei unter der Bank. Body Saw und Band Lat Pulldown (Kniestand laut Anleitung) unverändert, nur erklärt.
+- Fassung 3 (Dennis): Trizeps Ellbogen hinter dem Kopf, Stützhand über den Kopf darauf (Ansicht von hinten); Bench Dip mit Flachbank (`flatBench`);
+  AbMat rund in echter Größe, Rücken im Bogen (`_bend`); Shuttle Run Hand zur Kamera vor dem Bein; Bike Erg und Row Erg ausgestaltet (`ergBike`, `ergRow`);
+  Box Jump Absprung vor der Box, rückwärts herunter, Ende = Anfang. Russian Twist bleibt ohne Gewicht (Hände vor der Brust, laut Anleitung).
+  **Neue Regel für alle Animationen: endlose Schleife** (`pruefen.js` meldet Sprünge). Dabei repariert: Nordic Curl (war 1,1 Zyklen lang), Skater Jump,
+  Thread the Needle, Lateral Band Walk, Treppe (läuft jetzt wie ein Laufband), Inchworm (Bild läuft mit, Striche am Boden).
+- Fassung 4 (Dennis): Thruster (Runde 4, Platz 22) als flüssige Bewegung ohne Halt (zwei weiche Kurven statt Schlüsselbilder); Trizeps Handfläche wirklich
+  auf dem Ellbogen (`reArm` auf `J.ela`); Bank und Box beim Drehen nicht durchsichtig (nur die Oberseite liegt immer unten, Seiten nach Tiefe);
+  AbMat ganze Wiederholung (Schultern am Boden, `AL` −94°); Treppe: Stufen wachsen an festen Grenzen herein (`clipLine`), Arme ruhiger.
+  Geräte ruhig gezeichnet: `S(…, so)` mit festem Startwert je Gerät (kein Wechsel der Nebenstriche von Bild zu Bild) und eigener Breite `o.w`
+  (Nebenstriche 0,6 davon); Linien von Bike Erg, Row Erg, Bank und Box etwa halb so breit.
+
+## Grafiken Runde 4 (1. November 2026, Claude)
+- Dennis: „fang an, alle Grafiken zu bauen, die noch fehlen“. Stand: 115 Grafiken in `design/maskottchen/maskottchen.js` für 415 Übungen. Es fehlen also noch 302.
+  Davon warten 21 Kettlebell-Grafiken weiter auf Freigabe; bis dahin hat `index.html` 94 Grafiken.
+- Runde 4 = Platz 21–41 aus `REIHENFOLGE.md` (Cossack, Thruster, Cat-Cow, Shoulder/Hip CARs, 90/90, Half Split, Wrist Rocks, Cobra, Inchworm, Sleeper, Lizard,
+  Butterfly, Pancake, Glute Bridge Hold, Band/Dumbbell Press, Run, Strict Press, Hip Flexor Stretch). Board: https://claude.ai/artifact/QdT7dqH3WtRRqQQKrEA4r2
+  `pruefen.js` misst Gelenke und Kontakte, alle halten. **Offen: Freigabe von Dennis**, danach Kopie nach `index.html` (zusammen mit der Kettlebell-Runde).
+- Unsicher: Sleeper Stretch und Pancake sind klein bzw. schwer zu lesen (liegende bzw. gegrätschte Figur), Hip CARs von schräg vorn.
+- Dennis' Rückmeldung (Fassung 2): Cat-Cow Rücken oben und unten runder (neu in der Vorlage: `J._bend` mit eigener Achse für Brustkorb und Becken und
+  verschobenem Brustkorb, nur wenn gesetzt), Shoulder CARs mit dem Arm zum Bildschirm, 90/90 mit festen Füßen (Knie wie Scheibenwischer), Half Split ohne
+  springendes Bein (Fuß fest, Bein streckt sich mit der Hüfte), ein Band unter beiden Füßen (`poly` kann jetzt `w`), Butterfly von vorn, Dumbbell Press
+  Ellbogen leicht vor dem Körper, Run lockerer. Lizard: hinteres Knie bleibt am Boden, angewinkelt (laut Anleitung).
+- Fassung 3: Cobra oben mit ganz gestreckten Armen (Hände dort, wo der gestreckte Arm den Boden erreicht), Cat-Cow Bogen über die Brustkorb-Mitte
+  (die orange Linie geht mit), Butterfly mit Händen an den Füßen und Ellbogen auf den Knien, Run mit pendelnden Armen (vorn enger, hinten offener) und
+  federndem Knie. Dumbbell Press: Ellbogen etwa 30° vor dem Körper (Schulterblatt-Ebene), so bleibt es.
+- Fassung 4: Cobra im Bogen (`_bend`: Becken flach, Brustkorb steiler), Butterfly deckend (neu: `solid: true` in `EXERCISES`, `figure` zeichnet dann Rumpf,
+  Kopf und jedes Glied nach Tiefe und füllt sie mit der Fläche; ohne `solid` bleibt alles wie bisher). Offen: deckend für alle Grafiken?
+- Fassung 5: deckend ist jetzt Standard für alle Grafiken (`solid` aus nur mit `solid: false`), auch Geräte nach Tiefe (vorderes Ring-Seil vor dem Körper),
+  Schulterpartie verbindet Schultern und Brustkorb (Lücke weg, Dennis). Vergleich aller Grafiken: https://claude.ai/artifact/4LE5pmYn8umzP24nPZRxU8
+  Noch nicht in `index.html` (wartet mit Runde 4 und Kettlebell auf Freigabe).
+- Drehen in der App eingebaut (CLAUDE.md „Figur drehen“), mit der bisherigen Grafik-Kopie in `index.html`.
+- Dennis' Idee: Grafik in der App um 360° drehen, im (i) und im Training, das Training merkt sich die letzte Ansicht. Im Board zum Ausprobieren
+  (ziehen = drehen, senkrecht = von oben, doppeltippen = zurück). Offen: Freigabe der Bedienung, dann Einbau in der App.
+- Nächste Runde 5: Platz 41–60 aus `REIHENFOLGE.md` (Dehnungen Cool-down, Bench Dip, Body Saw, Band Row, Sit-up, Russian Twist, Wall Ball, Push Press …).
+
 ## Rückmeldung aus dem Training (1. November 2026, Claude)
 - Erledigt: (i) = Übung der Stufe, Bandstufe in Bandfarbe auch in der Liste (nicht mehr abgeschnitten), Seiten-Zeile bei einseitigen Übungen,
   Ringhöhe an jeder Ring-Übung, Stufen-Rad (schwerer oben, heute Mitte, leichter unten).

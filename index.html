@@ -574,6 +574,10 @@ body.focus .tbar{bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 8px)}
 .lad-best{display:inline-flex;align-items:center;gap:4px;flex:none;min-height:22px;padding:2px 8px;border-radius:999px;background:#FFF4D6;color:#8A6A12;font-size:14px;font-weight:600;white-space:nowrap}
 .lad-best.only{width:22px;height:22px;min-height:0;padding:0;justify-content:center;margin-left:-4px}
 .fig{height:200px;margin:6px 0 10px;border-radius:18px;background:var(--fig);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 6%,transparent);overflow:hidden}
+/* Figur drehen (Dennis, 1. November): im (i) und im Trainer mit dem Finger rundum ziehen */
+#sheet .fig[data-fig]:not([data-fig="_wave"]),#fs .fig[data-fig]:not([data-fig="_wave"]){position:relative;touch-action:none;cursor:grab}
+#sheet .fig[data-fig]:not([data-fig="_wave"])::after,#fs .fig[data-fig]:not([data-fig="_wave"])::after{content:attr(data-rot);position:absolute;right:8px;bottom:6px;font-size:14px;line-height:1;color:var(--ink2);pointer-events:none}
+.fig.drag{cursor:grabbing}
 .fig svg{display:block}
 .ex-fig .fig{margin:10px 0 6px}
 .grip{margin:0 0 8px;font-size:14px;color:var(--ink2)}
@@ -2816,7 +2820,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null };
+  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null, figCam: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -4439,10 +4443,19 @@ document.addEventListener('animationend', function (e) { if (e.animationName ===
 // Griff, wo sich Übungen sonst kaum unterscheiden.
 var GRIP = { g_pullup: 'Obergriff · Handflächen von dir weg', g_chinup: 'Untergriff · Handflächen zu dir' };
 function figOf(key) { return window.Maskottchen && Maskottchen.EXERCISES[key] ? Maskottchen.EXERCISES[key] : null; }
-function figHTML(key) { return figOf(key) ? '<div class="fig" data-fig="' + esc(key) + '"></div>' : ''; }
+function figHTML(key) { return figOf(key) ? '<div class="fig" data-fig="' + esc(key) + '" data-rot="⟲ 360°"></div>' : ''; }
+// Gemerkte Ansicht je Übung (Dennis, 1. November): im (i) oder im Trainer gedreht, gilt danach überall für diese Übung. Nur auf dem Gerät (S.figCam).
+var FIGV = {};
+function figEx(key) {
+  var ex = figOf(key), c = ex && S.figCam && S.figCam[key]; if (!c) return ex;
+  var k = Math.round(c.yaw) + '|' + Math.round(c.tilt || 0);
+  if (!FIGV[key] || FIGV[key].k !== k) FIGV[key] = { k: k, ex: figVar(ex, c) };
+  return FIGV[key].ex;
+}
+function figVar(ex, c) { return Object.assign({}, ex, { yaw: c.yaw, tilt: c.tilt || undefined, mat: c.tilt ? ex.mat || [-160, 160, -230, 230] : ex.mat, _F: null }); }
 function startFig(el) {
   if (!el || el._stop) return;
-  var ex = figOf(el.dataset.fig); if (!ex) return;
+  var ex = figEx(el.dataset.fig); if (!ex) return;
   el._pal = isDark() ? 'dark' : null;
   el._stop = Maskottchen.play(el, ex, el._pal);
 }
@@ -4454,6 +4467,44 @@ function refreshFigs() {
 // Training: Figuren im Ablauf, im Handstand und im Test gleich starten (EMOM-Karten steuert syncFig).
 function wakeFigs() { document.querySelectorAll('#view .fig').forEach(function (f) { if (!f.closest('[hidden]') && !f.closest('.ex-fig')) startFig(f); }); }
 function stopFig(el) { if (el && el._stop) { el._stop(); el._stop = null; el.innerHTML = ''; } }
+// Ziehen dreht die Figur: waagerecht rundum, senkrecht von oben (bis 70°). Während des Ziehens läuft die Bewegung weiter, gezeichnet wird Bild für Bild;
+// beim Loslassen merkt sich die App die Ansicht. Doppeltippen = Ausgangsansicht.
+var FIGD = null;
+function figTarget(e) { var el = e.target.closest && e.target.closest('#sheet .fig[data-fig], #fs .fig[data-fig]'); return el && el.dataset.fig !== '_wave' && figOf(el.dataset.fig) ? el : null; }
+function figDeg(c) { var y = Math.round(((c.yaw % 360) + 360) % 360); return y + '°' + (c.tilt >= 1 ? ' · ' + Math.round(c.tilt) + '° oben' : ''); }
+document.addEventListener('pointerdown', function (e) {
+  var el = figTarget(e); if (!el) return;
+  var ex = figEx(el.dataset.fig); FIGD = { el: el, key: el.dataset.fig, x: e.clientX, y: e.clientY, c0: { yaw: ex.yaw, tilt: ex.tilt || 0 }, moved: false, id: e.pointerId };
+}, true);
+document.addEventListener('pointermove', function (e) {
+  var D = FIGD; if (!D || e.pointerId !== D.id) return;
+  var dx = e.clientX - D.x, dy = e.clientY - D.y;
+  if (!D.moved) { if (Math.hypot(dx, dy) < 6) return; D.moved = true; try { D.el.setPointerCapture(e.pointerId); } catch (x) {} if (D.el._stop) { D.el._stop(); D.el._stop = null; } D.el.classList.add('drag'); }
+  e.preventDefault();
+  D.c = { yaw: D.c0.yaw + dx * .9, tilt: Math.max(0, Math.min(70, D.c0.tilt + dy * .4)) };
+  var base = figOf(D.key), ex = figVar(base, D.c), pal = isDark() ? Maskottchen.PALETTES.dark : null, n = Math.round(ex.dur * Maskottchen.STYLE.fps), exts = [], k;
+  var o = { floor: ex.floor, pal: pal, tilt: ex.tilt, mat: ex.mat }, fi = Math.floor(((performance.now() / 1000) % ex.dur) / ex.dur * n);
+  for (k = 0; k < n; k += Math.max(1, Math.floor(n / 8))) exts.push(Maskottchen.figure(ex.pose(k / n), ex.yaw, k, o).ext);
+  var r = Maskottchen.figure(ex.pose(fi / n), ex.yaw, fi, o); exts.push(r.ext);
+  D.el.innerHTML = '<svg viewBox="' + Maskottchen.fitBox(exts, ex.tilt ? false : ex.floor).join(' ') + '" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + esc(base.name || '') + '">' + r.svg + '</svg>';
+  D.el.dataset.rot = figDeg(D.c);
+}, { passive: false });
+function figUp(e) {
+  var D = FIGD; if (!D || e.pointerId !== D.id) return; FIGD = null;
+  if (!D.moved) return;
+  D.el.classList.remove('drag');
+  S.figCam = Object.assign({}, S.figCam); S.figCam[D.key] = { yaw: Math.round(((D.c.yaw % 360) + 360) % 360), tilt: Math.round(D.c.tilt) }; saveState();
+  D.el.innerHTML = ''; startFig(D.el); haptic('tap');
+  document.addEventListener('click', function sw(ev) { ev.stopPropagation(); ev.preventDefault(); document.removeEventListener('click', sw, true); }, true); // kein Antippen nach dem Ziehen
+  setTimeout(function () { D.el.dataset.rot = '⟲ 360°'; }, 1600);
+}
+document.addEventListener('pointerup', figUp, true);
+document.addEventListener('pointercancel', figUp, true);
+document.addEventListener('dblclick', function (e) {
+  var el = figTarget(e); if (!el || !S.figCam || !S.figCam[el.dataset.fig]) return;
+  S.figCam = Object.assign({}, S.figCam); delete S.figCam[el.dataset.fig]; saveState();
+  stopFig(el); startFig(el); toast('Wieder die Ausgangsansicht.');
+});
 // Bibliothek: Figur und Leiter erst, wenn eine Übung aufgeklappt ist.
 function wakeGloss() {
   document.querySelectorAll('details.gl-item').forEach(function (d) {
@@ -7470,7 +7521,7 @@ function figBox(key) {
   return '<div class="figph">' + figHTML('_wave') + '<p><b>Grafik folgt</b><span>Für diese Übung zeichne ich noch. Bis dahin hilft die Beschreibung.</span></p></div>';
 }
 function miniFig(key) {
-  var ex = figOf(key) || figOf('_wave'); if (!ex) return '';
+  var ex = figEx(key) || figOf('_wave'); if (!ex) return '';
   var pal = isDark() ? 'dark' : null, C = ex._F || (ex._F = {}), F = C[pal || 'light'] || (C[pal || 'light'] = Maskottchen.frames(ex, pal));
   return '<svg class="mini-fig" viewBox="' + F.box.join(' ') + '" aria-hidden="true">' + F.frames[0] + '</svg>';
 }

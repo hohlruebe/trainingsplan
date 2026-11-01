@@ -796,6 +796,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Werte `s:<Stufe>` / `u:<id>`); getauscht steht das Rad auf dem Ersatz, eine Stufe wählen nimmt den Tausch zurück. Stufen nach Wissensstand (`stgKnow`, `STG_SPAN`, `STG_NOTE`):
   neu (nie gemacht oder geschätzt) alle Stufen am Ort, mittel (1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg, über 14 Tage her) ±2, sicher (ab 3 Einheiten, letzte in 14 Tagen) ±1.
   Andere Übungen (`repCands`): alle am Ort und freigeschaltet (`reqOk` mit `repSt`), gleiches Muster vor nahem, dann nach `nutzen`, ohne Limit; Satz „N Übungen gehen hier“.
+- Figur drehen (Dennis, 1. November: „um 360° drehen, die Trainingsansicht merkt sich die zuletzt benutzte Kameraeinstellung“): im (i) (`#sheet .fig`) und im
+  Trainer (`#fs .fig`) waagerecht ziehen = rundum, senkrecht = von oben (bis 70°), Doppeltippen = Ausgangsansicht. Während des Ziehens zeichnet die App Bild für
+  Bild (`FIGD`, `Maskottchen.figure`, Ausschnitt aus wenigen Bildern), beim Loslassen gilt die Ansicht für diese Übung überall (`S.figCam {id: {yaw, tilt}}`, in `DEF`,
+  nur auf dem Gerät; `figEx`/`figVar` in `startFig` und `miniFig`). Hinweis „⟲ 360°“ bzw. die Gradzahl unten rechts in der Figur (`data-rot`). Test in `dreitage-browser`.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
   füllt sich mit der Phase, beim AMRAP/For Time mit der ganzen Zeit, grün im Vorlauf/Pause), rechts bzw. unten die große Karte: Größen wachsen mit dem
   Bildschirm (`--fsu`, `--ring` in `fsOrient`), Übung 44 px, Wdh./Menge 92 px in `--acc`, Metcon-Zeilen 44/64 px mit „Erledigt“. Karte:

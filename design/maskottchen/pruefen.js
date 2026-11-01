@@ -12,7 +12,10 @@ var C = { g_pullup: 'H', g_chinup: 'H', g_dip: 'H', g_row: 'HF', g_kneeraise: 'H
   g_push_knee: 'H', g_push_parallettes: 'HF', g_push_decline: 'HF', g_push_band: 'HF', g_push_weighted: 'HF', g_pistol_assisted: 'H', g_support_hold: 'H', g_free_handstand: 'H',
   g_wrist_extension_stretch: 'H', g_planche_lean: 'HF', g_knee_to_wall: 'F', g_wall_flexion_hold: 'F', g_wall_slide: 'F', g_deep_squat: 'F', g_overhead_squat_hold: 'F', g_ragdoll: 'F', g_forward_fold: 'F', g_jefferson_curl: 'F', g_pike_stretch: 'F',
   g_stack: 'F', g_pullapart: 'F', g_passthrough: 'F', g_childs_pose: 'HF', g_pigeon: 'H', g_kneeling_shin: 'HF', g_frog: 'HF', g_legs_up_wall: 'F', g_puppy_pose: 'HF',
-  g_deadlift: 'HF', g_back_squat: 'HF', g_doorway_pec: 'F', g_prayer_stretch: 'F', g_couch_stretch: 'F', g_calf_wall_stretch: 'HF', g_supine_twist: 'H' };
+  g_deadlift: 'HF', g_back_squat: 'HF', g_doorway_pec: 'F', g_prayer_stretch: 'F', g_couch_stretch: 'F', g_calf_wall_stretch: 'HF', g_supine_twist: 'H',
+  g_cossack: 'F', g_thruster: 'HF', g_strict_press: 'HF', g_cat_cow: 'HF', g_shoulder_cars: 'F', g_hip_cars: 'H', g_half_split: 'H', g_wrist_rocks: 'HF', g_cobra: 'HF',
+  g_lizard: 'H', g_butterfly: 'F', g_pancake: 'HF', g_glute_bridge_hold: 'HF', g_band_press: 'F', g_db_press: 'F', g_hip_flexor_stretch: 'F',
+  g_dead_hang: 'H', g_wall_biceps_stretch: 'F', g_wrist_flexion_stretch: 'HF', g_bench_dip: 'HF', g_body_saw: 'F', g_band_row: 'F', g_russian_twist: 'F', g_push_press: 'HF', g_bike_erg: 'HF', g_row_erg: 'F', g_band_lat_pulldown: 'F', g_copenhagen_plank: 'F' };
 var bad = 0;
 for (var k2 in C) {
   var e2 = M.EXERCISES[k2]; if (!e2) continue;
@@ -26,3 +29,15 @@ for (var k2 in C) {
   if (!ok) { bad++; console.log('Kontakt löst sich:', k2, 'Hände', mh.toFixed(1), 'Füße', mf.toFixed(1)); }
 }
 console.log(bad ? bad + ' Übungen mit gelöstem Kontakt' : 'Kontakte: alle halten');
+
+// Endlose Schleife (Dennis, 1. November: „ende in der gleichen Position, in der die Animation anfängt“): der Schritt vom letzten Bild zurück zum ersten
+// darf nicht größer sein als die Schritte rundherum (Gelenke in px). Bewegt sich die Figur fort (Inchworm, Treppe), läuft das Bild mit.
+function gap(A, B) { var m = 0, mk = ''; for (var q in A) { if (q.charAt(0) === '_' || !Array.isArray(A[q]) || !B[q] || A[q].length !== 3) continue;
+  var v = Math.hypot(A[q][0] - B[q][0], A[q][1] - B[q][1], A[q][2] - B[q][2]); if (v > m) { m = v; mk = q; } } return [m, mk]; }
+var jumps = 0;
+for (var id3 in M.EXERCISES) {
+  var e3 = M.EXERCISES[id3], n3 = Math.round(e3.dur * 12), P3 = []; for (var i3 = 0; i3 < n3; i3++) P3.push(e3.pose(i3 / n3));
+  var near = Math.max(gap(P3[n3 - 3], P3[n3 - 2])[0], gap(P3[n3 - 2], P3[n3 - 1])[0], gap(P3[0], P3[1])[0], gap(P3[1], P3[2])[0]), w3 = gap(P3[n3 - 1], P3[0]);
+  if (w3[0] > 1.6 * near + 2) { jumps++; console.log('Schleife springt:', id3, w3[0].toFixed(1), 'px bei', w3[1], '(sonst', near.toFixed(1) + ')'); }
+}
+console.log(jumps ? jumps + ' Übungen springen am Ende der Schleife' : 'Schleifen: alle enden, wo sie anfangen');

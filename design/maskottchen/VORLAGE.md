@@ -77,7 +77,33 @@ spiegeln, damit die Kettlebell auf der Seite zur Kamera liegt. Rack: Hand vor de
 damit sie von der Seite sichtbar ist. Abläufe aus Zuständen (`kbFlow`, `KS`). Kniebeugen mit Kettlebell gehen unten below parallel (Sumo 19 px, Goblet 18 px).
 Eigene Blickrichtung des Kopfes: `J._hf` (Vektor, nur die waagerechte Richtung zählt), z. B. World's Greatest Stretch: Gesicht dreht zur Hand. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
 
+Runde 4 (1. November 2026, im Canvas zur Freigabe: https://claude.ai/artifact/QdT7dqH3WtRRqQQKrEA4r2): Platz 21–41 aus `REIHENFOLGE.md`.
+Neue Hilfen: `reachA` (Rumpfwinkel suchen, bei dem die Hand mit gestrecktem Arm den Boden erreicht), `onFloor`, `dumbbell` (Kurzhantel quer in der Hand),
+`barRack(q, o)` (Langhantel im Front Rack bzw. über Kopf, mit Kniebeuge: Thruster, Strict Press), `pressAt` (Hände von Schulterhöhe über Kopf: Band, Kurzhanteln).
+Vierfüßler mit gestreckten Armen: Schulterhöhe so, dass die Hand 110–111 px entfernt ist (sonst knickt der Ellbogen auf 145°). Sleeper Stretch: Oberarm und Ellbogen
+werden fest gesetzt, nur der Unterarm dreht (sonst legt die IK den Ellbogen woanders hin).
+
+Gekrümmte Wirbelsäule: `J._bend = {pel, rib, rc}` (Achsen von Becken und Brustkorb in 3D, Verschiebung des Brustkorbs), z. B. Cat-Cow, Cobra.
+Deckend ist Standard (1. November, Dennis), `solid: false` schaltet es je Übung ab. Schulterpartie zwischen Schultern und Brustkorb. Früher: `solid: true` in `EXERCISES` (Dennis: durchsichtig wird es bei verschränkten Gliedern ein Gewirr): Formen nach Tiefe sortiert und mit der Fläche gefüllt.
+
+Runde 5 (1. November 2026, Board https://claude.ai/artifact/7LwtySa61xCfyN5xsNazsu): Platz 42–61. Neu: `type: 'ball'` (Ball im Bild immer rund, mit Naht),
+`bar` (Klimmzugstange), `box` (Kasten, Stufe), `runPose`/`blendJ` (Lauf verschieben, zwei Haltungen überblenden), Treppe als mitlaufendes Profil.
+Fassung 2: Props mit `fill: true` bekommen im deckenden Modus eine Fläche (AbMat, Plyo-Box); `plyoBox(z0, z1, y, w)` in echten Maßen (Figur ≈ 2 px/cm,
+also 1 cm ≈ 2 px), Flächen mit `layer: 'back', flat: true` liegen immer hinter der Figur.
+Fassung 3: `flatBench` (Flachbank mit Polster und Rahmen), `ergBike`, `ergRow` (Geräte mit Gehäuse, Monitor, Fußstützen, Kette), `circle` mit `fill` und `spokes`.
+
 ## Regeln für die Darstellung
+- **Endlose Schleife** (Dennis, 1. November, gilt für alle Animationen): das letzte Bild führt nahtlos ins erste. Jede Bewegung endet genau in der Haltung,
+  in der sie anfängt (Box Jump: herunter und zurück an den Absprungpunkt; Sprünge: vor der Landung wieder in Landehaltung). Bewegt sich die Figur fort
+  (Inchworm, Treppe), läuft das Bild gleichmäßig mit: die Umgebung (Stufen, Striche am Boden) wandert, die Figur bleibt im Bild. `pruefen.js` meldet
+  „Schleife springt“, wenn der Schritt vom letzten zum ersten Bild größer ist als die Schritte davor. Bei `rep(p, down, hold)` muss 2 × down + hold ≤ 1 sein.
+- **Geräte in echten Maßen** (Figur ≈ 2 px/cm): Plyo-Box 61 × 51 × 76 cm, Bank 45 cm hoch, AbMat 38 × 30 × 7,5 cm, Rudersitz 35 cm, Radsattel 75 cm.
+  Geräte ausgestalten statt Strichskizze: Füße mit Kappen, Polster, Gehäuse mit Lüfterrad (`circle` mit `spokes`, `rot` dreht mit), Monitor, Flächen mit `fill`.
+- **Geräte ruhig und fein** (Dennis: „zu dick, wabern komisch“): Geräte zeichnet `prop` mit festem Startwert (ihre Nebenstriche wechseln nicht von Bild
+  zu Bild, nur die Figur „lebt“). `w` ist die Breite des Hauptstrichs, Nebenstriche 0,6 davon; Rohre 1,5–3, nicht dicker.
+- **Flächen beim Drehen**: nur was immer unten liegt (Oberseite einer Box, Polster, Boden) bekommt `layer: 'back', flat: true`; Seitenflächen werden nach
+  Tiefe mit der Figur sortiert, sonst sind sie aus manchen Blickwinkeln durchsichtig.
+- **Fließende Bewegungen** (Thruster): keine Schlüsselbilder mit Stillstand zwischen den Phasen, wo im Sport keiner ist; besser weiche Kurven, die sich überlappen.
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
   So wird nie etwas abgeschnitten (Kopf, Hände, Füße).
 - 12 Bilder pro Sekunde. In der App zeichnet `play(el, übung)` live; im Canvas erzeugt `animatedSVG` eine SVG-Animation.

@@ -129,6 +129,21 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.locator('#fs .fs-side .fs-lbl').first().innerText(), lbl0, 'zweimal „–“ bleibt auf derselben Minute');
     assert.ok(await page.locator('#fs .fs-top [data-act="pain-s"]').isVisible(), 'roter Schmerzen-Knopf im Kopf des Trainers');
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^\d\/\d · /, 'Kopf zeigt „x/n“ zuerst');
+    // Figur drehen (Dennis, 1. November): Ziehen im Trainer dreht sie, die Ansicht bleibt je Übung gemerkt, Doppeltippen setzt zurück.
+    const fg = page.locator('#fs .fig[data-fig]:not([data-fig="_wave"])').first();
+    assert.ok(await fg.count(), 'Figur im Trainer');
+    {
+      const fkey = await fg.getAttribute('data-fig'), bb = await fg.boundingBox();
+      await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.down();
+      await page.mouse.move(bb.x + bb.width / 2 + 60, bb.y + bb.height / 2 + 20, { steps: 6 });
+      assert.match(await fg.getAttribute('data-rot'), /°/, 'beim Ziehen steht die Gradzahl in der Figur');
+      await page.mouse.up(); await page.waitForTimeout(150);
+      const cam = await page.evaluate(k => (window.tpTest.state().figCam || {})[k], fkey);
+      assert.ok(cam && typeof cam.yaw === 'number' && cam.tilt > 0, 'Ansicht gemerkt: ' + JSON.stringify(cam));
+      assert.equal(await page.locator('#fs .fig[data-fig="' + fkey + '"] svg').count(), 1, 'Figur läuft weiter');
+      await fg.dblclick(); await page.waitForTimeout(150);
+      assert.ok(!(await page.evaluate(k => (window.tpTest.state().figCam || {})[k], fkey)), 'Doppeltippen setzt zurück');
+    }
     // Stufe im Training (Dennis, 28. Oktober): Coach-Stufe und bis zu zwei darunter/darüber, nur für heute.
     await page.locator('#fs .fs-side .fs-stg[data-act="k-stg"]').first().click();
     // Dennis, 1. November: Auswahlrad, schwerere oben, die des Coachs („heute“) in der Mitte, leichtere unten.
