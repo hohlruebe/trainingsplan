@@ -185,7 +185,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Ohne Suche zeigt die Liste Familien (`famListHTML`, `famItemHTML`), gruppiert nach Bewegungsmuster: Chips „Du: …“, „Als Nächstes: …“
   oder gesperrt mit Grund. Keine Scores bei Familien und Übungen (nur intern für die Planung, Geräte zeigen ihren Score weiter).
   Antippen öffnet die eigene Seite der Familie (versteckte Seite `fam`, `renderFam`, `famOpen`, `ui.famId`, Zurück zu `ui.famBack`):
-  Karte oben Figur, Skill-Pfad (`famPathHTML`, Leiter-Stil, aktuelle Stufe als weiße Pille, Ziel für die
+  Bühne oben (Dennis, 1. November, Board „Bühne klebt oben“, Optik 3 „Bild-Fenster“, ohne automatisches Einklappen; `famStageHTML`, `.fam-stage` klebt beim
+  Scrollen oben): Figur der gewählten Stufe über die ganze Breite (ohne Grafik winkender Platzhalter), Schild „Stufe N“, Name und Stand unten auf dem Bild
+  (Deine Stufe, Geschafft, Als Nächstes, braucht …, Später), Kapsel „So geht’s“ (`ACT['fam-how']`, `ui.famHow`: Ziel, Schritte, „Genau erklärt“ = (i)).
+  Antippen einer Stufe im Skill-Pfad wechselt die Bühne (`ACT['fam-sel']`, `ui.famSel`, `famSel`, Zeile `.sel` blau umrandet), kein Blatt mehr;
+  neue Familie = eigene Stufe, zugeklappt. Familien ohne Stufen behalten die feste Figur. Darunter Skill-Pfad (`famPathHTML`, Leiter-Stil, aktuelle Stufe als weiße Pille, Ziel für die
   nächste), darunter die Übungen als Unterpunkte (`glItemHTML`, Klasse `sub`) nach Stufen, Varianten, „Auf Tempo (CrossFit)“ mit Vermerk,
   dazu „Gehört auch dazu“ (`auch_in`), „Baut auf“ und „Führt zu“ (`ACT['fam-go']`). Mit Suche: Einzelübungen wie bisher.
   Stand je Familie (`famLevel`, `famStatus`): höchste Stufe, die trainiert wurde (Leiterstand oder Eintrag mit dem Namen).

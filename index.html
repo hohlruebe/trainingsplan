@@ -647,6 +647,22 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .flow-one > p{margin:6px 0 0}
 .bgrp button:disabled{opacity:.35;cursor:default}
 .fl-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 4px;background:var(--board);border-radius:18px;padding:8px 8px 8px 14px;touch-action:pan-y;transition:transform .2s}
+/* Bühne der Familien-Seite (Optik 3 „Bild-Fenster“): Figur über die ganze Breite, Name und Stand unten auf dem Bild, klebt beim Scrollen oben */
+.fam-stage{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:3;margin:-4px -6px 10px;padding:4px 6px 0;background:var(--paper);border-radius:22px}
+.fst-win{position:relative;height:210px;border-radius:20px;overflow:hidden;background:var(--fig);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 6%,transparent)}
+.fst-win>.fig{height:100%;margin:0;border-radius:0;box-shadow:none}.fst-win>.fig::after{top:8px;bottom:auto;right:10px}
+.fst-ph{height:100%;display:flex;align-items:center}.fst-ph .fig{flex:0 0 50%;height:100%;margin:0;box-shadow:none;background:transparent}.fst-ph span{font-size:14px;font-weight:600;color:var(--acc)}
+.fst-n{position:absolute;left:10px;top:10px;background:var(--acc);color:var(--on-acc);border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700;pointer-events:none}
+.fst-o{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-end;gap:8px;padding:30px 10px 10px 14px;background:linear-gradient(color-mix(in srgb,var(--fig) 0%,transparent),color-mix(in srgb,var(--fig) 94%,transparent) 48%);pointer-events:none}
+.fst-t{min-width:0;display:flex;flex-direction:column;gap:2px}.fst-t b{font-size:18px;line-height:1.2;color:var(--ink)}.fst-t span{font-size:14px;color:var(--ink2)}
+.fst-d{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--ink2);vertical-align:1px}.fst-d.cur,.fst-d.nx{background:var(--acc)}.fst-d.done{background:var(--green)}.fst-d.lock{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink2)}
+.fst-tog{pointer-events:auto;flex:none;display:inline-flex;align-items:center;gap:4px;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:var(--pill);color:var(--acc);font:inherit;font-size:15px;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.08);cursor:pointer}
+.fst-tog svg{transition:transform .2s}.fst-tog.on svg{transform:rotate(180deg)}
+.fst-how{margin-top:8px;padding:2px 4px 8px;max-height:calc(100dvh - env(safe-area-inset-top,0px) - 360px);min-height:120px;overflow-y:auto;overscroll-behavior:contain}.fst-how .how{margin:6px 0 10px}.fst-z{margin:0;font-size:14px;color:var(--ink2)}.fst-z b{color:var(--ink)}
+.fam-path .lad-row.sel:not(.cur){background:var(--pill);box-shadow:inset 0 0 0 2px var(--acc)}.fam-path .lad-row.cur.sel{box-shadow:0 2px 8px rgba(17,18,20,.1),inset 0 0 0 2px var(--acc)}
+@media (prefers-reduced-motion: reduce){.fst-tog svg{transition:none}}
+/* Blatt nie höher als der Platz unter der Statusleiste (Dennis, 1. November: „Fertig“ war im (i) verdeckt, weil das Blatt nach oben über den Rand wuchs) */
+.sheet{max-height:100%;display:flex;flex-direction:column}.sheet>*{flex-shrink:0}.sheet>.sh-body{flex-shrink:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .figph{display:flex;align-items:center;height:200px;margin:6px 0 10px;border-radius:18px;background:var(--fig);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 6%,transparent);overflow:hidden}
 .figph .fig{flex:0 0 44%;height:100%;margin:0;border-radius:0;box-shadow:none;background:transparent}
 .figph p{margin:0;padding:0 16px 0 0;display:flex;flex-direction:column;gap:4px}
@@ -12330,6 +12346,21 @@ function famNext(f, c, lv) {
   return st[lv] ? { v: st[lv], miss: UE[st[lv].uebung] ? eqMissing(UE[st[lv].uebung].equipment, c.have) : '' } : null;
 }
 // Skill-Pfad: Stufen wie eine Leiter, unten leicht, oben schwer, die aktuelle als weiße Pille.
+// Familien-Seite (Dennis, 1. November, Board „Bühne klebt oben“, Optik 3 „Bild-Fenster“, ohne automatisches Einklappen):
+// Stufe im Skill-Pfad antippen wechselt Bild und Erklärung oben in der Bühne, statt ein Blatt zu öffnen. Die Bühne bleibt beim Scrollen durch den Pfad oben stehen.
+function famSel(f, c) { var st = famStufen(f), r = ui.famSel; if (r && st[r - 1]) return r; return famLevel(f, c) || 1; }
+function famStageHTML(f, c) {
+  var st = famStufen(f), lv = famLevel(f, c), r = famSel(f, c), v = st[r - 1], u = UE[v.uebung]; if (!u) return '';
+  var NX = famNext(f, c, lv), miss = eqMissing(u.equipment, c.have), cur = r === lv, done = r < lv, nx = NX && NX.v === v && !NX.miss;
+  var stx = cur ? ['cur', 'Deine Stufe'] : done ? ['done', 'Geschafft'] : miss ? ['lock', 'braucht ' + miss] : nx ? ['nx', 'Als Nächstes'] : ['', 'Später'];
+  var fig = figOf(v.uebung) ? figHTML(v.uebung) : '<div class="fst-ph">' + figHTML('_wave') + '<span>Grafik folgt</span></div>';
+  var how = ui.famHow ? '<div class="fst-how"><p class="fst-z"><b>Ziel:</b> ' + esc(v.ziel) + '</p><ol class="how">' + ueSteps(u).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
+    '<button type="button" class="btn small" data-act="ue-info" data-id="' + esc(u.id) + '">Genau erklärt</button></div>' : '';
+  return '<div class="fam-stage"><div class="fst-win">' + fig + '<span class="fst-n">Stufe ' + r + '</span><div class="fst-o"><div class="fst-t"><b>' + esc(u.name) + '</b><span><i class="fst-d ' + stx[0] + '"></i>' + esc(stx[1]) + '</span></div>' +
+    '<button type="button" class="fst-tog' + (ui.famHow ? ' on' : '') + '" data-act="fam-how" aria-expanded="' + !!ui.famHow + '">So geht’s<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div></div>' + how + '</div>';
+}
+ACT['fam-sel'] = function (el) { var r = +el.dataset.r; if (r === ui.famSel) return; ui.famSel = r; render(); };
+ACT['fam-how'] = function () { ui.famHow = !ui.famHow; render(); };
 function famPathHTML(f, c) {
   var st = famStufen(f); if (!st.length) return '';
   var lv = famLevel(f, c), NX = famNext(f, c, lv);
@@ -12338,7 +12369,8 @@ function famPathHTML(f, c) {
     var right = cur ? '<span class="lad-now">Aktuelle Stufe</span>' : NX && v === NX.v && !NX.miss ? '<span class="chip sm">Als Nächstes</span>' : miss ? '<span class="lad-lk">' + LOCK_SVG + '</span>' : '';
     // Jede Stufe öffnet ihre Anleitung; gesperrte sagen, was fehlt (die zweite Stufenliste darunter ist weg, Impeccable-Kritik Tools).
     var lk = miss && !cur && !done;
-    return '<button type="button" class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (lk ? ' lock' : '') + '" data-act="ue-info" data-how="1" data-id="' + esc(v.uebung) + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span>' + (lk ? '<small class="lad-why">braucht ' + esc(miss) + '</small>' : '') + '</span>' + right + '</button>';
+    var sel = v.rang === famSel(f, c);
+    return '<button type="button" class="lad-row' + (cur ? ' cur' : done ? ' done' : '') + (lk ? ' lock' : '') + (sel ? ' sel' : '') + '" data-act="fam-sel" data-r="' + v.rang + '" aria-pressed="' + sel + '"><span class="lad-n' + (v.rang <= lv ? ' on' : '') + '">' + v.rang + '</span><span class="lad-t"><span>' + esc(uName(v.uebung)) + '</span>' + (lk ? '<small class="lad-why">braucht ' + esc(miss) + '</small>' : '') + '</span>' + right + '</button>';
   }).reverse().join('');
   var cur = lv ? st[lv - 1] : null, next = NX && NX.v;
   var hint = cur && next ? '<p class="small hint">' + (NX.miss ? esc(uName(next.uebung)) + ' braucht ' + esc(NX.miss) + '. Ziel: ' + esc(cur.ziel) : NX.skip ? esc(uName(NX.skip.uebung)) + ' braucht ' + esc(eqMissing(UE[NX.skip.uebung].equipment, c.have)) + ', hier geht als Nächstes ' + esc(uName(next.uebung)) + '. Ziel: die aktuelle Stufe sicher, alle Runden oben.' : 'Für „' + esc(uName(next.uebung)) + '“: ' + esc(cur.ziel)) + '</p>' : cur && !next ? '<p class="small hint">Oberste Stufe. ' + esc(cur.ziel) + '</p>' : '';
@@ -12363,7 +12395,7 @@ function famBody(f, c) {
   var item = function (v) { var e = GL[uName(v.uebung)]; return e && e.lib ? glItemHTML(e, c.st, c.have, 'sub') : ''; };
   var vars = f.varianten.filter(function (v) { return v.art === 'variante'; }), tempo = f.varianten.filter(function (v) { return v.art === 'tempo'; });
   var also = []; FAMD.familien.forEach(function (g) { if (g !== f) g.varianten.forEach(function (v) { if ((v.auch_in || []).indexOf(f.id) >= 0) also.push(v); }); });
-  var top = figBox(famFigKey(f, c)) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c);
+  var top = st.length ? famStageHTML(f, c) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c) : figBox(famFigKey(f, c)) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c);
   var body = (vars.length ? '<p class="sec-k">Gleichwertige Varianten</p><div class="fam-list">' + vars.map(item).join('') + '</div>' : '') +
     (tempo.length ? '<p class="sec-k">Auf Tempo (CrossFit)</p><p class="tempo-note">' + esc(tempo[0].vermerk || 'Auf Tempo ausgelegt, nicht auf saubere Range of Motion oder Effizienz.') + ' Ersetzt nie eine Stufe im Krafttraining.</p><div class="fam-list">' + tempo.map(item).join('') + '</div>' : '') +
     (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips fam-go">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + ' ›</button>'; }).join('') + '</div>' : '') +
@@ -12403,7 +12435,7 @@ function famCount() { var have = haveEq(); return FAMD.familien.filter(function 
 function famOpen(id, gloss) {
   if (!FAM[id]) return;
   if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' || ui.tab === 'muskel' ? ui.tab : 'uebungen';
-  ui.famId = id; ui.glossOpen = gloss || null; ui.tab = 'fam'; window.scrollTo(0, 0); render();
+  ui.famId = id; ui.famSel = null; ui.famHow = false; ui.glossOpen = gloss || null; ui.tab = 'fam'; window.scrollTo(0, 0); render();
 }
 ACT['fam-open'] = function (el) { famOpen(el.dataset.id); };
 ACT['fam-go'] = function (el) { famOpen(el.dataset.id); };
