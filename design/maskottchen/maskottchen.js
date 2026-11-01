@@ -107,13 +107,14 @@
     var near = (Z.sha + Z.hia >= Z.shb + Z.hib) ? 'a' : 'b', farr = near === 'a' ? 'b' : 'a';
     var side = Math.abs(s) > .35;
     var count = 0;
-    function S(shape, col, fillShape) { // Skizzenstrich: Hauptlinie und zwei leicht versetzte Nebenlinien; fillShape = Fläche darunter (deckend, opt.solid)
-      count++;
-      var r = rng(count * 7 + boil), out = opt.solid && fillShape ? '<g fill="' + st.panel + '" stroke="none">' + fillShape + '</g>' : '';
+    function S(shape, col, fillShape, so) { // Skizzenstrich: Hauptlinie und zwei leicht versetzte Nebenlinien; fillShape = Fläche darunter (deckend, opt.solid)
+      // so.seed: ruhiger Strich (Geräte, Dennis: „wabern komisch“): Nebenlinien fest, wechseln nicht von Bild zu Bild; so.sw: eigene Strichbreite (Nebenlinien 0,6 davon)
+      count++; so = so || {};
+      var r = rng(so.seed != null ? so.seed * 131 + 17 : count * 7 + boil), bw = so.sw || st.sw, out = opt.solid && fillShape ? '<g fill="' + st.panel + '" stroke="none">' + fillShape + '</g>' : '';
       for (var i = 0; i < st.passes; i++) {
         var tr = '';
         if (i > 0) tr = ' transform="translate(' + n1((r() * 2 - 1) * st.jit) + ' ' + n1((r() * 2 - 1) * st.jit) + ') rotate(' + n1((r() * 2 - 1) * .8) + ')"';
-        out += '<g stroke-width="' + (i === 0 ? st.sw : st.sw * .6) + '" opacity="' + (i === 0 ? 1 : .5) + '"' + tr + '>' + shape + '</g>';
+        out += '<g stroke-width="' + n1(i === 0 ? bw : bw * .6) + '" opacity="' + (i === 0 ? 1 : .5) + '"' + tr + '>' + shape + '</g>';
       }
       return '<g fill="none" stroke="' + col + '" stroke-linecap="round" stroke-linejoin="round">' + out + '</g>';
     }
@@ -156,22 +157,22 @@
       return g;
     }
     function pr(p) { return prj(p); }
-    function prop(o) { // Geräte im selben Skizzenstrich
-      var col = o.col === STYLE.far ? st.far : o.col || INK, sh = '';
-      if (o.type === 'line') { var a = pr(o.a), b = pr(o.b); sh = '<path d="M' + n1(a[0]) + ' ' + n1(a[1]) + ' L' + n1(b[0]) + ' ' + n1(b[1]) + '"' + (o.w ? ' stroke-width="' + o.w + '"' : '') + '/>'; }
-      else if (o.type === 'poly') { sh = '<path d="M' + o.pts.map(function (p) { p = pr(p); return n1(p[0]) + ' ' + n1(p[1]); }).join(' L') + (o.open ? '' : ' Z') + '"' + (o.w ? ' stroke-width="' + o.w + '"' : '') + '/>'; }
+    function prop(o) { // Geräte im selben Skizzenstrich, aber ruhig (feste Nebenlinien) und mit eigener Breite o.w
+      var col = o.col === STYLE.far ? st.far : o.col || INK, sh = '', so = { seed: props.indexOf(o) + 1, sw: o.w };
+      if (o.type === 'line') { var a = pr(o.a), b = pr(o.b); sh = '<path d="M' + n1(a[0]) + ' ' + n1(a[1]) + ' L' + n1(b[0]) + ' ' + n1(b[1]) + '"/>'; }
+      else if (o.type === 'poly') { sh = '<path d="M' + o.pts.map(function (p) { p = pr(p); return n1(p[0]) + ' ' + n1(p[1]); }).join(' L') + (o.open ? '' : ' Z') + '"/>'; }
       else if (o.type === 'circle') { // Kreis in der y-z-Ebene (Ring, Rad, Rolle)
         var m = pr(o.c), rx = Math.max(o.r * Math.abs(s), o.r * .3);
         sh = '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx) + '" ry="' + o.r + '"/>';
         if (o.hub) sh += '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx * .3) + '" ry="' + n1(o.r * .3) + '"/>';
         if (o.spokes) for (var si = 0; si < o.spokes; si++) { var sa = (si / o.spokes + (o.rot || 0)) * 2 * Math.PI; // Speichen bzw. Lüfterflügel, drehen mit o.rot
           sh += '<path d="M' + n1(m[0] + rx * .3 * Math.sin(sa)) + ' ' + n1(m[1] + o.r * .3 * Math.cos(sa)) + ' L' + n1(m[0] + rx * .92 * Math.sin(sa)) + ' ' + n1(m[1] + o.r * .92 * Math.cos(sa)) + '"/>'; }
-        if (o.fill && opt.solid) { if (o.keep) ext.push([m[0] - rx, m[1] - o.r], [m[0] + rx, m[1] + o.r]); return S(sh, col, '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx) + '" ry="' + o.r + '"/>'); }
+        if (o.fill && opt.solid) { if (o.keep) ext.push([m[0] - rx, m[1] - o.r], [m[0] + rx, m[1] + o.r]); return S(sh, col, '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx) + '" ry="' + o.r + '"/>', so); }
       }
       else if (o.type === 'ball') { // Ball: im Bild immer rund, mit Naht
         var bm = pr(o.c); sh = '<circle cx="' + n1(bm[0]) + '" cy="' + n1(bm[1]) + '" r="' + o.r + '"/><path d="M' + n1(bm[0] - o.r) + ' ' + n1(bm[1]) + ' Q' + n1(bm[0]) + ' ' + n1(bm[1] + o.r * .7) + ' ' + n1(bm[0] + o.r) + ' ' + n1(bm[1]) + '"/>';
         if (o.keep) ext.push([bm[0] - o.r, bm[1] - o.r], [bm[0] + o.r, bm[1] + o.r]);
-        return S(sh, col, opt.solid ? '<circle cx="' + n1(bm[0]) + '" cy="' + n1(bm[1]) + '" r="' + o.r + '"/>' : null);
+        return S(sh, col, opt.solid ? '<circle cx="' + n1(bm[0]) + '" cy="' + n1(bm[1]) + '" r="' + o.r + '"/>' : null, so);
       }
       else if (o.type === 'kb') { // Kettlebell: Griff bei o.g (in der Hand), Kugel in Richtung o.dn, im Bild immer rund
         var gp = pr(o.g), cp = pr(add(o.g, mul(norm(o.dn), o.r + 13))), w = [gp[0] - cp[0], gp[1] - cp[1]], wl = Math.hypot(w[0], w[1]) || 1;
@@ -184,10 +185,10 @@
           '<path d="M' + P2(r0 * .55, r0 * .72) + ' C' + T2(-4, r0 * .95) + ' ' + T2(2, r0 * .6) + ' ' + T2(2, 0) + ' C' + T2(2, -r0 * .6) + ' ' + T2(-4, -r0 * .95) + ' ' + P2(r0 * .55, -r0 * .72) + '"/>' +
           '<path d="M' + P2(-r0 * .86, r0 * .5) + ' L' + P2(-r0 * .86, -r0 * .5) + '"/>';
         if (o.keep) [cp, gp].forEach(function (q) { ext.push([q[0] - r0, q[1] - r0], [q[0] + r0, q[1] + r0]); });
-        return S(sh, col);
+        return S(sh, col, null, so);
       }
       if (o.keep) (o.type === 'circle' ? [o.c] : o.type === 'line' ? [o.a, o.b] : o.pts).forEach(function (p) { ext.push(pr(p)); });
-      return S(sh, col, opt.solid && o.fill ? sh : null); // o.fill: Fläche (Plyo-Box, AbMat)
+      return S(sh, col, opt.solid && o.fill ? sh : null, so); // o.fill: Fläche (Plyo-Box, AbMat)
     }
     function layer(l) { return props.filter(function (o) { return (o.layer || 'back') === l; }).map(prop).join(''); }
     var g = opt.floor === false ? '' : opt.tilt ? '' : '<line x1="-400" x2="720" y1="' + FLOOR_Y + '" y2="' + FLOOR_Y + '" stroke="' + st.floor + '" stroke-width="2" stroke-linecap="round"/>';
@@ -1420,8 +1421,11 @@
     return J;
   }
   function thruster(p) { // Front Squat, explosiv hoch und in einem Zug über den Kopf; zurück auf die Schultern
-    var k = keys(p, [[0, { q: 0, o: 0 }], [.3, { q: 1, o: 0 }], [.36, { q: 1, o: 0 }], [.56, { q: .1, o: .2 }], [.68, { q: 0, o: 1 }], [.82, { q: 0, o: 1 }], [1, { q: 0, o: 0 }]]);
-    return barRack(k.q, k.o);
+    // Dennis: eine flüssige Bewegung. Kein Halt unten (federnd aus der Hocke), die Stange startet nach oben, während die Beine noch strecken,
+    // und nach dem Zurücklegen auf die Schultern geht es gleich in die nächste Hocke. Keine Schlüsselbilder mit Stillstand, sondern zwei weiche Kurven.
+    var d = ((p - .2 + 1.5) % 1) - .5, q = Math.abs(d) < .3 ? Math.pow(Math.cos(Math.PI * d / .6), 2) : 0; // Hocke, tiefster Punkt bei .2, beginnt bei .9
+    var o = p < .34 ? 0 : p < .56 ? ease((p - .34) / .22) : p < .7 ? 1 : p < .92 ? 1 - ease((p - .7) / .22) : 0;
+    return barRack(q, o);
   }
   function strictPress(p) { // Stange vorn auf den Schultern, Knie gestreckt, gerade nach oben; der Kopf geht kurz zurück
     var o = rep(p, .4, .14); return barRack(0, o, -16 * Math.sin(Math.PI * Math.min(1, o * 1.6)));
@@ -1593,23 +1597,25 @@
     return [{ type: 'poly', pts: [[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]], keep: true }, { type: 'poly', pts: [[-w, y, z0], [-w, FLOOR_Y, z0], [w, FLOOR_Y, z0], [w, y, z0]], open: true, keep: true },
       { type: 'line', a: [-w, y, z1], b: [-w, FLOOR_Y, z1], col: STYLE.far }];
   }
-  function plyoBox(z0, z1, y, w) { // Plyo-Box aus Holz (Dennis: echte Maße). Maßstab der Figur ≈ 2 px/cm; Flächen deckend, immer hinter der Figur
-    var F = FLOOR_Y, face = function (pts, far) { return { type: 'poly', pts: pts, fill: true, keep: true, layer: 'back', flat: true, col: far ? STYLE.far : undefined }; };
+  function plyoBox(z0, z1, y, w) { // Plyo-Box aus Holz (Dennis: echte Maße). Maßstab der Figur ≈ 2 px/cm; Flächen deckend
+    // Dennis: beim Drehen wurde die Box durchsichtig. Die Seiten werden nach Tiefe mit der Figur sortiert, nur die Oberseite liegt immer unter dem, was darauf steht.
+    var F = FLOOR_Y, face = function (pts, far, top) { return { type: 'poly', pts: pts, fill: true, keep: true, layer: top ? 'back' : undefined, flat: !!top, col: far ? STYLE.far : undefined }; };
     var hole = function (x) { var zc = (z0 + z1) / 2, hw = (z1 - z0) * .22, yy = y + (F - y) * .16; // Griffloch oben in der Seitenwand
-      return { type: 'poly', pts: [[x, yy - 5, zc - hw], [x, yy - 5, zc + hw], [x, yy + 5, zc + hw], [x, yy + 5, zc - hw]], layer: 'back', flat: true, col: x > 0 ? STYLE.far : undefined }; };
+      return { type: 'poly', pts: [[x, yy - 5, zc - hw], [x, yy - 5, zc + hw], [x, yy + 5, zc + hw], [x, yy + 5, zc - hw]], col: x > 0 ? STYLE.far : undefined }; };
     return [face([[-w, y, z1], [w, y, z1], [w, F, z1], [-w, F, z1]], true), face([[w, y, z0], [w, y, z1], [w, F, z1], [w, F, z0]], true), face([[-w, y, z0], [-w, y, z1], [-w, F, z1], [-w, F, z0]]),
-      face([[-w, y, z0], [w, y, z0], [w, F, z0], [-w, F, z0]]), face([[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]]), hole(-w), hole(w)];
+      face([[-w, y, z0], [w, y, z0], [w, F, z0], [-w, F, z0]]), face([[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]], false, true), hole(-w), hole(w)];
   }
   function flatBench(z0, z1, y, w) { // Flachbank (Dennis: eine richtige Bank): gepolsterte Auflage mit Kante, darunter Stahlrahmen aus zwei Füßen mit Querstrebe
-    var F = FLOOR_Y, P = { layer: 'back', flat: true }, T = 9, o = function (q, x) { for (var k in P) q[k] = P[k]; for (var k2 in x || {}) q[k2] = x[k2]; return q; };
+    // Dennis: beim Drehen durchsichtig. Alles nach Tiefe sortiert, nur das Polster oben liegt immer unter der Figur
+    var F = FLOOR_Y, P = {}, T = 9, o = function (q, x) { for (var k in P) q[k] = P[k]; for (var k2 in x || {}) q[k2] = x[k2]; return q; };
     var zm = (z0 + z1) / 2, L = [];
     [-1, 1].forEach(function (s) { var x = s * (w - 16), far = s > 0 ? STYLE.far : undefined; // Fuß: Rohr nach unten, unten ein breiter Querfuß
-      L.push(o({ type: 'line', a: [x, y + T, zm], b: [x, F - 6, zm], w: 4, col: far }), o({ type: 'line', a: [x, F - 3, z0 - 8], b: [x, F - 3, z1 + 8], w: 5, col: far }),
-        o({ type: 'line', a: [x, y + T + 2, z0 + 8], b: [x, y + T + 2, z1 - 8], w: 3, col: far })); });
-    L.push(o({ type: 'line', a: [-w + 16, y + T + 4, zm], b: [w - 16, y + T + 4, zm], w: 4 })); // Längsträger unter dem Polster
+      L.push(o({ type: 'line', a: [x, y + T, zm], b: [x, F - 6, zm], w: 1.8, col: far }), o({ type: 'line', a: [x, F - 3, z0 - 8], b: [x, F - 3, z1 + 8], w: 2.2, col: far }),
+        o({ type: 'line', a: [x, y + T + 2, z0 + 8], b: [x, y + T + 2, z1 - 8], w: 1.4, col: far })); });
+    L.push(o({ type: 'line', a: [-w + 16, y + T + 4, zm], b: [w - 16, y + T + 4, zm], w: 1.8 })); // Längsträger unter dem Polster
     L.push(o({ type: 'poly', pts: [[-w, y, z1], [w, y, z1], [w, y + T, z1], [-w, y + T, z1]], fill: true, col: STYLE.far }), o({ type: 'poly', pts: [[w, y, z0], [w, y, z1], [w, y + T, z1], [w, y + T, z0]], fill: true, col: STYLE.far }),
       o({ type: 'poly', pts: [[-w, y, z0], [-w, y, z1], [-w, y + T, z1], [-w, y + T, z0]], fill: true }), o({ type: 'poly', pts: [[-w, y, z0], [w, y, z0], [w, y + T, z0], [-w, y + T, z0]], fill: true }),
-      o({ type: 'poly', pts: [[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]], fill: true, keep: true }));
+      o({ type: 'poly', pts: [[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]], fill: true, keep: true, layer: 'back', flat: true }));
     return L;
   }
   function deadHang(p) { // toter Hang an der Stange, Arme ganz gestreckt, ruhig hängen
@@ -1636,7 +1642,8 @@
     var J = build({ pc: pc, a: 0, nod: lerp(8, 12, t),
       arms: { a: { to: W, pole: [-.2, -1, -.4], dir: [.2, .9, -.3] }, b: { to: add(E, [7, -15, -3]), pole: [1, -.9, -.5], dir: [-.4, .9, -.1] } },
       legs: both(function (x) { return { to: stand(x), pole: FWD }; }) });
-    return J;
+    // Dennis: die Hand muss den Ellbogen berühren. Erst wenn Arm a steht, kennt man seinen Ellbogen; die Handfläche legt sich von oben darauf.
+    var D = norm([-1, .9, .05]); return reArm(J, 'b', add(J.ela, [16, -14, 1]), [1, -.9, -.5], D);
   }
   function wristFlexion(p) { // knien, Handrücken am Boden, Finger zu den Knien, Arme gestreckt; sanft nach hinten lehnen
     var t = rep(p, .4, .2), dz = -26 * t, Sy = 386 - Math.sqrt(111 * 111 - dz * dz) + 1;
@@ -1669,9 +1676,9 @@
   }
   function butterflyLegs(pc, kd) { return both(function (x) { var hi = add(pc, [x * 18, 6, 0]), An = [x * 7, 392, 52], K = [x * 78, kd || 372, 30]; return { to: An, pole: sub3(K, mid(hi, An)), dir: [-x, .2, .2] }; }); }
   function sitUp(p) { // Fußsohlen zusammen, Knie außen; zurücklegen bis die Schultern den Boden berühren, Arme über dem Kopf; mit Schwung aufrichten, Hände zu den Füßen
-    var k = keys(p, [[0, { a: 40 }], [.38, { a: -86 }], [.5, { a: -86 }], [.86, { a: 40 }], [1, { a: 40 }]]).a, pc = [0, 374, -14], a = k;
-    var u = trunkU(a), q = (a + 86) / 126, J = build({ pc: pc, a: a, nod: lerp(-4, 14, q),
-      arms: both(function (x) { var sh = shOf(pc, a, x), d = norm(lerp(u, norm(sub3([x * 8, 386, 56], sh)), Math.min(1, q * 1.3))); return { to: add(sh, mul(d, q > .9 ? Math.min(113, len(sub3([x * 8, 386, 56], sh))) : 113)), pole: [x, 0, 0], dir: d }; }),
+    var AL = -94, k = keys(p, [[0, { a: 40 }], [.38, { a: AL }], [.5, { a: AL }], [.86, { a: 40 }], [1, { a: 40 }]]).a, pc = [0, 374, -14], a = k; // Dennis: die Schultern müssen bis auf den Boden, sonst ist es keine ganze Wiederholung
+    var u = trunkU(a), q = (a - AL) / (40 - AL), J = build({ pc: pc, a: a, nod: lerp(-4, 14, q),
+      arms: both(function (x) { var sh = shOf(pc, a, x), d = norm(lerp(u, norm(sub3([x * 8, 386, 56], sh)), Math.min(1, q * 1.3))); var T = add(sh, mul(d, q > .9 ? Math.min(113, len(sub3([x * 8, 386, 56], sh))) : 113)); T[1] = Math.min(T[1], 384); return { to: T, pole: [x, 0, 0], dir: d }; }), // Hände über dem Kopf am Boden, nicht darunter
       legs: butterflyLegs(pc) });
     // AbMat (Dennis: nicht eckig, richtige Größe): 38 × 30 cm, höchstens 7,5 cm hoch, also 76 × 60 × 15 px. Rund geformt: am Gesäß eine weiche,
     // kurze Kante, dann flach auslaufend zum Rücken hin. Im Liegen liegt der untere Rücken darauf im Bogen (Hohlkreuz über der Matte, `_bend`).
@@ -1679,7 +1686,7 @@
     var prof = []; for (var i = 0; i <= 16; i++) { var uu = i / 16; prof.push([top(uu), Z0 - Lm * uu]); }
     var side = function (x, far) { return { type: 'poly', pts: [[x, 397, Z0]].concat(prof.map(function (q) { return [x, q[0], q[1]]; })), fill: true, keep: true, col: far ? STYLE.far : undefined }; };
     J._props = [side(30, true), { type: 'poly', pts: prof.map(function (q) { return [-30, q[0], q[1]]; }).concat(prof.slice().reverse().map(function (q) { return [30, q[0], q[1]]; })), fill: true }, side(-30)];
-    var e = Math.max(0, -a / 86) * .8, d = [0, 1, 0]; // e: wie weit er liegt; d: zum Rücken hin
+    var e = Math.max(0, -a / -AL) * .8, d = [0, 1, 0]; // e: wie weit er liegt; d: zum Rücken hin
     if (e > 0) J._bend = { pel: norm(add(u, mul(d, -.22 * e))), rib: norm(add(u, mul(d, .14 * e))), rc: mul(d, -9 * e) };
     return J;
   }
@@ -1730,6 +1737,13 @@
     var k = keys(p, [[0, { q: 0, o: 0 }], [.16, { q: .24, o: 0 }], [.22, { q: .24, o: 0 }], [.32, { q: 0, o: .25 }], [.44, { q: 0, o: 1 }], [.64, { q: 0, o: 1 }], [.9, { q: .06, o: 0 }], [1, { q: 0, o: 0 }]]);
     return barRack(k.q, k.o, -12 * Math.sin(Math.PI * Math.min(1, k.o * 1.6)));
   }
+  function clipLine(pts, f) { // Linienzug auf den Teil mit f(q) ≤ 0 kürzen; Schnittpunkte linear (f ist stückweise linear)
+    var out = [], prevIn = null;
+    for (var i = 0; i < pts.length; i++) { var q = pts[i], vin = f(q) <= 0;
+      if (i > 0 && vin !== prevIn) { var a = pts[i - 1], fa = f(a), fb = f(q), lo = 0, hi = 1; for (var it = 0; it < 30; it++) { var m = (lo + hi) / 2; if ((f(lerp(a, q, m)) <= 0) === (fa <= 0)) lo = m; else hi = m; } out.push(lerp(a, q, (lo + hi) / 2)); }
+      if (vin) out.push(q); prevIn = vin; }
+    return out;
+  }
   function stairClimb(p) { // zügig die Treppe hinauf, ganzer Fuß mitten auf der Stufe; die Treppe läuft mit, damit die Figur im Bild bleibt
     // Dennis: nicht so steif. Becken hebt und senkt sich mit dem Schritt, Oberkörper lehnt sich in den Schritt, Arme schwingen gebeugt gegengleich, Schultern drehen mit.
     var R2 = 40, D = 64, h = (p * 2) % 1, lead = p < .5 ? -1 : 1, o = h;
@@ -1740,13 +1754,15 @@
     // wo der nächste anfängt, nur mit dem anderen Bein. Das Becken federt und schwingt zum Standbein, der Oberkörper lehnt sich beim Abdruck vor.
     var push = Math.sin(Math.PI * h), pc = [lead * 5 * push, 220 - 6 * Math.cos(2 * Math.PI * h), 46 + 6 * push], a = 14 + 5 * Math.cos(2 * Math.PI * h);
     var J = build({ pc: pc, a: a, nod: -4 + 3 * Math.cos(2 * Math.PI * h),
-      arms: both(function (x) { var w = (x === lead ? -1 : 1) * Math.cos(h * Math.PI), th = (-14 - 30 * w) * R, sh = shOf(pc, a, x);
-        var ud = norm([x * .08, Math.cos(th), Math.sin(th)]), el = add(sh, mul(ud, 56)), fa = th + (180 - lerp(70, 105, (1 + w) / 2)) * R, fd = norm([-x * .15, Math.cos(fa), Math.sin(fa)]);
+      arms: both(function (x) { var w = (x === lead ? -1 : 1) * Math.cos(h * Math.PI), th = (-4 - 14 * w) * R, sh = shOf(pc, a, x); // Dennis: Arme etwas weniger
+        var ud = norm([x * .08, Math.cos(th), Math.sin(th)]), el = add(sh, mul(ud, 56)), fa = th + (180 - lerp(135, 158, (1 + w) / 2)) * R, fd = norm([-x * .15, Math.cos(fa), Math.sin(fa)]);
         return { to: add(el, mul(fd, 54)), pole: [x * .15, .2, -1], dir: fd }; }),
       legs: both(function (x) { var P = x === lead ? sup : trail; return { to: add(P, [x * 14, 0, 0]), pole: FWD }; }) });
     twist(J, lead * 14 * Math.cos(h * Math.PI));
-    var pts = [], i; for (i = -1; i <= 4; i++) { var z0 = Zc(i) - D / 2; pts.push([0, Y(i - 1) + 6, z0], [0, Y(i) + 6, z0], [0, Y(i) + 6, z0 + D]); }
-    pts = pts.filter(function (q) { return q[1] <= FLOOR_Y + 1; });
+    // Dennis: die Stufen tauchten abgehackt auf. Jetzt läuft eine lange Treppe durch ein festes Fenster: oben wächst die neue Stufe Stück für Stück herein,
+    // unten verschwindet die letzte im Boden. Abgeschnitten wird an festen Grenzen (z ≤ ZMAX, y ≤ Boden), nicht stufenweise.
+    var pts = [], i, ZMAX = 238; for (i = -3; i <= 7; i++) { var z0 = Zc(i) - D / 2; pts.push([0, Y(i - 1) + 6, z0], [0, Y(i) + 6, z0], [0, Y(i) + 6, z0 + D]); }
+    pts = clipLine(pts, function (q) { return Math.max(q[1] - (FLOOR_Y - 1), q[2] - ZMAX); });
     J._props = [-46, 46].map(function (xx) { return { type: 'poly', pts: pts.map(function (q) { return [xx, q[1], q[2]]; }), open: true, keep: true, col: xx > 0 ? STYLE.far : undefined }; });
     return J;
   }
@@ -1761,20 +1777,20 @@
   function ergBike(C, Rk, f, p) { // Rad-Ergometer nach Art des BikeErg (Dennis: mehr Mühe bei den Geräten). Maßstab ≈ 2 px/cm, Sattel 75 cm, Lenker 100 cm hoch.
     var F = FLOOR_Y, W = [0, 318, 112], far = STYLE.far, L = [];
     var Pa = add(C, [-16, Rk * Math.cos(f), -Rk * Math.sin(f)]), Pb = add(C, [16, -Rk * Math.cos(f), Rk * Math.sin(f)]);
-    L.push({ type: 'line', a: [-38, F - 4, -84], b: [38, F - 4, -84], w: 6, keep: true }, { type: 'line', a: [-38, F - 4, 150], b: [38, F - 4, 150], w: 6, keep: true }); // Standfüße mit Gummikappen
-    [-38, 38].forEach(function (x) { L.push({ type: 'line', a: [x, F - 2, -88], b: [x, F - 2, -80], w: 9, col: x > 0 ? far : undefined }, { type: 'line', a: [x, F - 2, 146], b: [x, F - 2, 154], w: 9, col: x > 0 ? far : undefined }); });
-    L.push({ type: 'poly', pts: [[0, F - 6, -84], [0, 300, -36], [0, 310, -24], [0, F - 6, -66]], fill: true, w: 2 }); // hinterer Rahmen bis unter den Sattel
-    L.push({ type: 'line', a: [0, 304, -30], b: [0, 252, -40], w: 6 }, { type: 'line', a: [0, 290, -33], b: [0, 296, -31], w: 9 }); // Sattelstütze mit Klemme
-    L.push({ type: 'poly', pts: [[-16, 244, -66], [16, 244, -66], [17, 246, -50], [7, 247, -18], [-7, 247, -18], [-17, 246, -50]], fill: true, w: 2 }, { type: 'poly', pts: [[-16, 244, -66], [16, 244, -66], [16, 252, -62], [-16, 252, -62]], fill: true }); // Sattel
-    L.push({ type: 'line', a: [0, 306, -26], b: add(W, [0, 8, -10]), w: 7 }); // Unterrohr zum Schwungrad
-    L.push({ type: 'line', a: add(W, [0, -28, -14]), b: [0, 210, 74], w: 6 }, { type: 'line', a: [0, 210, 74], b: [0, 198, 84], w: 6 }); // Lenkerstütze und Vorbau
-    L.push({ type: 'line', a: [-24, 196, 84], b: [24, 196, 84], w: 4 }); // Lenker mit Hörnchen nach vorn
-    [-24, 24].forEach(function (x) { L.push({ type: 'line', a: [x, 196, 84], b: [x, 190, 108], w: 4, col: x > 0 ? far : undefined }); });
-    L.push({ type: 'poly', pts: [[-12, 176, 92], [12, 176, 92], [12, 186, 78], [-12, 186, 78]], fill: true, w: 2 }); // Monitor
-    L.push({ type: 'line', a: add(W, [0, 6, 0]), b: [0, F - 4, 132], w: 6 }); // vorderes Bein
+    L.push({ type: 'line', a: [-38, F - 4, -84], b: [38, F - 4, -84], w: 2.7, keep: true }, { type: 'line', a: [-38, F - 4, 150], b: [38, F - 4, 150], w: 2.7, keep: true }); // Standfüße mit Gummikappen
+    [-38, 38].forEach(function (x) { L.push({ type: 'line', a: [x, F - 2, -88], b: [x, F - 2, -80], w: 4, col: x > 0 ? far : undefined }, { type: 'line', a: [x, F - 2, 146], b: [x, F - 2, 154], w: 4, col: x > 0 ? far : undefined }); });
+    L.push({ type: 'poly', pts: [[0, F - 6, -84], [0, 300, -36], [0, 310, -24], [0, F - 6, -66]], fill: true, w: 1.4 }); // hinterer Rahmen bis unter den Sattel
+    L.push({ type: 'line', a: [0, 304, -30], b: [0, 252, -40], w: 2.7 }, { type: 'line', a: [0, 290, -33], b: [0, 296, -31], w: 4 }); // Sattelstütze mit Klemme
+    L.push({ type: 'poly', pts: [[-16, 244, -66], [16, 244, -66], [17, 246, -50], [7, 247, -18], [-7, 247, -18], [-17, 246, -50]], fill: true, w: 1.4 }, { type: 'poly', pts: [[-16, 244, -66], [16, 244, -66], [16, 252, -62], [-16, 252, -62]], fill: true }); // Sattel
+    L.push({ type: 'line', a: [0, 306, -26], b: add(W, [0, 8, -10]), w: 3.1 }); // Unterrohr zum Schwungrad
+    L.push({ type: 'line', a: add(W, [0, -28, -14]), b: [0, 210, 74], w: 2.7 }, { type: 'line', a: [0, 210, 74], b: [0, 198, 84], w: 2.7 }); // Lenkerstütze und Vorbau
+    L.push({ type: 'line', a: [-24, 196, 84], b: [24, 196, 84], w: 1.8 }); // Lenker mit Hörnchen nach vorn
+    [-24, 24].forEach(function (x) { L.push({ type: 'line', a: [x, 196, 84], b: [x, 190, 108], w: 1.8, col: x > 0 ? far : undefined }); });
+    L.push({ type: 'poly', pts: [[-12, 176, 92], [12, 176, 92], [12, 186, 78], [-12, 186, 78]], fill: true, w: 1.4 }); // Monitor
+    L.push({ type: 'line', a: add(W, [0, 6, 0]), b: [0, F - 4, 132], w: 2.7 }); // vorderes Bein
     L.push({ type: 'circle', c: W, r: 48, fill: true, keep: true }, { type: 'circle', c: W, r: 40, spokes: 8, rot: p * 2 }, { type: 'circle', c: W, r: 10, hub: true }); // Lüfterrad im Gehäuse, dreht mit
     L.push({ type: 'poly', pts: [add(C, [-9, -14, 0]), add(W, [-9, -14, -6]), add(W, [-9, 14, -6]), add(C, [-9, 14, 0])], fill: true }); // Riemenabdeckung
-    L.push({ type: 'circle', c: add(C, [-11, 0, 0]), r: 14, fill: true, hub: true }, { type: 'line', a: add(C, [-16, 0, 0]), b: Pa, w: 4 }, { type: 'line', a: add(C, [16, 0, 0]), b: Pb, w: 4, col: far });
+    L.push({ type: 'circle', c: add(C, [-11, 0, 0]), r: 14, fill: true, hub: true }, { type: 'line', a: add(C, [-16, 0, 0]), b: Pa, w: 1.8 }, { type: 'line', a: add(C, [16, 0, 0]), b: Pb, w: 1.8, col: far });
     L.push({ type: 'poly', pts: [add(Pa, [-4, -3, -10]), add(Pa, [-16, -3, -10]), add(Pa, [-16, -3, 10]), add(Pa, [-4, -3, 10])], fill: true }, { type: 'poly', pts: [add(Pb, [4, -3, -10]), add(Pb, [16, -3, -10]), add(Pb, [16, -3, 10]), add(Pb, [4, -3, 10])], fill: true, col: far }); // Pedale
     return L;
   }
@@ -1791,18 +1807,18 @@
   function ergRow(sz, hg, p) { // Rudergerät nach Art des RowErg: Schiene auf zwei Füßen, Sitz mit Rollen, Fußstützen mit Riemen, Schwungrad im Gehäuse, Monitor am Arm, Kette zum Griff
     var F = FLOOR_Y, far = STYLE.far, W = [0, 300, 216], L = [];
     L.push({ type: 'poly', pts: [[-8, 336, -190], [8, 336, -190], [8, 336, 150], [-8, 336, 150]], fill: true, keep: true }, { type: 'poly', pts: [[-8, 336, -190], [-8, 336, 150], [-8, 348, 150], [-8, 348, -190]], fill: true }); // Schiene
-    L.push({ type: 'line', a: [0, 348, -178], b: [0, F - 5, -184], w: 6 }, { type: 'line', a: [-34, F - 4, -184], b: [34, F - 4, -184], w: 6, keep: true }); // hinterer Fuß
-    L.push({ type: 'line', a: [0, 346, 146], b: [0, F - 5, 252], w: 7 }, { type: 'line', a: [-34, F - 4, 252], b: [34, F - 4, 252], w: 6, keep: true }); // vorderer Fuß
-    [-34, 34].forEach(function (x) { [-184, 252].forEach(function (z) { L.push({ type: 'line', a: [x, F - 2, z - 4], b: [x, F - 2, z + 4], w: 9, col: x > 0 ? far : undefined }); }); }); // Gummikappen
+    L.push({ type: 'line', a: [0, 348, -178], b: [0, F - 5, -184], w: 2.7 }, { type: 'line', a: [-34, F - 4, -184], b: [34, F - 4, -184], w: 2.7, keep: true }); // hinterer Fuß
+    L.push({ type: 'line', a: [0, 346, 146], b: [0, F - 5, 252], w: 3.1 }, { type: 'line', a: [-34, F - 4, 252], b: [34, F - 4, 252], w: 2.7, keep: true }); // vorderer Fuß
+    [-34, 34].forEach(function (x) { [-184, 252].forEach(function (z) { L.push({ type: 'line', a: [x, F - 2, z - 4], b: [x, F - 2, z + 4], w: 4, col: x > 0 ? far : undefined }); }); }); // Gummikappen
     L.push({ type: 'poly', pts: [[-17, 327, sz - 24], [17, 327, sz - 24], [17, 327, sz + 18], [-17, 327, sz + 18]], fill: true }, { type: 'poly', pts: [[-17, 327, sz - 24], [-17, 327, sz + 18], [-15, 334, sz + 14], [-15, 334, sz - 20]], fill: true }); // Sitz
     L.push({ type: 'circle', c: [-10, 334, sz - 12], r: 3 }, { type: 'circle', c: [-10, 334, sz + 8], r: 3 }); // Rollen
     [-14, 14].forEach(function (x) { var c = x > 0 ? far : undefined; // Fußstütze schräg, Fersenschale, Riemen über dem Fuß
-      L.push({ type: 'poly', pts: [[x - 9, 343, 84], [x + 9, 343, 84], [x + 9, 301, 116], [x - 9, 301, 116]], fill: true, col: c }, { type: 'line', a: [x - 9, 343, 84], b: [x - 9, 334, 80], w: 3, col: c }, { type: 'line', a: [x - 11, 316, 92], b: [x + 11, 316, 92], w: 4, col: c }); });
-    L.push({ type: 'line', a: [-26, 346, 84], b: [26, 346, 84], w: 4 }, { type: 'line', a: [0, 340, 108], b: add(W, [0, 30, -30]), w: 6 }); // Halter der Fußstützen, Verbindung zum Gehäuse
+      L.push({ type: 'poly', pts: [[x - 9, 343, 84], [x + 9, 343, 84], [x + 9, 301, 116], [x - 9, 301, 116]], fill: true, col: c }, { type: 'line', a: [x - 9, 343, 84], b: [x - 9, 334, 80], w: 1.4, col: c }, { type: 'line', a: [x - 11, 316, 92], b: [x + 11, 316, 92], w: 1.8, col: c }); });
+    L.push({ type: 'line', a: [-26, 346, 84], b: [26, 346, 84], w: 1.8 }, { type: 'line', a: [0, 340, 108], b: add(W, [0, 30, -30]), w: 2.7 }); // Halter der Fußstützen, Verbindung zum Gehäuse
     L.push({ type: 'circle', c: W, r: 50, fill: true, keep: true }, { type: 'circle', c: W, r: 42, spokes: 10, rot: p * 3 }, { type: 'circle', c: W, r: 11, hub: true }); // Gehäuse mit Lüfterrad, dreht mit
-    L.push({ type: 'line', a: add(W, [0, -48, -6]), b: [0, 196, 176], w: 5 }, { type: 'poly', pts: [[-14, 180, 168], [14, 180, 168], [14, 204, 172], [-14, 204, 172]], fill: true, w: 2 }); // Monitorarm und Monitor
-    L.push({ type: 'line', a: hg, b: [0, 290, 168], w: 2 }, { type: 'line', a: [-28, hg[1], hg[2]], b: [28, hg[1], hg[2]], w: 5 }); // Kette und Griff
-    [-28, 28].forEach(function (x) { L.push({ type: 'line', a: [x * .55, hg[1], hg[2]], b: [x, hg[1], hg[2]], w: 8, col: x > 0 ? far : undefined }); }); // Griffe
+    L.push({ type: 'line', a: add(W, [0, -48, -6]), b: [0, 196, 176], w: 2.2 }, { type: 'poly', pts: [[-14, 180, 168], [14, 180, 168], [14, 204, 172], [-14, 204, 172]], fill: true, w: 1.4 }); // Monitorarm und Monitor
+    L.push({ type: 'line', a: hg, b: [0, 290, 168], w: 1.4 }, { type: 'line', a: [-28, hg[1], hg[2]], b: [28, hg[1], hg[2]], w: 2.2 }); // Kette und Griff
+    [-28, 28].forEach(function (x) { L.push({ type: 'line', a: [x * .55, hg[1], hg[2]], b: [x, hg[1], hg[2]], w: 3.6, col: x > 0 ? far : undefined }); }); // Griffe
     return L;
   }
   function bandPulldown(p) { // kniend vor dem hoch befestigten Band; Schultern nach unten, dann Ellbogen zur Seite bis die Hände auf Schulterhöhe sind

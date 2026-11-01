@@ -99,6 +99,11 @@ Fassung 3: `flatBench` (Flachbank mit Polster und Rahmen), `ergBike`, `ergRow` (
   „Schleife springt“, wenn der Schritt vom letzten zum ersten Bild größer ist als die Schritte davor. Bei `rep(p, down, hold)` muss 2 × down + hold ≤ 1 sein.
 - **Geräte in echten Maßen** (Figur ≈ 2 px/cm): Plyo-Box 61 × 51 × 76 cm, Bank 45 cm hoch, AbMat 38 × 30 × 7,5 cm, Rudersitz 35 cm, Radsattel 75 cm.
   Geräte ausgestalten statt Strichskizze: Füße mit Kappen, Polster, Gehäuse mit Lüfterrad (`circle` mit `spokes`, `rot` dreht mit), Monitor, Flächen mit `fill`.
+- **Geräte ruhig und fein** (Dennis: „zu dick, wabern komisch“): Geräte zeichnet `prop` mit festem Startwert (ihre Nebenstriche wechseln nicht von Bild
+  zu Bild, nur die Figur „lebt“). `w` ist die Breite des Hauptstrichs, Nebenstriche 0,6 davon; Rohre 1,5–3, nicht dicker.
+- **Flächen beim Drehen**: nur was immer unten liegt (Oberseite einer Box, Polster, Boden) bekommt `layer: 'back', flat: true`; Seitenflächen werden nach
+  Tiefe mit der Figur sortiert, sonst sind sie aus manchen Blickwinkeln durchsichtig.
+- **Fließende Bewegungen** (Thruster): keine Schlüsselbilder mit Stillstand zwischen den Phasen, wo im Sport keiner ist; besser weiche Kurven, die sich überlappen.
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
   So wird nie etwas abgeschnitten (Kopf, Hände, Füße).
 - 12 Bilder pro Sekunde. In der App zeichnet `play(el, übung)` live; im Canvas erzeugt `animatedSVG` eine SVG-Animation.

@@ -22,6 +22,11 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Box Jump Absprung vor der Box, rückwärts herunter, Ende = Anfang. Russian Twist bleibt ohne Gewicht (Hände vor der Brust, laut Anleitung).
   **Neue Regel für alle Animationen: endlose Schleife** (`pruefen.js` meldet Sprünge). Dabei repariert: Nordic Curl (war 1,1 Zyklen lang), Skater Jump,
   Thread the Needle, Lateral Band Walk, Treppe (läuft jetzt wie ein Laufband), Inchworm (Bild läuft mit, Striche am Boden).
+- Fassung 4 (Dennis): Thruster (Runde 4, Platz 22) als flüssige Bewegung ohne Halt (zwei weiche Kurven statt Schlüsselbilder); Trizeps Handfläche wirklich
+  auf dem Ellbogen (`reArm` auf `J.ela`); Bank und Box beim Drehen nicht durchsichtig (nur die Oberseite liegt immer unten, Seiten nach Tiefe);
+  AbMat ganze Wiederholung (Schultern am Boden, `AL` −94°); Treppe: Stufen wachsen an festen Grenzen herein (`clipLine`), Arme ruhiger.
+  Geräte ruhig gezeichnet: `S(…, so)` mit festem Startwert je Gerät (kein Wechsel der Nebenstriche von Bild zu Bild) und eigener Breite `o.w`
+  (Nebenstriche 0,6 davon); Linien von Bike Erg, Row Erg, Bank und Box etwa halb so breit.
 
 ## Grafiken Runde 4 (1. November 2026, Claude)
 - Dennis: „fang an, alle Grafiken zu bauen, die noch fehlen“. Stand: 115 Grafiken in `design/maskottchen/maskottchen.js` für 415 Übungen. Es fehlen also noch 302.
