@@ -88,6 +88,8 @@ Deckend ist Standard (1. November, Dennis), `solid: false` schaltet es je Übung
 
 Runde 5 (1. November 2026, Board https://claude.ai/artifact/7LwtySa61xCfyN5xsNazsu): Platz 42–61. Neu: `type: 'ball'` (Ball im Bild immer rund, mit Naht),
 `bar` (Klimmzugstange), `box` (Kasten, Stufe), `runPose`/`blendJ` (Lauf verschieben, zwei Haltungen überblenden), Treppe als mitlaufendes Profil.
+Fassung 2: Props mit `fill: true` bekommen im deckenden Modus eine Fläche (AbMat, Plyo-Box); `plyoBox(z0, z1, y, w)` in echten Maßen (Figur ≈ 2 px/cm,
+also 1 cm ≈ 2 px), Flächen mit `layer: 'back', flat: true` liegen immer hinter der Figur.
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).

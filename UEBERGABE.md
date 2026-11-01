@@ -13,6 +13,10 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   Russian Twist, Wall Ball Shot, Shuttle Run, Push Press, Stair Climb, Bike Erg, Row, Band Lat Pulldown, Box Jump, Lateral Band Walk, Clamshell, Copenhagen Plank.
   Board: https://claude.ai/artifact/7LwtySa61xCfyN5xsNazsu (deckend, drehbar). Neu in der Vorlage: Ball (`type: 'ball'`, immer rund), `bar`, `box`, `runPose`/`blendJ`.
   Treppe läuft mit (Figur bleibt im Bild), Shuttle Run dreht an der Linie um. `pruefen.js`: Kontakte halten. **Offen: Freigabe**, dann Kopie nach `index.html`.
+- Dennis' Rückmeldung (Fassung 2): Wall Biceps Wand seitlich, Hand flach daran; Trizeps: andere Hand drückt den Ellbogen nach unten; Bench Dip tiefer (Oberarm
+  waagerecht); AbMat gezeichnet; Wall Ball eine flüssige Bewegung (Fangen im Absenken); Shuttle Run Fingerspitzen am Boden (hinteres Bein über `legVia`);
+  Stair Climb mit Becken, Oberkörper, gebeugten Armen und Drehung; Bike Erg ganzes Rad und tritt vorwärts; Box Jump Plyo-Box 61 × 51 × 76 cm (`plyoBox`,
+  Figur ≈ 2 px/cm); Copenhagen unteres Bein frei unter der Bank. Body Saw und Band Lat Pulldown (Kniestand laut Anleitung) unverändert, nur erklärt.
 
 ## Grafiken Runde 4 (1. November 2026, Claude)
 - Dennis: „fang an, alle Grafiken zu bauen, die noch fehlen“. Stand: 115 Grafiken in `design/maskottchen/maskottchen.js` für 415 Übungen. Es fehlen also noch 302.

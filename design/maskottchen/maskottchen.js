@@ -184,7 +184,7 @@
         return S(sh, col);
       }
       if (o.keep) (o.type === 'circle' ? [o.c] : o.type === 'line' ? [o.a, o.b] : o.pts).forEach(function (p) { ext.push(pr(p)); });
-      return S(sh, col);
+      return S(sh, col, opt.solid && o.fill ? sh : null); // o.fill: Fläche (Plyo-Box, AbMat)
     }
     function layer(l) { return props.filter(function (o) { return (o.layer || 'back') === l; }).map(prop).join(''); }
     var g = opt.floor === false ? '' : opt.tilt ? '' : '<line x1="-400" x2="720" y1="' + FLOOR_Y + '" y2="' + FLOOR_Y + '" stroke="' + st.floor + '" stroke-width="2" stroke-linecap="round"/>';
@@ -1585,6 +1585,13 @@
     return [{ type: 'poly', pts: [[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]], keep: true }, { type: 'poly', pts: [[-w, y, z0], [-w, FLOOR_Y, z0], [w, FLOOR_Y, z0], [w, y, z0]], open: true, keep: true },
       { type: 'line', a: [-w, y, z1], b: [-w, FLOOR_Y, z1], col: STYLE.far }];
   }
+  function plyoBox(z0, z1, y, w) { // Plyo-Box aus Holz (Dennis: echte Maße). Maßstab der Figur ≈ 2 px/cm; Flächen deckend, immer hinter der Figur
+    var F = FLOOR_Y, face = function (pts, far) { return { type: 'poly', pts: pts, fill: true, keep: true, layer: 'back', flat: true, col: far ? STYLE.far : undefined }; };
+    var hole = function (x) { var zc = (z0 + z1) / 2, hw = (z1 - z0) * .22, yy = y + (F - y) * .16; // Griffloch oben in der Seitenwand
+      return { type: 'poly', pts: [[x, yy - 5, zc - hw], [x, yy - 5, zc + hw], [x, yy + 5, zc + hw], [x, yy + 5, zc - hw]], layer: 'back', flat: true, col: x > 0 ? STYLE.far : undefined }; };
+    return [face([[-w, y, z1], [w, y, z1], [w, F, z1], [-w, F, z1]], true), face([[w, y, z0], [w, y, z1], [w, F, z1], [w, F, z0]], true), face([[-w, y, z0], [-w, y, z1], [-w, F, z1], [-w, F, z0]]),
+      face([[-w, y, z0], [w, y, z0], [w, F, z0], [-w, F, z0]]), face([[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]]), hole(-w), hole(w)];
+  }
   function deadHang(p) { // toter Hang an der Stange, Arme ganz gestreckt, ruhig hängen
     var b = breathe(p), pc = [0, 268 + 2 * b, 13.7 + sway(p, 2)];
     var J = build({ pc: pc, a: -4 + sway(p, 1.5), nod: -2,
@@ -1598,12 +1605,16 @@
       arms: { a: { to: H, pole: [-1, 0, 0], dir: [-.2, 0, -1] }, b: { to: add(pc, [40, -14, 6]), pole: [1, 0, -.4], dir: [-.6, .3, .3] } },
       legs: both(function (x) { return { to: stand(x), pole: FWD }; }) });
     twist(J, -24 * t); reArm(J, 'a', H, [-1, .2, 0], [-.2, 0, -1]);
-    J._props = wallPlane(-70); return J;
+    // Dennis: die Hand ging an der Wand vorbei. Die Wand steht jetzt seitlich, die Handfläche liegt flach daran.
+    var Wl = [{ type: 'poly', pts: [[-131, -40, -130], [-131, -40, 10], [-131, 401, 10], [-131, 401, -130]], col: STYLE.far, keep: true, layer: 'back', flat: true }];
+    for (var y = -30; y < FLOOR_Y; y += 34) Wl.push({ type: 'line', a: [-131, y, -60], b: [-145, y + 14, -60], col: STYLE.far, layer: 'back', flat: true }); // Schraffur: dahinter ist Wand
+    J._props = Wl; return J;
   }
   function tricepsStretch(p) { // Arm über Kopf, Ellbogen gebeugt, Hand zwischen den Schulterblättern; die andere Hand zieht den Ellbogen sanft nach hinten
-    var t = rep(p, .4, .2), pc = [0, 222, -4], sh = shOf(pc, 0, -1), E = add(sh, [6, -54, lerp(4, -8, t)]), W = add(add(pc, [-2, -98, -32]), [0, 0, 0]);
+    var t = rep(p, .4, .2), pc = [0, 222, -4], sh = shOf(pc, 0, -1), E = add(sh, [lerp(6, 10, t), lerp(-55, -50, t), lerp(4, -10, t)]), W = add(pc, [-2, lerp(-98, -84, t), -32]);
+    // Dennis: die andere Hand liegt oben auf dem Ellbogen und drückt ihn nach unten (hinter den Kopf)
     var J = build({ pc: pc, a: 0, nod: 6,
-      arms: { a: { to: W, pole: sub3(E, mid(sh, W)), dir: [0, .9, -.3] }, b: { to: add(E, [6, 4, 8]), pole: [1, .3, .6], dir: [-.6, -.6, -.2] } },
+      arms: { a: { to: W, pole: sub3(E, mid(sh, W)), dir: [0, .9, -.3] }, b: { to: add(E, [2, -9, 2]), pole: [1, .1, .8], dir: [-.7, .5, -.1] } },
       legs: both(function (x) { return { to: stand(x), pole: FWD }; }) });
     return J;
   }
@@ -1613,7 +1624,7 @@
       arms: both(function (x) { return { to: [x * 30, 389, 0], pole: [x * .3, -.2, -1], dir: [0, .15, -1] }; }) });
   }
   function benchDip(p) { // Hände an der Bankkante neben der Hüfte, Finger nach vorn, Füße vorn am Boden; Hüfte senkt sich, Ellbogen zeigen nach hinten
-    var t = rep(p, .4, .1), pc = [0, lerp(298, 338, t), lerp(-8, -14, t)], a = lerp(-2, 6, t);
+    var t = rep(p, .4, .1), pc = [0, lerp(298, 362, t), lerp(-8, -12, t)], a = lerp(-2, 8, t); // Dennis: unten ist der Oberarm waagerecht (90° im Ellbogen)
     var J = build({ pc: pc, a: a, nod: lerp(0, -6, t),
       arms: both(function (x) { return { to: [x * 26, 296, -40], pole: [x * .2, -.2, -1], dir: [0, .3, 1] }; }),
       legs: both(function (x) { return { to: [x * 16, 390, 116], pole: UP, dir: [0, .28, 1] }; }) });
@@ -1642,6 +1653,9 @@
     var u = trunkU(a), q = (a + 86) / 126, J = build({ pc: pc, a: a, nod: lerp(-4, 14, q),
       arms: both(function (x) { var sh = shOf(pc, a, x), d = norm(lerp(u, norm(sub3([x * 8, 386, 56], sh)), Math.min(1, q * 1.3))); return { to: add(sh, mul(d, q > .9 ? Math.min(113, len(sub3([x * 8, 386, 56], sh))) : 113)), pole: [x, 0, 0], dir: d }; }),
       legs: butterflyLegs(pc) });
+    // AbMat: Keil unter dem unteren Rücken, dick am Gesäß, flach zum Rücken hin (Dennis: fehlte)
+    J._props = [-1, 1].map(function (x) { return { type: 'poly', pts: [[x * 26, 397, -18], [x * 26, 380, -26], [x * 26, 383, -54], [x * 26, 392, -82], [x * 26, 397, -90]], fill: true, col: x > 0 ? STYLE.far : undefined, keep: true }; })
+      .concat([{ type: 'line', a: [-26, 380, -26], b: [26, 380, -26] }, { type: 'line', a: [-26, 383, -54], b: [26, 383, -54] }]);
     return J;
   }
   function russianTwist(p) { // sitzen, Knie gebeugt, leicht zurückgelehnt; Hände vor der Brust, Schultern zu einer Seite, dann zur anderen
@@ -1651,24 +1665,30 @@
       legs: both(function (x) { return { to: [x * 16, 388, 128], pole: [x * .1, -1, .3], dir: [0, .3, 1] }; }) });
     return twist(J, Math.sin(p * 2 * Math.PI) * 42);
   }
-  function wallBall(p) { // Ball vor der Brust, tief in die Hocke, explosiv hoch und an das Ziel werfen; über dem Kopf fangen und mit in die Hocke
-    var k = keys(p, [[0, { q: 0, o: 0 }], [.24, { q: 1, o: 0 }], [.3, { q: 1, o: 0 }], [.42, { q: 0, o: 1 }], [.7, { q: 0, o: 1 }], [.8, { q: .3, o: .3 }], [1, { q: 0, o: 0 }]]);
-    var pc = lerp([0, 222, -6], [0, 334, -40], k.q), a = lerp(2, 30, k.q), u = trunkU(a), f = trunkF(a), sh = shOf(pc, a, 0);
-    var chest = add(add(pc, mul(u, 96)), mul(f, 40)), over = add(sh, mul(norm([0, -1, .32]), 112)), g = lerp(chest, over, k.o);
-    var J = build({ pc: pc, a: a, nod: lerp(-10, -26, k.o),
+  function wallBall(p) { // eine flüssige Bewegung (Dennis): aus der Hocke explosiv hoch und werfen, Arme bleiben oben, Ball in der Abwärtsbewegung fangen und direkt in die nächste Hocke
+    function pose(p) { var k = keys(p, [[0, { q: 1, o: 0 }], [.08, { q: .92, o: 0 }], [.2, { q: 0, o: .4 }], [.26, { q: 0, o: 1 }], [.5, { q: 0, o: 1 }], [.6, { q: .2, o: .7 }], [.78, { q: .85, o: .05 }], [.92, { q: 1, o: 0 }], [1, { q: 1, o: 0 }]]);
+      var pc = lerp([0, 222, -6], [0, 334, -40], k.q), a = lerp(2, 30, k.q), u = trunkU(a), f = trunkF(a), sh = shOf(pc, a, 0);
+      var chest = add(add(pc, mul(u, 96)), mul(f, 40)), over = add(sh, mul(norm([0, -1, .32]), 112));
+      return { k: k, pc: pc, a: a, g: lerp(chest, over, k.o) }; }
+    var P = pose(p), k = P.k, g = P.g;
+    var J = build({ pc: P.pc, a: P.a, nod: lerp(-10, -26, k.o),
       arms: both(function (x) { return { to: add(g, [x * 14, 10, 0]), pole: norm(lerp([x * .6, .8, -.2], [x, 0, .2], k.o)), dir: norm(lerp([-x * .6, -.5, .4], [-x * .2, -.9, .3], k.o)) }; }),
       legs: both(function (x) { return { to: [x * 24, 390, 0], pole: [x * .45, -.1, 1] }; }) });
-    var T = [0, -96, 166], fly = p > .42 && p < .72 ? Math.sin(Math.PI * (p - .42) / .3) : 0, bp = p > .42 && p < .72 ? lerp(lerp(add(g, [0, -6, 14]), T, Math.min(1, (p - .42) / .14)), add(g, [0, -6, 14]), Math.max(0, (p - .56) / .16)) : add(g, [0, k.o > .5 ? -6 : 0, 14]);
+    // Ball: bis zum Abwurf (.24) in den Händen, fliegt zum Ziel (.38), fällt zurück und wird bei .56 im Absenken gefangen
+    var T = [0, -96, 166], R0 = add(pose(.24).g, [0, -6, 14]), C1 = add(pose(.56).g, [0, -6, 14]), bp;
+    if (p < .24 || p >= .56) bp = add(g, [0, k.o > .5 ? -6 : 0, 14]);
+    else if (p < .38) { var u1 = (p - .24) / .14; bp = add(lerp(R0, T, u1), [0, -30 * Math.sin(Math.PI * u1), 0]); }
+    else { var u2 = (p - .38) / .18; bp = lerp(T, C1, u2 * u2); }
     J._props = wall(176).concat([{ type: 'line', a: [0, -120, 174], b: [0, -72, 174], w: 3, col: '#E8963A' }, { type: 'ball', c: bp, r: 17, layer: 'front', keep: true }]);
     return J;
   }
   function runPose(q, z) { var J = run(q); for (var k in J) if (k.charAt(0) !== '_') J[k] = add(J[k], [0, 0, z]); return J; }
   function blendJ(A, B, t) { var O = {}; for (var k in A) if (k.charAt(0) !== '_') O[k] = lerp(A[k], B[k], t); O._props = []; return O; }
   function touchPose(z) { // abbremsen, tief, eine Hand tippt an die Linie
-    var pc = [0, 314, z - 30];
-    return build({ pc: pc, a: 52, nod: -16,
-      arms: { a: { to: [-22, 392, z + 52], pole: [-.3, -.2, -1], dir: [0, .2, 1] }, b: { to: add(pc, [44, -40, 30]), pole: [1, .3, -.4], dir: [0, .6, .6] } },
-      legs: { a: { to: [-20, 390, z + 36], pole: [-.2, -.2, 1] }, b: { to: [20, 382, z - 96], pole: [0, .6, 1], dir: [0, .7, .7] } } });
+    var pc = [0, 330, z - 34];
+    return build({ pc: pc, a: 62, nod: -20,
+      arms: { a: { to: [-22, 371, z + 34], pole: [-.3, -.2, -1], dir: [0, .96, .28] }, b: { to: add(pc, [44, -40, 30]), pole: [1, .3, -.4], dir: [0, .6, .6] } }, // Dennis: die Fingerspitzen berühren den Boden
+      legs: { a: { to: [-20, 390, z + 36], pole: [-.2, -.2, 1] }, b: legVia(pc, 62, 1, [20, 388, z - 96], [0, .02, -1], [0, .2, -1]) } });
   }
   function shuttle(p) { // zur Linie sprinten, kurz abbremsen, Boden antippen, umdrehen, zurück
     var L = 120, seg = function (q) { var J; if (q < .55) J = runPose((q / .55) * 2 % 1, lerp(-L, L - 40, q / .55));
@@ -1685,27 +1705,38 @@
     return barRack(k.q, k.o, -12 * Math.sin(Math.PI * Math.min(1, k.o * 1.6)));
   }
   function stairClimb(p) { // zügig die Treppe hinauf, ganzer Fuß mitten auf der Stufe; die Treppe läuft mit, damit die Figur im Bild bleibt
+    // Dennis: nicht so steif. Becken hebt und senkt sich mit dem Schritt, Oberkörper lehnt sich in den Schritt, Arme schwingen gebeugt gegengleich, Schultern drehen mit.
     var R2 = 40, D = 64, h = (p * 2) % 1, lead = p < .5 ? -1 : 1, o = h;
     function Y(i) { return 390 - i * R2 + o * R2; } function Zc(i) { return i * D - o * D + 30; }
     var sup = [0, Y(1), Zc(1)], tr0 = [0, Y(0), Zc(0)], tr1 = [0, Y(2), Zc(2)], lift = Math.sin(Math.PI * Math.min(1, Math.max(0, (h - .2) / .6)));
     var trail = h < .2 ? tr0 : lerp(tr0, tr1, ease(Math.min(1, (h - .2) / .6))); trail = add(trail, [0, -lift * 30, -lift * 8]);
-    var pc = [0, Y(1) - 168 + 4 * Math.cos(h * 2 * Math.PI) + 10, Zc(1) - 34];
-    var J = build({ pc: pc, a: 10, nod: 0,
-      arms: both(function (x) { var th = (x === lead ? -1 : 1) * 22 * Math.cos(h * Math.PI) * R; return { to: add(shOf(pc, 10, x), mul([x * .1, Math.cos(th), Math.sin(th)], 112)), pole: [0, .3, -1], dir: [0, 1, .1] }; }),
+    var push = Math.sin(Math.PI * h), pc = [lead * 4 * push, Y(1) - 168 + 14 * Math.cos(h * Math.PI) + 4, Zc(1) - 34 + 8 * push], a = 12 + 8 * Math.cos(h * Math.PI);
+    var J = build({ pc: pc, a: a, nod: -4 + 4 * Math.cos(h * Math.PI),
+      arms: both(function (x) { var w = (x === lead ? -1 : 1) * Math.cos(h * Math.PI), th = (-14 - 30 * w) * R, sh = shOf(pc, a, x);
+        var ud = norm([x * .08, Math.cos(th), Math.sin(th)]), el = add(sh, mul(ud, 56)), fa = th + (180 - lerp(70, 105, (1 + w) / 2)) * R, fd = norm([-x * .15, Math.cos(fa), Math.sin(fa)]);
+        return { to: add(el, mul(fd, 54)), pole: [x * .15, .2, -1], dir: fd }; }),
       legs: both(function (x) { var P = x === lead ? sup : trail; return { to: add(P, [x * 14, 0, 0]), pole: FWD }; }) });
+    twist(J, lead * 14 * Math.cos(h * Math.PI));
     var pts = [], i; for (i = -1; i <= 4; i++) { var z0 = Zc(i) - D / 2; pts.push([0, Y(i - 1) + 6, z0], [0, Y(i) + 6, z0], [0, Y(i) + 6, z0 + D]); }
     pts = pts.filter(function (q) { return q[1] <= FLOOR_Y + 1; });
     J._props = [-46, 46].map(function (xx) { return { type: 'poly', pts: pts.map(function (q) { return [xx, q[1], q[2]]; }), open: true, keep: true, col: xx > 0 ? STYLE.far : undefined }; });
     return J;
   }
-  function bikeErg(p) { // auf dem Rad-Ergometer: rund treten, Oberkörper ruhig, Hände am Lenker
+  function bikeErg(p) { // auf dem Rad-Ergometer: rund vorwärts treten, Oberkörper ruhig, Hände am Lenker
     var f = p * 2 * Math.PI, C = [0, 334, 14], Rk = 26, pc = [0, 236, -36], a = 30;
     var J = build({ pc: pc, a: a, nod: -10,
       arms: both(function (x) { return { to: [x * 22, 196, 84], pole: [x * .4, .6, -.3], dir: [0, .3, 1] }; }),
-      legs: both(function (x) { var g = f + (x < 0 ? 0 : Math.PI); return { to: add(C, [x * 16, Rk * Math.cos(g), Rk * Math.sin(g)]), pole: [x * .1, -.2, 1], dir: [0, .3, 1] }; }) });
-    J._props = [{ type: 'line', a: [0, 246, -40], b: C, w: 2.5, keep: true }, { type: 'line', a: C, b: [0, 200, 76], w: 2.5 }, { type: 'line', a: [-22, 196, 84], b: [22, 196, 84], w: 3 },
-      { type: 'line', a: [-14, 244, -60], b: [14, 244, -24], w: 4 }, { type: 'circle', c: [0, 344, 96], r: 40, hub: true, keep: true }, { type: 'line', a: [0, 384, -60], b: [0, 384, 130], w: 3, keep: true },
-      { type: 'circle', c: C, r: Rk, layer: 'back' }];
+      // Dennis: falsche Richtung. Vorwärts: oben geht das Pedal nach vorn, unten nach hinten
+      legs: both(function (x) { var g = f + (x < 0 ? 0 : Math.PI); return { to: add(C, [x * 16, Rk * Math.cos(g), -Rk * Math.sin(g)]), pole: [x * .1, -.2, 1], dir: [0, .3, 1] }; }) });
+    var Pa = add(C, [-16, Rk * Math.cos(f), -Rk * Math.sin(f)]), Pb = add(C, [16, -Rk * Math.cos(f), Rk * Math.sin(f)]), W = [0, 330, 108];
+    // Dennis: das Rad war nicht vollständig. Fußgestell, Sattelstütze, Sattel, Lenkerstütze, Lenker, Schwungrad mit Gehäuse, Kurbel und Pedale
+    J._props = [{ type: 'line', a: [0, 396, -80], b: [0, 396, 150], w: 3, keep: true }, { type: 'line', a: [-34, 396, -80], b: [34, 396, -80], w: 3 }, { type: 'line', a: [-34, 396, 150], b: [34, 396, 150], w: 3 },
+      { type: 'line', a: [0, 396, -30], b: [0, 252, -40], w: 3 }, { type: 'poly', pts: [[-15, 246, -64], [15, 246, -64], [9, 246, -18], [-9, 246, -18]], fill: true, w: 2 },
+      { type: 'line', a: [0, 396, 40], b: C, w: 2.5 }, { type: 'line', a: [0, 396, 70], b: [0, 206, 78], w: 3 }, { type: 'line', a: [-22, 196, 84], b: [22, 196, 84], w: 3 }, { type: 'line', a: [0, 206, 78], b: [0, 196, 84], w: 3 },
+      { type: 'circle', c: W, r: 50, keep: true }, { type: 'circle', c: W, r: 36, hub: true },
+      { type: 'line', a: add(C, [0, -10, 0]), b: add(W, [0, -18, 0]), col: STYLE.far }, { type: 'line', a: add(C, [0, 10, 0]), b: add(W, [0, 18, 0]), col: STYLE.far },
+      { type: 'circle', c: C, r: 10, hub: true }, { type: 'line', a: add(C, [-16, 0, 0]), b: Pa, w: 3 }, { type: 'line', a: add(C, [16, 0, 0]), b: Pb, w: 3 },
+      { type: 'line', a: add(Pa, [-6, 0, -8]), b: add(Pa, [-6, 0, 8]), w: 4 }, { type: 'line', a: add(Pb, [6, 0, -8]), b: add(Pb, [6, 0, 8]), w: 4 }];
     return J;
   }
   function rowErg(p) { // Rudern: vorn Knie gebeugt, Arme lang; erst Beine, dann Oberkörper zurück, dann Arme zur unteren Brust; zurück umgekehrt
@@ -1731,7 +1762,7 @@
     return J;
   }
   function boxJump(p) { // Arme nach hinten, beidbeinig auf die Box, ganzer Fuß landet, oben Hüfte strecken; einen Fuß nach dem anderen herunter
-    var Z0 = 0, ZB = 120, YB = 300, k = keys(p, [[0, { s: 0, z: 0, y: 0, l: 0, sw: 0 }], [.12, { s: .55, z: 0, y: 0, l: 0, sw: -1 }], [.24, { s: 0, z: .45, y: 1.2, l: 0, sw: 1 }], [.34, { s: .55, z: 1, y: 1, l: 0, sw: .4 }],
+    var Z0 = 0, ZB = 122, YB = 273, k = keys(p, [[0, { s: 0, z: 0, y: 0, l: 0, sw: 0 }], [.12, { s: .55, z: 0, y: 0, l: 0, sw: -1 }], [.24, { s: 0, z: .45, y: 1.2, l: 0, sw: 1 }], [.34, { s: .55, z: 1, y: 1, l: 0, sw: .4 }],
       [.44, { s: 0, z: 1, y: 1, l: 0, sw: 0 }], [.58, { s: 0, z: 1, y: 1, l: 0, sw: 0 }], [.72, { s: .15, z: .5, y: .55, l: 1, sw: 0 }], [.86, { s: 0, z: 0, y: 0, l: 0, sw: 0 }], [1, { s: 0, z: 0, y: 0, l: 0, sw: 0 }]]);
     var base = [0, lerp(390, YB - 10, Math.min(1, k.y)) - (k.y > 1 ? 0 : 0), lerp(Z0, ZB, k.z)], fy = 390 - (390 - (YB - 10)) * Math.min(1, k.y) - Math.max(0, k.y - 1) * 50;
     var pc = [0, fy - 168 + 100 * k.s, base[2] - 6 - 40 * k.s], a = 4 + 36 * k.s, th = lerp(0, k.sw < 0 ? -50 : 150, Math.abs(k.sw)) * R;
@@ -1739,7 +1770,7 @@
       arms: both(function (x) { return { to: add(shOf(pc, a, x), mul([x * .1, Math.cos(th), Math.sin(th)], 112)), pole: [x, 0, 0], dir: [0, Math.cos(th), Math.sin(th)] }; }),
       legs: both(function (x) { var down = k.l && x > 0 ? Math.min(1, k.l * 1.6) : k.l && x < 0 ? Math.max(0, k.l * 1.6 - .6) : 0, fz = lerp(base[2], 0, down), fyy = down > 0 ? lerp(fy, 390, down) - Math.sin(Math.PI * down) * 20 : fy;
         return { to: [x * 20, fyy, fz], pole: [x * .35, -.1, 1] }; }) });
-    J._props = box(70, 180, YB, 50); return J;
+    J._props = plyoBox(70, 174, YB, 77); return J; // 61 cm hoch, 51 cm tief, 76 cm breit (Plyo-Box 20 × 24 × 30 Zoll, aufrecht auf 24)
   }
   function bandWalk(p) { // Band um die Knie, halbe Hocke; kleine Schritte zur Seite, das Band bleibt gespannt; gleich viele zurück
     var pc0 = [0, 262, -24], a = 18, st = 34, k = (p * 2) % 1, dir = p < .5 ? 1 : -1, lead = dir, sx = dir * st * (p < .5 ? 0 : 1);
@@ -1763,8 +1794,8 @@
     var t = rep(p, .4, .2), pc = [lerp(26, 0, t), 222, -4], shb0 = shOf([0, 222, -4], 0, 1);
     var J = build({ pc: pc, a: 0, nod: 0,
       arms: { a: { to: add(pc, [-30, 8, 16]), pole: [-1, 0, .2], dir: [.2, .6, .5] }, b: { to: add(shb0, [56, 0, 52]), pole: [1, 0, -1], dir: [0, 0, 1] } },
-      legs: { a: { to: [-16, 392, 0], pole: FWD, dir: [0, .28, 1] }, b: { to: add(pc, [90, 120, 10]), pole: [0, 0, 1], dir: [.6, .2, .6] } } });
-    J = turnAll(J, [0, 222, -4], [0, 0, 1], 90, null);
+      legs: { a: { to: [-16, 392, 0], pole: FWD, dir: [0, .28, 1] }, b: { to: [lerp(40, 34, t), 386, -6], pole: [0, 0, 1], dir: [0, .28, 1] } } });
+    J = turnAll(J, [0, 222, -4], [0, 0, 1], 90, null); // Dennis: der untere Fuß hängt frei unter der Bank (nicht am Boden)
     var dy = 388 - J.elb[1]; for (var q in J) if (q.charAt(0) !== '_') J[q] = add(J[q], [0, dy, 0]);
     if (J._to) for (var r in J._to) J._to[r] = add(J._to[r], [0, dy, 0]);
     var F = J.ana; J._props = box(F[2] - 40, F[2] + 40, F[1] + 8, 0).length ? [{ type: 'poly', pts: [[F[0] - 30, F[1] + 9, -46], [F[0] + 30, F[1] + 9, -46], [F[0] + 30, F[1] + 9, 46], [F[0] - 30, F[1] + 9, 46]], keep: true },
@@ -1897,7 +1928,7 @@
       g_hip_flexor_stretch: { name: 'Half-Kneeling Hip Flexor Stretch', pose: hipFlexor, yaw: 58, dur: 4 },
       // Runde 5
       g_dead_hang: { name: 'Dead Hang', pose: deadHang, yaw: 38, dur: 4, floor: false },
-      g_wall_biceps_stretch: { name: 'Wall Biceps Stretch', pose: wallBiceps, yaw: 100, tilt: 8, mat: [-120, 120, -130, 110], dur: 4 },
+      g_wall_biceps_stretch: { name: 'Wall Biceps Stretch', pose: wallBiceps, yaw: 6, tilt: 4, dur: 4 },
       g_triceps_stretch: { name: 'Overhead Triceps Stretch', pose: tricepsStretch, yaw: 40, dur: 4 },
       g_wrist_flexion_stretch: { name: 'Wrist Flexion Stretch', pose: wristFlexion, yaw: 62, dur: 4 },
       g_bench_dip: { name: 'Bench Dip', pose: benchDip, yaw: 62, dur: 2.8 },
