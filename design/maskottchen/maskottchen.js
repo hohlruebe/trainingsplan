@@ -1554,12 +1554,11 @@
     }
     var J = build({ pc: pc, a: a, nod: -2 + 3 * Math.cos(p * 4 * Math.PI),
       arms: both(function (x) { // Dennis: Arme natürlicher. Oberarm pendelt aus der Schulter, hinten weiter (Hand bis neben die Hüfte) als vorn (Hand bis vor die Brust);
-        // der Ellbogen ist vorn enger und öffnet sich hinten, er folgt dem Oberarm etwas später; die Hand hängt locker und schwingt nach.
+        // der Ellbogen ist vorn enger und öffnet sich hinten, er folgt dem Oberarm etwas später.
         var q = (p + (x < 0 ? .5 : 0) + .03) % 1, w = Math.cos(q * 2 * Math.PI), wl = Math.cos((q - .07) * 2 * Math.PI), th = (-16 - 40 * w) * R, sh = shOf(pc, a, x);
         var ud = norm([x * (.06 + .06 * Math.max(0, w)), Math.cos(th), Math.sin(th)]), el = add(sh, mul(ud, 56)), E = lerp(68, 112, (1 + wl) / 2);
         var fa = th + (180 - E) * R, fd = norm([-x * lerp(.28, .05, (1 + w) / 2), Math.cos(fa), Math.sin(fa)]);
-        var hd = norm(lerp(fd, [0, 1, .15], .3 + .12 * Math.sin((q - .1) * 2 * Math.PI)));
-        return { to: add(el, mul(fd, 54)), pole: [x * .15, .2, -1], dir: hd }; }),
+        return { to: add(el, mul(fd, 54)), pole: [x * .15, .2, -1], dir: fd }; }), // Hand locker in Verlängerung des Unterarms (Dennis: abgeknickt sah komisch aus)
       legs: both(function (x) { var q = (p + (x < 0 ? 0 : .5)) % 1, A = add(legAt(q), [x * 10, 0, 0]), sw = q > .38 && q < .95;
         return { to: A, pole: [0, 0, 1], dir: sw ? (q < .6 ? [0, .75, -.6] : [0, .45, .9]) : [0, .28, 1] }; }) });
     // Dennis: der Oberkörper bewegt sich mit. Schultern drehen mit dem Arm, der vorn ist (gegen die Hüfte), die Hüfte dreht mit dem vorderen Bein.
