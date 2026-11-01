@@ -1546,7 +1546,7 @@
   function dbPress(p) { var J = pressAt(rep(p, .36, .14)); J._props = dumbbell(gripOf(J, 'a')).concat(dumbbell(gripOf(J, 'b'))); return J; }
   function run(p) { // Laufen von der Seite: Fuß landet unter dem Körper, Knie vorn hoch, Ferse hinten hoch, Arme schwingen locker gegengleich,
     // Schultern drehen leicht gegen die Hüfte (Dennis: „etwas steif“)
-    var pc = [0, 226 + 7 * Math.cos((p - .08) * 4 * Math.PI), 0], a = 12; // Knie federt in der Landung, nie ganz gestreckt
+    var pc = [0, 226 + 7 * Math.cos((p - .08) * 4 * Math.PI), 0], a = 12 + 3 * Math.cos((p - .2) * 4 * Math.PI); // Knie federt in der Landung; beim Abdruck etwas mehr Vorlage
     function legAt(q) { // q = 0 Landung … .38 Abdruck, dann Schwung
       var K = [[0, [0, 386, 30]], [.18, [0, 390, -6]], [.38, [0, 380, -62]], [.52, [0, 318, -96]], [.7, [0, 286, -14]], [.82, [0, 318, 40]], [.93, [0, 370, 46]], [1, [0, 386, 30]]];
       for (var i = 0; i < K.length - 1; i++) if (q <= K[i + 1][0]) return lerp(K[i][1], K[i + 1][1], ease((q - K[i][0]) / (K[i + 1][0] - K[i][0])));
@@ -1559,7 +1559,9 @@
         return { to: add(el, mul(fd, 54)), pole: [x * .2, .3, -1], dir: norm(add(fd, [0, .25, 0])) }; }), // Hand locker, leicht hängend
       legs: both(function (x) { var q = (p + (x < 0 ? 0 : .5)) % 1, A = add(legAt(q), [x * 10, 0, 0]), sw = q > .38 && q < .95;
         return { to: A, pole: [0, 0, 1], dir: sw ? (q < .6 ? [0, .75, -.6] : [0, .45, .9]) : [0, .28, 1] }; }) });
-    return twist(J, 9 * Math.sin(p * 2 * Math.PI));
+    // Dennis: der Oberkörper bewegt sich mit. Schultern drehen mit dem Arm, der vorn ist (gegen die Hüfte), die Hüfte dreht mit dem vorderen Bein.
+    twist(J, 20 * Math.cos(p * 2 * Math.PI));
+    return turnAll(J, pc, [0, 1, 0], -7 * Math.cos(p * 2 * Math.PI));
   }
   function hipFlexor(p) { // Halbkniestand: hinteres Knie am Boden, Gesäß fest, Hüfte nach vorn; der Arm der hinteren Seite geht nach oben
     var t = rep(p, .4, .2), K = [-19, 391, -60], hz = lerp(-46, -26, t), hy = K[1] - Math.sqrt(6400 - Math.pow(hz - K[2], 2));
