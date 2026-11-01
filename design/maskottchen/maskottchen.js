@@ -107,9 +107,9 @@
     var near = (Z.sha + Z.hia >= Z.shb + Z.hib) ? 'a' : 'b', farr = near === 'a' ? 'b' : 'a';
     var side = Math.abs(s) > .35;
     var count = 0;
-    function S(shape, col) { // Skizzenstrich: Hauptlinie und zwei leicht versetzte Nebenlinien
+    function S(shape, col, fillShape) { // Skizzenstrich: Hauptlinie und zwei leicht versetzte Nebenlinien; fillShape = Fläche darunter (deckend, opt.solid)
       count++;
-      var r = rng(count * 7 + boil), out = '';
+      var r = rng(count * 7 + boil), out = opt.solid && fillShape ? '<g fill="' + st.panel + '" stroke="none">' + fillShape + '</g>' : '';
       for (var i = 0; i < st.passes; i++) {
         var tr = '';
         if (i > 0) tr = ' transform="translate(' + n1((r() * 2 - 1) * st.jit) + ' ' + n1((r() * 2 - 1) * st.jit) + ') rotate(' + n1((r() * 2 - 1) * .8) + ')"';
@@ -125,15 +125,27 @@
           ' C' + n1(h * .5) + ' ' + n1(-w2) + ' ' + n1(h) + ' ' + n1(-w2 * .8) + ' ' + n1(h) + ' 0' +
           ' C' + n1(h) + ' ' + n1(w2 * .8) + ' ' + n1(h * .5) + ' ' + n1(w2) + ' 0 ' + n1(m) +
           ' C' + n1(-h * .5) + ' ' + n1(w1) + ' ' + n1(-h) + ' ' + n1(w1 * .9) + ' ' + n1(-h) + ' 0 Z';
-        return S('<path d="' + d + '" transform="translate(' + n1(cx) + ' ' + n1(cy) + ') rotate(' + n1(ang(a, b)) + ')"/>', col);
+        var sp_ = '<path d="' + d + '" transform="translate(' + n1(cx) + ' ' + n1(cy) + ') rotate(' + n1(ang(a, b)) + ')"/>';
+        return S(sp_, col, sp_);
       }
-      return S('<ellipse rx="' + n1(Math.max(L / 2 * (1 + ext_), wd)) + '" ry="' + n1(wd) + '" transform="translate(' + n1(cx) + ' ' + n1(cy) +
-        ') rotate(' + n1(L > .5 ? ang(a, b) : 0) + ')"/>', col);
+      var se_ = '<ellipse rx="' + n1(Math.max(L / 2 * (1 + ext_), wd)) + '" ry="' + n1(wd) + '" transform="translate(' + n1(cx) + ' ' + n1(cy) +
+        ') rotate(' + n1(L > .5 ? ang(a, b) : 0) + ')"/>';
+      return S(se_, col, se_);
     }
     function jnt(p, r, col) {
       return '<circle cx="' + n1(p[0]) + '" cy="' + n1(p[1]) + '" r="' + r + '" fill="' + st.joint + '" stroke="' + col + '" stroke-width="1.3"/>';
     }
     function limbs(sd, col) {
+      if (opt.solid) { // deckend: jedes Glied einzeln nach Tiefe, das Gelenk am Ende gehört dazu
+        var zz = function (a, b) { return (Z[a + sd] + Z[b + sd]) / 2; }, cap = '<ellipse rx="11" ry="8.5" transform="translate(' + n1(P['sh' + sd][0]) + ' ' + n1(P['sh' + sd][1]) + ') rotate(' +
+          n1(ang(P['sh' + sd], P['el' + sd])) + ') translate(5 0)"/>';
+        return [[zz('hi', 'kn'), segm(P['hi' + sd], P['kn' + sd], 11, col, .1) + jnt(P['hi' + sd], 5.5, col) + jnt(P['kn' + sd], 5.2, col)],
+          [zz('kn', 'an'), segm(P['kn' + sd], P['an' + sd], 8.5, col, .1) + jnt(P['kn' + sd], 5.2, col)],
+          [zz('an', 'to'), segm(P['an' + sd], P['to' + sd], 5, col, .25) + jnt(P['an' + sd], 4, col)],
+          [zz('sh', 'el'), S(cap, col, cap) + segm(P['sh' + sd], P['el' + sd], 8, col, .1) + jnt(P['sh' + sd], 5.5, col) + jnt(P['el' + sd], 4.5, col)],
+          [zz('el', 'wr'), segm(P['el' + sd], P['wr' + sd], 6.5, col, .1) + jnt(P['el' + sd], 4.5, col)],
+          [zz('wr', 'ha'), segm(P['wr' + sd], P['ha' + sd], 4.6, col, .2) + jnt(P['wr' + sd], 3.4, col)]];
+      }
       var g = segm(P['hi' + sd], P['kn' + sd], 11, col, .1) + segm(P['kn' + sd], P['an' + sd], 8.5, col, .1) + segm(P['an' + sd], P['to' + sd], 5, col, .25);
       g += segm(P['sh' + sd], P['el' + sd], 8, col, .1) + segm(P['el' + sd], P['wr' + sd], 6.5, col, .1);
       // Schulterkappe
@@ -178,7 +190,7 @@
     }
     var fc = side ? st.far : INK;
     g += layer('back');
-    g += limbs(farr, fc);
+    var farL = limbs(farr, fc); if (!opt.solid) g += farL;
     // Rumpf: Winkel und Verkürzung aus der Wirbelsäule
     var sp = sub3(K.nb, K.pc), L3 = Math.hypot(sp[0], sp[1], sp[2]) || 1;
     var dx = P.nb[0] - P.pc[0], dy = P.nb[1] - P.pc[1], th = Math.atan2(dx, -dy) / R, ratio = Math.max(.55, Math.hypot(dx, dy) / L3);
@@ -209,16 +221,19 @@
     var hth = Math.atan2(P.hc[0] - P.nb[0], -(P.hc[1] - P.nb[1])) / R;
     var hb = loc(P.hc, hth, [0, 18]);
     var a1 = loc(hb, hth, [-6, 0]), a2 = loc(nb, th, [-7, 4]), b1 = loc(hb, hth, [6, 0]), b2 = loc(nb, th, [7, 4]);
+    var t0 = g.length; // ab hier Rumpf (für opt.solid getrennt nach Tiefe)
     g += S('<path d="M' + n1(a1[0]) + ' ' + n1(a1[1]) + ' L' + n1(a2[0]) + ' ' + n1(a2[1]) + ' M' + n1(b1[0]) + ' ' + n1(b1[1]) + ' L' + n1(b2[0]) + ' ' + n1(b2[1]) + '"/>', INK);
     var wl = [loc(rc, thR, [-RX * .8, RY * .55]), loc(rc, thR, [-RX * st.waist, RY * 1.15]), loc(pc, thP, [-PX * .85, -8])];
     var wr = [loc(rc, thR, [RX * .8, RY * .55]), loc(rc, thR, [RX * st.waist, RY * 1.15]), loc(pc, thP, [PX * .85, -8])];
     function q3(w) { return 'M' + n1(w[0][0]) + ' ' + n1(w[0][1]) + ' Q' + n1(w[1][0]) + ' ' + n1(w[1][1]) + ' ' + n1(w[2][0]) + ' ' + n1(w[2][1]); }
-    g += S('<path d="' + q3(wl) + ' ' + q3(wr) + '"/>', INK);
+    var wFill = '<path d="' + q3(wl) + ' L' + n1(wr[2][0]) + ' ' + n1(wr[2][1]) + ' Q' + n1(wr[1][0]) + ' ' + n1(wr[1][1]) + ' ' + n1(wr[0][0]) + ' ' + n1(wr[0][1]) + ' Z"/>';
+    g += S('<path d="' + q3(wl) + ' ' + q3(wr) + '"/>', INK, wFill);
     var pel = '<ellipse rx="' + n1(PX) + '" ry="' + n1(PH) + '"/><path d="' + mer(PX, PH, mf) + '"/><path d="' + equ(PX, PH, -.1, .12) + '" opacity=".7"/>';
-    g += '<g transform="translate(' + n1(pc[0]) + ' ' + n1(pc[1]) + ') rotate(' + n1(thP) + ')">' + S(pel, INK) + '</g>';
+    g += '<g transform="translate(' + n1(pc[0]) + ' ' + n1(pc[1]) + ') rotate(' + n1(thP) + ')">' + S(pel, INK, '<ellipse rx="' + n1(PX) + '" ry="' + n1(PH) + '"/>') + '</g>';
     var rib = egg(RX, RY) + '<path d="' + mer(RX * .95, RY, mf) + '"/>';
     [[-.3, .07], [.42, .12]].forEach(function (q) { rib += '<path d="' + equ(RX * 1.02, RY, q[0], q[1]) + '" opacity=".7"/>'; });
-    g += '<g transform="translate(' + n1(rc[0]) + ' ' + n1(rc[1]) + ') rotate(' + n1(thR) + ')">' + S(rib, INK) + '</g>';
+    g += '<g transform="translate(' + n1(rc[0]) + ' ' + n1(rc[1]) + ') rotate(' + n1(thR) + ')">' + S(rib, INK, egg(RX, RY).replace('fill="none" ', '')) + '</g>';
+    var t1 = g.length;
     // Kopf: Augen, Nase und Mund nur, wenn das Gesicht zum Betrachter zeigt
     // Blickrichtung des Kopfes: wie der Körper, oder eigene (J._hf, z. B. zur hochgestreckten Hand)
     var ye = yaw * R + (J._hf ? Math.atan2(J._hf[0], J._hf[2]) : 0), hc_ = Math.cos(ye), hf_ = Math.sin(ye);
@@ -235,9 +250,18 @@
       hd += '<path d="M' + n1(nx) + ' 1 l' + n1(sx * nl) + ' 6 l' + n1(-sx * nl) + ' 2"/>';
       if (hc_ > .4) hd += '<path d="M' + n1(nx - 3) + ' 12 q3 1.5 6 0"/>';
     }
-    g += '<g transform="translate(' + n1(P.hc[0]) + ' ' + n1(P.hc[1]) + ') rotate(' + n1(hth) + ')">' + S(hd, INK) + '</g>';
+    var hOut = '<path d="M0 ' + (-hy) + ' C' + n1(hx * 1.35) + ' ' + (-hy) + ' ' + n1(hx * 1.1) + ' ' + n1(hy * .9) + ' 0 ' + hy + ' C' + n1(-hx * 1.1) + ' ' + n1(hy * .9) + ' ' + n1(-hx * 1.35) + ' ' + (-hy) + ' 0 ' + (-hy) + ' Z"/>';
+    g += '<g transform="translate(' + n1(P.hc[0]) + ' ' + n1(P.hc[1]) + ') rotate(' + n1(hth) + ')">' + S(hd, INK, hOut) + '</g>';
+    var t2 = g.length;
     var top = loc(P.hc, hth, [hc_ > -.2 ? hf_ * 4 : 0, -22]); ext.push(top);
     g += '<path d="' + smooth([top, nb, rc, pc, P.kna, P.ana]) + '" fill="none" stroke="' + st.action + '" stroke-width="' + st.loa + '" stroke-linecap="round" opacity=".85"/>';
+    if (opt.solid) { // deckend (Dennis: sonst wird es ein Gewirr von Linien): Rumpf, Kopf und jedes Glied nach Tiefe, hinten zuerst, mit Fläche gefüllt
+      var torso = g.slice(t0, t1), head = g.slice(t1, t2), loa = g.slice(t2); g = g.slice(0, t0);
+      var items = farL.concat(limbs(near, INK), [[(Z.pc + Z.nb) / 2, torso + loa], [Z.hc, head]]);
+      items.sort(function (x, y) { return x[0] - y[0]; }).forEach(function (it) { g += it[1]; });
+      g += layer('mid') + layer('front');
+      return { svg: g, ext: ext };
+    }
     g += layer('mid');
     g += limbs(near, INK);
     g += layer('front');
@@ -257,7 +281,7 @@
      ex = {pose, yaw, dur (s)}. Liefert alle Bilder und den gemeinsamen Ausschnitt. */
   function frames(ex, pal) {
     var n = Math.round(ex.dur * STYLE.fps), list = [], exts = [], P = pal ? PALETTES[pal] || pal : null;
-    for (var i = 0; i < n; i++) { var r = figure(ex.pose(i / n), ex.yaw, i, { floor: ex.floor, pal: P, tilt: ex.tilt, mat: ex.mat }); list.push(r.svg); exts.push(r.ext); }
+    for (var i = 0; i < n; i++) { var r = figure(ex.pose(i / n), ex.yaw, i, { floor: ex.floor, pal: P, tilt: ex.tilt, mat: ex.mat, solid: ex.solid }); list.push(r.svg); exts.push(r.ext); }
     return { frames: list, box: fitBox(exts, ex.tilt ? false : ex.floor), n: n, dur: ex.dur };
   }
 
@@ -1436,9 +1460,13 @@
   function cobra(p) { // Bauchlage, Hände neben der Brust; Oberkörper hoch drücken, Hüfte bleibt am Boden
     // Dennis: oben sind die Arme ganz gestreckt. Die Hände stehen dort, wo der gestreckte Arm aus der oberen Lage den Boden erreicht.
     var t = rep(p, .4, .2), pc = [0, 380, -20], top = 36, a = lerp(87, top, t), Hz = onFloor(shOf(pc, top, 1), 393, 113);
-    return build({ pc: pc, a: a, nod: lerp(4, -16, t),
+    var J = build({ pc: pc, a: a, nod: lerp(4, -16, t),
       arms: both(function (x) { return { to: [x * 36, 393, Hz], pole: [x * .5, -1, -.4], dir: [0, .1, 1] }; }),
       legs: both(function (x) { return { to: [x * 14, 390, -190], pole: DOWN, dir: [0, .1, -1] }; }) });
+    // Dennis: im Bogen statt eckig. Becken bleibt flach am Boden, der Brustkorb steht steiler, die Mitte sinkt Richtung Boden (Lendenwirbelsäule im Hohlkreuz).
+    var u = norm(sub3(J.nb, J.pc)), fw = trunkF(a);
+    J._bend = { pel: norm(lerp([0, -.05, 1], u, .35)), rib: norm(add(u, mul([0, -1, 0], .35 * t))), rc: mul(fw, 14 * t) };
+    return J;
   }
   function inchworm(p) { // aus der Vorbeuge mit den Händen nach vorn bis in den Liegestütz laufen, mit den Füßen hinterher
     var k = keys(p, [[0, { h: 0, f: 0 }], [.38, { h: 1, f: 0 }], [.48, { h: 1, f: 0 }], [.86, { h: 1, f: 1 }], [1, { h: 1, f: 1 }]]);
@@ -1645,7 +1673,7 @@
       g_inchworm: { name: 'Inchworm', pose: inchworm, yaw: 64, dur: 7 },
       g_sleeper_stretch: { name: 'Sleeper Stretch', pose: sleeper, yaw: 10, tilt: 14, mat: [-190, 150, -110, 150], dur: 4 },
       g_lizard: { name: 'Lizard Stretch', pose: lizard, yaw: 50, tilt: 16, mat: [-110, 120, -190, 170], dur: 4 },
-      g_butterfly: { name: 'Butterfly Stretch', pose: butterfly, yaw: 8, tilt: 12, mat: [-130, 130, -110, 120], dur: 4 },
+      g_butterfly: { name: 'Butterfly Stretch', pose: butterfly, yaw: 8, tilt: 12, mat: [-130, 130, -110, 120], solid: true, dur: 4 },
       g_pancake: { name: 'Pancake Stretch', pose: pancake, yaw: 150, tilt: 30, mat: [-160, 160, -100, 170], dur: 4 },
       g_glute_bridge_hold: { name: 'Glute Bridge Hold', pose: bridgeHold, yaw: 62, dur: 4 },
       g_band_press: { name: 'Band Overhead Press', pose: bandPress, yaw: 34, dur: 2.6 },
