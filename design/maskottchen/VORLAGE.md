@@ -77,6 +77,12 @@ spiegeln, damit die Kettlebell auf der Seite zur Kamera liegt. Rack: Hand vor de
 damit sie von der Seite sichtbar ist. Abläufe aus Zuständen (`kbFlow`, `KS`). Kniebeugen mit Kettlebell gehen unten below parallel (Sumo 19 px, Goblet 18 px).
 Eigene Blickrichtung des Kopfes: `J._hf` (Vektor, nur die waagerechte Richtung zählt), z. B. World's Greatest Stretch: Gesicht dreht zur Hand. Bodenkontakt sauber: Handgelenk 393–395, Knie 391, Knöchel liegend 395 (Boden 401).
 
+Runde 4 (1. November 2026, im Canvas zur Freigabe: https://claude.ai/artifact/QdT7dqH3WtRRqQQKrEA4r2): Platz 21–41 aus `REIHENFOLGE.md`.
+Neue Hilfen: `reachA` (Rumpfwinkel suchen, bei dem die Hand mit gestrecktem Arm den Boden erreicht), `onFloor`, `dumbbell` (Kurzhantel quer in der Hand),
+`barRack(q, o)` (Langhantel im Front Rack bzw. über Kopf, mit Kniebeuge: Thruster, Strict Press), `pressAt` (Hände von Schulterhöhe über Kopf: Band, Kurzhanteln).
+Vierfüßler mit gestreckten Armen: Schulterhöhe so, dass die Hand 110–111 px entfernt ist (sonst knickt der Ellbogen auf 145°). Sleeper Stretch: Oberarm und Ellbogen
+werden fest gesetzt, nur der Unterarm dreht (sonst legt die IK den Ellbogen woanders hin).
+
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
   So wird nie etwas abgeschnitten (Kopf, Hände, Füße).
