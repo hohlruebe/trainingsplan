@@ -315,24 +315,28 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await sw('Familie').isChecked(), true, 'Wahl bleibt nach dem Neuzeichnen');
     const s1 = await sun(); assert.ok(!s1.tag || s1.t >= 24 * 6 + 21 || s1.end <= 24 * 6 + 9, 'angeschalteter Kalender sperrt seine Termine');
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('tp.kal')).sel.familie00001), true, 'Wahl nur auf dem Gerät gemerkt');
-    // Alte Brücke (v2): Hinweis zum Aktualisieren, nichts wird geschickt. Neue Brücke (v3): der Coach trägt die Trainings ein, Aus nimmt sie wieder heraus.
-    assert.ok(await page.getByRole('button', { name: 'So aktualisierst du die Brücke' }).isVisible()); assert.equal(posts.length, 0);
-    await page.getByRole('button', { name: 'So aktualisierst du die Brücke' }).click();
-    assert.ok(await page.getByRole('heading', { name: 'Brücke aktualisieren', level: 1 }).isVisible());
+    // Kein automatisches Eintragen mehr (1. November): auch mit Brücke v3 schickt die App nichts. Eine Brücke, die schon eingetragen hat, bekommt einmal eine leere Liste.
+    assert.equal(await page.getByRole('button', { name: 'So aktualisierst du die Brücke' }).count(), 0, 'kein Hinweis zum Aktualisieren');
     bridge.v = 3;
     await page.getByRole('button', { name: 'Jetzt abgleichen', exact: true }).click();
-    await page.getByRole('heading', { name: 'Deine Tage' }).waitFor();
-    await page.waitForFunction(n => window.tpTest && document.querySelector('[data-change="kal-push"]'), null);
-    await page.waitForTimeout(500);
-    assert.ok(posts.length >= 1, 'nach dem Abgleich trägt der Coach ein');
-    const last = posts[posts.length - 1];
-    assert.equal(last.app, 'trainingsplan'); assert.ok(last.t.length >= 1 && last.t.every(x => /^(Training|Zusatz): /.test(x.n) && x.b > x.a && x.a > Date.now() - 864e5 * 400), 'nur Trainings mit Zeit');
-    assert.equal(await page.getByRole('button', { name: 'Alle in den Kalender' }).count(), 0, 'kein .ics-Knopf, wenn der Coach selbst einträgt');
-    const n0 = posts.length;
-    await page.locator('[data-change="kal-push"]').click({ force: true }); await page.waitForTimeout(500);
-    assert.equal(posts.length, n0 + 1); assert.equal(posts[posts.length - 1].t.length, 0, 'Aus nimmt die Trainings aus dem Kalender');
-    await page.locator('[data-change="kal-push"]').click({ force: true }); await page.waitForTimeout(500);
-    assert.ok(posts[posts.length - 1].t.length >= 1, 'wieder an: Trainings wieder eingetragen');
+    await page.getByRole('heading', { name: 'Deine Tage' }).waitFor(); await page.waitForTimeout(4600);
+    assert.equal(posts.length, 0, 'nichts wird eingetragen');
+    await page.evaluate(() => { const k = JSON.parse(localStorage.getItem('tp.kal')); k.pushN = 3; k.pushTs = Date.now(); localStorage.setItem('tp.kal', JSON.stringify(k)); });
+    await page.reload(); await page.waitForFunction(() => window.tpTest); await page.evaluate(() => window.tpTest.navigate('woche')); await page.waitForTimeout(4600);
+    assert.ok(posts.length >= 1 && posts[posts.length - 1].t.length === 0, 'alte Einträge einmal herausgenommen');
+    const np = posts.length; await page.evaluate(() => window.tpTest.navigate('woche')); await page.waitForTimeout(4600);
+    assert.equal(posts.length, np, 'nur einmal');
+    // Woche in den Kalender: Blatt mit je Training einem Google-Link, danach „eingetragen“.
+    await page.getByRole('button', { name: 'Woche in den Kalender' }).click();
+    await page.locator('#sheet.open .cal-row').first().waitFor();
+    const ln = page.locator('#sheet .cal-row a').first(), href = await ln.getAttribute('href');
+    assert.ok(/^https:\/\/calendar\.google\.com\/calendar\/render\?action=TEMPLATE&text=Training/.test(href) && /&dates=\d{8}T\d{6}\/\d{8}T\d{6}/.test(href), 'Google-Link mit Zeit');
+    await page.context().route('https://calendar.google.com/**', r => r.fulfill({ status: 200, body: 'ok' }));
+    const [pop] = await Promise.all([page.waitForEvent('popup'), ln.click()]); await pop.close(); await page.waitForTimeout(600);
+    assert.ok(await page.locator('#sheet .cal-row').first().getByText('eingetragen').isVisible(), 'als eingetragen markiert');
+    assert.ok(await page.evaluate(() => Object.keys(window.tpTest.state().calAdd || {}).length === 1), 'gemerkt');
+    assert.ok(await page.locator('#sheet').getByRole('button', { name: 'Als Datei (.ics)' }).isVisible());
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(400);
     // Abgleich ohne Brücke: letzter Stand bleibt, Fehler wird erklärt.
     bridge = { nein: 1 };
     await page.getByRole('button', { name: 'Jetzt abgleichen', exact: true }).click();
@@ -342,10 +346,10 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.getByRole('button', { name: 'Trennen', exact: true }).click();
     const n1 = posts.length;
     await page.getByRole('button', { name: 'Sicher? Nochmal tippen', exact: true }).click();
-    await page.waitForTimeout(300); assert.equal(posts.length, n1 + 1); assert.equal(posts[posts.length - 1].t.length, 0, 'Trennen nimmt die Trainings aus dem Kalender');
+    await page.waitForTimeout(300); assert.equal(posts.length, n1, 'Trennen schickt nichts mehr');
     await page.getByRole('button', { name: 'Kalender verbinden', exact: true }).waitFor();
     assert.equal(await page.evaluate(() => localStorage.getItem('tp.kal')), null, 'Trennen löscht Link und Daten');
-    console.log('PASS: Google Kalender verbinden, Dienste als Schichtplan, Kalender einzeln an und aus, Trainings eintragen, Link nur auf dem Gerät, Fehler und Trennen');
+    console.log('PASS: Google Kalender verbinden, Dienste als Schichtplan, Kalender einzeln an und aus, Woche in den Kalender, Link nur auf dem Gerät, Fehler und Trennen');
 
     // Fußanker (Nordic Curls) nur, wo er angehakt ist: bisher galt das Sofa (Alltagsgegenstände) an jedem Ort.
     const anker = Object.assign(v2s(), { ort: 'o_gym', picks: { 'o1:3:3': 'g_nordic', 'o_gym:3:3': 'g_nordic' }, swapped: {},
