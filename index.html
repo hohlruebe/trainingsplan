@@ -648,6 +648,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .bgrp button:disabled{opacity:.35;cursor:default}
 .fl-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 4px;background:var(--board);border-radius:18px;padding:8px 8px 8px 14px;touch-action:pan-y;transition:transform .2s}
 /* Bühne der Familien-Seite (Optik 3 „Bild-Fenster“): Figur über die ganze Breite, Name und Stand unten auf dem Bild, klebt beim Scrollen oben */
+.mob-x{margin:0 0 10px}.mob-jump{margin:0 -16px 6px;padding:2px 16px 6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}.mob-jump::-webkit-scrollbar{display:none}.mob-jump .chip{flex:none;white-space:nowrap}.mob-k{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 16px)}
 .fam-stage{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:3;margin:-4px -6px 10px;padding:4px 6px 0;background:var(--paper);border-radius:22px}
 .fst-win{position:relative;height:210px;border-radius:20px;overflow:hidden;background:var(--fig);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 6%,transparent)}
 .fst-win>.fig{height:100%;margin:0;border-radius:0;box-shadow:none}.fst-win>.fig::after{top:8px;bottom:auto;right:10px}
@@ -3923,7 +3924,7 @@ var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
-var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Bibliothek', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
 var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
@@ -4341,7 +4342,7 @@ function fbPage() {
   }
   if (p === 'orte') {
     var on = S.orte.filter(function (o) { return o.on; }).length;
-    return fbTop(p) + fbQ('Training', 'Wo trainierst du?', 'Mehrere möglich. Die Geräte je Ort prüfst du später in Tools › Übungen.') +
+    return fbTop(p) + fbQ('Training', 'Wo trainierst du?', 'Mehrere möglich. Die Geräte je Ort prüfst du später in Tools › Bibliothek.') +
       '<div class="ob-grid">' + S.orte.map(function (o) {
         var f = ORT_K[o.k]; return '<button type="button" class="ob-tile' + (o.on ? ' on' : '') + '" data-act="fb-ort" data-v="' + o.id + '" aria-pressed="' + !!o.on + '"><span class="ob-i">' + fkIcon(ortIc(o)) + '</span><span><b>' + esc(ortName(o)) + '</b><br><small>' + esc(FB_ORT_SUB[o.k] || '') + '</small></span></button>';
       }).join('') + '</div>' +
@@ -5685,7 +5686,7 @@ function renderPlan() {
     ['Pull-up', 'Band am Aufhängepunkt oder um beide Gurte über den Ringen, ein Knie in die Schlaufe.'],
     ['Dip', 'Band zwischen den Ringen, die Schienbeine darauf.'],
     ['Widerstand', 'Push-up und Glute Bridge: Band über Rücken bzw. Hüfte, die Enden unter den Händen.']
-  ], '', ['Für die Beine dehnen sich die Bänder zu wenig, dort bleiben Rucksack und Weste.', 'Die Farbe jedes Bands stellst du unter Tools › Übungen › Bänder ein.'], bandLegend()));
+  ], '', ['Für die Beine dehnen sich die Bänder zu wenig, dort bleiben Rucksack und Weste.', 'Die Farbe jedes Bands stellst du unter Tools › Bibliothek › Bänder ein.'], bandLegend()));
   h += sec('Nach einer Pause', W([
     v2() ? ['Weitermachen', 'Dein Coach plant die Woche neu. Nachgeholt wird nichts, es geht mit der nächsten Einheit weiter.'] : ['Weitermachen', 'Mit dem Tag nach dem letzten weitermachen. Die App merkt sich das. Pro Kalendertag ein Trainingstag, Ruhetage zählen von selbst.'],
     ['Bis 1 Woche', 'Normal weiter.'],
@@ -8780,7 +8781,7 @@ var MQ_DESK = window.matchMedia ? window.matchMedia('(min-width: 1024px) and (ho
 function deskOn() { var m = S.layout || 'auto'; if (m === 'desk') return window.innerWidth >= 900; if (m === 'mobil') return false; return !!(MQ_DESK && MQ_DESK.matches); }
 if (MQ_DESK) { var deskRe = function () { render(); }; if (MQ_DESK.addEventListener) MQ_DESK.addEventListener('change', deskRe); else if (MQ_DESK.addListener) MQ_DESK.addListener(deskRe); }
 // Seitenleiste statt der Reiter-Kapsel: alle Seiten direkt erreichbar.
-var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Übungen'], ['muskeln', 'Körper'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
+var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Bibliothek'], ['muskeln', 'Körper'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
 var SIDE_IC = { muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>', heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
   profil: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/>', einst: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>' };
 function sideHTML() {
@@ -12408,6 +12409,7 @@ function famItemHTML(f, c, avail) {
     '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
 }
 function renderFam() {
+  if (ui.famId === '_mob') return renderMob();
   var f = FAM[ui.famId]; if (!f) { ui.tab = 'uebungen'; return renderUebungen(); }
   ui.noSub = true;
   var c = famCtx(), avail = f.varianten.filter(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, c.have); }), B = famBody(f, c);
@@ -12415,9 +12417,45 @@ function renderFam() {
     '<section class="hero"><h1>' + esc(f.name) + '</h1><p class="hero-title">' + famSub(f) + '</p></section>' + famChipsHTML(f, c, avail) +
     '<section class="card fam-top">' + B.top + '</section>' + (B.body ? '<section class="card fam-page">' + B.body + '</section>' : '');
 }
+// Mobility in der Bibliothek (Dennis, 1. November: „integriere die Mobility-Übungen auch dort, als Familie Mobility mit einer Listenansicht nach Körperteil“).
+// Die Bibliothek hat dafür kein Feld; jede Übung des Musters `mobilitaet` steht hier genau einmal, von Kopf bis Fuß. Neue Übungen ohne Eintrag landen unter „Weitere“.
+var MOB_PART = [
+  ['nacken', 'Nacken', ['g_neck_cars']],
+  ['schulter', 'Schultern und Brust', ['g_shoulder_cars', 'g_passthrough', 'g_wall_slide', 'g_wall_flexion_hold', 'g_wall_flexion_liftoff', 'g_scap', 'g_puppy_pose', 'g_doorway_pec', 'g_sleeper_stretch', 'g_prayer_stretch', 'g_towel_stretch']],
+  ['arme', 'Arme und Handgelenke', ['g_wrist_prep', 'g_wrist_rocks', 'g_wrist_extension_stretch', 'g_wrist_flexion_stretch', 'g_wall_biceps_stretch', 'g_triceps_stretch']],
+  ['ruecken', 'Rücken und Wirbelsäule', ['g_cat_cow', 'g_thoracic_rotation', 'g_open_book', 'g_thread_needle', 'g_side_bend', 'g_roll_down', 'g_jefferson_curl', 'g_childs_pose', 'g_supine_twist', 'g_cobra', 'g_elevated_bridge', 'g_full_bridge']],
+  ['huefte', 'Hüfte', ['g_hip_cars', 'g_ninety_ninety', 'g_leg_swings', 'g_hip_flexor_stretch', 'g_couch_stretch', 'g_lizard', 'g_pigeon', 'g_butterfly', 'g_frog', 'g_pancake', 'g_deep_squat', 'g_assisted_squat', 'g_overhead_squat_hold', 'g_glute_bridge_hold']],
+  ['beinrueck', 'Beinrückseite', ['g_supine_hamstring', 'g_ragdoll', 'g_pike_stretch', 'g_half_split', 'g_front_split', 'g_legs_up_wall']],
+  ['fuss', 'Unterschenkel und Füße', ['g_ankle_cars', 'g_knee_to_wall', 'g_calf_wall_stretch', 'g_kneeling_shin', 'g_kneeling_toe_stretch']],
+  ['ganz', 'Ganzkörper und Atmung', ['g_wgs', 'g_inchworm', 'g_stack']]
+];
+function mobGroups() {
+  var all = Object.keys(UE).filter(function (id) { return UE[id].muster === 'mobilitaet'; }), seen = {}, out = [];
+  MOB_PART.forEach(function (p) { var l = p[2].filter(function (id) { return UE[id] && UE[id].muster === 'mobilitaet' && !seen[id] && (seen[id] = 1); }); if (l.length) out.push({ k: p[0], n: p[1], l: l }); });
+  var rest = all.filter(function (id) { return !seen[id]; }); if (rest.length) out.push({ k: 'weitere', n: 'Weitere', l: rest });
+  return out;
+}
+function mobItemHTML(c) {
+  var all = Object.keys(UE).filter(function (id) { return UE[id].muster === 'mobilitaet'; }), here = all.filter(function (id) { return eqOk(UE[id].equipment, c.have); }).length, G = mobGroups();
+  return '<p class="kicker muted gl-group">Beweglichkeit · 1 Familie</p><section class="card gl-card"><div class="gl-item fam" id="f-_mob"><button type="button" class="gl-row" data-act="fam-open" data-id="_mob"><span class="gl-t"><b>Mobility</b><small>' +
+    all.length + ' Übungen · nach Körperteil' + (ui.libAll || here === all.length ? '' : ' · ' + here + ' gehen hier') + '</small><span class="fam-chips">' + G.slice(0, 4).map(function (g) { return '<span class="chip">' + esc(g.n) + '</span>'; }).join('') + (G.length > 4 ? '<span class="chip">+' + (G.length - 4) + '</span>' : '') + '</span></span>' +
+    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></section>';
+}
+function renderMob() {
+  ui.noSub = true;
+  var c = famCtx(), G = mobGroups(), n = G.reduce(function (t, g) { return t + g.l.length; }, 0);
+  var item = function (id) { var e = GL[uName(id)]; return e && e.lib ? glItemHTML(e, c.st, c.have, 'sub') : ''; };
+  return '<button type="button" class="rbtn back" data-act="tab" data-tab="' + (ui.famBack || 'uebungen') + '" aria-label="Zurück">' + BACK + '</button>' +
+    '<section class="hero"><h1>Mobility</h1><p class="hero-title">' + n + ' Übungen · nach Körperteil</p></section>' +
+    '<p class="muted small mob-x">Dehnen und Gelenke durch den ganzen Bewegungsbereich führen. Antippen klappt eine Übung mit Figur und „So geht’s“ auf. Fertige Abläufe stehen unter Tools › Mobility.</p>' +
+    '<div class="chips fam-go mob-jump">' + G.map(function (g) { return '<button type="button" class="chip" data-act="mob-jump" data-k="' + g.k + '">' + esc(g.n) + '</button>'; }).join('') + '</div>' +
+    G.map(function (g) { return '<p class="sec-k mob-k" id="mob-' + g.k + '">' + esc(g.n) + ' · ' + g.l.length + '</p><section class="card fam-page"><div class="fam-list">' + g.l.map(item).join('') + '</div></section>'; }).join('');
+}
+ACT['mob-jump'] = function (el) { var t = document.getElementById('mob-' + el.dataset.k); if (t) t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); };
 function famListHTML() {
   var c = famCtx(), groups = {};
   FAMD.familien.forEach(function (f) {
+    if (f.muster === 'mobilitaet') return; // steht in der Familie „Mobility“ (mobItemHTML)
     var avail = f.varianten.filter(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, c.have); });
     if (!ui.libAll && !avail.length) return;
     (groups[f.muster] || (groups[f.muster] = [])).push({ f: f, avail: avail });
@@ -12428,12 +12466,12 @@ function famListHTML() {
   return order.map(function (m) {
     var n = groups[m].length;
     return '<p class="kicker muted gl-group">' + esc(MUSTER[m] || m) + ' · ' + n + (n === 1 ? ' Familie' : ' Familien') + '</p><section class="card gl-card">' + groups[m].map(function (x) { return famItemHTML(x.f, c, x.avail); }).join('') + '</section>';
-  }).join('');
+  }).join('') + mobItemHTML(c);
 }
-function famCount() { var have = haveEq(); return FAMD.familien.filter(function (f) { return ui.libAll || f.varianten.some(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, have); }); }).length; }
+function famCount() { var have = haveEq(); return FAMD.familien.filter(function (f) { return f.muster !== 'mobilitaet' && (ui.libAll || f.varianten.some(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, have); })); }).length + 1; } // + Mobility
 // Familie als eigene Seite öffnen; Zurück führt dorthin, wo man herkam.
 function famOpen(id, gloss) {
-  if (!FAM[id]) return;
+  if (!FAM[id] && id !== '_mob') return;
   if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' || ui.tab === 'muskel' ? ui.tab : 'uebungen';
   ui.famId = id; ui.famSel = null; ui.famHow = false; ui.glossOpen = gloss || null; ui.tab = 'fam'; window.scrollTo(0, 0); render();
 }
@@ -13886,7 +13924,7 @@ function nextUnlockHTML(tag, inner) {
 }
 function renderUebungen() {
   var sub = (ui.libAll ? 'Alle' : esc(ortName(curOrt()))) + ' · ' + famCount() + ' Familien · ' + (ui.libAll ? Object.keys(UE).length : libCount()) + ' Übungen';
-  return '<section class="hero"><h1>Übungen</h1><p class="hero-title">' + sub + '</p></section>' + libCapHTML() +
+  return '<section class="hero"><h1>Bibliothek</h1><p class="hero-title">' + sub + '</p></section>' + libCapHTML() +
     '<label class="search"><span class="sr">Übung suchen</span><input id="gloss-search" type="search" placeholder="Übung suchen" value="' + esc(ui.glossQuery) + '"></label>' +
     '<div id="gloss-list">' + glossListHTML(filteredGloss()) + '</div>' + libBandsHTML();
 }

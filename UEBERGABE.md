@@ -8,6 +8,12 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Bibliothek mit Mobility (1. November 2026, Claude)
+- Dennis: „integriere die Mobility-Übungen auch dort und nimm als Familie Mobility mit einer Listenansicht nach Körperteil sortiert, nenne das Ganze einfach Bibliothek“.
+- Tools › Übungen heißt jetzt Bibliothek (Titel, Seitenleiste, Titel-Drop-down, Texte). Neue Familie „Mobility“ (`mobItemHTML`, `renderMob`, `MOB_PART`) mit allen
+  58 Übungen des Musters `mobilitaet`, nach Körperteil von Kopf bis Fuß; Zuordnung fest im Code, weil die Daten kein Körperteil-Feld haben.
+- Offen: Wer neue Mobility-Übungen einbaut, trägt sie in `MOB_PART` ein (sonst „Weitere“, der Browser-Test meldet das).
+
 ## Familien-Seite mit Bühne (1. November 2026, Claude)
 - Dennis: „wenn ich innerhalb der Übungsfamilie auf die andere Übung drücke, nicht weitergeleitet werden, Bild und Erklärungstext ändern sich direkt dort“.
   Boards: drei Wege https://claude.ai/artifact/EutLpz5W9SyLMxKUDrxTFd → Vorschlag 1 „Bühne oben“, drei Versionen https://claude.ai/artifact/GqvQbNBDbPjNAeQr3dtwxY
