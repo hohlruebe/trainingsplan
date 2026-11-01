@@ -84,7 +84,7 @@ Vierfüßler mit gestreckten Armen: Schulterhöhe so, dass die Hand 110–111 px
 werden fest gesetzt, nur der Unterarm dreht (sonst legt die IK den Ellbogen woanders hin).
 
 Gekrümmte Wirbelsäule: `J._bend = {pel, rib, rc}` (Achsen von Becken und Brustkorb in 3D, Verschiebung des Brustkorbs), z. B. Cat-Cow, Cobra.
-Deckend: `solid: true` in `EXERCISES` (Dennis: durchsichtig wird es bei verschränkten Gliedern ein Gewirr): Formen nach Tiefe sortiert und mit der Fläche gefüllt.
+Deckend ist Standard (1. November, Dennis), `solid: false` schaltet es je Übung ab. Schulterpartie zwischen Schultern und Brustkorb. Früher: `solid: true` in `EXERCISES` (Dennis: durchsichtig wird es bei verschränkten Gliedern ein Gewirr): Formen nach Tiefe sortiert und mit der Fläche gefüllt.
 
 ## Regeln für die Darstellung
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).

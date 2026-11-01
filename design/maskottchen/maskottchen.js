@@ -189,7 +189,7 @@
       mp.forEach(function (q) { ext.push(q); });
     }
     var fc = side ? st.far : INK;
-    g += layer('back');
+    if (!opt.solid) g += layer('back');
     var farL = limbs(farr, fc); if (!opt.solid) g += farL;
     // Rumpf: Winkel und Verkürzung aus der Wirbelsäule
     var sp = sub3(K.nb, K.pc), L3 = Math.hypot(sp[0], sp[1], sp[2]) || 1;
@@ -226,6 +226,11 @@
     var wl = [loc(rc, thR, [-RX * .8, RY * .55]), loc(rc, thR, [-RX * st.waist, RY * 1.15]), loc(pc, thP, [-PX * .85, -8])];
     var wr = [loc(rc, thR, [RX * .8, RY * .55]), loc(rc, thR, [RX * st.waist, RY * 1.15]), loc(pc, thP, [PX * .85, -8])];
     function q3(w) { return 'M' + n1(w[0][0]) + ' ' + n1(w[0][1]) + ' Q' + n1(w[1][0]) + ' ' + n1(w[1][1]) + ' ' + n1(w[2][0]) + ' ' + n1(w[2][1]); }
+    // Schulterpartie (Dennis, 1. November: Lücke zwischen Schultergelenk und Körper): von der Brustkorb-Seite zur Schulter, über den Nacken zur anderen
+    var sA = P.sha, sB = P.shb, d2 = function (u, v) { return Math.hypot(u[0] - v[0], u[1] - v[1]); };
+    var rA = d2(sA, wl[0]) + d2(sB, wr[0]) <= d2(sA, wr[0]) + d2(sB, wl[0]) ? wl[0] : wr[0], rB = rA === wl[0] ? wr[0] : wl[0], nk = loc(nb, th, [0, 3]);
+    var gird = 'M' + n1(rA[0]) + ' ' + n1(rA[1]) + ' L' + n1(sA[0]) + ' ' + n1(sA[1]) + ' Q' + n1(nk[0]) + ' ' + n1(nk[1]) + ' ' + n1(sB[0]) + ' ' + n1(sB[1]) + ' L' + n1(rB[0]) + ' ' + n1(rB[1]);
+    g += S('<path d="' + gird + '"/>', INK, '<path d="' + gird + ' Z"/>');
     var wFill = '<path d="' + q3(wl) + ' L' + n1(wr[2][0]) + ' ' + n1(wr[2][1]) + ' Q' + n1(wr[1][0]) + ' ' + n1(wr[1][1]) + ' ' + n1(wr[0][0]) + ' ' + n1(wr[0][1]) + ' Z"/>';
     g += S('<path d="' + q3(wl) + ' ' + q3(wr) + '"/>', INK, wFill);
     var pel = '<ellipse rx="' + n1(PX) + '" ry="' + n1(PH) + '"/><path d="' + mer(PX, PH, mf) + '"/><path d="' + equ(PX, PH, -.1, .12) + '" opacity=".7"/>';
@@ -258,8 +263,14 @@
     if (opt.solid) { // deckend (Dennis: sonst wird es ein Gewirr von Linien): Rumpf, Kopf und jedes Glied nach Tiefe, hinten zuerst, mit Fläche gefüllt
       var torso = g.slice(t0, t1), head = g.slice(t1, t2), loa = g.slice(t2); g = g.slice(0, t0);
       var items = farL.concat(limbs(near, INK), [[(Z.pc + Z.nb) / 2, torso + loa], [Z.hc, head]]);
+      // Geräte ebenso nach Tiefe (Dennis: beim Ring Dip gehört das vordere Seil vor den Körper); Flächen hinter der Figur (Wand) bleiben hinten
+      var zOf = function (v) { return -v[0] * s + v[2] * c; };
+      props.forEach(function (o) {
+        var pts = o.type === 'line' ? [o.a, o.b] : o.type === 'poly' ? o.pts : o.type === 'circle' ? [o.c] : o.type === 'kb' ? [o.g] : [];
+        var z = pts.length ? pts.reduce(function (t, v) { return t + zOf(v); }, 0) / pts.length : -1e9;
+        items.push([o.layer === 'back' && o.flat ? -1e9 : o.layer === 'front' && o.top ? 1e9 : z, prop(o)]);
+      });
       items.sort(function (x, y) { return x[0] - y[0]; }).forEach(function (it) { g += it[1]; });
-      g += layer('mid') + layer('front');
       return { svg: g, ext: ext };
     }
     g += layer('mid');
@@ -281,7 +292,7 @@
      ex = {pose, yaw, dur (s)}. Liefert alle Bilder und den gemeinsamen Ausschnitt. */
   function frames(ex, pal) {
     var n = Math.round(ex.dur * STYLE.fps), list = [], exts = [], P = pal ? PALETTES[pal] || pal : null;
-    for (var i = 0; i < n; i++) { var r = figure(ex.pose(i / n), ex.yaw, i, { floor: ex.floor, pal: P, tilt: ex.tilt, mat: ex.mat, solid: ex.solid }); list.push(r.svg); exts.push(r.ext); }
+    for (var i = 0; i < n; i++) { var r = figure(ex.pose(i / n), ex.yaw, i, { floor: ex.floor, pal: P, tilt: ex.tilt, mat: ex.mat, solid: ex.solid !== false }); list.push(r.svg); exts.push(r.ext); }
     return { frames: list, box: fitBox(exts, ex.tilt ? false : ex.floor), n: n, dur: ex.dur };
   }
 

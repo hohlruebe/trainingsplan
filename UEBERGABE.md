@@ -24,6 +24,10 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   federndem Knie. Dumbbell Press: Ellbogen etwa 30° vor dem Körper (Schulterblatt-Ebene), so bleibt es.
 - Fassung 4: Cobra im Bogen (`_bend`: Becken flach, Brustkorb steiler), Butterfly deckend (neu: `solid: true` in `EXERCISES`, `figure` zeichnet dann Rumpf,
   Kopf und jedes Glied nach Tiefe und füllt sie mit der Fläche; ohne `solid` bleibt alles wie bisher). Offen: deckend für alle Grafiken?
+- Fassung 5: deckend ist jetzt Standard für alle Grafiken (`solid` aus nur mit `solid: false`), auch Geräte nach Tiefe (vorderes Ring-Seil vor dem Körper),
+  Schulterpartie verbindet Schultern und Brustkorb (Lücke weg, Dennis). Vergleich aller Grafiken: https://claude.ai/artifact/4LE5pmYn8umzP24nPZRxU8
+  Noch nicht in `index.html` (wartet mit Runde 4 und Kettlebell auf Freigabe).
+- Drehen in der App eingebaut (CLAUDE.md „Figur drehen“), mit der bisherigen Grafik-Kopie in `index.html`.
 - Dennis' Idee: Grafik in der App um 360° drehen, im (i) und im Training, das Training merkt sich die letzte Ansicht. Im Board zum Ausprobieren
   (ziehen = drehen, senkrecht = von oben, doppeltippen = zurück). Offen: Freigabe der Bedienung, dann Einbau in der App.
 - Nächste Runde 5: Platz 41–60 aus `REIHENFOLGE.md` (Dehnungen Cool-down, Bench Dip, Body Saw, Band Row, Sit-up, Russian Twist, Wall Ball, Push Press …).
