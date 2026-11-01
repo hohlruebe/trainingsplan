@@ -29,3 +29,15 @@ for (var k2 in C) {
   if (!ok) { bad++; console.log('Kontakt löst sich:', k2, 'Hände', mh.toFixed(1), 'Füße', mf.toFixed(1)); }
 }
 console.log(bad ? bad + ' Übungen mit gelöstem Kontakt' : 'Kontakte: alle halten');
+
+// Endlose Schleife (Dennis, 1. November: „ende in der gleichen Position, in der die Animation anfängt“): der Schritt vom letzten Bild zurück zum ersten
+// darf nicht größer sein als die Schritte rundherum (Gelenke in px). Bewegt sich die Figur fort (Inchworm, Treppe), läuft das Bild mit.
+function gap(A, B) { var m = 0, mk = ''; for (var q in A) { if (q.charAt(0) === '_' || !Array.isArray(A[q]) || !B[q] || A[q].length !== 3) continue;
+  var v = Math.hypot(A[q][0] - B[q][0], A[q][1] - B[q][1], A[q][2] - B[q][2]); if (v > m) { m = v; mk = q; } } return [m, mk]; }
+var jumps = 0;
+for (var id3 in M.EXERCISES) {
+  var e3 = M.EXERCISES[id3], n3 = Math.round(e3.dur * 12), P3 = []; for (var i3 = 0; i3 < n3; i3++) P3.push(e3.pose(i3 / n3));
+  var near = Math.max(gap(P3[n3 - 3], P3[n3 - 2])[0], gap(P3[n3 - 2], P3[n3 - 1])[0], gap(P3[0], P3[1])[0], gap(P3[1], P3[2])[0]), w3 = gap(P3[n3 - 1], P3[0]);
+  if (w3[0] > 1.6 * near + 2) { jumps++; console.log('Schleife springt:', id3, w3[0].toFixed(1), 'px bei', w3[1], '(sonst', near.toFixed(1) + ')'); }
+}
+console.log(jumps ? jumps + ' Übungen springen am Ende der Schleife' : 'Schleifen: alle enden, wo sie anfangen');

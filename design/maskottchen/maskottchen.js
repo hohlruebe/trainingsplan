@@ -164,6 +164,9 @@
         var m = pr(o.c), rx = Math.max(o.r * Math.abs(s), o.r * .3);
         sh = '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx) + '" ry="' + o.r + '"/>';
         if (o.hub) sh += '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx * .3) + '" ry="' + n1(o.r * .3) + '"/>';
+        if (o.spokes) for (var si = 0; si < o.spokes; si++) { var sa = (si / o.spokes + (o.rot || 0)) * 2 * Math.PI; // Speichen bzw. Lüfterflügel, drehen mit o.rot
+          sh += '<path d="M' + n1(m[0] + rx * .3 * Math.sin(sa)) + ' ' + n1(m[1] + o.r * .3 * Math.cos(sa)) + ' L' + n1(m[0] + rx * .92 * Math.sin(sa)) + ' ' + n1(m[1] + o.r * .92 * Math.cos(sa)) + '"/>'; }
+        if (o.fill && opt.solid) { if (o.keep) ext.push([m[0] - rx, m[1] - o.r], [m[0] + rx, m[1] + o.r]); return S(sh, col, '<ellipse cx="' + n1(m[0]) + '" cy="' + n1(m[1]) + '" rx="' + n1(rx) + '" ry="' + o.r + '"/>'); }
       }
       else if (o.type === 'ball') { // Ball: im Bild immer rund, mit Naht
         var bm = pr(o.c); sh = '<circle cx="' + n1(bm[0]) + '" cy="' + n1(bm[1]) + '" r="' + o.r + '"/><path d="M' + n1(bm[0] - o.r) + ' ' + n1(bm[1]) + ' Q' + n1(bm[0]) + ' ' + n1(bm[1] + o.r * .7) + ' ' + n1(bm[0] + o.r) + ' ' + n1(bm[1]) + '"/>';
@@ -463,7 +466,7 @@
       legs: { a: { to: [-15, 390, 0], pole: [0, 0, 1] }, b: { to: add(hb, [2, 166 * Math.cos(ang_), 166 * Math.sin(ang_)]), pole: [0, -.3, 1], dir: [0, -.3, 1] } } });
   }
   function nordic(p) {
-    var t = rep(p, .5, .1), q = lerp(0, 68, t) * R, K = [0, 384, 0];
+    var t = rep(p, .46, .08), q = lerp(0, 68, t) * R, K = [0, 384, 0]; // endet wieder oben (vorher 1,1 Zyklen lang, die Schleife sprang)
     var hip = add(K, [0, -80 * Math.cos(q), 80 * Math.sin(q)]), u = [0, -Math.cos(q), Math.sin(q)], pc = add(hip, mul(u, 6));
     var sh = add(pc, mul(u, 112));
     return build({ pc: pc, a: q / R, nod: -8,
@@ -635,9 +638,9 @@
     if (h < .4) { var c = Math.sin(h / .4 * Math.PI) * 14, L = land(from); L.pc = add(L.pc, [0, c, 0]); return limbs(L); }
     var s = (h - .4) / .6, arc = Math.sin(s * Math.PI), o = mix(land(from), land(to), s);
     o.pc = [lerp(from, to, s) * X, 288 - 84 * arc, -24 + 10 * arc]; o.a = 22 - 12 * arc;
-    var lift = Math.min(1, arc * 3); // Füße sofort vom Boden, beide Beine unter dem Körper
+    var lift = ease(Math.min(1, s / .15, (1 - s) / .3)); // Füße sofort vom Boden, beide Beine unter dem Körper; vor der Landung schon wieder in Landehaltung (Schleife ohne Sprung)
     o.la = mix(o.la, add(o.pc, [-20, 128, -18]), lift); o.lb = mix(o.lb, add(o.pc, [20, 128, -18]), lift); // Knie leicht angezogen
-    o.ea = o.eb = [0, .6, .8]; o.qa = o.qb = FWD;
+    o.ea = mix(o.ea, [0, .6, .8], lift); o.eb = mix(o.eb, [0, .6, .8], lift); o.qa = mix(o.qa, FWD, lift); o.qb = mix(o.qb, FWD, lift); // weich zurück in die Landung, sonst springt die Schleife
     return limbs(o);
   }
   function slideFeet(z, w, y) { w = w || 11; y = y || 397; return [-1, 1].map(function (x) { return { type: 'poly', pts: [[x * w - 9, y, z - 14], [x * w + 9, y, z - 14], [x * w + 9, y, z + 10], [x * w - 9, y, z + 10]], keep: true }; }); }
@@ -1077,7 +1080,7 @@
     var to, pole, dir;
     if (k.r <= 1) { to = lerp(floorB, under, k.r); pole = [0, -1, .3]; dir = lerp([0, .12, 1], [-1, .1, -.1], k.r); }
     else if (k.r <= 2) { var dU = norm(sub3(under, J.shb)); to = add(J.shb, mul(norm(lerp(dU, dUp, k.r - 1)), 116)); pole = [0, 0, 1]; dir = norm(lerp(dU, dUp, k.r - 1)); }
-    else { var q = k.r - 2, d1 = norm(sub3(floorB, J.shb)); to = add(J.shb, mul(norm(lerp(dUp, d1, q)), lerp(116, len(sub3(floorB, J.shb)), q))); pole = [.3, 0, 1]; dir = norm(lerp(dUp, [0, .12, 1], q)); } // im Bogen zurück auf den Boden
+    else { var q = k.r - 2, d1 = norm(sub3(floorB, J.shb)); to = add(J.shb, mul(norm(lerp(dUp, d1, q)), lerp(116, len(sub3(floorB, J.shb)), q))); pole = lerp([.3, 0, 1], FWD, q); dir = norm(lerp(dUp, [0, .12, 1], q)); } // im Bogen zurück auf den Boden
     return reArm(J, 'b', to, pole, dir);
   }
 
@@ -1493,6 +1496,11 @@
     var J = build({ pc: pc, a: a, nod: lerp(30, -8, w),
       arms: both(function (x) { return { to: [x * 30, 393, hz + x * step * (k.h < 1 ? 1 : 0)], pole: [x * .3, -.2, -1], dir: [0, .1, 1] }; }),
       legs: both(function (x) { return { to: [x * 12, A[1], Az - x * step * (k.h >= 1 ? 1 : 0)], pole: lerp(FWD, DOWN, w), dir: norm(lerp([0, .28, 1], [0, .55, .85], w)) }; }) });
+    // Dennis: endlose Schleife. Die Figur kommt 230 weiter vorn an; das Bild läuft gleichmäßig mit, die Striche am Boden zeigen, dass sie vorankommt.
+    var sh = -230 * p; for (var q in J) if (q.charAt(0) !== '_') J[q] = add(J[q], [0, 0, sh]);
+    if (J._to) for (var r in J._to) J._to[r] = add(J._to[r], [0, 0, sh]);
+    J._props = []; for (var i = -4; i <= 8; i++) { var z = i * 46 + ((sh % 46) + 46) % 46 - 60; if (z > -150 && z < 330) J._props.push({ type: 'line', a: [-30, 397, z], b: [30, 397, z], col: STYLE.far }); }
+    J._props.push({ type: 'line', a: [0, 397, -150], b: [0, 397, 330], col: STYLE.far, keep: true });
     return J;
   }
   function sleeper(p) { // Seitenlage auf der Schulter, unterer Arm vor dir im rechten Winkel, Unterarm nach oben; die freie Hand drückt ihn Richtung Boden
@@ -1592,6 +1600,18 @@
     return [face([[-w, y, z1], [w, y, z1], [w, F, z1], [-w, F, z1]], true), face([[w, y, z0], [w, y, z1], [w, F, z1], [w, F, z0]], true), face([[-w, y, z0], [-w, y, z1], [-w, F, z1], [-w, F, z0]]),
       face([[-w, y, z0], [w, y, z0], [w, F, z0], [-w, F, z0]]), face([[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]]), hole(-w), hole(w)];
   }
+  function flatBench(z0, z1, y, w) { // Flachbank (Dennis: eine richtige Bank): gepolsterte Auflage mit Kante, darunter Stahlrahmen aus zwei Füßen mit Querstrebe
+    var F = FLOOR_Y, P = { layer: 'back', flat: true }, T = 9, o = function (q, x) { for (var k in P) q[k] = P[k]; for (var k2 in x || {}) q[k2] = x[k2]; return q; };
+    var zm = (z0 + z1) / 2, L = [];
+    [-1, 1].forEach(function (s) { var x = s * (w - 16), far = s > 0 ? STYLE.far : undefined; // Fuß: Rohr nach unten, unten ein breiter Querfuß
+      L.push(o({ type: 'line', a: [x, y + T, zm], b: [x, F - 6, zm], w: 4, col: far }), o({ type: 'line', a: [x, F - 3, z0 - 8], b: [x, F - 3, z1 + 8], w: 5, col: far }),
+        o({ type: 'line', a: [x, y + T + 2, z0 + 8], b: [x, y + T + 2, z1 - 8], w: 3, col: far })); });
+    L.push(o({ type: 'line', a: [-w + 16, y + T + 4, zm], b: [w - 16, y + T + 4, zm], w: 4 })); // Längsträger unter dem Polster
+    L.push(o({ type: 'poly', pts: [[-w, y, z1], [w, y, z1], [w, y + T, z1], [-w, y + T, z1]], fill: true, col: STYLE.far }), o({ type: 'poly', pts: [[w, y, z0], [w, y, z1], [w, y + T, z1], [w, y + T, z0]], fill: true, col: STYLE.far }),
+      o({ type: 'poly', pts: [[-w, y, z0], [-w, y, z1], [-w, y + T, z1], [-w, y + T, z0]], fill: true }), o({ type: 'poly', pts: [[-w, y, z0], [w, y, z0], [w, y + T, z0], [-w, y + T, z0]], fill: true }),
+      o({ type: 'poly', pts: [[-w, y, z0], [w, y, z0], [w, y, z1], [-w, y, z1]], fill: true, keep: true }));
+    return L;
+  }
   function deadHang(p) { // toter Hang an der Stange, Arme ganz gestreckt, ruhig hängen
     var b = breathe(p), pc = [0, 268 + 2 * b, 13.7 + sway(p, 2)];
     var J = build({ pc: pc, a: -4 + sway(p, 1.5), nod: -2,
@@ -1610,11 +1630,11 @@
     for (var y = -30; y < FLOOR_Y; y += 34) Wl.push({ type: 'line', a: [-131, y, -60], b: [-145, y + 14, -60], col: STYLE.far, layer: 'back', flat: true }); // Schraffur: dahinter ist Wand
     J._props = Wl; return J;
   }
-  function tricepsStretch(p) { // Arm über Kopf, Ellbogen gebeugt, Hand zwischen den Schulterblättern; die andere Hand zieht den Ellbogen sanft nach hinten
-    var t = rep(p, .4, .2), pc = [0, 222, -4], sh = shOf(pc, 0, -1), E = add(sh, [lerp(6, 10, t), lerp(-55, -50, t), lerp(4, -10, t)]), W = add(pc, [-2, lerp(-98, -84, t), -32]);
-    // Dennis: die andere Hand liegt oben auf dem Ellbogen und drückt ihn nach unten (hinter den Kopf)
-    var J = build({ pc: pc, a: 0, nod: 6,
-      arms: { a: { to: W, pole: sub3(E, mid(sh, W)), dir: [0, .9, -.3] }, b: { to: add(E, [2, -9, 2]), pole: [1, .1, .8], dir: [-.7, .5, -.1] } },
+  function tricepsStretch(p) { // Arm über Kopf, Ellbogen gebeugt, Hand zwischen den Schulterblättern; die andere Hand liegt hinter dem Kopf oben auf dem Ellbogen und drückt ihn nach unten
+    // Dennis: die Stützhand gehört hinter den Kopf. Der Ellbogen zeigt nach oben und liegt hinter dem Kopf; der andere Arm greift über den Kopf hinweg darauf.
+    var t = rep(p, .4, .2), pc = [0, 222, -4], E = lerp([-22, 52, -14], [-16, 60, -22], t), W = lerp([-6, 100, -36], [-2, 108, -40], t);
+    var J = build({ pc: pc, a: 0, nod: lerp(8, 12, t),
+      arms: { a: { to: W, pole: [-.2, -1, -.4], dir: [.2, .9, -.3] }, b: { to: add(E, [7, -15, -3]), pole: [1, -.9, -.5], dir: [-.4, .9, -.1] } },
       legs: both(function (x) { return { to: stand(x), pole: FWD }; }) });
     return J;
   }
@@ -1624,11 +1644,11 @@
       arms: both(function (x) { return { to: [x * 30, 389, 0], pole: [x * .3, -.2, -1], dir: [0, .15, -1] }; }) });
   }
   function benchDip(p) { // Hände an der Bankkante neben der Hüfte, Finger nach vorn, Füße vorn am Boden; Hüfte senkt sich, Ellbogen zeigen nach hinten
-    var t = rep(p, .4, .1), pc = [0, lerp(298, 362, t), lerp(-8, -12, t)], a = lerp(-2, 8, t); // Dennis: unten ist der Oberarm waagerecht (90° im Ellbogen)
+    var t = rep(p, .4, .1), pc = [0, lerp(298, 362, t), lerp(2, -6, t)], a = lerp(-2, 8, t); // Dennis: unten ist der Oberarm waagerecht (90° im Ellbogen)
     var J = build({ pc: pc, a: a, nod: lerp(0, -6, t),
       arms: both(function (x) { return { to: [x * 26, 296, -40], pole: [x * .2, -.2, -1], dir: [0, .3, 1] }; }),
       legs: both(function (x) { return { to: [x * 16, 390, 116], pole: UP, dir: [0, .28, 1] }; }) });
-    J._props = box(-120, -32, 300, 46); return J;
+    J._props = flatBench(-96, -34, 300, 104); return J; // Bank 45 cm hoch, 30 cm breit; die Figur sitzt an der Längsseite
   }
   function bodySaw(p) { // Unterarmstütz, Füße auf dem Handtuch; den Körper über die Unterarme nach hinten schieben und zurück
     var t = rep(p, .42, .1), dz = -44 * t, S = [0, 386 - Math.sqrt(56 * 56 - dz * dz) - 2, dz], A = [0, 384, dz - 262], L = line(A, S);
@@ -1653,9 +1673,14 @@
     var u = trunkU(a), q = (a + 86) / 126, J = build({ pc: pc, a: a, nod: lerp(-4, 14, q),
       arms: both(function (x) { var sh = shOf(pc, a, x), d = norm(lerp(u, norm(sub3([x * 8, 386, 56], sh)), Math.min(1, q * 1.3))); return { to: add(sh, mul(d, q > .9 ? Math.min(113, len(sub3([x * 8, 386, 56], sh))) : 113)), pole: [x, 0, 0], dir: d }; }),
       legs: butterflyLegs(pc) });
-    // AbMat: Keil unter dem unteren Rücken, dick am Gesäß, flach zum Rücken hin (Dennis: fehlte)
-    J._props = [-1, 1].map(function (x) { return { type: 'poly', pts: [[x * 26, 397, -18], [x * 26, 380, -26], [x * 26, 383, -54], [x * 26, 392, -82], [x * 26, 397, -90]], fill: true, col: x > 0 ? STYLE.far : undefined, keep: true }; })
-      .concat([{ type: 'line', a: [-26, 380, -26], b: [26, 380, -26] }, { type: 'line', a: [-26, 383, -54], b: [26, 383, -54] }]);
+    // AbMat (Dennis: nicht eckig, richtige Größe): 38 × 30 cm, höchstens 7,5 cm hoch, also 76 × 60 × 15 px. Rund geformt: am Gesäß eine weiche,
+    // kurze Kante, dann flach auslaufend zum Rücken hin. Im Liegen liegt der untere Rücken darauf im Bogen (Hohlkreuz über der Matte, `_bend`).
+    var Z0 = -22, Lm = 76, Hm = 15, top = function (u) { var r = u < .14 ? Math.sin(u / .14 * Math.PI / 2) : 1 - Math.pow((u - .14) / .86, 1.7); return 397 - Hm * r; };
+    var prof = []; for (var i = 0; i <= 16; i++) { var uu = i / 16; prof.push([top(uu), Z0 - Lm * uu]); }
+    var side = function (x, far) { return { type: 'poly', pts: [[x, 397, Z0]].concat(prof.map(function (q) { return [x, q[0], q[1]]; })), fill: true, keep: true, col: far ? STYLE.far : undefined }; };
+    J._props = [side(30, true), { type: 'poly', pts: prof.map(function (q) { return [-30, q[0], q[1]]; }).concat(prof.slice().reverse().map(function (q) { return [30, q[0], q[1]]; })), fill: true }, side(-30)];
+    var e = Math.max(0, -a / 86) * .8, d = [0, 1, 0]; // e: wie weit er liegt; d: zum Rücken hin
+    if (e > 0) J._bend = { pel: norm(add(u, mul(d, -.22 * e))), rib: norm(add(u, mul(d, .14 * e))), rc: mul(d, -9 * e) };
     return J;
   }
   function russianTwist(p) { // sitzen, Knie gebeugt, leicht zurückgelehnt; Hände vor der Brust, Schultern zu einer Seite, dann zur anderen
@@ -1687,17 +1712,18 @@
   function touchPose(z) { // abbremsen, tief, eine Hand tippt an die Linie
     var pc = [0, 330, z - 34];
     return build({ pc: pc, a: 62, nod: -20,
-      arms: { a: { to: [-22, 371, z + 34], pole: [-.3, -.2, -1], dir: [0, .96, .28] }, b: { to: add(pc, [44, -40, 30]), pole: [1, .3, -.4], dir: [0, .6, .6] } }, // Dennis: die Fingerspitzen berühren den Boden
+      // Dennis: die Fingerspitzen berühren den Boden, und zwar mit der Hand auf der Seite zur Kamera, außen neben dem vorderen Fuß (sonst verdeckt das Bein sie)
+      arms: { b: { to: [34, 371, z + 20], pole: [.3, -.2, -1], dir: [.1, .96, .26] }, a: { to: add(pc, [-44, -40, 30]), pole: [-1, .3, -.4], dir: [0, .6, .6] } },
       legs: { a: { to: [-20, 390, z + 36], pole: [-.2, -.2, 1] }, b: legVia(pc, 62, 1, [20, 388, z - 96], [0, .02, -1], [0, .2, -1]) } });
   }
   function shuttle(p) { // zur Linie sprinten, kurz abbremsen, Boden antippen, umdrehen, zurück
-    var L = 120, seg = function (q) { var J; if (q < .55) J = runPose((q / .55) * 2 % 1, lerp(-L, L - 40, q / .55));
+    var L = 140, seg = function (q) { var J; if (q < .55) J = runPose((q / .55) * 2 % 1, lerp(-(L - 40), L - 40, q / .55)); // startet dort, wo die Rückkehr endet (Schleife)
       else if (q < .7) J = blendJ(runPose(0, L - 40), touchPose(L - 30), ease((q - .55) / .15));
       else if (q < .85) J = touchPose(L - 30); else J = blendJ(touchPose(L - 30), runPose(0, L - 40), ease((q - .85) / .15)); return J; };
     var h = p < .5 ? 0 : 1, J = seg((p % .5) * 2);
     if (h) J = turnAll(J, [0, 222, 0], [0, 1, 0], 180);
     var turn = (p % .5) * 2 > .85 ? ((p % .5) * 2 - .85) / .15 : 0; if (turn) J = turnAll(J, [0, 222, h ? -(L - 40) : L - 40], [0, 1, 0], 180 * ease(turn));
-    J._props = [{ type: 'line', a: [-50, 400, L + 20], b: [50, 400, L + 20], w: 3, col: '#E8963A', keep: true }, { type: 'line', a: [-50, 400, -L - 20], b: [50, 400, -L - 20], w: 3, col: '#E8963A', keep: true }];
+    J._props = [{ type: 'line', a: [-50, 400, L - 10], b: [50, 400, L - 10], w: 3, col: '#E8963A', keep: true }, { type: 'line', a: [-50, 400, -L + 10], b: [50, 400, -L + 10], w: 3, col: '#E8963A', keep: true }]; // die Hand tippt genau auf die Linie
     return J;
   }
   function pushPress(p) { // Stange vorn auf den Schultern, kurz in die Knie (wenige Zentimeter), explosiv strecken und über den Kopf drücken
@@ -1710,8 +1736,10 @@
     function Y(i) { return 390 - i * R2 + o * R2; } function Zc(i) { return i * D - o * D + 30; }
     var sup = [0, Y(1), Zc(1)], tr0 = [0, Y(0), Zc(0)], tr1 = [0, Y(2), Zc(2)], lift = Math.sin(Math.PI * Math.min(1, Math.max(0, (h - .2) / .6)));
     var trail = h < .2 ? tr0 : lerp(tr0, tr1, ease(Math.min(1, (h - .2) / .6))); trail = add(trail, [0, -lift * 30, -lift * 8]);
-    var push = Math.sin(Math.PI * h), pc = [lead * 4 * push, Y(1) - 168 + 14 * Math.cos(h * Math.PI) + 4, Zc(1) - 34 + 8 * push], a = 12 + 8 * Math.cos(h * Math.PI);
-    var J = build({ pc: pc, a: a, nod: -4 + 4 * Math.cos(h * Math.PI),
+    // Wie ein Laufband (Dennis: endlose Schleife): der Körper bleibt auf einer Höhe, die Stufen laufen unter ihm weg. Darum endet jeder Schritt genau dort,
+    // wo der nächste anfängt, nur mit dem anderen Bein. Das Becken federt und schwingt zum Standbein, der Oberkörper lehnt sich beim Abdruck vor.
+    var push = Math.sin(Math.PI * h), pc = [lead * 5 * push, 220 - 6 * Math.cos(2 * Math.PI * h), 46 + 6 * push], a = 14 + 5 * Math.cos(2 * Math.PI * h);
+    var J = build({ pc: pc, a: a, nod: -4 + 3 * Math.cos(2 * Math.PI * h),
       arms: both(function (x) { var w = (x === lead ? -1 : 1) * Math.cos(h * Math.PI), th = (-14 - 30 * w) * R, sh = shOf(pc, a, x);
         var ud = norm([x * .08, Math.cos(th), Math.sin(th)]), el = add(sh, mul(ud, 56)), fa = th + (180 - lerp(70, 105, (1 + w) / 2)) * R, fd = norm([-x * .15, Math.cos(fa), Math.sin(fa)]);
         return { to: add(el, mul(fd, 54)), pole: [x * .15, .2, -1], dir: fd }; }),
@@ -1728,29 +1756,54 @@
       arms: both(function (x) { return { to: [x * 22, 196, 84], pole: [x * .4, .6, -.3], dir: [0, .3, 1] }; }),
       // Dennis: falsche Richtung. Vorwärts: oben geht das Pedal nach vorn, unten nach hinten
       legs: both(function (x) { var g = f + (x < 0 ? 0 : Math.PI); return { to: add(C, [x * 16, Rk * Math.cos(g), -Rk * Math.sin(g)]), pole: [x * .1, -.2, 1], dir: [0, .3, 1] }; }) });
-    var Pa = add(C, [-16, Rk * Math.cos(f), -Rk * Math.sin(f)]), Pb = add(C, [16, -Rk * Math.cos(f), Rk * Math.sin(f)]), W = [0, 330, 108];
-    // Dennis: das Rad war nicht vollständig. Fußgestell, Sattelstütze, Sattel, Lenkerstütze, Lenker, Schwungrad mit Gehäuse, Kurbel und Pedale
-    J._props = [{ type: 'line', a: [0, 396, -80], b: [0, 396, 150], w: 3, keep: true }, { type: 'line', a: [-34, 396, -80], b: [34, 396, -80], w: 3 }, { type: 'line', a: [-34, 396, 150], b: [34, 396, 150], w: 3 },
-      { type: 'line', a: [0, 396, -30], b: [0, 252, -40], w: 3 }, { type: 'poly', pts: [[-15, 246, -64], [15, 246, -64], [9, 246, -18], [-9, 246, -18]], fill: true, w: 2 },
-      { type: 'line', a: [0, 396, 40], b: C, w: 2.5 }, { type: 'line', a: [0, 396, 70], b: [0, 206, 78], w: 3 }, { type: 'line', a: [-22, 196, 84], b: [22, 196, 84], w: 3 }, { type: 'line', a: [0, 206, 78], b: [0, 196, 84], w: 3 },
-      { type: 'circle', c: W, r: 50, keep: true }, { type: 'circle', c: W, r: 36, hub: true },
-      { type: 'line', a: add(C, [0, -10, 0]), b: add(W, [0, -18, 0]), col: STYLE.far }, { type: 'line', a: add(C, [0, 10, 0]), b: add(W, [0, 18, 0]), col: STYLE.far },
-      { type: 'circle', c: C, r: 10, hub: true }, { type: 'line', a: add(C, [-16, 0, 0]), b: Pa, w: 3 }, { type: 'line', a: add(C, [16, 0, 0]), b: Pb, w: 3 },
-      { type: 'line', a: add(Pa, [-6, 0, -8]), b: add(Pa, [-6, 0, 8]), w: 4 }, { type: 'line', a: add(Pb, [6, 0, -8]), b: add(Pb, [6, 0, 8]), w: 4 }];
-    return J;
+    J._props = ergBike(C, Rk, f, p); return J;
+  }
+  function ergBike(C, Rk, f, p) { // Rad-Ergometer nach Art des BikeErg (Dennis: mehr Mühe bei den Geräten). Maßstab ≈ 2 px/cm, Sattel 75 cm, Lenker 100 cm hoch.
+    var F = FLOOR_Y, W = [0, 318, 112], far = STYLE.far, L = [];
+    var Pa = add(C, [-16, Rk * Math.cos(f), -Rk * Math.sin(f)]), Pb = add(C, [16, -Rk * Math.cos(f), Rk * Math.sin(f)]);
+    L.push({ type: 'line', a: [-38, F - 4, -84], b: [38, F - 4, -84], w: 6, keep: true }, { type: 'line', a: [-38, F - 4, 150], b: [38, F - 4, 150], w: 6, keep: true }); // Standfüße mit Gummikappen
+    [-38, 38].forEach(function (x) { L.push({ type: 'line', a: [x, F - 2, -88], b: [x, F - 2, -80], w: 9, col: x > 0 ? far : undefined }, { type: 'line', a: [x, F - 2, 146], b: [x, F - 2, 154], w: 9, col: x > 0 ? far : undefined }); });
+    L.push({ type: 'poly', pts: [[0, F - 6, -84], [0, 300, -36], [0, 310, -24], [0, F - 6, -66]], fill: true, w: 2 }); // hinterer Rahmen bis unter den Sattel
+    L.push({ type: 'line', a: [0, 304, -30], b: [0, 252, -40], w: 6 }, { type: 'line', a: [0, 290, -33], b: [0, 296, -31], w: 9 }); // Sattelstütze mit Klemme
+    L.push({ type: 'poly', pts: [[-16, 244, -66], [16, 244, -66], [17, 246, -50], [7, 247, -18], [-7, 247, -18], [-17, 246, -50]], fill: true, w: 2 }, { type: 'poly', pts: [[-16, 244, -66], [16, 244, -66], [16, 252, -62], [-16, 252, -62]], fill: true }); // Sattel
+    L.push({ type: 'line', a: [0, 306, -26], b: add(W, [0, 8, -10]), w: 7 }); // Unterrohr zum Schwungrad
+    L.push({ type: 'line', a: add(W, [0, -28, -14]), b: [0, 210, 74], w: 6 }, { type: 'line', a: [0, 210, 74], b: [0, 198, 84], w: 6 }); // Lenkerstütze und Vorbau
+    L.push({ type: 'line', a: [-24, 196, 84], b: [24, 196, 84], w: 4 }); // Lenker mit Hörnchen nach vorn
+    [-24, 24].forEach(function (x) { L.push({ type: 'line', a: [x, 196, 84], b: [x, 190, 108], w: 4, col: x > 0 ? far : undefined }); });
+    L.push({ type: 'poly', pts: [[-12, 176, 92], [12, 176, 92], [12, 186, 78], [-12, 186, 78]], fill: true, w: 2 }); // Monitor
+    L.push({ type: 'line', a: add(W, [0, 6, 0]), b: [0, F - 4, 132], w: 6 }); // vorderes Bein
+    L.push({ type: 'circle', c: W, r: 48, fill: true, keep: true }, { type: 'circle', c: W, r: 40, spokes: 8, rot: p * 2 }, { type: 'circle', c: W, r: 10, hub: true }); // Lüfterrad im Gehäuse, dreht mit
+    L.push({ type: 'poly', pts: [add(C, [-9, -14, 0]), add(W, [-9, -14, -6]), add(W, [-9, 14, -6]), add(C, [-9, 14, 0])], fill: true }); // Riemenabdeckung
+    L.push({ type: 'circle', c: add(C, [-11, 0, 0]), r: 14, fill: true, hub: true }, { type: 'line', a: add(C, [-16, 0, 0]), b: Pa, w: 4 }, { type: 'line', a: add(C, [16, 0, 0]), b: Pb, w: 4, col: far });
+    L.push({ type: 'poly', pts: [add(Pa, [-4, -3, -10]), add(Pa, [-16, -3, -10]), add(Pa, [-16, -3, 10]), add(Pa, [-4, -3, 10])], fill: true }, { type: 'poly', pts: [add(Pb, [4, -3, -10]), add(Pb, [16, -3, -10]), add(Pb, [16, -3, 10]), add(Pb, [4, -3, 10])], fill: true, col: far }); // Pedale
+    return L;
   }
   function rowErg(p) { // Rudern: vorn Knie gebeugt, Arme lang; erst Beine, dann Oberkörper zurück, dann Arme zur unteren Brust; zurück umgekehrt
+    // Sitz in echter Höhe (Dennis: Geräte besser ausgestalten): Sitzfläche 35 cm über dem Boden, Fußstützen schräg, Schwungrad vorn im Gehäuse.
     var k = keys(p, [[0, { s: 0, b: 0, r: 0 }], [.22, { s: 1, b: 0, r: 0 }], [.3, { s: 1, b: 1, r: 0 }], [.4, { s: 1, b: 1, r: 1 }], [.48, { s: 1, b: 1, r: 1 }], [.58, { s: 1, b: 1, r: 0 }], [.68, { s: 1, b: 0, r: 0 }], [1, { s: 0, b: 0, r: 0 }]]);
-    var pc = [0, 356, lerp(12, -60, k.s)], a = lerp(24, -22, k.b), sh = shOf(pc, a, 0), F = [0, 372, 96];
-    var reach = add(sh, mul(norm(sub3([0, 300, 200], sh)), 112)), chest = add(add(pc, mul(trunkU(a), 84)), mul(trunkF(a), 24)), Hn = lerp(reach, chest, k.r);
+    var pc = [0, 311, lerp(12, -60, k.s)], a = lerp(24, -22, k.b), sh = shOf(pc, a, 0), F = [0, 327, 96];
+    var reach = add(sh, mul(norm(sub3([0, 255, 200], sh)), 112)), chest = add(add(pc, mul(trunkU(a), 84)), mul(trunkF(a), 24)), Hn = lerp(reach, chest, k.r);
     var J = build({ pc: pc, a: a, nod: lerp(-6, 4, k.b),
       arms: both(function (x) { return { to: add(Hn, [x * 22, 0, 0]), pole: [x * .5, .3, -1], dir: [0, 0, 1] }; }),
       legs: both(function (x) { return { to: [x * 14, F[1], F[2]], pole: [x * .15, -1, .3], dir: [0, -.5, 1] }; }) });
-    var hg = mid(gripOf(J, 'a'), gripOf(J, 'b'));
-    J._props = [{ type: 'line', a: [0, 388, -150], b: [0, 388, 230], w: 3, keep: true }, { type: 'poly', pts: [[-16, 372, pc[2] - 22], [16, 372, pc[2] - 22], [16, 372, pc[2] + 18], [-16, 372, pc[2] + 18]] },
-      { type: 'line', a: [-26, hg[1], hg[2]], b: [26, hg[1], hg[2]], w: 3 }, { type: 'line', a: hg, b: [0, 330, 214] }, { type: 'circle', c: [0, 340, 226], r: 40, hub: true, keep: true },
-      { type: 'line', a: [-22, 352, 116], b: [-22, 390, 104] }, { type: 'line', a: [22, 352, 116], b: [22, 390, 104], col: STYLE.far }];
-    return J;
+    J._props = ergRow(pc[2], mid(gripOf(J, 'a'), gripOf(J, 'b')), p); return J;
+  }
+  function ergRow(sz, hg, p) { // Rudergerät nach Art des RowErg: Schiene auf zwei Füßen, Sitz mit Rollen, Fußstützen mit Riemen, Schwungrad im Gehäuse, Monitor am Arm, Kette zum Griff
+    var F = FLOOR_Y, far = STYLE.far, W = [0, 300, 216], L = [];
+    L.push({ type: 'poly', pts: [[-8, 336, -190], [8, 336, -190], [8, 336, 150], [-8, 336, 150]], fill: true, keep: true }, { type: 'poly', pts: [[-8, 336, -190], [-8, 336, 150], [-8, 348, 150], [-8, 348, -190]], fill: true }); // Schiene
+    L.push({ type: 'line', a: [0, 348, -178], b: [0, F - 5, -184], w: 6 }, { type: 'line', a: [-34, F - 4, -184], b: [34, F - 4, -184], w: 6, keep: true }); // hinterer Fuß
+    L.push({ type: 'line', a: [0, 346, 146], b: [0, F - 5, 252], w: 7 }, { type: 'line', a: [-34, F - 4, 252], b: [34, F - 4, 252], w: 6, keep: true }); // vorderer Fuß
+    [-34, 34].forEach(function (x) { [-184, 252].forEach(function (z) { L.push({ type: 'line', a: [x, F - 2, z - 4], b: [x, F - 2, z + 4], w: 9, col: x > 0 ? far : undefined }); }); }); // Gummikappen
+    L.push({ type: 'poly', pts: [[-17, 327, sz - 24], [17, 327, sz - 24], [17, 327, sz + 18], [-17, 327, sz + 18]], fill: true }, { type: 'poly', pts: [[-17, 327, sz - 24], [-17, 327, sz + 18], [-15, 334, sz + 14], [-15, 334, sz - 20]], fill: true }); // Sitz
+    L.push({ type: 'circle', c: [-10, 334, sz - 12], r: 3 }, { type: 'circle', c: [-10, 334, sz + 8], r: 3 }); // Rollen
+    [-14, 14].forEach(function (x) { var c = x > 0 ? far : undefined; // Fußstütze schräg, Fersenschale, Riemen über dem Fuß
+      L.push({ type: 'poly', pts: [[x - 9, 343, 84], [x + 9, 343, 84], [x + 9, 301, 116], [x - 9, 301, 116]], fill: true, col: c }, { type: 'line', a: [x - 9, 343, 84], b: [x - 9, 334, 80], w: 3, col: c }, { type: 'line', a: [x - 11, 316, 92], b: [x + 11, 316, 92], w: 4, col: c }); });
+    L.push({ type: 'line', a: [-26, 346, 84], b: [26, 346, 84], w: 4 }, { type: 'line', a: [0, 340, 108], b: add(W, [0, 30, -30]), w: 6 }); // Halter der Fußstützen, Verbindung zum Gehäuse
+    L.push({ type: 'circle', c: W, r: 50, fill: true, keep: true }, { type: 'circle', c: W, r: 42, spokes: 10, rot: p * 3 }, { type: 'circle', c: W, r: 11, hub: true }); // Gehäuse mit Lüfterrad, dreht mit
+    L.push({ type: 'line', a: add(W, [0, -48, -6]), b: [0, 196, 176], w: 5 }, { type: 'poly', pts: [[-14, 180, 168], [14, 180, 168], [14, 204, 172], [-14, 204, 172]], fill: true, w: 2 }); // Monitorarm und Monitor
+    L.push({ type: 'line', a: hg, b: [0, 290, 168], w: 2 }, { type: 'line', a: [-28, hg[1], hg[2]], b: [28, hg[1], hg[2]], w: 5 }); // Kette und Griff
+    [-28, 28].forEach(function (x) { L.push({ type: 'line', a: [x * .55, hg[1], hg[2]], b: [x, hg[1], hg[2]], w: 8, col: x > 0 ? far : undefined }); }); // Griffe
+    return L;
   }
   function bandPulldown(p) { // kniend vor dem hoch befestigten Band; Schultern nach unten, dann Ellbogen zur Seite bis die Hände auf Schulterhöhe sind
     var t = rep(p, .38, .14), pc = [0, 294, -20], a = 2, sh = shOf(pc, a, 0);
@@ -1761,19 +1814,32 @@
     J._props = [bandLine(gripOf(J, 'a'), A), bandLine(gripOf(J, 'b'), A), { type: 'line', a: [-10, -70, 112], b: [10, -70, 112], w: 4, keep: true }];
     return J;
   }
-  function boxJump(p) { // Arme nach hinten, beidbeinig auf die Box, ganzer Fuß landet, oben Hüfte strecken; einen Fuß nach dem anderen herunter
-    var Z0 = 0, ZB = 122, YB = 273, k = keys(p, [[0, { s: 0, z: 0, y: 0, l: 0, sw: 0 }], [.12, { s: .55, z: 0, y: 0, l: 0, sw: -1 }], [.24, { s: 0, z: .45, y: 1.2, l: 0, sw: 1 }], [.34, { s: .55, z: 1, y: 1, l: 0, sw: .4 }],
-      [.44, { s: 0, z: 1, y: 1, l: 0, sw: 0 }], [.58, { s: 0, z: 1, y: 1, l: 0, sw: 0 }], [.72, { s: .15, z: .5, y: .55, l: 1, sw: 0 }], [.86, { s: 0, z: 0, y: 0, l: 0, sw: 0 }], [1, { s: 0, z: 0, y: 0, l: 0, sw: 0 }]]);
-    var base = [0, lerp(390, YB - 10, Math.min(1, k.y)) - (k.y > 1 ? 0 : 0), lerp(Z0, ZB, k.z)], fy = 390 - (390 - (YB - 10)) * Math.min(1, k.y) - Math.max(0, k.y - 1) * 50;
-    var pc = [0, fy - 168 + 100 * k.s, base[2] - 6 - 40 * k.s], a = 4 + 36 * k.s, th = lerp(0, k.sw < 0 ? -50 : 150, Math.abs(k.sw)) * R;
-    var J = build({ pc: pc, a: a, nod: -6 * k.s,
+  function boxJump(p) { // Absprung etwa eine Fußlänge vor der Box, Arme nach hinten, beidbeinig hoch, ganzer Fuß landet mittig, oben Hüfte strecken;
+    // rückwärts herunter: erst ein Fuß hinter die Kante und hinunter, das Standbein auf der Box beugt sich, dann der zweite Fuß. Ende = Anfang (Schleife).
+    var Z0 = 100, Z1 = 204, YB = 273, ZS = 20, ZB = (Z0 + Z1) / 2, FB = YB - 7, FS = 390; // Fußhöhe (Knöchel) auf der Box bzw. am Boden
+    var A, B, pc, a = 4, sw = 0, nod = 0, s;
+    function stand(z, y, sq) { return [0, y - 168 + 100 * sq, z - 6 - 40 * sq]; }
+    if (p < .3) { // Ausholen, Absprung, Flug, Landung mit Abfangen
+      var k = keys(p, [[0, { s: 0, w: 0 }], [.1, { s: .6, w: -1 }], [.15, { s: .1, w: .7 }], [.22, { s: .25, w: .9 }], [.27, { s: .55, w: .35 }], [.3, { s: .5, w: .3 }]]);
+      var f = Math.min(1, Math.max(0, (p - .13) / .14)), fz = lerp(ZS, ZB, ease(f)), fy = f <= 0 ? FS : lerp(FS, FB, f) - 70 * Math.sin(Math.PI * f);
+      s = k.s; sw = k.w; A = [-18, fy, fz]; B = [18, fy, fz]; pc = stand(fz, fy, s); a = 4 + 36 * s;
+    } else if (p < .5) { // aufrichten, Hüfte strecken, kurz stehen
+      s = .5 * (1 - ease(Math.min(1, (p - .3) / .12))); A = [-18, FB, ZB]; B = [18, FB, ZB]; pc = stand(ZB, FB, s); a = 4 + 36 * s; sw = .3 * s / .5;
+    } else if (p < .74) { // Fuß b rückwärts über die Kante und hinunter, Standbein a beugt sich
+      var d = ease((p - .5) / .24), zb = lerp(ZB, ZS, ease(Math.min(1, (p - .5) / .15))), yb = p < .58 ? FB - 10 * Math.sin(Math.PI * (p - .5) / .16) : lerp(FB, FS, ease((p - .58) / .16));
+      A = [-18, FB, ZB]; B = [18, yb, zb]; pc = lerp(stand(ZB, FB, 0), [0, 228, 58], d); a = lerp(4, 14, d); nod = 6 * d;
+    } else if (p < .92) { // Fuß a folgt, aufrichten
+      var e = ease((p - .74) / .18), za = lerp(ZB, ZS, ease(Math.min(1, (p - .74) / .12))), ya = p < .8 ? FB - 8 * Math.sin(Math.PI * (p - .74) / .12) : lerp(FB, FS, ease((p - .8) / .12));
+      A = [-18, ya, za]; B = [18, FS, ZS]; pc = lerp([0, 228, 58], stand(ZS, FS, 0), e); a = lerp(14, 4, e); nod = 6 * (1 - e);
+    } else { A = [-18, FS, ZS]; B = [18, FS, ZS]; pc = stand(ZS, FS, 0); }
+    var th = lerp(0, sw < 0 ? -50 : 150, Math.abs(sw)) * R;
+    var J = build({ pc: pc, a: a, nod: nod - 6 * (s || 0),
       arms: both(function (x) { return { to: add(shOf(pc, a, x), mul([x * .1, Math.cos(th), Math.sin(th)], 112)), pole: [x, 0, 0], dir: [0, Math.cos(th), Math.sin(th)] }; }),
-      legs: both(function (x) { var down = k.l && x > 0 ? Math.min(1, k.l * 1.6) : k.l && x < 0 ? Math.max(0, k.l * 1.6 - .6) : 0, fz = lerp(base[2], 0, down), fyy = down > 0 ? lerp(fy, 390, down) - Math.sin(Math.PI * down) * 20 : fy;
-        return { to: [x * 20, fyy, fz], pole: [x * .35, -.1, 1] }; }) });
-    J._props = plyoBox(70, 174, YB, 77); return J; // 61 cm hoch, 51 cm tief, 76 cm breit (Plyo-Box 20 × 24 × 30 Zoll, aufrecht auf 24)
+      legs: { a: { to: A, pole: [-.35, -.1, 1] }, b: { to: B, pole: [.35, -.1, 1] } } });
+    J._props = plyoBox(Z0, Z1, YB, 77); return J; // 61 cm hoch, 51 cm tief, 76 cm breit (Plyo-Box 20 × 24 × 30 Zoll, aufrecht auf 24)
   }
   function bandWalk(p) { // Band um die Knie, halbe Hocke; kleine Schritte zur Seite, das Band bleibt gespannt; gleich viele zurück
-    var pc0 = [0, 262, -24], a = 18, st = 34, k = (p * 2) % 1, dir = p < .5 ? 1 : -1, lead = dir, sx = dir * st * (p < .5 ? 0 : 1);
+    var pc0 = [0, 262, -24], a = 18, st = 34, k = (p * 2) % 1, dir = p < .5 ? 1 : -1, lead = dir, sx = p < .5 ? 0 : st; // zurück endet, wo es anfing
     var leadX = sx + lead * (22 + st * ease(Math.min(1, k * 2))), trailX = sx - lead * 22 + lead * st * ease(Math.max(0, k * 2 - 1));
     var px = (leadX + trailX) / 2, pc = [px, pc0[1], pc0[2]];
     var J = build({ pc: pc, a: a, nod: -6,
@@ -1929,9 +1995,9 @@
       // Runde 5
       g_dead_hang: { name: 'Dead Hang', pose: deadHang, yaw: 38, dur: 4, floor: false },
       g_wall_biceps_stretch: { name: 'Wall Biceps Stretch', pose: wallBiceps, yaw: 6, tilt: 4, dur: 4 },
-      g_triceps_stretch: { name: 'Overhead Triceps Stretch', pose: tricepsStretch, yaw: 40, dur: 4 },
+      g_triceps_stretch: { name: 'Overhead Triceps Stretch', pose: tricepsStretch, yaw: 160, tilt: 10, dur: 4 },
       g_wrist_flexion_stretch: { name: 'Wrist Flexion Stretch', pose: wristFlexion, yaw: 62, dur: 4 },
-      g_bench_dip: { name: 'Bench Dip', pose: benchDip, yaw: 62, dur: 2.8 },
+      g_bench_dip: { name: 'Bench Dip', pose: benchDip, yaw: 50, tilt: 6, dur: 2.8 },
       g_body_saw: { name: 'Body Saw', pose: bodySaw, yaw: 64, dur: 3 },
       g_band_row: { name: 'Band Row', pose: bandRow, yaw: 60, dur: 2.6 },
       g_sit_up: { name: 'AbMat Sit-up', pose: sitUp, yaw: 62, dur: 3 },

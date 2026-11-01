@@ -90,8 +90,15 @@ Runde 5 (1. November 2026, Board https://claude.ai/artifact/7LwtySa61xCfyN5xsNaz
 `bar` (Klimmzugstange), `box` (Kasten, Stufe), `runPose`/`blendJ` (Lauf verschieben, zwei Haltungen überblenden), Treppe als mitlaufendes Profil.
 Fassung 2: Props mit `fill: true` bekommen im deckenden Modus eine Fläche (AbMat, Plyo-Box); `plyoBox(z0, z1, y, w)` in echten Maßen (Figur ≈ 2 px/cm,
 also 1 cm ≈ 2 px), Flächen mit `layer: 'back', flat: true` liegen immer hinter der Figur.
+Fassung 3: `flatBench` (Flachbank mit Polster und Rahmen), `ergBike`, `ergRow` (Geräte mit Gehäuse, Monitor, Fußstützen, Kette), `circle` mit `fill` und `spokes`.
 
 ## Regeln für die Darstellung
+- **Endlose Schleife** (Dennis, 1. November, gilt für alle Animationen): das letzte Bild führt nahtlos ins erste. Jede Bewegung endet genau in der Haltung,
+  in der sie anfängt (Box Jump: herunter und zurück an den Absprungpunkt; Sprünge: vor der Landung wieder in Landehaltung). Bewegt sich die Figur fort
+  (Inchworm, Treppe), läuft das Bild gleichmäßig mit: die Umgebung (Stufen, Striche am Boden) wandert, die Figur bleibt im Bild. `pruefen.js` meldet
+  „Schleife springt“, wenn der Schritt vom letzten zum ersten Bild größer ist als die Schritte davor. Bei `rep(p, down, hold)` muss 2 × down + hold ≤ 1 sein.
+- **Geräte in echten Maßen** (Figur ≈ 2 px/cm): Plyo-Box 61 × 51 × 76 cm, Bank 45 cm hoch, AbMat 38 × 30 × 7,5 cm, Rudersitz 35 cm, Radsattel 75 cm.
+  Geräte ausgestalten statt Strichskizze: Füße mit Kappen, Polster, Gehäuse mit Lüfterrad (`circle` mit `spokes`, `rot` dreht mit), Monitor, Flächen mit `fill`.
 - Der Bildausschnitt wird aus **allen** Bildern der Bewegung berechnet, plus 26 px Rand (`fitBox`).
   So wird nie etwas abgeschnitten (Kopf, Hände, Füße).
 - 12 Bilder pro Sekunde. In der App zeichnet `play(el, übung)` live; im Canvas erzeugt `animatedSVG` eine SVG-Animation.

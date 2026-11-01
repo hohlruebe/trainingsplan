@@ -17,6 +17,11 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
   waagerecht); AbMat gezeichnet; Wall Ball eine flüssige Bewegung (Fangen im Absenken); Shuttle Run Fingerspitzen am Boden (hinteres Bein über `legVia`);
   Stair Climb mit Becken, Oberkörper, gebeugten Armen und Drehung; Bike Erg ganzes Rad und tritt vorwärts; Box Jump Plyo-Box 61 × 51 × 76 cm (`plyoBox`,
   Figur ≈ 2 px/cm); Copenhagen unteres Bein frei unter der Bank. Body Saw und Band Lat Pulldown (Kniestand laut Anleitung) unverändert, nur erklärt.
+- Fassung 3 (Dennis): Trizeps Ellbogen hinter dem Kopf, Stützhand über den Kopf darauf (Ansicht von hinten); Bench Dip mit Flachbank (`flatBench`);
+  AbMat rund in echter Größe, Rücken im Bogen (`_bend`); Shuttle Run Hand zur Kamera vor dem Bein; Bike Erg und Row Erg ausgestaltet (`ergBike`, `ergRow`);
+  Box Jump Absprung vor der Box, rückwärts herunter, Ende = Anfang. Russian Twist bleibt ohne Gewicht (Hände vor der Brust, laut Anleitung).
+  **Neue Regel für alle Animationen: endlose Schleife** (`pruefen.js` meldet Sprünge). Dabei repariert: Nordic Curl (war 1,1 Zyklen lang), Skater Jump,
+  Thread the Needle, Lateral Band Walk, Treppe (läuft jetzt wie ein Laufband), Inchworm (Bild läuft mit, Striche am Boden).
 
 ## Grafiken Runde 4 (1. November 2026, Claude)
 - Dennis: „fang an, alle Grafiken zu bauen, die noch fehlen“. Stand: 115 Grafiken in `design/maskottchen/maskottchen.js` für 415 Übungen. Es fehlen also noch 302.
