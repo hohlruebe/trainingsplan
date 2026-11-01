@@ -434,6 +434,23 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       await page.getByRole('button', { name: 'Fertig', exact: true }).click(); await page.waitForTimeout(300);
     }
     console.log('PASS: Familien-Seite mit Bühne: Stufe antippen wechselt Bild und Erklärung, kein Blatt; (i)-Blatt unter dem Rand');
+    // Bibliothek (Dennis, 1. November): heißt „Bibliothek“, Mobility ist eine Familie mit Liste nach Körperteil, jede Mobility-Übung genau einmal.
+    await page.evaluate(() => window.tpTest.navigate('uebungen'));
+    assert.equal((await page.locator('#view .hero h1').innerText()).trim(), 'Bibliothek', 'Seite heißt Bibliothek');
+    assert.equal(await page.locator('[data-act="fam-open"][data-id="f_neck_mobility"], [data-act="fam-open"][data-id="f_foot_mobility"]').count(), 0, 'keine einzelnen Mobilitäts-Familien mehr');
+    await page.locator('[data-act="fam-open"][data-id="_mob"]').click(); await page.waitForTimeout(300);
+    assert.equal((await page.locator('#view .hero h1').innerText()).trim(), 'Mobility');
+    {
+      const ids = await page.locator('#view .mob-k ~ .fam-page details.gl-item').evaluateAll(l => l.map(d => d.id));
+      assert.ok(ids.length >= 50 && new Set(ids).size === ids.length, 'jede Mobility-Übung genau einmal: ' + ids.length);
+      const ks = await page.locator('#view .mob-k').allInnerTexts(); assert.match(ks[0], /^Nacken/); assert.match(ks.join('|'), /Hüfte/);
+      assert.ok(!ks.some(k => /^Weitere/.test(k)), 'alle Übungen einem Körperteil zugeordnet: ' + ks.join(', '));
+      const sy0 = await page.evaluate(() => scrollY); await page.locator('[data-act="mob-jump"][data-k="huefte"]').click(); await page.waitForTimeout(1200);
+      const y = (await page.locator('#mob-huefte').boundingBox()).y; assert.ok(y >= 0 && y < 120, 'Sprung zu Hüfte: y ' + y);
+      await page.locator('#mob-huefte + .fam-page details.gl-item > summary').first().click(); await page.waitForTimeout(300);
+      assert.ok(await page.locator('#mob-huefte + .fam-page details.gl-item[open] .fig').count(), 'Übung klappt mit Figur auf');
+    }
+    console.log('PASS: Bibliothek mit Familie Mobility nach Körperteil');
 
     // Ausfall annehmen (Impeccable-Kritik 24. Oktober): kein Fragenblock vor dem Tag, eine Zeile mit „Stimmt nicht“, die Leiste zeigt „A ×“.
     await page.clock.setFixedTime(new Date('2026-10-14T08:30:00+02:00'));

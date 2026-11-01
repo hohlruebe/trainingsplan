@@ -160,7 +160,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   ← Zurück, F Vollbild. Übungen: Liste links, Familie rechts (`.dk-lib`). Blätter als Fenster in der Mitte. Am Handy ändert sich nichts.
 - Profil: Kopfkarte mit rundem Foto, Fortschrittsring (Gesamtwert 0–99), Stufe Bronze/Silber/Gold/Platin,
   Name und „Diese Woche“. Darunter eine Kapsel wie die Reiterleiste (nur die aktive Ansicht zeigt ihren Namen):
-  Erfolge, Verlauf, Werte (`PVIEWS`). Orte und Equipment liegen in Tools › Übungen.
+  Erfolge, Verlauf, Werte (`PVIEWS`). Orte und Equipment liegen in Tools › Bibliothek.
   Werte: fünf Bereiche nach den motorischen Grundfähigkeiten, alphabetisch: Ausdauer, Beweglichkeit, Koordination, Kraft
   (Teile Zug, Druck, Beine, Rumpf), Schnellkraft (`AREAS`, Zuordnung je Leiter in `areaOf`). Netzdiagramm (`radarSVG`) mit
   Stand vor 4 Wochen, darunter jeder Bereich mit Verlaufslinie; Tippen öffnet die Aufschlüsselung (`areaDetailHTML`) mit Kurve,
@@ -176,7 +176,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   statt 30), Maximalpuls Frauen 206 − 0,88 × Alter. Figur: `bodyOf(t)` verzieht `BODY_SIL`/`BODY_F`/`BODY_B` über `BODY_WARP` (`bodyPt`,
   Arme schlanker und nach innen), weiblich mit `BODY_BRUST_W` und langen Haaren (`BODY_HAIR_F/B`), männlich Kurzhaarschnitt
   (`BODY_HAIR_MF/MB`), divers ohne Haare. Gelenkpunkte `JOINT_XY` laufen über `bodyPt` mit.
-- Tools › Übungen (`renderUebungen`): Orte-Kapsel `libCapHTML`. Groß mit „Alle“ ganz links (`ui.libAll`, jede Übung, ändert den
+- Tools › Bibliothek (Dennis, 1. November: „nenne das Ganze einfach Bibliothek“; früher „Übungen“, intern weiter `uebungen`, `renderUebungen`): Orte-Kapsel `libCapHTML`.
+  Mobility ist eine Familie in der Liste (Gruppe „Beweglichkeit · 1 Familie“, `mobItemHTML`, `famOpen('_mob')`, Seite `renderMob`): alle Übungen mit Muster
+  `mobilitaet` als Liste nach Körperteil von Kopf bis Fuß (`MOB_PART`: Nacken, Schultern und Brust, Arme und Handgelenke, Rücken und Wirbelsäule, Hüfte,
+  Beinrückseite, Unterschenkel und Füße, Ganzkörper und Atmung; die Daten haben kein Körperteil-Feld, neue Übungen ohne Eintrag landen unter „Weitere“),
+  oben Sprung-Knöpfe je Körperteil in einer wischbaren Zeile (`ACT['mob-jump']`), je Übung `glItemHTML` (aufklappen mit Figur, „So geht’s“, (i)).
+  Die einzelnen Mobilitäts-Familien (Nacken, Fuß) stehen nicht mehr in der Liste. Tools › Mobility bleibt der Player für fertige Abläufe. Groß mit „Alle“ ganz links (`ui.libAll`, jede Übung, ändert den
   Trainingsort nicht), klein nur mit den Orten zum schnellen Umschalten plus Stift. Den gewählten Ort nochmal tippen = große Kapsel
   (`ui.libOpen`). Ein Ort gilt sofort auch fürs Training (`S.ort`, dieselbe Wahl wie auf Heute). Der Stift öffnet das Blatt
   „<Ort> · Equipment“ (`ACT['eq-sheet']`, `eqSheetBody`, Ort oben umschaltbar, Änderungen gelten sofort). „Orte wählen“ (`ACT.orte`)
@@ -453,11 +458,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Watt-Modus: Texte sagen „Watt einstellen“, nicht „Widerstand für 80–90 U/min“.
   Tempo und Puls werden mit den Läufen der gleichen Art der letzten 6 Wochen (mindestens 3) verglichen (`runVerdict`).
 - Übungsgrafiken (Maskottchen): animierte Figur aus `Maskottchen.EXERCISES[id]` (`figHTML`, `startFig`/`stopFig`), Bildfeld immer gleich groß.
-  Tools › Übungen: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
+  Tools › Bibliothek: oben in der aufgeklappten Übung (`wakeGloss`). Training: nur in der Karte der EMOM-Übung, die gerade läuft,
   vor dem Start in der ersten (`syncFig`), darunter der Griff bei ähnlichen Übungen (`GRIP`, Pull-up/Chin-up).
   Dunkelmodus in Graphit (Hintergrund `#1E1F23`, Karten `#2A2B30`, Grafik-Fläche `#33343A`, passend zum App-Symbol).
   Dunkelmodus: Farbsatz „Kreide auf Dunkel“ (`Maskottchen.PALETTES.dark`, Fläche `--fig`), Wechsel über `applyTheme` → `refreshFigs`.
-- Leiter in Tools › Übungen (`ladderHTML(lad, state)`): Glas-Kapsel als Aufstieg (Stufe 1 unten, schwerste oben),
+- Leiter in Tools › Bibliothek (`ladderHTML(lad, state)`): Glas-Kapsel als Aufstieg (Stufe 1 unten, schwerste oben),
   „Aktuelle Stufe“ als weiße Pille, höchste geschaffte Stufe mit goldenem Chip „★ Bestwert“ (gleich = nur Stern).
   Zu lange Stufennamen enden mit „…“ (gemessen, `fitLadders`), Antippen lässt sie einmal durchlaufen.
 - Stufen und Wiederholungen wählt man mit dem Rad-Blatt von unten (`openSheet`, `ACT.pick`), nicht mit Textfeldern.
@@ -804,7 +809,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   neu (nie gemacht oder geschätzt) alle Stufen am Ort, mittel (1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg, über 14 Tage her) ±2, sicher (ab 3 Einheiten, letzte in 14 Tagen) ±1.
   Andere Übungen (`repCands`): alle am Ort und freigeschaltet (`reqOk` mit `repSt`), gleiches Muster vor nahem, dann nach `nutzen`, ohne Limit; Satz „N Übungen gehen hier“.
 - Figur drehen (Dennis, 1. November: „um 360° drehen, die Trainingsansicht merkt sich die zuletzt benutzte Kameraeinstellung“): jede große Figur (`.fig[data-fig]`,
-  auch Tools › Übungen und Familien-Seite; dort `touch-action: pan-y`, senkrechtes Wischen scrollt weiter), im (i) (`#sheet .fig`) und im Trainer (`#fs .fig`, `touch-action: none`) waagerecht ziehen = rundum, senkrecht = von oben (bis 70°), Doppeltippen = Ausgangsansicht. Während des Ziehens zeichnet die App Bild für
+  auch Tools › Bibliothek und Familien-Seite; dort `touch-action: pan-y`, senkrechtes Wischen scrollt weiter), im (i) (`#sheet .fig`) und im Trainer (`#fs .fig`, `touch-action: none`) waagerecht ziehen = rundum, senkrecht = von oben (bis 70°), Doppeltippen = Ausgangsansicht. Während des Ziehens zeichnet die App Bild für
   Bild (`FIGD`, `Maskottchen.figure`, Ausschnitt aus wenigen Bildern), beim Loslassen gilt die Ansicht für diese Übung überall (`S.figCam {id: {yaw, tilt}}`, in `DEF`,
   nur auf dem Gerät; `figEx`/`figVar` in `startFig` und `miniFig`). Hinweis „⟲ 360°“ bzw. die Gradzahl unten rechts in der Figur (`data-rot`). Test in `dreitage-browser`.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
@@ -824,7 +829,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Metcon-Übungen ohne eigene Kraftleiter (`metconLad`) haben eine Stufe, gespeichert in `metcon.stages`.
 - Orte: sechs feste Orte mit Symbol (`ORTE_FIX`: Zuhause, Gym, Park, Garage, Arbeit, Unterwegs), je eigene Equipment-Liste.
   In `S.orte` je `{id, k, on, eq, zh}`; angezeigt werden nur eingeschaltete (`on`), mindestens einer bleibt an.
-  Einschalten, Umbenennen und Symbol über Tools › Übungen › Stift › „Orte wählen“ (`ACT.orte`). Früher frei benannte Orte
+  Einschalten, Umbenennen und Symbol über Tools › Bibliothek › Stift › „Orte wählen“ (`ACT.orte`). Früher frei benannte Orte
   ordnet `ensureOrte()` einem festen Ort zu (IDs, Geräte und `S.picks` bleiben). Auch Alltagsgegenstände (`eq_zuhause`) werden je Ort angekreuzt.
   Fußanker (`eq_fussanker`, Dennis, 14. Oktober: Sofa, Bett, Sprossenwand, Partner, im Gym das Latzug-Polster) ist ein eigenes Gerät: Nordic Curl
   (`g_nordic`) braucht Fußanker, GHD oder Sprossenwand (vorher nur Alltagsgegenstände, die überall angehakt sind). Einmalig nur Zuhause angekreuzt
@@ -904,7 +909,7 @@ sie nicht schon zählt, `mcResultHTML`), Handstand-Zeit, Ausgleich-Sätze, Testt
 (Dauer, Puls, Strecke, Watt) und die Stufe im Beweglichkeits-Check bleiben Kacheln (`.tile`) mit Rad-Blatt. Stufen setzt der Coach auch in Metcon und
 Handstand (grüner Chip `coachStageHTML`, ohne Verlauf geschätzt wie bei neuen Leitern); am Testtag ist die Stufe eine Wert-Zeile. Fünf Grundsätze in `DESIGN.md`. Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
 (`valRows`/`valRow`, `.vrows`, Name links, Wert rechts, Pfeil). Keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
-Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt in em, mittig auf Höhe der Großbuchstaben, davor und danach .32em; in Chips `.chip:has(> .bst)` mit `gap`; nie `bdot` + Name von Hand zusammensetzen); Farbe je Band wählbar unter Tools › Übungen › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
+Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt in em, mittig auf Höhe der Großbuchstaben, davor und danach .32em; in Chips `.chip:has(> .bst)` mit `gap`; nie `bdot` + Name von Hand zusammensetzen); Farbe je Band wählbar unter Tools › Bibliothek › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Allround bis Plan 2 (alte Stände): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,
@@ -955,13 +960,13 @@ Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt
   einbauen (prüft selbst noch einmal, schreibt lib-data, fam-data und `design/familien.json` im alten Format über `familien_format.js`,
   reiht Stufen nach `nach` ein, zählt Ränge neu und zieht `ab_rang` anderer Familien mit, legt die Pakete in `design/auftraege/pakete/` ab).
   Neue Geräte aus Paketen tragen `auto: true`: Kosten aus dem Preis, Nutzen aus der Zahl der Übungen, Score wird bei jedem Einbau neu gerechnet.
-  Erledigt: alle Pakete (Teil 1 und 2 aller Muster), 380 Übungen mit allen Feldern, 13 neue Geräte (`auto`). Leiter `g_kipping_pullup`: Stufe „Chest-to-Bar“ zeigt auf `g_kipping_c2b` (Name bleibt). Die Suche in Tools › Übungen findet auch `alias` (deutsche Namen).
+  Erledigt: alle Pakete (Teil 1 und 2 aller Muster), 380 Übungen mit allen Feldern, 13 neue Geräte (`auto`). Leiter `g_kipping_pullup`: Stufe „Chest-to-Bar“ zeigt auf `g_kipping_c2b` (Name bleibt). Die Suche in Tools › Bibliothek findet auch `alias` (deutsche Namen).
   Anleitungen (Oktober 2026, Claude, Auftrag von Dennis): jede Übung hat `zweck`, `vorbereitung`, `schritte` (3–7, du-Form), `ausstieg`, `sauber`,
   `details`, `atmung`, `fehler` [{f, k}], `skalierung` („Leichter: … Schwerer: …“), `grenzen`, optional `trainiert` (leer = nichts Eigenes, Zeile fehlt).
   Quelle: Pakete `teil: 'texte'` in `design/auftraege/texte/` (Prüfnotiz `pruefung` nur dort, `teil_von` für geteilte Muster), Prüfliste
   `design/auftraege/pruefliste_texte.md`. Bibliothek ist die einzige Quelle: das Glossar aus plan-data wird beim Mischen überschrieben
   (`g.steps = ueSteps(u)` = Schritte + „Raus: …“, `g.cue = sauber`), `ueSteps` auch in `ueHow`, Mobility-Player, Ausgleich, Skill.
-  Tools › Übungen (Dennis: „cleane Version“): sichtbar nur Figur, „So geht’s“ mit nummerierten Schritten und Leiter; der runde Knopf (i)
+  Tools › Bibliothek (Dennis: „cleane Version“): sichtbar nur Figur, „So geht’s“ mit nummerierten Schritten und Leiter; der runde Knopf (i)
   (`.gl-i`, `ACT['ue-info']`, `ueInfoHTML`, `openForm`, innen scrollend `.ue-info`) zeigt Zweck, Muskeln, Vorbereitung, Raus, Sauber, Technik,
   Atmung, Fehler, Leichter/Schwerer und Wann aufhören. Test: `node tests/uebungen-anleitungen.cjs` (mit `TP_BROWSER=1` auch Handy/Desktop im Browser).
   Neue Felder je Übung: `muskeln`, `gelenke` (Belastung), `bewegt` (bewegte Gelenke: eins = isoliert, keins = statisch), `sehne`,
