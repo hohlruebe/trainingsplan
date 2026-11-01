@@ -8,6 +8,12 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Grafiken Runde 5 (1. November 2026, Claude)
+- Platz 42–61 aus `REIHENFOLGE.md`: Dead Hang, Wall Biceps Stretch, Overhead Triceps Stretch, Wrist Flexion Stretch, Bench Dip, Body Saw, Band Row, AbMat Sit-up,
+  Russian Twist, Wall Ball Shot, Shuttle Run, Push Press, Stair Climb, Bike Erg, Row, Band Lat Pulldown, Box Jump, Lateral Band Walk, Clamshell, Copenhagen Plank.
+  Board: https://claude.ai/artifact/7LwtySa61xCfyN5xsNazsu (deckend, drehbar). Neu in der Vorlage: Ball (`type: 'ball'`, immer rund), `bar`, `box`, `runPose`/`blendJ`.
+  Treppe läuft mit (Figur bleibt im Bild), Shuttle Run dreht an der Linie um. `pruefen.js`: Kontakte halten. **Offen: Freigabe**, dann Kopie nach `index.html`.
+
 ## Grafiken Runde 4 (1. November 2026, Claude)
 - Dennis: „fang an, alle Grafiken zu bauen, die noch fehlen“. Stand: 115 Grafiken in `design/maskottchen/maskottchen.js` für 415 Übungen. Es fehlen also noch 302.
   Davon warten 21 Kettlebell-Grafiken weiter auf Freigabe; bis dahin hat `index.html` 94 Grafiken.
