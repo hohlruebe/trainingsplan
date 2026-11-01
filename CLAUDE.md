@@ -631,8 +631,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Grafiken: Gerät `kb` in `maskottchen.js` (Griff `g` in der Hand, Kugel in Richtung `dn`, im Bild immer rund), Runde Kettlebell mit 20 Übungen
   (Swing, Goblet, Deadlift, Sumo, Suitcase, Double Swing, Clean, Snatch, High Pull, Push Press, Clean and Press, Front Squat einzeln/doppelt,
   Double Press, Halo, Goblet Reverse Lunge, Gorilla Row, Glute Bridge, Russian Twist, Dead Bug), Hilfen `swingAt`, `gobletAt`, `hingeAt`, `kbFlow`
-  (Zustände `KS`: rack, dip, over, hike, pull, high), `rackSquat`, `flipX` (einarmig: Kettlebell auf der Seite zur Kamera). Liegt zur Freigabe im Canvas,
-  erst danach kommt die Kopie nach `index.html` (bis dahin ist `<script id="maskottchen">` die ältere Fassung).
+  (Zustände `KS`: rack, dip, over, hike, pull, high), `rackSquat`, `flipX` (einarmig: Kettlebell auf der Seite zur Kamera). Seit 1. November in der App.
+- Grafiken in der App (Dennis, 1. November: „baue alle bisherigen Grafiken in die App ein“): `<script id="maskottchen">` ist wieder eine genaue Kopie von
+  `design/maskottchen/maskottchen.js` (154 Grafiken, 152 der 415 Übungen plus `g_forward_fold` und `_wave`): Runden 1–6, Kettlebell, deckend (`solid`, nach Tiefe sortiert),
+  Schulterpartie, gekrümmte Wirbelsäule (`_bend`), ruhige Geräte (feste Nebenstriche, `o.w`), Geräte in echten Maßen, jede Animation eine endlose Schleife
+  (`pruefen.js`). Neue Grafiken weiter erst im Board zeigen, nach Freigabe die ganze Datei kopieren (nie von Hand in `index.html` ändern).
   Umbenannt mit Dennis (24. Oktober): `g_kb_swing` heißt „Russian Kettlebell Swing“ (vorher „Kettlebell Swing“). Leitername und Stufenname bleiben
   gespeichert („Kettlebell Swing“), angezeigt über `STAGE_LABEL`; alte Namen in Einträgen finden die Übung über `NAME_ALT` (nicht aufzählbarer Eintrag in `GL`),
   Suche über `alias`. Grafik dazu: American Kettlebell Swing (`kbAmericanSwing`, bis senkrecht über den Kopf), beide als Stufen in `f_kettlebell_swing`.
@@ -796,8 +799,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Werte `s:<Stufe>` / `u:<id>`); getauscht steht das Rad auf dem Ersatz, eine Stufe wählen nimmt den Tausch zurück. Stufen nach Wissensstand (`stgKnow`, `STG_SPAN`, `STG_NOTE`):
   neu (nie gemacht oder geschätzt) alle Stufen am Ort, mittel (1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg, über 14 Tage her) ±2, sicher (ab 3 Einheiten, letzte in 14 Tagen) ±1.
   Andere Übungen (`repCands`): alle am Ort und freigeschaltet (`reqOk` mit `repSt`), gleiches Muster vor nahem, dann nach `nutzen`, ohne Limit; Satz „N Übungen gehen hier“.
-- Figur drehen (Dennis, 1. November: „um 360° drehen, die Trainingsansicht merkt sich die zuletzt benutzte Kameraeinstellung“): im (i) (`#sheet .fig`) und im
-  Trainer (`#fs .fig`) waagerecht ziehen = rundum, senkrecht = von oben (bis 70°), Doppeltippen = Ausgangsansicht. Während des Ziehens zeichnet die App Bild für
+- Figur drehen (Dennis, 1. November: „um 360° drehen, die Trainingsansicht merkt sich die zuletzt benutzte Kameraeinstellung“): jede große Figur (`.fig[data-fig]`,
+  auch Tools › Übungen und Familien-Seite; dort `touch-action: pan-y`, senkrechtes Wischen scrollt weiter), im (i) (`#sheet .fig`) und im Trainer (`#fs .fig`, `touch-action: none`) waagerecht ziehen = rundum, senkrecht = von oben (bis 70°), Doppeltippen = Ausgangsansicht. Während des Ziehens zeichnet die App Bild für
   Bild (`FIGD`, `Maskottchen.figure`, Ausschnitt aus wenigen Bildern), beim Loslassen gilt die Ansicht für diese Übung überall (`S.figCam {id: {yaw, tilt}}`, in `DEF`,
   nur auf dem Gerät; `figEx`/`figVar` in `startFig` und `miniFig`). Hinweis „⟲ 360°“ bzw. die Gradzahl unten rechts in der Figur (`data-rot`). Test in `dreitage-browser`.
 - Timer im Vollbild (`#fs`, `fsOpen`/`fsClose`/`fsPaint`, `fsSide`), Variante A2 mit Dennis (Paket 54): Zeit im Ring links bzw. oben (`#fs-ring`, `#fs-arc`
