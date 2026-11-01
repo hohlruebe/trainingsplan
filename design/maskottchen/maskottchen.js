@@ -1553,10 +1553,13 @@
       return K[0][1];
     }
     var J = build({ pc: pc, a: a, nod: -2 + 3 * Math.cos(p * 4 * Math.PI),
-      arms: both(function (x) { // Oberarm pendelt aus der Schulter, vorn bis knapp vor die Brust, hinten weiter als vorn; Ellbogen um 90°, vorn enger, hinten offener
-        var q = (p + (x < 0 ? .5 : 0)) % 1, w = Math.cos(q * 2 * Math.PI), th = (-14 - 42 * w) * R, sh = shOf(pc, a, x);
-        var el = add(sh, mul([x * .1, Math.cos(th), Math.sin(th)], 56)), fa = th + lerp(80, 110, (1 - w) / 2) * R, fd = norm([-x * .22, Math.cos(fa), Math.sin(fa)]);
-        return { to: add(el, mul(fd, 54)), pole: [x * .2, .3, -1], dir: norm(add(fd, [0, .25, 0])) }; }), // Hand locker, leicht hängend
+      arms: both(function (x) { // Dennis: Arme natürlicher. Oberarm pendelt aus der Schulter, hinten weiter (Hand bis neben die Hüfte) als vorn (Hand bis vor die Brust);
+        // der Ellbogen ist vorn enger und öffnet sich hinten, er folgt dem Oberarm etwas später; die Hand hängt locker und schwingt nach.
+        var q = (p + (x < 0 ? .5 : 0) + .03) % 1, w = Math.cos(q * 2 * Math.PI), wl = Math.cos((q - .07) * 2 * Math.PI), th = (-16 - 40 * w) * R, sh = shOf(pc, a, x);
+        var ud = norm([x * (.06 + .06 * Math.max(0, w)), Math.cos(th), Math.sin(th)]), el = add(sh, mul(ud, 56)), E = lerp(68, 112, (1 + wl) / 2);
+        var fa = th + (180 - E) * R, fd = norm([-x * lerp(.28, .05, (1 + w) / 2), Math.cos(fa), Math.sin(fa)]);
+        var hd = norm(lerp(fd, [0, 1, .15], .3 + .12 * Math.sin((q - .1) * 2 * Math.PI)));
+        return { to: add(el, mul(fd, 54)), pole: [x * .15, .2, -1], dir: hd }; }),
       legs: both(function (x) { var q = (p + (x < 0 ? 0 : .5)) % 1, A = add(legAt(q), [x * 10, 0, 0]), sw = q > .38 && q < .95;
         return { to: A, pole: [0, 0, 1], dir: sw ? (q < .6 ? [0, .75, -.6] : [0, .45, .9]) : [0, .28, 1] }; }) });
     // Dennis: der Oberkörper bewegt sich mit. Schultern drehen mit dem Arm, der vorn ist (gegen die Hüfte), die Hüfte dreht mit dem vorderen Bein.
@@ -1691,7 +1694,7 @@
       g_glute_bridge_hold: { name: 'Glute Bridge Hold', pose: bridgeHold, yaw: 62, dur: 4 },
       g_band_press: { name: 'Band Overhead Press', pose: bandPress, yaw: 34, dur: 2.6 },
       g_db_press: { name: 'Dumbbell Shoulder Press', pose: dbPress, yaw: 34, dur: 2.6 },
-      g_run: { name: 'Run', pose: run, yaw: 84, dur: .8 },
+      g_run: { name: 'Run', pose: run, yaw: 84, dur: 1.2 },
       g_strict_press: { name: 'Strict Press', pose: strictPress, yaw: 62, dur: 2.8 },
       g_hip_flexor_stretch: { name: 'Half-Kneeling Hip Flexor Stretch', pose: hipFlexor, yaw: 58, dur: 4 }
     }
