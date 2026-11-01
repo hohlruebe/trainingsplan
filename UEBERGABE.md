@@ -8,6 +8,15 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Grafiken Runde 4 (1. November 2026, Claude)
+- Dennis: „fang an, alle Grafiken zu bauen, die noch fehlen“. Stand: 115 Grafiken in `design/maskottchen/maskottchen.js` für 415 Übungen. Es fehlen also noch 302.
+  Davon warten 21 Kettlebell-Grafiken weiter auf Freigabe; bis dahin hat `index.html` 94 Grafiken.
+- Runde 4 = Platz 21–41 aus `REIHENFOLGE.md` (Cossack, Thruster, Cat-Cow, Shoulder/Hip CARs, 90/90, Half Split, Wrist Rocks, Cobra, Inchworm, Sleeper, Lizard,
+  Butterfly, Pancake, Glute Bridge Hold, Band/Dumbbell Press, Run, Strict Press, Hip Flexor Stretch). Board: https://claude.ai/artifact/QdT7dqH3WtRRqQQKrEA4r2
+  `pruefen.js` misst Gelenke und Kontakte, alle halten. **Offen: Freigabe von Dennis**, danach Kopie nach `index.html` (zusammen mit der Kettlebell-Runde).
+- Unsicher: Sleeper Stretch und Pancake sind klein bzw. schwer zu lesen (liegende bzw. gegrätschte Figur), Hip CARs von schräg vorn.
+- Nächste Runde 5: Platz 41–60 aus `REIHENFOLGE.md` (Dehnungen Cool-down, Bench Dip, Body Saw, Band Row, Sit-up, Russian Twist, Wall Ball, Push Press …).
+
 ## Rückmeldung aus dem Training (1. November 2026, Claude)
 - Erledigt: (i) = Übung der Stufe, Bandstufe in Bandfarbe auch in der Liste (nicht mehr abgeschnitten), Seiten-Zeile bei einseitigen Übungen,
   Ringhöhe an jeder Ring-Übung, Stufen-Rad (schwerer oben, heute Mitte, leichter unten).

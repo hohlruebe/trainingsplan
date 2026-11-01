@@ -12,7 +12,9 @@ var C = { g_pullup: 'H', g_chinup: 'H', g_dip: 'H', g_row: 'HF', g_kneeraise: 'H
   g_push_knee: 'H', g_push_parallettes: 'HF', g_push_decline: 'HF', g_push_band: 'HF', g_push_weighted: 'HF', g_pistol_assisted: 'H', g_support_hold: 'H', g_free_handstand: 'H',
   g_wrist_extension_stretch: 'H', g_planche_lean: 'HF', g_knee_to_wall: 'F', g_wall_flexion_hold: 'F', g_wall_slide: 'F', g_deep_squat: 'F', g_overhead_squat_hold: 'F', g_ragdoll: 'F', g_forward_fold: 'F', g_jefferson_curl: 'F', g_pike_stretch: 'F',
   g_stack: 'F', g_pullapart: 'F', g_passthrough: 'F', g_childs_pose: 'HF', g_pigeon: 'H', g_kneeling_shin: 'HF', g_frog: 'HF', g_legs_up_wall: 'F', g_puppy_pose: 'HF',
-  g_deadlift: 'HF', g_back_squat: 'HF', g_doorway_pec: 'F', g_prayer_stretch: 'F', g_couch_stretch: 'F', g_calf_wall_stretch: 'HF', g_supine_twist: 'H' };
+  g_deadlift: 'HF', g_back_squat: 'HF', g_doorway_pec: 'F', g_prayer_stretch: 'F', g_couch_stretch: 'F', g_calf_wall_stretch: 'HF', g_supine_twist: 'H',
+  g_cossack: 'F', g_thruster: 'HF', g_strict_press: 'HF', g_cat_cow: 'HF', g_shoulder_cars: 'F', g_hip_cars: 'H', g_half_split: 'H', g_wrist_rocks: 'HF', g_cobra: 'HF',
+  g_lizard: 'H', g_butterfly: 'F', g_pancake: 'HF', g_glute_bridge_hold: 'HF', g_band_press: 'F', g_db_press: 'F', g_hip_flexor_stretch: 'F' };
 var bad = 0;
 for (var k2 in C) {
   var e2 = M.EXERCISES[k2]; if (!e2) continue;
