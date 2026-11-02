@@ -672,6 +672,20 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .ex-next{margin-top:12px}
 .ex-next .chip b{color:var(--ink);margin-left:4px}
 .mini-fig{width:22px;height:28px;margin:-4px 6px -4px -6px;background:var(--fig);border-radius:50%;flex:0 0 auto}
+li[data-pv]{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;border-radius:14px;transition:background .15s}
+li[data-pv].pv-on{background:var(--board)}
+.pv-pop{position:fixed;left:50%;width:min(380px,calc(100vw - 32px));transform:translate(-50%,6px) scale(.98);opacity:0;z-index:60;pointer-events:none;
+  background:var(--paper);border-radius:22px;box-shadow:0 18px 48px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.08);padding:16px 16px 12px;max-height:calc(100vh - 24px);overflow:hidden;transition:opacity .16s,transform .16s}
+.pv-pop.open{opacity:1;transform:translate(-50%,0) scale(1)}
+.pv-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.pv-h b{font-size:18px}.pv-h span{color:var(--ink2);font-size:15px;white-space:nowrap}
+.pv-s{margin:4px 0 8px;color:var(--ink2);font-size:14px;line-height:1.4}
+.pv-l{list-style:none;margin:6px 0 0;padding:0}
+.pv-l li{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.pv-l .mini-fig{width:36px;height:44px;margin:0;border-radius:12px}
+.pv-dot{width:36px;height:44px;border-radius:12px;background:var(--fig);flex:0 0 auto}
+.pv-n{flex:1;min-width:0;display:flex;flex-direction:column}.pv-n b{font-size:15px;font-weight:600}.pv-n small{color:var(--ink2);font-size:14px}
+.pv-q{font-size:15px;font-weight:600;color:var(--acc);text-align:right;max-width:44%;display:flex;flex-direction:column}.pv-q small{font-size:13px;font-weight:500;color:var(--ink2)}
+@media (prefers-reduced-motion: reduce){.pv-pop{transition:none}}
 .tr-row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:58px;border-top:1px solid var(--line)}
 .tr-row:first-child{border-top:0}
 .tr-row .seg{width:180px;margin:0;flex:0 0 auto}
@@ -4178,6 +4192,85 @@ function syncHTML() {
     '<p class="small muted" style="margin-top:8px">Die App gleicht von selbst ab: beim Start, nach jedem Speichern und sobald wieder Internet da ist.</p>';
 }
 
+/* ---------- Vorschau eines Schritts auf Heute (Dennis, 2. November: „so lange man gedrückt hält oder am Desktop, wenn die Maus darüber ist“) ---------- */
+// Zeigt, was im Schritt drankommt: je Übung Mini-Figur, Name, Stufe und Menge. Nur zum Anschauen, nichts darin ist tippbar.
+function pvRows(tag, id) {
+  var d = DAYS[tag]; if (!d) return [];
+  var row = function (key, n, sub, q) { return { key: key || '', n: n, sub: sub || '', q: q || '' }; };
+  var fl = function (F) { return F ? F.items.map(function (it) { return row(it.key, it.n, it.x, it.qty); }) : []; };
+  if (id === 'warm') return fl(warmFlow(tag));
+  if (id === 'metcon') return fl(metconFlow(tag));
+  if (id === 'cool') return fl(coolFlow(tag));
+  if (id === 'hs') {
+    var sk = skillKey(tag); if (!sk) return [];
+    var L = LAD[sk], ix = skillStage(sk).idx;
+    return [row(skillUe(sk, ix), L.name, 'Stufe ' + ix + ' · ' + stageText(L.steps[ix - 1]), L.range || '')];
+  }
+  if (id === 'kraft') {
+    var D = dr(tag), R = kraftRounds(tag);
+    return d.kraft.map(function (x, i) {
+      var E = kraftEx(tag, D, R, x, i);
+      if (E.skip) return row(E.fk, x.n, 'heute ausgelassen', '');
+      var su = E.lad && E.si >= 0 && E.lad.lib && E.lad.lib.stufen && E.lad.lib.stufen[E.si], kg = E.K && E.K.kg && E.K.kg[0];
+      return row(su ? su.uebung : E.fk, E.lad ? kShow(x.n, E.stage) : x.n, E.lad && E.stage ? 'Stufe ' + (E.si + 1) + ' · ' + stageText(E.stage) : '',
+        E.zr + ' × ' + E.goal + (E.sec ? ' s' : '') + (kg ? ' · ' + fmtKg(kg, E.kid) : ''));
+    });
+  }
+  if (id === 'ausgl') { var A = ausgleichUe(tag); return A && !A.skip ? [row(A.id, UE[A.id].name, '2 Sätze', A.menge)] : []; }
+  if (id === 'acc') { var M = mehrOf(tag); return M ? accUe(tag, M > 15 ? 4 : 3).map(function (A) { return row(A.id, UE[A.id].name, '3 Sätze', A.menge); }) : []; }
+  if (id === 'fin') { var F = finOf(tag, tag === S.tag ? zeitLv(tag) : 0); return F && F.k !== 'none' && F.k !== 'metcon' ? finSeq(F).filter(function (q, i, a) { return F.k !== 'iv' || i < 3 || i === a.length - 1; }).map(function (q) { return row(F.dev && F.dev.ue, q.label, q.sub, (q.dur % 60 ? q.dur + ' s' : q.dur / 60 + ' Min') + (q.watt ? ' · ' + q.watt + ' W' : '')); }) : []; }
+  if (id === 'mob') return MOB.check.leitern.map(function (k) { return row(k, LAD[k] ? LAD[k].name : k, '', 'ein Versuch'); });
+  return [];
+}
+function pvHTML(tag, id) {
+  var st = stepsOf(dayCtx(tag)).filter(function (x) { return x.id === id; })[0]; if (!st) return '';
+  var R = pvRows(tag, id), more = '';
+  if (id === 'fin') { var F = finOf(tag, tag === S.tag ? zeitLv(tag) : 0); if (F && F.k === 'iv') more = '… ' + F.n + ' × 30 s schnell, 30 s locker'; }
+  return '<div class="pv-h"><b>' + esc(st.title) + '</b>' + (st.dur ? '<span>' + st.dur + ' Min</span>' : '') + '</div>' + (st.sub ? '<p class="pv-s">' + esc(st.sub) + '</p>' : '') +
+    (R.length ? '<ul class="pv-l">' + R.map(function (r) {
+      return '<li>' + (r.key ? miniFig(r.key) : '<i class="pv-dot"></i>') + '<span class="pv-n"><b>' + esc(r.n) + '</b>' + (r.sub ? '<small>' + esc(r.sub) + '</small>' : '') + '</span>' + (r.q ? '<span class="pv-q">' + r.q.split(' · ').map(function (t, i) { return i ? '<small>' + esc(t) + '</small>' : esc(t); }).join('') + '</span>' : '') + '</li>';
+    }).join('') + '</ul>' : st.id === 'koerper' ? '<p class="pv-s">Tippe Muskeln an, die Kater haben oder schmerzen. Dein Coach passt die Übungen dann an.</p>' : '<p class="pv-s">' + esc(st.desc || '') + '</p>') +
+    (more ? '<p class="pv-s">' + esc(more) + '</p>' : '');
+}
+var PV = { el: null, li: null, t: null, x: 0, y: 0 };
+function pvShow(li) {
+  if (PV.li === li && PV.el) return;
+  var h = ''; try { h = pvHTML(+li.dataset.tag, li.dataset.pv); } catch (e) { h = ''; }
+  if (!h) return;
+  pvHide();
+  var el = document.createElement('div'); el.className = 'pv-pop'; el.setAttribute('role', 'tooltip'); el.innerHTML = h;
+  document.body.appendChild(el); PV.el = el; PV.li = li; li.classList.add('pv-on');
+  var r = li.getBoundingClientRect(), vh = window.innerHeight, ph = el.offsetHeight, top = r.top - ph - 10;
+  if (top < 12) top = r.bottom + 10;
+  if (top + ph > vh - 12) top = Math.max(12, vh - ph - 12);
+  el.style.top = top + 'px';
+  requestAnimationFrame(function () { el.classList.add('open'); });
+  haptic('tap');
+}
+function pvHide() { clearTimeout(PV.t); PV.t = null; if (PV.el) PV.el.remove(); if (PV.li) PV.li.classList.remove('pv-on'); PV.el = null; PV.li = null; }
+(function () {
+  var hov = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
+  document.addEventListener('pointerdown', function (e) {
+    var li = e.target.closest && e.target.closest('li[data-pv]');
+    if (!li || e.pointerType === 'mouse') return;
+    pvHide(); PV.x = e.clientX; PV.y = e.clientY;
+    PV.t = setTimeout(function () { pvShow(li); }, 300);
+  });
+  document.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'mouse') {
+      if (!hov || !hov.matches) return;
+      var li = e.target.closest && e.target.closest('li[data-pv]');
+      if (li) pvShow(li); else if (PV.el) pvHide();
+      return;
+    }
+    if (PV.t && !PV.el && Math.hypot(e.clientX - PV.x, e.clientY - PV.y) > 10) { clearTimeout(PV.t); PV.t = null; }
+  });
+  ['pointerup', 'pointercancel'].forEach(function (k) { document.addEventListener(k, function (e) { if (e.pointerType !== 'mouse') pvHide(); }); });
+  // Solange die Vorschau offen ist, scrollt die Seite nicht unter dem Finger weg.
+  document.addEventListener('touchmove', function (e) { if (PV.el) e.preventDefault(); }, { passive: false });
+  document.addEventListener('contextmenu', function (e) { if (e.target.closest && e.target.closest('li[data-pv]')) e.preventDefault(); });
+  window.addEventListener('scroll', function () { if (PV.el && PV.li && hov && hov.matches) pvHide(); }, { passive: true });
+})();
 /* ---------- rendering ---------- */
 var $view = document.getElementById('view');
 function isTyping() { var a = document.activeElement; return a && $view.contains(a) && /INPUT|TEXTAREA|SELECT/.test(a.tagName); }
@@ -9106,7 +9199,7 @@ function renderHeute() {
     // „Heute zum ersten Mal“ steht als „Neu“ am Schritt (mit Anleitung), keine eigene Karte mehr.
     var ftS = lean && cur && !lock && d.type === 'kraft' && !c.isTest && !c.isMurph ? firstTimeSteps(tag) : {};
     h += '<section class="card tl-card' + (lean ? ' lean' : '') + '">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
-      return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div>' + (lean && s.id === 'koerper' ? '' : '<div class="tl-d">' + esc(s.desc || '') + '</div>') + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + (ftS[s.id] ? firstTimeChips(ftS[s.id]) : '') + '</div></li>';
+      return '<li' + (s.opt ? ' class="opt"' : '') + (d.type === 'kraft' && !c.isTest && !c.isMurph ? ' data-pv="' + s.id + '" data-tag="' + tag + '"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div>' + (lean && s.id === 'koerper' ? '' : '<div class="tl-d">' + esc(s.desc || '') + '</div>') + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + (ftS[s.id] ? firstTimeChips(ftS[s.id]) : '') + '</div></li>';
     }).join('') + '</ol>' + (cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '') + '</section>';
     if (cur && !lock && !at && !c.isTest && !c.isMurph && d.type === 'kraft' && !lean) h += fastHTML(tag);
     if (cur && !c.isTest && !c.isMurph && !lean) h += coachCardHTML(tag, miss);
