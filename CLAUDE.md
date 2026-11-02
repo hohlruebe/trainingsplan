@@ -65,6 +65,14 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   „Nicht diese Woche“ bzw. „Aus der Planung nehmen“. Wochenleiste „Z“ (gestrichelt), Heute am Tag „Zusatz heute“ mit „Jetzt starten“
   (`zs-start`: `S.tag` = 2, zurück über `S.zusatz.back`), Lauf/Ergometer wie die früheren Kardio-Tage, gespeichert mit `unit: 'Z'`;
   zählt nicht ins Wochenziel, setzt A, B, C nicht weiter (`advance`, `planNextTag`, `wkPlan` ohne `zusatz`), auch im .ics als „Zusatz“.
+  Kardio am freien Tag (Dennis, 2. November: „ein von dir erstelltes Training sehen, sowie die Möglichkeit es individuell anzupassen“): „Für deinen freien Tag“ hat
+  die Zeile „Kardio“ (`kdOk`: Plan 2, heute keine Einheit, noch nichts trainiert, kein Zusatz heute), Seite `kardio` (`renderKardio`, versteckt unter Coach). Vorschlag
+  des Coachs (`kdDef`): 30 Min locker, Rad mit Ergometer am Ort oder müden Beinen, sonst Laufen (Challenge: deren Modus). Anpassen (`ui.kd`, `ACT['kd-set']`/`['kd-n']`):
+  Womit Laufen | Rad, Wie Locker | Intervalle, Ziel Zeit | Strecke (Zähler 5 Min bzw. 0,5/1 km, Rad 2,5 km; Minuten aus lockerem Tempo bzw. 25 km/h, `kdMin`),
+  Intervalle Format 4 Min | 30/30 | Schwelle | Pyramide (Rad: Wechsel = Over-Under) mit Wiederholungen (`KD_IV`, `KD_N`, `cu.n`). Karte zeigt die Liste aus `kardioSpec`
+  (`kdSpec`) mit Dauer, Satz vom Coach und bei Intervallen vor einer Einheit morgen einen Hinweis. „Jetzt starten“ (`ACT['kd-go']`) legt `S.zusatz = {…, c, prev}` an
+  (Tag 2, `zusatzDay` mit `cust`, Modus im Entwurf); `kardioSpec` nimmt `d.cust` (Format, Wiederholungen, Minuten, km, ohne Deckel `runCap`). Nach dem Speichern oder
+  Abbrechen kommt ein vorher geplanter Zusatz der Woche zurück (`prev`). Eintrag wie der Zusatz (`unit: 'Z'`), zählt nicht ins Wochenziel.
   Kurz-Check an freien Tagen (`rcIdx`, `rcHTML`, `ACT['rc-save']`): zwei pro Woche reihum, nicht in der Check-Woche, als Mobility-Eintrag.
   Vorschau eines Schritts (Dennis, 2. November: „so lange man gedrückt hält oder am Desktop, wenn die Maus darüber hovert“): auf Heute am Krafttag hat jeder Schritt
   `data-pv`/`data-tag`; gedrückt halten (300 ms, unter 10 px Bewegung) bzw. Maus darüber (`(hover: hover) and (pointer: fine)`) zeigt `.pv-pop` (`pvShow`, `pvHide`,

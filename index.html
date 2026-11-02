@@ -614,6 +614,7 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 .k-dot span{display:block;width:8px;height:8px;border-radius:8px;background:var(--line2);transition:width .2s}.k-dot.on span{width:24px;background:var(--acc)}
 .k-rs{display:grid;gap:6px;margin:10px 0}.k-r{border:0;border-radius:14px;background:var(--board);padding:6px 0;min-height:48px;color:var(--ink);font-family:var(--text);cursor:pointer}
 .k-r small{display:block;font-size:14px;color:var(--ink2)}.k-r b{font-family:var(--hand);font-size:19px}.k-r.set b{color:var(--ink)}.k-r.on{box-shadow:0 0 0 2px var(--acc);background:var(--paper)}
+.kd-l{margin:14px 0 6px;font-weight:600}.kd-seg .seg-btn{padding-left:4px;padding-right:4px;font-size:15px}.kd-list{margin:0;padding-left:20px;line-height:1.5}.kd-list li{margin:2px 0}.kd-warn{color:var(--ink)}.kd-card+.card .k-cnt{margin-top:12px}
 .k-cnt{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--board);border-radius:18px;padding:8px 8px 8px 14px;margin-top:8px}.k-cnt .stepper,.fl-count .stepper{background:transparent;border:0;box-shadow:none}.k-cnt .stepper b{min-width:70px}
 .k-list{padding:6px 12px}.k-min{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:6px 2px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:600 16px var(--text);text-align:left;cursor:pointer}
 .k-min .k-n{flex:1}.k-min b{font-family:var(--hand);font-size:19px}.k-min.set{color:var(--ink2)}
@@ -3942,7 +3943,7 @@ var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
 var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Bibliothek', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
-var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kalender: 'coach' };
+var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kardio: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
 var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
@@ -4287,7 +4288,7 @@ function render() {
   if (S.review && FOKUS_IDS.indexOf(S.review.fokus) < 0) S.review.fokus = 'allround';
   dayCheck();
   syncDays();
-  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, muskeln: renderMuskeln, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kalender: renderKalender }[ui.tab];
+  var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, muskeln: renderMuskeln, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kardio: renderKardio, kalender: renderKalender }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
   ui.noSub = false; ui.focus = false;
@@ -4623,7 +4624,7 @@ function advance(by) {
   // Ein Trainingstag pro Kalendertag: wann der neue Tag dran ist und ob heute schon etwas erledigt wurde.
   if (by !== 'auto') { S.tagSince = isoToday(); S.advBy = 'user'; if (S.comeback && S.comeback.n > 0 && DAYS[t] && DAYS[t].type !== 'rest') S.comeback.n--; }
   // Zusatztag erledigt: zurück zur Einheit davor, die Reihenfolge A, B, C läuft nicht weiter.
-  if (DAYS[t] && DAYS[t].zusatz) { S.tag = (S.zusatz && S.zusatz.back) || 1; S.zusatz = Object.assign({}, S.zusatz, { done: isoToday() }); ui.viewTag = null; return; }
+  if (DAYS[t] && DAYS[t].zusatz) { S.tag = (S.zusatz && S.zusatz.back) || 1; S.zusatz = S.zusatz && S.zusatz.c && S.zusatz.prev ? S.zusatz.prev : Object.assign({}, S.zusatz, { done: isoToday() }); ui.viewTag = null; return; } // Kardio am freien Tag: ein geplanter Zusatz der Woche bleibt
   // Mit Wochenplanung geht es zur nächsten Einheit, der neue Durchgang beginnt am Montag (planRoll).
   if (planOn() && by !== 'auto') { if (t === 1) S.lastTag1Month = monthKey(new Date()); S.tag = planNextTag(t); ui.viewTag = null; return; }
   if (t === 1) { S.lastTag1Month = monthKey(new Date()); S.cycleStart = isoToday(); S.cycleDurchgang = S.durchgang; }
@@ -8916,6 +8917,7 @@ function sideHTML() {
 // `S.zusatz` (synchronisiert): {mon, k: 'easy'|'test', min, date, ts} angenommen, {mon, off: 1} nicht diese Woche, `done` erledigt.
 function zusatzDay() {
   var Z = S.zusatz || {}, test = Z.k === 'test';
+  if (Z.c) { var iv = Z.c.art === 'iv'; return { type: iv ? 'interval' : 'easy', kardio: true, zusatz: true, opt: true, free: true, cust: Z.c, min: Z.min || 30, name: 'Kardio · ' + (iv ? 'Intervalle' : 'locker'), what: iv ? 'Intervalle' : 'Lockere Ausdauer', cool: 'r_cooldown_tag2' }; }
   return { type: test ? 'interval' : 'easy', kardio: true, zusatz: true, opt: true, ktest: test, min: Z.min || 30, name: test ? 'Zusatz · Kardio-Test' : 'Zusatz · Kardio locker',
     what: test ? '5 km oder Rampentest' : 'Lockere Ausdauer', cool: 'r_cooldown_tag2' };
 }
@@ -8972,6 +8974,85 @@ function zusatzCardHTML(where) {
   return '<section class="card"><div class="card-head"><h2>Zusätzlich · optional</h2></div><p style="margin:4px 0 12px;line-height:1.45">' + esc(W.t) + ' Dein Wochenziel bleibt bei 3 Einheiten.</p>' +
     '<button type="button" class="btn" data-act="zs-open" data-from="' + where + '">Vorschlag ansehen</button></section>';
 }
+/* ---------- Kardio am freien Tag (Dennis, 2. November: „an trainingsfreien Tagen auch eine Kardio-Einheit, ein von dir erstelltes Training sehen
+   und es individuell anpassen: Laufen/Rad, auf Zeit oder Kilometer, Intervalle“). Läuft als Zusatz (Tag 2, `S.zusatz.c`), zählt nicht ins Wochenziel. ---------- */
+// Freier Tag heute, Plan 2, noch nichts trainiert, kein Zusatz heute geplant.
+function kdOk() {
+  if (!v2() || !planOn() || S.durchgang < 1 || doneToday0()) return false;
+  var P = wkPlanC(); if (!P || P.today < 0 || P.days[P.today].tag) return false;
+  var N = zusatzNow(); return !(N && !N.done && N.date === isoToday());
+}
+// Vorschlag des Coachs: locker, schont die nächste Einheit; Rad, wenn am Ort ein Ergometer steht (oder die Beine müde sind), sonst Laufen.
+function kdDef() {
+  var have = haveEq(trainOrt()), bike = UE.g_bike_erg && eqOk(UE.g_bike_erg.equipment, have), C = chal();
+  var dev = C && C.mode ? C.mode : bike || zoneLegs(S.tag) ? 'ergo' : 'lauf';
+  return { dev: dev, art: 'easy', by: 'min', min: 30, km: dev === 'ergo' ? 15 : 5, kf: null, n: null, coach: 1 };
+}
+function kdCur() { return ui.kd || kdDef(); }
+var KD_IV = { lauf: [['vo2', '4 Min'], ['3030', '30/30'], ['thr', 'Schwelle'], ['pyr', 'Pyramide']], ergo: [['vo2', '4 Min'], ['3030', '30/30'], ['thr', 'Schwelle'], ['ou', 'Wechsel']] };
+var KD_N = { vo2: [2, 8, 'Intervalle'], '3030': [1, 4, 'Sätze à 8'], thr: [1, 4, 'Blöcke'], ou: [1, 4, 'Blöcke'] };
+function fmtKm(k) { return String(Math.round(k * 10) / 10).replace('.', ','); }
+// Minuten des Hauptteils: auf Zeit wie gewählt, auf Strecke über das lockere Tempo (Laufen) bzw. etwa 25 km/h (Rad).
+function kdMin(c, ergo, kw) { return c.by === 'km' ? Math.max(5, Math.round(ergo ? c.km / 25 * 60 : kP(1.25, kw) * c.km / 60)) : c.min; }
+function kdSpec(c) {
+  var sp = kardioSpec({ type: c.art === 'iv' ? 'interval' : 'easy', kardio: true, zusatz: true, cust: c, min: c.min });
+  var tot = Math.round(kardioSec(sp) / 60) + (sp.ergo ? 2 : 10); // wie auf Heute, Laufen mit Lauf-ABC
+  return Object.assign(sp, { tot: tot, title: (c.dev === 'ergo' ? 'Rad' : 'Laufen') + ' · ' + (c.art === 'iv' ? sp.name : c.by === 'km' ? fmtKm(c.km) + ' km locker' : sp.min + ' Min locker') });
+}
+function kdSeg(f, opts, cur, lab) {
+  return '<div class="seg kd-seg" role="group" aria-label="' + lab + '">' + opts.map(function (o) { var on = o[0] === cur; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="kd-set" data-f="' + f + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
+}
+function kdStep(label, f, val, txt) {
+  return '<div class="k-cnt"><span><b>' + label + '</b></span><div class="stepper"><button type="button" data-act="kd-n" data-f="' + f + '" data-d="-1" aria-label="Weniger">–</button><b>' + txt + '</b>' +
+    '<button type="button" class="primary" data-act="kd-n" data-f="' + f + '" data-d="1" aria-label="Mehr">+</button></div></div>';
+}
+function renderKardio() {
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="heute" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Kardio heute</h1></section>';
+  if (!kdOk()) return h + '<section class="card"><p style="margin:0;line-height:1.45">Heute ist kein freier Tag mehr. Kardio am freien Tag gibt es, wenn heute keine Einheit geplant ist.</p></section>';
+  var c = kdCur(), sp = kdSpec(c), P = wkPlanC(), nx = P.days[P.today + 1], tm = nx && nx.tag && !nx.done ? nx.tag : null, iv = c.art === 'iv';
+  var why = c.coach ? 'Locker, damit du dich erholst und Grundlage aufbaust. ' + (tm ? 'Morgen steht ' + unitL(tm) + ' an, das bleibt so frisch.' : 'Deine Krafteinheiten stört das nicht.') : 'Von dir angepasst.';
+  h += '<section class="card kd-card"><div class="card-head"><h2>' + esc(sp.title) + '</h2><span class="chip">' + (c.coach ? 'Vom Coach' : 'Angepasst') + '</span></div>' +
+    '<p class="small muted" style="margin:2px 0 10px">ca. ' + sp.tot + ' Min ' + (sp.ergo ? 'mit Einfahren und Ausfahren' : 'mit Lauf-ABC') + ' · zählt nicht ins Wochenziel</p>' +
+    '<ul class="kd-list">' + sp.list.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+    (iv && KF[sp.kf] ? '<p class="small" style="margin:10px 0 0;line-height:1.45">' + esc(KF[sp.kf][2]) + '</p>' : '') +
+    '<p class="small muted" style="margin:10px 0 0;line-height:1.45">' + esc(why) + '</p>' +
+    (iv && tm ? '<p class="small kd-warn" style="margin:8px 0 0;line-height:1.45">Morgen steht ' + esc(unitL(tm)) + ' an. Intervalle heute machen sie schwerer, locker ist die bessere Wahl.</p>' : '') + '</section>';
+  h += '<section class="card"><div class="card-head"><h2>Anpassen</h2>' + (c.coach ? '' : '<button type="button" class="btn small" data-act="kd-reset">Zum Vorschlag</button>') + '</div>' +
+    '<p class="kd-l">Womit?</p>' + kdSeg('dev', [['lauf', 'Laufen'], ['ergo', 'Rad']], c.dev, 'Womit') +
+    '<p class="kd-l">Wie?</p>' + kdSeg('art', [['easy', 'Locker'], ['iv', 'Intervalle']], c.art, 'Wie');
+  if (!iv) h += '<p class="kd-l">Ziel</p>' + kdSeg('by', [['min', 'Zeit'], ['km', 'Strecke']], c.by, 'Ziel') +
+    (c.by === 'km' ? kdStep('Strecke', 'km', c.km, fmtKm(c.km) + ' km') : kdStep('Dauer', 'min', c.min, c.min + ' Min'));
+  else {
+    var kf = sp.kf, nn = KD_N[kf];
+    h += '<p class="kd-l">Format</p>' + kdSeg('kf', KD_IV[c.dev], kf, 'Format') + (nn ? kdStep(nn[2], 'n', sp.iv.reps, String(kf === '3030' ? sp.iv.reps / 8 : sp.iv.reps)) : '');
+  }
+  h += '</section><button type="button" class="btn primary block" data-act="kd-go">Jetzt starten</button><p class="small muted" style="text-align:center;margin:10px 0">Freiwillig · nur heute.</p>';
+  return h;
+}
+ACT['kd-open'] = function () { ui.kd = null; ui.tab = 'kardio'; window.scrollTo(0, 0); render(); };
+ACT['kd-reset'] = function () { ui.kd = null; render(); };
+ACT['kd-set'] = function (el) {
+  var c = Object.assign({}, kdCur(), { coach: 0 }), f = el.dataset.f, v = el.dataset.v; c[f] = v;
+  if (f === 'dev') { c.km = v === 'ergo' ? 15 : 5; if (c.kf === 'pyr' && v === 'ergo') c.kf = 'ou'; else if (c.kf === 'ou' && v === 'lauf') c.kf = 'pyr'; }
+  if (f === 'art' && v === 'iv' && !c.kf) c.kf = 'vo2';
+  if (f === 'kf') c.n = null;
+  ui.kd = c; render();
+};
+ACT['kd-n'] = function (el) {
+  var c = Object.assign({}, kdCur(), { coach: 0 }), f = el.dataset.f, d = +el.dataset.d;
+  if (f === 'min') c.min = Math.max(10, Math.min(180, c.min + d * 5));
+  else if (f === 'km') c.km = Math.max(1, Math.min(c.dev === 'ergo' ? 120 : 42, c.km + d * (c.dev === 'ergo' ? 2.5 : c.km < 10 || (c.km === 10 && d < 0) ? .5 : 1)));
+  else { var sp = kdSpec(c), nn = KD_N[sp.kf], cur = sp.kf === '3030' ? sp.iv.reps / 8 : sp.iv.reps; c.n = Math.max(nn[0], Math.min(nn[1], cur + d)); }
+  ui.kd = c; render();
+};
+ACT['kd-go'] = function () {
+  if (!kdOk()) { toast('Heute ist kein freier Tag mehr.'); return; }
+  var c = Object.assign({}, kdCur()), sp = kdSpec(c), prev = S.zusatz && !S.zusatz.c ? S.zusatz : (S.zusatz && S.zusatz.prev) || null; delete c.coach;
+  S.zusatz = { mon: wkMon(), k: c.art === 'iv' ? 'iv' : 'easy', min: sp.tot, c: c, date: isoToday(), run: isoToday(), back: S.tag, ts: Date.now(), prev: prev };
+  S.tag = 2; DAYS_K = null; syncDays();
+  var k = draftKey(2), dr = DRAFTS[k] || (DRAFTS[k] = {}); dr.mode = c.dev; LS.set('tp.drafts', DRAFTS);
+  ui.kd = null; ui.tab = 'heute'; ui.wkSel = null; ui.wkMon = null; saveState(); window.scrollTo(0, 0); render();
+};
 function renderZusatz() {
   var Z = zsOf(), N = zusatzNow(), W = zusatzWhy() || (Z && !Z.off ? { k: Z.k, min: Z.min, t: 'Du hast ihn diese Woche eingeplant.', what: Z.k === 'test' ? '5 km oder Rampentest' : 'Lockere Ausdauer' } : null);
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + (ui.zsBack || 'plan') + '" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Zusatztraining</h1></section>';
@@ -9422,6 +9503,8 @@ function pullOv(ov0, today, tag, from, was) {
 function freeDayHTML(rrt) {
   var i = rcIdx(), k = i >= 0 ? MOB.check.leitern[i] : null, rows = [], po = pullOption();
   if (po) rows.push(valRow('Heute trainieren', hm(po.t), 'data-act="pull-today"', { sub: dayLabel(po.tag) + ' statt ' + WTAG[po.from.i] + (po.lost.length ? ', ' + po.lost.map(dayLabel).join(', ') + ' fällt weg' : '') }));
+  var kd = kdOk() ? kdSpec(kdDef()) : null;
+  if (kd) rows.push(valRow('Kardio', kd.tot + ' Min', 'data-act="kd-open"', { sub: kd.title + ' · dein Coach hat es vorbereitet' }));
   if (rrt) rows.push(valRow(rrt.name, doneToday(rrt.id) ? TICK + 'gemacht' : routineMin(rrt) + ' Min', 'data-act="r-open" data-v="' + rrt.id + '"', { sub: 'Mobility · ' + rrt.bloecke.length + ' Übungen' }));
   if (k) rows.push(valRow('Kurz-Check', '1 Min', 'data-act="rc-open" aria-expanded="' + !!ui.rcOpen + '"', { sub: LAD[k] ? LAD[k].name : 'Beweglichkeit' }));
   if (!rows.length) return '';
@@ -10017,7 +10100,7 @@ function cardioTestDue() {
 }
 function kardioSpec(d, o) {
   o = o || {};
-  var t = d.t, D = (t && DRAFTS[draftKey(t)]) || {}, ergo = runMode(D) === 'ergo', p = curPhase(), bd = p.bd;
+  var t = d.t, D = (t && DRAFTS[draftKey(t)]) || {}, cu = d.zusatz && d.cust, ergo = cu && !D.mode ? cu.dev === 'ergo' : runMode(D) === 'ergo', p = curPhase(), bd = p.bd;
   var C = chal(), ci = C ? Math.max(0, S.durchgang - (S.challenge.dg || 0)) : 0, taper = !!C && chalLeft() <= 14;
   var k = C ? Math.min(2, Math.floor(chalProg() * 3)) : Math.min(2, Math.floor((bd - 1) / 4)), lite = p.deload || taper;
   var easy = d.type === 'easy' || !!o.kurz, kf;
@@ -10027,9 +10110,10 @@ function kardioSpec(d, o) {
     if (taper && kf === 'lang') kf = 'locker';
     if (d.zusatz) kf = 'locker';
   } else {
-    if (d.ktest || (!C && (p.test || cardioTestDue()))) kf = ergo ? 'ramp' : 'k5';
+    if (cu && cu.kf) kf = cu.kf;
+    else if (d.ktest || (!C && (p.test || cardioTestDue()))) kf = ergo ? 'ramp' : 'k5';
     else kf = C ? C.ints[ci % C.ints.length] : ['vo2', '3030', 'thr', 'pyr'][(bd - 1) % 4];
-    if (!C && kf === '3030' && k === 1 && !ergo) kf = 'hill';
+    if (!C && !(cu && cu.kf) && kf === '3030' && k === 1 && !ergo) kf = 'hill';
     if (kf === 'pyr' && ergo) kf = 'ou';
     if (kf === 'hill' && ergo) kf = '3030';
     if (kf === 'k5' && ergo) kf = 'ramp';
@@ -10045,11 +10129,15 @@ function kardioSpec(d, o) {
     var m = easyMinutes(S.durchgang);
     if (kf === 'lang') m = C && C.lang ? C.lang[0] + (C.lang[1] - C.lang[0]) * Math.min(1, chalProg()) : m * 1.5;
     if (d.zusatz) m = Math.max(10, (d.min || 30) - 15); // Zusatz: gewählte Gesamtzeit minus Lauf-ABC bzw. Einfahren und Auslaufen
-    if (taper) m *= .6; else if (p.deload) m *= .7;
-    m = Math.max(15, Math.round(m / 5) * 5);
-    var cap = runCap(d, { min: m }); if (cap.capped) { spec.capped = m; m = cap.min; } // Laufen und Ergometer zusammen
+    if (cu) m = kdMin(cu, ergo, kw); // Kardio am freien Tag (Dennis, 2. November): Dauer bzw. Strecke selbst gewählt, kein Deckel
+    else {
+      if (taper) m *= .6; else if (p.deload) m *= .7;
+      m = Math.max(15, Math.round(m / 5) * 5);
+      var cap = runCap(d, { min: m }); if (cap.capped) { spec.capped = m; m = cap.min; } // Laufen und Ergometer zusammen
+    }
     spec.min = m;
-    if (kf === 'lang') { seg('Lange Einheit', m * 60, .62, 1.3, 'work', 'Ruhig und gleichmäßig'); L.push('<b>' + m + ' Min lang und ruhig</b> · ' + V(.62, 1.3)); }
+    if (cu && cu.by === 'km') { spec.km = cu.km; spec.name = fmtKm(cu.km) + ' km locker'; seg('Locker', m * 60, .65, 1.25, 'work', fmtKm(cu.km) + ' km · Zone 2 halten'); L.push('<b>' + fmtKm(cu.km) + ' km locker</b> · etwa ' + m + ' Min · ' + V(.65, 1.25)); }
+    else if (kf === 'lang') { seg('Lange Einheit', m * 60, .62, 1.3, 'work', 'Ruhig und gleichmäßig'); L.push('<b>' + m + ' Min lang und ruhig</b> · ' + V(.62, 1.3)); }
     else if (kf === 'strides') {
       var ns = 4 + k, mm = Math.max(5, m - Math.round(ns * 80 / 60));
       seg('Locker', mm * 60, .65, 1.25, 'work', 'Zone 2 halten');
@@ -10063,12 +10151,12 @@ function kardioSpec(d, o) {
       L.push('<b>5 Min locker</b> · ' + V(.65), '<b>' + nk + ' × 1 Min hohe Trittfrequenz</b> · 100+ U/min bei ' + V(.65) + ', dazwischen 2 Min normal', '<b>' + rest0 + ' Min locker</b> · ' + V(.65));
     } else { seg('Locker', m * 60, .65, 1.25, 'work', 'Zone 2 halten'); L.push('<b>' + m + ' Min locker</b> · ' + V(.65, 1.25)); }
   } else if (kf === 'vo2') {
-    var r1 = lite ? 3 : [4, 4, 5][k];
+    var r1 = cu && cu.n ? cu.n : lite ? 3 : [4, 4, 5][k];
     for (var a = 0; a < r1; a++) { seg('Intervall', 240, 1.1, .92, 'work', 'Intervall ' + (a + 1) + ' von ' + r1); if (a + 1 < r1) rest(180); }
     spec.name = r1 + ' × 4 Min'; spec.iv = { reps: r1, work: 4, rest: 3, zone: 5 };
     L.push('<b>' + r1 + ' × 4 Min</b> · ' + V(1.1, .92) + ', dazwischen 3 Min ' + restTxt);
   } else if (kf === '3030') {
-    var sets = lite ? 1 : [2, 2, 3][k];
+    var sets = cu && cu.n ? cu.n : lite ? 1 : [2, 2, 3][k];
     for (var s = 0; s < sets; s++) {
       for (var b = 0; b < 8; b++) { seg('Schnell', 30, 1.25, .85, 'work', 'Satz ' + (s + 1) + ' · ' + (b + 1) + ' von 8'); seg('Locker', 30, .5, 1.5, 'easy', ergo ? 'Locker treten' : 'Locker traben'); }
       if (s + 1 < sets) rest(180, 'Satzpause');
@@ -10076,7 +10164,7 @@ function kardioSpec(d, o) {
     spec.name = sets + ' × 8 × 30/30'; spec.iv = { reps: sets * 8, work: .5, rest: .5, zone: 5 };
     L.push('<b>' + sets + ' × 8 × 30 s schnell / 30 s locker</b> · ' + V(1.25, .85) + (sets > 1 ? ', zwischen den Sätzen 3 Min ' + restTxt : ''));
   } else if (kf === 'thr') {
-    var r3 = lite ? 2 : [2, 2, 3][k], w3 = lite ? 8 : [8, 10, 10][k];
+    var r3 = cu && cu.n ? cu.n : lite ? 2 : [2, 2, 3][k], w3 = lite ? 8 : [8, 10, 10][k];
     for (var c = 0; c < r3; c++) { seg('Schwelle', w3 * 60, .95, 1, 'work', 'Block ' + (c + 1) + ' von ' + r3); if (c + 1 < r3) rest(120); }
     spec.name = r3 + ' × ' + w3 + ' Min Schwelle'; spec.iv = { reps: r3, work: w3, rest: 2, zone: 4 };
     L.push('<b>' + r3 + ' × ' + w3 + ' Min an der Schwelle</b> · ' + V(.95, 1) + ', dazwischen 2 Min ' + restTxt);
@@ -10086,7 +10174,7 @@ function kardioSpec(d, o) {
     spec.name = 'Pyramide ' + st.join('-'); spec.iv = { reps: st.length, work: 0, rest: 0, zone: 4 };
     L.push('<b>Pyramide ' + st.join('-') + ' Min</b> · ' + V(1, .95) + ', Pause jeweils halb so lang (mindestens 1 Min)');
   } else if (kf === 'ou') {
-    var bl = lite ? 2 : [2, 3, 3][k];
+    var bl = cu && cu.n ? cu.n : lite ? 2 : [2, 3, 3][k];
     for (var e = 0; e < bl; e++) {
       for (var g = 0; g < 3; g++) { seg('Over', 60, 1.05, .97, 'work', 'Block ' + (e + 1) + ' · knapp drüber'); seg('Under', 60, .9, 1.06, 'work', 'Block ' + (e + 1) + ' · knapp drunter'); }
       if (e + 1 < bl) rest(180);
@@ -12018,7 +12106,7 @@ ACT['zs-plan'] = function (el) {
   S.zusatz = { mon: wkMon(), k: k, min: min, date: x.date, ts: Date.now() }; DAYS_K = null; WKP_C.k = null; ui.zsMin = null; ui.tab = ui.zsBack || 'plan'; saveState(); window.scrollTo(0, 0); render();
   toast('Zusatz geplant: ' + WTAG[x.i] + ', ' + hm(x.t - 24 * x.i) + '.');
 };
-function zsCancel() { if (DAYS[S.tag] && DAYS[S.tag].zusatz) S.tag = (S.zusatz && S.zusatz.back) || 1; S.zusatz = { mon: wkMon(), off: 1, ts: Date.now() }; DAYS_K = null; WKP_C.k = null; }
+function zsCancel() { if (DAYS[S.tag] && DAYS[S.tag].zusatz) S.tag = (S.zusatz && S.zusatz.back) || 1; S.zusatz = S.zusatz && S.zusatz.c ? (S.zusatz.prev || null) : { mon: wkMon(), off: 1, ts: Date.now() }; DAYS_K = null; WKP_C.k = null; } // Kardio am freien Tag: der Wochen-Vorschlag davor bleibt
 ACT['zs-off'] = function () { zsCancel(); ui.tab = ui.zsBack || 'plan'; saveState(); window.scrollTo(0, 0); render(); toast('Kein Zusatz diese Woche.'); };
 ACT['zs-start'] = function () {
   if (!zusatzNow()) return;
@@ -12759,7 +12847,7 @@ var BLK_X = { aufbau: 'mehr Wdh., Kardio eher länger', kraft: 'schwerer, Wdh. a
 var DAYS = {}, DAYS_K = null;
 // Woche des aktiven Schwerpunkts. Kraft und Metcon der Krafttage füllt planFill() nach Ort.
 function syncDays() {
-  var p = curPhase(), k = [S.fokus, p.bd, lvl(), S.durchgang, JSON.stringify(S.challenge), !!p.taper, !!p.deload, S.planV, v2() ? umfIdx() + ':' + grundOk() + ':' + (S.zusatz ? S.zusatz.k + S.zusatz.min : '') : ''].join('|');
+  var p = curPhase(), k = [S.fokus, p.bd, lvl(), S.durchgang, JSON.stringify(S.challenge), !!p.taper, !!p.deload, S.planV, v2() ? umfIdx() + ':' + grundOk() + ':' + (S.zusatz ? S.zusatz.k + S.zusatz.min + JSON.stringify(S.zusatz.c || '') : '') : ''].join('|');
   if (DAYS_K === k) return;
   DAYS_K = k; var W = fokus().days(p);
   DAYS = {};

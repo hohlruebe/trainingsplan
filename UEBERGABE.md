@@ -8,6 +8,14 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Kardio am freien Tag (2. November 2026, Claude)
+- Dennis: „an trainingsfreien Tagen auch eine Kardio-Einheit … ein von dir erstelltes Training sehen, sowie die Möglichkeit es individuell anzupassen
+  (laufen/fahrrad fahren auf zeit/kilometer, Intervalle oder ähnliches)“.
+- Umgesetzt: Heute › „Für deinen freien Tag“ › Kardio, eigene Seite mit Vorschlag und Anpassen (siehe CLAUDE.md). Läuft über den Zusatz, darum ist Speichern,
+  Verlauf, Wochenleiste („Z“) und Kalender schon da.
+- Geprüft: `dreitage-browser` (neu: Vorschlag, Laufen/Intervalle 30/30 mit 3 Sätzen, Strecke 5,5 km, Start, Speichern mit `Z`), alle anderen Tests.
+- Offen: Rad draußen ohne Watt (heute Ergometer mit Watt), Bergauf/Fahrtspiel als Formate, Planen für später statt nur „jetzt“.
+
 ## Antworten von Dennis (2. November 2026, Claude)
 - Lateral Hops statt Skater Jumps (neue Übung `g_lateral_hop`, Variante in `f_jump`, noch ohne Grafik: Platzhalter). Einzeln | Liste auch bei laufender Uhr.
 - Abwechslung: Kraftteil in Durchgang 2, 6, 10 als Zirkel (je Runde alle Übungen hintereinander, dann Pause), sonst EMOM (siehe CLAUDE.md).
