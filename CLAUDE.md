@@ -70,7 +70,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `data-pv`/`data-tag`; gedrückt halten (300 ms, unter 10 px Bewegung) bzw. Maus darüber (`(hover: hover) and (pointer: fine)`) zeigt `.pv-pop` (`pvShow`, `pvHide`,
   `pvHTML`, `pvRows`: je Übung Mini-Figur, Name, Stufe und Menge, Kraft mit Runden × Vorgabe und Gewicht, Abschluss mit Abschnitten), loslassen schließt; solange sie
   offen ist, scrollt die Seite nicht (`touchmove` mit `preventDefault`), kein Kontextmenü. Nur zum Anschauen, nichts darin ist tippbar.
-  Immer über dem Finger (Dennis, 2. November), mit der Maus über der Zeile: Unterkante 28 px über dem Finger, reicht der Platz nicht, endet sie oben am Rand und blendet unten aus (`.cut`).
+  Mittig zum Finger (Dennis, 2. November: „Hälfte oben, Hälfte unten“; vorher kurz „immer oben“), mit der Maus mittig zur Zeile; am Rand rückt sie nach innen (12 px Abstand),
+  nur höher als der Bildschirm blendet sie unten aus (`.cut`).
   Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Kopfzeile „Heute · 17:05 Uhr“,
   Titel, ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
   Blättern `wkStripHTML(…, noHead)`), höchstens eine Frage (`heuteAskHTML`: Befinden unbeantwortet oder „Sehr müde“, Schmerzen, `missNoticeHTML`,

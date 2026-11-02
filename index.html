@@ -4234,8 +4234,8 @@ function pvHTML(tag, id) {
     (more ? '<p class="pv-s">' + esc(more) + '</p>' : '');
 }
 var PV = { el: null, li: null, t: null, x: 0, y: 0 };
-// Immer über dem Finger (Dennis, 2. November: „manchmal unterhalb, manchmal oberhalb … immer oben“), mit der Maus über der Zeile.
-// Reicht der Platz nicht, endet die Vorschau über dem Finger und blendet unten aus (Titel und erste Übungen bleiben sichtbar).
+// Mittig zum Finger (Dennis, 2. November: „Hälfte oben, Hälfte unten, so sollte man immer alles komplett sehen“), mit der Maus mittig zur Zeile.
+// Am Bildschirmrand rückt sie so weit nach innen, dass sie ganz zu sehen ist; nur wenn sie höher als der Bildschirm ist, blendet sie unten aus.
 function pvShow(li, y) {
   if (PV.li === li && PV.el) return;
   var h = ''; try { h = pvHTML(+li.dataset.tag, li.dataset.pv); } catch (e) { h = ''; }
@@ -4243,8 +4243,10 @@ function pvShow(li, y) {
   pvHide();
   var el = document.createElement('div'); el.className = 'pv-pop'; el.setAttribute('role', 'tooltip'); el.innerHTML = h;
   document.body.appendChild(el); PV.el = el; PV.li = li; li.classList.add('pv-on');
-  var r = li.getBoundingClientRect(), at = y != null ? y - 28 : r.top - 10, room = at - 12;
-  el.style.bottom = (window.innerHeight - at) + 'px'; el.style.maxHeight = room + 'px';
+  var r = li.getBoundingClientRect(), vh = window.innerHeight, c = y != null ? y : (r.top + r.bottom) / 2, room = vh - 24;
+  el.style.maxHeight = room + 'px';
+  var ph = el.offsetHeight, top = Math.max(12, Math.min(vh - ph - 12, c - ph / 2));
+  el.style.top = top + 'px';
   if (el.scrollHeight > room) el.classList.add('cut');
   requestAnimationFrame(function () { el.classList.add('open'); });
   haptic('tap');

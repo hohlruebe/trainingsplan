@@ -92,8 +92,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const pvK = await pvTouch('kraft', 450);
     assert.ok(/Kraft · EMOM/.test(pvK) && /Stufe \d/.test(pvK) && / × \d/.test(pvK), 'Vorschau Kraft mit Stufe und Menge: ' + pvK);
     assert.ok(await page.locator('.pv-pop .mini-fig').count() >= 1, 'mit Figur');
-    const pvPos = await page.evaluate(() => { const li = document.querySelector('li[data-pv="kraft"]').getBoundingClientRect(), p = document.querySelector('.pv-pop').getBoundingClientRect(); return [p.top, p.bottom, li.top + 10]; });
-    assert.ok(pvPos[1] <= pvPos[2] - 20 && pvPos[0] >= 0, 'Vorschau immer über dem Finger: ' + pvPos);
+    const pvPos = await page.evaluate(() => { const li = document.querySelector('li[data-pv="kraft"]').getBoundingClientRect(), p = document.querySelector('.pv-pop').getBoundingClientRect(); return [p.top, p.bottom, li.top + 10, innerHeight]; });
+    assert.ok(pvPos[0] >= 0 && pvPos[1] <= pvPos[3] && (Math.abs((pvPos[0] + pvPos[1]) / 2 - pvPos[2]) < 2 || pvPos[0] <= 13 || pvPos[1] >= pvPos[3] - 13), 'Vorschau mittig zum Finger und ganz sichtbar: ' + pvPos);
     if (process.env.TP_SHOT) await page.screenshot({ path: process.env.TP_SHOT + '/pv-kraft.png' });
     await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
     assert.equal(await page.locator('.pv-pop').count(), 0, 'loslassen schließt');
@@ -101,7 +101,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     if (process.env.TP_SHOT) await page.screenshot({ path: process.env.TP_SHOT + '/pv-warm.png' });
     await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
     assert.ok(/W/.test(await pvTouch('fin', 450)), 'Vorschau Abschluss');
-    assert.ok(await page.evaluate(() => { const li = document.querySelector('li[data-pv="fin"]').getBoundingClientRect(), p = document.querySelector('.pv-pop').getBoundingClientRect(); return p.bottom <= li.top - 10 && p.top >= 0; }), 'auch weiter unten über dem Finger');
+    assert.ok(await page.evaluate(() => { const p = document.querySelector('.pv-pop').getBoundingClientRect(); return p.top >= 0 && p.bottom <= innerHeight; }), 'auch weiter unten ganz sichtbar');
     await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
     await page.hover('li[data-pv="warm"]'); await page.waitForTimeout(250);
     assert.ok(await page.locator('.pv-pop.open').isVisible(), 'Maus darüber zeigt die Vorschau');

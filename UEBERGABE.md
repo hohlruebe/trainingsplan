@@ -16,6 +16,8 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 - Geprüft: `dreitage-browser` (kurzes Tippen zeigt nichts, gedrückt halten zeigt Kraft mit Stufe und Figur, loslassen schließt, Aufwärmen, Abschluss, Maus darüber/weg).
 - Danach (Dennis: „manchmal unterhalb, manchmal oberhalb … immer oben“): die Vorschau steht immer über dem Finger; ist oben zu wenig Platz,
   blendet sie unten aus statt nach unten zu springen.
+- Danach (Dennis: „mach es einfach so, dass es mittig zum Finger ist, Hälfte oben, Hälfte unten“): mittig zum Finger, am Rand nach innen gerückt,
+  so ist sie immer ganz zu sehen.
 - Offen: Dennis prüft am iPhone, ob Gedrückthalten ohne Text-Auswahl und ohne Scrollen klappt.
 
 ## Woche in den Kalender per Knopf (1. November 2026, Claude)
