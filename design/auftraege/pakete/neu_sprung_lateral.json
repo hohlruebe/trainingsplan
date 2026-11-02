@@ -1,0 +1,88 @@
+{
+  "v": 1,
+  "teil": "neu",
+  "muster": "sprung",
+  "quelle": "Claude, 2. November 2026 (Dennis: Lateral Hops statt Skater Jumps im Aufwärmen von A). NSCA Essentials (Plyometrie, Einsteiger-Sprünge).",
+  "uebungen": [
+    {
+      "id": "g_lateral_hop",
+      "name": "Lateral Hop",
+      "bereich": "beine",
+      "einheit": "wdh",
+      "rolle": [
+        "aufwaermen"
+      ],
+      "equipment": [],
+      "nutzen": 52,
+      "level": 1,
+      "voraussetzung": [],
+      "trainiert": "Waden, Sprunggelenke, seitliche Stabilität",
+      "zweck": "Mit beiden Beinen schnell seitlich über eine Linie springen: macht die Sprunggelenke federnd und stabil zur Seite, ohne einbeinige Landung.",
+      "vorbereitung": "Eine Linie am Boden oder ein flacher Gegenstand, etwa ein Handtuch.",
+      "schritte": [
+        "Stell dich hüftbreit neben die Linie, die Knie leicht gebeugt.",
+        "Spring mit beiden Beinen seitlich über die Linie.",
+        "Lande leise auf den Fußballen, die Knie zeigen nach vorn.",
+        "Spring sofort zurück und halte den Rhythmus kurz und federnd."
+      ],
+      "ausstieg": "Nach dem letzten Sprung stehen bleiben und ausschütteln.",
+      "sauber": "Der Bodenkontakt ist kurz, der Oberkörper bleibt ruhig über den Füßen.",
+      "details": [
+        "Zählt hin und zurück je als eine Wiederholung."
+      ],
+      "atmung": "Locker weiteratmen.",
+      "fehler": "Die Knie knicken bei der Landung nach innen. Kleiner springen, die Knie über den Zehen halten. Auf den Fersen landen. Auf den Fußballen landen, die Fersen berühren den Boden kaum.",
+      "skalierung": "Leichter: kleine Sprünge, kurze Pause zwischen den Sprüngen. Schwerer: über eine höhere Hürde oder einbeinig.",
+      "grenzen": "Aufhören bei Schmerz am Sprunggelenk oder an der Achillessehne.",
+      "muskeln": {
+        "primaer": [
+          "waden"
+        ],
+        "sekundaer": [
+          "quadrizeps",
+          "abduktoren"
+        ]
+      },
+      "gelenke": {
+        "schulter": 0,
+        "ellbogen": 0,
+        "handgelenk": 0,
+        "ruecken": 0,
+        "huefte": 1,
+        "knie": 1,
+        "fuss": 2
+      },
+      "bewegt": [
+        "fuss",
+        "knie"
+      ],
+      "sehne": 1,
+      "ermuedung": 1,
+      "technik": 1,
+      "seitig": false,
+      "laut": true,
+      "rx": null,
+      "alias": [
+        "Seitsprünge",
+        "Seitliche Sprünge"
+      ],
+      "muster": "sprung"
+    }
+  ],
+  "familien_ergaenzt": [
+    {
+      "familie": "f_jump",
+      "varianten": [
+        {
+          "uebung": "g_lateral_hop",
+          "art": "variante",
+          "effekt": 52,
+          "grund": "Beidbeinig zur Seite, einfacher als der Skater Jump."
+        }
+      ]
+    }
+  ],
+  "familien_neu": [],
+  "geraete_neu": [],
+  "entscheidungen": []
+}

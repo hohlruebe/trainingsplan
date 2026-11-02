@@ -8,6 +8,23 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Antworten von Dennis (2. November 2026, Claude)
+- Lateral Hops statt Skater Jumps (neue Übung `g_lateral_hop`, Variante in `f_jump`, noch ohne Grafik: Platzhalter). Einzeln | Liste auch bei laufender Uhr.
+- Abwechslung: Kraftteil in Durchgang 2, 6, 10 als Zirkel (je Runde alle Übungen hintereinander, dann Pause), sonst EMOM (siehe CLAUDE.md).
+  Klassische Sätze mit langen Pausen bewusst nicht: im 12-Min-Fenster mit 3 Übungen weniger Arbeit je Minute, EMOM/Zirkel wirken gleich gut und sparen Zeit.
+- Bandstufen ohne Farbpunkt, Schrift in Bandfarbe (auch außerhalb des Trainers).
+- Geprüft: alle Tests (`dreitage-browser` 30, `dreitage`, `ausfaelle`, `ausfaelle-browser`, `stabilisierung`, `uebungen-anleitungen`, `anmelden-browser`, `langzeit-browser`).
+- Offen: Grafik für Lateral Hop (Board-Runde); Dennis testet den Zirkel im Training (40 s je Übung genug? Pause lang genug?).
+
+## Aus dem Training (2. November 2026, Claude)
+- Dennis: Weiter war blau und frei, obwohl der Schritt nicht fertig war → Weiter und Zurück nur mit langem Druck und Nachfrage (Weiter frei, sobald der Schritt fertig ist).
+  Ohne Zeit in der Kapsel hakt Tippen die laufende Übung ab. Band in der Karte jetzt als farbige Pille. Skill-Block (L-Sit „3 × 10 s“ mit 2-Min-Uhr) jetzt als
+  Intervall Halten/Pause. Einzeln | Liste auch im Accessory und Abschluss (Kraft hatte es schon). Accessory zum Abhaken in 3 Runden, mit Band. Mini-Band als
+  eigenes Gerät (vorher galten die langen Widerstandsbänder auch für Lateral Band Walk).
+- Geprüft: `dreitage-browser` (29), `dreitage`, `ausfaelle`, `ausfaelle-browser`, `stabilisierung`, `uebungen-anleitungen`, `anmelden-browser`, `langzeit-browser`.
+- Offen (Fragen an Dennis): Skater Jump im Aufwärmen von A ersetzen (Vorschlag: dieselbe Sprung-Leiter wie B oder Lateral Hops)? EMOM als einzige Kraftform oder
+  zusätzlich Supersätze/klassische Sätze mit Pausen-Uhr? Mini-Band: falls vorhanden, im Equipment-Blatt anhaken.
+
 ## Vorschau der Schritte auf Heute (2. November 2026, Claude)
 - Dennis (mit Bildschirmfoto von Heute): „wenn ich hier auf den jeweiligen Teil des Trainings drücke, eine Vorschau angezeigt bekomme, einfach so lange wie man gedrückt
   hält, oder im Desktop, wenn die Maus darüber hovert.“
