@@ -66,6 +66,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`zs-start`: `S.tag` = 2, zurück über `S.zusatz.back`), Lauf/Ergometer wie die früheren Kardio-Tage, gespeichert mit `unit: 'Z'`;
   zählt nicht ins Wochenziel, setzt A, B, C nicht weiter (`advance`, `planNextTag`, `wkPlan` ohne `zusatz`), auch im .ics als „Zusatz“.
   Kurz-Check an freien Tagen (`rcIdx`, `rcHTML`, `ACT['rc-save']`): zwei pro Woche reihum, nicht in der Check-Woche, als Mobility-Eintrag.
+  Vorschau eines Schritts (Dennis, 2. November: „so lange man gedrückt hält oder am Desktop, wenn die Maus darüber hovert“): auf Heute am Krafttag hat jeder Schritt
+  `data-pv`/`data-tag`; gedrückt halten (300 ms, unter 10 px Bewegung) bzw. Maus darüber (`(hover: hover) and (pointer: fine)`) zeigt `.pv-pop` (`pvShow`, `pvHide`,
+  `pvHTML`, `pvRows`: je Übung Mini-Figur, Name, Stufe und Menge, Kraft mit Runden × Vorgabe und Gewicht, Abschluss mit Abschnitten), loslassen schließt; solange sie
+  offen ist, scrollt die Seite nicht (`touchmove` mit `preventDefault`), kein Kontextmenü. Nur zum Anschauen, nichts darin ist tippbar.
   Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Kopfzeile „Heute · 17:05 Uhr“,
   Titel, ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
   Blättern `wkStripHTML(…, noHead)`), höchstens eine Frage (`heuteAskHTML`: Befinden unbeantwortet oder „Sehr müde“, Schmerzen, `missNoticeHTML`,

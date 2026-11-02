@@ -83,6 +83,26 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(total <= 90);
     // Vor dem Start: neue Übungen stehen als „Neu“ am Kraftschritt (Impeccable-Kritik 24. Oktober), keine eigene Karte mehr.
     assert.match(await page.locator('.tl-card .tl-neu').first().innerText(), /Neu[\s\S]*ansehen/);
+    // Vorschau eines Schritts (2. November): gedrückt halten zeigt die Übungen, loslassen schließt; mit der Maus beim Darüberfahren.
+    const pvTouch = async (id, ms) => page.evaluate(a => new Promise(r => { const li = document.querySelector('li[data-pv="' + a[0] + '"]'), b = li.getBoundingClientRect(), o = { bubbles: true, pointerType: 'touch', clientX: b.left + 40, clientY: b.top + 10 };
+      li.dispatchEvent(new PointerEvent('pointerdown', o)); setTimeout(() => { const p = document.querySelector('.pv-pop'); r(p ? p.innerText : ''); }, a[1]); }), [id, ms]);
+    assert.equal(await pvTouch('kraft', 100), '', 'kurzes Tippen zeigt noch nichts');
+    await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
+    const pvK = await pvTouch('kraft', 450);
+    assert.ok(/Kraft · EMOM/.test(pvK) && /Stufe \d/.test(pvK) && / × \d/.test(pvK), 'Vorschau Kraft mit Stufe und Menge: ' + pvK);
+    assert.ok(await page.locator('.pv-pop .mini-fig').count() >= 1, 'mit Figur');
+    if (process.env.TP_SHOT) await page.screenshot({ path: process.env.TP_SHOT + '/pv-kraft.png' });
+    await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
+    assert.equal(await page.locator('.pv-pop').count(), 0, 'loslassen schließt');
+    assert.ok(/Aufwärmen[\s\S]*Ergometer/.test(await pvTouch('warm', 450)), 'Vorschau Aufwärmen');
+    if (process.env.TP_SHOT) await page.screenshot({ path: process.env.TP_SHOT + '/pv-warm.png' });
+    await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
+    assert.ok(/W/.test(await pvTouch('fin', 450)), 'Vorschau Abschluss');
+    await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
+    await page.hover('li[data-pv="warm"]'); await page.waitForTimeout(250);
+    assert.ok(await page.locator('.pv-pop.open').isVisible(), 'Maus darüber zeigt die Vorschau');
+    await page.mouse.move(5, 5); await page.waitForTimeout(100);
+    assert.equal(await page.locator('.pv-pop').count(), 0, 'Maus weg schließt');
     const goY = (await page.getByRole('button', { name: /Training starten/ }).boundingBox()).y;
     assert.ok(goY + 56 < 844, 'Training starten im ersten Bildschirm (' + goY + ')');
     await page.getByRole('button', { name: /Training starten/ }).click();

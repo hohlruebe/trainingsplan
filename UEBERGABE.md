@@ -8,6 +8,14 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Vorschau der Schritte auf Heute (2. November 2026, Claude)
+- Dennis (mit Bildschirmfoto von Heute): „wenn ich hier auf den jeweiligen Teil des Trainings drücke, eine Vorschau angezeigt bekomme, einfach so lange wie man gedrückt
+  hält, oder im Desktop, wenn die Maus darüber hovert.“
+- Umgesetzt: siehe CLAUDE.md „Vorschau eines Schritts“. Kraft zeigt je Übung Stufe und Runden × Wdh. (mit Gewicht), Aufwärmen die Übungen mit Menge, Abschluss die
+  Abschnitte mit Watt, Skill die Stufe, Ausgleich/Accessory die Übung, Körper-Check einen Satz. Nur auf Heute (nicht in Plan › Deine Woche).
+- Geprüft: `dreitage-browser` (kurzes Tippen zeigt nichts, gedrückt halten zeigt Kraft mit Stufe und Figur, loslassen schließt, Aufwärmen, Abschluss, Maus darüber/weg).
+- Offen: Dennis prüft am iPhone, ob Gedrückthalten ohne Text-Auswahl und ohne Scrollen klappt.
+
 ## Woche in den Kalender per Knopf (1. November 2026, Claude)
 - Dennis: „Kann man nicht einfach einen Knopf einbauen, mit dem die nächste Woche zum Kalender hinzugefügt wird? Dann können wir uns den Aufwand sparen
   und zur Version wie davor zurückkehren.“ (Sein Google-Konto hatte keinen Kalender „Trainingsplan“, die Brücke war nie auf Version 3.)
