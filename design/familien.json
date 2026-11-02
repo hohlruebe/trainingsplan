@@ -841,7 +841,8 @@
         { "uebung": "g_skater", "art": "variante", "rang": null, "effekt": 64, "grund": "Seitlich und einbeinig." },
         { "uebung": "g_jumping_lunge", "art": "variante", "rang": null, "effekt": 64, "grund": "Wechselsprung im Ausfallschritt." },
         { "uebung": "g_single_leg_hop", "art": "variante", "rang": null, "effekt": 70, "grund": "Einbeiniger Sprung für Seitenvergleich und Laufsport." },
-        { "uebung": "g_bounding", "art": "variante", "rang": null, "effekt": 66, "grund": "Sprung im Wechsel nach vorn, direkt übertragbar auf Laufen und Hindernislauf." }
+        { "uebung": "g_bounding", "art": "variante", "rang": null, "effekt": 66, "grund": "Sprung im Wechsel nach vorn, direkt übertragbar auf Laufen und Hindernislauf." },
+        { "uebung": "g_lateral_hop", "art": "variante", "rang": null, "effekt": 52, "grund": "Beidbeinig zur Seite, einfacher als der Skater Jump." }
       ]
     },
     {

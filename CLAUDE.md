@@ -8,7 +8,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 ## Dateien
 - Plan 2, drei Einheiten (13. Oktober 2026, Konzept Dennis mit ChatGPT, Kernumbau Claude): `S.planV` 2 (in `DEF` und `SYNC_KEYS`, ebenso
   `planVFrom`, `umfang`, `zeitMax`). A, B, C liegen intern auf Tag 1, 3, 6 (`UNIT`, wie Testtage und `DAYS0`), Tage 2, 4, 5, 7 sind Ruhetage
-  (`daysV2`). A: Zug vertikal, Druck horizontal, Kniebeuge (Sprünge Skater Jump, Beweglichkeits-Check in der Testwoche); B: Zug horizontal,
+  (`daysV2`). A: Zug vertikal, Druck horizontal, Kniebeuge (Sprünge Lateral Hop `g_lateral_hop`, Dennis 2. November statt Skater Jump, Beweglichkeits-Check in der Testwoche); B: Zug horizontal,
   Druck vertikal, Hüfte/Beinbeuger (Sprung-Leiter); C: Einbein, schwächerer Teil von Zug/Druck (`schwach`), Rumpf. Ablauf: Aufwärmen,
   Skill, Kraft (EMOM), Ausgleich, Abschluss, ggf. Beweglichkeits-Check, Cool-down weiter nur auf Nachfrage. Abschluss (`finOf`, `finStep`,
   `finSeq`, Timer `seq`): locker im Einstieg (ohne `grundOk`: Umfangsstufe ≥ 2 und 6 Krafteinheiten in 8 Wochen), in Entlastung, Testwoche,
@@ -382,7 +382,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   sonst `schritte` der Übung), Zähler „Beste Zeit“/„Beste Strecke“ (`hsSec`). Gespeichert als `sb: {lad, stage, sec}` (ohne Eintrag das untere Ende der Spanne mit `d: 1`, zählt nicht als Rekord oder Signal) (Name `skill` ist bei alten
   Einträgen eine Liste!), Handstand zusätzlich weiter als `hs`-Text. Coach-Karte und Ausblick über `skillNote`. Wissen › Skill-Ziele zeigt den Stand je Skill.
 - Sprünge im Aufwärmen nur ein sauberer Satz (`jumpQty`: „3 × 5“ → „5“, Aufwärmen = eine Übung nach der anderen, Dennis); statt „30 s Handgelenke“ die Übung Wrist Rocks (10) in `WARMUP`.
-- Sprünge (`jumps.lad`, Tag 3: `g_broad_jump` Squat Jump → Broad Jump → Tuck Jump; Tag 1 bleibt Skater Jump): im Aufwärmen die Stufe vom Coach
+- Sprünge (`jumps.lad`, Tag 3: `g_broad_jump` Squat Jump → Broad Jump → Tuck Jump; Tag 1 und Unterkörper im Split: Lateral Hop 10, ohne Leiter): im Aufwärmen die Stufe vom Coach
   (`jumpN`, `jumpStage`, `jumpHist`), abgehakt = sauber (`jump: {lad, stage, ok}`), 2× sauber + Sehnen-Zeit → nächste Stufe. Zählt in Schnellkraft.
 - Kurz-Check am Ruhetag (`restCheckIdx`, `mobCheckHTML(D, i)`): reihum ein Test aus dem Beweglichkeits-Check, zwei pro Woche (nicht in der Check-Woche);
   „Ruhetag abhaken“ speichert ihn als `kind: 'mobility'`, `check: true`, `mob`. Cool-down zeigt einen Hinweis, wenn ein Test unter dem Bestwert liegt (`mobDecline`).
@@ -813,15 +813,22 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Werte `s:<Stufe>` / `u:<id>`); getauscht steht das Rad auf dem Ersatz, eine Stufe wählen nimmt den Tausch zurück. Stufen nach Wissensstand (`stgKnow`, `STG_SPAN`, `STG_NOTE`):
   neu (nie gemacht oder geschätzt) alle Stufen am Ort, mittel (1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg, über 14 Tage her) ±2, sicher (ab 3 Einheiten, letzte in 14 Tagen) ±1.
   Andere Übungen (`repCands`): alle am Ort und freigeschaltet (`reqOk` mit `repSt`), gleiches Muster vor nahem, dann nach `nutzen`, ohne Limit; Satz „N Übungen gehen hier“.
-- Aus dem Training (Dennis, 3. November): Weiter im Trainer ist gesperrt, bis der Schritt fertig ist (`fsStepDone`: Uhr des Schritts abgelaufen bzw. alle Übungen
+- Aus dem Training (Dennis, 2. November): Weiter im Trainer ist gesperrt, bis der Schritt fertig ist (`fsStepDone`: Uhr des Schritts abgelaufen bzw. alle Übungen
   abgehakt, `fsLocked`), Zurück immer; ein Tippen sagt „Lange drücken …“, langes Drücken (700 ms) fragt nach (`openChoice` Weiter/Zurück | Hier bleiben), dann
   `ACT.step` mit `force` (Programm-Sprünge wie `autoNext`, Ende eines Ablaufs, Cool-down immer mit `force`). `fsNavPaint` setzt die Sperre auch in Schritten ohne Uhr;
-  Einzeln | Liste ist nur ausgeblendet, solange die Uhr läuft. Ohne Uhr (`FS.noT`) hakt Tippen auf die Zeit-Kapsel die laufende Übung ab (`FLOW_IDS`: Aufwärmen,
+  Einzeln | Liste bleibt auch bei laufender Uhr sichtbar (Dennis, 2. November). Ohne Uhr (`FS.noT`) hakt Tippen auf die Zeit-Kapsel die laufende Übung ab (`FLOW_IDS`: Aufwärmen,
   Cool-down, Accessory; „Tippen hakt die Übung ab“). Bandstufe in der Karte als Pille in Bandfarbe (`.fs-stg.band` mit `--bc`). Skill-Block mit Sekunden als
   Intervall (`skillIv`: Halten = untere Spanne bzw. zuletzt gehalten, Sätze aus „3 × …“ oder was in die Minuten passt, Pause 30–120 s; Timer `hiit` mit `wl: 'Halten'`;
   `hsCapture` nimmt im Intervall die Zeit seit Beginn des Halte-Abschnitts). Einzeln | Liste auch für Accessory und Abschluss. Accessory ist ein Ablauf zum Abhaken
   (`accFlow`, 3 Runden, Vorgabe 12 Wdh. bzw. 30 s) mit Band in Farbe (`bandFor` aus der Vorbereitung, sonst leicht; `bandTxt`, `.fs-band`). Neues Gerät `eq_miniband`
   „Mini-Bänder (kurze Schlaufe)“ (Lateral Band Walk braucht es statt `eq_band`; nirgends von selbst angehakt).
+- Abwechslung im Kraftteil (Dennis, 2. November: „ab und zu eine Variation, damit sich nicht jedes Training gleich anfühlt … am Ende das, was du als am
+  effektivsten einschätzt“): meist EMOM, in Durchgang 2, 6 und 10 des Blocks als Zirkel (`kraftZk`: Plan 2, ab 2 Übungen, nicht Entlastung/Testwoche/Taper;
+  gibt die Arbeitszeit je Übung zurück, 40 s, bei 2 Übungen oder Tempo 45 s). Zirkel = je Runde alle Übungen direkt hintereinander, dann Pause bis zur
+  nächsten Runde (`zkPhases` in `buildPhases`, Timer-Art weiter `emom` mit `cfg.zk`; Pausen-Phase `zr`, grün). Gleiche Übungen, Runden, Vorgabe, Reihenfolge
+  und Gesamtzeit; jede Übung kommt wie im EMOM alle n Minuten wieder, darum gleiche Wirkung. Jede Phase trägt ihren Platz `m` (Runde × Übungen + Übung),
+  `kMin(L)` statt `L.i - 1` (Trainer, Taktgeber, Leiste); in der Pause zeigt der Trainer „Gleich · Runde 2 · Übung 1“. Titel „Kraft · Zirkel 12“, Coach-Hinweis
+  am Kraft-Schritt, im Eintrag `fmt: 'zk'`. Entwürfe bleiben `k<i>r<r>`.
 - Figur drehen (Dennis, 1. November: „um 360° drehen, die Trainingsansicht merkt sich die zuletzt benutzte Kameraeinstellung“): jede große Figur (`.fig[data-fig]`,
   auch Tools › Bibliothek und Familien-Seite; dort `touch-action: pan-y`, senkrechtes Wischen scrollt weiter), im (i) (`#sheet .fig`) und im Trainer (`#fs .fig`, `touch-action: none`) waagerecht ziehen = rundum, senkrecht = von oben (bis 70°), Doppeltippen = Ausgangsansicht. Während des Ziehens zeichnet die App Bild für
   Bild (`FIGD`, `Maskottchen.figure`, Ausschnitt aus wenigen Bildern), beim Loslassen gilt die Ansicht für diese Übung überall (`S.figCam {id: {yaw, tilt}}`, in `DEF`,
@@ -923,7 +930,7 @@ sie nicht schon zählt, `mcResultHTML`), Handstand-Zeit, Ausgleich-Sätze, Testt
 (Dauer, Puls, Strecke, Watt) und die Stufe im Beweglichkeits-Check bleiben Kacheln (`.tile`) mit Rad-Blatt. Stufen setzt der Coach auch in Metcon und
 Handstand (grüner Chip `coachStageHTML`, ohne Verlauf geschätzt wie bei neuen Leitern); am Testtag ist die Stufe eine Wert-Zeile. Fünf Grundsätze in `DESIGN.md`. Einstellungswerte (Profil, Stand, Startdatum, Challenge) Wert-Zeilen
 (`valRows`/`valRow`, `.vrows`, Name links, Wert rechts, Pfeil). Keine `<select>` und kein Datumsfeld. Hinweise: erst Ablauf, dann Aktion; Hinweise am passenden Schritt, Tipps-Karte (`tipsHTML`) nur für echte Anleitungen.
-Bandstufen ausgeschrieben mit Farbpunkt (`stageHTML` = `.bst` mit `.bdot`, Punkt in em, mittig auf Höhe der Großbuchstaben, davor und danach .32em; in Chips `.chip:has(> .bst)` mit `gap`; nie `bdot` + Name von Hand zusammensetzen); Farbe je Band wählbar unter Tools › Bibliothek › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
+Bandstufen ausgeschrieben in Bandfarbe ohne Punkt (Dennis, 2. November: „die Schriftfarbe entspricht sowieso der Bandfarbe“; `stageHTML` = `.bst` mit `--bc`, Schrift 80 % Bandfarbe, dunkel 62 %; in Chips `.chip:has(> .bst)` mit `gap`; nie `bdot` + Name von Hand zusammensetzen); Farbe je Band wählbar unter Tools › Bibliothek › Bänder (`S.bandCol`, synchronisiert). Tippflächen mindestens 44 px.
 
 ## Trainingslogik (Kurzfassung)
 - Allround bis Plan 2 (alte Stände): Tag 1 Ganzkörper (Zug, Druck, Ausgleich), Tag 2 Kardio locker, Tag 3 Zug, Tag 4 Ruhetag, Tag 5 Kardio intensiv,

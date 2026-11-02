@@ -76,7 +76,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 - Reine Infos sind Chips (`.chip`), nicht tippbar. Zustände nur zeigen, wenn etwas nicht stimmt (z. B. „Sync-Fehler“).
 
 ## Bänder
-- Stufen mit Band werden ausgeschrieben („Normales Band“) mit Farbpunkt davor (`stageHTML`, `bdot`); gespeichert bleibt der kurze Name.
+- Stufen mit Band werden ausgeschrieben („Normales Band“) in Bandfarbe, ohne Punkt davor (`stageHTML`, `.bst` mit `--bc`); gespeichert bleibt der kurze Name.
   Der Punkt sitzt mittig auf Höhe der Großbuchstaben und hat davor und danach denselben Abstand, auch in Chips. Immer `stageHTML` benutzen.
 - Bandfarben: Standard in `BANDS`, je Band aus 10 Farben (`BAND_PAL`) wählbar, passend zu den echten Bändern (`bandColor()`).
 

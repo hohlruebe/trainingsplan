@@ -13,6 +13,7 @@ window.tpTest = { know: i => stgKnow(DAYS[S.tag].kraft[i]), kx: t => DAYS[t].kra
   saveNow: () => { saveDay(); var M = document.getElementById('moment'); if (M) M.remove(); MOMENTS = []; return LOGS[LOGS.length - 1]; },
   finishTimer: () => finish(),
   draft: (k, v) => { setDraft(k, v); render(); },
+  tagWarm: t => warmFlow(t).items.map(x => x.n).join(','), phases: () => TM.phases.map(p => ({ l: p.label, d: p.dur, m: p.m, z: !!p.zr })), tmSet: (t, run) => { TM.acc = t; TM.running = !!run; if (run) TM.t0 = Date.now(); fsPaint(undefined, true); }, tmStop: () => { timerStop(); },
   stepId: () => { var T = trainCtx(); return T ? T.s.id : null; },
   goStep: id => { var i = stepsOf(dayCtx(S.tag)).findIndex(s => s.id === id); setDraft('_step', i); setDraft('_at', Date.now()); render(); return i; },
   chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk(), bank: C.bank, pend: C.pend, jk: S.chainJk }; },
@@ -123,7 +124,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(kc._kc, 'brust:s:s'); assert.ok(/m:brust:s/.test(Object.keys(kc).filter(k => /^_pk/.test(k)).map(k => kc[k]).join(',')), 'Schmerz wirkt auf eine Übung mit Brust');
     await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
     assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0]._kc || ''), '', 'dreimal = wieder gut');
-    // Dennis, 3. November: Weiter und Zurück im Trainer nur mit langem Druck und Nachfrage.
+    // Dennis, 2. November: Weiter und Zurück im Trainer nur mit langem Druck und Nachfrage.
     const fsHold = async (sel, ok) => { const bb = await page.locator(sel).boundingBox(); await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.down(); await page.waitForTimeout(850); await page.mouse.up(); await page.locator('#sheet [data-c="' + (ok === false ? 'stay' : 'go') + '"]').click(); await page.waitForTimeout(200); };
     await page.locator('#fs .fs-nav .btn.primary').click();
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^1\/\d · /, 'ein Tippen auf Weiter bleibt, solange der Schritt nicht fertig ist');
@@ -822,7 +823,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'hs')));
     assert.equal(await page.evaluate(() => window.tpTest.stepId()), 'hs');
     await page.locator('#fs #fs-tg').click();
-    // Seit 3. November ein Intervall: Halten 20 s, dann Pause (Dennis: „Arbeit, Pause, Arbeit“).
+    // Seit 2. November ein Intervall: Halten 20 s, dann Pause (Dennis: „Arbeit, Pause, Arbeit“).
     assert.match(await page.evaluate(() => window.tpTest.steps().find(s => s.id === 'hs').timer.mode), /hiit/);
     await page.clock.setFixedTime(new Date('2026-10-15T09:00:28+02:00'));
     await page.locator('#fs #fs-tg').click();
@@ -890,7 +891,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.getByRole('heading', { name: 'Brust', level: 2 }).isVisible(), 'Zurück führt zum Muskel');
     console.log('PASS: Körper unter Tools: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
 
-    // Dennis, 3. November: Accessory zum Abhaken (3 Runden) mit Band in Farbe; Mini-Band ist ein eigenes Gerät; ohne Uhr hakt die Kapsel ab.
+    // Dennis, 2. November: Accessory zum Abhaken (3 Runden) mit Band in Farbe; Mini-Band ist ein eigenes Gerät; ohne Uhr hakt die Kapsel ab.
     await page.clock.setFixedTime(new Date('2026-10-15T09:00:00+02:00'));
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { zeitMax: 45, fsView: 'one' }), chLogs]);
     await page.evaluate(() => window.tpTest.draft('_mehr', '15'));
@@ -911,6 +912,29 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     }
     assert.ok(await page.evaluate(() => !Object.values(window.tpTest.state().orte).some(o => o.eq.indexOf('eq_miniband') >= 0)), 'Mini-Band ist nicht einfach angehakt');
     console.log('PASS: Accessory zum Abhaken in Runden, Liste oder Karte, Mini-Band als eigenes Gerät');
+
+    // Dennis, 2. November: Abwechslung im Kraftteil (Durchgang 2, 6, 10 Zirkel, sonst EMOM), Lateral Hop statt Skater Jump, Band ohne Punkt, Umschalter bei laufender Uhr.
+    for (const dg of [5, 6]) {
+      await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: dg, fsView: 'one' }), chLogs]);
+      const st = await page.evaluate(() => window.tpTest.steps().map(s => ({ id: s.id, t: s.title, w: s.desc })));
+      const kr = st.find(s => s.id === 'kraft');
+      assert.match(kr.t, dg === 6 ? /Zirkel/ : /EMOM/, 'Format in Durchgang ' + dg);
+      if (dg === 6) {
+        { const w = await page.evaluate(() => { try { return window.tpTest.tagWarm(1); } catch (e) { return 'ERR ' + e.message; } }); assert.ok(w.includes('Lateral Hop'), 'Lateral Hop im Aufwärmen von A: ' + w); }
+        await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft'))); await page.waitForTimeout(200);
+        const ph = await page.evaluate(() => window.tpTest.phases());
+        const n = ph.filter(p => p.m === 0 && !p.z).length;
+        assert.equal(n, 1, 'jeder Platz einmal');
+        assert.ok(ph.some(p => p.z && p.l === 'Pause'), 'Pause nach jeder Runde');
+        assert.equal(ph.slice(1).reduce((a, p) => a + p.d, 0) <= ph.filter(p => !p.z && p.m != null).length * 60, true, 'nicht länger als das EMOM');
+        await page.evaluate(() => window.tpTest.tmSet(15, true)); await page.waitForTimeout(150);
+        assert.ok(await page.locator('#fs .fs-top [data-act="fs-view"]').isVisible(), 'Einzeln | Liste auch bei laufender Uhr');
+        assert.match(await page.locator('#fs .fs-side').innerText(), /Runde 1 · Übung 1/);
+        await page.evaluate(() => window.tpTest.tmStop());
+        assert.equal(await page.locator('#fs .bdot').count(), 0, 'Bandstufe ohne Farbpunkt');
+      }
+    }
+    console.log('PASS: Zirkel in Durchgang 6, EMOM in 5, Umschalter bei laufender Uhr, Band ohne Punkt');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
