@@ -936,9 +936,38 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     }
     console.log('PASS: Zirkel in Durchgang 6, EMOM in 5, Umschalter bei laufender Uhr, Band ohne Punkt');
 
+    // Dennis, 2. November: Kardio am freien Tag, vom Coach vorbereitet, anpassbar (Laufen/Rad, Zeit/Strecke, Intervalle), läuft als Zusatz.
+    {
+      await page.clock.setFixedTime(new Date('2026-10-14T10:00:00+02:00'));
+      const aLog = { id: 'kd-a', ts: Date.parse('2026-10-13T18:00:00+02:00'), date: '2026-10-13', durchgang: 6, tag: 1, pv: 2, unit: 'A', kind: 'kraft', name: 'Ganzkörper', kraft: [{ n: 'Push-up', stage: 'Push-up', reps: [5, 5, 5, 5] }] };
+      await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: 6, tag: 3, tage: 2 }), chLogs.concat([aLog])]);
+      await page.locator('[data-act="kd-open"]').click(); await page.waitForTimeout(200);
+      assert.match(await page.locator('.kd-card').innerText(), /Vom Coach/);
+      assert.match(await page.locator('.kd-card').innerText(), /locker/);
+      await page.locator('[data-act="kd-set"][data-v="lauf"]').click();
+      await page.locator('[data-act="kd-set"][data-v="iv"]').click();
+      await page.locator('[data-act="kd-set"][data-v="3030"]').click();
+      await page.locator('[data-act="kd-n"][data-d="1"]').click();
+      assert.match(await page.locator('.kd-card').innerText(), /Angepasst/);
+      assert.match(await page.locator('.kd-card h2').innerText(), /Laufen · 3 × 8 × 30\/30/);
+      await page.locator('[data-act="kd-set"][data-v="easy"]').click();
+      await page.locator('[data-act="kd-set"][data-v="km"]').click();
+      await page.locator('[data-act="kd-n"][data-d="1"]').click();
+      assert.match(await page.locator('.kd-card h2').innerText(), /5,5 km locker/);
+      await page.locator('[data-act="kd-go"]').click(); await page.waitForTimeout(300);
+      const z = await page.evaluate(() => window.tpTest.state().zusatz);
+      assert.equal(z.c.km, 5.5); assert.equal(z.c.dev, 'lauf');
+      assert.equal(await page.evaluate(() => window.tpTest.state().tag), 2);
+      assert.match(await page.locator('#view').innerText(), /5,5 km locker/);
+      const lg = await page.evaluate(() => window.tpTest.saveNow());
+      assert.equal(lg.unit, 'Z');
+      assert.notEqual(await page.evaluate(() => window.tpTest.state().tag), 2, 'danach zurück zur Woche');
+    }
+    console.log('PASS: Kardio am freien Tag: Vorschlag, Laufen/Rad, Intervalle, Strecke, Start als Zusatz, gespeichert mit Z');
+
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
-      for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
+      for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'kardio', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
         await page.evaluate(t => window.tpTest.navigate(t), tab);
         assert.ok(await page.locator('#view').innerText(), tab);
         if (width < 1000) { const wide = await page.evaluate(() => [].filter.call(document.querySelectorAll('body *'), e => e.getBoundingClientRect().right > innerWidth + .5).map(e => e.tagName + ' ' + (e.textContent || '').slice(0, 30))); assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'kein Überlauf ' + tab + ' ' + width + ' ' + wide.join(' | ')); }
