@@ -813,6 +813,15 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Werte `s:<Stufe>` / `u:<id>`); getauscht steht das Rad auf dem Ersatz, eine Stufe wählen nimmt den Tausch zurück. Stufen nach Wissensstand (`stgKnow`, `STG_SPAN`, `STG_NOTE`):
   neu (nie gemacht oder geschätzt) alle Stufen am Ort, mittel (1–2 Einheiten, Einstufung, Fragebogen/Wiedereinstieg, über 14 Tage her) ±2, sicher (ab 3 Einheiten, letzte in 14 Tagen) ±1.
   Andere Übungen (`repCands`): alle am Ort und freigeschaltet (`reqOk` mit `repSt`), gleiches Muster vor nahem, dann nach `nutzen`, ohne Limit; Satz „N Übungen gehen hier“.
+- Aus dem Training (Dennis, 3. November): Weiter im Trainer ist gesperrt, bis der Schritt fertig ist (`fsStepDone`: Uhr des Schritts abgelaufen bzw. alle Übungen
+  abgehakt, `fsLocked`), Zurück immer; ein Tippen sagt „Lange drücken …“, langes Drücken (700 ms) fragt nach (`openChoice` Weiter/Zurück | Hier bleiben), dann
+  `ACT.step` mit `force` (Programm-Sprünge wie `autoNext`, Ende eines Ablaufs, Cool-down immer mit `force`). `fsNavPaint` setzt die Sperre auch in Schritten ohne Uhr;
+  Einzeln | Liste ist nur ausgeblendet, solange die Uhr läuft. Ohne Uhr (`FS.noT`) hakt Tippen auf die Zeit-Kapsel die laufende Übung ab (`FLOW_IDS`: Aufwärmen,
+  Cool-down, Accessory; „Tippen hakt die Übung ab“). Bandstufe in der Karte als Pille in Bandfarbe (`.fs-stg.band` mit `--bc`). Skill-Block mit Sekunden als
+  Intervall (`skillIv`: Halten = untere Spanne bzw. zuletzt gehalten, Sätze aus „3 × …“ oder was in die Minuten passt, Pause 30–120 s; Timer `hiit` mit `wl: 'Halten'`;
+  `hsCapture` nimmt im Intervall die Zeit seit Beginn des Halte-Abschnitts). Einzeln | Liste auch für Accessory und Abschluss. Accessory ist ein Ablauf zum Abhaken
+  (`accFlow`, 3 Runden, Vorgabe 12 Wdh. bzw. 30 s) mit Band in Farbe (`bandFor` aus der Vorbereitung, sonst leicht; `bandTxt`, `.fs-band`). Neues Gerät `eq_miniband`
+  „Mini-Bänder (kurze Schlaufe)“ (Lateral Band Walk braucht es statt `eq_band`; nirgends von selbst angehakt).
 - Figur drehen (Dennis, 1. November: „um 360° drehen, die Trainingsansicht merkt sich die zuletzt benutzte Kameraeinstellung“): jede große Figur (`.fig[data-fig]`,
   auch Tools › Bibliothek und Familien-Seite; dort `touch-action: pan-y`, senkrechtes Wischen scrollt weiter), im (i) (`#sheet .fig`) und im Trainer (`#fs .fig`, `touch-action: none`) waagerecht ziehen = rundum, senkrecht = von oben (bis 70°), Doppeltippen = Ausgangsansicht. Während des Ziehens zeichnet die App Bild für
   Bild (`FIGD`, `Maskottchen.figure`, Ausschnitt aus wenigen Bildern), beim Loslassen gilt die Ansicht für diese Übung überall (`S.figCam {id: {yaw, tilt}}`, in `DEF`,

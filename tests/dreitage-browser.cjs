@@ -8,10 +8,11 @@ const { chromium } = require(require.resolve('playwright', { paths: [process.env
 let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
-window.tpTest = { know: i => stgKnow(DAYS[S.tag].kraft[i]), kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to) } }),
+window.tpTest = { know: i => stgKnow(DAYS[S.tag].kraft[i]), kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to), force: '1' } }),
   notice: () => { MOMENTS = []; var o = document.getElementById('moment'); if (o) o.remove(); chainNotice(); o = document.getElementById('moment'); return o ? o.innerText : ''; },
   saveNow: () => { saveDay(); var M = document.getElementById('moment'); if (M) M.remove(); MOMENTS = []; return LOGS[LOGS.length - 1]; },
   finishTimer: () => finish(),
+  draft: (k, v) => { setDraft(k, v); render(); },
   stepId: () => { var T = trainCtx(); return T ? T.s.id : null; },
   goStep: id => { var i = stepsOf(dayCtx(S.tag)).findIndex(s => s.id === id); setDraft('_step', i); setDraft('_at', Date.now()); render(); return i; },
   chain: () => { var C = chainState(); return { n: C.n, st: C.weeks.map(w => w.st), need: chainNeed(), risk: chainRisk(), bank: C.bank, pend: C.pend, jk: S.chainJk }; },
@@ -122,8 +123,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(kc._kc, 'brust:s:s'); assert.ok(/m:brust:s/.test(Object.keys(kc).filter(k => /^_pk/.test(k)).map(k => kc[k]).join(',')), 'Schmerz wirkt auf eine Übung mit Brust');
     await page.locator('#fs .kc [data-act="kc"][data-m="brust"]').first().click();
     assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0]._kc || ''), '', 'dreimal = wieder gut');
+    // Dennis, 3. November: Weiter und Zurück im Trainer nur mit langem Druck und Nachfrage.
+    const fsHold = async (sel, ok) => { const bb = await page.locator(sel).boundingBox(); await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.down(); await page.waitForTimeout(850); await page.mouse.up(); await page.locator('#sheet [data-c="' + (ok === false ? 'stay' : 'go') + '"]').click(); await page.waitForTimeout(200); };
     await page.locator('#fs .fs-nav .btn.primary').click();
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^1\/\d · /, 'ein Tippen auf Weiter bleibt, solange der Schritt nicht fertig ist');
+    await fsHold('#fs .fs-nav .btn.primary');
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · Aufwärmen$/);
+    await page.locator('#fs .fs-nav .fs-back').click();
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · /, 'Zurück nicht mit einem Tippen');
+    await fsHold('#fs .fs-nav .fs-back', false);
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · /, 'Hier bleiben');
+
     assert.equal(await page.locator('#fs .fs-seg').count(), 0, 'kein Einzeln | Liste mehr unter dem Ring (Dennis, 28. Oktober)');
     await page.locator('#fs .fs-top [data-act="fs-view"][data-v="list"]').click();
     assert.equal(await page.evaluate(() => window.tpTest.state().fsView), 'list', 'die Ansicht merkt sich die App');
@@ -138,7 +148,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.locator('#sheet').isVisible(), '(i) öffnet die Anleitung');
     assert.equal(await page.locator('#fs .fs-rows .fs-row.done').count(), 0, '(i) hakt nichts ab');
     await page.getByRole('button', { name: 'Fertig', exact: true }).click();
-    await page.locator('#fs .fs-nav .btn.primary').click();
+    await fsHold('#fs .fs-nav .btn.primary');
     await page.reload();
     assert.ok(await page.locator('#fs .fs-tr .st-prog').isVisible(), 'nach dem Neuladen geht es beim Schritt im Vollbild weiter');
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft')));
@@ -195,7 +205,9 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.locator('#fs .fs-kick').innerText(), kk, 'ein Tippen auf Weiter bleibt beim laufenden EMOM');
     await page.locator('#fs #fs-ring').click();
     await page.waitForTimeout(300);
-    assert.doesNotMatch(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Kapsel nochmal: angehalten, Weiter wieder frei');
+    assert.match(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'angehalten bleibt Weiter gesperrt, bis der Schritt fertig ist');
+    await page.evaluate(() => window.tpTest.finishTimer()); await page.waitForTimeout(200);
+    assert.doesNotMatch(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'nach der Uhr ist Weiter frei');
     await page.evaluate(() => { const o = JSON.parse(localStorage.getItem('tp.drafts')); for (const k in o) for (const f in o[k]) if (/^k\dr\d$/.test(f)) delete o[k][f]; localStorage.setItem('tp.drafts', JSON.stringify(o)); });
     await page.reload();
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().length - 1));
@@ -810,13 +822,15 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'hs')));
     assert.equal(await page.evaluate(() => window.tpTest.stepId()), 'hs');
     await page.locator('#fs #fs-tg').click();
-    await page.clock.setFixedTime(new Date('2026-10-15T09:00:35+02:00'));
+    // Seit 3. November ein Intervall: Halten 20 s, dann Pause (Dennis: „Arbeit, Pause, Arbeit“).
+    assert.match(await page.evaluate(() => window.tpTest.steps().find(s => s.id === 'hs').timer.mode), /hiit/);
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:28+02:00'));
     await page.locator('#fs #fs-tg').click();
-    assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '25', 'Pause nimmt 25 s (35 s minus 10 s Vorlauf)');
+    assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '18', 'Pause im Halten nimmt 18 s (28 s minus 10 s Vorlauf)');
     await page.locator('#fs #fs-tg').click();
-    await page.clock.setFixedTime(new Date('2026-10-15T09:00:50+02:00'));
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:40+02:00'));
     await page.locator('#fs #fs-tg').click();
-    assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '25', 'kürzerer Versuch: beste Zeit bleibt');
+    assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0].hsSec), '18', 'Pause in der Pause zählt nicht');
     assert.ok(await page.evaluate(() => { const b = document.getElementById('fs-side'); return b.scrollHeight <= b.clientHeight + 2; }), 'Handstand passt ohne Scrollen');
     await page.setViewportSize({ width: 360, height: 430 }); await page.waitForTimeout(600);
     await page.evaluate(() => { const b = document.getElementById('fs-side'); b.scrollTop = b.scrollHeight; });
@@ -875,6 +889,28 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#view .rbtn.back').first().click();
     assert.ok(await page.getByRole('heading', { name: 'Brust', level: 2 }).isVisible(), 'Zurück führt zum Muskel');
     console.log('PASS: Körper unter Tools: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
+
+    // Dennis, 3. November: Accessory zum Abhaken (3 Runden) mit Band in Farbe; Mini-Band ist ein eigenes Gerät; ohne Uhr hakt die Kapsel ab.
+    await page.clock.setFixedTime(new Date('2026-10-15T09:00:00+02:00'));
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { zeitMax: 45, fsView: 'one' }), chLogs]);
+    await page.evaluate(() => window.tpTest.draft('_mehr', '15'));
+    const accI = await page.evaluate(() => window.tpTest.steps().findIndex(s => s.id === 'acc'));
+    assert.ok(accI > 0, 'Accessory dabei');
+    {
+      await page.evaluate(i => window.tpTest.go(i), accI); await page.waitForTimeout(300);
+      assert.match(await page.locator('#fs .fs-side').innerText(), /Runde 1 von 3/, 'Accessory in Runden');
+      assert.equal(await page.evaluate(() => window.tpTest.steps().filter(s => s.id === 'acc').length), 1);
+      await page.locator('#fs .fs-side [data-act="fl-done"]').click();
+      assert.match(await page.locator('#fs .fs-side').innerText(), /Übung 2 von/, 'Erledigt hakt ab');
+      assert.ok(await page.locator('#fs .fs-top [data-act="fs-view"]').isVisible(), 'Liste oder Karte auch im Accessory');
+      // Ohne Uhr (Uhr noch nicht gestartet ist hier ein Block, darum über das Aufwärmen): Kapsel hakt ab.
+      await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'warm'))); await page.waitForTimeout(200);
+      await page.locator('#fs .fs-side [data-act="fl-done"]').click(); await page.waitForTimeout(200);
+      const pl = await page.locator('#fs-pl').innerText();
+      if (/Tippen hakt/.test(pl)) { const t0 = await page.locator('#fs .fs-side').innerText(); await page.locator('#fs #fs-ring').click(); await page.waitForTimeout(200); assert.notEqual(await page.locator('#fs .fs-side').innerText(), t0, 'Tippen auf die Kapsel hakt ab'); }
+    }
+    assert.ok(await page.evaluate(() => !Object.values(window.tpTest.state().orte).some(o => o.eq.indexOf('eq_miniband') >= 0)), 'Mini-Band ist nicht einfach angehakt');
+    console.log('PASS: Accessory zum Abhaken in Runden, Liste oder Karte, Mini-Band als eigenes Gerät');
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
