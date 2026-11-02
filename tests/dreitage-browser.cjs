@@ -84,6 +84,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Vor dem Start: neue Übungen stehen als „Neu“ am Kraftschritt (Impeccable-Kritik 24. Oktober), keine eigene Karte mehr.
     assert.match(await page.locator('.tl-card .tl-neu').first().innerText(), /Neu[\s\S]*ansehen/);
     // Vorschau eines Schritts (2. November): gedrückt halten zeigt die Übungen, loslassen schließt; mit der Maus beim Darüberfahren.
+    await page.evaluate(() => window.scrollTo(0, 0));
     const pvTouch = async (id, ms) => page.evaluate(a => new Promise(r => { const li = document.querySelector('li[data-pv="' + a[0] + '"]'), b = li.getBoundingClientRect(), o = { bubbles: true, pointerType: 'touch', clientX: b.left + 40, clientY: b.top + 10 };
       li.dispatchEvent(new PointerEvent('pointerdown', o)); setTimeout(() => { const p = document.querySelector('.pv-pop'); r(p ? p.innerText : ''); }, a[1]); }), [id, ms]);
     assert.equal(await pvTouch('kraft', 100), '', 'kurzes Tippen zeigt noch nichts');
@@ -91,6 +92,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     const pvK = await pvTouch('kraft', 450);
     assert.ok(/Kraft · EMOM/.test(pvK) && /Stufe \d/.test(pvK) && / × \d/.test(pvK), 'Vorschau Kraft mit Stufe und Menge: ' + pvK);
     assert.ok(await page.locator('.pv-pop .mini-fig').count() >= 1, 'mit Figur');
+    const pvPos = await page.evaluate(() => { const li = document.querySelector('li[data-pv="kraft"]').getBoundingClientRect(), p = document.querySelector('.pv-pop').getBoundingClientRect(); return [p.top, p.bottom, li.top + 10]; });
+    assert.ok(pvPos[1] <= pvPos[2] - 20 && pvPos[0] >= 0, 'Vorschau immer über dem Finger: ' + pvPos);
     if (process.env.TP_SHOT) await page.screenshot({ path: process.env.TP_SHOT + '/pv-kraft.png' });
     await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
     assert.equal(await page.locator('.pv-pop').count(), 0, 'loslassen schließt');
@@ -98,6 +101,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     if (process.env.TP_SHOT) await page.screenshot({ path: process.env.TP_SHOT + '/pv-warm.png' });
     await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
     assert.ok(/W/.test(await pvTouch('fin', 450)), 'Vorschau Abschluss');
+    assert.ok(await page.evaluate(() => { const li = document.querySelector('li[data-pv="fin"]').getBoundingClientRect(), p = document.querySelector('.pv-pop').getBoundingClientRect(); return p.bottom <= li.top - 10 && p.top >= 0; }), 'auch weiter unten über dem Finger');
     await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
     await page.hover('li[data-pv="warm"]'); await page.waitForTimeout(250);
     assert.ok(await page.locator('.pv-pop.open').isVisible(), 'Maus darüber zeigt die Vorschau');

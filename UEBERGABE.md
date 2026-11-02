@@ -14,6 +14,8 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 - Umgesetzt: siehe CLAUDE.md „Vorschau eines Schritts“. Kraft zeigt je Übung Stufe und Runden × Wdh. (mit Gewicht), Aufwärmen die Übungen mit Menge, Abschluss die
   Abschnitte mit Watt, Skill die Stufe, Ausgleich/Accessory die Übung, Körper-Check einen Satz. Nur auf Heute (nicht in Plan › Deine Woche).
 - Geprüft: `dreitage-browser` (kurzes Tippen zeigt nichts, gedrückt halten zeigt Kraft mit Stufe und Figur, loslassen schließt, Aufwärmen, Abschluss, Maus darüber/weg).
+- Danach (Dennis: „manchmal unterhalb, manchmal oberhalb … immer oben“): die Vorschau steht immer über dem Finger; ist oben zu wenig Platz,
+  blendet sie unten aus statt nach unten zu springen.
 - Offen: Dennis prüft am iPhone, ob Gedrückthalten ohne Text-Auswahl und ohne Scrollen klappt.
 
 ## Woche in den Kalender per Knopf (1. November 2026, Claude)

@@ -675,8 +675,9 @@ html[data-text=s] body{zoom:.92}html[data-text=l] body{zoom:1.14}
 li[data-pv]{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;border-radius:14px;transition:background .15s}
 li[data-pv].pv-on{background:var(--board)}
 .pv-pop{position:fixed;left:50%;width:min(380px,calc(100vw - 32px));transform:translate(-50%,6px) scale(.98);opacity:0;z-index:60;pointer-events:none;
-  background:var(--paper);border-radius:22px;box-shadow:0 18px 48px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.08);padding:16px 16px 12px;max-height:calc(100vh - 24px);overflow:hidden;transition:opacity .16s,transform .16s}
+  background:var(--paper);border-radius:22px;box-shadow:0 18px 48px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.08);padding:16px 16px 12px;overflow:hidden;transition:opacity .16s,transform .16s}
 .pv-pop.open{opacity:1;transform:translate(-50%,0) scale(1)}
+.pv-pop.cut{-webkit-mask-image:linear-gradient(to top,transparent 0,#000 44px);mask-image:linear-gradient(to top,transparent 0,#000 44px)}
 .pv-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.pv-h b{font-size:18px}.pv-h span{color:var(--ink2);font-size:15px;white-space:nowrap}
 .pv-s{margin:4px 0 8px;color:var(--ink2);font-size:14px;line-height:1.4}
 .pv-l{list-style:none;margin:6px 0 0;padding:0}
@@ -4233,17 +4234,18 @@ function pvHTML(tag, id) {
     (more ? '<p class="pv-s">' + esc(more) + '</p>' : '');
 }
 var PV = { el: null, li: null, t: null, x: 0, y: 0 };
-function pvShow(li) {
+// Immer über dem Finger (Dennis, 2. November: „manchmal unterhalb, manchmal oberhalb … immer oben“), mit der Maus über der Zeile.
+// Reicht der Platz nicht, endet die Vorschau über dem Finger und blendet unten aus (Titel und erste Übungen bleiben sichtbar).
+function pvShow(li, y) {
   if (PV.li === li && PV.el) return;
   var h = ''; try { h = pvHTML(+li.dataset.tag, li.dataset.pv); } catch (e) { h = ''; }
   if (!h) return;
   pvHide();
   var el = document.createElement('div'); el.className = 'pv-pop'; el.setAttribute('role', 'tooltip'); el.innerHTML = h;
   document.body.appendChild(el); PV.el = el; PV.li = li; li.classList.add('pv-on');
-  var r = li.getBoundingClientRect(), vh = window.innerHeight, ph = el.offsetHeight, top = r.top - ph - 10;
-  if (top < 12) top = r.bottom + 10;
-  if (top + ph > vh - 12) top = Math.max(12, vh - ph - 12);
-  el.style.top = top + 'px';
+  var r = li.getBoundingClientRect(), at = y != null ? y - 28 : r.top - 10, room = at - 12;
+  el.style.bottom = (window.innerHeight - at) + 'px'; el.style.maxHeight = room + 'px';
+  if (el.scrollHeight > room) el.classList.add('cut');
   requestAnimationFrame(function () { el.classList.add('open'); });
   haptic('tap');
 }
@@ -4254,7 +4256,7 @@ function pvHide() { clearTimeout(PV.t); PV.t = null; if (PV.el) PV.el.remove(); 
     var li = e.target.closest && e.target.closest('li[data-pv]');
     if (!li || e.pointerType === 'mouse') return;
     pvHide(); PV.x = e.clientX; PV.y = e.clientY;
-    PV.t = setTimeout(function () { pvShow(li); }, 300);
+    PV.t = setTimeout(function () { pvShow(li, PV.y); }, 300);
   });
   document.addEventListener('pointermove', function (e) {
     if (e.pointerType === 'mouse') {
