@@ -52,6 +52,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Training verschieben (Heute anpassen › „Training verschieben“, `moveOptions`, `ACT['mv-go']`): der Coach rechnet jeden späteren Tag dieser
   Woche durch (heute `off` mit `reason: 'moved'`, Ziel `planOv.pin`) und bietet bis zu 3 Termine an; Wegfall einer anderen Einheit steht dabei.
   Der Entwurf bleibt (gleicher Schlüssel). Nur innerhalb der Woche.
+  Feste Woche (Dennis, 4. November: „Montag, Mittwoch und Sonntag, nach dem ersten Training wurde B auf Freitag verschoben … verschoben wird nur auf Anfrage
+  des Nutzers“): `S.planFix {mon, d: {Datum: tag}, ts}` (in `DEF` und `SYNC_KEYS`) merkt die Planung der laufenden Woche (`planFixSave` in `missRemember`, erste
+  Planung ab Montag). `wkPlan0` setzt feste Einheiten an ihren Tag (`FXA`) und plant nur den Rest; frei wird eine Einheit nur, wenn ihr Tag nicht mehr geht: abgesagt
+  oder verschoben (`planOv` off/pin, Vorziehen), Krank/Beschwerden, vorbei und nicht gemacht (ausgefallen), 12-h-Tag oder kein Zeitfenster mehr (neuer Termin).
+  Freie Einheiten nehmen nur Tage, die keine andere Einheit hält; das Ergebnis wird wieder gemerkt. Neue Trainingstage (`tageSet`) und die Umstellung setzen zurück.
   Gemerkter Plan (Dennis, 26. Oktober: Sonntag ausgefallen, Montag frei, A und B Di/Mi direkt hintereinander): `wkPlan0` gibt +50 nur für Tage,
   die in dieser Woche schon so geplant waren (Merkzettel `planDays` mit `ts` ab Montag) oder heute; eine Vorschau aus der Woche davor plant der
   Coach neu (sonst rutscht ohne Bonus eine Einheit Tag für Tag nach hinten, das hält die Langzeit-Prüfung fest). Vorziehen: an einem freien Tag

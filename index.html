@@ -3865,7 +3865,7 @@ var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm'
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
-  planDays: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null, figCam: null, calAdd: null };
+  planDays: null, planFix: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null, figCam: null, calAdd: null };
 
 var LS = {
   pending: {}, after: [], notice: null,
@@ -4032,7 +4032,7 @@ function removeLog(id) {
   LOGS = LOGS.filter(function (l) { return l.id !== id; }); LS.set('tp.logs', LOGS); DELETED[id] = Date.now(); LS.set('tp.deleted', DELETED); markDirty();
 }
 /* ---------- GitHub sync (offline app) ---------- */
-var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage', 'schwerpunkt', 'chainJk'];
+var SYNC_KEYS = ['started', 'startDate', 'durchgang', 'tag', 'lastTag1Month', 'cycleStart', 'cycleDurchgang', 'murphStage', 'base', 'orte', 'picks', 'bandCol', 'weight', 'fokus', 'blockStart', 'hrMax', 'hrRest', 'review', 'lvl', 'picksV', 'swapped', 'name', 'cardio', 'challenge', 'birthYear', 'koerper', 'sex', 'comeback', 'tagSince', 'advBy', 'posSet', 'alltag', 'arbeit', 'planWk', 'planOv', 'planFix', 'planDays', 'planMiss', 'planCare', 'planStart', 'planV', 'planVFrom', 'umfang', 'zeitMax', 'befinden', 'morgen', 'zusatz', 'tage', 'schwerpunkt', 'chainJk'];
 var API = window.TP_API || 'https://api.github.com';
 var DELETED = LS.get('tp.deleted', {});
 var SY = LS.get('tp.sync', null);
@@ -6991,6 +6991,16 @@ function missCarry() {
   });
   return tags;
 }
+// Feste Woche: das Ergebnis der Planung dieser Woche merken. Weil der Planer feste Tage nicht mehr anfasst, ändert sich hier nur, was frei werden musste
+// (abgesagt, verschoben, ausgefallen); das bleibt dann ebenso fest. Am Montag beginnt eine neue feste Woche.
+function planFixSave() {
+  if (!v2() || !planOn()) return false;
+  var mon = wkMon(), P = wkPlanC(), d = {}, today = isoToday();
+  if (S.planFix && S.planFix.mon === mon) Object.keys(S.planFix.d || {}).forEach(function (dt) { if (dt < today) d[dt] = S.planFix.d[dt]; }); // Vergangenes bleibt als Beleg
+  P.days.forEach(function (x) { if (x.date >= today && x.tag) d[x.date] = x.tag; });
+  if (S.planFix && S.planFix.mon === mon && JSON.stringify(S.planFix.d) === JSON.stringify(d)) return false;
+  S.planFix = { mon: mon, d: d, ts: Date.now() }; WKP_C.k = null; return true;
+}
 function missRemember() {
   if (!S.started || S.durchgang < 1 || S.review) return false;
   var today = isoToday(), ch = false;
@@ -7011,6 +7021,7 @@ function missRemember() {
     saved[date] = { tag: tag, dg: dg, time: time, ts: Date.now(), pv: S.planV || 1, n: tag && DAYS[tag] ? dayLabel(tag) : null }; ch = true;
   }
   if (planOn()) {
+    planFixSave();
     [wkPlanC(), wkPlan(isoAdd(wkMon(), 7))].forEach(function (P) {
       P.days.forEach(function (d) { put(d.date, d.tag || null, S.durchgang, d.t == null ? null : d.t - d.i * 24); });
     });
@@ -7298,7 +7309,7 @@ function planVSwitch() {
   S.planV = 2; DAYS_K = null; syncDays(); picksMigrate();
   S.tag = 1; S.tagSince = today; S.advBy = 'auto'; ui.viewTag = null; WKP_C.k = null; PD_C = {};
   if (!S.planWk) S.planWk = mon;
-  S.planStart = { date: today, week: mon, tag: 1, mode: 'week' };
+  S.planStart = { date: today, week: mon, tag: 1, mode: 'week' }; S.planFix = null;
   var pd = Object.assign({}, S.planDays || {}); Object.keys(pd).forEach(function (dt) { if (dt >= today) delete pd[dt]; }); S.planDays = pd;
   FILL.k = null;
 }
@@ -7353,6 +7364,20 @@ function wkPlan0(mon) {
   if (v2()) R = R.filter(function (t) { return !DAYS[t].zusatz && !Object.keys(done).some(function (dt) { return done[dt] === t; }); });
   // Paket 62: Reihenfolge nach Tag (Split: Push, Pull, Beine …), ausgefallene Einheiten bleiben vorn.
   if (v2()) R.sort(function (a, b) { return (carryV.indexOf(b) >= 0) - (carryV.indexOf(a) >= 0) || a - b; });
+  // Feste Woche (Dennis, 4. November: „Montag, Mittwoch und Sonntag, nach dem ersten Training wurde B auf Freitag verschoben. So lässt sich eine Woche
+  // nicht gescheit vorplanen. Verschoben wird nur auf Anfrage des Nutzers.“): was in dieser Woche einmal geplant ist (`S.planFix`), bleibt an seinem Tag.
+  // Frei wird eine Einheit nur, wenn ihr Tag nicht mehr geht: vom Nutzer abgesagt oder verschoben (`planOv` off/pin), Krank/Beschwerden, der Tag ist vorbei
+  // (ausgefallen) oder dort ist keine Zeit mehr (neuer Termin). Freie Einheiten nehmen nur Tage, die keine andere Einheit hält.
+  var FXA = [], FX = cur && v2() && S.planFix && S.planFix.mon === mon ? S.planFix.d || {} : null;
+  if (FX) {
+    R.forEach(function (t) {
+      var fd = Object.keys(FX).filter(function (dt) { return FX[dt] === t; })[0], i = fd ? daysBetween(parseISO(mon), parseISO(fd)) : -1;
+      if (i < from || i > 6) return;
+      var dy = days[i]; if (dy.off || missBlocked(dy.date) || (dy.pin && dy.pin !== t) || (dy.cls === 'none' && dy.force == null)) return;
+      FXA.push({ i: i, t: t });
+    });
+    R = R.filter(function (t) { return !FXA.some(function (x) { return x.t === t; }); });
+  }
   // Paket 60/62: müde Zonen am geplanten Tag kosten Punkte, intensive Ausdauer direkt vor Kraft auch.
   var ZD = {};
   function zonePen(j, t, prevT) {
@@ -7378,11 +7403,11 @@ function wkPlan0(mon) {
     if (!s && v2() && DAYS[t] && DAYS[t].type === 'kraft') [60, 45, 30].some(function (m) { if (m / 60 >= planDur(t)) return false; s = daySlot(T, i, m / 60, true); if (s) { s.fit = m; s.sc = (s.sc || 0) - 8; } return !!s; });
     return (slots[k] = s);
   }
-  function usable(i, t) { var c = days[i].cls; if (missBlocked(days[i].date) || days[i].off || (days[i].pin && days[i].pin !== t)) return false; if (c === 'none' && days[i].force == null) return false; if (c === 'light' && planHard(t) && days[i].force == null && !v2()) return false; return !!slot(i, t); }
+  function usable(i, t) { var c = days[i].cls; if (FXA.some(function (x) { return x.i === i; }) || missBlocked(days[i].date) || days[i].off || (days[i].pin && days[i].pin !== t)) return false; if (c === 'none' && days[i].force == null) return false; if (c === 'light' && planHard(t) && days[i].force == null && !v2()) return false; return !!slot(i, t); }
   // Plan 2: an Tag i harte Einheit? Vor dem Planungsbeginn zählen die Einträge, danach die Zuordnung.
   var prevW = null;
   function hardOn(i, acc) {
-    if (i >= from) return acc.some(function (x) { return x.i === i && planHard(x.t); });
+    if (i >= from) return acc.concat(FXA).some(function (x) { return x.i === i && planHard(x.t); });
     if (i < 0 && future) { if (!prevW) prevW = wkPlan(isoAdd(mon, -7)); var pd = prevW.days[7 + i]; return !!pd && !!((pd.done && planHard(pd.done)) || (pd.tag && planHard(pd.tag))); }
     var dt = isoAdd(mon, i);
     return LOGS.some(function (l) { return trainingLog(l) && l.date === dt && ['kraft', 'interval', 'test', 'murph'].indexOf(l.kind) >= 0; });
@@ -7394,7 +7419,8 @@ function wkPlan0(mon) {
       if (k === seq.length) { if (!res || score > res.score + 1e-9) res = { a: acc.slice(), score: score }; return; }
       for (var j = i; j <= 6 - (seq.length - 1 - k); j++) {
         var t = seq[k]; if (!usable(j, t)) continue;
-        var prevT = j - 1 === (acc.length ? acc[acc.length - 1].i : -9) ? acc[acc.length - 1].t : j - 1 === from - 1 ? prevTag : null;
+        var fxp = FXA.filter(function (x) { return x.i === j - 1; })[0];
+        var prevT = fxp ? fxp.t : j - 1 === (acc.length ? acc[acc.length - 1].i : -9) ? acc[acc.length - 1].t : j - 1 === from - 1 ? prevTag : null;
         if (!planPairOk(prevT, t)) continue;
         // Plan 2: höchstens zwei Einheiten in Folge; ein freier Tag davor ist besser, ein Übergangstag (vor/nach Nachtschicht) schlechter.
         var gap = 0;
@@ -7412,6 +7438,8 @@ function wkPlan0(mon) {
     })(0, from, null, [], 0);
     return res;
   }
+  // Feste Einheit ohne Zeitfenster mehr (neuer Termin im Kalender): dann doch frei planen.
+  if (FXA.length) { FXA = FXA.filter(function (x) { if (slot(x.i, x.t)) return true; R.push(x.t); return false; }); R.sort(function (a, b) { return (carryV.indexOf(b) >= 0) - (carryV.indexOf(a) >= 0) || a - b; }); }
   // Möglichst viele Einheiten; bei gleicher Zahl die wichtigeren (Rangfolge aus planDropOrder).
   var order = planDropOrder(R), rk = {}, subs = [], res = { a: [] }, seq = [];
   order.forEach(function (t, i) { rk[t] = i + 1; });
@@ -7419,12 +7447,12 @@ function wkPlan0(mon) {
   subs.sort(function (x, y) { return y.n - x.n || y.p - x.p; });
   for (var si = 0; si < subs.length; si++) { var r0 = best(subs[si].s); if (r0) { res = r0; seq = subs[si].s; break; } }
   var dropped = R.filter(function (t) { return seq.indexOf(t) < 0; });
-  (res ? res.a : []).forEach(function (x) { var dy = days[x.i], s = slot(x.i, x.t); dy.tag = x.t; dy.t = s.t; dy.end = s.end; dy.why = s.why; dy.forced = !!s.forced; dy.fit = s.fit || 0; dy.relax = !!s.relax; });
+  (res ? res.a : []).concat(FXA).forEach(function (x) { var dy = days[x.i], s = slot(x.i, x.t); dy.tag = x.t; dy.t = s.t; dy.end = s.end; dy.why = s.why; dy.forced = !!s.forced; dy.fit = s.fit || 0; dy.relax = !!s.relax; });
   return { mon: mon, days: days, T: T, dropped: dropped, today: cur ? ti : -1 };
 }
 var WKP_C = { k: null, v: null };
 function wkPlanC() {
-  var k = [wkMon(), isoToday(), S.tag, S.durchgang, LOGS.length, JSON.stringify(S.alltag), JSON.stringify(S.arbeit), JSON.stringify(S.planOv), JSON.stringify(S.planCare), JSON.stringify(S.planMiss), JSON.stringify(S.planStart), doneToday0(), S.ort, KAL ? KAL.ts + '' + KAL.von + JSON.stringify(KAL.sel || {}) : ''].join('|');
+  var k = [wkMon(), isoToday(), S.tag, S.durchgang, LOGS.length, JSON.stringify(S.alltag), JSON.stringify(S.arbeit), JSON.stringify(S.planOv), JSON.stringify(S.planCare), JSON.stringify(S.planMiss), JSON.stringify(S.planStart), JSON.stringify(S.planFix), doneToday0(), S.ort, KAL ? KAL.ts + '' + KAL.von + JSON.stringify(KAL.sel || {}) : ''].join('|');
   if (WKP_C.k !== k) WKP_C = { k: k, v: wkPlan() };
   return WKP_C.v;
 }
@@ -10956,7 +10984,7 @@ function tageSheetBody(n) {
     '<p class="small muted" id="tg-x">' + esc(TAGE_TXT[n]) + ' Den Rest plant dein Coach.</p></div>' +
     '<p class="small muted" style="margin:12px 2px 0">Gilt ab sofort für diese und alle folgenden Wochen, bis du es wieder änderst.</p>';
 }
-function tageSet(v) { v = Math.max(2, Math.min(6, +v || 3)); if (v === tageN()) return; S.tage = v === 3 ? null : v; DAYS_K = null; WKP_C.k = null; PD_C = {}; FILL.k = null; saveState(); haptic('tap'); render(); }
+function tageSet(v) { v = Math.max(2, Math.min(6, +v || 3)); if (v === tageN()) return; S.tage = v === 3 ? null : v; S.planFix = null; DAYS_K = null; WKP_C.k = null; PD_C = {}; FILL.k = null; saveState(); haptic('tap'); render(); }
 ACT['tage-open'] = function () {
   openForm('Trainingstage', tageSheetBody(tageN()), 'Übernehmen', function (bg) {
     var n = +bg.querySelector('.tg-r').value; if (n !== tageN()) { tageSet(n); toast(n + ' Trainingstage pro Woche, auch in den nächsten Wochen.'); }

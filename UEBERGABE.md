@@ -8,6 +8,15 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Feste Woche (4. November 2026, Claude)
+- Dennis: „Die App hatte mir am Anfang der Woche drei Termine angezeigt, Montag, Mittwoch und Sonntag, nach dem ersten Training wurde Einheit B auf Freitag
+  verschoben. So lässt sich eine Woche nicht gescheit vorplanen. Verschoben wird nur auf Anfrage des Nutzers.“
+- Ursache: der Planer rechnete die Woche nach jedem Training neu; der Bonus für schon geplante Tage (+50) galt nur für Merkzettel mit Zeit ab Montag, und eine
+  am Sonntag als Vorschau berechnete Woche behielt ihre Sonntagszeit. Jetzt `S.planFix` (siehe CLAUDE.md), feste Termine sind eine harte Vorgabe.
+- Bewusst so: eine ausgefallene Einheit (Tag vorbei, nicht gemacht) und eine abgesagte („Heute nicht“) rücken auf einen freien Tag, ohne andere Termine zu bewegen.
+  Falls Dennis auch das nicht will: Frage offen.
+- Geprüft: `dreitage` (neu: feste Woche, nach dem Training, Heute nicht, Ausfall, neue Woche, Gegenprobe ohne feste Woche), alle anderen Tests.
+
 ## Kardio am freien Tag (2. November 2026, Claude)
 - Dennis: „an trainingsfreien Tagen auch eine Kardio-Einheit … ein von dir erstelltes Training sehen, sowie die Möglichkeit es individuell anzupassen
   (laufen/fahrrad fahren auf zeit/kilometer, Intervalle oder ähnliches)“.

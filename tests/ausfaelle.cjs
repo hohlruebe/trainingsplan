@@ -27,7 +27,7 @@ function setup() {
     SHIFT: { f: ['Früh', 6, 14], n: ['Nacht', 22, 6], t: ['12 h Tag', 6, 18] }, UNIT: { 1: 'A', 3: 'B', 6: 'C' }
   });
   for (const name of ['isoAdd','wkMon','alltag','planOn','wkEntry','arbeitOf','wkTimeline','dayCls','daySlot','slotWhy','planHard','planPairOk','planDropOrder',
-    'trainingLog','careHealth','missDone','missOf','pullOption','pullOv','missPending','missCareDue','missBlocked','missCarry','missRemember','missSet','missChoose','missReady','missButtons','missQuestionHTML',
+    'trainingLog','careHealth','missDone','missOf','pullOption','pullOv','missPending','missCareDue','missBlocked','missCarry','missRemember','planFixSave','missSet','missChoose','missReady','missButtons','missQuestionHTML',
     'wkPlan','wkPlan0','wkPlanC','planRoll','planSyncTag','doneToday0','mergeRemote','v2','wkDoneV2','snapName','umfGrow','befCls','befOf','longShift','arbeitOf0','kalOn','kalCalOn','kalW','kalB','kalHas','kalShift','kalDays','kalDay','kalBlocks','kalSleepy']) vm.runInContext(source(name), c);
   vm.runInContext('var KFIT = 0; var UMF_HIT = 0.7;', c);
   return c;
