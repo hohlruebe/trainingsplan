@@ -335,3 +335,28 @@ console.log('PASS: Kalender-Brücke trägt Trainings ein: eigener Kalender, neu,
   c3.S.tage = null; assert.equal(c3.tageN(), 3, 'ohne Angabe drei'); assert.equal(c3.splitOn(), false);
   console.log('PASS: 2 bis 6 Trainingstage: Split ab 4 Tagen, Reihenfolge, Wegfall');
 }
+
+// Feste Woche (Dennis, 4. November: „Montag, Mittwoch und Sonntag, nach dem ersten Training wurde B auf Freitag verschoben … verschoben wird nur auf Anfrage“).
+{
+  now = '2026-10-12';
+  const fx = setup(); fx.S.tag = 1;
+  fx.S.planFix = { mon: '2026-10-12', d: { '2026-10-12': 1, '2026-10-14': 3, '2026-10-18': 6 }, ts: 1 };
+  assert.equal(units(fx.wkPlan()), 'A-B---C', 'die gemerkte Woche gilt');
+  fx.LOGS.push(kraft('2026-10-12', 1)); fx.S.tag = 3; fx.S.tagSince = '2026-10-12'; fx.S.advBy = 'user';
+  now = '2026-10-12'; assert.equal(units(fx.wkPlan()).slice(1), '-B---C', 'nach dem ersten Training bleiben B und C an ihren Tagen');
+  now = '2026-10-13'; fx.WKP_C.k = null; assert.equal(units(fx.wkPlan()).slice(1), '-B---C', 'auch am nächsten Tag');
+  // Ohne feste Woche hätte der Coach frei neu verteilt.
+  const free = setup(); free.S.tag = 3; free.LOGS.push(kraft('2026-10-12', 1)); now = '2026-10-13';
+  assert.notEqual(units(free.wkPlan()).slice(1), '-B---C', 'ohne feste Woche verteilt der Planer neu (darum braucht es sie)');
+  // „Heute nicht“ am Mittwoch: nur B wird frei, C bleibt am Sonntag.
+  now = '2026-10-14'; fx.S.planOv = { '2026-10-14': { off: 1 } };
+  const P2 = fx.wkPlan(); assert.equal(P2.days[6].tag, 6, 'C bleibt am Sonntag'); assert.equal(P2.days[2].tag, null);
+  assert.ok(P2.days.some(d => d.i > 2 && d.i < 6 && d.tag === 3), 'B geht auf einen freien Tag dazwischen');
+  // Ausgefallen (Mittwoch vorbei, B nicht gemacht): B nimmt einen freien Tag, C bleibt.
+  fx.S.planOv = {}; now = '2026-10-15';
+  const P3 = fx.wkPlan(); assert.equal(P3.days[6].tag, 6, 'C bleibt am Sonntag nach einem Ausfall');
+  // Neue Woche: der Plan vom letzten Montag gilt nicht mehr.
+  now = '2026-10-19'; const nx = setup(); nx.S.planWk = '2026-10-19'; nx.S.planFix = fx.S.planFix;
+  assert.equal(units(nx.wkPlan()), 'A-B-C--', 'eine neue Woche wird neu geplant');
+  console.log('PASS: feste Woche: Termine bleiben nach dem Training, nur abgesagte oder ausgefallene Einheiten rücken auf freie Tage');
+}
