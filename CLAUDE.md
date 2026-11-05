@@ -521,6 +521,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Export/Import, Zurücksetzen; `settingsHTML`). Trainings-Entscheidungen trifft der Coach: `modeOf` = `TRAIN_STD`, `roundMode()` = 'ex',
   `timerModeOf` = `TIMER_STD`, Vollbild dreht immer mit, Lauf-ABC immer; „Stand setzen“ ist weg. Alte Werte bleiben in `S`, werden nicht mehr benutzt.
   Aussehen › Hintergrund (nur Hellmodus, `S.paper`, `PAPERS`): Weiß, Kreide, Leinen, Nebel. `applyTheme` setzt `data-paper` nur im Hellen.
+  Farbpaletten (Dennis, 5. November: „verschiedene Farbpaletten zur Auswahl in den Einstellungen“): Aussehen › Farben (`paletteHTML`, `PALETTES`, `ACT.palette`,
+  `S.palette` in `DEF`, nur auf dem Gerät): Klar, Wald, Sand, Ozean, Beere, Graphit, je Akzent hell/dunkel und im Hellmodus Hintergrund und Karten (`data-pal`).
+  Ersetzt Markerfarbe und Hintergrund unter „Mehr“; ohne Wahl gelten `S.color`/`S.paper` wie bisher.
+- Design-Regeln (Dennis, 5. November, Board https://claude.ai/artifact/8s5QdhBzdSeWTftqgYdRYT, „die Animationen bleiben, wie sie sind“): Blau nur für heute und die
+  eine Hauptaktion. Heute „Training starten“ oben in der Karte (`.go.top`), Schritt-Nummern `.tl-n` neutral, „Neu“ als Chip `.tl-neu` („3 neu ›“), Kette ohne Kreis;
+  Trainer-Kopf nur bis zum ersten „·“, Fortschritt/Runden/Plus neutral (nur die Vorgabe blau); Profil ohne Wert „entsteht“ (`.p-none`); Plan › Deine Woche Durchgang
+  als Text (`.pw-hd`), Gründe hinter „Warum 17:00?“ (`ui.pwWhy`, `ACT['pw-why']`); freier Tag Kardio mit Hauptaktion (`.fd-top`), Arbeitszeiten-Frage als Zeile (`.ask-row`).
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.
 - Ist ein Blatt offen, scrollt der Hintergrund nicht (`html:has(.sheet-bg.open)`), Listen im Blatt haben `overscroll-behavior: contain`.
 - Bewegung: kein blaues Antipp-Leuchten (`-webkit-tap-highlight-color`), gedrückte Kapseln geben nach (96 %, Umschalter 92 %).

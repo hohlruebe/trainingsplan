@@ -126,6 +126,11 @@ html.desk body:has(main[data-tab=heute]) #storage-error,html.desk body:has(main[
 .ldz-v{margin-left:auto;font-weight:600;color:var(--ink2);white-space:nowrap}.ldz-v.sig{color:var(--acc)}
 .gm-h .gm-t{font-size:19px}
 .pw-line{margin:2px 2px 0;color:var(--ink2);line-height:1.4}
+.pw-hd{margin:0 0 6px}.pw-hd h2{margin:0}.pw-hd>span{display:block;margin-top:2px}.pw .vr-v{color:var(--ink)}
+.pw-why{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:44px;margin:10px 0 0;padding:0 16px;border:0;border-radius:22px;background:var(--board);color:var(--ink);font:500 15px var(--text);cursor:pointer;text-align:left}.pw-why i{font-style:normal}
+.pw-tl{margin-top:14px}
+.fd-top{margin:4px 0 6px}.fd-top>p{margin:0}.fd-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:2px}.fd-h b{font-size:20px}.fd-h span{font-weight:600}.fd-s{margin:2px 0 14px!important}.fd-card .vr-v{color:var(--ink)}
+.ask-row{margin-top:14px}
 .pw .pills.wkst{margin-left:-10px;margin-right:-10px;padding:3px;gap:1px}
 .pill.wd.ok:not(.cur):not(.view) .wd-u{color:var(--green)}
 .wk-h{margin-top:4px}
@@ -264,6 +269,7 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .p-info{min-width:0;padding-right:34px}
 .p-name{font-size:24px;font-weight:700;letter-spacing:-.03em;line-height:1.15;overflow-wrap:anywhere}
 .p-total{font-size:72px;font-weight:800;letter-spacing:-.06em;line-height:.9;margin-top:2px}
+.p-none{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:4px}
 .p-sub{font-size:14px;color:color-mix(in srgb,var(--ink) 78%,var(--ink2));margin-top:6px}
 .p-week{border-top:1px solid var(--plate-line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
 .p-week-h{display:flex;justify-content:space-between;font-size:14px}
@@ -412,8 +418,7 @@ th{font-family:var(--head);font-weight:600;font-size:14px;letter-spacing:.06em;t
 .tl-card.lean .tl li{padding-bottom:10px}.tl-card.lean .tl li:last-child{padding-bottom:2px}
 .tl li::before{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;border-radius:1px;background:var(--line)}
 .tl li:last-child::before{display:none}
-.tl-n{flex:0 0 32px;height:32px;border-radius:16px;border:2px solid var(--acc);color:var(--acc);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
-.tl li:first-child .tl-n{background:var(--acc);color:var(--on-acc)}
+.tl-n{flex:0 0 32px;height:32px;border-radius:16px;border:1.5px solid var(--line2);color:var(--ink);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center}
 .tl-b{flex:1;min-width:0;padding-top:4px}
 .tl-h{display:flex;justify-content:space-between;gap:8px;font-size:16px;font-weight:600}
 .tl-h span{font-weight:400;font-size:14px;color:var(--ink2);white-space:nowrap}
@@ -694,6 +699,18 @@ li[data-pv].pv-on{background:var(--board)}
 .tr-row .seg-btn{font-size:14px}
 :root[data-paper="kreide"]{--board:#F1F0EB;--paper:#FAF9F5;--pill:#FDFCF9;--fig:#FAF9F5;--tray:#EBEAE4;--tray-line:#DDDCD5;--fill:#E4E3DD;--line:#E6E5DF;--plate:#E8E9E8}
 :root[data-paper="leinen"]{--board:#EFEBE3;--paper:#F8F5EF;--pill:#FCFAF6;--fig:#F8F5EF;--tray:#E8E4DB;--tray-line:#DBD6CB;--fill:#E1DDD3;--line:#E4DFD5;--plate:#E7E5E0}
+:root[data-pal="wald"]{--board:#EEF1EC;--paper:#FAFBF8;--pill:#FCFDFB;--fig:#FAFBF8;--tray:#E7ECE5;--tray-line:#D6DDD3;--fill:#E1E6DF;--line:#E3E8E1;--plate:#E5EAE4}
+:root[data-pal="sand"]{--board:#F1ECE4;--paper:#FBF8F3;--pill:#FDFBF8;--fig:#FBF8F3;--tray:#EAE4DA;--tray-line:#DCD5C9;--fill:#E4DED3;--line:#E6E0D6;--plate:#E9E5DF}
+:root[data-pal="ozean"]{--board:#ECF1F3;--paper:#F9FBFC;--pill:#FCFDFD;--fig:#F9FBFC;--tray:#E5ECEE;--tray-line:#D4DDE0;--fill:#DEE6E9;--line:#E0E7EA;--plate:#E3EAED}
+:root[data-pal="beere"]{--board:#F3EEF0;--paper:#FCF9FA;--pill:#FDFBFC;--fig:#FCF9FA;--tray:#EDE6E9;--tray-line:#DED5D9;--fill:#E7DFE2;--line:#E9E1E4;--plate:#EAE6E8}
+:root[data-pal="graphit"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
+.pal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 2px}
+.pal button{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:44px;padding:6px;border:0;border-radius:18px;background:none;color:var(--ink);font:600 14px var(--text);cursor:pointer;text-align:center}
+.pal button[aria-pressed="true"]{background:var(--pill);box-shadow:0 0 0 2px var(--acc)}
+.pal-p{position:relative;display:block;height:54px;border-radius:12px;background:var(--pb);border:1px solid rgba(17,18,20,.08);overflow:hidden}
+.pal-p::before{content:"";position:absolute;left:8px;right:8px;top:8px;height:24px;border-radius:7px;background:var(--pc);box-shadow:0 1px 3px rgba(17,18,20,.08)}
+.pal-p::after{content:"";position:absolute;left:14px;top:15px;width:34px;height:10px;border-radius:5px;background:var(--pa)}
+.pal-p i{position:absolute;left:8px;right:8px;bottom:7px;height:8px;border-radius:4px;background:var(--pa);opacity:.9}
 :root[data-paper="nebel"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
 /* Übungsfamilien, Skill-Pfad, Skill-Baum */
 .gl-row{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:12px 0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
@@ -817,7 +834,8 @@ button.card.fk:active{transform:scale(.98)}
 .mg-res{display:flex;gap:10px;align-items:flex-start;background:var(--board);border-radius:16px;padding:12px 14px;margin-top:14px;line-height:1.4}
 .mg-res i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--on-acc,#fff);font:700 14px/22px var(--head);text-align:center;font-style:normal}
 .mg-row{margin:0 0 12px}.mg-row .gl-t small+small{color:var(--ink)}.mg-chg{flex:none;color:var(--acc);font-weight:600;font-size:15px}
-.btn.tl-neu{margin-top:8px;gap:8px;padding-left:6px}.btn.tl-neu .chip{margin:0}
+.tl-neu{position:relative;display:inline-flex;align-items:center;gap:4px;height:26px;margin:6px 0 0;padding:0 10px;border:0;border-radius:13px;background:var(--fill);color:var(--ink);font:600 14px/1 var(--text);cursor:pointer;vertical-align:middle}.tl-neu::before{content:"";position:absolute;inset:-9px -4px}.tl-neu i{font-style:normal;color:var(--ink2)}
+.tl-card .go.top{margin:2px 0 16px}
 .kc .bf .mu[data-act]{cursor:pointer}.bf .mu.zk{fill:var(--mb2)}.bf .mu.zs{fill:var(--mb0)}
 .kc-lg{display:flex;justify-content:center;gap:16px;font-size:14px;color:var(--ink2);margin:6px 0 4px}.kc-lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .kc-lg i.zk{background:var(--mb2)}.kc-lg i.zs{background:var(--mb0)}
@@ -1054,6 +1072,9 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 #fs[data-view="port"] .fs-tr.cen .fs-side{justify-content:safe center;padding-bottom:12px}
 .fs-tr .fs-ring[data-act]{cursor:pointer;-webkit-user-select:none;user-select:none}.fs-tr .fs-ring[data-act]:active{transform:scale(.98)}
 .fs-tr.fs-noring .fs-ring{pointer-events:none}
+/* Design-Regeln (Dennis, 5. November): im Trainer ist nur die Vorgabe blau; Fortschritt, Runden und Zähler neutral. Animationen bleiben. */
+#fs .st-prog span.on{background:var(--ink)}#fs .stepper button.primary{background:var(--paper);color:var(--ink)}
+#fs .fs-rd i.on{background:var(--ink);color:var(--paper)}#fs .fs-rd i.dn{background:var(--fill);color:var(--ink2)}
 #fs[data-view] .fs-tr .fs-row b.fs-q{display:flex;flex-direction:column;align-items:flex-start;line-height:1.05;width:calc(68px*var(--fsu,1));min-width:calc(68px*var(--fsu,1))}.fs-tr .fs-row b.fs-q>span{white-space:nowrap}.fs-tr .fs-row b.fs-q em{font-style:normal;font-size:calc(15px*var(--fsu,1));font-weight:700;white-space:nowrap;margin-top:2px}.fs-tr .fs-row b.fs-q em.pc{color:var(--ink2)}
 #fs .fs-tr .fs-row.on:not(.fs-krow){flex-wrap:nowrap;font-size:calc(18px*var(--fsu,1));min-height:calc(44px*var(--fsu,1));padding-top:8px;padding-bottom:8px}#fs .fs-tr .fs-row.on:not(.fs-krow) b{font-size:calc(30px*var(--fsu,1))}
 #fs .fs-fin .fs-sub{margin:0 0 2px;font-size:calc(17px*var(--fsu,1));font-weight:600;color:var(--ink2)}#fs .fs-fin .fs-exn{font-size:calc(30px*var(--fsu,1));line-height:1.05}#fs .fs-fin .fs-reps{margin:4px 0 0;line-height:1}#fs .fs-fin .fs-pct{margin:2px 0 0;font-size:calc(18px*var(--fsu,1))}
@@ -3798,6 +3819,17 @@ var COLORS = [
   { id: 'orange', label: 'Orange', light: '#C2410C', dark: '#FFA266' },
   { id: 'schwarz', label: 'Schwarz', darkLabel: 'Weiß', light: '#1F2328', dark: '#ECEDE6' }
 ];
+// Farbpaletten (Dennis, 5. November: „verschiedene Farbpaletten zur Auswahl in den Einstellungen“): Akzent hell/dunkel und Hintergrund im Hellmodus.
+// Nur auf dem Gerät (`S.palette`, nicht in SYNC_KEYS). Ohne Wahl gelten Markerfarbe und Hintergrund von früher (`S.color`, `S.paper`).
+var PALETTES = [
+  { id: 'klar', label: 'Klar', light: '#1E5BD8', dark: '#8DB8FF', bg: '#F5F5F2', card: '#FFFFFF' },
+  { id: 'wald', label: 'Wald', light: '#1F6E43', dark: '#8ED1A0', bg: '#EEF1EC', card: '#FAFBF8' },
+  { id: 'sand', label: 'Sand', light: '#B4491B', dark: '#FFA266', bg: '#F1ECE4', card: '#FBF8F3' },
+  { id: 'ozean', label: 'Ozean', light: '#0B6E8C', dark: '#6CCFE6', bg: '#ECF1F3', card: '#F9FBFC' },
+  { id: 'beere', label: 'Beere', light: '#A3245C', dark: '#F49AC1', bg: '#F3EEF0', card: '#FCF9FA' },
+  { id: 'graphit', label: 'Graphit', light: '#1F2328', dark: '#ECEDE6', bg: '#EEEFEE', card: '#F7F8F6' }
+];
+function paletteOf(id) { for (var i = 0; i < PALETTES.length; i++) if (PALETTES[i].id === id) return PALETTES[i]; return null; }
 var FONTS = [
   { id: 'klar', label: 'Klar', family: "'Geist'", weight: 600 },
   { id: 'marker', label: 'Marker', family: "'Patrick Hand SC'" },
@@ -3862,7 +3894,7 @@ var TEST_BASE = {
 };
 
 var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, fsView: 'one', comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
-  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
+  cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', palette: null, color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
   trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
   planDays: null, planFix: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null, figCam: null, calAdd: null };
@@ -5865,18 +5897,21 @@ function renderPlan() {
 function segRow(label, opts, cur, act) {
   return '<div class="seg" role="group" aria-label="' + esc(label) + '">' + opts.map(function (o) { var on = cur === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="' + act + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>';
 }
+function paletteHTML() {
+  var dark = isDark(), cur = S.palette || (S.color === 'blau' && (!S.paper || S.paper === 'weiss') ? 'klar' : '');
+  return '<h3 style="margin-top:16px">Farben</h3><div class="pal" role="group" aria-label="Farbpalette">' + PALETTES.map(function (p) {
+    var on = cur === p.id;
+    return '<button type="button" data-act="palette" data-v="' + p.id + '" aria-pressed="' + on + '"><span class="pal-p" aria-hidden="true" style="--pb:' + (dark ? '#1E1F23' : p.bg) + ';--pc:' + (dark ? '#2A2B30' : p.card) + ';--pa:' + (dark ? p.dark : p.light) + '"><i></i></span>' + esc(p.label) + '</button>';
+  }).join('') + '</div><p class="small muted">Im Dunkelmodus ändert sich nur die Akzentfarbe.</p>';
+}
 function lookHTML() {
-  return '<section class="card"><h2>Aussehen</h2>' + segRow('Hell oder dunkel', [['light', 'Hell'], ['auto', 'System'], ['dark', 'Dunkel']], S.theme || 'auto', 'theme') +
+  return '<section class="card"><h2>Aussehen</h2>' + segRow('Hell oder dunkel', [['light', 'Hell'], ['auto', 'System'], ['dark', 'Dunkel']], S.theme || 'auto', 'theme') + paletteHTML() +
     '<h3 style="margin-top:16px">Textgröße</h3>' + segRow('Textgröße', [['s', '<span style="font-size:14px">A</span>'], ['m', '<span style="font-size:18px">A</span>'], ['l', '<span style="font-size:23px">A</span>']], S.textSize || 'm', 'text-size') + '</section>';
 }
 function moreHTML() {
-  var dark = isDark(), h = '<h3 style="margin-top:0">Hintergrund</h3>' + segRow('Hintergrund', PAPERS, S.paper || 'weiss', 'paper') + '<p class="small muted">Gilt nur im Hellmodus.</p>';
-  h += '<h3 style="margin-top:16px">Markerfarbe</h3><div class="swatches" role="group" aria-label="Markerfarbe">' + COLORS.map(function (c) {
-    var on = S.color === c.id;
-    return '<button type="button" class="sw" data-act="color" data-v="' + c.id + '" aria-pressed="' + on + '" style="--c:' + (dark ? c.dark : c.light) + '"><i aria-hidden="true"></i>' + esc(dark && c.darkLabel ? c.darkLabel : c.label) + '</button>';
-  }).join('') + '</div>';
+  // Hintergrund und Markerfarbe stecken seit 5. November in den Farbpaletten (Aussehen).
   // Kapsel statt eckiger Kacheln (Impeccable-Kritik Profil, P3): jede Wahl zeigt eine Zahl in ihrer Schrift.
-  h += '<h3 style="margin-top:16px">Schrift für Zahlen</h3>' + segRow('Schrift für Zahlen', FONTS.map(function (f) {
+  var h = '<h3 style="margin-top:0">Schrift für Zahlen</h3>' + segRow('Schrift für Zahlen', FONTS.map(function (f) {
     return [f.id, '<span class="f-smp" style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">12</span> ' + esc(f.label)];
   }), S.font, 'font');
   h += countdownHTML();
@@ -6363,8 +6398,10 @@ function profileHead(stats) {
     '<div class="p-top"><button type="button" class="p-photo" data-act="foto" aria-label="Foto wählen"><svg class="p-ring" viewBox="0 0 124 124" aria-hidden="true"><circle cx="62" cy="62" r="57" class="track"/><circle cx="62" cy="62" r="57" class="fill" stroke-dasharray="' + dash + ' 358" transform="rotate(-90 62 62)"/></svg>' +
     (foto ? '<img src="' + esc(foto) + '" alt="">' : '<span class="p-nofoto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg>Foto</span>') +
     '<span class="p-tier">' + esc(cardTier(v)) + '</span></button>' +
-    '<div class="p-info"><div class="p-name">' + esc(S.name || 'Dein Profil') + '</div><div class="p-lbl">Gesamtwert</div><div class="p-total" aria-label="Gesamtwert ' + v + ' von 99">' + v + '</div><div class="p-sub">' +
-    [before ? (diff > 0 ? '+' + diff : diff < 0 ? '−' + (-diff) : '±0') + ' in 4 Wochen' : '', tierGap(v)].filter(Boolean).join(' · ') + '</div></div></div>' +
+    '<div class="p-info"><div class="p-name">' + esc(S.name || 'Dein Profil') + '</div><div class="p-lbl">Gesamtwert</div>' +
+    // Design-Regeln (Dennis, 5. November): ohne Wert keine riesige „0“, sondern was ihn entstehen lässt.
+    (v > 0 ? '<div class="p-total" aria-label="Gesamtwert ' + v + ' von 99">' + v + '</div><div class="p-sub">' +
+    [before ? (diff > 0 ? '+' + diff : diff < 0 ? '−' + (-diff) : '±0') + ' in 4 Wochen' : '', tierGap(v)].filter(Boolean).join(' · ') + '</div>' : '<div class="p-none">entsteht</div><div class="p-sub">Sobald dein Coach deine Stufen kennt, steht hier dein Wert.</div>') + '</div></div>' +
     coachLineHTML() +
     '<div class="p-week"><div class="p-week-h"><span>Diese Woche</span><b>' + (v2() ? cnt + ' von ' + tageN() + ' Einheiten' : cnt + (cnt === 1 ? ' Einheit' : ' Einheiten')) + '</b></div><div class="p-days">' + week + '</div></div></section>';
 }
@@ -7186,7 +7223,7 @@ function chainLineHTML(tag) {
     txt = (C.n ? '<b>' + chainWk(C.n) + '</b> in Folge · ' : '') + (C.pend ? 'letzte Woche fehlt, Joker in Erfolge · ' : '') + 'noch ' + (R ? R.left : chainNeed() - w.n) + ' für diese Woche';
     if (R && R.tight && R.today && !doneToday0() && DAYS[tag] && DAYS[tag].type === 'kraft' && +D._zeit !== 15) { txt += ', auch 15 Minuten zählen'; btn = '<button type="button" class="btn small" data-act="chain-short">15 Minuten</button>'; }
   }
-  return '<div class="ch-row">' + CHAIN_IC + '<span>' + txt + '</span>' + btn + '</div>';
+  return '<div class="ch-row"><span>' + txt + '</span>' + btn + '</div>';
 }
 function chainCardHTML() {
   var C = chainState(); if (!C.cur) return '';
@@ -7590,6 +7627,8 @@ function planFreeHTML(P) {
 function planAskHTML() {
   if (S.alltag || !S.started || S.durchgang < 1) return '';
   if (S.planAsk && daysBetween(parseISO(S.planAsk), new Date()) < 14) return '';
+  // Plan 2 (Design-Regeln, Dennis, 5. November): eine ruhige Zeile statt einer großen Karte.
+  if (v2()) return '<div class="vrows ask-row">' + valRow('Arbeitszeiten eintragen', '', 'data-act="wk-open" data-from="heute"', { sub: 'Dann plant dein Coach um deine Arbeit und Schichten.' }) + '</div>';
   return '<section class="card"><div class="card-head"><h2>' + (v2() ? 'Wann arbeitest du?' : 'Dein Coach plant deine Woche') + '</h2></div><p style="margin:4px 0 12px;line-height:1.45">' + (v2() ? 'Bis jetzt plane ich, als hättest du jeden Tag frei. Sag mir, wann du schläfst und arbeitest, dann lege ich A, B und C auf die besten Tage und Uhrzeiten, auch bei Schichten.' : 'Sag mir, wann du schläfst und arbeitest. Dann lege ich jedes Training auf den besten Tag und die beste Uhrzeit, auch bei Schichten.') + '</p>' +
     '<div class="bgrp"><button type="button" data-act="wk-open" data-from="heute">Einrichten</button><button type="button" data-act="pl-later">Später</button></div></section>';
 }
@@ -7871,15 +7910,16 @@ function colorOf(id) { for (var i = 0; i < COLORS.length; i++) if (COLORS[i].id 
 var PAPERS = [['weiss', 'Weiß', '#F5F5F2'], ['kreide', 'Kreide', '#F1F0EB'], ['leinen', 'Leinen', '#EFEBE3'], ['nebel', 'Nebel', '#EEEFEE']];
 function applyTheme() {
   document.documentElement.dataset.text = S.textSize === 's' || S.textSize === 'l' ? S.textSize : 'm';
-  var r = document.documentElement, dark = isDark(), c = colorOf(S.color);
+  var r = document.documentElement, dark = isDark(), P = paletteOf(S.palette), c = P || colorOf(S.color);
   if (S.theme === 'light' || S.theme === 'dark') r.dataset.theme = S.theme; else delete r.dataset.theme;
   r.dataset.font = FONTS.some(function (f) { return f.id === S.font; }) ? S.font : 'klar';
   r.style.setProperty('--acc', dark ? c.dark : c.light);
   r.style.setProperty('--on-acc', dark ? '#0E1B2B' : '#FFFFFF');
   // Hintergrund im Hellmodus: Weiß oder Off-White (Kreide, Leinen, Nebel), nur auf dem Gerät.
-  var pp = PAPERS.filter(function (x) { return x[0] === S.paper; })[0] || PAPERS[0];
+  var pp = P ? PAPERS[0] : PAPERS.filter(function (x) { return x[0] === S.paper; })[0] || PAPERS[0];
   if (!dark && pp[0] !== 'weiss') r.dataset.paper = pp[0]; else delete r.dataset.paper;
-  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? '#1E1F23' : pp[2]);
+  if (!dark && P && P.id !== 'klar') r.dataset.pal = P.id; else delete r.dataset.pal;
+  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? '#1E1F23' : P ? P.bg : pp[2]);
   refreshFigs();
 }
 
@@ -7916,6 +7956,7 @@ var ACT = {
   't-finish': function () { if (TM.mode === 'zeit') finish(); },
   't-round': function (el) { TM.rounds = Math.max(0, TM.rounds + (+el.dataset.d)); var n = document.getElementById('t-rounds'); if (n) n.textContent = TM.rounds + ' Runden'; fsPaint(undefined, true); },
   theme: function (el) { S.theme = el.dataset.v; saveState(); applyTheme(); render(); },
+  palette: function (el) { S.palette = el.dataset.v; saveState(); applyTheme(); haptic('tap'); render(); },
   color: function (el) { S.color = el.dataset.v; saveState(); applyTheme(); render(); },
   paper: function (el) { S.paper = el.dataset.v; saveState(); applyTheme(); render(); },
   font: function (el) { S.font = el.dataset.v; saveState(); applyTheme(); render(); },
@@ -9204,12 +9245,15 @@ function planWeekV2HTML() {
   var N = tageN(), nx = W.cells.filter(function (x) { return x.tag && x.date >= isoToday(); }), nxs = nx.map(function (x) { return unitL(x.tag) + ' ' + (x.today ? 'heute' : WTAG[x.i].slice(0, 2)) + (x.pd && x.pd.t != null ? ' ' + hm(x.pd.t - 24 * x.i) : ''); }).join(', ');
   var head = mon > cm ? nx.length + ' von ' + N + ' geplant' : done + ' von ' + N + ' erledigt';
   var line = mon !== cm ? '' : done >= N ? 'Woche geschafft.' : !nx.length ? 'Diese Woche ist nichts mehr geplant.' : (done + nx.length < N ? 'Diese Woche geht noch ' + nx.length + ': ' : 'Noch dran: ') + nxs + '.';
-  var h = '<section class="card pw"><div class="card-head"><h2>' + head + '</h2><span class="chip">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + (line ? '<p class="pw-line">' + esc(line) + '</p>' : '') + wkStripHTML(W, sel, 'pw');
+  // Design-Regeln (Dennis, 5. November): Ziel der Woche groß, Durchgang klein darunter.
+  var h = '<section class="card pw"><div class="pw-hd"><h2>' + head + '</h2><span class="small muted">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + (line ? '<p class="pw-line">' + esc(line) + '</p>' : '') + wkStripHTML(W, sel, 'pw');
   if (c.logs.length) h += c.logs.map(function (l) { return '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(logTitle(l)) + '</b><small>' + esc(fmtDate(l.date)) + ' · erledigt</small></span><span class="vr-v">' + TICK + '</span></div></div>' + logLines(l); }).join('');
   else if (c.tag) {
     var U = wkUnitPreview(c, mon), F = planPreview(wkDg(mon), function () { return finOf(c.tag, 0); });
     h += '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(dayLabel(c.tag)) + '</b><small>' + esc(WTAG[c.i] + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) : '')) + (F && F.k !== 'none' ? dotSub('Abschluss ' + esc(F.k === 'metcon' ? 'Metcon' : FIN_N[F.k].replace('Kardio ', ''))) : '') + '</small></span><span class="vr-v">' + U.min + ' Min</span></div></div>' +
-      (c.pd && c.pd.why && c.pd.why.length ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon) });
+      // Die Gründe für die Uhrzeit aufklappbar hinter „Warum 17:00?“, sie drängten den Ablauf nach unten.
+      (c.pd && c.pd.why && c.pd.why.length ? '<button type="button" class="pw-why" data-act="pw-why" aria-expanded="' + !!ui.pwWhy + '"><span>' + (c.pd.t != null ? 'Warum ' + hm(c.pd.t - 24 * c.i) + '?' : 'Warum dieser Tag?') + '</span><span class="muted">' + c.pd.why.length + (c.pd.why.length === 1 ? ' Grund' : ' Gründe') + ' <i aria-hidden="true">' + (ui.pwWhy ? '▴' : '▾') + '</i></span></button>' +
+        (ui.pwWhy ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') : '') + '<div class="pw-tl">' + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon) }) + '</div>';
   } else h += (c.past && missDayHTML(c.date)) || '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
   h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';
@@ -9282,7 +9326,7 @@ function renderHeute() {
   if (desk) { side += blk; blk = ''; }
   // Plan 2: am freien Tag die Ruhetag-Routine als Angebot (A nach einem Trainingstag, sonst B), sie zählt nicht als Training.
   var rrt = v2() ? ROUT[LOGS.some(function (l) { return trainingLog(l) && l.date === isoAdd(isoToday(), -1); }) ? 'r_ruhetag_a' : 'r_ruhetag_b'] : null;
-  if (plFree && lean) return h + heuteAskHTML(PL, 0) + zusatzCardHTML('heute') + freeDayHTML(rrt);
+  if (plFree && lean) return h + freeDayHTML(rrt) + zusatzCardHTML('heute') + heuteAskHTML(PL, 0);
   if (plFree) return h + befAskHTML(PL) + planFreeHTML(PL) + (v2() ? zusatzCardHTML('heute') + rcHTML() : '') + (rrt ? routineCardHTML(rrt, false, 'Routine starten') : '') + planNextAskHTML() + wkCardHTML(PL) + blk + side;
   // Schon erledigter Tag dieses Durchgangs: Ergebnis zeigen, kein zweites Training.
   var dran = lock ? 'Morgen dran: Tag ' + S.tag : 'Dran ist Tag ' + S.tag;
@@ -9345,9 +9389,11 @@ function renderHeute() {
     if (wbAsk) h += wbCardHTML();
     // „Heute zum ersten Mal“ steht als „Neu“ am Schritt (mit Anleitung), keine eigene Karte mehr.
     var ftS = lean && cur && !lock && d.type === 'kraft' && !c.isTest && !c.isMurph ? firstTimeSteps(tag) : {};
-    h += '<section class="card tl-card' + (lean ? ' lean' : '') + '">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + '<ol class="tl">' + st.map(function (s, i) {
+    // Design-Regeln (Dennis, 5. November): „Training starten“ oben in der Karte, immer im ersten Bildschirm.
+    var goBtn = cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go' + (lean ? ' top' : '') + '" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '';
+    h += '<section class="card tl-card' + (lean ? ' lean' : '') + '">' + (cur && mins ? '<div class="tl-top"><b>ca. ' + (mins + 2) + ' Min</b><span class="muted">' + st.length + ' Schritte</span></div>' : '') + (lean ? goBtn : '') + '<ol class="tl">' + st.map(function (s, i) {
       return '<li' + (s.opt ? ' class="opt"' : '') + (d.type === 'kraft' && !c.isTest && !c.isMurph ? ' data-pv="' + s.id + '" data-tag="' + tag + '"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div>' + (lean && s.id === 'koerper' ? '' : '<div class="tl-d">' + esc(s.desc || '') + '</div>') + (notes[s.id] || []).map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('') + (ftS[s.id] ? firstTimeChips(ftS[s.id]) : '') + '</div></li>';
-    }).join('') + '</ol>' + (cur ? '<button type="button" class="btn ' + (wbAsk ? '' : 'primary ') + 'block go" data-act="step" data-to="' + at + '">' + PLAY + (at ? 'Weiter bei Schritt ' + (at + 1) : c.isTest ? 'Test starten' : wbAsk ? 'Ohne Einschätzung starten' : 'Training starten') + '</button>' : '') + '</section>';
+    }).join('') + '</ol>' + (lean ? '' : goBtn) + '</section>';
     if (cur && !lock && !at && !c.isTest && !c.isMurph && d.type === 'kraft' && !lean) h += fastHTML(tag);
     if (cur && !c.isTest && !c.isMurph && !lean) h += coachCardHTML(tag, miss);
     if (cur && !c.isTest && !c.isMurph && d.type === 'kraft' && (d.kraft.length || d.mmin)) h += adaptLineHTML(tag, false);
@@ -9534,12 +9580,14 @@ function pullOv(ov0, today, tag, from, was) {
 function freeDayHTML(rrt) {
   var i = rcIdx(), k = i >= 0 ? MOB.check.leitern[i] : null, rows = [], po = pullOption();
   if (po) rows.push(valRow('Heute trainieren', hm(po.t), 'data-act="pull-today"', { sub: dayLabel(po.tag) + ' statt ' + WTAG[po.from.i] + (po.lost.length ? ', ' + po.lost.map(dayLabel).join(', ') + ' fällt weg' : '') }));
-  var kd = kdOk() ? kdSpec(kdDef()) : null;
-  if (kd) rows.push(valRow('Kardio', kd.tot + ' Min', 'data-act="kd-open"', { sub: kd.title + ' · dein Coach hat es vorbereitet' }));
+  // Design-Regeln (Dennis, 5. November): das Angebot zuerst, Kardio mit einer klaren Aktion, der Rest als ruhige Zeilen.
+  var kd = kdOk() ? kdSpec(kdDef()) : null, top = '';
+  if (kd) top = '<div class="fd-top"><div class="fd-h"><b>Kardio</b><span>' + kd.tot + ' Min</span></div><p class="small muted fd-s">' + esc(kd.title) + ' · vom Coach vorbereitet</p>' +
+    '<button type="button" class="btn primary block" data-act="kd-open">Ansehen und anpassen</button></div>';
   if (rrt) rows.push(valRow(rrt.name, doneToday(rrt.id) ? TICK + 'gemacht' : routineMin(rrt) + ' Min', 'data-act="r-open" data-v="' + rrt.id + '"', { sub: 'Mobility · ' + rrt.bloecke.length + ' Übungen' }));
   if (k) rows.push(valRow('Kurz-Check', '1 Min', 'data-act="rc-open" aria-expanded="' + !!ui.rcOpen + '"', { sub: LAD[k] ? LAD[k].name : 'Beweglichkeit' }));
-  if (!rows.length) return '';
-  return '<section class="card fd-card"><div class="card-head"><h2>Für deinen freien Tag</h2><span class="chip">freiwillig</span></div>' + valRows(rows) + '</section>' + (k && ui.rcOpen ? rcHTML() : '');
+  if (!rows.length && !top) return '';
+  return '<section class="card fd-card"><div class="card-head"><h2>Für deinen freien Tag</h2><span class="chip">freiwillig</span></div>' + top + (rows.length ? valRows(rows) : '') + '</section>' + (k && ui.rcOpen ? rcHTML() : '');
 }
 // Ohne Sync einmal im Monat ein kleiner Hinweis „Daten sichern“ (Dennis): die Daten liegen sonst nur auf diesem Gerät.
 function backupHTML() {
@@ -11562,7 +11610,7 @@ function trainShellHTML(T) {
   var prev = T.i > 0 ? T.st[T.i - 1].title : 'Übersicht';
   // Dennis, 30. Oktober: in Einzeln stand unter der Übung viel leerer Platz; ohne Liste steht der Inhalt jetzt mittig in der Karte.
   return '<div class="fs-in fs-tr' + (id === 'koerper' ? ' fs-noring' : '') + (views && v === 'list' ? '' : ' cen') + '"><div class="fs-top"><button type="button" class="rbtn" data-act="quit" aria-label="Training verlassen">' + I_X + '</button>' +
-    '<div class="fs-tt"><p class="fs-kick">' + (T.i + 1) + '/' + T.st.length + ' · ' + esc(T.s.title) + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
+    '<div class="fs-tt"><p class="fs-kick">' + (T.i + 1) + '/' + T.st.length + ' · ' + esc(String(T.s.title).split(' · ')[0]) + '</p><div class="st-prog" aria-hidden="true">' + T.st.map(function (x, j) { return '<span' + (j <= T.i ? ' class="on"' : '') + '></span>'; }).join('') + '</div></div>' +
     vb + (PAIN_STEPS[id] ? '<button type="button" class="rbtn pn-flag st-flag" data-act="pain-s" data-s="' + id + '" aria-label="Schmerzen">' + PAIN_FLAG + '</button>' : '') +
     '<button type="button" class="rbtn" id="fs-tg" data-act="fs-toggle"></button></div>' +
     // Dennis, 30. Oktober: Tippen auf die Kapsel startet und hält die Uhr an.
@@ -11732,7 +11780,8 @@ function firstTimeSteps(tag) {
 }
 function firstTimeChips(L) {
   var ids = L.filter(function (x) { return x.id; }).map(function (x) { return x.id; }).join(',');
-  return '<button type="button" class="btn small tl-neu" data-act="ft-open" data-ids="' + esc(ids) + '"><span class="chip blue">Neu</span>' + (L.length === 1 ? esc(L[0].n) + ' ansehen' : L.length + ' neue Übungen ansehen') + '</button>';
+  // Design-Regeln (Dennis, 5. November): „Neu“ als kleiner Chip in der Zeile, kein großer Knopf, kein Blau.
+  return '<button type="button" class="tl-neu" data-act="ft-open" data-ids="' + esc(ids) + '" aria-label="' + esc(L.length === 1 ? L[0].n + ' ist neu, ansehen' : L.length + ' neue Übungen ansehen') + '">' + (L.length === 1 ? 'neu' : L.length + ' neu') + '<i aria-hidden="true">›</i></button>';
 }
 // Blatt „Heute zum ersten Mal“: je Übung eine Zeile, Tippen zeigt Figur und „So geht’s“.
 ACT['ft-open'] = function (el) {
@@ -12092,6 +12141,7 @@ ACT['plan-day'] = function (el) { ui.planTag = +el.dataset.tag; render(); };
 ACT['wk-sel'] = function (el) { var d = el.dataset.d; ui.wkSel = d === isoToday() ? null : d; ui.wkMon = wkMon(d) === wkMon() ? null : wkMon(d); ui.viewTag = null; render(); };
 ACT['wk-nav'] = function (el) { var m = isoAdd(ui.wkMon || wkMon(), 7 * +el.dataset.d); if (m === wkMon()) { ui.wkMon = null; ui.wkSel = null; } else { ui.wkMon = m; ui.wkSel = wkPick(m); } render(); };
 ACT['pw-sel'] = function (el) { ui.pwSel = el.dataset.d; render(); };
+ACT['pw-why'] = function () { ui.pwWhy = !ui.pwWhy; render(); };
 ACT['ld-open'] = function (el) { ui.ldOpen = el.getAttribute('aria-expanded') !== 'true'; render(); };
 ACT['pw-nav'] = function (el) { var m = isoAdd(ui.pwMon || wkMon(), 7 * +el.dataset.d); ui.pwMon = m === wkMon() ? null : m; ui.pwSel = null; render(); };
 // Befinden: Müde = Kurzversion für heute, Sehr müde = heute frei (die Woche wird neu geplant), Erholt = wie geplant.
