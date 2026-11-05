@@ -7430,6 +7430,8 @@ function wkPlan0(mon) {
       var fd = Object.keys(FX).filter(function (dt) { return FX[dt] === t; })[0], i = fd ? daysBetween(parseISO(mon), parseISO(fd)) : -1;
       if (i < from || i > 6) return;
       var dy = days[i]; if (dy.off || missBlocked(dy.date) || (dy.pin && dy.pin !== t) || (dy.cls === 'none' && dy.force == null)) return;
+      // Auf einen anderen Tag gelegt (Vorziehen, Verschieben): dann gilt dieser Tag, nicht der gemerkte (Dennis, 6. November: Vorziehen ging nicht mehr).
+      if (days.some(function (x, j) { return j !== i && j >= from && x.pin === t; })) return;
       FXA.push({ i: i, t: t });
     });
     R = R.filter(function (t) { return !FXA.some(function (x) { return x.t === t; }); });
@@ -12174,7 +12176,11 @@ ACT['pull-today'] = function () {
 };
 ACT['pull-undo'] = function () {
   var today = isoToday(); if (!S.planOv || !S.planOv[today] || !S.planOv[today].pull) return;
-  var was = S.planOv[today].was, un = S.planOv[today].unpin || [], tag = S.planOv[today].pin; S.planOv = Object.assign({}, S.planOv); delete S.planOv[today];
+  var was = S.planOv[today].was, un = S.planOv[today].unpin || [], tag = S.planOv[today].pin, from = S.planOv[today].pull; S.planOv = Object.assign({}, S.planOv); delete S.planOv[today];
+  // Feste Woche (Dennis, 6. November): die Einheit wieder an ihren gemerkten Tag, heute wieder frei, sonst hielte die feste Woche das Vorziehen fest.
+  if (S.planFix && S.planFix.mon === wkMon() && S.planFix.d && S.planFix.d[today] === tag) {
+    var fd = Object.assign({}, S.planFix.d); delete fd[today]; if (from && from > today) fd[from] = tag; S.planFix = Object.assign({}, S.planFix, { d: fd, ts: Date.now() });
+  }
   un.forEach(function (dt) { S.planOv[dt] = Object.assign({}, S.planOv[dt] || {}, { pin: tag }); });
   S.planDays = Object.assign({}, S.planDays || {}); if (was) S.planDays[today] = Object.assign({}, was, { ts: Date.now() }); else S.planDays[today] = { tag: null, dg: S.durchgang, time: null, ts: Date.now(), pv: S.planV || 1, n: null };
   WKP_C.k = null; closeSheet(); saveState(); render(); window.scrollTo(0, 0); toast('Wieder wie vorher geplant.');

@@ -355,6 +355,10 @@ console.log('PASS: Kalender-Brücke trägt Trainings ein: eigener Kalender, neu,
   // Ausgefallen (Mittwoch vorbei, B nicht gemacht): B nimmt einen freien Tag, C bleibt.
   fx.S.planOv = {}; now = '2026-10-15';
   const P3 = fx.wkPlan(); assert.equal(P3.days[6].tag, 6, 'C bleibt am Sonntag nach einem Ausfall');
+  // Vorziehen (Dennis, 6. November: „Kann ich das nächste Training nicht mehr vorziehen?“): B auf heute (Dienstag) gelegt, die feste Woche hält es nicht mehr fest.
+  fx.S.planOv = { '2026-10-13': { pin: 3, pull: '2026-10-14' } }; now = '2026-10-13'; fx.WKP_C.k = null;
+  const PV = fx.wkPlan(); assert.equal(PV.days[1].tag, 3, 'B heute vorgezogen'); assert.equal(PV.days[2].tag, null, 'Mittwoch frei'); assert.equal(PV.days[6].tag, 6, 'C bleibt am Sonntag');
+  fx.S.planOv = {};
   // Neue Woche: der Plan vom letzten Montag gilt nicht mehr.
   now = '2026-10-19'; const nx = setup(); nx.S.planWk = '2026-10-19'; nx.S.planFix = fx.S.planFix;
   assert.equal(units(nx.wkPlan()), 'A-B-C--', 'eine neue Woche wird neu geplant');

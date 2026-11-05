@@ -57,6 +57,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Planung ab Montag). `wkPlan0` setzt feste Einheiten an ihren Tag (`FXA`) und plant nur den Rest; frei wird eine Einheit nur, wenn ihr Tag nicht mehr geht: abgesagt
   oder verschoben (`planOv` off/pin, Vorziehen), Krank/Beschwerden, vorbei und nicht gemacht (ausgefallen), 12-h-Tag oder kein Zeitfenster mehr (neuer Termin).
   Freie Einheiten nehmen nur Tage, die keine andere Einheit hält; das Ergebnis wird wieder gemerkt. Neue Trainingstage (`tageSet`) und die Umstellung setzen zurück.
+  Liegt eine Einheit per `planOv.pin` auf einem anderen Tag (Vorziehen, Verschieben), gilt dieser statt des gemerkten (Dennis, 6. November: Vorziehen ging nicht mehr);
+  „Doch nicht vorziehen“ (`ACT['pull-undo']`) legt sie auch in `S.planFix` zurück auf ihren Tag (`pull`).
   Gemerkter Plan (Dennis, 26. Oktober: Sonntag ausgefallen, Montag frei, A und B Di/Mi direkt hintereinander): `wkPlan0` gibt +50 nur für Tage,
   die in dieser Woche schon so geplant waren (Merkzettel `planDays` mit `ts` ab Montag) oder heute; eine Vorschau aus der Woche davor plant der
   Coach neu (sonst rutscht ohne Bonus eine Einheit Tag für Tag nach hinten, das hält die Langzeit-Prüfung fest). Vorziehen: an einem freien Tag
