@@ -522,7 +522,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `timerModeOf` = `TIMER_STD`, Vollbild dreht immer mit, Lauf-ABC immer; „Stand setzen“ ist weg. Alte Werte bleiben in `S`, werden nicht mehr benutzt.
   Früher Aussehen › Hintergrund (`S.paper`, `PAPERS`: Weiß, Kreide, Leinen, Nebel, `data-paper` nur im Hellen) und Markerfarbe (`S.color`, `COLORS`); gelten nur noch ohne Palette.
   Farbpaletten (Dennis, 5. November: „verschiedene Farbpaletten zur Auswahl in den Einstellungen“): Aussehen › Farben (`paletteHTML`, `PALETTES`, `ACT.palette`,
-  `S.palette` in `DEF`, nur auf dem Gerät): Klar, Wald, Sand, Ozean, Beere, Graphit, je Akzent hell/dunkel und im Hellmodus Hintergrund und Karten (`data-pal`).
+  `S.palette` in `DEF`, nur auf dem Gerät): Klar, Wald, Ozean, Beere, Graphit (hell über `data-pal`, dunkel Graphit) und Dennis' Paletten aus Bildern (5. November): Limette, Karamell,
+  Kiefer, Mokka, Koralle, Retro, Ton, Bauhaus mit eigenen dunklen Farben (`db`/`dc`; Flächen über `paletteVars`/`PAL_VARS` als Inline-Variablen, hell aus `bg`/`card`,
+  Akzent hell etwas dunkler als im Bild, damit Text lesbar bleibt, mindestens 4,5:1; dunkel `--on-acc` = `db`).
   Ersetzt Markerfarbe und Hintergrund unter „Mehr“; ohne Wahl gelten `S.color`/`S.paper` wie bisher.
 - Design-Regeln (Dennis, 5. November, Board https://claude.ai/artifact/8s5QdhBzdSeWTftqgYdRYT, „die Animationen bleiben, wie sie sind“): Blau nur für heute und die
   eine Hauptaktion. Heute „Training starten“ oben in der Karte (`.go.top`), Schritt-Nummern `.tl-n` neutral, „Neu“ als Chip `.tl-neu` („3 neu ›“), Kette ohne Kreis;

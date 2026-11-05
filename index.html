@@ -700,7 +700,6 @@ li[data-pv].pv-on{background:var(--board)}
 :root[data-paper="kreide"]{--board:#F1F0EB;--paper:#FAF9F5;--pill:#FDFCF9;--fig:#FAF9F5;--tray:#EBEAE4;--tray-line:#DDDCD5;--fill:#E4E3DD;--line:#E6E5DF;--plate:#E8E9E8}
 :root[data-paper="leinen"]{--board:#EFEBE3;--paper:#F8F5EF;--pill:#FCFAF6;--fig:#F8F5EF;--tray:#E8E4DB;--tray-line:#DBD6CB;--fill:#E1DDD3;--line:#E4DFD5;--plate:#E7E5E0}
 :root[data-pal="wald"]{--board:#EEF1EC;--paper:#FAFBF8;--pill:#FCFDFB;--fig:#FAFBF8;--tray:#E7ECE5;--tray-line:#D6DDD3;--fill:#E1E6DF;--line:#E3E8E1;--plate:#E5EAE4}
-:root[data-pal="sand"]{--board:#F1ECE4;--paper:#FBF8F3;--pill:#FDFBF8;--fig:#FBF8F3;--tray:#EAE4DA;--tray-line:#DCD5C9;--fill:#E4DED3;--line:#E6E0D6;--plate:#E9E5DF}
 :root[data-pal="ozean"]{--board:#ECF1F3;--paper:#F9FBFC;--pill:#FCFDFD;--fig:#F9FBFC;--tray:#E5ECEE;--tray-line:#D4DDE0;--fill:#DEE6E9;--line:#E0E7EA;--plate:#E3EAED}
 :root[data-pal="beere"]{--board:#F3EEF0;--paper:#FCF9FA;--pill:#FDFBFC;--fig:#FCF9FA;--tray:#EDE6E9;--tray-line:#DED5D9;--fill:#E7DFE2;--line:#E9E1E4;--plate:#EAE6E8}
 :root[data-pal="graphit"]{--board:#EEEFEE;--paper:#F7F8F6;--pill:#FBFCFA;--fig:#F7F8F6;--tray:#E8E9E7;--tray-line:#DADBD8;--fill:#E1E2DF;--line:#E3E4E1;--plate:#E6E8E9}
@@ -3824,11 +3823,28 @@ var COLORS = [
 var PALETTES = [
   { id: 'klar', label: 'Klar', light: '#1E5BD8', dark: '#8DB8FF', bg: '#F5F5F2', card: '#FFFFFF' },
   { id: 'wald', label: 'Wald', light: '#1F6E43', dark: '#8ED1A0', bg: '#EEF1EC', card: '#FAFBF8' },
-  { id: 'sand', label: 'Sand', light: '#B4491B', dark: '#FFA266', bg: '#F1ECE4', card: '#FBF8F3' },
   { id: 'ozean', label: 'Ozean', light: '#0B6E8C', dark: '#6CCFE6', bg: '#ECF1F3', card: '#F9FBFC' },
   { id: 'beere', label: 'Beere', light: '#A3245C', dark: '#F49AC1', bg: '#F3EEF0', card: '#FCF9FA' },
-  { id: 'graphit', label: 'Graphit', light: '#1F2328', dark: '#ECEDE6', bg: '#EEEFEE', card: '#F7F8F6' }
+  { id: 'graphit', label: 'Graphit', light: '#1F2328', dark: '#ECEDE6', bg: '#EEEFEE', card: '#F7F8F6' },
+  // Dennis, 5. November (Bilder mit Farbpaletten): je Palette hell (bg, card, Akzent etwas dunkler für lesbaren Text) und dunkel (db, dc, Akzent wie im Bild).
+  // Alle Akzente mit mindestens 4,5:1 auf Hintergrund bzw. Karte geprüft; die Zwischentöne rechnet paletteVars aus bg/card.
+  { id: 'limette', label: 'Limette', light: '#5E6B10', dark: '#CFDC66', bg: '#F1EEE7', card: '#FBFAF6', db: '#272B2E', dc: '#32373A' },
+  { id: 'karamell', label: 'Karamell', light: '#A8571A', dark: '#F6BC7C', bg: '#E6F0FA', card: '#F7FAFE', db: '#151611', dc: '#22231D' },
+  { id: 'kiefer', label: 'Kiefer', light: '#46696F', dark: '#B2C9CF', bg: '#E3ECEE', card: '#F6F9FA', db: '#2C2C2E', dc: '#37373A' },
+  { id: 'mokka', label: 'Mokka', light: '#764C4E', dark: '#E1D0C9', bg: '#EEE4E0', card: '#FAF6F4', db: '#3D2E2B', dc: '#4A3935' },
+  { id: 'koralle', label: 'Koralle', light: '#A8434C', dark: '#E88F93', bg: '#F3EBDD', card: '#FFF8ED', db: '#31031F', dc: '#43112F' },
+  { id: 'retro', label: 'Retro', light: '#B4523A', dark: '#F2CC8F', bg: '#F4F1DE', card: '#FCFBF4', db: '#3D405B', dc: '#484B67' },
+  { id: 'ton', label: 'Ton', light: '#86603A', dark: '#D4AA7D', bg: '#F3ECE3', card: '#FCF9F5', db: '#272727', dc: '#323232' },
+  { id: 'bauhaus', label: 'Bauhaus', light: '#B23F28', dark: '#E8704F', bg: '#F2E8D5', card: '#FBF6EC', db: '#191919', dc: '#232A36' }
 ];
+// Zwischentöne aus Hintergrund und Karte (nur Paletten ohne eigenen CSS-Satz bzw. im Dunkelmodus mit db/dc).
+var PAL_VARS = ['--board', '--paper', '--pill', '--fig', '--fill', '--line', '--line2', '--tray', '--tray-line', '--plate', '--plate-line'];
+function paletteVars(bg, card, dark) {
+  var m = function (a, b, p) { return 'color-mix(in srgb, ' + a + ' ' + p + '%, ' + b + ')'; }, t = dark ? '#FFFFFF' : '#000000';
+  return { '--board': bg, '--paper': card, '--pill': dark ? m(card, '#FFFFFF', 86) : m(card, '#FFFFFF', 50), '--fig': dark ? m(card, '#FFFFFF', 94) : card,
+    '--fill': m(card, t, dark ? 90 : 91), '--line': m(card, t, dark ? 91 : 93), '--line2': m(card, t, dark ? 80 : 83), '--tray': m(bg, t, dark ? 96 : 97),
+    '--tray-line': m(bg, t, dark ? 90 : 92), '--plate': m(bg, t, dark ? 97 : 95), '--plate-line': m(bg, t, dark ? 88 : 88) };
+}
 function paletteOf(id) { for (var i = 0; i < PALETTES.length; i++) if (PALETTES[i].id === id) return PALETTES[i]; return null; }
 var FONTS = [
   { id: 'klar', label: 'Klar', family: "'Geist'", weight: 600 },
@@ -5901,8 +5917,8 @@ function paletteHTML() {
   var dark = isDark(), cur = S.palette || (S.color === 'blau' && (!S.paper || S.paper === 'weiss') ? 'klar' : '');
   return '<h3 style="margin-top:16px">Farben</h3><div class="pal" role="group" aria-label="Farbpalette">' + PALETTES.map(function (p) {
     var on = cur === p.id;
-    return '<button type="button" data-act="palette" data-v="' + p.id + '" aria-pressed="' + on + '"><span class="pal-p" aria-hidden="true" style="--pb:' + (dark ? '#1E1F23' : p.bg) + ';--pc:' + (dark ? '#2A2B30' : p.card) + ';--pa:' + (dark ? p.dark : p.light) + '"><i></i></span>' + esc(p.label) + '</button>';
-  }).join('') + '</div><p class="small muted">Im Dunkelmodus ändert sich nur die Akzentfarbe.</p>';
+    return '<button type="button" data-act="palette" data-v="' + p.id + '" aria-pressed="' + on + '"><span class="pal-p" aria-hidden="true" style="--pb:' + (dark ? p.db || '#1E1F23' : p.bg) + ';--pc:' + (dark ? p.dc || '#2A2B30' : p.card) + ';--pa:' + (dark ? p.dark : p.light) + '"><i></i></span>' + esc(p.label) + '</button>';
+  }).join('') + '</div><p class="small muted">Klar, Wald, Ozean, Beere und Graphit bleiben im Dunkelmodus graphit, die anderen bringen ihre eigenen dunklen Farben mit.</p>';
 }
 function lookHTML() {
   return '<section class="card"><h2>Aussehen</h2>' + segRow('Hell oder dunkel', [['light', 'Hell'], ['auto', 'System'], ['dark', 'Dunkel']], S.theme || 'auto', 'theme') + paletteHTML() +
@@ -7919,7 +7935,11 @@ function applyTheme() {
   var pp = P ? PAPERS[0] : PAPERS.filter(function (x) { return x[0] === S.paper; })[0] || PAPERS[0];
   if (!dark && pp[0] !== 'weiss') r.dataset.paper = pp[0]; else delete r.dataset.paper;
   if (!dark && P && P.id !== 'klar') r.dataset.pal = P.id; else delete r.dataset.pal;
-  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? '#1E1F23' : P ? P.bg : pp[2]);
+  // Neue Paletten (mit db/dc) setzen ihre Flächen direkt, hell aus bg/card, dunkel aus db/dc; ältere hell über data-pal, dunkel Graphit.
+  var V = P && P.db ? (dark ? paletteVars(P.db, P.dc, true) : paletteVars(P.bg, P.card, false)) : null;
+  PAL_VARS.forEach(function (k) { if (V) r.style.setProperty(k, V[k]); else r.style.removeProperty(k); });
+  if (P && P.db && dark) r.style.setProperty('--on-acc', P.db);
+  var m = document.getElementById('meta-theme'); if (m) m.setAttribute('content', dark ? (P && P.db ? P.db : '#1E1F23') : P ? P.bg : pp[2]);
   refreshFigs();
 }
 

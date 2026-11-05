@@ -24,6 +24,10 @@ Stand: 5. November 2026 (Design-Regeln umgesetzt, Farbpaletten; davor Trainer-Fe
   Wochen-Kette, erledigte Tage im Profil, erreichte Stufen in der Leiter, Block-Balken, Skill-Baum „geschafft“, Fragebogen-Kopfzeile, Trainer-Liste
   (nur die laufende Zeile blau), Freischalten-Ring, Empfohlen-Gewicht. Blau bleibt: heute, laufend, gewählte Pille, aktuelle Stufe, Hauptaktion,
   Vorgabe im Training, eigene Linie in Diagrammen. Bereichsfarben (Kraft, Zug …) sind Datenfarben und bleiben fest.
+- Dennis schickte 8 Farbpaletten als Bilder: als Limette, Karamell, Kiefer, Mokka, Koralle, Retro, Ton, Bauhaus eingebaut, je hell und mit eigenem Dunkelmodus
+  (die dunkle Farbe aus dem Bild als Hintergrund, die Akzentfarbe wie im Bild). Hell ist der Akzent dunkler als im Bild (z. B. Limette #5E6B10 statt #CFDC66),
+  sonst wäre blaue bzw. farbige Schrift auf hellem Grund nicht lesbar. Meine Palette „Sand“ ist dafür raus (zu nah an „Ton“). Offen: falls Dennis die hellen
+  Akzente kräftiger möchte, bräuchte es eine eigene Füllfarbe für Knöpfe (`--acc` ist auch Textfarbe).
   Regeln: `DESIGN.md` › „Farbe und Betonung“ (neu), Kapsel-Konzept in `CLAUDE.md`, `AGENTS.md`. Geprüft hell (Klar) und dunkel (Ozean), alle Tests grün.
 
 ## Vorschau an den anderen Tagen (5. November 2026, Claude)

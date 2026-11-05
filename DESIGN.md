@@ -29,7 +29,8 @@ Fortschrittsbalken, erledigte Tage und Stufen, (i)-Knöpfe, Kopfzeilen, Aufzähl
 - Gründe und Erklärungen stehen hinter einer aufklappbaren Zeile („Warum 17:00?“), wenn sie den Ablauf nach unten drücken.
 - Eine Frage am Rand (Arbeitszeiten, Sicherung) ist eine ruhige Zeile unten, keine große Karte über dem Inhalt.
 - Animationen (gleitende Pille, Nachgeben, Medaillen, Momente) bleiben, wie sie sind (Dennis).
-- Farbpaletten (Einstellungen › Aussehen › Farben, `PALETTES`): Klar, Wald, Sand, Ozean, Beere, Graphit. Neue Farben nie fest als Blau
+- Farbpaletten (Einstellungen › Aussehen › Farben, `PALETTES`): Klar, Wald, Ozean, Beere, Graphit, dazu Limette, Karamell, Kiefer, Mokka, Koralle,
+  Retro, Ton, Bauhaus (Dennis' Bilder) mit eigenem Dunkelmodus. Akzent hell immer mindestens 4,5:1 auf Hintergrund und Karte (darum dunkler als die Bildfarbe). Neue Farben nie fest als Blau
   schreiben, immer `--acc`, damit jede Palette passt; Hintergründe über `--board`/`--paper`/`--fill`.
 
 ## Grundlagen
