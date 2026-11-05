@@ -8,6 +8,10 @@ Stand: 28. Oktober 2026 (Trainer-Feinschliff aus dem Training; davor Mehr Zeit m
 
 
 
+## Vorschau an den anderen Tagen (5. November 2026, Claude)
+- Dennis: „Ich möchte, dass ich die Vorschau auch an den anderen Tagen dieser Woche sehe.“ Umgesetzt für einen anderen Tag in der Wochenleiste auf Heute
+  und für Plan › Deine Woche (gedrückt halten bzw. Maus darüber). Geprüft: `dreitage-browser` (anderer geplanter Tag, Kraft mit Stufe), weitere Tests grün.
+
 ## Feste Woche (4. November 2026, Claude)
 - Dennis: „Die App hatte mir am Anfang der Woche drei Termine angezeigt, Montag, Mittwoch und Sonntag, nach dem ersten Training wurde Einheit B auf Freitag
   verschoben. So lässt sich eine Woche nicht gescheit vorplanen. Verschoben wird nur auf Anfrage des Nutzers.“

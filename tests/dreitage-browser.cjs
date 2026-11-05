@@ -109,6 +109,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.locator('.pv-pop.open').isVisible(), 'Maus darüber zeigt die Vorschau');
     await page.mouse.move(5, 5); await page.waitForTimeout(100);
     assert.equal(await page.locator('.pv-pop').count(), 0, 'Maus weg schließt');
+    // Andere Tage dieser Woche (Dennis, 5. November): die Vorschau der Einheit hat dieselbe Vorschau je Schritt.
+    {
+      const other = await page.evaluate(() => { const t = document.querySelector('.wkst [aria-current]'); return [...document.querySelectorAll('.wkst [data-act="wk-sel"]')].filter(b => b !== t && !b.disabled && /^(A|B|C)$/.test((b.innerText.split('\n').pop() || '').trim())).map(b => b.dataset.d)[0] || null; });
+      assert.ok(other, 'ein anderer geplanter Tag in der Woche');
+      await page.locator('.wkst [data-act="wk-sel"][data-d="' + other + '"]').click(); await page.waitForTimeout(200);
+      assert.ok(await page.locator('li[data-pv="kraft"][data-dg]').count() === 1, 'Schritte des anderen Tages mit Vorschau');
+      const pvO = await pvTouch('kraft', 450);
+      assert.ok(/Kraft/.test(pvO) && /Stufe \d/.test(pvO), 'Vorschau am anderen Tag: ' + pvO);
+      await page.evaluate(() => document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' })));
+      await page.getByRole('button', { name: 'Zurück zu heute' }).click(); await page.waitForTimeout(150);
+      await page.evaluate(() => window.scrollTo(0, 0));
+    }
     const goY = (await page.getByRole('button', { name: /Training starten/ }).boundingBox()).y;
     assert.ok(goY + 56 < 844, 'Training starten im ersten Bildschirm (' + goY + ')');
     await page.getByRole('button', { name: /Training starten/ }).click();

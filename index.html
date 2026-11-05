@@ -4225,8 +4225,8 @@ function pvRows(tag, id) {
   if (id === 'mob') return MOB.check.leitern.map(function (k) { return row(k, LAD[k] ? LAD[k].name : k, '', 'ein Versuch'); });
   return [];
 }
-function pvHTML(tag, id) {
-  var st = stepsOf(dayCtx(tag)).filter(function (x) { return x.id === id; })[0]; if (!st) return '';
+function pvHTML(tag, id, other) {
+  var st = stepsOf(other ? { tag: tag, cur: false, d: DAYS[tag], isTest: false, isMurph: false } : dayCtx(tag)).filter(function (x) { return x.id === id; })[0]; if (!st) return '';
   var R = pvRows(tag, id), more = '';
   if (id === 'fin') { var F = finOf(tag, tag === S.tag ? zeitLv(tag) : 0); if (F && F.k === 'iv') more = '… ' + F.n + ' × 30 s schnell, 30 s locker'; }
   return '<div class="pv-h"><b>' + esc(st.title) + '</b>' + (st.dur ? '<span>' + st.dur + ' Min</span>' : '') + '</div>' + (st.sub ? '<p class="pv-s">' + esc(st.sub) + '</p>' : '') +
@@ -4240,7 +4240,9 @@ var PV = { el: null, li: null, t: null, x: 0, y: 0 };
 // Am Bildschirmrand rückt sie so weit nach innen, dass sie ganz zu sehen ist; nur wenn sie höher als der Bildschirm ist, blendet sie unten aus.
 function pvShow(li, y) {
   if (PV.li === li && PV.el) return;
-  var h = ''; try { h = pvHTML(+li.dataset.tag, li.dataset.pv); } catch (e) { h = ''; }
+  // Ein anderer Tag der Woche (data-dg): wie seine Vorschau im Plan, im Durchgang dieser Woche gerechnet.
+  var tg = +li.dataset.tag, dg = li.dataset.dg, h = '';
+  try { h = dg ? planPreview(+dg, function () { return pvHTML(tg, li.dataset.pv, true); }) : pvHTML(tg, li.dataset.pv); } catch (e) { h = ''; }
   if (!h) return;
   pvHide();
   var el = document.createElement('div'); el.className = 'pv-pop'; el.setAttribute('role', 'tooltip'); el.innerHTML = h;
@@ -5682,9 +5684,10 @@ function planPreview(dg, fn, pv) {
   try { r = fn(); } finally { S.durchgang = keep; S.planV = kv; DAYS_K = null; syncDays(); }
   return r;
 }
-function tlHTML(st) {
+// pv (Dennis, 5. November: „die Vorschau auch an den anderen Tagen dieser Woche“): {tag, dg} gibt jedem Schritt die Vorschau zum Gedrückthalten.
+function tlHTML(st, pv) {
   return '<ol class="tl">' + st.map(function (s, i) {
-    return '<li' + (s.opt ? ' class="opt"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div></div></li>';
+    return '<li' + (s.opt ? ' class="opt"' : '') + (pv && s.id ? ' data-pv="' + s.id + '" data-tag="' + pv.tag + '" data-dg="' + pv.dg + '"' : '') + '><span class="tl-n">' + (i + 1) + '</span><div class="tl-b"><div class="tl-h">' + esc(s.title) + (s.dur ? '<span>' + (s.opt ? 'optional · ' : '') + s.dur + ' Min</span>' : '') + '</div><div class="tl-d">' + esc(s.desc || '') + '</div></div></li>';
   }).join('') + '</ol>';
 }
 // Was an Tag t im Durchgang dg dran ist (Vorschau aus dem Plan).
@@ -9183,7 +9186,7 @@ function wkDayHTML(dt) {
     '<p class="small muted" style="margin:0">' + hm(c.zs.t - 24 * c.i) + ' Uhr · freiwillig, zählt nicht ins Wochenziel. Starten kannst du an diesem Tag.</p><div class="bgrp" style="margin-top:12px"><button type="button" data-act="zs-open" data-from="heute">Ändern</button></div></section>';
   if (c.tag) {
     var U = wkUnitPreview(c, mon);
-    return h + '<section class="card tl-card"><div class="tl-top"><b>ca. ' + U.min + ' Min</b><span class="muted">' + (c.pd && c.pd.t != null ? hm(c.pd.t - 24 * c.i) + ' Uhr' : U.st.length + ' Schritte') + '</span></div>' + tlHTML(U.st) +
+    return h + '<section class="card tl-card"><div class="tl-top"><b>ca. ' + U.min + ' Min</b><span class="muted">' + (c.pd && c.pd.t != null ? hm(c.pd.t - 24 * c.i) + ' Uhr' : U.st.length + ' Schritte') + '</span></div>' + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon) }) +
       '<p class="small muted pd-n">Vorschau: Starten kannst du an diesem Tag. Übungen und Stufen können sich bis dahin noch ändern.</p></section>';
   }
   var nx = null; (W.P ? W.P.days : []).forEach(function (x) { if (!nx && x.date > dt && x.tag && !x.done) nx = x; });
@@ -9206,7 +9209,7 @@ function planWeekV2HTML() {
   else if (c.tag) {
     var U = wkUnitPreview(c, mon), F = planPreview(wkDg(mon), function () { return finOf(c.tag, 0); });
     h += '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(dayLabel(c.tag)) + '</b><small>' + esc(WTAG[c.i] + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) : '')) + (F && F.k !== 'none' ? dotSub('Abschluss ' + esc(F.k === 'metcon' ? 'Metcon' : FIN_N[F.k].replace('Kardio ', ''))) : '') + '</small></span><span class="vr-v">' + U.min + ' Min</span></div></div>' +
-      (c.pd && c.pd.why && c.pd.why.length ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') + tlHTML(U.st);
+      (c.pd && c.pd.why && c.pd.why.length ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon) });
   } else h += (c.past && missDayHTML(c.date)) || '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
   h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';

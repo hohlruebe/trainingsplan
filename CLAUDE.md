@@ -85,6 +85,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   offen ist, scrollt die Seite nicht (`touchmove` mit `preventDefault`), kein Kontextmenü. Nur zum Anschauen, nichts darin ist tippbar.
   Mittig zum Finger (Dennis, 2. November: „Hälfte oben, Hälfte unten“; vorher kurz „immer oben“), mit der Maus mittig zur Zeile; am Rand rückt sie nach innen (12 px Abstand),
   nur höher als der Bildschirm blendet sie unten aus (`.cut`).
+  Auch an den anderen Tagen der Woche (Dennis, 5. November): Heute › anderer Tag (`wkDayHTML`) und Plan › Deine Woche geben `tlHTML(st, {tag, dg})` mit, jeder Schritt
+  bekommt dazu `data-dg`; `pvShow` rechnet dann in `planPreview(dg)` mit `pvHTML(tag, id, true)` (Schritte wie in `wkUnitPreview`, nicht `dayCtx`).
   Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Kopfzeile „Heute · 17:05 Uhr“,
   Titel, ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
   Blättern `wkStripHTML(…, noHead)`), höchstens eine Frage (`heuteAskHTML`: Befinden unbeantwortet oder „Sehr müde“, Schmerzen, `missNoticeHTML`,
