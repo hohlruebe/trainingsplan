@@ -16,8 +16,24 @@ Jede neue Oberfläche wird an diesen fünf Punkten gemessen. Passt etwas nicht, 
 5. **Kontrolle**: Nichts geht verloren. Zwischenspeichern und Abbrechen im Training, „Rückgängig“ nach dem Speichern,
    „Korrigieren“ für jeden Eintrag, Gefährliches nur mit Nachfrage, „Heute anpassen“ gilt nur für heute.
 
+## Farbe und Betonung (Dennis, 5. November, nach den „14 Rules of Design“)
+Blau (`--acc`) ist ein Hinweis, kein Schmuck. Es steht nur für zwei Dinge:
+1. **Jetzt und hier**: heute in der Wochenleiste, der laufende Schritt bzw. die laufende Minute, die gewählte Pille in einer Kapsel,
+   die aktuelle Stufe, die eigene Linie im Diagramm.
+2. **Die eine Hauptaktion** einer Seite (`.btn.primary`) und im Training die Vorgabe („3 Wdh.“, Watt, Gewicht).
+Alles andere ist `--ink` bzw. `--ink2`: Werte in Wert-Zeilen, Mengen in Listen, Schritt-Nummern, Zähler-Knöpfe, Runden-Punkte,
+Fortschrittsbalken, erledigte Tage und Stufen, (i)-Knöpfe, Kopfzeilen, Aufzählungspunkte, Infos. Geschafft ist ein Haken (grün nur bei Erfolg, `--green`).
+- Betonung über Größe und Lage, nicht über Farbe: das Wichtigste groß und oben, die Hauptaktion im ersten Bildschirm.
+- Ohne Daten keine große „0“: sagen, wodurch der Wert entsteht („Gesamtwert entsteht“).
+- „Neu“ und ähnliche Hinweise sind kleine Chips in der Zeile (`.tl-neu`), keine großen Knöpfe.
+- Gründe und Erklärungen stehen hinter einer aufklappbaren Zeile („Warum 17:00?“), wenn sie den Ablauf nach unten drücken.
+- Eine Frage am Rand (Arbeitszeiten, Sicherung) ist eine ruhige Zeile unten, keine große Karte über dem Inhalt.
+- Animationen (gleitende Pille, Nachgeben, Medaillen, Momente) bleiben, wie sie sind (Dennis).
+- Farbpaletten (Einstellungen › Aussehen › Farben, `PALETTES`): Klar, Wald, Sand, Ozean, Beere, Graphit. Neue Farben nie fest als Blau
+  schreiben, immer `--acc`, damit jede Palette passt; Hintergründe über `--board`/`--paper`/`--fill`.
+
 ## Grundlagen
-- Hellmodus wählbar in Weiß oder Off-White (Kreide `#FAF9F5`, Leinen `#F8F5EF`, Nebel `#F7F8F6` für Karten), Hintergrund je eine Stufe dunkler.
+- Hellmodus je Farbpalette mit eigenem Hintergrund und Karten (`data-pal`; früher Weiß/Kreide/Leinen/Nebel über `data-paper`), Hintergrund je eine Stufe dunkler.
 - Dunkelmodus in Graphit, passend zum App-Symbol: Hintergrund `#1E1F23`, Karten `#2A2B30`, Kapseln `#24252A`, Pille `#41424A`,
   Grafik-Fläche `#33343A`, Linien `#36373D`. Jede Ebene eine Stufe heller als die darunter.
 - Schrift: Geist für alles. Die Schrift-Einstellung (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengen (`--hand`).
@@ -35,7 +51,7 @@ Keine eckigen grauen Knöpfe. Jede Schaltfläche ist genau einer dieser Baustein
 
 | # | Baustein | Wann | Klassen |
 |---|----------|------|---------|
-| 1 | Umschalter | eine Wahl aus wenigen (2–5) | `.seg` mit `.seg-btn`, Wahl als weiße Pille (`--pill`, Text `--acc`) |
+| 1 | Umschalter | eine Wahl aus wenigen (2–5) | `.seg` mit `.seg-btn`, Wahl als weiße Pille (`--pill`, Text `--acc` = „gewählt“) |
 | 2 | Kapsel mit Symbolen | viele Ziele, wenig Platz; nur die Wahl zeigt ihren Namen | `capHTML()` → `.cap` / `.cap-btn` (Reiterleiste, Profil-Ansichten, Orte) |
 | 3 | Hauptaktion | eine pro Seite, meist ganze Breite | `.btn.primary` (+ `.block`, `.go`); Speichern grün `.btn.save` |
 | 4 | Nebenaktion | alles Weitere | `.btn` (Glas-Kapsel), klein `.btn.small` |
@@ -59,7 +75,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
   „✓ Stufe 4 ● Leichtes Band“). Bei neuen Übungen schätzt er den Start und sagt grau darunter, woraus. Testtage wählen die Stufe als Wert-Zeile, denn dort wird sie gemessen.
 - Einstellungswerte, die man selten ändert (Profil, Stand, Startdatum, Challenge-Datum und -Ziel), sind **Wert-Zeilen**
   (`valRows([valRow(…)])`, `.vrows`/`.vrow`): eine Glas-Fläche in `--board`, je Zeile Name links (darunter grau ein Zusatz),
-  Wert rechts in `--acc` (geschätzt grau), dann der Pfeil. Feine Trenner, Zeilen mindestens 56 px. Tippen öffnet das Rad-Blatt.
+  Wert rechts in `--ink` (geschätzt grau), dann der Pfeil. Feine Trenner, Zeilen mindestens 56 px. Tippen öffnet das Rad-Blatt.
   Errechnete Werte ohne Pfeil (`valRow` ohne `attrs`). Zahlen in `--hand`, Text (Datum, „Einstiegstest“) in Geist 600.
 - Zahlen, Stufen, Listen, Datum: Rad-Blatt (`openSheet`). Keine Klapp-Listen (`<select>`), kein System-Datumsfeld.
 - Rad-Blätter mit Zahl zeigen den Wert groß darüber: nochmal tippen öffnet die Zahlentastatur (wie beim Zeit-Blatt).
@@ -82,7 +98,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 
 ## Leitern
 - Eine Leiter ist ein Aufstieg: Stufe 1 unten, die schwerste oben, darüber „↑ Schwerer“, darunter „Leichter“.
-- Stufen liegen in einer Glas-Kapsel, jede Zeile mindestens 44 px, Nummer im Kreis (Bandfarbe, Weste schwarz, erreichte Stufen `--acc`).
+- Stufen liegen in einer Glas-Kapsel, jede Zeile mindestens 44 px, Nummer im Kreis (Bandfarbe, Weste schwarz, erreichte Stufen grau `--ink2`).
 - „Aktuelle Stufe“ ist die weiße Pille wie die Wahl in jeder Kapsel. Die höchste je geschaffte Stufe trägt den goldenen Chip „★ Bestwert“.
 - Text bricht nicht um: zu lange Namen enden mit „…“ und laufen beim Antippen einmal durch, blenden aus und stehen wieder am Anfang.
 
@@ -102,7 +118,7 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
   darunter `.bgrp` „‹ Zurück | Erledigt ›“. Auf der letzten Übung Chip „Danach: …“, „Erledigt“ springt direkt weiter.
 - Wischen immer gleich: nach links = erledigt / weiter / +, nach rechts = zurück / rückgängig / – (umkehrbar).
 - Zähler (`.stepper`) nur in der Liste. Am Ende eines AMRAP immer „Stimmt dein Ergebnis?“ mit den gezählten Werten.
-- EMOM: der Timer schaltet weiter. In der laufenden Karte Chip „Als Nächstes · Min 2 · Name“ mit Mini-Figur und blauer Countdown-Chip.
+- EMOM: der Timer schaltet weiter. In der laufenden Karte Chip „Als Nächstes · Min 2 · Name“ mit Mini-Figur und Countdown-Chip.
 
 ## Diagramme
 - Netzdiagramm für die Bereiche, Linien für Verläufe, Akzentfarbe für „jetzt“, gestrichelt für den Vergleich.
@@ -111,10 +127,10 @@ Textlinks nur im Fließtext (Übungsnamen) und in Blatt-Köpfen („Abbrechen“
 ## Auswahl-Karten und Fortschritt
 - Eine Wahl aus mehreren ausführlichen Möglichkeiten (z. B. Schwerpunkt): ganze Karte tippbar, Symbol in runder Kachel,
   Name, ein Satz, kleine Kennzahlen darunter. Gewählt = blaue Umrandung und gefüllte Symbol-Kachel. Darunter eine Hauptaktion.
-- Fortschritt über einen Block: flache Balken je Durchgang in einer Zeile. Geschafft = `--acc`, aktuell mit leichtem Ring,
+- Fortschritt über einen Block: flache Balken je Durchgang in einer Zeile. Geschafft = `--ink`, aktuell `--acc` mit leichtem Ring,
   leichtere Wochen (Entlastung, Test) heller.
 - Puls-Zonen als Liste: farbiger Strich, Zone, Name, Bereich rechtsbündig in bpm.
-- Fragen (Fragebogen beim Start): oben Zurück, Fortschritt als Striche, „Überspringen“; Kopfzeile in `--acc`, große Frage, ein Satz.
+- Fragen (Fragebogen beim Start): oben Zurück, Fortschritt als Striche, „Überspringen“; Kopfzeile grau (`--ink2`), große Frage, ein Satz.
   Antworten als Leiter-Kapsel (`.ob-cap`, Zeilen mit Figur, schwerste oben, „↑ Schwerer“/„Leichter“): ein Tippen wählt und geht weiter.
   Mehrfachwahl als Kacheln (`.ob-tile`), Zahlen als große Kacheln mit Rad. Haupt- bzw. Nebenaktion immer unten an derselben Stelle (`.ob-foot`).
 

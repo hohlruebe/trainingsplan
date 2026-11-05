@@ -34,8 +34,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Wochenleiste (`wkStripHTML`, `wkCells`, `ui.wkSel`/`ui.wkMon`, Plan: `ui.pwSel`/`ui.pwMon`): Mo–So mit Datum und A/B/C, „Frei“ oder
   ✓ (mit Einheit), heute gefüllt in `--acc` mit `aria-current`, gewählter Tag weiße Pille, ‹ › blättert (zurück bis zum ersten Eintrag,
   vor bis +2 Wochen). Anderer Tag = `wkDayHTML` (Ergebnis mit Korrigieren, Vorschau der Einheit mit Dauer und Uhrzeit, frei mit nächstem
-  Termin), „Zurück zu heute“. Plan › Deine Woche (`planWeekV2HTML`): „x von 3 erledigt“, Durchgang und Phase als Chip, Leiste, gewählte
-  Einheit mit Ablauf. Freie Tage bieten die Ruhetag-Routine an. Wissen-Texte (Regeln, Methode, Pause, Test-Durchgang) haben eine Plan-2-Fassung.
+  Termin), „Zurück zu heute“. Plan › Deine Woche (`planWeekV2HTML`): „x von 3 erledigt“, Durchgang und Phase klein darunter (`.pw-hd`), Leiste, gewählte
+  Einheit mit Ablauf, Gründe der Uhrzeit hinter „Warum 17:00?“. Freie Tage bieten die Ruhetag-Routine an. Wissen-Texte (Regeln, Methode, Pause, Test-Durchgang) haben eine Plan-2-Fassung.
   Arbeitszeiten (Seite `woche`, `renderWoche`, Titel „Arbeitszeiten“, auch über Einstellungen › Alltag, `ACT['wk-open']` mit `ui.wocheBack`):
   „Wie arbeitest du?“ Geregelte Zeiten | Schichtarbeit (`S.alltag.schicht` false/true, null = noch nicht gewählt). Geregelt: feste Woche
   `std` (Arbeitstage `wk-days` mit Vorlagen, Beginn/Ende für alle `wk-beg`/`wk-end`, „Tage einzeln“), Ausnahmen je Datum `alltag.ex`
@@ -517,10 +517,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Bibliothek (Familien-Seite, jede Übung), Mobility-Player (`#rp-fig`). Neue Grafik = nur in `Maskottchen.EXERCISES` eintragen.
 - Einstellungen „Mittel“ (Dennis): Karte „Über dich“ (Name, Geschlecht, Gewicht, Geburtsjahr, Foto), Karte „Aussehen“ (Hell/System/Dunkel und
   Textgröße A/A/A, `S.textSize` 's'/'m'/'l' nur auf dem Gerät, `html[data-text]` mit `zoom` auf `body`, `lookHTML`), dann „Sync über GitHub“, „Mehr“
-  (`moreHTML`: Hintergrund, Markerfarbe, Zahlen-Schrift, Countdown, Haptik, Gesten, Maximal-/Ruhepuls, Ansicht, Vollbild) und „Daten“ (Startdatum,
+  (`moreHTML`: Zahlen-Schrift, Countdown, Haptik, Gesten, Maximal-/Ruhepuls, Ansicht, Vollbild) und „Daten“ (Startdatum,
   Export/Import, Zurücksetzen; `settingsHTML`). Trainings-Entscheidungen trifft der Coach: `modeOf` = `TRAIN_STD`, `roundMode()` = 'ex',
   `timerModeOf` = `TIMER_STD`, Vollbild dreht immer mit, Lauf-ABC immer; „Stand setzen“ ist weg. Alte Werte bleiben in `S`, werden nicht mehr benutzt.
-  Aussehen › Hintergrund (nur Hellmodus, `S.paper`, `PAPERS`): Weiß, Kreide, Leinen, Nebel. `applyTheme` setzt `data-paper` nur im Hellen.
+  Früher Aussehen › Hintergrund (`S.paper`, `PAPERS`: Weiß, Kreide, Leinen, Nebel, `data-paper` nur im Hellen) und Markerfarbe (`S.color`, `COLORS`); gelten nur noch ohne Palette.
   Farbpaletten (Dennis, 5. November: „verschiedene Farbpaletten zur Auswahl in den Einstellungen“): Aussehen › Farben (`paletteHTML`, `PALETTES`, `ACT.palette`,
   `S.palette` in `DEF`, nur auf dem Gerät): Klar, Wald, Sand, Ozean, Beere, Graphit, je Akzent hell/dunkel und im Hellmodus Hintergrund und Karten (`data-pal`).
   Ersetzt Markerfarbe und Hintergrund unter „Mehr“; ohne Wahl gelten `S.color`/`S.paper` wie bisher.
@@ -759,7 +759,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   in der Kachel „Abschluss locker“ hinter `dotSub`. Wissen: Verweis auf Plan & Challenges › Trainingstage, Kurzversion und Festgefahren in der
   Plan-2-Fassung (der Coach kürzt bzw. wechselt selbst), Methode „Ein Skill in jeder Einheit“, Vorgabe-Spanne, Handstand „zweimal das obere Ende“,
   Skill-Block „je nach Umfang 2 bis 5“, „Kommt nach:“ statt „Frei ab:“, „Nach einer Pause“, „Einstiegstest neu starten“ rot mit Satz, Grundmuster mit `h2`,
-  „Challenge wählen“. (i) in `--acc`, Erholung „frisch“ 14 px, Wochenleiste in der Karte breiter. Kritik in `.impeccable/critique/2026-10-26T05-09-58Z__index-html.md`.
+  „Challenge wählen“. (i) neutral (seit 5. November, vorher `--acc`), Erholung „frisch“ 14 px, Wochenleiste in der Karte breiter. Kritik in `.impeccable/critique/2026-10-26T05-09-58Z__index-html.md`.
 - Training immer im Vollbild (Dennis, Paket 56, `FS.train`): Plan-2-Krafttage (nicht Testtage, nicht Murph, `trainOk`) laufen im Trainer `#fs`;
   `render` öffnet ihn über `trainCtx`/`trainLoad` (Timer des Schritts geladen, nicht gestartet), die Schritt-Seite darunter zeigt nur den Titel.
   Oben ✕ (`ACT.quit`), Schritt „x von n“, Umschalter Einzeln | Liste (`S.fsView` 'one'/'list', nur auf dem Gerät, gilt überall, `ACT['fs-view']`),
@@ -940,13 +940,14 @@ Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen g
 2. Kapsel mit Symbolen (viele Ziele, wenig Platz): `capHTML()` / `.cap` mit `.cap-btn`, nur die Wahl zeigt ihren Namen
    (Reiterleiste, Profil-Ansichten, Orte). Tage auf Heute: Kapsel `.pills`, dran = gefüllt in `--acc`, angeschaut = weiße Pille
    (Plan 2: Wochenleiste `.pills.wkst` mit Mo–So, Datum und Einheit).
-3. Hauptaktion: `.btn.primary` (volle Kapsel in `--acc`), eine pro Seite, meist `.block` über die ganze Breite. Speichern: `.btn.save` (grün).
+3. Hauptaktion: `.btn.primary` (volle Kapsel in `--acc`), eine pro Seite, im ersten Bildschirm, meist `.block` über die ganze Breite. Speichern: `.btn.save` (grün).
 4. Nebenaktion: `.btn` (Glas-Kapsel, dunkle Schrift), klein `.btn.small`.
 5. Gruppe zusammengehöriger Nebenaktionen: `.bgrp` mit Knöpfen darin, feine Trenner (z. B. Exportieren | Importieren).
 6. Gefährlich: `.btn.red` bzw. `.bgrp button.red` (rote Schrift), immer mit Nachfrage (`twoStep` oder `openChoice`).
 7. Zähler: `.stepper` mit runden – / + und dem Wert in der Mitte.
 8. Zurück und Werkzeuge: runde Glas-Knöpfe nur mit Symbol (`.rbtn`, Zurück mit Chevron, Stift, Regler).
-Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
+Blau (`--acc`) nur für „jetzt/hier/gewählt“ und die eine Hauptaktion (im Training die Vorgabe); Werte, Mengen, Nummern, Zähler, Fortschritt,
+Infos in `--ink`/`--ink2` (`DESIGN.md` › Farbe und Betonung). Textlinks nur im Fließtext und in Blatt-Köpfen (Abbrechen / Fertig). Reine Infos bleiben Chips (`.chip`, nicht tippbar).
 Zahlen im Training sind Zähler (`cntRow`/`kCounter`, `.k-cnt`, `ACT['k-rep']`: Metcon Extra-Wdh. und Runden (Runden nur, wenn die Liste
 sie nicht schon zählt, `mcResultHTML`), Handstand-Zeit, Ausgleich-Sätze, Testtag-Wdh./Bestzeit, Intervalle geschafft). Werte von der Uhr
 (Dauer, Puls, Strecke, Watt) und die Stufe im Beweglichkeits-Check bleiben Kacheln (`.tile`) mit Rad-Blatt. Stufen setzt der Coach auch in Metcon und

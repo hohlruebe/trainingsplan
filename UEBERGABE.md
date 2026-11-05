@@ -19,6 +19,12 @@ Stand: 5. November 2026 (Design-Regeln umgesetzt, Farbpaletten; davor Trainer-Fe
 - Dennis: „verschiedene Farbpaletten zur Auswahl in den Einstellungen“. Einstellungen › Aussehen › Farben: Klar, Wald, Sand, Ozean, Beere, Graphit
   (`PALETTES`, `S.palette`, nur auf dem Gerät); ersetzt Markerfarbe und Hintergrund unter „Mehr“. Offen: eigene Paletten fürs Dunkle, weitere Farben.
 - Geprüft: alle Tests grün (`dreitage-browser` angepasst: „Neu“-Chip mit `aria-label`).
+- Danach (Dennis: „ja, fangen wir damit an“): ganze App nach der Regel „Blau nur für jetzt/hier/gewählt und die eine Hauptaktion“ durchgesehen.
+  Neutral jetzt: Werte in Wert-Zeilen (`.vr-v`), Mengen (`.qty`), Kacheln, (i)-Knöpfe (`.fs-i`), Abspiel-Knöpfe in Mobility, Coach-Zeichen „i“,
+  Wochen-Kette, erledigte Tage im Profil, erreichte Stufen in der Leiter, Block-Balken, Skill-Baum „geschafft“, Fragebogen-Kopfzeile, Trainer-Liste
+  (nur die laufende Zeile blau), Freischalten-Ring, Empfohlen-Gewicht. Blau bleibt: heute, laufend, gewählte Pille, aktuelle Stufe, Hauptaktion,
+  Vorgabe im Training, eigene Linie in Diagrammen. Bereichsfarben (Kraft, Zug …) sind Datenfarben und bleiben fest.
+  Regeln: `DESIGN.md` › „Farbe und Betonung“ (neu), Kapsel-Konzept in `CLAUDE.md`, `AGENTS.md`. Geprüft hell (Klar) und dunkel (Ozean), alle Tests grün.
 
 ## Vorschau an den anderen Tagen (5. November 2026, Claude)
 - Dennis: „Ich möchte, dass ich die Vorschau auch an den anderen Tagen dieser Woche sehe.“ Umgesetzt für einen anderen Tag in der Wochenleiste auf Heute
