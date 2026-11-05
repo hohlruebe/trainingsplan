@@ -84,7 +84,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok((await page.locator('.tl-top').first().innerText()).includes('ca. ' + total + ' Min'));
     assert.ok(total <= 90);
     // Vor dem Start: neue Übungen stehen als „Neu“ am Kraftschritt (Impeccable-Kritik 24. Oktober), keine eigene Karte mehr.
-    assert.match(await page.locator('.tl-card .tl-neu').first().innerText(), /Neu[\s\S]*ansehen/);
+    assert.match(await page.locator('.tl-card .tl-neu').first().getAttribute('aria-label'), /neu|ansehen/); // Design-Regeln: kleiner Chip „3 neu ›“
     // Vorschau eines Schritts (2. November): gedrückt halten zeigt die Übungen, loslassen schließt; mit der Maus beim Darüberfahren.
     await page.evaluate(() => window.scrollTo(0, 0));
     const pvTouch = async (id, ms) => page.evaluate(a => new Promise(r => { const li = document.querySelector('li[data-pv="' + a[0] + '"]'), b = li.getBoundingClientRect(), o = { bubbles: true, pointerType: 'touch', clientX: b.left + 40, clientY: b.top + 10 };
