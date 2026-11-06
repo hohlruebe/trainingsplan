@@ -819,6 +819,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Danach (Dennis, 31. Oktober): Abschluss mit Figur bzw. Platzhalter links wie die anderen Schritte (`finTrain`, `.fs-fin`), Zusatz („Zone 2 halten“,
   „1 von 4“) als eigene Zeile `.fs-sub`, „Abschnitt x von n“ ohne „Jetzt“; „Als Nächstes“ überall zweizeilig (`.fs-nx` mit `.nl`: Aufwärmen, Kraft, Abschluss).
   Zeit-Kapsel Variante C (Board https://claude.ai/artifact/AksBu2LJyZsMpvEUUt7nou): 112 px hoch, Zeit 66 px, Zustand über und Runde unter der Zeit (gestapelt).
+  Seit Schritt 3 (Dennis, 6. November, Variante B „Freie Zahl“): keine Kapsel mehr, Zeit 76 px frei auf der Karte, darunter ein dünner Balken (6 px), der sich mit der Phase füllt.
   „Läuft“ steht im Trainer nicht mehr (nur Angehalten, Pause, Fertig). Metcon im Trainer mit Gewicht und % Rx: `metconFlow` verglich `L === d.metcon`,
   der Getter liefert aber jedes Mal eine neue Liste, darum fehlte das Gewicht immer; jetzt `mKg` je Index (nicht am Testtag).
   Aus dem Training (Dennis, 1. November): das (i) zeigt die Übung der Stufe (`fsI` nimmt den Schlüssel der Stufe vor der Grundübung); Bandstufen in

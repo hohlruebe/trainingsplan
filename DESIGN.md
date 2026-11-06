@@ -64,7 +64,17 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - Teil 2: Wert-Zeilen (`.vrow`) Name und Wert 17 normal, Wert `--ink2`, mindestens 44 hoch. Blätter: „Abbrechen“ links und „Fertig“ rechts in `--acc`
   (Fertig halbfett), Griff oben; am Griff oder Kopf nach unten ziehen (über 90 px) = Abbrechen, sonst springt es zurück (Klasse `.drag`).
 
-### Noch offen (Schritt 3 und folgende)
+### Schritt 3 Trainer (6. November 2026, Vergleich https://claude.ai/artifact/H6zgBG2QhdU6ejrqCrrbcQ)
+- Anzeige-Zahl ist die Zeit (Kapsel 66, quer Ring). Darunter in Textstilen (Basis × `--fsu`): Vorgabe 34 (`--acc`, einzige blaue Zahl), Gewicht und Zähler 28,
+  Übungsname 22, Listen-Zeilen 17 mit Menge 22 (laufende 20/28), Beschriftungen und Zusätze 15 (nie kleiner), „Als Nächstes“ 17.
+- Liste: Name in einer Zeile (`#fs .fs-krow>span` als Block, `.nw` inline), Spalten „Min“ 44 und Menge 40.
+
+- Timer Variante B „Freie Zahl“ (Dennis, Vergleich https://claude.ai/artifact/S97ViwBfQ4mpfoMxJGMkSK): hochkant keine Kapsel mehr, die Zeit steht frei (76) auf der Karte,
+  darunter ein 6 px dünner Balken (`--acc`, Vorlauf/Pause `--green`), der sich mit der Phase füllt; Zustand und Runde klein dazu. Antippen = Start/Pause, quer bleibt der Ring.
+  Grund: Formen mit einer Bedeutung (Kapsel = tippen, Rechteck = Inhalt), die große Kapsel wirkte wie ein Knopf und passte nicht zu den Ecken der Karte.
+- Stufen-Pille im Trainer ohne Pfeil (Dennis: „der Pfeil überlagert die Schrift … einfach weglassen“), Antippen öffnet weiter das Rad; lange Namen brechen um.
+
+### Noch offen (Schritt 4 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
 
