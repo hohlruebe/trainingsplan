@@ -172,6 +172,10 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   macht `chal()` und `spOf()` zu null, `S.challenge`/`S.schwerpunkt` bleiben gespeichert, wirken aber nicht; die Seite `fokus` zeigt nur noch die Trainingstage
   (und am Blockende „Nächsten Block starten“), der Rückblick ohne „Challenge“. Die Tests schalten die Logik mit `window.TP_GOALS_ON = true` kurz ein.
   Abschnitts-Überschriften `.gl-group` 15 regular, Zeilen in Listen normal statt fett.
+  Jede Zeile der Wochen-Liste öffnet ein Blatt von unten wie „In den Kalender“ (Dennis, 6. November: „mal neue Seite, mal Karte von unten, mal weiter unten … alles wie bei In den Kalender“):
+  `PSH` (`woche` = `renderWoche`, `zusatz` = `renderZusatz`, `body` = Belastung + Erholung), `pshOpen`, `ACT.psh` mit `data-k`, `ui.psh`; `render()` zeichnet das Blatt über `pshRefresh` neu
+  (Zurück-Knopf und Titel der Seite ausgeblendet, `.psh`), wechselt der Reiter, schließt es. Öffnet darin ein weiteres Blatt (Rad, Auswahl), ersetzt es das Seiten-Blatt (`closeSheet(true)` in
+  `openForm`/`openSheet`/`openChoice`), danach kommt das Seiten-Blatt zurück. Häufige Fragen ebenfalls als Blatt (`ACT.faq`). „Erholung ansehen“ öffnet das Blatt `body`.
   „Einstiegstest neu“ steht seit Schritt 5 in Einstellungen › Daten neben „Alles zurücksetzen“ (`ACT['restart-test']`, mit Nachfrage, Testtag 1, Einträge bleiben).
 - Reiter von links nach rechts (seit Schritt 2, wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
   Tools (Timer, Bibliothek, Körper, Mobility, 1RM), Profil. Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit

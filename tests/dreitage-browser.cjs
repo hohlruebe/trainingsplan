@@ -258,14 +258,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(() => window.tpTest.navigate('plan'));
     assert.ok(await page.getByRole('heading', { name: '1 von 3 erledigt' }).isVisible());
     // Belastung und Erholung als eine Zeile: ohne Signal zu, auf Tippen auf (Impeccable-Kritik Plan, 26. Oktober).
-    const ldz = page.locator('[data-act="ld-open"]');
-    // Nach dem Training ist eine Zone müde: die Zeile ist schon offen und sagt welche.
-    assert.equal(await ldz.getAttribute('aria-expanded'), 'true', 'mit Signal offen');
+    // Schritt 5 (Dennis, 6. November): jede Zeile der Wochen-Liste öffnet ein Blatt von unten wie „In den Kalender“.
+    const ldz = page.locator('[data-act="psh"][data-k="body"]');
+    // Nach dem Training ist eine Zone müde: die Zeile sagt welche.
+    assert.equal(await ldz.getAttribute('data-sig'), '1', 'Zeile mit Signal');
     assert.match(await ldz.innerText(), /Belastung und Erholung[\s\S]*müde/);
+    await ldz.click(); await page.waitForTimeout(300);
+    assert.ok(await page.locator('#sheet .psh').isVisible(), 'Blatt von unten');
     assert.ok(await page.getByRole('heading', { name: 'Belastung', exact: true }).isVisible(), 'Karte Belastung in Deine Woche');
     assert.ok(await page.locator('.ld .ld-a').count() >= 1 && await page.locator('.ld .ld-p').count() >= 1, 'gemacht als Balken, geplant gestrichelt');
     assert.match(await page.locator('.ld-mt').innerText(), /\d+ % vom Plan der Woche/);
     assert.ok(!/~\d/.test(await page.locator('.ld').innerText()), 'keine Zahlen ohne Einheit');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(300);
     await page.evaluate(() => window.tpTest.navigate('woche'));
     assert.ok(await page.getByText('Zeit pro Training').isVisible());
     assert.equal(await page.getByRole('button', { name: 'Planung ausschalten' }).count(), 0);
@@ -324,7 +328,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
     await page.evaluate(() => window.tpTest.navigate('plan'));
     // Schritt 5: der Vorschlag ist eine Zeile der Wochen-Liste in Plan.
-    await page.locator('.pw-list [data-act="zs-open"]', { hasText: 'Zusätzlich' }).click();
+    await page.locator('.pw-list [data-act="psh"][data-k="zusatz"]', { hasText: 'Zusätzlich' }).click();
     await page.getByRole('button', { name: '45 Min', exact: true }).click();
     await page.getByRole('button', { name: 'Einheit planen', exact: true }).click();
     const z = await page.evaluate(() => window.tpTest.state().zusatz);
@@ -695,7 +699,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.locator('.pw-list .tg-row [data-act="tage-set"][aria-pressed="true"]').innerText(), '3');
     assert.equal(await page.locator('#view [data-act="fk-open"], #view [data-act="pw-why"], #view [data-act="plan-sec"]').count(), 0, 'kein Ziel, kein Warum, keine Wissens-Seiten');
     await page.locator('.faq [data-act="faq"]').first().click();
-    assert.match(await page.locator('.faq .faq-a').innerText(), /Arbeit, Schlaf/, 'Frage klappt auf');
+    assert.match(await page.locator('#sheet .faq-a').innerText(), /Arbeit, Schlaf/, 'Frage im Blatt');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(300);
+    // Arbeitszeiten im Blatt; ein Rad darin (Schlaf) schließt es nicht für immer, danach kommt das Blatt zurück.
+    await page.locator('.pw-list [data-act="psh"][data-k="woche"]').click(); await page.waitForTimeout(300);
+    assert.match(await page.locator('#sheet .psh').innerText(), /Schlaf/);
+    await page.locator('#sheet .psh .vrow', { hasText: 'Schlaf' }).first().click(); await page.waitForTimeout(300);
+    assert.equal(await page.locator('#sheet .psh').count(), 0, 'Rad über dem Blatt');
+    await page.locator('#sheet [data-sh="x"]').first().click(); await page.waitForTimeout(700);
+    assert.equal(await page.locator('#sheet .psh').count(), 1, 'Arbeitszeiten-Blatt kommt zurück');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(500);
+    assert.equal(await page.locator('#sheet').count(), 0, 'Fertig schließt');
     // Dennis, 6. November: Trainingstage ohne eigenes Blatt, ein Tippen auf die Zahl in der Zeile (kein Regler, der sich beim Scrollen ändert).
     assert.equal(await page.locator('#view .tg-r').count(), 0, 'kein Regler auf der Seite');
     await page.locator('.pw-list [data-act="tage-set"][data-v="5"]').click(); await page.waitForTimeout(300);

@@ -1526,6 +1526,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .pw-list .gl-t b,.faq .gl-t b{font-weight:400}
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
+.psh>.rbtn.back,.psh>.hero{display:none}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
 </style>
 </head>
 <body>
@@ -4437,6 +4438,7 @@ function render() {
   if (T) { trainLoad(T); if (!FS.on) fsOpen('train'); else if (FS.train) { fsRender(); fsOrient(); } }
   else if (FS.on && FS.train) fsClose();
   if (FS.on) fsPaint(undefined, true);
+  pshRefresh();
 }
 // Unterseiten: Titel mit Pfeil, Tippen öffnet das Drop-down darunter.
 var SUB_IC = {
@@ -5084,7 +5086,7 @@ function bodyWeekRow(mon) {
   var sig = over || mu.length, open = ui.ldOpen != null ? ui.ldOpen : !!sig;
   var val = over ? 'Mehr als geplant' : mu.length ? mu.join(', ') + ' müde' : 'Im Rahmen';
   var sub = [ld ? (L.rated ? (over ? 'Härter als geplant' : 'Wie geplant') : 'Noch nicht eingeschätzt') : '', zc ? (mu.length ? 'Erholung läuft' : 'alles erholt') : ''].filter(Boolean).join(' · ');
-  return { row: glRow('data-act="ld-open" aria-expanded="' + open + '"' + (sig ? ' data-sig="1"' : ''), 'Belastung und Erholung', sub, val, open), open: open ? ld + zc : '' };
+  return { row: glRow('data-act="psh" data-k="body"' + (sig ? ' data-sig="1"' : ''), 'Belastung und Erholung', sub, val), open: '' };
 }
 function loadCardHTML(mon) {
   var L = loadWeek(mon), max = 0;
@@ -5933,8 +5935,7 @@ var FAQ = [
 function faqHTML() {
   return '<p class="kicker muted gl-group">Häufige Fragen</p><section class="card gl-card faq">' + glRow('data-act="tour"', 'So funktioniert die App', 'Kurze Tour und als App speichern') +
     FAQ.map(function (q, i) {
-      var on = ui.faq === i;
-      return glRow('data-act="faq" data-i="' + i + '" aria-expanded="' + on + '"', q[0], '', '', on).replace('</button></div>', '</button>' + (on ? '<p class="faq-a">' + esc(q[1]) + '</p>' : '') + '</div>');
+      return glRow('data-act="faq" data-i="' + i + '"', q[0], '', '');
     }).join('') + '</section>';
 }
 function renderPlan() {
@@ -9144,9 +9145,9 @@ function zusatzNow() { var Z = zsOf(); if (!Z || Z.off || !Z.min) return null; i
 // Zusatz als Zeile der Wochen-Liste in Plan (Schritt 5); auf Heute bleibt die Karte.
 function zusatzRow() {
   var Z = zsOf(), N = zusatzNow(), W = !Z ? zusatzWhy() : null;
-  if (N && !N.done) return glRow('data-act="zs-open" data-from="plan"', 'Zusatz · ' + (N.k === 'test' ? 'Kardio-Test' : 'Lockere Ausdauer') + ' ' + N.min + ' Min',
+  if (N && !N.done) return glRow('data-act="psh" data-k="zusatz"', 'Zusatz · ' + (N.k === 'test' ? 'Kardio-Test' : 'Lockere Ausdauer') + ' ' + N.min + ' Min',
     WTAG[N.i] + ', ' + hm(N.t - 24 * N.i) + ' · zählt nicht ins Wochenziel', 'Geplant');
-  return W ? glRow('data-act="zs-open" data-from="plan"', 'Zusätzlich · optional', W.t.split('. ')[0].replace(/\.$/, '') + '.', 'Vorschlag') : '';
+  return W ? glRow('data-act="psh" data-k="zusatz"', 'Zusätzlich · optional', W.t.split('. ')[0].replace(/\.$/, '') + '.', 'Vorschlag') : '';
 }
 function zusatzCardHTML(where) {
   var Z = zsOf(), N = zusatzNow(), W = !Z ? zusatzWhy() : null;
@@ -9374,11 +9375,35 @@ function planWeekV2HTML() {
   if (body) rows.push(body.row);
   if (zr) rows.push(zr);
   if (mon >= cm) rows.push(glRow('data-act="wk-cal" data-v="' + mon + '"', 'In den Kalender', 'Die Termine dieser Woche eintragen'));
-  rows.push(glRow('data-act="wk-open" data-from="plan"', 'Arbeitszeiten', S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach plant drumherum' : 'Eintragen, dann plant dein Coach drumherum'));
+  rows.push(glRow('data-act="psh" data-k="woche"', 'Arbeitszeiten', S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach plant drumherum' : 'Eintragen, dann plant dein Coach drumherum'));
   rows.push(tageRowHTML());
   return h + '<p class="kicker muted gl-group">' + (mon === cm ? 'Diese Woche' : 'Die Woche') + '</p><section class="card gl-card pw-list">' + rows.join('') + '</section>' + (body ? body.open : '');
 }
 // Eine Zeile mit Pfeil wie in den iPhone-Einstellungen (Titel, grauer Satz darunter, Wert rechts).
+// Plan: jede Zeile der Wochen-Liste öffnet ein Blatt von unten wie „In den Kalender“ (Dennis, 6. November: „mal kommt man zu einer neuen Seite,
+// mal taucht eine Karte von unten auf, mal weiter unten … Alles soll wie bei In den Kalender sein“). Die Seite läuft im Blatt und zeichnet sich bei render() neu.
+var PSH = {
+  woche: ['Arbeitszeiten', function () { return renderWoche(); }],
+  zusatz: ['Zusätzlich', function () { return renderZusatz(); }],
+  body: ['Belastung und Erholung', function () { var m = ui.pwMon || wkMon(); return loadCardHTML(m) + (m === wkMon() ? zoneCardHTML() : ''); }]
+};
+function pshOpen(k) {
+  if (!PSH[k]) return;
+  if (k === 'woche') { ui.wocheBack = 'plan'; ui.wkNext = ui.wkNext || false; }
+  if (k === 'zusatz') { ui.zsBack = 'plan'; }
+  ui.psh = k; ui.pshTab = ui.tab;
+  openForm(PSH[k][0], '<div class="psh">' + PSH[k][1]() + '</div>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
+  var s = document.getElementById('sheet'); if (s) s._psh = true;
+}
+function pshRefresh() {
+  if (!ui.psh) return;
+  if (ui.tab !== ui.pshTab) { var k = ui.psh; ui.psh = null; var s0 = document.getElementById('sheet'); if (s0 && s0._psh) closeSheet(); return; }
+  var s = document.getElementById('sheet'); if (!s) return;
+  var p = s.querySelector('.psh'); if (!p) return;
+  var b = s.querySelector('.sh-body'), top = b ? b.scrollTop : 0;
+  p.innerHTML = PSH[ui.psh][1](); if (b) b.scrollTop = top;
+}
+ACT.psh = function (el) { pshOpen(el.dataset.k); };
 function glRow(attrs, t, sub, val, down) {
   return '<div class="gl-item"><button type="button" class="gl-row" ' + attrs + '><span class="gl-t"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span>' + (val ? '<span class="gl-v">' + esc(val) + '</span>' : '') +
     '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (down ? 'M6 9l6 6 6-6' : 'M9 6l6 6-6 6') + '"/></svg></button></div>';
@@ -10731,7 +10756,15 @@ var WH = 44;
   document.addEventListener('pointerup', end, true);
   document.addEventListener('pointercancel', end, true);
 })();
-function closeSheet() { var s = document.getElementById('sheet'); if (s) { if (s._unfit) s._unfit(); s.remove(); } document.removeEventListener('keydown', sheetKey); }
+function closeSheet(replace) {
+  var s = document.getElementById('sheet');
+  if (s) {
+    if (s._unfit) s._unfit(); s.remove();
+    // Seiten-Blatt (Plan): selbst geschlossen = weg; ein Blatt darüber (Rad, Auswahl) geschlossen = das Seiten-Blatt kommt zurück.
+    if (!replace) { if (s._psh) ui.psh = null; else if (ui.psh) setTimeout(function () { if (ui.psh && !document.getElementById('sheet')) pshOpen(ui.psh); }, 320); }
+  }
+  document.removeEventListener('keydown', sheetKey);
+}
 // Blatt mit Textfeld: Höhe an den sichtbaren Bereich anpassen, damit die Tastatur das Feld nicht verdeckt.
 function fitKeyboard(bg) {
   var vv = window.visualViewport; if (!vv) return;
@@ -10755,7 +10788,7 @@ document.addEventListener('keydown', function (e) {
   e.preventDefault(); b.click();
 });
 function openSheet(title, cols, done, o) {
-  closeSheet(); o = o || {};
+  closeSheet(true); o = o || {};
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div>' +
     '<div class="sh-head"><button type="button" class="sh-x" data-sh="x">Abbrechen</button><b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">Fertig</button></div>' +
@@ -10956,7 +10989,7 @@ ACT.quit = function () {
   });
 };
 function openChoice(title, text, opts, done) {
-  closeSheet();
+  closeSheet(true);
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="alertdialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-body choice"><h2>' + esc(title) + '</h2><p class="muted">' + esc(text) + '</p>' +
     opts.map(function (o) { return '<button type="button" class="btn block' + (o[2] ? ' ' + o[2] : '') + '" data-c="' + o[0] + '">' + esc(o[1]) + '</button>'; }).join('') + '</div></div>';
@@ -12336,7 +12369,7 @@ ACT.adapt = function (el) {
 ACT['adapt-time'] = function () { closeSheet(); ACT['pl-time'](); };
 // Rückweg beim Kürzen wegen Signalen: volle Einheit nur für heute, „Doch kürzer“ gibt die Entscheidung an den Coach zurück.
 ACT['sig-full'] = function (el) { var full = isKurz0(S.tag); setDraft('_kurz', full ? '0' : ''); closeSheet(); render(); toast(full ? 'Heute die volle Einheit.' : 'Heute kürzer, wie dein Coach es plant.'); };
-ACT['zone-open'] = function () { ui.tab = 'plan'; ui.planSec = null; ui.ldOpen = true; render(); setTimeout(function () { var c = document.getElementById('zone-card'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 60); };
+ACT['zone-open'] = function () { ui.tab = 'plan'; ui.planSec = null; window.scrollTo(0, 0); render(); pshOpen('body'); };
 ACT['zone-full'] = function () { var off = (DRAFTS[draftKey(S.tag)] || {})._zf === '1'; setDraft('_zf', off ? '' : '1'); closeSheet(); render(); toast(off ? 'Heute wie dein Coach es plant.' : 'Heute volle Runden.'); };
 ACT['adapt-off'] = function () { closeSheet(); ACT['pl-off'](); };
 ACT['chain-jk'] = function (el) {
@@ -12433,11 +12466,12 @@ ACT['zs-min'] = function (el) { ui.zsMin = +el.dataset.v; render(); };
 ACT['zs-plan'] = function (el) {
   var k = el.dataset.k, Z = zsOf(), min = k === 'test' ? 40 : ui.zsMin || (Z && Z.min) || (zusatzWhy() || {}).min || 30, x = zusatzPlace(wkPlanC(), min, k, null);
   if (!x) { toast('Diese Woche passt keine Zusatzeinheit mehr.'); return; }
+  if (ui.psh) { ui.psh = null; closeSheet(); }
   S.zusatz = { mon: wkMon(), k: k, min: min, date: x.date, ts: Date.now() }; DAYS_K = null; WKP_C.k = null; ui.zsMin = null; ui.tab = ui.zsBack || 'plan'; saveState(); window.scrollTo(0, 0); render();
   toast('Zusatz geplant: ' + WTAG[x.i] + ', ' + hm(x.t - 24 * x.i) + '.');
 };
 function zsCancel() { if (DAYS[S.tag] && DAYS[S.tag].zusatz) S.tag = (S.zusatz && S.zusatz.back) || 1; S.zusatz = S.zusatz && S.zusatz.c ? (S.zusatz.prev || null) : { mon: wkMon(), off: 1, ts: Date.now() }; DAYS_K = null; WKP_C.k = null; } // Kardio am freien Tag: der Wochen-Vorschlag davor bleibt
-ACT['zs-off'] = function () { zsCancel(); ui.tab = ui.zsBack || 'plan'; saveState(); window.scrollTo(0, 0); render(); toast('Kein Zusatz diese Woche.'); };
+ACT['zs-off'] = function () { if (ui.psh) { ui.psh = null; closeSheet(); } zsCancel(); ui.tab = ui.zsBack || 'plan'; saveState(); window.scrollTo(0, 0); render(); toast('Kein Zusatz diese Woche.'); };
 ACT['zs-start'] = function () {
   if (!zusatzNow()) return;
   S.zusatz = Object.assign({}, S.zusatz, { back: S.tag, run: isoToday(), date: isoToday() }); S.tag = 2; DAYS_K = null; syncDays(); ui.wkSel = null; ui.wkMon = null; saveState(); window.scrollTo(0, 0); render();
@@ -12450,7 +12484,7 @@ ACT['rc-save'] = function (el) {
   setDraft('mc' + i, ''); ui.rcOpen = false; saveState(); render(); toast('Kurz-Check gespeichert.');
 };
 ACT['pv-now'] = function () { if (trainingOpen()) { toast('Erst das laufende Training beenden.'); return; } S.planVFrom = isoToday(); planVSwitch(); saveState(); render(); };
-ACT.faq = function (el) { var i = +el.dataset.i; ui.faq = ui.faq === i ? null : i; render(); };
+ACT.faq = function (el) { var q = FAQ[+el.dataset.i]; if (!q) return; openForm('Häufige Fragen', '<h3 class="faq-q">' + esc(q[0]) + '</h3><p class="faq-a">' + esc(q[1]) + '</p>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true }); };
 ACT['plan-sec'] = function (el) { ui.planSec = el.dataset.k || null; window.scrollTo(0, 0); render(); };
 /* ---------- Entwicklung von Anfang an ---------- */
 function ladderSeries(key) {
@@ -12707,7 +12741,7 @@ CHG.eq = function (el) {
 };
 ACT['eq-open'] = function (el) { ui.eqOpen = ui.eqOpen === el.dataset.id ? null : el.dataset.id; ui.eqAnim = ui.eqOpen; refreshEqSheet(); ui.eqAnim = null; };
 function openForm(title, body, okLabel, ok, opt) {
-  closeSheet();
+  closeSheet(true);
   var bg = document.createElement('div'); bg.className = 'sheet-bg'; bg.id = 'sheet';
   bg.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><div class="sh-grab"></div><div class="sh-head">' + (opt && opt.noCancel ? '<span class="sh-x"></span>' : '<button type="button" class="sh-x" data-sh="x">Abbrechen</button>') + '<b>' + esc(title) + '</b><button type="button" class="sh-ok" data-sh="ok">' + esc(okLabel) + '</button></div><div class="sh-body">' + body + '</div></div>';
   document.body.appendChild(bg);
