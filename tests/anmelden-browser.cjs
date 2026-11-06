@@ -15,6 +15,7 @@ window.tpTest = { state: () => S, logs: () => LOGS, localSave: () => { S.tage = 
 applyTheme();
 blockCheck();`);
 const server = http.createServer((req, res) => { res.setHeader('Content-Type', 'text/html'); res.end(html); });
+const NOW = new Date('2026-10-29T10:00:00+01:00'); // Donnerstag in der Woche des Stands aus GitHub
 const OLD = 1.7e12; // älter als alles, was das neue Gerät speichert
 const stand = { started: true, planV: 2, durchgang: 3, tag: 3, name: 'Dennis', tage: 4, schwerpunkt: 'kb', startDate: '2026-09-01', blockStart: 1, tagSince: '2026-10-27', advBy: 'user' };
 const feldTs = {}; Object.keys(stand).forEach(k => { feldTs[k] = OLD; });
@@ -36,6 +37,8 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
       return route.fulfill({ status: 200, contentType: 'application/json', body: '{"private":true}' });
     });
     const page = await context.newPage(), errors = [];
+    // Feste Uhr: der Stand in GitHub ist aus der Woche vom 26. Oktober; mit der echten Uhr begann die App später eine neue Woche (Tag 1).
+    await page.clock.setFixedTime(NOW);
     page.on('pageerror', e => errors.push(e.message));
     await page.goto('http://127.0.0.1:' + server.address().port);
     const dlg = page.locator('.ob');
@@ -114,6 +117,7 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
       return route.fulfill({ status: 200, contentType: 'application/json', body: '{"private":true}' });
     });
     const p2 = await c2.newPage(); p2.on('pageerror', e => errors.push(e.message));
+    await p2.clock.setFixedTime(NOW);
     await p2.goto('http://127.0.0.1:' + server.address().port);
     await p2.getByRole('button', { name: 'Ich bin neu' }).click();
     await p2.evaluate(() => window.tpTest.fbDone());

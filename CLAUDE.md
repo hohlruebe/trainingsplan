@@ -529,7 +529,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Akzent hell etwas dunkler als im Bild, damit Text lesbar bleibt, mindestens 4,5:1; dunkel `--on-acc` = `db`).
   Ersetzt Markerfarbe und Hintergrund unter „Mehr“; ohne Wahl gelten `S.color`/`S.paper` wie bisher.
 - Design-Regeln (Dennis, 5. November, Board https://claude.ai/artifact/8s5QdhBzdSeWTftqgYdRYT, „die Animationen bleiben, wie sie sind“): Blau nur für heute und die
-  eine Hauptaktion. Heute „Training starten“ oben in der Karte (`.go.top`), Schritt-Nummern `.tl-n` neutral, „Neu“ als Chip `.tl-neu` („3 neu ›“), Kette ohne Kreis;
+  eine Hauptaktion. Heute „Training starten“ (`.go.top`, seit Schritt 4 am Handy fest unten über der Reiterleiste, `#view[data-tab="heute"]`), Schritte als Liste (graue Nummer `.tl-n`, Trennlinien, ohne Kasten und senkrechte Linie), „Neu“ als Chip `.tl-neu` („3 neu ›“), Kette ohne Kreis;
   Trainer-Kopf nur bis zum ersten „·“, Fortschritt/Runden/Plus neutral (nur die Vorgabe blau); Profil ohne Wert „entsteht“ (`.p-none`); Plan › Deine Woche Durchgang
   als Text (`.pw-hd`), Gründe hinter „Warum 17:00?“ (`ui.pwWhy`, `ACT['pw-why']`); freier Tag Kardio mit Hauptaktion (`.fd-top`), Arbeitszeiten-Frage als Zeile (`.ask-row`).
 - Rad-Blätter mit Zahl (`openSheet` mit `num`): nochmal auf den großen Wert tippen = Zahlentastatur.

@@ -1503,6 +1503,19 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:16px}
 #fs .fs-ex .fs-stg{white-space:normal;text-align:left}
 /* Stufen-Pille ohne Pfeil (Dennis, 6. November: „der Pfeil überlagert die Schrift … einfach weglassen“); Antippen öffnet weiter das Rad. */
 #fs .fs-stg svg{display:none}
+
+/* Schritt 4 Heute (Dennis, 6. November): Schritte als Liste wie bei Apple (Nummer grau, Trennlinien, ohne Kreise und senkrechte Linie) */
+.tl li::before{display:none}
+.tl li{padding:12px 0;gap:12px;border-top:1px solid var(--line);border-radius:0}
+.tl li:first-child{border-top:0;padding-top:4px}
+.tl-card.lean .tl li{padding-bottom:12px}
+.tl li:last-child,.tl-card.lean .tl li:last-child{padding-bottom:4px}
+.tl-n{flex:0 0 22px;height:auto;border:0;border-radius:0;color:var(--ink2);font-weight:500;justify-content:flex-start;align-items:flex-start;padding-top:1px;font-size:var(--fs-body)}
+.tl-h{font-size:var(--fs-body)}
+.tl-b{padding-top:0}
+/* „Training starten“ schwebt unten über der Reiterleiste (Dennis: „Start unten sieht sehr gut aus“), nur am Handy auf Heute */
+html:not(.desk) body:not(.focus) #view[data-tab="heute"] .tl-card .go.top{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 92px);z-index:11;width:auto;max-width:528px;margin:0 auto;box-shadow:0 8px 24px color-mix(in srgb,var(--acc) 35%,transparent)}
+html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:calc(176px + env(safe-area-inset-bottom,0px))}
 </style>
 </head>
 <body>
