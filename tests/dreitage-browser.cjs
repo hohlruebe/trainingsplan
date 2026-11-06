@@ -1004,6 +1004,10 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
         o.dev0 = finDev().id;
         o.dev2 = run([mk('2026-10-08', 'Normal', null, { fin: { k: 'easy', dev: finDev().id, min: 10 } }), mk('2026-10-09', 'Normal', null, { fin: { k: 'easy', dev: finDev().id, min: 10 } })], function () { return finDev().id; });
         o.mc = mcEasier(S.tag, { n: 'Burpee', r: '10' }, 0, {});
+        // Vom Coach gestrichene Runden (müde Zone, im Eintrag null) zählen beim Umfang nicht als verfehlt.
+        var uu = ['2026-10-01', '2026-10-03', '2026-10-05', '2026-10-07', '2026-10-09', '2026-10-11'].map(function (d) { return { id: 'u' + d, ts: 1, date: d, durchgang: 5, tag: 1, kind: 'kraft', pv: 2, unit: 'A',
+          kraft: [{ n: 'Ring Dip', stage: 'Normal', reps: [6, 6, null, null], goal: 6, zcut: 'druck' }, { n: 'Ring Row', stage: 'Flacher', reps: [6, 6, 6, 5], goal: 6 }] }; });
+        LOGS = uu; invalidateDerived(); var u0 = S.umfang; S.umfang = { u: 4, ts: 0 }; var g0 = umfGrow(); o.umf = g0 ? g0.u : null; S.umfang = u0; LOGS = L0; invalidateDerived(); FILL.k = null;
         return o;
       }`));
       assert.deepEqual(f.one, [3, 'k', false], 'einmal Form verloren: Stufe bleibt, kein Aufstieg');
@@ -1014,6 +1018,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       assert.match(f.plus[2], /acc:Kraft plus/); assert.doesNotMatch(f.plus[2], /fin:/);
       assert.equal(f.dev0, 'ergo'); assert.equal(f.dev2, 'lauf', 'nach zwei Abschlüssen auf dem Ergometer wird zu Hause gelaufen');
       assert.ok(f.mc && f.mc.t && f.mc.how, 'Metcon: bei Form verloren sagt der Coach, was stattdessen');
+      assert.equal(f.umf, 5, 'gestrichene Runden (Minute frei) bremsen den Umfang nicht');
     }
     console.log('PASS: Form verloren (Stufe bleibt, zweimal leichter, Mobility), Kraft plus ab 50 Min Kardio, Geräte im Wechsel, Metcon leichter');
 

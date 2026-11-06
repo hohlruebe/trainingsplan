@@ -21,7 +21,10 @@ Stand: 6. November 2026 (Form verloren, Kardio-Wochenziel mit Kraft plus, Zirkel
   - Zirkel je Abschnitt in einem zufälligen Durchgang.
 - Frage 2 beim Kardio hatte Dennis nicht verstanden (5. Übung im EMOM oder Zusatzübungen am Ende). Entschieden: Zusatzübungen am Ende (wie „Mehr Zeit“), weil
   EMOM-Länge und Runden dann gleich bleiben. Wenn er lieber eine 5. EMOM-Übung will: `finOf` `plus` → zusätzlicher Kraftplatz statt `acc`.
-- Langzeit-Prüfung: realistischer Athlet erreicht jetzt Umfang 9 statt 11 (Test grün). Vermutlich wegen Kraft plus/Gerätewechsel; beobachten.
+- Langzeit-Prüfung: der realistische Athlet blieb erst bei Umfang 9 statt 11. Ursache (Vergleichsläufe mit einzeln abgeschalteten Änderungen): `umfGrow` zählte
+  Runden, die der Coach selbst gestrichen hatte (müde Zone, „Minute frei“, im Eintrag `null`), als verfehlt. Laufen bzw. Kraft plus statt Gehen machten die Zonen
+  öfter müde, der Anteil auf der Vorgabe lag dann bei 68–69 % statt 70 %. Jetzt zählen gestrichene Runden nicht mit, der Athlet erreicht wieder 11 (gleicher
+  Verlauf wie vor dem PR). Neuer Fall in `dreitage-browser`.
 - Offen: Screenshots zum Freiraum oben/unten im Trainer (kommen von Dennis).
 
 

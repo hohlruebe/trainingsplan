@@ -20,7 +20,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Vorlauf/Wechsel), Stufe 4 = bisheriger Krafttag, Stufe 6 = „Nächste Stufe“ (EMOM 15). Abschluss ohne Kardiogerät (zügig gehen) höchstens 20 Min (`FIN_GEH_MAX`). `umfIdx` deckelt mit dem Zeitlimit (`S.zeitMax`,
   Deine Woche › Zeit pro Training, höchstens 90 Min, 8 Min Reserve für Ausgleich und C); `zeitLv` kürzt mit dem Zeitlimit zusätzlich.
   Kürzeres Aufwärmen (6/4 Min) = weniger Ergometer und Übungen (`warmMin`, `WARMUP` mit `k4`/`t6`). `umfGrow` beim Wochenwechsel:
-  frühestens 14 Tage nach der letzten Änderung, 6 Einheiten in 2 Wochen ohne Kurzversion und im Schnitt 70 % der Runden auf der Vorgabe (`UMF_HIT`;
+  frühestens 14 Tage nach der letzten Änderung, 6 Einheiten in 2 Wochen ohne Kurzversion und im Schnitt 70 % der Runden auf der Vorgabe (`UMF_HIT`; vom Coach
+  gestrichene Runden ohne Wert, z. B. „Minute frei“ bei müder Zone, zählen nicht mit, 6. November;
   Prüfung 2: verlangt war jede Einheit einzeln, so wuchs der Umfang bei echter Leistung nie),
   keine akute Beschwerde, nicht vor Entlastung, Testwoche, Taper, Wiedereinstieg; eine Stufe, Hinweis „Mehr Umfang“ in der Coach-Karte.
   Start (`umfStart`): wer in 8 Wochen 6 Krafteinheiten hatte, Stufe 4 (mit „Nächster Stufe“ 6), sonst nach Erfahrung im Fragebogen.

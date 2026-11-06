@@ -13210,7 +13210,9 @@ function umfGrow() {
   var L = LOGS.filter(function (l) { return l.pv === 2 && l.kind === 'kraft' && l.date >= since && l.date < today; });
   // Gemacht: Einheiten ohne Kurzversion; geschafft: Anteil aller Runden der 2 Wochen auf der Vorgabe (im Schnitt, nicht jede Einheit einzeln).
   var all = 0, got = 0, full = L.filter(function (l) { return !l.kurz && (l.kraft || []).length; });
-  full.forEach(function (l) { (l.kraft || []).forEach(function (k) { if (k.pain && k.pain.skip) return; k.reps.forEach(function (r) { all++; if (r != null && (k.goal == null || r >= k.goal)) got++; }); }); });
+  // Runden ohne Wert hat der Coach selbst gestrichen (müde Zone, „Minute frei“): sie zählen weder als geschafft noch als verfehlt
+  // (6. November: Laufen bzw. Kraft plus statt Gehen machte die Beine öfter müde, der Umfang blieb bei 68 % hängen).
+  full.forEach(function (l) { (l.kraft || []).forEach(function (k) { if (k.pain && k.pain.skip) return; k.reps.forEach(function (r) { if (r == null) return; all++; if (k.goal == null || r >= k.goal) got++; }); }); });
   if (!all || got / all < UMF_HIT) return null;
   if (full.length < 2 * Math.min(3, tageN()) || u >= UMF.length - 1 || umfMin(UMF[u + 1]) + 8 > Math.min(90, S.zeitMax || 90)) return null;
   S.umfang = { u: u + 1, ts: Date.now(), why: 'auf', from: u };
