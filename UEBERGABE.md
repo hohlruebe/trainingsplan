@@ -32,7 +32,7 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
 - Schritt 1 und 2 als PR #163 gemergt. Schritt 3 Trainer (Vergleich https://claude.ai/artifact/H6zgBG2QhdU6ejrqCrrbcQ): Schriftgrößen im Trainer auf Textstile (Zeit bleibt
-  die Anzeige-Zahl, Vorgabe 34, Name 22, Zähler 28, Beschriftungen 15), Liste zeigt Namen wieder in einer Zeile. Wartet auf Dennis' Rückmeldung, noch kein PR.
+  die Anzeige-Zahl, Vorgabe 34, Name 22, Zähler 28, Beschriftungen 15), Liste zeigt Namen wieder in einer Zeile. Timer: Dennis wählte Variante B „Freie Zahl“ (Zeit 76 frei auf der Karte, dünner Balken darunter, keine Kapsel). Noch kein PR.
 - Konzept im Canvas: https://claude.ai/artifact/XgvbrSX2SsJ4cZNLdF5vcZ. Dennis' Antworten: Form „nur ein Knopf“, „Grund fragen“, auch im Metcon („sonst weiß der User
   nicht, was er stattdessen machen soll“); Kardio 60 Min/Woche, „was du als am sinnvollsten erachtest, trotzdem mit Abwechslung“; Zirkel „reicht so“ benannt, „zufällig?“.
 - Umgesetzt (Details in CLAUDE.md):
