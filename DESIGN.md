@@ -37,6 +37,10 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
   Trainer-Kopf und -Fuß).
 - **Abstände und Radien aus einem Raster**: Abstände 4, 8, 12, 16, 20, 24, 32; Seitenrand 16 bzw. 20; Radien: Kapsel (voll rund), Karte,
   Liste innen, klein. Keine Zwischenwerte.
+- **Gleiche Symbole, gleiche Aktion** (Dennis, 6. November): ein Symbol bedeutet überall dasselbe. Pfeil › in einer Listenzeile öffnet ein
+  Blatt von unten (wie „In den Kalender“, `PSH`/`pshOpen`, `glRow`), ▶ (`.gl-play`) startet etwas im Vollbild (Tour, Training), ⌄ klappt
+  an Ort und Stelle auf. Kein › für eine neue Seite oder für Aufklappen. Noch abweichend (Schritt 6/7): Familien in der Bibliothek, 1RM-Zeilen,
+  „Baut auf/Führt zu“ im Profil öffnen Seiten.
 - **Hervorgehoben höchstens ein bis zwei Knöpfe je Ansicht**, Unterschiede über den Stil, nie über die Größe. Knöpfe mit Verb.
 
 ### Entschieden mit Dennis (Schritt 0, 6. November 2026, Vergleich https://claude.ai/artifact/KBuHu6doTBGVrsMKLAQH8i)

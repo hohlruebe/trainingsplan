@@ -984,6 +984,9 @@ eine Anzeige-Zahl je Bildschirm, Farbe mit genau einer Bedeutung, Glas nur für 
 aus den Human Interface Guidelines in `design/apple-hig.md`. Was den bisherigen Regeln hier widerspricht, steht dort unter „Entschieden mit Dennis“ (Schritt 0) bzw. „Noch offen“
 und wird mit Dennis Bildschirm für Bildschirm entschieden.
 
+Gleiche Symbole, gleiche Aktion (Dennis, 6. November): › in einer Zeile = Blatt von unten (`PSH`, `pshOpen`; auch Einstellungen › Vibration `haptik`
+und › Arbeitszeiten `woche`), ▶ (`.gl-play`) = startet im Vollbild (Tour in den Häufigen Fragen), ⌄ = klappt auf. Details in `DESIGN.md` › Systemregeln.
+
 ## Kapsel-Konzept (gilt für alles Neue)
 Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine:
 1. Umschalter (eine Wahl aus wenigen): Glas-Kapsel `.seg` mit `.seg-btn`, Wahl als weiße Pille (`--pill`, Text `--acc`).

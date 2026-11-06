@@ -1527,6 +1527,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
 .psh>.rbtn.back,.psh>.hero{display:none}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
+.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
@@ -5933,7 +5934,8 @@ var FAQ = [
   ['Welches Band nehme ich?', 'Das Band gibt dein Coach vor. Je dicker das Band, desto mehr hilft es. Die Farben stellst du unter Tools › Bibliothek › Bänder ein.']
 ];
 function faqHTML() {
-  return '<p class="kicker muted gl-group">Häufige Fragen</p><section class="card gl-card faq">' + glRow('data-act="tour"', 'So funktioniert die App', 'Kurze Tour und als App speichern') +
+  // Gleiche Symbole, gleiche Aktion (Dennis, 6. November): › öffnet ein Blatt von unten; die Tour läuft im Vollbild, darum ▶ wie bei den Mobility-Abläufen.
+  return '<p class="kicker muted gl-group">Häufige Fragen</p><section class="card gl-card faq">' + glRow('data-act="tour"', 'So funktioniert die App', 'Kurze Tour und als App speichern').replace(/<svg class="gl-chev"[\s\S]*?<\/svg>/, '<span class="gl-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>') +
     FAQ.map(function (q, i) {
       return glRow('data-act="faq" data-i="' + i + '"', q[0], '', '');
     }).join('') + '</section>';
@@ -5968,7 +5970,7 @@ function moreHTML() {
     return [f.id, '<span class="f-smp" style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">12</span> ' + esc(f.label)];
   }), S.font, 'font');
   h += countdownHTML();
-  h += '<h3 style="margin-top:16px">Haptik</h3>' + valRows([valRow('Vibration', S.haptik === false ? 'Aus' : 'An', 'data-act="tab" data-tab="haptik"')]);
+  h += '<h3 style="margin-top:16px">Haptik</h3>' + valRows([valRow('Vibration', S.haptik === false ? 'Aus' : 'An', 'data-act="psh" data-k="haptik"')]);
   h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
     '<label class="check"><input type="checkbox" data-change="swipeRev"' + (S.swipeRev ? ' checked' : '') + '> Wischen umkehren</label>';
   // Schalter wie bei Apple (aus grau), auf Wunsch farbig mit Zeichen (Dennis, Schritt 0: „das Rot ist auch bei Apple in den Bedienungshilfen“).
@@ -5989,7 +5991,7 @@ function settingsHTML() {
     // Dennis, 6. November: der Einstiegstest stand bisher unter Plan › Wissen, das es nicht mehr gibt.
     '<p class="small muted" style="margin-top:8px">„Einstiegstest neu“ startet mit Testtag 1 und misst deine Startstufen neu, deine Einträge bleiben.</p>';
   if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
-  var AL = alltag(), alltagRow = valRows([valRow('Arbeitszeiten', '<span class="txt">' + (AL.schicht === true ? 'Schichtarbeit' : AL.schicht === false ? 'Geregelte Zeiten' : 'Eintragen') + '</span>', 'data-act="wk-open" data-from="einst"', { sub: 'Schlaf, Arbeit, gesperrte Zeiten' })]);
+  var AL = alltag(), alltagRow = valRows([valRow('Arbeitszeiten', '<span class="txt">' + (AL.schicht === true ? 'Schichtarbeit' : AL.schicht === false ? 'Geregelte Zeiten' : 'Eintragen') + '</span>', 'data-act="psh" data-k="woche"', { sub: 'Schlaf, Arbeit, gesperrte Zeiten' })]);
   return lookHTML() + '<section class="card"><h2>Alltag</h2>' + alltagRow + '</section>' + sec('Sync über GitHub', syncHTML()) + sec('Mehr', moreHTML()) + sec('Daten', h);
 }
 // Countdown: Piepen oder Stimme, Sprache, je Anlass an/aus. Bleibt auf dem Gerät.
@@ -9385,11 +9387,12 @@ function planWeekV2HTML() {
 var PSH = {
   woche: ['Arbeitszeiten', function () { return renderWoche(); }],
   zusatz: ['Zusätzlich', function () { return renderZusatz(); }],
+  haptik: ['Haptik', function () { return renderHaptik(); }],
   body: ['Belastung und Erholung', function () { var m = ui.pwMon || wkMon(); return loadCardHTML(m) + (m === wkMon() ? zoneCardHTML() : ''); }]
 };
 function pshOpen(k) {
   if (!PSH[k]) return;
-  if (k === 'woche') { ui.wocheBack = 'plan'; ui.wkNext = ui.wkNext || false; }
+  if (k === 'woche') { ui.wocheBack = ui.tab; ui.wkNext = ui.wkNext || false; }
   if (k === 'zusatz') { ui.zsBack = 'plan'; }
   ui.psh = k; ui.pshTab = ui.tab;
   openForm(PSH[k][0], '<div class="psh">' + PSH[k][1]() + '</div>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
