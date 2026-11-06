@@ -164,7 +164,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
 - Schritt 5 Plan (Dennis, 6. November, Vergleich https://claude.ai/artifact/NxpjeFESeWnMPBEP8tcjQu): Plan › Deine Woche in Variante V2 (`planWeekV2HTML`):
-  „x von N erledigt“, Durchgang, Satz, Blättern und Wochenleiste frei oben (`.pw-top`), die Karte `.card.pw` zeigt nur die gewählte Einheit mit Ablauf,
+  „x von N erledigt“, Durchgang, Blättern und Wochenleiste frei oben (ohne Satz „Noch dran: …“, Dennis: „darunter sieht man ja direkt, was noch dran ist“) (`.pw-top`), die Karte `.card.pw` zeigt nur die gewählte Einheit mit Ablauf,
   darunter „Diese Woche“ als Liste mit Pfeil (`.pw-list`, `glRow`): Belastung und Erholung (`bodyWeekRow`, aufgeklappt folgen die Karten), Zusatz (`zusatzRow`),
   In den Kalender, Arbeitszeiten, Trainingstage (`tage-open`). „Warum 17:00?“ ist weg (Dennis: „der User kann es immer vorziehen“). Wissen ist weg (Dennis: „wer liest
   sich das schon durch?“), statt dessen „Häufige Fragen“ (`FAQ`, `faqHTML`, `ACT.faq`, `ui.faq`, aufklappend, oben „So funktioniert die App“). Schwerpunkt und Ziele

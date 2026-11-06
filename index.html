@@ -9351,14 +9351,13 @@ function planWeekV2HTML() {
   var mon = ui.pwMon || wkMon(), W = wkCells(mon), cm = wkMon(), sel = ui.pwSel && wkMon(ui.pwSel) === mon ? ui.pwSel : mon === cm ? isoToday() : wkPick(mon);
   var c = W.cells.filter(function (x) { return x.date === sel; })[0], ph = phaseAt(Math.max(1, Math.min(blockN(), wkDg(mon) - (S.blockStart || 1) + 1)));
   var done = W.cells.filter(function (x) { return x.logs.some(function (l) { return trainingLog(l) && (l.pv !== 2 || UNIT[l.tag]); }); }).length;
-  // Immer gegen das Wochenziel zählen (wie Kette und Profil), darunter, was diese Woche noch dran ist (Impeccable-Kritik Plan, P1).
-  var N = tageN(), nx = W.cells.filter(function (x) { return x.tag && x.date >= isoToday(); }), nxs = nx.map(function (x) { return unitL(x.tag) + ' ' + (x.today ? 'heute' : WTAG[x.i].slice(0, 2)) + (x.pd && x.pd.t != null ? ' ' + hm(x.pd.t - 24 * x.i) : ''); }).join(', ');
+  // Immer gegen das Wochenziel zählen (wie Kette und Profil). Der Satz „Noch dran: …“ ist weg (Dennis, 6. November: die Leiste zeigt es direkt darunter).
+  var N = tageN(), nx = W.cells.filter(function (x) { return x.tag && x.date >= isoToday(); });
   var head = mon > cm ? nx.length + ' von ' + N + ' geplant' : done + ' von ' + N + ' erledigt';
-  var line = mon !== cm ? '' : done >= N ? 'Woche geschafft.' : !nx.length ? 'Diese Woche ist nichts mehr geplant.' : (done + nx.length < N ? 'Diese Woche geht noch ' + nx.length + ': ' : 'Noch dran: ') + nxs + '.';
   // Design-Regeln (Dennis, 5. November): Ziel der Woche groß, Durchgang klein darunter.
   // Schritt 5 (Dennis, 6. November, Variante V2): Ziel, Blättern und Leiste stehen frei oben wie auf Heute, die Karte zeigt nur die Einheit,
   // alles andere zur Woche ist eine Liste mit Pfeil wie in den iPhone-Einstellungen.
-  var h = '<div class="pw-top"><div class="pw-hd"><h2>' + head + '</h2><span class="small muted">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + (line ? '<p class="pw-line">' + esc(line) + '</p>' : '') + wkStripHTML(W, sel, 'pw') + '</div><section class="card pw">';
+  var h = '<div class="pw-top"><div class="pw-hd"><h2>' + head + '</h2><span class="small muted">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + wkStripHTML(W, sel, 'pw') + '</div><section class="card pw">';
   if (c.logs.length) h += c.logs.map(function (l) { return '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(logTitle(l)) + '</b><small>' + esc(fmtDate(l.date)) + ' · erledigt</small></span><span class="vr-v">' + TICK + '</span></div></div>' + logLines(l); }).join('');
   else if (c.tag) {
     var U = wkUnitPreview(c, mon), F = planPreview(wkDg(mon), function () { return finOf(c.tag, 0); });
