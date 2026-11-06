@@ -24,6 +24,8 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 - Schritt 0 entschieden (Vergleich https://claude.ai/artifact/KBuHu6doTBGVrsMKLAQH8i): Schalter grau/grün mit Einstellung „Farbige Schalter“, alle Reiter beschriftet,
   Glas nur für Steuerung, Aussehen Variante C (folgt dem Handy, keine Paletten), Reiter Heute | Plan | Tools | Profil. Steht in `DESIGN.md` › „Entschieden mit Dennis“.
   Dennis: PR erst am Ende jedes Schritts, wenn er es sagt; jeder Schritt erst im Vergleich zeigen.
+- Schritt 1 Fundament (Vergleich https://claude.ai/artifact/2478AiQNqFKHbLGDWeMGxP): Textstile, Radien, Abstandsraster als Variablen im dritten Style-Block (ohne Trainer),
+  `applyTheme` mit fester Farbe und Hell/Dunkel vom Handy (`isDark` nur noch System), Einstellungen › Karte „Textgröße“ statt „Aussehen“. Wartet auf Dennis' Rückmeldung, noch kein PR.
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
