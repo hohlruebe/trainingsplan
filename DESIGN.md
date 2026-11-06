@@ -6,7 +6,7 @@ Handy zuerst (390 px). Kurzfassung der Regeln steht auch in `CLAUDE.md`.
 ## Prinzipien nach Apple (Grundlage, seit 6. November 2026)
 Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit allem, worauf sie verweist; Auszüge und Tabellen in
 `design/apple-hig.md`. Diese Prinzipien stehen über allen anderen Regeln dieser Datei. Was ihnen widerspricht, steht unten unter
-„Offen für die Durchsicht“ und wird mit Dennis entschieden, nicht still geändert.
+„Entschieden mit Dennis“ bzw. „Noch offen“ und wird mit Dennis entschieden, nicht still geändert.
 
 1. **Zweck**: Jede Seite hat eine Aufgabe, jede Funktion muss ihren Platz verdienen. Was der Coach selbst entscheiden kann, fragt die App nicht.
    Im Training zählt nur, was jetzt dran ist (Apple „Workouts“).
@@ -39,12 +39,18 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
   Liste innen, klein. Keine Zwischenwerte.
 - **Hervorgehoben höchstens ein bis zwei Knöpfe je Ansicht**, Unterschiede über den Stil, nie über die Größe. Knöpfe mit Verb.
 
-### Offen für die Durchsicht (widerspricht Apple, Entscheidung mit Dennis)
-- Schalter: aus = rot mit Kreis (unsere Regel) – bei Apple aus = grau, an = grün.
-- Tab-Leiste: nur der aktive Reiter zeigt seinen Namen – bei Apple hat jeder Tab immer seine Beschriftung.
-- Glas-Kapseln im Inhalt (`.seg`, `.btn`, `.vrows`) – bei Apple ist Glas der Steuerung vorbehalten.
-- Eigene Einstellung Hell/System/Dunkel und Farbpaletten – Apple rät von eigenen Darstellungs-Einstellungen ab.
-- Versteckte Seiten (Plan hinter dem (i)-Knopf, Einstellungen hinter dem Regler) – Apple: Bereiche sichtbar und vorhersehbar erreichbar.
+### Entschieden mit Dennis (Schritt 0, 6. November 2026, Vergleich https://claude.ai/artifact/KBuHu6doTBGVrsMKLAQH8i)
+- **Schalter**: Standard wie Apple, aus grau, an grün, runder Knopf (51 × 31). Einstellung „Farbige Schalter“ holt den alten Stil zurück
+  (aus rot mit Kreis, an grün mit Strich; Dennis: „das Rot ist auch bei Apple in den Bedienungshilfen“, Apple: Ein/Aus-Beschriftungen).
+- **Reiterleiste**: jeder Reiter immer mit Namen (Symbol, darunter ein Wort), die Leiste ändert beim Wechseln ihre Breite nicht.
+- **Glas**: nur für schwebende Steuerung (Reiterleiste, Kopfleisten, Steuerung im Trainer). Im Inhalt feste Flächen (leicht graue Füllung,
+  kein Schatten, keine Unschärfe): Umschalter, Wochenleiste, Nebenknöpfe, runde Knöpfe, Wert-Zeilen.
+- **Aussehen** (Variante C): Hell/Dunkel folgt immer dem Handy, keine Wahl Hell | System | Dunkel mehr, keine Farbpaletten mehr, eine feste
+  Akzentfarbe. Die Textgröße bleibt (im Browser gibt es kein Dynamic Type). Gespeichertes `S.theme`, `S.palette`, `S.color`, `S.paper` bleibt in `DEF`, wird nicht mehr benutzt.
+- **Reiter wie bei Apple**: Heute, Plan, Tools, Profil (Wichtigstes links). „Coach“ heißt „Heute“, der Plan ist ein eigener Reiter statt hinter
+  dem (i). Einstellungen bleiben hinter dem Regler im Profil (wie Apple Fitness).
+
+### Noch offen (Schritt 1 und folgende)
 - Schriftgrößen: heute 59 verschiedene, am häufigsten 14 px (Apple: Text 17). Eckenradien: 38 verschiedene.
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).

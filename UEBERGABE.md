@@ -21,6 +21,9 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
   2. Bausteine: Knöpfe, Umschalter, Schalter, Listen/Wert-Zeilen, Blätter (Abbrechen | Fertig, Griff), Reiterleiste, Chips, Zähler.
   3. Trainer (eine Anzeige-Zahl, Vorgabe/Übung/Zähler in Textstilen, Kopf und Fuß). 4. Heute. 5. Plan. 6. Tools (Timer, Bibliothek, Körper, Mobility, 1RM). 7. Profil. 8. Einstellungen, Fragebogen, Momente.
   Code ist noch nicht geändert.
+- Schritt 0 entschieden (Vergleich https://claude.ai/artifact/KBuHu6doTBGVrsMKLAQH8i): Schalter grau/grün mit Einstellung „Farbige Schalter“, alle Reiter beschriftet,
+  Glas nur für Steuerung, Aussehen Variante C (folgt dem Handy, keine Paletten), Reiter Heute | Plan | Tools | Profil. Steht in `DESIGN.md` › „Entschieden mit Dennis“.
+  Dennis: PR erst am Ende jedes Schritts, wenn er es sagt; jeder Schritt erst im Vergleich zeigen.
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
