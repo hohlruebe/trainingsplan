@@ -323,7 +323,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Zusatztag: Vorschlag mit Grund, Dauer, planen, Z in der Wochenleiste, zählt nicht ins Wochenziel.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
     await page.evaluate(() => window.tpTest.navigate('plan'));
-    await page.getByRole('button', { name: 'Vorschlag ansehen', exact: true }).click();
+    // Schritt 5: der Vorschlag ist eine Zeile der Wochen-Liste in Plan.
+    await page.locator('.pw-list [data-act="zs-open"]', { hasText: 'Zusätzlich' }).click();
     await page.getByRole('button', { name: '45 Min', exact: true }).click();
     await page.getByRole('button', { name: 'Einheit planen', exact: true }).click();
     const z = await page.evaluate(() => window.tpTest.state().zusatz);
@@ -538,6 +539,10 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(kbSt('eq_kb_verstellbar'), { durchgang: 5, tag: 3, planWk: '2026-10-19' }), spLogs]);
     const ohne = await page.evaluate(() => window.tpTest.fill());
     assert.equal(ohne.kraft[3][2].n, 'Deadlift', 'ohne Schwerpunkt bleibt der Deadlift');
+    // Schwerpunkt und Ziele sind vorläufig aus (Dennis, 6. November): gespeichert wirkt „kb“ nicht. Die Logik bleibt für später geprüft.
+    await page.evaluate(() => { window.tpTest.state().schwerpunkt = 'kb'; });
+    assert.equal(await page.evaluate(() => window.tpTest.fill()).then(f => f.kraft[3][2].n), 'Deadlift', 'Schwerpunkt aus: gespeichertes „kb“ wirkt nicht');
+    await page.evaluate(() => { window.tpTest.state().schwerpunkt = null; window.TP_GOALS_ON = true; });
     await page.evaluate(() => window.tpTest.navigate('fokus'));
     await page.locator('button.card.fk[data-act="sp-set"]', { hasText: 'Kettlebell' }).click();
     assert.equal(await page.locator('button.card.fk.on').innerText().then(x => /Kettlebell[\s\S]*Aktiv/.test(x)), true, 'gewählte Karte mit „Aktiv“');
@@ -552,6 +557,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('main').innerText(), /fehlt die Kettlebell, dort trainierst du wie sonst/);
     await page.locator('button.card.fk[data-act="sp-set"]', { hasText: 'Keiner' }).click();
     assert.equal(await page.evaluate(() => window.tpTest.state().schwerpunkt), null);
+    await page.evaluate(() => { window.TP_GOALS_ON = false; });
     console.log('PASS: Schwerpunkt Kettlebell: Einstellung, Swing im Kraftteil, Kettlebell-Metcon, Hinweis ohne Kettlebell');
 
     // Leistung als Signal (Paket 58): zweimal hintereinander Vorgabe verfehlt → die nächste Einheit ist kürzer, mit Rückweg.
@@ -684,9 +690,11 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [tst(null), logs()]);
     // Dennis, 25. Oktober: Trainingstage stehen in Plan & Challenges (Allround läuft im Hintergrund), nicht mehr in Deine Woche.
     await page.evaluate(() => window.tpTest.navigate('plan'));
-    assert.equal(await page.locator('[data-act="tage-open"]').count(), 0, 'keine Trainingstage in Deine Woche');
-    // Impeccable-Kritik Plan (26. Oktober): „Dein Ziel“ als Wert-Zeile unter der Woche, Antippen öffnet Plan & Challenges.
-    assert.match(await page.locator('#view [data-act="fk-open"]').innerText(), /Einfach trainieren[\s\S]*3 Tage/, 'Zeile „Dein Ziel“');
+    // Schritt 5 (Dennis, 6. November): Trainingstage als Zeile der Wochen-Liste, kein „Dein Ziel“ mehr, kein „Warum 17:00?“, Wissen als häufige Fragen.
+    assert.match(await page.locator('.pw-list [data-act="tage-open"]').innerText(), /Trainingstage[\s\S]*3 pro Woche/);
+    assert.equal(await page.locator('#view [data-act="fk-open"], #view [data-act="pw-why"], #view [data-act="plan-sec"]').count(), 0, 'kein Ziel, kein Warum, keine Wissens-Seiten');
+    await page.locator('.faq [data-act="faq"]').first().click();
+    assert.match(await page.locator('.faq .faq-a').innerText(), /Arbeit, Schlaf/, 'Frage klappt auf');
     await page.evaluate(() => window.tpTest.navigate('fokus'));
     assert.equal(await page.locator('#view .card.fk:not([data-act])').count(), 0, 'keine Allround-Karte mehr');
     // Dennis: der Regler änderte sich aus Versehen. Jetzt Wert-Zeile → Blatt → „Übernehmen“; Abbrechen ändert nichts. Gilt für alle Wochen.
@@ -704,7 +712,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await tgRow.innerText(), /5 Tage/);
     await page.evaluate(() => window.tpTest.navigate('plan'));
     await page.locator('#view [aria-label="Nächste Woche"]').first().click();
-    assert.equal(await page.locator('#view .pw .wkst .wd .wd-u').allInnerTexts().then(x => x.filter(t => t !== 'Frei').length), 5, 'nächste Woche mit 5 Einheiten');
+    assert.equal(await page.locator('#view .pw-top .wkst .wd .wd-u').allInnerTexts().then(x => x.filter(t => t !== 'Frei').length), 5, 'nächste Woche mit 5 Einheiten');
     await page.locator('#view [aria-label="Woche davor"]').first().click();
     assert.ok(await page.getByRole('heading', { name: '0 von 5 erledigt' }).isVisible(), 'Wochenziel zählt bis 5');
     assert.equal(await page.evaluate(() => window.tpTest.plan().days.map(d => d.tag || '-').join('')), '1-345-6', 'Mo Push, Mi Pull, Do Beine, Fr Ober, So Unter');
@@ -725,7 +733,10 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.clock.setFixedTime(new Date('2026-10-12T17:05:00+02:00'));
     const bst = (dg, x) => Object.assign(old(), { durchgang: dg, planV: 2, tag: 1, umfang: { u: 4, ts: 0 }, planWk: '2026-10-12', planStart: { date: '2026-09-28', week: '2026-09-28', tag: 1, mode: 'week' }, planAsk: '2026-10-12' }, x || {});
     const blkOf = async (dg, x) => { await page.evaluate(a => window.tpTest.set(a[0], a[1]), [bst(dg, x), logs()]); return { k: await page.locator('.kicker').first().innerText(), st: await page.evaluate(() => window.tpTest.steps().map(s => [s.id, s.dur, s.title])) }; };
-    const b2 = await blkOf(2), b10 = await blkOf(10), bE = await blkOf(10, { challenge: { id: 'k10', date: '2027-02-14', start: '2026-09-28', dg: 1 } });
+    const b2 = await blkOf(2), b10 = await blkOf(10);
+    await page.evaluate(() => { window.TP_GOALS_ON = true; });
+    const bE = await blkOf(10, { challenge: { id: 'k10', date: '2027-02-14', start: '2026-09-28', dg: 1 } });
+    await page.evaluate(() => { window.TP_GOALS_ON = false; });
     assert.match(b2.k, / · Aufbau$/); assert.match(b10.k, / · Spitze$/); assert.match(bE.k, / · Erhalt$/, 'Lauf-Challenge: Kraft im Erhalt');
     const krD = b => b.st.filter(s => s[0] === 'kraft')[0][1];
     assert.ok(krD(b10) < krD(b2), 'Spitze: eine Runde weniger');

@@ -97,12 +97,12 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
     await page.reload();
     await page.waitForTimeout(900);
     assert.equal(await page.getByRole('dialog').count(), 0, 'angemeldet und Tour gesehen: kein Fenster mehr');
-    // Später über Plan › Wissen.
+    // Später über Plan › Häufige Fragen.
     await page.locator('.tab[data-group="plan"]').first().click();
     await page.getByRole('button', { name: /So funktioniert die App/ }).click();
     assert.equal(await page.locator('#tr-t').innerText(), 'Dein Coach plant für dich');
     await page.locator('#tour .tr-skip').click();
-    console.log('PASS: Tour erneut über Plan › Wissen › „So funktioniert die App“');
+    console.log('PASS: Tour erneut über Plan › Häufige Fragen › „So funktioniert die App“');
     assert.equal(errors.length, 0, errors.join('\n'));
     console.log('PASS: nach dem Neuladen kein Anmeldefenster, keine JavaScript-Fehler');
 

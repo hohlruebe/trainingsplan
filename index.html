@@ -1516,6 +1516,15 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:16px}
 /* „Training starten“ schwebt unten über der Reiterleiste (Dennis: „Start unten sieht sehr gut aus“), nur am Handy auf Heute */
 html:not(.desk) body:not(.focus) #view[data-tab="heute"] .tl-card .go.top{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(max(env(safe-area-inset-bottom,0px),12px) + 92px);z-index:11;width:auto;max-width:528px;margin:0 auto;box-shadow:0 8px 24px color-mix(in srgb,var(--acc) 35%,transparent)}
 html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:calc(176px + env(safe-area-inset-bottom,0px))}
+
+/* Schritt 5 Plan (Dennis, 6. November, Variante V2): Woche frei oben, Karte nur mit der Einheit, Rest als Liste wie in den iPhone-Einstellungen */
+.gl-group{font-size:var(--fs-sub);font-weight:400;margin:28px 4px 8px}
+.hero+.gl-group{margin-top:4px}
+.pw-top{margin:0 4px 16px}.pw-top .pw-hd h2{font-size:var(--fs-t2)}.pw-top .pw-line{margin:6px 0 0}.pw-top .pills.wkst{margin:12px -4px 0}
+.card.pw .vrows{background:none;padding:0;margin:0 0 4px}
+.gl-row .gl-v{flex:none;max-width:45%;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pw-list .gl-t b,.faq .gl-t b{font-weight:400}
+.faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 </style>
 </head>
 <body>
@@ -5065,17 +5074,16 @@ function loadWeek(mon) {
   return { days: days, act: act, planDone: planDone, planAll: planAll, rated: rated };
 }
 // Belastung und Erholung als eine Zeile (Dennis, 26. Oktober): offen nur bei einem Signal (deutlich über Plan, müde Zone) oder auf Tippen.
-function bodyWeekHTML(mon) {
+// Belastung und Erholung als Zeile der Wochen-Liste (Schritt 5), aufgeklappt folgen die Karten Belastung und Erholung darunter.
+function bodyWeekRow(mon) {
   var cm = wkMon(), ld = loadCardHTML(mon), zc = mon === cm ? zoneCardHTML() : '';
-  if (!ld && !zc) return '';
+  if (!ld && !zc) return null;
   var L = loadWeek(mon), over = L.rated && L.planDone && L.act > L.planDone * LOAD_OVER, Z = zc ? zoneState() : {};
   var mu = Object.keys(Z).filter(function (z) { return Z[z].st === 'muede'; }).map(function (z) { return ZONE_N[z]; });
   var sig = over || mu.length, open = ui.ldOpen != null ? ui.ldOpen : !!sig;
   var val = over ? 'Mehr als geplant' : mu.length ? mu.join(', ') + ' müde' : 'Im Rahmen';
   var sub = [ld ? (L.rated ? (over ? 'Härter als geplant' : 'Wie geplant') : 'Noch nicht eingeschätzt') : '', zc ? (mu.length ? 'Erholung läuft' : 'alles erholt') : ''].filter(Boolean).join(' · ');
-  return '<section class="card ldz"><button type="button" class="ldz-row" data-act="ld-open" aria-expanded="' + open + '"><span class="gl-t"><b>Belastung und Erholung</b><small>' + esc(sub) + '</small></span>' +
-    '<span class="ldz-v' + (sig ? ' sig' : '') + '">' + esc(val) + '</span><svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (open ? 'M6 9l6 6 6-6' : 'M9 6l6 6-6 6') + '"/></svg></button></section>' +
-    (open ? ld + zc : '');
+  return { row: glRow('data-act="ld-open" aria-expanded="' + open + '"' + (sig ? ' data-sig="1"' : ''), 'Belastung und Erholung', sub, val, open), open: open ? ld + zc : '' };
 }
 function loadCardHTML(mon) {
   var L = loadWeek(mon), max = 0;
@@ -5908,104 +5916,31 @@ function grundHTML() {
 var PLAN_SUB = { 'Regeln': 'Woche, Ruhetage, Kurzversion', 'Methode': 'Calisthenics, CrossFit, RIR und Atmung', 'Grundmuster': 'Squat, Hinge, Push, Pull, Carry', 'Steigerung': 'Wann es mehr Wdh. oder die nächste Stufe gibt',
   'Bänder': 'Welche Farbe wie viel hilft', 'Nach einer Pause': 'Was nach Krankheit oder Urlaub gilt', 'Test-Durchgang': 'Wann und wie getestet wird',
   'Einstiegstest': 'Deine Startstufen', 'Skill-Ziele': 'Skill-Block, Freischalten und dein Stand' };
+// Schritt 5 (Dennis, 6. November): statt der Wissens-Seiten kurze häufige Fragen („wer liest sich das schon durch? FAQ reicht“),
+// Schwerpunkt und Ziele sind vorläufig aus (goalsOff()), die Trainingstage stehen in der Wochen-Liste.
+var FAQ = [
+  ['Wie plant der Coach meine Woche?', 'Er legt deine Einheiten um Arbeit, Schlaf und müde Muskeln, höchstens zwei harte Tage hintereinander. Passt dir ein Termin nicht, verschiebst du ihn über „Heute anpassen“ oder ziehst ihn an einem freien Tag vor.'],
+  ['Was passiert, wenn ich ein Training verpasse?', 'Dein Coach legt die Einheit auf einen freien Tag dieser Woche. Geht keiner mehr, fällt sie weg, ohne Nachholen. Ab zwei Einheiten in der Woche geht es am Montag in den nächsten Durchgang.'],
+  ['Wann komme ich auf die nächste Stufe?', 'Wenn du zweimal hintereinander in allen Runden das obere Ende der Spanne schaffst und deine Sehnen genug Zeit auf der Stufe hatten, je nach Übung 2 bis 6 Wochen. Bis dahin steigen die Wiederholungen.'],
+  ['Wie hart soll ein Satz sein?', 'Zwei Wiederholungen sollten am Ende noch gehen. Nur in der Testwoche gehst du in der ersten Runde bis ans Limit.'],
+  ['Was sind Entlastung und Testwoche?', 'Ein Block hat 12 Durchgänge: 1 bis 3 Aufbau, 5 bis 7 Kraft, 9 bis 11 Spitze. Durchgang 4 und 8 sind leichter, damit du frisch bleibst. In Durchgang 12 wird getestet.'],
+  ['Ich habe wenig Zeit oder fühle mich nicht gut.', 'Tippe auf Heute auf „Heute anpassen“. Dein Coach kürzt die Einheit, das gilt nur für heute. Auch 15 Minuten zählen für deine Woche.'],
+  ['Was mache ich bei Schmerzen?', 'Tippe im Training auf die rote Fahne. Je nach Stärke wird die Übung leichter oder ersetzt. Bleibt eine Stelle länger als zwei Wochen, lass sie abklären.'],
+  ['Was gilt nach einer Pause?', 'Ab 8 Tagen Pause sind die nächsten Einheiten kürzer, ab 15 Tagen schätzt du kurz ein, wie fit du bist. Ab 4 Wochen ist der ganze Durchgang leichter.'],
+  ['Welches Band nehme ich?', 'Das Band gibt dein Coach vor. Je dicker das Band, desto mehr hilft es. Die Farben stellst du unter Tools › Bibliothek › Bänder ein.']
+];
+function faqHTML() {
+  return '<p class="kicker muted gl-group">Häufige Fragen</p><section class="card gl-card faq">' + glRow('data-act="tour"', 'So funktioniert die App', 'Kurze Tour und als App speichern') +
+    FAQ.map(function (q, i) {
+      var on = ui.faq === i;
+      return glRow('data-act="faq" data-i="' + i + '" aria-expanded="' + on + '"', q[0], '', '', on).replace('</button></div>', '</button>' + (on ? '<p class="faq-a">' + esc(q[1]) + '</p>' : '') + '</div>');
+    }).join('') + '</section>';
+}
 function renderPlan() {
-  var K = [], sec = function (title, body) { K.push({ t: title, b: body }); return ''; };
-  var h = '', F = fokus(), ph = curPhase();
-  // Wissen: je Seite nummerierte Schritte, dazu Tabelle oder Knopf, Tipps als eigene Karte.
-  var W = function (steps, extra, tips, pre) {
-    return '<section class="card">' + (pre ? '<div style="margin-bottom:16px">' + pre + '</div>' : '') + tlHTML(steps.map(function (x) { return { title: x[0], desc: x[1] }; })) + (extra || '') + '</section>' + tipsHTML(tips || []);
-  };
-  var tbl = function (head, rows) {
-    return '<div class="tbl-wrap" style="margin-top:12px"><table>' + (head ? '<thead><tr>' + head.map(function (x) { return '<th>' + x + '</th>'; }).join('') + '</tr></thead>' : '') + '<tbody>' + rows.map(function (r) { return '<tr>' + r.map(function (x) { return '<td>' + x + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
-  };
-  h += sec('Regeln', W((v2() ? [
-    [tageN() + ' Trainingstage pro Woche', (TAGE_TXT[tageN()] || '') + ' Jede Einheit mit Kraft und einem Kardio-Abschluss. Einstellen unter Plan & Challenges › Trainingstage. Die Woche beginnt am Montag.'],
-    ['Der Coach plant die Tage', 'Er legt die Einheiten um Arbeit, Schlaf und müde Muskeln, höchstens zwei harte Tage hintereinander (im Split drei, jeder Tag eine andere Zone). Passen nicht alle, fällt zuerst die letzte Einheit der Woche weg.'],
-    ['Durchgang', 'Ab 2 Einheiten in einer Woche geht es am Montag in den nächsten Durchgang, sonst wiederholt dein Coach die Woche.']
-  ] : [
-    ['Tag für Tag', '1 bis 7, dann wieder Tag 1. Egal, auf welchen Wochentag ein Tag fällt.'],
-    ['Ruhetage zählen mit', 'Nie überspringen. Ein ungeplant freier Tag zählt nur, wenn ohnehin ein Ruhetag dran ist.']]).concat([
-    ['Ringe bleiben hängen', 'Innerhalb eines Blocks nie umhängen, zwischen den Blöcken schon.'],
-    v2() ? ['Kurzversion, wenn es nötig ist', 'Nach einem Nachtdienst, bei „Platt“ am Morgen oder wenn die letzten Einheiten schwer fielen, kürzt dein Coach von selbst: Kraft 3 Runden, der Abschluss kürzer und locker. Selbst geht es über Heute anpassen › „Mir geht’s heute nicht gut“.'] : ['Kurzversion bei Bedarf', 'Nachtschicht, schlechter Schlaf, starker Muskelkater: Kraft 3 Runden, Metcon 5 Min, Intervalle werden locker.'],
-    v2() ? ['Festgefahren?', 'Bleibt eine Übung dreimal hängen, wechselt dein Coach die Variante. Du musst nichts umstellen.'] : ['Festgefahren?', '3 Durchgänge ohne Steigerung oder dauerhaft platt: ein Durchgang Kurzversion.']
-  ]), '', ['Fällt ein Lauf aus, nimm das Ergometer.', 'Letzte Stufe geschafft: Weste an, klein anfangen (z. B. 5 kg). Sprünge nie mit Weste.']));
-  h += sec('Methode', W([
-    ['Kraft zuerst', 'Pull-up, Push-up und Dip sind der rote Faden: 3–6 Wdh. mit 2 in Reserve (nach Städele).'],
-    v2() ? ['Ein Skill in jeder Einheit', 'Zuerst der Handstand. Sind weitere Skills freigeschaltet, wechseln sie sich ab: ungerade Durchgänge Handstand, gerade ein anderer Skill. Kurze Sätze mit Reserve, vor jedem Satz Stack-Atmung.'] : ['Handstand in jeder Einheit', 'Kurze Sätze mit Reserve, vor jedem Satz Stack-Atmung.'],
-    v2() ? ['Kardio zum Schluss', 'Jede Einheit endet mit Kardio: locker, gleichmäßig oder kurze Intervalle. Bei B im Wechsel ein Metcon als AMRAP (CrossFit).'] : ['Metcon für die Kondition', 'AMRAP mit einfachen Übungen. Das Ergebnis sind Runden und Wdh. (CrossFit).'],
-    ['Qualität vor Tempo', 'Bricht die Technik ein: kurz pausieren statt schlampig weiter.']
-  ], '<p class="sec-k" style="margin-top:14px">Wie hart?</p>' + tbl(null, [['<b>RIR 3–4</b>', 'Einstieg, Kurzversion, Entlastung'], ['<b>RIR 2</b>', 'normaler Kraftsatz'], ['<b>RIR 0</b>', 'Maxout in der Testwoche'], ['<b>SIR 2</b>', 'Handstand, Hollow Body Hold']]) +
-    '<p class="small muted" style="margin-top:8px">RIR = Wiederholungen in Reserve, SIR = Sekunden in Reserve.</p>',
-    ['<b>Stack-Atmung:</b> Brustkorb über das Becken, 5 s ausatmen, durch die Nase einatmen und rundum weiten. Schritt für Schritt: ' + gl('Stack Breathing') + '.']));
-  h += sec('Grundmuster', grundHTML());
-  h += sec('Steigerung', W([
-    ['Vorgabe', 'Dein Coach gibt die Wdh. jeder Runde vor, in der Spanne der Stufe (meist 3–6, manche 8–12, immer mit 2 in Reserve). Du meldest nur, wenn du weniger schaffst. Alle Runden geschafft: nächstes Mal 1 Wdh. mehr, bis zum oberen Ende.'],
-    ['Nächste Stufe', 'Zweimal in Folge alle Runden am oberen Ende: der Coach stellt eine Stufe schwerer ein, zurück ans untere Ende.'],
-    ['Sehnen-Bremse', 'Sehnen brauchen länger als Muskeln. Mindestens 2 Wochen auf einer Stufe, bei Ringen, Pistol, Pike 4 Wochen, bei Dip, Lever, Planche, Nordic 6 Wochen. Eine Stufe pro Durchgang, keine in der Entlastung.'],
-    ['Nach einer Pause', 'Mehr als 2 Wochen frei: eine Stufe leichter weiter.'],
-    ['Stillstand', '3-mal gleiche Stufe ohne mehr Wdh.: der Coach wechselt auf eine andere Variante.'],
-    ['Metcon', 'Jedes Mal mindestens 1 Wdh. mehr. Ab 6 Runden wird die leichteste Übung schwerer.'],
-    ['Handstand', 'Zweimal das obere Ende der Haltezeit sauber: nächste Stufe, mit derselben Sehnen-Bremse.']
-  ], '', ['Lieber eine Stufe zu leicht und sauber als zu schwer mit Schwung.', 'Wartet die Stufe, wird es über die Ausführung schwerer: 3 s absenken, unten 1 s Pause.', 'Laufen: die Woche höchstens 1,3-mal so lang wie der Schnitt der letzten 4 Wochen.', 'Sprünge bleiben immer gleich.']));
-  h += sec('Bänder', W([
-    ['Hilfe', 'Pull-up, Chin-up und Dip: von sehr stark zu sehr leicht, danach frei.'],
-    ['Pull-up', 'Band am Aufhängepunkt oder um beide Gurte über den Ringen, ein Knie in die Schlaufe.'],
-    ['Dip', 'Band zwischen den Ringen, die Schienbeine darauf.'],
-    ['Widerstand', 'Push-up und Glute Bridge: Band über Rücken bzw. Hüfte, die Enden unter den Händen.']
-  ], '', ['Für die Beine dehnen sich die Bänder zu wenig, dort bleiben Rucksack und Weste.', 'Die Farbe jedes Bands stellst du unter Tools › Bibliothek › Bänder ein.'], bandLegend()));
-  h += sec('Nach einer Pause', W([
-    v2() ? ['Weitermachen', 'Dein Coach plant die Woche neu. Nachgeholt wird nichts, es geht mit der nächsten Einheit weiter.'] : ['Weitermachen', 'Mit dem Tag nach dem letzten weitermachen. Die App merkt sich das. Pro Kalendertag ein Trainingstag, Ruhetage zählen von selbst.'],
-    ['Bis 1 Woche', 'Normal weiter.'],
-    ['1–2 Wochen', 'Die nächsten 2 Einheiten als Kurzversion mit RIR 3–4.'],
-    ['Mehr als 2 Wochen', 'Die nächsten 5 Einheiten Kurzversion, danach wieder auf die alten Zahlen zielen.'],
-    ['Mehr als 4 Wochen', 'Der Durchgang wird zur Entlastung. Die Testwoche rutscht nach hinten, sie kommt nie direkt nach der Pause.']
-  ]));
-  h += sec('Test-Durchgang', W([
-    ['Testwoche', 'Letzter Durchgang des Blocks: Maxout mit RIR 0 in der ersten Runde der Hauptübung, dazu der Beweglichkeits-Check.'],
-    v2() ? ['Kardio-Test', 'Freiwillig als zusätzlicher Tag: 5 km oder Rampentest. Ohne Test bleibt dein Kardio-Wert, wie er ist.'] : ['Kardio-Test', 'Am intensiven Kardio-Tag: 5 km oder Rampentest. Verpasst? Dann wird der nächste intensive Kardio-Tag zum Test.'],
-    ['Rückblick', 'Danach zeigt die App, was der Block gebracht hat: weiter so, nächste Stufe oder wechseln.']
-  ], '', ['Nach der Testwoche platt? Ein Durchgang Kurzversion.']));
-  var lastTest = LOGS.filter(function (l) { return l.kind === 'test'; });
-  h += sec('Einstiegstest', W([
-    ['Fragebogen', 'Zum Start ein paar Fragen: Klimmzüge, Liegestütze, Pistol, Bauch, Handstand, Bestwerte, 5 km. Der Coach startet je nach Erfahrung bis zu zwei Stufen darunter und stuft in den ersten 2 Einheiten nach.'],
-    ['Lieber messen', 'Statt Fragebogen drei Testtage: Test 1 statt ' + (v2() ? 'A, Test 2 statt B, Test 3 statt C' : 'Tag 1, Test 2 statt Tag 3, Test 3 statt Tag 6') + '. Die Stufe, bei der 5–8 saubere Wdh. gehen; Startwert Max – 2, beim Chin-up Max – 3.'],
-    ['Sanft einsteigen', v2() ? 'Du startest mit kurzen Einheiten und 1 Wdh. unter deinem Startwert. Den Umfang erhöht dein Coach schrittweise.' : 'Danach 2 Durchgänge Kurzversion mit RIR 3–4.']
-  ], (lastTest.length || (S.fb && S.fb.date) ? '<p class="sec-k" style="margin-top:14px">Deine Startwerte</p>' + tbl(['Übung', 'Stufe', 'Start'], Object.keys(S.base).map(function (n) { var b = S.base[n]; return [esc(n), esc(b.stage || '–'), b.start != null ? b.start : '–']; })) : '') +
-    '<button type="button" class="btn block red" style="margin-top:14px" data-act="restart-test">Einstiegstest neu starten</button><p class="small muted" style="margin:8px 2px 0">Setzt dich auf Testtag 1 zurück. Deine Einträge bleiben.</p>'));
-  var skc = famCtx(), skRows = ['g_handstand', 'g_handstand_walk'].concat(SKILL_KEYS).map(function (k) {
-    var lad = LAD[k], f = skillFam(k), cs = skillStage(k), on = k === 'g_handstand' ? !hsDone() : k === 'g_handstand_walk' ? hsDone() : skillOk(k);
-    var why = on ? 'Im Skill-Block · ' + esc(stageText(lad.steps[cs.idx - 1])) : k === 'g_handstand_walk' ? 'Wenn der freie Handstand 2× ' + (rangeOf(LAD.g_handstand) || { hi: 30 }).hi + ' s hält'
-      : k === 'g_handstand' ? 'Geschafft' : f && !famPreOk(f, skc) ? 'Kommt nach: ' + esc(famPreText(f, skc)) : planFill().kraftKeys[k] ? 'Schon im Kraftteil' : 'Hier fehlt das Gerät';
-    return [esc(lad.name), why];
-  });
-  h += sec('Skill-Ziele', W([
-    ['Skill-Block', 'Die Minuten nach dem Aufwärmen gehören einem Skill (je nach Umfang 2 bis 5). Zuerst immer der Handstand, bis du frei stehst, dann der Handstand Walk.'],
-    ['Handstand an der Wand', 'Erst mit dem Rücken zur Wand: hochkicken, die Wand fängt dich ab, raus mit einem Schritt. Dann Bauch zur Wand (Face-to-Wall): der Körper bleibt gerade, so wie später frei.'],
-    ['Freischalten', 'Erreichst du die Voraussetzung eines Skills (zum Beispiel Front Lever ab Pull-up-Stufe 7), kommt er dazu. Dann wechselt der Block jede Woche: Handstand, neuer Skill, Handstand …'],
-    ['Steigerung', 'Zweimal das obere Ende der Haltezeit geschafft, dann die nächste Stufe, sobald die Sehnen bereit sind. Zweimal unter der Hälfte des unteren Endes, dann eine Stufe leichter.'],
-    ['So kommst du rein', 'Beim Handstand steht in jeder Stufe, wie du hineinkommst und wieder heraus. Bei den anderen Skills die Schritte der Übung.']
-  ], tbl(['Skill', 'Stand'], skRows), ['Übe einmal den Ausstieg: kippst du über, eine Hand versetzen und seitlich herausdrehen. Dann bist du auch ohne Wand sicher.', 'Lieber eine Stufe zu leicht und sauber halten als zu schwer mit Hohlkreuz.', 'Der freie Handstand braucht Monate bis Jahre. Dranbleiben lohnt sich.']));
-  var open = K.filter(function (k) { return k.t === ui.planSec; })[0];
-  if (open) {
-    return '<button type="button" class="rbtn back" data-act="plan-sec" data-k="" aria-label="Zurück zum Plan">' + BACK + '</button><section class="hero"><h1>' + esc(open.t) + '</h1><p class="hero-title">' + esc(PLAN_SUB[open.t] || '') + '</p></section>' +
-      open.b;
-  }
-  h = '<section class="hero"><h1>Dein Plan</h1>' + (v2() && planOn() ? '' : '<p class="hero-title">' + esc(fokusLabel()) + (S.durchgang ? ' · Durchgang ' + ph.bd + ' von ' + ph.n : '') + '</p>') + '</section>';
-  // Plan 2: der Planname steht nur in der Schwerpunkt-Karte, Durchgang und Phase in der Wochenkarte.
-  var v2p = v2() && planOn();
-  var C2 = chal(), sp2 = spOf(), goal = C2 ? { ic: C2.ic, n: 'Challenge ' + C2.name, s: fmtDateLong(S.challenge.date) } : sp2 ? { ic: SP[sp2].ic, n: 'Schwerpunkt ' + SP[sp2].name, s: SP[sp2].kurz } : { ic: CH_FREE, n: 'Einfach trainieren', s: 'Ohne Schwerpunkt und Wettkampf' };
-  // Plan 2 (Impeccable-Kritik Plan, 26. Oktober): die Woche zuerst, das Ziel als Wert-Zeile darunter (vorher eine Einstellungskarte oben).
-  var goalRow = '<p class="kicker muted gl-group">Dein Ziel</p><section class="card">' + valRows([valRow(goal.n, tageN() + ' Tage', 'data-act="fk-open" data-from="plan" aria-label="Ziel ändern: ' + esc(goal.n) + ', ' + tageN() + ' Tage pro Woche"', { sub: (C2 ? 'am ' + goal.s : goal.s) + (C2 && sp2 ? ' · Schwerpunkt ' + SP[sp2].name : '') })]) + '</section>';
-  if (!v2p) h += '<section class="card"><p class="kicker muted">Dein Ziel</p><div class="fk-cur"><span class="fk-ic">' + fkIcon(v2p ? goal.ic : F.ic) + '</span><span><b>' + esc(v2p ? goal.n : fokusLabel()) + '</b><br><span class="small muted">' +
-    (v2p ? esc((C2 ? 'am ' + goal.s + ' · ' : '') + tageN() + ' Tage pro Woche' + (C2 && sp2 ? ' · Schwerpunkt ' + SP[sp2].name : '')) : S.durchgang ? 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + esc(ph.lab) : '') : 'Startet nach dem Einstiegstest') + '</span></span></div>' +
-    (v2p ? '' : '<p class="small">' + esc(F.info) + '</p>') + '<button type="button" class="btn block" data-act="fk-open" data-from="plan">Plan &amp; Challenges</button></section>';
-  h += v2p ? '<p class="kicker muted gl-group">Deine Woche</p>' + planWeekV2HTML() + goalRow : planVHintHTML() + '<p class="kicker muted gl-group">Woche</p>' + planWeekHTML();
-  h += '<p class="kicker muted gl-group">Wissen</p><section class="card gl-card"><div class="gl-item"><button type="button" class="gl-row" data-act="tour"><span class="gl-t"><b>So funktioniert die App</b><small>Kurze Tour und als App speichern</small></span>' +
-    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>' + K.map(function (k) {
-    return '<div class="gl-item"><button type="button" class="gl-row" data-act="plan-sec" data-k="' + esc(k.t) + '"><span class="gl-t"><b>' + esc(k.t) + '</b><small>' + esc(PLAN_SUB[k.t] || '') + '</small></span>' +
-      '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
-  }).join('') + '</section>';
-  return h;
+  var ph = curPhase(), v2p = v2() && planOn();
+  var h = '<section class="hero"><h1>Dein Plan</h1>' + (v2p ? '' : '<p class="hero-title">' + esc(fokusLabel()) + (S.durchgang ? ' · Durchgang ' + ph.bd + ' von ' + ph.n : '') + '</p>') + '</section>';
+  h += v2p ? planWeekV2HTML() : planVHintHTML() + '<p class="kicker muted gl-group">Woche</p>' + planWeekHTML() + '<section class="card gl-card">' + glRow('data-act="tage-open"', 'Trainingstage', TAGE_TXT[tageN()], tageN() + ' pro Woche') + '</section>';
+  return h + faqHTML();
 }
 // Einstellungen „Mittel“ (Dennis): sichtbar bleibt, was nur du weißt, und Hell/Dunkel mit Textgröße. Geschmack liegt unter „Mehr“.
 // Trainings-Entscheidungen (Ablauf, Runden zählen, Timer, Lauf-ABC, Stand) trifft der Coach.
@@ -7403,7 +7338,7 @@ function tourSlides() {
     { ic: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>', t: 'Heute anpassen',
       p: 'Wenig Zeit, mehr Zeit, nicht fit oder woanders? Sag es unter <b>Heute anpassen</b>, die Einheit passt sich sofort an. Dort verschiebst du auch ein Training. Schmerzen meldest du im Training über die rote Fahne.' },
     { ic: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/>', t: 'Dein Plan',
-      p: 'Der Reiter <b>Plan</b> unten zeigt deine Woche, dein Ziel und das Wissen dazu: wie gesteigert wird, was nach einer Pause gilt und warum.' },
+      p: 'Der Reiter <b>Plan</b> unten zeigt deine Woche mit allen Einheiten und darunter häufige Fragen: wie gesteigert wird und was nach einer Pause gilt.' },
     { ic: '<rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><circle cx="17" cy="17" r="3.5"/>', t: 'Tools und Profil',
       p: 'Links in der Leiste: <b>Tools</b> mit Timer, Übungen und Anleitungen, Körper, Mobility und 1RM. Rechts: <b>Profil</b> mit Erfolgen, Verlauf und Werten. Einstellungen und Sync liegen oben rechts im Profil.' },
     { ic: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10.5 18.5h3"/>', t: 'Als App speichern', inst: inst, steps: steps,
@@ -9203,6 +9138,13 @@ function zusatzPlace(P, min, k, pref) {
 }
 function zusatzNow() { var Z = zsOf(); if (!Z || Z.off || !Z.min) return null; if (Z.done) return Object.assign({ done: true }, Z); var x = zusatzPlace(wkPlanC(), Z.min, Z.k, Z.date); return x ? Object.assign({}, Z, x) : null; }
 // Karte auf dem Plan und am freien Tag: Vorschlag, angenommener Termin oder heute dran.
+// Zusatz als Zeile der Wochen-Liste in Plan (Schritt 5); auf Heute bleibt die Karte.
+function zusatzRow() {
+  var Z = zsOf(), N = zusatzNow(), W = !Z ? zusatzWhy() : null;
+  if (N && !N.done) return glRow('data-act="zs-open" data-from="plan"', 'Zusatz · ' + (N.k === 'test' ? 'Kardio-Test' : 'Lockere Ausdauer') + ' ' + N.min + ' Min',
+    WTAG[N.i] + ', ' + hm(N.t - 24 * N.i) + ' · zählt nicht ins Wochenziel', 'Geplant');
+  return W ? glRow('data-act="zs-open" data-from="plan"', 'Zusätzlich · optional', W.t.split('. ')[0].replace(/\.$/, '') + '.', 'Vorschlag') : '';
+}
 function zusatzCardHTML(where) {
   var Z = zsOf(), N = zusatzNow(), W = !Z ? zusatzWhy() : null;
   if (N && !N.done) {
@@ -9414,18 +9356,30 @@ function planWeekV2HTML() {
   var head = mon > cm ? nx.length + ' von ' + N + ' geplant' : done + ' von ' + N + ' erledigt';
   var line = mon !== cm ? '' : done >= N ? 'Woche geschafft.' : !nx.length ? 'Diese Woche ist nichts mehr geplant.' : (done + nx.length < N ? 'Diese Woche geht noch ' + nx.length + ': ' : 'Noch dran: ') + nxs + '.';
   // Design-Regeln (Dennis, 5. November): Ziel der Woche groß, Durchgang klein darunter.
-  var h = '<section class="card pw"><div class="pw-hd"><h2>' + head + '</h2><span class="small muted">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + (line ? '<p class="pw-line">' + esc(line) + '</p>' : '') + wkStripHTML(W, sel, 'pw');
+  // Schritt 5 (Dennis, 6. November, Variante V2): Ziel, Blättern und Leiste stehen frei oben wie auf Heute, die Karte zeigt nur die Einheit,
+  // alles andere zur Woche ist eine Liste mit Pfeil wie in den iPhone-Einstellungen.
+  var h = '<div class="pw-top"><div class="pw-hd"><h2>' + head + '</h2><span class="small muted">' + esc(mon < cm ? 'Durchgang ' + (W.cells.reduce(function (a, x) { return x.logs[0] ? x.logs[0].durchgang : a; }, S.durchgang) - (S.blockStart || 1) + 1) : 'Durchgang ' + ph.bd + ' von ' + ph.n + (ph.lab ? ' · ' + ph.lab : '')) + '</span></div>' + (line ? '<p class="pw-line">' + esc(line) + '</p>' : '') + wkStripHTML(W, sel, 'pw') + '</div><section class="card pw">';
   if (c.logs.length) h += c.logs.map(function (l) { return '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(logTitle(l)) + '</b><small>' + esc(fmtDate(l.date)) + ' · erledigt</small></span><span class="vr-v">' + TICK + '</span></div></div>' + logLines(l); }).join('');
   else if (c.tag) {
     var U = wkUnitPreview(c, mon), F = planPreview(wkDg(mon), function () { return finOf(c.tag, 0); });
     h += '<div class="vrows"><div class="vrow calc"><span class="gl-t"><b>' + esc(dayLabel(c.tag)) + '</b><small>' + esc(WTAG[c.i] + (c.pd && c.pd.t != null ? ', ' + hm(c.pd.t - 24 * c.i) : '')) + (F && F.k !== 'none' ? dotSub('Abschluss ' + esc(F.k === 'metcon' ? 'Metcon' : FIN_N[F.k].replace('Kardio ', ''))) : '') + '</small></span><span class="vr-v">' + U.min + ' Min</span></div></div>' +
-      // Die Gründe für die Uhrzeit aufklappbar hinter „Warum 17:00?“, sie drängten den Ablauf nach unten.
-      (c.pd && c.pd.why && c.pd.why.length ? '<button type="button" class="pw-why" data-act="pw-why" aria-expanded="' + !!ui.pwWhy + '"><span>' + (c.pd.t != null ? 'Warum ' + hm(c.pd.t - 24 * c.i) + '?' : 'Warum dieser Tag?') + '</span><span class="muted">' + c.pd.why.length + (c.pd.why.length === 1 ? ' Grund' : ' Gründe') + ' <i aria-hidden="true">' + (ui.pwWhy ? '▴' : '▾') + '</i></span></button>' +
-        (ui.pwWhy ? '<div class="pl-why">' + c.pd.why.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '') : '') + '<div class="pw-tl">' + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon) }) + '</div>';
+      // „Warum 17:00?“ ist weg (Dennis, 6. November: „brauchen wir eigentlich gar nicht … der User kann es immer vorziehen“).
+      '<div class="pw-tl">' + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon) }) + '</div>';
   } else h += (c.past && missDayHTML(c.date)) || '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
-  h += '<p class="small muted" style="margin:12px 2px 0">' + (S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach berücksichtigt deine Arbeitszeiten.' : 'Trag deine Arbeitszeiten ein, dann plant dein Coach drumherum.') + '</p>';
-  return h + '<div class="bgrp" style="margin-top:12px">' + (mon >= cm ? '<button type="button" data-act="wk-cal" data-v="' + mon + '">In den Kalender</button>' : '') + '<button type="button" data-act="wk-open" data-from="plan">Arbeitszeiten</button></div></section>' + bodyWeekHTML(mon) + (mon === cm ? zusatzCardHTML('plan') : '');
+  h += '</section>';
+  var rows = [], body = bodyWeekRow(mon), zr = mon === cm ? zusatzRow() : null;
+  if (body) rows.push(body.row);
+  if (zr) rows.push(zr);
+  if (mon >= cm) rows.push(glRow('data-act="wk-cal" data-v="' + mon + '"', 'In den Kalender', 'Die Termine dieser Woche eintragen'));
+  rows.push(glRow('data-act="wk-open" data-from="plan"', 'Arbeitszeiten', S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach plant drumherum' : 'Eintragen, dann plant dein Coach drumherum'));
+  rows.push(glRow('data-act="tage-open"', 'Trainingstage', TAGE_TXT[tageN()], tageN() + ' pro Woche'));
+  return h + '<p class="kicker muted gl-group">' + (mon === cm ? 'Diese Woche' : 'Die Woche') + '</p><section class="card gl-card pw-list">' + rows.join('') + '</section>' + (body ? body.open : '');
+}
+// Eine Zeile mit Pfeil wie in den iPhone-Einstellungen (Titel, grauer Satz darunter, Wert rechts).
+function glRow(attrs, t, sub, val, down) {
+  return '<div class="gl-item"><button type="button" class="gl-row" ' + attrs + '><span class="gl-t"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span>' + (val ? '<span class="gl-v">' + esc(val) + '</span>' : '') +
+    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (down ? 'M6 9l6 6 6-6' : 'M9 6l6 6-6 6') + '"/></svg></button></div>';
 }
 function weekCardHTML(tag) {
   if (v2() && planOn()) return '';
@@ -10590,8 +10544,11 @@ var CHAL = {
     race: ['Den ersten Lauf etwas ruhiger, sonst fehlt es am Ende.', 'Wechsel vorher einmal üben: Schuhe, Helm, Startnummer.', 'Auf dem Rad die letzten Minuten locker kurbeln.'] }
 };
 var CHAL_IDS = Object.keys(CHAL);
-function chal() { return S.challenge && CHAL[S.challenge.id] ? CHAL[S.challenge.id] : null; }
-function chalLeft() { return S.challenge ? daysBetween(new Date(), parseISO(S.challenge.date)) : 99; }
+// Schwerpunkt und Ziele sind vorläufig aus der App genommen (Dennis, 6. November: „wir müssen uns dafür etwas komplett anderes überlegen“).
+// Die Daten (S.challenge, S.schwerpunkt) bleiben gespeichert, wirken aber nicht; window.TP_GOALS_ON = true holt alles zurück (die Tests prüfen so die Logik weiter).
+function goalsOff() { return !window.TP_GOALS_ON; }
+function chal() { return !goalsOff() && S.challenge && CHAL[S.challenge.id] ? CHAL[S.challenge.id] : null; }
+function chalLeft() { return chal() ? daysBetween(new Date(), parseISO(S.challenge.date)) : 99; }
 // Anteil der Aufbauzeit, die schon um ist (0 bis 1). Die letzten 2 Wochen sind Taper.
 function chalProg() {
   var c = S.challenge; if (!c) return 0;
@@ -12480,6 +12437,7 @@ ACT['rc-save'] = function (el) {
   setDraft('mc' + i, ''); ui.rcOpen = false; saveState(); render(); toast('Kurz-Check gespeichert.');
 };
 ACT['pv-now'] = function () { if (trainingOpen()) { toast('Erst das laufende Training beenden.'); return; } S.planVFrom = isoToday(); planVSwitch(); saveState(); render(); };
+ACT.faq = function (el) { var i = +el.dataset.i; ui.faq = ui.faq === i ? null : i; render(); };
 ACT['plan-sec'] = function (el) { ui.planSec = el.dataset.k || null; window.scrollTo(0, 0); render(); };
 /* ---------- Entwicklung von Anfang an ---------- */
 function ladderSeries(key) {
@@ -12627,7 +12585,7 @@ function eqOk(groups, have) { return !groups || groups.every(function (g) { retu
 // Abschluss der B-Einheiten immer als Metcon. Eine Challenge geht beim Abschluss vor. Ohne Kettlebell am Ort gilt der Plan wie sonst.
 var SP = { kb: { name: 'Kettlebell', kurz: 'Swing, Goblet, Press und Row mit der Kettlebell, Metcon als Kettlebell-Komplex.', chips: ['Swing und Goblet', 'Kettlebell-Metcon', 'B mit Metcon'],
   ic: 'M9 7.5a3 3 0 0 1 6 0M8 9.5h8M6 15.5a6 6 0 1 0 12 0a6 6 0 0 0-12 0' } }, SP_BONUS = 10, SP_NONE_IC = 'M4 12a8 8 0 1 0 16 0a8 8 0 1 0-16 0M8 12h8';
-function spOf() { return SP[S.schwerpunkt] ? S.schwerpunkt : null; }
+function spOf() { return !goalsOff() && SP[S.schwerpunkt] ? S.schwerpunkt : null; }
 function isKbEq(groups) { return (groups || []).some(function (g) { return g.indexOf('eq_kettlebell') >= 0 || g.indexOf('eq_kb_paar') >= 0; }); }
 function spKb(have) { return spOf() === 'kb' && !!(have || haveEq(trainOrt())).eq_kettlebell; }
 // Leiter, deren Stufe hier (aktuelle bzw. erste machbare) mit der Kettlebell geht.
@@ -14571,7 +14529,7 @@ function reviewHTML() {
   var h = '<p class="kicker muted">Durchgang ' + R.start + '–' + R.end + ' · ' + esc(F.name) + '</p><section class="hero"><h1>Block geschafft</h1><p class="hero-title">' + (R.end - R.start + 1) + ' Durchgänge ' + esc(F.name) + '</p></section>';
   h += '<section class="card"><div class="pick-grid rv-grid">' + tiles.map(function (t) { return '<div class="tile calc set"><small>' + esc(t[0]) + '</small><b>' + t[1] + '</b>' + (t[2] ? '<span class="rv-x">' + t[2] + '</span>' : '') + '</div>'; }).join('') + '</div>' +
     '<p class="small muted">' + done + ' von ' + planned + ' Einheiten gemacht.' + (stalls.length ? ' Stillstand bei ' + esc(stalls.join(', ')) + ': im nächsten Block wechselt dort die Variante.' : '') + '</p></section>';
-  h += '<section class="card"><h3 style="margin-top:0">Wie geht es weiter?</h3><div class="seg" role="group" aria-label="Wie geht es weiter">' + [['weiter', 'Weiter so'], ['stufe', 'Nächste Stufe'], ['wechseln', 'Challenge']].map(function (o) {
+  h += '<section class="card"><h3 style="margin-top:0">Wie geht es weiter?</h3><div class="seg" role="group" aria-label="Wie geht es weiter">' + [['weiter', 'Weiter so'], ['stufe', 'Nächste Stufe']].concat(goalsOff() ? [] : [['wechseln', 'Challenge']]).map(function (o) {
     return '<button type="button" class="seg-btn' + (v === o[0] ? ' on' : '') + '" data-act="rv" data-v="' + o[0] + '" aria-pressed="' + (v === o[0]) + '">' + o[1] + '</button>';
   }).join('') + '</div><p class="small muted" style="margin-top:8px">' + esc(ex) + '</p></section>';
   h += '<button type="button" class="btn primary block go" data-act="rv-go">' + (v === 'wechseln' ? 'Challenge wählen' : 'Nächsten Block starten') + '</button>';
@@ -14602,9 +14560,11 @@ ACT['skip-day'] = function () {
 var CHEV_R = '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
 function renderFokus() {
   var sel = S.fokus, back = S.review ? 'heute' : (ui.fkFrom || 'heute'), F = fokus(), C = chal();
-  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + back + '" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>Plan &amp; Challenges</h1><p class="hero-title">Den Aufbau plant dein Coach, die Ziele setzt du.</p></section>';
+  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + back + '" aria-label="Zurück">' + BACK + '</button><section class="hero"><h1>' + (goalsOff() ? 'Trainingstage' : 'Plan &amp; Challenges') + '</h1>' + (goalsOff() ? '' : '<p class="hero-title">Den Aufbau plant dein Coach, die Ziele setzt du.</p>') + '</section>';
   // Allround ist das Grundgerüst und läuft im Hintergrund (Dennis, 25. Oktober); hier steht nur, was man einstellt: Tage, Schwerpunkt, Challenge.
-  h += '<h2 class="ch-h">Trainingstage</h2>' + tageHTML(true);
+  h += (goalsOff() ? '' : '<h2 class="ch-h">Trainingstage</h2>') + tageHTML(true);
+  // Schwerpunkt und Challenges vorläufig aus (goalsOff()): hier bleiben nur die Trainingstage und am Blockende der Start des nächsten Blocks.
+  if (goalsOff()) return h + (S.review ? '<button type="button" class="btn primary block go" data-act="fk-go">Nächsten Block starten</button>' : '');
   // Schwerpunkt als Auswahl-Karten (DESIGN.md, Impeccable-Audit 24. Oktober): färbt Allround ein (Kraftteil, Metcon, Abschluss), gilt neben einer Challenge im Kraftteil weiter.
   var sp = spOf();
   h += '<h2 class="ch-h">Schwerpunkt</h2><p class="small muted" style="margin-top:-4px">Färbt dein Training ein. Aufbau, Blöcke und Tests bleiben gleich.</p><div class="fk-list">' + [['', { name: 'Keiner', kurz: 'Der Coach nimmt, was am meisten bringt.', chips: ['Nach Nutzen', 'Jedes Gerät'], ic: SP_NONE_IC }]].concat(Object.keys(SP).map(function (k) { return [k, SP[k]]; })).map(function (x) {
