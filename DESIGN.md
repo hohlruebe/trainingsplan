@@ -72,7 +72,7 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - Timer Variante B „Freie Zahl“ (Dennis, Vergleich https://claude.ai/artifact/S97ViwBfQ4mpfoMxJGMkSK): hochkant keine Kapsel mehr, die Zeit steht frei (76) auf der Karte,
   darunter ein 6 px dünner Balken (`--acc`, Vorlauf/Pause `--green`), der sich mit der Phase füllt; Zustand und Runde klein dazu. Antippen = Start/Pause, quer bleibt der Ring.
   Grund: Formen mit einer Bedeutung (Kapsel = tippen, Rechteck = Inhalt), die große Kapsel wirkte wie ein Knopf und passte nicht zu den Ecken der Karte.
-- Stufen-Pille im Einzeln-Modus bricht lange Namen um („Sehr starkes / Band“), statt über den Pfeil zu laufen.
+- Stufen-Pille im Trainer ohne Pfeil (Dennis: „der Pfeil überlagert die Schrift … einfach weglassen“), Antippen öffnet weiter das Rad; lange Namen brechen um.
 
 ### Noch offen (Schritt 4 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
