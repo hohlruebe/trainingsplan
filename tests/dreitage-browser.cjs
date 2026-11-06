@@ -934,12 +934,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     console.log('PASS: Accessory zum Abhaken in Runden, Liste oder Karte, Mini-Band als eigenes Gerät');
 
     // Dennis, 2. November: Abwechslung im Kraftteil (Durchgang 2, 6, 10 Zirkel, sonst EMOM), Lateral Hop statt Skater Jump, Band ohne Punkt, Umschalter bei laufender Uhr.
-    for (const dg of [5, 6]) {
+    // Dennis, 6. November: Zirkel je Abschnitt in einem zufälligen Durchgang (fest je Startdatum und Block), nie in Entlastung und Testwoche.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: 5 }), chLogs]);
+    const zkL = await page.evaluate(() => window.tpTest.ev('function () { var o = []; for (var b = 1; b <= 12; b++) if (zkDg(b)) o.push(b); return o; }'));
+    assert.equal(zkL.length, 3, 'je Abschnitt genau ein Zirkel-Durchgang: ' + zkL);
+    assert.ok(zkL[0] <= 3 && zkL[1] >= 5 && zkL[1] <= 7 && zkL[2] >= 9 && zkL[2] <= 11, 'nicht in Entlastung (4, 8) und Testwoche (12): ' + zkL);
+    const ZKD = zkL[1], EMD = ZKD === 5 ? 6 : 5;
+    for (const dg of [EMD, ZKD]) {
       await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: dg, fsView: 'one' }), chLogs]);
       const st = await page.evaluate(() => window.tpTest.steps().map(s => ({ id: s.id, t: s.title, w: s.desc })));
       const kr = st.find(s => s.id === 'kraft');
-      assert.match(kr.t, dg === 6 ? /Zirkel/ : /EMOM/, 'Format in Durchgang ' + dg);
-      if (dg === 6) {
+      assert.match(kr.t, dg === ZKD ? /Zirkel/ : /EMOM/, 'Format in Durchgang ' + dg);
+      if (dg === ZKD) {
         { const w = await page.evaluate(() => { try { return window.tpTest.tagWarm(1); } catch (e) { return 'ERR ' + e.message; } }); assert.ok(w.includes('Lateral Hop'), 'Lateral Hop im Aufwärmen von A: ' + w); }
         await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft'))); await page.waitForTimeout(200);
         const ph = await page.evaluate(() => window.tpTest.phases());
@@ -954,7 +960,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
         assert.equal(await page.locator('#fs .bdot').count(), 0, 'Bandstufe ohne Farbpunkt');
       }
     }
-    console.log('PASS: Zirkel in Durchgang 6, EMOM in 5, Umschalter bei laufender Uhr, Band ohne Punkt');
+    console.log('PASS: Zirkel in einem zufälligen Durchgang je Abschnitt, sonst EMOM, Umschalter bei laufender Uhr, Band ohne Punkt');
 
     // Dennis, 6. November, aus dem Training: Stufe statt Grundübung, eine Ringhöhe für die Einheit, Zirkel vorher erkennbar, Strecke im Abschluss.
     {
@@ -963,7 +969,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
         var a = pk(['Ring Row', 'Ring Support Hold']), b = pk(['Ring Push-up', 'Ring Row']), c = pk(['Ring Pull-up', 'Ring Support Hold']);
         return { show: kShow('Ring Dip', 'Support Hold, 20 s'), band: kShow('Ring Dip', 'Normal'), knee: kShow('Push-up', 'Auf Knien'),
           a: [a.lv, a.m[0].t, a.m[1].t], b: [b.lv, b.m[0].own, b.m[1].own], c: [c.lv, c.m[0].own, c.m[0].t],
-          km: finKmRow({ min: 20, dev: { id: 'ergo' } }, {}).replace(/<[^>]+>/g, ' ') };
+          km: finResHTML({ k: 'easy', min: 20, dev: { id: 'ergo', n: 'Ergometer' } }, {}).replace(/<[^>]+>/g, ' ') };
       }`));
       assert.equal(r.show, 'Ring Support Hold', 'Ring Dip auf „Support Hold“ zeigt die Übung der Stufe');
       assert.equal(r.band, 'Ring Dip', 'Bandstufe bleibt Ring Dip');
@@ -972,12 +978,49 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       assert.match(r.a[2], /Brusthöhe · Knie anwinkeln, Beine in der Luft/);
       assert.ok(r.b[1] !== r.b[2], 'Push-up und Row passen nicht auf eine Höhe, eine muss umhängen: ' + r.b.join(' | '));
       assert.ok(r.c[1] === true && /frei hängst \(umhängen\)/.test(r.c[2]), 'Pull-up passt nicht zur Support-Höhe, die App sagt „umhängen“: ' + r.c.join(' | '));
-      assert.match(r.km, /Strecke/); assert.match(r.km, /8,5 km/, 'Schätzung aus Gerät und Minuten: ' + r.km);
-      await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: 6, fsView: 'one' }), chLogs]);
+      assert.ok(/Strecke/.test(r.km) && /Puls Ø/.test(r.km) && /Watt Ø/.test(r.km), 'Ergebnis im Abschluss: Strecke, Puls, Watt: ' + r.km);
+      await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: ZKD, fsView: 'one' }), chLogs]);
       const kr = await page.evaluate(() => window.tpTest.steps().find(s => s.id === 'kraft').sub);
       assert.match(kr, /^Zirkel statt EMOM: je Übung \d+ s, dann Pause/, 'Zirkel steht vor dem Start im Ablauf: ' + kr);
     }
-    console.log('PASS: Stufe statt Grundübung, eine Ringhöhe je Einheit, Zirkel vorher erkennbar, Strecke im Abschluss');
+    console.log('PASS: Stufe statt Grundübung, eine Ringhöhe je Einheit, Zirkel vorher erkennbar, Ergebnis im Abschluss');
+
+    // Dennis, 6. November: Form verloren (ein Knopf, Grund), Kraft plus statt Kardio bei erreichtem Wochenziel, Geräte im Wechsel, Metcon leichter.
+    {
+      await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: 5, fsView: 'one' }), chLogs]);
+      const f = await page.evaluate(() => window.tpTest.ev(`function () {
+        var L0 = LOGS, o = {}, key = 'g_dip';
+        var mk = function (d, st, form, x) { return Object.assign({ id: 'f' + d, ts: 1, date: d, durchgang: 5, tag: 3, kind: 'kraft', pv: 2, kraft: [{ n: 'Ring Dip', stage: st, reps: [6, 6, 6, 6], goal: 6, form: form }] }, x || {}); };
+        var run = function (L, fn) { LOGS = L0.concat(L); invalidateDerived(); FILL.k = null; var r = fn(); LOGS = L0; invalidateDerived(); FILL.k = null; return r; };
+        o.one = run([mk('2026-10-05', 'Normal', null), mk('2026-10-08', 'Normal', ['k', null, null, null])], function () { var c = coachStage0(key); return [c.idx, c.form || '', !!c.formDown]; });
+        o.two = run([mk('2026-10-05', 'Normal', ['k']), mk('2026-10-08', 'Normal', [null, 'k'])], function () { var c = coachStage0(key); return [c.idx, !!c.formDown, brakeNote('Ring Dip', c).replace(/<[^>]+>/g, '')]; });
+        o.mob = run([mk('2026-10-12', 'Normal', ['b'])], function () { var m = formMob(S.tag); return m ? [m.id, m.mob] : null; });
+        o.goal = [formGoal({ k0f0: 'k' }, 0, 1, 6, false), formGoal({ k0f0: 'k' }, 0, 0, 6, false), formGoal({ k0f1: 'k' }, 0, 2, 20, true)];
+        o.fin0 = (finOf(6, 0) || {}).k;
+        o.plus = run([mk('2026-10-12', 'Normal', null, { fin: { k: 'easy', dev: 'ergo', min: 55 } })], function () {
+          var F = finOf(6, 0), st = stepsOf(dayCtx(6)).map(function (x) { return x.id + ':' + x.title; });
+          return [F && F.k, cardioWkDone(), st.join(' | ')];
+        });
+        o.dev0 = finDev().id;
+        o.dev2 = run([mk('2026-10-08', 'Normal', null, { fin: { k: 'easy', dev: finDev().id, min: 10 } }), mk('2026-10-09', 'Normal', null, { fin: { k: 'easy', dev: finDev().id, min: 10 } })], function () { return finDev().id; });
+        o.mc = mcEasier(S.tag, { n: 'Burpee', r: '10' }, 0, {});
+        // Vom Coach gestrichene Runden (müde Zone, im Eintrag null) zählen beim Umfang nicht als verfehlt.
+        var uu = ['2026-10-01', '2026-10-03', '2026-10-05', '2026-10-07', '2026-10-09', '2026-10-11'].map(function (d) { return { id: 'u' + d, ts: 1, date: d, durchgang: 5, tag: 1, kind: 'kraft', pv: 2, unit: 'A',
+          kraft: [{ n: 'Ring Dip', stage: 'Normal', reps: [6, 6, null, null], goal: 6, zcut: 'druck' }, { n: 'Ring Row', stage: 'Flacher', reps: [6, 6, 6, 5], goal: 6 }] }; });
+        LOGS = uu; invalidateDerived(); var u0 = S.umfang; S.umfang = { u: 4, ts: 0 }; var g0 = umfGrow(); o.umf = g0 ? g0.u : null; S.umfang = u0; LOGS = L0; invalidateDerived(); FILL.k = null;
+        return o;
+      }`));
+      assert.deepEqual(f.one, [3, 'k', false], 'einmal Form verloren: Stufe bleibt, kein Aufstieg');
+      assert.equal(f.two[0], 2, 'zweimal Form verloren (Kraft): eine Stufe leichter'); assert.ok(f.two[1] && /zweimal die Form verloren/.test(f.two[2]), f.two[2]);
+      assert.ok(f.mob && f.mob[1] === 'Ring Dip', 'Beweglichkeit fehlte: Ausgleich mit Mobility für das Muster: ' + JSON.stringify(f.mob));
+      assert.deepEqual(f.goal, [5, 6, 15], 'nach Form verloren (Kraft) die restlichen Runden eine Wdh. bzw. 5 s weniger');
+      assert.equal(f.plus[0], 'plus', 'Wochenziel fast erreicht: Kraft plus statt Kardio (' + f.plus[1] + ' Min)');
+      assert.match(f.plus[2], /acc:Kraft plus/); assert.doesNotMatch(f.plus[2], /fin:/);
+      assert.equal(f.dev0, 'ergo'); assert.equal(f.dev2, 'lauf', 'nach zwei Abschlüssen auf dem Ergometer wird zu Hause gelaufen');
+      assert.ok(f.mc && f.mc.t && f.mc.how, 'Metcon: bei Form verloren sagt der Coach, was stattdessen');
+      assert.equal(f.umf, 5, 'gestrichene Runden (Minute frei) bremsen den Umfang nicht');
+    }
+    console.log('PASS: Form verloren (Stufe bleibt, zweimal leichter, Mobility), Kraft plus ab 50 Min Kardio, Geräte im Wechsel, Metcon leichter');
 
     // Dennis, 2. November: Kardio am freien Tag, vom Coach vorbereitet, anpassbar (Laufen/Rad, Zeit/Strecke, Intervalle), läuft als Zusatz.
     {

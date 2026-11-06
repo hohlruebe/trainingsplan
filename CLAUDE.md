@@ -20,7 +20,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Vorlauf/Wechsel), Stufe 4 = bisheriger Krafttag, Stufe 6 = „Nächste Stufe“ (EMOM 15). Abschluss ohne Kardiogerät (zügig gehen) höchstens 20 Min (`FIN_GEH_MAX`). `umfIdx` deckelt mit dem Zeitlimit (`S.zeitMax`,
   Deine Woche › Zeit pro Training, höchstens 90 Min, 8 Min Reserve für Ausgleich und C); `zeitLv` kürzt mit dem Zeitlimit zusätzlich.
   Kürzeres Aufwärmen (6/4 Min) = weniger Ergometer und Übungen (`warmMin`, `WARMUP` mit `k4`/`t6`). `umfGrow` beim Wochenwechsel:
-  frühestens 14 Tage nach der letzten Änderung, 6 Einheiten in 2 Wochen ohne Kurzversion und im Schnitt 70 % der Runden auf der Vorgabe (`UMF_HIT`;
+  frühestens 14 Tage nach der letzten Änderung, 6 Einheiten in 2 Wochen ohne Kurzversion und im Schnitt 70 % der Runden auf der Vorgabe (`UMF_HIT`; vom Coach
+  gestrichene Runden ohne Wert, z. B. „Minute frei“ bei müder Zone, zählen nicht mit, 6. November;
   Prüfung 2: verlangt war jede Einheit einzeln, so wuchs der Umfang bei echter Leistung nie),
   keine akute Beschwerde, nicht vor Entlastung, Testwoche, Taper, Wiedereinstieg; eine Stufe, Hinweis „Mehr Umfang“ in der Coach-Karte.
   Start (`umfStart`): wer in 8 Wochen 6 Krafteinheiten hatte, Stufe 4 (mit „Nächster Stufe“ 6), sonst nach Erfahrung im Fragebogen.
@@ -857,6 +858,22 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`ringNotesDay`). Halteübung im EMOM (`holdNow`, `holdCue`, `holdPaint`, `#fs-hold`): bis 10 s In Position, 3-2-1, „Halten!“ (`CD_WORDS.hold`), nach der Haltezeit
   „Fertig!“, keine Halbzeit-Ansage. Zirkel im Ablauf „Zirkel statt EMOM: je Übung 40 s, dann Pause“. Abschluss mit Zähler „Strecke“ (`finKmRow`, `FIN_KMH`, Entwurf
   `fiKm`, gespeichert als `fin.km` nur, wenn eingestellt).
+- Form, Kardio, Zirkel (Dennis, 6. November, Konzept https://claude.ai/artifact/XgvbrSX2SsJ4cZNLdF5vcZ, Antworten: „nur ein Knopf“, „Grund fragen“, auch im Metcon,
+  60 Min, Abwechslung, Zirkel zufällig): Form verloren: ein Knopf `.fs-form` unter dem Zähler jeder Kraftübung (`formBtn`, Entwurf `k<i>f<r>`), im Skill-Block (`_hsf`,
+  gespeichert `sb.f`) und im Metcon (`mcFormBtn`, `ACT['mc-form']`, `_mf<i>`); `ACT['form-lost']` fragt „Woran lag’s?“ Kraft | Beweglichkeit | Gleichgewicht | Schmerz
+  (Schmerz = Schmerzen-Blatt), nochmal tippen nimmt es zurück (`FORM_K`, `FORM_TXT`). Kraft: restliche Runden Vorgabe −1 bzw. −5 s (`formGoal`, auch in `saveDay`),
+  gespeichert `form` (Liste je Runde) im Kraft-Eintrag, `ladHist` liefert `form`. `coachStage0`: Runde mit Form verloren zählt nie als oben (`formOf`), kein Einstufen-Sprung,
+  zweimal in Folge auf der Stufe wegen Kraft → eine Stufe leichter (`cs.formDown`), sonst `cs.form` (Hinweis in `brakeNote`); Beweglichkeit → 14 Tage keine neue Stufe
+  (`wait.why: 'mob'`) und der Ausgleich nimmt Mobility fürs Muster (`formMob`, `FORM_MOB`, `A.mob`). `skillStage` ebenso (`sb.f`). Metcon: `mcEasier` = eine Stufe tiefer
+  (Entwurf `m<i>stage`, alter Wert in `_mf<i>s`) oder die „Leichter“-Skalierung, Satz als Toast und an der Zeile; gespeichert `metcon.form [{n, k}]`.
+  Kardio: Wochenziel `KARDIO_WK` 60 Min (`cardioWkDone`: Abschlüsse, Läufe, Zusatz dieser Woche ohne die heutige Krafteinheit; auch Zusatz-Vorschlag). Fehlen
+  weniger als 10 Min oder ginge nur Gehen, wird der Abschluss „Kraft plus“ (`finOf` → `{k: 'plus'}`, nicht in Entlastung, Testwoche, Einstieg, Kurzversion, Taper,
+  Lauf-/Rad-Challenge): Schritt `acc` mit Titel „Kraft plus“, 3 Zusatzübungen für das, was zu kurz kommt (`accN`, `accPlus`; im Eintrag `acc` und `plus: true`).
+  Gerät im Wechsel (`finDev`): meist das passendste, nach zwei Abschlüssen mit demselben Gerät das nächste, Laufen zuerst; Laufen geht von Zuhause, Park,
+  Unterwegs, Garage auch ohne Laufstrecke (`FIN_OUT`); mit Lauf-/Rad-Challenge kein Wechsel. Ergebnis im Abschluss als Kacheln (`finResHTML`): Strecke (`fiKm`),
+  Puls Ø (`fiHr`), Watt Ø bei Ergometer, Air Bike, Rudergerät, Ski-Ergometer (`fiW`, `FIN_W`), gespeichert `fin.km/hr/w` nur mit Wert, Vergleich mit den letzten
+  Abschlüssen gleicher Art und Gerät in 6 Wochen (`finRef`, `finVerdict`). Zirkel: je Abschnitt des Blocks (1–3, 5–7, 9–11) ein zufälliger Durchgang (`zkDg`, `zkHash`
+  aus Startdatum, Block und Abschnitt, auf allen Geräten gleich).
 - Abwechslung im Kraftteil (Dennis, 2. November: „ab und zu eine Variation, damit sich nicht jedes Training gleich anfühlt … am Ende das, was du als am
   effektivsten einschätzt“): meist EMOM, in Durchgang 2, 6 und 10 des Blocks als Zirkel (`kraftZk`: Plan 2, ab 2 Übungen, nicht Entlastung/Testwoche/Taper;
   gibt die Arbeitszeit je Übung zurück, 40 s, bei 2 Übungen oder Tempo 45 s). Zirkel = je Runde alle Übungen direkt hintereinander, dann Pause bis zur
