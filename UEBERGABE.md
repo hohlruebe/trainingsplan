@@ -8,6 +8,12 @@ Stand: 6. November 2026 (Vorziehen mit fester Woche repariert; davor Design-Rege
 
 
 
+## Körper-Check: „Keine Beschwerden“ (6. November 2026, Claude)
+- Dennis: „Bei dem Körpercheck am Anfang jedes Trainings muss ein Feld sein, keine Schmerzen, damit ich einfach weitermachen kann.“
+- Umgesetzt: Kapsel „✓ Keine Beschwerden, weiter“ oben im Körper-Check, ein Tippen geht zum Aufwärmen. Außerdem war „Weiter“ am Körper-Check gesperrt
+  (nur langes Drücken), jetzt frei. Bewusst keine zweite blaue Hauptaktion (Weiter unten bleibt blau). `dreitage-browser` angepasst, alle Tests grün.
+
+
 ## Vorziehen ging nicht mehr (6. November 2026, Claude)
 - Dennis: „Kann ich das nächste Training nicht mehr vorziehen?“ Ursache: die feste Woche (`S.planFix`, PR #154) hielt die Einheit an ihrem gemerkten Tag fest,
   auch wenn sie auf heute gelegt war; `pullOption` fand darum nie eine Lösung und „Heute trainieren“ fehlte am freien Tag.

@@ -577,6 +577,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nochmal = gut. Entwurf `_kc`; `kcSet` setzt je Kraftplatz den Schmerz-Entwurf `_pk<i>` (Kater nur bei Hauptmuskel, `w` 'k' = Übung bleibt,
   nicht gemerkt; Schmerz = Ampel mit Ersatz, gemerkt über `painSave`), eigene Meldungen an der Übung bleiben (`_kcs`). Im Eintrag `kc`.
   Kater zählt nicht als Leistungssignal (`sigOf`).
+  „Keine Beschwerden, weiter“ (Dennis, 6. November: „ein Feld ‚keine Schmerzen‘, damit ich einfach weitermachen kann“): Kapsel `.kc-ok` oben im Körper-Check
+  (`ACT['kc-ok']`, springt zum nächsten Schritt); der Körper-Check sperrt Weiter nicht (`fsStepDone` gilt als fertig).
 - Mehr Zeit und Accessory (Dennis, 26. Oktober: „ein Training verlängern“, „Accessory work, Muskelgruppen, die normalerweise zu kurz kommen“):
   Heute anpassen › „Ich habe mehr Zeit“ (`mehrAsk`, `.seg` + 15 | + 30 Min, `ACT['adapt-mehr']`, Entwurf `_mehr`, nur heute; schließt „wenig Zeit“ `_zeit` aus,
   Satz `mehrText`, „Angepasst: 15 Min länger“). `mehrOf(tag)`: nur Plan 2, Krafttag, nicht Entlastung/Testwoche/Taper/Kurzversion, nicht mit `planFit`;

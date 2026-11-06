@@ -138,10 +138,15 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('tp.drafts')))[0]._kc || ''), '', 'dreimal = wieder gut');
     // Dennis, 2. November: Weiter und Zurück im Trainer nur mit langem Druck und Nachfrage.
     const fsHold = async (sel, ok) => { const bb = await page.locator(sel).boundingBox(); await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.down(); await page.waitForTimeout(850); await page.mouse.up(); await page.locator('#sheet [data-c="' + (ok === false ? 'stay' : 'go') + '"]').click(); await page.waitForTimeout(200); };
+    // Dennis, 6. November: „Keine Beschwerden“ geht direkt weiter, der Körper-Check sperrt Weiter nicht.
+    await page.locator('#fs .kc-ok').click();
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · Aufwärmen$/, 'Keine Beschwerden = weiter');
     await page.locator('#fs .fs-nav .btn.primary').click();
-    assert.match(await page.locator('#fs .fs-kick').innerText(), /^1\/\d · /, 'ein Tippen auf Weiter bleibt, solange der Schritt nicht fertig ist');
-    await fsHold('#fs .fs-nav .btn.primary');
-    assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · Aufwärmen$/);
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · /, 'ein Tippen auf Weiter bleibt, solange der Schritt nicht fertig ist');
+    await fsHold('#fs .fs-nav .fs-back');
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^1\/\d · Körper-Check$/, 'lange drücken und bestätigen geht zurück');
+    await page.locator('#fs .fs-nav .btn.primary').click();
+    assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · Aufwärmen$/, 'am Körper-Check ist Weiter frei');
     await page.locator('#fs .fs-nav .fs-back').click();
     assert.match(await page.locator('#fs .fs-kick').innerText(), /^2\/\d · /, 'Zurück nicht mit einem Tippen');
     await fsHold('#fs .fs-nav .fs-back', false);

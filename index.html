@@ -839,7 +839,7 @@ button.card.fk:active{transform:scale(.98)}
 .kc-lg{display:flex;justify-content:center;gap:16px;font-size:14px;color:var(--ink2);margin:6px 0 4px}.kc-lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .kc-lg i.zk{background:var(--mb2)}.kc-lg i.zs{background:var(--mb0)}
 .kc-r{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;border-top:1px solid var(--line)}.kc-r b{font-weight:600}.kc-r .seg{margin:0}.kc-r .seg-btn{padding:0 10px;min-height:38px;font-size:14px}
-.kc-k{background:color-mix(in srgb,var(--mb2) 24%,var(--paper))}.kc-in{margin:0 0 8px}
+.kc-k{background:color-mix(in srgb,var(--mb2) 24%,var(--paper))}.kc-in{margin:10px 0 8px}.kc-ok{margin:0}
 .zone-fig .bf figure:last-child{display:none}.zone-fig .bf{justify-content:center}.zone-fig .bf svg{max-height:280px}.zone-fig figcaption{display:none}
 .zrs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:12px 0 4px}.zr{text-align:center;font-size:14px;color:var(--ink2);line-height:1.3}.zr svg{width:62px;height:62px;display:block;margin:0 auto 4px}
 .zr b{display:block;color:var(--ink);font-size:15px}.zr small{display:block;font-size:14px}.zr-bg{fill:none;stroke:var(--board);stroke-width:6}.zr-v{fill:none;stroke-width:6;stroke-linecap:round}.zr text{font-size:16px;font-weight:700;fill:var(--ink);font-variant-numeric:tabular-nums}
@@ -9571,11 +9571,18 @@ function kcHTML(tag) {
       '<div class="seg" role="group" aria-label="Stärke">' + [['l', 'Leicht'], ['m', 'Mittel'], ['s', 'Stark']].map(function (w) { var on = o[m].w === w[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="kc-w" data-m="' + m + '" data-v="' + w[0] + '" aria-pressed="' + on + '">' + w[1] + '</button>'; }).join('') + '</div>') + '</div>';
   }).join('');
   var adj = String(dr(tag)._kcs || '').split(',').filter(Boolean).map(function (sl) { var x = (DAYS[tag].kraft || [])[+sl.slice(1)]; return x && x.pain ? (x.pain.kater ? x.pain.from + ' bleibt, saubere Technik vor Wiederholungen' : x.pain.skip ? x.pain.from + ' heute nicht' : x.pain.soft ? x.pain.from + ' leichter' : x.n + ' statt ' + x.pain.from) : ''; }).filter(Boolean);
-  return '<p class="small muted kc-in">Tipp auf einen Muskel: einmal Kater, zweimal Schmerz, dreimal wieder gut. Alles gut? Einfach weiter.</p><div class="kc">' + fig +
+  // Dennis, 6. November: „ein Feld ‚keine Schmerzen‘, damit ich einfach weitermachen kann“: ein Tippen, und es geht zum nächsten Schritt.
+  var none = !Object.keys(o).length;
+  return '<button type="button" class="btn block kc-ok" data-act="kc-ok">' + (none ? TICK + 'Keine Beschwerden, weiter' : 'Fertig, weiter') + '</button>' +
+    '<p class="small muted kc-in">' + (none ? 'Oder tipp auf einen Muskel: einmal Kater, zweimal Schmerz, dreimal wieder gut.' : 'Tipp nochmal auf einen Muskel: Kater, Schmerz, wieder gut.') + '</p><div class="kc">' + fig +
     '<div class="mk-lg kc-lg"><span><i class="zk"></i>Muskelkater</span><span><i class="zs"></i>Schmerz</span></div>' + rows + '</div>' +
     (adj.length ? '<p class="tl-x">Dein Coach passt an: ' + esc(adj.join(' · ')) + '.</p>' : '');
 }
 ACT.kc = function (el) { var o = kcState(S.tag), m = el.dataset.m, z = o[m]; if (!z) o[m] = { v: 'k', w: 'm' }; else if (z.v === 'k') z.v = 's'; else delete o[m]; kcSet(S.tag, o); haptic('tap'); render(); };
+ACT['kc-ok'] = function () {
+  var D = dr(S.tag), i = D._step != null ? +D._step : 0; haptic('tap');
+  ACT.step({ dataset: { to: String(i + 1), force: '1' } });
+};
 ACT['kc-w'] = function (el) { var o = kcState(S.tag); if (o[el.dataset.m]) o[el.dataset.m].w = el.dataset.v; kcSet(S.tag, o); render(); };
 // Freier Tag (Plan 2): Ruhetag-Routine und Kurz-Check als zwei Zeilen in einer Karte, beides freiwillig. Der Kurz-Check klappt darunter auf.
 // Vorziehen (Dennis, 26. Oktober: „dass der User ein Training auf den heutigen Tag vorziehen kann“): heute frei, die nächste Einheit
@@ -11942,6 +11949,7 @@ function fsPaint(L, force) {
 function fsStepDone(T) {
   if (!T) return false;
   if (TM.finished && TM.cfg && TM.cfg.step === T.key + ':' + T.s.id) return true;
+  if (T.s.id === 'koerper') return true; // Körper-Check: ohne Meldung einfach weiter (Dennis, 6. November)
   if (FLOW_IDS[T.s.id]) { var F = flowById(T.s.id); if (!F || !F.items.length) return true; var s = flowState(F), n = F.items.length; return F.loop ? !!(F.loop.times && s.r >= F.loop.times && s.done.length >= n) : s.done.length >= n || s.c >= n; }
   return false;
 }
