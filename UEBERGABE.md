@@ -15,8 +15,12 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
   84 Seiten für das iPhone (Mac/Watch/TV/Vision/Spiele ausgelassen). Auszüge in `design/apple-hig.md`, unsere Regeln in `DESIGN.md` › „Prinzipien nach Apple“.
 - Gemessen: 59 verschiedene Schriftgrößen (am häufigsten 14 px, Apple-Text 17), 38 Eckenradien, Gewichte bis 800. Trainer bei 390 px: Zeit 66, Vorgabe 47 (blau),
   Zähler 36, Übung 33, „Geschafft“ 20.
-- Nächster Schritt: Durchsicht Bildschirm für Bildschirm mit Dennis (Vorschlag: Trainer, Heute, Plan, Tools, Profil, Einstellungen), die Punkte unter
-  „Offen für die Durchsicht“ entscheiden. Code ist noch nicht geändert.
+- Reihenfolge für den Umbau (Vorschlag an Dennis, Fundament zuerst, weil es alle Seiten ändert; je Schritt Vorher/Nachher im Canvas, Dennis entscheidet, dann PR mit Tests):
+  0. Grundsatzfragen aus „Offen für die Durchsicht“ (Schalter aus grau, Reiter mit Beschriftung, Glas nur für Steuerung, eigene Hell/Dunkel- und Farbwahl, Zugang zu Plan und Einstellungen).
+  1. Fundament im CSS: Textstile 34/28/22/20/17/16/15/13/12 als Variablen, Gewichte 400–700, Abstandsraster, vier Radien, Farben mit einer Bedeutung (59 Größen, 38 Radien in einem Durchgang ersetzen; Animationen bleiben).
+  2. Bausteine: Knöpfe, Umschalter, Schalter, Listen/Wert-Zeilen, Blätter (Abbrechen | Fertig, Griff), Reiterleiste, Chips, Zähler.
+  3. Trainer (eine Anzeige-Zahl, Vorgabe/Übung/Zähler in Textstilen, Kopf und Fuß). 4. Heute. 5. Plan. 6. Tools (Timer, Bibliothek, Körper, Mobility, 1RM). 7. Profil. 8. Einstellungen, Fragebogen, Momente.
+  Code ist noch nicht geändert.
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
