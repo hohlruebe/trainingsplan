@@ -95,7 +95,7 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
     await page.waitForTimeout(900);
     assert.equal(await page.getByRole('dialog').count(), 0, 'angemeldet und Tour gesehen: kein Fenster mehr');
     // Später über Plan › Wissen.
-    await page.locator('[data-tab="plan"]').first().click();
+    await page.locator('.tab[data-group="plan"]').first().click();
     await page.getByRole('button', { name: /So funktioniert die App/ }).click();
     assert.equal(await page.locator('#tr-t').innerText(), 'Dein Coach plant für dich');
     await page.locator('#tour .tr-skip').click();
