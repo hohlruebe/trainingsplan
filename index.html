@@ -1525,6 +1525,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .gl-row .gl-v{flex:none;max-width:45%;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pw-list .gl-t b,.faq .gl-t b{font-weight:400}
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
+.tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
 </style>
 </head>
 <body>
@@ -5939,7 +5940,7 @@ function faqHTML() {
 function renderPlan() {
   var ph = curPhase(), v2p = v2() && planOn();
   var h = '<section class="hero"><h1>Dein Plan</h1>' + (v2p ? '' : '<p class="hero-title">' + esc(fokusLabel()) + (S.durchgang ? ' · Durchgang ' + ph.bd + ' von ' + ph.n : '') + '</p>') + '</section>';
-  h += v2p ? planWeekV2HTML() : planVHintHTML() + '<p class="kicker muted gl-group">Woche</p>' + planWeekHTML() + '<section class="card gl-card">' + glRow('data-act="tage-open"', 'Trainingstage', TAGE_TXT[tageN()], tageN() + ' pro Woche') + '</section>';
+  h += v2p ? planWeekV2HTML() : planVHintHTML() + '<p class="kicker muted gl-group">Woche</p>' + planWeekHTML() + '<section class="card gl-card">' + tageRowHTML() + '</section>';
   return h + faqHTML();
 }
 // Einstellungen „Mittel“ (Dennis): sichtbar bleibt, was nur du weißt, und Hell/Dunkel mit Textgröße. Geschmack liegt unter „Mehr“.
@@ -9374,7 +9375,7 @@ function planWeekV2HTML() {
   if (zr) rows.push(zr);
   if (mon >= cm) rows.push(glRow('data-act="wk-cal" data-v="' + mon + '"', 'In den Kalender', 'Die Termine dieser Woche eintragen'));
   rows.push(glRow('data-act="wk-open" data-from="plan"', 'Arbeitszeiten', S.alltag && (S.alltag.std || Object.keys(S.arbeit || {}).length) ? 'Dein Coach plant drumherum' : 'Eintragen, dann plant dein Coach drumherum'));
-  rows.push(glRow('data-act="tage-open"', 'Trainingstage', TAGE_TXT[tageN()], tageN() + ' pro Woche'));
+  rows.push(tageRowHTML());
   return h + '<p class="kicker muted gl-group">' + (mon === cm ? 'Diese Woche' : 'Die Woche') + '</p><section class="card gl-card pw-list">' + rows.join('') + '</section>' + (body ? body.open : '');
 }
 // Eine Zeile mit Pfeil wie in den iPhone-Einstellungen (Titel, grauer Satz darunter, Wert rechts).
@@ -11183,7 +11184,17 @@ ACT['wk-zeit'] = function () {
 // Trainingstage als Schieberegler 2–6 (Dennis: „über einen Slide-Regler, was dahinter steht entscheidet der Coach, kurze Info reicht“).
 var TAGE_TXT = { 2: 'A und B, je mit einer Übung aus C.', 3: 'A, B und C.', 4: 'Oberkörper und Unterkörper, je zweimal, mit kurzem Kardio.', 5: 'Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio.', 6: 'Push, Pull, Beine, je zweimal, mit kurzem Kardio.' };
 // Dennis: der Regler auf der Seite änderte sich beim Scrollen aus Versehen. Darum eine Wert-Zeile, erst das Blatt hat den Regler, „Übernehmen“ setzt.
+// Trainingstage direkt in der Zeile wählen, ohne eigenes Blatt (Dennis, 6. November: „bei den Tagen ist kein neues extra Fenster notwendig“).
+// Ein Tippen auf eine Zahl, kein Regler (der änderte sich früher beim Scrollen aus Versehen).
+function tageRowHTML() {
+  var n = tageN();
+  return '<div class="gl-item tg-row"><div class="gl-t"><b>Trainingstage pro Woche</b><small>' + esc(TAGE_TXT[n]) + '</small></div>' +
+    '<div class="seg tg-seg" role="group" aria-label="Trainingstage pro Woche">' + [2, 3, 4, 5, 6].map(function (i) {
+      return '<button type="button" class="seg-btn' + (i === n ? ' on' : '') + '" data-act="tage-set" data-v="' + i + '" aria-pressed="' + (i === n) + '" aria-label="' + i + ' Tage">' + i + '</button>';
+    }).join('') + '</div></div>';
+}
 function tageHTML(top) {
+  if (top) return '<section class="card gl-card">' + tageRowHTML() + '</section>';
   var n = tageN();
   return '<div class="vrows"' + (top ? '' : ' style="margin-top:14px"') + '>' + valRow(top ? 'Pro Woche' : 'Trainingstage', '<span class="txt">' + (top ? n + ' Tage' : n + ' pro Woche') + '</span>', 'data-act="tage-open"', { sub: TAGE_TXT[n] + ' Gilt für alle Wochen.' }) + '</div>';
 }
@@ -11195,6 +11206,7 @@ function tageSheetBody(n) {
     '<p class="small muted" style="margin:12px 2px 0">Gilt ab sofort für diese und alle folgenden Wochen, bis du es wieder änderst.</p>';
 }
 function tageSet(v) { v = Math.max(2, Math.min(6, +v || 3)); if (v === tageN()) return; S.tage = v === 3 ? null : v; S.planFix = null; DAYS_K = null; WKP_C.k = null; PD_C = {}; FILL.k = null; saveState(); haptic('tap'); render(); }
+ACT['tage-set'] = function (el) { var n = +el.dataset.v; if (n === tageN()) return; tageSet(n); toast(n + ' Trainingstage pro Woche, auch in den nächsten Wochen.'); };
 ACT['tage-open'] = function () {
   openForm('Trainingstage', tageSheetBody(tageN()), 'Übernehmen', function (bg) {
     var n = +bg.querySelector('.tg-r').value; if (n !== tageN()) { tageSet(n); toast(n + ' Trainingstage pro Woche, auch in den nächsten Wochen.'); }

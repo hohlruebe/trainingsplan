@@ -691,25 +691,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     // Dennis, 25. Oktober: Trainingstage stehen in Plan & Challenges (Allround läuft im Hintergrund), nicht mehr in Deine Woche.
     await page.evaluate(() => window.tpTest.navigate('plan'));
     // Schritt 5 (Dennis, 6. November): Trainingstage als Zeile der Wochen-Liste, kein „Dein Ziel“ mehr, kein „Warum 17:00?“, Wissen als häufige Fragen.
-    assert.match(await page.locator('.pw-list [data-act="tage-open"]').innerText(), /Trainingstage[\s\S]*3 pro Woche/);
+    assert.match(await page.locator('.pw-list .tg-row').innerText(), /Trainingstage pro Woche[\s\S]*A, B und C\./);
+    assert.equal(await page.locator('.pw-list .tg-row [data-act="tage-set"][aria-pressed="true"]').innerText(), '3');
     assert.equal(await page.locator('#view [data-act="fk-open"], #view [data-act="pw-why"], #view [data-act="plan-sec"]').count(), 0, 'kein Ziel, kein Warum, keine Wissens-Seiten');
     await page.locator('.faq [data-act="faq"]').first().click();
     assert.match(await page.locator('.faq .faq-a').innerText(), /Arbeit, Schlaf/, 'Frage klappt auf');
-    await page.evaluate(() => window.tpTest.navigate('fokus'));
-    assert.equal(await page.locator('#view .card.fk:not([data-act])').count(), 0, 'keine Allround-Karte mehr');
-    // Dennis: der Regler änderte sich aus Versehen. Jetzt Wert-Zeile → Blatt → „Übernehmen“; Abbrechen ändert nichts. Gilt für alle Wochen.
-    const tgRow = page.locator('[data-act="tage-open"]');
-    assert.match(await tgRow.innerText(), /Pro Woche[\s\S]*A, B und C\. Gilt für alle Wochen\.[\s\S]*3 Tage/);
-    assert.equal(await page.locator('#view .tg-r').count(), 0, 'kein Regler direkt auf der Seite');
-    await tgRow.click(); await page.locator('#sheet .tg-r').fill('6');
-    await page.locator('#sheet [data-sh="x"]').click(); await page.waitForTimeout(300);
-    assert.equal(await page.evaluate(() => window.tpTest.state().tage), null, 'Abbrechen ändert nichts');
-    await tgRow.click(); await page.locator('#sheet [data-seg="5"]').click();
-    assert.match(await page.locator('#tg-x').innerText(), /^Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio\./, 'Regler mit kurzer Info');
-    assert.match(await page.locator('#sheet').innerText(), /alle folgenden Wochen/);
-    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(300);
+    // Dennis, 6. November: Trainingstage ohne eigenes Blatt, ein Tippen auf die Zahl in der Zeile (kein Regler, der sich beim Scrollen ändert).
+    assert.equal(await page.locator('#view .tg-r').count(), 0, 'kein Regler auf der Seite');
+    await page.locator('.pw-list [data-act="tage-set"][data-v="5"]').click(); await page.waitForTimeout(300);
     assert.equal(await page.evaluate(() => window.tpTest.state().tage), 5);
-    assert.match(await tgRow.innerText(), /5 Tage/);
+    assert.equal(await page.locator('#sheet.open, .sheet-bg.open').count(), 0, 'kein Blatt');
+    assert.match(await page.locator('.pw-list .tg-row').innerText(), /Push, Pull, Beine, Oberkörper, Unterkörper, mit kurzem Kardio\./);
     await page.evaluate(() => window.tpTest.navigate('plan'));
     await page.locator('#view [aria-label="Nächste Woche"]').first().click();
     assert.equal(await page.locator('#view .pw-top .wkst .wd .wd-u').allInnerTexts().then(x => x.filter(t => t !== 'Frei').length), 5, 'nächste Woche mit 5 Einheiten');

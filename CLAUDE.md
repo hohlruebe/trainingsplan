@@ -166,7 +166,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Schritt 5 Plan (Dennis, 6. November, Vergleich https://claude.ai/artifact/NxpjeFESeWnMPBEP8tcjQu): Plan › Deine Woche in Variante V2 (`planWeekV2HTML`):
   „x von N erledigt“, Durchgang, Blättern und Wochenleiste frei oben (ohne Satz „Noch dran: …“, Dennis: „darunter sieht man ja direkt, was noch dran ist“) (`.pw-top`), die Karte `.card.pw` zeigt nur die gewählte Einheit mit Ablauf,
   darunter „Diese Woche“ als Liste mit Pfeil (`.pw-list`, `glRow`): Belastung und Erholung (`bodyWeekRow`, aufgeklappt folgen die Karten), Zusatz (`zusatzRow`),
-  In den Kalender, Arbeitszeiten, Trainingstage (`tage-open`). „Warum 17:00?“ ist weg (Dennis: „der User kann es immer vorziehen“). Wissen ist weg (Dennis: „wer liest
+  In den Kalender, Arbeitszeiten, Trainingstage (seit 6. November ohne Blatt: `tageRowHTML`, `.seg` 2–6 direkt in der Zeile, `ACT['tage-set']`; Dennis: „kein neues extra Fenster notwendig“; auch auf der Seite `fokus`). „Warum 17:00?“ ist weg (Dennis: „der User kann es immer vorziehen“). Wissen ist weg (Dennis: „wer liest
   sich das schon durch?“), statt dessen „Häufige Fragen“ (`FAQ`, `faqHTML`, `ACT.faq`, `ui.faq`, aufklappend, oben „So funktioniert die App“). Schwerpunkt und Ziele
   (Challenges) vorläufig aus der App (Dennis: „wir müssen uns dafür etwas komplett anderes überlegen“): `goalsOff()` (an, solange `window.TP_GOALS_ON` nicht gesetzt ist)
   macht `chal()` und `spOf()` zu null, `S.challenge`/`S.schwerpunkt` bleiben gespeichert, wirken aber nicht; die Seite `fokus` zeigt nur noch die Trainingstage
