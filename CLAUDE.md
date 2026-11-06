@@ -57,6 +57,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Planung ab Montag). `wkPlan0` setzt feste Einheiten an ihren Tag (`FXA`) und plant nur den Rest; frei wird eine Einheit nur, wenn ihr Tag nicht mehr geht: abgesagt
   oder verschoben (`planOv` off/pin, Vorziehen), Krank/Beschwerden, vorbei und nicht gemacht (ausgefallen), 12-h-Tag oder kein Zeitfenster mehr (neuer Termin).
   Freie Einheiten nehmen nur Tage, die keine andere Einheit hält; das Ergebnis wird wieder gemerkt. Neue Trainingstage (`tageSet`) und die Umstellung setzen zurück.
+  Liegt eine Einheit per `planOv.pin` auf einem anderen Tag (Vorziehen, Verschieben), gilt dieser statt des gemerkten (Dennis, 6. November: Vorziehen ging nicht mehr);
+  „Doch nicht vorziehen“ (`ACT['pull-undo']`) legt sie auch in `S.planFix` zurück auf ihren Tag (`pull`).
   Gemerkter Plan (Dennis, 26. Oktober: Sonntag ausgefallen, Montag frei, A und B Di/Mi direkt hintereinander): `wkPlan0` gibt +50 nur für Tage,
   die in dieser Woche schon so geplant waren (Merkzettel `planDays` mit `ts` ab Montag) oder heute; eine Vorschau aus der Woche davor plant der
   Coach neu (sonst rutscht ohne Bonus eine Einheit Tag für Tag nach hinten, das hält die Langzeit-Prüfung fest). Vorziehen: an einem freien Tag
@@ -575,6 +577,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nochmal = gut. Entwurf `_kc`; `kcSet` setzt je Kraftplatz den Schmerz-Entwurf `_pk<i>` (Kater nur bei Hauptmuskel, `w` 'k' = Übung bleibt,
   nicht gemerkt; Schmerz = Ampel mit Ersatz, gemerkt über `painSave`), eigene Meldungen an der Übung bleiben (`_kcs`). Im Eintrag `kc`.
   Kater zählt nicht als Leistungssignal (`sigOf`).
+  „Keine Beschwerden, weiter“ (Dennis, 6. November: „ein Feld ‚keine Schmerzen‘, damit ich einfach weitermachen kann“): Kapsel `.kc-ok` oben im Körper-Check
+  (`ACT['kc-ok']`, springt zum nächsten Schritt); der Körper-Check sperrt Weiter nicht (`fsStepDone` gilt als fertig).
 - Mehr Zeit und Accessory (Dennis, 26. Oktober: „ein Training verlängern“, „Accessory work, Muskelgruppen, die normalerweise zu kurz kommen“):
   Heute anpassen › „Ich habe mehr Zeit“ (`mehrAsk`, `.seg` + 15 | + 30 Min, `ACT['adapt-mehr']`, Entwurf `_mehr`, nur heute; schließt „wenig Zeit“ `_zeit` aus,
   Satz `mehrText`, „Angepasst: 15 Min länger“). `mehrOf(tag)`: nur Plan 2, Krafttag, nicht Entlastung/Testwoche/Taper/Kurzversion, nicht mit `planFit`;
