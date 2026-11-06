@@ -31,6 +31,7 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
+- Schritt 4 als PR #165 gemergt. Heute erledigt / Heute frei: Kopfzeile zeigt das Datum („Freitag, 6. November“) statt noch einmal „Heute“ (Dennis: „Wieso steht hier unter der Überschrift nochmal heute?“). Schritt 5 Plan: Vergleich https://claude.ai/artifact/NxpjeFESeWnMPBEP8tcjQu, Antworten offen.
 - Schritt 3 als PR #164 gemergt. Schritt 4 Heute (Vergleich https://claude.ai/artifact/9erXHFhswaDHHHu1uyMyWo): Marker-Strich bleibt, „Training starten“ schwebt unten
   über der Reiterleiste (V3), Schritte als Liste mit grauer Nummer und Trennlinien (V2). Noch kein PR. Danach Schritt 5 Plan.
 - `tests/anmelden-browser.cjs` läuft mit fester Uhr (29. Oktober): mit der echten Uhr begann die App nach der Woche des GitHub-Stands eine neue Woche (Tag 1 statt 3), der Test schlug ab November fehl. Die App war richtig.

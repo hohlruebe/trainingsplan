@@ -9463,8 +9463,10 @@ function renderHeute() {
   // Plan 2: der Kopf nennt nur Heute und die Dauer, Durchgang und Phase stehen in der Block-Karte und im Plan.
   if (v2() && PL) kick = 'Heute' + (mins && cur ? ' · ca. ' + (mins + 2) + ' Min' : '');
   if (lean) kick = 'Heute' + (cur && !lock && P0 && P0.tag && P0.t != null ? ' · ' + hm(P0.t - 24 * P0.i) + ' Uhr' : '') + (ph.blk ? ' · ' + BLK_N[ph.blk] : '');
-  if (todayView) { kick = 'Heute'; title = 'Heute erledigt'; }
-  if (plFree) { kick = v2() ? 'Heute' : 'Heute · Durchgang ' + ph.bd + ' von ' + ph.n; title = 'Heute frei'; }
+  // Titel sagt schon „Heute …“: die Kopfzeile nennt dann das Datum statt noch einmal „Heute“ (Dennis, 6. November).
+  var dNow = new Date(), dKick = WTAG[(dNow.getDay() + 6) % 7] + ', ' + dNow.getDate() + '. ' + MONATE[dNow.getMonth()];
+  if (todayView) { kick = dKick; title = 'Heute erledigt'; }
+  if (plFree) { kick = v2() ? dKick : dKick + ' · Durchgang ' + ph.bd + ' von ' + ph.n; title = 'Heute frei'; }
   var sub = lean ? heuteSub(plFree ? 'free' : todayView ? 'done' : 'train', PL, tag) : [];
   var h = '<section class="hero"><h1>' + esc(title) + '</h1><div class="row h-top h-kick"><p class="kicker muted">' + esc(kick) + '</p>' + storageChip() + '</div>' +
     sub.map(function (x) { return '<p class="h-sub">' + x + '</p>'; }).join('') + '</section>';

@@ -90,7 +90,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nur höher als der Bildschirm blendet sie unten aus (`.cut`).
   Auch an den anderen Tagen der Woche (Dennis, 5. November): Heute › anderer Tag (`wkDayHTML`) und Plan › Deine Woche geben `tlHTML(st, {tag, dg})` mit, jeder Schritt
   bekommt dazu `data-dg`; `pvShow` rechnet dann in `planPreview(dg)` mit `pvHTML(tag, id, true)` (Schritte wie in `wkUnitPreview`, nicht `dayCtx`).
-  Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Titel, darunter die Kopfzeile „Heute · 17:05 Uhr“ (`.h-kick`, seit Schritt 2 unter statt über dem Titel), ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
+  Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Titel, darunter die Kopfzeile „Heute · 17:05 Uhr“ (`.h-kick`, seit Schritt 2 unter statt über dem Titel; bei „Heute erledigt“/„Heute frei“ das Datum `dKick`), ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
   Blättern `wkStripHTML(…, noHead)`), höchstens eine Frage (`heuteAskHTML`: Befinden unbeantwortet oder „Sehr müde“, Schmerzen, `missNoticeHTML`,
   `planNextAskHTML`, `backupHTML`) und den Ablauf mit „Training starten“ und „Heute anpassen“ (dort auch Andere Uhrzeit `adapt-time` und Heute nicht
   `adapt-off`). Coach-Hinweise stehen am Schritt (`coachItems` mit Ort, `stepCoachHTML` in `stepPageHTML`, dazu die Ringhöhe). Freier Tag: eine Karte
