@@ -90,7 +90,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nur höher als der Bildschirm blendet sie unten aus (`.cut`).
   Auch an den anderen Tagen der Woche (Dennis, 5. November): Heute › anderer Tag (`wkDayHTML`) und Plan › Deine Woche geben `tlHTML(st, {tag, dg})` mit, jeder Schritt
   bekommt dazu `data-dg`; `pvShow` rechnet dann in `planPreview(dg)` mit `pvHTML(tag, id, true)` (Schritte wie in `wkUnitPreview`, nicht `dayCtx`).
-  Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Titel, darunter die Kopfzeile „Heute · 17:05 Uhr“ (`.h-kick`, seit Schritt 2 unter statt über dem Titel), ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
+  Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Titel, darunter die Kopfzeile „Heute · 17:05 Uhr“ (`.h-kick`, seit Schritt 2 unter statt über dem Titel; bei „Heute erledigt“/„Heute frei“ das Datum `dKick`), ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
   Blättern `wkStripHTML(…, noHead)`), höchstens eine Frage (`heuteAskHTML`: Befinden unbeantwortet oder „Sehr müde“, Schmerzen, `missNoticeHTML`,
   `planNextAskHTML`, `backupHTML`) und den Ablauf mit „Training starten“ und „Heute anpassen“ (dort auch Andere Uhrzeit `adapt-time` und Heute nicht
   `adapt-off`). Coach-Hinweise stehen am Schritt (`coachItems` mit Ort, `stepCoachHTML` in `stepPageHTML`, dazu die Ringhöhe). Freier Tag: eine Karte
@@ -163,6 +163,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
+- Schritt 5 Plan (Dennis, 6. November, Vergleich https://claude.ai/artifact/NxpjeFESeWnMPBEP8tcjQu): Plan › Deine Woche in Variante V2 (`planWeekV2HTML`):
+  „x von N erledigt“, Durchgang, Blättern und Wochenleiste frei oben (ohne Satz „Noch dran: …“, Dennis: „darunter sieht man ja direkt, was noch dran ist“) (`.pw-top`), die Karte `.card.pw` zeigt nur die gewählte Einheit mit Ablauf,
+  darunter „Diese Woche“ als Liste mit Pfeil (`.pw-list`, `glRow`): Belastung und Erholung (`bodyWeekRow`, aufgeklappt folgen die Karten), Zusatz (`zusatzRow`),
+  In den Kalender, Arbeitszeiten, Trainingstage (seit 6. November ohne Blatt: `tageRowHTML`, `.seg` 2–6 direkt in der Zeile, `ACT['tage-set']`; Dennis: „kein neues extra Fenster notwendig“; auch auf der Seite `fokus`). „Warum 17:00?“ ist weg (Dennis: „der User kann es immer vorziehen“). Wissen ist weg (Dennis: „wer liest
+  sich das schon durch?“), statt dessen „Häufige Fragen“ (`FAQ`, `faqHTML`, `ACT.faq`, `ui.faq`, aufklappend, oben „So funktioniert die App“). Schwerpunkt und Ziele
+  (Challenges) vorläufig aus der App (Dennis: „wir müssen uns dafür etwas komplett anderes überlegen“): `goalsOff()` (an, solange `window.TP_GOALS_ON` nicht gesetzt ist)
+  macht `chal()` und `spOf()` zu null, `S.challenge`/`S.schwerpunkt` bleiben gespeichert, wirken aber nicht; die Seite `fokus` zeigt nur noch die Trainingstage
+  (und am Blockende „Nächsten Block starten“), der Rückblick ohne „Challenge“. Die Tests schalten die Logik mit `window.TP_GOALS_ON = true` kurz ein.
+  Abschnitts-Überschriften `.gl-group` 15 regular, Zeilen in Listen normal statt fett.
+  „Einstiegstest neu“ steht seit Schritt 5 in Einstellungen › Daten neben „Alles zurücksetzen“ (`ACT['restart-test']`, mit Nachfrage, Testtag 1, Einträge bleiben).
 - Reiter von links nach rechts (seit Schritt 2, wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
   Tools (Timer, Bibliothek, Körper, Mobility, 1RM), Profil. Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,

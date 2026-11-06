@@ -31,6 +31,11 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
+- Schritt 4 als PR #165 gemergt. Heute erledigt / Heute frei: Kopfzeile zeigt das Datum („Freitag, 6. November“) statt noch einmal „Heute“ (Dennis: „Wieso steht hier unter der Überschrift nochmal heute?“). Schritt 5 Plan (Vergleich https://claude.ai/artifact/NxpjeFESeWnMPBEP8tcjQu), Dennis: 1. V2, 2. „Warum 17:00?“ weg, 3. Schwerpunkte und Ziele vorläufig komplett raus („wir müssen
+  uns dafür etwas komplett anderes überlegen“), 4. Wissen raus, FAQ reicht. Umgesetzt (Details in CLAUDE.md › Schritt 5 Plan). Offen: neues Konzept für Ziele/Schwerpunkte; der alte Code
+  (Challenges, Schwerpunkt, Wissens-Texte in `PLAN_SUB`/`grundHTML`) liegt still, `window.TP_GOALS_ON = true` schaltet Challenges und Schwerpunkt wieder ein. Noch kein PR.
+- Dennis: „Einstiegstest zurücksetzen/neu durchführen“ in den Einstellungen → Einstellungen › Daten › „Einstiegstest neu“ (rot, mit Nachfrage). Satz „Noch dran: …“ in Plan entfernt.
+- Dennis: „Auch die Schwerpunkte kommen raus“ (schon mit `goalsOff()` aus, sichtbar nach dem Merge) und „bei den Tagen ist kein neues extra Fenster notwendig“ → Trainingstage als Kapsel 2–6 direkt in der Zeile.
 - Schritt 3 als PR #164 gemergt. Schritt 4 Heute (Vergleich https://claude.ai/artifact/9erXHFhswaDHHHu1uyMyWo): Marker-Strich bleibt, „Training starten“ schwebt unten
   über der Reiterleiste (V3), Schritte als Liste mit grauer Nummer und Trennlinien (V2). Noch kein PR. Danach Schritt 5 Plan.
 - `tests/anmelden-browser.cjs` läuft mit fester Uhr (29. Oktober): mit der echten Uhr begann die App nach der Woche des GitHub-Stands eine neue Woche (Tag 1 statt 3), der Test schlug ab November fehl. Die App war richtig.

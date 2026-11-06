@@ -81,7 +81,13 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - Schritte als Liste wie bei Apple (V2, mit V3 gezeigt): Nummer grau in der Textzeile (17), feine Trennlinien, keine Kästchen und keine senkrechte Linie
   (`.tl`, gilt überall, wo Abläufe stehen, auch Plan › Deine Woche und Wissen).
 
-### Noch offen (Schritt 5 und folgende)
+### Schritt 5 Plan (6. November 2026, Vergleich https://claude.ai/artifact/NxpjeFESeWnMPBEP8tcjQu)
+- Variante V2 „Gruppiert wie iOS“: Kopf der Woche, Blättern und Leiste frei oben wie auf Heute, eine Karte nur für die gewählte Einheit, alles andere als Liste mit Pfeil
+  (Belastung und Erholung, Zusatz, In den Kalender, Arbeitszeiten, Trainingstage). Keine grauen Kästen in weißen Karten.
+- „Warum 17:00?“ entfällt, Wissen wird zu „Häufige Fragen“ (aufklappend), Schwerpunkt und Ziele vorläufig aus.
+- Abschnitts-Überschriften 15 regular grau, Zeilen-Titel in Listen 17 regular (Apple: Fett nur für Überschriften).
+
+### Noch offen (Schritt 6 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
 
