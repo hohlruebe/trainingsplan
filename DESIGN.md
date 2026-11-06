@@ -74,7 +74,14 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
   Grund: Formen mit einer Bedeutung (Kapsel = tippen, Rechteck = Inhalt), die große Kapsel wirkte wie ein Knopf und passte nicht zu den Ecken der Karte.
 - Stufen-Pille im Trainer ohne Pfeil (Dennis: „der Pfeil überlagert die Schrift … einfach weglassen“), Antippen öffnet weiter das Rad; lange Namen brechen um.
 
-### Noch offen (Schritt 4 und folgende)
+### Schritt 4 Heute (6. November 2026, Vergleich https://claude.ai/artifact/9erXHFhswaDHHHu1uyMyWo)
+- Marker-Strich unter dem Titel bleibt (Dennis: „das ist die individuelle Designentscheidung, die auf die Idee eines digitalen Whiteboards zurückgeht“).
+- „Training starten“ schwebt unten über der Reiterleiste (Variante V3, Dennis: „Der Start unten sieht sehr gut aus“): `.tl-card .go.top` fest positioniert,
+  nur am Handy auf Heute (`#view[data-tab="heute"]`, nicht Desktop, nicht im Training), Seite unten 176 px Platz, damit nichts verdeckt bleibt.
+- Schritte als Liste wie bei Apple (V2, mit V3 gezeigt): Nummer grau in der Textzeile (17), feine Trennlinien, keine Kästchen und keine senkrechte Linie
+  (`.tl`, gilt überall, wo Abläufe stehen, auch Plan › Deine Woche und Wissen).
+
+### Noch offen (Schritt 5 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
 
