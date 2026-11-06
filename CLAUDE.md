@@ -850,6 +850,13 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `hsCapture` nimmt im Intervall die Zeit seit Beginn des Halte-Abschnitts). Einzeln | Liste auch für Accessory und Abschluss. Accessory ist ein Ablauf zum Abhaken
   (`accFlow`, 3 Runden, Vorgabe 12 Wdh. bzw. 30 s) mit Band in Farbe (`bandFor` aus der Vorbereitung, sonst leicht; `bandTxt`, `.fs-band`). Neues Gerät `eq_miniband`
   „Mini-Bänder (kurze Schlaufe)“ (Lateral Band Walk braucht es statt `eq_band`; nirgends von selbst angehakt).
+- Aus dem Training (Dennis, 6. November): Zeit-Kapsel flackerte im EMOM (`green` in `fsPaint` war `undefined`, jetzt `!!`). `kShow` zeigt immer die Übung der
+  Stufe, wenn sie eine andere ist („Support Hold, 20 s“ = Ring Support Hold), Trainer und Kraftschritt über `exShow`/`exFig`. Eine Ringhöhe je Einheit (`ringDay`,
+  `ringPick`, `RING_R` [Muster, tiefste, höchste, liebste Höhe, Satz je Höhe, Gewicht], `RING_LV` Knöchel … hängend): Höhe, die die meisten Ringübungen des Kraftteils
+  abdeckt, Row vor Support (Support dann „Knie anwinkeln, Beine in der Luft“); wer nicht passt, „(umhängen)“. Steht in der Karte (`.fs-rgh`), im (i) und am Schritt
+  (`ringNotesDay`). Halteübung im EMOM (`holdNow`, `holdCue`, `holdPaint`, `#fs-hold`): bis 10 s In Position, 3-2-1, „Halten!“ (`CD_WORDS.hold`), nach der Haltezeit
+  „Fertig!“, keine Halbzeit-Ansage. Zirkel im Ablauf „Zirkel statt EMOM: je Übung 40 s, dann Pause“. Abschluss mit Zähler „Strecke“ (`finKmRow`, `FIN_KMH`, Entwurf
+  `fiKm`, gespeichert als `fin.km` nur, wenn eingestellt).
 - Abwechslung im Kraftteil (Dennis, 2. November: „ab und zu eine Variation, damit sich nicht jedes Training gleich anfühlt … am Ende das, was du als am
   effektivsten einschätzt“): meist EMOM, in Durchgang 2, 6 und 10 des Blocks als Zirkel (`kraftZk`: Plan 2, ab 2 Übungen, nicht Entlastung/Testwoche/Taper;
   gibt die Arbeitszeit je Übung zurück, 40 s, bei 2 Übungen oder Tempo 45 s). Zirkel = je Runde alle Übungen direkt hintereinander, dann Pause bis zur

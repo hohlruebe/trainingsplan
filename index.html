@@ -1034,6 +1034,9 @@ button:active,.tile:active,.st-row:active,.btn:active{transform:scale(.96)}
 .fs-big small{font-size:calc(24px*var(--fsu,1));font-weight:600;letter-spacing:0;color:var(--ink2)}
 .fs-sub{font-size:calc(30px*var(--fsu,1));font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums}
 .fs-hint{margin:0;font-size:calc(16px*var(--fsu,1));color:var(--ink2)}
+.fs-reps .fs-u{font-size:.42em;font-weight:700}
+.fs-hold{margin:6px 0 0;font-size:max(14px,calc(15px*var(--fsu,1)));color:var(--ink2);line-height:1.3}.fs-hold.on{color:var(--acc);font-weight:700}
+.fs-rgh{margin:2px 0 0;font-size:max(14px,calc(15px*var(--fsu,1)));font-weight:600;color:var(--ink);line-height:1.3}
 .fs-exn{margin:0;font-size:calc(44px*var(--fsu,1));font-weight:800;letter-spacing:-.03em;line-height:1.05}
 .fs-kg{margin:2px 0;font-size:calc(40px*var(--fsu,1));font-weight:800;letter-spacing:-.03em;line-height:1.05}
 .fs-reps,.fs-wu .fs-kg{margin:2px 0;font-size:calc(92px*var(--fsu,1));font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--acc)}
@@ -5149,7 +5152,7 @@ function saveDay() {
       // Ohne Eintrag gilt die Vorgabe (unteres Ende), wie im Kraftteil; markiert mit d, damit sie kein Leistungssignal ist.
       var sr0 = rangeOf(LAD[sk0]) || { lo: 20 };
       if (!(hp0 && hp0.w !== 'k' && hp0.w !== 'l')) log.sb = Object.assign({ lad: sk0, stage: v.hsStage != null ? v.hsStage : LAD[sk0].steps[skillStage(sk0).idx - 1], sec: num(v.hsSec) != null ? num(v.hsSec) : sr0.lo }, num(v.hsSec) == null ? { d: 1 } : {}); }
-    if (F2 && F2.dev && F2.k !== 'metcon') { log.fin = { k: F2.k, dev: F2.dev.id, min: F2.min }; if (F2.k === 'iv') { log.fin.n = F2.n; log.fin.done = num(v.fiDone); } }
+    if (F2 && F2.dev && F2.k !== 'metcon') { log.fin = { k: F2.k, dev: F2.dev.id, min: F2.min }; if (F2.k === 'iv') { log.fin.n = F2.n; log.fin.done = num(v.fiDone); } if (num(v.fiKm) != null) log.fin.km = num(v.fiKm); }
     var AG = ausgleichUe(tag), ar = [num(v.a0), num(v.a1)];
     // Ausgleich: Sätze ohne Eintrag zählen mit der Vorgabe (wie im Kraftteil), sonst sieht der Muskelausgleich ihn nie.
     if (AG && !AG.skip) log.ausgleich = { ue: AG.id, reps: ar.map(function (x) { return x != null ? x : AG.sek ? 30 : 12; }) };
@@ -5213,8 +5216,8 @@ function beep(freq, ms) {
 function cue(long) { if (long) beep(660, 450); else beep(880, 110); hapTimer(long); }
 // Countdown mit Stimme (Sprachausgabe des Handys, offline mit installierter Stimme). Je Anlass an/aus, sonst Piepen.
 var CD_WHEN = [['start', 'Start nach dem Vorlauf'], ['round', 'Jede neue Runde (EMOM)'], ['interval', 'Intervall: Arbeit und Pause'], ['end', 'Ende des Workouts'], ['calls', 'Halbzeit, noch 30 Sekunden, 5 bis 1']];
-var CD_WORDS = { en: { n: ['One', 'Two', 'Three', 'Four', 'Five'], go: 'Go!', rest: 'Rest!', end: 'Done!', done: 'Done!', half: 'Halfway there!', s30: '30 seconds left!' },
-  de: { n: ['Eins', 'Zwei', 'Drei', 'Vier', 'Fünf'], go: 'Los!', rest: 'Pause!', end: 'Fertig!', done: 'Fertig!', half: 'Halbzeit!', s30: 'Noch 30 Sekunden!' } };
+var CD_WORDS = { en: { n: ['One', 'Two', 'Three', 'Four', 'Five'], go: 'Go!', rest: 'Rest!', end: 'Done!', done: 'Done!', half: 'Halfway there!', s30: '30 seconds left!', hold: 'Hold!' },
+  de: { n: ['Eins', 'Zwei', 'Drei', 'Vier', 'Fünf'], go: 'Los!', rest: 'Pause!', end: 'Fertig!', done: 'Fertig!', half: 'Halbzeit!', s30: 'Noch 30 Sekunden!', hold: 'Halten!' } };
 function cdWhen() { return Object.assign({ start: true, round: false, interval: false, end: false, calls: true }, S.cdWhen || {}); }
 // Ansagen in der Phase (Dennis): Halbzeit (ab 20 s), noch 30 Sekunden (über 60 s), am Ende 5, 4, 3, 2, 1, Done!
 function callsOn() { return !!(S.cdVoice && cdWhen().calls && cdVoice()); }
@@ -5320,11 +5323,45 @@ function tick() {
   }
   if (L.rem != null) {
     var s = Math.ceil(L.rem), calls = callsOn() && (callPhase(L.p) || L.p.kind === 'pre'), top = calls && L.p.dur >= 10 ? 5 : 3, sd = TM.said || (TM.said = {});
-    if (calls && callWork(L.p) && L.p.dur >= 20 && !sd.half && L.inPhase >= L.p.dur / 2 && L.rem > top + 1) { sd.half = 1; if (say(W.half)) hapTimer(false); }
+    var H = holdNow(L);
+    if (H && TM.running) holdCue(L, H, sd, W);
+    if (calls && !H && callWork(L.p) && L.p.dur >= 20 && !sd.half && L.inPhase >= L.p.dur / 2 && L.rem > top + 1) { sd.half = 1; if (say(W.half)) hapTimer(false); }
     if (calls && callWork(L.p) && L.p.dur > 60 && !sd.s30 && L.rem <= 30 && L.rem > 28) { sd.s30 = 1; if (say(W.s30)) hapTimer(false); }
     if (s <= top && s >= 1 && s !== TM.lastSec) { TM.lastSec = s; if ((calls || cdOn(cdEvent(L))) && say(W.n[s - 1])) hapTimer(false); else if (s <= 3) cue(false); }
   }
-  paint(L); paintMini(L); paintRoutine(L); fsPaint(L); tpoTick(L);
+  paint(L); paintMini(L); paintRoutine(L); fsPaint(L); tpoTick(L); holdPaint(L);
+}
+// Halteübung im EMOM (Dennis, 6. November: „während der Minute sagen, dass jetzt die Zeit des Haltens anfängt“): erst Zeit zum Reingehen
+// (10 s, bei knapper Minute weniger, mindestens 3 s), dann piept es 3, 2, 1 und „Halten!“ (Stimme, sonst langer Ton), nach der Haltezeit „Fertig!“.
+var HOLD = { i: -1, st: '', h: null };
+function holdNow(L) {
+  var c = TM.cfg || {}; if (TM.mode !== 'emom' || !/:kraft$/.test(c.step || '') || !L || !L.p || L.p.kind === 'pre' || L.p.zr || !isFinite(L.p.dur)) return null;
+  if (HOLD.i === L.i && HOLD.st === c.step) return HOLD.h;
+  var d = DAYS[S.tag], n = d && d.kraft ? d.kraft.length : 0, h = null;
+  if (n) {
+    var m = kMin(L), ex = m % n, r = Math.floor(m / n), D = dr(S.tag), E = kraftEx(S.tag, D, kraftRounds(S.tag), d.kraft[ex], ex);
+    if (E.sec && !E.skip && r < E.zr && E.goal > 0) { var g = +E.goal, lead = Math.max(3, Math.min(10, L.p.dur - g - 5)); if (lead + g <= L.p.dur) h = { ex: ex, g: g, lead: lead }; }
+  }
+  HOLD.i = L.i; HOLD.st = c.step; HOLD.h = h; return h;
+}
+function holdCue(L, H, sd, W) {
+  var t = L.inPhase, k = Math.ceil(H.lead - t), fresh = function (at) { return t >= at && t - at < 1.5; };
+  if (k >= 1 && k <= 3 && !sd['hc' + k]) { sd['hc' + k] = 1; beep(880, 90); }
+  if (!sd.hs && fresh(H.lead)) { sd.hs = 1; if (!(callsOn() && say(W.hold))) beep(660, 450); hapTimer(true); }
+  if (!sd.he && fresh(H.lead + H.g)) { sd.he = 1; if (!(callsOn() && say(W.done))) beep(660, 300); hapTimer(true); }
+}
+function holdPaint(L) {
+  var el = document.getElementById('fs-hold'); if (!el) return;
+  var H = holdNow(L), run = TM.running && H && +el.dataset.ex === H.ex, t = run ? L.inPhase : 0, txt, on = false;
+  if (!run) txt = el.dataset.idle || '';
+  else if (t < H.lead) txt = 'In Position kommen · Halten in ' + Math.ceil(H.lead - t) + ' s';
+  else if (t < H.lead + H.g) { txt = 'Halten · noch ' + Math.ceil(H.lead + H.g - t) + ' s'; on = true; }
+  else txt = 'Geschafft, Pause bis zur nächsten ' + (TM.cfg && TM.cfg.zk ? 'Übung' : 'Minute');
+  if (el.textContent !== txt) el.textContent = txt; el.classList.toggle('on', on);
+}
+function holdLine(e) {
+  if (!e || !e.sec || e.skip) return '';
+  return '<p class="fs-hold" id="fs-hold" data-ex="' + e.i + '" data-idle="Halten ab dem Signal" aria-live="polite">Halten ab dem Signal</p>';
 }
 function paint(L) {
   var $ = function (id) { return document.getElementById(id); };
@@ -5481,7 +5518,7 @@ function logLines(l) {
     l.kraft.forEach(function (k) { var r = k.reps.filter(function (v) { return v != null; }); out.push('<b>' + esc(k.n) + '</b>' + (k.rep ? ' <span class="muted">statt ' + esc(k.rep.from) + '</span>' : '') + ': ' + (k.pain ? '<span class="muted">' + esc(k.pain.skip ? 'ausgelassen (' + (PAIN_JN[k.pain.j] || '') + ')' : k.pain.soft ? 'leichter (' + (PAIN_JN[k.pain.j] || '') + ')' : 'statt ' + k.pain.from + ' (' + (PAIN_JN[k.pain.j] || '') + ')') + '</span> ' : '') + (r.length ? r.join(' / ') : '–') + (k.stage ? ' <span class="muted">(' + esc(stageText(k.stage)) + ')</span>' : '')); });
     if (l.metcon && l.metcon.rounds != null) out.push('<b>' + (l.metcon.bench ? esc(l.metcon.bench) + ' · ' : '') + (l.metcon.fmt === 'emom' ? 'EMOM ' : 'AMRAP ') + (l.metcon.min || 8) + '</b>: ' + l.metcon.rounds + ' Runden' + (l.metcon.fmt === 'emom' ? '' : ' + ' + (l.metcon.reps || 0)));
     if (l.metcon && l.metcon.stages) out.push('<span class="muted">Metcon: ' + l.metcon.stages.map(function (m) { return esc(m.n) + ' (' + esc(stageText(m.stage)) + ')'; }).join(', ') + '</span>');
-    if (l.fin) out.push('<b>' + (FIN_N[l.fin.k] || 'Kardio') + '</b>: ' + (l.fin.k === 'iv' ? (l.fin.done != null ? l.fin.done : '–') + ' von ' + l.fin.n + ' · ' : l.fin.min + ' Min · ') + esc(finDevName(l.fin.dev)));
+    if (l.fin) out.push('<b>' + (FIN_N[l.fin.k] || 'Kardio') + '</b>: ' + (l.fin.k === 'iv' ? (l.fin.done != null ? l.fin.done : '–') + ' von ' + l.fin.n + ' · ' : l.fin.min + ' Min · ') + (l.fin.km != null ? fmtKm(l.fin.km) + ' km · ' : '') + esc(finDevName(l.fin.dev)));
     if (l.ausgleich) out.push('<b>Ausgleich</b>: ' + esc(ueName(l.ausgleich.ue)) + ' · ' + l.ausgleich.reps.map(function (r) { return r == null ? '–' : r; }).join(' / ') + (UE[l.ausgleich.ue] && UE[l.ausgleich.ue].einheit === 'sek' ? ' s' : ' Wdh.'));
     if (l.acc) l.acc.forEach(function (a) { out.push('<b>Accessory</b>: ' + esc(ueName(a.ue)) + ' · ' + a.reps.join(' / ') + (UE[a.ue] && UE[a.ue].einheit === 'sek' ? ' s' : ' Wdh.')); });
     if (l.hs) out.push('<b>Handstand</b>: ' + esc(l.hs));
@@ -8618,7 +8655,7 @@ function stepsOf(c) {
   if (names.length && rounds) {
     var rg = '3–6', rir = curPhase().deload ? 3 : 2;
     var em = rounds * names.length, zk = kraftZk(tag, names.length);
-    out.push({ id: 'kraft', title: 'Kraft · ' + (zk ? 'Zirkel ' : 'EMOM ') + em, sub: rounds + ' Runden · ' + rg + ' Wdh. · RIR ' + rir, dur: em, desc: names.join(' · '), zk: zk,
+    out.push({ id: 'kraft', title: 'Kraft · ' + (zk ? 'Zirkel ' : 'EMOM ') + em, sub: zk ? 'Zirkel statt EMOM: je Übung ' + zk + ' s, dann Pause · ' + rounds + ' Runden' : rounds + ' Runden · ' + rg + ' Wdh. · RIR ' + rir, dur: em, desc: names.join(' · '), zk: zk,
       timer: { mode: 'emom', cfg: { minutes: em, stations: names, tag: tag, zk: zk || 0 }, label: (zk ? 'Zirkel ' : 'EMOM ') + em + ' starten', info: zk ? 'Je Runde alle Übungen hintereinander, je ' + zk + ' s, dann Pause' : names.join(' · ') },
       body: function (D) { return kraftStepHTML(tag, D, rounds); } });
   }
@@ -9404,7 +9441,7 @@ function renderHeute() {
     } else if (d.type === 'kraft') {
       // Übungs-Hinweise (Ringhöhe) bleiben am Schritt, Entscheidungen des Coachs stehen in der eigenen Karte (coachCardHTML).
       // Plan 2 schlank: die Ringhöhe steht beim Schritt selbst (stepCoachHTML), die Übersicht bleibt frei.
-      if (!lean) { notes.kraft = ringNotes(d.kraft.map(function (k) { return k.n; })); notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; })); }
+      if (!lean) { notes.kraft = ringNotesDay(tag, d); notes.metcon = ringNotes((d.metcon || []).map(function (m) { return m.n; })); }
     }
     if (d.type !== 'kraft' && !c.isTest && !c.isMurph) h += runSegHTML(runMode(D)) + '<section class="card">' + ergoTargetHTML(todayRunSpec(tag)) + '</section>';
     var at = +(D._at || 0), wbAsk = cur && !at && wbDue(d);
@@ -9676,7 +9713,7 @@ function coachCardHTML(tag, miss) {
 function stepCoachHTML(tag, id) {
   var d = DAYS[tag]; if (!d || d.type !== 'kraft') return '';
   var it = coachItems(tag, id === 'kraft' ? planFill().missing[tag] || [] : []).filter(function (x) { return x.s === id; });
-  var rn = id === 'kraft' ? ringNotes(d.kraft.map(function (k) { return k.n; })) : id === 'metcon' ? ringNotes((d.metcon || []).map(function (m) { return m.n; })) : [];
+  var rn = id === 'kraft' ? ringNotesDay(tag, d) : id === 'metcon' ? ringNotes((d.metcon || []).map(function (m) { return m.n; })) : [];
   return (it.length ? '<section class="card co-card co-step">' + it.map(function (x) { return x.h; }).join('') + '</section>' : '') + rn.map(function (n) { return '<p class="tl-x">' + n + '</p>'; }).join('');
 }
 // Nach dem Speichern: was der Coach aus der Einheit macht (nächste Stufe, Gewicht, gleich bleiben).
@@ -9911,7 +9948,7 @@ function kraftStepHTML(tag, D, rounds) {
       return '<button type="button" class="k-dot' + (i === ci ? ' on' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + m0 + '" aria-label="' + esc(x.x.n) + '"><span></span></button>'; }).join('') + '</div>';
     var cells = '';
     for (var r = 0; r < rounds; r++) cells += '<button type="button" class="k-r' + (r === cr ? ' on' : '') + (D['k' + e.i + 'r' + r] != null ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + (r * n + e.i) + '"><small>Min ' + (r * n + e.i + 1) + '</small><b>' + val(e, r) + '</b></button>';
-    h += '<section class="card ex-card k-one" data-ex="' + e.i + '"><div class="card-head"><h3>' + gl(e.x.n) + '</h3>' + kFlag(e) + '</div>' +
+    h += '<section class="card ex-card k-one" data-ex="' + e.i + '"><div class="card-head"><h3>' + gl(exShow(e)) + '</h3>' + kFlag(e) + '</div>' +
       '<div class="chips"><span class="chip">' + esc(e.x.target) + (/^\d+\s*[–-]\s*\d+$/.test(e.x.target || '') ? ' Wdh.' : '') + '</span>' + kStageChip(e) + '</div>' + (e.est ? '<p class="small muted k-est">' + e.est + '</p>' : '') +
       (e.skip ? '' : figBox(e.fk) + (GRIP[e.fk] ? '<p class="grip">' + esc(GRIP[e.fk]) + '</p>' : '') + howHTML(kHow(e))) + (e.x.pain ? '<p class="tl-x">' + esc(painText(e.x, true)) + '</p>' : '') + cue(e) +
       (/je Seite/.test(e.x.target || '') ? '<p class="small muted">Schwache Seite zuerst, sie zählt.</p>' : '') + (e.hint ? '<p class="small hint">' + e.hint + '</p>' : '') +
@@ -9921,12 +9958,12 @@ function kraftStepHTML(tag, D, rounds) {
     for (var m = 0; m < n * rounds; m++) {
       var x = E[m % n], r2 = Math.floor(m / n), v = D['k' + x.i + 'r' + r2];
       if (m === now.m) {
-        rows += '<div class="k-min on"><div class="card-head"><span><small class="k-now">Minute ' + (m + 1) + (now.run ? ' · jetzt' : '') + '</small><b class="k-n">' + esc(x.x.n) + '</b></span>' + kFlag(x) + '</div>' +
-          '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(x.fk) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' + (x.skip ? '' : howHTML(kHow(x))) +
+        rows += '<div class="k-min on"><div class="card-head"><span><small class="k-now">Minute ' + (m + 1) + (now.run ? ' · jetzt' : '') + '</small><b class="k-n">' + esc(exShow(x)) + '</b></span>' + kFlag(x) + '</div>' +
+          '<div class="k-mrow">' + (x.skip ? '' : '<span class="k-mfig">' + miniFig(exFig(x)) + '</span>') + '<span><span class="chips">' + kStageChip(x) + '</span>' + cue(x) + '</span></div>' + (x.skip ? '' : howHTML(kHow(x))) +
           (x.x.pain ? '<p class="tl-x">' + esc(painText(x.x, true)) + '</p>' : '') + (x.tpo ? tpoBarHTML(x.tpo, x.i, tpoN(D, x, r2)) : '') + kCounter(tag, D, x, r2) + '</div>';
       } else {
         var past = v != null || (now.run && m < now.m);
-        rows += '<button type="button" class="k-min' + (past ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + m + '"><span class="k-no">' + (past ? '✓' : m + 1) + '</span><span class="k-n">' + esc(x.x.n) + '</span><b>' + (x.skip ? '<span class="small muted">aus</span>' : v != null ? esc(v) : x.goal) + '</b></button>';
+        rows += '<button type="button" class="k-min' + (past ? ' set' : '') + '" data-act="k-sel" data-k="' + k + '" data-m="' + m + '"><span class="k-no">' + (past ? '✓' : m + 1) + '</span><span class="k-n">' + esc(exShow(x)) + '</span><b>' + (x.skip ? '<span class="small muted">aus</span>' : v != null ? esc(v) : x.goal) + '</b></button>';
       }
     }
     h += '<section class="card k-list">' + rows + '</section>';
@@ -11627,8 +11664,11 @@ function ueIdOf(n, key) { var g = GL[n]; return g && g.lib ? g.lib.id : key && U
 function kShow(n, stage) {
   var g = GL[n], l = g && LAD[g.key] && LAD[g.key].lib; if (!l || !stage) return n;
   var s = l.stufen.filter(function (x) { return x.name === stage; })[0], u = s && UE[s.uebung];
-  return u && u.name === stage && s.uebung !== g.key ? u.name : n;
+  // Dennis, 6. November: auch wenn der Stufenname anders heißt („Support Hold, 20 s“ = Ring Support Hold), zählt die Übung der Stufe.
+  return u && s.uebung !== g.key ? u.name : n;
 }
+function exShow(e) { return e && e.lad && e.stage ? kShow(e.x.n, e.stage) : e.x.n; }
+function exFig(e) { var id = stageUe(e); return id && figOf(id) ? id : e.fk && figOf(e.fk) ? e.fk : '_wave'; }
 function stageUe(E) { var l = E && E.lad && LAD[E.fk] && LAD[E.fk].lib; return l && E.si >= 0 && l.stufen[E.si] ? l.stufen[E.si].uebung : null; }
 // Dennis, 1. November: das (i) beschreibt die aktuelle Stufe (Übung der Stufe als key), nicht die Grundübung der Leiter.
 function fsI(n, key, stg) { var id = key && UE[key] ? key : ueIdOf(n, key); return id ? '<button type="button" class="fs-i" data-act="ue-info" data-how="1" data-id="' + esc(id) + '"' + (stg ? ' data-stg="' + esc(stg) + '" data-lad="' + esc(n) + '"' : '') + ' aria-label="So geht ' + esc(n) + '">i</button>' : ''; }
@@ -11756,8 +11796,8 @@ function finTrain(T, L, co) {
       (big ? '<p class="fs-reps' + (q.kind === 'work' ? '' : ' calm') + '">' + esc(big) + '</p>' + (q.watt ? '<p class="fs-pct">' + ftpPct(q.watt) + '</p>' : '') : '')) +
     '</div></div>' +
     (nx && !TM.finished ? '<p class="fs-nx"><span class="nl">Als Nächstes</span>' + sw(nx) + '</p>' : '') +
-    (F.k === 'iv' ? cntRow('Intervalle geschafft', 'von ' + F.n, 'fiDone', T.D, F.n) : '');
-  return { k: 'tfin' + cur + (TM.finished ? 'f' : run ? 'r' : '') + '|' + FS.rk, h: '<div class="fs-body tr-fin">' + co + h + '</div>' };
+    (F.k === 'iv' ? cntRow('Intervalle geschafft', 'von ' + F.n, 'fiDone', T.D, F.n) : '') + (TM.finished || !run ? finKmRow(F, T.D) : '');
+  return { k: 'tfin' + cur + (TM.finished ? 'f' : run ? 'r' : '') + '|' + FS.rk + '|' + (T.D.fiKm != null ? T.D.fiKm : '') + '|' + (T.D.fiDone != null ? T.D.fiDone : ''), h: '<div class="fs-body tr-fin">' + co + h + '</div>' };
 }
 function tpoN(D, e, r) { var v = num(D['k' + e.i + 'r' + r]); return v != null ? v : e.goal; }
 function trainKraft(T, L, v, co) {
@@ -11772,15 +11812,15 @@ function trainKraft(T, L, v, co) {
     var rows = E.map(function (x, i) {
       var mm = r * n + i, f = D['k' + i + 'r' + r], val = r >= x.zr ? 'frei' : (f != null ? f : x.skip ? '–' : x.goal) + (x.sec ? ' s' : ''), kg = r >= x.zr ? null : fsKg(i, r);
       return '<div class="fs-row fs-krow' + (i === ex ? ' on' : '') + (f != null && i !== ex ? ' done' : '') + '" data-act="k-sel" data-k="' + esc(draftKey(tag)) + '" data-m="' + mm + '">' +
-        '<small>' + (zk ? 'Ü ' + (i + 1) : 'Min ' + (mm + 1)) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(x.x.n) + fsStgBtn(x, true) + '</span>' + fsI(x.x.n, stageUe(x) || x.fk, x.stage) + '</div>';
+        '<small>' + (zk ? 'Ü ' + (i + 1) : 'Min ' + (mm + 1)) + '</small><b>' + fsQty(val) + (kg && kg.kg ? '<em> · ' + esc(kg.kg) + '</em>' : '') + '</b><span>' + fsName(exShow(x)) + fsStgBtn(x, true) + '</span>' + fsI(x.x.n, stageUe(x) || x.fk, x.stage) + '</div>';
     }).join('');
-    return { k: key, h: dots + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
+    return { k: key, h: dots + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (r < e.zr ? holdLine(e) : '') + '<div class="fs-rows">' + rows + '</div>' + (rc ? rc.c : '') + co };
   }
   var nx = m + 1 < n * rounds ? E[(m + 1) % n] : null;
-  return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(e.fk && figOf(e.fk) ? e.fk : '_wave') + '</div><div><p class="fs-lbl">' + (zp ? 'Gleich' : run ? 'Jetzt' : 'Als Erstes') + ' · ' + pos(m) + '</p>' +
-    '<div class="fs-nm"><p class="fs-exn fs-swap" role="button" data-act="k-stg" data-i="' + e.i + '" aria-label="Übung oder Stufe wechseln">' + esc(e.x.n) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk, e.stage) + '</div>' + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' + (k0.pct ? '<p class="fs-pct">' + esc(k0.pct) + '</p>' : '') : '') +
+  return { k: key, h: '<div class="fs-ex"><div class="fs-fig">' + figHTML(exFig(e)) + '</div><div><p class="fs-lbl">' + (zp ? 'Gleich' : run ? 'Jetzt' : 'Als Erstes') + ' · ' + pos(m) + '</p>' +
+    '<div class="fs-nm"><p class="fs-exn fs-swap" role="button" data-act="k-stg" data-i="' + e.i + '" aria-label="Übung oder Stufe wechseln">' + esc(exShow(e)) + '</p>' + fsI(e.x.n, stageUe(e) || e.fk, e.stage) + '</div>' + (ringTxt(tag, e.i) ? '<p class="fs-rgh">' + esc(ringTxt(tag, e.i)) + '</p>' : '') + holdLine(e) + (rc ? rc.h : '') + (k0 && k0.kg ? '<p class="fs-kg">' + esc(k0.kg) + '</p>' + (k0.pct ? '<p class="fs-pct">' + esc(k0.pct) + '</p>' : '') : '') +
     fsStgBtn(e) + '</div></div>' + (e.tpo && r < e.zr ? tpoBarHTML(e.tpo, ex, tpoN(D, e, r)) : '') + (rc ? rc.c : '') +
-    (zp ? '<p class="fs-nx"><span class="nl">Nach der Pause</span>Runde ' + (r + 1) + ' von ' + rounds + '</p>' : zk && ex === n - 1 && nx ? '<p class="fs-nx"><span class="nl">Danach' + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>Pause</p>' : nx ? '<p class="fs-nx"><span class="nl">Als Nächstes' + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' + fsName(nx.x.n) + '</p>' : '<p class="fs-nx"><span class="nl">' + (zk ? 'Letzte Übung' : 'Letzte Minute') + '</span></p>') + dots + co };
+    (zp ? '<p class="fs-nx"><span class="nl">Nach der Pause</span>Runde ' + (r + 1) + ' von ' + rounds + '</p>' : zk && ex === n - 1 && nx ? '<p class="fs-nx"><span class="nl">Danach' + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>Pause</p>' : nx ? '<p class="fs-nx"><span class="nl">Als Nächstes' + (run ? ' · <b id="fs-nxt"></b>' : '') + '</span>' + fsName(exShow(nx)) + '</p>' : '<p class="fs-nx"><span class="nl">' + (zk ? 'Letzte Übung' : 'Letzte Minute') + '</span></p>') + dots + co };
 }
 // Vor dem Training (Dennis): Übungen, die heute zum ersten Mal dran sind, auch neue Stufen bekannter Übungen; jede mit (i).
 function firstTimeList(tag) {
@@ -11844,13 +11884,53 @@ function ringH(names) {
   for (var i = 0; i < RING_S.length; i++) if (RING_S[i][0].test(nm)) return 'Ringe ' + (/^so/.test(RING_S[i][1]) ? '' : 'auf ') + RING_S[i][1];
   return '';
 }
+// Eine Ringhöhe für die ganze Einheit (Dennis, 6. November: „beim EMOM keine Zeit, die Höhe der Ringe immer anzupassen … Ring Support auf der Höhe
+// der Ring Rows, Beine einfach in der Luft“). Je Übung die Höhen, die gehen (0 Knöchel … 5 hängen), dazu die liebste; gewählt wird die Höhe, die die
+// meisten Ringübungen des Kraftteils abdeckt, bei Gleichstand die nächste an den Lieblingshöhen. Wer nicht passt, behält seine eigene Höhe.
+var RING_LV = ['Knöchelhöhe', 'Wadenhöhe', 'Kniehöhe', 'Hüfthöhe', 'Brusthöhe', 'so hoch, dass du frei hängst'];
+// [Muster, tiefste, höchste, liebste Höhe, Satz je Höhe, Gewicht]: Gewicht = wie sehr die Höhe die Übung verändert (Row und Push-up: der Winkel
+// ist die Stufe; Support: nur Beine anwinkeln), darum bekommt bei Ring Row + Support die Row ihre Höhe.
+var RING_R = [[/Push-up/, 0, 1, 0, ['', 'Füße erhöht oder Körper steiler, etwas leichter'], 3], [/Leg Curl/, 1, 1, 1, null, 3], [/Fallout/, 2, 3, 2, ['', '', '', 'etwas leichter'], 2],
+  [/Row/, 3, 4, 4, ['', '', '', 'Füße weiter vor, Körper flacher, etwas schwerer', ''], 3], [/Dip|Support|RTO|L-Sit/, 3, 4, 3, ['', '', '', 'Knie anwinkeln', 'Knie anwinkeln, Beine in der Luft'], 1],
+  [/Pistol|Am Türrahmen/, 3, 4, 4, ['', '', '', 'zum Festhalten, etwas tiefer greifen', 'zum Festhalten'], 1], [/./, 5, 5, 5, null, 3]];
+function ringRange(nm) { for (var i = 0; i < RING_R.length; i++) if (RING_R[i][0].test(nm)) return RING_R[i]; return RING_R[RING_R.length - 1]; }
+function ringIsEx(names) {
+  var rings = haveEq(trainOrt()).eq_ringe;
+  return names.filter(function (n) { return n && (/\bRing\b|RTO|False Grip/.test(n) || (rings && n === 'Am Türrahmen')); })[0] || '';
+}
+function ringDay(tag) {
+  var d = DAYS[tag]; if (!d || !d.kraft || !d.kraft.length) return null;
+  var L = d.kraft.map(function (x, i) {
+    if (x.pain && x.pain.skip) return null;
+    var st = ladFor(x.n) ? stageDef(x.n, x.hi) : '', nm = ringIsEx([kShow(x.n, st), st, x.n]); if (!nm) return null;
+    return { i: i, r: ringRange(nm === 'Am Türrahmen' ? 'Pistol' : nm) };
+  }).filter(Boolean);
+  return L.length ? ringPick(L) : null;
+}
+function ringPick(L) {
+  var best = -1, bs = -1e9;
+  for (var lv = 0; lv < RING_LV.length; lv++) {
+    var sc = 0; L.forEach(function (o) { if (lv >= o.r[1] && lv <= o.r[2]) sc += 100 - (o.r[5] || 1) * Math.abs(lv - o.r[3]); });
+    if (sc > bs) { bs = sc; best = lv; }
+  }
+  var m = {}; L.forEach(function (o) {
+    var ok = best >= o.r[1] && best <= o.r[2], lv = ok ? best : o.r[3], x = o.r[4] && o.r[4][lv];
+    m[o.i] = { lv: lv, own: !ok, t: 'Ringe ' + (lv === 5 ? '' : 'auf ') + RING_LV[lv] + (x ? ' · ' + x : '') + (ok ? '' : ' (umhängen)') };
+  });
+  return { lv: best, n: L.length, m: m };
+}
+function ringNotesDay(tag, d) {
+  var R = DAYS[tag] === d ? ringDay(tag) : null; if (!R) return ringNotes(d.kraft.map(function (k) { return k.n; }));
+  return Object.keys(R.m).map(function (i) { var x = d.kraft[i]; return esc(kShow(x.n, ladFor(x.n) ? stageDef(x.n, x.hi) : '')) + ': ' + esc(R.m[i].t) + '.'; });
+}
+function ringTxt(tag, i) { var R = ringDay(tag); return R && R.m[i] ? R.m[i].t : ''; }
 function fsReps(ex, r) {
   var d = DAYS[S.tag], x = d && d.kraft && d.kraft[ex]; if (!x) return null;
   var D = dr(S.tag), E = kraftEx(S.tag, D, kraftRounds(S.tag), x, ex); if (E.skip) return null;
   if (r >= E.zr) return { k: '|free' + ex + r, h: '<p class="fs-reps">Pause</p>', c: '<p class="fs-hint">Minute frei: ' + esc(ZONE_N[x.zcut]) + ' erholen.</p>' };
   var f = 'k' + ex + 'r' + r, v = num(D[f]), def = E.goal, val = v == null ? def : v, mx = E.test && r === 0, st = E.sec ? 5 : 1;
   var sl = mx ? '' : sideLine(E, def);
-  return { k: '|' + f + ':' + val, h: '<p class="fs-reps">' + (mx ? 'Maxout' : def + (E.sec ? ' s halten' : ' Wdh.')) + '</p>' + (sl ? '<p class="fs-side-x">' + esc(sl) + '</p>' : ''), c: '<div class="fs-rh fs-cnt"><p class="fs-lbl">Geschafft</p>' +
+  return { k: '|' + f + ':' + val, h: '<p class="fs-reps">' + (mx ? 'Maxout' : def + (E.sec ? '<small class="fs-u"> s halten</small>' : ' Wdh.')) + '</p>' + (sl ? '<p class="fs-side-x">' + esc(sl) + '</p>' : ''), c: '<div class="fs-rh fs-cnt"><p class="fs-lbl">Geschafft</p>' +
     '<div class="stepper"><button type="button" data-act="k-rep" data-f="' + f + '" data-d="-' + st + '" data-def="' + def + '" aria-label="Weniger">–</button><b>' + val + (E.sec ? ' s' : '') + '</b>' +
     '<button type="button" class="primary" data-act="k-rep" data-f="' + f + '" data-d="' + st + '" data-def="' + def + '" aria-label="Mehr">+</button></div></div>' };
 }
@@ -11903,7 +11983,9 @@ function fsPaint(L, force) {
   var $ = function (id) { return document.getElementById(id); }, c = TM.cfg || {}, idle = !TM.running && TM.acc === 0 && !TM.finished, first = TM.phases[1] || {}, p = L ? L.p : first;
   if (FS.train && FS.noT) { fsNavPaint(); $('fs-num').textContent = '✓'; $('fs-st').textContent = 'Ohne Uhr'; var Tn = trainCtx(); $('fs-pl').textContent = Tn && FLOW_IDS[Tn.s.id] ? 'Tippen hakt die Übung ab' : 'Abhaken, wenn fertig'; $('fs-arc').style.strokeDashoffset = '282.7'; var sd0 = fsSide(L), bx = $('fs-side'); if (sd0.k !== FS.key) { FS.key = sd0.k; bx.querySelectorAll('.fig').forEach(stopFig); bx.innerHTML = sd0.h; bx.querySelectorAll('.fig').forEach(startFig); } return; }
   var num = TM.finished ? (TM.mode === 'zeit' ? fmt(Math.max(0, TM.finalElapsed - 10)) : '00:00') : idle || !L ? (first.up || !isFinite(first.dur) ? '00:00' : fmt(first.dur)) : L.rem == null || p.up ? fmt(L.inPhase) : fmt(Math.ceil(L.rem));
-  var green = !TM.finished && !idle && (p.kind === 'pre' || p.kind === 'sw' || ((TM.mode === 'hiit' || p.zr) && p.kind === 'easy'));
+  // Dennis, 6. November (Video): die Kapsel flackerte im EMOM zwischen Blau und Grün. `p.zr` ist dort undefined, der Ausdruck damit auch,
+  // und classList.toggle('grn', undefined) schaltet bei jedem Takt um. Darum immer ein echter Wahrheitswert.
+  var green = !!(!TM.finished && !idle && (p.kind === 'pre' || p.kind === 'sw' || ((TM.mode === 'hiit' || p.zr) && p.kind === 'easy')));
   var hot = TM.running && L && L.rem != null && Math.ceil(L.rem) <= 3;
   var st = TM.finished ? 'Fertig' : idle ? 'Bereit' : !TM.running ? 'Angehalten' : p.kind === 'pre' ? 'Vorlauf' : (TM.mode === 'hiit' || p.zr) && p.kind === 'easy' ? 'Pause' : 'Läuft';
   $('fs-num').textContent = num; $('fs-num').className = 'fs-num' + (green ? ' grn' : '') + (hot ? ' hot' : '');
@@ -12655,7 +12737,8 @@ ACT['ue-info'] = function (el) {
   var u = UE[el.dataset.id]; if (!u) return;
   // Im Training und vor dem Start (data-how): zuerst Figur und „So geht’s“, darunter alles Weitere.
   // Dennis, 1. November: die Stufe von heute und die Ringhöhe stehen im (i), nicht mehr in der Karte.
-  var stg = el.dataset.stg, rh = ringH([u.name, stg, el.dataset.lad]), lad = el.dataset.lad && ladFor(el.dataset.lad), sj = lad && stg ? lad.steps.indexOf(stg) : -1;
+  var dk = DAYS[S.tag] && DAYS[S.tag].kraft, ki = el.dataset.lad && dk ? dk.findIndex(function (x) { return x.n === el.dataset.lad; }) : -1;
+  var stg = el.dataset.stg, rh = (ki >= 0 && ringTxt(S.tag, ki)) || ringH([u.name, stg, el.dataset.lad]), lad = el.dataset.lad && ladFor(el.dataset.lad), sj = lad && stg ? lad.steps.indexOf(stg) : -1;
   var top = (stg && sj >= 0 && lad.steps.length > 1 ? '<p class="ue-stg">Deine Stufe heute: <b>Stufe ' + (sj + 1) + ' · ' + stageHTML(stg) + '</b></p>' : '') + (rh ? '<p class="ue-ring">' + esc(rh) + '</p>' : '');
   var how = el.dataset.how ? '<div class="ue-how">' + top + figBox(u.id) + '<p class="gl-mh">So geht’s</p><ol class="how">' + ueSteps(u).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol></div>' : '';
   openForm(u.name, ueInfoHTML(u).replace('<div class="ue-info">', '<div class="ue-info">' + how), 'Fertig', function () {}, { noCancel: true, noFocus: true });
@@ -13153,6 +13236,17 @@ function finSeq(F) {
   put('Ausklingen', 120, 'easy', .45, 1.6, 1, 'Ganz ruhig');
   return Q;
 }
+// Strecke im Abschluss (Dennis, 6. November: „so gewinnen wir ja keine Daten“): Zähler in 0,5-km-Schritten, vorbelegt mit einer Schätzung
+// aus Gerät und Minuten (grau); gespeichert wird nur, was man selbst eingestellt hat (`fin.km`).
+var FIN_KMH = { lauf: 9, geh: 5.5, ergo: 25, air: 22, xt: 12, row: 11, ski: 10 };
+function finKmRow(F, D) {
+  if (!F || !F.dev) return '';
+  var est = Math.max(0.5, Math.round(F.min / 60 * (FIN_KMH[F.dev.id] || 10) * 2) / 2), v = num(D.fiKm);
+  return '<div class="k-cnt"><span><b>Strecke</b><br><span class="small muted">' + (v == null ? 'Von der Uhr oder vom Gerät, sonst geschätzt' : 'Eingetragen') + '</span></span>' +
+    '<div class="stepper"><button type="button" data-act="k-rep" data-f="fiKm" data-d="-0.5" data-def="' + est + '" aria-label="Weniger">–</button>' +
+    '<b' + (v == null ? ' class="muted" data-act="k-rep" data-f="fiKm" data-d="0" data-def="' + est + '"' : '') + '>' + fmtKm(v == null ? est : v) + ' km</b>' +
+    '<button type="button" class="primary" data-act="k-rep" data-f="fiKm" data-d="0.5" data-def="' + est + '" aria-label="Mehr">+</button></div></div>';
+}
 function finTarget(F) { var Q = finSeq(F), q = Q.filter(function (x) { return x.kind === 'work'; })[0] || Q[0]; return q.watt ? q.watt + ' W · ' + ftpPct(q.watt) : q.sub.split(' · ').pop(); }
 function finStep(tag, F) {
   var Q = finSeq(F), nm = FIN_N[F.k], dv = F.dev;
@@ -13162,7 +13256,7 @@ function finStep(tag, F) {
       var h = '<section class="card">' + (dv.ue && !tr ? figBox(dv.ue) : '') + '<h3 class="ag-h">' + esc(dv.n) + '<span class="chip">' + F.min + ' Min</span></h3><p class="small">' + esc(FIN_TXT[F.k]) + '</p>' +
         (dv.id === 'geh' ? '<p class="small muted">Hier gibt es kein Kardiogerät: zügig gehen, gern draußen oder auf der Treppe.</p>' : '') + seqRowsHTML(Q);
       if (F.k === 'iv') h += cntRow('Intervalle geschafft', 'von ' + F.n, 'fiDone', D, F.n);
-      return h + '</section>';
+      return h + finKmRow(F, D) + '</section>';
     } };
 }
 function warmMin(tag) { var zl = tag === S.tag ? zeitLv(tag) : 0; return zl >= 4 ? 4 : v2() ? umf().w : 8; }
