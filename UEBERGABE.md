@@ -37,6 +37,9 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 - Dennis: „Merke gleiche Symbole müssen gleiche Aktionen zur Folge haben“ → Regel in DESIGN.md › Systemregeln (› = Blatt von unten, ▶ = Vollbild, ⌄ = aufklappen).
   Einstellungen › Vibration und › Arbeitszeiten öffnen jetzt ein Blatt (`psh` haptik/woche), die Tour in den Häufigen Fragen hat ▶ statt ›. Noch abweichend
   (in Schritt 6/7 angleichen): Familien in der Bibliothek, 1RM-Zeilen, „Baut auf/Führt zu“ im Profil öffnen Seiten. Offene Tools-Fragen: freier Timer genutzt? Variante A, B oder C?
+- Schritt 6 Tools (Vergleich https://claude.ai/artifact/TefzCNshZkXGNLMJeoUfMr), Dennis: Timer nutzt er nicht, Variante A, „Mobility“ bleibt. Umgesetzt: Reiter „Bibliothek“
+  mit Übungen | Mobility, Timer weg, Körper und One Rep Max als Blatt in Profil › Werte (Details in CLAUDE.md › Schritt 6 Tools). Noch kein PR. Offen für Schritt 6:
+  Familien der Bibliothek öffnen noch eine Seite (Regel „gleiche Symbole“), Feinschliff der Seiten (Mobility-Zusatzsätze, Listen-Titel normal) mit Dennis klären.
 - Schritt 4 als PR #165 gemergt. Heute erledigt / Heute frei: Kopfzeile zeigt das Datum („Freitag, 6. November“) statt noch einmal „Heute“ (Dennis: „Wieso steht hier unter der Überschrift nochmal heute?“). Schritt 5 Plan (Vergleich https://claude.ai/artifact/NxpjeFESeWnMPBEP8tcjQu), Dennis: 1. V2, 2. „Warum 17:00?“ weg, 3. Schwerpunkte und Ziele vorläufig komplett raus („wir müssen
   uns dafür etwas komplett anderes überlegen“), 4. Wissen raus, FAQ reicht. Umgesetzt (Details in CLAUDE.md › Schritt 5 Plan). Offen: neues Konzept für Ziele/Schwerpunkte; der alte Code
   (Challenges, Schwerpunkt, Wissens-Texte in `PLAN_SUB`/`grundHTML`) liegt still, `window.TP_GOALS_ON = true` schaltet Challenges und Schwerpunkt wieder ein. Noch kein PR.

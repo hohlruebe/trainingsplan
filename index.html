@@ -1526,7 +1526,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .pw-list .gl-t b,.faq .gl-t b{font-weight:400}
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
-.psh>.rbtn.back,.psh>.hero{display:none}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
+.psh>.rbtn.back,.psh>.hero{display:none}.sub-seg{margin:4px 0 16px}.pf-tools .gl-t b{font-weight:400}#view[data-tab="uebungen"] .hero-title,#view[data-tab="routinen"] .hero-title{font-size:15px;color:var(--ink2);font-weight:400;margin-top:2px}.psh-koerper .mfig svg{max-width:100%}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
 .gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
@@ -1538,7 +1538,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
   <div class="tabbar-in">
     <button type="button" class="tab" data-act="tab" data-group="coach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg><span>Heute</span></button>
     <button type="button" class="tab" data-act="tab" data-group="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.5" cy="6.5" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="17.5" r="1.2"/></svg><span>Plan</span></button>
-    <button type="button" class="tab" data-act="tab" data-group="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span>Tools</span></button>
+    <button type="button" class="tab" data-act="tab" data-group="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"/></svg><span>Bibliothek</span></button>
     <button type="button" class="tab" data-act="tab" data-group="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg><span>Profil</span></button>
   </div>
 </nav>
@@ -4059,11 +4059,11 @@ var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
 // Reiter wie bei Apple (Schritt 0, Dennis 6. November): Heute, Plan, Tools, Profil, jeder mit Namen.
-var GROUPS = { coach: ['heute'], plan: ['plan'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
-var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Bibliothek', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
-var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', routine: 'tools', skill: 'profil', fokus: 'plan', challenge: 'plan', woche: 'plan', zusatz: 'coach', kardio: 'coach', kalender: 'coach' };
+var GROUPS = { coach: ['heute'], plan: ['plan'], profil: ['profil'], tools: ['uebungen', 'routinen'] }; // Schritt 6 (Dennis, 6. November, Variante A): Reiter Bibliothek; Timer weg, Körper und 1RM im Profil als Blatt
+var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Übungen', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
+var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'profil', einst: 'profil', haptik: 'profil', routine: 'tools', skill: 'profil', fokus: 'plan', challenge: 'plan', woche: 'plan', zusatz: 'coach', kardio: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
-var ui = { tab: 'heute', last: { coach: 'heute', plan: 'plan', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
+var ui = { tab: 'heute', last: { coach: 'heute', plan: 'plan', profil: 'profil', tools: 'uebungen' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
 
 /* ---------- helpers ---------- */
@@ -4408,6 +4408,10 @@ function render() {
   if (S.review && FOKUS_IDS.indexOf(S.review.fokus) < 0) S.review.fokus = 'allround';
   dayCheck();
   syncDays();
+  // Alte Seiten (Schritt 6): Timer gibt es nicht mehr, Körper und 1RM sind Blätter im Profil.
+  var reSh = null;
+  if (ui.tab === 'timer') ui.tab = 'uebungen';
+  else if (ui.tab === 'muskeln' || ui.tab === 'rm') { reSh = ui.tab === 'rm' ? 'rm' : 'koerper'; ui.tab = 'profil'; ui.pview = 'werte'; }
   var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, muskeln: renderMuskeln, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kardio: renderKardio, kalender: renderKalender }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
@@ -4424,7 +4428,7 @@ function render() {
   $view.innerHTML = body;
   $view.dataset.tab = ui.tab;
   var $side = document.getElementById('side'); if ($side) $side.innerHTML = desk ? sideHTML() : '';
-  if (views.length > 1 && !ui.noSub && !desk) subTitle(views); else ui.subOpen = false;
+  if (views.length > 1 && !ui.noSub && !desk) subSeg(views); ui.subOpen = false;
   document.querySelectorAll('.tab').forEach(function (b) {
     if (b.dataset.group === g) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
@@ -4432,7 +4436,6 @@ function render() {
   if (ui.tab === 'heute') { wakeFigs(); paintMini(); syncFig(document.querySelector('.ex-card.now') ? +document.querySelector('.ex-card.now').dataset.ex : 0); }
   if (ui.tab === 'routine') paintRoutine();
   if (ui.tab === 'uebungen' || ui.tab === 'fam') wakeGloss();
-  if (ui.tab === 'muskeln') musFit();
   if (ui.tab === 'fam') { document.querySelectorAll('#view .fam-top .fig').forEach(startFig); fitLadders($view); }
   if (ui.tab === 'skill') drawTree();
   var T = trainCtx();
@@ -4440,6 +4443,7 @@ function render() {
   else if (FS.on && FS.train) fsClose();
   if (FS.on) fsPaint(undefined, true);
   pshRefresh();
+  if (reSh && !ui.psh) pshOpen(reSh);
 }
 // Unterseiten: Titel mit Pfeil, Tippen öffnet das Drop-down darunter.
 var SUB_IC = {
@@ -4449,6 +4453,13 @@ var SUB_IC = {
   muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>',
   rm: '<path d="M3.5 20h17M6 16l4.5-5.5 3 3L18 7.5M14.5 7.5H18V11"/>'
 };
+// Bibliothek: Übungen | Mobility als Umschalter unter dem Titel (Schritt 6, statt Drop-down am Titel).
+function subSeg(views) {
+  var hero = $view.querySelector('.hero'); if (!hero) return;
+  hero.insertAdjacentHTML('afterend', '<div class="seg sub-seg" role="group" aria-label="Bereich">' + views.map(function (v) {
+    var on = v === ui.tab; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="tab" data-tab="' + v + '" aria-pressed="' + on + '">' + VIEW_LABEL[v] + '</button>';
+  }).join('') + '</div>');
+}
 function subTitle(views) {
   var h = $view.querySelector('.hero h1');
   if (!h) return;
@@ -4563,7 +4574,7 @@ function fbPage() {
   }
   if (p === 'orte') {
     var on = S.orte.filter(function (o) { return o.on; }).length;
-    return fbTop(p) + fbQ('Training', 'Wo trainierst du?', 'Mehrere möglich. Die Geräte je Ort prüfst du später in Tools › Bibliothek.') +
+    return fbTop(p) + fbQ('Training', 'Wo trainierst du?', 'Mehrere möglich. Die Geräte je Ort prüfst du später in der Bibliothek.') +
       '<div class="ob-grid">' + S.orte.map(function (o) {
         var f = ORT_K[o.k]; return '<button type="button" class="ob-tile' + (o.on ? ' on' : '') + '" data-act="fb-ort" data-v="' + o.id + '" aria-pressed="' + !!o.on + '"><span class="ob-i">' + fkIcon(ortIc(o)) + '</span><span><b>' + esc(ortName(o)) + '</b><br><small>' + esc(FB_ORT_SUB[o.k] || '') + '</small></span></button>';
       }).join('') + '</div>' +
@@ -5931,7 +5942,7 @@ var FAQ = [
   ['Ich habe wenig Zeit oder fühle mich nicht gut.', 'Tippe auf Heute auf „Heute anpassen“. Dein Coach kürzt die Einheit, das gilt nur für heute. Auch 15 Minuten zählen für deine Woche.'],
   ['Was mache ich bei Schmerzen?', 'Tippe im Training auf die rote Fahne. Je nach Stärke wird die Übung leichter oder ersetzt. Bleibt eine Stelle länger als zwei Wochen, lass sie abklären.'],
   ['Was gilt nach einer Pause?', 'Ab 8 Tagen Pause sind die nächsten Einheiten kürzer, ab 15 Tagen schätzt du kurz ein, wie fit du bist. Ab 4 Wochen ist der ganze Durchgang leichter.'],
-  ['Welches Band nehme ich?', 'Das Band gibt dein Coach vor. Je dicker das Band, desto mehr hilft es. Die Farben stellst du unter Tools › Bibliothek › Bänder ein.']
+  ['Welches Band nehme ich?', 'Das Band gibt dein Coach vor. Je dicker das Band, desto mehr hilft es. Die Farben stellst du unter Bibliothek › Bänder ein.']
 ];
 function faqHTML() {
   // Gleiche Symbole, gleiche Aktion (Dennis, 6. November): › öffnet ein Blatt von unten; die Tour läuft im Vollbild, darum ▶ wie bei den Mobility-Abläufen.
@@ -6479,7 +6490,9 @@ function renderProfil() {
     return '<button type="button" class="cap-btn' + (on ? ' on' : '') + '" data-act="pview" data-v="' + p[0] + '" aria-pressed="' + on + '" aria-label="' + p[1] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + p[3] + '"/></svg><span>' + p[1] + '</span></button>';
   }).join('') + '</nav>';
   var kt = v2() && DAYS[S.tag] && DAYS[S.tag].type === 'kraft' ? S.tag : 0;
-  if (view === 'werte') h += (kt ? progressHTML(kt) : '') + '<button type="button" class="st-row skill-go" data-act="tab" data-tab="skill"><span><b>Skill-Baum</b><br><span class="small muted">Was du kannst und was als Nächstes kommt</span></span><span class="muted">›</span></button>' + werteHTML(stats);
+  if (view === 'werte') h += (kt ? progressHTML(kt) : '') + '<button type="button" class="st-row skill-go" data-act="tab" data-tab="skill"><span><b>Skill-Baum</b><br><span class="small muted">Was du kannst und was als Nächstes kommt</span></span><span class="muted">›</span></button>' +
+    // Körper und One Rep Max zeigen eigene Werte, darum im Profil, je als Blatt von unten (Schritt 6, Variante A).
+    '<p class="gl-group">Werkzeuge</p><section class="card gl-card pf-tools">' + glRow('data-act="psh" data-k="koerper"', 'Körper', 'Was in 4 Wochen zu kurz kommt') + glRow('data-act="psh" data-k="rm"', 'One Rep Max', 'Deine schwersten Wiederholungen') + '</section>' + werteHTML(stats);
   else if (view === 'erfolge') h += (kt ? fastHTML(kt) : '') + erfolgeHTML(stats);
   else h += verlaufHTML();
   return h;
@@ -7345,8 +7358,8 @@ function tourSlides() {
       p: 'Wenig Zeit, mehr Zeit, nicht fit oder woanders? Sag es unter <b>Heute anpassen</b>, die Einheit passt sich sofort an. Dort verschiebst du auch ein Training. Schmerzen meldest du im Training über die rote Fahne.' },
     { ic: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/>', t: 'Dein Plan',
       p: 'Der Reiter <b>Plan</b> unten zeigt deine Woche mit allen Einheiten und darunter häufige Fragen: wie gesteigert wird und was nach einer Pause gilt.' },
-    { ic: '<rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><circle cx="17" cy="17" r="3.5"/>', t: 'Tools und Profil',
-      p: 'Links in der Leiste: <b>Tools</b> mit Timer, Übungen und Anleitungen, Körper, Mobility und 1RM. Rechts: <b>Profil</b> mit Erfolgen, Verlauf und Werten. Einstellungen und Sync liegen oben rechts im Profil.' },
+    { ic: '<rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><circle cx="17" cy="17" r="3.5"/>', t: 'Bibliothek und Profil',
+      p: 'In der Leiste: <b>Bibliothek</b> mit allen Übungen, Anleitungen und Mobility-Abläufen. Rechts: <b>Profil</b> mit Erfolgen, Verlauf und Werten, dort auch Körper und One Rep Max. Einstellungen und Sync liegen oben rechts im Profil.' },
     { ic: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10.5 18.5h3"/>', t: 'Als App speichern', inst: inst, steps: steps,
       p: inst ? 'Erledigt: Du nutzt den Trainingsplan schon als App. Er startet vom Startbildschirm, im Vollbild und auch ohne Internet.' :
         'Dann startet der Trainingsplan wie eine App vom Startbildschirm, im Vollbild und auch ohne Internet.' }
@@ -9080,7 +9093,7 @@ var MQ_DESK = window.matchMedia ? window.matchMedia('(min-width: 1024px) and (ho
 function deskOn() { var m = S.layout || 'auto'; if (m === 'desk') return window.innerWidth >= 900; if (m === 'mobil') return false; return !!(MQ_DESK && MQ_DESK.matches); }
 if (MQ_DESK) { var deskRe = function () { render(); }; if (MQ_DESK.addEventListener) MQ_DESK.addEventListener('change', deskRe); else if (MQ_DESK.addListener) MQ_DESK.addListener(deskRe); }
 // Seitenleiste statt der Reiter-Kapsel: alle Seiten direkt erreichbar.
-var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Tools', [['timer', 'Timer'], ['uebungen', 'Bibliothek'], ['muskeln', 'Körper'], ['routinen', 'Mobility'], ['rm', '1RM']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
+var SIDE = [['Coach', [['heute', 'Heute'], ['plan', 'Plan']]], ['Bibliothek', [['uebungen', 'Übungen'], ['routinen', 'Mobility']]], ['Profil', [['profil', 'Profil'], ['einst', 'Einstellungen']]]];
 var SIDE_IC = { muskeln: '<circle cx="12" cy="4" r="2"/><path d="M8 8.5h8l-1 6.5h-2l-.5 6.5h-1l-.5-6.5H9z"/>', heute: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>', plan: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/>',
   profil: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/>', einst: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>' };
 function sideHTML() {
@@ -9388,6 +9401,8 @@ var PSH = {
   woche: ['Arbeitszeiten', function () { return renderWoche(); }],
   zusatz: ['Zusätzlich', function () { return renderZusatz(); }],
   haptik: ['Haptik', function () { return renderHaptik(); }],
+  koerper: ['Körper', function () { return renderMuskeln(); }],
+  rm: ['One Rep Max', function () { return renderRM(); }],
   body: ['Belastung und Erholung', function () { var m = ui.pwMon || wkMon(); return loadCardHTML(m) + (m === wkMon() ? zoneCardHTML() : ''); }]
 };
 function pshOpen(k) {
@@ -9395,8 +9410,10 @@ function pshOpen(k) {
   if (k === 'woche') { ui.wocheBack = ui.tab; ui.wkNext = ui.wkNext || false; }
   if (k === 'zusatz') { ui.zsBack = 'plan'; }
   ui.psh = k; ui.pshTab = ui.tab;
-  openForm(PSH[k][0], '<div class="psh">' + PSH[k][1]() + '</div>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
+  if (k === 'rm' && !ui.rmKeep) ui.rmLift = null; ui.rmKeep = false;
+  openForm(PSH[k][0], '<div class="psh psh-' + k + '">' + PSH[k][1]() + '</div>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
   var s = document.getElementById('sheet'); if (s) s._psh = true;
+  if (k === 'koerper') musFit();
 }
 function pshRefresh() {
   if (!ui.psh) return;
@@ -9405,6 +9422,7 @@ function pshRefresh() {
   var p = s.querySelector('.psh'); if (!p) return;
   var b = s.querySelector('.sh-body'), top = b ? b.scrollTop : 0;
   p.innerHTML = PSH[ui.psh][1](); if (b) b.scrollTop = top;
+  if (ui.psh === 'koerper') musFit();
 }
 ACT.psh = function (el) { pshOpen(el.dataset.k); };
 function glRow(attrs, t, sub, val, down) {
@@ -11428,8 +11446,13 @@ function rmDetailHTML(id) {
   return h;
 }
 ACT['parea-go'] = function (el) { ui.pview = 'werte'; ui.parea = el.dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); areaTop(); };
-ACT['rm-go'] = function (el) { ui.rmLift = el.dataset.v; ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
-ACT['rm-open'] = function (el) { ui.rmLift = el.dataset.v || null; if (ui.tab !== 'rm') ui.tab = 'rm'; window.scrollTo(0, 0); render(); };
+// 1RM ist ein Blatt im Profil (Schritt 6): im Blatt wechselt die Ansicht, von außen öffnet es das Blatt mit dieser Übung.
+ACT['rm-open'] = function (el) {
+  ui.rmLift = el.dataset.v || null;
+  if (ui.psh === 'rm' && document.getElementById('sheet')) { render(); var b = document.querySelector('#sheet .sh-body'); if (b) b.scrollTop = 0; return; }
+  ui.rmKeep = true; pshOpen('rm');
+};
+ACT['rm-go'] = ACT['rm-open'];
 ACT['rm-new'] = function (el) {
   var id = el.dataset.v, r = rmOf(id), last = r ? r.cur : null, kg = last ? last.kg : (rmAdd(id) ? 10 : 60), max = rmAdd(id) ? 120 : 350;
   openSheet('Neuer Wert · ' + UE[id].name, [
@@ -11459,7 +11482,7 @@ function routineCardHTML(r, main, label) {
 }
 function renderRoutinen() {
   var groups = [['morgen', 'Morgens', 'Sanft wach werden, ein paar ruhige Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
-  var h = '<section class="hero"><h1>Mobility</h1><p class="hero-title">Routinen für jeden Tag</p></section>';
+  var h = '<section class="hero"><h1>Bibliothek</h1><p class="hero-title">Abläufe für jeden Tag</p></section>';
   groups.forEach(function (g) {
     var list = MOB.routinen.filter(function (r) { return r.wann === g[0]; });
     if (!list.length) return;
@@ -13081,7 +13104,7 @@ function renderMob() {
   var item = function (id) { var e = GL[uName(id)]; return e && e.lib ? glItemHTML(e, c.st, c.have, 'sub') : ''; };
   return '<button type="button" class="rbtn back" data-act="tab" data-tab="' + (ui.famBack || 'uebungen') + '" aria-label="Zurück">' + BACK + '</button>' +
     '<section class="hero"><h1>Mobility</h1><p class="hero-title">' + n + ' Übungen · nach Körperteil</p></section>' +
-    '<p class="muted small mob-x">Dehnen und Gelenke durch den ganzen Bewegungsbereich führen. Antippen klappt eine Übung mit Figur und „So geht’s“ auf. Fertige Abläufe stehen unter Tools › Mobility.</p>' +
+    '<p class="muted small mob-x">Dehnen und Gelenke durch den ganzen Bewegungsbereich führen. Antippen klappt eine Übung mit Figur und „So geht’s“ auf. Fertige Abläufe stehen unter Bibliothek › Mobility.</p>' +
     '<div class="chips fam-go mob-jump">' + G.map(function (g) { return '<button type="button" class="chip" data-act="mob-jump" data-k="' + g.k + '">' + esc(g.n) + '</button>'; }).join('') + '</div>' +
     G.map(function (g) { return '<p class="sec-k mob-k" id="mob-' + g.k + '">' + esc(g.n) + ' · ' + g.l.length + '</p><section class="card fam-page"><div class="fam-list">' + g.l.map(item).join('') + '</div></section>'; }).join('');
 }
@@ -14248,7 +14271,7 @@ function musRow(u) {
 }
 function renderMuskel() {
   var m = MUS_NAME[ui.musId] ? ui.musId : 'brust', all = !!ui.musAll, U = musUe(m, all), st = musStat(m), la = musLast(m), more = !!ui.musMore;
-  var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="' + esc(ui.musBack || 'muskeln') + '" aria-label="Zurück">' + BACK + '</button>' +
+  var h = '<button type="button" class="rbtn back" data-act="mus-back" aria-label="Zurück">' + BACK + '</button>' +
     '<section class="card"><div class="mus-hero">' + musIcon(m, 112, 2.2) + '<div><h2>' + esc(MUS_NAME[m]) + '</h2><p class="small muted">' + esc(MUS_TXT[m] || '') + (musCo(m).length ? ' Hellblau im Bild: ' + esc(musCo(m).map(function (x) { return MUS_NAME[x]; }).join(', ')) + ', die arbeiten oft mit.' : '') + '</p><div class="chips">' + (st || '') + (la ? '<span class="chip">' + esc(la) + '</span>' : '') + '</div></div></div></section>' +
     '<div class="seg" role="group" aria-label="Ort" style="margin:0 0 12px">' + [['', ortName(curOrt())], ['1', 'Alle']].map(function (o) { var on = !!o[0] === all; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="mus-all" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
   h += '<section class="card"><div class="card-head"><h2>Trainiert ' + (m === 'gesaess' ? 'es' : /^(brust|schulter|unterarm|bauch_schraeg|waden|adduktoren|abduktoren)/.test(m) ? 'sie' : 'ihn') + ' vor allem</h2><span class="chip">' + U.p.length + '</span></div>' +
@@ -14261,6 +14284,8 @@ function renderMuskel() {
 function renderMuskeln() { return '<section class="hero"><h1>Körper</h1>' + (musBalance().ok ? '<p class="hero-title">Deine letzten 4 Wochen</p>' : '') + '</section>' + musLibHTML(); }
 // Die Figur so hoch, dass der ganze Körper samt Auswahlzeile über der Reiterleiste Platz hat (auch mit großer Schrift).
 function musFit() {
+  var sh = document.querySelector('#sheet .psh .mfig svg');
+  if (sh) { sh.style.height = Math.max(220, Math.min(440, window.innerHeight - 340)) + 'px'; return; }
   var svg = $view.querySelector('.mfig svg'); if (!svg) return;
   var card = svg.closest('.card'), tb = document.querySelector('.tabbar'), cs = parseFloat(svg.style.height) || 440;
   svg.style.height = cs + 'px';
@@ -14269,7 +14294,14 @@ function musFit() {
   svg.style.height = Math.max(220, Math.min(440, (bottom - (r.top + window.scrollY - (document.scrollingElement || document.documentElement).scrollTop)) / k)) + 'px';
 }
 ACT['mus-side'] = function (el) { ui.musSide = el.dataset.v; render(); };
-ACT['mus-open'] = function (el) { ui.musId = el.dataset.v; ui.musAll = false; ui.musMore = false; ui.musBack = el.dataset.back || 'muskeln'; ui.tab = 'muskel'; render(); window.scrollTo(0, 0); };
+ACT['mus-open'] = function (el) {
+  var fromSh = ui.psh === 'koerper';
+  ui.musId = el.dataset.v; ui.musAll = false; ui.musMore = false; ui.musBack = el.dataset.back || 'profil'; ui.musRe = fromSh || el.dataset.re ? 'koerper' : null;
+  if (fromSh) { ui.psh = null; closeSheet(); }
+  ui.tab = 'muskel'; render(); window.scrollTo(0, 0);
+};
+// Zurück von der Muskel-Seite: dorthin, woher man kam; kam man aus dem Blatt Körper, öffnet es wieder.
+ACT['mus-back'] = function () { var re = ui.musRe; ui.musRe = null; ui.tab = ui.musBack || 'profil'; if (ui.tab === 'profil') ui.pview = ui.pview || 'werte'; render(); window.scrollTo(0, 0); if (re) pshOpen(re); };
 // Muskel-Bild als Knopf (im (i) einer Übung und in der Karte Muskelausgleich): öffnet die Seite des Muskels, Zurück führt hierher.
 function musChipsHTML(list, sub) {
   return '<div class="mus-ics">' + list.filter(function (m) { return MUS_NAME[m]; }).map(function (m) {
@@ -14277,8 +14309,8 @@ function musChipsHTML(list, sub) {
   }).join('') + '</div>';
 }
 ACT['mus-go'] = function (el) {
-  if (document.body.classList.contains('focus') || FS.on) { toast('Nach dem Training unter Tools › Körper.'); return; } // mitten im Training nicht wegspringen
-  var back = ui.tab; closeSheet(); el.dataset.back = back === 'muskel' ? 'muskeln' : back; ACT['mus-open'](el);
+  if (document.body.classList.contains('focus') || FS.on) { toast('Nach dem Training unter Profil › Werte › Körper.'); return; } // mitten im Training nicht wegspringen
+  var back = ui.tab, re = ui.psh === 'koerper' || (back === 'muskel' && ui.musRe); ui.psh = null; closeSheet(); el.dataset.back = back === 'muskel' ? (ui.musBack || 'profil') : back; if (re) el.dataset.re = '1'; ACT['mus-open'](el);
 };
 ACT['mus-all'] = function (el) { ui.musAll = !!el.dataset.v; render(); };
 ACT['mus-more'] = function () { ui.musMore = true; render(); };
