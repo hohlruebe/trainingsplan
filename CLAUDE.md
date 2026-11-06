@@ -90,8 +90,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   nur höher als der Bildschirm blendet sie unten aus (`.cut`).
   Auch an den anderen Tagen der Woche (Dennis, 5. November): Heute › anderer Tag (`wkDayHTML`) und Plan › Deine Woche geben `tlHTML(st, {tag, dg})` mit, jeder Schritt
   bekommt dazu `data-dg`; `pvShow` rechnet dann in `planPreview(dg)` mit `pvHTML(tag, id, true)` (Schritte wie in `wkUnitPreview`, nicht `dayCtx`).
-  Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Kopfzeile „Heute · 17:05 Uhr“,
-  Titel, ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
+  Heute ohne Ballast (Dennis, 14. Oktober, `lean` in `renderHeute`, nur Plan 2): Heute zeigt nur, was heute dran ist (Titel, darunter die Kopfzeile „Heute · 17:05 Uhr“ (`.h-kick`, seit Schritt 2 unter statt über dem Titel), ein bis zwei Sätze darunter `heuteSub` `.h-sub`: Grund und nächster Termin bzw. der wichtigste Hinweis des Tages, Wochenleiste ohne
   Blättern `wkStripHTML(…, noHead)`), höchstens eine Frage (`heuteAskHTML`: Befinden unbeantwortet oder „Sehr müde“, Schmerzen, `missNoticeHTML`,
   `planNextAskHTML`, `backupHTML`) und den Ablauf mit „Training starten“ und „Heute anpassen“ (dort auch Andere Uhrzeit `adapt-time` und Heute nicht
   `adapt-off`). Coach-Hinweise stehen am Schritt (`coachItems` mit Ort, `stepCoachHTML` in `stepPageHTML`, dazu die Ringhöhe). Freier Tag: eine Karte
@@ -164,8 +163,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
     je Familie `bereich`, `ebene`, `voraussetzt` (`familie`, `ab_rang`), `fuehrt_zu`, `leiter`. Nur ergänzend, IDs der Übungen bleiben.
   - `<script id="maskottchen">`: Kopie von `design/maskottchen/maskottchen.js` (Übungsgrafiken), beide gleich halten
   - Haupt-`<script>`: Logik für Heute, Timer, Verlauf, Übungen, Plan, Einstellungen, Sync
-- Reiter von links nach rechts: Tools (Timer, Übungen, Mobility, 1RM = One Rep Max), Coach (nur Heute), Profil.
-  Der Plan ist eine versteckte Seite `plan` hinter dem runden Info-Knopf oben rechts auf Heute (`renderPlan`): „Dein Plan“ mit
+- Reiter von links nach rechts (seit Schritt 2, wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
+  Tools (Timer, Bibliothek, Körper, Mobility, 1RM), Profil. Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
   `ui.planTag`; darunter der Ablauf des Tages als nummerierte Schritte, `planDayHTML`/`tlHTML`, berechnet über `planPreview`, das
   `S.durchgang` nur kurz umstellt; künftige Tage mit Hinweis „Vorschau“). Darunter „Wissen“ als Liste (`PLAN_SUB`), jeder Punkt eine
@@ -518,8 +517,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   EMOM: Chip „Als Nächstes“ mit Mini-Figur und Countdown (`emomNext`, `miniFig`).
   Figur oder Platzhalter (`figBox`, winkendes `_wave` mit „Grafik folgt“) überall, wo eine Übung gezeigt wird: Schritte, Kraft-Karten,
   Bibliothek (Familien-Seite, jede Übung), Mobility-Player (`#rp-fig`). Neue Grafik = nur in `Maskottchen.EXERCISES` eintragen.
-- Einstellungen „Mittel“ (Dennis): Karte „Über dich“ (Name, Geschlecht, Gewicht, Geburtsjahr, Foto), Karte „Aussehen“ (Hell/System/Dunkel und
-  Textgröße A/A/A, `S.textSize` 's'/'m'/'l' nur auf dem Gerät, `html[data-text]` mit `zoom` auf `body`, `lookHTML`), dann „Sync über GitHub“, „Mehr“
+- Einstellungen „Mittel“ (Dennis): Karte „Über dich“ (Name, Geschlecht, Gewicht, Geburtsjahr, Foto), Karte „Textgröße“ (seit Schritt 1 nur noch
+  Textgröße A/A/A; Hell/Dunkel folgt dem Handy, eine feste Farbe, Paletten gelten nicht mehr, `S.textSize` 's'/'m'/'l' nur auf dem Gerät, `html[data-text]` mit `zoom` auf `body`, `lookHTML`), dann „Sync über GitHub“, „Mehr“
   (`moreHTML`: Zahlen-Schrift, Countdown, Haptik, Gesten, Maximal-/Ruhepuls, Ansicht, Vollbild) und „Daten“ (Startdatum,
   Export/Import, Zurücksetzen; `settingsHTML`). Trainings-Entscheidungen trifft der Coach: `modeOf` = `TRAIN_STD`, `roundMode()` = 'ex',
   `timerModeOf` = `TIMER_STD`, Vollbild dreht immer mit, Lauf-ABC immer; „Stand setzen“ ist weg. Alte Werte bleiben in `S`, werden nicht mehr benutzt.
@@ -960,8 +959,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengenangaben.
   Farben über CSS-Variablen (`--acc`, `--ink`, `--board`, `--paper`, `--fill`),
   Dunkelmodus über `data-theme`.
-- Schalter: alle Checkboxen (`.check input`) sind Schalter „Glas-Tropfen“: an = grün mit Strich
-  (`--on` #4DBF79), aus = rot mit Kreis (`--off` #EE6A5C). Beim Umschalten wächst der Knopf
+- Schalter: alle Checkboxen (`.check input`) sind Schalter wie bei Apple (seit Schritt 2: aus grau, an grün, runder Knopf); Einstellungen › Mehr ›
+  „Farbige Schalter“ (`S.swColor`) zeigt den alten Stil „Glas-Tropfen“: an = grün mit Strich (`--on` #4DBF79), aus = rot mit Kreis (`--off` #EE6A5C). Beim Umschalten wächst der Knopf
   kurz an und setzt sich weich ab (Klasse `live` nach Änderung).
 
 ## Prinzipien nach Apple (Dennis, 6. November: „die App soll aussehen wie eine eigens von Apple entwickelte App“)

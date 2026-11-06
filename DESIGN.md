@@ -50,8 +50,21 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - **Reiter wie bei Apple**: Heute, Plan, Tools, Profil (Wichtigstes links). „Coach“ heißt „Heute“, der Plan ist ein eigener Reiter statt hinter
   dem (i). Einstellungen bleiben hinter dem Regler im Profil (wie Apple Fitness).
 
-### Noch offen (Schritt 1 und folgende)
-- Schriftgrößen: heute 59 verschiedene, am häufigsten 14 px (Apple: Text 17). Eckenradien: 38 verschiedene.
+### Schritt 1 Fundament (6. November 2026, Vergleich https://claude.ai/artifact/2478AiQNqFKHbLGDWeMGxP)
+- Textstile als Variablen `--fs-lt` 34, `--fs-t1` 28, `--fs-t2` 22, `--fs-t3` 20, `--fs-body` 17, `--fs-co` 16, `--fs-sub` 15, `--fs-fn` 13, `--fs-cap` 12; `--h1` 34; Grundtext 17.
+  Neue Regeln nehmen nur diese Variablen. Gewicht höchstens 700.
+- Radien `--r-s` 8, `--r-m` 14, `--r-l` 20 (Karte), `--r-cap` 999; Kreise bleiben 50 %. Abstände nur 4, 8, 12, 16, 20, 24, 32 (2 px nur als Feinkorrektur).
+- Ausgenommen bis Schritt 3: Trainer (`#fs`, `.fs-*`, `#tbar`) und die großen Anzeige-Zahlen.
+
+### Schritt 2 Bausteine (6. November 2026, Vergleich https://claude.ai/artifact/MCpWKUekPt6XzFTCoqn39y)
+- Reiterleiste: Heute | Plan | Tools | Profil, Symbol über dem Namen (12 px), gewählt `--acc` auf 8 % `--ink`, feste Breite. Plan ist Gruppe `plan` (`GROUPS`), dazu `fokus`, `challenge`, `woche`.
+- Schalter Standard Apple (`:root:not([data-sw="c"]) .check input`: 51 × 31, aus 16 % `--ink`, an #34C759, Bewegung `dropOn2`/`dropOff2`); `S.swColor` (nur Gerät) = alter Stil.
+- Glas nur Reiterleiste, `.tbar`, `.moment`, Trainer; `.btn` (außer primary/save), `.seg`, `.pills`, `.cap`, `.rbtn` im Inhalt fest mit 6 % `--ink`.
+
+- Teil 2: Wert-Zeilen (`.vrow`) Name und Wert 17 normal, Wert `--ink2`, mindestens 44 hoch. Blätter: „Abbrechen“ links und „Fertig“ rechts in `--acc`
+  (Fertig halbfett), Griff oben; am Griff oder Kopf nach unten ziehen (über 90 px) = Abbrechen, sonst springt es zurück (Klasse `.drag`).
+
+### Noch offen (Schritt 3 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
 
