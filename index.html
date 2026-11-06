@@ -169,8 +169,16 @@ textarea{width:100%;min-height:84px;resize:vertical}
 .check input:checked::after{transform:translateX(24px)}
 .check input.live:checked::after{animation:dropOn .42s cubic-bezier(.3,.9,.4,1)}
 .check input.live:not(:checked)::after{animation:dropOff .42s cubic-bezier(.3,.9,.4,1)}
+:root:not([data-sw="c"]) .check input{width:51px;height:31px;border-radius:var(--r-cap);margin:6px 0;background:color-mix(in srgb,var(--ink) 16%,transparent)}
+:root:not([data-sw="c"]) .check input:checked{background:#34C759}
+:root:not([data-sw="c"]) .check input::after{width:27px;height:27px;border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.06)}
+:root:not([data-sw="c"]) .check input:checked::after{transform:translateX(20px)}
 @keyframes dropOn{0%{transform:translateX(0) scale(1)}35%{transform:translateX(8px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(26px) scale(1.05)}100%{transform:translateX(24px) scale(1)}}
 @keyframes dropOff{0%{transform:translateX(24px) scale(1)}35%{transform:translateX(16px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(-2px) scale(1.05)}100%{transform:translateX(0) scale(1)}}
+@keyframes dropOn2{0%{transform:translateX(0) scale(1)}35%{transform:translateX(7px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(22px) scale(1.05)}100%{transform:translateX(20px) scale(1)}}
+@keyframes dropOff2{0%{transform:translateX(20px) scale(1)}35%{transform:translateX(13px) scale(1.42,1.5);background:rgba(255,255,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.12)}75%{transform:translateX(-2px) scale(1.05)}100%{transform:translateX(0) scale(1)}}
+:root:not([data-sw="c"]) .check input.live:checked::after{animation-name:dropOn2}
+:root:not([data-sw="c"]) .check input.live:not(:checked)::after{animation-name:dropOff2}
 .flag{background:var(--note);color:var(--note-ink);border-radius:var(--r-m);padding:12px 12px;margin:8px 0}
 .seg{display:flex;gap:4px;padding:4px;margin:12px 0;border-radius:var(--r-cap);background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 6px 20px rgba(17,18,20,.06)}
 .card .seg{background:var(--board);box-shadow:none}
@@ -203,7 +211,7 @@ details.card[open]>summary{margin-bottom:8px}
 .search input{width:100%}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;pointer-events:none;padding:34px 0 calc(max(env(safe-area-inset-bottom,0px),12px) + 8px);background:linear-gradient(to bottom,color-mix(in srgb,var(--board) 0%,transparent),color-mix(in srgb,var(--board) 85%,transparent) 55%,var(--board))}
 .tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:200px;background:var(--board);pointer-events:none}
-.tabbar-in{pointer-events:auto;width:max-content;margin:0 auto;display:flex;gap:8px;padding:8px;border-radius:var(--r-cap);background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 10px 30px rgba(17,18,20,.08)}
+.tabbar-in{pointer-events:auto;width:max-content;margin:0 auto;display:flex;gap:4px;padding:4px;border-radius:var(--r-cap);background:color-mix(in srgb,var(--paper) 58%,transparent);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border:1px solid color-mix(in srgb,var(--ink) 7%,transparent);box-shadow:0 10px 30px rgba(17,18,20,.08)}
 .subttl{cursor:pointer;-webkit-user-select:none;user-select:none}
 .subttl[aria-expanded="true"] .chev{transform:rotate(180deg)}
 .subttl .chev{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-left:8px;vertical-align:middle;color:color-mix(in srgb,var(--ink) 50%,transparent);transition:transform .2s}
@@ -218,10 +226,10 @@ details.card[open]>summary{margin-bottom:8px}
 .subdd button:active{transform:scale(.97)}
 @keyframes subgrow{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
 @keyframes subfd{from{opacity:0}}
-.tab{display:flex;align-items:center;justify-content:center;height:48px;min-width:48px;padding:0 12px;border:0;border-radius:var(--r-l);background:transparent;color:var(--ink2);font-family:var(--head);font-weight:600;font-size:var(--fs-sub);letter-spacing:-.01em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .25s,color .25s,padding .3s,box-shadow .25s}
-.tab span{display:block;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;line-height:1.15;transition:max-width .3s ease,opacity .2s,margin .3s ease}
-.tab[aria-current="page"]{background:var(--pill);color:var(--acc);padding:0 20px 0 16px;box-shadow:0 2px 8px rgba(17,18,20,.1)}
-.tab[aria-current="page"] span{max-width:96px;opacity:1;margin-left:8px}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:56px;min-width:68px;padding:0 8px;border:0;border-radius:var(--r-cap);background:transparent;color:var(--ink2);font-family:var(--head);font-weight:600;font-size:12px;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .25s,color .25s,box-shadow .25s}
+.tab span{display:block;line-height:1.1;white-space:nowrap}
+.tab[aria-current="page"]{background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--acc)}
+.tab[aria-current="page"] span{}
 .tab svg{width:24px;height:24px}
 .toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--board);padding:12px 16px;border-radius:var(--r-m);font-size:var(--fs-sub);z-index:46;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
@@ -1469,6 +1477,10 @@ html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 .mo-ch{gap:2px}.moment.mo-chain .mo-text{animation-delay:.6s;min-height:0;margin-top:8px}.moment.mo-chain .mo-btns{animation-delay:.8s}
 .mo-btns .btn.block{grid-column:1/-1}
 .acc-it{display:flex;align-items:center;gap:12px;margin-top:12px}.acc-t{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;min-width:0}.acc-t .small{flex-basis:100%}.acc-it .mini-fig{width:44px;height:44px;flex:none}
+
+/* Glas nur für schwebende Steuerung (Schritt 0/2, Dennis 6. November): im Inhalt feste Flächen ohne Unschärfe und Schatten.
+   Reiterleiste, Timer-Leiste, Momente und der Trainer (#fs) bleiben Glas. */
+.btn:not(.primary):not(.save):not(#fs *),.seg:not(#fs *),.pills:not(#fs *),.cap:not(#fs *),.rbtn:not(#fs *){background:color-mix(in srgb,var(--ink) 6%,transparent);-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none}
 </style>
 </head>
 <body>
@@ -1477,8 +1489,9 @@ html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 <nav class="side" id="side" aria-label="Navigation"></nav>
 <nav class="tabbar" aria-label="Hauptmenü">
   <div class="tabbar-in">
+    <button type="button" class="tab" data-act="tab" data-group="coach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg><span>Heute</span></button>
+    <button type="button" class="tab" data-act="tab" data-group="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.5" cy="6.5" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="17.5" r="1.2"/></svg><span>Plan</span></button>
     <button type="button" class="tab" data-act="tab" data-group="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span>Tools</span></button>
-    <button type="button" class="tab" data-act="tab" data-group="coach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg><span>Coach</span></button>
     <button type="button" class="tab" data-act="tab" data-group="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg><span>Profil</span></button>
   </div>
 </nav>
@@ -3920,7 +3933,7 @@ var TEST_BASE = {
 
 var DEF = { v: 1, exportTs: null, backupAsk: null, autoRest: null, textSize: 'm', kraftView: null, fsView: 'one', comeback: null, tagSince: null, advBy: null, posSet: 0, started: false, startDate: null, durchgang: 0, tag: 1, lastTag1Month: null, cycleStart: null,
   cycleDurchgang: null, murphStage: 1, ivStage: 1, ivReps: 6, ivBumpD: 0, theme: 'auto', palette: null, color: 'blau', font: 'klar', look: 2, sound: true, cdVoice: false, cdLang: 'en', cdWhen: null, haptik: true, vollbild: true, hapt: null, name: '', base: {}, standTs: 0, orte: null, ort: 'o1', picks: null, pickSkip: null, tmr: null, bandCol: null, cooldown: true, weight: null, rmLifts: null, paper: 'weiss',
-  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, tpoCue: true,
+  trainCustom: false, trainModes: null, roundCounter: true, swapped: null, layout: 'auto', roundMode: 'ex', timerCustom: false, timerModes: null, timerView: 'auto', swipe: true, swipeRev: false, swColor: false, tpoCue: true,
   fokus: 'allround', schwerpunkt: null, blockStart: null, lauf: null, ziele: null, hrMax: null, hrRest: null, review: null, lvl: null, picksV: null, feldTs: null, laufAbc: true, cardio: null, challenge: null, birthYear: null, koerper: null, sex: null, fb: null, wb: null, alltag: null, arbeit: null, planWk: null, planOv: null, planAsk: null,
   planDays: null, planFix: null, planMiss: null, planCare: null, planStart: null, planV: null, planVFrom: null, umfang: null, zeitMax: null, befinden: null, zusatz: null, morgen: null, tage: null, chainJk: null, chainSeen: null, tourSeen: null, figCam: null, calAdd: null };
 
@@ -3998,11 +4011,12 @@ if (!S.picksV) {
 var LOGS = LS.get('tp.logs', []);
 var DRAFTS = LS.get('tp.drafts', {});
 /* Reiter: Coach (Heute, Plan), Profil (Verlauf, Einstellungen, Sync), Tools (Timer, Übungen) */
-var GROUPS = { coach: ['heute'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
+// Reiter wie bei Apple (Schritt 0, Dennis 6. November): Heute, Plan, Tools, Profil, jeder mit Namen.
+var GROUPS = { coach: ['heute'], plan: ['plan'], profil: ['profil'], tools: ['timer', 'uebungen', 'muskeln', 'routinen', 'rm'] };
 var VIEW_LABEL = { heute: 'Heute', plan: 'Plan', timer: 'Timer', uebungen: 'Bibliothek', muskeln: 'Körper', routinen: 'Mobility', rm: '1RM' };
-var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', plan: 'coach', routine: 'tools', skill: 'profil', fokus: 'coach', challenge: 'coach', woche: 'coach', zusatz: 'coach', kardio: 'coach', kalender: 'coach' };
+var HIDDEN = { fix: 'profil', fam: 'tools', muskel: 'tools', einst: 'profil', haptik: 'profil', routine: 'tools', skill: 'profil', fokus: 'plan', challenge: 'plan', woche: 'plan', zusatz: 'coach', kardio: 'coach', kalender: 'coach' };
 function groupOf(v) { if (HIDDEN[v]) return HIDDEN[v]; for (var g in GROUPS) if (GROUPS[g].indexOf(v) >= 0) return g; return 'coach'; }
-var ui = { tab: 'heute', last: { coach: 'heute', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
+var ui = { tab: 'heute', last: { coach: 'heute', plan: 'plan', profil: 'profil', tools: 'timer' }, openSec: {}, viewTag: null, kurz: {}, skipMurph: false, glossQuery: '', glossOpen: null, logLimit: 30, track: null, exportText: null };
 var pendingRender = false, draftT = null;
 
 /* ---------- helpers ---------- */
@@ -5941,7 +5955,7 @@ function renderPlan() {
     return '<button type="button" class="rbtn back" data-act="plan-sec" data-k="" aria-label="Zurück zum Plan">' + BACK + '</button><section class="hero"><h1>' + esc(open.t) + '</h1><p class="hero-title">' + esc(PLAN_SUB[open.t] || '') + '</p></section>' +
       open.b;
   }
-  h = '<button type="button" class="rbtn back" data-act="tab" data-tab="heute" aria-label="Zurück zu Heute">' + BACK + '</button><section class="hero"><h1>Dein Plan</h1>' + (v2() && planOn() ? '' : '<p class="hero-title">' + esc(fokusLabel()) + (S.durchgang ? ' · Durchgang ' + ph.bd + ' von ' + ph.n : '') + '</p>') + '</section>';
+  h = '<section class="hero"><h1>Dein Plan</h1>' + (v2() && planOn() ? '' : '<p class="hero-title">' + esc(fokusLabel()) + (S.durchgang ? ' · Durchgang ' + ph.bd + ' von ' + ph.n : '') + '</p>') + '</section>';
   // Plan 2: der Planname steht nur in der Schwerpunkt-Karte, Durchgang und Phase in der Wochenkarte.
   var v2p = v2() && planOn();
   var C2 = chal(), sp2 = spOf(), goal = C2 ? { ic: C2.ic, n: 'Challenge ' + C2.name, s: fmtDateLong(S.challenge.date) } : sp2 ? { ic: SP[sp2].ic, n: 'Schwerpunkt ' + SP[sp2].name, s: SP[sp2].kurz } : { ic: CH_FREE, n: 'Einfach trainieren', s: 'Ohne Schwerpunkt und Wettkampf' };
@@ -5985,6 +5999,8 @@ function moreHTML() {
   h += '<h3 style="margin-top:16px">Haptik</h3>' + valRows([valRow('Vibration', S.haptik === false ? 'Aus' : 'An', 'data-act="tab" data-tab="haptik"')]);
   h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
     '<label class="check"><input type="checkbox" data-change="swipeRev"' + (S.swipeRev ? ' checked' : '') + '> Wischen umkehren</label>';
+  // Schalter wie bei Apple (aus grau), auf Wunsch farbig mit Zeichen (Dennis, Schritt 0: „das Rot ist auch bei Apple in den Bedienungshilfen“).
+  h += '<h3 style="margin-top:16px">Schalter</h3><label class="check"><input type="checkbox" data-change="swColor"' + (S.swColor ? ' checked' : '') + '> Farbige Schalter (aus rot, an grün, mit Zeichen)</label>';
   h += '<h3 style="margin-top:16px">Tempo</h3><label class="check"><input type="checkbox" data-change="tpoCue"' + (S.tpoCue !== false ? ' checked' : '') + '> Ton und Vibration beim Tempo-Takt</label>' +
     '<p class="small muted">Gibt dein Coach ein langsames Tempo vor (z. B. 4 s runter), meldet sich jede Phase. Der Ton braucht Signaltöne.</p>';
   h += '<h3 style="margin-top:16px">Puls</h3><p class="small muted">Nur eintragen, wenn gemessen. Sonst rechnet der Coach mit dem Alter.</p>' + valRows(hrRows().slice(1));
@@ -7984,6 +8000,7 @@ function applyTheme() {
   var r = document.documentElement, dark = isDark(), c = COLORS[0];
   delete r.dataset.theme; delete r.dataset.paper; delete r.dataset.pal;
   r.dataset.font = FONTS.some(function (f) { return f.id === S.font; }) ? S.font : 'klar';
+  if (S.swColor) r.dataset.sw = 'c'; else delete r.dataset.sw;
   r.style.setProperty('--acc', dark ? c.dark : c.light);
   r.style.setProperty('--on-acc', dark ? '#0E1B2B' : '#FFFFFF');
   PAL_VARS.forEach(function (k) { r.style.removeProperty(k); });
@@ -8176,6 +8193,7 @@ var CHG = {
   roundCounter: function (el) { S.roundCounter = el.checked; saveState(); },
   swipe: function (el) { S.swipe = el.checked; saveState(); },
   swipeRev: function (el) { S.swipeRev = el.checked; saveState(); setTimeout(render, 420); },
+  swColor: function (el) { S.swColor = el.checked; saveState(); applyTheme(); },
   tpoCue: function (el) { S.tpoCue = el.checked; saveState(); },
   vollbild: function (el) { S.vollbild = el.checked; saveState(); if (S.vollbild) goFullscreen(); else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {}); },
 };
@@ -8226,7 +8244,7 @@ ACT.choose = function (el) {
 };
 /* ---------- Coach: Übersicht, Schritte, Rad ---------- */
 var I_INFO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg>';
-var PLAN_BTN = '<button type="button" class="rbtn" data-act="tab" data-tab="plan" aria-label="Plan und Regeln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.4"/></svg></button>';
+var PLAN_BTN = ''; // Plan ist seit Schritt 2 ein eigener Reiter.
 var BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
 var CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>';
 var PLAY = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>';
