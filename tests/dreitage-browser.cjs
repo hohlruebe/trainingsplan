@@ -8,7 +8,7 @@ const { chromium } = require(require.resolve('playwright', { paths: [process.env
 let html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // Zugriff nur im Test, nie in der App gespeichert.
 html = html.replace('\napplyTheme();\nblockCheck();', `
-window.tpTest = { know: i => stgKnow(DAYS[S.tag].kraft[i]), kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to), force: '1' } }),
+window.tpTest = { ev: f => eval('(' + f + ')()'), grn: () => { var a0 = TM.acc; TM.acc = 15; var o = []; for (var q = 0; q < 4; q++) { fsPaint(undefined, true); o.push(document.getElementById('fs-ring').classList.contains('grn')); } TM.acc = a0; fsPaint(undefined, true); return o.join(','); }, know: i => stgKnow(DAYS[S.tag].kraft[i]), kx: t => DAYS[t].kraft.map((x, i) => { var E = kraftEx(t, dr(t), kraftRounds(t), x, i); return { n: x.n, stage: E.stage, goal: E.goal, t: E.tpo && E.tpo.t }; }), state: () => S, logs: () => LOGS, plan: wkPlanC, fill: () => { FILL.k = null; return planFill(); }, coach: t => coachItems(t).map(x => x.h.replace(/<[^>]+>/g, '')).join(' | '), steps: () => stepsOf(dayCtx(S.tag)), go: to => ACT.step({ dataset: { to: String(to), force: '1' } }),
   notice: () => { MOMENTS = []; var o = document.getElementById('moment'); if (o) o.remove(); chainNotice(); o = document.getElementById('moment'); return o ? o.innerText : ''; },
   saveNow: () => { saveDay(); var M = document.getElementById('moment'); if (M) M.remove(); MOMENTS = []; return LOGS[LOGS.length - 1]; },
   finishTimer: () => finish(),
@@ -218,6 +218,9 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.waitForTimeout(300);
     assert.match(await page.locator('#fs-nav').getAttribute('class'), /lock/, 'Tippen auf die Kapsel startet die Uhr, Weiter gesperrt');
     assert.doesNotMatch(await page.locator('#fs-pl').innerText(), /^noch /, 'keine zweite Restzeit neben der Uhr');
+    // Dennis, 6. November (Video): die Kapsel flackerte in der EMOM-Minute zwischen Blau und Grün (toggle mit undefined).
+    const grn = await page.evaluate(() => window.tpTest.grn());
+    assert.equal(grn, 'false,false,false,false', 'Kapsel bleibt in der Arbeitsminute blau');
     const kk = await page.locator('#fs .fs-kick').innerText();
     await page.locator('#fs .fs-nav [data-act="step"]').last().click();
     assert.equal(await page.locator('#fs .fs-kick').innerText(), kk, 'ein Tippen auf Weiter bleibt beim laufenden EMOM');
@@ -952,6 +955,29 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       }
     }
     console.log('PASS: Zirkel in Durchgang 6, EMOM in 5, Umschalter bei laufender Uhr, Band ohne Punkt');
+
+    // Dennis, 6. November, aus dem Training: Stufe statt Grundübung, eine Ringhöhe für die Einheit, Zirkel vorher erkennbar, Strecke im Abschluss.
+    {
+      const r = await page.evaluate(() => window.tpTest.ev(`function () {
+        var pk = function (ns) { return ringPick(ns.map(function (n, i) { return { i: i, r: ringRange(n) }; })); };
+        var a = pk(['Ring Row', 'Ring Support Hold']), b = pk(['Ring Push-up', 'Ring Row']), c = pk(['Ring Pull-up', 'Ring Support Hold']);
+        return { show: kShow('Ring Dip', 'Support Hold, 20 s'), band: kShow('Ring Dip', 'Normal'), knee: kShow('Push-up', 'Auf Knien'),
+          a: [a.lv, a.m[0].t, a.m[1].t], b: [b.lv, b.m[0].own, b.m[1].own], c: [c.lv, c.m[0].own, c.m[0].t],
+          km: finKmRow({ min: 20, dev: { id: 'ergo' } }, {}).replace(/<[^>]+>/g, ' ') };
+      }`));
+      assert.equal(r.show, 'Ring Support Hold', 'Ring Dip auf „Support Hold“ zeigt die Übung der Stufe');
+      assert.equal(r.band, 'Ring Dip', 'Bandstufe bleibt Ring Dip');
+      assert.equal(r.knee, 'Knee Push-up');
+      assert.equal(r.a[0], 4, 'Ring Row und Support: beide auf Brusthöhe');
+      assert.match(r.a[2], /Brusthöhe · Knie anwinkeln, Beine in der Luft/);
+      assert.ok(r.b[1] !== r.b[2], 'Push-up und Row passen nicht auf eine Höhe, eine muss umhängen: ' + r.b.join(' | '));
+      assert.ok(r.c[1] === true && /frei hängst \(umhängen\)/.test(r.c[2]), 'Pull-up passt nicht zur Support-Höhe, die App sagt „umhängen“: ' + r.c.join(' | '));
+      assert.match(r.km, /Strecke/); assert.match(r.km, /8,5 km/, 'Schätzung aus Gerät und Minuten: ' + r.km);
+      await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { durchgang: 6, fsView: 'one' }), chLogs]);
+      const kr = await page.evaluate(() => window.tpTest.steps().find(s => s.id === 'kraft').sub);
+      assert.match(kr, /^Zirkel statt EMOM: je Übung \d+ s, dann Pause/, 'Zirkel steht vor dem Start im Ablauf: ' + kr);
+    }
+    console.log('PASS: Stufe statt Grundübung, eine Ringhöhe je Einheit, Zirkel vorher erkennbar, Strecke im Abschluss');
 
     // Dennis, 2. November: Kardio am freien Tag, vom Coach vorbereitet, anpassbar (Laufen/Rad, Zeit/Strecke, Intervalle), läuft als Zusatz.
     {
