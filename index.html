@@ -204,7 +204,7 @@ details.card[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
 details.card[open]>summary{margin-bottom:8px}
 .cue{border-top:1px solid var(--line);padding-top:8px;margin-top:12px}
 /* Bandfarbe: Punkt in em, damit er bei jeder Schriftgröße mittig auf Höhe der Großbuchstaben sitzt; Abstand davor und danach gleich (.32em). */
-.bst{white-space:nowrap;font-weight:600;color:color-mix(in srgb,var(--bc,currentColor) 80%,var(--ink))}html[data-theme="dark"] .bst{color:color-mix(in srgb,var(--bc,currentColor) 62%,var(--ink))}.chip:has(> .bst){gap:.32em}
+.bst{white-space:nowrap;font-weight:600;color:color-mix(in srgb,var(--bc,currentColor) 80%,var(--ink))}@media (prefers-color-scheme: dark){.bst{color:color-mix(in srgb,var(--bc,currentColor) 62%,var(--ink))}}.chip:has(> .bst){gap:.32em}
 .bdot{display:inline-block;width:.62em;height:.62em;border-radius:50%;margin-right:.32em;vertical-align:.02em;flex:none;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--paper) 70%,transparent)}
 .band-list li{justify-content:space-between}
 .search{display:block;margin:12px 0}
@@ -1472,7 +1472,7 @@ a.btn.kal-go{color:var(--ink);text-decoration:none;margin-top:16px}
 .mv1 .m-cell span.muted{line-height:1.25}
 .medal.md{width:104px;height:104px}.md-svg{position:absolute;inset:0;width:104px;height:104px;filter:drop-shadow(0 6px 10px rgba(17,18,20,.18))}
 .md .md-sh{left:25px;top:25px;width:54px;height:54px;mix-blend-mode:soft-light}
-html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+@media (prefers-color-scheme: dark){.md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}}
 @keyframes chIn{from{transform:scale(.4);opacity:0}}
 @media (prefers-reduced-motion:reduce){.chv.big *{animation:none!important}}
 .ch-big{margin:2px 0 0;font-size:var(--fs-body);color:var(--ink2)}.ch-big b{font-family:var(--hand);font-weight:var(--hand-w);font-size:44px;line-height:1;color:var(--ink);margin-right:8px}
