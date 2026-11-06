@@ -5,7 +5,7 @@ Dieses Projekt wird mit mehreren KI-Werkzeugen bearbeitet. Damit alle nach dense
 ## Zuerst lesen
 1. `CLAUDE.md`: was die App ist, wo was im Code steht, alle Regeln. Gilt für dich genauso wie für Claude.
 2. `UEBERGABE.md`: aktueller Stand, offene Aufgaben, Rückmeldungen von Dennis.
-3. `DESIGN.md`: vor jeder neuen Oberfläche (Kapsel-Konzept, fünf Grundsätze).
+3. `DESIGN.md`: vor jeder neuen Oberfläche. Grundlage sind die „Prinzipien nach Apple“ (Ziel: wie eine App von Apple), Quellen in `design/apple-hig.md`.
 4. `PRODUCT.md`: für wen die App ist und was sie im Kern ausmacht.
 
 ## Die wichtigsten Regeln in Kürze
