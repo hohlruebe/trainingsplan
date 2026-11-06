@@ -61,8 +61,10 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - Schalter Standard Apple (`:root:not([data-sw="c"]) .check input`: 51 × 31, aus 16 % `--ink`, an #34C759, Bewegung `dropOn2`/`dropOff2`); `S.swColor` (nur Gerät) = alter Stil.
 - Glas nur Reiterleiste, `.tbar`, `.moment`, Trainer; `.btn` (außer primary/save), `.seg`, `.pills`, `.cap`, `.rbtn` im Inhalt fest mit 6 % `--ink`.
 
-### Noch offen (Schritt 2 Teil 2 und folgende)
-- Blätter mit Abbrechen | Fertig und Griff, Listen-Zeilen im Apple-Stil.
+- Teil 2: Wert-Zeilen (`.vrow`) Name und Wert 17 normal, Wert `--ink2`, mindestens 44 hoch. Blätter: „Abbrechen“ links und „Fertig“ rechts in `--acc`
+  (Fertig halbfett), Griff oben; am Griff oder Kopf nach unten ziehen (über 90 px) = Abbrechen, sonst springt es zurück (Klasse `.drag`).
+
+### Noch offen (Schritt 3 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
 

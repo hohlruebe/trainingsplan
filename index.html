@@ -1154,8 +1154,8 @@ html:has(.sheet-bg.open),html:has(.sheet-bg.open) body{overflow:hidden}
 .sh-grab{width:40px;height:5px;border-radius:var(--r-s);background:var(--line2);margin:0 auto 8px}
 .sh-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
 .sh-head b{font-size:var(--fs-body);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:56vw}
-.sh-x,.sh-ok{min-height:44px;border:0;background:none;font:inherit;font-size:var(--fs-co);cursor:pointer;padding:0 4px}
-.sh-x{color:var(--ink2);justify-self:start}
+.sh-x,.sh-ok{min-height:44px;border:0;background:none;font:inherit;font-size:var(--fs-body);cursor:pointer;padding:0 4px}
+.sh-x{color:var(--acc);justify-self:start}
 .sh-ok{color:var(--acc);font-weight:600;justify-self:end}
 .wheels{position:relative;display:grid;gap:8px;margin-top:12px}
 .wcol{position:relative;min-width:0}
@@ -1482,6 +1482,15 @@ html[data-theme="dark"] .md-svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
 /* Glas nur für schwebende Steuerung (Schritt 0/2, Dennis 6. November): im Inhalt feste Flächen ohne Unschärfe und Schatten.
    Reiterleiste, Timer-Leiste, Momente und der Trainer (#fs) bleiben Glas. */
 .btn:not(.primary):not(.save):not(#fs *),.seg:not(#fs *),.pills:not(#fs *),.cap:not(#fs *),.rbtn:not(#fs *){background:color-mix(in srgb,var(--ink) 6%,transparent);-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none}
+
+/* Listen-Zeilen wie bei Apple (Schritt 2 Teil 2): Name Text 17 normal, Wert 17 normal in Sekundärfarbe, Pfeil leise. */
+.vrow{min-height:44px}
+.vrow .gl-t b{font-size:var(--fs-body);font-weight:400}
+.vrow .gl-t small{font-size:var(--fs-fn)}
+.vr-v{font-family:var(--text);font-weight:400;font-size:var(--fs-body);color:var(--ink2)}
+.vr-v .unit,.vr-v .txt{font-size:var(--fs-body);font-weight:400}
+/* Blatt nach unten ziehen schließt es (wie bei Apple). */
+.sheet.drag{transition:none!important}
 </style>
 </head>
 <body>
@@ -10714,6 +10723,28 @@ ACT['run-mode'] = function (el) { var k = draftKey(viewTag()), d = DRAFTS[k] || 
 
 /* ---------- Rad zum Auswählen ---------- */
 var WH = 44;
+// Blatt am Griff oder Kopf nach unten ziehen = Abbrechen (Schritt 2 Teil 2, Apple: Wischen nach unten schließt).
+(function () {
+  var D = null;
+  document.addEventListener('pointerdown', function (e) {
+    var sh = e.target.closest && e.target.closest('#sheet .sheet');
+    if (!sh || e.target.closest('button,input,textarea,[data-act],[data-sh],.wheel,.wcol,.sh-body')) return;
+    D = { sh: sh, y: e.clientY, dy: 0, id: e.pointerId };
+  }, true);
+  document.addEventListener('pointermove', function (e) {
+    if (!D || e.pointerId !== D.id) return;
+    D.dy = Math.max(0, e.clientY - D.y);
+    if (D.dy > 4) { D.sh.classList.add('drag'); D.sh.style.transform = 'translateY(' + D.dy + 'px)'; }
+  }, true);
+  function end(e) {
+    if (!D || (e && e.pointerId !== D.id)) return;
+    var d = D; D = null; d.sh.classList.remove('drag');
+    if (d.dy > 90) { var x = d.sh.querySelector('[data-sh="x"]'); if (x) x.click(); else closeSheet(); }
+    else d.sh.style.transform = '';
+  }
+  document.addEventListener('pointerup', end, true);
+  document.addEventListener('pointercancel', end, true);
+})();
 function closeSheet() { var s = document.getElementById('sheet'); if (s) { if (s._unfit) s._unfit(); s.remove(); } document.removeEventListener('keydown', sheetKey); }
 // Blatt mit Textfeld: Höhe an den sichtbaren Bereich anpassen, damit die Tastatur das Feld nicht verdeckt.
 function fitKeyboard(bg) {
