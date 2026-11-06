@@ -964,6 +964,12 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`--on` #4DBF79), aus = rot mit Kreis (`--off` #EE6A5C). Beim Umschalten wächst der Knopf
   kurz an und setzt sich weich ab (Klasse `live` nach Änderung).
 
+## Prinzipien nach Apple (Dennis, 6. November: „die App soll aussehen wie eine eigens von Apple entwickelte App“)
+Grundlage für alles Design: `DESIGN.md` › „Prinzipien nach Apple“ (neun Prinzipien und Systemregeln: Textstile 34/28/22/20/17/16/15/13/12 statt Einzelgrößen,
+eine Anzeige-Zahl je Bildschirm, Farbe mit genau einer Bedeutung, Glas nur für schwebende Steuerung, Raster für Abstände und Radien). Quellen und Auszüge
+aus den Human Interface Guidelines in `design/apple-hig.md`. Was den bisherigen Regeln hier widerspricht, steht dort unter „Offen für die Durchsicht“
+und wird mit Dennis Bildschirm für Bildschirm entschieden.
+
 ## Kapsel-Konzept (gilt für alles Neue)
 Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine:
 1. Umschalter (eine Wahl aus wenigen): Glas-Kapsel `.seg` mit `.seg-btn`, Wahl als weiße Pille (`--pill`, Text `--acc`).

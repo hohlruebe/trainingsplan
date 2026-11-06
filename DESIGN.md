@@ -1,9 +1,55 @@
 # Designkonzept Trainingsplan
 
-Gilt für jede Seite und alles Neue. Ruhig, an iOS angelehnt, Handy zuerst (390 px).
-Kurzfassung der Regeln steht auch in `CLAUDE.md`.
+Gilt für jede Seite und alles Neue. Ziel (Dennis, 6. November): Die App soll aussehen wie eine von Apple selbst entwickelte App.
+Handy zuerst (390 px). Kurzfassung der Regeln steht auch in `CLAUDE.md`.
 
-## Fünf Grundsätze
+## Prinzipien nach Apple (Grundlage, seit 6. November 2026)
+Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit allem, worauf sie verweist; Auszüge und Tabellen in
+`design/apple-hig.md`. Diese Prinzipien stehen über allen anderen Regeln dieser Datei. Was ihnen widerspricht, steht unten unter
+„Offen für die Durchsicht“ und wird mit Dennis entschieden, nicht still geändert.
+
+1. **Zweck**: Jede Seite hat eine Aufgabe, jede Funktion muss ihren Platz verdienen. Was der Coach selbst entscheiden kann, fragt die App nicht.
+   Im Training zählt nur, was jetzt dran ist (Apple „Workouts“).
+2. **Selbstbestimmung**: Direkt zur Aufgabe, nichts im Weg. Geführte Abläufe (Fragebogen, Tour) sind überspringbar. Alles lässt sich
+   rückgängig machen; nachgefragt wird nur vor Zerstörerischem. Unterbrechungen (Momente, Nachfragen) sparsam.
+3. **Verantwortung**: Die App sagt, was sie warum entscheidet („Warum?“-Zeilen, Coach-Hinweise). Daten bleiben auf dem Gerät bzw. im
+   eigenen Repository; Token und Kalender-Link nie in Export oder Logs.
+4. **Vertrautheit**: Bausteine verhalten sich wie auf dem iPhone: Tab-Leiste unten, Blätter von unten mit „Abbrechen“ links und „Fertig“ rechts,
+   Listen mit Pfeil für „geht tiefer“, Schalter in Listenzeilen. Gleiches sieht überall gleich aus und steht an derselben Stelle.
+5. **Anpassbarkeit**: Hell und Dunkel, Textgröße, „Bewegung reduzieren“, Kontrast 4,5:1, nie nur Farbe. Inhalt und Steuerung bleiben an festen Stellen.
+6. **Einfachheit**: Einfach heißt klar, nicht leer. Hierarchie über Reihenfolge, Abstand und Kontrast: das Wichtigste ist das Auffälligste,
+   und es gibt pro Bildschirm genau ein Auffälligstes. Knappe Worte.
+7. **Handwerk**: Ein festes System statt Einzelwerten: Textstile, Abstände, Radien, Farben. Nichts verrutscht, nichts wird abgeschnitten,
+   jede Zahl hat feste Ziffernbreiten.
+8. **Freude**: Das Gefühl ist „Energie und Zuversicht“. Prägende Momente (Rekord, Woche geschafft, Medaille) bleiben, aber als Ergebnis,
+   nicht als Dekoration. Die Animationen bleiben, wie sie sind (Dennis, 5. November).
+9. **Das Ganze**: Jede neue Oberfläche wird an allen acht Punkten gemessen, nicht nur am schönsten.
+
+### Systemregeln daraus
+- **Textstile statt Einzelgrößen** (Apple, Geist statt SF Pro): Großer Titel 34/41 fett, Titel 1 28/34, Titel 2 22/28, Titel 3 20/25,
+  Überschrift 17/22 halbfett, Text 17/22, Hinweis 16/21, Unterzeile 15/20, Fußnote 13/18, Beschriftung 12/16 (Untergrenze bei uns 13,
+  im Training 15). Keine weiteren Größen außer der einen großen Anzeige-Zahl je Bildschirm. Gewichte nur 400, 500, 600, 700.
+- **Eine Anzeige-Zahl je Bildschirm**: im Training ist das die Zeit. Alles andere (Vorgabe, Übung, Zähler) ordnet sich darunter in
+  Textstilen ein. Zahlen mit festen Ziffernbreiten (`tabular-nums`).
+- **Farbe hat genau eine Bedeutung**: Akzent = tippbar, gewählt, jetzt. Grün = geschafft bzw. an. Rot = Schmerz, Gefahr. Text in
+  Abstufungen (primär `--ink`, sekundär `--ink2`, dazu tertiär für Platzhalter).
+- **Ebenen**: Inhalt auf festen Flächen (Hintergrund, Karte, gruppierte Liste); Glas nur für schwebende Steuerung (Tab-Leiste, Werkzeugknöpfe,
+  Trainer-Kopf und -Fuß).
+- **Abstände und Radien aus einem Raster**: Abstände 4, 8, 12, 16, 20, 24, 32; Seitenrand 16 bzw. 20; Radien: Kapsel (voll rund), Karte,
+  Liste innen, klein. Keine Zwischenwerte.
+- **Hervorgehoben höchstens ein bis zwei Knöpfe je Ansicht**, Unterschiede über den Stil, nie über die Größe. Knöpfe mit Verb.
+
+### Offen für die Durchsicht (widerspricht Apple, Entscheidung mit Dennis)
+- Schalter: aus = rot mit Kreis (unsere Regel) – bei Apple aus = grau, an = grün.
+- Tab-Leiste: nur der aktive Reiter zeigt seinen Namen – bei Apple hat jeder Tab immer seine Beschriftung.
+- Glas-Kapseln im Inhalt (`.seg`, `.btn`, `.vrows`) – bei Apple ist Glas der Steuerung vorbehalten.
+- Eigene Einstellung Hell/System/Dunkel und Farbpaletten – Apple rät von eigenen Darstellungs-Einstellungen ab.
+- Versteckte Seiten (Plan hinter dem (i)-Knopf, Einstellungen hinter dem Regler) – Apple: Bereiche sichtbar und vorhersehbar erreichbar.
+- Schriftgrößen: heute 59 verschiedene, am häufigsten 14 px (Apple: Text 17). Eckenradien: 38 verschiedene.
+- Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
+  in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
+
+## Fünf Grundsätze (älter, gehen in den Prinzipien oben auf)
 Jede neue Oberfläche wird an diesen fünf Punkten gemessen. Passt etwas nicht, wird es angeglichen, nicht als Ausnahme gelassen.
 1. **Konsistenz**: Gleiches sieht gleich aus und funktioniert gleich. Eine Zahl im Training ist immer ein Zähler,
    „Schmerzen“ immer der rote Fahnen-Knopf, eine Stufe immer der grüne Chip vom Coach. Bausteine nur aus dem Kapsel-Konzept.
