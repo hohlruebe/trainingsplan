@@ -335,6 +335,7 @@ th{font-family:var(--head);font-weight:600;font-size:var(--fs-sub);letter-spacin
 .rbtn.back{margin:0 0 4px}
 .h-top{align-items:center;gap:8px}
 .h-top .kicker{margin:0}
+.h-kick{margin:-4px 0 4px}
 .h-top .row{gap:8px;flex-wrap:nowrap}
 /* Medaillen */
 .medals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 4px;margin-top:8px}
@@ -9353,8 +9354,7 @@ function wkUnitPreview(c, mon) {
 function wkDayHTML(dt) {
   var mon = wkMon(dt), W = wkCells(mon), c = W.cells.filter(function (x) { return x.date === dt; })[0], d = parseISO(dt);
   var snap = (S.planDays || {})[dt], title = c.logs.length ? logTitle(c.logs[c.logs.length - 1]) : c.tag ? dayLabel(c.tag) : c.past ? 'Kein Training' : 'Frei';
-  var h = '<div class="row between h-top"><p class="kicker muted">' + esc(WTAG[c.i] + ', ' + d.getDate() + '. ' + MONATE[d.getMonth()]) + (c.tag && !c.logs.length ? ' · Vorschau' : '') + '</p><span class="row">' + storageChip() + PLAN_BTN + '</span></div>' +
-    '<section class="hero"><h1>' + esc(title) + '</h1></section>' + wkStripHTML(W, dt, 'wk', v2()) +
+  var h = '<section class="hero"><h1>' + esc(title) + '</h1><div class="row h-top h-kick"><p class="kicker muted">' + esc(WTAG[c.i] + ', ' + d.getDate() + '. ' + MONATE[d.getMonth()]) + (c.tag && !c.logs.length ? ' · Vorschau' : '') + '</p>' + storageChip() + '</div></section>' + wkStripHTML(W, dt, 'wk', v2()) +
     '<div class="viewbar"><span class="small muted">' + esc(c.past ? 'Vergangener Tag' : c.tag ? 'Geplant' : 'Frei') + '</span><button type="button" class="btn small" data-act="back-today">Zurück zu heute</button></div>';
   if (c.logs.length) return h + c.logs.map(function (l) { return '<section class="card"><div class="row between wrap"><h2>' + esc(logTitle(l)) + '</h2><span class="chip">' + TICK + 'Erledigt</span></div>' + logLines(l) + logBtns(l, fixable(l)) + '</section>'; }).join('');
   if (c.zs) return h.replace('<h1>' + esc(title) + '</h1>', '<h1>Zusatz</h1>') + '<section class="card"><p style="margin:0 0 6px"><b>' + esc((c.zs.k === 'test' ? 'Kardio-Test' : 'Lockere Ausdauer') + ' · ' + c.zs.min + ' Min') + '</b></p>' +
@@ -9432,7 +9432,7 @@ function renderHeute() {
   if (todayView) { kick = 'Heute'; title = 'Heute erledigt'; }
   if (plFree) { kick = v2() ? 'Heute' : 'Heute · Durchgang ' + ph.bd + ' von ' + ph.n; title = 'Heute frei'; }
   var sub = lean ? heuteSub(plFree ? 'free' : todayView ? 'done' : 'train', PL, tag) : [];
-  var h = '<div class="row between h-top"><p class="kicker muted">' + esc(kick) + '</p><span class="row">' + storageChip() + PLAN_BTN + '</span></div><section class="hero"><h1>' + esc(title) + '</h1>' +
+  var h = '<section class="hero"><h1>' + esc(title) + '</h1><div class="row h-top h-kick"><p class="kicker muted">' + esc(kick) + '</p>' + storageChip() + '</div>' +
     sub.map(function (x) { return '<p class="h-sub">' + x + '</p>'; }).join('') + '</section>';
   if (v2() && PL) h += wkStripHTML(wkCells(ui.wkMon || wkMon()), ui.wkSel || isoToday(), 'wk', lean) + (lean && !ui.wkSel && !ui.wkMon ? chainLineHTML(tag) : '');
   else {
