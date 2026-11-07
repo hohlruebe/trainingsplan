@@ -31,6 +31,8 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
+- Schritt 7 als PR #168 gemergt. Schritt 8 Einstellungen, Fragebogen, Momente (Vergleich https://claude.ai/artifact/1vrgz9iNxTXFfhWKxsd89F), Dennis: „keine verschiedenen
+  Schriftarten mehr, dann setze alles um“ → umgesetzt (CLAUDE.md › Schritt 8), „Schrift für Zahlen“ entfernt. Noch kein PR. Offen danach: Trainer (DESIGN.md › Noch offen).
 - Schritt 6 als PR #167 gemergt. Schritt 7 Profil (Vergleich https://claude.ai/artifact/F8MYn2SHf2hoZZUv8JwVUi), Dennis: „ja das passt alles“ → umgesetzt (CLAUDE.md › Schritt 7 Profil),
   Gegenspieler-Balken ins Blatt Körper übernommen (Frage blieb offen, so geht nichts verloren). Noch kein PR. Danach Schritt 8 (Einstellungen, Fragebogen, Momente).
 - Schritt 5 als PR #166 gemergt. Dennis: auf Plan „passieren beim Ausklappen immer unterschiedliche Sachen … alles soll wie bei In den Kalender sein“ → Arbeitszeiten, Zusatz,

@@ -200,6 +200,17 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   in der Karte „Dein Wert“); Werkzeuge = Skill-Baum (`PSH.skill`, `drawTree` im Blatt; die Seite `skill` leitet um), Körper, One Rep Max; die Muskel-Karte entfällt in Werte,
   die Gegenspieler-Balken stehen im Blatt Körper (`musPairsHTML`). Familie aus einem Blatt geöffnet (Skill-Baum): Zurück öffnet das Blatt wieder (`ui.reSheet` in `famOpen`/`render`).
   Baut auf / Führt zu auf der Familien-Seite als Zeilen mit Bild wie in der Bibliothek (`famLinks`), „Gehört auch dazu“ ohne ›.
+- Schritt 8 Einstellungen, Fragebogen, Momente (Dennis, 7. November, Vergleich https://claude.ai/artifact/1vrgz9iNxTXFfhWKxsd89F, „keine verschiedenen Schriftarten mehr,
+  dann setze alles um“): Einstellungen wie die iOS-Einstellungen (`renderEinst` = `meRowHTML` + `settingsHTML`): oben du (`.st-me`, Foto oder Anfangsbuchstabe `.st-av`,
+  Unterzeile Geschlecht · Gewicht · Alter, öffnet `PSH.dich` = `dichHTML`), dann Gruppen (`stGroup`, `.gl-group` + `.gl-card.st-card`): Darstellung (Textgröße als `.seg`
+  in der Zeile, Ansicht ›, Farbige Schalter, Vollbild; Satz „Hell oder dunkel …“ unter der Gruppe), Training (Arbeitszeiten ›, Countdown ›, Puls ›, Vibration ›, Gesten ›,
+  Tempo-Takt), Daten (Sync über GitHub › mit „Aus/Verbunden/Fehler“ `syncLabel`, Startdatum ›, Sichern › = `datenHTML`, rot `.st-red` Einstiegstest neu, Alles zurücksetzen).
+  Blätter `PSH.ansicht`, `countdown`, `puls`, `gesten`, `sync`, `daten`; Schalter-Zeilen `swRow` (`.check.gl-sw`). Keine zuklappbaren Karten (`sec`) mehr in den Einstellungen.
+  „Schrift für Zahlen“ ist weg (eine Schrift für alles). Fragebogen: Begrüßung mit den drei Schritten als Liste (`ol.ob-steps`, graue Nummern), Nebenaktionen als Text
+  (`.ob-txt`: Anmelden, Ich bin neu, Weiß ich nicht, Keine Werte, Laufe/Fahre nicht), Jahrgang/Gewicht und Ins Bett/Aufstehen als Wert-Zeilen (`.ob-vr`) statt Kacheln
+  (`.ob-num` wird nicht mehr benutzt), gewählte Antwort mit Text in `--ink` (Haken blau), „Dein Start“ Stufen in `--ink`, geschaffte grau, nur die Startstufe blau,
+  große Zahl auf der Ausdauer-Seite in `--ink`. Momente: Hauptaktion über die ganze Breite, „Weiter“/„Nächste“ als Text darunter (`.mo-btns` einspaltig, `.primary` zuerst),
+  Rekordzahl `.pr-num` in `--ink`; Tour: aktiver Punkt `--ink`.
  wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
   Bibliothek (Gruppe weiter `tools`: Übungen `uebungen` | Mobility `routinen`), Profil (Schritt 6, siehe unten). Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
@@ -557,7 +568,7 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Einstellungen „Mittel“ (Dennis): Karte „Über dich“ (Name, Geschlecht, Gewicht, Geburtsjahr, Foto), Karte „Textgröße“ (seit Schritt 1 nur noch
   Textgröße A/A/A; Hell/Dunkel folgt dem Handy, eine feste Farbe, Paletten gelten nicht mehr, `S.textSize` 's'/'m'/'l' nur auf dem Gerät, `html[data-text]` mit `zoom` auf `body`, `lookHTML`), dann „Sync über GitHub“, „Mehr“
   (`moreHTML`: Zahlen-Schrift, Countdown, Haptik, Gesten, Maximal-/Ruhepuls, Ansicht, Vollbild) und „Daten“ (Startdatum,
-  Export/Import, Zurücksetzen; `settingsHTML`). Trainings-Entscheidungen trifft der Coach: `modeOf` = `TRAIN_STD`, `roundMode()` = 'ex',
+  Export/Import, Zurücksetzen; `settingsHTML`). Seit Schritt 8 eine gruppierte Liste (siehe dort), `lookHTML`/`moreHTML` sind gelöscht. Trainings-Entscheidungen trifft der Coach: `modeOf` = `TRAIN_STD`, `roundMode()` = 'ex',
   `timerModeOf` = `TIMER_STD`, Vollbild dreht immer mit, Lauf-ABC immer; „Stand setzen“ ist weg. Alte Werte bleiben in `S`, werden nicht mehr benutzt.
   Früher Aussehen › Hintergrund (`S.paper`, `PAPERS`: Weiß, Kreide, Leinen, Nebel, `data-paper` nur im Hellen) und Markerfarbe (`S.color`, `COLORS`); gelten nur noch ohne Palette.
   Farbpaletten (Dennis, 5. November: „verschiedene Farbpaletten zur Auswahl in den Einstellungen“): Aussehen › Farben (`paletteHTML`, `PALETTES`, `ACT.palette`,
@@ -993,8 +1004,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
 - Texte auf Deutsch, Übungsnamen auf Englisch, kurze klare Sätze.
 - Handy zuerst (390 px Breite), Tippflächen mindestens 44 px.
 - Design: Geist für alles. Große fette Titel mit Marker-Strich darunter, weiße Karten
-  mit runden Ecken und weichem Schatten, nichts Verspieltes. Die Schrift-Einstellung
-  (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengenangaben.
+  mit runden Ecken und weichem Schatten, nichts Verspieltes. Eine Schrift für alles, auch für Zahlen
+  (Dennis, Schritt 8: „keine verschiedenen Schriftarten mehr“; `data-font` immer 'klar', `S.font` bleibt gespeichert, wirkt nicht).
   Farben über CSS-Variablen (`--acc`, `--ink`, `--board`, `--paper`, `--fill`),
   Dunkelmodus über `data-theme`.
 - Schalter: alle Checkboxen (`.check input`) sind Schalter wie bei Apple (seit Schritt 2: aus grau, an grün, runder Knopf); Einstellungen › Mehr ›

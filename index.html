@@ -6004,7 +6004,6 @@ function swRow(k, label, on, sub) {
   return '<div class="gl-item"><label class="check gl-sw"><input type="checkbox" data-change="' + k + '"' + (on ? ' checked' : '') + '><span class="gl-t"><b>' + esc(label) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span></label></div>';
 }
 function stGroup(t, rows, note) { return '<p class="kicker muted gl-group">' + esc(t) + '</p><section class="card gl-card st-card">' + rows.join('') + '</section>' + (note ? '<p class="small muted st-note">' + note + '</p>' : ''); }
-function fontLabel() { for (var i = 0; i < FONTS.length; i++) if (FONTS[i].id === S.font) return FONTS[i].label; return FONTS[0].label; }
 function syncLabel() { return !SY ? 'Aus' : syncState.status === 'err' ? 'Fehler' : 'Verbunden'; }
 function datenHTML() {
   var h = '<section class="card"><p class="small" style="margin-top:0">' + (SY ? 'Deine Daten liegen auf diesem Gerät und werden über GitHub abgeglichen. „Exportieren“ erstellt zusätzlich eine Sicherungsdatei.' : 'Deine Daten liegen nur auf diesem Gerät. Sichere sie ab und zu mit „Exportieren“.') + '</p>' +
@@ -6024,7 +6023,6 @@ function settingsHTML() {
   var AL = alltag(), hv = hrVals(), cdW = cdWhen();
   var dar = ['<div class="gl-item st-ts"><span class="gl-t"><b>Textgröße</b></span>' +
       segRow('Textgröße', [['s', '<span style="font-size:15px">A</span>'], ['m', '<span style="font-size:19px">A</span>'], ['l', '<span style="font-size:24px">A</span>']], S.textSize || 'm', 'text-size') + '</div>',
-    glRow('data-act="psh" data-k="zahlen"', 'Schrift für Zahlen', '', fontLabel()),
     glRow('data-act="psh" data-k="ansicht"', 'Ansicht', '', { auto: 'Automatisch', mobil: 'Handy', desk: 'Desktop' }[S.layout || 'auto']),
     swRow('swColor', 'Farbige Schalter', !!S.swColor, 'Aus rot, an grün, mit Zeichen'),
     swRow('vollbild', 'Vollbild', S.vollbild !== false, 'Beim ersten Tippen, als installierte App')];
@@ -8025,7 +8023,8 @@ function applyTheme() {
   document.documentElement.dataset.text = S.textSize === 's' || S.textSize === 'l' ? S.textSize : 'm';
   var r = document.documentElement, dark = isDark(), c = COLORS[0];
   delete r.dataset.theme; delete r.dataset.paper; delete r.dataset.pal;
-  r.dataset.font = FONTS.some(function (f) { return f.id === S.font; }) ? S.font : 'klar';
+  // Eine Schrift für alles (Dennis, Schritt 8): Geist auch für Zahlen, S.font bleibt gespeichert, wirkt aber nicht mehr.
+  r.dataset.font = 'klar';
   if (S.swColor) r.dataset.sw = 'c'; else delete r.dataset.sw;
   r.style.setProperty('--acc', dark ? c.dark : c.light);
   r.style.setProperty('--on-acc', dark ? '#0E1B2B' : '#FFFFFF');
@@ -8070,7 +8069,6 @@ var ACT = {
   palette: function (el) { S.palette = el.dataset.v; saveState(); applyTheme(); haptic('tap'); render(); },
   color: function (el) { S.color = el.dataset.v; saveState(); applyTheme(); render(); },
   paper: function (el) { S.paper = el.dataset.v; saveState(); applyTheme(); render(); },
-  font: function (el) { S.font = el.dataset.v; saveState(); applyTheme(); render(); },
   'import': function () { $imp.click(); },
   'sync-connect': function () {
     var o = (document.getElementById('sy-owner').value || '').trim().replace(/^@/, '');
@@ -9440,7 +9438,6 @@ var PSH = {
   zusatz: ['Zusätzlich', function () { return renderZusatz(); }],
   haptik: ['Vibration', function () { return renderHaptik(); }],
   dich: ['Über dich', function () { return dichHTML(); }],
-  zahlen: ['Schrift für Zahlen', function () { return '<section class="card">' + segRow('Schrift für Zahlen', FONTS.map(function (f) { return [f.id, '<span class="f-smp" style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">12</span> ' + esc(f.label)]; }), S.font, 'font') + '<p class="small muted">Gilt nur für Zahlen und Mengen, alles andere bleibt in Geist.</p></section>'; }],
   ansicht: ['Ansicht', function () { return '<section class="card">' + segRow('Ansicht', [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']], S.layout || 'auto', 'layout') + '<p class="small muted">' + (S.layout === 'desk' && !deskOn() ? 'Desktop braucht ein Fenster ab 900 px Breite.' : 'Automatisch zeigt ab 1024 px mit Maus die Desktop-Ansicht.') + '</p></section>'; }],
   countdown: ['Countdown', function () { return '<section class="card">' + countdownHTML().replace('<h3 style="margin-top:16px">Countdown</h3>', '') + '</section>'; }],
   puls: ['Puls', function () { return '<section class="card">' + valRows(hrRows()) + '<p class="small muted" style="margin-top:8px">Nur eintragen, wenn gemessen. Sonst rechnet der Coach mit dem Alter.</p></section>'; }],
