@@ -959,6 +959,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350);
     await page.evaluate(() => window.tpTest.profile('verlauf'));
     if (await page.locator('.vl-row').count()) { await page.locator('.vl-row').first().click(); await page.waitForTimeout(300); assert.ok(await page.locator('#sheet .psh-vl').isVisible(), 'Einheit als Blatt'); await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350); }
+    // Schritt 8: Einstellungen als Liste wie in iOS, jede Zeile mit › öffnet ein Blatt, keine Zahlen-Schrift mehr.
+    await page.evaluate(() => window.tpTest.navigate('einst'));
+    assert.equal(await page.locator('#view details[data-sec]').count(), 0, 'keine zuklappbaren Karten');
+    assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll('#view .gl-group')].map(e => e.innerText.trim())), ['Darstellung', 'Training', 'Daten']);
+    assert.equal(await page.getByText('Schrift für Zahlen').count(), 0, 'eine Schrift für alles');
+    assert.equal(await page.evaluate(() => document.documentElement.dataset.font), 'klar');
+    for (const k of ['dich', 'countdown', 'puls', 'gesten', 'sync', 'daten']) {
+      await page.locator('#view [data-act="psh"][data-k="' + k + '"]').click(); await page.waitForTimeout(300);
+      assert.ok(await page.locator('#sheet .psh-' + k).isVisible(), 'Blatt ' + k);
+      await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350);
+    }
+    console.log('PASS: Schritt 8 Einstellungen als gruppierte Liste mit Blättern, eine Schrift');
     console.log('PASS: Bibliothek als Reiter, 1RM als Blatt; Körper als Blatt im Profil: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
 
     // Dennis, 2. November: Accessory zum Abhaken (3 Runden) mit Band in Farbe; Mini-Band ist ein eigenes Gerät; ohne Uhr hakt die Kapsel ab.

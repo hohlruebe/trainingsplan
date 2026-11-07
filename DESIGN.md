@@ -99,7 +99,12 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - Dennis: „passt alles“. Kopf als feste Karte ohne Woche, Stufe als Text; Umschalter mit Namen; Werte in `--ink` statt Blau; Rekorde höchstens 5 plus Blatt;
   Verlauf, Bereiche und Skill-Baum als Blatt; Baut auf / Führt zu als Bild-Zeilen. Damit öffnet jedes › im Profil ein Blatt.
 
-### Noch offen (Schritt 8 und folgende)
+### Schritt 8 Einstellungen, Fragebogen, Momente (7. November 2026, Vergleich https://claude.ai/artifact/1vrgz9iNxTXFfhWKxsd89F)
+- Dennis: „keine verschiedenen Schriftarten mehr, dann setze alles um“. Eine Schrift (Geist) für alles, auch für Zahlen; die Einstellung „Schrift für Zahlen“ ist weg.
+- Einstellungen wie in iOS: oben du, dann Gruppen mit kleinem Titel, jede Zeile mit › öffnet ein Blatt, Schalter in der Zeile, Gefährliches rot am Ende. Keine zuklappbaren Karten.
+- Fragebogen und Momente: eine Hauptaktion, Nebenaktionen als Text darunter; Werte und große Zahlen in `--ink`, Blau nur für „gewählt“ (Haken) und „hier stehst du“.
+
+### Noch offen (Schritt 9 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
 
@@ -137,7 +142,7 @@ Fortschrittsbalken, erledigte Tage und Stufen, (i)-Knöpfe, Kopfzeilen, Aufzähl
 - Hellmodus je Farbpalette mit eigenem Hintergrund und Karten (`data-pal`; früher Weiß/Kreide/Leinen/Nebel über `data-paper`), Hintergrund je eine Stufe dunkler.
 - Dunkelmodus in Graphit, passend zum App-Symbol: Hintergrund `#1E1F23`, Karten `#2A2B30`, Kapseln `#24252A`, Pille `#41424A`,
   Grafik-Fläche `#33343A`, Linien `#36373D`. Jede Ebene eine Stufe heller als die darunter.
-- Schrift: Geist für alles. Die Schrift-Einstellung (Klar, Marker, Handschrift) gilt nur für Zahlen und Mengen (`--hand`).
+- Schrift: Geist für alles, auch für Zahlen und Mengen (Schritt 8: die Einstellung Klar/Marker/Handschrift ist weg, `--hand` ist immer Geist).
 - Titel: groß und fett mit Marker-Strich darunter. Darüber eine Kopfzeile in normaler Schreibung (`.kicker`), z. B. „Tag 1 · Durchgang 4 · ca. 35 Min“.
 - Karten: weiß (`--paper`), runde Ecken (22 px), weicher Schatten. Nichts Verspieltes.
 - Farben nur über Variablen: `--acc` (Akzent, vom Nutzer wählbar), `--ink`, `--ink2`, `--board`, `--paper`, `--fill`, `--line`, `--red`, `--green`, `--on`, `--off`, `--pill`.

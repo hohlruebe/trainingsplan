@@ -1527,6 +1527,31 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
 .psh>.rbtn.back,.psh>.hero{display:none}/* Schritt 7 Profil */.p-head{background:var(--paper)!important;border:0!important;box-shadow:var(--shadow)!important}.pseg{margin:0 0 16px}.pr-v b{color:var(--ink)!important}.pr-row b,.a-row b,.vl-row .gl-t b,.fast-t b{font-weight:400}.fast-b i{background:var(--ink2)}.fast-b.gold i{background:var(--gold,#C9A227)}.vl-sum{font-size:15px;color:var(--ink2);margin:4px 4px 12px}.pr-all .gl-t b{font-weight:400}.pr-all{margin:8px -16px -8px;box-shadow:none;background:none}.a-row .gl-chev{width:16px;height:16px;color:var(--ink2);flex:none}.psh-skill .tree{min-height:200px}.sub-seg{margin:4px 0 16px}.pf-tools .gl-t b{font-weight:400}#view[data-tab="uebungen"] .hero-title,#view[data-tab="routinen"] .hero-title{font-size:15px;color:var(--ink2);font-weight:400;margin-top:2px}.psh-koerper .mfig svg{max-width:100%}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
+
+/* Schritt 8: Fragebogen ruhiger (Liste statt Karten, Nebenaktion als Text, Werte in Tinte) */
+.ob-txt{border:0;background:none;color:var(--ink);font:inherit;font-size:var(--fs-co);font-weight:500;min-height:44px;padding:0 12px;cursor:pointer;align-self:center}
+.ob .ob-steps{display:flex;flex-direction:column;gap:0;margin:24px 0 8px;padding:2px 16px;list-style:none;background:var(--paper);border-radius:var(--r-l);box-shadow:var(--shadow)}
+.ob .ob-steps li{display:flex;align-items:center;gap:14px;min-height:52px;padding:8px 0;border-bottom:1px solid var(--line)}.ob .ob-steps li:last-child{border:0}
+.ob .ob-steps b{display:inline;font-family:inherit;color:var(--ink2);font-size:var(--fs-co);font-weight:600;width:16px;text-align:center}.ob .ob-steps span{font-size:var(--fs-co);color:var(--ink);margin:0;line-height:1.3}
+.ob-row.on .ob-t b{color:var(--ink)}
+.ob-vr{margin-top:16px}.ob-vr .vrows{background:var(--paper);box-shadow:var(--shadow);border-radius:var(--r-l)}
+.ob-big b{color:var(--ink)}
+.ob-bar .ob-v{color:var(--ink)}.ob-seg i.on{background:color-mix(in srgb,var(--ink) 55%,var(--fill))}
+/* Schritt 8: Momente wie ein iOS-Hinweis: Hauptaktion über die ganze Breite, „Weiter“ als Text darunter, die Zahl in Tinte */
+.mo-btns{grid-template-columns:1fr;gap:4px}.mo-btns .btn.primary{order:-1}
+.moment .mo-btns .btn:not(.primary){background:none!important;box-shadow:none;border:0;color:var(--ink);font-weight:500;min-height:44px}
+.mo-prc .pr-num{color:var(--ink)}
+.tr-dots i.on{background:var(--ink)}
+/* Schritt 8: Einstellungen als gruppierte Liste wie in iOS */
+.st-me{margin-top:4px}.st-me .gl-row{min-height:76px}
+.st-av{width:56px;height:56px;border-radius:50%;flex:none;overflow:hidden;background:var(--board);color:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:var(--fs-t2);font-weight:600}
+.st-av img{width:100%;height:100%;object-fit:cover}
+.st-me .gl-t b{font-size:var(--fs-t3);font-weight:600}
+.gl-sw{min-height:58px;padding:8px 0;margin:0}.gl-sw .gl-t{flex:1;display:flex;flex-direction:column;gap:2px}.gl-sw .gl-t b{font-weight:400}
+.st-card .gl-t b{font-weight:400}.st-card .gl-t{display:flex;flex-direction:column;gap:2px}
+.st-ts{padding:12px 0}.st-ts .gl-t{margin-bottom:10px}
+.gl-row.st-red .gl-t b{color:var(--red,#D93025)}
+.st-note{margin:8px 16px 0}
 .fam-links{background:none;box-shadow:none;padding:0;margin:0 -4px}.fam-row{gap:14px;min-height:76px}.fam-row .gl-t b{font-weight:400;hyphens:none}.fam-row .gl-t small svg{width:12px;height:12px;vertical-align:-1px;margin-right:2px}.fam-fig{flex:none;width:60px;height:60px;display:flex;align-items:center;justify-content:center}.fam-fig svg{width:60px;height:60px}.fam-fig.none{color:var(--ink2);opacity:.5}.fam-fig.none svg{width:30px;height:30px}.gl-item.fam.locked .fam-fig{opacity:.45}.r-list2 .gl-t b,.faq .gl-t b{font-weight:400}.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
@@ -4546,16 +4571,16 @@ function fbChoice(id) {
   }).join('');
   var kick = wb ? 'Wiedereinstieg' + dotSub((WB_PAGES.indexOf(id) + 1) + ' von ' + WB_PAGES.length) : fbKick(Q.k);
   return fbTop(id) + fbQ(kick, esc(Q.q), esc(Q.s)) + (Q.lad ? '<p class="ob-lab">↑ Schwerer</p>' : '') + '<div class="ob-cap" role="group">' + rows + '</div>' + (Q.lad ? '<p class="ob-lab">Leichter</p>' : '') +
-    '<div class="ob-foot">' + (was ? '<button type="button" class="btn block" data-act="fb-a" data-q="' + id + '" data-v="' + was + '">Wie vor der Pause</button>' : '<button type="button" class="btn block" data-act="fb-skip">Weiß ich nicht</button>') + '</div>';
+    '<div class="ob-foot">' + (was ? '<button type="button" class="btn block" data-act="fb-a" data-q="' + id + '" data-v="' + was + '">Wie vor der Pause</button>' : '<button type="button" class="ob-txt" data-act="fb-skip">Weiß ich nicht</button>') + '</div>';
 }
 function fbRmVal(r) { return r ? esc(fmtKg(r.kg, null)) : '–'; }
 function fbPage() {
   var F = fb(), p = F.p, a = F.a;
   if (p === 'hallo' && lgFirst()) return loginPageHTML();
   if (p === 'hallo') return '<div class="ob-hero">' + figHTML('_wave') + '<h1>Hallo, ich bin<br>dein Coach.</h1><p>In drei Minuten weiß ich, wo du stehst. Danach plane ich jeden Tag für dich.</p></div>' +
-    '<div class="ob-steps"><div><b>1</b><span>Ein paar Fragen, jede überspringbar</span></div><div><b>2</b><span>Ich stelle deinen Start ein</span></div><div><b>3</b><span>Training ab heute</span></div></div>' +
+    '<ol class="ob-steps"><li><b>1</b><span>Ein paar Fragen, jede überspringbar</span></li><li><b>2</b><span>Ich stelle deinen Start ein</span></li><li><b>3</b><span>Training ab heute</span></li></ol>' +
     '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-go" data-p="dich">Los geht’s</button><div class="ob-alt"><button type="button" data-act="start-test">Lieber messen</button><span class="muted" aria-hidden="true">|</span><button type="button" data-act="fb-go" data-p="mitten">Schon mittendrin</button></div>' +
-    (SY ? '' : '<button type="button" class="btn block ob-login" data-act="login">Ich nutze die App schon · Anmelden</button>') + '</div>';
+    (SY ? '' : '<button type="button" class="ob-txt ob-login" data-act="login">Ich nutze die App schon · Anmelden</button>') + '</div>';
   if (p === 'mitten') return '<div class="ob-top"><button type="button" class="rbtn" data-act="fb-go" data-p="hallo" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>' +
     fbQ('Schon mittendrin', 'Wo stehst du im Plan?', 'Stell Durchgang und Tag ein, dann geht es dort weiter.') + '<section class="card">' + standTilesHTML('ob', ui.ob || (ui.ob = { d: 1, t: 1 })) + '</section>' +
     '<div class="ob-foot"><button type="button" class="btn primary block" data-act="start-at">Hier weitermachen</button></div>';
@@ -4563,14 +4588,14 @@ function fbPage() {
   if (p === 'dich') {
     return fbTop(p) + fbQ('Über dich', 'Wer trainiert hier?', 'Damit Puls, Normen und Startgewichte zu dir passen.') +
       '<div class="seg" role="group" aria-label="Geschlecht">' + [['m', 'Männlich'], ['w', 'Weiblich'], ['d', 'Divers']].map(function (o) { var on = S.sex === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="fb-sex" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
-      '<div class="ob-nums"><button type="button" class="ob-num" data-act="choose" data-k="birth"><small>Jahrgang</small><b>' + (S.birthYear || '–') + '</b><i>für den Maximalpuls</i></button>' +
-      '<button type="button" class="ob-num" data-act="choose" data-k="weight"><small>Körpergewicht</small><b>' + (S.weight ? String(S.weight).replace('.', ',') + ' <span>kg</span>' : '–') + '</b><i>für Kraftwerte</i></button></div><p class="ob-tap">Zahl antippen zum Ändern</p>' +
+      '<div class="ob-vr">' + valRows([valRow('Jahrgang', S.birthYear ? String(S.birthYear) : 'Wählen', 'data-act="choose" data-k="birth"', { sub: 'Für den Maximalpuls', set: !!S.birthYear }),
+        valRow('Körpergewicht', S.weight ? esc(fmtKg(S.weight)) : 'Wählen', 'data-act="choose" data-k="weight"', { sub: 'Für Kraftwerte', set: !!S.weight })]) + '</div>' +
       '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button></div>';
   }
   if (p === 'alltag') {
     var AL = alltag(), sg = function (act, opts, cur) { return '<div class="seg" role="group">' + opts.map(function (o) { var on = cur === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="' + act + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>'; };
     return fbTop(p) + fbQ('Dein Alltag', 'Wann schläfst du meistens?', 'An normalen Tagen. Damit plane ich, an welchem Tag und um wie viel Uhr du trainierst.') +
-      '<div class="ob-nums"><button type="button" class="ob-num" data-act="wk-bed"><small>Ins Bett</small><b>' + hm(AL.bed) + '</b></button><button type="button" class="ob-num" data-act="wk-wake"><small>Aufstehen</small><b>' + hm(AL.wake) + '</b></button></div><p class="ob-tap">Zeit antippen zum Ändern</p>' +
+      '<div class="ob-vr">' + valRows([valRow('Ins Bett', hm(AL.bed) + ' Uhr', 'data-act="wk-bed"'), valRow('Aufstehen', hm(AL.wake) + ' Uhr', 'data-act="wk-wake"')]) + '</div>' +
       '<p class="ob-lab" style="margin-top:18px">Arbeitest du in Schichten?</p>' + sg('wk-schicht', [['1', 'Ja'], ['0', 'Nein']], AL.schicht == null ? null : AL.schicht ? '1' : '0') +
       '<p class="ob-lab" style="margin-top:18px">Weg zum Training, eine Richtung</p>' + sg('wk-weg', [['0', 'Keiner'], ['10', '10 Min'], ['15', '15 Min'], ['30', '30 Min']], String(AL.weg)) +
       '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button></div>';
@@ -4590,7 +4615,7 @@ function fbPage() {
         var r = R[id], sub = r ? r.reps + ' Wdh.' + (r.reps > 1 ? dotSub('1RM ' + esc(fmtKg(e1rm(r.kg, r.reps), id))) : '') : '';
         return '<button type="button" class="vrow" data-act="fb-rm" data-v="' + id + '"><span class="gl-t"><b>' + esc(UE[id].name) + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</span><span class="vr-v' + (r ? '' : ' est') + '">' + (r ? esc(fmtKg(r.kg, id)) : '–') + '</span>' + CHEV_R + '</button>';
       })) + '<button type="button" class="btn small" data-act="fb-rm-add" style="margin-top:12px">+ Übung</button></section>' +
-      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button>' + (Object.keys(R).length ? '' : '<button type="button" class="btn block" data-act="fb-skip">Keine Werte</button>') + '</div>';
+      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button>' + (Object.keys(R).length ? '' : '<button type="button" class="ob-txt" data-act="fb-skip">Keine Werte</button>') + '</div>';
   }
   if (p === 'kardio') {
     var erg = a.kart === 'ergo';
@@ -4598,7 +4623,7 @@ function fbPage() {
       '<div class="seg" role="group" aria-label="Art">' + [['lauf', 'Laufen'], ['ergo', 'Ergometer']].map(function (o) { var on = (a.kart || 'lauf') === o[0]; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="fb-kart" data-v="' + o[0] + '" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join('') + '</div>' +
       '<button type="button" class="ob-big" data-act="fb-k"><b>' + (erg ? (a.w20 ? a.w20 + ' <span>W</span>' : '–') : (a.k5 ? fmtDur(a.k5) : '–')) + '</b><small>' + (erg ? 'Watt im Schnitt, 20 Minuten' : 'Minuten für 5 km') + '</small></button>' +
       '<p class="ob-tap">' + (erg ? 'Watt' : 'Zeit') + ' antippen zum Ändern</p>' +
-      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button>' + ((erg ? a.w20 : a.k5) ? '' : '<button type="button" class="btn block" data-act="fb-skip">' + (erg ? 'Fahre nicht' : 'Laufe nicht') + '</button>') + '</div>';
+      '<div class="ob-foot"><button type="button" class="btn primary block" data-act="fb-next">Weiter</button>' + ((erg ? a.w20 : a.k5) ? '' : '<button type="button" class="ob-txt" data-act="fb-skip">' + (erg ? 'Fahre nicht' : 'Laufe nicht') + '</button>') + '</div>';
   }
   if (p === 'schmerz') {
     var pn = a.pain || null, sel = pn && pn.id, dots = '';
@@ -4716,7 +4741,7 @@ function loginPageHTML() {
     '<label class="field"><span>Repository für die Daten</span><input type="text" id="lg-repo" autocomplete="off" autocapitalize="off" spellcheck="false" value="' + esc(L.r) + '"></label></div>' +
     '<p class="small muted lg-msg' + (L.err ? ' sync-err' : '') + '" id="lg-msg" role="status" style="margin:8px 0 0">' + esc(L.msg || 'Der Token bleibt nur auf diesem Gerät.') + '</p></section>' +
     '<div class="ob-foot"><button type="button" class="btn primary block" data-act="lg-go"' + (ui.lgBusy ? ' disabled' : '') + '>Anmelden</button>' +
-    '<button type="button" class="btn block" data-act="lg-new">Ich bin neu</button></div>';
+    '<button type="button" class="ob-txt" data-act="lg-new">Ich bin neu</button></div>';
 }
 function loginRun() {
   var q = function (id) { return document.getElementById(id); };
@@ -5973,41 +5998,52 @@ function paletteHTML() {
     return '<button type="button" data-act="palette" data-v="' + p.id + '" aria-pressed="' + on + '"><span class="pal-p" aria-hidden="true" style="--pb:' + (dark ? p.db || '#1E1F23' : p.bg) + ';--pc:' + (dark ? p.dc || '#2A2B30' : p.card) + ';--pa:' + (dark ? p.dark : p.light) + '"><i></i></span>' + esc(p.label) + '</button>';
   }).join('') + '</div><p class="small muted">Klar, Wald, Ozean, Beere und Graphit bleiben im Dunkelmodus graphit, die anderen bringen ihre eigenen dunklen Farben mit.</p>';
 }
-function lookHTML() {
-  // Hell/Dunkel folgt dem Handy, eine feste Farbe (Schritt 0, Variante C); nur die Textgröße bleibt wählbar.
-  return '<section class="card"><h2>Textgröße</h2>' + segRow('Textgröße', [['s', '<span style="font-size:15px">A</span>'], ['m', '<span style="font-size:19px">A</span>'], ['l', '<span style="font-size:24px">A</span>']], S.textSize || 'm', 'text-size') +
-    '<p class="small muted">Hell oder dunkel richtet sich nach deinem Handy.</p></section>';
+// Einstellungen als gruppierte Liste wie in den iOS-Einstellungen (Schritt 8, Dennis, 7. November): oben du, dann Darstellung, Training,
+// Sync und Daten. Jede Zeile mit › öffnet ein Blatt von unten (PSH), Schalter stehen direkt in der Zeile, Gefährliches rot am Ende.
+function swRow(k, label, on, sub) {
+  return '<div class="gl-item"><label class="check gl-sw"><input type="checkbox" data-change="' + k + '"' + (on ? ' checked' : '') + '><span class="gl-t"><b>' + esc(label) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span></label></div>';
 }
-function moreHTML() {
-  // Hintergrund und Markerfarbe stecken seit 5. November in den Farbpaletten (Aussehen).
-  // Kapsel statt eckiger Kacheln (Impeccable-Kritik Profil, P3): jede Wahl zeigt eine Zahl in ihrer Schrift.
-  var h = '<h3 style="margin-top:0">Schrift für Zahlen</h3>' + segRow('Schrift für Zahlen', FONTS.map(function (f) {
-    return [f.id, '<span class="f-smp" style="font-family:' + f.family + ',sans-serif' + (f.weight ? ';font-weight:' + f.weight : '') + '">12</span> ' + esc(f.label)];
-  }), S.font, 'font');
-  h += countdownHTML();
-  h += '<h3 style="margin-top:16px">Haptik</h3>' + valRows([valRow('Vibration', S.haptik === false ? 'Aus' : 'An', 'data-act="psh" data-k="haptik"')]);
-  h += '<h3 style="margin-top:16px">Gesten</h3><label class="check"><input type="checkbox" data-change="swipe"' + (S.swipe !== false ? ' checked' : '') + '> Wischen statt Tippen</label>' +
-    '<label class="check"><input type="checkbox" data-change="swipeRev"' + (S.swipeRev ? ' checked' : '') + '> Wischen umkehren</label>';
-  // Schalter wie bei Apple (aus grau), auf Wunsch farbig mit Zeichen (Dennis, Schritt 0: „das Rot ist auch bei Apple in den Bedienungshilfen“).
-  h += '<h3 style="margin-top:16px">Schalter</h3><label class="check"><input type="checkbox" data-change="swColor"' + (S.swColor ? ' checked' : '') + '> Farbige Schalter (aus rot, an grün, mit Zeichen)</label>';
-  h += '<h3 style="margin-top:16px">Tempo</h3><label class="check"><input type="checkbox" data-change="tpoCue"' + (S.tpoCue !== false ? ' checked' : '') + '> Ton und Vibration beim Tempo-Takt</label>' +
-    '<p class="small muted">Gibt dein Coach ein langsames Tempo vor (z. B. 4 s runter), meldet sich jede Phase. Der Ton braucht Signaltöne.</p>';
-  h += '<h3 style="margin-top:16px">Puls</h3><p class="small muted">Nur eintragen, wenn gemessen. Sonst rechnet der Coach mit dem Alter.</p>' + valRows(hrRows().slice(1));
-  h += '<h3 style="margin-top:16px">Ansicht</h3>' + segRow('Ansicht', [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']], S.layout || 'auto', 'layout') +
-    (S.layout === 'desk' && !deskOn() ? '<p class="small muted">Desktop braucht ein Fenster ab 900 px Breite.</p>' : '');
-  h += '<label class="check" style="margin-top:12px"><input type="checkbox" data-change="vollbild"' + (S.vollbild !== false ? ' checked' : '') + '> Beim ersten Tippen Vollbild (installierte App)</label>';
-  return h;
+function stGroup(t, rows, note) { return '<p class="kicker muted gl-group">' + esc(t) + '</p><section class="card gl-card st-card">' + rows.join('') + '</section>' + (note ? '<p class="small muted st-note">' + note + '</p>' : ''); }
+function syncLabel() { return !SY ? 'Aus' : syncState.status === 'err' ? 'Fehler' : 'Verbunden'; }
+function datenHTML() {
+  var h = '<section class="card"><p class="small" style="margin-top:0">' + (SY ? 'Deine Daten liegen auf diesem Gerät und werden über GitHub abgeglichen. „Exportieren“ erstellt zusätzlich eine Sicherungsdatei.' : 'Deine Daten liegen nur auf diesem Gerät. Sichere sie ab und zu mit „Exportieren“.') + '</p>' +
+    '<div class="bgrp"><button type="button" data-act="export">Exportieren</button><button type="button" data-act="export-csv">Als Tabelle</button><button type="button" data-act="import">Importieren</button></div>' +
+    '<p class="small muted" style="margin-top:8px">„Exportieren“ sichert alles mit Foto und lässt sich wieder laden. „Als Tabelle“ ist eine CSV-Datei für Excel oder Numbers, ein Satz pro Zeile.</p>';
+  if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
+  return h + '</section>';
+}
+function dichHTML() {
+  var foto = LS.get('tp.foto', null);
+  return '<div class="setting col"><label class="field"><span>Name</span><input type="text" data-change="name" value="' + esc(S.name || '') + '" placeholder="Dein Name"></label></div>' +
+    valRows([sexRow(), weightRow(), hrRows()[0]]) +
+    '<div class="bgrp" style="margin-top:10px"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div>' +
+    '<p class="small muted" style="margin-top:8px">Damit dein Coach richtig plant: Geschlecht und Gewicht für Normen und Startgewichte, das Alter für den Puls.</p>';
 }
 function settingsHTML() {
-  var h = valRows([valRow('Startdatum', '<span class="txt">' + (S.startDate ? esc(fmtDateLong(S.startDate)) : 'wählen') + '</span>', 'data-act="choose" data-k="start"')]);
-  h += '<p class="small" style="margin-top:12px">' + (SY ? 'Deine Daten liegen auf diesem Gerät und werden über GitHub abgeglichen. „Exportieren“ erstellt zusätzlich eine Sicherungsdatei.' : 'Deine Daten liegen nur auf diesem Gerät. Sichere sie ab und zu mit „Exportieren“.') + '</p>';
-  h += '<div class="bgrp"><button type="button" data-act="export">Exportieren</button><button type="button" data-act="export-csv">Als Tabelle</button><button type="button" data-act="import">Importieren</button></div>' +
-    '<p class="small muted" style="margin-top:8px">„Exportieren“ sichert alles mit Foto und lässt sich wieder laden. „Als Tabelle“ ist eine CSV-Datei für Excel oder Numbers, ein Satz pro Zeile.</p><div class="bgrp" style="margin-top:12px"><button type="button" class="red" data-act="restart-test">Einstiegstest neu</button><button type="button" class="red" data-act="reset-all">Alles zurücksetzen</button></div>' +
-    // Dennis, 6. November: der Einstiegstest stand bisher unter Plan › Wissen, das es nicht mehr gibt.
-    '<p class="small muted" style="margin-top:8px">„Einstiegstest neu“ startet mit Testtag 1 und misst deine Startstufen neu, deine Einträge bleiben.</p>';
-  if (ui.exportText) h += '<label class="field" style="margin-top:10px"><span>Zum Kopieren</span><textarea class="export" readonly>' + esc(ui.exportText) + '</textarea></label>';
-  var AL = alltag(), alltagRow = valRows([valRow('Arbeitszeiten', '<span class="txt">' + (AL.schicht === true ? 'Schichtarbeit' : AL.schicht === false ? 'Geregelte Zeiten' : 'Eintragen') + '</span>', 'data-act="psh" data-k="woche"', { sub: 'Schlaf, Arbeit, gesperrte Zeiten' })]);
-  return lookHTML() + '<section class="card"><h2>Alltag</h2>' + alltagRow + '</section>' + sec('Sync über GitHub', syncHTML()) + sec('Mehr', moreHTML()) + sec('Daten', h);
+  var AL = alltag(), hv = hrVals(), cdW = cdWhen();
+  var dar = ['<div class="gl-item st-ts"><span class="gl-t"><b>Textgröße</b></span>' +
+      segRow('Textgröße', [['s', '<span style="font-size:15px">A</span>'], ['m', '<span style="font-size:19px">A</span>'], ['l', '<span style="font-size:24px">A</span>']], S.textSize || 'm', 'text-size') + '</div>',
+    glRow('data-act="psh" data-k="ansicht"', 'Ansicht', '', { auto: 'Automatisch', mobil: 'Handy', desk: 'Desktop' }[S.layout || 'auto']),
+    swRow('swColor', 'Farbige Schalter', !!S.swColor, 'Aus rot, an grün, mit Zeichen'),
+    swRow('vollbild', 'Vollbild', S.vollbild !== false, 'Beim ersten Tippen, als installierte App')];
+  var tr = [glRow('data-act="psh" data-k="woche"', 'Arbeitszeiten', 'Schlaf, Arbeit, gesperrte Zeiten', AL.schicht === true ? 'Schicht' : AL.schicht === false ? 'Geregelt' : 'Eintragen'),
+    glRow('data-act="psh" data-k="countdown"', 'Countdown', '', S.cdVoice ? 'Stimme' : 'Piepen'),
+    glRow('data-act="psh" data-k="puls"', 'Puls', S.hrMax ? 'gemessen' : 'aus dem Alter', hv.max + ' bpm'),
+    glRow('data-act="psh" data-k="haptik"', 'Vibration', '', S.haptik === false ? 'Aus' : 'An'),
+    glRow('data-act="psh" data-k="gesten"', 'Gesten', '', S.swipe !== false ? 'Wischen' : 'Tippen'),
+    swRow('tpoCue', 'Tempo-Takt', S.tpoCue !== false, 'Ton und Vibration, wenn der Coach langsam vorgibt')];
+  var dat = [glRow('data-act="psh" data-k="sync"', 'Sync über GitHub', '', syncLabel()),
+    glRow('data-act="choose" data-k="start"', 'Startdatum', '', S.startDate ? fmtDateLong(S.startDate) : 'wählen'),
+    glRow('data-act="psh" data-k="daten"', 'Sichern', 'Exportieren, als Tabelle, importieren', ''),
+    '<div class="gl-item"><button type="button" class="gl-row st-red" data-act="restart-test"><span class="gl-t"><b>Einstiegstest neu</b><small>Misst deine Startstufen neu, Einträge bleiben</small></span></button></div>',
+    '<div class="gl-item"><button type="button" class="gl-row st-red" data-act="reset-all"><span class="gl-t"><b>Alles zurücksetzen</b></span></button></div>'];
+  return stGroup('Darstellung', dar, 'Hell oder dunkel richtet sich nach deinem Handy.') + stGroup('Training', tr) + stGroup('Daten', dat);
+}
+function meRowHTML() {
+  var foto = LS.get('tp.foto', null), nm = S.name || 'Dein Name', ini = (S.name || '?').trim().charAt(0).toUpperCase();
+  var sub = [S.sex ? SEX_NAME[S.sex] : '', S.weight ? fmtKg(S.weight) : '', S.birthYear ? hrAge() + ' Jahre' : ''].filter(Boolean).join(' · ') || 'Geschlecht, Gewicht, Geburtsjahr';
+  return '<section class="card gl-card st-me"><div class="gl-item"><button type="button" class="gl-row" data-act="psh" data-k="dich"><span class="st-av">' + (foto ? '<img src="' + foto + '" alt="">' : esc(ini)) + '</span><span class="gl-t"><b>' + esc(nm) + '</b><small>' + esc(sub) + '</small></span>' +
+    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></section>';
 }
 // Countdown: Piepen oder Stimme, Sprache, je Anlass an/aus. Bleibt auf dem Gerät.
 function countdownHTML() {
@@ -6676,13 +6712,8 @@ function renderFix() {
   return h + '<button type="button" class="btn block go save" data-act="fix-save">' + TICK + (ui.missLog ? 'Training speichern' : 'Korrektur speichern') + '</button>';
 }
 function renderEinst() {
-  var foto = LS.get('tp.foto', null);
   var h = '<button type="button" class="rbtn back" data-act="tab" data-tab="profil" aria-label="Zurück zum Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><section class="hero"><h1>Einstellungen</h1></section>';
-  h += '<section class="card"><h2>Über dich</h2><p class="small muted" style="margin:-4px 0 10px">Damit dein Coach richtig plant.</p><div class="setting col"><label class="field"><span>Name</span><input type="text" data-change="name" value="' + esc(S.name || '') + '" placeholder="Dein Name"></label></div>' +
-    valRows([sexRow(), weightRow(), hrRows()[0]]) +
-    '<div class="bgrp" style="margin-top:10px"><button type="button" data-act="foto">' + (foto ? 'Foto ändern' : 'Foto wählen') + '</button>' + (foto ? '<button type="button" class="red" data-act="foto-del">Entfernen</button>' : '') + '</div></section>';
-  h += settingsHTML();
-  return h;
+  return h + meRowHTML() + settingsHTML();
 }
 
 /* Foto: verkleinert auf 320 px (tp.foto, Zeit in tp.fotoTs), wird mit abgeglichen */
@@ -7992,7 +8023,8 @@ function applyTheme() {
   document.documentElement.dataset.text = S.textSize === 's' || S.textSize === 'l' ? S.textSize : 'm';
   var r = document.documentElement, dark = isDark(), c = COLORS[0];
   delete r.dataset.theme; delete r.dataset.paper; delete r.dataset.pal;
-  r.dataset.font = FONTS.some(function (f) { return f.id === S.font; }) ? S.font : 'klar';
+  // Eine Schrift für alles (Dennis, Schritt 8): Geist auch für Zahlen, S.font bleibt gespeichert, wirkt aber nicht mehr.
+  r.dataset.font = 'klar';
   if (S.swColor) r.dataset.sw = 'c'; else delete r.dataset.sw;
   r.style.setProperty('--acc', dark ? c.dark : c.light);
   r.style.setProperty('--on-acc', dark ? '#0E1B2B' : '#FFFFFF');
@@ -8037,7 +8069,6 @@ var ACT = {
   palette: function (el) { S.palette = el.dataset.v; saveState(); applyTheme(); haptic('tap'); render(); },
   color: function (el) { S.color = el.dataset.v; saveState(); applyTheme(); render(); },
   paper: function (el) { S.paper = el.dataset.v; saveState(); applyTheme(); render(); },
-  font: function (el) { S.font = el.dataset.v; saveState(); applyTheme(); render(); },
   'import': function () { $imp.click(); },
   'sync-connect': function () {
     var o = (document.getElementById('sy-owner').value || '').trim().replace(/^@/, '');
@@ -9405,7 +9436,14 @@ function planWeekV2HTML() {
 var PSH = {
   woche: ['Arbeitszeiten', function () { return renderWoche(); }],
   zusatz: ['Zusätzlich', function () { return renderZusatz(); }],
-  haptik: ['Haptik', function () { return renderHaptik(); }],
+  haptik: ['Vibration', function () { return renderHaptik(); }],
+  dich: ['Über dich', function () { return dichHTML(); }],
+  ansicht: ['Ansicht', function () { return '<section class="card">' + segRow('Ansicht', [['auto', 'Automatisch'], ['mobil', 'Handy'], ['desk', 'Desktop']], S.layout || 'auto', 'layout') + '<p class="small muted">' + (S.layout === 'desk' && !deskOn() ? 'Desktop braucht ein Fenster ab 900 px Breite.' : 'Automatisch zeigt ab 1024 px mit Maus die Desktop-Ansicht.') + '</p></section>'; }],
+  countdown: ['Countdown', function () { return '<section class="card">' + countdownHTML().replace('<h3 style="margin-top:16px">Countdown</h3>', '') + '</section>'; }],
+  puls: ['Puls', function () { return '<section class="card">' + valRows(hrRows()) + '<p class="small muted" style="margin-top:8px">Nur eintragen, wenn gemessen. Sonst rechnet der Coach mit dem Alter.</p></section>'; }],
+  gesten: ['Gesten', function () { return '<section class="card gl-card">' + swRow('swipe', 'Wischen statt Tippen', S.swipe !== false, 'Links erledigt, rechts zurück') + swRow('swipeRev', 'Wischen umkehren', !!S.swipeRev) + '</section>'; }],
+  sync: ['Sync über GitHub', function () { return '<section class="card">' + syncHTML() + '</section>'; }],
+  daten: ['Sichern', function () { return datenHTML(); }],
   koerper: ['Körper', function () { return renderMuskeln() + musPairsHTML(); }],
   rm: ['One Rep Max', function () { return renderRM(); }],
   skill: ['Skill-Baum', function () { return renderSkill(); }],
