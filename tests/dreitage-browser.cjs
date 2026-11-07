@@ -943,6 +943,22 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.locator('#view .rbtn.back').first().click(); await page.waitForTimeout(350);
     assert.ok(await page.locator('#sheet .psh-koerper').isVisible(), 'Zurück vom Muskel öffnet wieder das Blatt Körper');
     await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350);
+    // Schritt 7 Profil: Umschalter mit drei Namen, keine Woche im Kopf, Bereich, Skill-Baum und Einheit öffnen ein Blatt von unten.
+    await page.evaluate(() => window.tpTest.profile('werte'));
+    assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll('.pseg .seg-btn')].map(b => b.innerText.trim())), ['Erfolge', 'Verlauf', 'Werte']);
+    assert.equal(await page.locator('.p-week').count(), 0, 'keine Woche im Profil-Kopf');
+    await page.locator('.a-row').first().click(); await page.waitForTimeout(300);
+    assert.ok(await page.locator('#sheet .psh-area').isVisible(), 'Bereich als Blatt');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350);
+    await page.locator('.pf-tools [data-k="skill"]').click(); await page.waitForTimeout(300);
+    assert.ok(await page.locator('#sheet .psh-skill .tree').isVisible(), 'Skill-Baum als Blatt');
+    await page.locator('#sheet .t-node').first().click(); await page.waitForTimeout(300);
+    assert.equal(await page.evaluate(() => document.getElementById('view').dataset.tab), 'fam', 'Knoten öffnet die Familie');
+    await page.locator('#view .rbtn.back').first().click(); await page.waitForTimeout(400);
+    assert.ok(await page.locator('#sheet .psh-skill').isVisible(), 'Zurück öffnet wieder den Skill-Baum');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350);
+    await page.evaluate(() => window.tpTest.profile('verlauf'));
+    if (await page.locator('.vl-row').count()) { await page.locator('.vl-row').first().click(); await page.waitForTimeout(300); assert.ok(await page.locator('#sheet .psh-vl').isVisible(), 'Einheit als Blatt'); await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350); }
     console.log('PASS: Bibliothek als Reiter, 1RM als Blatt; Körper als Blatt im Profil: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
 
     // Dennis, 2. November: Accessory zum Abhaken (3 Runden) mit Band in Farbe; Mini-Band ist ein eigenes Gerät; ohne Uhr hakt die Kapsel ab.

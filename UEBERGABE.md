@@ -31,6 +31,8 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
+- Schritt 6 als PR #167 gemergt. Schritt 7 Profil (Vergleich https://claude.ai/artifact/F8MYn2SHf2hoZZUv8JwVUi), Dennis: „ja das passt alles“ → umgesetzt (CLAUDE.md › Schritt 7 Profil),
+  Gegenspieler-Balken ins Blatt Körper übernommen (Frage blieb offen, so geht nichts verloren). Noch kein PR. Danach Schritt 8 (Einstellungen, Fragebogen, Momente).
 - Schritt 5 als PR #166 gemergt. Dennis: auf Plan „passieren beim Ausklappen immer unterschiedliche Sachen … alles soll wie bei In den Kalender sein“ → Arbeitszeiten, Zusatz,
   Belastung und Erholung und die häufigen Fragen öffnen jetzt alle ein Blatt von unten (`PSH`, `pshOpen`). Schritt 6 Tools: erster Entwurf (Übersicht als Liste,
   https://claude.ai/artifact/JHvV5JbGyiHcTUt6iHbcer) überzeugt Dennis nicht; Frage „Sind alle Tools nötig, lässt sich etwas zusammenfassen?“ → Optionen im Chat, Antwort offen.

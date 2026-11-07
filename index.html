@@ -1526,8 +1526,8 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .pw-list .gl-t b,.faq .gl-t b{font-weight:400}
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
-.psh>.rbtn.back,.psh>.hero{display:none}.sub-seg{margin:4px 0 16px}.pf-tools .gl-t b{font-weight:400}#view[data-tab="uebungen"] .hero-title,#view[data-tab="routinen"] .hero-title{font-size:15px;color:var(--ink2);font-weight:400;margin-top:2px}.psh-koerper .mfig svg{max-width:100%}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
-.fam-row{gap:14px;min-height:76px}.fam-row .gl-t b{font-weight:400;hyphens:none}.fam-row .gl-t small svg{width:12px;height:12px;vertical-align:-1px;margin-right:2px}.fam-fig{flex:none;width:60px;height:60px;display:flex;align-items:center;justify-content:center}.fam-fig svg{width:60px;height:60px}.fam-fig.none{color:var(--ink2);opacity:.5}.fam-fig.none svg{width:30px;height:30px}.gl-item.fam.locked .fam-fig{opacity:.45}.r-list2 .gl-t b,.faq .gl-t b{font-weight:400}.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
+.psh>.rbtn.back,.psh>.hero{display:none}/* Schritt 7 Profil */.p-head{background:var(--paper)!important;border:0!important;box-shadow:var(--shadow)!important}.pseg{margin:0 0 16px}.pr-v b{color:var(--ink)!important}.pr-row b,.a-row b,.vl-row .gl-t b,.fast-t b{font-weight:400}.fast-b i{background:var(--ink2)}.fast-b.gold i{background:var(--gold,#C9A227)}.vl-sum{font-size:15px;color:var(--ink2);margin:4px 4px 12px}.pr-all .gl-t b{font-weight:400}.pr-all{margin:8px -16px -8px;box-shadow:none;background:none}.a-row .gl-chev{width:16px;height:16px;color:var(--ink2);flex:none}.psh-skill .tree{min-height:200px}.sub-seg{margin:4px 0 16px}.pf-tools .gl-t b{font-weight:400}#view[data-tab="uebungen"] .hero-title,#view[data-tab="routinen"] .hero-title{font-size:15px;color:var(--ink2);font-weight:400;margin-top:2px}.psh-koerper .mfig svg{max-width:100%}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
+.fam-links{background:none;box-shadow:none;padding:0;margin:0 -4px}.fam-row{gap:14px;min-height:76px}.fam-row .gl-t b{font-weight:400;hyphens:none}.fam-row .gl-t small svg{width:12px;height:12px;vertical-align:-1px;margin-right:2px}.fam-fig{flex:none;width:60px;height:60px;display:flex;align-items:center;justify-content:center}.fam-fig svg{width:60px;height:60px}.fam-fig.none{color:var(--ink2);opacity:.5}.fam-fig.none svg{width:30px;height:30px}.gl-item.fam.locked .fam-fig{opacity:.45}.r-list2 .gl-t b,.faq .gl-t b{font-weight:400}.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
@@ -4411,7 +4411,10 @@ function render() {
   // Alte Seiten (Schritt 6): Timer gibt es nicht mehr, Körper und 1RM sind Blätter im Profil.
   var reSh = null;
   if (ui.tab === 'timer') ui.tab = 'uebungen';
-  else if (ui.tab === 'muskeln' || ui.tab === 'rm') { reSh = ui.tab === 'rm' ? 'rm' : 'koerper'; ui.tab = 'profil'; ui.pview = 'werte'; }
+  else if (ui.tab === 'muskeln' || ui.tab === 'rm' || ui.tab === 'skill') { reSh = ui.tab === 'rm' ? 'rm' : ui.tab === 'skill' ? 'skill' : 'koerper'; ui.tab = 'profil'; ui.pview = 'werte'; }
+  // Aus einem Blatt auf eine Seite gewechselt (Familie aus dem Skill-Baum): zurück öffnet das Blatt wieder.
+  if (ui.reSheet && ui.tab !== 'fam' && ui.tab !== ui.reSheet[1]) ui.reSheet = null;
+  else if (ui.reSheet && ui.tab === ui.reSheet[1] && !reSh) { reSh = ui.reSheet[0]; ui.reSheet = null; }
   var fn = { heute: renderHeute, timer: renderTimer, profil: renderProfil, einst: renderEinst, haptik: renderHaptik, uebungen: renderUebungen, muskeln: renderMuskeln, plan: renderPlan, routinen: renderRoutinen, routine: renderRoutine, rm: renderRM, fam: renderFam, muskel: renderMuskel, fix: renderFix, skill: renderSkill, fokus: renderFokus, challenge: renderChallenge, woche: renderWoche, zusatz: renderZusatz, kardio: renderKardio, kalender: renderKalender }[ui.tab];
   var g = groupOf(ui.tab), views = GROUPS[g];
   if (!HIDDEN[ui.tab]) ui.last[g] = ui.tab;
@@ -5678,7 +5681,7 @@ function trainVerlaufHTML() {
     return h + '<section class="card"><h2>Noch nichts gespeichert</h2><p>Sobald du ein Training speicherst, findest du hier Wiederholungen, Metcon-Runden, Laufzeiten und Murph-Zeiten.</p><button type="button" class="btn primary" data-act="tab" data-tab="heute">Zum heutigen Training</button></section>';
   }
   var p = pauseDays();
-  h += '<div class="chips"><span class="chip">' + TL.length + (TL.length === 1 ? ' Einheit' : ' Einheiten') + '</span><span class="chip">' + (S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang) + '</span><span class="chip">' + (p === 0 ? 'Zuletzt heute' : p === 1 ? 'Zuletzt gestern' : 'Zuletzt vor ' + p + ' Tagen') + '</span></div>';
+  h += '<p class="vl-sum">' + [TL.length + (TL.length === 1 ? ' Einheit' : ' Einheiten'), S.durchgang === 0 ? 'Einstiegstest' : 'Durchgang ' + S.durchgang, p === 0 ? 'zuletzt heute' : p === 1 ? 'zuletzt gestern' : 'zuletzt vor ' + p + ' Tagen'].join(' · ') + '</p>';
   // Wochen-Tagebuch (Impeccable-Kritik Profil, Dennis): je Kalenderwoche ein Kopf mit Ring der Wochen-Kette, je Einheit eine Zeile mit Kennzahl, Details zum Aufklappen.
   var list = TL.slice().reverse(), shown = list.slice(0, ui.logLimit), CW = {}, wk = {}, order = [];
   chainState().weeks.forEach(function (w) { CW[w.mon] = w; });
@@ -5716,9 +5719,10 @@ function vlKey(l) {
   return '';
 }
 function vlRowHTML(l) {
-  var open = ui.vlOpen === l.id, d = parseISO(l.date), u = l.unit || (l.pv === 2 ? '' : 'T' + l.tag);
-  return '<div class="vl-it' + (open ? ' open' : '') + '"><button type="button" class="vl-row" data-act="vl-open" data-id="' + esc(l.id) + '" aria-expanded="' + open + '">' +
-    '<span class="vl-u">' + esc(u || '·') + '</span><span class="gl-t"><b>' + esc(logTitle(l)) + '</b><small>' + esc(WTAG[(d.getDay() + 6) % 7].slice(0, 2) + ', ' + shortDate(l.date).replace(/\.$/, '')) + (vlKey(l) ? ' · ' + esc(vlKey(l)) : '') + (l.fixed ? ' · korrigiert' : '') + '</small></span>' +
+  var open = false, d = parseISO(l.date), u = l.unit || (l.pv === 2 ? '' : 'T' + l.tag);
+  return '<div class="vl-it"><button type="button" class="vl-row" data-act="vl-open" data-id="' + esc(l.id) + '">' +
+    // Schritt 7: Kürzel im Kreis, Titel = Tag (der Name wiederholte oft nur das Kürzel), darunter die Kennzahl.
+    '<span class="vl-u">' + esc(u || '·') + '</span><span class="gl-t"><b>' + esc(WTAG[(d.getDay() + 6) % 7].slice(0, 2) + ', ' + shortDate(l.date).replace(/\.$/, '')) + '</b><small>' + esc([logTitle(l).length > 2 ? logTitle(l) : '', vlKey(l).replace(' auf Vorgabe', ''), l.fixed ? 'korrigiert' : ''].filter(Boolean).join(' · ')) + '</small></span>' +
     '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>' +
     (open ? '<div class="vl-det">' + logLines(l) + logBtns(l, fixable(l)) + '</div>' : '') + '</div>';
 }
@@ -6467,13 +6471,13 @@ function profileHead(stats) {
   return '<section class="p-head"><button type="button" class="p-gear" data-act="tab" data-tab="einst" aria-label="Einstellungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h9M18 7h2M4 17h3M12 17h8"/><circle cx="15.5" cy="7" r="2.3"/><circle cx="9.5" cy="17" r="2.3"/></svg></button>' +
     '<div class="p-top"><button type="button" class="p-photo" data-act="foto" aria-label="Foto wählen"><svg class="p-ring" viewBox="0 0 124 124" aria-hidden="true"><circle cx="62" cy="62" r="57" class="track"/><circle cx="62" cy="62" r="57" class="fill" stroke-dasharray="' + dash + ' 358" transform="rotate(-90 62 62)"/></svg>' +
     (foto ? '<img src="' + esc(foto) + '" alt="">' : '<span class="p-nofoto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg>Foto</span>') +
-    '<span class="p-tier">' + esc(cardTier(v)) + '</span></button>' +
+    '</button>' +
     '<div class="p-info"><div class="p-name">' + esc(S.name || 'Dein Profil') + '</div><div class="p-lbl">Gesamtwert</div>' +
     // Design-Regeln (Dennis, 5. November): ohne Wert keine riesige „0“, sondern was ihn entstehen lässt.
     (v > 0 ? '<div class="p-total" aria-label="Gesamtwert ' + v + ' von 99">' + v + '</div><div class="p-sub">' +
-    [before ? (diff > 0 ? '+' + diff : diff < 0 ? '−' + (-diff) : '±0') + ' in 4 Wochen' : '', tierGap(v)].filter(Boolean).join(' · ') + '</div>' : '<div class="p-none">entsteht</div><div class="p-sub">Sobald dein Coach deine Stufen kennt, steht hier dein Wert.</div>') + '</div></div>' +
-    coachLineHTML() +
-    '<div class="p-week"><div class="p-week-h"><span>Diese Woche</span><b>' + (v2() ? cnt + ' von ' + tageN() + ' Einheiten' : cnt + (cnt === 1 ? ' Einheit' : ' Einheiten')) + '</b></div><div class="p-days">' + week + '</div></div></section>';
+    [cardTier(v), tierGap(v)].filter(Boolean).join(' · ') + (before ? '<br>' + (diff > 0 ? '+' + diff : diff < 0 ? '−' + (-diff) : '±0') + ' in 4 Wochen' : '') + '</div>' : '<div class="p-none">entsteht</div><div class="p-sub">Sobald dein Coach deine Stufen kennt, steht hier dein Wert.</div>') + '</div></div>' +
+    // Schritt 7 (Profil): die Woche steht schon auf Heute und im Plan, darum hier nicht noch einmal.
+    coachLineHTML() + '</section>';
 }
 
 var PVIEWS = [
@@ -6485,14 +6489,15 @@ function renderProfil() {
   if (ui.pview === 'entwicklung' || ui.pview === 'equipment') ui.pview = 'werte';
   var stats = statsOf(LOGS), view = ui.pview || 'werte';
   var h = profileHead(stats);
-  h += '<nav class="cap pcap" aria-label="Ansicht">' + PVIEWS.map(function (p) {
+  h += '<div class="seg sub-seg pseg" role="group" aria-label="Ansicht">' + PVIEWS.map(function (p) {
     var on = p[0] === view;
-    return '<button type="button" class="cap-btn' + (on ? ' on' : '') + '" data-act="pview" data-v="' + p[0] + '" aria-pressed="' + on + '" aria-label="' + p[1] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + p[3] + '"/></svg><span>' + p[1] + '</span></button>';
-  }).join('') + '</nav>';
+    return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pview" data-v="' + p[0] + '" aria-pressed="' + on + '">' + p[1] + '</button>';
+  }).join('') + '</div>';
   var kt = v2() && DAYS[S.tag] && DAYS[S.tag].type === 'kraft' ? S.tag : 0;
-  if (view === 'werte') h += (kt ? progressHTML(kt) : '') + '<button type="button" class="st-row skill-go" data-act="tab" data-tab="skill"><span><b>Skill-Baum</b><br><span class="small muted">Was du kannst und was als Nächstes kommt</span></span><span class="muted">›</span></button>' +
-    // Körper und One Rep Max zeigen eigene Werte, darum im Profil, je als Blatt von unten (Schritt 6, Variante A).
-    '<p class="gl-group">Werkzeuge</p><section class="card gl-card pf-tools">' + glRow('data-act="psh" data-k="koerper"', 'Körper', 'Was in 4 Wochen zu kurz kommt') + glRow('data-act="psh" data-k="rm"', 'One Rep Max', 'Deine schwersten Wiederholungen') + '</section>' + werteHTML(stats);
+  if (view === 'werte') h += (kt ? progressHTML(kt) : '') + werteHTML(stats) +
+    // Skill-Baum, Körper und One Rep Max als eine Liste, je ein Blatt von unten (Schritt 6/7).
+    '<p class="gl-group">Werkzeuge</p><section class="card gl-card pf-tools">' + glRow('data-act="psh" data-k="skill"', 'Skill-Baum', 'Was du kannst und was als Nächstes kommt') +
+    glRow('data-act="psh" data-k="koerper"', 'Körper', 'Was in 4 Wochen zu kurz kommt') + glRow('data-act="psh" data-k="rm"', 'One Rep Max', 'Deine schwersten Wiederholungen') + '</section>' + werteNote();
   else if (view === 'erfolge') h += (kt ? fastHTML(kt) : '') + erfolgeHTML(stats);
   else h += verlaufHTML();
   return h;
@@ -6526,8 +6531,8 @@ function sparkSVG(vals) {
   var lo = Math.min.apply(null, ok) - 2, hi = Math.max.apply(null, ok) + 2;
   return '<svg class="spark" viewBox="0 0 70 26" aria-hidden="true"><polyline points="' + vals.map(function (v, i) { return v > 0 ? (2 + i * 66 / (vals.length - 1)).toFixed(1) + ',' + (24 - (v - lo) / (hi - lo) * 22).toFixed(1) : null; }).filter(Boolean).join(' ') + '"/></svg>';
 }
+function werteNote() { return '<p class="small muted" style="text-align:center">Werte entstehen aus deiner Stufe in jeder Leiter und den Wiederholungen darauf. Sie können auch wieder sinken.</p>'; }
 function werteHTML(stats) {
-  if (ui.parea && AREA[ui.parea]) return areaDetailHTML(stats, ui.parea);
   var prev = statsAt(isoDaysAgo(28)), dates = sampleDates(8), hist = dates.map(statsAt);
   // Vergleich nur, wenn vor 4 Wochen jeder Bereich mit Daten schon einen Wert hatte (sonst zieht eine Linie aus der Mitte, Impeccable-Kritik Profil).
   var pOk = stats.areas.some(function (a) { return a.val; }) && stats.areas.every(function (a, i) { return !a.val || prev.areas[i].val > 0; });
@@ -6536,17 +6541,18 @@ function werteHTML(stats) {
   h += '<section class="card a-list">' + stats.areas.map(function (a, i) {
     var d = a.val && prev.areas[i].val ? a.val - prev.areas[i].val : 0;
     return '<button type="button" class="a-row" data-act="parea" data-v="' + a.id + '"><b>' + esc(a.name) + '</b>' + sparkSVG(hist.map(function (x) { return x.areas[i].val; })) +
-      '<span class="a-v">' + (a.val || '–') + '</span><span class="a-d' + (d < 0 ? ' neg' : '') + '">' + (d ? (d > 0 ? '+' : '') + d : '') + '</span><span class="a-ch">›</span></button>';
-  }).join('') + '</section>' + musCardHTML() + painCardHTML();
-  return h + '<p class="small muted" style="text-align:center">Werte entstehen aus deiner Stufe in jeder Leiter und den Wiederholungen darauf. Sie können auch wieder sinken.</p>';
+      '<span class="a-v">' + (a.val || '–') + '</span><span class="a-d' + (d < 0 ? ' neg' : '') + '">' + (d ? (d > 0 ? '+' : '') + d : '') + '</span><svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>';
+  }).join('') + '</section>' + painCardHTML();
+  return h;
 }
 function areaDetailHTML(stats, id) {
   var a = stats.areas.filter(function (x) { return x.id === id; })[0], def = AREA[id], part = def.parts && ui.ppart ? ui.ppart : null;
   var keys = a.keys.filter(function (k) { return !part || partOf(k) === part; });
   function partVal(st, p) { var sc = a.keys.filter(function (k) { return partOf(k) === p; }).map(function (k) { return ladderScore(k, st[k]); }).filter(function (v) { return v > 0; }); return sc.length ? Math.round(sc.reduce(function (x, y) { return x + y; }, 0) / sc.length) : 0; }
-  var h = '<div class="row between" id="a-top"><button type="button" class="rbtn" data-act="parea" data-v="" aria-label="Zurück zu Werte">' + BACK + '</button></div>';
+  var h = '';
   var pv = part ? partVal(stats.st, part) : a.val, pn = part ? def.parts.filter(function (x) { return x[0] === part; })[0][1] : '';
-  h += '<div class="a-head"><h2>' + esc(a.name) + (pn ? ' <span class="muted">· ' + esc(pn) + '</span>' : '') + '</h2><span class="a-big">' + (pv || '–') + '</span></div>';
+  // Im Blatt steht der Name schon im Kopf (Schritt 7).
+  h += '<div class="a-head"><h2>' + (ui.psh === 'area' ? esc(pn || 'Dein Wert') : esc(a.name) + (pn ? ' <span class="muted">· ' + esc(pn) + '</span>' : '')) + '</h2><span class="a-big">' + (pv || '–') + '</span></div>';
   var dates = sampleDates(10), hist = dates.map(statsAt), vals = hist.map(function (x) { return part ? partVal(x.st, part) : x.areas.filter(function (y) { return y.id === id; })[0].val; });
   if (vals.filter(function (v) { return v > 0; }).length >= 2) {
     var ok = vals.filter(function (v) { return v > 0; }), lo = Math.max(0, Math.min.apply(null, ok) - 5), hi = Math.min(99, Math.max.apply(null, ok) + 5);
@@ -6622,11 +6628,7 @@ function erfolgeHTML(stats) {
 }
 function erfolgeRest(h) {
   h += prCardHTML();
-  var arch = RM_ALL.map(function (id) { return { id: id, r: rmOf(id) }; }).filter(function (x) { return x.r; });
-  // Ohne 1RM keine leere Karte am Ende (Impeccable-Kritik Profil): eingetragen wird in Tools › 1RM.
-  if (arch.length) h += '<section class="card a-lads"><div class="card-head"><h2>1RM-Archiv</h2><span class="chip">Bestwerte</span></div>' + arch.map(function (x) {
-    return '<button type="button" class="rm-row" data-act="rm-go" data-v="' + x.id + '"><span><b>' + esc(UE[x.id].name) + '</b><small>' + esc(fmtDate(x.r.best.date)) + '</small></span><span class="rm-kg">' + esc(fmtKg(x.r.best.e1, x.id)) + '</span></button>';
-  }).join('') + '</section>';
+  // 1RM-Archiv entfällt (Schritt 7): die Bestwerte stehen in Werte › One Rep Max (Aktuell | Bestwert).
   return h;
 }
 function renderHaptik() {
@@ -6782,7 +6784,7 @@ function prBars(h, cls) {
   h = h.slice(-6); var lo = Math.min.apply(null, h.map(function (x) { return x.pv; })), hi = Math.max.apply(null, h.map(function (x) { return x.pv; }));
   return '<span class="' + cls + '" aria-hidden="true">' + h.map(function (x, i) { var f = hi > lo ? 0.3 + 0.7 * (x.pv - lo) / (hi - lo) : 1; return '<i' + (i === h.length - 1 ? ' class="on"' : '') + ' style="height:' + Math.round(f * 100) + '%"></i>'; }).join('') + '</span>';
 }
-function prCardHTML() {
+function prCardHTML(full) {
   var R = prList(LOGS), all = Object.keys(R).map(function (k) { return R[k]; }), wk = isoAdd(isoToday(), -7);
   if (!all.length) return '';
   var byDate = function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; };
@@ -6794,11 +6796,13 @@ function prCardHTML() {
   }
   var G = PR_GRP.filter(function (x) { return all.some(function (p) { return p.g === x[0]; }); });
   var cur = G.some(function (x) { return x[0] === ui.prG; }) ? ui.prG : top ? top.g : G[0][0];
-  h += '<section class="card"><div class="card-head"><h2>Rekorde</h2><span class="chip">Bestwerte</span></div>' +
+  if (full) h = '';
+  var lim = full ? 99 : 5, nG = all.filter(function (p) { return p.g === cur; }).length;
+  h += '<section class="card pr-list">' + (full ? '' : '<div class="card-head"><h2>Rekorde</h2></div>') +
     (G.length > 1 ? '<div class="seg pr-seg" role="group" aria-label="Bereich">' + G.map(function (x) { var on = x[0] === cur; return '<button type="button" class="seg-btn' + (on ? ' on' : '') + '" data-act="pr-g" data-v="' + x[0] + '" aria-pressed="' + on + '">' + x[1] + '</button>'; }).join('') + '</div>' : '') +
-    all.filter(function (p) { return p.g === cur; }).sort(byDate).slice(0, 10).map(function (p) {
+    all.filter(function (p) { return p.g === cur; }).sort(byDate).slice(0, lim).map(function (p) {
       return '<div class="pr-row"><span><b>' + esc(p.t) + '</b><small>' + esc(prSub(p, 1)) + '</small>' + (p.h.length > 1 ? prBars(p.h, 'pr-mini') : '') + '</span><span class="pr-v">' + (p.up && p.date >= wk ? '<span class="pr-new">★ neu</span>' : '') + '<b>' + esc(p.disp) + '</b></span></div>';
-    }).join('') + '</section>';
+    }).join('') + (!full && nG > lim ? '<div class="gl-card pr-all">' + glRow('data-act="psh" data-k="pr"', 'Alle Rekorde', nG + ' in diesem Bereich') + '</div>' : '') + '</section>';
   return h;
 }
 // Kurve der Rekorde im Moment nach dem Speichern, der neue als goldener Stern.
@@ -8137,7 +8141,8 @@ ACT['fb-start'] = function () {
 
 ACT.pmenu = function () { ui.pmenu = !ui.pmenu; render(); };
 ACT.pview = function (el) { ui.pview = el.dataset.v; ui.pmenu = false; render(); };
-ACT.parea = function (el) { ui.parea = el.dataset.v || el.closest('[data-v]').dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); areaTop(); };
+// Bereich als Blatt von unten (Schritt 7, gleiche Symbole): Netzdiagramm, Liste und Medaillen öffnen dasselbe Blatt.
+ACT.parea = function (el) { var v = el.dataset.v || el.closest('[data-v]').dataset.v; if (!AREA[v]) return; ui.parea = v; ui.ppart = null; ui.track = null; if (ui.psh === 'area' && document.getElementById('sheet')) render(); else pshOpen('area'); };
 // Geöffneter Bereich beginnt oben am Bildschirm, nicht unter dem Profilkopf (Impeccable-Kritik Profil, P3).
 function areaTop() { var e = document.getElementById('a-top'); if (e) window.scrollTo(0, Math.max(0, e.getBoundingClientRect().top + window.scrollY - 12)); }
 ACT.ppart = function (el) { ui.ppart = el.dataset.v || null; ui.track = null; render(); };
@@ -9401,8 +9406,13 @@ var PSH = {
   woche: ['Arbeitszeiten', function () { return renderWoche(); }],
   zusatz: ['Zusätzlich', function () { return renderZusatz(); }],
   haptik: ['Haptik', function () { return renderHaptik(); }],
-  koerper: ['Körper', function () { return renderMuskeln(); }],
+  koerper: ['Körper', function () { return renderMuskeln() + musPairsHTML(); }],
   rm: ['One Rep Max', function () { return renderRM(); }],
+  skill: ['Skill-Baum', function () { return renderSkill(); }],
+  area: [function () { return AREA[ui.parea] ? AREA[ui.parea].name : 'Bereich'; }, function () { return AREA[ui.parea] ? areaDetailHTML(statsOf(LOGS), ui.parea) : ''; }],
+  pr: ['Rekorde', function () { return prCardHTML(true); }],
+  vl: [function () { var l = LOGS.filter(function (x) { return x.id === ui.vlOpen; })[0]; return l ? logTitle(l) + ' · ' + shortDate(l.date).replace(/\.$/, '') : 'Einheit'; },
+    function () { var l = LOGS.filter(function (x) { return x.id === ui.vlOpen; })[0]; return l ? '<section class="card">' + logLines(l) + logBtns(l, fixable(l)) + '</section>' : '<p class="muted">Diese Einheit gibt es nicht mehr.</p>'; }],
   body: ['Belastung und Erholung', function () { var m = ui.pwMon || wkMon(); return loadCardHTML(m) + (m === wkMon() ? zoneCardHTML() : ''); }]
 };
 function pshOpen(k) {
@@ -9411,9 +9421,11 @@ function pshOpen(k) {
   if (k === 'zusatz') { ui.zsBack = 'plan'; }
   ui.psh = k; ui.pshTab = ui.tab;
   if (k === 'rm' && !ui.rmKeep) ui.rmLift = null; ui.rmKeep = false;
-  openForm(PSH[k][0], '<div class="psh psh-' + k + '">' + PSH[k][1]() + '</div>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
+  var T = typeof PSH[k][0] === 'function' ? PSH[k][0]() : PSH[k][0];
+  openForm(T, '<div class="psh psh-' + k + '">' + PSH[k][1]() + '</div>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
   var s = document.getElementById('sheet'); if (s) s._psh = true;
   if (k === 'koerper') musFit();
+  if (k === 'skill') drawTree();
 }
 function pshRefresh() {
   if (!ui.psh) return;
@@ -9423,6 +9435,7 @@ function pshRefresh() {
   var b = s.querySelector('.sh-body'), top = b ? b.scrollTop : 0;
   p.innerHTML = PSH[ui.psh][1](); if (b) b.scrollTop = top;
   if (ui.psh === 'koerper') musFit();
+  if (ui.psh === 'skill') drawTree();
 }
 ACT.psh = function (el) { pshOpen(el.dataset.k); };
 // Zeile mit ▶: startet etwas im Vollbild (Gleiche Symbole, gleiche Aktion; Tour, Mobility-Abläufe).
@@ -11450,7 +11463,7 @@ function rmDetailHTML(id) {
   }).join('') + '</section>';
   return h;
 }
-ACT['parea-go'] = function (el) { ui.pview = 'werte'; ui.parea = el.dataset.v; ui.ppart = null; ui.track = null; window.scrollTo(0, 0); render(); areaTop(); };
+ACT['parea-go'] = function (el) { ACT.parea(el); };
 // 1RM ist ein Blatt im Profil (Schritt 6): im Blatt wechselt die Ansicht, von außen öffnet es das Blatt mit dieser Übung.
 ACT['rm-open'] = function (el) {
   ui.rmLift = el.dataset.v || null;
@@ -13062,9 +13075,9 @@ function famBody(f, c) {
   var top = st.length ? famStageHTML(f, c) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c) : figBox(famFigKey(f, c)) + '<p class="muted small">' + esc(f.kurz) + '</p>' + famPathHTML(f, c);
   var body = (vars.length ? '<p class="sec-k">Gleichwertige Varianten</p><div class="fam-list">' + vars.map(item).join('') + '</div>' : '') +
     (tempo.length ? '<p class="sec-k">Auf Tempo (CrossFit)</p><p class="tempo-note">' + esc(tempo[0].vermerk || 'Auf Tempo ausgelegt, nicht auf saubere Range of Motion oder Effizienz.') + ' Ersetzt nie eine Stufe im Krafttraining.</p><div class="fam-list">' + tempo.map(item).join('') + '</div>' : '') +
-    (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips fam-go">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + ' ›</button>'; }).join('') + '</div>' : '') +
-    ((f.voraussetzt || []).length ? '<p class="sec-k">Baut auf</p><div class="chips fam-go">' + f.voraussetzt.map(function (p) { return FAM[p.familie] ? '<button type="button" class="chip" data-act="fam-go" data-id="' + p.familie + '">' + esc(FAM[p.familie].name) + ' ›</button>' : ''; }).join('') + '</div>' : '') +
-    ((f.fuehrt_zu || []).length ? '<p class="sec-k">Führt zu</p><div class="chips fam-go">' + f.fuehrt_zu.map(function (id) { return FAM[id] ? '<button type="button" class="chip blue" data-act="fam-go" data-id="' + id + '">' + esc(FAM[id].name) + ' ›</button>' : ''; }).join('') + '</div>' : '');
+    (also.length ? '<p class="sec-k">Gehört auch dazu</p><div class="chips fam-go">' + also.map(function (v) { return '<button type="button" class="chip blue" data-act="gloss" data-name="' + esc(uName(v.uebung)) + '">' + esc(uName(v.uebung)) + '</button>'; }).join('') + '</div>' : '') +
+    // Schritt 7 (gleiche Symbole): Baut auf / Führt zu wie die Familien in der Bibliothek, Zeile mit Bild ohne Pfeil öffnet die Seite.
+    famLinks('Baut auf', (f.voraussetzt || []).map(function (p) { return p.familie; }), c) + famLinks('Führt zu', f.fuehrt_zu || [], c);
   return { top: top, body: body };
 }
 // Bibliothek als Liste mit Bild (Schritt 6, Dennis, 7. November: „B aber als Liste“): je Familie ein stehendes Bild, Name, Stand; ohne Pfeil,
@@ -13100,6 +13113,10 @@ function famLine(f, c, avail) {
   if (lv) { var s = c.st[st[lv - 1].uebung], lad = LAD[st[lv - 1].uebung]; return 'Du: ' + esc(lad && s && s.cur ? stageText(lad.steps[s.cur - 1]) : uName(st[lv - 1].uebung)); }
   if (status === 'lock') return LOCK_SVG + ' ab ' + esc(famPreText(f, c));
   return st.length ? 'Start: ' + esc(uName(st[0].uebung)) : esc(famSub(f));
+}
+function famLinks(t, ids, c) {
+  ids = ids.filter(function (id) { return FAM[id]; }); if (!ids.length) return '';
+  return '<p class="sec-k">' + t + '</p><div class="gl-card fam-links">' + ids.map(function (id) { var g = FAM[id]; return famItemHTML(g, c, g.varianten.filter(function (v) { return UE[v.uebung] && eqOk(UE[v.uebung].equipment, c.have); })); }).join('') + '</div>';
 }
 function famItemHTML(f, c, avail) {
   return '<div class="gl-item fam' + (avail.length ? '' : ' locked') + '" id="f-' + f.id + '"><button type="button" class="gl-row fam-row" data-act="fam-open" data-id="' + f.id + '">' + famThumb(f.id) +
@@ -13168,7 +13185,8 @@ function famCount() { var have = haveEq(); return FAMD.familien.filter(function 
 // Familie als eigene Seite öffnen; Zurück führt dorthin, wo man herkam.
 function famOpen(id, gloss) {
   if (!FAM[id] && id !== '_mob') return;
-  if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' || ui.tab === 'muskel' ? ui.tab : 'uebungen';
+  if (ui.tab !== 'fam') ui.famBack = ui.tab === 'skill' || ui.tab === 'heute' || ui.tab === 'muskel' || ui.tab === 'profil' ? ui.tab : 'uebungen';
+  if (ui.psh && document.getElementById('sheet')) { ui.reSheet = [ui.psh, ui.tab]; ui.psh = null; closeSheet(); }
   ui.famId = id; ui.famSel = null; ui.famHow = false; ui.glossOpen = gloss || null; ui.tab = 'fam'; window.scrollTo(0, 0); render();
 }
 ACT['fam-open'] = function (el) { famOpen(el.dataset.id); };
@@ -14434,6 +14452,13 @@ function musBalance() {
   MB_C = { k: k, v: v };
   return v;
 }
+// Gegenspieler-Balken (Druck/Zug usw.) im Blatt Körper (Schritt 7: die Muskel-Karte in Werte entfällt).
+function musPairsHTML() {
+  var B = musBalance(); if (!B.ok || !B.pairs.length) return '';
+  return '<section class="card mus-card"><div class="card-head"><h2>Gegenspieler</h2></div>' + B.pairs.map(function (p) {
+    return '<div class="mb-row b' + p.c + '"><div class="mb-top"><span>' + esc(p.a) + ' <b>' + p.sa + ' %</b></span><span><b>' + p.sb + ' %</b> ' + esc(p.b) + '</span></div><div class="mb-bar"><i style="width:' + p.sa + '%"></i><em></em></div></div>';
+  }).join('') + '</section>';
+}
 function musCardHTML() {
   var B = musBalance(), h = '<section class="card mus-card"><p class="sec-k">Muskeln · letzte 4 Wochen</p>';
   if (!B.ok) return h + musFigHTML(function () { return ''; }) + '<p class="small muted mus-empty">Ab 3 Krafteinheiten in 4 Wochen siehst du hier, welche Muskeln zu kurz kommen.</p></section>';
@@ -14716,7 +14741,7 @@ ACT['sp-set'] = function (el) { var v = SP[el.dataset.v] ? el.dataset.v : null; 
 ACT['ch-none'] = function () { if (chal()) ACT['ch-end'](); else toast('Läuft schon: Allround ohne Wettkampf.'); };
 ACT['fk-open'] = function (el) { ui.fkFrom = el.dataset.from || 'heute'; ui.tab = 'fokus'; window.scrollTo(0, 0); render(); };
 ACT['fk-go'] = function () { startBlock(S.review ? S.review.fokus : S.fokus); };
-ACT['vl-open'] = function (el) { ui.vlOpen = ui.vlOpen === el.dataset.id ? null : el.dataset.id; render(); };
+ACT['vl-open'] = function (el) { ui.vlOpen = el.dataset.id; pshOpen('vl'); };
 function hrRows() {
   var hv = hrVals();
   return [valRow('Geburtsjahr', S.birthYear ? String(S.birthYear) : '–', 'data-act="choose" data-k="birth"', { sub: S.birthYear ? hrAge() + ' Jahre' : 'Für den Maximalpuls', set: !!S.birthYear }),
