@@ -258,14 +258,18 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(() => window.tpTest.navigate('plan'));
     assert.ok(await page.getByRole('heading', { name: '1 von 3 erledigt' }).isVisible());
     // Belastung und Erholung als eine Zeile: ohne Signal zu, auf Tippen auf (Impeccable-Kritik Plan, 26. Oktober).
-    const ldz = page.locator('[data-act="ld-open"]');
-    // Nach dem Training ist eine Zone müde: die Zeile ist schon offen und sagt welche.
-    assert.equal(await ldz.getAttribute('aria-expanded'), 'true', 'mit Signal offen');
+    // Schritt 5 (Dennis, 6. November): jede Zeile der Wochen-Liste öffnet ein Blatt von unten wie „In den Kalender“.
+    const ldz = page.locator('[data-act="psh"][data-k="body"]');
+    // Nach dem Training ist eine Zone müde: die Zeile sagt welche.
+    assert.equal(await ldz.getAttribute('data-sig'), '1', 'Zeile mit Signal');
     assert.match(await ldz.innerText(), /Belastung und Erholung[\s\S]*müde/);
+    await ldz.click(); await page.waitForTimeout(300);
+    assert.ok(await page.locator('#sheet .psh').isVisible(), 'Blatt von unten');
     assert.ok(await page.getByRole('heading', { name: 'Belastung', exact: true }).isVisible(), 'Karte Belastung in Deine Woche');
     assert.ok(await page.locator('.ld .ld-a').count() >= 1 && await page.locator('.ld .ld-p').count() >= 1, 'gemacht als Balken, geplant gestrichelt');
     assert.match(await page.locator('.ld-mt').innerText(), /\d+ % vom Plan der Woche/);
     assert.ok(!/~\d/.test(await page.locator('.ld').innerText()), 'keine Zahlen ohne Einheit');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(300);
     await page.evaluate(() => window.tpTest.navigate('woche'));
     assert.ok(await page.getByText('Zeit pro Training').isVisible());
     assert.equal(await page.getByRole('button', { name: 'Planung ausschalten' }).count(), 0);
@@ -324,7 +328,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [v2s(), logs()]);
     await page.evaluate(() => window.tpTest.navigate('plan'));
     // Schritt 5: der Vorschlag ist eine Zeile der Wochen-Liste in Plan.
-    await page.locator('.pw-list [data-act="zs-open"]', { hasText: 'Zusätzlich' }).click();
+    await page.locator('.pw-list [data-act="psh"][data-k="zusatz"]', { hasText: 'Zusätzlich' }).click();
     await page.getByRole('button', { name: '45 Min', exact: true }).click();
     await page.getByRole('button', { name: 'Einheit planen', exact: true }).click();
     const z = await page.evaluate(() => window.tpTest.state().zusatz);
@@ -695,7 +699,17 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.locator('.pw-list .tg-row [data-act="tage-set"][aria-pressed="true"]').innerText(), '3');
     assert.equal(await page.locator('#view [data-act="fk-open"], #view [data-act="pw-why"], #view [data-act="plan-sec"]').count(), 0, 'kein Ziel, kein Warum, keine Wissens-Seiten');
     await page.locator('.faq [data-act="faq"]').first().click();
-    assert.match(await page.locator('.faq .faq-a').innerText(), /Arbeit, Schlaf/, 'Frage klappt auf');
+    assert.match(await page.locator('#sheet .faq-a').innerText(), /Arbeit, Schlaf/, 'Frage im Blatt');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(300);
+    // Arbeitszeiten im Blatt; ein Rad darin (Schlaf) schließt es nicht für immer, danach kommt das Blatt zurück.
+    await page.locator('.pw-list [data-act="psh"][data-k="woche"]').click(); await page.waitForTimeout(300);
+    assert.match(await page.locator('#sheet .psh').innerText(), /Schlaf/);
+    await page.locator('#sheet .psh .vrow', { hasText: 'Schlaf' }).first().click(); await page.waitForTimeout(300);
+    assert.equal(await page.locator('#sheet .psh').count(), 0, 'Rad über dem Blatt');
+    await page.locator('#sheet [data-sh="x"]').first().click(); await page.waitForTimeout(700);
+    assert.equal(await page.locator('#sheet .psh').count(), 1, 'Arbeitszeiten-Blatt kommt zurück');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(500);
+    assert.equal(await page.locator('#sheet').count(), 0, 'Fertig schließt');
     // Dennis, 6. November: Trainingstage ohne eigenes Blatt, ein Tippen auf die Zahl in der Zeile (kein Regler, der sich beim Scrollen ändert).
     assert.equal(await page.locator('#view .tg-r').count(), 0, 'kein Regler auf der Seite');
     await page.locator('.pw-list [data-act="tage-set"][data-v="5"]').click(); await page.waitForTimeout(300);
@@ -878,17 +892,31 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
 
     // Muskeln in der Bibliothek (Dennis, B2, Stil S3): ganzer Körper, Antippen wählt nur aus, Wischen nicht, erst „Öffnen“ zeigt die Seite.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(old(), { planV: 2, tag: 1, orte: [{ id: 'o1', k: 'zuhause', on: true, eq: ['eq_zuhause', 'eq_ringe', 'eq_band'] }], ort: 'o1' }), logs()]);
-    // Eigene Seite unter Tools (kein Umschalter in der Bibliothek); auch mit großer Schrift steht der ganze Körper über der Reiterleiste.
-    assert.equal(await page.evaluate(() => { window.tpTest.navigate('uebungen'); return document.querySelectorAll('[data-act="lib-view"]').length; }), 0);
+    // Schritt 6 (Variante A): Reiter „Bibliothek“ mit Übungen | Mobility, kein Timer; Körper und One Rep Max im Profil › Werte als Blatt von unten.
+    assert.equal(await page.evaluate(() => { window.tpTest.navigate('uebungen'); return document.querySelector('.tab[data-group="tools"]').innerText.trim(); }), 'Bibliothek');
+    assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll('.sub-seg .seg-btn')].map(b => b.innerText.trim())), ['Übungen', 'Mobility']);
+    await page.locator('.sub-seg [data-tab="routinen"]').click();
+    assert.equal(await page.evaluate(() => document.getElementById('view').dataset.tab), 'routinen', 'Umschalter wechselt zu Mobility');
+    assert.equal(await page.evaluate(() => { window.tpTest.navigate('timer'); return document.getElementById('view').dataset.tab; }), 'uebungen', 'alter Timer führt zur Bibliothek');
+    await page.evaluate(() => window.tpTest.profile('werte'));
+    await page.locator('.pf-tools [data-k="rm"]').click();
+    assert.ok(await page.locator('#sheet .psh-rm').isVisible(), 'One Rep Max als Blatt');
+    if (!await page.locator('#sheet .psh-rm [data-act="rm-open"]').count()) await page.locator('#sheet [data-act="rm-all"]').click();
+    await page.locator('#sheet .psh-rm [data-act="rm-open"]').first().click();
+    assert.ok(await page.locator('#sheet .psh-rm .rm-pct, #sheet .psh-rm table, #sheet .psh-rm [data-act="rm-new"]').count() > 0, 'Prozent-Rechner im Blatt');
+    assert.ok(await page.locator('#sheet .psh-rm').isVisible(), 'Prozent-Rechner bleibt im Blatt');
+    assert.equal(await page.evaluate(() => document.getElementById('view').dataset.tab), 'profil');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350);
     for (const ts of ['l', 'm']) {
-      await page.evaluate(t => { document.documentElement.dataset.text = t; window.tpTest.navigate('muskeln'); }, ts);
-      await page.waitForTimeout(100);
-      const f0 = await page.locator('.mfig svg').boundingBox(), tb = await page.locator('.tabbar').boundingBox();
-      assert.ok(f0.y >= 0 && f0.y + f0.height <= tb.y, 'ganzer Körper über der Reiterleiste (Schrift ' + ts + ')');
+      await page.evaluate(t => { document.documentElement.dataset.text = t; window.tpTest.profile('werte'); }, ts);
+      await page.locator('.pf-tools [data-k="koerper"]').click(); await page.waitForTimeout(350);
+      const f0 = await page.locator('#sheet .mfig svg').boundingBox(), vh = page.viewportSize().height;
+      assert.ok(f0.y >= 0 && f0.y + f0.height <= vh, 'ganzer Körper im Blatt sichtbar (Schrift ' + ts + ')');
+      if (ts === 'l') { await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350); }
     }
-    const fig = await page.locator('.mfig svg').boundingBox();
-    // Seite heißt „Körper“; Figur bis zu den Füßen (viewBox 480, Fuß-Flächen), angedeutet räumlich (Verlauf darüber, fängt keine Taps).
-    assert.equal(await page.locator('.hero h1').innerText(), 'Körper');
+    const fig = await page.locator('#sheet .mfig svg').boundingBox();
+    // Blatt heißt „Körper“; Figur bis zu den Füßen (viewBox 480, Fuß-Flächen), angedeutet räumlich (Verlauf darüber, fängt keine Taps).
+    assert.match(await page.locator('#sheet').innerText(), /^[\s\S]{0,40}Körper/);
     assert.equal(await page.evaluate(() => document.querySelector('.mfig svg').getAttribute('viewBox')), '0 0 200 480');
     assert.ok(await page.evaluate(() => { var s = document.querySelector('.mfig svg'), b = [...s.querySelectorAll('path.sil')].map(p => p.getBBox()); return Math.max(...b.map(x => x.y + x.height)) > 470; }), 'Füße unten');
     assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('.mfig .sh')).pointerEvents), 'none');
@@ -898,7 +926,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.match(await page.locator('.mus-sel').innerText(), /Brust[\s\S]*Übungen hier[\s\S]*Öffnen/, 'Antippen wählt die Brust aus');
     assert.equal(await page.evaluate(() => document.querySelectorAll('.mfig path.mu.p1').length), 2, 'Brust blau (beide Seiten)');
     assert.ok(await page.evaluate(() => document.querySelectorAll('.mfig path.mu.p2').length) > 0, 'oft mitarbeitende hell');
-    assert.equal(await page.locator('#view .mfig').count(), 1, 'noch keine Muskel-Seite');
+    assert.equal(await page.locator('#sheet .mfig').count(), 1, 'noch keine Muskel-Seite');
     await page.getByRole('button', { name: 'Öffnen', exact: true }).click();
     assert.ok(await page.getByRole('heading', { name: 'Brust', level: 2 }).isVisible());
     assert.ok(await page.getByRole('heading', { name: /^Trainiert sie vor allem/ }).isVisible());
@@ -912,7 +940,10 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(await page.evaluate(() => window.tpTest.state() && document.querySelector('#view .fam-path') != null), true, 'Zeile öffnet die Familie');
     await page.locator('#view .rbtn.back').first().click();
     assert.ok(await page.getByRole('heading', { name: 'Brust', level: 2 }).isVisible(), 'Zurück führt zum Muskel');
-    console.log('PASS: Körper unter Tools: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
+    await page.locator('#view .rbtn.back').first().click(); await page.waitForTimeout(350);
+    assert.ok(await page.locator('#sheet .psh-koerper').isVisible(), 'Zurück vom Muskel öffnet wieder das Blatt Körper');
+    await page.locator('#sheet [data-sh="ok"]').click(); await page.waitForTimeout(350);
+    console.log('PASS: Bibliothek als Reiter, 1RM als Blatt; Körper als Blatt im Profil: ganzer Körper mit Füßen, Antippen wählt aus, Wischen nicht, Öffnen zeigt Übungen je Ort und alle');
 
     // Dennis, 2. November: Accessory zum Abhaken (3 Runden) mit Band in Farbe; Mini-Band ist ein eigenes Gerät; ohne Uhr hakt die Kapsel ab.
     await page.clock.setFixedTime(new Date('2026-10-15T09:00:00+02:00'));
@@ -1056,7 +1087,7 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
 
     for (const width of [320, 390, 1366]) {
       await page.setViewportSize({ width, height: 900 });
-      for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'kardio', 'fokus', 'timer', 'uebungen', 'routinen', 'rm', 'profil', 'einst', 'skill']) {
+      for (const tab of ['heute', 'plan', 'woche', 'kalender', 'zusatz', 'kardio', 'fokus', 'uebungen', 'routinen', 'profil', 'einst', 'skill']) {
         await page.evaluate(t => window.tpTest.navigate(t), tab);
         assert.ok(await page.locator('#view').innerText(), tab);
         if (width < 1000) { const wide = await page.evaluate(() => [].filter.call(document.querySelectorAll('body *'), e => e.getBoundingClientRect().right > innerWidth + .5).map(e => e.tagName + ' ' + (e.textContent || '').slice(0, 30))); assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'kein Überlauf ' + tab + ' ' + width + ' ' + wide.join(' | ')); }

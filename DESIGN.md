@@ -37,6 +37,10 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
   Trainer-Kopf und -Fuß).
 - **Abstände und Radien aus einem Raster**: Abstände 4, 8, 12, 16, 20, 24, 32; Seitenrand 16 bzw. 20; Radien: Kapsel (voll rund), Karte,
   Liste innen, klein. Keine Zwischenwerte.
+- **Gleiche Symbole, gleiche Aktion** (Dennis, 6. November): ein Symbol bedeutet überall dasselbe. Pfeil › in einer Listenzeile öffnet ein
+  Blatt von unten (wie „In den Kalender“, `PSH`/`pshOpen`, `glRow`), ▶ (`.gl-play`) startet etwas im Vollbild (Tour, Training), ⌄ klappt
+  an Ort und Stelle auf. Kein › für eine neue Seite oder für Aufklappen. Noch abweichend (Schritt 7): „Baut auf/Führt zu“ im Profil öffnen Seiten.
+  Zeilen ohne Pfeil, mit Bild vorne (Bibliothek › Familien) öffnen eine eigene Seite mit Zurück-Knopf (Dennis, 7. November).
 - **Hervorgehoben höchstens ein bis zwei Knöpfe je Ansicht**, Unterschiede über den Stil, nie über die Größe. Knöpfe mit Verb.
 
 ### Entschieden mit Dennis (Schritt 0, 6. November 2026, Vergleich https://claude.ai/artifact/KBuHu6doTBGVrsMKLAQH8i)
@@ -87,7 +91,11 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - „Warum 17:00?“ entfällt, Wissen wird zu „Häufige Fragen“ (aufklappend), Schwerpunkt und Ziele vorläufig aus.
 - Abschnitts-Überschriften 15 regular grau, Zeilen-Titel in Listen 17 regular (Apple: Fett nur für Überschriften).
 
-### Noch offen (Schritt 6 und folgende)
+### Schritt 6 Tools (6. November 2026, Vergleich https://claude.ai/artifact/TefzCNshZkXGNLMJeoUfMr)
+- Dennis: Variante A, „Mobility“ bleibt der Name. Der Reiter heißt „Bibliothek“, Umschalter Übungen | Mobility statt Drop-down am Titel.
+- Der freie Timer fällt weg (Dennis nutzt ihn nicht). Körper und One Rep Max gehören zu den eigenen Werten: Profil › Werte › Werkzeuge, je ein Blatt von unten.
+
+### Noch offen (Schritt 7 und folgende)
 - Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
   in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
 

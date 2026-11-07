@@ -89,7 +89,7 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
     assert.match(await page.locator('#tour .tr-steps').innerText(), /Chrome oder Edge[\s\S]*Installieren/, 'am Computer: Installieren in der Adressleiste');
     assert.equal(await page.locator('#tour .tr-skip').count(), 0, 'letzte Karte ohne Überspringen');
     await page.locator('#tour [data-d="-1"]').click();
-    assert.equal(await page.locator('#tr-t').innerText(), 'Tools und Profil');
+    assert.equal(await page.locator('#tr-t').innerText(), 'Bibliothek und Profil');
     await page.locator('#tour .tr-skip').click();
     assert.equal(await page.locator('#tour').count(), 0);
     assert.ok(await page.evaluate(() => window.tpTest.state().tourSeen > 0));

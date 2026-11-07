@@ -17,6 +17,7 @@ Dieses Projekt wird mit mehreren KI-Werkzeugen bearbeitet. Damit alle nach dense
 - Der Coach entscheidet, der Nutzer gibt nur Antworten.
 - Farbe (Dennis, 5. November): Blau (`--acc`) nur für „jetzt/hier/gewählt“ und die eine Hauptaktion, sonst `--ink`/`--ink2`; nie ein festes Blau,
   immer `--acc` (Farbpaletten). Animationen nicht ändern. Details in `DESIGN.md` › Farbe und Betonung.
+- Gleiche Symbole, gleiche Aktion (Dennis, 6. November): › in einer Zeile öffnet ein Blatt von unten, ▶ startet im Vollbild, ⌄ klappt auf.
 - Den Sync-Token und den Link der Kalender-Brücke (`tp.kal`) nie in Code, Export, Sync oder Logs schreiben.
 - Plan 2 (drei Einheiten A, B, C) ist der Standard: intern Tag 1, 3, 6. Neue Einträge tragen `pv: 2` und `unit`, alte behalten ihre Tag-Bedeutung.
   Nie einen alten `tag` neu deuten (Tag 2 bleibt ein Kardio-Eintrag). Offene Pakete des Umbaus stehen in `UEBERGABE.md`.

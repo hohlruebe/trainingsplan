@@ -172,9 +172,27 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   macht `chal()` und `spOf()` zu null, `S.challenge`/`S.schwerpunkt` bleiben gespeichert, wirken aber nicht; die Seite `fokus` zeigt nur noch die Trainingstage
   (und am Blockende „Nächsten Block starten“), der Rückblick ohne „Challenge“. Die Tests schalten die Logik mit `window.TP_GOALS_ON = true` kurz ein.
   Abschnitts-Überschriften `.gl-group` 15 regular, Zeilen in Listen normal statt fett.
+  Jede Zeile der Wochen-Liste öffnet ein Blatt von unten wie „In den Kalender“ (Dennis, 6. November: „mal neue Seite, mal Karte von unten, mal weiter unten … alles wie bei In den Kalender“):
+  `PSH` (`woche` = `renderWoche`, `zusatz` = `renderZusatz`, `body` = Belastung + Erholung), `pshOpen`, `ACT.psh` mit `data-k`, `ui.psh`; `render()` zeichnet das Blatt über `pshRefresh` neu
+  (Zurück-Knopf und Titel der Seite ausgeblendet, `.psh`), wechselt der Reiter, schließt es. Öffnet darin ein weiteres Blatt (Rad, Auswahl), ersetzt es das Seiten-Blatt (`closeSheet(true)` in
+  `openForm`/`openSheet`/`openChoice`), danach kommt das Seiten-Blatt zurück. Häufige Fragen ebenfalls als Blatt (`ACT.faq`). „Erholung ansehen“ öffnet das Blatt `body`.
   „Einstiegstest neu“ steht seit Schritt 5 in Einstellungen › Daten neben „Alles zurücksetzen“ (`ACT['restart-test']`, mit Nachfrage, Testtag 1, Einträge bleiben).
-- Reiter von links nach rechts (seit Schritt 2, wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
-  Tools (Timer, Bibliothek, Körper, Mobility, 1RM), Profil. Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
+- Schritt 6 Tools (Dennis, 6. November, Vergleich https://claude.ai/artifact/TefzCNshZkXGNLMJeoUfMr, Variante A; Dennis nutzt den freien Timer nicht):
+  der Reiter „Tools“ heißt „Bibliothek“ (Buch-Symbol, Gruppe intern `tools`, `GROUPS.tools` = Übungen, Mobility). Statt des Drop-downs am Titel ein Umschalter
+  Übungen | Mobility unter dem Titel (`subSeg`, `.sub-seg`; `subTitle` wird nicht mehr benutzt), beide Seiten heißen „Bibliothek“, Untertitel 15 grau. Der freie Timer
+  (`renderTimer`) ist nicht mehr erreichbar, der Timer im Training bleibt. Körper und One Rep Max zeigen eigene Werte und liegen in Profil › Werte unter „Werkzeuge“
+  (`.pf-tools`) als Blatt von unten (`PSH.koerper` = `renderMuskeln`, `PSH.rm` = `renderRM`; `musFit` passt die Figur im Blatt an). 1RM: `rm-open`/`rm-go` öffnen
+  das Blatt bzw. wechseln darin zum Prozent-Rechner. Körper › Öffnen schließt das Blatt und zeigt die Muskel-Seite (`muskel`, jetzt unter Profil); ihr Zurück
+  (`ACT['mus-back']`) öffnet das Blatt wieder (`ui.musRe`). Alte Ansichten `timer`, `muskeln`, `rm` leitet `render()` um (Bibliothek bzw. Profil mit Blatt).
+  Mobility angeglichen (Dennis, 7. November: „Gleiche bei Mobility alles an“): Gruppen als `.gl-group`, Abläufe als Listenzeilen (`glPlayRow`, Titel normal,
+  „Heute gemacht · “ statt blauem Chip), ohne Zusatzsätze unter den Gruppen; ▶ startet den Ablauf sofort (`r-open` mit `data-go`, ruft `r-toggle`).
+  Familien als Liste mit Bild (Dennis, 7. November, Vergleich https://claude.ai/artifact/PgjCwk8c2Wx3iHVFBUQ2sz, „B aber als Liste“): `famItemHTML` je Familie eine Zeile ohne Pfeil
+  (Antippen öffnet weiter die Seite `fam`; › ist für Blätter reserviert), links ein stehendes Bild (`famThumb`, 60 px, Körper in Kartenfarbe gefüllt, kein eigenes Fenster; gemerkt in
+  `FAMFIG_C` je hell/dunkel), daneben Name (normal) und eine Zeile Stand (`famLine`: Du / Schloss + ab … / Start / braucht Gerät) statt Chips. Bild aus `FAM_FIG` {Familie: [Übung, Zeitpunkt 0–1]}:
+  die typische Übung im aussagekräftigsten Moment (Dennis: „beim Pull-up nicht das unter der Stange hängende Bild“, also Ring Pull-up oben); ohne passende Grafik ein neutrales Zeichen
+  (`.fam-fig.none`). Keine Animation in der Liste, die Figur läuft erst auf der Familien-Seite. Mobility-Familie ebenso (`_mob`, Forward Fold).
+ wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
+  Bibliothek (Gruppe weiter `tools`: Übungen `uebungen` | Mobility `routinen`), Profil (Schritt 6, siehe unten). Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
   `ui.planTag`; darunter der Ablauf des Tages als nummerierte Schritte, `planDayHTML`/`tlHTML`, berechnet über `planPreview`, das
   `S.durchgang` nur kurz umstellt; künftige Tage mit Hinweis „Vorschau“). Darunter „Wissen“ als Liste (`PLAN_SUB`), jeder Punkt eine
@@ -979,6 +997,9 @@ Grundlage für alles Design: `DESIGN.md` › „Prinzipien nach Apple“ (neun P
 eine Anzeige-Zahl je Bildschirm, Farbe mit genau einer Bedeutung, Glas nur für schwebende Steuerung, Raster für Abstände und Radien). Quellen und Auszüge
 aus den Human Interface Guidelines in `design/apple-hig.md`. Was den bisherigen Regeln hier widerspricht, steht dort unter „Entschieden mit Dennis“ (Schritt 0) bzw. „Noch offen“
 und wird mit Dennis Bildschirm für Bildschirm entschieden.
+
+Gleiche Symbole, gleiche Aktion (Dennis, 6. November): › in einer Zeile = Blatt von unten (`PSH`, `pshOpen`; auch Einstellungen › Vibration `haptik`
+und › Arbeitszeiten `woche`), ▶ (`.gl-play`) = startet im Vollbild (Tour in den Häufigen Fragen), ⌄ = klappt auf. Details in `DESIGN.md` › Systemregeln.
 
 ## Kapsel-Konzept (gilt für alles Neue)
 Ausführlich in `DESIGN.md` (vor jeder neuen Oberfläche lesen). Keine eckigen grauen Knöpfe. Jede Schaltfläche ist einer dieser Bausteine:
