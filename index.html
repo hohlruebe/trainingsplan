@@ -9406,7 +9406,7 @@ var PSH = {
   woche: ['Arbeitszeiten', function () { return renderWoche(); }],
   zusatz: ['Zusätzlich', function () { return renderZusatz(); }],
   haptik: ['Haptik', function () { return renderHaptik(); }],
-  koerper: ['Körper', function () { return renderMuskeln(); }],
+  koerper: ['Körper', function () { return renderMuskeln() + musPairsHTML(); }],
   rm: ['One Rep Max', function () { return renderRM(); }],
   skill: ['Skill-Baum', function () { return renderSkill(); }],
   area: [function () { return AREA[ui.parea] ? AREA[ui.parea].name : 'Bereich'; }, function () { return AREA[ui.parea] ? areaDetailHTML(statsOf(LOGS), ui.parea) : ''; }],
@@ -14451,6 +14451,13 @@ function musBalance() {
   var v = { ok: V.n >= 3, n: V.n, lv: lv, ratio: ratio, pairs: pairs, need: V.n >= 3 ? need : [] };
   MB_C = { k: k, v: v };
   return v;
+}
+// Gegenspieler-Balken (Druck/Zug usw.) im Blatt Körper (Schritt 7: die Muskel-Karte in Werte entfällt).
+function musPairsHTML() {
+  var B = musBalance(); if (!B.ok || !B.pairs.length) return '';
+  return '<section class="card mus-card"><div class="card-head"><h2>Gegenspieler</h2></div>' + B.pairs.map(function (p) {
+    return '<div class="mb-row b' + p.c + '"><div class="mb-top"><span>' + esc(p.a) + ' <b>' + p.sa + ' %</b></span><span><b>' + p.sb + ' %</b> ' + esc(p.b) + '</span></div><div class="mb-bar"><i style="width:' + p.sa + '%"></i><em></em></div></div>';
+  }).join('') + '</section>';
 }
 function musCardHTML() {
   var B = musBalance(), h = '<section class="card mus-card"><p class="sec-k">Muskeln · letzte 4 Wochen</p>';

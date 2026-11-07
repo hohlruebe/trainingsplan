@@ -191,6 +191,15 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   `FAMFIG_C` je hell/dunkel), daneben Name (normal) und eine Zeile Stand (`famLine`: Du / Schloss + ab … / Start / braucht Gerät) statt Chips. Bild aus `FAM_FIG` {Familie: [Übung, Zeitpunkt 0–1]}:
   die typische Übung im aussagekräftigsten Moment (Dennis: „beim Pull-up nicht das unter der Stange hängende Bild“, also Ring Pull-up oben); ohne passende Grafik ein neutrales Zeichen
   (`.fam-fig.none`). Keine Animation in der Liste, die Figur läuft erst auf der Familien-Seite. Mobility-Familie ebenso (`_mob`, Forward Fold).
+- Schritt 7 Profil (Dennis, 7. November, Vergleich https://claude.ai/artifact/F8MYn2SHf2hoZZUv8JwVUi, „passt alles“): Kopf (`profileHead`) als feste Karte statt Glas,
+  ohne Woche (steht auf Heute und im Plan), Stufe als Text in der Unterzeile („Silber · 1 bis Gold“, darunter „+5 in 4 Wochen“) statt Schild `.p-tier`.
+  Umschalter Erfolge | Verlauf | Werte als `.seg` mit Namen (`.pseg`, statt Kapsel mit Symbolen). Erfolge: „Fast geschafft“ ohne Blau, Rekorde in `--ink`, Namen normal,
+  ohne Schild „Bestwerte“, höchstens 5 je Bereich, darunter „Alle Rekorde“ als Blatt (`PSH.pr` = `prCardHTML(true)`); kein 1RM-Archiv mehr (Bestwerte in Werte › One Rep Max).
+  Verlauf: eine graue Zeile (`.vl-sum`) statt Chips, Zeile mit Tag als Titel („Sa, 10. Okt“, Name nur, wenn er mehr als das Kürzel sagt), Antippen öffnet ein Blatt
+  (`PSH.vl` mit `logLines` und Korrigieren, `ui.vlOpen`). Werte: Bereiche öffnen ein Blatt (`PSH.area` = `areaDetailHTML`, `ACT.parea`/`parea-go`, Titel = Bereich,
+  in der Karte „Dein Wert“); Werkzeuge = Skill-Baum (`PSH.skill`, `drawTree` im Blatt; die Seite `skill` leitet um), Körper, One Rep Max; die Muskel-Karte entfällt in Werte,
+  die Gegenspieler-Balken stehen im Blatt Körper (`musPairsHTML`). Familie aus einem Blatt geöffnet (Skill-Baum): Zurück öffnet das Blatt wieder (`ui.reSheet` in `famOpen`/`render`).
+  Baut auf / Führt zu auf der Familien-Seite als Zeilen mit Bild wie in der Bibliothek (`famLinks`), „Gehört auch dazu“ ohne ›.
  wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
   Bibliothek (Gruppe weiter `tools`: Übungen `uebungen` | Mobility `routinen`), Profil (Schritt 6, siehe unten). Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
