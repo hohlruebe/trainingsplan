@@ -104,9 +104,13 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
 - Einstellungen wie in iOS: oben du, dann Gruppen mit kleinem Titel, jede Zeile mit › öffnet ein Blatt, Schalter in der Zeile, Gefährliches rot am Ende. Keine zuklappbaren Karten.
 - Fragebogen und Momente: eine Hauptaktion, Nebenaktionen als Text darunter; Werte und große Zahlen in `--ink`, Blau nur für „gewählt“ (Haken) und „hier stehst du“.
 
-### Noch offen (Schritt 9 und folgende)
-- Trainer (gemessen bei 390 px): Zeit 66 px, Vorgabe 47 px blau, Zähler-Wert 36 px, Übungsname 33 px, „Geschafft“ 20 px, alles außer dem Zähler
-  in Gewicht 800 – vier fast gleich laute Größen statt einer Anzeige-Zahl (Dennis: „der Timer in Relation zu allen anderen Feldern“).
+### Schritt 9 Trainer (7. November 2026, Vergleich https://claude.ai/artifact/UEiZ5kHvcvDwy5DowaHrjN)
+- Dennis: „sieht gut aus“. Hochkant feste Textstile statt mit `--fsu` geschrumpfter Werte: Zeit 76/700 (die eine Anzeige-Zahl), Vorgabe 28/700 blau,
+  Watt 20/600 blau, Zähler 22/600, Übungsname 20/600, Als Nächstes 17/600, Listen 16/600, alles Kleine 15 (Untergrenze im Training). Fett nur Zeit und Vorgabe.
+  Quer und Desktop wachsen weiter mit `--fsu`.
+
+### Noch offen
+- Nichts aus der Liste der Schritte 0–9. Neue Abweichungen hier sammeln und mit Dennis Bildschirm für Bildschirm entscheiden.
 
 ## Fünf Grundsätze (älter, gehen in den Prinzipien oben auf)
 Jede neue Oberfläche wird an diesen fünf Punkten gemessen. Passt etwas nicht, wird es angeglichen, nicht als Ausnahme gelassen.
