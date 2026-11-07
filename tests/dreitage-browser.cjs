@@ -857,6 +857,15 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.equal(sv.acc.length, 3); assert.deepEqual(sv.acc[0].reps.length, 3); assert.equal(sv.mehr, 15);
     // Trainer (Dennis, 28. Oktober): Handstand-Zeit beim Pausieren, Stelle bleibt beim Zählen, nach der Uhr von selbst weiter.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign({}, chSt, { fsView: 'one' }), chLogs]);
+    // Schritt 9: hochkant feste Textstile, die Zeit ist die eine große Zahl (76), die Vorgabe 28, der Übungsname 20, nichts unter 15.
+    await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'kraft'))); await page.waitForTimeout(300);
+    {
+      const fz = await page.evaluate(() => { const f = s => { const e = document.querySelector('#fs ' + s); return e ? parseFloat(getComputedStyle(e).fontSize) : null; };
+        const small = [...document.querySelectorAll('#fs .fs-side *')].filter(e => e.getClientRects().length && [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize));
+        return { num: f('.fs-num'), reps: f('.fs-reps'), exn: f('.fs-exn'), min: Math.min(...small) }; });
+      assert.deepEqual([fz.num, fz.reps, fz.exn], [76, 28, 20], 'Zeit 76, Vorgabe 28, Übung 20');
+      assert.ok(fz.min >= 15, 'nichts unter 15 px im Trainer: ' + fz.min);
+    }
     await page.evaluate(() => window.tpTest.go(window.tpTest.steps().findIndex(s => s.id === 'hs')));
     assert.equal(await page.evaluate(() => window.tpTest.stepId()), 'hs');
     await page.locator('#fs #fs-tg').click();

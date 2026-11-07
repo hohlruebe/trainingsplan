@@ -211,6 +211,9 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`.ob-num` wird nicht mehr benutzt), gewählte Antwort mit Text in `--ink` (Haken blau), „Dein Start“ Stufen in `--ink`, geschaffte grau, nur die Startstufe blau,
   große Zahl auf der Ausdauer-Seite in `--ink`. Momente: Hauptaktion über die ganze Breite, „Weiter“/„Nächste“ als Text darunter (`.mo-btns` einspaltig, `.primary` zuerst),
   Rekordzahl `.pr-num` in `--ink`; Tour: aktiver Punkt `--ink`.
+- Schritt 9 Trainer (Dennis, 7. November, Vergleich https://claude.ai/artifact/UEiZ5kHvcvDwy5DowaHrjN, „sieht gut aus“): hochkant (`#fs[data-view="port"] .fs-tr`) feste
+  Textstile statt `calc(… * var(--fsu))`: Zeit `.fs-num` 76/700, Vorgabe `.fs-reps`/`.fs-kg` 28/700 blau, `.fs-qx` 20/600 blau, `.stepper b` 22/600, `.fs-exn` 20/600,
+  `.fs-nx` 17/600, Listen `.fs-row` 16/600 (Zahl `b` 20/600, aktiv 700), Kleines (`.fs-lbl`, `.fs-hint`, `.fs-pct`, `.fs-rgh`, `.fs-sub`, `.fs-rd`, `em`, `small`) 15. Quer/Desktop unverändert.
  wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
   Bibliothek (Gruppe weiter `tools`: Übungen `uebungen` | Mobility `routinen`), Profil (Schritt 6, siehe unten). Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,

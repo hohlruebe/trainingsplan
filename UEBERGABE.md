@@ -31,6 +31,8 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
+- Schritt 8 als PR #169 gemergt. Schritt 9 Trainer (Vergleich https://claude.ai/artifact/UEiZ5kHvcvDwy5DowaHrjN), Dennis: „sieht gut aus“ → umgesetzt
+  (CLAUDE.md › Schritt 9 Trainer). Damit sind alle Schritte 0–9 der Apple-Umstellung durch. Noch kein PR.
 - Schritt 7 als PR #168 gemergt. Schritt 8 Einstellungen, Fragebogen, Momente (Vergleich https://claude.ai/artifact/1vrgz9iNxTXFfhWKxsd89F), Dennis: „keine verschiedenen
   Schriftarten mehr, dann setze alles um“ → umgesetzt (CLAUDE.md › Schritt 8), „Schrift für Zahlen“ entfernt. Noch kein PR. Offen danach: Trainer (DESIGN.md › Noch offen).
 - Schritt 6 als PR #167 gemergt. Schritt 7 Profil (Vergleich https://claude.ai/artifact/F8MYn2SHf2hoZZUv8JwVUi), Dennis: „ja das passt alles“ → umgesetzt (CLAUDE.md › Schritt 7 Profil),
