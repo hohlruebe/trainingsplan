@@ -184,6 +184,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`.pf-tools`) als Blatt von unten (`PSH.koerper` = `renderMuskeln`, `PSH.rm` = `renderRM`; `musFit` passt die Figur im Blatt an). 1RM: `rm-open`/`rm-go` öffnen
   das Blatt bzw. wechseln darin zum Prozent-Rechner. Körper › Öffnen schließt das Blatt und zeigt die Muskel-Seite (`muskel`, jetzt unter Profil); ihr Zurück
   (`ACT['mus-back']`) öffnet das Blatt wieder (`ui.musRe`). Alte Ansichten `timer`, `muskeln`, `rm` leitet `render()` um (Bibliothek bzw. Profil mit Blatt).
+  Mobility angeglichen (Dennis, 7. November: „Gleiche bei Mobility alles an“): Gruppen als `.gl-group`, Abläufe als Listenzeilen (`glPlayRow`, Titel normal,
+  „Heute gemacht · “ statt blauem Chip), ohne Zusatzsätze unter den Gruppen; ▶ startet den Ablauf sofort (`r-open` mit `data-go`, ruft `r-toggle`).
  wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
   Bibliothek (Gruppe weiter `tools`: Übungen `uebungen` | Mobility `routinen`), Profil (Schritt 6, siehe unten). Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,

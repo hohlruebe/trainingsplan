@@ -1527,7 +1527,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
 .psh>.rbtn.back,.psh>.hero{display:none}.sub-seg{margin:4px 0 16px}.pf-tools .gl-t b{font-weight:400}#view[data-tab="uebungen"] .hero-title,#view[data-tab="routinen"] .hero-title{font-size:15px;color:var(--ink2);font-weight:400;margin-top:2px}.psh-koerper .mfig svg{max-width:100%}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
-.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
+.r-list2 .gl-t b,.faq .gl-t b{font-weight:400}.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
@@ -5946,7 +5946,7 @@ var FAQ = [
 ];
 function faqHTML() {
   // Gleiche Symbole, gleiche Aktion (Dennis, 6. November): › öffnet ein Blatt von unten; die Tour läuft im Vollbild, darum ▶ wie bei den Mobility-Abläufen.
-  return '<p class="kicker muted gl-group">Häufige Fragen</p><section class="card gl-card faq">' + glRow('data-act="tour"', 'So funktioniert die App', 'Kurze Tour und als App speichern').replace(/<svg class="gl-chev"[\s\S]*?<\/svg>/, '<span class="gl-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>') +
+  return '<p class="kicker muted gl-group">Häufige Fragen</p><section class="card gl-card faq">' + glPlayRow('data-act="tour"', 'So funktioniert die App', 'Kurze Tour und als App speichern') +
     FAQ.map(function (q, i) {
       return glRow('data-act="faq" data-i="' + i + '"', q[0], '', '');
     }).join('') + '</section>';
@@ -9425,6 +9425,11 @@ function pshRefresh() {
   if (ui.psh === 'koerper') musFit();
 }
 ACT.psh = function (el) { pshOpen(el.dataset.k); };
+// Zeile mit ▶: startet etwas im Vollbild (Gleiche Symbole, gleiche Aktion; Tour, Mobility-Abläufe).
+function glPlayRow(attrs, t, sub) {
+  return '<div class="gl-item"><button type="button" class="gl-row" ' + attrs + '><span class="gl-t"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span>' +
+    '<span class="gl-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span></button></div>';
+}
 function glRow(attrs, t, sub, val, down) {
   return '<div class="gl-item"><button type="button" class="gl-row" ' + attrs + '><span class="gl-t"><b>' + esc(t) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span>' + (val ? '<span class="gl-v">' + esc(val) + '</span>' : '') +
     '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (down ? 'M6 9l6 6 6-6' : 'M9 6l6 6-6 6') + '"/></svg></button></div>';
@@ -11481,15 +11486,15 @@ function routineCardHTML(r, main, label) {
     '<button type="button" class="btn ' + (main ? 'primary' : '') + ' block" data-act="r-open" data-v="' + r.id + '">' + PLAY + (label || (main ? 'Flow starten' : 'Cool-down starten')) + '</button></section>';
 }
 function renderRoutinen() {
-  var groups = [['morgen', 'Morgens', 'Sanft wach werden, ein paar ruhige Minuten.'], ['ruhetag', 'Ruhetag', 'Ganzkörper-Flow für die Ruhetage.'], ['cooldown', 'Cool-down', 'Nach dem Training, passend zum Tag.']];
+  // Schritt 6 (Dennis, 7. November: „Gleiche bei Mobility alles an“): Listen wie überall (Gruppen-Überschrift, Zeilen normal, ▶ startet sofort), ohne Zusatzsätze.
+  var groups = [['morgen', 'Morgens'], ['ruhetag', 'Ruhetag'], ['cooldown', 'Cool-down']];
   var h = '<section class="hero"><h1>Bibliothek</h1><p class="hero-title">Abläufe für jeden Tag</p></section>';
   groups.forEach(function (g) {
     var list = MOB.routinen.filter(function (r) { return r.wann === g[0]; });
     if (!list.length) return;
-    h += '<p class="kicker muted gl-group">' + g[1] + '</p><section class="card r-list">' + list.map(function (r) {
-      return '<button type="button" class="r-row" data-act="r-open" data-v="' + r.id + '"><span class="r-t"><b>' + esc(r.name) + '</b><small>' + routineMin(r) + ' Min · ' + esc(r.ziel) + '</small></span>' +
-        (doneToday(r.id) ? '<span class="chip blue">Heute</span>' : '<span class="r-play">' + PLAY + '</span>') + '</button>';
-    }).join('') + '</section><p class="small muted">' + g[2] + '</p>';
+    h += '<p class="kicker muted gl-group">' + g[1] + '</p><section class="card gl-card r-list2">' + list.map(function (r) {
+      return glPlayRow('data-act="r-open" data-go="1" data-v="' + r.id + '"', r.name, (doneToday(r.id) ? 'Heute gemacht · ' : '') + routineMin(r) + ' Min · ' + r.ziel);
+    }).join('') + '</section>';
   });
   return h;
 }
@@ -11497,6 +11502,7 @@ ACT['r-open'] = function (el) {
   ui.rid = el.dataset.v; ui.rFrom = ui.tab; HIDDEN.routine = groupOf(ui.tab);
   timerStop(); TM.mode = 'routine'; TM.cfg = { rid: ui.rid, player: true }; timerReset();
   ui.tab = 'routine'; window.scrollTo(0, 0); render();
+  if (el.dataset.go && ACT['r-toggle']) ACT['r-toggle'](); // ▶ startet sofort
 };
 var RRING = 2 * Math.PI * 84;
 function renderRoutine() {
