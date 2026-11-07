@@ -122,7 +122,7 @@ const remote = { app: 'trainingsplan', v: 1, standTs: OLD, stand, feldTs, geloes
     await p2.getByRole('button', { name: 'Ich bin neu' }).click();
     await p2.evaluate(() => window.tpTest.fbDone());
     await p2.waitForTimeout(700); assert.equal(await p2.locator('#tour').count(), 0, 'keine Tour auf den Einstellungen');
-    await p2.locator('details[data-sec="Sync über GitHub"] summary').click();
+    await p2.locator('[data-act="psh"][data-k="sync"]').click();
     await p2.locator('#sy-owner').fill('dennis-test'); await p2.locator('#sy-token').fill('github_pat_gut');
     await p2.locator('[data-act="sync-connect"]').click();
     await p2.waitForFunction(() => window.tpTest.state().durchgang === 3, null, { timeout: 5000 });
