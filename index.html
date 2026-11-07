@@ -1527,7 +1527,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .faq-a{margin:-4px 0 12px;color:var(--ink2);font-size:var(--fs-sub);line-height:1.45}
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
 .psh>.rbtn.back,.psh>.hero{display:none}.sub-seg{margin:4px 0 16px}.pf-tools .gl-t b{font-weight:400}#view[data-tab="uebungen"] .hero-title,#view[data-tab="routinen"] .hero-title{font-size:15px;color:var(--ink2);font-weight:400;margin-top:2px}.psh-koerper .mfig svg{max-width:100%}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
-.r-list2 .gl-t b,.faq .gl-t b{font-weight:400}.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
+.fam-row{gap:14px;min-height:76px}.fam-row .gl-t b{font-weight:400;hyphens:none}.fam-row .gl-t small svg{width:12px;height:12px;vertical-align:-1px;margin-right:2px}.fam-fig{flex:none;width:60px;height:60px;display:flex;align-items:center;justify-content:center}.fam-fig svg{width:60px;height:60px}.fam-fig.none{color:var(--ink2);opacity:.5}.fam-fig.none svg{width:30px;height:30px}.gl-item.fam.locked .fam-fig{opacity:.45}.r-list2 .gl-t b,.faq .gl-t b{font-weight:400}.gl-play{flex:none;width:36px;height:36px;border-radius:50%;background:var(--board);color:var(--ink);display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
@@ -13067,9 +13067,43 @@ function famBody(f, c) {
     ((f.fuehrt_zu || []).length ? '<p class="sec-k">Führt zu</p><div class="chips fam-go">' + f.fuehrt_zu.map(function (id) { return FAM[id] ? '<button type="button" class="chip blue" data-act="fam-go" data-id="' + id + '">' + esc(FAM[id].name) + ' ›</button>' : ''; }).join('') + '</div>' : '');
   return { top: top, body: body };
 }
+// Bibliothek als Liste mit Bild (Schritt 6, Dennis, 7. November: „B aber als Liste“): je Familie ein stehendes Bild, Name, Stand; ohne Pfeil,
+// denn Antippen öffnet die Seite der Familie (› öffnet sonst ein Blatt). Bild = typische Übung der Familie im aussagekräftigsten Moment
+// (Dennis: „beim Pull-up nicht das unter der Stange hängende Bild“), [Übung, Zeitpunkt 0–1 der Animation].
+var FAM_FIG = { f_pullup: ['g_pullup', .5], f_chinup: ['g_chinup', .5], f_planche: ['g_planche_lean', .5], f_pushup: ['g_push', .375], f_dip: ['g_dip', .5],
+  f_hspu: ['g_hspu', .5], f_overhead_press: ['g_strict_press', .5], f_deadlift: ['g_deadlift', 0], f_kettlebell_swing: ['g_kb_swing', 0], f_hip_thrust: ['g_hip_thrust', .5],
+  f_back_extension: ['g_back_extension_45', 0], f_row: ['g_row', .5], f_bent_over_row: ['g_kb_gorilla_row', .625], f_face_pull: ['g_face_pull', .5], f_clean: ['g_kb_clean', 0],
+  f_db_snatch: ['g_kb_snatch', 0], f_squat: ['g_back_squat', .5], f_thruster: ['g_thruster', .625], f_handstand: ['g_handstand', .5], f_pistol: ['g_pistol', .5],
+  f_split_squat: ['g_bss', .5], f_leg_curl: ['g_nordic', .25], f_ab_rollout: ['g_abwheel', .5], f_hollow_body: ['g_hollow', .5], f_lsit: ['g_lsit', 0],
+  f_toes_to_bar: ['g_kneeraise', .375], f_slider_pike: ['g_tuck', .5], f_situp: ['g_sit_up', .125], f_run: ['g_run', .5], f_erg: ['g_row_erg', 0], f_burpee: ['g_burpee', .75],
+  f_russian_twist: ['g_russian_twist', .25], f_box_jump: ['g_box_jump', .375], f_jump: ['g_squatjump', .25], f_triceps_extension: ['g_skull_crusher', .5],
+  f_leg_extension: ['g_leg_extension', .375], f_biceps_curl: ['g_biceps_curl', .5], f_calf_raise: ['g_single_leg_calf_raise', .5], f_lateral_raise: ['g_lateral_raise', .375],
+  f_shrug: ['g_shrug', .5], f_hip_abduction: ['g_clamshell', .5], f_shoulder_rotation: ['g_band_external_rotation', .5], _mob: ['g_forward_fold', .5] };
+var FAMFIG_C = {};
+// Stehendes Bild: der Körper ist in Kartenfarbe gefüllt (kein eigenes Fenster), sonst ein neutrales Zeichen.
+function famThumb(id) {
+  var d = FAM_FIG[id], ex = d && figEx(d[0]), dark = isDark();
+  if (!ex) return '<span class="fam-fig none" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + SUB_IC.muskeln + '</svg></span>';
+  var k = id + (dark ? '|d' : '|l');
+  if (!FAMFIG_C[k]) {
+    var card = getComputedStyle(document.body).getPropertyValue('--paper').trim() || (dark ? '#2A2B30' : '#FFFFFF');
+    var pal = Object.assign({}, dark ? Maskottchen.PALETTES.dark : {}, { panel: card, joint: card });
+    var E = Object.assign({}, ex, { pose: function () { return ex.pose(d[1]); }, dur: 1 / Maskottchen.STYLE.fps }), F = Maskottchen.frames(E, pal);
+    FAMFIG_C[k] = '<svg viewBox="' + F.box.join(' ') + '" preserveAspectRatio="xMidYMid meet">' + F.frames[0] + '</svg>';
+  }
+  return '<span class="fam-fig" aria-hidden="true">' + FAMFIG_C[k] + '</span>';
+}
+// Eine Zeile Stand statt Chips: Du / ab … (gesperrt) / Start / braucht Gerät.
+function famLine(f, c, avail) {
+  var st = famStufen(f), lv = famLevel(f, c), status = famStatus(f, c);
+  if (!avail.length) { var u = UE[f.varianten[0].uebung]; return LOCK_SVG + ' braucht ' + esc(eqMissing(u.equipment, c.have) || 'anderes Equipment'); }
+  if (lv) { var s = c.st[st[lv - 1].uebung], lad = LAD[st[lv - 1].uebung]; return 'Du: ' + esc(lad && s && s.cur ? stageText(lad.steps[s.cur - 1]) : uName(st[lv - 1].uebung)); }
+  if (status === 'lock') return LOCK_SVG + ' ab ' + esc(famPreText(f, c));
+  return st.length ? 'Start: ' + esc(uName(st[0].uebung)) : esc(famSub(f));
+}
 function famItemHTML(f, c, avail) {
-  return '<div class="gl-item fam' + (avail.length ? '' : ' locked') + '" id="f-' + f.id + '"><button type="button" class="gl-row" data-act="fam-open" data-id="' + f.id + '"><span class="gl-t"><b>' + esc(f.name) + '</b><small>' + famSub(f) + '</small>' + famChipsHTML(f, c, avail) + '</span>' +
-    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>';
+  return '<div class="gl-item fam' + (avail.length ? '' : ' locked') + '" id="f-' + f.id + '"><button type="button" class="gl-row fam-row" data-act="fam-open" data-id="' + f.id + '">' + famThumb(f.id) +
+    '<span class="gl-t"><b>' + esc(f.name) + '</b><small>' + famLine(f, c, avail) + '</small></span></button></div>';
 }
 function renderFam() {
   if (ui.famId === '_mob') return renderMob();
@@ -13100,9 +13134,8 @@ function mobGroups() {
 }
 function mobItemHTML(c) {
   var all = Object.keys(UE).filter(function (id) { return UE[id].muster === 'mobilitaet'; }), here = all.filter(function (id) { return eqOk(UE[id].equipment, c.have); }).length, G = mobGroups();
-  return '<p class="kicker muted gl-group">Beweglichkeit · 1 Familie</p><section class="card gl-card"><div class="gl-item fam" id="f-_mob"><button type="button" class="gl-row" data-act="fam-open" data-id="_mob"><span class="gl-t"><b>Mobility</b><small>' +
-    all.length + ' Übungen · nach Körperteil' + (ui.libAll || here === all.length ? '' : ' · ' + here + ' gehen hier') + '</small><span class="fam-chips">' + G.slice(0, 4).map(function (g) { return '<span class="chip">' + esc(g.n) + '</span>'; }).join('') + (G.length > 4 ? '<span class="chip">+' + (G.length - 4) + '</span>' : '') + '</span></span>' +
-    '<svg class="gl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></section>';
+  return '<p class="kicker muted gl-group">Beweglichkeit · 1 Familie</p><section class="card gl-card"><div class="gl-item fam" id="f-_mob"><button type="button" class="gl-row fam-row" data-act="fam-open" data-id="_mob">' + famThumb('_mob') + '<span class="gl-t"><b>Mobility</b><small>' +
+    all.length + ' Übungen · nach Körperteil' + (ui.libAll || here === all.length ? '' : ' · ' + here + ' gehen hier') + '</small></span></button></div></section>';
 }
 function renderMob() {
   ui.noSub = true;

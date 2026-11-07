@@ -39,8 +39,8 @@ Quelle: Apples Human Interface Guidelines, Seite „Design principles“ mit all
   Liste innen, klein. Keine Zwischenwerte.
 - **Gleiche Symbole, gleiche Aktion** (Dennis, 6. November): ein Symbol bedeutet überall dasselbe. Pfeil › in einer Listenzeile öffnet ein
   Blatt von unten (wie „In den Kalender“, `PSH`/`pshOpen`, `glRow`), ▶ (`.gl-play`) startet etwas im Vollbild (Tour, Training), ⌄ klappt
-  an Ort und Stelle auf. Kein › für eine neue Seite oder für Aufklappen. Noch abweichend (Schritt 6/7): Familien in der Bibliothek, 1RM-Zeilen,
-  „Baut auf/Führt zu“ im Profil öffnen Seiten.
+  an Ort und Stelle auf. Kein › für eine neue Seite oder für Aufklappen. Noch abweichend (Schritt 7): „Baut auf/Führt zu“ im Profil öffnen Seiten.
+  Zeilen ohne Pfeil, mit Bild vorne (Bibliothek › Familien) öffnen eine eigene Seite mit Zurück-Knopf (Dennis, 7. November).
 - **Hervorgehoben höchstens ein bis zwei Knöpfe je Ansicht**, Unterschiede über den Stil, nie über die Größe. Knöpfe mit Verb.
 
 ### Entschieden mit Dennis (Schritt 0, 6. November 2026, Vergleich https://claude.ai/artifact/KBuHu6doTBGVrsMKLAQH8i)

@@ -186,6 +186,11 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   (`ACT['mus-back']`) öffnet das Blatt wieder (`ui.musRe`). Alte Ansichten `timer`, `muskeln`, `rm` leitet `render()` um (Bibliothek bzw. Profil mit Blatt).
   Mobility angeglichen (Dennis, 7. November: „Gleiche bei Mobility alles an“): Gruppen als `.gl-group`, Abläufe als Listenzeilen (`glPlayRow`, Titel normal,
   „Heute gemacht · “ statt blauem Chip), ohne Zusatzsätze unter den Gruppen; ▶ startet den Ablauf sofort (`r-open` mit `data-go`, ruft `r-toggle`).
+  Familien als Liste mit Bild (Dennis, 7. November, Vergleich https://claude.ai/artifact/PgjCwk8c2Wx3iHVFBUQ2sz, „B aber als Liste“): `famItemHTML` je Familie eine Zeile ohne Pfeil
+  (Antippen öffnet weiter die Seite `fam`; › ist für Blätter reserviert), links ein stehendes Bild (`famThumb`, 60 px, Körper in Kartenfarbe gefüllt, kein eigenes Fenster; gemerkt in
+  `FAMFIG_C` je hell/dunkel), daneben Name (normal) und eine Zeile Stand (`famLine`: Du / Schloss + ab … / Start / braucht Gerät) statt Chips. Bild aus `FAM_FIG` {Familie: [Übung, Zeitpunkt 0–1]}:
+  die typische Übung im aussagekräftigsten Moment (Dennis: „beim Pull-up nicht das unter der Stange hängende Bild“, also Ring Pull-up oben); ohne passende Grafik ein neutrales Zeichen
+  (`.fam-fig.none`). Keine Animation in der Liste, die Figur läuft erst auf der Familien-Seite. Mobility-Familie ebenso (`_mob`, Forward Fold).
  wie bei Apple, jeder mit Namen): Heute (Gruppe `coach`), Plan (Gruppe `plan` mit `fokus`, `challenge`, `woche`),
   Bibliothek (Gruppe weiter `tools`: Übungen `uebungen` | Mobility `routinen`), Profil (Schritt 6, siehe unten). Der Plan ist der eigene Reiter `plan` (`renderPlan`, früher hinter dem (i) auf Heute): „Dein Plan“ mit
   Schwerpunkt-Karte, Karte „Woche“ (‹ › blättert durch die Durchgänge des Blocks, `ui.planDg`; Block-Leiste und Tage-Kapsel wie auf Heute,
