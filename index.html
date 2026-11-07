@@ -1528,6 +1528,26 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 .tg-row{padding:12px 0}.tg-row .gl-t b{display:block;font-weight:400}.tg-row .gl-t small{display:block}.tg-seg{display:flex;margin-top:12px}.tg-seg .seg-btn{flex:1;min-height:44px}
 .psh>.rbtn.back,.psh>.hero{display:none}/* Schritt 7 Profil */.p-head{background:var(--paper)!important;border:0!important;box-shadow:var(--shadow)!important}.pseg{margin:0 0 16px}.pr-v b{color:var(--ink)!important}.pr-row b,.a-row b,.vl-row .gl-t b,.fast-t b{font-weight:400}.fast-b i{background:var(--ink2)}.fast-b.gold i{background:var(--gold,#C9A227)}.vl-sum{font-size:15px;color:var(--ink2);margin:4px 4px 12px}.pr-all .gl-t b{font-weight:400}.pr-all{margin:8px -16px -8px;box-shadow:none;background:none}.a-row .gl-chev{width:16px;height:16px;color:var(--ink2);flex:none}.psh-skill .tree{min-height:200px}.sub-seg{margin:4px 0 16px}.pf-tools .gl-t b{font-weight:400}#view[data-tab="uebungen"] .hero-title,#view[data-tab="routinen"] .hero-title{font-size:15px;color:var(--ink2);font-weight:400;margin-top:2px}.psh-koerper .mfig svg{max-width:100%}.psh>.card,.psh>section{box-shadow:none}.psh .card{background:var(--board)}.faq-q{margin:0 0 8px;font-size:var(--fs-t3)}.sh-body>.faq-a{margin:0;color:var(--ink);font-size:var(--fs-body)}
 
+/* Schritt 9: Trainer hochkant in festen Textstilen (DESIGN.md › Systemregeln): die Zeit ist die eine Anzeige-Zahl (76), die Vorgabe Titel 1 (28),
+   Übung Titel 3 (20), Zähler Titel 2 (22), Überschriften 17, Listen 16 (Hinweis), alles Kleine 15 (Untergrenze im Training). Gewicht 600, nur Zeit und Vorgabe 700. Quer und Desktop wachsen weiter mit --fsu. */
+#fs[data-view="port"] .fs-tr .fs-reps,#fs[data-view="port"] .fs-tr .fs-kg,#fs[data-view="port"] .fs-tr .fs-ex .fs-reps,#fs[data-view="port"] .fs-tr .fs-wu .fs-kg{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+#fs[data-view="port"] .fs-tr .fs-qx{font-size:20px;font-weight:600}
+#fs[data-view="port"] .fs-tr .fs-exn,#fs[data-view="port"] .fs-tr .fs-fin .fs-exn,#fs[data-view="port"] .fs-tr .fs-wu .fs-exn{font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1.15}
+#fs[data-view="port"] .fs-tr .fs-lbl,#fs[data-view="port"] .fs-tr .fs-hint,#fs[data-view="port"] .fs-tr .fs-pct,#fs[data-view="port"] .fs-tr .fs-fin .fs-pct,#fs[data-view="port"] .fs-tr .fs-rgh{font-size:15px;font-weight:500}
+#fs[data-view="port"] .fs-tr .fs-cnt .fs-lbl{font-size:15px;font-weight:600}
+#fs[data-view="port"] .fs-tr .fs-sub{font-size:15px}
+#fs[data-view="port"] .fs-tr .fs-nx{font-size:17px;font-weight:600}
+#fs[data-view="port"] .fs-tr .stepper b{font-size:22px;font-weight:600}
+#fs[data-view="port"] .fs-tr .stepper button{font-size:22px;font-weight:500}
+#fs[data-view="port"] .fs-tr .fs-row{font-size:16px;font-weight:600}
+#fs[data-view="port"] .fs-tr .fs-row b,#fs[data-view="port"] .fs-tr .fs-row.on:not(.fs-krow) b{font-size:20px;font-weight:600}
+#fs[data-view="port"] .fs-tr .fs-row.on:not(.fs-krow){font-size:17px}
+#fs[data-view="port"] .fs-tr .fs-row.on b.fs-q{font-size:20px}
+#fs[data-view="port"] .fs-tr .fs-rd,#fs[data-view="port"] .fs-tr .fs-krow>small,#fs[data-view="port"] .fs-tr .fs-krow span small{font-size:15px}
+#fs[data-view="port"] .fs-tr .fs-row.on b{font-weight:700}
+#fs[data-view="port"] .fs-tr .fs-row b.fs-q em,#fs[data-view="port"] .fs-tr .fs-row b small{font-size:15px;font-weight:600}
+#fs[data-view="port"] .fs-tr b,#fs[data-view="port"] .fs-tr strong{font-weight:600}
+#fs .fs-kick{font-weight:600}
 /* Schritt 8: Fragebogen ruhiger (Liste statt Karten, Nebenaktion als Text, Werte in Tinte) */
 .ob-txt{border:0;background:none;color:var(--ink);font:inherit;font-size:var(--fs-co);font-weight:500;min-height:44px;padding:0 12px;cursor:pointer;align-self:center}
 .ob .ob-steps{display:flex;flex-direction:column;gap:0;margin:24px 0 8px;padding:2px 16px;list-style:none;background:var(--paper);border-radius:var(--r-l);box-shadow:var(--shadow)}
