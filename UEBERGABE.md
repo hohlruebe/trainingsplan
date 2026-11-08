@@ -31,6 +31,9 @@ Stand: 6. November 2026 (Designprinzipien nach Apple aufgeschrieben, Durchsicht 
 
 
 ## Form, Kardio, Zirkel (6. November 2026, Claude)
+- Dennis, 8. November: auf Heute zur nächsten Woche wischen (Variante A gewählt, Vergleich https://claude.ai/artifact/ALEAKMCmAAjgMooJKdEUtb) und den Ort je Einheit
+  vorher festlegen (an der Einheit, nur Übungen; „so ist viel zu groß“ → drei dezente Varianten https://claude.ai/artifact/QTVYQK7nSnqxfDhABHpghR, „lass die Uhrzeit weg
+  und dann Option 2“). Umgesetzt (CLAUDE.md › Wochenleiste), PR #171 (Wiedereinstieg) gemergt. Noch kein PR.
 - Dennis, 8. November: „Der Coach kürzt die ganze Zeit meine Workouts, obwohl ich gar keine Pause hatte“ (Heute anpassen: „Wiedereinstieg nach der Pause, noch 4 Einheiten
   kürzer“). Ursache vermutlich ein zweites Gerät mit altem Stand: `dayCheck` sah vor dem Abgleich über 14 Tage Pause, setzte `S.comeback` (n 5) und der Sync gab es weiter.
   Fix: `cbGap` verwirft einen Wiedereinstieg, wenn nach `from` innerhalb von 7 Tagen trainiert wurde. Schritt 9 als PR #170 gemergt.
