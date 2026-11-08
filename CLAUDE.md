@@ -35,7 +35,16 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Wochenleiste (`wkStripHTML`, `wkCells`, `ui.wkSel`/`ui.wkMon`, Plan: `ui.pwSel`/`ui.pwMon`): Mo–So mit Datum und A/B/C, „Frei“ oder
   ✓ (mit Einheit), heute gefüllt in `--acc` mit `aria-current`, gewählter Tag weiße Pille, ‹ › blättert (zurück bis zum ersten Eintrag,
   vor bis +2 Wochen). Anderer Tag = `wkDayHTML` (Ergebnis mit Korrigieren, Vorschau der Einheit mit Dauer und Uhrzeit, frei mit nächstem
-  Termin), „Zurück zu heute“. Plan › Deine Woche (`planWeekV2HTML`): „x von 3 erledigt“, Durchgang und Phase klein darunter (`.pw-hd`), Leiste, gewählte
+  Termin), „Zurück zu heute“. Wischen über die Leiste (Dennis, 8. November, Variante A, Vergleich https://claude.ai/artifact/ALEAKMCmAAjgMooJKdEUtb): links = nächste
+  Woche, rechts = Woche davor, auf Heute und in Plan (`data-wksw`, Grenzen wie die Pfeile, kurzes Rutschen `.sl-l`/`.sl-r`); Heute bleibt ohne Pfeile, in einer
+  anderen Woche steht sie klein darüber (`.wk-oth` „Nächste Woche · 19.–25. Oktober“).
+  Ort je Einheit (Dennis, 8. November: „für verschiedene Tage schon vorher den Ort anpassen“, „an der Einheit“, „nur die Übungen“, „lass die Uhrzeit weg und
+  dann Option 2“, Vergleich https://claude.ai/artifact/QTVYQK7nSnqxfDhABHpghR): `S.unitOrt {'<Montag>|<Tag>': Ort-ID}` (in `DEF` und `SYNC_KEYS`, ältere als
+  2 Wochen fallen weg), wandert mit der Einheit innerhalb der Woche. In der Vorschau einer kommenden Einheit (Heute › anderer Tag, Plan › Deine Woche) steht der
+  Ort klein mit Symbol rechts in der Kopfzeile statt der Uhrzeit (`unitOrtTop`, `.uo-in`, grau, angepasst `--ink`, nur mit mehr als einem Ort), Antippen
+  fragt (`ACT['u-ort']`, `unitOrtSet`). `trainOrt` = Entwurf `_ort` › `ortBase` (Ort der Einheit) › `curOrt`; Vorschau und Gedrückthalten rechnen mit
+  `withOrt` (`ORT_OV`, `data-mon`). Die Wahl der Tage bleibt.
+  Plan › Deine Woche (`planWeekV2HTML`): „x von 3 erledigt“, Durchgang und Phase klein darunter (`.pw-hd`), Leiste, gewählte
   Einheit mit Ablauf, Gründe der Uhrzeit hinter „Warum 17:00?“. Freie Tage bieten die Ruhetag-Routine an. Wissen-Texte (Regeln, Methode, Pause, Test-Durchgang) haben eine Plan-2-Fassung.
   Arbeitszeiten (Seite `woche`, `renderWoche`, Titel „Arbeitszeiten“, auch über Einstellungen › Alltag, `ACT['wk-open']` mit `ui.wocheBack`):
   „Wie arbeitest du?“ Geregelte Zeiten | Schichtarbeit (`S.alltag.schicht` false/true, null = noch nicht gewählt). Geregelt: feste Woche

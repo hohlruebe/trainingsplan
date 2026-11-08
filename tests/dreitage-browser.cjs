@@ -301,6 +301,27 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(v2s(), { comeback: { from: '2026-10-01', n: 4, dl: null, ask: true, days: 20 } }), logs()]);
     assert.equal(await page.evaluate(() => window.tpTest.state().comeback), null, 'kein Wiedereinstieg, wenn nach from gleich weiter trainiert wurde');
     console.log('PASS: Wiedereinstieg ohne echte Pause wird verworfen');
+    const ev = f => page.evaluate(x => window.tpTest.ev(x), f);
+    // Dennis, 8. November: auf Heute zur nächsten Woche wischen (Variante A) und den Ort je Einheit vorher festlegen (Variante 2, an der Einheit).
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(v2s(), { orte: null }), logs()]);
+    await ev("() => { S.orte.forEach(o => { if (o.k === 'gym') { o.on = true; o.eq = FB_GYM.slice(); } }); render(); }");
+    {
+      await ev("() => { closeSheet(); var mo = document.getElementById('moment'); if (mo) mo.remove(); var t = document.getElementById('tour'); if (t) t.remove(); window.scrollTo(0, 0); }");
+      await page.waitForTimeout(300);
+      const nav = page.locator('nav.wkst[data-wksw="wk"]'), bx = await nav.boundingBox();
+      await page.mouse.move(bx.x + bx.width - 20, bx.y + bx.height / 2); await page.mouse.down(); await page.mouse.move(bx.x + 20, bx.y + bx.height / 2, { steps: 5 }); await page.mouse.up();
+      await page.waitForTimeout(300);
+      assert.match(await page.locator('.wk-oth').innerText(), /^Nächste Woche · /, 'Wischen nach links zeigt die nächste Woche');
+      const m = await ev('() => ui.wkMon'), t = await ev('() => wkCells(ui.wkMon).cells.find(c => c.tag).tag');
+      await ev("() => ACT['wk-sel']({ dataset: { d: wkCells(ui.wkMon).cells.find(c => c.tag).date } })");
+      const uo = page.locator('.tl-card .uo-in'); assert.match(await uo.innerText(), /Zuhause/, 'Ort klein in der Kopfzeile statt der Uhrzeit');
+      assert.doesNotMatch(await page.locator('.tl-card .tl-top').innerText(), /Uhr/);
+      await uo.click(); await page.getByRole('button', { name: 'Gym', exact: true }).click(); await page.waitForTimeout(200);
+      assert.equal(await ev("() => (S.unitOrt || {})['" + m + "|" + t + "']"), await ev("() => S.orte.find(o => o.k === 'gym').id"), 'Ort hängt an der Einheit');
+      assert.match(await page.locator('.tl-card .uo-in').innerText(), /Gym/);
+      await page.locator('[data-act="back-today"]').click();
+    }
+    console.log('PASS: Heute zur nächsten Woche wischen, Ort je Einheit vorher festlegen');
     // Dennis, 28. Oktober: kürzt der Coach selbst (Wiedereinstieg), ist „Mir geht’s heute nicht gut“ nicht angehakt; der Grund steht in einer eigenen Karte.
     await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(v2s(), { comeback: { from: '2026-09-10', n: 1, dl: null } }), logs()]);
     await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();

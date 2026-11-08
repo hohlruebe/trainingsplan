@@ -1536,10 +1536,7 @@ html:not(.desk) #view[data-tab="heute"]:has(.tl-card .go.top){padding-bottom:cal
 @media (prefers-reduced-motion:reduce){.pills.wkst.sl-l,.pills.wkst.sl-r{animation:none}}
 .uo-r{display:inline-flex;align-items:center;gap:8px}
 .uo-in{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:0 2px;min-height:44px;margin:-12px 0;color:var(--ink2);font:inherit;font-size:var(--fs-sub);cursor:pointer}
-.uo-in svg{width:16px;height:16px}.uo-in::before{content:'·';margin-right:4px}.uo-in.on{color:var(--ink)}
-.uo-ic{width:44px;height:44px;margin:-10px -10px -10px 0;border:0;background:none;display:grid;place-items:center;color:var(--ink2);cursor:pointer}
-.uo-ic svg{width:20px;height:20px;padding:6px;box-sizing:content-box;border-radius:50%;background:var(--board)}.uo-ic.on svg{color:var(--ink);background:color-mix(in srgb,var(--ink) 10%,var(--board))}
-.wd-o{display:inline-block;vertical-align:-1px;margin-left:2px;line-height:0;color:var(--ink2)}.wd-o svg{width:12px;height:12px}
+.uo-in svg{width:16px;height:16px}.uo-in.on{color:var(--ink)}
 /* Schritt 9: Trainer hochkant in festen Textstilen (DESIGN.md › Systemregeln): die Zeit ist die eine Anzeige-Zahl (76), die Vorgabe Titel 1 (28),
    Übung Titel 3 (20), Zähler Titel 2 (22), Überschriften 17, Listen 16 (Hinweis), alles Kleine 15 (Untergrenze im Training). Gewicht 600, nur Zeit und Vorgabe 700. Quer und Desktop wachsen weiter mit --fsu. */
 #fs[data-view="port"] .fs-tr .fs-reps,#fs[data-view="port"] .fs-tr .fs-kg,#fs[data-view="port"] .fs-tr .fs-ex .fs-reps,#fs[data-view="port"] .fs-tr .fs-wu .fs-kg{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
@@ -9407,7 +9404,7 @@ function wkStripHTML(W, sel, act, noHead) {
     var L = wkCellLab(c), d = parseISO(c.date), on = c.date === sel;
     h += '<button type="button" class="pill wd' + (c.today ? ' cur' : '') + (on && !c.today ? ' view' : '') + (c.logs.length ? ' ok' : c.tag ? ' u' : c.zs ? ' u z' : L.miss ? ' miss' : L.mv ? ' mv' : ' fr') + (c.past ? ' past' : '') + '" data-act="' + act + '-sel" data-d="' + c.date + '"' +
       (c.today ? ' aria-current="date"' : '') + ' aria-pressed="' + on + '" aria-label="' + esc(WTAG[c.i] + ', ' + d.getDate() + '. ' + MONATE[d.getMonth()] + (c.today ? ', heute' : '') + ', ' + L.s) + '">' +
-      '<span class="wd-a">' + WTAG[c.i].slice(0, 2) + '</span><b class="wd-d">' + d.getDate() + '</b><span class="wd-u">' + esc(L.u) + (ortV() === '3' && c.tag && !c.logs.length && unitOrt(W.mon, c.tag) ? '<i class="wd-o" aria-hidden="true">' + fkIcon(ortIc(unitOrt(W.mon, c.tag))) + '</i>' : '') + '</span></button>';
+      '<span class="wd-a">' + WTAG[c.i].slice(0, 2) + '</span><b class="wd-d">' + d.getDate() + '</b><span class="wd-u">' + esc(L.u) + '</span></button>';
   });
   return h + '</nav>';
 }
@@ -9435,8 +9432,8 @@ function wkDayHTML(dt) {
     '<p class="small muted" style="margin:0">' + hm(c.zs.t - 24 * c.i) + ' Uhr · freiwillig, zählt nicht ins Wochenziel. Starten kannst du an diesem Tag.</p><div class="bgrp" style="margin-top:12px"><button type="button" data-act="zs-open" data-from="heute">Ändern</button></div></section>';
   if (c.tag) {
     var U = wkUnitPreview(c, mon);
-    return h + '<section class="card tl-card"><div class="tl-top"><b>ca. ' + U.min + ' Min</b><span class="muted uo-r">' + (c.pd && c.pd.t != null ? hm(c.pd.t - 24 * c.i) + ' Uhr' : U.st.length + ' Schritte') + (c.past ? '' : unitOrtTop(mon, c.tag)) + '</span></div>' + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon), mon: mon }) +
-      '<p class="small muted pd-n">Vorschau: Starten kannst du an diesem Tag. Übungen und Stufen können sich bis dahin noch ändern.</p></section>' + (c.past ? '' : unitOrtBelow(mon, c.tag));
+    return h + '<section class="card tl-card"><div class="tl-top"><b>ca. ' + U.min + ' Min</b><span class="muted uo-r">' + (!c.past && unitOrtTop(mon, c.tag) || (c.pd && c.pd.t != null ? hm(c.pd.t - 24 * c.i) + ' Uhr' : U.st.length + ' Schritte')) + '</span></div>' + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon), mon: mon }) +
+      '<p class="small muted pd-n">Vorschau: Starten kannst du an diesem Tag. Übungen und Stufen können sich bis dahin noch ändern.</p></section>';
   }
   var nx = null; (W.P ? W.P.days : []).forEach(function (x) { if (!nx && x.date > dt && x.tag && !x.done) nx = x; });
   var md = c.past ? missDayHTML(dt) : '';
@@ -9464,7 +9461,7 @@ function planWeekV2HTML() {
 '<div class="pw-tl">' + tlHTML(U.st, { tag: c.tag, dg: wkDg(mon), mon: mon }) + '</div>';
   } else h += (c.past && missDayHTML(c.date)) || '<p class="muted" style="margin:6px 2px 0">' + (c.past ? 'Kein Training an diesem Tag.' : 'Frei. Erholung gehört zum Plan.') + '</p>';
   if (W.P && W.P.dropped.length) h += planDropNote(W.P);
-  h += '</section>' + (c.tag && !c.logs.length && !c.past ? unitOrtBelow(mon, c.tag) : '');
+  h += '</section>';
   var rows = [], body = bodyWeekRow(mon), zr = mon === cm ? zusatzRow() : null;
   if (body) rows.push(body.row);
   if (zr) rows.push(zr);
@@ -12547,22 +12544,12 @@ ACT['wk-nav'] = function (el) { var m = isoAdd(ui.wkMon || wkMon(), 7 * +el.data
 ACT['pw-sel'] = function (el) { ui.pwSel = el.dataset.d; render(); };
 ACT['pw-why'] = function () { ui.pwWhy = !ui.pwWhy; render(); };
 ACT['ld-open'] = function (el) { ui.ldOpen = el.getAttribute('aria-expanded') !== 'true'; render(); };
-ACT['u-adapt'] = function (el) {
-  var m = el.dataset.m, t = +el.dataset.t; ui.uoCtx = { m: m, t: t };
-  var cur = (unitOrt(m, t) || curOrt()).id;
-  openForm('Einheit anpassen', '<p class="muted" style="margin:0 0 12px">Gilt nur für ' + esc(dayLabel(t)) + ' in dieser Woche, auch wenn sie auf einen anderen Tag rutscht.</p><section class="card gl-card"><div class="gl-item ad-it' + (cur !== S.ort ? ' sel' : '') + '"><div class="gl-row" style="cursor:default"><span class="gl-t"><b>Ich trainiere woanders</b><small>Dein Coach nimmt Übungen und Geräte von dort</small></span></div>' +
-    capHTML(orteOn().map(function (o) { return { id: o.id, label: ortName(o), d: ortIc(o) }; }), 'u-ort-v', cur, 'Ort', 'in-card') + '</div></section>', 'Fertig', function () { return true; }, { noCancel: true, noFocus: true });
-};
 function unitOrtSet(m, t, v) {
   var U = Object.assign({}, S.unitOrt || {}), k = m + '|' + t;
   if (v === S.ort) delete U[k]; else U[k] = v;
   Object.keys(U).forEach(function (x) { if (x.slice(0, 10) < isoAdd(wkMon(), -14)) delete U[x]; });
   S.unitOrt = Object.keys(U).length ? U : null; FILL.k = null; PD_C = {}; saveState(); haptic('tap'); render();
 }
-ACT['u-ort-v'] = function (el) {
-  var C = ui.uoCtx; if (!C) return; unitOrtSet(C.m, C.t, el.dataset.v);
-  var it = el.closest('.ad-it'); if (it) { it.classList.toggle('sel', el.dataset.v !== S.ort); it.querySelectorAll('.cap-btn').forEach(function (b) { var on = b.dataset.v === el.dataset.v; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
-};
 ACT['u-ort'] = function (el) {
   var m = el.dataset.m, t = +el.dataset.t, cur = unitOrt(m, t), opts = orteOn().map(function (o) { return [o.id, ortName(o) + (o.id === S.ort ? ' (wie immer)' : ''), (cur ? cur.id : S.ort) === o.id ? 'primary' : '']; });
   openChoice('Wo trainierst du ' + dayLabel(t) + '?', 'Gilt nur für diese Einheit in dieser Woche, auch wenn sie auf einen anderen Tag rutscht. Dein Coach nimmt die Übungen und Geräte von dort.', opts, function (v) {
@@ -12787,20 +12774,12 @@ function trainOrt() {
   return o || ortBase();
 }
 function withOrt(o, fn) { var k = ORT_OV; ORT_OV = o || null; try { return fn(); } finally { ORT_OV = k; } }
-// Dezent (Dennis, 8. November: „so ist viel zu groß“): Vergleich 1 = „Einheit anpassen“ unter der Karte, 2 = Ort klein in der Kopfzeile, 3 = rundes Symbol
-// (`ui.ortV`, bis zur Entscheidung). unitOrtTop für die Kopfzeile der Karte, unitOrtBelow unter die Karte.
-function ortV() { return ui.ortV || '1'; }
-function uoAttr(mon, tag) { return 'data-act="u-ort" data-m="' + mon + '" data-t="' + tag + '"'; }
+// Dezent (Dennis, 8. November: „so ist viel zu groß“, „lass die Uhrzeit weg und dann Option 2“): der Ort klein mit Symbol rechts in der Kopfzeile der
+// Vorschau statt der Uhrzeit, grau, angepasst dunkler. Antippen fragt nach dem Ort (`ACT['u-ort']`). Nur mit mehr als einem Ort.
 function unitOrtTop(mon, tag) {
-  if (orteOn().length < 2 || ortV() === '1') return '';
+  if (orteOn().length < 2) return '';
   var o = unitOrt(mon, tag), O = o || curOrt();
-  if (ortV() === '2') return '<button type="button" class="uo-in' + (o ? ' on' : '') + '" ' + uoAttr(mon, tag) + ' aria-label="Ort: ' + esc(ortName(O)) + ', ändern">' + fkIcon(ortIc(O)) + '<span>' + esc(ortName(O)) + '</span></button>';
-  return '<button type="button" class="uo-ic' + (o ? ' on' : '') + '" ' + uoAttr(mon, tag) + ' aria-label="Ort: ' + esc(ortName(O)) + ', ändern">' + fkIcon(ortIc(O)) + '</button>';
-}
-function unitOrtBelow(mon, tag) {
-  if (orteOn().length < 2 || ortV() !== '1') return '';
-  var o = unitOrt(mon, tag);
-  return '<div class="adj">' + (o ? '<span>Angepasst: Ort ' + esc(ortName(o)) + '</span>' : '') + '<button type="button" class="btn small adj-btn" ' + uoAttr(mon, tag).replace('u-ort', 'u-adapt') + '>Einheit anpassen</button></div>';
+  return '<button type="button" class="uo-in' + (o ? ' on' : '') + '" data-act="u-ort" data-m="' + mon + '" data-t="' + tag + '" aria-label="Ort: ' + esc(ortName(O)) + ', ändern">' + fkIcon(ortIc(O)) + '<span>' + esc(ortName(O)) + '</span></button>';
 }
 function haveEq(o) { var h = {}; (o || curOrt()).eq.forEach(function (e) { h[e] = 1; }); if (h.eq_kb_verstellbar || h.eq_kb_paar) h.eq_kettlebell = 1; return h; }
 // Kann das Gewicht der Übung hier wachsen? Verstellbare Kettlebell, Kurzhanteln (verstellbar) oder Langhantel. Eine feste Kettlebell nicht
