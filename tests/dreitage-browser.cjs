@@ -1099,6 +1099,13 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
         });
         o.dev0 = finDev().id;
         o.dev2 = run([mk('2026-10-08', 'Normal', null, { fin: { k: 'easy', dev: finDev().id, min: 10 } }), mk('2026-10-09', 'Normal', null, { fin: { k: 'easy', dev: finDev().id, min: 10 } })], function () { return finDev().id; });
+        // Dennis, 8. November: ohne Laufstrecke am Ort kein Laufen; mit Laufstrecke kommt es im Wechsel.
+        var two = [mk('2026-10-08', 'Normal', null, { fin: { k: 'easy', dev: 'ergo', min: 10 } }), mk('2026-10-09', 'Normal', null, { fin: { k: 'easy', dev: 'ergo', min: 10 } })];
+        var oz = trainOrt(), eq0 = oz.eq.slice(); oz.eq = eq0.filter(function (e) { return e !== 'eq_laufstrecke' && e !== 'eq_laufband'; }); FILL.k = null;
+        o.noRun = run(two, function () { return finDev().id; });
+        oz.eq = oz.eq.concat(['eq_laufstrecke']); FILL.k = null;
+        o.withRun = run(two, function () { return finDev().id; });
+        oz.eq = eq0; FILL.k = null;
         o.mc = mcEasier(S.tag, { n: 'Burpee', r: '10' }, 0, {});
         // Vom Coach gestrichene Runden (müde Zone, im Eintrag null) zählen beim Umfang nicht als verfehlt.
         var uu = ['2026-10-01', '2026-10-03', '2026-10-05', '2026-10-07', '2026-10-09', '2026-10-11'].map(function (d) { return { id: 'u' + d, ts: 1, date: d, durchgang: 5, tag: 1, kind: 'kraft', pv: 2, unit: 'A',
@@ -1112,7 +1119,8 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
       assert.deepEqual(f.goal, [5, 6, 15], 'nach Form verloren (Kraft) die restlichen Runden eine Wdh. bzw. 5 s weniger');
       assert.equal(f.plus[0], 'plus', 'Wochenziel fast erreicht: Kraft plus statt Kardio (' + f.plus[1] + ' Min)');
       assert.match(f.plus[2], /acc:Kraft plus/); assert.doesNotMatch(f.plus[2], /fin:/);
-      assert.equal(f.dev0, 'ergo'); assert.equal(f.dev2, 'lauf', 'nach zwei Abschlüssen auf dem Ergometer wird zu Hause gelaufen');
+      assert.equal(f.dev0, 'ergo'); assert.equal(f.noRun, 'ergo', 'ohne Laufstrecke am Ort kein Laufen im Abschluss');
+      assert.equal(f.withRun, 'lauf', 'mit Laufstrecke wird nach zwei Abschlüssen auf dem Ergometer gelaufen');
       assert.ok(f.mc && f.mc.t && f.mc.how, 'Metcon: bei Form verloren sagt der Coach, was stattdessen');
       assert.equal(f.umf, 5, 'gestrichene Runden (Minute frei) bremsen den Umfang nicht');
     }

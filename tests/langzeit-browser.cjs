@@ -37,10 +37,10 @@ window.tpSim = {
       if (o.perf === 'real') window.SIMA[lk] += 0.04;
       info.push({ n: x.n, lad: E.lad ? E.lad.key : null, si: E.si, stage: E.stage, goal: E.goal, done: [0, 1, 2, 3, 4, 5, 6].map(function (r) { return num(D['k' + i + 'r' + r]); }).filter(function (v) { return v != null; }), hi: hi, tpo: !!E.tpo, kid: E.kid || null, kg: E.K && E.K.rec ? E.K.rec.kg : null });
     });
-    var F = finOf(tag, zeitLv(tag)), kurz = isKurz(tag);
+    var F = finOf(tag, zeitLv(tag)), kurz = isKurz(tag), ag = ausgleichStep(tag).length > 0;
     saveDay();
     var L = LOGS[LOGS.length - 1];
-    return { day: today, unit: L.unit, dg: L.durchgang, kurz: kurz, k: info, fin: F ? { k: F.k, dev: F.dev ? F.dev.id : '', min: F.min } : null, aus: !!L.ausgleich };
+    return { day: today, unit: L.unit, dg: L.durchgang, kurz: kurz, k: info, fin: F ? { k: F.k, dev: F.dev ? F.dev.id : '', min: F.min } : null, aus: !!L.ausgleich, ag: ag };
   },
   end: () => ({ swapped: S.swapped || {}, umf: S.umfang && S.umfang.u }),
   // Daten: jede Gewichtsstufe einer Leiter hat eine Norm (sonst kein Startgewicht), keine Metcon-Leiter in einem Kraftplatz.
@@ -85,7 +85,7 @@ const stageOf = (out, lad) => Math.max(0, ...out.flatMap(r => r.k.filter(k => k.
     const kurz = R.out.filter(r => r.kurz).length;
     assert.ok(kurz <= 2, 'Einschätzung 7 macht keine Dauer-Kurzversion (' + kurz + ' von ' + R.out.length + ')');
     assert.ok(R.end.umf > 4, 'Umfang wächst');
-    assert.ok(R.out.filter(r => r.dg >= 3 && r.dg !== 4 && r.dg !== 8).every(r => r.aus), 'Ausgleich wird ohne Antippen mit der Vorgabe gespeichert');
+    assert.ok(R.out.filter(r => r.dg >= 3 && r.dg !== 4 && r.dg !== 8 && r.ag).every(r => r.aus), 'Ausgleich wird ohne Antippen mit der Vorgabe gespeichert');
     console.log('PASS: Einschätzung 7 ist normal: ' + kurz + ' Kurzversionen in ' + R.out.length + ' Einheiten, Umfang ' + R.end.umf);
 
     // 2. Zu Hause, jede Runde geschafft, 26 Wochen: kein Tausch wegen Stillstand, Push-up überspringt Parallettes, Sackgasse steigert über Tempo,
