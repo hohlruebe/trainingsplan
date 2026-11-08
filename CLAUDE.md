@@ -929,8 +929,8 @@ Ordner `/`. Genutzt vor allem auf einem Android-Handy in Chrome, als installiert
   Kardio: Wochenziel `KARDIO_WK` 60 Min (`cardioWkDone`: Abschlüsse, Läufe, Zusatz dieser Woche ohne die heutige Krafteinheit; auch Zusatz-Vorschlag). Fehlen
   weniger als 10 Min oder ginge nur Gehen, wird der Abschluss „Kraft plus“ (`finOf` → `{k: 'plus'}`, nicht in Entlastung, Testwoche, Einstieg, Kurzversion, Taper,
   Lauf-/Rad-Challenge): Schritt `acc` mit Titel „Kraft plus“, 3 Zusatzübungen für das, was zu kurz kommt (`accN`, `accPlus`; im Eintrag `acc` und `plus: true`).
-  Gerät im Wechsel (`finDev`): meist das passendste, nach zwei Abschlüssen mit demselben Gerät das nächste, Laufen zuerst; Laufen geht von Zuhause, Park,
-  Unterwegs, Garage auch ohne Laufstrecke (`FIN_OUT`); mit Lauf-/Rad-Challenge kein Wechsel. Ergebnis im Abschluss als Kacheln (`finResHTML`): Strecke (`fiKm`),
+  Gerät im Wechsel (`finDev`): meist das passendste, nach zwei Abschlüssen mit demselben Gerät das nächste, Laufen zuerst; Laufen nur mit Laufstrecke oder Laufband am Ort
+  (Dennis, 8. November: `FIN_OUT` ohne Laufstrecke ist zurückgenommen); mit Lauf-/Rad-Challenge kein Wechsel. Ergebnis im Abschluss als Kacheln (`finResHTML`): Strecke (`fiKm`),
   Puls Ø (`fiHr`), Watt Ø bei Ergometer, Air Bike, Rudergerät, Ski-Ergometer (`fiW`, `FIN_W`), gespeichert `fin.km/hr/w` nur mit Wert, Vergleich mit den letzten
   Abschlüssen gleicher Art und Gerät in 6 Wochen (`finRef`, `finVerdict`). Zirkel: je Abschnitt des Blocks (1–3, 5–7, 9–11) ein zufälliger Durchgang (`zkDg`, `zkHash`
   aus Startdatum, Block und Abschnitt, auf allen Geräten gleich).

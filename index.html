@@ -13563,14 +13563,13 @@ function splitDays(N, U, met) {
 var FIN_DEV = [['ergo', 'g_bike_erg', 'Ergometer'], ['row', 'g_row_erg', 'Rudergerät'], ['air', 'g_air_bike', 'Air Bike'], ['xt', 'g_elliptical', 'Crosstrainer'],
   ['ski', 'g_ski_erg', 'Ski-Ergometer'], ['lauf', 'g_run', 'Laufen']];
 function finDevName(id) { var x = FIN_DEV.filter(function (q) { return q[0] === id; })[0]; return x ? x[2] : 'Zügig gehen'; }
-// Von hier aus kann man einfach rauslaufen, auch ohne eingetragene Laufstrecke (Dennis, 6. November: „auch mal laufen, selbst wenn das Rad da ist“).
-var FIN_OUT = { zuhause: 1, park: 1, unterwegs: 1, garage: 1 };
 function finDev() {
   var have = haveEq(trainOrt()), sore = memList(['akut']), L = FIN_DEV.slice(), C = chal();
   if (C && C.mode === 'lauf') L = L.filter(function (x) { return x[0] === 'lauf'; }).concat(L.filter(function (x) { return x[0] !== 'lauf'; }));
-  var cand = [], ok = trainOrt(), outd = FIN_OUT[ok && ok.k];
+  // Laufen nur mit Laufstrecke oder Laufband am Ort (Dennis, 8. November: zu Hause ohne Laufstrecke kam Laufen).
+  var cand = [];
   for (var i = 0; i < L.length; i++) {
-    var u = UE[L[i][1]]; if (!u || !(eqOk(u.equipment, have) || L[i][0] === 'lauf' && outd)) continue;
+    var u = UE[L[i][1]]; if (!u || !eqOk(u.equipment, have)) continue;
     if (L[i][0] === 'lauf' && zoneLegs(S.tag)) continue; // Beine müde (Paket 60): kein Laufen im Abschluss
     if (sore.some(function (e) { return siteLoad(u, { k: e.k, id: e.id }) >= 2; })) continue;
     cand.push({ id: L[i][0], ue: L[i][1], n: L[i][2], iv: true });
