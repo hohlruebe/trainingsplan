@@ -297,8 +297,12 @@ const logs = () => Array.from({ length: 7 }, (_, i) => ({ id: 'k' + i, ts: 1e12 
     assert.ok(await page.getByRole('heading', { name: 'Ganzkörper A', level: 1 }).isVisible());
     console.log('PASS: kein Guten Morgen nach dem Nachtdienst');
 
+    // Dennis, 8. November: ein Wiedereinstieg ohne echte Pause (altes Gerät vor dem Abgleich) wird verworfen.
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(v2s(), { comeback: { from: '2026-10-01', n: 4, dl: null, ask: true, days: 20 } }), logs()]);
+    assert.equal(await page.evaluate(() => window.tpTest.state().comeback), null, 'kein Wiedereinstieg, wenn nach from gleich weiter trainiert wurde');
+    console.log('PASS: Wiedereinstieg ohne echte Pause wird verworfen');
     // Dennis, 28. Oktober: kürzt der Coach selbst (Wiedereinstieg), ist „Mir geht’s heute nicht gut“ nicht angehakt; der Grund steht in einer eigenen Karte.
-    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(v2s(), { comeback: { from: '2026-10-01', n: 1, dl: null } }), logs()]);
+    await page.evaluate(a => window.tpTest.set(a[0], a[1]), [Object.assign(v2s(), { comeback: { from: '2026-09-10', n: 1, dl: null } }), logs()]);
     await page.getByRole('button', { name: 'Heute anpassen', exact: true }).click();
     assert.ok(!(await page.locator('#sheet .ad-it[data-k="int"]').getAttribute('class')).includes('sel'), 'nicht selbst gewählt: kein Haken');
     assert.match(await page.locator('#sheet .ad-sig').innerText(), /Dein Coach hat heute gekürzt[\s\S]*Wiedereinstieg nach der Pause, noch 1 Einheit kürzer/);

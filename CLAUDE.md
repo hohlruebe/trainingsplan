@@ -1078,7 +1078,9 @@ Bandstufen ausgeschrieben in Bandfarbe ohne Punkt (Dennis, 2. November: „die S
   Heute zeigt „Heute erledigt“ mit dem Ergebnis von heute, der nächste Tag ist nur Vorschau. In der Tage-Kapsel bleibt bis Mitternacht der erledigte Tag gefüllt (`doneTag`). Tage vorziehen gibt es nicht mehr: der Coach entscheidet die Reihenfolge (Dennis). `dayCheck()` (in `render()`):
   Ruhetag zählt von selbst, sobald sein Kalendertag vorbei ist (nach Training am Vortag ist er der nächste Tag).
   Wiedereinstieg `S.comeback {from, n, dl}`: 8–14 Tage Pause = 2 Einheiten kürzer, ab 15 Tagen 5, ab 29 Tagen ist der Durchgang Entlastung
-  („Wiedereinstieg“ in `curPhase`) und eine fällige Testwoche rutscht nach hinten (`S.blockStart` + 1).
+  („Wiedereinstieg“ in `curPhase`) und eine fällige Testwoche rutscht nach hinten (`S.blockStart` + 1). Pause = Tage seit der letzten Einheit (ohne Mobility und 1RM).
+  Ohne echte Pause verworfen (Dennis, 8. November: „kürzt die ganze Zeit, obwohl ich gar keine Pause hatte“; ein Gerät mit altem Stand sah vor dem Abgleich eine
+  lange Pause und gab `comeback` per Sync weiter): `dayCheck` löscht `S.comeback`, wenn nach `from` innerhalb von 7 Tagen eine Einheit kam (`cbGap`).
   Gewicht steigt höchstens alle 7 Tage (`kgUpHere`). Kardio-Grenze 1,3× gilt für Laufen und Ergometer. Verpasster Kardio-Test →
   nächster intensiver Tag wird Test (`cardioTestDue`). Sync: Tag/Durchgang laufen nie zurück, außer von Hand gesetzt (`S.posSet`).
 - Durchgang 1 und 2 nach dem Fragebogen bzw. Einstiegstest: Kurzversion (Kraft 3 Runden, Metcon 5 Min).
